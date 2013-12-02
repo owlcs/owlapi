@@ -53,7 +53,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
 		aaas = owlOnt.getAnnotationAssertionAxioms(IRI.create("http://purl.obolibrary.org/obo/BAR_0000001"));
 		assertTrue(aaas.size() > 0);
 
-        Owl2Obo revbridge = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		OBODoc d2 = revbridge.convert(owlOnt);
 		
 		Frame part_of = d2.getTypedefFrame("part_of");

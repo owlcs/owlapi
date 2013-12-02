@@ -17,7 +17,7 @@ public class DanglingRoundTripTest  extends OboFormatTestBasics {
 	public void testConvertXPs() throws Exception {
 		OWLOntology owlOnt = convertOBOFile("dangling_roundtrip_test.obo");
 		
-        Owl2Obo revbridge = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		OBODoc d2 = revbridge.convert(owlOnt);
 				
 		Frame f = d2.getTermFrame("UBERON:0000020");

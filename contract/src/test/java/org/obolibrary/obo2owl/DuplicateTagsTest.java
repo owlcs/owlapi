@@ -20,7 +20,7 @@ public class DuplicateTagsTest extends OboFormatTestBasics {
 		OWLOntology owl = parseOWLFile("duplicate-def.ofn");
 		final List<Clause> duplicates = new ArrayList<Clause>(); 
 		
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager()) {
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager()) {
 
 			@Override
 			protected boolean handleDuplicateClause(Frame frame, Clause clause) {

@@ -36,7 +36,7 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
 		oboDocSource.addTermFrame(sourceFrame);
 		
 		// convert to OWL and retrieve def
-        Obo2Owl bridge = new Obo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
 		OWLOntology owlOntology = bridge.convert(oboDocSource);
 		final OWLDataFactory factory = owlOntology.getOWLOntologyManager().getOWLDataFactory();
 		
@@ -56,7 +56,7 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
 		assertTrue(owlDef.indexOf('\n') > 0);
 		
 		// convert back to OBO
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
 		
 		Frame convertedFrame = convertedOboDoc.getTermFrame("CARO:0000049");

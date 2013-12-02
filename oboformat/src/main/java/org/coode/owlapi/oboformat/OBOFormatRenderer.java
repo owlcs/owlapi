@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.obolibrary.obo2owl.Owl2Obo;
+import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.io.OWLRenderer;
@@ -34,7 +34,7 @@ public class OBOFormatRenderer implements OWLRenderer {
     public void render(OWLOntology ontology, Writer writer)
             throws OWLOntologyStorageException {
         try {
-            Owl2Obo translator = new Owl2Obo(ontology.getOWLOntologyManager());
+            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
             OBODoc result = translator.convert(ontology);
             new OBOFormatWriter().write(result, new BufferedWriter(writer));
         } catch (IOException e) {

@@ -50,7 +50,7 @@ public class EquivalentToTest extends OboFormatTestBasics {
 		}
 
 		// CONVERT BACK TO OBO
-        Owl2Obo owl2obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		OBODoc obodoc = owl2obo.convert(ontology);
 		checkOBODoc(obodoc);
 

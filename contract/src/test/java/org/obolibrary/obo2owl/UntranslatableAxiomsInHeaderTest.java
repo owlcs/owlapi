@@ -25,7 +25,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
 	public void testUntranslatableAxioms() throws Exception {
 		final OWLOntology original = parseOWLFile("untranslatable_axioms.owl");
 		
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		
 		OBODoc obo = owl2Obo.convert(original);
 		
@@ -40,7 +40,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
 		String owlAxiomString = headerFrame.getTagValue(OboFormatTag.TAG_OWL_AXIOMS, String.class);
 		assertNotNull(owlAxiomString);
 		
-        Obo2Owl obo2Owl = new Obo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
 		
 		OWLOntology converted = obo2Owl.convert(obo);
 		
@@ -56,7 +56,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
 	public void testUntranslatableAxioms2() throws Exception {
 		final OWLOntology original = parseOWLFile("untranslatable_axioms2.owl");
 		
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		
 		OBODoc obo = owl2Obo.convert(original);
 		
@@ -71,7 +71,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
 		String owlAxiomString = headerFrame.getTagValue(OboFormatTag.TAG_OWL_AXIOMS, String.class);
 		assertNotNull(owlAxiomString);
 		
-        Obo2Owl obo2Owl = new Obo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
 		
 		OWLOntology converted = obo2Owl.convert(obo);
 		

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
-import org.obolibrary.obo2owl.Owl2Obo;
+import org.obolibrary.obo2owl.OWLAPIOwl2Obo;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -46,12 +46,12 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
 		OWLObjectIntersectionOf intersection = (OWLObjectIntersectionOf) expression;
 		List<OWLClassExpression> list = intersection.getOperandsAsList();
 		OWLClass cls = (OWLClass) list.get(0);
-		assertEquals(genus, Owl2Obo.getIdentifier(cls.getIRI()));
+		assertEquals(genus, OWLAPIOwl2Obo.getIdentifier(cls.getIRI()));
 		OWLClassExpression rhs = list.get(1);
 		OWLClass cls2 = rhs.getClassesInSignature().iterator().next();
-		assertEquals(differentia, Owl2Obo.getIdentifier(cls2.getIRI()));
+		assertEquals(differentia, OWLAPIOwl2Obo.getIdentifier(cls2.getIRI()));
 		OWLObjectProperty property = rhs.getObjectPropertiesInSignature().iterator().next();
-		assertEquals(relId, Owl2Obo.getIdentifier(property.getIRI()));
+		assertEquals(relId, OWLAPIOwl2Obo.getIdentifier(property.getIRI()));
 	}
 
 }

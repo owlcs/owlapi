@@ -102,7 +102,7 @@ public class OboFormatTestBasics {
 	}
 	
 	protected OWLOntology convert(OBODoc obodoc) throws OWLOntologyCreationException {
-        Obo2Owl bridge = new Obo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
 		OWLOntology ontology = bridge.convert(obodoc);
 		return ontology;
 	}
@@ -115,7 +115,7 @@ public class OboFormatTestBasics {
 	}
 
 	protected OBODoc convert(OWLOntology ontology) throws OWLOntologyCreationException {
-        Owl2Obo bridge = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		OBODoc doc = bridge.convert(ontology);
 		return doc;
 	}

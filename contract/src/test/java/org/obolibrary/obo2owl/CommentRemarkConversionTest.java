@@ -35,7 +35,7 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics  {
 		Frame headerFrame = obo.getHeaderFrame();
 		Collection<String> remarks = headerFrame.getTagValues(OboFormatTag.TAG_REMARK, String.class);
 		
-        Obo2Owl obo2Owl = new Obo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
 		OWLOntology owlOntology = obo2Owl.convert(obo);
 		
 		Set<OWLAnnotation> annotations = owlOntology.getAnnotations();
@@ -56,7 +56,7 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics  {
 		assertTrue(comments.containsAll(remarks));
 		assertTrue(remarks.containsAll(comments));
 		
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		
 		OBODoc oboRoundTrip = owl2Obo.convert(owlOntology);
 		

@@ -31,7 +31,7 @@ public class RoundTripCardinalityTest extends RoundTripTest {
 		OBODoc oboDocSource = super.parseOBOFile("roundtrip_cardinality.obo");
 
 		// convert to OWL and retrieve def
-        Obo2Owl bridge = new Obo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
 		OWLOntology owlOntology = bridge.convert(oboDocSource);
 		if (RENDER_OWL) {
 			System.out.println("------------");
@@ -72,7 +72,7 @@ public class RoundTripCardinalityTest extends RoundTripTest {
 
 
 		// convert back to OBO
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
 
 		Frame convertedFrame = convertedOboDoc.getTermFrame("PR:000027136");

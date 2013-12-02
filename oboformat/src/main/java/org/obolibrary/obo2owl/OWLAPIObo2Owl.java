@@ -63,8 +63,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-public class Obo2Owl {
-    private static Logger LOG = Logger.getLogger(Obo2Owl.class.getName());
+public class OWLAPIObo2Owl {
+    private static Logger LOG = Logger.getLogger(OWLAPIObo2Owl.class.getName());
     /** Use conversion methods or Obo2OWLConstants.DEFAULT_IRI_PREFIX */
     @Deprecated
     public static final String DEFAULT_IRI_PREFIX = Obo2OWLConstants.DEFAULT_IRI_PREFIX;
@@ -85,7 +85,7 @@ public class Obo2Owl {
     private final Map<String, OWLClass> clsToDeclar;
     final private Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
 
-    public Obo2Owl(OWLOntologyManager manager) {
+    public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<String, String>();
         apToDeclare = new HashSet<OWLAnnotationProperty>();
         clsToDeclar = new Hashtable<String, OWLClass>();
@@ -117,7 +117,7 @@ public class Obo2Owl {
     public static void convertURL(String iri, String outFile, OWLOntologyManager manager)
             throws IOException, OWLOntologyCreationException,
             OWLOntologyStorageException, OBOFormatParserException {
-        Obo2Owl bridge = new Obo2Owl(manager);
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new URL(iri));
         OWLOntology ontology = bridge.convert(obodoc);
@@ -141,7 +141,7 @@ public class Obo2Owl {
     public static void convertURL(String iri, String outFile, String defaultOnt,
             OWLOntologyManager manager) throws IOException, OWLOntologyCreationException,
             OWLOntologyStorageException, OBOFormatParserException {
-        Obo2Owl bridge = new Obo2Owl(manager);
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(new URL(iri));
         obodoc.addDefaultOntologyHeader(defaultOnt);

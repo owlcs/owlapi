@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
-import org.obolibrary.obo2owl.Obo2Owl;
+import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
@@ -100,7 +100,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             }
         }
         // create a translator object and feed it the OBO Document
-        Obo2Owl bridge = new Obo2Owl(manager);
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(manager);
         OWLOntology ontology = bridge.convert(obodoc, in);
         if (ontology == in) {
             return in;

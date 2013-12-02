@@ -149,7 +149,7 @@ public class OboInOwlCardinalityTools {
             OboFormatTag... tags) {
         Set<OWLAnnotationProperty> set = new HashSet<OWLAnnotationProperty>();
         for (OboFormatTag tag : tags) {
-            IRI iri = Obo2Owl.trTagToIRI(tag.getTag());
+            IRI iri = OWLAPIObo2Owl.trTagToIRI(tag.getTag());
             if (iri != null) {
                 OWLAnnotationProperty property = factory.getOWLAnnotationProperty(iri);
                 set.add(property);
@@ -295,7 +295,7 @@ public class OboInOwlCardinalityTools {
                 Collection<OWLAnnotationAssertionAxiom> annotations)
                 throws AnnotationCardinalityException {
             if (annotations.size() > 1) {
-                String tag = Owl2Obo.owlObjectToTag(property);
+                String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
                 if (tag == null) {
                     tag = property.getIRI().toString();
                 }
@@ -315,7 +315,7 @@ public class OboInOwlCardinalityTools {
                 Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException {
             if (ontologyAnnotations.size() > 1) {
-                String tag = Owl2Obo.owlObjectToTag(property);
+                String tag = OWLAPIOwl2Obo.owlObjectToTag(property);
                 if (tag == null) {
                     tag = property.getIRI().toString();
                 }

@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
-import org.obolibrary.obo2owl.Obo2Owl;
+import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ParserException;
@@ -304,7 +304,7 @@ public class ManchesterSyntaxTool {
 		}
 
 		IRI getIRIByIdentifier(String id) {
-            Obo2Owl b = new Obo2Owl(manager);
+            OWLAPIObo2Owl b = new OWLAPIObo2Owl(manager);
 			b.setObodoc(new OBODoc());
 			return b.oboIdToIRI(id);
 		}

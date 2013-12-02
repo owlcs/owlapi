@@ -78,9 +78,9 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-public class Owl2Obo {
+public class OWLAPIOwl2Obo {
 
-    private static Logger LOG = Logger.getLogger(Owl2Obo.class.getName());
+    private static Logger LOG = Logger.getLogger(OWLAPIOwl2Obo.class.getName());
 
     OWLOntologyManager manager;
 	OWLOntology owlOntology;
@@ -106,15 +106,15 @@ public class Owl2Obo {
 		apToDeclare = new HashSet<OWLAnnotationProperty>();
 	}
 
-    public Owl2Obo(OWLOntologyManager translationManager) {
+    public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
         manager = translationManager;
         init();
     }
 
 	private static HashMap<String, String>  initAnnotationPropertyMap() {
 		HashMap<String, String> map = new HashMap<String, String>();
-		for(String key: Obo2Owl.annotationPropertyMap.keySet()){
-			IRI propIRI =Obo2Owl.annotationPropertyMap.get(key);
+		for(String key: OWLAPIObo2Owl.annotationPropertyMap.keySet()){
+			IRI propIRI =OWLAPIObo2Owl.annotationPropertyMap.get(key);
 			map.put(propIRI.toString(), key);
 		}
 
@@ -438,7 +438,7 @@ public class Owl2Obo {
 
 			for(OWLAnnotation ann: ax.getAnnotations()){
 
-				if(Obo2Owl.IRI_PROP_isReversiblePropertyChain.equals(ann.getProperty().getIRI().toString())){
+				if(OWLAPIObo2Owl.IRI_PROP_isReversiblePropertyChain.equals(ann.getProperty().getIRI().toString())){
 					tag = OboFormatTag.TAG_EQUIVALENT_TO_CHAIN;
 					// remove annotation from unprocessed set.
 					unprocessedAnnotations.remove(ann);
@@ -1063,7 +1063,7 @@ public class Owl2Obo {
 			OWLAnnotationProperty property = ann.getProperty();
 			String tagString = owlObjectToTag(property);
 			if (OboFormatTag.TAG_COMMENT.getTag().equals(tagString)) {
-				property = fac.getOWLAnnotationProperty(Obo2Owl.trTagToIRI(OboFormatTag.TAG_REMARK.getTag()));
+				property = fac.getOWLAnnotationProperty(OWLAPIObo2Owl.trTagToIRI(OboFormatTag.TAG_REMARK.getTag()));
 			}
 			tr(property, ann.getValue(), ann.getAnnotations(), f);
 		}

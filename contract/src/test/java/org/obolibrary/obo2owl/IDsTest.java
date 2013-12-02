@@ -25,8 +25,8 @@ public class IDsTest {
 		header.addClause(c);
 		doc.setHeaderFrame(header);
 		
-        Obo2Owl obo2owl = new Obo2Owl(OWLManager.createOWLOntologyManager());
-        Owl2Obo owl2Obo = new Owl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
 		
 		OWLOntology ontology= obo2owl.convert(doc);
 		
@@ -38,14 +38,14 @@ public class IDsTest {
 		assertTrue("http://purl.obolibrary.org/obo/GO_001".equals(iri.toString()));
 
 		//OWL 2 obo 
-		String oboId = Owl2Obo.getIdentifier(iri);
+		String oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("GO:001".equals(oboId));
 		
 		
 		iri= obo2owl.oboIdToIRI("My_Ont:FOO_002");
 		assertTrue("http://purl.obolibrary.org/obo/My_Ont#_FOO_002".equals(iri.toString()));
 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 				assertTrue("My_Ont:FOO_002".equals(oboId));
 	
 		
@@ -56,7 +56,7 @@ public class IDsTest {
 
 		
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		System.out.println("roundtrip:"+oboId);
 		assertTrue("My_Ont:002".equals(oboId));
 		
@@ -66,11 +66,11 @@ public class IDsTest {
 
 
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("003".equals(oboId));
 	
 		// arbitrary URL to obo ID
-		oboId = Owl2Obo.getIdentifier(IRI.create("http://purl.obolibrary.org/obo/alternate#abcdef"));
+		oboId = OWLAPIOwl2Obo.getIdentifier(IRI.create("http://purl.obolibrary.org/obo/alternate#abcdef"));
 		// todo - test this
 		//System.out.println("== "+oboId);
 		
@@ -78,7 +78,7 @@ public class IDsTest {
 		assertTrue("http://purl.obolibrary.org/obo/test#part_of".equals(iri.toString()));
 
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("part_of".equals(oboId));
 		
 		
@@ -86,7 +86,7 @@ public class IDsTest {
 		assertTrue("http://purl.obolibrary.org/obo/OBO_REL#_part_of".equals(iri.toString()));
 
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("OBO_REL:part_of".equals(oboId));
 		
 		
@@ -94,7 +94,7 @@ public class IDsTest {
 		assertTrue("http://purl.obolibrary.org/testont".equals(iri.toString()));
 		
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("http://purl.obolibrary.org/testont".equals(oboId));
 		
 
@@ -102,7 +102,7 @@ public class IDsTest {
 		assertTrue("http://purl.obolibrary.org/obo/BFO_0000050".equals(iri.toString()));
 		
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("BFO:0000050".equals(oboId));
 		
 		// MGI IDs are perverse - they have a double-separator
@@ -110,7 +110,7 @@ public class IDsTest {
 		assertTrue("http://purl.obolibrary.org/obo/MGI_MGI%3A1".equals(iri.toString()));
 		
 		//OWL 2 obo 
-		oboId = Owl2Obo.getIdentifier(iri);
+		oboId = OWLAPIOwl2Obo.getIdentifier(iri);
 		assertTrue("MGI:MGI:1".equals(oboId));
 		
 		
