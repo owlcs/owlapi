@@ -178,7 +178,6 @@
 				<executions>
 					<execution>
 						<id>attach-sources</id>
-						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
 						</goals>
