@@ -42,8 +42,8 @@ import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
 import org.coode.owlapi.latex.LatexOntologyStorer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
-import org.coode.owlapi.obo.parser.OBOParserFactory;
-import org.coode.owlapi.obo.renderer.OBOFlatFileOntologyStorer;
+import org.coode.owlapi.oboformat.OBOFormatParserFactory;
+import org.coode.owlapi.oboformat.OBOFormatStorer;
 import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.coode.owlapi.owlxmlparser.OWLXMLParserFactory;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
@@ -77,9 +77,9 @@ public class OWLManager implements OWLOntologyManagerFactory {
     static {
         // Register useful parsers
         OWLParserFactoryRegistry registry = OWLParserFactoryRegistry.getInstance();
+        registry.registerParserFactory(new OBOFormatParserFactory());
         registry.registerParserFactory(new ManchesterOWLSyntaxParserFactory());
         registry.registerParserFactory(new KRSS2OWLParserFactory());
-        registry.registerParserFactory(new OBOParserFactory());
         registry.registerParserFactory(new TurtleOntologyParserFactory());
         registry.registerParserFactory(new OWLFunctionalSyntaxParserFactory());
         registry.registerParserFactory(new OWLXMLParserFactory());
@@ -123,10 +123,10 @@ public class OWLManager implements OWLOntologyManagerFactory {
         ontologyManager.addOntologyStorer(new OWLXMLOntologyStorer());
         ontologyManager.addOntologyStorer(new OWLFunctionalSyntaxOntologyStorer());
         ontologyManager.addOntologyStorer(new ManchesterOWLSyntaxOntologyStorer());
-        ontologyManager.addOntologyStorer(new OBOFlatFileOntologyStorer());
         ontologyManager.addOntologyStorer(new KRSS2OWLSyntaxOntologyStorer());
         ontologyManager.addOntologyStorer(new TurtleOntologyStorer());
         ontologyManager.addOntologyStorer(new LatexOntologyStorer());
+        ontologyManager.addOntologyStorer(new OBOFormatStorer());
         ontologyManager.addIRIMapper(new NonMappingOntologyIRIMapper());
         ontologyManager.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         ontologyManager.addOntologyFactory(new ParsableOWLOntologyFactory());

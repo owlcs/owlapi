@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -309,6 +310,22 @@ public class ManchesterOWLSyntaxParserTestCase {
         OWLClassExpression dsvf = parser.parseClassExpression();
         // then
         assertEquals(expected, dsvf);
+    }
+
+    @Test
+    public void shouldParseCorrectlydecimalNotSpecified()
+            throws OWLOntologyCreationException {
+        // given
+        OWLAxiom expected = factory.getOWLDataPropertyRangeAxiom(factory
+                .getOWLDataProperty(IRI.create("urn:a")), factory.getOWLDataOneOf(factory
+                .getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
+        String input = "Ontology:\n" + "DataProperty: <urn:a>\n" + "Range: {1.2}";
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(input));
+        Set<OWLLogicalAxiom> axioms = o.getLogicalAxioms();
+        for (OWLLogicalAxiom ax : axioms) {
+            assertEquals(expected, ax);
+        }
     }
 
     @Test
