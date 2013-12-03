@@ -88,97 +88,97 @@ public class OWLClassExpressionVisitorExAdapter<O> implements
      * @param c
      *            visited axiom
      * @return default return value; */
-    protected O doDefault(@SuppressWarnings("unused") OWLClassExpression c) {
+    protected O handleDefault(@SuppressWarnings("unused") OWLClassExpression c) {
         return object;
     }
 
     @Override
     public O visit(OWLClass ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectIntersectionOf ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectUnionOf ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectComplementOf ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectSomeValuesFrom ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectAllValuesFrom ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectHasValue ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectMinCardinality ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectExactCardinality ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectMaxCardinality ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectHasSelf ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLObjectOneOf ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLDataSomeValuesFrom ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLDataAllValuesFrom ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLDataHasValue ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLDataMinCardinality ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLDataExactCardinality ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 
     @Override
     public O visit(OWLDataMaxCardinality ce) {
-        return doDefault(ce);
+        return handleDefault(ce);
     }
 }

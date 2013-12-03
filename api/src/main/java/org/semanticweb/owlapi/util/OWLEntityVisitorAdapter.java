@@ -53,36 +53,37 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Date: 22-Nov-2006<br>
  * <br> */
 public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
+    /** override this method to change the default behaviour */
     @SuppressWarnings("unused")
-    protected void doDefault(OWLEntity owlObject) {}
+    protected void handleDefault(OWLEntity owlObject) {}
 
     @Override
     public void visit(OWLClass desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDatatype node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDataProperty property) {
-        doDefault(property);
+        handleDefault(property);
     }
 
     @Override
     public void visit(OWLObjectProperty property) {
-        doDefault(property);
+        handleDefault(property);
     }
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        doDefault(individual);
+        handleDefault(individual);
     }
 
     @Override
     public void visit(OWLAnnotationProperty property) {
-        doDefault(property);
+        handleDefault(property);
     }
 }

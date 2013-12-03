@@ -97,254 +97,253 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * <br> */
 public class OWLObjectVisitorAdapter extends OWLAxiomVisitorAdapter implements
         OWLObjectVisitor {
-
     @Override
     public void visit(OWLOntology ontology) {
-        doDefault(ontology);
+        handleDefault(ontology);
     }
 
     @Override
     public void visit(OWLClass desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDataAllValuesFrom desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDataSomeValuesFrom desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLDataHasValue desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectAllValuesFrom desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectComplementOf desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectHasSelf desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectHasValue desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectOneOf desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectSomeValuesFrom desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLObjectUnionOf desc) {
-        doDefault(desc);
+        handleDefault(desc);
     }
 
     @Override
     public void visit(OWLFacetRestriction node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLLiteral node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDataComplementOf node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDataOneOf node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDatatype node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDataProperty property) {
-        doDefault(property);
+        handleDefault(property);
     }
 
     @Override
     public void visit(OWLObjectProperty property) {
-        doDefault(property);
+        handleDefault(property);
     }
 
     @Override
     public void visit(OWLObjectInverseOf property) {
-        doDefault(property);
+        handleDefault(property);
     }
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        doDefault(individual);
+        handleDefault(individual);
     }
 
     @Override
     public void visit(OWLAnnotationProperty property) {
-        doDefault(property);
+        handleDefault(property);
     }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-        doDefault(axiom);
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-        doDefault(axiom);
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-        doDefault(axiom);
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-        doDefault(axiom);
+        handleDefault(axiom);
     }
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-        doDefault(individual);
+        handleDefault(individual);
     }
 
     @Override
     public void visit(IRI iri) {
-        doDefault(iri);
+        handleDefault(iri);
     }
 
     @Override
     public void visit(OWLAnnotation node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLLiteralArgument node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLIndividualArgument node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLVariable node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLClassAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLDataRangeAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLDataPropertyAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
-        doDefault(node);
+        handleDefault(node);
     }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-        doDefault(axiom);
+        handleDefault(axiom);
     }
 }

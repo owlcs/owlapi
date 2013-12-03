@@ -54,40 +54,41 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * Date: 12-Dec-2006<br>
  * <br> */
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
-    protected void doDefault(@SuppressWarnings("unused") OWLOntologyChange<?> change) {}
+    /** override this method to change the default behaviour */
+    protected void handleDefault(@SuppressWarnings("unused") OWLOntologyChange c) {}
 
     @Override
     public void visit(RemoveAxiom change) {
-        doDefault(change);
+        handleDefault(change);
     }
 
     @Override
     public void visit(SetOntologyID change) {
-        doDefault(change);
+        handleDefault(change);
     }
 
     @Override
     public void visit(AddAxiom change) {
-        doDefault(change);
+        handleDefault(change);
     }
 
     @Override
     public void visit(AddImport change) {
-        doDefault(change);
+        handleDefault(change);
     }
 
     @Override
     public void visit(RemoveImport change) {
-        doDefault(change);
+        handleDefault(change);
     }
 
     @Override
     public void visit(AddOntologyAnnotation change) {
-        doDefault(change);
+        handleDefault(change);
     }
 
     @Override
     public void visit(RemoveOntologyAnnotation change) {
-        doDefault(change);
+        handleDefault(change);
     }
 }

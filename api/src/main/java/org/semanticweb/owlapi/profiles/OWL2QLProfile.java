@@ -312,7 +312,7 @@ public class OWL2QLProfile implements OWLProfile {
         public OWL2QLSubClassExpressionChecker() {}
 
         @Override
-        protected Boolean doDefault(OWLClassExpression c) {
+        protected Boolean handleDefault(OWLClassExpression c) {
             return Boolean.FALSE;
         }
 
@@ -343,7 +343,7 @@ public class OWL2QLProfile implements OWLProfile {
         public OWL2QLSuperClassExpressionChecker() {}
 
         @Override
-        protected Boolean doDefault(OWLClassExpression c) {
+        protected Boolean handleDefault(OWLClassExpression c) {
             return Boolean.FALSE;
         }
 
