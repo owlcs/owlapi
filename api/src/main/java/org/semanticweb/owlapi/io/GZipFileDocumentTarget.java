@@ -38,7 +38,9 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -48,20 +50,19 @@ import java.util.zip.GZIPOutputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document target which can write to a GZIP stream. Notice that
- * this works best when the output stream is closed explicitly in the client
- * code.
+/** An ontology document target which can write to a GZIP File. Notice that this
+ * works best when the output stream is closed explicitly in the client code.
  * 
  * @author ignazio
  * @from 3.4.8 */
-public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
+public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
+    private final File out;
     private OutputStream outputStream;
-    private GZIPOutputStream zippedStream;
 
     /** @param os
      *            the actual file */
-    public GZipStreamDocumentTarget(OutputStream os) {
-        outputStream = os;
+    public GZipFileDocumentTarget(File os) {
+        out = os;
     }
 
     @Override
@@ -85,26 +86,25 @@ public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Override
     public OutputStream getOutputStream() {
-        if (zippedStream == null) {
+        if (outputStream == null) {
             try {
-                zippedStream = new GZIPOutputStream(outputStream);
+                outputStream = new GZIPOutputStream(new FileOutputStream(out));
             } catch (FileNotFoundException e) {
                 throw new OWLRuntimeException(e);
             } catch (IOException e) {
                 throw new OWLRuntimeException(e);
             }
         }
-        return zippedStream;
+        return outputStream;
     }
 
     @Override
     public boolean isDocumentIRIAvailable() {
-        return false;
+        return true;
     }
 
     @Override
     public IRI getDocumentIRI() {
-        throw new UnsupportedOperationException(
-                "iri not available; check with isDocumentIRIAvailable() first");
+        return IRI.create(out);
     }
 }
