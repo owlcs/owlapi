@@ -1,0 +1,45 @@
+ABOUT
+
+This is a java implementation of
+
+* A parser for OBOF1.4 syntax
+* An implementation of the OBOF1.4 mapping to OWL (uses the OWLAPI)
+
+GETTING THE CODE
+
+For now there are no releases; get the code via svn:
+
+  svn checkout http://oboformat.googlecode.com/svn/trunk/ oboformat-read-only
+
+RUNNING THE CONVERTER ON THE COMMAND LINE:
+
+You may find it helpful to add the bin dir to your path:
+
+  export PATH="$PATH:$HOME/oboformat-read-only/bin"
+
+Convert a file like this:
+
+  obolib-obo2owl cell.obo [--to owlxml|manchester] -o FILE-PATH
+
+You have to specify the file path as a URL; e.g
+
+  obolib-obo2owl cell.obo -o file:///Users/me/cell.owl
+
+You may find it convenient to do this:
+
+  obolib-obo2owl cell.obo -o file://`pwd`/cell.owl
+
+Alternative syntaxes like this:
+
+  obolib-obo2owl cell.obo --to manchester -o file://`pwd`/cell.owl
+  
+ Windows users can run the obo2owl as:
+ 
+ 	bin\obolib-obo2owl.bat -o test_resources\caro.owl test_resources\caro.obo  
+
+LIMITATIONS
+
+See
+
+http://code.google.com/p/oboformat/issues/list
+

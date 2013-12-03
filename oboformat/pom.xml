@@ -1,0 +1,69 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>owlapi-oboformat</artifactId>
+	<packaging>bundle</packaging>
+	<name>oboformat parser adapted for direct OWLAPI inclusion</name>
+	<parent>
+		<groupId>net.sourceforge.owlapi</groupId>
+		<artifactId>owlapi-parent</artifactId>
+		<version>3.4.10-SNAPSHOT</version>
+		<relativePath>../</relativePath>
+	</parent>
+	<url>http://code.google.com/p/oboformat/</url>
+	<description>A java library for converting obo format documents to OWL, and for converting (a subset of) OWL to obo format. This version has been slightly modified to be included directly in the OWL API.
+	The upstream code for this module and its authors can be found at https://code.google.com/p/oboformat/.</description>
+	<inceptionYear>2010</inceptionYear>
+	
+	<scm>
+		<url>https://oboformat.googlecode.com/svn/trunk/</url>
+	</scm>
+	<issueManagement>
+		<url>http://code.google.com/p/oboformat/issues/list</url>
+	</issueManagement>
+	<licenses>
+		<license>
+			<name>The BSD 3-Clause License</name>
+			<url>http://opensource.org/licenses/BSD-3-Clause</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Name>${project.artifactId}</Bundle-Name>
+						<Export-Package>{local-packages}</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-api</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-parsers</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

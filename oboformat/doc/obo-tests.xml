@@ -1,0 +1,33 @@
+<examples>
+<!-- the idea is that this file can serve as both documentation
+	(e.g. after processing into html via xslt) AND
+	to drive a junit obo2owl conformance suite
+ -->
+
+    <!--  reusable snippets -->
+    <chunk id="has-part">
+
+[Typedef]
+id: has_part
+name: has part
+xref: BFO:0000051
+    </chunk>
+  <example>
+      <pre>
+ontology: test
+
+      </pre>
+      <input>
+[Term]
+id: CL:0000232
+name: erythrocyte
+relationship: has_part GO:0005634 {gci_relation="part_of", gci_filler="NCBITaxon:7955"} ! nucleus
+      </input>
+      <post>
+        <include ref="has-part"/>
+      </post>
+      <output>
+      <!--  TODO: functional syntax here -->
+      </output>
+   </example>
+  </examples>
