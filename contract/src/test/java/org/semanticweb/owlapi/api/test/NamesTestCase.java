@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 import org.coode.owl.krssparser.KRSSOWLParser;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
-import org.coode.owlapi.obo.parser.OWLOBOParser;
 import org.coode.owlapi.owlxmlparser.OWLXMLParser;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Test;
@@ -130,7 +129,6 @@ public class NamesTestCase {
                 new OWLFunctionalSyntaxOWLParser().getName());
         assertEquals("ManchesterOWLSyntaxOntologyParser",
                 new ManchesterOWLSyntaxOntologyParser().getName());
-        assertEquals("OWLOBOParser", new OWLOBOParser().getName());
         assertEquals("OWLXMLParser", new OWLXMLParser().getName());
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
         assertEquals("TurtleOntologyParser", new TurtleOntologyParser().getName());
