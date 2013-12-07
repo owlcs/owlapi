@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br><br>
- * <p/>
+ * <br>
  * Renders objects in unicode DL syntax
  */
 @SuppressWarnings("javadoc")

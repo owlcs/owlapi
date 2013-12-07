@@ -50,10 +50,10 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012
- * <p>
+ * <br>
  *     Describes the types of OBO IDs that can be found in OBO Files.  Taken from Section 2.5 of the OBO Syntax and 
  *     Semantics Specification.
- * </p>
+ * <br>
  */
 public enum OBOIdType {
 

@@ -121,7 +121,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 10-Sep-2007<br>
  * <br>
- * <p/>
+ * <br>
  * A parser for the Manchester OWL Syntax. All properties must be defined before
  * they are used. For example, consider the restriction hasPart some Leg. The
  * parser must know in advance whether or not hasPart is an object property or a

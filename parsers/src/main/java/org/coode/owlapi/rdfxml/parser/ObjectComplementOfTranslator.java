@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- * <p/>
+ * <br>
  * Translates a set of triples that represent an <code>OWLComplementOf</code>
  * class expression.
  */

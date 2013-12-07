@@ -47,7 +47,7 @@ import org.xml.sax.SAXException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 07-Dec-2009
- * </p>
+ * <br>
  * Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a {@link org.xml.sax.SAXException}.
  */
 @SuppressWarnings("javadoc")

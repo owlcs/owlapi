@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * Bio-Health Informatics Group<br>
  * Date: 08-Jan-2007<br>
  * <br>
- * <p/>
+ * <br>
  * Translates an rdf:List into a Java <code>List</code>, or Java
  * <code>Set</code>. The type of list (i.e. the type of objects in the list) are
  * determined by a <code>ListItemTranslator</code>. The translator consumes all

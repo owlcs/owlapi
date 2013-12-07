@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 17-Dec-2009
- * </p>
+ * <br>
  * An exception which indicates that a caller tried to write an XML Element with a name that is not a QName.
  */
 @SuppressWarnings("javadoc")

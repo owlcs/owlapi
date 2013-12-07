@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- * <p/>
+ * <br>
  * Translates a set of triples to an <code>OWLUnionOf</code>.
  */
 @SuppressWarnings("javadoc")

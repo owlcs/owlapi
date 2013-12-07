@@ -45,44 +45,44 @@ package org.coode.owlapi.obo.parser;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Jan-2007<br><br>
- * <p/>
+ * <br>
  * Concrete implementations of this interface allow specific behaviour for processing specific tag value pairs in an
  * OBO
  * file to be specified.
- * <p>
+ * <br>
  * <h3>Tag-Value Pairs (From the OBO 1.4 Guide)</h3>
- * <p/>
+ * <br>
  * Tag-value pairs consist of a tag name, an unescaped colon, the tag value, and a newline:
- * <p/>
+ * <br>
  * &lt;tag&gt;: &lt;value&gt; {&lt;trailing modifiers&gt;} ! &lt;comment&gt;
  * The tag name is always a string. The value is always a string, but the value string may require special parsing
  * depending on the tag with which it is associated.
- * <p/>
+ * <br>
  * In general, tag-value pairs occur on a single line. Multi-line values are possible using escape characters (see
  * escape characters).
- * <p/>
+ * <br>
  * In general, each stanza type expects a particular set of pre-defined tags. However, a stanza may contain any tag. If
  * a parser does not recognize a tag name for a particular stanza, no error will be generated. This allows new
  * experimental tags to be added without breaking existing parsers. See handling unrecognized tags for specifics.
- * <p/>
+ * <br>
  * <h3>Trailing Modifiers</h3>
- * <p/>
+ * <br>
  * Any tag-value pair may be followed by a trailing modifier. Trailing modifiers have been introduced into the OBO 1.2
  * Specification to allow the graceful addition of new features to existing tags.
- * <p/>
+ * <br>
  * A trailing modifier has the following structure:
- * <p/>
+ * <br>
  * {&lt;name&gt;=&lt;value&gt;, &lt;name=value&gt;, &lt;name=value&gt;}
  * That is, trailing modifiers are lists of name-value pairs.
- * <p/>
+ * <br>
  * Parser implementations may choose to decode and/or round-trip these trailing modifiers. However, this is not
  * required. A parser may choose to ignore or strip away trailing modifiers.
- * <p/>
+ * <br>
  * For this reason, trailing modifiers should only include information that is optional or experimental.
- * <p/>
+ * <br>
  * Trailing modifiers may also occur within dbxref definitions (see dbxref formatting).
- * <p/>
- * </p>
+ * <br>
+ * <br>
  */
 public interface TagValueHandler {
 

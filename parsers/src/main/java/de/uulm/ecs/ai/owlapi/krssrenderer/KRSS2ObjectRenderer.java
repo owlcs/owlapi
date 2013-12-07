@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import static de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2Vocabulary.*;
@@ -93,12 +92,10 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/**
- * <code>KRSS2ObjectRenderer</code> is an extension of {@link KRSSObjectRenderer
- * KRSSObjectRenderer} which uses the extended vocabulary.
- * <p/>
+/** <code>KRSS2ObjectRenderer</code> is an extension of {@link KRSSObjectRenderer
+ * KRSSObjectRenderer} which uses the extended vocabulary. <br>
  * <b>Abbreviations</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="Abbreviations">
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -116,137 +113,118 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * <td>role expressions, i.e. role name or inverse role</td>
  * </tr>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS concept language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="KRSS concept language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLClassExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-least n R C)</td>
  * <td>(OWLObjectMinCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-most n R C)</td>
  * <td>(OWLObjectMaxCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(exactly n R C)</td>
  * <td>(OWLObjectExactCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(some R C)</td>
  * <td>(OWLObjectSomeValuesFrom R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(all R C)</td>
  * <td>(OWLObjectAllValuesFrom R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(not C)</td>
  * <td>(OWLObjectComplementOf C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(and C D E)</td>
  * <td>(OWLObjectIntersectionOf C D E)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(or C D E)</td>
  * <td>(OWLObjectUnionOf C D E)</td>
  * </tr>
- * <p/>
- * <p/>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS role language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="KRSS role language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(inv R)</td>
  * <td>(OWLInverseObjectPropertiesAxiom R)</td>
  * </tr>
- * <p/>
  * </table>
- * Each referenced class, object property as well as individual is
- * defined using <i>define-concept</i> resp. <i>define-primitive-concept</i>,
+ * Each referenced class, object property as well as individual is defined using
+ * <i>define-concept</i> resp. <i>define-primitive-concept</i>,
  * <i>define-role</i> and <i>define-individual</i>. In addition, axioms are
- * translated as follows.
- * <p/>
- * <table bordercolor="#000200" border="1">
- * <th>OWLAxiom</th>
- * <th>KRSS syntax</th>
- * <th>Remarks</th>
- * <p/>
+ * translated as follows. <br>
+ * <table summary="remarks">
+ * <tr>
+ * <td>KRSS2</td>
+ * <td>OWLAxiom</td>
+ * <td>KRSS syntax</td>
+ * <td>Remarks</td>
+ * </tr>
  * <tr>
  * <td>OWLDisjointClassesAxiom</td>
  * <td>(disjoint C D)</td>
  * <td><i>OWLDisjointClasses C D1 D2 ... Dn</i> will be translated to: <br>
- * { (disjoint i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}  <br>
+ * { (disjoint i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>
  * <tr>
  * <td>OWLEquivalentClasses</td>
  * <td>(define-concept C D)</td>
  * <td><i>OWLEquivalentClasses C D1 D2...Dn</i> will be translated to:<br>
- * (define-concept C (and D1 D2...Dn))
- * <p/>
- * Only applicable if there is no OWLSubClassOf axiom. <p>
+ * (define-concept C (and D1 D2...Dn)) <br>
+ * Only applicable if there is no OWLSubClassOf axiom. <br>
  * </td>
  * </tr>
  * <tr>
  * <td>OWLSubClassOfAxiom</td>
- * <td>(define-primitive-concept C D)
- * </td>
- * <td><i>OWLSubClassOfAxiom C D1...Dn</i> (n>1) will be translated to:<br>
- * (define-primitive-concept C (and D1...Dn))
- * <p/>
- * Only applicable if there is no OWLEquivalentClasses axiom. In that
- * case the class will be introduced via (define-concept...) and
- * all subclass axioms are handled via implies
- * <br>
+ * <td>(define-primitive-concept C D)</td>
+ * <td><i>OWLSubClassOfAxiom C D1...Dn</i> (n &gt; 1) will be translated to:<br>
+ * (define-primitive-concept C (and D1...Dn)) <br>
+ * Only applicable if there is no OWLEquivalentClasses axiom. In that case the
+ * class will be introduced via (define-concept...) and all subclass axioms are
+ * handled via implies <br>
  * </td>
  * </tr>
  * <tr>
  * <td>OWLSubClassOfAxiom</td>
  * <td>(implies D C)</td>
- * <td>Only in case of GCIs with concept expression (not named class) D,
- * or in case that D is a non-primitive concept. Otherwise superclasses
- * are introduced via (define-primitive-concept D ...)
- * </td>
+ * <td>Only in case of GCIs with concept expression (not named class) D, or in
+ * case that D is a non-primitive concept. Otherwise superclasses are introduced
+ * via (define-primitive-concept D ...)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLEquivalentObjectPropertiesAxiom</td>
  * <td>(roles-equivalent r s)</td>
- * <td>All roles are explicitly introduced via
- * define-primitive-role.</td>
+ * <td>All roles are explicitly introduced via define-primitive-role.</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLSubPropertyChainOfAxiom</td>
  * <td>(role-inclusion (compose r s) t)</td>
- * <td>Role inclusions of the kind (role-inclusion (compose r s) r)
- * resp. (role-inclusion (compose s r) r) are handled within the
- * (define-primitive-role) statement as right- resp. left-identities iff
- * it is the only role-inclusion wrt. the super property. </td></tr>
- * <p/>
+ * <td>Role inclusions of the kind (role-inclusion (compose r s) r) resp.
+ * (role-inclusion (compose s r) r) are handled within the
+ * (define-primitive-role) statement as right- resp. left-identities iff it is
+ * the only role-inclusion wrt. the super property.</td>
+ * </tr>
  * <tr>
  * <td>OWLSubObjectPropertyAxiom</td>
- * <td>(define-primitive-role R :parent S)<p>
- * (define-primitive-role R :parents S T U)<p>
+ * <td>(define-primitive-role R :parent S)<br>
+ * (define-primitive-role R :parents S T U)<br>
  * Additional attributes:
  * <ul>
  * <li>:transitive t
@@ -257,41 +235,32 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * <li>:range D resp. :range (and D D1..Dn)
  * </ul>
  * </td>
- * <td>This will be only used if there is no OWLEquivalentClasses
- * axiom containing R (see define-role).
- * The additional attributes are added if there is an OWLTransitiveObjectProperyAxiom,
- * OWLSymmetricObjectPropertyAxiom, OWLReflexiveObjectPropertyAxiom,
- * OWLObjectPropertyDomainAxiom, OWLObjectPropertyRangeAxiom resp.
- * OWLInverseObjectPropertiesAxiom. If there are multiple OWLInverseObjectPropertiesAxioms
- * only one inverse is handled here, all others are handled via
- * (inverse) statements. Domains/ranges of multiple
- * domain/range axioms are handled as (and C C1...Cn).
- * </td>
+ * <td>This will be only used if there is no OWLEquivalentClasses axiom
+ * containing R (see define-role). The additional attributes are added if there
+ * is an OWLTransitiveObjectProperyAxiom, OWLSymmetricObjectPropertyAxiom,
+ * OWLReflexiveObjectPropertyAxiom, OWLObjectPropertyDomainAxiom,
+ * OWLObjectPropertyRangeAxiom resp. OWLInverseObjectPropertiesAxiom. If there
+ * are multiple OWLInverseObjectPropertiesAxioms only one inverse is handled
+ * here, all others are handled via (inverse) statements. Domains/ranges of
+ * multiple domain/range axioms are handled as (and C C1...Cn).</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLSubObjectPropertyAxiom</td>
  * <td>(implies-role r s)</td>
  * <td>Only applicable if r is an inverse property, otherwise superproperties
- * are handled within the define-primitive-role
- * statement.
- * </td>
+ * are handled within the define-primitive-role statement.</td>
  * </tr>
- * <p/>
- * <p/>
  * <tr>
  * <td>OWLInverseObjectPropertiesAxiom</td>
  * <td>(inverse r s)</td>
  * <td>Only inverse properties which are not introduced via
- * define-primitive-role.
- * </td>
+ * define-primitive-role.</td>
  * </tr>
  * <tr>
  * <td>OWLObjectPropertyRangeAxiom</td>
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLObjectPropertyDomainAxiom</td>
  * <td></td>
@@ -302,29 +271,25 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLTransitiveObjectPropertyAxiom</td>
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLReflexiveObjectPropertyAxiom</td>
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLClassAssertionAxiom</td>
  * <td>(instance i D)</td>
- * </td></td>
  * </tr>
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
  * <td>(distinct i1 i2)</td>
  * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into:<br>
- * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}  <br>
+ * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>
  * <tr>
@@ -336,32 +301,26 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * <td>OWLSameIndividualsAxiom</td>
  * <td>(equal i1 i2)</td>
  * <td><i>OWLSameIndividual i1 i2 ...i(n-1) in</i> in will be splitted into:<br>
- * { (equal i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}  <br>
+ * { (equal i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * (equal i1 i2)<br>
  * (equal i1 i3)<br>
  * ...<br>
- * (equal i(n-1) in)
- * </td>
+ * (equal i(n-1) in)</td>
  * </tr>
- * <p/>
  * </table>
- * <p/>
  * Author: Olaf Noppens<br>
  * Ulm University<br>
- * Institute of Artificial Intelligence<br>
- */
+ * Institute of Artificial Intelligence<br> */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
-
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
-    /**
-     * If declarations are ignored, entities which are only referenced in a declaration
-     * are not rendered.
-     */
+    /** If declarations are ignored, entities which are only referenced in a
+     * declaration are not rendered. */
     protected boolean ignoreDeclarations = false;
 
     @Deprecated
     @SuppressWarnings({ "unused", "javadoc" })
-    public KRSS2ObjectRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer writer) {
+    public KRSS2ObjectRenderer(OWLOntologyManager manager, OWLOntology ontology,
+            Writer writer) {
         this(ontology, writer);
     }
 
@@ -393,9 +352,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             }
             final boolean primitive = !eachClass.isDefined(ontology1);// !eachClass.getSuperClasses(ontology).isEmpty();
             writeOpenBracket();
-
-
-            if (primitive) { //there is no equivalentclasses axiom!
+            if (primitive) { // there is no equivalentclasses axiom!
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
@@ -429,10 +386,10 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
         }
-        /*  for (final OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
-                    axiom.accept(this);
-                }
-        */
+        /*
+         * for (final OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
+         * axiom.accept(this); }
+         */
         for (final OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             if (ignoreDeclarations) {
@@ -445,7 +402,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
             final Set<OWLObjectPropertyExpression> properties = property
                     .getEquivalentProperties(ontology1);
             final boolean isPrimitive = properties.isEmpty();
-
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
@@ -462,10 +418,10 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     writeSpace();
                     flattenProperties(superProperties, null);
                 } else {
-                    //right/left identity?
-                    //we only allow for either right or left identity axiom, otherwise it is
-                    //expressed via role-inclusion axioms
-
+                    // right/left identity?
+                    // we only allow for either right or left identity axiom,
+                    // otherwise it is
+                    // expressed via role-inclusion axioms
                     Set<OWLSubPropertyChainOfAxiom> chainAxioms = getPropertyChainSubPropertyAxiomsFor(property);
                     if (chainAxioms.size() == 1) {
                         OWLSubPropertyChainOfAxiom axiom = chainAxioms.iterator().next();
@@ -474,7 +430,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                             writeSpace();
                             write(LEFTIDENTITY_ATTR);
                             write(axiom.getPropertyChain().get(0));
-
                         } else if (isRightIdentityAxiom(axiom, property)) {
                             leftRightIdentityUsed.add(axiom);
                             writeSpace();
@@ -497,7 +452,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     writeSpace();
                 }
             }
-
             if (property.isTransitive(ontology1)) {
                 writeSpace();
                 write(TRANSITIVE_ATTR);
@@ -558,8 +512,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 .getIndividualsInSignature())) {
             if (ignoreDeclarations) {
                 if (ontology1.getAxioms(individual).size() == 1
-                        && ontology1.getDeclarationAxioms(individual).size() == 1)
-                {
+                        && ontology1.getDeclarationAxioms(individual).size() == 1) {
                     continue;
                 }
             }
@@ -577,12 +530,11 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         } catch (IOException io) {
             io.printStackTrace();
         }
-
     }
 
     @Override
-	public final void visit(OWLSubClassOfAxiom axiom) {
-        //we only handle GCIs
+    public final void visit(OWLSubClassOfAxiom axiom) {
+        // we only handle GCIs
         if (!(axiom.getSubClass() instanceof OWLClass)) {
             writeOpenBracket();
             write(IMPLIES);
@@ -594,7 +546,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public void visit(OWLDisjointClassesAxiom axiom) {
+    public void visit(OWLDisjointClassesAxiom axiom) {
         List<OWLClassExpression> descs = sort(axiom.getClassExpressions());
         int size = descs.size();
         if (size <= 1) {
@@ -613,31 +565,25 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {}
 
     @Override
-	public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLReflexiveObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLDataPropertyDomainAxiom axiom) {
-    }
+    public void visit(OWLDataPropertyDomainAxiom axiom) {}
 
     @Override
-	public void visit(OWLImportsDeclaration axiom) {
-    }
+    public void visit(OWLImportsDeclaration axiom) {}
 
     @Override
-	public void visit(OWLObjectPropertyDomainAxiom axiom) {
-    }
+    public void visit(OWLObjectPropertyDomainAxiom axiom) {}
 
     @Override
-	public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = sort(axiom.getProperties());
         int size = properties.size();
         for (int i = 0; i < size; i++) {
@@ -653,19 +599,16 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {}
 
     @Override
-	public void visit(OWLDifferentIndividualsAxiom axiom) {
-    }
+    public void visit(OWLDifferentIndividualsAxiom axiom) {}
 
     @Override
-	public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-    }
+    public void visit(OWLDisjointDataPropertiesAxiom axiom) {}
 
     @Override
-	public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         List<OWLObjectPropertyExpression> properties = sort(axiom.getProperties());
         int size = properties.size();
         if (size <= 1) {
@@ -683,13 +626,11 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
+    @Override
+    public void visit(OWLObjectPropertyRangeAxiom axiom) {}
 
     @Override
-	public void visit(OWLObjectPropertyRangeAxiom axiom) {
-    }
-
-    @Override
-	public final void visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public final void visit(OWLObjectPropertyAssertionAxiom axiom) {
         write(RELATED);
         write(axiom.getSubject());
         write(axiom.getProperty());
@@ -698,11 +639,10 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLFunctionalObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         if (!(axiom.getSubProperty() instanceof OWLObjectProperty)) {
             writeOpenBracket();
             write(IMPLIES_ROLE);
@@ -714,33 +654,25 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public void visit(OWLDisjointUnionAxiom axiom) {
-    }
+    public void visit(OWLDisjointUnionAxiom axiom) {}
 
     @Override
-	public void visit(OWLDeclarationAxiom axiom) {
-    }
-
+    public void visit(OWLDeclarationAxiom axiom) {}
 
     @Override
-	public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLSymmetricObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLDataPropertyRangeAxiom axiom) {
-    }
+    public void visit(OWLDataPropertyRangeAxiom axiom) {}
 
     @Override
-	public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-    }
+    public void visit(OWLFunctionalDataPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-    }
-
+    public void visit(OWLEquivalentDataPropertiesAxiom axiom) {}
 
     @Override
-	public void visit(OWLEquivalentClassesAxiom axiom) {
+    public void visit(OWLEquivalentClassesAxiom axiom) {
         List<OWLClassExpression> descriptions = sort(axiom.getClassExpressions());
         int size = descriptions.size();
         if (size <= 1) {
@@ -759,28 +691,22 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public void visit(OWLDataPropertyAssertionAxiom axiom) {
-    }
+    public void visit(OWLDataPropertyAssertionAxiom axiom) {}
 
     @Override
-	public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLTransitiveObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-    }
+    public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLSubDataPropertyOfAxiom axiom) {
-    }
+    public void visit(OWLSubDataPropertyOfAxiom axiom) {}
 
     @Override
-	public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-    }
-
+    public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {}
 
     @Override
-	public void visit(OWLSubPropertyChainOfAxiom axiom) {
+    public void visit(OWLSubPropertyChainOfAxiom axiom) {
         if (leftRightIdentityUsed.contains(axiom)) {
             return;
         }
@@ -806,9 +732,8 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         }
     }
 
-
     @Override
-	public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         writeOpenBracket();
         write(INVERSE);
         axiom.getFirstProperty().accept(this);
@@ -818,12 +743,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public final void visit(OWLClass desc) {
+    public final void visit(OWLClass desc) {
         write(desc.getIRI());
     }
 
     @Override
-	public void visit(OWLObjectOneOf desc) {
+    public void visit(OWLObjectOneOf desc) {
         writeOpenBracket();
         write(ONE_OF);
         for (OWLIndividual individual : desc.getIndividuals()) {
@@ -833,12 +758,12 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     @Override
-	public final void visit(OWLObjectProperty property) {
+    public final void visit(OWLObjectProperty property) {
         write(property.getIRI());
     }
 
     @Override
-	public final void visit(OWLObjectInverseOf property) {
+    public final void visit(OWLObjectInverseOf property) {
         writeOpenBracket();
         write(INV);
         writeSpace();
@@ -847,10 +772,11 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         writeCloseBracket();
     }
 
-
-    protected boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
+    protected boolean isLeftIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
+            OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
-            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain().iterator();
+            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain()
+                    .iterator();
             if (chain.hasNext()) {
                 if (chain.next() instanceof OWLObjectProperty) {
                     if (chain.hasNext() && chain.next().equals(property)) {
@@ -862,9 +788,11 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
-    protected boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom, OWLObjectProperty property) {
+    protected boolean isRightIdentityAxiom(OWLSubPropertyChainOfAxiom axiom,
+            OWLObjectProperty property) {
         if (axiom.getSuperProperty().equals(property)) {
-            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain().iterator();
+            Iterator<OWLObjectPropertyExpression> chain = axiom.getPropertyChain()
+                    .iterator();
             if (chain.hasNext()) {
                 if (chain.next().equals(property)) {
                     if (chain.hasNext()) {
@@ -877,9 +805,11 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         return false;
     }
 
-    protected Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(OWLPropertyExpression<?,?> property) {
+    protected Set<OWLSubPropertyChainOfAxiom> getPropertyChainSubPropertyAxiomsFor(
+            OWLPropertyExpression<?, ?> property) {
         Set<OWLSubPropertyChainOfAxiom> axioms = new HashSet<OWLSubPropertyChainOfAxiom>();
-        for (OWLSubPropertyChainOfAxiom axiom : ontology.getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
+        for (OWLSubPropertyChainOfAxiom axiom : ontology
+                .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
             if (axiom.getSuperProperty().equals(property)) {
                 axioms.add(axiom);
             }

@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- * <p/>
+ * <br>
  * A class expression translator which produces an <code>OWLIntersectionOf</code>.  
  * This relies on the main node having an intersectionOf
  * triple.

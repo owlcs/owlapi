@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- * <p/>
+ * <br>
  * A base handler for equivalent class axioms where the axiom is stated in
  * a direct way without an equivalent class triple.  For example
  * A intersectionOf (C or C)

@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- * <p/>
+ * <br>
  * A handler for top level intersection classes.
  */
 @SuppressWarnings("javadoc")

@@ -71,7 +71,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Bio-Health Informatics Group<br>
  * Date: 13-Dec-2006<br>
  * <br>
- * <p/>
+ * <br>
  * A handler which knows about OWLXML */
 @SuppressWarnings("javadoc")
 public class OWLXMLParserHandler extends DefaultHandler {

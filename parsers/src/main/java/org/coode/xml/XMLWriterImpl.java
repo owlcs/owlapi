@@ -61,10 +61,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
  * Date: 30-May-2006<br><br>
- * <p/>
+ * <br>
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
- * <p/>
+ * <br>
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */

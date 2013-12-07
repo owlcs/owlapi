@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 28-Nov-2007<br><br>
- * <p/>
+ * <br>
  * An entity checker that maps from string to entities using a bidirectional
  * short form provider.
  */

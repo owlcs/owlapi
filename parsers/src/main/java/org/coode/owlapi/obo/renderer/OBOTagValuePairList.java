@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
  * Date: Dec 19, 2008<br><br>
- * <p/>
+ * <br>
  * An ordered rendering of the Tag Value Pairs that also supports:
  * - default values
  * - unknown tags (which are rendered at the end of the known tags)

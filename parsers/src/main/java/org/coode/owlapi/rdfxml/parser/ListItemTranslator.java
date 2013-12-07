@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLObject;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Dec-2006<br><br>
- * <p/>
+ * <br>
  * Translates and consumes an item in an RDF list.
  */
 @SuppressWarnings("javadoc")

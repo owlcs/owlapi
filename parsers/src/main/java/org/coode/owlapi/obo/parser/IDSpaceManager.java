@@ -46,17 +46,17 @@ import java.util.Map;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 18/04/2012
- * <p>
+ * <br>
  * Maps between id prefixes and IRI prefixes. By default an IRI prefix is the
  * value defined by {@link OBOPrefix#getPrefix()}, but this can be overridden
  * using an idspace tag in the ontology header.
- * </p>
- * <p>
+ * <br>
+ * <br>
  * Note that the terminology used here, i.e. "id prefix" and "IRI prefix" is OBO
  * terminology and is not related to the OWL notion of prefix name and prefix.
  * "id prefix" is the substring before the colon in an OBO id. IRI prefix is the
  * prefix of an IRI that is the result of translating an OBO id to an IRI.
- * </p> */
+ * <br> */
 public class IDSpaceManager {
     
     private Map<String, String> idPrefix2IRIPrefixMap = new HashMap<String, String>();

@@ -43,7 +43,7 @@ package org.coode.owlapi.manchesterowlsyntax;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-Apr-2007<br><br>
- * <p/>
+ * <br>
  * The vocabulary that the Manchester OWL Syntax uses
  */
 @SuppressWarnings("javadoc")
