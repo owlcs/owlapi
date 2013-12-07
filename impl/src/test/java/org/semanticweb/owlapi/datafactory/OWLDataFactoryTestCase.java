@@ -77,7 +77,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
- * <p/>
+ * <br>
  * The base for test cases that need a data factory. */
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryTestCase {
