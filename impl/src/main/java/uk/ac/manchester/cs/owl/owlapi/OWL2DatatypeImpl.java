@@ -38,7 +38,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012 </p> An optimised implementation of OWLDatatype for
+ * Date: 24/10/2012 <br> An optimised implementation of OWLDatatype for
  * OWL2Datatypes. */
 public class OWL2DatatypeImpl implements OWLDatatype {
     // NOTE: This class did extend OWLObjectImpl but this created a circular

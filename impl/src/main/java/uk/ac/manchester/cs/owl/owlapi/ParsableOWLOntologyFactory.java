@@ -73,7 +73,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * Bio-Health Informatics Group<br>
  * Date: 14-Nov-2006<br>
  * <br>
- * <p/>
+ * <br>
  * An ontology factory that creates ontologies by parsing documents containing
  * concrete representations of ontologies. This ontology factory will claim that
  * it is suitable for creating an ontology if the document IRI can be opened for

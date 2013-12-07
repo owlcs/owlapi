@@ -149,7 +149,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * Bio-Health Informatics Group<br>
  * Date: 13-Nov-2006<br>
  * <br>
- * <p/>
+ * <br>
  * A utility class that visits axioms, class expressions etc. and accumulates
  * the named objects that are referred to in those axioms, class expressions
  * etc. For example, if the collector visited the axiom (propP some C)

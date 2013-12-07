@@ -67,10 +67,10 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br>
- * <p>
+ * <br>
  * Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
- * </p> */
+ * <br> */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 30406L;
     private static final int COMPRESSION_LIMIT = 160;

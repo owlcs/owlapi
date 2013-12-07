@@ -112,7 +112,7 @@ import org.semanticweb.owlapi.util.Version;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 04-Dec-2009
- * </p>
+ * <br>
  * This is a simple structural reasoner that essentially answers with told information.  It is incomplete.
  */
 public class StructuralReasoner extends OWLReasonerBase {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -46,58 +45,50 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006<br>
+ * <br> */
 @SuppressWarnings("javadoc")
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression<?,?>> extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final P subProperty;
-
+public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression<?, ?>>
+        extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
+    private static final long serialVersionUID = 30406L;
+    private final P subProperty;
     private final P superProperty;
 
-
-    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty, Collection<? extends OWLAnnotation> annotations) {
+    public OWLSubPropertyAxiomImpl(P subProperty, P superProperty,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subProperty = subProperty;
         this.superProperty = superProperty;
     }
-
 
     @Override
     public P getSubProperty() {
         return subProperty;
     }
 
-
     @Override
     public P getSuperProperty() {
         return superProperty;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLSubPropertyAxiom)) {
                 return false;
             }
             OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) obj;
-            return other.getSubProperty().equals(subProperty) && other.getSuperProperty().equals(superProperty);
+            return other.getSubProperty().equals(subProperty)
+                    && other.getSuperProperty().equals(superProperty);
         }
         return false;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyAxiom<?> other = (OWLSubPropertyAxiom<?>) object;
         int diff = subProperty.compareTo(other.getSubProperty());
         if (diff != 0) {
