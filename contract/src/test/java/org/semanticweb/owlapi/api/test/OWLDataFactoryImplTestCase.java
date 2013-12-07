@@ -19,7 +19,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 /** Author: Matthew Horridge<br>
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012 </p> A test case to ensure that the reference implementation
+ * Date: 24/10/2012 <br> A test case to ensure that the reference implementation
  * data factories do not create duplicate objects for distinguished values (e.g.
  * owl:Thing, rdfs:Literal etc.) */
 @RunWith(value = Parameterized.class)

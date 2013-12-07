@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 01-May-2007<br>
  * <br>
- * <p/>
+ * <br>
  * A test case which ensures that an ontology contains entity references when
  * that ontology only contains entity declaration axioms. In other words, entity
  * declaration axioms produce the correct entity references. */

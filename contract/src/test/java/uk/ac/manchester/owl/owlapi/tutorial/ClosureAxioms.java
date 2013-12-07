@@ -54,14 +54,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** <p>
+/** <br>
  * This class demonstrates some aspects of the OWL API. Given a class in an
  * ontology, it will determine the subclass axioms that define the class. For
  * each of these, if the superclass is a conjunction of existential
  * restrictions, then an additional subclass axiom will be added to the
  * ontology, "closing" the restrictions.
- * </p>
- * <p/>
+ * <br>
+ * <br>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>

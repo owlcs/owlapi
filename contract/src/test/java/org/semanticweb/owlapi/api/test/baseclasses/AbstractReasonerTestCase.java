@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 08-Jul-2010
- * <p>
+ * <br>
  * This test case creates a small ontology and tests the getters in the reasoner
  * interface. The test ontology isn't designed to test the correctness of
  * reasoning results, rather it is designed to test the reasoner returns the

@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractLiteralWithEscapeTest
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 28/09/2011
- * <p/>
+ * <br>
  * A test case which round trips an ontology that contains an annotation
  * assertion that has a literal containing a backslash. */
 public class LiteralWithBackslashTestCase extends AbstractLiteralWithEscapeTestCase {

@@ -143,10 +143,10 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** <p>
+/** <br>
  * A renderer that provides an HTML version of the ontology.
- * </p>
- * <p/>
+ * <br>
+ * <br>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>

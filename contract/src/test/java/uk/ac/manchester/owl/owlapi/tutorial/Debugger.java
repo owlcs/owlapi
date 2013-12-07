@@ -54,21 +54,21 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
 
-/** <p>
+/** <br>
  * This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
- * </p>
+ * <br>
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of a reasoner</li>
  * <li>A location to place the results.</li>
  * </ol>
- * <p>
+ * <br>
  * When executed, the class will find all inconsistent classes in the ontology.
  * For each inconsistent class, the debugger will be used to determine the set
  * of support for the inconsistency. A report will then be written to the outpur
  * file.
- * </p>
+ * <br>
  * Author: Sean Bechhofer<br>
  * The University Of Manchester<br>
  * Information Management Group<br>
@@ -105,16 +105,16 @@ public class Debugger {
             }
         }
         writer.println("<h1>Ontology Debugging Report</h1>");
-        writer.println("<p>Ontology: " + ontology.getOntologyID() + "</p>");
+        writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {
-            writer.println("<p>No Unsatisfiable Classes found</p>");
+            writer.println("<br>No Unsatisfiable Classes found<br>");
         } else {
             for (OWLClass unsatisfiable : unsatisfiables) {
                 writer.println("<div class='box'>\n");
                 writer.println("<h2 class='cl'>");
                 unsatisfiable.accept(renderer);
                 writer.println("</h2>");
-                writer.println("<p>Axioms causing inconsistency:</p>");
+                writer.println("<br>Axioms causing inconsistency:<br>");
                 writer.println("<ul>");
                 /*
                  * Find the set of support for the inconsistency. This will

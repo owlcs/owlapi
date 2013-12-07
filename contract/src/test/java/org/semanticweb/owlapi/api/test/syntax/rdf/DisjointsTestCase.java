@@ -69,7 +69,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * Bio-Health Informatics Group<br>
  * Date: 09-May-2007<br>
  * <br>
- * <p/>
+ * <br>
  * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
  * it possible to specify that a set of classes are mutually disjoint.
  * Unfortunately, this must be represented in RDF as a set of pairwise disjoint
