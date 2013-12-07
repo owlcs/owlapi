@@ -69,7 +69,7 @@ import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
  * Bio-Health Informatics Group<br>
  * Date: 06-Dec-2006<br>
  * <br>
- * <p/>
+ * <br>
  * Provides a point of convenience for creating an
  * <code>OWLOntologyManager</code> with commonly required features (such as an
  * RDF parser for example). */

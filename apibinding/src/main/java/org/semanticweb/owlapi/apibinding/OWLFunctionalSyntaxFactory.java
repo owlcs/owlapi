@@ -138,9 +138,9 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 17-Jan-2010 </p> A utility class whose methods may be statically
+ * Date: 17-Jan-2010 <br> A utility class whose methods may be statically
  * imported so that OWL API objects can be constructed by writing code that
- * looks like the OWL 2 Functional Syntax. </p> Note that this class is
+ * looks like the OWL 2 Functional Syntax. <br> Note that this class is
  * primarily intended for developers who need to write test cases. Normal client
  * code should probably use an
  * {@link org.semanticweb.owlapi.model.OWLDataFactory} for creating objects. */
