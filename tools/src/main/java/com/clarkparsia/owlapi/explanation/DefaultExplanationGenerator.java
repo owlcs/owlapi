@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation;
 
 import java.util.Set;
@@ -51,90 +50,88 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
-
-/**
- * Author: Matthew Horridge<br>
- * Clark & Parsia, LLC<br>
+/** Author: Matthew Horridge<br>
+ * Clark &amp; Parsia, LLC<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Jan-2008<br><br>
- */
+ * Date: 24-Jan-2008 */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
-
     private final OWLDataFactory dataFactory;
-
     private final MultipleExplanationGenerator gen;
 
-
-    /**
-     * @param man manager
-     * @param reasonerFactory reasoner factory
-     * @param ontology ontology to reason on
-     * @param progressMonitor progress monitor
-     */
-    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-                                       ExplanationProgressMonitor progressMonitor) {
-        this(man, reasonerFactory, ontology, reasonerFactory.createNonBufferingReasoner(ontology), progressMonitor);
+    /** @param man
+     *            manager
+     * @param reasonerFactory
+     *            reasoner factory
+     * @param ontology
+     *            ontology to reason on
+     * @param progressMonitor
+     *            progress monitor */
+    public DefaultExplanationGenerator(OWLOntologyManager man,
+            OWLReasonerFactory reasonerFactory, OWLOntology ontology,
+            ExplanationProgressMonitor progressMonitor) {
+        this(man, reasonerFactory, ontology, reasonerFactory
+                .createNonBufferingReasoner(ontology), progressMonitor);
     }
 
-    /**
-     * @param man manager
-     * @param reasonerFactory reasoner factory
-     * @param ontology ontology to reason on
-     * @param reasoner the reasoner to use
-     * @param progressMonitor progress monitor
-     */
-    public DefaultExplanationGenerator(OWLOntologyManager man, OWLReasonerFactory reasonerFactory, OWLOntology ontology,
-                                       OWLReasoner reasoner, ExplanationProgressMonitor progressMonitor) {
+    /** @param man
+     *            manager
+     * @param reasonerFactory
+     *            reasoner factory
+     * @param ontology
+     *            ontology to reason on
+     * @param reasoner
+     *            the reasoner to use
+     * @param progressMonitor
+     *            progress monitor */
+    public DefaultExplanationGenerator(OWLOntologyManager man,
+            OWLReasonerFactory reasonerFactory, OWLOntology ontology,
+            OWLReasoner reasoner, ExplanationProgressMonitor progressMonitor) {
         dataFactory = man.getOWLDataFactory();
-        BlackBoxExplanation singleGen = new BlackBoxExplanation(ontology, reasonerFactory, reasoner);
+        BlackBoxExplanation singleGen = new BlackBoxExplanation(ontology,
+                reasonerFactory, reasoner);
         gen = new HSTExplanationGenerator(singleGen);
         if (progressMonitor != null) {
             gen.setProgressMonitor(progressMonitor);
         }
     }
 
-
     @Override
     public Set<OWLAxiom> getExplanation(OWLClassExpression unsatClass) {
         return gen.getExplanation(unsatClass);
     }
 
-
-    /**
-     * @param axiom the axiom to explain
-     * @return the explanation
-     */
+    /** @param axiom
+     *            the axiom to explain
+     * @return the explanation */
     public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanation(converter.convert(axiom));
     }
-
 
     @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass) {
         return gen.getExplanations(unsatClass);
     }
 
-    /**
-     * @param axiom the axiom to explain
-     * @return the set of explanations
-     */
+    /** @param axiom
+     *            the axiom to explain
+     * @return the set of explanations */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom));
     }
 
-
     @Override
-    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass, int maxExplanations) {
+    public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
+            int maxExplanations) {
         return gen.getExplanations(unsatClass, maxExplanations);
     }
 
-    /**
-     * @param maxExplanations max number of explanations
-     * @param axiom the axiom to explain
-     * @return the set of explanations
-     */
+    /** @param maxExplanations
+     *            max number of explanations
+     * @param axiom
+     *            the axiom to explain
+     * @return the set of explanations */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);
         return getExplanations(converter.convert(axiom), maxExplanations);

@@ -265,8 +265,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     /** This auxiliary method extracts a module from a given sub-ontology of the
      * associated ontology for a given signature and locality type. The module
      * will contain only logical axioms, no annotation or declaration axioms.
-     * The sub-ontology and module are represented as arrays of Booleans.
-     * <p/>
+     * The sub-ontology and module are represented as arrays of Booleans. <br>
      * This method is (if necessary, iteratively) called by the public method
      * extract.
      * 
@@ -585,14 +584,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *            Admissible values for superClassLevel (analogously for
      *            subClassLevel):
      *            <ul>
-     *            <li>If superClassLevel > 0, then all classes C are included
-     *            for which the class hierarchy computed by the reasoner
-     *            contains a path of length at most superClassLevel downwards
-     *            from C to some class from the signature.</li>
+     *            <li>If superClassLevel greater than 0, then all classes C are
+     *            included for which the class hierarchy computed by the
+     *            reasoner contains a path of length at most superClassLevel
+     *            downwards from C to some class from the signature.</li>
      *            <li>If superClassLevel = 0, then no super-/subclasses are
      *            added.</li>
-     *            <li>If superClassLevel < 0, then all direct and indirect
-     *            super-/subclasses of any class in the signature are added.</li>
+     *            <li>If superClassLevel smaller than 0, then all direct and
+     *            indirect super-/subclasses of any class in the signature are
+     *            added.</li>
      *            </ul>
      * @param reasoner
      *            the reasoner to determine super-/subclasses. This can be an

@@ -80,16 +80,16 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-Jul-2007<br><br>
- * <p/>
+ * <br>
  * This composite change will convert a primitive class to a defined class by replacing subclass
  * axioms where the class in question is on the left hand side of the subclass axiom to an
  * equivalent classes axiom which makes the class equivalent to the intersection of its superclasses.
- * <p/>
+ * <br>
  * More formally, given a class A, a set of ontologies S, and a target targetOntology T, for each targetOntology
  * O in S, subclass axioms whose LHS is A will be removed from O.  The superclasses from these axioms
  * will be combined into an intersection class which will be made equivalent to A using an equivalent
  * classes axioms E.  E will be added to the target targetOntology T.
- * <p/>
+ * <br>
  * This composite change supports the pattern of working where a primitive class is converted to
  * a defined class - functionality which is usually found in editors.
  */

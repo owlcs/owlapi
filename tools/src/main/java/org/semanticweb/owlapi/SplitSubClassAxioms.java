@@ -79,7 +79,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Aug-2007<br><br>
- * <p/>
+ * <br>
  * Given a set of ontologies, this composite change will replace
  * all subclass axioms in each ontology, whose super class is an
  * object intersection (conjuction) with multiple subclass axioms -

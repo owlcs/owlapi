@@ -78,11 +78,11 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-Jul-2007<br><br>
- * <p/>
+ * <br>
  * This composite change will create a value partion - see "pattern 2" in
  * "Representing Specified Values in OWL: "value partitions" and "value sets""
  * (http://www.w3.org/TR/swbp-specified-values.)
- * <p/>
+ * <br>
  * A value partition is an ontology design pattern which is used to represent
  * a set of closed values for a particular property.  For example the property
  * hasSize might only take values from SmallSize, MediumSize and LargeSize.  In

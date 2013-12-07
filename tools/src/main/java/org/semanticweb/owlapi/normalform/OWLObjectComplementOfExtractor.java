@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
  * Bio-Health Informatics Group<br>
  * Date: 13-Oct-2007<br>
  * <br>
- * <p/>
+ * <br>
  * Extracts the parts of a class expression which are negated. For example, A
  * and not (B or C or not D) would extract {(B or C or notD), D} */
 public class OWLObjectComplementOfExtractor implements OWLClassExpressionVisitor {

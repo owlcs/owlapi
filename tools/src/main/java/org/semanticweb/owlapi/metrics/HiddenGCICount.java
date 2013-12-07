@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 13-Aug-2007<br>
  * <br>
- * <p/>
+ * <br>
  * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
  * regarded to be a "hidden" GCI if it is essentially introduce via an
  * equivalent class axiom and a subclass axioms where the LHS of the subclass

@@ -82,16 +82,16 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-Jul-2007<br><br>
- * <p/>
+ * <br>
  * This composite change will convert a defined class to a primitive class by replacing equivalent classes
  * axioms where the class in question is a class in the equivalent classes axioms to a set of subclass axioms
  * whose superclasses are the set of classes which were originally equivalent to the class in question.
- * <p/>
+ * <br>
  * More formally, for a given class A, a set of ontologies S, and a target ontology T, this composite change
  * will remove all equivalent axioms from each ontology O in S where the equivalent class axiom contains A
  * as a 'top level' class (e.g.  EquivalentClasses(A, C, D)). For each class, D, that was made equivalent to A via
  * an equivalent classes axiom, a subclass axiom SubClassOf(A, D) will be added to the target ontology T.
- * <p/>
+ * <br>
  * This change supports a common pattern of working, where a class is converted from a
  * defined class to a primitive class.
  */

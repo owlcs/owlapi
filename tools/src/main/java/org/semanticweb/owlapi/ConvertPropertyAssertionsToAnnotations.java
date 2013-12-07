@@ -84,14 +84,14 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-Jul-2007<br><br>
- * <p/>
+ * <br>
  * Given a set of ontologies, this composite change will convert all property assertion
  * axioms whose subject is a 'punned' individual (i.e. an individual that shares a name
  * with a class), removes these axioms and replaces them with annotations on the class
  * that shares the same name as the individual.  For example for a class A and an individual
  * A, the data property assertion hasX(A, "Val") would be converted to an entity annotation on
  * the class A with an annotation URI of "hasX" and a value of "Val".
- * <p/>
+ * <br>
  * This composite change supports refactoring an ontology where punning was used to simulate
  * annotations on a class rather than using actual annotations on a class.
  */

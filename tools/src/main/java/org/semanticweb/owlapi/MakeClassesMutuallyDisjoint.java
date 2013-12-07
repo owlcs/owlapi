@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Jul-2007<br><br>
- * <p/>
+ * <br>
  * Given a set of class expressions, this composite change will make them mutually disjoint.
  * The composite change offers the option of using one disjoint classes axiom to do this
  * or using multiple disjoint classes axioms to make them pairwise disjoint (for backwards

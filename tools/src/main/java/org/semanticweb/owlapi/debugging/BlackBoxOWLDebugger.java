@@ -74,7 +74,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  * Bio-Health Informatics Group<br>
  * Date: 24-Nov-2006<br>
  * <br>
- * <p/>
+ * <br>
  * This is an implementation of a blackbox debugger. The implementation is based
  * on the description of a black box debugger as described in Aditya Kalyanpur's
  * PhD Thesis : "Debugging and Repair of OWL Ontologies". */

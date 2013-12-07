@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Aug-2007<br><br>
- * <p/>
+ * <br>
  * Given a set of ontologies S, for each ontology, O, in S, this change
  * combines multiple subclass axioms with a common left hand side into
  * one subclass axiom.  For example, given A subClassOf B, A subClassOf C,

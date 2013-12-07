@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Nov-2006<br><br>
- * <p/>
+ * <br>
  * An abstract debugger which provides common infrastructure for finding
  * multiple justification.  This functionality relies on a concrete implementation
  * of a debugger that can compute a minimal set of axioms that cause the unsatisfiability.

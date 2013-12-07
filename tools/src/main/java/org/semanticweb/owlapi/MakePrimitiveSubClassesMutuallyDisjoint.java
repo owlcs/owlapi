@@ -55,17 +55,17 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * Bio-Health Informatics Group<br>
  * Date: 24-Jul-2007<br>
  * <br>
- * <p/>
+ * <br>
  * For a given class, this composite change makes its told primitive subclasses
  * mutually disjoint. For example, if B, C, and D are primitive subclasses of A
  * then this composite change will make B, C, and D mutually disjoint.
- * <p/>
+ * <br>
  * More formally, for a given class, A, and a set of ontologies, S, this method
  * will obtain a set of classes, G, where all classes in G are named and
  * primitive. Moreover, for any class, B in G, some ontology O in S will contain
  * an axiom, SubClassOf(B, A). All classes in G will be made mutually disjoint
  * by creating axiom(s) in a target ontology T.
- * <p/>
+ * <br>
  * This composite change supports a common design pattern where primitive
  * subclasses of a class are made mutually disjoint. */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends

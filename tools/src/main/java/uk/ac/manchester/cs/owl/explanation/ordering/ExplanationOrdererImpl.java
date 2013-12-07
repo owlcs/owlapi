@@ -117,7 +117,7 @@ import uk.ac.manchester.cs.bhig.util.Tree;
  * Bio-Health Informatics Group<br>
  * Date: 11-Jan-2008<br>
  * <br>
- * <p/>
+ * <br>
  * Provides ordering and indenting of explanations based on various ordering
  * heuristics. */
 public class ExplanationOrdererImpl implements ExplanationOrderer {

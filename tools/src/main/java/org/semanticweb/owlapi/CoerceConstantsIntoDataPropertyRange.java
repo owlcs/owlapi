@@ -72,7 +72,7 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * Bio-Health Informatics Group<br>
  * Date: 13-Aug-2007<br>
  * <br>
- * <p/>
+ * <br>
  * Coerces constants to have the same type as the range of a property in axioms
  * where the two are used. For example, given, p value "xyz", the "xyz" constant
  * would be typed with the range of p. */

@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- * <p/>
+ * <br>
  * Represents a metric about some aspect of an ontology and possibly its
  * imports closure.
  * @param <M> the metric type
