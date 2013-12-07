@@ -836,7 +836,7 @@ public class OWLAPIOwl2Obo {
                     error("Untranslatable axiom due to unknown data type: " + annVal);
                     return false;
                 }
-                if (dataTypeIri.getStart().equals(Namespaces.XSD.toString())) {
+                if (Namespaces.XSD.inNamespace(dataTypeIri)) {
                     clause.addValue("xsd:" + dataTypeIri.getFragment());
                 } else if (dataTypeIri.isPlainLiteral()) {
                     clause.addValue("xsd:string");
