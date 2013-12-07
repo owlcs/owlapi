@@ -36,27 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.AddAxiomData;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br><br>
- *
- * </p>
- * Represents an ontology change where axioms should be added
- * to an ontology.
- */
+ * Date: 25-Oct-2006<br>
+ * Represents an ontology change where axioms should be added to an ontology. */
 public class AddAxiom extends OWLAxiomChange {
-
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param axiom the axiom to be added
-     */
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param axiom
+     *            the axiom to be added */
     public AddAxiom(OWLOntology ont, OWLAxiom axiom) {
         super(ont, axiom);
     }
@@ -71,39 +64,36 @@ public class AddAxiom extends OWLAxiomChange {
         return true;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-        if(obj == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof AddAxiom)) {
+        if (!(obj instanceof AddAxiom)) {
             return false;
         }
-
         AddAxiom other = (AddAxiom) obj;
-        return other.getOntology().equals(getOntology()) && other.getAxiom().equals(getAxiom());
+        return other.getOntology().equals(getOntology())
+                && other.getAxiom().equals(getAxiom());
     }
 
-
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return 17 + getOntology().hashCode() * 13 + getAxiom().hashCode() * 13;
     }
 
-
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("AddAxiom(");
         sb.append(getAxiom().toString());

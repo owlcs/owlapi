@@ -36,71 +36,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br><br>
- * </p>
- * An interface to objects that can visit {@link org.semanticweb.owlapi.model.OWLClassExpression}s.
- * (See the <a href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
- */
+ * Date: 16-Apr-2008<br>
+ * An interface to objects that can visit
+ * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the <a
+ * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
 @SuppressWarnings("javadoc")
 public interface OWLClassExpressionVisitorEx<O> {
-
-
     O visit(OWLClass ce);
-
 
     O visit(OWLObjectIntersectionOf ce);
 
-
     O visit(OWLObjectUnionOf ce);
-
 
     O visit(OWLObjectComplementOf ce);
 
-
     O visit(OWLObjectSomeValuesFrom ce);
-
 
     O visit(OWLObjectAllValuesFrom ce);
 
-
     O visit(OWLObjectHasValue ce);
-
 
     O visit(OWLObjectMinCardinality ce);
 
-
     O visit(OWLObjectExactCardinality ce);
-
 
     O visit(OWLObjectMaxCardinality ce);
 
-
     O visit(OWLObjectHasSelf ce);
-
 
     O visit(OWLObjectOneOf ce);
 
-
     O visit(OWLDataSomeValuesFrom ce);
-
 
     O visit(OWLDataAllValuesFrom ce);
 
-
     O visit(OWLDataHasValue ce);
-
 
     O visit(OWLDataMinCardinality ce);
 
-
     O visit(OWLDataExactCardinality ce);
-
 
     O visit(OWLDataMaxCardinality ce);
 }

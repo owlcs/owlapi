@@ -48,12 +48,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
- * <p>
+ * <br>
  *     Represents the specific non-ontology data required by an {@link AddOntologyAnnotation} change.
- * </p>
- * <p>
+ * <br>
+ * <br>
  *     Instances of this class are immutable.
- * </p>
+ * <br>
  * @since 3.5
  */
 public final class AddOntologyAnnotationData extends OntologyAnnotationChangeData {

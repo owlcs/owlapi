@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Apr-2007<br><br>
- * <p/>
+ * <br>
  * A short form provider that generates short forms based on entity annotation values.
  * A list of preferred annotation URIs and preferred annotation languages is used to
  * determine which annotation value to select if there are multiple annotations for the

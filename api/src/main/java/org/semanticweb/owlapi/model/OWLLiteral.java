@@ -43,12 +43,12 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
- * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Literals">Literal</a> in the OWL 2 Specification.
- * <p>
+ * <br>
+ * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Literals">Literal</a> in the OWL 2 Specification.
+ * <br>
  * Each literal consists of a lexical form, which is a string, and a datatype.  A literal consisting of a lexical form
  * <code>"abc"</code> and a datatype identified by the IRI <code>datatypeIRI</code> is written as <code>"abc"^^datatypeIRI</code>.
- * <p>
+ * <br>
  * Note that literals whose datatype is <code>rdf:PlainLiteral</code> can be abbreviated. For example,
  * literals of the form <code>"abc@"^^rdf:PlainLiteral</code> can be abbreviated in the functional-style syntax, and
  * other concrete syntaxes to "abc".  Literals of the form "abc@langTag"^^rdf:PlainLiteral where "langTag" is not empty

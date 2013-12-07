@@ -43,7 +43,7 @@ package org.semanticweb.owlapi.model;/*
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 17-Jan-2009
- * </p>
+ * <br>
  * An interface to an object that can accept visits from {@link org.semanticweb.owlapi.model.OWLDataRange}s.
  */
 @SuppressWarnings("javadoc")

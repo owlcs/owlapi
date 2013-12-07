@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Apr-2007<br><br>
- * <p/>
+ * <br>
  * Provides a set of entities to inputs that require this.
  * @param <E> the entity type
  */

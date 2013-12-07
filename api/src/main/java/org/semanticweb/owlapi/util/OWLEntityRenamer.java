@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- * <p/>
+ * <br>
  * Renames entities that have a particular IRI.  Entities with the specified
  * IRI are renamed regardless of whether they are classes, object properties,
  * data properties, individuals or data types.

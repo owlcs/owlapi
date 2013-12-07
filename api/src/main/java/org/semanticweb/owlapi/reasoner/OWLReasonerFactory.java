@@ -44,11 +44,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 21-Jan-2009
- * <p/>
- * <p>
+ * <br>
+ * <br>
  * An OWLReasonerFactory is a point for creating instances of {@link org.semanticweb.owlapi.reasoner.OWLReasoner}
  * objects.  A reasoner reasons over a set of ontologies that is defined by an ontology and its imports closure.
- * </p>
+ * <br>
  *
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner
  */

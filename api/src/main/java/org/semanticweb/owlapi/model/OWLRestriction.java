@@ -36,37 +36,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- *
- * Represents a restriction (<a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Restrictions">Object Property Restriction</a> or
- * <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Property_Restrictions">Data Property Restriction</a>) in the OWL 2 specification.
- * @param <R> range
- * @param <P> property expression
- * @param <F> range
- */
-public interface OWLRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R,P>, F> extends OWLAnonymousClassExpression {
 
-    /**
-     * Gets the property/properties that the restriction acts along depending on R being a scalar or collection type.
-     * @return The property
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a restriction (<a
+ * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Restrictions">Object
+ * Property Restriction</a> or <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Data_Property_Restrictions">Data
+ * Property Restriction</a>) in the OWL 2 specification.
+ * 
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression
+ * @param <F>
+ *            range */
+public interface OWLRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F>
+        extends OWLAnonymousClassExpression {
+    /** Gets the property/properties that the restriction acts along depending on
+     * R being a scalar or collection type.
+     * 
+     * @return The property */
     public P getProperty();
 
-    /**
-     * Determines if this is an object restriction.
-     * @return <code>true</code> if this is an object restriction, otherwise <code>false</code>
-     */
+    /** Determines if this is an object restriction.
+     * 
+     * @return <code>true</code> if this is an object restriction, otherwise
+     *         <code>false</code> */
     boolean isObjectRestriction();
 
-    /**
-     * Determines if this is a data restriction.
-     * @return <code>true</code> if this is a data restriction, otherwise <code>false</code>
-     */
+    /** Determines if this is a data restriction.
+     * 
+     * @return <code>true</code> if this is a data restriction, otherwise
+     *         <code>false</code> */
     boolean isDataRestriction();
 }

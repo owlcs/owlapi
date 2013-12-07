@@ -36,33 +36,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * @param <R> range of the property
- * @param <P> property expression
- * @param <F> value
- */
-public interface OWLCardinalityRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLQuantifiedRestriction<R, P, F> {
 
-    /**
-     * Gets the cardinality of this restriction
-     * @return The cardinality of this restriction
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006
+ * 
+ * @param <R>
+ *            range of the property
+ * @param <P>
+ *            property expression
+ * @param <F>
+ *            value */
+public interface OWLCardinalityRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+        extends OWLQuantifiedRestriction<R, P, F> {
+    /** Gets the cardinality of this restriction
+     * 
+     * @return The cardinality of this restriction */
     int getCardinality();
 
-
-    /**
-     * Determines if this restriction is qualified.  Qualified cardinality restrictions
-     * are defined to be cardinality restrictions that have fillers which aren't TOP (owl:Thing
-     * or rdfs:Literal).  An object restriction is unqualified if it has a filler that is owl:Thing.
-     * A data restriction is unqualified if it has a filler which is the top data type (rdfs:Literal).
-     * @return <code>true</code> if this restriction is qualified, or <code>false</code> if
-     * this restriction is unqualified.
-     */
+    /** Determines if this restriction is qualified. Qualified cardinality
+     * restrictions are defined to be cardinality restrictions that have fillers
+     * which aren't TOP (owl:Thing or rdfs:Literal). An object restriction is
+     * unqualified if it has a filler that is owl:Thing. A data restriction is
+     * unqualified if it has a filler which is the top data type (rdfs:Literal).
+     * 
+     * @return <code>true</code> if this restriction is qualified, or
+     *         <code>false</code> if this restriction is unqualified. */
     boolean isQualified();
 }

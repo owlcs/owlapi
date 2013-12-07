@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- * <p/>
+ * <br>
  * Generates an ontology based on inferred axioms which are essentially supplied by a reasoner.
  * The generator can be configured with <code>InferredAxiomGenerator</code>s which generate specific
  * kinds of axioms e.g. subclass axioms.

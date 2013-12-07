@@ -46,10 +46,10 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
- * <p>
+ * <br>
  *     Instances of this class represent {@link OWLOntologyChangeData} for changes that that are specific to the
  *     addition or removal of import statements to/from an ontology.
- * </p>
+ * <br>
  */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30406L;

@@ -43,11 +43,11 @@ package org.semanticweb.owlapi.util;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 09-Dec-2009
- * </p>
+ * <br>
  * A simple utility class that describes the version of a piece of software e.g. reasoner version.
- * </p>
+ * <br>
  * A version number is assumed to be the following format: <b>major.minor.patch.build</b>.
- * </p>
+ * <br>
  */
 public class Version {
 

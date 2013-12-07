@@ -47,7 +47,7 @@ import java.net.URI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
- * <p/>
+ * <br>
  * Represents an import statement in an ontology.
  */
 public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration> {

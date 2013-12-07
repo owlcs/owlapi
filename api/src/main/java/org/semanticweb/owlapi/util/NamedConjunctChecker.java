@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
  * Bio-Health Informatics Group<br>
  * Date: 16-Feb-2007<br>
  * <br>
- * <p/>
+ * <br>
  * A utility class which checks if a class expression has a named conjunct or a
  * specific named conjunct. */
 public class NamedConjunctChecker {

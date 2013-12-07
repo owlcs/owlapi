@@ -129,7 +129,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 29-Jul-2008<br><br>
- * <p/>
+ * <br>
  * A delegating visitor.  This utility class can be used to override visiting
  * a particular type of object.
  * @param <O>  the returned type

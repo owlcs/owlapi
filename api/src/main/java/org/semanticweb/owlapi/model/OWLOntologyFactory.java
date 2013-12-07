@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 25-Oct-2006
- * <p/>
+ * <br>
  * An ontology factory is responsible from creating new ontologies and creating ontologies
  * from ontology document IRIs.
  */

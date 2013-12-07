@@ -44,8 +44,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 15-Jan-2009
- * <p/>
+ * Date: 15-Jan-2009<br>
  * Represents the Node ID for anonymous individuals */
 public class NodeID implements Comparable<NodeID>, Serializable {
     private static final long serialVersionUID = 30406L;

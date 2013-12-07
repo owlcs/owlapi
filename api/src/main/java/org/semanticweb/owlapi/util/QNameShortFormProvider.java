@@ -62,7 +62,7 @@ public class QNameShortFormProvider implements ShortFormProvider {
      * auto-generated prefix namespace mappings.
      * 
      * @param prefix2NamespaceMap
-     *            The map which contains a prefix -> namespace mapping. The
+     *            The map which contains a prefix to namespace mapping. The
      *            prefix must not have a trailing ":"; if one is there, it will
      *            be removed */
     public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {

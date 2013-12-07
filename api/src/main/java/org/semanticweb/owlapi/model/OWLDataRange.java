@@ -36,60 +36,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents a <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Data_Ranges">DataRange</a> in the OWL 2 Specification.
- * </p>
- * A high level interface which represents a data range.  Example of
- * data ranges are datatypes (e.g. int, float, double, string, ...),
- * complements of data ranges (e.g. not(int)), data enumerations (data oneOfs),
- * datatype restrictions (e.g. int > 3).
- */
-public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
 
-    /**
-     * Determines if this data range is a datatype (int, float, ...)
-     *
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
+ * Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the OWL
+ * 2 Specification.<br>
+ * A high level interface which represents a data range. Example of data ranges
+ * are datatypes (e.g. int, float, double, string, ...), complements of data
+ * ranges (e.g. not(int)), data enumerations (data oneOfs), datatype
+ * restrictions (e.g. int &gt; 3). */
+public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
+    /** Determines if this data range is a datatype (int, float, ...)
+     * 
      * @return <code>true</code> if this datarange is a datatype, or
-     *         <code>false</code> if it is not a datatype and is some other
-     *         data range such as a data range restriction, data oneOf or
-     *         data complementOf.
-     */
+     *         <code>false</code> if it is not a datatype and is some other data
+     *         range such as a data range restriction, data oneOf or data
+     *         complementOf. */
     boolean isDatatype();
 
-
-    /**
-     * Determines if this data range is the top data type.
-     *
-     * @return <code>true</code> if this data range is the top datatype otherwise
-     *         <code>false</code>
-     */
+    /** Determines if this data range is the top data type.
+     * 
+     * @return <code>true</code> if this data range is the top datatype
+     *         otherwise <code>false</code> */
     boolean isTopDatatype();
 
-    /**
-     * If this data range is a datatype then this method may be used to obtain it as a datatype (rather than
-     * using an explicit cast).
-     * @return This data range as an {@link org.semanticweb.owlapi.model.OWLDatatype}
-     */
+    /** If this data range is a datatype then this method may be used to obtain
+     * it as a datatype (rather than using an explicit cast).
+     * 
+     * @return This data range as an
+     *         {@link org.semanticweb.owlapi.model.OWLDatatype} */
     OWLDatatype asOWLDatatype();
 
-    /**
-     * Gets the type of this data range
-     * @return The data range type
-     */
+    /** Gets the type of this data range
+     * 
+     * @return The data range type */
     DataRangeType getDataRangeType();
+
     @SuppressWarnings("javadoc")
     void accept(OWLDataVisitor visitor);
+
     @SuppressWarnings("javadoc")
     <O> O accept(OWLDataVisitorEx<O> visitor);
+
     @SuppressWarnings("javadoc")
     void accept(OWLDataRangeVisitor visitor);
+
     @SuppressWarnings("javadoc")
     <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

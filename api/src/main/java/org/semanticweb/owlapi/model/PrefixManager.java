@@ -47,7 +47,7 @@ import java.util.Set;
 /**
  * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
  * 10-Sep-2008<br><br>
- * <p/>
+ * <br>
  * A prefix manager than can provide prefixes for prefix names.
  */
 public interface PrefixManager extends Serializable {

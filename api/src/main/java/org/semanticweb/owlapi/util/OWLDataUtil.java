@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 06-Jan-2007<br><br>
- * <p/>
+ * <br>
  * A collection of utility methods for creating common data values and data ranges
  */
 public class OWLDataUtil {

@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 18-Apr-2007<br><br>
- * <p/>
+ * <br>
  * A very simple short form provider which is intended to provide
  * human readable display names for entities.  The following strategy
  * is used:

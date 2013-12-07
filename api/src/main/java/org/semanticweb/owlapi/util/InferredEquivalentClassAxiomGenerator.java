@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- * <p/>
+ * <br>
  * Generates inferred equivalent classes axioms.
  */
 public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {

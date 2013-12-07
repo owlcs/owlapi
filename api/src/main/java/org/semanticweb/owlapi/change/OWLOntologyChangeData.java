@@ -49,14 +49,14 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
- * <p>
+ * <br>
  *     Represents an abstraction of the essential non-ontology data required by a particular kind of
  *     {@link OWLOntologyChange}.  There is a concrete subclass of this class for each concrete class of
  *     {@link OWLOntologyChange}.
- * </p>
- * <p>
+ * <br>
+ * <br>
  *     Instances of this class are immutable
- * </p>
+ * <br>
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5
  */

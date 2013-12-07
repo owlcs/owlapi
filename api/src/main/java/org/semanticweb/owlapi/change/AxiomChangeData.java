@@ -46,10 +46,10 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 27/04/2012
- * <p>
+ * <br>
  *     Represent the common non-ontology data required by instances of
  *     {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
- * </p>
+ * <br>
  */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30406L;

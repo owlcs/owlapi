@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Apr-2007<br><br>
- * <p/>
+ * <br>
  * An <code>OWLOntologySetProvider</code> which provides a set of ontologies
  * which correspond to the imports closure of a given ontology.  Note that
  * the set of provided ontologies will be updated if the imports closure gets

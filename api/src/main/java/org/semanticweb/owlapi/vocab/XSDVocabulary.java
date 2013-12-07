@@ -119,7 +119,7 @@ public enum XSDVocabulary {
      * must be exact - uppercase or lowercase variants are not accepted. An
      * IllegalArgumentException will he thrown for null or non matching input.
      * 
-     * @param a
+     * @param s
      *            string of the form {@code xsd:typename}
      * @return the XSDVocabulary item matching xsd:typename, e.g.,
      *         {@code STRING} for {@code "xsd:string"} */

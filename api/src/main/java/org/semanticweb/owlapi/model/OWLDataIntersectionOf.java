@@ -36,16 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
- * </p>
- * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Intersection_of_Data_Ranges">DataIntersectionOf</a>
- * in the OWL 2 Specification.
- */
-public interface OWLDataIntersectionOf extends OWLNaryDataRange {
-}
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 15-Jan-2009<br>
+ * Represents <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Data_Ranges"
+ * >DataIntersectionOf</a> in the OWL 2 Specification. */
+public interface OWLDataIntersectionOf extends OWLNaryDataRange {}

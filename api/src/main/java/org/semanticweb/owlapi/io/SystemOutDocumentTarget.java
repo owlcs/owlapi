@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
@@ -46,19 +45,16 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 18-Dec-2009
- * </p>
- * An output target that will output an ontology to <code>System.out</code>
- */
+ * Date: 18-Dec-2009<br>
+ * An output target that will output an ontology to <code>System.out</code> */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
-
     @Override
     public IRI getDocumentIRI() {
-        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 
     @Override
@@ -88,7 +84,8 @@ public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
 
     @Override
     public Writer getWriter() throws IOException {
-        throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
     }
 
     @Override

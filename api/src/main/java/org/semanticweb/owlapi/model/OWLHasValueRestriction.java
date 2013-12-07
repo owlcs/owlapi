@@ -36,33 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * @param <R> range
- * @param <P> property expression
- * @param <V> the value type
- */
-public interface OWLHasValueRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject> extends OWLRestriction<R, P, P> {
 
-    /**
-     * Gets the value which is the filler for this restriction.  In the
-     * case of an object restriction this will be an individual, in the
-     * case of a data restriction this will be a constant (data value).
-     * @return the value
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006
+ * 
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression
+ * @param <V>
+ *            the value type */
+public interface OWLHasValueRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
+        extends OWLRestriction<R, P, P> {
+    /** Gets the value which is the filler for this restriction. In the case of
+     * an object restriction this will be an individual, in the case of a data
+     * restriction this will be a constant (data value).
+     * 
+     * @return the value */
     V getValue();
 
-
-    /**
-     * A convenience method that obtains this restriction as an existential
+    /** A convenience method that obtains this restriction as an existential
      * restriction with a nominal filler.
+     * 
      * @return The existential equivalent of this value restriction.
-     *         simp(HasValue(p a)) = some(p {a})
-     */
+     *         simp(HasValue(p a)) = some(p {a}) */
     OWLClassExpression asSomeValuesFrom();
 }

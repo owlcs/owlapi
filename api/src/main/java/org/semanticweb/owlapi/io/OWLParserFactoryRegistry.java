@@ -49,7 +49,7 @@ import java.util.List;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Nov-2006<br><br>
- * <p/>
+ * <br>
  * The <code>OWLParserFactoryRegistry</code> provides a central point for
  * the registration of parser factories that create parsers to parse OWL
  * ontologies.  The registry is typically used by at least one type of ontology

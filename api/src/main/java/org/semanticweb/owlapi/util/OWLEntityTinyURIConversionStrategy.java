@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Bio-Health Informatics Group<br>
  * Date: 25-Nov-2007<br>
  * <br>
- * <p/>
+ * <br>
  * Provides an entity URI conversion strategy which converts entity URIs to a
  * common base and alpha-numeric fragment. The fragment is of the form An, where
  * n is an integer (starting at 1), and A is a string which depends on the type

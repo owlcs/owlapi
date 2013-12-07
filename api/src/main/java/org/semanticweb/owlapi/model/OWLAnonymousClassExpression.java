@@ -36,18 +36,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * The super interface for all class expressions which are not named
- * class expressions (i.e. all class expressions which are not <code>OWLClass</code>).  This interface
- * represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Class_Expressions">class expressions</a> in the OWL 2 Specification.
- */
-public interface OWLAnonymousClassExpression extends OWLClassExpression {
 
-}
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006<br>
+ * The super interface for all class expressions which are not named class
+ * expressions (i.e. all class expressions which are not <code>OWLClass</code>).
+ * This interface represents <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">class
+ * expressions</a> in the OWL 2 Specification. */
+public interface OWLAnonymousClassExpression extends OWLClassExpression {}

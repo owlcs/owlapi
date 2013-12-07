@@ -36,28 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 13-Jan-2009
- * </p>
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Property_Range">AnnotationPropertyRange</a>
- * axiom in the OWL 2 specification.
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 13-Jan-2009 <br>
+ * Represents an <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range"
+ * >AnnotationPropertyRange</a> axiom in the OWL 2 specification. */
 public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom {
-
-    /**
-     * Gets the annotation property that this axiom provides a range for.
-     * @return The annotation property
-     */
+    /** Gets the annotation property that this axiom provides a range for.
+     * 
+     * @return The annotation property */
     OWLAnnotationProperty getProperty();
 
-    /**
-     * Gets the specified IRI that corresponds to the range.
-     * @return The range of the annotation property.
-     */
+    /** Gets the specified IRI that corresponds to the range.
+     * 
+     * @return The range of the annotation property. */
     IRI getRange();
 
     @Override

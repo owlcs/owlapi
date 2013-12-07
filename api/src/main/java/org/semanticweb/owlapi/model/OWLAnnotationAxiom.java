@@ -36,17 +36,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br><br>
- * <p/>
- * A super interface for annotation axioms.
- */
-public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {
-
-}
+ * Date: 25-Oct-2006<br>
+ * A super interface for annotation axioms. */
+public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {}

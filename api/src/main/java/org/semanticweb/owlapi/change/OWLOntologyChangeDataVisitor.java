@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 /** Author: Matthew Horridge<br>
@@ -47,46 +46,52 @@ package org.semanticweb.owlapi.change;
  * @param <R>
  * @param <E> */
 public interface OWLOntologyChangeDataVisitor<R, E extends Exception> {
-
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(AddAxiomData data) throws E;
 
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(RemoveAxiomData data) throws E;
 
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(AddOntologyAnnotationData data) throws E;
 
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(RemoveOntologyAnnotationData data) throws E;
 
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(SetOntologyIDData data) throws E;
 
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(AddImportData data) throws E;
 
     /** @param data
      *            object to visit
      * @return result of visit
-     * @throws E */
+     * @throws E
+     *             exception */
     R visit(RemoveImportData data) throws E;
 }

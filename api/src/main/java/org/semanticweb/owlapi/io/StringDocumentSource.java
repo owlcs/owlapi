@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
@@ -46,74 +45,60 @@ import java.io.StringReader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Apr-2007<br><br>
- * </p>
- * An ontology input source that wraps a string.
- */
+ * Date: 24-Apr-2007<br>
+ * An ontology input source that wraps a string. */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
-
     private static int counter = 0;
-
     private final IRI documentIRI;
-
     private final String string;
 
-    /**
-     * @param string the source string
-     */
+    /** @param string
+     *            the source string */
     public StringDocumentSource(String string) {
         this.string = string;
         documentIRI = getNextDocumentIRI();
     }
-    /**
-     * @return a fresh IRI
-     */
+
+    /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
-        return IRI.create( "string:ontology" + counter);
+        return IRI.create("string:ontology" + counter);
     }
 
-
-
-    /**
-     * Specifies a string as an ontology document.
-     * @param string The string
-     * @param documentIRI The document IRI
-     */
+    /** Specifies a string as an ontology document.
+     * 
+     * @param string
+     *            The string
+     * @param documentIRI
+     *            The document IRI */
     public StringDocumentSource(String string, IRI documentIRI) {
         this.string = string;
         this.documentIRI = documentIRI;
     }
-
 
     @Override
     public boolean isReaderAvailable() {
         return true;
     }
 
-
     @Override
     public Reader getReader() {
         return new StringReader(string);
     }
-
 
     @Override
     public boolean isInputStreamAvailable() {
         return false;
     }
 
-
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException("InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
+        throw new OWLRuntimeException(
+                "InputStream not available.  Check with StringDocumentSource.isInputStreamAvailable() first!");
     }
-
 
     @Override
     public IRI getDocumentIRI() {

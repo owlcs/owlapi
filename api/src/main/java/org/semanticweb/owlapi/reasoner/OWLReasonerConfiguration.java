@@ -43,14 +43,14 @@ package org.semanticweb.owlapi.reasoner;
  * The University of Manchester<br>
  * Information Management Group<br>
  * Date: 21-Jan-2009
- * <p>
+ * <br>
  * An OWLReasonerConfiguration can be used to customise the setup of a reasoner
  * at reasoner creation time via an
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. Specific
  * reasoners may define their own configuration objects with configuration
  * options particular to the reasoner. There are also a set of general options
  * defined by this configuration object.
- * </p>
+ * <br>
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
  * 
@@ -68,12 +68,12 @@ public interface OWLReasonerConfiguration {
     /**
      * Gets the timeout in milliseconds for basic single reasoner operations (satisfiability check time out).  If the
      * value is equal to {@link Long#MAX_VALUE} then this means that the reasoner should never time out.
-     * </p>
+     * <br>
      * The reasoner will monitor the elapsed time during a satisfiability check (attempt to build a model for example)
      * and if the elapsed time exceeds the timeout then it will abort the test as soon as possible and terminate
      * all reasoning.  A {@link org.semanticweb.owlapi.reasoner.TimeOutException} will be thrown in the thread that
      * invoked the last reasoner operation.
-     * </p>
+     * <br>
      * Note that this is not a timeout for method calls such as "getSubClasses", which may involve many satisfiability
      * (or other basic reasoning task) checks, the sum of which may well exceed the timeout.
      * @return The time out in milliseconds.  By default this is set

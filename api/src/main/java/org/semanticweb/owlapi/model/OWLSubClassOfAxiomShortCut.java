@@ -36,23 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 12-Jan-2010
- * </p>
- * A marker interface for axioms that are essentially syntactic shortcuts for SubClassOf axioms.
- */
+ * Date: 12-Jan-2010 <br>
+ * A marker interface for axioms that are essentially syntactic shortcuts for
+ * SubClassOf axioms. */
 public interface OWLSubClassOfAxiomShortCut {
-
-    /**
-     * Gets this axiom as an {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
-     * @return An {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that is equivalent to this axiom. Note that
-     * annotations are not copied to the returned {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom.
-     */
+    /** Gets this axiom as an
+     * {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom}.
+     * 
+     * @return An {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} that
+     *         is equivalent to this axiom. Note that annotations are not copied
+     *         to the returned
+     *         {@link org.semanticweb.owlapi.model.OWLSubClassOfAxiom} axiom. */
     OWLSubClassOfAxiom asOWLSubClassOfAxiom();
-
 }

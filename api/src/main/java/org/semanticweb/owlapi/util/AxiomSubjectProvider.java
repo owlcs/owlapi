@@ -91,7 +91,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 10-Feb-2008<br><br>
- * <p/>
+ * <br>
  * Provides the object that is the subject of an axiom.
  */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {

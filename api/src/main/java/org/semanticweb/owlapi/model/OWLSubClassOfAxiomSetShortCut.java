@@ -36,23 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 12-Jan-2010
- * </p>
- * A marker interface for an axiom that can be represented by a set of SubClassOf axioms that is equivalent to this axiom.
- */
+ * Date: 12-Jan-2010 <br>
+ * A marker interface for an axiom that can be represented by a set of
+ * SubClassOf axioms that is equivalent to this axiom. */
 public interface OWLSubClassOfAxiomSetShortCut {
-
-    /**
-     * @return the set of axioms equivalent to this expression
-     */
+    /** @return the set of axioms equivalent to this expression */
     Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms();
 }

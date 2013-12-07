@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15/12/2010
- * <p>
+ * <br>
  * A configuration object that specifies options and hints to objects that load OWLOntologies.  Every
  * <code>OWLOntologyLoaderConfiguration</code> is immutable.  Changing a setting results in the creation
  * of a new <code>OWLOntologyLoaderConfiguration</code> with that setting.  For example,

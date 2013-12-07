@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.reasoner;
  * The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
- * <p/>
+ * <br>
  * An enumeration that denotes various types of inference task.  Each inference task has a name
  * that is associated with it - reasoners may use these names when reporting progress.
  *

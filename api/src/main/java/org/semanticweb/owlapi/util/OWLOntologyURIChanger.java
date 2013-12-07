@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 25-May-2007<br><br>
- * <p/>
+ * <br>
  * Changes the URI of an ontology and ensures that ontologies which import
  * the ontology have their imports statements updated
  */

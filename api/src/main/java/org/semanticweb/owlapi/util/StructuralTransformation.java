@@ -338,7 +338,7 @@ public class StructuralTransformation {
     }
 
     /** Rewrites axioms into GCIs.
-     * <p/>
+     * <br>
      * For example: SubClassOf(A, C) becomes SubClassOf(TOP, not(A) or C) */
     private class AxiomRewriter implements OWLAxiomVisitorEx<Set<OWLAxiom>> {
         public AxiomRewriter() {}

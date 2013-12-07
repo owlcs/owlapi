@@ -36,31 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University of Manchester<br>
  * Information Management Group<br>
- * Date: 29-Nov-2009
- * </p>
- * A fresh entity is an entity that is not a built in entity (see {@link org.semanticweb.owlapi.model.OWLEntity#isBuiltIn()}
- * and is not contained within the signature of the root ontology imports closure.
- * </p>
- * See also: {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}, {@link FreshEntitiesException}
- */
+ * Date: 29-Nov-2009<br>
+ * A fresh entity is an entity that is not a built in entity (see
+ * {@link org.semanticweb.owlapi.model.OWLEntity#isBuiltIn()} and is not
+ * contained within the signature of the root ontology imports closure. <br>
+ * See also: {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration},
+ * {@link FreshEntitiesException} */
 public enum FreshEntityPolicy {
-
-    /**
-     * Specifies that fresh entities are allowed when they are encountered
-     * in the signature of OWLObjects in queries to a reasoner.
-     */
+    /** Specifies that fresh entities are allowed when they are encountered in
+     * the signature of OWLObjects in queries to a reasoner. */
     ALLOW,
-
-    /**
-     * Specifies that fresh entities are not disallowed.  When a fresh entity is encountered in the signature of
-     * an OWLObject that is used in a query to a reasoner an {@link FreshEntitiesException} will be thrown in the
-     * calling thread.
-     */
+    /** Specifies that fresh entities are not disallowed. When a fresh entity is
+     * encountered in the signature of an OWLObject that is used in a query to a
+     * reasoner an {@link FreshEntitiesException} will be thrown in the calling
+     * thread. */
     DISALLOW
 }

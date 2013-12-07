@@ -42,7 +42,7 @@ package org.semanticweb.owlapi.model;
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 13-Jan-2009
- * <p/>
+ * <br>
  * A marker interface for annotation values, which can either be an IRI (URI),
  * Literal or Anonymous Individual, with visitor methods.
  * @see org.semanticweb.owlapi.model.IRI

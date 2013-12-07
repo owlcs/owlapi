@@ -55,24 +55,24 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 17-Dec-2006<br><br>
- * <p/>
+ * <br>
  * Provides a convenient method to filter add/remove axiom changes based
  * on the type of axiom that is being added or removed from an ontology.
- * <p/>
+ * <br>
  * The general pattern of use is to simply create an instance of the <code>OWLOntologyChangeFilter</code>
  * and override the appropriate visit methods corresponding to the types of axioms that are of interest.
  * Each visit corresponds to a single change and the <code>isAdd</code> or <code>isRemove</code> methods can
  * be used to determine if the axiom corresponding to the change is being added or removed from an ontology
  * - the ontology can be obtained via the <code>getOntology</code> method.
- * <p/>
+ * <br>
  * Example:  Suppose we are interested in changes that alter the domain of an object property.  We receive
  * a list of changes, <code>ontChanges</code>, from an ontology change listener.  We can use the
  * <code>OWLOntologyChangeFilter</code> to filter out the changes that alter the domain of an object
  * property in the following way:
- * <p/>
+ * <br>
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
- * <p/>
+ * <br>
  *      // Override the object property domain visit method
  *      public void visit(OWLObjectPropertyDomainAxiom axiom) {
  *          // Determine if the axiom is being added or removed

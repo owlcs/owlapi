@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
+ * <br>
  * Represents a named object for example, class, property,
  * ontology etc. - i.e. anything that has an IRI as its name.
  */

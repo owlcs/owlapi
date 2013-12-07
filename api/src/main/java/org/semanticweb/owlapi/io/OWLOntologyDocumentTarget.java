@@ -53,11 +53,11 @@ import org.semanticweb.owlapi.model.IRI;
  * Date: 18-Nov-2007<br><br>
  *
  * Specifies an interface that provides a pointer to an ontology document where an ontology can be stored.
- * <p>
+ * <br>
  * Any client that writes an ontology to a "stream" will first try to obtain a writer (if {@link #isWriterAvailable()} returns true),
  * followed by an OutputStream (if {@link #isOutputStreamAvailable()} returns true), followed by trying
  * to open a stream from a document IRI (if isDocumentIRIAvailable returns true).
- * <p>
+ * <br>
  * A client that writes an ontology to a database or some similar storage will simply try to use the {@link IRI}
  * returned by {@link #getDocumentIRI()}.
  */

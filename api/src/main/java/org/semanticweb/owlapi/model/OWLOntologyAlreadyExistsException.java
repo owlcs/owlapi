@@ -42,7 +42,7 @@ package org.semanticweb.owlapi.model;
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 18-Jan-2009
- * <p/>
+ * <br>
  * Indicates that an ontology with the given ontology IRI (and possible version IRI) exists.
  */
 public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationException {

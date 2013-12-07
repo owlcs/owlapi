@@ -43,8 +43,8 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
- * Represents an <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Maximum_Cardinality_2">ObjectMaxCardinality</a> restriction in the OWL 2 Specification.
+ * <br>
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Maximum_Cardinality_2">ObjectMaxCardinality</a> restriction in the OWL 2 Specification.
  */
 public interface OWLObjectMaxCardinality extends OWLObjectCardinalityRestriction {
 

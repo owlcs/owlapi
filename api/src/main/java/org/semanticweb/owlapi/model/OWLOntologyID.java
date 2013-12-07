@@ -45,7 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
  * Date: 18-Jan-2009
- * <p/>
+ * <br>
  * An object that identifies an ontology.  Since OWL 2, ontologies do not have to have an ontology IRI, or if they
  * have an ontology IRI then they can optionally also have a version IRI.  Instances of this OWLOntologyID class bundle
  * identifying information of an ontology together.  If an ontology doesn't have an ontology IRI then we say that
@@ -154,7 +154,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
      * Gets the IRI which is used as a default for the document that contain a representation of an ontology with this
      * ID. This will be the version IRI if there is an ontology IRI and version IRI, else it will be the ontology IRI
      * if there is an ontology IRI but no version IRI, else it will be <code>null</code> if there is no ontology IRI.
-     * See <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontology_Documents">Ontology Documents</a> in
+     * See <a href="http://www.w3.org/TR/owl2-syntax/#Ontology_Documents">Ontology Documents</a> in
      * the OWL 2 Structural Specification.
      * @return The IRI that can be used as a default for an ontology document containing an ontology as identified
      *         by this ontology ID.  Returns the default IRI or <code>null</code>.

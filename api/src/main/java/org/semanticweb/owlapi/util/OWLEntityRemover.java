@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Dec-2006<br><br>
- * <p/>
+ * <br>
  * A convenience object that generates the changes which are necessary to
  * remove an entity from a set of ontologies.  This is accomplished by removing
  * all axioms that refer to the entity.  The entity remover follows the visitor

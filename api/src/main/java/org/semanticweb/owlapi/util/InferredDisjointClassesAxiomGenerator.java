@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br><br>
- * <p/>
+ * <br>
  * Generates inferred disjoint axioms - note that this currently uses a very simple
  * inefficient algorithm.
  */

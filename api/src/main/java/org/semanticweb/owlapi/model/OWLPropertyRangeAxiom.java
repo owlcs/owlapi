@@ -36,23 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <p/>
- * Represents <a href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Object_Property_Range">ObjectPropertyRange</a> axioms in the OWL 2 specification.
- * @param <R> range
- * @param <P> property expression
- */
-public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression<?,?>, R extends OWLPropertyRange> extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
 
-    /**
-     * Gets the range specified by this axiom
-     * @return The range specified by this axiom.
-     */
+/** Author: Matthew Horridge<br>
+ * The University Of Manchester<br>
+ * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
+ * ObjectPropertyRange</a> axioms in the OWL 2 specification.
+ * 
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression */
+public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression<?, ?>, R extends OWLPropertyRange>
+        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
+    /** Gets the range specified by this axiom
+     * 
+     * @return The range specified by this axiom. */
     public R getRange();
 }

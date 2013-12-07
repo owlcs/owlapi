@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.IRI;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group
  * Date: 24-Oct-2006
- * <p/>
+ * <br>
  * Represents the facets that can be used for restricting a datatype.
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction

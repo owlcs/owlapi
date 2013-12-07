@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 11-Apr-2008<br>
- * <br>
- * </p> A class that describes how ontology parsing failed. This class collects
- * parse errors and the parsers that generated the errors. */
+ * A class that describes how ontology parsing failed. This class collects parse
+ * errors and the parsers that generated the errors. */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 30406L;
     private static boolean staticincludeStackTraceInMessage = false;

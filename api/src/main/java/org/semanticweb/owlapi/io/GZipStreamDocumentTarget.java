@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * code.
  * 
  * @author ignazio
- * @from 3.4.8 */
+ * @since 3.4.8 */
 public class GZipStreamDocumentTarget implements OWLOntologyDocumentTarget {
     private OutputStream outputStream;
     private GZIPOutputStream zippedStream;

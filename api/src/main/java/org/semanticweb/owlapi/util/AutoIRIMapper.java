@@ -71,7 +71,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Bio-Health Informatics Group<br>
  * Date: 26-Apr-2007<br>
  * <br>
- * <p/>
+ * <br>
  * A mapper which given a root folder attempts to automatically discover and map
  * files to ontologies. The mapper is only capable of mapping ontologies in
  * RDF/XML and OWL/XML (other serialisations are not supported). */

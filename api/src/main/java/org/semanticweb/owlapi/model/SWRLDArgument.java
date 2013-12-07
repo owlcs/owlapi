@@ -44,7 +44,7 @@ package org.semanticweb.owlapi.model;
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
  * Date: Jan 15, 2007<br><br>
- * <p/>
+ * <br>
  * matthew.horridge@cs.man.ac.uk<br>
  * www.cs.man.ac.uk/~horridgm<br><br>
  * Represents arguments in {@link org.semanticweb.owlapi.model.SWRLAtom}s that are either

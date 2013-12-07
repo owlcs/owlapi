@@ -378,14 +378,14 @@ public enum OWLRDFVocabulary {
         }
         BUILT_IN_VOCABULARY_IRIS = Collections.unmodifiableSet(set);
     }
-    /** http://www.w3.org/2000/01/rdf-schema#label <br/>
-     * http://www.w3.org/2000/01/rdf-schema#comment <br/>
-     * http://www.w3.org/2002/07/owl#versionInfo <br/>
-     * http://www.w3.org/2002/07/owl#backwardCompatibleWith <br/>
-     * http://www.w3.org/2002/07/owl#priorVersion <br/>
-     * http://www.w3.org/2000/01/rdf-schema#seeAlso <br/>
-     * http://www.w3.org/2000/01/rdf-schema#isDefinedBy <br/>
-     * http://www.w3.org/2002/07/owl#incompatibleWith <br/>
+    /** http://www.w3.org/2000/01/rdf-schema#label <br>
+     * http://www.w3.org/2000/01/rdf-schema#comment <br>
+     * http://www.w3.org/2002/07/owl#versionInfo <br>
+     * http://www.w3.org/2002/07/owl#backwardCompatibleWith <br>
+     * http://www.w3.org/2002/07/owl#priorVersion <br>
+     * http://www.w3.org/2000/01/rdf-schema#seeAlso <br>
+     * http://www.w3.org/2000/01/rdf-schema#isDefinedBy <br>
+     * http://www.w3.org/2002/07/owl#incompatibleWith <br>
      * http://www.w3.org/2002/07/owl#deprecated */
     public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
     static {

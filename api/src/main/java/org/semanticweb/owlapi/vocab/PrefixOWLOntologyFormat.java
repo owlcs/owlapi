@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
  * Bio-Health Informatics Group<br>
  * Date: 20-Feb-2007<br>
  * <br>
- * <p/>
+ * <br>
  * An */
 public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
     private static final long serialVersionUID = 30406L;

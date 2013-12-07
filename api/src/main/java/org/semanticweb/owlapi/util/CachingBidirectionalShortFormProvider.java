@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * Bio-Health Informatics Group<br>
  * Date: 18-Apr-2007<br>
  * <br>
- * <p/>
+ * <br>
  * A bidirectional short form provider that caches entity short forms. The
  * provider has various methods to add, remove, update entities in the cache and
  * also to rebuild the cache from scratch. */

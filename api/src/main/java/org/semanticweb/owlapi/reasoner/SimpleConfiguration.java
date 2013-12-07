@@ -45,9 +45,9 @@ package org.semanticweb.owlapi.reasoner;
  * Information Management Group<br>
  * Date: 18-Mar-2009
  *
- * <p>
+ * <br>
  * A simple configuration with the general options.
- * </p>
+ * <br>
  */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
 
