@@ -669,6 +669,7 @@ public class OBOFormatWriter {
             return table;
         }
 
+        @Override
         public int compare(String o1, String o2) {
             Integer i1 = tagsPriorities.get(o1);
             Integer i2 = tagsPriorities.get(o2);
@@ -715,6 +716,7 @@ public class OBOFormatWriter {
             return table;
         }
 
+        @Override
         public int compare(String o1, String o2) {
             Integer i1 = tagsPriorities.get(o1);
             Integer i2 = tagsPriorities.get(o2);
@@ -731,6 +733,7 @@ public class OBOFormatWriter {
     private static final class ClauseListComparator implements Comparator<Clause> {
         private static final ClauseListComparator instance = new ClauseListComparator();
 
+        @Override
         public int compare(Clause c1, Clause c2) {
             String t1 = c1.getTag();
             String t2 = c2.getTag();
@@ -800,6 +803,7 @@ public class OBOFormatWriter {
             return table;
         }
 
+        @Override
         public int compare(String o1, String o2) {
             Integer i1 = tagsPriorities.get(o1);
             Integer i2 = tagsPriorities.get(o2);
@@ -816,6 +820,7 @@ public class OBOFormatWriter {
     private static class FramesComparator implements Comparator<Frame> {
         static final FramesComparator instance = new FramesComparator();
 
+        @Override
         public int compare(Frame f1, Frame f2) {
             return f1.getId().compareTo(f2.getId());
         }
@@ -826,6 +831,7 @@ public class OBOFormatWriter {
     private static class ClauseComparator implements Comparator<Clause> {
         static final ClauseComparator instance = new ClauseComparator();
 
+        @Override
         public int compare(Clause o1, Clause o2) {
             // special case for intersections
             String tag = o1.getTag();
@@ -888,6 +894,7 @@ public class OBOFormatWriter {
     private static class XrefComparator implements Comparator<Xref> {
         static final XrefComparator instance = new XrefComparator();
 
+        @Override
         public int compare(Xref x1, Xref x2) {
             String idref1 = x1.getIdref();
             String idref2 = x2.getIdref();
@@ -940,6 +947,7 @@ public class OBOFormatWriter {
             }
         }
 
+        @Override
         public String getName(String id) {
             String name = null;
             Frame frame = oboDoc.getTermFrame(id);
@@ -955,6 +963,7 @@ public class OBOFormatWriter {
             return name;
         }
 
+        @Override
         public String getDefaultOboNamespace() {
             return defaultOboNamespace;
         }
