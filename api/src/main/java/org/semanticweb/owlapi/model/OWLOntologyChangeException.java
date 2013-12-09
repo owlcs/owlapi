@@ -36,43 +36,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
+
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
+ * Date: 13-Apr-2007<br>
+ * <br>
  * A high level exception interface that describes errors that occurred when
- * applying changes to ontologies.
- */
+ * applying changes to ontologies. */
 @SuppressWarnings("javadoc")
-public abstract class OWLOntologyChangeException extends OWLRuntimeException {
-
-
-	private static final long serialVersionUID = 30406L;
-	private final OWLOntologyChange change;
+public class OWLOntologyChangeException extends OWLRuntimeException {
+    private static final long serialVersionUID = 30406L;
+    private final OWLOntologyChange change;
 
     public OWLOntologyChangeException(OWLOntologyChange change, String message) {
         super(message);
         this.change = change;
     }
 
-
-    public OWLOntologyChangeException(OWLOntologyChange change, String message, Throwable cause) {
+    public OWLOntologyChangeException(OWLOntologyChange change, String message,
+            Throwable cause) {
         super(message, cause);
         this.change = change;
     }
-
 
     public OWLOntologyChangeException(OWLOntologyChange change, Throwable cause) {
         super(cause);
         this.change = change;
     }
 
-    /**
-     * Gets the ontology change that caused the exception.
-     */
+    /** Gets the ontology change that caused the exception. */
     public OWLOntologyChange getChange() {
         return change;
     }

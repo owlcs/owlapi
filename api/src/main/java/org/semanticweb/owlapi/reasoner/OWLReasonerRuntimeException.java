@@ -36,23 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- */
+/** Author: Matthew Horridge<br>
+ * The University of Manchester<br>
+ * Information Management Group<br>
+ * Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")
-public abstract class OWLReasonerRuntimeException extends OWLRuntimeException {
+public class OWLReasonerRuntimeException extends OWLRuntimeException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	public OWLReasonerRuntimeException() {
-    }
+    public OWLReasonerRuntimeException() {}
 
     public OWLReasonerRuntimeException(Throwable cause) {
         super(cause);

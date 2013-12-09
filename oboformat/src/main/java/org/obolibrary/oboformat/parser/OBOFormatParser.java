@@ -34,7 +34,7 @@ public class OBOFormatParser {
     private boolean followImport;
     private Object location;
 
-    protected class MyStream {
+    protected static class MyStream {
         int pos = 0;
         String line;
         int lineNo = 0;
@@ -157,11 +157,10 @@ public class OBOFormatParser {
     protected MyStream stream;
 
     public OBOFormatParser() {
-        super();
-        stream = new MyStream();
+        this(new MyStream());
     }
 
-    public OBOFormatParser(MyStream s) {
+    protected OBOFormatParser(MyStream s) {
         super();
         stream = s;
     }

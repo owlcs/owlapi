@@ -92,7 +92,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** Empty abstract visitor for macro expansion. This class allows to minimize the
  * code in the actual visitors, as they only need to overwrite the relevant
  * methods. */
-abstract class AbstractMacroExpansionVisitor implements
+public abstract class AbstractMacroExpansionVisitor implements
         OWLClassExpressionVisitorEx<OWLClassExpression>, OWLDataVisitorEx<OWLDataRange>,
         OWLAxiomVisitorEx<OWLAxiom> {
     final Logger log;
@@ -100,7 +100,7 @@ abstract class AbstractMacroExpansionVisitor implements
     final Map<IRI, String> expandAssertionToMap;
     final Map<IRI, String> expandExpressionMap;
 
-    AbstractMacroExpansionVisitor(OWLOntology inputOntology, Logger log) {
+    protected AbstractMacroExpansionVisitor(OWLOntology inputOntology, Logger log) {
         super();
         this.log = log;
         dataFactory = inputOntology.getOWLOntologyManager().getOWLDataFactory();
@@ -174,7 +174,7 @@ abstract class AbstractMacroExpansionVisitor implements
         return result;
     }
 
-    abstract OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
+    protected abstract OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
             OWLObjectPropertyExpression p);
 
     @Override
@@ -191,7 +191,7 @@ abstract class AbstractMacroExpansionVisitor implements
         return result;
     }
 
-    abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
+    protected abstract OWLClassExpression expandOWLObjHasVal(OWLObjectHasValue desc,
             OWLIndividual filler, OWLObjectPropertyExpression p);
 
     @Override

@@ -36,34 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 
-
-/**
- * Author: Matthew Horridge<br>
+/** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Jun-2007<br><br>
- */
+ * Date: 15-Jun-2007 */
 @SuppressWarnings("javadoc")
-public abstract class LatexRendererException extends OWLRendererException {
-
-
-	private static final long serialVersionUID = 30406L;
-
+public class LatexRendererException extends OWLRendererException {
+    private static final long serialVersionUID = 30406L;
 
     public LatexRendererException(Throwable cause) {
         super(cause);
     }
 
-
     public LatexRendererException(String message) {
         super(message);
     }
-
 
     public LatexRendererException(String message, Throwable cause) {
         super(message, cause);
