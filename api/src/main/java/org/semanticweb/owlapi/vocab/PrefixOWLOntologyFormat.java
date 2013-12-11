@@ -46,13 +46,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 20-Feb-2007<br>
- * <br>
- * <br>
- * An */
+ * Date: 20-Feb-2007*/
 public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
     private static final long serialVersionUID = 30406L;
     private DefaultPrefixManager nsm;

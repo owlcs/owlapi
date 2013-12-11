@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
 
 import java.util.Collections;
@@ -45,45 +44,23 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <br>
- * Represents the facets that can be used for restricting a datatype.
- * @see org.semanticweb.owlapi.model.OWLFacetRestriction
- * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
- */
+/** Represents the facets that can be used for restricting a datatype.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 * @see
+ *         org.semanticweb.owlapi.model.OWLFacetRestriction
+ * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
 @SuppressWarnings("javadoc")
 public enum OWLFacet {
-
-    LENGTH(Namespaces.XSD, "length", "length"),
-
-    MIN_LENGTH(Namespaces.XSD, "minLength", "minLength"),
-
-    MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"),
-
-    PATTERN(Namespaces.XSD, "pattern", "pattern"),
-
-    MIN_INCLUSIVE(Namespaces.XSD, "minInclusive", ">="),
-
-    MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"),
-
-    MAX_INCLUSIVE(Namespaces.XSD, "maxInclusive", "<="),
-
-    MAX_EXCLUSIVE(Namespaces.XSD, "maxExclusive", "<"),
-
-    TOTAL_DIGITS(Namespaces.XSD, "totalDigits", "totalDigits"),
-
-    FRACTION_DIGITS(Namespaces.XSD, "fractionDigits", "fractionDigits"),
-
-    LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
-
-
+    LENGTH(Namespaces.XSD, "length", "length"), MIN_LENGTH(Namespaces.XSD, "minLength",
+            "minLength"), MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"), PATTERN(
+            Namespaces.XSD, "pattern", "pattern"), MIN_INCLUSIVE(Namespaces.XSD,
+            "minInclusive", ">="), MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"), MAX_INCLUSIVE(
+            Namespaces.XSD, "maxInclusive", "<="), MAX_EXCLUSIVE(Namespaces.XSD,
+            "maxExclusive", "<"), TOTAL_DIGITS(Namespaces.XSD, "totalDigits",
+            "totalDigits"), FRACTION_DIGITS(Namespaces.XSD, "fractionDigits",
+            "fractionDigits"), LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
     public final static Set<IRI> FACET_IRIS;
-
-
     static {
         Set<IRI> iris = new HashSet<IRI>();
         for (OWLFacet v : values()) {
@@ -91,21 +68,15 @@ public enum OWLFacet {
         }
         FACET_IRIS = Collections.unmodifiableSet(iris);
     }
-
-
     private final IRI iri;
-
     private final String shortName;
-
     private final String symbolicForm;
-
 
     OWLFacet(Namespaces ns, String shortName, String symbolicForm) {
         iri = IRI.create(ns.toString(), shortName);
         this.shortName = shortName;
         this.symbolicForm = symbolicForm;
     }
-
 
     public IRI getIRI() {
         return iri;
@@ -115,22 +86,18 @@ public enum OWLFacet {
         return shortName;
     }
 
-
     public String getSymbolicForm() {
         return symbolicForm;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return shortName;
     }
-
 
     public static Set<IRI> getFacetIRIs() {
         return FACET_IRIS;
     }
-
 
     public static OWLFacet getFacet(IRI iri) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
@@ -141,12 +108,12 @@ public enum OWLFacet {
         return null;
     }
 
-
-    /**
-     * Gets a facet by its short name
-     * @param shortName The short name of the facet.
-     * @return The facet or <code>null</code> if not facet by the specified name exists.
-     */
+    /** Gets a facet by its short name
+     * 
+     * @param shortName
+     *            The short name of the facet.
+     * @return The facet or <code>null</code> if not facet by the specified name
+     *         exists. */
     public static OWLFacet getFacetByShortName(String shortName) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getShortName().equals(shortName)) {
@@ -172,6 +139,4 @@ public enum OWLFacet {
         }
         return result;
     }
-
-
 }

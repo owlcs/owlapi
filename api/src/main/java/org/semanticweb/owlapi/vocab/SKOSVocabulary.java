@@ -53,11 +53,9 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 03-Oct-2007<br><br>
- */
+ * Date: 03-Oct-2007 */
 @SuppressWarnings("javadoc")
 public enum SKOSVocabulary {
 

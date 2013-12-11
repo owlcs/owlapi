@@ -46,14 +46,11 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br><br>
- * <br>
+ * Date: Jan 15, 2007<br>
  * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- */
+ * www.cs.man.ac.uk/~horridgm */
 @SuppressWarnings("javadoc")
 public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
 

@@ -46,11 +46,9 @@ import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br><br>
- */
+ * Date: 13-Dec-2006 */
 public enum Namespaces {
 
     //@formatter:off
