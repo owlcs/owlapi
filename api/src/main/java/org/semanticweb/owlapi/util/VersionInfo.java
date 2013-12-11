@@ -38,11 +38,9 @@
  */
 package org.semanticweb.owlapi.util;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 16-Jun-2008<br>
- * <br>
  * A place holder for the current release number. */
 public class VersionInfo {
     private static final VersionInfo instance = new VersionInfo();

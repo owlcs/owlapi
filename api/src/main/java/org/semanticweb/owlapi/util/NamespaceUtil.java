@@ -46,12 +46,9 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 04-Apr-2007<br>
- * <br>
- * <br>
  * A utility class which can generate namespaces, local names and namespace
  * prefixes in accordance with the XML spec. */
 @SuppressWarnings("javadoc")

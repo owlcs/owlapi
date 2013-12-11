@@ -51,11 +51,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Dec-2006<br><br>
- * <br>
+ * Date: 16-Dec-2006<br>
  * A utility class that can be used to determine is a class is a syntactic direct
  * subclass of owl:Thing.  A class is considered NOT to be a syntactic direct subclass
  * of owl:Thing if ANY of the following conditions apply:

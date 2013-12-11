@@ -86,10 +86,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Jan-2008<br><br>
+ * Date: 27-Jan-2008<br>
  * @deprecated use OWLAxiom::getAxiomType()
  */
 @Deprecated

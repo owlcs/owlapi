@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -127,18 +126,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Jun-2010
- */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 14-Jun-2010 */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
-
-
-    
-
-
     private static final Integer _1 = Integer.valueOf(1);
     private static final Integer _0 = Integer.valueOf(0);
 
@@ -227,9 +218,9 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLOntology ontology) {
         int max = 0;
-        for(OWLAxiom axiom : ontology.getLogicalAxioms()) {
+        for (OWLAxiom axiom : ontology.getLogicalAxioms()) {
             int depth = axiom.accept(this).intValue();
-            if(depth > max) {
+            if (depth > max) {
                 max = depth;
             }
         }
@@ -269,9 +260,9 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLObjectIntersectionOf ce) {
         int max = 0;
-        for(OWLClassExpression op : ce.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             int depth = op.accept(this).intValue();
-            if(depth > max) {
+            if (depth > max) {
                 max = depth;
             }
         }
@@ -291,9 +282,9 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLObjectUnionOf ce) {
         int max = 0;
-        for(OWLClassExpression op : ce.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             int depth = op.accept(this).intValue();
-            if(depth > max) {
+            if (depth > max) {
                 max = depth;
             }
         }
@@ -348,9 +339,9 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLDisjointClassesAxiom axiom) {
         int max = 0;
-        for(OWLClassExpression ce : axiom.getClassExpressions()) {
+        for (OWLClassExpression ce : axiom.getClassExpressions()) {
             int depth = ce.accept(this).intValue();
-            if(depth > max) {
+            if (depth > max) {
                 max = depth;
             }
         }
@@ -515,9 +506,9 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLEquivalentClassesAxiom axiom) {
         int max = 0;
-        for(OWLClassExpression ce : axiom.getClassExpressions()) {
+        for (OWLClassExpression ce : axiom.getClassExpressions()) {
             int depth = ce.accept(this).intValue();
-            if(depth > max) {
+            if (depth > max) {
                 max = depth;
             }
         }

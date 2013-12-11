@@ -62,11 +62,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 04-Dec-2007<br>
- * <br> */
+ * Date: 04-Dec-2007 */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     private static final long serialVersionUID = 30406L;
     private static final String UTF_8 = "UTF-8";

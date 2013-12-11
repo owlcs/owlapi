@@ -62,11 +62,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br><br>
- * <br>
+ * Date: 25-Nov-2007<br>
  * Performs a bulk conversion/translation of entity URIs.  This utility class
  * can be used to replace entity names with IDs for example.  The
  * entity converter is supplied with a set of ontologies and a conversion

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Collections;
@@ -132,18 +131,16 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Jun-2010
- * <br>
- * Collects all of the nested class expression that are used in some OWLObject.  For example, given
- * SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F)) the collector could be used to obtain
- * ObjectUnionOf(D C), D, C, ObjectSomeValuesFrom(R F), F
- */
-public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLClassExpression>> {
-
+/** Collects all of the nested class expression that are used in some OWLObject.
+ * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
+ * the collector could be used to obtain ObjectUnionOf(D C), D, C,
+ * ObjectSomeValuesFrom(R F), F
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 14-Jun-2010 */
+public class OWLClassExpressionCollector implements
+        OWLObjectVisitorEx<Set<OWLClassExpression>> {
     @Override
     public Set<OWLClassExpression> visit(IRI iri) {
         return Collections.emptySet();
@@ -154,12 +151,10 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLObjectProperty property) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLAnonymousIndividual individual) {
@@ -171,54 +166,45 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return node.getPredicate().accept(this);
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLObjectInverseOf property) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(SWRLDataRangeAtom node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLAnnotation node) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataOneOf node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLDataProperty property) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(SWRLObjectPropertyAtom node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLDataIntersectionOf node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLNamedIndividual individual) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataUnionOf node) {
@@ -233,7 +219,6 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return Collections.emptySet();
@@ -242,24 +227,21 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     @Override
     public Set<OWLClassExpression> visit(OWLOntology ontology) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-        for(OWLAxiom ax : ontology.getLogicalAxioms()) {
+        for (OWLAxiom ax : ontology.getLogicalAxioms()) {
             result.addAll(ax.accept(this));
         }
         return result;
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDatatypeRestriction node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(SWRLBuiltInAtom node) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLAnnotationProperty property) {
@@ -268,15 +250,13 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLClass ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(SWRLVariable node) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLLiteral node) {
@@ -287,47 +267,41 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     public Set<OWLClassExpression> visit(OWLObjectIntersectionOf ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
-        for(OWLClassExpression op : ce.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             result.addAll(op.accept(this));
         }
         return result;
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(SWRLIndividualArgument node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLObjectUnionOf ce) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(ce);
-        for(OWLClassExpression op : ce.getOperands()) {
+        for (OWLClassExpression op : ce.getOperands()) {
             result.addAll(op.accept(this));
         }
         return result;
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLFacetRestriction node) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(SWRLLiteralArgument node) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
@@ -342,7 +316,6 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(SWRLSameIndividualAtom node) {
         return Collections.emptySet();
@@ -356,12 +329,10 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLReflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(SWRLDifferentIndividualsAtom node) {
@@ -379,7 +350,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointClassesAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression ce : axiom.getClassExpressions()) {
+        for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
         }
         return result;
@@ -387,7 +358,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectHasValue ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
 
     @Override
@@ -416,7 +387,6 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return result;
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
@@ -432,9 +402,8 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectHasSelf ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
@@ -443,9 +412,8 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectOneOf ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDifferentIndividualsAxiom axiom) {
@@ -454,14 +422,13 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataSomeValuesFrom ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataAllValuesFrom ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointDataPropertiesAxiom axiom) {
@@ -470,9 +437,8 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataHasValue ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDisjointObjectPropertiesAxiom axiom) {
@@ -481,7 +447,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataMinCardinality ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
 
     @Override
@@ -491,26 +457,23 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataExactCardinality ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataMaxCardinality ce) {
-        return Collections.<OWLClassExpression>singleton(ce);
+        return Collections.<OWLClassExpression> singleton(ce);
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLSubObjectPropertyOfAxiom axiom) {
@@ -521,7 +484,7 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     public Set<OWLClassExpression> visit(OWLDisjointUnionAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         result.add(axiom.getOWLClass());
-        for(OWLClassExpression ce : axiom.getClassExpressions()) {
+        for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
         }
         return result;
@@ -532,30 +495,25 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
         return axiom.getEntity().accept(this);
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLAnnotationAssertionAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLSymmetricObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLDataPropertyRangeAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLFunctionalDataPropertyAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentDataPropertiesAxiom axiom) {
@@ -570,54 +528,46 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     @Override
     public Set<OWLClassExpression> visit(OWLEquivalentClassesAxiom axiom) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-        for(OWLClassExpression ce : axiom.getClassExpressions()) {
+        for (OWLClassExpression ce : axiom.getClassExpressions()) {
             result.addAll(ce.accept(this));
         }
         return result;
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLDataPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLTransitiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLSubDataPropertyOfAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLSameIndividualAxiom axiom) {
         return Collections.emptySet();
     }
 
-
     @Override
     public Set<OWLClassExpression> visit(OWLSubPropertyChainOfAxiom axiom) {
         return Collections.emptySet();
     }
-
 
     @Override
     public Set<OWLClassExpression> visit(OWLInverseObjectPropertiesAxiom axiom) {
@@ -637,10 +587,10 @@ public class OWLClassExpressionCollector implements OWLObjectVisitorEx<Set<OWLCl
     @Override
     public Set<OWLClassExpression> visit(SWRLRule rule) {
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-        for(SWRLAtom atom : rule.getBody()) {
+        for (SWRLAtom atom : rule.getBody()) {
             result.addAll(atom.accept(this));
         }
-        for(SWRLAtom atom : rule.getHead()) {
+        for (SWRLAtom atom : rule.getHead()) {
             result.addAll(atom.accept(this));
         }
         return result;

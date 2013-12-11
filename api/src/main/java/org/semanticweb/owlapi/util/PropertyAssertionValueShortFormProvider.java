@@ -55,11 +55,9 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Jun-2007<br><br>
- * <br>
+ * Date: 17-Jun-2007<br>
  * A short form provider that generates short forms from the values of object
  * property assertions or data property assertions if the entity is an individual.
  * If the entity whose short form is not being generated is not an individual

@@ -47,11 +47,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 28-Nov-2007<br><br>
- */
+ * Date: 28-Nov-2007 */
 public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
 
     private final Set<OWLOntology> ontologies;

@@ -51,11 +51,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Dec-2006<br><br>
- * <br>
+ * Date: 17-Dec-2006<br>
  * Provides a convenient method to filter add/remove axiom changes based
  * on the type of axiom that is being added or removed from an ontology.
  * <br>

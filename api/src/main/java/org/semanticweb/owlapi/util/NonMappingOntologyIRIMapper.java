@@ -46,10 +46,9 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br><br>
+ * Date: 12-Dec-2006<br>
  * An ontology URI mapper that simply returns the ontology URI
  * without performing any mapping operation.
  */

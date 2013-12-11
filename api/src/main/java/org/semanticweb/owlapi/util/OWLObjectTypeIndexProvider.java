@@ -129,11 +129,9 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 09-Feb-2008<br><br>
- */
+ * Date: 09-Feb-2008 */
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
 	private static final int ENTITY_TYPE_INDEX_BASE = 1000;

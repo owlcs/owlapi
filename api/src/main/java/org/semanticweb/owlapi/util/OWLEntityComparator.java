@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
@@ -51,46 +50,34 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jun-2007<br><br>
- * <br>
- * A <code>Comparator</code> which compares entities.  Entities are compared first
- * by their type (in the following order: Class, Object property, Data property, Individual,
- * Datatype) then by their short form (using the specified short form provider).
- */
+/** A <code>Comparator</code> which compares entities. Entities are compared
+ * first by their type (in the following order: Class, Object property, Data
+ * property, Individual, Datatype) then by their short form (using the specified
+ * short form provider).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 15-Jun-2007*/
 @SuppressWarnings("unused")
-public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor, Serializable {
-
-	private static final long serialVersionUID = 30406L;
-
-	int lastValue;
-
+public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor,
+        Serializable {
+    private static final long serialVersionUID = 30406L;
+    int lastValue;
     private static final int OWL_CLASS_INDEX = 0;
-
     private static final int OWL_OBJECT_PROPERTY_INDEX = 1;
-
     private static final int OWL_DATA_PROPERTY_INDEX = 2;
-
     private static final int OWL_INDIVIDUAL_INDEX = 3;
-
     private static final int OWL_DATATYPE_INDEX = 4;
-
     private final ShortFormProvider shortFormProvider;
 
-
-    /**
-     * Constructs an entity comparator which uses the specified short form
+    /** Constructs an entity comparator which uses the specified short form
      * provider
-     * @param shortFormProvider the short form provider to use
-     */
+     * 
+     * @param shortFormProvider
+     *            the short form provider to use */
     public OWLEntityComparator(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
-
 
     @Override
     public int compare(OWLEntity o1, OWLEntity o2) {
@@ -107,29 +94,24 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
         return s1.compareTo(s2);
     }
 
-
     private String getShortForm(OWLEntity entity) {
         return shortFormProvider.getShortForm(entity);
     }
-
 
     @Override
     public void visit(OWLClass cls) {
         lastValue = 0;
     }
 
-
     @Override
     public void visit(OWLObjectProperty property) {
         lastValue = 1;
     }
 
-
     @Override
     public void visit(OWLDataProperty property) {
         lastValue = 2;
     }
-
 
     @Override
     public void visit(OWLNamedIndividual individual) {

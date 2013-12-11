@@ -54,11 +54,9 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-May-2007<br><br>
- * <br>
+ * Date: 25-May-2007<br>
  * Changes the URI of an ontology and ensures that ontologies which import
  * the ontology have their imports statements updated
  */

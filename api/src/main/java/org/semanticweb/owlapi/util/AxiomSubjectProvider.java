@@ -87,11 +87,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br><br>
- * <br>
+ * Date: 10-Feb-2008<br>
  * Provides the object that is the subject of an axiom.
  */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {

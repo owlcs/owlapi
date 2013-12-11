@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashSet;
@@ -49,29 +48,24 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Feb-2007<br><br>
- * <br>
- * A convenience class which is an ontology change listener which collects the
+/** A convenience class which is an ontology change listener which collects the
  * entities which are referenced in a set of ontology changes.
- */
-public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOntologyChangeListener {
-
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Feb-2007*/
+public abstract class OWLEntityCollectingOntologyChangeListener implements
+        OWLOntologyChangeListener {
     private final Set<OWLEntity> entities;
 
-
     @SuppressWarnings("javadoc")
-	public OWLEntityCollectingOntologyChangeListener() {
+    public OWLEntityCollectingOntologyChangeListener() {
         entities = new HashSet<OWLEntity>();
     }
 
-
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+            throws OWLException {
         entities.clear();
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
@@ -82,17 +76,13 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements OWLOn
         ontologiesChanged();
     }
 
-
-    /**
-     * Called when a set of changes have been applied.
-     * @throws OWLException if there is any exception
-     */
+    /** Called when a set of changes have been applied.
+     * 
+     * @throws OWLException
+     *             if there is any exception */
     public abstract void ontologiesChanged() throws OWLException;
 
-
-    /**
-     * @return the entities which were referenced in the last change set.
-     */
+    /** @return the entities which were referenced in the last change set. */
     public Set<OWLEntity> getEntities() {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(entities);
     }

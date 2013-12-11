@@ -47,11 +47,9 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 27-Apr-2007<br><br>
- * <br>
+ * Date: 27-Apr-2007<br>
  * An ontology set provider which provides a singleton set - i.e. a set containing
  * just one ontology.
  */

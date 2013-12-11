@@ -42,10 +42,9 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2007<br><br>
+ * Date: 18-Dec-2007<br>
  *
  * A short form provider that produces short forms for URIs.
  */

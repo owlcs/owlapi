@@ -142,10 +142,9 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Nov-2006<br><br>
+ * Date: 26-Nov-2006<br>
  * A simple renderer that can be used for debugging purposes and
  * provide an implementation of the toString method for different
  * implementations.

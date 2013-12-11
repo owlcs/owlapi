@@ -36,23 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 29-Jul-2008<br><br>
- */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 29-Jul-2008 */
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
-
-    /**
-     * @param objects objects to walk
-     */
+    /** @param objects
+     *            objects to walk */
     public OWLOntologyWalker(Set<OWLOntology> objects) {
         super(objects);
     }

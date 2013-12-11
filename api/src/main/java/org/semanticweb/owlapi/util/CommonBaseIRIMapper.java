@@ -44,12 +44,9 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 07-Feb-2007<br>
- * <br>
- * <br>
  * An ontology IRI mapper that can be used to map ontology IRIs to ontology
  * document IRIs which share the same base. */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {

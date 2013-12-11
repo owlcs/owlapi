@@ -45,10 +45,9 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br><br>
+ * Date: 18-Apr-2007<br>
  *
  * A short form provider which is capable of translating back and forth
  * between entities and their short forms.

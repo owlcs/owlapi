@@ -140,11 +140,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Information Management Group<br>
  * Date: 29-Jul-2008<br>
- * <br>
  * 
  * @param <O>
  *            the returned type */

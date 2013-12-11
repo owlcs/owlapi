@@ -36,23 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 30-Jul-2008<br><br>
- */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 30-Jul-2008 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyWalkerVisitor<E> extends OWLObjectVisitorExAdapter<E> {
-
     private final OWLOntologyWalker walker;
-
 
     public OWLOntologyWalkerVisitor(OWLOntologyWalker walker) {
         this.walker = walker;
@@ -69,6 +65,4 @@ public class OWLOntologyWalkerVisitor<E> extends OWLObjectVisitorExAdapter<E> {
     public OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();
     }
-
-
 }

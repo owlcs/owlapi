@@ -47,10 +47,9 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 17-Dec-2006<br><br>
+ * Date: 17-Dec-2006<br>
  *
  * Incorporates a listener into an <code>OWLOntologyChangeFilter</code>.  This listener listens to and
  * processes axiom added and axiom removed changes.  To filter out axioms of interest, override the

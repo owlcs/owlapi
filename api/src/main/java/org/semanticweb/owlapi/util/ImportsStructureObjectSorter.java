@@ -50,10 +50,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 30-May-2008<br><br>
+ * Date: 30-May-2008<br>
  *
  * Sorts objects into sets based on where they appear in the imports closure of an ontology.
  * Consider ontology B that imports ontology A.  A map will

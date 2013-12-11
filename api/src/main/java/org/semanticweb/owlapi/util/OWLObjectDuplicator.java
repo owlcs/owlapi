@@ -51,11 +51,9 @@ import org.semanticweb.owlapi.model.*;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br><br>
- */
+ * Date: 11-Dec-2006 */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
 
     private final OWLDataFactory dataFactory;
