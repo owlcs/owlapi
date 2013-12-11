@@ -36,42 +36,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- * Describes a parse exception which was caused by an <code>IOException</code>
- */
+/** Describes a parse exception which was caused by an <code>IOException</code>
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007 */
 public class OWLParserIOException extends OWLParserException {
-
-
     private static final long serialVersionUID = 30406L;
 
-
-    /**
-     * @param cause the cause
-     */
+    /** @param cause
+     *            the cause */
     public OWLParserIOException(IOException cause) {
         super(cause);
     }
 
-
-    /**
-     * Gets the cause of this exception which will be
-     * an <code>IOException</code>
-     */
+    /** Gets the cause of this exception which will be an
+     * <code>IOException</code> */
     @Override
     public synchronized IOException getCause() {
         return (IOException) super.getCause();
     }
-
 
     @Override
     public String getMessage() {

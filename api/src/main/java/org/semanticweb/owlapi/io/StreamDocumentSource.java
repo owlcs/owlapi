@@ -47,12 +47,11 @@ import java.io.Reader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2007<br>
- * <br>
- * An ontology document source which can read from a stream. */
+/** An ontology document source which can read from a stream.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 15-Nov-2007 */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;

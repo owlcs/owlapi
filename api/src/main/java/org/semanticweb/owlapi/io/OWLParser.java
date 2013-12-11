@@ -48,13 +48,12 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br>
- * <br>
- * An <code>OWLParser</code> parses an ontology document into an OWL API object
- * representation of an ontology. */
+/** An <code>OWLParser</code> parses an ontology document into an OWL API object
+ * representation of an ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 14-Nov-2006 */
 public interface OWLParser {
     /** Sets the <code>OWLOntologyManager</code> which should be used to load
      * imports etc.

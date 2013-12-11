@@ -43,12 +43,7 @@ import java.io.Reader;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Apr-2007<br>
- * <br>
- * A document source provides a point for loading an ontology. A document source
+/** A document source provides a point for loading an ontology. A document source
  * may provide three ways of obtaining an ontology document:
  * <ol>
  * <li>From a {@link java.io.Reader}
@@ -60,7 +55,11 @@ import org.semanticweb.owlapi.model.IRI;
  * Note that while an ontology document source may appear similar to a SAX input
  * source, an important difference is that the getReader and getInputStream
  * methods return new instances each time the method is called. This allows
- * multiple attempts at loading an ontology. */
+ * multiple attempts at loading an ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 24-Apr-2007 */
 public interface OWLOntologyDocumentSource {
     /** Determines if a reader is available which an ontology document can be
      * parsed from.

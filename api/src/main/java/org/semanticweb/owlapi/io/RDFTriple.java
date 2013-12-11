@@ -46,8 +46,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 21/12/2010
  * @since 3.2

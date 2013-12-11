@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.InputStream;
@@ -45,58 +44,47 @@ import java.io.Reader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Apr-2007<br><br>
- */
+ * Date: 24-Apr-2007 */
 public class IRIDocumentSource implements OWLOntologyDocumentSource {
-
     private final IRI documentIRI;
 
-
-    /**
-     * @param documentIRI the source document IRI
-     */
+    /** @param documentIRI
+     *            the source document IRI */
     public IRIDocumentSource(IRI documentIRI) {
         this.documentIRI = documentIRI;
     }
-
 
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
-
     @Override
     public boolean isInputStreamAvailable() {
         return false;
     }
 
-
     @Override
     public InputStream getInputStream() {
-        throw new OWLRuntimeException("InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
+        throw new OWLRuntimeException(
+                "InputStream not available.  Check with IRIDocumentSource.isInputStreamAvailable() first!");
     }
-
 
     @Override
     public boolean isReaderAvailable() {
         return false;
     }
 
-
     @Override
     public Reader getReader() {
-        throw new OWLRuntimeException("Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
+        throw new OWLRuntimeException(
+                "Reader not available.  Check with IRIDocumentSource.isReaderAvailable() first!");
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return documentIRI.toString();
     }
 }

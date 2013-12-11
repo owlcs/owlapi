@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.BufferedWriter;
@@ -48,18 +47,12 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br><br>
- */
+ * Date: 14-Nov-2006 */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
-
     // XXX this should not be a field but accessed through the rendered ontology
     private OWLOntologyManager owlOntologyManager;
-
 
     @Deprecated
     protected AbstractOWLRenderer(OWLOntologyManager owlOntologyManager) {
@@ -75,12 +68,10 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
         this.owlOntologyManager = owlOntologyManager;
     }
 
-
     @Deprecated
     protected OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }
-
 
     @Override
     public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
@@ -88,20 +79,22 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
             Writer writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
             render(ontology, writer);
             writer.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLRendererIOException(e);
         }
     }
 
-
-    /**
-     * Renders the specified ontology using the specified writer.
-     * @param ontology the ontology to render
-     * @param writer The writer that should be used to write the ontology.
-     * Note that this writer need not be wrapped with a <code>BufferedWriter</code>
-     * because this is taken care of by this abstract implementation.
-     * @throws OWLRendererException if exceptions arise
-     */
-    public abstract void render(OWLOntology ontology, Writer writer) throws OWLRendererException;
+    /** Renders the specified ontology using the specified writer.
+     * 
+     * @param ontology
+     *            the ontology to render
+     * @param writer
+     *            The writer that should be used to write the ontology. Note
+     *            that this writer need not be wrapped with a
+     *            <code>BufferedWriter</code> because this is taken care of by
+     *            this abstract implementation.
+     * @throws OWLRendererException
+     *             if exceptions arise */
+    public abstract void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException;
 }

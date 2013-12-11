@@ -45,11 +45,11 @@ import java.io.StringReader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Apr-2007<br>
- * An ontology input source that wraps a string. */
+/** An ontology input source that wraps a string.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 24-Apr-2007 */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;

@@ -36,26 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- */
+ * Date: 13-Apr-2007 */
 public class OWLRendererIOException extends OWLRendererException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-    /**
-     * @param cause the cause
-     */
+    /** @param cause
+     *            the cause */
     public OWLRendererIOException(IOException cause) {
         super(cause);
     }

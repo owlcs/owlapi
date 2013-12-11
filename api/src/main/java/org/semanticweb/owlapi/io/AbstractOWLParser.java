@@ -62,14 +62,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br>
- * <br>
- * A convenience base class for parsers, which provides a mechanism to manage
+/** A convenience base class for parsers, which provides a mechanism to manage
  * the setting and getting of the <code>OWLOntologyManager</code> that should be
- * associated with the parser */
+ * associated with the parser
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 14-Nov-2006 */
 public abstract class AbstractOWLParser implements OWLParser {
     private static final Logger logger = Logger.getLogger(AbstractOWLParser.class
             .getName());
@@ -216,8 +215,7 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
     protected InputSource getInputSource(OWLOntologyDocumentSource documentSource,
-            OWLOntologyLoaderConfiguration config)
-            throws IOException {
+            OWLOntologyLoaderConfiguration config) throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
             is = new InputSource(documentSource.getReader());
