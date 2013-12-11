@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import java.util.Set;
@@ -44,49 +43,43 @@ import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 30-Jul-2008<br><br>
- */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 30-Jul-2008 */
 public class OWL2ProfileReport extends OWLProfileReport {
-
     private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
-
     private final Set<OWLObjectPropertyExpression> simpleRoles;
 
-
-    /**
-     * @param profile the profile
-     * @param disallowedConstructs the constructs not allowed
-     * @param nonSimpleRoles the collection of non simple roles
-     * @param simpleRoles the collection of simple roles
-     */
-    public OWL2ProfileReport(OWLProfile profile, Set<OWLProfileViolation> disallowedConstructs, Set<OWLObjectPropertyExpression> nonSimpleRoles, Set<OWLObjectPropertyExpression> simpleRoles) {
+    /** @param profile
+     *            the profile
+     * @param disallowedConstructs
+     *            the constructs not allowed
+     * @param nonSimpleRoles
+     *            the collection of non simple roles
+     * @param simpleRoles
+     *            the collection of simple roles */
+    public OWL2ProfileReport(OWLProfile profile,
+            Set<OWLProfileViolation> disallowedConstructs,
+            Set<OWLObjectPropertyExpression> nonSimpleRoles,
+            Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
         this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(nonSimpleRoles);
         this.simpleRoles = new TreeSet<OWLObjectPropertyExpression>(simpleRoles);
     }
 
-
-    /**
-     * @return the non simple roles
-     */
+    /** @return the non simple roles */
     public Set<OWLObjectPropertyExpression> getNonSimpleRoles() {
         return nonSimpleRoles;
     }
 
-
-    /**
-     * @return he simple roles
-     */
+    /** @return he simple roles */
     public Set<OWLObjectPropertyExpression> getSimpleRoles() {
         return simpleRoles;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append("\n[Simple properties]\n");
         for (OWLObjectPropertyExpression prop : simpleRoles) {

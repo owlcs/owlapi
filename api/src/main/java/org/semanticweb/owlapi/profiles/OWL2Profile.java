@@ -56,10 +56,9 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 21-Jun-2008<br><br>
+ * Date: 21-Jun-2008<br>
  * Checks to see if an ontology and its imports closure fall into the OWL 2 DL profile.
  * An ontology is OWL Full if any of the global structural restrictions are violated, if there is punning between
  * object and data properties

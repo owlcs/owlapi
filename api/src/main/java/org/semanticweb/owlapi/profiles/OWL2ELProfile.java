@@ -85,11 +85,9 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br>
- * <br> */
+ * Date: 16-Apr-2008 */
 public class OWL2ELProfile implements OWLProfile {
     protected final Set<IRI> allowedDatatypes;
 

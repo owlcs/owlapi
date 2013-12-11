@@ -36,27 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- *
- * Indicates that a class expression in an axiom is not in the profile
- */
+/** Indicates that a class expression in an axiom is not in the profile
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class UseOfIllegalClassExpression extends OWLProfileViolation implements OWL2ELProfileViolation {
-
+public class UseOfIllegalClassExpression extends OWLProfileViolation implements
+        OWL2ELProfileViolation {
     private final OWLClassExpression classExpression;
 
-    public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom,
+            OWLClassExpression classExpression) {
         super(ontology, axiom);
         this.classExpression = classExpression;
     }
@@ -71,7 +68,7 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation implements 
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(classExpression.getClassExpressionType().getName());
         sb.append(" class expressions are not allowed in profile: ");
