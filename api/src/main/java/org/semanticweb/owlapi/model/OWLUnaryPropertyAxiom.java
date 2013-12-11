@@ -38,8 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  * 
  * @param <P>

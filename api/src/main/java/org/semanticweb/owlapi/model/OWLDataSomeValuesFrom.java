@@ -36,16 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <br>
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Existential_Quantification_2">DataSomeValuesFrom</a> restriction in the OWL 2 Specification.
- */
-public interface OWLDataSomeValuesFrom extends OWLQuantifiedDataRestriction {
 
-}
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Existential_Quantification_2"
+ * >DataSomeValuesFrom</a> restriction in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+public interface OWLDataSomeValuesFrom extends OWLQuantifiedDataRestriction {}

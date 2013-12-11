@@ -40,18 +40,16 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br>
- * <br>
- * <br>
- * Represents a <a
+/** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
  * SubObjectPropertyOf</a> axiom in the OWL 2 Specification where the
  * subproperty is a chain of properties. Note that this axiom type is not
  * explicit in the OWL 2 specification, but it is included in the OWL API as a
- * convenience to the programmer. */
+ * convenience to the programmer.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 22-Nov-2006*/
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     /** Gets the chain of properties that represents the subproperty in this
      * axiom.

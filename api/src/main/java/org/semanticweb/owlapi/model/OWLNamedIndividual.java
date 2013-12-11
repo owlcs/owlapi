@@ -36,15 +36,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
- * <br>
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named Individual</a> in the OWL 2 Specification.
- */
-public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {
-
-}
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named
+ * Individual</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Jan-2009 */
+public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {}

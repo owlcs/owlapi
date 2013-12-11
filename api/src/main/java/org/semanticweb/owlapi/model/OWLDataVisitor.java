@@ -36,19 +36,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Nov-2006<br><br>
- * <br>
- * A visitor which can visit various data ranges and constants.
- */
+
+/** A visitor which can visit various data ranges and constants.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Nov-2006*/
 @SuppressWarnings("javadoc")
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
-
     void visit(OWLLiteral node);
 
     void visit(OWLFacetRestriction node);

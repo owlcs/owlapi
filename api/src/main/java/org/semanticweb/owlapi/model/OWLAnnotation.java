@@ -40,14 +40,14 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2006<br>
- * Annotations are used in the various types of annotation axioms, which bind
+/** Annotations are used in the various types of annotation axioms, which bind
  * annotations to their subjects (i.e. axioms or declarations).<br>
  * An annotation is equal to another annotation if both objects have equal
- * annotation URIs and have equal annotation values. */
+ * annotation URIs and have equal annotation values.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Dec-2006 */
 public interface OWLAnnotation extends OWLObject {
     /** Gets the property that this annotation acts along
      * 

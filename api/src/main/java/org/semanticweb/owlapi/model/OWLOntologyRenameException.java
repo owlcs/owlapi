@@ -38,13 +38,13 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 22-Dec-2009 <br>
- * An exception that describes the situation where an ontology could not be
+/** An exception that describes the situation where an ontology could not be
  * renamed (have its ID set) because its manager already contained an ontology
- * with the same name. */
+ * with the same name.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyRenameException extends OWLOntologyChangeException {
     private static final long serialVersionUID = 30406L;

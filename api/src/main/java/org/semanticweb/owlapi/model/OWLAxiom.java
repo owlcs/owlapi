@@ -40,8 +40,7 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006<br>
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
  * the OWL 2 Specification.<br>

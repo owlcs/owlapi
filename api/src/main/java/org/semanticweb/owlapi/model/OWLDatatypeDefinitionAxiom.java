@@ -36,29 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 24-Mar-2009
- * <br>
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">DatatypeDefinition</a> axiom in the OWL 2 Specification.
- */
-public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
 
-    /**
-     * Gets the {@link OWLDatatype} that is assigned a definition
-     * @return The datatype
-     */
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Definitions">
+ * DatatypeDefinition</a> axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 24-Mar-2009 */
+public interface OWLDatatypeDefinitionAxiom extends OWLLogicalAxiom {
+    /** Gets the {@link OWLDatatype} that is assigned a definition
+     * 
+     * @return The datatype */
     OWLDatatype getDatatype();
 
-
-    /**
-     * Gets the datarange that defines the datatype
-     * @return The defining datarange
-     */
+    /** Gets the datarange that defines the datatype
+     * 
+     * @return The defining datarange */
     OWLDataRange getDataRange();
 
     @Override

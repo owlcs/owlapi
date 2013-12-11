@@ -43,8 +43,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 04-Jul-2010
  */

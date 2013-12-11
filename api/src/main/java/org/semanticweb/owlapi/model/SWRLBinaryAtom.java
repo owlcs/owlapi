@@ -36,33 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br><br>
- * <br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- *
- * Represents an atom with two ordered arguments
- * @param <A> type of first argument
- * @param <B> type of second argument
- */
-public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends SWRLAtom {
-
-    /**
-     * Gets the first argument
-     * @return The second argument
-     */
+/** Represents an atom with two ordered arguments
+ * 
+ * @param <A>
+ *            type of first argument
+ * @param <B>
+ *            type of second argument
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007*/
+public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends
+        SWRLAtom {
+    /** Gets the first argument
+     * 
+     * @return The second argument */
     A getFirstArgument();
 
-    /**
-     * Gets the second argument
-     * @return The second argument
-     */
+    /** Gets the second argument
+     * 
+     * @return The second argument */
     B getSecondArgument();
 }

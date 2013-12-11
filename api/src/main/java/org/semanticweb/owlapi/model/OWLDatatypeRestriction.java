@@ -36,35 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <br>
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">DatatypeRestriction</a> data range in the OWL 2 Specification.
- */
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions"
+ * >DatatypeRestriction</a> data range in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDatatypeRestriction extends OWLDataRange {
-
-    /**
-     * Gets the data range that this data range restricts.
-     *
-     * @return The datatype that is restricted
-     */
+    /** Gets the data range that this data range restricts.
+     * 
+     * @return The datatype that is restricted */
     OWLDatatype getDatatype();
 
-
-    /**
-     * Gets the facet restrictions on this data range
-     *
-     * @return A <code>Set</code> of facet restrictions that apply to
-     *         this data range
-     */
+    /** Gets the facet restrictions on this data range
+     * 
+     * @return A <code>Set</code> of facet restrictions that apply to this data
+     *         range */
     Set<OWLFacetRestriction> getFacetRestrictions();
 }

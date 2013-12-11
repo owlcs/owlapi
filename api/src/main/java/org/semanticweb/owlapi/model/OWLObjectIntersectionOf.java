@@ -36,17 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br><br>
- * <br>
- * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Class_Expressions">ObjectIntersectionOf</a> class expression in the OWL 2 Specification.
- */
-public interface OWLObjectIntersectionOf extends OWLNaryBooleanClassExpression {
 
-
-}
+/** Represents an <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Class_Expressions"
+ * >ObjectIntersectionOf</a> class expression in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Oct-2006*/
+public interface OWLObjectIntersectionOf extends OWLNaryBooleanClassExpression {}

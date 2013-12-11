@@ -45,15 +45,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * Represents the type of axioms which can belong to ontologies. Axioms can be
+/** Represents the type of axioms which can belong to ontologies. Axioms can be
  * retrieved from ontologies by their <code>AxiomType</code>. For example, see
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}
- * . */
+ * .
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Jul-2007 */
 @SuppressWarnings("javadoc")
 public class AxiomType<C extends OWLAxiom> implements Serializable {
     private static final long serialVersionUID = 30406L;

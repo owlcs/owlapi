@@ -48,8 +48,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
  * An <code>OWLOntologyManager</code> manages a set of ontologies. It is the
  * main point for creating, loading and accessing ontologies. <br>

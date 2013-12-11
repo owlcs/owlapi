@@ -36,19 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.semanticweb.owlapi.model;
 
-package org.semanticweb.owlapi.model;/*
-
-
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- * <br>
- * An interface to an object that can accept visits from {@link org.semanticweb.owlapi.model.OWLDataRange}s.
- */
+/** An interface to an object that can accept visits from
+ * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLDataRangeVisitor {
-
     void visit(OWLDatatype node);
 
     void visit(OWLDataOneOf node);

@@ -38,9 +38,9 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * A super interface for annotation axioms. */
+/** A super interface for annotation axioms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Oct-2006 */
 public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {}

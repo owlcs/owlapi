@@ -36,26 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- *
- * An exception which describes the situation where no ontology document IRI mapping
- * could be found.  This is a runtime exception since clients should really ensure that a
- * mapping exists before attempting to load an ontology.
- */
+/** An exception which describes the situation where no ontology document IRI
+ * mapping could be found. This is a runtime exception since clients should
+ * really ensure that a mapping exists before attempting to load an ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007*/
 @SuppressWarnings("javadoc")
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {
-
-
-	private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 30406L;
 
     public OWLOntologyIRIMappingNotFoundException(IRI ontologyIRI) {
-        super("Could not find ontology document mapping for " + ontologyIRI.toQuotedString());
+        super("Could not find ontology document mapping for "
+                + ontologyIRI.toQuotedString());
     }
 }

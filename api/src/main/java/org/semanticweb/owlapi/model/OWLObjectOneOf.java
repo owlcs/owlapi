@@ -36,36 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <br>
- * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals">ObjectOneOf</a> class expression in the OWL 2 Specification.
- */
+/** Represents an <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals"
+ * >ObjectOneOf</a> class expression in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
-
-    /**
-     * Gets the individuals that are in the oneOf.  These
-     * individuals represent the exact instances (extension) of
-     * this class expression.
-     * @return The individiauls that are the values of this <code>ObjectOneOf</code> class expression.
-     */
+    /** Gets the individuals that are in the oneOf. These individuals represent
+     * the exact instances (extension) of this class expression.
+     * 
+     * @return The individiauls that are the values of this
+     *         <code>ObjectOneOf</code> class expression. */
     Set<OWLIndividual> getIndividuals();
 
-
-    /**
-     * Simplifies this enumeration to a union of singleton nominals
-     * @return This enumeration in a more standard DL form.
-     *         simp({a}) = {a}
-     *         simp({a0, ... , {an}) = unionOf({a0}, ... , {an})
-     */
+    /** Simplifies this enumeration to a union of singleton nominals
+     * 
+     * @return This enumeration in a more standard DL form. simp({a}) = {a}
+     *         simp({a0, ... , {an}) = unionOf({a0}, ... , {an}) */
     OWLClassExpression asObjectUnionOf();
 }

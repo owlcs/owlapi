@@ -38,12 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Nov-2006<br>
- * An interface to object that can visit the different types of property
- * expressions. */
+/** An interface to object that can visit the different types of property
+ * expressions.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Nov-2006*/
 @SuppressWarnings("javadoc")
 public interface OWLPropertyExpressionVisitor {
     void visit(OWLObjectProperty property);

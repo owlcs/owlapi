@@ -42,12 +42,12 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 14-Mar-2009<br>
- * A change broadcast strategy which broadcasts all ontology changes in the
- * Swing Even Dispatch Thread (EDT). */
+/** A change broadcast strategy which broadcasts all ontology changes in the
+ * Swing Even Dispatch Thread (EDT).
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 14-Mar-2009 */
 public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
     private static final long serialVersionUID = 30406L;
 

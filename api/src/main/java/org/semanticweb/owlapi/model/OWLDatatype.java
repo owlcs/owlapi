@@ -36,68 +36,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <br>
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named data range) in the OWL 2 Specification.
- */
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named data
+ * range) in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
-
-    /**
-     * Gets the built in datatype information if this datatype is a built in
-     * datatype.  This method should only be called if the isBuiltIn() method
+    /** Gets the built in datatype information if this datatype is a built in
+     * datatype. This method should only be called if the isBuiltIn() method
      * returns <code>true</code>
+     * 
      * @return The OWLDatatypeVocabulary that describes this built in datatype
-     * @throws OWLRuntimeException if this datatype is not a built in datatype.
-     */
+     * @throws OWLRuntimeException
+     *             if this datatype is not a built in datatype. */
     OWL2Datatype getBuiltInDatatype();
 
-    /**
-     * Determines if this datatype has the IRI <code>xsd:string</code>
-     * @return <code>true</code> if this datatype has the IRI <code>xsd:string</code>, otherwise <code>false</code>.
-     */
+    /** Determines if this datatype has the IRI <code>xsd:string</code>
+     * 
+     * @return <code>true</code> if this datatype has the IRI
+     *         <code>xsd:string</code>, otherwise <code>false</code>. */
     boolean isString();
 
-
-    /**
-     * Determines if this datatype has the IRI <code>xsd:integer</code>
-     * @return <code>true</code> if this datatype has the IRI <code>xsd:integer</code>, otherwise <code>false</code>.
-     */
+    /** Determines if this datatype has the IRI <code>xsd:integer</code>
+     * 
+     * @return <code>true</code> if this datatype has the IRI
+     *         <code>xsd:integer</code>, otherwise <code>false</code>. */
     boolean isInteger();
 
-
-    /**
-     * Determines if this datatype has the IRI <code>xsd:float</code>
-     * @return <code>true</code> if this datatype has the IRI <code>xsd:float</code>, otherwise <code>false</code>.
-     */
+    /** Determines if this datatype has the IRI <code>xsd:float</code>
+     * 
+     * @return <code>true</code> if this datatype has the IRI
+     *         <code>xsd:float</code>, otherwise <code>false</code>. */
     boolean isFloat();
 
-
-    /**
-     * Determines if this datatype has the IRI <code>xsd:double</code>
-     * @return <code>true</code> if this datatype has the IRI <code>xsd:double</code>, otherwise <code>false</code>.
-     */
+    /** Determines if this datatype has the IRI <code>xsd:double</code>
+     * 
+     * @return <code>true</code> if this datatype has the IRI
+     *         <code>xsd:double</code>, otherwise <code>false</code>. */
     boolean isDouble();
 
-
-    /**
-     * Determines if this datatype has the IRI <code>xsd:boolean</code>
-     * @return <code>true</code> if this datatype has the IRI <code>xsd:boolean</code>, otherwise <code>false</code>.
-     */
+    /** Determines if this datatype has the IRI <code>xsd:boolean</code>
+     * 
+     * @return <code>true</code> if this datatype has the IRI
+     *         <code>xsd:boolean</code>, otherwise <code>false</code>. */
     boolean isBoolean();
 
-    /**
-     * Determines if this datatype has the IRI <code>rdf:PlainLiteral</code>
-     * @return <code>true</code> if this datatype has the IRI <code>rdf:PlainLiteral</code> otherwise <code>false</code>
-     */
+    /** Determines if this datatype has the IRI <code>rdf:PlainLiteral</code>
+     * 
+     * @return <code>true</code> if this datatype has the IRI
+     *         <code>rdf:PlainLiteral</code> otherwise <code>false</code> */
     boolean isRDFPlainLiteral();
-
 }

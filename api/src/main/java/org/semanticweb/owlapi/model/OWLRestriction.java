@@ -38,8 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a restriction (<a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Restrictions">Object
  * Property Restriction</a> or <a

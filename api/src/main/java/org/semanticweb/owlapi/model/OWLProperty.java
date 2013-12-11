@@ -38,14 +38,13 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jan-2007<br>
- * A marker interface for properties that aren't expression i.e. named
+/** A marker interface for properties that aren't expression i.e. named
  * properties. By definition, properties are either data properties or object
  * properties.
  * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 23-Jan-2007<br>
  * @param <R>
  *            range
  * @param <P>

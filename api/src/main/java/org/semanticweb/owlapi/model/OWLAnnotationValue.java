@@ -36,24 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 13-Jan-2009
- * <br>
- * A marker interface for annotation values, which can either be an IRI (URI),
+/** A marker interface for annotation values, which can either be an IRI (URI),
  * Literal or Anonymous Individual, with visitor methods.
+ * 
  * @see org.semanticweb.owlapi.model.IRI
  * @see org.semanticweb.owlapi.model.OWLLiteral
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
- */
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 13-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationValue extends OWLAnnotationObject {
-
     void accept(OWLAnnotationValueVisitor visitor);
 
     <O> O accept(OWLAnnotationValueVisitorEx<O> visitor);
 }
-

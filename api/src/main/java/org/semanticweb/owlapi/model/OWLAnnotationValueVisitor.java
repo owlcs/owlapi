@@ -36,18 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.semanticweb.owlapi.model;
 
-package org.semanticweb.owlapi.model;/*
-
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- * <br>
- * A visitor that visits values of {@link OWLAnnotation}s and {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
- */
+/** A visitor that visits values of {@link OWLAnnotation}s and
+ * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLAnnotationValueVisitor {
-
     void visit(IRI iri);
 
     void visit(OWLAnonymousIndividual individual);

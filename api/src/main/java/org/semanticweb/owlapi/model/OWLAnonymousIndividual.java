@@ -38,12 +38,13 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006<br>
- * Represents <a
+/** Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Anonymous_Individuals">Anonymous
- * Individuals</a> in the OWL 2 Specification. */
+ * Individuals</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 24-Oct-2006 */
 public interface OWLAnonymousIndividual extends OWLIndividual, OWLAnnotationValue,
         OWLAnnotationSubject {
     /** Gets the ID of this individual.

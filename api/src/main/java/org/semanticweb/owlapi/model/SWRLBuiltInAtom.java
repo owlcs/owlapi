@@ -36,38 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br><br>
- * <br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007 */
 public interface SWRLBuiltInAtom extends SWRLAtom {
-
-    /**
-     * Gets the predicate of this atom
-     * @return The atom predicate
-     */
+    /** Gets the predicate of this atom
+     * 
+     * @return The atom predicate */
     @Override
     IRI getPredicate();
 
-    /**
-     * @return list of arguments
-     */
+    /** @return list of arguments */
     List<SWRLDArgument> getArguments();
 
-    /**
-     * Determines if the predicate of this atom is is a core builtin.
-     * @return <code>true</code> if this is a core builtin, otherwise <code>false</code>
-     */
+    /** Determines if the predicate of this atom is is a core builtin.
+     * 
+     * @return <code>true</code> if this is a core builtin, otherwise
+     *         <code>false</code> */
     boolean isCoreBuiltIn();
-
 }

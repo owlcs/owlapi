@@ -44,8 +44,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
  * An interface for creating entities, class expressions and axioms. All methods
  * throw IllegalArgumentException if null values are passed where they are not

@@ -38,11 +38,11 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 15-Jan-2009<br>
- * Represents <a
+/** Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Data_Ranges"
- * >DataIntersectionOf</a> in the OWL 2 Specification. */
+ * >DataIntersectionOf</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Jan-2009*/
 public interface OWLDataIntersectionOf extends OWLNaryDataRange {}

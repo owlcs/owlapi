@@ -36,30 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 04/01/2012
- * <br>
- * Specifies how missing imports should be treated during loading.
- * @since 3.3
- */
+/** Specifies how missing imports should be treated during loading.
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 04/01/2012
+ * @since 3.3 */
 public enum MissingImportHandlingStrategy {
-
-    /**
-     * Specifies that an {@link UnloadableImportException} will NOT be thrown during ontology loading if an import cannot
-     * be loaded (for what ever reason).  Instead, any registered {@link MissingImportListener}s
-     * will be informed of the problem via their {@link MissingImportListener#importMissing(MissingImportEvent)} method.
-     */
+    /** Specifies that an {@link UnloadableImportException} will NOT be thrown
+     * during ontology loading if an import cannot be loaded (for what ever
+     * reason). Instead, any registered {@link MissingImportListener}s will be
+     * informed of the problem via their
+     * {@link MissingImportListener#importMissing(MissingImportEvent)} method. */
     SILENT,
-
-    /**
-     * Specifies that an {@link UnloadableImportException} WILL be thrown during ontology loading if an import cannot
-     * be loaded.
-     */
+    /** Specifies that an {@link UnloadableImportException} WILL be thrown during
+     * ontology loading if an import cannot be loaded. */
     THROW_EXCEPTION
 }

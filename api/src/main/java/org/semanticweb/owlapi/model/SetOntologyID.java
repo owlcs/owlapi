@@ -44,8 +44,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 01-Apr-2009 */
 public class SetOntologyID extends OWLOntologyChange {

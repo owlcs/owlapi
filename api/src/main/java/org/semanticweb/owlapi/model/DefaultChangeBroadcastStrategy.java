@@ -41,12 +41,12 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20-Nov-2006<br>
- * A change broadcast strategy that simple broadcasts all changes made to all
- * ontologies. */
+/** A change broadcast strategy that simple broadcasts all changes made to all
+ * ontologies.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 20-Nov-2006 */
 public class DefaultChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy, Serializable {
     private static final long serialVersionUID = 30406L;

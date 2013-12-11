@@ -41,12 +41,11 @@ package org.semanticweb.owlapi.model;
 import java.util.Map;
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * <br>
- * Represents a named or anonymous individual. */
+/** Represents a named or anonymous individual.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Oct-2006*/
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     /** Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this

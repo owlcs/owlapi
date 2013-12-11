@@ -36,20 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br><br>
- * <br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- * Represents an object in an atom (either a data object
- * or and individual object)
- */
-public interface SWRLArgument extends SWRLObject {
-
-}
+/** Represents an object in an atom (either a data object or and individual
+ * object).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007*/
+public interface SWRLArgument extends SWRLObject {}

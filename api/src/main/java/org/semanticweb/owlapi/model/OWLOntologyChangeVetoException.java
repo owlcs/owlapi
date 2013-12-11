@@ -36,33 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br><br>
- *
- * Describes a situation where a change was vetoed for some reason.  Subclasses of
- * this class may provide more information about why the change was vetoed.
- */
+
+/** Describes a situation where a change was vetoed for some reason. Subclasses
+ * of this class may provide more information about why the change was vetoed.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007*/
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
-
-
-	private static final long serialVersionUID = 30406L;
-
+    private static final long serialVersionUID = 30406L;
 
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {
         super(change, message);
     }
 
-
-    public OWLOntologyChangeVetoException(OWLOntologyChange change, String message, Throwable cause) {
+    public OWLOntologyChangeVetoException(OWLOntologyChange change, String message,
+            Throwable cause) {
         super(change, message, cause);
     }
-
 
     public OWLOntologyChangeVetoException(OWLOntologyChange change, Throwable cause) {
         super(change, cause);

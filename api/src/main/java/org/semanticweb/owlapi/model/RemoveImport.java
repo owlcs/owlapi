@@ -46,8 +46,7 @@ import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 18-Mar-2009
  */

@@ -40,11 +40,11 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.AddAxiomData;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * Represents an ontology change where axioms should be added to an ontology. */
+/** Represents an ontology change where axioms should be added to an ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Oct-2006 */
 public class AddAxiom extends OWLAxiomChange {
     /** @param ont
      *            the ontology to which the change is to be applied

@@ -36,31 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- * <br>
- * Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Individual_Inequality">DifferentIndividuals</a> axiom in the OWL 2 Specification.
- */
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Individual_Inequality"
+ * >DifferentIndividuals</a> axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDifferentIndividualsAxiom extends OWLNaryIndividualAxiom {
-
     @Override
     OWLDifferentIndividualsAxiom getAxiomWithoutAnnotations();
 
-
-    /**
-     * Determines whether this axiom contains anonymous individuals.  Anonymous individuals are not allowed in
-     * different individuals axioms.
-     * @return <code>true</code> if this axioms contains anonymous individual axioms
-     */
+    /** Determines whether this axiom contains anonymous individuals. Anonymous
+     * individuals are not allowed in different individuals axioms.
+     * 
+     * @return <code>true</code> if this axioms contains anonymous individual
+     *         axioms */
     boolean containsAnonymousIndividuals();
 
     @Override

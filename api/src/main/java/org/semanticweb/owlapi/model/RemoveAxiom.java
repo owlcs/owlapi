@@ -40,8 +40,7 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.RemoveAxiomData;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006 Represents an ontology change
  * were an axiom will be removed from an ontology if the change is applied to an
  * ontology. */

@@ -40,13 +40,13 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 13-Jan-2009 <br>
- * Represents an <a href=
+/** Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
- * >AnnotationProperty</a> in the OWL 2 specification. */
+ * >AnnotationProperty</a> in the OWL 2 specification.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 13-Jan-2009 */
 public interface OWLAnnotationProperty extends OWLEntity {
     /** Determines if this annotation property has an IRI corresponding to
      * <code>rdfs:comment</code>.

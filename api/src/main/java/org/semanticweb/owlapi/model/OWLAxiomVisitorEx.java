@@ -38,12 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br>
- * An interface for objects that can accept visits from axioms. (See the <a
- * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
+/** An interface for objects that can accept visits from axioms. (See the <a
+ * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 16-Apr-2008*/
 @SuppressWarnings("javadoc")
 public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O> {
     O visit(OWLSubClassOfAxiom axiom);
