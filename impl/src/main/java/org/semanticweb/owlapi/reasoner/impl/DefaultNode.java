@@ -54,8 +54,7 @@ import org.semanticweb.owlapi.reasoner.Node;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 05-Dec-2009
  * @param <E> the type of entities in the node

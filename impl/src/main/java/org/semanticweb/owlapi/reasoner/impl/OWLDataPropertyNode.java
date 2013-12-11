@@ -44,8 +44,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 05-Dec-2009
  */
