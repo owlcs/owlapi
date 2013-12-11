@@ -43,8 +43,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.XMLUtils;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23/09/2011 */
 @SuppressWarnings("javadoc")

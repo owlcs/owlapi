@@ -55,13 +55,10 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
 /** <br>
  * Simple example. Read an ontology, and display the class hierarchy. May use a
- * reasoner to calculate the hierarchy.
- * <br>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+ * reasoner to calculate the hierarchy. <br>
+ * @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 17-03-2007<br>
- * <br> */
+ * Date: 17-03-2007 */
 public class SimpleHierarchyExample {
     private static int INDENT = 4;
     private final OWLReasonerFactory reasonerFactory;

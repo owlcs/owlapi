@@ -52,11 +52,9 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 16-Mar-2007<br>
- * <br> */
+ * Date: 16-Mar-2007 */
 @SuppressWarnings("javadoc")
 public class RDFParserTestCase {
     private OWLOntologyManager man;

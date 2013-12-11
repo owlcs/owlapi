@@ -46,8 +46,7 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTr
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 25-Nov-2009 */
 public class DisjointDataPropertiesAnnotatedTestCase extends

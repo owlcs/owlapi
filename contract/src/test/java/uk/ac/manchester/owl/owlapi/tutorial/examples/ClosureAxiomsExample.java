@@ -51,27 +51,20 @@ import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
 /** <br>
  * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
- * <br>
+ * arguments: <br>
  * <ol>
- * <li>The URI of an ontology</li>
- * <br>
- * <li>The URI of destination</li>
- * <br>
+ * <li>The URI of an ontology</li> <br>
+ * <li>The URI of destination</li> <br>
  * <li>The URI of a class</li>
  * </ol>
  * <br>
  * When executed, the class will find all subclass axioms that form part of the
  * definition of the given class. For each of these, if the superclass is a
  * conjunction of existential restrictions, then an additional subclass axiom
- * will be added to the ontology, "closing" the restrictions.
- * <br>
- * <br>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+ * will be added to the ontology, "closing" the restrictions. <br>
+ * @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 public class ClosureAxiomsExample {
     /** @param inputOntology
      *            input ontology IRI

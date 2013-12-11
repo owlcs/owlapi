@@ -47,14 +47,10 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /** <br>
  * A visitor that simply collects any subclass axioms that have the given class
- * as the subclass.
- * <br>
- * <br>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+ * as the subclass. <br>
+ * @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 @SuppressWarnings({ "javadoc" })
 public class SubClassCollector extends OWLAxiomVisitorAdapter {
     /* Collected axioms */

@@ -65,11 +65,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2008<br>
- * <br> */
+ * Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
@@ -97,11 +95,11 @@ public abstract class AbstractOWLAPITestCase {
             for (OWLAxiom ax : axioms1) {
                 if (!axioms2.contains(ax)) {
                     if (!isIgnorableAxiom(ax, false)) {
-                    sb.append("Rem axiom: ");
-                    sb.append(ax);
-                    sb.append("\n");
-                    counter++;
-                }
+                        sb.append("Rem axiom: ");
+                        sb.append(ax);
+                        sb.append("\n");
+                        counter++;
+                    }
                 }
             }
             for (OWLAxiom ax : axioms2) {

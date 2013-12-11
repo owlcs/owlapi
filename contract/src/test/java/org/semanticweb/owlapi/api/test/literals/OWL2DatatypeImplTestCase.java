@@ -17,8 +17,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import uk.ac.manchester.cs.owl.owlapi.OWL2DatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
+/** @author Matthew Horridge, Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 24/10/2012 */
 @SuppressWarnings("javadoc")

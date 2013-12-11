@@ -55,11 +55,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 28-Jul-2008<br>
- * <br> */
+ * Date: 28-Jul-2008 */
 @SuppressWarnings("javadoc")
 public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     @Test

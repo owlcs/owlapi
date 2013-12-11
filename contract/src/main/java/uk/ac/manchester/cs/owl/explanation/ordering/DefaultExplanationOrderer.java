@@ -48,15 +48,12 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2008<br>
- * <br>
- * <br>
- * Provides ordering and indenting of explanations based on various ordering
+/** Provides ordering and indenting of explanations based on various ordering
  * heuristics.
  * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Jan-2008
  * @deprecated use ExplanationOrdererImpl instead - this class depends on
  *             OWLManager, while ExplanationOrdererImpl does not. */
 @Deprecated

@@ -54,8 +54,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /** <br>
  * This class demonstrates some aspects of the OWL API. It expects three
- * arguments:
- * <br>
+ * arguments: <br>
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of a reasoner</li>
@@ -65,13 +64,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * When executed, the class will find all inconsistent classes in the ontology.
  * For each inconsistent class, the debugger will be used to determine the set
  * of support for the inconsistency. A report will then be written to the outpur
- * file.
- * <br>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+ * file. <br>
+ * @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 @SuppressWarnings({ "javadoc" })
 public class Debugger {
     private final OWLOntology ontology;

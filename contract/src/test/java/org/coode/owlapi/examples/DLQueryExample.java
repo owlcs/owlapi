@@ -70,17 +70,17 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-May-2010 <br>
- * An example that shows how to do a Protege like DLQuery. The example contains
+/** An example that shows how to do a Protege like DLQuery. The example contains
  * several helper classes:<br>
  * DLQueryEngine - This takes a string representing a class expression built
  * from the terms in the signature of some ontology. DLQueryPrinter - This takes
  * a string class expression and prints out the sub/super/equivalent classes and
  * the instances of the specified class expression. DLQueryParser - this parses
- * the specified class expression string */
+ * the specified class expression string
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-May-2010 */
 public class DLQueryExample {
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"

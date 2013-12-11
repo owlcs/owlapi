@@ -48,11 +48,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+/** @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 30406L;
 

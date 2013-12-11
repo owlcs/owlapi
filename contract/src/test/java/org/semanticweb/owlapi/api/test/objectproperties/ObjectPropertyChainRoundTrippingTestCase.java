@@ -48,11 +48,9 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-May-2008<br>
- * <br> */
+ * Date: 10-May-2008 */
 public class ObjectPropertyChainRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     @Override

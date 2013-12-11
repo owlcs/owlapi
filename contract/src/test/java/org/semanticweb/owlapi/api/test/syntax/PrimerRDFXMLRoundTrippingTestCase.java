@@ -41,8 +41,7 @@ package org.semanticweb.owlapi.api.test.syntax;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 08-Dec-2009 */
 public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {

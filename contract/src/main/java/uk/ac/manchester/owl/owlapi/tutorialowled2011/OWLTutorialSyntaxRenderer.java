@@ -46,11 +46,9 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+/** @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
     @SuppressWarnings("javadoc")
     @Deprecated

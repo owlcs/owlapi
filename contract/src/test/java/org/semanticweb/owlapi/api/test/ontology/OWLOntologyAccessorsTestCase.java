@@ -83,11 +83,9 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 18-Jul-2008<br>
- * <br> */
+ * Date: 18-Jul-2008 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
     private void performAxiomTests(OWLOntology ont, OWLAxiom... axioms) {

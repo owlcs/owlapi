@@ -144,14 +144,10 @@ import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /** <br>
- * A renderer that provides an HTML version of the ontology.
- * <br>
- * <br>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+ * A renderer that provides an HTML version of the ontology. <br>
+ * @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 @SuppressWarnings({ "unused", "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     private final OWLOntology ontology;
@@ -639,8 +635,7 @@ public class OWLTutorialSyntaxObjectRenderer implements OWLObjectVisitor {
     }
 
     private void writeRestriction(String str, OWLPropertyExpression<?, ?> prop,
-            OWLObject filler)
-            throws OWLRuntimeException {
+            OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);

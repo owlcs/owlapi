@@ -49,11 +49,9 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 31-Jul-2007<br>
- * <br> */
+ * Date: 31-Jul-2007 */
 @SuppressWarnings("javadoc")
 public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
     /** Tests to see if the method which obtains the imports closure behaves

@@ -49,14 +49,10 @@ import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxOntologyStorer;
 
 /** <br>
- * Simple Rendering Example. Reads an ontology and then renders it.
- * <br>
- * <br>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
+ * Simple Rendering Example. Reads an ontology and then renders it. <br>
+ * @author Sean Bechhofer, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * Date: 24-April-2007 */
 public class RenderingExample {
     /** @param inputOntology
      *            input ontology IRI

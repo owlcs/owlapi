@@ -46,11 +46,9 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Information Management Group<br>
- * Date: 06-Jun-2008<br>
- * <br> */
+ * Date: 06-Jun-2008 */
 @SuppressWarnings("javadoc")
 public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
     @Test
