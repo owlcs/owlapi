@@ -36,70 +36,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <br>
- *     Represents the specific non-ontology data required by a {@link org.semanticweb.owlapi.model.SetOntologyID} change.
- * <br>
- * <br>
- *     Instances of this class are immutable.
- * <br>
- * @since 3.5
- */
+/** Represents the specific non-ontology data required by a
+ * {@link org.semanticweb.owlapi.model.SetOntologyID} change. <br>
+ * Instances of this class are immutable. <br>
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
+ * @since 3.5 */
 public final class SetOntologyIDData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30406L;
-
     private final OWLOntologyID newId;
 
-    /**
-     * Constructs a {@link SetOntologyIDData} object that describes an {@link SetOntologyID} change for the
-     * {@link OWLOntologyID} object specified by the {@code newId} parameter.
-     * @param newId The {@link OWLOntologyID} that is the focus of some change.  Not {@code null}.
-     * @throws  NullPointerException if {@code ontologyId} is {@code null}.
-     */
+    /** Constructs a {@link SetOntologyIDData} object that describes an
+     * {@link SetOntologyID} change for the {@link OWLOntologyID} object
+     * specified by the {@code newId} parameter.
+     * 
+     * @param newId
+     *            The {@link OWLOntologyID} that is the focus of some change.
+     *            Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code ontologyId} is {@code null}. */
     public SetOntologyIDData(OWLOntologyID newId) {
-        if(newId == null) {
+        if (newId == null) {
             throw new NullPointerException("newId must not be null");
         }
         this.newId = newId;
     }
 
-    /**
-     * Gets the {@link OWLOntologyID} that is associated with some {@link SetOntologyID} change.
-     * @return The {@link OWLOntologyID}.  Not {@code null}.
-     */
+    /** Gets the {@link OWLOntologyID} that is associated with some
+     * {@link SetOntologyID} change.
+     * 
+     * @return The {@link OWLOntologyID}. Not {@code null}. */
     public OWLOntologyID getNewId() {
         return newId;
     }
 
-    /**
-     * Creates the {@link org.semanticweb.owlapi.model.SetOntologyID} change that describes setting an {@link org.semanticweb.owlapi.model.OWLOntologyID} for
-     * an {@link OWLOntology} specified by the {@code ontology} parameter.
-     * @param ontology The {@link OWLOntology} that the change should apply to.  Not {@code null}.
-     * @return The {@link org.semanticweb.owlapi.model.SetOntologyID} change for the {@link OWLOntology} specified by {@code ontology} and the
-     * {@link org.semanticweb.owlapi.model.OWLOntologyID} associated with this {@link SetOntologyIDData} object.
-     * @throws NullPointerException if {@code ontology} is {@code null}.
-     */
+    /** Creates the {@link org.semanticweb.owlapi.model.SetOntologyID} change
+     * that describes setting an
+     * {@link org.semanticweb.owlapi.model.OWLOntologyID} for an
+     * {@link OWLOntology} specified by the {@code ontology} parameter.
+     * 
+     * @param ontology
+     *            The {@link OWLOntology} that the change should apply to. Not
+     *            {@code null}.
+     * @return The {@link org.semanticweb.owlapi.model.SetOntologyID} change for
+     *         the {@link OWLOntology} specified by {@code ontology} and the
+     *         {@link org.semanticweb.owlapi.model.OWLOntologyID} associated
+     *         with this {@link SetOntologyIDData} object.
+     * @throws NullPointerException
+     *             if {@code ontology} is {@code null}. */
     @Override
     public SetOntologyID createOntologyChange(OWLOntology ontology) {
-        if(ontology == null) {
+        if (ontology == null) {
             throw new NullPointerException("ontology must not be null");
         }
         return new SetOntologyID(ontology, newId);
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
+            throws E {
         return visitor.visit(this);
     }
 
@@ -110,10 +113,10 @@ public final class SetOntologyIDData extends OWLOntologyChangeData {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof SetOntologyIDData)) {
+        if (!(obj instanceof SetOntologyIDData)) {
             return false;
         }
         SetOntologyIDData other = (SetOntologyIDData) obj;
@@ -129,5 +132,4 @@ public final class SetOntologyIDData extends OWLOntologyChangeData {
         sb.append("))");
         return sb.toString();
     }
-
 }

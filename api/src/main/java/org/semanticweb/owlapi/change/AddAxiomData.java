@@ -36,46 +36,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <br>
- * Represents the specific non-ontology data required by an {@link AddAxiom} change.
- * <br>
- * <br>
- *     Instances of this class are immutable.
- * <br>
- * @since 3.5
- */
+/** Represents the specific non-ontology data required by an {@link AddAxiom}
+ * change. <br>
+ * Instances of this class are immutable. <br>
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
+ * @since 3.5 */
 public final class AddAxiomData extends AxiomChangeData {
-
     private static final long serialVersionUID = 30406L;
 
-    /**
-     * Constructs an {@link AddAxiomData} object which specifies the addition of an axiom to "some ontology".
-     * @param axiom The {@link OWLAxiom} being added.  Not {@code null}.
-     * @throws NullPointerException if {@code axiom} is {@code null}.
-     */
+    /** Constructs an {@link AddAxiomData} object which specifies the addition of
+     * an axiom to "some ontology".
+     * 
+     * @param axiom
+     *            The {@link OWLAxiom} being added. Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code axiom} is {@code null}. */
     public AddAxiomData(OWLAxiom axiom) {
         super(axiom);
     }
 
-    /**
-     * Creates an {@link AddAxiom} change that will add the {@link OWLAxiom} described by this data to the {@link
-     * OWLOntology} specified by the {@code ontology} parameter.
-     * @param ontology The {@link OWLOntology} that the change should apply to.  Not {@code null}.
-     * @return The {@link AddAxiom} change for the specified {@link OWLOntology}.  Not {@code null}.
-     * @throws NullPointerException if {@link OWLOntology} is {@code null}.
-     */
+    /** Creates an {@link AddAxiom} change that will add the {@link OWLAxiom}
+     * described by this data to the {@link OWLOntology} specified by the
+     * {@code ontology} parameter.
+     * 
+     * @param ontology
+     *            The {@link OWLOntology} that the change should apply to. Not
+     *            {@code null}.
+     * @return The {@link AddAxiom} change for the specified {@link OWLOntology}
+     *         . Not {@code null}.
+     * @throws NullPointerException
+     *             if {@link OWLOntology} is {@code null}. */
     @Override
     public AddAxiom createOntologyChange(OWLOntology ontology) {
         if (ontology == null) {
@@ -85,7 +84,8 @@ public final class AddAxiomData extends AxiomChangeData {
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
+            throws E {
         return visitor.visit(this);
     }
 

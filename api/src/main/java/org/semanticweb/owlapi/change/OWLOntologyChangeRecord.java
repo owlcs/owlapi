@@ -46,11 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 03/05/2012<br>
- * Associates an {@link OWLOntologyID} with ontology-less change data.<br>
+/** Associates an {@link OWLOntologyID} with ontology-less change data.<br>
  * An {@link OWLOntologyChangeRecord} captures information about an
  * {@link OWLOntologyChange} in a way that does not require a reference to an
  * {@link OWLOntology} object. It does this by referencing an
@@ -74,6 +70,9 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * </ol>
  * {@code OWLOntologyChangeRecord} objects are immutable.
  * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 03/05/2012
  * @since 3.4.3 */
 public final class OWLOntologyChangeRecord implements Serializable {
     private static final long serialVersionUID = 30406L;

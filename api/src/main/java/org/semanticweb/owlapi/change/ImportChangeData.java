@@ -36,43 +36,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-/**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <br>
- *     Instances of this class represent {@link OWLOntologyChangeData} for changes that that are specific to the
- *     addition or removal of import statements to/from an ontology.
- * <br>
- */
+/** Instances of this class represent {@link OWLOntologyChangeData} for changes
+ * that that are specific to the addition or removal of import statements
+ * to/from an ontology.
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012 */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
     private static final long serialVersionUID = 30406L;
-
     private final OWLImportsDeclaration declaration;
 
-    /**
-     * Constructs an {@link ImportChangeData} object that describes an {@link org.semanticweb.owlapi.model.ImportChange}
-     * based on the {@link OWLImportsDeclaration} specified by the {@code declaration} parameter.
-     * @param declaration The {@link OWLImportsDeclaration} that is the focus of some change.  Not {@code null}.
-     * @throws NullPointerException if {@code declaration} is {@code null}.
-     */
+    /** Constructs an {@link ImportChangeData} object that describes an
+     * {@link org.semanticweb.owlapi.model.ImportChange} based on the
+     * {@link OWLImportsDeclaration} specified by the {@code declaration}
+     * parameter.
+     * 
+     * @param declaration
+     *            The {@link OWLImportsDeclaration} that is the focus of some
+     *            change. Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code declaration} is {@code null}. */
     protected ImportChangeData(OWLImportsDeclaration declaration) {
-        if(declaration == null) {
+        if (declaration == null) {
             throw new NullPointerException("declaration must not be null");
         }
         this.declaration = declaration;
     }
 
-    /**
-     * Gets the {@link OWLImportsDeclaration} that this change data describes.
-     * @return The {@link OWLImportsDeclaration}.  Not {@code null}.
-     */
+    /** Gets the {@link OWLImportsDeclaration} that this change data describes.
+     * 
+     * @return The {@link OWLImportsDeclaration}. Not {@code null}. */
     public OWLImportsDeclaration getDeclaration() {
         return declaration;
     }

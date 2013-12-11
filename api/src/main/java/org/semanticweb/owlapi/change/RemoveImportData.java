@@ -36,56 +36,58 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.change;
 
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
-/**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <br>
- * Represents the specific non-ontology data required by a {@link org.semanticweb.owlapi.model.RemoveImport} change.
- * <br>
- * <br>
- * Instances of this class are immutable.
- * <br>
- * @since 3.5
- */
+/** Represents the specific non-ontology data required by a
+ * {@link org.semanticweb.owlapi.model.RemoveImport} change. <br>
+ * Instances of this class are immutable. <br>
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
+ * @since 3.5 */
 public final class RemoveImportData extends ImportChangeData {
     private static final long serialVersionUID = 30406L;
 
-    /**
-     * Constructs a {@link RemoveImportData} object that describes a {@link org.semanticweb.owlapi.model.RemoveImport}
-     * change for the {@link OWLImportsDeclaration} specified by the {@code declaration} parameter.
-     * @param declaration The {@link OWLImportsDeclaration} that is the focus of some change.  Not {@code null}.
-     * @throws NullPointerException if {@code declaration} is {@code null}.
-     */
+    /** Constructs a {@link RemoveImportData} object that describes a
+     * {@link org.semanticweb.owlapi.model.RemoveImport} change for the
+     * {@link OWLImportsDeclaration} specified by the {@code declaration}
+     * parameter.
+     * 
+     * @param declaration
+     *            The {@link OWLImportsDeclaration} that is the focus of some
+     *            change. Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code declaration} is {@code null}. */
     public RemoveImportData(OWLImportsDeclaration declaration) {
         super(declaration);
     }
 
-    /**
-     * Creates the {@link org.semanticweb.owlapi.model.AddImport} change that describes the removal of an {@link
-     * OWLImportsDeclaration} from
-     * an {@link OWLOntology} specified by the {@code ontology} parameter.
-     * @param ontology The {@link OWLOntology} that the change should apply to.  Not {@code null}.
-     * @return The {@link org.semanticweb.owlapi.model.RemoveImport} change for the {@link OWLOntology} specified by
-     *         {@code ontology} and the
-     *         {@link OWLImportsDeclaration} associated with this {@link ImportChangeData} object.
-     * @throws NullPointerException if {@code ontology} is {@code null}.
-     */
+    /** Creates the {@link org.semanticweb.owlapi.model.AddImport} change that
+     * describes the removal of an {@link OWLImportsDeclaration} from an
+     * {@link OWLOntology} specified by the {@code ontology} parameter.
+     * 
+     * @param ontology
+     *            The {@link OWLOntology} that the change should apply to. Not
+     *            {@code null}.
+     * @return The {@link org.semanticweb.owlapi.model.RemoveImport} change for
+     *         the {@link OWLOntology} specified by {@code ontology} and the
+     *         {@link OWLImportsDeclaration} associated with this
+     *         {@link ImportChangeData} object.
+     * @throws NullPointerException
+     *             if {@code ontology} is {@code null}. */
     @Override
     public RemoveImport createOntologyChange(OWLOntology ontology) {
         return new RemoveImport(ontology, getDeclaration());
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
+    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
+            throws E {
         return visitor.visit(this);
     }
 
@@ -96,10 +98,10 @@ public final class RemoveImportData extends ImportChangeData {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == this) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RemoveImportData)) {
+        if (!(obj instanceof RemoveImportData)) {
             return false;
         }
         RemoveImportData other = (RemoveImportData) obj;
