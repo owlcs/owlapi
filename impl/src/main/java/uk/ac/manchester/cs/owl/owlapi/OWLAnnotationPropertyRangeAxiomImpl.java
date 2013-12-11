@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -53,21 +52,19 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
-public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements OWLAnnotationPropertyRangeAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLAnnotationProperty property;
-
+public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
+        OWLAnnotationPropertyRangeAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLAnnotationProperty property;
     protected final IRI range;
 
-    public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range, Collection<? extends OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.property = property;
         this.range = range;
@@ -83,7 +80,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }
@@ -143,17 +141,17 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         return visitor.visit(this);
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
-        if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
-            return false;
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
+            if (!(obj instanceof OWLAnnotationPropertyRangeAxiom)) {
+                return false;
+            }
+            OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
+            return property.equals(other.getProperty()) && range.equals(other.getRange());
         }
-        OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-        return property.equals(other.getProperty()) && range.equals(other.getRange());
-    	}
-    	return false;
+        return false;
     }
 }

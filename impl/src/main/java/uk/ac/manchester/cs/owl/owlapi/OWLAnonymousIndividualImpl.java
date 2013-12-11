@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.NodeID;
@@ -53,16 +52,15 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Jan-2009 */
 @SuppressWarnings("javadoc")
-public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWLAnonymousIndividual {
-
-
-	private static final long serialVersionUID = 30406L;
-	private final NodeID nodeId;
+public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
+        OWLAnonymousIndividual {
+    private static final long serialVersionUID = 30406L;
+    private final NodeID nodeId;
 
     public OWLAnonymousIndividualImpl(NodeID nodeID) {
         super();
@@ -96,11 +94,12 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
 
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
-        throw new OWLRuntimeException("Not a named individual! This method should only be called on named individuals");
+        throw new OWLRuntimeException(
+                "Not a named individual! This method should only be called on named individuals");
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLAnonymousIndividual other = (OWLAnonymousIndividual) object;
         return nodeId.compareTo(other.getID());
     }
@@ -115,12 +114,10 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         return visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
@@ -148,7 +145,7 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -157,8 +154,9 @@ public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements OWL
         }
         return nodeId.equals(((OWLAnonymousIndividual) obj).getID());
     }
+
     @Override
     public int hashCode() {
-    	return nodeId.hashCode();
+        return nodeId.hashCode();
     }
 }

@@ -35,11 +35,11 @@ import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012 <br> An optimised implementation of OWLDatatype for
- * OWL2Datatypes. */
+/** An optimised implementation of OWLDatatype for OWL2Datatypes.
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 24/10/2012 */
 public class OWL2DatatypeImpl implements OWLDatatype {
     // NOTE: This class did extend OWLObjectImpl but this created a circular
     // dependency and caused initialisation

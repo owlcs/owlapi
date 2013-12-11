@@ -47,11 +47,9 @@ import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+ * Date: 26-Oct-2006 */
 public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl implements
         OWLDataSomeValuesFrom {
     private static final long serialVersionUID = 30406L;

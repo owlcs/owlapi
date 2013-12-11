@@ -57,11 +57,9 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 29-Nov-2006<br><br>
- */
+ * Date: 29-Nov-2006 */
 public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLInverseObjectPropertiesAxiom {
 
 

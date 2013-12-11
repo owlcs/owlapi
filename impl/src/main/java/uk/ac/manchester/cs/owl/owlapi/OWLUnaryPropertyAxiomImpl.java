@@ -44,11 +44,9 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+ * Date: 26-Oct-2006 */
 @SuppressWarnings("javadoc")
 public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression<?, ?>>
         extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {

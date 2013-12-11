@@ -143,20 +143,17 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Nov-2006<br>
- * <br>
- * <br>
- * A utility class that visits axioms, class expressions etc. and accumulates
+/** A utility class that visits axioms, class expressions etc. and accumulates
  * the named objects that are referred to in those axioms, class expressions
  * etc. For example, if the collector visited the axiom (propP some C)
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
- */
-public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, SWRLObjectVisitor {
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Nov-2006*/
+public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
+        SWRLObjectVisitor {
     private Collection<OWLEntity> objects;
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
@@ -165,128 +162,103 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
     private boolean collectIndividuals = true;
     private boolean collectDatatypes = true;
 
-    /**
-     * @param toReturn
+    /** @param toReturn
      *            the set that will contain the results
      * @param anonsToReturn
-     *            the set that will contain the anon individuals
-     */
+     *            the set that will contain the anon individuals */
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn,
             Collection<OWLAnonymousIndividual> anonsToReturn) {
         objects = toReturn;
         anonymousIndividuals = anonsToReturn;
     }
 
-    /**
-     * @param toReturn
-     *            the set that will contain the results
-     */
+    /** @param toReturn
+     *            the set that will contain the results */
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn) {
         objects = toReturn;
         anonymousIndividuals = fake;
     }
 
-    /**
-     * Deprecated default constructor: use one of the other constructors to get
-     * more efficient set creation
-     */
+    /** Deprecated default constructor: use one of the other constructors to get
+     * more efficient set creation */
     @Deprecated
     public OWLEntityCollectionContainerCollector() {
         this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());
     }
 
-    /**
-     * Clears all objects that have accumulated during the course of visiting
+    /** Clears all objects that have accumulated during the course of visiting
      * axioms, class expressions etc.
-     *
+     * 
      * @param toReturn
-     *            the set that will contain the results
-     */
-    //XXX not in the interface
+     *            the set that will contain the results */
+    // XXX not in the interface
     public void reset(Set<OWLEntity> toReturn) {
         objects = toReturn;
         anonymousIndividuals.clear();
     }
 
-    /**
-     * @param collectClasses
-     *            true to collect classes
-     */
-    //XXX not in the interface
+    /** @param collectClasses
+     *            true to collect classes */
+    // XXX not in the interface
     public void setCollectClasses(boolean collectClasses) {
         this.collectClasses = collectClasses;
     }
 
-    /**
-     * @param collectObjectProperties
-     *            true to collect object properties
-     */
-    //XXX not in the interface
+    /** @param collectObjectProperties
+     *            true to collect object properties */
+    // XXX not in the interface
     public void setCollectObjectProperties(boolean collectObjectProperties) {
         this.collectObjectProperties = collectObjectProperties;
     }
 
-    /**
-     * @param collectDataProperties
-     *            true to collect data properties
-     */
+    /** @param collectDataProperties
+     *            true to collect data properties */
     public void setCollectDataProperties(boolean collectDataProperties) {
         this.collectDataProperties = collectDataProperties;
     }
 
-    /**
-     * @param collectIndividuals
-     *            true to collect individuals
-     */
-    //XXX not in the interface
+    /** @param collectIndividuals
+     *            true to collect individuals */
+    // XXX not in the interface
     public void setCollectIndividuals(boolean collectIndividuals) {
         this.collectIndividuals = collectIndividuals;
     }
 
-    /**
-     * @param collectDatatypes
-     *            true to collect datatypes
-     */
-    //XXX not in the interface
+    /** @param collectDatatypes
+     *            true to collect datatypes */
+    // XXX not in the interface
     public void setCollectDatatypes(boolean collectDatatypes) {
         this.collectDatatypes = collectDatatypes;
     }
 
-    /**
-     * Gets the objects that are used by all axioms, class expressions etc. that
-     * this collector has visited since it was constructed or reset.
-     *
-     * Deprecated: if the non deprecated constructors are used, this method is
-     * useless and inefficient
-     *
-     * @return A set of entities. This will be a copy.
-     */
+    /** Gets the objects that are used by all axioms, class expressions etc. that
+     * this collector has visited since it was constructed or reset. Deprecated:
+     * if the non deprecated constructors are used, this method is useless and
+     * inefficient
+     * 
+     * @return A set of entities. This will be a copy. */
     @Deprecated
     public Set<OWLEntity> getObjects() {
         return new HashSet<OWLEntity>(objects);
     }
 
-    /**
-     * A convenience method. Although anonymous individuals are not entities
+    /** A convenience method. Although anonymous individuals are not entities
      * they are collected by this collector and stored in a separate set. This
-     * method returns collected individuals.
-     *
-     * Deprecated: if the non deprecated constructors are used, this method is
-     * useless and inefficient
-     *
+     * method returns collected individuals. Deprecated: if the non deprecated
+     * constructors are used, this method is useless and inefficient
+     * 
      * @return The set of anonymous individuals that were collected by the
-     *         collector
-     */
+     *         collector */
     @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Axiom Visitor stuff
     //
-    //////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
         @Override
         public void visit(CollectionContainer<OWLAnnotation> c) {}
@@ -299,7 +271,9 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
 
     @SuppressWarnings("unchecked")
     protected void processAxiomAnnotations(OWLAxiom ax) {
-        // an OWLAxiomImpl will implement this interface with <OWLAnnotation > parameter; this will avoid creating a defensive copy of the annotation set
+        // an OWLAxiomImpl will implement this interface with <OWLAnnotation >
+        // parameter; this will avoid creating a defensive copy of the
+        // annotation set
         if (ax instanceof CollectionContainer) {
             ((CollectionContainer<OWLAnnotation>) ax).accept(annotationVisitor);
         } else {
@@ -550,11 +524,11 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
         processAxiomAnnotations(axiom);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // OWLClassExpressionVisitor
     //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLClass desc) {
         if (collectClasses) {
@@ -665,11 +639,11 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
         desc.getFiller().accept(this);
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Data visitor
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLDataComplementOf node) {
         node.getDataRange().accept(this);
@@ -714,21 +688,21 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
         node.getDatatype().accept(this);
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Property expression visitor
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLObjectInverseOf expression) {
         expression.getInverse().accept(this);
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // Entity  visitor
+    // Entity visitor
     //
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLObjectProperty property) {
         if (collectObjectProperties) {
@@ -820,11 +794,11 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
         processAxiomAnnotations(axiom);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // SWRL Object Visitor
     //
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(SWRLRule rule) {
         for (SWRLAtom atom : rule.getBody()) {
@@ -987,7 +961,8 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor, 
         public void clear() {}
 
         @Override
-        public boolean addAll(int arg0, Collection<? extends OWLAnonymousIndividual> arg1) {
+        public boolean
+                addAll(int arg0, Collection<? extends OWLAnonymousIndividual> arg1) {
             return false;
         }
 

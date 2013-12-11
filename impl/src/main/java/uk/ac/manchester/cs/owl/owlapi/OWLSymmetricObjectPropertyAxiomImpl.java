@@ -55,11 +55,9 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006 */
 public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLSymmetricObjectPropertyAxiom {
 
 	private static final long serialVersionUID = 30406L;

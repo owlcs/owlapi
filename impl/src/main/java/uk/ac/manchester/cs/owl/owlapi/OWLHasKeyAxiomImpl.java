@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -57,23 +56,23 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 17-Jan-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 17-Jan-2009 */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLClassExpression expression;
+    private final Set<OWLPropertyExpression<?, ?>> propertyExpressions;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLClassExpression expression;
-
-    private final Set<OWLPropertyExpression<?,?>> propertyExpressions;
     @SuppressWarnings("javadoc")
-    public OWLHasKeyAxiomImpl(OWLClassExpression expression, Set<? extends OWLPropertyExpression<?,?>> propertyExpressions, Collection<? extends OWLAnnotation> annotations) {
+    public OWLHasKeyAxiomImpl(OWLClassExpression expression,
+            Set<? extends OWLPropertyExpression<?, ?>> propertyExpressions,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = expression;
-        this.propertyExpressions = new TreeSet<OWLPropertyExpression<?,?>>(propertyExpressions);
+        this.propertyExpressions = new TreeSet<OWLPropertyExpression<?, ?>>(
+                propertyExpressions);
     }
 
     @Override
@@ -97,7 +96,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-	public boolean isLogicalAxiom() {
+    public boolean isLogicalAxiom() {
         return true;
     }
 
@@ -107,14 +106,16 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-    public Set<OWLPropertyExpression<?,?>> getPropertyExpressions() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
+    public Set<OWLPropertyExpression<?, ?>> getPropertyExpressions() {
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(propertyExpressions);
     }
 
     @Override
     @SuppressWarnings("rawtypes")
     // this is necessary to avoid java 6 issues
-    public Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
+            public
+            Set<OWLDataPropertyExpression> getDataPropertyExpressions() {
         Set<OWLDataPropertyExpression> props = new TreeSet<OWLDataPropertyExpression>();
         for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isDataPropertyExpression()) {
@@ -127,7 +128,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     @Override
     @SuppressWarnings("rawtypes")
     // this is necessary to avoid java 6 issues
-    public Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
+            public
+            Set<OWLObjectPropertyExpression> getObjectPropertyExpressions() {
         Set<OWLObjectPropertyExpression> props = new TreeSet<OWLObjectPropertyExpression>();
         for (OWLPropertyExpression prop : propertyExpressions) {
             if (prop.isObjectPropertyExpression()) {
@@ -138,7 +140,7 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLHasKeyAxiom other = (OWLHasKeyAxiom) object;
         int diff = expression.compareTo(other.getClassExpression());
         if (diff != 0) {
@@ -167,17 +169,18 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         return visitor.visit(this);
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
-        if (!(obj instanceof OWLHasKeyAxiom)) {
-            return false;
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
+            if (!(obj instanceof OWLHasKeyAxiom)) {
+                return false;
+            }
+            OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
+            return expression.equals(other.getClassExpression())
+                    && propertyExpressions.equals(other.getPropertyExpressions());
         }
-        OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
-        return expression.equals(other.getClassExpression()) && propertyExpressions.equals(other.getPropertyExpressions());
-    	}
-    	return false;
+        return false;
     }
 }

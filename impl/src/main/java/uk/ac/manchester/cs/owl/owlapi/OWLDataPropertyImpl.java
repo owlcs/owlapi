@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -72,37 +71,32 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Bio-Health Informatics Group<br> Date:
- * 26-Oct-2006<br><br>
- */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Oct-2006 */
 @SuppressWarnings("javadoc")
-public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements OWLDataProperty {
-
-
-	private static final long serialVersionUID = 30406L;
-
-
-	private final IRI iri;
-
-
+public class OWLDataPropertyImpl extends
+        OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements
+        OWLDataProperty {
+    private static final long serialVersionUID = 30406L;
+    private final IRI iri;
     private final boolean builtin;
-
 
     public OWLDataPropertyImpl(IRI iri) {
         super();
         this.iri = iri;
-        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()) || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+        builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
+                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
     }
 
     @Override
-	public boolean isTopEntity() {
+    public boolean isTopEntity() {
         return isOWLTopDataProperty();
     }
 
     @Override
-	public boolean isBottomEntity() {
+    public boolean isBottomEntity() {
         return isOWLBottomDataProperty();
     }
 
@@ -146,12 +140,10 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
         return builtin;
     }
 
-
     @Override
     public boolean isFunctional(OWLOntology ontology) {
         return ontology.getFunctionalDataPropertyAxioms(this).size() > 0;
     }
-
 
     @Override
     public boolean isFunctional(Set<OWLOntology> ontologies) {
@@ -163,176 +155,157 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
         return false;
     }
 
-
     @Override
-	protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getDisjointPropertiesAxioms(OWLOntology ontology) {
+    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>>
+            getDisjointPropertiesAxioms(OWLOntology ontology) {
         return ontology.getDisjointDataPropertiesAxioms(this);
     }
 
-
     @Override
-	protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(OWLOntology ontology) {
+    protected Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(
+            OWLOntology ontology) {
         return ontology.getDataPropertyDomainAxioms(this);
     }
 
-
     @Override
-	protected Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>> getRangeAxioms(OWLOntology ontology) {
+    protected
+            Set<? extends OWLPropertyRangeAxiom<OWLDataPropertyExpression, OWLDataRange>>
+            getRangeAxioms(OWLOntology ontology) {
         return ontology.getDataPropertyRangeAxioms(this);
     }
 
-
     @Override
-	protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxioms(OWLOntology ontology) {
+    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>>
+            getSubPropertyAxioms(OWLOntology ontology) {
         return ontology.getDataSubPropertyAxiomsForSubProperty(this);
     }
 
-
     @Override
-	protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>> getEquivalentPropertiesAxioms(OWLOntology ontology) {
+    protected Set<? extends OWLNaryPropertyAxiom<OWLDataPropertyExpression>>
+            getEquivalentPropertiesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentDataPropertiesAxioms(this);
     }
 
-
     @Override
-	protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>> getSubPropertyAxiomsForRHS(OWLOntology ont) {
+    protected Set<? extends OWLSubPropertyAxiom<OWLDataPropertyExpression>>
+            getSubPropertyAxiomsForRHS(OWLOntology ont) {
         return ont.getDataSubPropertyAxiomsForSuperProperty(this);
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLDataProperty)) {
                 return false;
             }
-
             IRI otherIRI = ((OWLDataProperty) obj).getIRI();
             return otherIRI.equals(iri);
         }
         return false;
     }
 
-
     @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
 
-
     @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+            OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
-
     @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
-        return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
+    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
+            OWLAnnotationProperty annotationProperty) {
+        return ImplUtils.getAnnotations(this, annotationProperty,
+                Collections.singleton(ontology));
     }
-
 
     @Override
     public void accept(OWLEntityVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLPropertyExpressionVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLEntityVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
     @Override
     public boolean isAnonymous() {
         return false;
     }
-
 
     @Override
     public OWLDataProperty asOWLDataProperty() {
         return this;
     }
 
-
     @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass!");
     }
-
 
     @Override
     public OWLDatatype asOWLDatatype() {
         throw new OWLRuntimeException("Not an OWLDatatype!");
     }
 
-
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an OWLIndividual!");
     }
-
 
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an OWLObjectProperty!");
     }
 
-
     @Override
     public boolean isOWLClass() {
         return false;
     }
-
 
     @Override
     public boolean isOWLDataProperty() {
         return true;
     }
 
-
     @Override
     public boolean isOWLDatatype() {
         return false;
     }
 
-
     @Override
     public boolean isOWLNamedIndividual() {
         return false;
     }
-
 
     @Override
     public boolean isOWLObjectProperty() {
@@ -375,12 +348,13 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl<OWLDataRange,
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom>
+            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLDataProperty) object).getIRI());
     }
 }

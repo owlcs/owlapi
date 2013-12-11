@@ -64,11 +64,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * <br> */
+ * Date: 25-Oct-2006 */
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     private static final long serialVersionUID = 30406L;
 

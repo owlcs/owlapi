@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -62,24 +61,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Jan-2009
- */
-public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLNamedIndividual {
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Jan-2009 */
+public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
+        OWLNamedIndividual {
+    private static final long serialVersionUID = 30406L;
+    private final IRI iri;
 
-
-	private static final long serialVersionUID = 30406L;
-	private final IRI iri;
-
-    /**
-     * @param iri the iri
-     */
+    /** @param iri
+     *            the iri */
     public OWLNamedIndividualImpl(IRI iri) {
         super();
         this.iri = iri;
     }
-
 
     @Override
     public boolean isNamed() {
@@ -142,7 +138,7 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNamedIndividual)) {
                 return false;
@@ -153,24 +149,23 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         return false;
     }
 
-
     @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
 
-
     @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+            OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
-
     @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
-        return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
+    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
+            OWLAnnotationProperty annotationProperty) {
+        return ImplUtils.getAnnotations(this, annotationProperty,
+                Collections.singleton(ontology));
     }
-
 
     @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
@@ -178,12 +173,13 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom>
+            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLNamedIndividual other = (OWLNamedIndividual) object;
         return iri.compareTo(other.getIRI());
     }
@@ -213,17 +209,13 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements OWLName
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLIndividualVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLIndividualVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
-
 }

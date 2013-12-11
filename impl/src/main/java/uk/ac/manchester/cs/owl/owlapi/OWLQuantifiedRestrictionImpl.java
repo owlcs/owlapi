@@ -45,11 +45,9 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br><br>
- */
+ * Date: 26-Oct-2006 */
 @SuppressWarnings("javadoc")
 public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
 

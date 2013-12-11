@@ -46,11 +46,9 @@ import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 05-Dec-2006<br><br>
- */
+ * Date: 05-Dec-2006 */
 public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl implements OWLIndividualAxiom {
 
 	private static final long serialVersionUID = 30406L;

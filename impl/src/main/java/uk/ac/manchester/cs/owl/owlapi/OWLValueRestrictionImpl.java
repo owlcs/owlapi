@@ -43,18 +43,15 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * 
- * @param <R>
+/** @param <R>
  *            the range
  * @param <P>
  *            the property expression
  * @param <V>
- *            the value */
+ *            the value
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Oct-2006*/
 public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
         extends OWLRestrictionImpl<R, P, P> implements OWLHasValueRestriction<R, P, V> {
     private static final long serialVersionUID = 30406L;

@@ -56,11 +56,9 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br><br>
- */
+ * Date: 22-Nov-2006 */
 public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
 
 
