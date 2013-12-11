@@ -74,8 +74,7 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group Date: 25-Oct-2006
  * <br>
  * The base for test cases that need a data factory. */
