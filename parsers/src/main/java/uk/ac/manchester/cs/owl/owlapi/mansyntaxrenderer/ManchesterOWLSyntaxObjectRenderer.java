@@ -56,11 +56,9 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 25-Apr-2007<br><br>
- */
+ * Date: 25-Apr-2007 */
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements OWLObjectVisitor {
 

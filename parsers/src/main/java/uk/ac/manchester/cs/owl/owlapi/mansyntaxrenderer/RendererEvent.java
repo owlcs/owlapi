@@ -42,8 +42,7 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 15-Jul-2009
  */

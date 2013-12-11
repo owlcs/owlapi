@@ -47,8 +47,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 20-May-2009
  */@SuppressWarnings("javadoc")

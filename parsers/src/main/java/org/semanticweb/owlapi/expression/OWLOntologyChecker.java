@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.expression;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 15-Feb-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Feb-2009 */
 public interface OWLOntologyChecker {
-
-    /**
-     * @param name the ontology name
-     * @return the ontology
-     */
+    /** @param name
+     *            the ontology name
+     * @return the ontology */
     OWLOntology getOntology(String name);
-
 }

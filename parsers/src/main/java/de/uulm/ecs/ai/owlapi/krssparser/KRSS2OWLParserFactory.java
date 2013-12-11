@@ -36,20 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/**
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br>
- */
+/** @author Olaf Noppens<br>
+ *         Ulm University<br>
+ *         Institute of Artificial Intelligence<br> */
 public class KRSS2OWLParserFactory implements OWLParserFactory {
-	  @Override
+    @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new KRSS2OWLParser();
     }

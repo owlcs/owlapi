@@ -102,12 +102,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 07-Dec-2006<br>
- * <br>
- * A parser/interpreter for an RDF graph which represents an OWL ontology. The
+/** A parser/interpreter for an RDF graph which represents an OWL ontology. The
  * consumer interprets triple patterns in the graph to produce the appropriate
  * OWLAPI entities, class expressions and axioms. The parser is based on triple
  * handlers. A given triple handler handles a specific type of triple. Generally
@@ -119,7 +114,11 @@ import org.xml.sax.SAXException;
  * deemed to have been consumed an is discarded. The parser attempts to consume
  * as many triples as possible while streaming parsing is taking place. Whether
  * or not a triple can be consumed dIRIng parsing is determined by installed
- * triple handlers. */
+ * triple handlers.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 07-Dec-2006*/
 @SuppressWarnings("javadoc")
 public class OWLRDFConsumer implements RDFConsumer {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_UNION_OF;
@@ -47,17 +46,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- * <br>
- * Translates a set of triples to an <code>OWLUnionOf</code>.
- */
+/** Translates a set of triples to an <code>OWLUnionOf</code>.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 08-Dec-2006*/
 @SuppressWarnings("javadoc")
 public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
-
     public ObjectUnionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -65,7 +60,8 @@ public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
     @Override
     public boolean matchesStrict(IRI mainNode) {
         IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, false);
-        return isClassExpressionStrict(mainNode) && isClassExpressionListStrict(listNode, 2);
+        return isClassExpressionStrict(mainNode)
+                && isClassExpressionListStrict(listNode, 2);
     }
 
     @Override
@@ -76,7 +72,8 @@ public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
     @Override
     public OWLObjectUnionOf translate(IRI mainNode) {
         IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, true);
-        Set<OWLClassExpression> classExpressions = getConsumer().translateToClassExpressionSet(listNode);
+        Set<OWLClassExpression> classExpressions = getConsumer()
+                .translateToClassExpressionSet(listNode);
         return getDataFactory().getOWLObjectUnionOf(classExpressions);
     }
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -44,18 +43,19 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
-public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator<OWLFacetRestriction> {
-
+public class OWLFacetRestrictionListItemTranslator implements
+        ListItemTranslator<OWLFacetRestriction> {
     private OWLRDFConsumer consumer;
 
     public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
+
     @Override
     public OWLFacetRestriction translate(OWLLiteral firstObject) {
         return null;
@@ -63,9 +63,9 @@ public class OWLFacetRestrictionListItemTranslator implements ListItemTranslator
 
     @Override
     public OWLFacetRestriction translate(IRI firstObject) {
-        for(OWLFacet facet : OWLFacet.values()) {
+        for (OWLFacet facet : OWLFacet.values()) {
             OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI(), true);
-            if(lit != null) {
+            if (lit != null) {
                 return consumer.getDataFactory().getOWLFacetRestriction(facet, lit);
             }
         }

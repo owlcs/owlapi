@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.Set;
@@ -47,22 +46,23 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 21-Jan-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")
 public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
-
     public TypeNamedIndividualHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-            OWLNamedIndividual individual = getDataFactory().getOWLNamedIndividual(subject);
+            OWLNamedIndividual individual = getDataFactory().getOWLNamedIndividual(
+                    subject);
             addAxiom(getDataFactory().getOWLDeclarationAxiom(individual, annos));
         }
         getConsumer().addOWLNamedIndividual(subject, true);

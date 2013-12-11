@@ -45,8 +45,7 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 08-Oct-2009
  */@SuppressWarnings("javadoc")

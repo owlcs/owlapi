@@ -45,13 +45,10 @@ import java.util.List;
 import org.semanticweb.owlapi.io.OWLRendererException;
 
 /**
- * Author: drummond<br>
- * http://www.cs.man.ac.uk/~drummond/<br><br>
- * <br>
+ * @author drummond, http://www.cs.man.ac.uk/~drummond/<br>
  * The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Apr 9, 2009<br><br>
- */
+ * Date: Apr 9, 2009 */
 @SuppressWarnings("javadoc")
 public class OBOStorageIncompleteException extends OWLRendererException {
 

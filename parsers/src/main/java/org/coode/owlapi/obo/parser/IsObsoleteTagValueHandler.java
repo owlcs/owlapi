@@ -47,8 +47,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
+ * @author Matthew Horridge, Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 18/04/2012
  */

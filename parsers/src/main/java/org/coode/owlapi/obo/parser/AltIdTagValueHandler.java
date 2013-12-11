@@ -44,8 +44,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
+/** @author Matthew Horridge, Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 10/05/2012 */
 @SuppressWarnings("javadoc")

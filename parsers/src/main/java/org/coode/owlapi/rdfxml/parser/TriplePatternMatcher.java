@@ -43,8 +43,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 19/12/2010
  */

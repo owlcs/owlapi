@@ -40,8 +40,7 @@ package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 15-Jun-2007 */
 @SuppressWarnings("javadoc")

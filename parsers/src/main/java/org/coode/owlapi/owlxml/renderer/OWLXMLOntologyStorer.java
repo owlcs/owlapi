@@ -50,11 +50,9 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 07-Jan-2007<br><br>
- */
+ * Date: 07-Jan-2007 */
 public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
 
 

@@ -36,17 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 15-Jul-2009
- */
+
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Jul-2009 */
 @SuppressWarnings("javadoc")
 public interface RendererListener {
-
     void frameRenderingPrepared(String frameName, RendererEvent event);
 
     void frameRenderingStarted(String frameName, RendererEvent event);

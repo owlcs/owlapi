@@ -219,7 +219,6 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * </tr>
  * </table>
  * <br>
- * <br>
  * Each referenced class, object property as well as individual is defined using
  * <i>define-concept</i> resp. <i>define-primitive-concept</i>,
  * <i>define-role</i> and <i>define-individual</i>. In addition, axioms are
@@ -303,9 +302,10 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * </td>
  * </tr>
  * </table>
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * 
+ * @author Olaf Noppens<br>
+ *         Ulm University<br>
+ *         Institute of Artificial Intelligence */
 @SuppressWarnings({ "unused", "javadoc" })
 public class KRSSObjectRenderer implements OWLObjectVisitor {
     private static final String OPEN_BRACKET = "(";

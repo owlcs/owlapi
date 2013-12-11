@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.expression;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -46,50 +45,39 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Sep-2007<br><br>
- *
- * Maps strings to OWL objects
- */
+/** Maps strings to OWL objects.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Sep-2007*/
 public interface OWLEntityChecker {
-
-    /**
-     * @param name name to resolve
-     * @return OWLClass corresponding to name
-     */
+    /** @param name
+     *            name to resolve
+     * @return OWLClass corresponding to name */
     OWLClass getOWLClass(String name);
 
-    /**
-     * @param name name to resolve
-     * @return OWLObjectProperty corresponding to name
-     */
+    /** @param name
+     *            name to resolve
+     * @return OWLObjectProperty corresponding to name */
     OWLObjectProperty getOWLObjectProperty(String name);
 
-    /**
-     * @param name name to resolve
-     * @return OWLDataProperty corresponding to name
-     */
+    /** @param name
+     *            name to resolve
+     * @return OWLDataProperty corresponding to name */
     OWLDataProperty getOWLDataProperty(String name);
 
-    /**
-     * @param name name to resolve
-     * @return OWLNamedIndividual corresponding to name
-     */
+    /** @param name
+     *            name to resolve
+     * @return OWLNamedIndividual corresponding to name */
     OWLNamedIndividual getOWLIndividual(String name);
 
-    /**
-     * @param name name to resolve
-     * @return OWLDatatype corresponding to name
-     */
+    /** @param name
+     *            name to resolve
+     * @return OWLDatatype corresponding to name */
     OWLDatatype getOWLDatatype(String name);
 
-    /**
-     * @param name name to resolve
-     * @return OWLAnnotationProperty corresponding to name
-     */
+    /** @param name
+     *            name to resolve
+     * @return OWLAnnotationProperty corresponding to name */
     OWLAnnotationProperty getOWLAnnotationProperty(String name);
 }

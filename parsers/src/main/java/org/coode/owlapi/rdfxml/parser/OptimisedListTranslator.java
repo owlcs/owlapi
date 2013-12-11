@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.ArrayList;
@@ -50,102 +49,97 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Jan-2007<br>
- * <br>
- * <br>
- * Translates an rdf:List into a Java <code>List</code>, or Java
+/** Translates an rdf:List into a Java <code>List</code>, or Java
  * <code>Set</code>. The type of list (i.e. the type of objects in the list) are
  * determined by a <code>ListItemTranslator</code>. The translator consumes all
  * triples which are used in the translation.
- */
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 08-Jan-2007*/
 @SuppressWarnings("javadoc")
 public class OptimisedListTranslator<O extends OWLObject> {
-	private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class
-			.getName());
-	private OWLRDFConsumer consumer;
-	private ListItemTranslator<O> translator;
+    private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
+    private OWLRDFConsumer consumer;
+    private ListItemTranslator<O> translator;
 
-	protected OptimisedListTranslator(OWLRDFConsumer consumer,
-			ListItemTranslator<O> translator) {
-		this.consumer = consumer;
-		this.translator = translator;
-	}
+    protected OptimisedListTranslator(OWLRDFConsumer consumer,
+            ListItemTranslator<O> translator) {
+        this.consumer = consumer;
+        this.translator = translator;
+    }
 
-	protected OWLRDFConsumer getConsumer() {
-		return consumer;
-	}
+    protected OWLRDFConsumer getConsumer() {
+        return consumer;
+    }
 
-	private void translateList(IRI mainNode, List<O> list) {
-		IRI current = mainNode;
-		while (current != null) {
-			IRI firstResource = consumer.getFirstResource(current, true);
-			if (firstResource != null) {
-				list.add(translator.translate(firstResource));
-			} else {
-				OWLLiteral literal = consumer.getFirstLiteral(current);
-				if (literal != null) {
-					O translate = translator.translate(literal);
-					if(translate!=null) {
-						list.add(translate);
-					}
-				} else {
-					// Empty list?
-					if (logger.isLoggable(Level.FINE)) {
-						logger.fine("Possible malformed list: rdf:first triple missing");
-					}
-				}
-			}
-			current = consumer.getRest(current, true);
-		}
-	}
+    private void translateList(IRI mainNode, List<O> list) {
+        IRI current = mainNode;
+        while (current != null) {
+            IRI firstResource = consumer.getFirstResource(current, true);
+            if (firstResource != null) {
+                list.add(translator.translate(firstResource));
+            } else {
+                OWLLiteral literal = consumer.getFirstLiteral(current);
+                if (literal != null) {
+                    O translate = translator.translate(literal);
+                    if (translate != null) {
+                        list.add(translate);
+                    }
+                } else {
+                    // Empty list?
+                    if (logger.isLoggable(Level.FINE)) {
+                        logger.fine("Possible malformed list: rdf:first triple missing");
+                    }
+                }
+            }
+            current = consumer.getRest(current, true);
+        }
+    }
 
-	//    private void translateList(IRI mainNode, List<O> list) {
-	//        
-	//        IRI firstResource = consumer.getFirstResource(mainNode, true);
-	//        if (firstResource != null) {
-	//            list.add(translator.translate(firstResource));
-	//        }
-	//        else {
-	//            OWLLiteral literal = consumer.getFirstLiteral(mainNode);
-	//            if (literal != null) {
-	//                list.add(translator.translate(literal));
-	//            }
-	//            else {
-	//                // Empty list?
-	//                if (logger.isLoggable(Level.FINE)) {
-	//                    logger.fine("Possible malformed list: rdf:first triple missing");
-	//                }
-	//            }
-	//        }
-	//        IRI rest = consumer.getRest(mainNode, true);
-	//        if (rest != null) {
-	//            translateList(rest, list);
-	//        }
-	//    }
-	public List<O> translateList(IRI mainNode) {
-		boolean shared = consumer.isSharedAnonymousNode(mainNode);
-		List<O> list;
-		if (shared) {
-			Object o = consumer.getSharedAnonymousNode(mainNode);
-			if (o != null && o instanceof List) {
-				list = (List<O>) o;
-			} else {
-				list = new ArrayList<O>();
-				translateList(mainNode, list);
-				consumer.addSharedAnonymousNode(mainNode, list);
-			}
-		} else {
-			list = new ArrayList<O>();
-			translateList(mainNode, list);
-		}
-		return list;
-	}
+    // private void translateList(IRI mainNode, List<O> list) {
+    //
+    // IRI firstResource = consumer.getFirstResource(mainNode, true);
+    // if (firstResource != null) {
+    // list.add(translator.translate(firstResource));
+    // }
+    // else {
+    // OWLLiteral literal = consumer.getFirstLiteral(mainNode);
+    // if (literal != null) {
+    // list.add(translator.translate(literal));
+    // }
+    // else {
+    // // Empty list?
+    // if (logger.isLoggable(Level.FINE)) {
+    // logger.fine("Possible malformed list: rdf:first triple missing");
+    // }
+    // }
+    // }
+    // IRI rest = consumer.getRest(mainNode, true);
+    // if (rest != null) {
+    // translateList(rest, list);
+    // }
+    // }
+    public List<O> translateList(IRI mainNode) {
+        boolean shared = consumer.isSharedAnonymousNode(mainNode);
+        List<O> list;
+        if (shared) {
+            Object o = consumer.getSharedAnonymousNode(mainNode);
+            if (o != null && o instanceof List) {
+                list = (List<O>) o;
+            } else {
+                list = new ArrayList<O>();
+                translateList(mainNode, list);
+                consumer.addSharedAnonymousNode(mainNode, list);
+            }
+        } else {
+            list = new ArrayList<O>();
+            translateList(mainNode, list);
+        }
+        return list;
+    }
 
-	public Set<O> translateToSet(IRI mainNode) {
-		return new HashSet<O>(translateList(mainNode));
-	}
+    public Set<O> translateToSet(IRI mainNode) {
+        return new HashSet<O>(translateList(mainNode));
+    }
 }

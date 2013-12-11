@@ -61,16 +61,15 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br>
- * <br>
- * Writes OWL/XML. In an OWL/XML documents written by this writer, the base is
+/** Writes OWL/XML. In an OWL/XML documents written by this writer, the base is
  * always the ontology URI, and the default namespace is always the OWL
  * namespace (http://www.w3.org/2002/07/owl#). Unlike RDF/XML, entity URIs
  * aren't abbreviated using the XML namespace mechanism, instead they are
- * encoded using 'prefix' elements. */
+ * encoded using 'prefix' elements.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 12-Dec-2006*/
 @SuppressWarnings("javadoc")
 public class OWLXMLWriter {
     /** String comparator that takes length into account before natural ordering. */

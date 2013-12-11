@@ -50,11 +50,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br> */
+ * Date: 06-Dec-2006 */
 public class RDFGraph {
     private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;

@@ -66,13 +66,11 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br>
- * <br>
- * A handler which knows about OWLXML */
+/** A handler which knows about OWLXML.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Dec-2006*/
 @SuppressWarnings("javadoc")
 public class OWLXMLParserHandler extends DefaultHandler {
     private OWLOntologyManager owlOntologyManager;

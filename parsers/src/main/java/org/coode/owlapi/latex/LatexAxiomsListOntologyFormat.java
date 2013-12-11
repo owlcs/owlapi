@@ -36,21 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-
-/**
- * Author: Matthew Horridge<br> The University Of Manchester<br> Information Management Group<br> Date:
- * 03-Aug-2008<br><br>
- */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2008 */
 public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
 
     @Override
-	public String toString() {
+    public String toString() {
         return "Latex Axiom List";
     }
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.renderer;
 
 import java.io.IOException;
@@ -55,51 +54,37 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
-/**
- * Author: Nick Drummond<br>
- * The University Of Manchester<br>
- * Bio Health Informatics Group<br>
- * Date: Dec 19, 2008<br><br>
- * <br>
- * An ordered rendering of the Tag Value Pairs that also supports:
- * - default values
- * - unknown tags (which are rendered at the end of the known tags)
- * - extraction of TVPs from annotations
- */
+/** An ordered rendering of the Tag Value Pairs that also supports: - default
+ * values - unknown tags (which are rendered at the end of the known tags) -
+ * extraction of TVPs from annotations
+ * 
+ * @author Nick Drummond, The University Of Manchester<br>
+ *         Bio Health Informatics Group<br>
+ *         Date: Dec 19, 2008*/
 @SuppressWarnings("javadoc")
 public class OBOTagValuePairList {
-
-
     private Map<String, Set<String>> knownTVPs = new HashMap<String, Set<String>>();
     private Map<String, Set<String>> unknownTVPs = new HashMap<String, Set<String>>();
-
     private List<OBOVocabulary> vocab;
-
     private IRIShortFormProvider iriSFP;
-
     private Map<IRI, String> defaults = new HashMap<IRI, String>();
-
     private Writer writer;
 
-
-    /**
-     * @param knownVocab the set of tags that are known by this generator
-     */
+    /** @param knownVocab
+     *            the set of tags that are known by this generator */
     public OBOTagValuePairList(List<OBOVocabulary> knownVocab) {
         vocab = knownVocab;
         iriSFP = new SimpleIRIShortFormProvider();
     }
 
-
     public void visit(OWLAnnotation annot) {
-        addPair(annot.getProperty().getIRI(), ((OWLLiteral) annot.getValue()).getLiteral());
+        addPair(annot.getProperty().getIRI(),
+                ((OWLLiteral) annot.getValue()).getLiteral());
     }
-
 
     public void addPair(OBOVocabulary tag, String value) {
         addPair(tag.getIRI(), value);
     }
-
 
     public void addPair(IRI tag, String value) {
         boolean found = false;
@@ -116,22 +101,18 @@ public class OBOTagValuePairList {
         }
     }
 
-
     public void setPair(OBOVocabulary key, String value) {
         knownTVPs.remove(key.getName());
         addPair(key.getIRI(), value);
     }
 
-
     public void setDefault(OBOVocabulary tag, String value) {
         defaults.put(tag.getIRI(), value);
     }
 
-
     public void setDefault(IRI tag, String value) {
         defaults.put(tag, value);
     }
-
 
     public Set<String> getValues(OBOVocabulary key) {
         Set<String> values = knownTVPs.get(key.getName());
@@ -140,7 +121,6 @@ public class OBOTagValuePairList {
         }
         return values;
     }
-
 
     private void addPair(String tag, String value, Map<String, Set<String>> map) {
         Set<String> set = map.get(tag);
@@ -151,10 +131,8 @@ public class OBOTagValuePairList {
         set.add(value);
     }
 
-
     public void write(Writer w) {
         writer = w;
-
         // write tags out in order
         for (OBOVocabulary tag : vocab) {
             Set<String> values = knownTVPs.get(tag.getName());
@@ -170,7 +148,6 @@ public class OBOTagValuePairList {
                 }
             }
         }
-
         // write additional tags in no specified order
         for (String unknownTag : unknownTVPs.keySet()) {
             for (String value : unknownTVPs.get(unknownTag)) {
@@ -179,11 +156,9 @@ public class OBOTagValuePairList {
         }
     }
 
-
     private void writeTagValuePair(OBOVocabulary key, String value) {
         writeTagValuePair(key.getName(), value);
     }
-
 
     private void writeTagValuePair(String key, String value) {
         if (key != null && value != null) {
@@ -194,17 +169,14 @@ public class OBOTagValuePairList {
         }
     }
 
-
     private void writeNewLine() {
         write("\n");
     }
 
-
     private void write(String s) {
         try {
             writer.write(s);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

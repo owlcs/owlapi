@@ -43,11 +43,9 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * Author: Nick Drummond<br>
- * The University Of Manchester<br>
+ * @author Nick Drummond, The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Dec 19, 2008<br><br>
- */
+ * Date: Dec 19, 2008 */
 @SuppressWarnings("javadoc")
 public class OBOStorageException extends OWLOntologyStorageException{
 

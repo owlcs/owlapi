@@ -40,8 +40,7 @@
 package org.coode.owlapi.obo.parser;
 
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
+/** @author Matthew Horridge, Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 19/04/2012 */
 @SuppressWarnings("javadoc")

@@ -36,32 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.xml;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 30-May-2006<br><br>
- * <br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- *
- * Developed as part of the CO-ODE project
- * http://www.co-ode.org
- */
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: 30-May-2006*/
 @SuppressWarnings("javadoc")
 public class XMLWriterPreferences {
-
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
-
     private boolean useNamespaceEntities;
-
     private boolean indenting;
-
     private int indentSize;
-
 
     private XMLWriterPreferences() {
         useNamespaceEntities = false;
@@ -69,36 +56,29 @@ public class XMLWriterPreferences {
         indentSize = 4;
     }
 
-
     public static XMLWriterPreferences getInstance() {
         return instance;
     }
-
 
     public boolean isUseNamespaceEntities() {
         return useNamespaceEntities;
     }
 
-
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
-
 
     public boolean isIndenting() {
         return indenting;
     }
 
-
     public void setIndenting(boolean indenting) {
         this.indenting = indenting;
     }
 
-
     public int getIndentSize() {
         return indentSize;
     }
-
 
     public void setIndentSize(int indentSize) {
         this.indentSize = indentSize;

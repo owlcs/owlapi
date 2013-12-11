@@ -36,40 +36,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- *
- * Give a node in an RDF graph, which represents the main node
- * of an OWL class expression, the <code>ClassExpressionTranslator</code>
- * consumes the triples that represent the class expression, and
- * translates the triples to the appropriate OWL API <code>OWLClassExpression</code>
- * object.
- */
+/** Give a node in an RDF graph, which represents the main node of an OWL class
+ * expression, the <code>ClassExpressionTranslator</code> consumes the triples
+ * that represent the class expression, and translates the triples to the
+ * appropriate OWL API <code>OWLClassExpression</code> object.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 08-Dec-2006*/
 @SuppressWarnings("javadoc")
 public interface ClassExpressionTranslator {
-
     boolean matches(IRI mainNode, Mode mode);
 
     boolean matchesStrict(IRI mainNode);
 
     boolean matchesLax(IRI mainNode);
 
-    /**
-     * Translates the specified main node into an <code>OWLClassExpression</code>.
-     * All triples used in the translation are consumed.
-     * @param mainNode The main node of the set of triples that represent the
-     * class expression.
-     * @return The class expression that represents the translation.
-     */
+    /** Translates the specified main node into an
+     * <code>OWLClassExpression</code>. All triples used in the translation are
+     * consumed.
+     * 
+     * @param mainNode
+     *            The main node of the set of triples that represent the class
+     *            expression.
+     * @return The class expression that represents the translation. */
     OWLClassExpression translate(IRI mainNode);
-
 }

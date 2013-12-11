@@ -36,36 +36,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 02-Feb-2009
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
-public class HasKeyListItemTranslator implements ListItemTranslator<OWLPropertyExpression<?,?>> {
-
+public class HasKeyListItemTranslator implements
+        ListItemTranslator<OWLPropertyExpression<?, ?>> {
     private OWLRDFConsumer consumer;
 
     public HasKeyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
+
     @Override
-    public OWLPropertyExpression<?,?> translate(OWLLiteral firstObject) {
+    public OWLPropertyExpression<?, ?> translate(OWLLiteral firstObject) {
         return null;
     }
 
     @Override
-    public OWLPropertyExpression<?,?> translate(IRI firstObject) {
+    public OWLPropertyExpression<?, ?> translate(IRI firstObject) {
         if (consumer.isObjectPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLObjectProperty(firstObject);
-        }
-        else {
+        } else {
             return consumer.getDataFactory().getOWLDataProperty(firstObject);
         }
     }

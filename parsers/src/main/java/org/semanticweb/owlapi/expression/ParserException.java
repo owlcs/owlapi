@@ -43,11 +43,9 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 11-Sep-2007<br>
- * <br> */
+ * Date: 11-Sep-2007 */
 @SuppressWarnings("javadoc")
 public class ParserException extends OWLParserException {
     private static final long serialVersionUID = 30406L;

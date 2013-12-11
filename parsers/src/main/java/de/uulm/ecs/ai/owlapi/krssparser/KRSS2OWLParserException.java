@@ -36,20 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.coode.owl.krssparser.KRSSOWLParserException;
 
-/**
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br>
- */
+/** @author Olaf Noppens<br>
+ *         Ulm University<br>
+ *         Institute of Artificial Intelligence<br> */
 @SuppressWarnings("javadoc")
 public class KRSS2OWLParserException extends KRSSOWLParserException {
-
-	private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 30406L;
 
     public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {
         super(e);

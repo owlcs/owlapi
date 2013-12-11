@@ -54,11 +54,9 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br><br>
- */
+ * Date: 14-Nov-2006 */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Override

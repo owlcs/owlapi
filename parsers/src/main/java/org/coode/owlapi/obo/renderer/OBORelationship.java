@@ -45,11 +45,9 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /**
- * Author: Nick Drummond<br>
- * The University Of Manchester<br>
+ * @author Nick Drummond, The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Dec 18, 2008<br><br>
- */
+ * Date: Dec 18, 2008 */
 @SuppressWarnings("javadoc")
 public class OBORelationship {
 

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.expression;
 
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -48,27 +47,21 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 28-Nov-2007<br><br>
- * <br>
- * An entity checker that maps from string to entities using a bidirectional
+/** An entity checker that maps from string to entities using a bidirectional
  * short form provider.
- */
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 28-Nov-2007*/
 public class ShortFormEntityChecker implements OWLEntityChecker {
-
     private final BidirectionalShortFormProvider shortFormProvider;
 
-
-    /**
-     * Creates a short form entity checker, which uses the specified bidirectional
-     * short form provider to map entity name strings to entities.
-     *
-     * @param shortFormProvider The BidirectionalShortFormProvider that should be
-     *                          used to perform the required mapping.
-     */
+    /** Creates a short form entity checker, which uses the specified
+     * bidirectional short form provider to map entity name strings to entities.
+     * 
+     * @param shortFormProvider
+     *            The BidirectionalShortFormProvider that should be used to
+     *            perform the required mapping. */
     public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
@@ -83,7 +76,6 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         return null;
     }
 
-
     @Override
     public OWLDataProperty getOWLDataProperty(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
@@ -93,7 +85,6 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         }
         return null;
     }
-
 
     @Override
     public OWLDatatype getOWLDatatype(String name) {
@@ -105,7 +96,6 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         return null;
     }
 
-
     @Override
     public OWLNamedIndividual getOWLIndividual(String name) {
         for (OWLEntity ent : shortFormProvider.getEntities(name)) {
@@ -115,7 +105,6 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
         }
         return null;
     }
-
 
     @Override
     public OWLObjectProperty getOWLObjectProperty(String name) {
@@ -129,12 +118,11 @@ public class ShortFormEntityChecker implements OWLEntityChecker {
 
     @Override
     public OWLAnnotationProperty getOWLAnnotationProperty(String name) {
-        for(OWLEntity ent : shortFormProvider.getEntities(name)) {
-            if(ent.isOWLAnnotationProperty()) {
+        for (OWLEntity ent : shortFormProvider.getEntities(name)) {
+            if (ent.isOWLAnnotationProperty()) {
                 return ent.asOWLAnnotationProperty();
             }
         }
         return null;
     }
 }
-

@@ -36,34 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.xml.sax.SAXException;
 
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009
- * <br>
- * Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a {@link org.xml.sax.SAXException}.
- */
+/** Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a
+ * {@link org.xml.sax.SAXException}.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class TranslatedOWLParserException extends SAXException {
-
-
-	private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 30406L;
     private OWLParserException parserException;
 
     public TranslatedOWLParserException(OWLParserException cause) {
         super(cause);
-        this.parserException = cause;
+        parserException = cause;
     }
 
     public OWLParserException getParserException() {
         return parserException;
     }
 }
-

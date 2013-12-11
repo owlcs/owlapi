@@ -36,24 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import java.io.PrintWriter;
 import java.io.Writer;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 25-Aug-2006<br><br>
- * <br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: 25-Aug-2006*/
 @SuppressWarnings("javadoc")
 public class LatexWriter {
-
     private PrintWriter writer;
 
     public LatexWriter(Writer writer) {

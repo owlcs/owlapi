@@ -45,11 +45,9 @@ import java.io.IOException;
  * User: matthewhorridge<br>
  * The Univeristy Of Manchester<br>
  * Medical Informatics Group<br>
- * Date: May 30, 2006<br><br>
- * <br>
+ * Date: May 30, 2006<br>
  * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- * <br>
+ * www.cs.man.ac.uk/~horridgm<br>
  * Developed as part of the CO-ODE project
  * http://www.co-ode.org
  */

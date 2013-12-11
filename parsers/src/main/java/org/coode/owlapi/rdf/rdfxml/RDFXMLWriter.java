@@ -46,11 +46,9 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br> */
+ * Date: 06-Dec-2006 */
 @SuppressWarnings("javadoc")
 public class RDFXMLWriter {
     private XMLWriter writer;

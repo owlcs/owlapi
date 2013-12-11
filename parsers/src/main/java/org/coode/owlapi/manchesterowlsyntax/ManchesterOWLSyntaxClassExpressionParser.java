@@ -43,13 +43,12 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Sep-2007<br>
- * <br>
- * An expression parser that parses class expressions written in the Manchester
- * OWL Syntax */
+/** An expression parser that parses class expressions written in the Manchester
+ * OWL Syntax
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Sep-2007*/
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxClassExpressionParser implements
         OWLExpressionParser<OWLClassExpression> {

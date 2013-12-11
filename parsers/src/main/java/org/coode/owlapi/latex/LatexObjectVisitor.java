@@ -47,961 +47,944 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 15-Jun-2006<br>
- * <br>
- *
- * NOTE: this class was not designed as a general purpose renderer, i.e.,
- * some ontologies might be misrepresented in the output. Please report
- * any formatting error you find to the bug tracker or the mailing list.
- */
+/** NOTE: this class was not designed as a general purpose renderer, i.e., some
+ * ontologies might be misrepresented in the output. Please report any
+ * formatting error you find to the bug tracker or the mailing list.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: 15-Jun-2006*/
 @SuppressWarnings("javadoc")
 public class LatexObjectVisitor implements OWLObjectVisitor {
-	public static final String AND = "\\ensuremath{\\sqcap}";
-	public static final String OR = "\\ensuremath{\\sqcup}";
-	public static final String NOT = "\\ensuremath{\\lnot}";
-	public static final String ALL = "\\ensuremath{\\forall}";
-	public static final String SOME = "\\ensuremath{\\exists}";
-	public static final String HASVALUE = "\\ensuremath{hasValue}";
-	public static final String MIN = "\\ensuremath{\\geq}";
-	public static final String MAX = "\\ensuremath{\\leq}";
-	public static final String EQUAL = "\\ensuremath{=}";
-	public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
-	public static final String EQUIV = "\\ensuremath{\\equiv}";
-	public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
-	public static final String TOP = "\\ensuremath{\\top}";
-	public static final String BOTTOM = "\\ensuremath{\\bot}";
-	public static final String SELF = "\\ensuremath{\\Self}";
-	public static final String CIRC = "\\ensuremath{\\circ}";
-	private OWLObject subject;
-	private LatexWriter writer;
-	private boolean prettyPrint = true;
-	private OWLDataFactory df;
-	private ShortFormProvider shortFormProvider;
+    public static final String AND = "\\ensuremath{\\sqcap}";
+    public static final String OR = "\\ensuremath{\\sqcup}";
+    public static final String NOT = "\\ensuremath{\\lnot}";
+    public static final String ALL = "\\ensuremath{\\forall}";
+    public static final String SOME = "\\ensuremath{\\exists}";
+    public static final String HASVALUE = "\\ensuremath{hasValue}";
+    public static final String MIN = "\\ensuremath{\\geq}";
+    public static final String MAX = "\\ensuremath{\\leq}";
+    public static final String EQUAL = "\\ensuremath{=}";
+    public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
+    public static final String EQUIV = "\\ensuremath{\\equiv}";
+    public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
+    public static final String TOP = "\\ensuremath{\\top}";
+    public static final String BOTTOM = "\\ensuremath{\\bot}";
+    public static final String SELF = "\\ensuremath{\\Self}";
+    public static final String CIRC = "\\ensuremath{\\circ}";
+    private OWLObject subject;
+    private LatexWriter writer;
+    private boolean prettyPrint = true;
+    private OWLDataFactory df;
+    private ShortFormProvider shortFormProvider;
 
-	public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
-		this.writer = writer;
-		this.df = df;
-		shortFormProvider = new SimpleShortFormProvider();
-		subject = df.getOWLThing();
-	}
+    public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
+        this.writer = writer;
+        this.df = df;
+        shortFormProvider = new SimpleShortFormProvider();
+        subject = df.getOWLThing();
+    }
 
-	public void setSubject(OWLObject subject) {
-		this.subject = subject;
-	}
+    public void setSubject(OWLObject subject) {
+        this.subject = subject;
+    }
 
-	public void setShortFormProvider(ShortFormProvider shortFormProvder) {
-		shortFormProvider = shortFormProvder;
-	}
+    public void setShortFormProvider(ShortFormProvider shortFormProvder) {
+        shortFormProvider = shortFormProvder;
+    }
 
-	private void writeSpace() {
-		writer.writeSpace();
-	}
+    private void writeSpace() {
+        writer.writeSpace();
+    }
 
-	private void write(Object o) {
-		writer.write(o);
-	}
+    private void write(Object o) {
+        writer.write(o);
+    }
 
-	private void writeOpenBrace() {
-		writer.writeOpenBrace();
-	}
+    private void writeOpenBrace() {
+        writer.writeOpenBrace();
+    }
 
-	private void writeCloseBrace() {
-		writer.writeCloseBrace();
-	}
+    private void writeCloseBrace() {
+        writer.writeCloseBrace();
+    }
 
-	public boolean isPrettyPrint() {
-		return prettyPrint;
-	}
+    public boolean isPrettyPrint() {
+        return prettyPrint;
+    }
 
-	public void setPrettyPrint(boolean prettyPrint) {
-		this.prettyPrint = prettyPrint;
-	}
+    public void setPrettyPrint(boolean prettyPrint) {
+        this.prettyPrint = prettyPrint;
+    }
 
-	//
-	//     private void beginTabbing() {
-	//        write("\\begin{tabbing}\n");
-	//    }
-	//
-	//    private void endTabbing() {
-	//        write("\\end{tabbing}\n");
-	//    }
+    //
+    // private void beginTabbing() {
+    // write("\\begin{tabbing}\n");
+    // }
+    //
+    // private void endTabbing() {
+    // write("\\end{tabbing}\n");
+    // }
     @Override
     public void visit(OWLObjectIntersectionOf node) {
-		for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
-				.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(AND);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
+                .hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(AND);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLDataAllValuesFrom node) {
-		write(ALL);
-		writeSpace();
-		node.getProperty().accept(this);
-		writeSpace();
-		node.getFiller().accept(this);
-	}
+        write(ALL);
+        writeSpace();
+        node.getProperty().accept(this);
+        writeSpace();
+        node.getFiller().accept(this);
+    }
 
     @Override
     public void visit(OWLDataExactCardinality desc) {
-		write(EQUAL);
-		writeSpace();
-		desc.getProperty().accept(this);
-	}
+        write(EQUAL);
+        writeSpace();
+        desc.getProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
-		write(MAX);
-		writeSpace();
-		write(desc.getCardinality());
-		writeSpace();
-		desc.getProperty().accept(this);
-	}
+        write(MAX);
+        writeSpace();
+        write(desc.getCardinality());
+        writeSpace();
+        desc.getProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLDataMinCardinality desc) {
-		write(MIN);
-		writeSpace();
-		write(desc.getCardinality());
-		writeSpace();
-		desc.getProperty().accept(this);
-	}
+        write(MIN);
+        writeSpace();
+        write(desc.getCardinality());
+        writeSpace();
+        desc.getProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLDataSomeValuesFrom node) {
-		write(SOME);
-		writeSpace();
-		node.getProperty().accept(this);
-		writeSpace();
-		node.getFiller().accept(this);
-	}
+        write(SOME);
+        writeSpace();
+        node.getProperty().accept(this);
+        writeSpace();
+        node.getFiller().accept(this);
+    }
 
     @Override
     public void visit(OWLDataHasValue node) {
-		write(HASVALUE);
-		writeSpace();
-		node.getProperty().accept(this);
-		writeSpace();
-		node.getValue().accept(this);
-	}
+        write(HASVALUE);
+        writeSpace();
+        node.getProperty().accept(this);
+        writeSpace();
+        node.getValue().accept(this);
+    }
 
     @Override
     public void visit(OWLObjectAllValuesFrom node) {
-		write(ALL);
-		writeSpace();
-		node.getProperty().accept(this);
-		writeSpace();
-		writeNested(node.getFiller());
-	}
+        write(ALL);
+        writeSpace();
+        node.getProperty().accept(this);
+        writeSpace();
+        writeNested(node.getFiller());
+    }
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
-		write(EQUAL);
-		writeSpace();
-		desc.getProperty().accept(this);
-		writeSpace();
-		writeNested(desc.getFiller());
-	}
+        write(EQUAL);
+        writeSpace();
+        desc.getProperty().accept(this);
+        writeSpace();
+        writeNested(desc.getFiller());
+    }
 
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
-		write(MAX);
-		writeSpace();
-		write(desc.getCardinality());
-		writeSpace();
-		desc.getProperty().accept(this);
-		writeSpace();
-		writeNested(desc.getFiller());
-	}
+        write(MAX);
+        writeSpace();
+        write(desc.getCardinality());
+        writeSpace();
+        desc.getProperty().accept(this);
+        writeSpace();
+        writeNested(desc.getFiller());
+    }
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
-		write(MIN);
-		writeSpace();
-		write(desc.getCardinality());
-		writeSpace();
-		desc.getProperty().accept(this);
-		writeSpace();
-		writeNested(desc.getFiller());
-	}
+        write(MIN);
+        writeSpace();
+        write(desc.getCardinality());
+        writeSpace();
+        desc.getProperty().accept(this);
+        writeSpace();
+        writeNested(desc.getFiller());
+    }
 
     @Override
     public void visit(OWLObjectSomeValuesFrom node) {
-		write(SOME);
-		writeSpace();
-		node.getProperty().accept(this);
-		writeSpace();
-		writeNested(node.getFiller());
-	}
+        write(SOME);
+        writeSpace();
+        node.getProperty().accept(this);
+        writeSpace();
+        writeNested(node.getFiller());
+    }
 
     @Override
     public void visit(OWLObjectHasValue node) {
-		write(SOME);
-		writeSpace();
-		node.getProperty().accept(this);
-		writeSpace();
-		writeOpenBrace();
-		node.getValue().accept(this);
-		writeCloseBrace();
-	}
+        write(SOME);
+        writeSpace();
+        node.getProperty().accept(this);
+        writeSpace();
+        writeOpenBrace();
+        node.getValue().accept(this);
+        writeCloseBrace();
+    }
 
     @Override
     public void visit(OWLObjectComplementOf node) {
-		write(NOT);
-		writeNested(node.getOperand());
-	}
+        write(NOT);
+        writeNested(node.getOperand());
+    }
 
     @Override
     public void visit(OWLObjectUnionOf node) {
-		for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
-				.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(OR);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
+                .hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(OR);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLClass node) {
-		write(escapeName(shortFormProvider.getShortForm(node)));
-	}
+        write(escapeName(shortFormProvider.getShortForm(node)));
+    }
 
     @Override
     public void visit(OWLObjectOneOf node) {
-		for (Iterator<OWLIndividual> it = node.getIndividuals().iterator(); it
-				.hasNext();) {
-			writeOpenBrace();
-			it.next().accept(this);
-			writeCloseBrace();
-			if (it.hasNext()) {
-				writeSpace();
-				write(OR);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLIndividual> it = node.getIndividuals().iterator(); it.hasNext();) {
+            writeOpenBrace();
+            it.next().accept(this);
+            writeCloseBrace();
+            if (it.hasNext()) {
+                writeSpace();
+                write(OR);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLDataProperty entity) {
-		write(escapeName(shortFormProvider.getShortForm(entity)));
-	}
+        write(escapeName(shortFormProvider.getShortForm(entity)));
+    }
 
     @Override
     public void visit(OWLObjectProperty entity) {
-		write(escapeName(shortFormProvider.getShortForm(entity)));
-	}
+        write(escapeName(shortFormProvider.getShortForm(entity)));
+    }
 
     @Override
     public void visit(OWLNamedIndividual entity) {
-		write(escapeName(shortFormProvider.getShortForm(entity)));
-	}
+        write(escapeName(shortFormProvider.getShortForm(entity)));
+    }
 
     @Override
     public void visit(OWLObjectHasSelf desc) {
-		write(SOME);
-		writeSpace();
-		desc.getProperty().accept(this);
-		writeSpace();
-		write(SELF);
-	}
+        write(SOME);
+        writeSpace();
+        desc.getProperty().accept(this);
+        writeSpace();
+        write(SELF);
+    }
 
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
-		if (axiom.getClassExpressions().size() != 2) {
-			for (OWLClassExpression left : axiom.getClassExpressions()) {
-				for (OWLClassExpression right : axiom.getClassExpressions()) {
-					if (left != right) {
-						if (left.equals(subject)) {
-							left.accept(this);
-							writeSpace();
-							write(SUBCLASS);
-							writeSpace();
-							write(NOT);
-							writeSpace();
-							right.accept(this);
-						} else {
-							right.accept(this);
-							writeSpace();
-							write(SUBCLASS);
-							writeSpace();
-							write(NOT);
-							writeSpace();
-							left.accept(this);
-						}
-						writer.writeNewLine();
-					}
-				}
-			}
-		} else {
-			Iterator<OWLClassExpression> it = axiom.getClassExpressions()
-					.iterator();
-			OWLClassExpression descA = it.next();
-			OWLClassExpression descB = it.next();
-			OWLClassExpression lhs;
-			OWLClassExpression rhs;
-			if (descA.equals(subject)) {
-				lhs = descA;
-				rhs = descB;
-			} else {
-				lhs = descB;
-				rhs = descA;
-			}
-			lhs.accept(this);
-			writeSpace();
-			write(SUBCLASS);
-			writeSpace();
-			write(NOT);
-			writeSpace();
-			rhs.accept(this);
-		}
-	}
+        if (axiom.getClassExpressions().size() != 2) {
+            for (OWLClassExpression left : axiom.getClassExpressions()) {
+                for (OWLClassExpression right : axiom.getClassExpressions()) {
+                    if (left != right) {
+                        if (left.equals(subject)) {
+                            left.accept(this);
+                            writeSpace();
+                            write(SUBCLASS);
+                            writeSpace();
+                            write(NOT);
+                            writeSpace();
+                            right.accept(this);
+                        } else {
+                            right.accept(this);
+                            writeSpace();
+                            write(SUBCLASS);
+                            writeSpace();
+                            write(NOT);
+                            writeSpace();
+                            left.accept(this);
+                        }
+                        writer.writeNewLine();
+                    }
+                }
+            }
+        } else {
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
+            OWLClassExpression descA = it.next();
+            OWLClassExpression descB = it.next();
+            OWLClassExpression lhs;
+            OWLClassExpression rhs;
+            if (descA.equals(subject)) {
+                lhs = descA;
+                rhs = descB;
+            } else {
+                lhs = descB;
+                rhs = descA;
+            }
+            lhs.accept(this);
+            writeSpace();
+            write(SUBCLASS);
+            writeSpace();
+            write(NOT);
+            writeSpace();
+            rhs.accept(this);
+        }
+    }
 
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
-		if (axiom.getClassExpressions().size() > 2) {
-			Set<Set<OWLClassExpression>> rendered = new HashSet<Set<OWLClassExpression>>();
-			for (OWLClassExpression left : axiom.getClassExpressions()) {
-				for (OWLClassExpression right : axiom.getClassExpressions()) {
-					if (left != right) {
-						Set<OWLClassExpression> cur = CollectionFactory
-								.createSet(left, right);
-						if (!rendered.contains(cur)) {
-							rendered.add(cur);
-							left.accept(this);
-							writeSpace();
-							write(EQUIV);
-							writeSpace();
-							right.accept(this);
-						}
-					}
-				}
-			}
-		} else if (axiom.getClassExpressions().size() == 2) {
-			Iterator<OWLClassExpression> it = axiom.getClassExpressions()
-					.iterator();
-			OWLClassExpression descA = it.next();
-			OWLClassExpression descB = it.next();
-			OWLClassExpression lhs;
-			OWLClassExpression rhs;
-			if (subject.equals(descA)) {
-				lhs = descA;
-				rhs = descB;
-			} else {
-				lhs = descB;
-				rhs = descA;
-			}
-			lhs.accept(this);
-			writeSpace();
-			write(EQUIV);
-			writeSpace();
-			rhs.accept(this);
-		}
-	}
+        if (axiom.getClassExpressions().size() > 2) {
+            Set<Set<OWLClassExpression>> rendered = new HashSet<Set<OWLClassExpression>>();
+            for (OWLClassExpression left : axiom.getClassExpressions()) {
+                for (OWLClassExpression right : axiom.getClassExpressions()) {
+                    if (left != right) {
+                        Set<OWLClassExpression> cur = CollectionFactory.createSet(left,
+                                right);
+                        if (!rendered.contains(cur)) {
+                            rendered.add(cur);
+                            left.accept(this);
+                            writeSpace();
+                            write(EQUIV);
+                            writeSpace();
+                            right.accept(this);
+                        }
+                    }
+                }
+            }
+        } else if (axiom.getClassExpressions().size() == 2) {
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
+            OWLClassExpression descA = it.next();
+            OWLClassExpression descB = it.next();
+            OWLClassExpression lhs;
+            OWLClassExpression rhs;
+            if (subject.equals(descA)) {
+                lhs = descA;
+                rhs = descB;
+            } else {
+                lhs = descB;
+                rhs = descA;
+            }
+            lhs.accept(this);
+            writeSpace();
+            write(EQUIV);
+            writeSpace();
+            rhs.accept(this);
+        }
+    }
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-		setPrettyPrint(false);
-		axiom.getSubClass().accept(this);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getSuperClass().accept(this);
-		writeSpace();
-		setPrettyPrint(true);
-	}
+        setPrettyPrint(false);
+        axiom.getSubClass().accept(this);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getSuperClass().accept(this);
+        writeSpace();
+        setPrettyPrint(true);
+    }
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
-		axiom.getIndividual().accept(this);
-		writeSpace();
-		write(":");
-		writeSpace();
-		axiom.getClassExpression().accept(this);
-	}
+        axiom.getIndividual().accept(this);
+        writeSpace();
+        write(":");
+        writeSpace();
+        axiom.getClassExpression().accept(this);
+    }
 
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-		write("AsymmetricProperty");
-		axiom.getProperty().accept(this);
-	}
+        write("AsymmetricProperty");
+        axiom.getProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
-		axiom.getProperty().accept(this);
-		writeSpace();
-		write("(");
-		axiom.getSubject().accept(this);
-		writeSpace();
-		axiom.getObject().accept(this);
-		write(")");
-	}
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write("(");
+        axiom.getSubject().accept(this);
+        writeSpace();
+        axiom.getObject().accept(this);
+        write(")");
+    }
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
-		df.getOWLDataSomeValuesFrom(axiom.getProperty(), df.getTopDatatype())
-				.accept(this);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getDomain().accept(this);
-	}
+        df.getOWLDataSomeValuesFrom(axiom.getProperty(), df.getTopDatatype())
+                .accept(this);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getDomain().accept(this);
+    }
 
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
-		write(TOP);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		df.getOWLDataAllValuesFrom(axiom.getProperty(), axiom.getRange())
-				.accept(this);
-	}
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        df.getOWLDataAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+    }
 
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
-		axiom.getSubProperty();
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getSuperProperty().accept(this);
-	}
+        axiom.getSubProperty();
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
-		write("Declaration");
-		axiom.getEntity().accept(this);
-	}
+        write("Declaration");
+        axiom.getEntity().accept(this);
+    }
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-		for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it
-				.hasNext();) {
-			write("\\{");
-			it.next().accept(this);
-			write("\\}");
-			if (it.hasNext()) {
-				writeSpace();
-				write(NOT_EQUIV);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
+            write("\\{");
+            it.next().accept(this);
+            write("\\}");
+            if (it.hasNext()) {
+                writeSpace();
+                write(NOT_EQUIV);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-		for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties()
-				.iterator(); it.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(NOT_EQUIV);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties().iterator(); it
+                .hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(NOT_EQUIV);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-		write("DisjointObjectProperties");
-		writeSpace();
-		for (OWLObjectPropertyExpression p : axiom.getProperties()) {
-			p.accept(this);
-			writeSpace();
-		}
-	}
+        write("DisjointObjectProperties");
+        writeSpace();
+        for (OWLObjectPropertyExpression p : axiom.getProperties()) {
+            p.accept(this);
+            writeSpace();
+        }
+    }
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
-		write("DisjointUnion");
-		writeSpace();
-		for (OWLClassExpression p : axiom.getClassExpressions()) {
-			p.accept(this);
-			writeSpace();
-		}
-	}
+        write("DisjointUnion");
+        writeSpace();
+        for (OWLClassExpression p : axiom.getClassExpressions()) {
+            p.accept(this);
+            writeSpace();
+        }
+    }
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
-		write("Annotation");
-		axiom.getSubject().accept(this);
-		writeSpace();
-		axiom.getProperty().accept(this);
-		writeSpace();
-		axiom.getValue().accept(this);
-	}
+        write("Annotation");
+        axiom.getSubject().accept(this);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        writeSpace();
+        axiom.getValue().accept(this);
+    }
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-		for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties()
-				.iterator(); it.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(NOT_EQUIV);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties().iterator(); it
+                .hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(NOT_EQUIV);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-		for (Iterator<OWLObjectPropertyExpression> it = axiom.getProperties()
-				.iterator(); it.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(EQUIV);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getProperties().iterator(); it
+                .hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(EQUIV);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-		write(TOP);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		df.getOWLDataMaxCardinality(1, axiom.getProperty()).accept(this);
-	}
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        df.getOWLDataMaxCardinality(1, axiom.getProperty()).accept(this);
+    }
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-		write(TOP);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
-	}
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
+    }
 
-	public void visit(OWLImportsDeclaration axiom) {
-		write("ImportsDeclaration");
-		axiom.getIRI().accept(this);
-	}
+    public void visit(OWLImportsDeclaration axiom) {
+        write("ImportsDeclaration");
+        axiom.getIRI().accept(this);
+    }
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-		write(TOP);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom
-				.getProperty());
-		df.getOWLObjectMaxCardinality(1, prop).accept(this);
-	}
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom.getProperty());
+        df.getOWLObjectMaxCardinality(1, prop).accept(this);
+    }
 
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-		write(axiom.getFirstProperty());
-		writeSpace();
-		write(EQUIV);
-		writeSpace();
-		write(axiom.getSecondProperty());
-		write("\\ensuremath{^-}");
-	}
+        write(axiom.getFirstProperty());
+        writeSpace();
+        write(EQUIV);
+        writeSpace();
+        write(axiom.getSecondProperty());
+        write("\\ensuremath{^-}");
+    }
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-		write("IrreflexiveObjectProperty");
-		axiom.getProperty().accept(this);
-	}
+        write("IrreflexiveObjectProperty");
+        axiom.getProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-		write(NOT);
-		axiom.getProperty().accept(this);
-		write("(");
-		axiom.getSubject().accept(this);
-		write(", ");
-		axiom.getObject().accept(this);
-		write(")");
-	}
+        write(NOT);
+        axiom.getProperty().accept(this);
+        write("(");
+        axiom.getSubject().accept(this);
+        write(", ");
+        axiom.getObject().accept(this);
+        write(")");
+    }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-		write(NOT);
-		axiom.getProperty().accept(this);
-		write("(");
-		axiom.getSubject().accept(this);
-		write(", ");
-		axiom.getObject().accept(this);
-		write(")");
-	}
+        write(NOT);
+        axiom.getProperty().accept(this);
+        write("(");
+        axiom.getSubject().accept(this);
+        write(", ");
+        axiom.getObject().accept(this);
+        write(")");
+    }
 
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-		axiom.getProperty().accept(this);
-		write("(");
-		axiom.getSubject().accept(this);
-		write(", ");
-		axiom.getObject().accept(this);
-		write(")");
-	}
+        axiom.getProperty().accept(this);
+        write("(");
+        axiom.getSubject().accept(this);
+        write(", ");
+        axiom.getObject().accept(this);
+        write(")");
+    }
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-		for (Iterator<OWLObjectPropertyExpression> it = axiom
-				.getPropertyChain().iterator(); it.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(CIRC);
-				writeSpace();
-			}
-		}
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getSuperProperty().accept(this);
-	}
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain()
+                .iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(CIRC);
+                writeSpace();
+            }
+        }
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-		df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing())
-				.accept(this);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getDomain().accept(this);
-	}
+        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getDomain().accept(this);
+    }
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
-		write(TOP);
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange())
-				.accept(this);
-	}
+        write(TOP);
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+    }
 
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-		axiom.getSubProperty();
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getSuperProperty().accept(this);
-	}
+        axiom.getSubProperty();
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-		write("ReflexiveProperty");
-		axiom.getProperty().accept(this);
-	}
+        write("ReflexiveProperty");
+        axiom.getProperty().accept(this);
+    }
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-		for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it
-				.hasNext();) {
-			write("\\{");
-			it.next().accept(this);
-			write("\\}");
-			if (it.hasNext()) {
-				writeSpace();
-				write(EQUIV);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
+            write("\\{");
+            it.next().accept(this);
+            write("\\}");
+            if (it.hasNext()) {
+                writeSpace();
+                write(EQUIV);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-		axiom.getProperty().accept(this);
-		writeSpace();
-		write(EQUIV);
-		writeSpace();
-		axiom.getProperty().accept(this);
-		write("\\ensuremath{^-}");
-	}
+        axiom.getProperty().accept(this);
+        writeSpace();
+        write(EQUIV);
+        writeSpace();
+        axiom.getProperty().accept(this);
+        write("\\ensuremath{^-}");
+    }
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
-		write("Datatype");
-		axiom.getDatatype().accept(this);
-		write(EQUIV);
-		axiom.getDataRange().accept(this);
-	}
+        write("Datatype");
+        axiom.getDatatype().accept(this);
+        write(EQUIV);
+        axiom.getDataRange().accept(this);
+    }
 
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-		write("TransitiveProperty");
-		axiom.getProperty().accept(this);
-	}
+        write("TransitiveProperty");
+        axiom.getProperty().accept(this);
+    }
 
     @Override
     public void visit(SWRLRule rule) {
-		write("SWRLRule");
-		for (SWRLAtom a : rule.getHead()) {
-			a.accept(this);
-		}
-		write("\\rightarrow");
-		for (SWRLAtom a : rule.getBody()) {
-			a.accept(this);
-		}
-	}
+        write("SWRLRule");
+        for (SWRLAtom a : rule.getHead()) {
+            a.accept(this);
+        }
+        write("\\rightarrow");
+        for (SWRLAtom a : rule.getBody()) {
+            a.accept(this);
+        }
+    }
 
     @Override
     public void visit(SWRLVariable node) {
-		write(node.getIRI());
-	}
+        write(node.getIRI());
+    }
 
-	private void writeNested(OWLClassExpression classExpression) {
-		openBracket(classExpression);
-		classExpression.accept(this);
-		closeBracket(classExpression);
-	}
+    private void writeNested(OWLClassExpression classExpression) {
+        openBracket(classExpression);
+        classExpression.accept(this);
+        closeBracket(classExpression);
+    }
 
-	private void writeNested(OWLObject expression) {
-		expression.accept(this);
-	}
+    private void writeNested(OWLObject expression) {
+        expression.accept(this);
+    }
 
-	private void openBracket(OWLClassExpression classExpression) {
-		if (LatexBracketChecker.requiresBracket(classExpression)) {
-			write("(");
-		}
-	}
+    private void openBracket(OWLClassExpression classExpression) {
+        if (LatexBracketChecker.requiresBracket(classExpression)) {
+            write("(");
+        }
+    }
 
-	private void closeBracket(OWLClassExpression classExpression) {
-		if (LatexBracketChecker.requiresBracket(classExpression)) {
-			write(")");
-		}
-	}
+    private void closeBracket(OWLClassExpression classExpression) {
+        if (LatexBracketChecker.requiresBracket(classExpression)) {
+            write(")");
+        }
+    }
 
-	private String escapeName(String name) {
-		return name.replace("_", "\\_");
-	}
+    private String escapeName(String name) {
+        return name.replace("_", "\\_");
+    }
 
     @Override
-    public void visit(OWLOntology ontology) {
-	}
+    public void visit(OWLOntology ontology) {}
 
     @Override
     public void visit(OWLObjectInverseOf property) {
-		property.getInverse().accept(this);
-		write("\\ensuremath{^-}");
-	}
+        property.getInverse().accept(this);
+        write("\\ensuremath{^-}");
+    }
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLDataComplementOf node) {
-		write(NOT);
-		writeNested(node.getDataRange());
-	}
+        write(NOT);
+        writeNested(node.getDataRange());
+    }
 
     @Override
     public void visit(OWLDataOneOf node) {
-		for (Iterator<OWLLiteral> it = node.getValues().iterator(); it
-				.hasNext();) {
-			writeOpenBrace();
-			it.next().accept(this);
-			writeCloseBrace();
-			if (it.hasNext()) {
-				writeSpace();
-				write(OR);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext();) {
+            writeOpenBrace();
+            it.next().accept(this);
+            writeCloseBrace();
+            if (it.hasNext()) {
+                writeSpace();
+                write(OR);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLFacetRestriction node) {
-		write("Facet");
-		write(node.getFacet());
-		node.getFacetValue().accept(this);
-	}
+        write("Facet");
+        write(node.getFacet());
+        node.getFacetValue().accept(this);
+    }
 
     @Override
     public void visit(OWLDatatypeRestriction node) {
-		write("DatatypeRestriction");
-		node.getDatatype().accept(this);
-		for (OWLFacetRestriction r : node.getFacetRestrictions()) {
-			writeSpace();
-			r.accept(this);
-		}
-	}
+        write("DatatypeRestriction");
+        node.getDatatype().accept(this);
+        for (OWLFacetRestriction r : node.getFacetRestrictions()) {
+            writeSpace();
+            r.accept(this);
+        }
+    }
 
     @Override
     public void visit(OWLDatatype node) {
-		write("Datatype");
-		write(node.getIRI());
-	}
+        write("Datatype");
+        write(node.getIRI());
+    }
 
     @Override
     public void visit(OWLLiteral node) {
-		write("\"");
-		write(node.getLiteral());
-		write("\"\\^\\^");
-		write(node.getDatatype().getIRI());
-	}
+        write("\"");
+        write(node.getLiteral());
+        write("\"\\^\\^");
+        write(node.getDatatype().getIRI());
+    }
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(SWRLLiteralArgument node) {
-		node.getLiteral().accept(this);
-	}
+        node.getLiteral().accept(this);
+    }
 
     @Override
     public void visit(SWRLIndividualArgument node) {
-		node.getIndividual().accept(this);
-	}
+        node.getIndividual().accept(this);
+    }
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-		node.getPredicate().accept(this);
-		for (SWRLDArgument d : node.getArguments()) {
-			writeSpace();
-			d.accept(this);
-		}
-	}
+        node.getPredicate().accept(this);
+        for (SWRLDArgument d : node.getArguments()) {
+            writeSpace();
+            d.accept(this);
+        }
+    }
 
     @Override
     public void visit(SWRLClassAtom node) {
-		node.getArgument().accept(this);
-	}
+        node.getArgument().accept(this);
+    }
 
     @Override
     public void visit(SWRLDataRangeAtom node) {
-		node.getPredicate().accept(this);
-	}
+        node.getPredicate().accept(this);
+    }
 
     @Override
     public void visit(SWRLDataPropertyAtom node) {
-		node.getPredicate().accept(this);
-	}
+        node.getPredicate().accept(this);
+    }
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {
-		for (SWRLArgument a : node.getAllArguments()) {
-			writeSpace();
-			a.accept(this);
-		}
-	}
+        for (SWRLArgument a : node.getAllArguments()) {
+            writeSpace();
+            a.accept(this);
+        }
+    }
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
-		node.getPredicate().accept(this);
-	}
+        node.getPredicate().accept(this);
+    }
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
-		for (SWRLArgument a : node.getAllArguments()) {
-			writeSpace();
-			a.accept(this);
-		}
-	}
+        for (SWRLArgument a : node.getAllArguments()) {
+            writeSpace();
+            a.accept(this);
+        }
+    }
 
     @Override
     public void visit(OWLAnnotationProperty property) {
-		write("AnnotationProperty");
-		property.getIRI().accept(this);
-	}
+        write("AnnotationProperty");
+        property.getIRI().accept(this);
+    }
 
     @Override
     public void visit(OWLAnnotation annotation) {
-		write("Annotation");
-		annotation.getProperty().getIRI().accept(this);
-		annotation.getValue().accept(this);
-	}
+        write("Annotation");
+        annotation.getProperty().getIRI().accept(this);
+        annotation.getValue().accept(this);
+    }
 
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-		write("Domain");
-		axiom.getProperty().getIRI().accept(this);
-		writeSpace();
-		axiom.getDomain().accept(this);
-	}
+        write("Domain");
+        axiom.getProperty().getIRI().accept(this);
+        writeSpace();
+        axiom.getDomain().accept(this);
+    }
 
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-		write("Range");
-		axiom.getProperty().getIRI().accept(this);
-		writeSpace();
-		axiom.getRange().accept(this);
-	}
+        write("Range");
+        axiom.getProperty().getIRI().accept(this);
+        writeSpace();
+        axiom.getRange().accept(this);
+    }
 
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-		axiom.getSubProperty();
-		writeSpace();
-		write(SUBCLASS);
-		writeSpace();
-		axiom.getSuperProperty().accept(this);
-	}
+        axiom.getSubProperty();
+        writeSpace();
+        write(SUBCLASS);
+        writeSpace();
+        axiom.getSuperProperty().accept(this);
+    }
 
-	public void visit(OWLAnnotationValue value) {
-		value.accept(new OWLAnnotationValueVisitor() {
+    public void visit(OWLAnnotationValue value) {
+        value.accept(new OWLAnnotationValueVisitor() {
             @Override
             public void visit(IRI iri) {
-				iri.accept(LatexObjectVisitor.this);
-			}
+                iri.accept(LatexObjectVisitor.this);
+            }
 
             @Override
             public void visit(OWLAnonymousIndividual individual) {
-				individual.accept(LatexObjectVisitor.this);
-			}
+                individual.accept(LatexObjectVisitor.this);
+            }
 
             @Override
             public void visit(OWLLiteral literal) {
-				literal.accept(LatexObjectVisitor.this);
-			}
-		});
-	}
+                literal.accept(LatexObjectVisitor.this);
+            }
+        });
+    }
 
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
-		write("HasKey");
-		axiom.getClassExpression().accept(this);
-		for (OWLPropertyExpression<?, ?> p : axiom.getPropertyExpressions()) {
-			writeSpace();
-			p.accept(this);
-		}
-	}
+        write("HasKey");
+        axiom.getClassExpression().accept(this);
+        for (OWLPropertyExpression<?, ?> p : axiom.getPropertyExpressions()) {
+            writeSpace();
+            p.accept(this);
+        }
+    }
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-		for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it
-				.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(AND);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(AND);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLDataUnionOf node) {
-		for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it
-				.hasNext();) {
-			it.next().accept(this);
-			if (it.hasNext()) {
-				writeSpace();
-				write(OR);
-				writeSpace();
-			}
-		}
-	}
+        for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it.hasNext();) {
+            it.next().accept(this);
+            if (it.hasNext()) {
+                writeSpace();
+                write(OR);
+                writeSpace();
+            }
+        }
+    }
 
     @Override
     public void visit(OWLAnonymousIndividual individual) {
-		write(individual.getID().toString());
-	}
+        write(individual.getID().toString());
+    }
 
     @Override
     public void visit(IRI iri) {
-		write(iri.getFragment());
-	}
+        write(iri.getFragment());
+    }
 }

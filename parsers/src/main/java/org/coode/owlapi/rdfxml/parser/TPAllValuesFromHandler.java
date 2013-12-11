@@ -45,11 +45,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2007<br><br>
- */
+ * Date: 01-Jul-2007 */
 @SuppressWarnings("javadoc")
 public class TPAllValuesFromHandler extends TriplePredicateHandler {
 

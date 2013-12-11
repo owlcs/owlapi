@@ -42,11 +42,9 @@ package org.coode.owlapi.obo.renderer;
 import java.util.List;
 
 /**
- * Author: Nick Drummond<br>
- * The University Of Manchester<br>
+ * @author Nick Drummond, The University Of Manchester<br>
  * Bio Health Informatics Group<br>
- * Date: Dec 19, 2008<br><br>
- */
+ * Date: Dec 19, 2008 */
 @SuppressWarnings("javadoc")
 public interface OBOExceptionHandler {
 

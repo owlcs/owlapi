@@ -45,8 +45,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 02-Oct-2009
  */

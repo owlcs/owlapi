@@ -36,30 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.expression;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Sep-2007<br><br>
- *
- * A general purpose interface which provides the ability to
- * parse some expression into some kind of object.
- * @param <O> the kind of parsed expression
- */
+/** A general purpose interface which provides the ability to parse some
+ * expression into some kind of object.
+ * 
+ * @param <O>
+ *            the kind of parsed expression
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Sep-2007*/
 public interface OWLExpressionParser<O extends Object> {
-
-    /**
-     * @param entityChecker the entity checker to use
-     */
+    /** @param entityChecker
+     *            the entity checker to use */
     void setOWLEntityChecker(OWLEntityChecker entityChecker);
 
-    /**
-     * @param expression the expression to parse
+    /** @param expression
+     *            the expression to parse
      * @return the parsed expression
-     * @throws ParserException
-     */
+     * @throws ParserException */
     O parse(String expression) throws ParserException;
 }

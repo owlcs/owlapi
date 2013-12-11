@@ -116,13 +116,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Sep-2007<br>
- * <br>
- * <br>
- * A parser for the Manchester OWL Syntax. All properties must be defined before
+/** A parser for the Manchester OWL Syntax. All properties must be defined before
  * they are used. For example, consider the restriction hasPart some Leg. The
  * parser must know in advance whether or not hasPart is an object property or a
  * data property so that Leg gets parsed correctly. In a tool, such as an
@@ -130,7 +124,11 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * property or an object property. If a complete ontology is being parsed, it is
  * expected that hasPart will have been defined at the top of the file before it
  * is used in any class expressions or property assertions (e.g. ObjectProperty:
- * hasPart) */
+ * hasPart)
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 10-Sep-2007*/
 public class ManchesterOWLSyntaxEditorParser {
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct

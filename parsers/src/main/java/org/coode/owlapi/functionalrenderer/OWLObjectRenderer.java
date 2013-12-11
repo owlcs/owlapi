@@ -56,11 +56,9 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br> */
+ * Date: 13-Dec-2006 */
 @SuppressWarnings("javadoc")
 public class OWLObjectRenderer implements OWLObjectVisitor {
     private DefaultPrefixManager prefixManager;

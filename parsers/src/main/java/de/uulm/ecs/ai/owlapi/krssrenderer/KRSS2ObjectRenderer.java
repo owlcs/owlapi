@@ -308,9 +308,10 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * (equal i(n-1) in)</td>
  * </tr>
  * </table>
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * 
+ * @author Olaf Noppens<br>
+ *         Ulm University<br>
+ *         Institute of Artificial Intelligence */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /** If declarations are ignored, entities which are only referenced in a

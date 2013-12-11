@@ -46,8 +46,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
+ * @author Matthew Horridge, The University of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 03/02/2011
  */

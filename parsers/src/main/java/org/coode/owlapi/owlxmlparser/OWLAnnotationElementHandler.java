@@ -51,11 +51,9 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2006<br><br>
- */
+ * Date: 18-Dec-2006 */
 @SuppressWarnings("javadoc")
 public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAnnotation> {
 

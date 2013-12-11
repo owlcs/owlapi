@@ -36,16 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.manchesterowlsyntax;
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Apr-2007<br><br>
- * <br>
- * The vocabulary that the Manchester OWL Syntax uses
- */
+
+/** The vocabulary that the Manchester OWL Syntax uses.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Apr-2007*/
 @SuppressWarnings("javadoc")
 public enum ManchesterOWLSyntax {
     //@formatter:off
@@ -140,17 +137,11 @@ public enum ManchesterOWLSyntax {
     RULE                        ("Rule",                      true,  true,  false, false, false);
 
     //@formatter:on
-
     private boolean frameKeyword;
-
     private boolean sectionKeyword;
-
     private boolean axiomKeyword;
-
     private boolean classExpressionQuantiferKeyword;
-
     private boolean classExpressionConnectiveKeyword;
-
     private String rendering;
     private String keyword;
 
@@ -180,29 +171,24 @@ public enum ManchesterOWLSyntax {
         return frameKeyword;
     }
 
-
     public boolean isSectionKeyword() {
         return sectionKeyword;
     }
-
 
     public boolean isAxiomKeyword() {
         return axiomKeyword;
     }
 
-
     public boolean isClassExpressionConnectiveKeyword() {
         return classExpressionConnectiveKeyword;
     }
-
 
     public boolean isClassExpressionQuantiferKeyword() {
         return classExpressionQuantiferKeyword;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return rendering;
     }
 

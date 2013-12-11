@@ -43,11 +43,9 @@ import org.semanticweb.owlapi.io.OWLParserException;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 19-Nov-2007<br><br>
- */
+ * Date: 19-Nov-2007 */
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
 

@@ -43,11 +43,9 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br><br>
- */@SuppressWarnings("javadoc")
+ * Date: 14-Dec-2006 */@SuppressWarnings("javadoc")
 public class OWLObjectComplementOfElementHandler extends AbstractClassExpressionElementHandler {
 
     private OWLClassExpression operand;

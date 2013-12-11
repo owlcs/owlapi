@@ -36,37 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.xml;
 
 import java.io.Writer;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 30-May-2006<br><br>
- * <br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br><br>
- *
- * Developed as part of the CO-ODE project
- * http://www.co-ode.org
- */
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: 30-May-2006*/
 @SuppressWarnings("javadoc")
 public class XMLWriterFactory {
-
     private static XMLWriterFactory instance;
 
+    private XMLWriterFactory() {}
 
-    private XMLWriterFactory() {
-
-    }
-
-
-    /**
-     * Gets the one and only instance of the <code>XMLWriterFactory</code>
-     */
+    /** Gets the one and only instance of the <code>XMLWriterFactory</code> */
     public static synchronized XMLWriterFactory getInstance() {
         if (instance == null) {
             instance = new XMLWriterFactory();
@@ -74,13 +59,13 @@ public class XMLWriterFactory {
         return instance;
     }
 
-
-    /**
-     * Creates an XMLWriter.
-     *
-     * @param writer The <code>Writer</code> that the XMLWriter will actually write to
-     */
-    public XMLWriter createXMLWriter(Writer writer, XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
+    /** Creates an XMLWriter.
+     * 
+     * @param writer
+     *            The <code>Writer</code> that the XMLWriter will actually write
+     *            to */
+    public XMLWriter createXMLWriter(Writer writer,
+            XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
         return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase);
     }
 }

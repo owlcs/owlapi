@@ -40,11 +40,9 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007<br>
- * <br> */
+ * Date: 10-Jan-2007 */
 public class OBOOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();

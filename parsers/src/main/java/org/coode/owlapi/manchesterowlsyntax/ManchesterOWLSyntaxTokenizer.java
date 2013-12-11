@@ -43,11 +43,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 19-May-2008<br>
- * <br> */
+ * Date: 19-May-2008 */
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxTokenizer {
     public static final String EOF = "|EOF|";

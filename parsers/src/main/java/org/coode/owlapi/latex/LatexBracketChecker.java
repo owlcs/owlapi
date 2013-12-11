@@ -63,11 +63,9 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Medical Informatics Group<br>
- * Date: 15-Jun-2007<br><br>
- */
+ * Date: 15-Jun-2007 */
 @SuppressWarnings({"unused","javadoc"})
 public class LatexBracketChecker implements OWLClassExpressionVisitor {
 

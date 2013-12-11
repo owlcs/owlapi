@@ -52,11 +52,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 
 /**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+ * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 15-Apr-2008<br><br>
- */
+ * Date: 15-Apr-2008 */
 @SuppressWarnings("javadoc")
 public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
 

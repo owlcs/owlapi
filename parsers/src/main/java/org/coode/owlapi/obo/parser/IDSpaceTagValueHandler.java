@@ -43,8 +43,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Author: Matthew Horridge<br>
- * Stanford University<br>
+ * @author Matthew Horridge, Stanford University<br>
  * Bio-Medical Informatics Research Group<br>
  * Date: 18/04/2012
  */

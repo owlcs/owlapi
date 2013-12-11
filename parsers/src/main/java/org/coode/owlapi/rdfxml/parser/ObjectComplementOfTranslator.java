@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.OWL_COMPLEMENT_OF;
@@ -45,37 +44,38 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br><br>
- * <br>
- * Translates a set of triples that represent an <code>OWLComplementOf</code>
+/** Translates a set of triples that represent an <code>OWLComplementOf</code>
  * class expression.
- */
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 08-Dec-2006*/
 @SuppressWarnings("javadoc")
 public class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
-
     public ObjectComplementOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        IRI complementOfIRI = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, false);
-        return isClassExpressionStrict(mainNode) && isClassExpressionStrict(complementOfIRI);
+        IRI complementOfIRI = getConsumer().getResourceObject(mainNode,
+                OWL_COMPLEMENT_OF, false);
+        return isClassExpressionStrict(mainNode)
+                && isClassExpressionStrict(complementOfIRI);
     }
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return isResourcePresent(mainNode, OWL_COMPLEMENT_OF) && isClassExpressionLax(mainNode);
+        return isResourcePresent(mainNode, OWL_COMPLEMENT_OF)
+                && isClassExpressionLax(mainNode);
     }
 
     @Override
     public OWLObjectComplementOf translate(IRI mainNode) {
-        IRI complementOfObject = getConsumer().getResourceObject(mainNode, OWL_COMPLEMENT_OF, true);
-        OWLClassExpression operand = getConsumer().translateClassExpression(complementOfObject);
+        IRI complementOfObject = getConsumer().getResourceObject(mainNode,
+                OWL_COMPLEMENT_OF, true);
+        OWLClassExpression operand = getConsumer().translateClassExpression(
+                complementOfObject);
         return getDataFactory().getOWLObjectComplementOf(operand);
     }
 }
