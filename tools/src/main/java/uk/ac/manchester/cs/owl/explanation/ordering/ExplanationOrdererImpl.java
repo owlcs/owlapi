@@ -112,14 +112,12 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 import uk.ac.manchester.cs.bhig.util.Tree;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2008<br>
- * <br>
- * <br>
- * Provides ordering and indenting of explanations based on various ordering
- * heuristics. */
+/** Provides ordering and indenting of explanations based on various ordering
+ * heuristics.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Jan-2008 */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
     private Set<OWLAxiom> currentExplanation;
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap;
@@ -252,6 +250,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     private static AtomicLong randomstart = new AtomicLong(System.currentTimeMillis());
+
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -319,6 +318,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     private static final class PropertiesFirstComparator implements Comparator<OWLObject> {
         public PropertiesFirstComparator() {}
+
         @Override
         public int compare(OWLObject o1, OWLObject o2) {
             if (o1 instanceof OWLProperty) {

@@ -67,15 +67,13 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Aug-2007<br>
- * <br>
- * <br>
- * Coerces constants to have the same type as the range of a property in axioms
+/** Coerces constants to have the same type as the range of a property in axioms
  * where the two are used. For example, given, p value "xyz", the "xyz" constant
- * would be typed with the range of p. */
+ * would be typed with the range of p.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Aug-2007 */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
     protected final Map<OWLDataPropertyExpression, OWLDatatype> map;
     private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();

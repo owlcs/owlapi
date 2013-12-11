@@ -48,11 +48,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008<br>
- * <br>
+ * Date: 22-Jan-2008
  * 
  * @param <N>
  *            type of elements */

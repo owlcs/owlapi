@@ -36,29 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.normalform;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
+/** @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
- * Date: 24-Sep-2007<br><br>
- */
+ * Date: 24-Sep-2007 */
 public interface NormalFormRewriter {
-
-    /**
-     * @param classExpression expression to check
-     * @return true if classExpression is in normal form
-     */
+    /** @param classExpression
+     *            expression to check
+     * @return true if classExpression is in normal form */
     boolean isInNormalForm(OWLClassExpression classExpression);
 
-    /**
-     * @param classExpression the expression to convert
-     * @return the converted expression
-     */
+    /** @param classExpression
+     *            the expression to convert
+     * @return the converted expression */
     OWLClassExpression convertToNormalForm(OWLClassExpression classExpression);
 }

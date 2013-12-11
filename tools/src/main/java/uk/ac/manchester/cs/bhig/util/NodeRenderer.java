@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.bhig.util;/*
  * Copyright (C) 2008, University of Manchester
  *
@@ -60,16 +59,15 @@ package uk.ac.manchester.cs.bhig.util;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/**
- * Author: Matthew Horridge<br> The University of Manchester<br> Information Management Group<br>
- * Date: 27-Nov-2008
- * @param <N> type of nodes to render
- */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 27-Nov-2008
+ * @param <N>
+ *            type of nodes to render */
 public interface NodeRenderer<N> {
-
-    /**
-     * @param node the node to render
-     * @return the rendering
-     */
+    /** @param node
+     *            the node to render
+     * @return the rendering */
     String render(Tree<N> node);
 }

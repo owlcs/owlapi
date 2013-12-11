@@ -42,12 +42,12 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * Clark &amp; Parsia, LLC<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Nov-2007<br>
- * A progress monitor for an explanation generator. The progress monitor should
- * be used with an <code>MultipleExpalanationGenerator</code> */
+/** A progress monitor for an explanation generator. The progress monitor should
+ * be used with an <code>MultipleExpalanationGenerator</code>
+ * 
+ * @author Matthew Horridge, Clark &amp; Parsia, LLC<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Nov-2007 */
 public interface ExplanationProgressMonitor {
     /** Determines if the process of generating explanations has been cancelled.
      * 

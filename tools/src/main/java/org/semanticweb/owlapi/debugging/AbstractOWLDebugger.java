@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.debugging;
 
 import java.util.ArrayList;
@@ -58,37 +57,31 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Nov-2006<br><br>
- * <br>
- * An abstract debugger which provides common infrastructure for finding
- * multiple justification.  This functionality relies on a concrete implementation
- * of a debugger that can compute a minimal set of axioms that cause the unsatisfiability.
- */
+/** An abstract debugger which provides common infrastructure for finding
+ * multiple justification. This functionality relies on a concrete
+ * implementation of a debugger that can compute a minimal set of axioms that
+ * cause the unsatisfiability.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 24-Nov-2006 */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
-
     private final OWLOntologyManager owlOntologyManager;
-
     private OWLOntology ontology;
 
-
-    protected AbstractOWLDebugger(OWLOntologyManager owlOntologyManager, OWLOntology ontology) {
+    protected AbstractOWLDebugger(OWLOntologyManager owlOntologyManager,
+            OWLOntology ontology) {
         this.owlOntologyManager = owlOntologyManager;
         this.ontology = ontology;
         mergeImportsClosure();
     }
 
-
     private void mergeImportsClosure() {
         OWLOntology originalOntology = ontology;
         try {
-            ontology = owlOntologyManager.createOntology(IRI.create("http://debugger.semanticweb.org/", "ontolog" + System.nanoTime()));
-        }
-        catch (OWLOntologyCreationException e) {
+            ontology = owlOntologyManager.createOntology(IRI.create(
+                    "http://debugger.semanticweb.org/", "ontolog" + System.nanoTime()));
+        } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
@@ -100,24 +93,21 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         owlOntologyManager.applyChanges(changes);
     }
 
-
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
-
 
     @Override
     public OWLOntology getOWLOntology() throws OWLException {
         return ontology;
     }
 
-
-    /** @return the manager*/
+    /** @return the manager */
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }
 
-
     @Override
-    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls) throws OWLException {
+    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls)
+            throws OWLException {
         Set<OWLAxiom> firstMups = getSOSForIncosistentClass(cls);
         if (firstMups.isEmpty()) {
             return Collections.emptySet();
@@ -130,36 +120,40 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         return allMups;
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////////////////////
     //
     // Hitting Set Stuff
     //
-    ///////////////////////////////////////////////////////////////////////////////////////////
-
-
-    /**
-     * This is a recursive method that builds a hitting set tree to obtain all justifications
-     * for an unsatisfiable class.
-     * @param mups The current justification for the current class.  This corresponds to a node
-     * in the hitting set tree.
-     * @param allMups All of the MUPS that have been found - this set gets populated over the course
-     * of the tree building process.  Initially this should just contain the first justification
-     * @param satPaths Paths that have been completed.
-     * @param currentPathContents The contents of the current path.  Initially this should be an
-     * empty set.
-     * @throws OWLException if there is any problem
-     */
-    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents) throws OWLException {
-
+    // /////////////////////////////////////////////////////////////////////////////////////////
+    /** This is a recursive method that builds a hitting set tree to obtain all
+     * justifications for an unsatisfiable class.
+     * 
+     * @param mups
+     *            The current justification for the current class. This
+     *            corresponds to a node in the hitting set tree.
+     * @param allMups
+     *            All of the MUPS that have been found - this set gets populated
+     *            over the course of the tree building process. Initially this
+     *            should just contain the first justification
+     * @param satPaths
+     *            Paths that have been completed.
+     * @param currentPathContents
+     *            The contents of the current path. Initially this should be an
+     *            empty set.
+     * @throws OWLException
+     *             if there is any problem */
+    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
+            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents)
+            throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
             // Remove the current axiom from the ontology
-            owlOntologyManager.applyChanges(Arrays.asList(new RemoveAxiom(ontology, axiom)));
+            owlOntologyManager.applyChanges(Arrays
+                    .asList(new RemoveAxiom(ontology, axiom)));
             currentPathContents.add(axiom);
-
             boolean earlyTermination = false;
-            // Early path termination.  If our path contents are the superset of
+            // Early path termination. If our path contents are the superset of
             // the contents of a path then we can terminate here.
             for (Set<OWLAxiom> satPath : satPaths) {
                 if (satPath.containsAll(currentPathContents)) {
@@ -167,21 +161,19 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
                     break;
                 }
             }
-
             if (!earlyTermination) {
                 // Generate a new node - i.e. a new justification set
-//                generateSOSAxioms();
+                // generateSOSAxioms();
                 Set<OWLAxiom> newMUPS = getSOSForIncosistentClass(getCurrentClass());
-
                 if (!newMUPS.isEmpty()) {
                     // We have a new justification set, and a new node
                     if (!allMups.contains(newMUPS)) {
                         // Entirely new justification set
                         allMups.add(newMUPS);
-                        constructHittingSetTree(newMUPS, allMups, satPaths, currentPathContents);
+                        constructHittingSetTree(newMUPS, allMups, satPaths,
+                                currentPathContents);
                     }
-                }
-                else {
+                } else {
                     // End of current path - add it to the list of paths
                     satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
                 }
@@ -192,11 +184,9 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(ontology, axiom)));
         }
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Stats stuff
     //
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // /////////////////////////////////////////////////////////////////////////////////////////////////////
 }

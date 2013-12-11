@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi;
 
 import java.util.ArrayList;
@@ -73,31 +72,25 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Aug-2007<br><br>
- * <br>
- * Given a set of ontologies, this composite change will replace
- * all subclass axioms in each ontology, whose super class is an
- * object intersection (conjuction) with multiple subclass axioms -
- * one for each conjunct.  For example, A subClassOf (B and C),
- * would be replaced with two subclass axioms, A subClassOf B, and
- * A subClassOf C.
- */
+/** Given a set of ontologies, this composite change will replace all subclass
+ * axioms in each ontology, whose super class is an object intersection
+ * (conjuction) with multiple subclass axioms - one for each conjunct. For
+ * example, A subClassOf (B and C), would be replaced with two subclass axioms,
+ * A subClassOf B, and A subClassOf C.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 15-Aug-2007 */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
-
     private final List<OWLOntologyChange> changes;
 
-
-    /**
-     * Creates a composite change to split subclass axioms into multiple more
+    /** Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
-     * @param ontologies The ontologies whose subclass axioms should be processed.
-     * @param dataFactory The data factory which should be used to create new axioms.
-     */
+     * 
+     * @param ontologies
+     *            The ontologies whose subclass axioms should be processed.
+     * @param dataFactory
+     *            The data factory which should be used to create new axioms. */
     public SplitSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();
@@ -108,7 +101,8 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
                 if (splitter.result.size() > 1) {
                     changes.add(new RemoveAxiom(ont, ax));
                     for (OWLClassExpression desc : splitter.result) {
-                        OWLAxiom replAx = getDataFactory().getOWLSubClassOfAxiom(ax.getSubClass(), desc);
+                        OWLAxiom replAx = getDataFactory().getOWLSubClassOfAxiom(
+                                ax.getSubClass(), desc);
                         changes.add(new AddAxiom(ont, replAx));
                     }
                 }
@@ -116,82 +110,67 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
     }
 
-
     @Override
     public List<OWLOntologyChange> getChanges() {
         return changes;
     }
 
-
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
-
         Set<OWLClassExpression> result;
-
 
         public ConjunctSplitter() {
             result = new HashSet<OWLClassExpression>();
         }
-
 
         @Override
         public void visit(OWLClass desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLDataAllValuesFrom desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLDataExactCardinality desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLDataMaxCardinality desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLDataMinCardinality desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLDataSomeValuesFrom desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLDataHasValue desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLObjectAllValuesFrom desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLObjectComplementOf desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLObjectExactCardinality desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
@@ -200,42 +179,35 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
             }
         }
 
-
         @Override
         public void visit(OWLObjectMaxCardinality desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLObjectMinCardinality desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLObjectOneOf desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLObjectHasSelf desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLObjectSomeValuesFrom desc) {
             result.add(desc);
         }
 
-
         @Override
         public void visit(OWLObjectUnionOf desc) {
             result.add(desc);
         }
-
 
         @Override
         public void visit(OWLObjectHasValue desc) {

@@ -50,8 +50,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
-/** Author: Matthew Horridge<br>
- * Clark &amp; Parsia, LLC<br>
+/** @author Matthew Horridge, Clark &amp; Parsia, LLC<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Jan-2008 */
 public class DefaultExplanationGenerator implements ExplanationGenerator {

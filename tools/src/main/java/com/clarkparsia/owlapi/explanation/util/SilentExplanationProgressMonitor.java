@@ -42,8 +42,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * Clark &amp; Parsia, LLC<br>
+/** @author Matthew Horridge, Clark &amp; Parsia, LLC<br>
  * Bio-Health Informatics Group<br>
  * Date: 26-Nov-2007 */
 public class SilentExplanationProgressMonitor implements ExplanationProgressMonitor {

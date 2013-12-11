@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi;
 
 import java.util.ArrayList;
@@ -53,29 +52,24 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Aug-2007<br><br>
- * <br>
- * Given a set of ontologies S, for each ontology, O, in S, this change
- * combines multiple subclass axioms with a common left hand side into
- * one subclass axiom.  For example, given A subClassOf B, A subClassOf C,
- * this change will remove these two axioms and replace them by adding
- * one subclass axiom, A subClassOf (B and C).
- */
+/** Given a set of ontologies S, for each ontology, O, in S, this change combines
+ * multiple subclass axioms with a common left hand side into one subclass
+ * axiom. For example, given A subClassOf B, A subClassOf C, this change will
+ * remove these two axioms and replace them by adding one subclass axiom, A
+ * subClassOf (B and C).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 15-Aug-2007 */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
-
     private final List<OWLOntologyChange> changes;
 
-
-    /**
-     * @param ontologies the ontologies to use
-     * @param dataFactory the data factory
-     */
-    public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies, OWLDataFactory dataFactory) {
+    /** @param ontologies
+     *            the ontologies to use
+     * @param dataFactory
+     *            the data factory */
+    public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies,
+            OWLDataFactory dataFactory) {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
@@ -87,13 +81,14 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
                         changes.add(new RemoveAxiom(ont, ax));
                         superClasses.add(ax.getSuperClass());
                     }
-                    OWLClassExpression combinedSuperClass = getDataFactory().getOWLObjectIntersectionOf(superClasses);
-                    changes.add(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(cls, combinedSuperClass)));
+                    OWLClassExpression combinedSuperClass = getDataFactory()
+                            .getOWLObjectIntersectionOf(superClasses);
+                    changes.add(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(
+                            cls, combinedSuperClass)));
                 }
             }
         }
     }
-
 
     @Override
     public List<OWLOntologyChange> getChanges() {

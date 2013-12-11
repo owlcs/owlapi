@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi;
 
 import java.util.ArrayList;
@@ -50,24 +49,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Jul-2007<br><br>
- * Given a set of ontologies, this composite change will remove all disjoint
+/** Given a set of ontologies, this composite change will remove all disjoint
  * classes axioms from these ontologies.
- */
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 24-Jul-2007*/
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
-
     private final Set<OWLOntology> ontologies;
-
     private List<OWLOntologyChange> changes;
-    /**
-     * @param dataFactory factory to use
-     * @param ontologies ontologies to change
-     */
+
+    /** @param dataFactory
+     *            factory to use
+     * @param ontologies
+     *            ontologies to change */
     public RemoveAllDisjointAxioms(OWLDataFactory dataFactory, Set<OWLOntology> ontologies) {
         super(dataFactory);
         this.ontologies = ontologies;
@@ -82,7 +77,6 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
             }
         }
     }
-
 
     @Override
     public List<OWLOntologyChange> getChanges() {
