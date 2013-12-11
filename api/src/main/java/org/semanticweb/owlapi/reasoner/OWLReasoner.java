@@ -54,8 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.Version;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 21-Jan-2009 <br>
  * An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that
@@ -1330,7 +1329,6 @@ public interface OWLReasoner {
      *         <code>NodeSet</code> containing named individuals such that for
      *         each named individual <code>j</code> in the node set, the set of
      *         reasoner axioms entails <code>ClassAssertion(ce, j)</code>. <br>
-     * <br>
      *         If ce is unsatisfiable with respect to the set of reasoner axioms
      *         then the empty <code>NodeSet</code> is returned.
      * @throws InconsistentOntologyException

@@ -36,31 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 05-Jul-2010
- * <br>
- * Specifies that a some internal error occurred during reasoning.  Each reasoner implementation will specify
- * the cause of the error in the message.
- * <br>
- * This exception is only thrown when an internal error (due to errors in the reasoner code) has occurred and the reasoner
- * cannot recover silently from the error.  If the reasoner can recover silently this exception will not be thrown.
- * <br>
- * Clients should dispose of the reasoner when an internal reasoner exception is thrown because the error is
- * unrecoverable and the internal state of the reasoner may be corrupt.
- */
+/** Specifies that a some internal error occurred during reasoning. Each reasoner
+ * implementation will specify the cause of the error in the message. <br>
+ * This exception is only thrown when an internal error (due to errors in the
+ * reasoner code) has occurred and the reasoner cannot recover silently from the
+ * error. If the reasoner can recover silently this exception will not be
+ * thrown. <br>
+ * Clients should dispose of the reasoner when an internal reasoner exception is
+ * thrown because the error is unrecoverable and the internal state of the
+ * reasoner may be corrupt.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 05-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	public ReasonerInternalException(Throwable cause) {
+    public ReasonerInternalException(Throwable cause) {
         super(cause);
     }
 

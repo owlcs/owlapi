@@ -38,8 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 29-Nov-2009<br>
  * A fresh entity is an entity that is not a built in entity (see

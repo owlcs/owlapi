@@ -42,8 +42,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 03-Jul-2009 <br>
  * Represents a node (set) of entities. The entities in a node are equivalent to

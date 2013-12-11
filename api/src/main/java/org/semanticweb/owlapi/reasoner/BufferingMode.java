@@ -38,8 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 04-Dec-2009 <br>
  * Used to indicate the buffering mode of a reasoner. See

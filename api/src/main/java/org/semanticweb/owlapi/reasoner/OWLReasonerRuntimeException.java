@@ -40,8 +40,7 @@ package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")

@@ -38,8 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
+/** @author Matthew Horridge, The University of Manchester<br>
  * Information Management Group<br>
  * Date: 09-Dec-2009 <br>
  * The policy of how a reasoner will return <code>NodeSet</code>s of individuals
