@@ -57,15 +57,15 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006 */
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Dec-2006 */
 @SuppressWarnings("javadoc")
 public class OWLObjectRenderer implements OWLObjectVisitor {
     private DefaultPrefixManager prefixManager;
     protected OWLOntology ontology;
     private Writer writer;
-    private int pos;
-    int lastNewLinePos;
+    // private int pos;
+    // int lastNewLinePos;
     private boolean writeEnitiesAsURIs;
     private OWLObject focusedObject;
 
@@ -129,11 +129,6 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     private void write(String s) {
         try {
-            int newLineIndex = s.indexOf('\n');
-            if (newLineIndex != -1) {
-                lastNewLinePos = pos + newLineIndex;
-            }
-            pos += s.length();
             writer.write(s);
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
@@ -141,26 +136,25 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(IRI iri) {
-        String iriString = iri.toString();
         String qname = prefixManager.getPrefixIRI(iri);
-        if (qname != null && !qname.equals(iriString)) {
+        if (qname != null) {
             write(qname);
         } else {
-            write("<");
-            write(iriString);
-            write(">");
+            writeFullIRI(iri);
         }
     }
 
     private void writeFullIRI(IRI iri) {
         write("<");
-        write(iri.toString());
+        write(iri.getNamespace());
+        if (iri.getFragment() != null) {
+            write(iri.getFragment());
+        }
         write(">");
     }
 
     @Override
     public void visit(OWLOntology ontology1) {
-
         writePrefixes();
         write("\n\n");
         write(ONTOLOGY);
@@ -193,15 +187,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         for (OWLEntity ent : signature) {
             writeAxioms(ent, writtenAxioms);
         }
-        List<OWLAxiom> remainingAxioms = new ArrayList<OWLAxiom>(ontology1.getAxioms());
-        remainingAxioms.removeAll(writtenAxioms);
+        Set<OWLAxiom> remainingAxioms = ontology1.getAxioms();
         for (OWLAxiom ax : remainingAxioms) {
-            ax.accept(this);
-            write("\n");
+            if (!writtenAxioms.contains(ax)) {
+                ax.accept(this);
+                write("\n");
+            }
         }
         write(")");
-        // write("\n// ");
-        // write(VersionInfo.getVersionInfo().getGeneratedByMessage());
     }
 
     /** Writes out the axioms that define the specified entity
@@ -300,6 +293,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         alreadyWrittenAxioms.addAll(axioms);
         return axioms;
     }
+
     /** Writes of the annotation for the specified entity
      * 
      * @param entity

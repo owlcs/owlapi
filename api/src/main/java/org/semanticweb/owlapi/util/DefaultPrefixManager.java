@@ -42,6 +42,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -54,8 +55,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 10-Sep-2008 */
+ *         Information Management Group<br>
+ *         Date: 10-Sep-2008 */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
     private static final long serialVersionUID = 30406L;
@@ -80,6 +81,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
     private final Map<String, String> prefix2NamespaceMap;
+    private final Map<String, String> reverseprefix2NamespaceMap;
 
     /** Creates a namespace manager that does not have a default namespace. */
     public DefaultPrefixManager() {
@@ -92,6 +94,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            comparator to sort prefixes */
     public DefaultPrefixManager(Comparator<String> c) {
         prefix2NamespaceMap = new TreeMap<String, String>(c);
+        reverseprefix2NamespaceMap = new HashMap<String, String>();
         setupDefaultPrefixes();
     }
 
@@ -110,6 +113,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             String prefix = pm.getPrefix(prefixName);
             if (prefix != null) {
                 prefix2NamespaceMap.put(prefixName, prefix);
+                reverseprefix2NamespaceMap.put(prefix, prefixName);
             }
         }
     }
@@ -128,6 +132,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     public void clear() {
         // Clear the default namespace and map
         prefix2NamespaceMap.clear();
+        reverseprefix2NamespaceMap.clear();
     }
 
     @Override
@@ -182,17 +187,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Override
     public String getPrefixIRI(IRI iri) {
         String ns = iri.getNamespace();
-        for (String prefixName : prefix2NamespaceMap.keySet()) {
-            String prefix = prefix2NamespaceMap.get(prefixName);
-            if (ns.equals(prefix)) {
-                String ncNameSuffix = iri.getFragment();
-                if (ncNameSuffix == null) {
-                    ncNameSuffix = "";
-                }
-                return prefixName + ncNameSuffix;
-            }
+        String prefix = reverseprefix2NamespaceMap.get(ns);
+        if (prefix == null) {
+            return null;
         }
-        return null;
+        if (iri.getFragment() == null) {
+            return prefix;
+        }
+        return prefix + iri.getFragment();
     }
 
     @Override
@@ -202,8 +204,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public boolean containsPrefixMapping(String prefix) {
-        return prefix2NamespaceMap.containsKey(prefix)
-                && prefix2NamespaceMap.get(prefix) != null;
+        return prefix2NamespaceMap.get(prefix) != null;
     }
 
     @Override
@@ -261,6 +262,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             throw new IllegalArgumentException("Prefix names must end with a colon (:)");
         }
         prefix2NamespaceMap.put(prefixName, prefix);
+        reverseprefix2NamespaceMap.put(prefix, prefixName);
     }
 
     /** Removes a previously registerd prefix namespace mapping
@@ -275,6 +277,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
                 toRemove.add(e.getKey());
             }
         }
+        reverseprefix2NamespaceMap.remove(namespace);
         for (String s : toRemove) {
             prefix2NamespaceMap.remove(s);
         }
