@@ -72,7 +72,7 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
-        return IRI.create("gzipinputstream:ontology" + counter);
+        return IRI.create("file:ontology" + counter);
     }
 
     /** Constructs an input source which will read an ontology from a
