@@ -41,6 +41,7 @@ package org.coode.owlapi.turtle;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -71,8 +72,8 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008 */
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Jan-2008 */
 public class TurtleRenderer extends RDFRendererBase {
     private PrintWriter writer;
     private Set<RDFResourceNode> pending;
@@ -83,8 +84,8 @@ public class TurtleRenderer extends RDFRendererBase {
     @SuppressWarnings("javadoc")
     @Deprecated
     public TurtleRenderer(OWLOntology ontology,
-            @SuppressWarnings("unused") OWLOntologyManager manager,
-            Writer writer, OWLOntologyFormat format) {
+            @SuppressWarnings("unused") OWLOntologyManager manager, Writer writer,
+            OWLOntologyFormat format) {
         this(ontology, writer, format);
     }
 
@@ -357,11 +358,13 @@ public class TurtleRenderer extends RDFRendererBase {
     @Override
     public void render(RDFResourceNode node) {
         level++;
-        List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
+        List<RDFTriple> triples;
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any
             // cycles therefore indicate a bug!
-            triples = new ArrayList<RDFTriple>();
+            triples = Collections.emptyList();
+        } else {
+            triples = getGraph().getSortedTriplesForSubject(node, true);
         }
         pending.add(node);
         RDFResourceNode lastSubject = null;

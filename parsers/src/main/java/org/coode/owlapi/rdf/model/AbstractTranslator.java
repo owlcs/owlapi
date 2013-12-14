@@ -68,7 +68,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  *            a literal node
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
- *         Date: 06-Dec-2006*/
+ *         Date: 06-Dec-2006 */
 public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE>
         implements OWLObjectVisitor, SWRLObjectVisitor {
     private OWLOntologyManager manager;

@@ -53,13 +53,14 @@ import java.util.Stack;
 import java.util.StringTokenizer;
 
 import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Medical Informatics Group<br>
- *         Date: 30-May-2006*/
+ *         Date: 30-May-2006 */
 @SuppressWarnings("javadoc")
 public class XMLWriterImpl implements XMLWriter {
     private Stack<XMLElement> elementStack;
@@ -189,6 +190,24 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
+    public void writeStartElement(IRI name) throws IOException {
+        String qName = xmlWriterNamespaceManager.getQName(name);
+        if (qName.length() == name.length()) {
+            // Could not generate a valid QName, therefore, we cannot
+            // write valid XML - just throw an exception!
+            throw new IllegalElementNameException(name.toString());
+        }
+        XMLElement element = new XMLElement(qName, elementStack.size());
+        if (!elementStack.isEmpty()) {
+            XMLElement topElement = elementStack.peek();
+            if (topElement != null) {
+                topElement.writeElementStart(false);
+            }
+        }
+        elementStack.push(element);
+    }
+
+    @Override
     public void writeEndElement() throws IOException {
         // Pop the element off the stack and write it out
         if (!elementStack.isEmpty()) {
@@ -207,6 +226,15 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
+    public void writeAttribute(IRI attr, String val) {
+        XMLElement element = elementStack.peek();
+        String qName = xmlWriterNamespaceManager.getQName(attr);
+        if (qName != null) {
+            element.setAttribute(qName, val);
+        }
+    }
+
+    @Override
     public void writeTextContent(String text) {
         XMLElement element = elementStack.peek();
         element.setText(text);
@@ -215,7 +243,7 @@ public class XMLWriterImpl implements XMLWriter {
     @Override
     public void writeComment(String commentText) throws IOException {
         XMLElement element = new XMLElement(null, elementStack.size());
-        element.setText("<!-- " + commentText.replaceAll("--", "&#45;&#45;") + " -->");
+        element.setText("<!-- " + commentText.replace("--", "&#45;&#45;") + " -->");
         if (!elementStack.isEmpty()) {
             XMLElement topElement = elementStack.peek();
             if (topElement != null) {
@@ -229,7 +257,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private void writeEntities(String rootName) throws IOException {
+    private void writeEntities(IRI rootName) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (qName == null) {
             throw new IOException("Cannot create valid XML: qname for " + rootName
@@ -252,19 +280,24 @@ public class XMLWriterImpl implements XMLWriter {
 
     @Override
     public void startDocument(String rootElementName) throws IOException {
+        startDocument(IRI.create(rootElementName));
+    }
+
+    @Override
+    public void startDocument(IRI rootElement) throws IOException {
         String encodingString = "";
         if (encoding.length() > 0) {
             encodingString = " encoding=\"" + encoding + "\"";
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
         if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
-            writeEntities(rootElementName);
+            writeEntities(rootElement);
         }
         preambleWritten = true;
         while (!elementStack.isEmpty()) {
             elementStack.pop().writeElementStart(true);
         }
-        writeStartElement(rootElementName);
+        writeStartElement(rootElement);
         setWrapAttributes(true);
         writeAttribute("xmlns", xmlWriterNamespaceManager.getDefaultNamespace());
         if (xmlBase.length() != 0) {

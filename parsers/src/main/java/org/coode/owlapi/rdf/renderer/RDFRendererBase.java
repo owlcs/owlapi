@@ -43,11 +43,11 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFNode;
@@ -90,8 +90,8 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008 */
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Jan-2008 */
 @SuppressWarnings("javadoc")
 public abstract class RDFRendererBase {
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
@@ -640,9 +640,9 @@ public abstract class RDFRendererBase {
 
     protected abstract void writeBanner(String name) throws IOException;
 
-    private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
-        Set<N> results = new TreeSet<N>(OWL_ENTITY_IRI_COMPARATOR);
-        results.addAll(entities);
+    private static List<OWLEntity> toSortedSet(Set<? extends OWLEntity> entities) {
+        List<OWLEntity> results = new ArrayList<OWLEntity>(entities);
+        Collections.sort(results, OWL_ENTITY_IRI_COMPARATOR);
         return results;
     }
 

@@ -43,11 +43,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.IRI;
+
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Medical Informatics Group<br>
- *         Date: 30-May-2006*/
+ *         Date: 30-May-2006 */
 @SuppressWarnings("javadoc")
 public class XMLWriterNamespaceManager {
     private Map<String, String> prefixNamespaceMap;
@@ -100,6 +102,24 @@ public class XMLWriterNamespaceManager {
             }
         }
         return name;
+    }
+
+    /** Gets a QName for an IRI.
+     * 
+     * @param name
+     *            The name which represents the full name.
+     * @return The QName representation or <code>null</code> if a QName could
+     *         not be generated. */
+    public String getQName(IRI name) {
+        if (name.getNamespace().equals(defaultNamespace)) {
+            return name.getFragment() == null ? "" : name.getFragment();
+        }
+        String candidate = namespacePrefixMap.get(name.getNamespace());
+        if (candidate != null) {
+            String localName = name.getFragment() == null ? "" : name.getFragment();
+            return candidate + ":" + localName;
+        }
+        return name.toString();
     }
 
     public void createPrefixForNamespace(String namespace) {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.rdfxml;
 
 import java.util.HashSet;
@@ -44,6 +43,7 @@ import java.util.Set;
 
 import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -51,13 +51,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21/09/2011
- */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 21/09/2011 */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
-
     /** @param man
      * @param ontology */
     public RDFXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology) {
@@ -73,10 +70,12 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     @Override
     protected Set<OWLEntity> getEntitiesThatRequireNamespaces() {
         Set<OWLEntity> entities = new HashSet<OWLEntity>();
-        for(OWLObjectPropertyAssertionAxiom ax : getOntology().getAxioms(AxiomType.OBJECT_PROPERTY_ASSERTION)) {
+        for (OWLObjectPropertyAssertionAxiom ax : getOntology().getAxioms(
+                AxiomType.OBJECT_PROPERTY_ASSERTION)) {
             entities.addAll(ax.getProperty().getSignature());
         }
-        for(OWLDataPropertyAssertionAxiom ax : getOntology().getAxioms(AxiomType.DATA_PROPERTY_ASSERTION)) {
+        for (OWLDataPropertyAssertionAxiom ax : getOntology().getAxioms(
+                AxiomType.DATA_PROPERTY_ASSERTION)) {
             entities.add(ax.getProperty().asOWLDataProperty());
         }
         entities.addAll(getOntology().getAnnotationPropertiesInSignature());
@@ -86,9 +85,9 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     /** @return entities with invalid qnames */
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
-        for(OWLEntity entity : getEntitiesThatRequireNamespaces()) {
-            final String stringID = entity.toStringID();
-            if (stringID.equals(getQName(stringID))) {
+        for (OWLEntity entity : getEntitiesThatRequireNamespaces()) {
+            IRI iri = entity.getIRI();
+            if (iri.getFragment() == null || iri.getFragment().isEmpty()) {
                 result.add(entity);
             }
         }

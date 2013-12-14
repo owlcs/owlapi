@@ -47,10 +47,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006 */
+ *         Bio-Health Informatics Group<br>
+ *         Date: 06-Dec-2006 */
 @SuppressWarnings("javadoc")
 public class RDFXMLWriter {
+    private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
+    private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "resource");
+    private static final String XML_LANG = "xml:lang";
+    private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "nodeID");
+    private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "about");
+    private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "datatype");
+    private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "parseType");
     private XMLWriter writer;
 
     protected RDFXMLWriter(XMLWriter writer) {
@@ -59,15 +71,15 @@ public class RDFXMLWriter {
 
     public void writeStartElement(IRI elementName) throws IOException {
         // Sort out with namespace
-        writer.writeStartElement(elementName.toString());
+        writer.writeStartElement(elementName);
     }
 
     public void writeParseTypeAttribute() throws IOException {
-        writer.writeAttribute(Namespaces.RDF + "parseType", "Collection");
+        writer.writeAttribute(PARSETYPE_IRI, "Collection");
     }
 
     public void writeDatatypeAttribute(IRI datatypeIRI) throws IOException {
-        writer.writeAttribute(Namespaces.RDF + "datatype", datatypeIRI.toString());
+        writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
 
     public void writeTextContent(String text) throws IOException {
@@ -75,7 +87,7 @@ public class RDFXMLWriter {
     }
 
     public void writeLangAttribute(String lang) throws IOException {
-        writer.writeAttribute("xml:lang", lang);
+        writer.writeAttribute(XML_LANG, lang);
     }
 
     public void writeEndElement() throws IOException {
@@ -83,14 +95,14 @@ public class RDFXMLWriter {
     }
 
     public void writeAboutAttribute(IRI value) throws IOException {
-        writeAttribute(Namespaces.RDF + "about", value);
+        writeAttribute(RDF_ABOUT, value);
     }
 
     public void writeNodeIDAttribute(RDFResourceNode node) throws IOException {
-        writer.writeAttribute(Namespaces.RDF + "nodeID", node.toString());
+        writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
-    private void writeAttribute(String attributeName, IRI value) throws IOException {
+    private void writeAttribute(IRI attributeName, IRI value) throws IOException {
         writer.writeAttribute(attributeName, value.toString());
     }
 
@@ -98,11 +110,11 @@ public class RDFXMLWriter {
     public void writeOWLObject(OWLObject owlObject) {}
 
     public void writeResourceAttribute(IRI value) throws IOException {
-        writeAttribute(Namespaces.RDF + "resource", value);
+        writeAttribute(RDF_RESOURCE, value);
     }
 
     public void startDocument() throws IOException {
-        writer.startDocument(Namespaces.RDF + "RDF");
+        writer.startDocument(RDF_RDF);
     }
 
     public void endDocument() throws IOException {

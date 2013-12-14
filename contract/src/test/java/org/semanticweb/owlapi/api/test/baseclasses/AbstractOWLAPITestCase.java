@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -66,8 +67,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-May-2008 */
+ *         Bio-Health Informatics Group<br>
+ *         Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
@@ -228,11 +229,17 @@ public abstract class AbstractOWLAPITestCase {
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
-        OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target.toString()), new OWLOntologyLoaderConfiguration()
-                .setReportStackTraces(true));
-        equal(ont, ont2);
-        return ont2;
+        try {
+            OWLOntology ont2 = man.loadOntologyFromOntologyDocument(
+                    new StringDocumentSource(target.toString()),
+                    new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+            equal(ont, ont2);
+            return ont2;
+        } catch (UnparsableOntologyException e) {
+            System.out.println("AbstractOWLAPITestCase.roundTripOntology() \n" + target);
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @SuppressWarnings("unused")

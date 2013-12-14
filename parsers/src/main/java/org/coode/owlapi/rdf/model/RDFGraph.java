@@ -41,6 +41,7 @@ package org.coode.owlapi.rdf.model;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -51,8 +52,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006 */
+ *         Bio-Health Informatics Group<br>
+ *         Date: 06-Dec-2006 */
 public class RDFGraph {
     private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
@@ -107,7 +108,9 @@ public class RDFGraph {
 
     /** @param subject
      * @param sort
-     * @return sorted triples */
+     * @return sorted triples
+     * @deprecated use getTriplesForSubject */
+    @Deprecated
     public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {
         List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
         Set<RDFTriple> set = triplesBySubject.get(subject);
@@ -128,6 +131,34 @@ public class RDFGraph {
                         "Misbehaving triple comparator, leaving triples unsorted: "
                                 + toReturn, e);
             }
+        }
+        return toReturn;
+    }
+
+    /** @param subject
+     * @param sort
+     * @return sorted triples */
+    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject, boolean sort) {
+        Set<RDFTriple> set = triplesBySubject.get(subject);
+        if (set == null) {
+            return Collections.emptyList();
+        }
+        if (!sort) {
+            return set;
+        }
+        List<RDFTriple> toReturn = new ArrayList<RDFTriple>(set);
+        try {
+            Collections.sort(toReturn);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
+            }
+            // otherwise print a warning and leave the list unsorted
+            logger.log(Level.WARNING,
+                    "Misbehaving triple comparator, leaving triples unsorted: "
+                            + toReturn, e);
         }
         return toReturn;
     }
