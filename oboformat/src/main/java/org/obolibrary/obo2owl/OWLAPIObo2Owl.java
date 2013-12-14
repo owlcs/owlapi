@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedObject;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -734,7 +735,7 @@ public class OWLAPIObo2Owl {
             LOG.log(Level.SEVERE, "no axiom");
             return;
         }
-        List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>(
+        List<OWLOntologyChange<OWLAxiom>> changes = new ArrayList<OWLOntologyChange<OWLAxiom>>(
                 axioms.size());
         for (OWLAxiom axiom : axioms) {
             AddAxiom addAx = new AddAxiom(owlOntology, axiom);
@@ -743,17 +744,13 @@ public class OWLAPIObo2Owl {
         apply(changes);
     }
 
-    protected void apply(List<OWLOntologyChange<?>> changes) {
-        try {
-            manager.applyChanges(changes);
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, "COULD NOT TRANSLATE AXIOM", e);
-        }
+    protected <T extends OWLObject> void apply(OWLOntologyChange<T> change) {
+        apply(Collections.singletonList(change));
     }
 
-    protected void apply(OWLOntologyChange<?> change) {
+    protected <T extends OWLObject> void apply(List<OWLOntologyChange<T>> changes) {
         try {
-            manager.applyChange(change);
+            manager.applyChanges(changes);
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "COULD NOT TRANSLATE AXIOM", e);
         }

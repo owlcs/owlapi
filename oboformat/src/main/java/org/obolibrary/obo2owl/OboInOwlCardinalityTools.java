@@ -290,6 +290,7 @@ public class OboInOwlCardinalityTools {
     }
 
     public static final AnnotationCardinalityConfictHandler DEFAULT_HANDLER = new AnnotationCardinalityConfictHandler() {
+        @Override
         public List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity,
                 OWLAnnotationProperty property,
                 Collection<OWLAnnotationAssertionAxiom> annotations)
@@ -311,6 +312,7 @@ public class OboInOwlCardinalityTools {
                     "Could not resolve conflict for property: " + property);
         }
 
+        @Override
         public List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
                 Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException {

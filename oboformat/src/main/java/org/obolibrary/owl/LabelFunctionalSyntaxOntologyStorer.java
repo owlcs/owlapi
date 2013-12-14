@@ -19,6 +19,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStor
     // generated
     private static final long serialVersionUID = -6143049869068925168L;
 
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof LabelFunctionalFormat;
     }
@@ -45,6 +46,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStor
             this.ontology = ontology;
         }
 
+        @Override
         public String getPrefixIRI(IRI iri) {
             for (OWLAnnotationAssertionAxiom annotation : ontology
                     .getAnnotationAssertionAxioms(iri)) {
