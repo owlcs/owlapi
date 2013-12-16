@@ -68,7 +68,7 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
     /**
      * A convenience method which gets an entity from its short form.
      * @param shortForm The short form of the entity.
-     * @return The actual entity or <code>null</code> if there
+     * @return The actual entity or {@code null} if there
      * is no entity which has the specified short form.  If the specified
      * short form corresponds to more than one entity then an entity will
      * be chosen by the implementation of the short form provider.

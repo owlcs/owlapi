@@ -92,10 +92,10 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     /**
-     * Adds an entity to this <code>NodeSet</code> by wrapping it in a <code>Node</code>.
-     * @param entity The entity to be added.  The entity will be wrapped in the <code>Node</code> and the <code>Node</code>
-     * added to this set.  Must not be <code>null</code>.
-     * @throws NullPointerException if <code>entity</code> is <code>null</code>.
+     * Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
+     * @param entity The entity to be added.  The entity will be wrapped in the {@code Node} and the {@code Node}
+     * added to this set.  Must not be {@code null}.
+     * @throws NullPointerException if {@code entity} is {@code null}.
      */
     //XXX not in the interface
     public void addEntity(E entity) {
@@ -106,9 +106,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     /**
-     * Adds a <code>Node</code> to this set.
-     * @param node The <code>Node</code> to be added.
-     * @throws NullPointerException if <code>entity</code> is <code>null</code>.
+     * Adds a {@code Node} to this set.
+     * @param node The {@code Node} to be added.
+     * @throws NullPointerException if {@code entity} is {@code null}.
      */
     //XXX not in the interface
     public void addNode(Node<E> node) {
@@ -119,9 +119,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     /**
-     * Adds a collection of <code>Node</code>s to this set.
-     * @param nodeset The <code>Node</code>s to be added.  Note that if the collection is not a set then duplicate
-     * <code>Node</code>s will be filtered out.
+     * Adds a collection of {@code Node}s to this set.
+     * @param nodeset The {@code Node}s to be added.  Note that if the collection is not a set then duplicate
+     * {@code Node}s will be filtered out.
      */
     //XXX not in the interface
     public void addAllNodes(Collection<Node<E>> nodeset) {
@@ -133,9 +133,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     /**
-     * Adds the set of entities as a <code>Node</code> to this set.
-     * @param entities The set of entities to be added.  The entities will be wrapped in a <code>Node</code>
-     * which will be added to this <code>NodeSet</code>.
+     * Adds the set of entities as a {@code Node} to this set.
+     * @param entities The set of entities to be added.  The entities will be wrapped in a {@code Node}
+     * which will be added to this {@code NodeSet}.
      */
     //XXX not in the interface
     public void addSameEntities(Set<E> entities) {
@@ -143,9 +143,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
     }
 
     /**
-     * Adds the specified entities as <code>Node</code>s to this set.
-     * @param entities The entities to be added.  Each entity will be wrapped in a <code>Node</code> which will then
-     * be added to this <code>NodeSet</code>.
+     * Adds the specified entities as {@code Node}s to this set.
+     * @param entities The entities to be added.  Each entity will be wrapped in a {@code Node} which will then
+     * be added to this {@code NodeSet}.
      */
     //XXX not in the interface
     public void addDifferentEntities(Set<E> entities) {

@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Apr-2007<br>
- * An <code>OWLOntologySetProvider</code> which provides a set of ontologies
+ * An {@code OWLOntologySetProvider} which provides a set of ontologies
  * which correspond to the imports closure of a given ontology.  Note that
  * the set of provided ontologies will be updated if the imports closure gets
  * updated.
@@ -63,7 +63,7 @@ public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvi
 
 
     /**
-     * Constructs an <code>OWLOntologySetProvider</code> which provides a set containing the imports
+     * Constructs an {@code OWLOntologySetProvider} which provides a set containing the imports
      * closure of a given ontology.
      * @param manager The manager which should be used to determine the imports closure.
      * @param rootOntology The ontology which is the "root" of the imports closure.

@@ -59,7 +59,7 @@ public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
 
 
     /**
-     * Constructs an <code>OWLOntologySingletonSetProvider</code> which provides a singleton
+     * Constructs an {@code OWLOntologySingletonSetProvider} which provides a singleton
      * set contain the specified ontology.
      * @param ontology The one and only ontology which should be contained in the sets provided
      *                 by this provider.

@@ -51,7 +51,7 @@ public class XMLWriterFactory {
 
     private XMLWriterFactory() {}
 
-    /** Gets the one and only instance of the <code>XMLWriterFactory</code> */
+    /** Gets the one and only instance of the {@code XMLWriterFactory} */
     public static synchronized XMLWriterFactory getInstance() {
         if (instance == null) {
             instance = new XMLWriterFactory();
@@ -62,7 +62,7 @@ public class XMLWriterFactory {
     /** Creates an XMLWriter.
      * 
      * @param writer
-     *            The <code>Writer</code> that the XMLWriter will actually write
+     *            The {@code Writer} that the XMLWriter will actually write
      *            to */
     public XMLWriter createXMLWriter(Writer writer,
             XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {

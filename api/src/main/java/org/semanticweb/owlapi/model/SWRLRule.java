@@ -58,7 +58,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the body of the rule
-     * @return A set of <code>SWRLAtom</code>s, which represent the atoms
+     * @return A set of {@code SWRLAtom}s, which represent the atoms
      * in the body of the rule.
      */
     Set<SWRLAtom> getBody();
@@ -66,7 +66,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /**
      * Gets the atoms in the head of the rule
-     * @return A set of <code>SWRLAtom</code>s, which represent the atoms
+     * @return A set of {@code SWRLAtom}s, which represent the atoms
      * in the head of the rule
      */
     Set<SWRLAtom> getHead();
@@ -88,8 +88,8 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /**
      * Determines if this rule uses anonymous class expressions in
      * class atoms.
-     * @return <code>true</code> if this rule contains anonymous
-     * class expression in class atoms, otherwise <code>false</code>.
+     * @return {@code true} if this rule contains anonymous
+     * class expression in class atoms, otherwise {@code false}.
      */
     boolean containsAnonymousClassExpressions();
 

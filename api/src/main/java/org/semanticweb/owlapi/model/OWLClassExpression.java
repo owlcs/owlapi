@@ -57,40 +57,40 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /** Determines whether or not this expression represents an anonymous class
      * expression.
      * 
-     * @return <code>true</code> if this is an anonymous class expression, or
-     *         <code>false</code> if this is a named class (
-     *         <code>OWLClass</code>) */
+     * @return {@code true} if this is an anonymous class expression, or
+     *         {@code false} if this is a named class (
+     *         {@code OWLClass}) */
     boolean isAnonymous();
 
     /** Determines if this class is a literal. A literal being either a named
      * class or the negation of a named class (i.e. A or not(A)).
      * 
-     * @return <code>true</code> if this is a literal, or false if this is not a
+     * @return {@code true} if this is a literal, or false if this is not a
      *         literal. */
     boolean isClassExpressionLiteral();
 
     /** If this class expression is in fact a named class then this method may be
-     * used to obtain the expression as an <code>OWLClass</code> without the
+     * used to obtain the expression as an {@code OWLClass} without the
      * need for casting. The general pattern of use is to use the
-     * <code>isAnonymous</code> to first check
+     * {@code isAnonymous} to first check
      * 
-     * @return This class expression as an <code>OWLClass</code>.
+     * @return This class expression as an {@code OWLClass}.
      * @throws OWLRuntimeException
-     *             if this class expression is not an <code>OWLClass</code>. */
+     *             if this class expression is not an {@code OWLClass}. */
     OWLClass asOWLClass();
 
     /** Determines if this expression is the built in class owl:Thing. This
      * method does not determine if the class is equivalent to owl:Thing.
      * 
-     * @return <code>true</code> if this expression is owl:Thing, or
-     *         <code>false</code> if this expression is not owl:Thing */
+     * @return {@code true} if this expression is owl:Thing, or
+     *         {@code false} if this expression is not owl:Thing */
     boolean isOWLThing();
 
     /** Determines if this expression is the built in class owl:Nothing. This
      * method does not determine if the class is equivalent to owl:Nothing.
      * 
-     * @return <code>true</code> if this expression is owl:Nothing, or
-     *         <code>false</code> if this expression is not owl:Nothing. */
+     * @return {@code true} if this expression is owl:Nothing, or
+     *         {@code false} if this expression is not owl:Nothing. */
     boolean isOWLNothing();
 
     /** Gets this expression in negation normal form.
@@ -125,11 +125,11 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * 
      * @param ce
      *            The conjunct to test for
-     * @return <code>true</code> if this class expression is equal to
-     *         <code>ce</code> or if this class expression is an
-     *         <code>ObjectIntersectionOf</code> (possibly nested withing
-     *         another <code>ObjectIntersectionOf</code>) that contains
-     *         <code>ce</code>, otherwise <code>false</code>. */
+     * @return {@code true} if this class expression is equal to
+     *         {@code ce} or if this class expression is an
+     *         {@code ObjectIntersectionOf} (possibly nested withing
+     *         another {@code ObjectIntersectionOf}) that contains
+     *         {@code ce}, otherwise {@code false}. */
     boolean containsConjunct(OWLClassExpression ce);
 
     /** Interprets this expression as a disjunction and returns the disjuncts.
@@ -142,7 +142,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *         {A, B, C} */
     Set<OWLClassExpression> asDisjunctSet();
 
-    /** Accepts a visit from an <code>OWLExpressionVisitor</code>
+    /** Accepts a visit from an {@code OWLExpressionVisitor}
      * 
      * @param visitor
      *            The visitor that wants to visit */

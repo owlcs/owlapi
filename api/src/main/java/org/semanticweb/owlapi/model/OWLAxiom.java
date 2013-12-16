@@ -59,14 +59,14 @@ public interface OWLAxiom extends OWLObject {
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets the annotations that annotate this axiom and whose annotation
-     * property is equal to <code>annotationProperty</code>.
+     * property is equal to {@code annotationProperty}.
      * 
      * @param annotationProperty
      *            The annotation property that will be equal to the annotation
      *            property of each returned annotation.
      * @return A set of annotations that annotate this axiom, each of whose
      *         annotation properties is equals to
-     *         <code>annotationProperty</code>. */
+     *         {@code annotationProperty}. */
     Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty);
 
     /** Gets an axiom that is structurally equivalent to this axiom without
@@ -94,31 +94,31 @@ public interface OWLAxiom extends OWLObject {
      * 
      * @param axiom
      *            The axiom to test if equal
-     * @return <code>true</code> if <code>axiom</code> without annotations is
+     * @return {@code true} if {@code axiom} without annotations is
      *         equal to this axiom without annotations otherwise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean equalsIgnoreAnnotations(OWLAxiom axiom);
 
     /** Determines if this axiom is a logical axiom. Logical axioms are defined
      * to be axioms other than both declaration axioms (including imports
      * declarations) and annotation axioms.
      * 
-     * @return <code>true</code> if the axiom is a logical axiom,
-     *         <code>false</code> if the axiom is not a logical axiom. */
+     * @return {@code true} if the axiom is a logical axiom,
+     *         {@code false} if the axiom is not a logical axiom. */
     boolean isLogicalAxiom();
 
     /** Determines if this axioms in an annotation axiom (an instance of
-     * <code>OWLAnnotationAxiom</code>)
+     * {@code OWLAnnotationAxiom})
      * 
-     * @return <code>true</code> if this axiom is an instance of
-     *         <code>OWLAnnotationAxiom</code>, otherwise <code>false</code>.
+     * @return {@code true} if this axiom is an instance of
+     *         {@code OWLAnnotationAxiom}, otherwise {@code false}.
      * @since 3.2 */
     boolean isAnnotationAxiom();
 
     /** Determines if this axiom has any annotations on it
      * 
-     * @return <code>true</code> if this axiom has annotations on it, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if this axiom has annotations on it, otherwise
+     *         {@code false} */
     boolean isAnnotated();
 
     /** Gets the axiom type for this axiom.
@@ -130,8 +130,8 @@ public interface OWLAxiom extends OWLObject {
      * 
      * @param axiomTypes
      *            The axiom types to check for
-     * @return <code>true</code> if this axiom is one of the specified types,
-     *         otherwise <code>false</code>
+     * @return {@code true} if this axiom is one of the specified types,
+     *         otherwise {@code false}
      * @since 3.0 */
     boolean isOfType(AxiomType<?>... axiomTypes);
 
@@ -139,8 +139,8 @@ public interface OWLAxiom extends OWLObject {
      * 
      * @param types
      *            The axiom types to check for
-     * @return <code>true</code> if this axioms is one of the specified types,
-     *         otherwise <code>false</code>
+     * @return {@code true} if this axioms is one of the specified types,
+     *         otherwise {@code false}
      * @since 3.0 */
     boolean isOfType(Set<AxiomType<?>> types);
 

@@ -53,8 +53,8 @@ public interface RootClassChecker {
      * 
      * @param cls
      *            The class to be checked.
-     * @return <code>true</code> if the class is a direct syntactic root class
-     *         of owl:Thing, otherwise <code>false</code>.
+     * @return {@code true} if the class is a direct syntactic root class
+     *         of owl:Thing, otherwise {@code false}.
      * @throws OWLException */
     boolean isRootClass(OWLClass cls) throws OWLException;
 

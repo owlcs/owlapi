@@ -42,7 +42,7 @@ import java.io.IOException;
 
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** An <code>OWLOntologyStorageException</code> that was caused by an
+/** An {@code OWLOntologyStorageException} that was caused by an
  * IOException.
  * 
  * @author Matthew Horridge, The University of Manchester<br>

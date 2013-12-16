@@ -57,15 +57,15 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * Provides a convenient method to filter add/remove axiom changes based
  * on the type of axiom that is being added or removed from an ontology.
  * <br>
- * The general pattern of use is to simply create an instance of the <code>OWLOntologyChangeFilter</code>
+ * The general pattern of use is to simply create an instance of the {@code OWLOntologyChangeFilter}
  * and override the appropriate visit methods corresponding to the types of axioms that are of interest.
- * Each visit corresponds to a single change and the <code>isAdd</code> or <code>isRemove</code> methods can
+ * Each visit corresponds to a single change and the {@code isAdd} or {@code isRemove} methods can
  * be used to determine if the axiom corresponding to the change is being added or removed from an ontology
- * - the ontology can be obtained via the <code>getOntology</code> method.
+ * - the ontology can be obtained via the {@code getOntology} method.
  * <br>
  * Example:  Suppose we are interested in changes that alter the domain of an object property.  We receive
- * a list of changes, <code>ontChanges</code>, from an ontology change listener.  We can use the
- * <code>OWLOntologyChangeFilter</code> to filter out the changes that alter the domain of an object
+ * a list of changes, {@code ontChanges}, from an ontology change listener.  We can use the
+ * {@code OWLOntologyChangeFilter} to filter out the changes that alter the domain of an object
  * property in the following way:
  * <br>
  * <pre>
@@ -149,9 +149,9 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements O
     /**
      * Gets the ontology which the current change being visited was applied to.
      *
-     * @return The ontology or <code>null</code> if the filter is not in a change
-     *         visit cycle.  When called from within a <code>visit</code> method, the
-     *         return value is guarenteed not to be <code>null</code>.
+     * @return The ontology or {@code null} if the filter is not in a change
+     *         visit cycle.  When called from within a {@code visit} method, the
+     *         return value is guarenteed not to be {@code null}.
      */
     final protected OWLOntology getOntology() {
         return ontology;

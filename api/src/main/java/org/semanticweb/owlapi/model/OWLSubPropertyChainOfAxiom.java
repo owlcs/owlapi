@@ -67,8 +67,8 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     /** Determines if this axiom is of the form: P o P -&gt; P, which is an
      * encoding of Transitive(P)
      * 
-     * @return <code>true</code> if this encodes that the super property is
-     *         transitive, otherwise <code>false</code>. */
+     * @return {@code true} if this encodes that the super property is
+     *         transitive, otherwise {@code false}. */
     boolean isEncodingOfTransitiveProperty();
 
     @Override

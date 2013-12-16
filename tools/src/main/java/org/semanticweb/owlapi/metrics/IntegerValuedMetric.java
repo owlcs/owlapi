@@ -40,7 +40,7 @@ package org.semanticweb.owlapi.metrics;
 
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** An <code>OWLMetric</code> that returns an integer value
+/** An {@code OWLMetric} that returns an integer value
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>

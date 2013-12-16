@@ -52,7 +52,7 @@ public interface PrefixManager extends Serializable {
     /** Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"
      * 
-     * @return The default prefix, or <code>null</code> if there is no default
+     * @return The default prefix, or {@code null} if there is no default
      *         prefix. */
     String getDefaultPrefix();
 
@@ -61,13 +61,13 @@ public interface PrefixManager extends Serializable {
      * 
      * @param prefixName
      *            The prefix name to be tested for.
-     * @return <code>true</code> if the manager knows about this prefix and
+     * @return {@code true} if the manager knows about this prefix and
      *         there is a non-null mapping for this prefix. */
     boolean containsPrefixMapping(String prefixName);
 
     /** Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
-     * return the same result as a call to the <code>getDefaultPrefix()</code>
+     * return the same result as a call to the {@code getDefaultPrefix()}
      * method.
      * 
      * @param prefixName
@@ -75,7 +75,7 @@ public interface PrefixManager extends Serializable {
      *            prefix to be retrieved. Note that specifying ":" is the same
      *            as asking for the default prefix (see the getDefaultPrefix()
      *            method).
-     * @return The prefix, or <code>null</code> if there is no prefix name bound
+     * @return The prefix, or {@code null} if there is no prefix name bound
      *         to this prefix, or the prefix name doesn't exist. */
     String getPrefix(String prefixName);
 
@@ -102,7 +102,7 @@ public interface PrefixManager extends Serializable {
      * 
      * @param iri
      *            The IRI whose prefix it to be retrieved
-     * @return The prefix IRI for this IRI, or <code>null</code> if a prefix IRI
+     * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI
      *         cannot be generated. */
     String getPrefixIRI(IRI iri);
 

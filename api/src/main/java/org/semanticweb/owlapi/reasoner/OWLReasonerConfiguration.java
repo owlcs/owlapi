@@ -85,10 +85,10 @@ public interface OWLReasonerConfiguration {
     FreshEntityPolicy getFreshEntityPolicy();
 
     /** Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
-     * which determines how <code>NodeSet</code>s of named individuals are
+     * which determines how {@code NodeSet}s of named individuals are
      * returned from the reasoner.
      * 
-     * @return The <code>IndividualNodeSetPolicy</code> that should be used. By
+     * @return The {@code IndividualNodeSetPolicy} that should be used. By
      *         default the policy is
      *         {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME}
      *         i.e. by default individuals that are the same as each other are

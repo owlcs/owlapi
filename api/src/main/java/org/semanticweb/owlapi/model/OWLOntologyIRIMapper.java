@@ -49,7 +49,7 @@ public interface OWLOntologyIRIMapper {
      * 
      * @param ontologyIRI
      *            The ontology IRI to be mapped.
-     * @return The document IRI of the ontology, or <code>null</code> if the
+     * @return The document IRI of the ontology, or {@code null} if the
      *         mapper doesn't have mapping for the specified ontology IRI. */
     public IRI getDocumentIRI(IRI ontologyIRI);
 }

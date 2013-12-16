@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 
 /** A convenience base class for parsers, which provides a mechanism to manage
- * the setting and getting of the <code>OWLOntologyManager</code> that should be
+ * the setting and getting of the {@code OWLOntologyManager} that should be
  * associated with the parser
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
@@ -110,7 +110,7 @@ public abstract class AbstractOWLParser implements OWLParser {
      *            The URI from which the input stream should be returned
      * @return The input stream obtained from the URI
      * @throws IOException
-     *             if there was an <code>IOException</code> in obtaining the
+     *             if there was an {@code IOException} in obtaining the
      *             input stream from the URI. */
     protected InputStream getInputStream(IRI documentIRI,
             OWLOntologyLoaderConfiguration config) throws IOException {

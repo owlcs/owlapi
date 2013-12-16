@@ -66,7 +66,7 @@ public interface OWLObjectPropertyAssertionAxiom extends
      * a simplified form, where as ObjectPropertyAssertion(ObjectInverseOf(P) S
      * O) is not because it contains an inverse object property.
      * 
-     * @return <code>true</code> if this axiom is in a simplified form,
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this axiom is in a simplified form,
+     *         otherwise {@code false} */
     boolean isInSimplifiedForm();
 }

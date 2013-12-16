@@ -51,12 +51,12 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
     private final OWLOntologyID ontologyID;
     private final IRI documentIRI;
 
-    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+    /** Constructs an {@code OWLOntologyAlreadyExistsException} to describe
      * the situation where an attempt to create an ontology failed because the
      * manager already contained an ontology with specified ontology ID.
      * 
      * @param id
-     *            The ID of the ontology (not <code>null</code>) that was
+     *            The ID of the ontology (not {@code null}) that was
      *            already contained in the manager. */
     public OWLOntologyAlreadyExistsException(OWLOntologyID id) {
         super(ONTOLOGY_ALREADY_EXISTS + id);
@@ -64,7 +64,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
         documentIRI = null;
     }
 
-    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+    /** Constructs an {@code OWLOntologyAlreadyExistsException} to describe
      * the situation where an attempt to load an ontology failed because the
      * manager already contained an ontology with the ID that was the same as
      * the ontology being loaded
@@ -80,12 +80,12 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
         this.documentIRI = documentIRI;
     }
 
-    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+    /** Constructs an {@code OWLOntologyAlreadyExistsException} to describe
      * the situation where an attempt to create an ontology failed because the
      * manager already contained an ontology with specified ontology ID.
      * 
      * @param id
-     *            The ID of the ontology (not <code>null</code>) that was
+     *            The ID of the ontology (not {@code null}) that was
      *            already contained in the manager.
      * @param t
      *            the cause */
@@ -95,7 +95,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
         documentIRI = null;
     }
 
-    /** Constructs an <code>OWLOntologyAlreadyExistsException</code> to describe
+    /** Constructs an {@code OWLOntologyAlreadyExistsException} to describe
      * the situation where an attempt to load an ontology failed because the
      * manager already contained an ontology with the ID that was the same as
      * the ontology being loaded
@@ -125,7 +125,7 @@ public class OWLOntologyAlreadyExistsException extends OWLOntologyCreationExcept
      * 
      * @return The IRI of the document where the ontology was loaded from. If
      *         the ontology was created without loading it from an ontology
-     *         document then the return value will be <code>null</code>. */
+     *         document then the return value will be {@code null}. */
     public IRI getDocumentIRI() {
         return documentIRI;
     }

@@ -64,8 +64,8 @@ public class XMLUtils {
      *            The code point of the character to be tested. For UTF-16
      *            characters the code point corresponds to the value of the char
      *            that represents the character.
-     * @return <code>true</code> if <code>codePoint</code> is an XML name start
-     *         character, otherwise <code>false</code> */
+     * @return {@code true} if {@code codePoint} is an XML name start
+     *         character, otherwise {@code false} */
     public static boolean isXMLNameStartCharacter(int codePoint) {
         return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z'
                 || codePoint == '_' || codePoint >= 'a' && codePoint <= 'z'
@@ -85,8 +85,8 @@ public class XMLUtils {
      *            The code point of the character to be tested. For UTF-8 and
      *            UTF-16 characters the code point corresponds to the value of
      *            the char that represents the character.
-     * @return <code>true</code> if <code>codePoint</code> is an XML name start
-     *         character, otherwise <code>false</code> */
+     * @return {@code true} if {@code codePoint} is an XML name start
+     *         character, otherwise {@code false} */
     public static boolean isXMLNameChar(int codePoint) {
         return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
                 || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
@@ -101,8 +101,8 @@ public class XMLUtils {
      *            The code point of the character to be tested. For UTF-8 and
      *            UTF-16 characters the code point corresponds to the value of
      *            the char that represents the character.
-     * @return <code>true</code> if <code>codePoint</code> is a NCName start
-     *         character, otherwise <code>false</code>. */
+     * @return {@code true} if {@code codePoint} is a NCName start
+     *         character, otherwise {@code false}. */
     public static boolean isNCNameStartChar(int codePoint) {
         return codePoint != ':' && isXMLNameStartCharacter(codePoint);
     }
@@ -113,8 +113,8 @@ public class XMLUtils {
      *            The code point of the character to be tested. For UTF-8 and
      *            UTF-16 characters the code point corresponds to the value of
      *            the char that represents the character.
-     * @return <code>true</code> if <code>codePoint</code> is a NCName
-     *         character, otherwise <code>false</code>. */
+     * @return {@code true} if {@code codePoint} is a NCName
+     *         character, otherwise {@code false}. */
     public static boolean isNCNameChar(int codePoint) {
         return codePoint != ':' && isXMLNameChar(codePoint);
     }
@@ -125,8 +125,8 @@ public class XMLUtils {
      * 
      * @param s
      *            The character sequence to be tested.
-     * @return <code>true</code> if <code>s</code> is an NCName, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if {@code s} is an NCName, otherwise
+     *         {@code false}. */
     public static boolean isNCName(CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
@@ -153,8 +153,8 @@ public class XMLUtils {
      * 
      * @param s
      *            The character sequence to be tested.
-     * @return <code>true</code> if <code>s</code> is a QName, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if {@code s} is a QName, otherwise
+     *         {@code false}. */
     public static boolean isQName(CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
@@ -193,7 +193,7 @@ public class XMLUtils {
      * 
      * @param s
      *            The character sequence.
-     * @return <code>true</code> if the character sequence <code>s</code> has a
+     * @return {@code true} if the character sequence {@code s} has a
      *         suffix that is an NCName. */
     public static boolean hasNCNameSuffix(CharSequence s) {
         return getNCNameSuffixIndex(s) != -1;
@@ -205,8 +205,8 @@ public class XMLUtils {
      * @param s
      *            The character sequence.
      * @return The index of the longest suffix of the specified character
-     *         sequence <code>s</code> that is an NCName, or -1 if the character
-     *         sequence <code>s</code> does not have a suffix that is an NCName. */
+     *         sequence {@code s} that is an NCName, or -1 if the character
+     *         sequence {@code s} does not have a suffix that is an NCName. */
     public static int getNCNameSuffixIndex(CharSequence s) {
         // identify bnode labels and do not try to split them
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
@@ -232,8 +232,8 @@ public class XMLUtils {
      * @param s
      *            The character sequence.
      * @return The String which is the longest suffix of the character sequence
-     *         <code>s</code> that is an NCName, or <code>null</code> if the
-     *         character sequence <code>s</code> does not have a suffix that is
+     *         {@code s} that is an NCName, or {@code null} if the
+     *         character sequence {@code s} does not have a suffix that is
      *         an NCName. */
     public static String getNCNameSuffix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
@@ -297,13 +297,13 @@ public class XMLUtils {
         return sb.toString();
     }
 
-    /** Determines if a character sequence is <code>null</code> or empty.
+    /** Determines if a character sequence is {@code null} or empty.
      * 
      * @param s
      *            The character sequence.
-     * @return <code>true</code> if the character sequence is <code>null</code>,
-     *         <code>true</code> if the character sequence is empty, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if the character sequence is {@code null},
+     *         {@code true} if the character sequence is empty, otherwise
+     *         {@code false}. */
     private static boolean isNullOrEmpty(CharSequence s) {
         return s == null || s.length() == 0;
     }

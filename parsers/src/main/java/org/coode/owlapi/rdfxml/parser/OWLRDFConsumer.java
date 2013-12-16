@@ -708,7 +708,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param triple
      *            The triple.
-     * @return <code>true</code> if the triple has a predicate equal to
+     * @return {@code true} if the triple has a predicate equal to
      *         owl:imports */
     private boolean isOWLImportsTriple(RDFTriple triple) {
         return triple.getPredicate().getResource()
@@ -781,7 +781,7 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI of the node to be checked.
-     * @return <code>true</code> if the node is anonymous, or <code>false</code>
+     * @return {@code true} if the node is anonymous, or {@code false}
      *         if the node is not anonymous. */
     protected boolean isAnonymousNode(IRI iri) {
         return anonymousNodeChecker.isAnonymousNode(iri);
@@ -864,8 +864,8 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check
-     * @return <code>true</code> if the IRI corresponds to a built in OWL entity
-     *         IRI otherwise <code>false</code>. */
+     * @return {@code true} if the IRI corresponds to a built in OWL entity
+     *         IRI otherwise {@code false}. */
     private boolean isEntityTypeIRI(IRI iri) {
         return iri.equals(OWL_CLASS.getIRI()) || iri.equals(OWL_OBJECT_PROPERTY.getIRI())
                 || iri.equals(OWL_DATA_PROPERTY.getIRI())
@@ -967,9 +967,9 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check.
-     * @return <code>true</code> if the IRI is an object property IRI and not a
+     * @return {@code true} if the IRI is an object property IRI and not a
      *         data property IRI and not an annotation property IRI. Otherwise,
-     *         <code>false</code>. */
+     *         {@code false}. */
     protected boolean isObjectPropertyOnly(IRI iri) {
         return iri != null && !dataPropertyExpressionIRIs.contains(iri)
                 && !annotationPropertyIRIs.contains(iri)
@@ -987,9 +987,9 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check.
-     * @return <code>true</code> if the IRI is a data property IRI and not an
+     * @return {@code true} if the IRI is a data property IRI and not an
      *         object property IRI and not an annotation property IRI.
-     *         Otherwise, <code>false</code>. */
+     *         Otherwise, {@code false}. */
     protected boolean isDataPropertyOnly(IRI iri) {
         return iri != null && !objectPropertyExpressionIRIs.contains(iri)
                 && !annotationPropertyIRIs.contains(iri)
@@ -1007,9 +1007,9 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param iri
      *            The IRI to check.
-     * @return <code>true</code> if the IRI is an annotation property IRI and
+     * @return {@code true} if the IRI is an annotation property IRI and
      *         not a data property IRI and not an object property IRI.
-     *         Otherwise, <code>false</code>. */
+     *         Otherwise, {@code false}. */
     protected boolean isAnnotationPropertyOnly(IRI iri) {
         return iri != null && !objectPropertyExpressionIRIs.contains(iri)
                 && !dataPropertyExpressionIRIs.contains(iri)
@@ -1482,7 +1482,7 @@ public class OWLRDFConsumer implements RDFConsumer {
     /** Selects an IRI to be the ontology IRI
      * 
      * @return An IRI that should be used as the IRI of the parsed ontology, or
-     *         <code>null</code> if the parsed ontology does not have an IRI */
+     *         {@code null} if the parsed ontology does not have an IRI */
     private IRI chooseOntologyIRI() {
         IRI ontologyIRIToSet = null;
         if (ontologyIRIs.isEmpty()) {
@@ -1648,15 +1648,15 @@ public class OWLRDFConsumer implements RDFConsumer {
         addTriple(subject, predicate, con);
     }
 
-    /** A convenience method to obtain an <code>OWLConstant</code>
+    /** A convenience method to obtain an {@code OWLConstant}
      * 
      * @param literal
-     *            The literal - must NOT be <code>null</code>
+     *            The literal - must NOT be {@code null}
      * @param datatype
-     *            The data type - may be <code>null</code>
+     *            The data type - may be {@code null}
      * @param lang
-     *            The lang - may be <code>null</code>
-     * @return The <code>OWLConstant</code> (either typed or untyped depending
+     *            The lang - may be {@code null}
+     * @return The {@code OWLConstant} (either typed or untyped depending
      *         on the params) */
     private OWLLiteral getOWLLiteral(String literal, String datatype, String lang) {
         if (datatype != null) {

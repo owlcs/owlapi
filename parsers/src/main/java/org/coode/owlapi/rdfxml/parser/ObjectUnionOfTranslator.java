@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-/** Translates a set of triples to an <code>OWLUnionOf</code>.
+/** Translates a set of triples to an {@code OWLUnionOf}.
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>

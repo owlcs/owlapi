@@ -55,7 +55,7 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * @param ontology
      *            The ontology that should be examined for axioms which assert a
      *            domain of this property
-     * @return A set of <code>OWLClassExpression</code>s corresponding to the
+     * @return A set of {@code OWLClassExpression}s corresponding to the
      *         domains of this property (the domain of the property is
      *         essentially the intersection of these class expressions). */
     Set<OWLClassExpression> getDomains(OWLOntology ontology);
@@ -65,7 +65,7 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * 
      * @param ontologies
      *            The ontologies to be examined.
-     * @return A set of <code>OWLClassExpression</code>s that represent the
+     * @return A set of {@code OWLClassExpression}s that represent the
      *         asserted domains of this property. */
     Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies);
 
@@ -157,9 +157,9 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * 
      * @param ontology
      *            The ontology to be tested for a functional property axiom.
-     * @return <code>true</code> if the specified ontology contains an axiom
+     * @return {@code true} if the specified ontology contains an axiom
      *         stating that the property is functional, other wise
-     *         <code>false</code>. */
+     *         {@code false}. */
     boolean isFunctional(OWLOntology ontology);
 
     /** Determines if the property is functional because there is an axiom in one
@@ -168,14 +168,14 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * @param ontologies
      *            The ontologies which will be searched for axioms which specify
      *            that this property is fuctional.
-     * @return <code>true</code> if the property is functional, or
-     *         <code>false</code> if the property is not functional. */
+     * @return {@code true} if the property is functional, or
+     *         {@code false} if the property is not functional. */
     boolean isFunctional(Set<OWLOntology> ontologies);
 
     /** Determines if this property expression is anonymous.
      * 
-     * @return <code>true</code> if the property expression is anonymous
-     *         (because it is the inverse of a property). <code>false</code> if
+     * @return {@code true} if the property expression is anonymous
+     *         (because it is the inverse of a property). {@code false} if
      *         this property is a named object property or named data property. */
     public boolean isAnonymous();
 
@@ -193,25 +193,25 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
 
     /** Determines if this is the owl:topObjectProperty
      * 
-     * @return <code>true</code> if this property is the owl:topObjectProperty
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this property is the owl:topObjectProperty
+     *         otherwise {@code false} */
     boolean isOWLTopObjectProperty();
 
     /** Determines if this is the owl:bottomObjectProperty
      * 
-     * @return <code>true</code> if this property is the
-     *         owl:bottomObjectProperty otherwise <code>false</code> */
+     * @return {@code true} if this property is the
+     *         owl:bottomObjectProperty otherwise {@code false} */
     boolean isOWLBottomObjectProperty();
 
     /** Determines if this is the owl:topDataProperty
      * 
-     * @return <code>true</code> if this property is the owl:topDataProperty
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this property is the owl:topDataProperty
+     *         otherwise {@code false} */
     boolean isOWLTopDataProperty();
 
     /** Determines if this is the owl:bottomDataProperty
      * 
-     * @return <code>true</code> if this property is the owl:bottomDataProperty
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this property is the owl:bottomDataProperty
+     *         otherwise {@code false} */
     boolean isOWLBottomDataProperty();
 }

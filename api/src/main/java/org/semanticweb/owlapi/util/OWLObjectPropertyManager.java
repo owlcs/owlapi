@@ -140,8 +140,8 @@ public class OWLObjectPropertyManager {
      * 
      * @param expression
      *            The object property expression to be tested
-     * @return <code>true</code> if the object property is composite (according
-     *         to the above definition) or <code>false</code> if the object
+     * @return {@code true} if the object property is composite (according
+     *         to the above definition) or {@code false} if the object
      *         property is not composite. */
     public boolean isComposite(OWLObjectPropertyExpression expression) {
         return getCompositeProperties().contains(expression.getSimplified());
@@ -288,8 +288,8 @@ public class OWLObjectPropertyManager {
      *            The sub property
      * @param sup
      *            The super property
-     * @return <code>true</code> if sub is the sub-property of sup, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if sub is the sub-property of sup, otherwise
+     *         {@code false} */
     public boolean isSubPropertyOf(OWLObjectPropertyExpression sub,
             OWLObjectPropertyExpression sup) {
         Set<OWLObjectPropertyExpression> supers = getHierarchyReflexiveTransitiveClosure()
@@ -308,7 +308,7 @@ public class OWLObjectPropertyManager {
      * 
      * @param expression
      *            The expression to be tested.
-     * @return <code>true</code> if the object property expression is simple,
+     * @return {@code true} if the object property expression is simple,
      *         otherwise false. */
     public boolean isNonSimple(OWLObjectPropertyExpression expression) {
         return getNonSimpleProperties().contains(expression.getSimplified());

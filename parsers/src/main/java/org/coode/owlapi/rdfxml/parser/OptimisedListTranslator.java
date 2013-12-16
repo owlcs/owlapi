@@ -49,9 +49,9 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Translates an rdf:List into a Java <code>List</code>, or Java
- * <code>Set</code>. The type of list (i.e. the type of objects in the list) are
- * determined by a <code>ListItemTranslator</code>. The translator consumes all
+/** Translates an rdf:List into a Java {@code List}, or Java
+ * {@code Set}. The type of list (i.e. the type of objects in the list) are
+ * determined by a {@code ListItemTranslator}. The translator consumes all
  * triples which are used in the translation.
  * 
  * @author Matthew Horridge, The University Of Manchester<br>

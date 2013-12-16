@@ -708,7 +708,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
      *            The ontology object that the XML representation should be
      *            parsed into.
      * @param topHandler
-     *            The handler for top level elements - may be <code>null</code>,
+     *            The handler for top level elements - may be {@code null},
      *            in which case the parser will expect an Ontology element to be
      *            the root element.
      * @deprecated */

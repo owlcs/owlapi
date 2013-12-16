@@ -434,11 +434,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     /** Extracts the IRI of the resource from rdf:resource or rdf:nodeID
-     * attribute. If no attribute is found, <code>null</code> is returned.
+     * attribute. If no attribute is found, {@code null} is returned.
      * 
      * @param atts
      *            the attributes
-     * @return the IRI of the resource or <code>null</code> */
+     * @return the IRI of the resource or {@code null} */
     protected String getNodeIDResourceResourceIRI(Attributes atts) throws SAXException {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null) {
@@ -462,7 +462,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param object
      *            IRI of the object resource
      * @param reificationID
-     *            if not <code>null</code>, contains IRI of the resource that
+     *            if not {@code null}, contains IRI of the resource that
      *            will wold the reified statement */
     protected void statementWithResourceValue(String subject, String predicate,
             String object, String reificationID) throws SAXException {
@@ -485,9 +485,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param object
      *            literal object value
      * @param dataType
-     *            the IRI of the literal's datatype (may be <code>null</code>)
+     *            the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
-     *            if not <code>null</code>, contains IRI of the resource that
+     *            if not {@code null}, contains IRI of the resource that
      *            will wold the reified statement */
     protected void statementWithLiteralValue(String subject, String predicate,
             String object, String dataType, String reificationID) throws SAXException {
@@ -548,7 +548,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      *            the start index (inclusive)
      * @param length
      *            the end index (non-inclusive)
-     * @return <code>true</code> if characters contain whitespace */
+     * @return {@code true} if characters contain whitespace */
     protected boolean isWhitespaceOnly(char[] data, int start, int length) {
         int end = start + length;
         for (int i = start; i < end; i++) {
@@ -564,7 +564,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * 
      * @param buffer
      *            the data being checked
-     * @return <code>true</code> if characters contain whitespace */
+     * @return {@code true} if characters contain whitespace */
     protected boolean isWhitespaceOnly(StringBuilder buffer) {
         for (int i = 0; i < buffer.length(); i++) {
             char c = buffer.charAt(i);
@@ -819,7 +819,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     /** Parses resourcePropertyElt or literalPropertyElt productions. m_text is
-     * <code>null</code> when startElement is expected on the actual property
+     * {@code null} when startElement is expected on the actual property
      * element. */
     protected class ResourceOrLiteralPropertyElement extends State {
         protected NodeElement m_nodeElement;

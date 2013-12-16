@@ -55,7 +55,7 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
 
     /** Determines if the predicate of this atom is is a core builtin.
      * 
-     * @return <code>true</code> if this is a core builtin, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if this is a core builtin, otherwise
+     *         {@code false} */
     boolean isCoreBuiltIn();
 }

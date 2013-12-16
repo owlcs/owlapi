@@ -89,10 +89,10 @@ public class NamespaceUtil {
      * @param s
      *            The string to be split.
      * @param result
-     *            May be <code>null</code>. If not <code>null</code> the method
+     *            May be {@code null}. If not {@code null} the method
      *            will fill the array with the result and return the passed in
      *            array. This allows a String array to be reused. If this
-     *            parameter is <code>null</code> then a new String array will be
+     *            parameter is {@code null} then a new String array will be
      *            created to hold the result. <b> The size of the array must be
      *            2 </b>
      * @return The result of the split. The first element corresponds to the

@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** A <code>Comparator</code> which compares entities. Entities are compared
+/** A {@code Comparator} which compares entities. Entities are compared
  * first by their type (in the following order: Class, Object property, Data
  * property, Individual, Datatype) then by their short form (using the specified
  * short form provider).

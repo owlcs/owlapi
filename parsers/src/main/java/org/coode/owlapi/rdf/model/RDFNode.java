@@ -49,14 +49,14 @@ public abstract class RDFNode implements Comparable<RDFNode> {
 
     /** Gets the URI of the resource.
      * 
-     * @return The URI or <code>null</code> if this is an anonymous resource. */
+     * @return The URI or {@code null} if this is an anonymous resource. */
     public abstract IRI getIRI();
 
     /** Determines if this node is a resource and is anonymous.
      * 
-     * @return <code>true</code> if this is a resource node (i.e.
-     *         <code>isLiteral</code> returns <code>false</code>) and the node
-     *         is anonymous, or <code>false</code> if this is a resource node
+     * @return {@code true} if this is a resource node (i.e.
+     *         {@code isLiteral} returns {@code false}) and the node
+     *         is anonymous, or {@code false} if this is a resource node
      *         and is not anonymous. */
     public abstract boolean isAnonymous();
 }

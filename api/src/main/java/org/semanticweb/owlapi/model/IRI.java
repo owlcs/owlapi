@@ -72,7 +72,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** Determines if this IRI is absolute
      * 
-     * @return <code>true</code> if this IRI is absolute or <code>false</code>
+     * @return {@code true} if this IRI is absolute or {@code false}
      *         if this IRI is not absolute */
     public boolean isAbsolute() {
         int colonIndex = prefix.indexOf(':');
@@ -131,41 +131,41 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * &lt;http://www.w3.org/2001/XMLSchema#&gt; or
      * &lt;http://www.w3.org/2002/07/owl#&gt;
      * 
-     * @return <code>true</code> if the IRI is in the reserved vocabulary,
-     *         otherwise <code>false</code>. */
+     * @return {@code true} if the IRI is in the reserved vocabulary,
+     *         otherwise {@code false}. */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
                 || Namespaces.RDFS.inNamespace(prefix)
                 || Namespaces.XSD.inNamespace(prefix);
     }
 
-    /** Determines if this IRI is equal to the IRI that <code>owl:Thing</code> is
+    /** Determines if this IRI is equal to the IRI that {@code owl:Thing} is
      * named with
      * 
-     * @return <code>true</code> if this IRI is equal to
+     * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
-     *         <code>false</code> */
+     *         {@code false} */
     public boolean isThing() {
         return remainder != null && remainder.equals("Thing")
                 && Namespaces.OWL.inNamespace(prefix);
     }
 
-    /** Determines if this IRI is equal to the IRI that <code>owl:Nothing</code>
+    /** Determines if this IRI is equal to the IRI that {@code owl:Nothing}
      * is named with
      * 
-     * @return <code>true</code> if this IRI is equal to
+     * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
-     *         <code>false</code> */
+     *         {@code false} */
     public boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
     /** Determines if this IRI is equal to the IRI that is named
-     * <code>rdf:PlainLiteral</code>
+     * {@code rdf:PlainLiteral}
      * 
-     * @return <code>true</code> if this IRI is equal to
+     * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
-     *         otherwise <code>false</code> */
+     *         otherwise {@code false} */
     public boolean isPlainLiteral() {
         return remainder != null && remainder.equals("PlainLiteral")
                 && Namespaces.RDF.inNamespace(prefix);
@@ -173,7 +173,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** Gets the fragment of the IRI.
      * 
-     * @return The IRI fragment, or <code>null</code> if the IRI does not have a
+     * @return The IRI fragment, or {@code null} if the IRI does not have a
      *         fragment */
     public String getFragment() {
         return remainder;
@@ -214,9 +214,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * contains the characters in prefix + suffix.
      * 
      * @param prefix
-     *            The first string. May be <code>null</code>.
+     *            The first string. May be {@code null}.
      * @param suffix
-     *            The second string. May be <code>null</code>.
+     *            The second string. May be {@code null}.
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3 */
     public static IRI create(String prefix, String suffix) {
@@ -280,7 +280,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Gets an auto-generated ontology document IRI.
      * 
      * @return An auto-generated ontology document IRI. The IRI has the form
-     *         <code>owlapi:ontologyTIMESTAMP</code> */
+     *         {@code owlapi:ontologyTIMESTAMP} */
     public static IRI generateDocumentIRI() {
         return create("owlapi:ontology" + System.nanoTime());
     }

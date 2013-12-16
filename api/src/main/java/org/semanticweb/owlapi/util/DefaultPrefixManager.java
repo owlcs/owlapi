@@ -177,7 +177,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      * 
      * @param defaultPrefix
      *            The namespace to be used as the default namespace. Note that
-     *            the value may be <code>null</code> in order to clear the
+     *            the value may be {@code null} in order to clear the
      *            default namespace. */
     // XXX not in the interface
     public void setDefaultPrefix(String defaultPrefix) {

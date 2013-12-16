@@ -38,8 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An <code>OWLLogicalEntity</code> is an <code>OWLEntity</code> that is not an
- * <code>OWLAnnotationProperty</code>.
+/** An {@code OWLLogicalEntity} is an {@code OWLEntity} that is not an
+ * {@code OWLAnnotationProperty}.
  * 
  * @author Matthew Horridge, The University of Manchester<br>
  *         Information Management Group<br>

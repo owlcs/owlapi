@@ -49,7 +49,7 @@ public abstract class RDFNode {
 
     /**
      * Determines if this node is a literal node.
-     * @return <code>true</code> if this node is a literal, otherwise <code>false</code>.
+     * @return {@code true} if this node is a literal, otherwise {@code false}.
      */
     public abstract boolean isLiteral();
 }

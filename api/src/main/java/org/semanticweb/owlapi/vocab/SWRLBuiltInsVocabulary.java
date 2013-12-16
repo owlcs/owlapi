@@ -187,7 +187,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     /**
      * Gets a builtin vocabulary value for a given IRI
      * @param iri The IRI
-     * @return The builtin vocabulary having the specified IRI, or <code>null</code> if there is no builtin
+     * @return The builtin vocabulary having the specified IRI, or {@code null} if there is no builtin
      * vocabulary with the specified IRI
      */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
@@ -202,7 +202,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     /**
      * Gets a builtin vocabulary value for a given URI
      * @param uri The URI
-     * @return The builtin vocabulary having the specified URI, or <code>null</code> if there is no builtin
+     * @return The builtin vocabulary having the specified URI, or {@code null} if there is no builtin
      * vocabulary with the specified URI
      */
     public static SWRLBuiltInsVocabulary getBuiltIn(URI uri) {

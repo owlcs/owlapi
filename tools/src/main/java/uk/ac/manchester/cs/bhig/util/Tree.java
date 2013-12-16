@@ -57,7 +57,7 @@ public interface Tree<N> {
 
     /** Gets the parent of this tree node.
      * 
-     * @return The parent tree node, or <code>null</code> if this node doesn't
+     * @return The parent tree node, or {@code null} if this node doesn't
      *         have a parent. */
     Tree<N> getParent();
 
@@ -87,15 +87,15 @@ public interface Tree<N> {
     /** A convenience method that determines if this is a root node (because it
      * has no parent node)
      * 
-     * @return <code>true</code> if this is a root node, otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if this is a root node, otherwise
+     *         {@code false}. */
     boolean isRoot();
 
     /** A convenience method that determines if this node is a leaf node (because
      * it has no children).
      * 
-     * @return <code>true</code> if this node is a leaf node otherwise
-     *         <code>false</code>. */
+     * @return {@code true} if this node is a leaf node otherwise
+     *         {@code false}. */
     boolean isLeaf();
 
     /** A convenience method that gets the root of this tree.

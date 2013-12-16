@@ -190,7 +190,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** Gets the last axiom to be visited.
      * 
-     * @return The last axiom to be visited, or <code>null</code> if an axiom
+     * @return The last axiom to be visited, or {@code null} if an axiom
      *         has not be visited */
     public OWLAxiom getAxiom() {
         return ax;
@@ -198,7 +198,7 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** Gets the last annotation to be visited.
      * 
-     * @return The last annotation to be visited (may be <code>null</code>) */
+     * @return The last annotation to be visited (may be {@code null}) */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }
@@ -223,9 +223,9 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @param classExpression
      *            The class expression
-     * @return <code>true</code> if the specified class expression is the first
+     * @return {@code true} if the specified class expression is the first
      *         class expression in the current class expression path, otherwise
-     *         <code>false</code> (<code>false</code> if the path is empty) */
+     *         {@code false} ({@code false} if the path is empty) */
     public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
         return !classExpressionPath.isEmpty()
                 && classExpressionPath.get(0).equals(classExpression);

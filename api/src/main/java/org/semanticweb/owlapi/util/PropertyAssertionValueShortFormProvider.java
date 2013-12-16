@@ -78,7 +78,7 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
 
 
     /**
-     * Constructs a property value short form provider. Using <code>SimpleShortFormProvider</code> as the
+     * Constructs a property value short form provider. Using {@code SimpleShortFormProvider} as the
      * alternate short form provider (see other constructor for details).
      * @param properties set of properties
      * @param preferredLanguageMap language map
@@ -93,20 +93,20 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     /**
      * Constructs a property value short form provider.
      *
-     * @param properties                 A <code>List</code> of preferred properties.  The list is searched from
+     * @param properties                 A {@code List} of preferred properties.  The list is searched from
      *                                   start to end, so that property assertions whose property is at the start of the list have a higher
      *                                   priority and are selected over properties that appear towards or at the end of the list.
      * @param preferredLanguageMap       A map which maps data properties to preferred languages.  For any given
      *                                   data property there may be a list of preferred languages for the values of that property
      *                                   Languages at the start of the list
      *                                   have a higher priority over languages at the end of the list.  This parameter may be empty but it
-     *                                   must not be <code>null</code>.
-     * @param ontologySetProvider        An <code>OWLOntologySetProvider</code> which provides a set of ontology
+     *                                   must not be {@code null}.
+     * @param ontologySetProvider        An {@code OWLOntologySetProvider} which provides a set of ontology
      *                                   from which candidate annotation axioms should be taken.  For a given entity, all ontologies are
      *                                   examined.
      * @param alternateShortFormProvider A short form provider which will be used to generate the short form
      *                                   for an entity that does not have any property values (e.g. class, property).  This provider will also be used in the case where
-     *                                   the value of an annotation is an <code>OWLIndividual</code> for providing the short form of the individual.
+     *                                   the value of an annotation is an {@code OWLIndividual} for providing the short form of the individual.
      */
     public PropertyAssertionValueShortFormProvider(List<OWLPropertyExpression<?,?>> properties, Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
                                                    OWLOntologySetProvider ontologySetProvider,

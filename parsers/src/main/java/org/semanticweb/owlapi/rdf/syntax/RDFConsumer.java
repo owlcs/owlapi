@@ -80,7 +80,7 @@ public interface RDFConsumer {
      * @param predicate             URI of the predicate resource
      * @param object                literal object value
      * @param language              the language
-     * @param datatype              the URI of the literal's datatype (may be <code>null</code>)
+     * @param datatype              the URI of the literal's datatype (may be {@code null})
      * @throws SAXException
      */
     void statementWithLiteralValue(String subject,String predicate,String object,String language,String datatype) throws SAXException;

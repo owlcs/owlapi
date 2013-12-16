@@ -100,13 +100,13 @@ public class OWLDataUtil {
         return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
     }
 
-    /** Given a <code>Number</code>, this method returns the datatype of that
+    /** Given a {@code Number}, this method returns the datatype of that
      * number.
      * 
      * @param dataFactory
      *            the factory to use
      * @param n
-     *            The <code>Number</code> whose datatype is to be obtained.
+     *            The {@code Number} whose datatype is to be obtained.
      * @return The datatype that corresponds to the type of number. */
     public static <N extends Number> OWLDatatype getDatatype(OWLDataFactory dataFactory,
             N n) {

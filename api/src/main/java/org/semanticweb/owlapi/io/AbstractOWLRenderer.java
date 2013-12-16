@@ -91,7 +91,7 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      * @param writer
      *            The writer that should be used to write the ontology. Note
      *            that this writer need not be wrapped with a
-     *            <code>BufferedWriter</code> because this is taken care of by
+     *            {@code BufferedWriter} because this is taken care of by
      *            this abstract implementation.
      * @throws OWLRendererException
      *             if exceptions arise */

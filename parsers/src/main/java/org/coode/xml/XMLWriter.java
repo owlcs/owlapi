@@ -68,8 +68,8 @@ public interface XMLWriter {
     /** Causes the current element's attributes to be wrapped in the output.
      * 
      * @param b
-     *            If <code>true</code> then the attributes will be wrapped if
-     *            they are long. If <code>false</code> then no attribute
+     *            If {@code true} then the attributes will be wrapped if
+     *            they are long. If {@code false} then no attribute
      *            wrapping will occur. */
     public void setWrapAttributes(boolean b);
 

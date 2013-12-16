@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @author Matthew Horridge, The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * Generates <code>OWLClassAssertionsAxiom</code>s for inferred individual types.
+ * Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
  */
 public class InferredClassAssertionAxiomGenerator extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
 

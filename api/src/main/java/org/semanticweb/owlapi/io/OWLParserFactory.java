@@ -40,7 +40,7 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** An object that can create an <code>OWLParser</code>.
+/** An object that can create an {@code OWLParser}.
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>

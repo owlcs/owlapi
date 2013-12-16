@@ -64,9 +64,9 @@ public class OntologyUtils {
      * explained.
      * @param ontology the ontology to search
      * @param desc The description to be searched
-     * @return <code>true</code> if the description references entities that
+     * @return {@code true} if the description references entities that
      *         the ontology that contains entailments which are being explained,
-     *         otherwise <code>false</code>
+     *         otherwise {@code false}
      */
     public static boolean containsUnreferencedEntity(OWLOntology ontology, OWLClassExpression desc) {
         for (OWLEntity entity : desc.getSignature()) {

@@ -61,13 +61,13 @@ public interface OWLRestriction<R extends OWLPropertyRange, P extends OWLPropert
 
     /** Determines if this is an object restriction.
      * 
-     * @return <code>true</code> if this is an object restriction, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if this is an object restriction, otherwise
+     *         {@code false} */
     boolean isObjectRestriction();
 
     /** Determines if this is a data restriction.
      * 
-     * @return <code>true</code> if this is a data restriction, otherwise
-     *         <code>false</code> */
+     * @return {@code true} if this is a data restriction, otherwise
+     *         {@code false} */
     boolean isDataRestriction();
 }

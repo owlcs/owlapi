@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Bio-Health Informatics Group<br>
  * Date: 24-Nov-2006 */
 public interface OWLDebugger {
-    /** @return the <code>OWLOntology</code> that is being debugged.
+    /** @return the {@code OWLOntology} that is being debugged.
      * @throws OWLException
      *             if there is any problem */
     public OWLOntology getOWLOntology() throws OWLException;

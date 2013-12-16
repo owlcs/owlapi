@@ -50,16 +50,16 @@ package org.semanticweb.owlapi.model;
 public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
     /** Determines if this data range is a datatype (int, float, ...)
      * 
-     * @return <code>true</code> if this datarange is a datatype, or
-     *         <code>false</code> if it is not a datatype and is some other data
+     * @return {@code true} if this datarange is a datatype, or
+     *         {@code false} if it is not a datatype and is some other data
      *         range such as a data range restriction, data oneOf or data
      *         complementOf. */
     boolean isDatatype();
 
     /** Determines if this data range is the top data type.
      * 
-     * @return <code>true</code> if this data range is the top datatype
-     *         otherwise <code>false</code> */
+     * @return {@code true} if this data range is the top datatype
+     *         otherwise {@code false} */
     boolean isTopDatatype();
 
     /** If this data range is a datatype then this method may be used to obtain

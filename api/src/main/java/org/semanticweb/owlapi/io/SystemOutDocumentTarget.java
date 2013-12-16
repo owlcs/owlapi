@@ -45,7 +45,7 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An output target that will output an ontology to <code>System.out</code>
+/** An output target that will output an ontology to {@code System.out}
  * 
  * @author Matthew Horridge, The University of Manchester<br>
  *         Information Management Group<br>

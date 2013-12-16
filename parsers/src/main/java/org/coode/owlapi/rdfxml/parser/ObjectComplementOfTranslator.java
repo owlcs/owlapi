@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-/** Translates a set of triples that represent an <code>OWLComplementOf</code>
+/** Translates a set of triples that represent an {@code OWLComplementOf}
  * class expression.
  * 
  * @author Matthew Horridge, The University Of Manchester<br>

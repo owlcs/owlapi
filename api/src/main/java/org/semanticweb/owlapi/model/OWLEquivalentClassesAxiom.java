@@ -49,9 +49,9 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /** Determines if this equivalent classes axiom contains at least one named
      * class (excluding owl:Thing or owl:Nothing).
      * 
-     * @return <code>true</code> if the axiom contains at least one named class
-     *         otherwise <code>false</code>. Note that this method will return
-     *         <code>false</code> if the only named classes are owl:Thing or
+     * @return {@code true} if the axiom contains at least one named class
+     *         otherwise {@code false}. Note that this method will return
+     *         {@code false} if the only named classes are owl:Thing or
      *         owl:Nothing. */
     boolean containsNamedEquivalentClass();
 
@@ -66,14 +66,14 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /** Determines if this class axiom makes a class expression equivalent to
      * nothing.
      * 
-     * @return <code>true</code> if this axiom contains owl:Nothing as an
+     * @return {@code true} if this axiom contains owl:Nothing as an
      *         equivalent class. */
     boolean containsOWLNothing();
 
     /** Determines if this class axiom makes a class expression equivalent to
      * thing.
      * 
-     * @return <code>true</code> if this axioms contains owl:Thing as an
+     * @return {@code true} if this axioms contains owl:Thing as an
      *         equivalent class. */
     boolean containsOWLThing();
 

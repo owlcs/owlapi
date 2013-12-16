@@ -85,7 +85,7 @@ public interface OWLProfile {
      * Checks an ontology and its import closure to see if it is within
      * this profile.
      * @param ontology The ontology to be checked.
-     * @return An <code>OWLProfileReport</code> that describes whether or not the
+     * @return An {@code OWLProfileReport} that describes whether or not the
      * ontology is within this profile.
      */
     OWLProfileReport checkOntology(OWLOntology ontology);

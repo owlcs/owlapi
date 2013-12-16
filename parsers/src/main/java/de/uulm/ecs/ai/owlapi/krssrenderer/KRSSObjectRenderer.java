@@ -145,7 +145,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** A <code>KRSSObjectRenderer</code> renderes an OWLOntology in the original
+/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original
  * KRSS syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
  * <table summary="abbreviations">

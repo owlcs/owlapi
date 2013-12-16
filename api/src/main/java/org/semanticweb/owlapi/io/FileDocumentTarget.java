@@ -49,8 +49,8 @@ import java.io.Writer;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** An <code>OWLOntologyDocumentTarget</code> that supports writing out to a
- * <code>File</code>.
+/** An {@code OWLOntologyDocumentTarget} that supports writing out to a
+ * {@code File}.
  * 
  * @author Matthew Horridge, The University of Manchester<br>
  *         Bio-Health Informatics Group<br>

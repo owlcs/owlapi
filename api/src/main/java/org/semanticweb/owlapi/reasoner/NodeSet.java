@@ -51,56 +51,56 @@ import org.semanticweb.owlapi.model.OWLObject;
  *            the type of elements in the node set */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
     /** A convenience method that gets all of the entities contained in the
-     * <code>Nodes</code> in this <code>NodeSet</code>.
+     * {@code Nodes} in this {@code NodeSet}.
      * 
-     * @return The union of the entities contained in the <code>Nodes</code> in
-     *         this <code>NodeSet</code>. */
+     * @return The union of the entities contained in the {@code Nodes} in
+     *         this {@code NodeSet}. */
     Set<E> getFlattened();
 
     /** @return true if the node set is empty */
     boolean isEmpty();
 
-    /** A convenience method that determines if this <code>NodeSet</code>
+    /** A convenience method that determines if this {@code NodeSet}
      * contains a specific entity.
      * 
      * @param e
      *            The entity to test for
-     * @return <code>true</code> if this <code>NodeSet</code> contains a
-     *         <code>Node</code> that contains the entity, <code>e</code>, and
-     *         <code>false</code> if this <code>NodeSet</code> does not contain
-     *         a <code>Node</code> that contains the entity, <code>e</code>. */
+     * @return {@code true} if this {@code NodeSet} contains a
+     *         {@code Node} that contains the entity, {@code e}, and
+     *         {@code false} if this {@code NodeSet} does not contain
+     *         a {@code Node} that contains the entity, {@code e}. */
     boolean containsEntity(E e);
 
-    /** Determines if this <code>NodeSet</code> is a singleton. A
-     * <code>NodeSet</code> is a singleton if it contains only one
-     * <code>Node</code>.
+    /** Determines if this {@code NodeSet} is a singleton. A
+     * {@code NodeSet} is a singleton if it contains only one
+     * {@code Node}.
      * 
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton,
-     *         otherwise <code>false</code>. */
+     * @return {@code true} if this {@code NodeSet} is a singleton,
+     *         otherwise {@code false}. */
     boolean isSingleton();
 
-    /** Determines if this <code>NodeSet</code> is a singleton node that only
+    /** Determines if this {@code NodeSet} is a singleton node that only
      * contains the top node (in a hierarchy).
      * 
      * @see org.semanticweb.owlapi.reasoner.Node#isTopNode()
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
-     *         that contains only the top node, and <code>false</code>
+     * @return {@code true} if this {@code NodeSet} is a singleton
+     *         that contains only the top node, and {@code false}
      *         otherwise. */
     boolean isTopSingleton();
 
-    /** Determies if this <code>NodeSet</code> is a singleton that only contains
+    /** Determies if this {@code NodeSet} is a singleton that only contains
      * the bottom node (in a hierarchy).
      * 
      * @see org.semanticweb.owlapi.reasoner.Node#isBottomNode()
-     * @return <code>true</code> if this <code>NodeSet</code> is a singleton
+     * @return {@code true} if this {@code NodeSet} is a singleton
      *         that only contains a node that is the bottom node, otherwise
-     *         <code>false</code> */
+     *         {@code false} */
     boolean isBottomSingleton();
 
-    /** Gets the <code>Node</code>s contained in this <code>NodeSet</code>
+    /** Gets the {@code Node}s contained in this {@code NodeSet}
      * 
-     * @return The set of <code>Node</code>s contained in this
-     *         <code>NodeSet</code>. Note that this set will be an unmodifiable
+     * @return The set of {@code Node}s contained in this
+     *         {@code NodeSet}. Note that this set will be an unmodifiable
      *         set. */
     Set<Node<E>> getNodes();
 }

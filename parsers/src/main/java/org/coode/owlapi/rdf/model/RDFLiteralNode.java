@@ -86,12 +86,12 @@ public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
 
     /** Gets the lang
      * 
-     * @return The lang, or <code>null</code> if there is no lang */
+     * @return The lang, or {@code null} if there is no lang */
     public String getLang() {
         return lang;
     }
 
-    /** @return the datatype, or <code>null</code> if there is no datatype */
+    /** @return the datatype, or {@code null} if there is no datatype */
     public IRI getDatatype() {
         return datatype;
     }

@@ -51,10 +51,10 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * Date: 21/12/2010
  * @since 3.2
  * <br>
- * Describes why an RDF resource could not be parsed into an <code>OWLObject</code>.  For example, why an RDF resource could
- * not be parsed into an <code>OWLClassExpression</code>.
+ * Describes why an RDF resource could not be parsed into an {@code OWLObject}.  For example, why an RDF resource could
+ * not be parsed into an {@code OWLClassExpression}.
  * <br>
- * When these errors occur, the RDF parser generates an <code>OWLEntity</code> that represents the error and inserts
+ * When these errors occur, the RDF parser generates an {@code OWLEntity} that represents the error and inserts
  * this where appropriate into the corresponding complete OWLObject (OWLAxiom) that could not be parsed.
  */
 public class RDFResourceParseError {

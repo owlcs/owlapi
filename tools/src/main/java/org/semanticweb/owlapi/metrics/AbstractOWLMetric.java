@@ -142,8 +142,8 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      * @param changes
      *            The list of changes which will be examined to determine if the
      *            metric is now invalid.
-     * @return <code>true</code> if the metric value is invalidated by the
-     *         specified list of changes, or <code>false</code> if the list of
+     * @return {@code true} if the metric value is invalidated by the
+     *         specified list of changes, or {@code false} if the list of
      *         changes do not cause the value of this metric to be invalidated. */
     protected abstract boolean isMetricInvalidated(
             List<? extends OWLOntologyChange> changes);

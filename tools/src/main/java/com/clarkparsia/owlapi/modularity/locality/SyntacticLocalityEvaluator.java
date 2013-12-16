@@ -151,8 +151,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * or a built-in datatype. This is used in the bottom- and top-equivalence evaluators
      * for treating cardinality restrictions.
      * @param dataRange a data range expression
-     * @return <code>true</code> if the specified data range expression is the top datatype
-     *         or a built-in datatype; <code>false</code> otherwise
+     * @return {@code true} if the specified data range expression is the top datatype
+     *         or a built-in datatype; {@code false} otherwise
      */
     protected static boolean isTopOrBuiltInDatatype(OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
@@ -168,8 +168,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * or a built-in infinite datatype. This is used in the bottom- and top-equivalence evaluators
      * for treating cardinality restrictions.
      * @param dataRange a data range expression
-     * @return <code>true</code> if the specified data range expression is the top datatype
-     *         or a built-in infinite datatype; <code>false</code> otherwise
+     * @return {@code true} if the specified data range expression is the top datatype
+     *         or a built-in infinite datatype; {@code false} otherwise
      */
     protected static boolean isTopOrBuiltInInfiniteDatatype(OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {

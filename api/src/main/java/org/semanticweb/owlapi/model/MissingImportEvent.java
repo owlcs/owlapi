@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.model;
 
 /** An event that gets posted to objects that listen for missing imports when
- * silent missing import handling is set to <code>true</code> in an ontology
+ * silent missing import handling is set to {@code true} in an ontology
  * manager.
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
