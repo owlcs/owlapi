@@ -45,14 +45,13 @@ import java.util.Map;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 02-Jan-2007<br>
- * <br>
- * Represents the concrete representation format of an ontology. The equality of
+/** Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
- * identity). */
+ * identity).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 02-Jan-2007 */
 public abstract class OWLOntologyFormat implements Serializable {
     private static final long serialVersionUID = 40000L;
     /** if set to "true", an intermediate file will be used for output, even for

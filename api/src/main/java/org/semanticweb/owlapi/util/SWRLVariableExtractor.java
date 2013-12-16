@@ -56,12 +56,11 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Jul-2007<br>
- * <br>
- * Extracts the variables from rules */
+/** Extracts the variables from rules.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 06-Jul-2007 */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
     private final Set<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
 

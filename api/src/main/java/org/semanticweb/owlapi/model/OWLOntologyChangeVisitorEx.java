@@ -40,11 +40,9 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 12-Dec-2006 */
 @SuppressWarnings("javadoc")
 public interface OWLOntologyChangeVisitorEx<O> {
     O visit(@Nonnull AddAxiom change);

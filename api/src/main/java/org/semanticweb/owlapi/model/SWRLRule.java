@@ -42,29 +42,24 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * Represent a rule. A rule consists of a head and a body. Both the head and the
- * body consist of a conjunction of atoms. */
+/** Represent a rule. A rule consists of a head and a body. Both the head and the
+ * body consist of a conjunction of atoms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007 */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /** Gets the atoms in the body of the rule
      * 
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the
-     *         body of the rule. */
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
+     *         of the rule. */
     @Nonnull
     Set<SWRLAtom> getBody();
 
     /** Gets the atoms in the head of the rule
      * 
-     * @return A set of {@code SWRLAtom}s, which represent the atoms in the
-     *         head of the rule */
+     * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
+     *         of the rule */
     @Nonnull
     Set<SWRLAtom> getHead();
 
@@ -86,8 +81,8 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
 
     /** Determines if this rule uses anonymous class expressions in class atoms.
      * 
-     * @return {@code true} if this rule contains anonymous class
-     *         expression in class atoms, otherwise {@code false}. */
+     * @return {@code true} if this rule contains anonymous class expression in
+     *         class atoms, otherwise {@code false}. */
     boolean containsAnonymousClassExpressions();
 
     /** Gets the predicates of class atoms.

@@ -38,16 +38,15 @@
  */
 package org.semanticweb.owlapi.util;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jan-2007<br>
- * <br>
- * Certain tasks or algorithms may take some time to accomplish. For example
+/** Certain tasks or algorithms may take some time to accomplish. For example
  * parsing, saving etc. In some situations, it is desirable to monitor the
  * progress of such tasks, for example to provide feedback in user interfaces.
  * Interfaces which represent long tasks can implement this progress monitor
- * interface to provide a hook for a progress monitor. */
+ * interface to provide a hook for a progress monitor.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 04-Jan-2007 */
 public interface Monitorable {
     /** Sets the progress monitor which receives information about the progress
      * of the this object which represents a long running task.

@@ -40,11 +40,13 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 17-Jan-2009 </p> An interface to an object that can accept visits from
- * {@link org.semanticweb.owlapi.model.OWLDataRange}s. */
+/** An interface to an object that can accept visits from
+ * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 17-Jan-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLDataRangeVisitor {
     void visit(@Nonnull OWLDatatype node);

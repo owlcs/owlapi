@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /** An ontology document source which can read from a GZIP File.
  * 
  * @author ignazio
- * @from 3.4.8 */
+ * @since 3.4.8 */
 public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;
@@ -72,7 +72,7 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;
-        return IRI.create("gzipinputstream:ontology" + counter);
+        return IRI.create("file:ontology" + counter);
     }
 
     /** Constructs an input source which will read an ontology from a

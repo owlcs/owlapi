@@ -118,11 +118,10 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 06-Jun-2008<br>
- * <br> */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 06-Jun-2008 */
 public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
     private boolean negated;

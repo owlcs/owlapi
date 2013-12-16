@@ -40,12 +40,11 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents a named object for example, class, property, ontology etc. - i.e.
- * anything that has an IRI as its name. */
+/** Represents a named object for example, class, property, ontology etc. - i.e.
+ * anything that has an IRI as its name.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLNamedObject extends OWLObject {
     /** Gets the IRI of this object
      * 

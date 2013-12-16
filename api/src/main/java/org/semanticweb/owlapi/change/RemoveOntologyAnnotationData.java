@@ -44,18 +44,13 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Represents the specific non-ontology data required by a
- * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change.
- * </p>
- * <p>
- * Instances of this class are immutable.
- * </p>
+/** Represents the specific non-ontology data required by a
+ * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change. <br>
+ * Instances of this class are immutable. <br>
  * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
  * @since 3.5 */
 public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 40000L;

@@ -50,14 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 03/05/2012
- * <p>
- * Associates an {@link OWLOntologyID} with ontology-less change data.
- * </p>
- * <p>
+/** Associates an {@link OWLOntologyID} with ontology-less change data.<br>
  * An {@link OWLOntologyChangeRecord} captures information about an
  * {@link OWLOntologyChange} in a way that does not require a reference to an
  * {@link OWLOntology} object. It does this by referencing an
@@ -66,9 +59,7 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * more easily. It should be kept in mind that {@link OWLOntologyChangeRecord}
  * objects can represent changes for which there might be no in memory
  * representation of a specific {@link OWLOntology}. This is also true if an
- * {@link OWLOntology} object has its {@link OWLOntologyID} changed.
- * </p>
- * <p>
+ * {@link OWLOntology} object has its {@link OWLOntologyID} changed.<br>
  * An {@link OWLOntologyChange} object contains two important pieces of
  * information:
  * <ol>
@@ -81,14 +72,12 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * change information to be captured where the context of the change (the
  * ontology) is known via some other mechanism.</li>
  * </ol>
- * </p>
- * <p>
  * {@code OWLOntologyChangeRecord} objects are immutable.
- * </p>
  * 
- * @param <T>
- *            type of changed item
- * @since 3.5 */
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 03/05/2012
+ * @since 3.4.3 */
 public class OWLOntologyChangeRecord<T> implements Serializable {
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyID ontologyID;

@@ -46,15 +46,14 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Jan-2008<br>
- * <br>
- * A utility class which can be used by implementations to provide a toString
+/** A utility class which can be used by implementations to provide a toString
  * rendering of OWL API objects. The idea is that this is pluggable. TODO this
  * does not allow for independent rendering; in a multithreaded situation, the
- * rendere may change mid execution because of the static singleton instance */
+ * rendere may change mid execution because of the static singleton instance
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 14-Jan-2008 */
 public class ToStringRenderer {
     private static ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;

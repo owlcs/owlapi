@@ -38,20 +38,21 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Nov-2009 </p> The ReasonerProgressMonitor interface should be
- * implemented by objects that wish to montitor the progress of a resoner. The
- * reasoner whose progress is being monitored will call the methods on this
- * interface. The progress monitor is designed to monitor long running reasoner
- * tasks such as loading, preprocessing, consistency checking, classification
- * and realisation. </p> Tasks are executed sequentially. Nested tasks are not
- * supported. </p> The general contract is that the reasoner will call
+/** The ReasonerProgressMonitor interface should be implemented by objects that
+ * wish to montitor the progress of a resoner. The reasoner whose progress is
+ * being monitored will call the methods on this interface. The progress monitor
+ * is designed to monitor long running reasoner tasks such as loading,
+ * preprocessing, consistency checking, classification and realisation. </p>
+ * Tasks are executed sequentially. Nested tasks are not supported. </p> The
+ * general contract is that the reasoner will call
  * {@link #reasonerTaskStarted(String)}, then call either
  * {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)}
  * any number of times and finally call {@link #reasonerTaskStopped()} when the
- * task ends or has been interupted. This cycle may then be repeated. */
+ * task ends or has been interupted. This cycle may then be repeated.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 29-Nov-2009 */
 public interface ReasonerProgressMonitor {
     /** A standard name for the task of loading a reasoner with axioms. Note that
      * there is no guarantee that the reasoner will use this name for loading. */

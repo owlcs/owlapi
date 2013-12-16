@@ -43,12 +43,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15/12/2010
- * <p>
- * A configuration object that specifies options and hints to objects that load
+/** A configuration object that specifies options and hints to objects that load
  * OWLOntologies. Every {@code OWLOntologyLoaderConfiguration} is immutable.
  * Changing a setting results in the creation of a new
  * {@code OWLOntologyLoaderConfiguration} with that setting. For example,
@@ -59,7 +54,11 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * </pre>
  * 
  * creates an {@code OWLOntologyLoaderConfiguration} object with the load
- * annotation axioms set to {@code false}. */
+ * annotation axioms set to {@code false}.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 15/12/2010 */
 public final class OWLOntologyLoaderConfiguration {
     /** strategies to cope with missing headers */
     public enum MissingOntologyHeaderStrategy {
@@ -280,8 +279,8 @@ public final class OWLOntologyLoaderConfiguration {
      * 
      * @param b
      *            the new value for the flag
-     * @return A <code>OWLOntologyLoaderConfiguration</code> with the report
-     *         flag set to the new value. */
+     * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
+     *         to the new value. */
     public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
         if (b == reportStackTraces) {
             return this;
@@ -305,7 +304,7 @@ public final class OWLOntologyLoaderConfiguration {
      *            new timeout Note: the timeout is an int and represents
      *            milliseconds. This is necessary for use in
      *            {@code URLConnection}
-     * @return A <code>OWLOntologyLoaderConfiguration</code> with the connection
+     * @return A {@code OWLOntologyLoaderConfiguration} with the connection
      *         timeout set to the new value. */
     public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
         if (l == connectionTimeout) {

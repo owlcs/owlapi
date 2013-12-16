@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * works best when the output stream is closed explicitly in the client code.
  * 
  * @author ignazio
- * @from 3.4.8 */
+ * @since 3.4.8 */
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
     private final File out;
     private OutputStream outputStream;

@@ -38,11 +38,10 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 The root of checked exceptions
- * in the OWL API. */
-public abstract class OWLException extends Exception {
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 The root of checked
+ *         exceptions in the OWL API. */
+public class OWLException extends Exception {
     private static final long serialVersionUID = 40000L;
 
     protected OWLException() {}

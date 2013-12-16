@@ -40,10 +40,9 @@ package org.semanticweb.owlapi.io;
 
 import java.net.URISyntaxException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 07-Dec-2009 */
 public class OWLParserURISyntaxException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

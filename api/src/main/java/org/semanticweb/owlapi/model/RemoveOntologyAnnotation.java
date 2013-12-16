@@ -43,11 +43,12 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 24-Mar-2009 Represents an ontology change where an annotation is
- * removed from an ontology. */
+/** Represents an ontology change where an annotation is removed from an
+ * ontology.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 24-Mar-2009 */
 public class RemoveOntologyAnnotation extends AnnotationChange {
     /** @param ont
      *            the ontology to which the change is to be applied

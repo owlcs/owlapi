@@ -48,11 +48,9 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jan-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 23-Jan-2008 */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     /** @param ont
      *            ontology to use

@@ -40,17 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * Represents a variable that can appear in an atom. Variable can either be
- * place holders for individuals or literals. Variables are named with IRIs. */
+/** Represents a variable that can appear in an atom. Variable can either be
+ * place holders for individuals or literals. Variables are named with IRIs.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007 */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument {
     /** Gets the variable IRI that names the variable
      * 

@@ -40,13 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents an <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Positive_Object_Property_Assertions"
- * >ObjectPropertyAssertion</a> axiom in the OWL 2 Specification. */
+/** Represents an <a href=
+ * "http://www.w3.org/TR/owl2-syntax/#Positive_Object_Property_Assertions"
+ * >ObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
         OWLSubClassOfAxiomShortCut {
@@ -71,7 +70,7 @@ public interface OWLObjectPropertyAssertionAxiom extends
      * a simplified form, where as ObjectPropertyAssertion(ObjectInverseOf(P) S
      * O) is not because it contains an inverse object property.
      * 
-     * @return {@code true} if this axiom is in a simplified form,
-     *         otherwise {@code false} */
+     * @return {@code true} if this axiom is in a simplified form, otherwise
+     *         {@code false} */
     boolean isInSimplifiedForm();
 }

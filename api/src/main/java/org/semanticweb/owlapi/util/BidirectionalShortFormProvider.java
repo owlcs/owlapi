@@ -45,13 +45,11 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * <br>
- * A short form provider which is capable of translating back and forth between
- * entities and their short forms. */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Apr-2007<br>
+ *         A short form provider which is capable of translating back and forth
+ *         between entities and their short forms. */
 public interface BidirectionalShortFormProvider extends ShortFormProvider {
     /** For a given short form this method obtains the entities which have this
      * short form.
@@ -68,10 +66,10 @@ public interface BidirectionalShortFormProvider extends ShortFormProvider {
      * 
      * @param shortForm
      *            The short form of the entity.
-     * @return The actual entity or {@code null} if there is no entity
-     *         which has the specified short form. If the specified short form
-     *         corresponds to more than one entity then an entity will be chosen
-     *         by the implementation of the short form provider. */
+     * @return The actual entity or {@code null} if there is no entity which has
+     *         the specified short form. If the specified short form corresponds
+     *         to more than one entity then an entity will be chosen by the
+     *         implementation of the short form provider. */
     @Nullable
     OWLEntity getEntity(@Nonnull String shortForm);
 

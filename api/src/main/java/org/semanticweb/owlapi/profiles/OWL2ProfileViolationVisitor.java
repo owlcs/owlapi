@@ -38,10 +38,9 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public interface OWL2ProfileViolationVisitor {
     void visit(UseOfNonAbsoluteIRI violation);

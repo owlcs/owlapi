@@ -48,8 +48,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
  * 
  * @author ignazio
  * @param <K> */
-public class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>,
-        Serializable {
+public class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>, Serializable {
     private static final long serialVersionUID = 40000L;
     private K object;
 

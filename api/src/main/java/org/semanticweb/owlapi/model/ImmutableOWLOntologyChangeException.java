@@ -38,13 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br>
- * An exception to describe a situation where there was an attempt to apply a
- * change to an immutable ontology. */
+/** An exception to describe a situation where there was an attempt to apply a
+ * change to an immutable ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007 */
 public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
     private static final long serialVersionUID = 40000L;
 

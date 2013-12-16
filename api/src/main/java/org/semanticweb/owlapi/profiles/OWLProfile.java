@@ -41,11 +41,9 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 16-Apr-2008 */
 public interface OWLProfile {
     /** http://www.w3.org/ns/owl-profile/DL **/
     IRI OWL2_DL = IRI.create("http://www.w3.org/ns/owl-profile/", "DL");

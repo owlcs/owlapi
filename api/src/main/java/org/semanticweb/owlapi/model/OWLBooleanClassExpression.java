@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLBooleanClassExpression extends OWLAnonymousClassExpression {}

@@ -38,13 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br>
- * A high level exception interface that describes errors that occurred when
- * applying changes to ontologies. */
+/** A high level exception interface that describes errors that occurred when
+ * applying changes to ontologies.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007 */
 @SuppressWarnings("javadoc")
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;

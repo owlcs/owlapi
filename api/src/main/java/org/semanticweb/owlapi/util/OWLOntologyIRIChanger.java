@@ -69,7 +69,8 @@ public class OWLOntologyIRIChanger {
     /** @param owlOntologyManager
      *            the ontology manager to use */
     public OWLOntologyIRIChanger(@Nonnull OWLOntologyManager owlOntologyManager) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        this.owlOntologyManager = checkNotNull(owlOntologyManager,
+                "owlOntologyManager cannot be null");
     }
 
     /** Changes the URI of the specified ontology to the new URI.

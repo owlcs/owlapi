@@ -42,13 +42,11 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents an <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Equivalent_Classes"
- * >EquivalentClasses</a> axiom in the OWL 2 Specification. */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
+ *         Represents an <a href=
+ *         "http://www.w3.org/TR/owl2-syntax/#Equivalent_Classes"
+ *         >EquivalentClasses</a> axiom in the OWL 2 Specification. */
 public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /** Determines if this equivalent classes axiom contains at least one named
      * class (excluding owl:Thing or owl:Nothing).
@@ -71,15 +69,15 @@ public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /** Determines if this class axiom makes a class expression equivalent to
      * nothing.
      * 
-     * @return {@code true} if this axiom contains owl:Nothing as an
-     *         equivalent class. */
+     * @return {@code true} if this axiom contains owl:Nothing as an equivalent
+     *         class. */
     boolean containsOWLNothing();
 
     /** Determines if this class axiom makes a class expression equivalent to
      * thing.
      * 
-     * @return {@code true} if this axioms contains owl:Thing as an
-     *         equivalent class. */
+     * @return {@code true} if this axioms contains owl:Thing as an equivalent
+     *         class. */
     boolean containsOWLThing();
 
     @Override

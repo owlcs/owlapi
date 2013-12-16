@@ -38,8 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 A marker interface, for
- * objects that can be the ranges of properties */
+/** A marker interface, for objects that can be the ranges of properties.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLPropertyRange extends OWLObject {}

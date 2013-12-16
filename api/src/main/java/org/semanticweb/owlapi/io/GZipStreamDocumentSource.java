@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /** An ontology document source which can read from a GZIP stream.
  * 
  * @author ignazio
- * @from 3.4.8 */
+ * @since 3.4.8 */
 public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;

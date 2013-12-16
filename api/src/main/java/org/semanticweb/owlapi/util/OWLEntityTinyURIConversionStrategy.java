@@ -55,13 +55,7 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br>
- * <br>
- * <p/>
- * Provides an entity URI conversion strategy which converts entity URIs to a
+/** Provides an entity URI conversion strategy which converts entity URIs to a
  * common base and alpha-numeric fragment. The fragment is of the form An, where
  * n is an integer (starting at 1), and A is a string which depends on the type
  * of entity:
@@ -70,7 +64,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * <li>For object properties: A = "op"</li>
  * <li>For data properties: A = "dp"</li>
  * <li>For individuals: A = "i"</li>
- * </ul> */
+ * </ul>
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Nov-2007 */
 public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
     /** default base */
     public static final String DEFAULT_BASE = "http://tinyname.org#";

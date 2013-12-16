@@ -48,15 +48,14 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br>
- * <br>
- * Converts the entity URI fragment or last path element if the fragment is not
+/** Converts the entity URI fragment or last path element if the fragment is not
  * present to Camel Case. For example, if the URI is
  * http://another.com/pathA/pathB#has_part then this will be converted to
- * http://another.com/pathA/pathB#hasPart */
+ * http://another.com/pathA/pathB#hasPart
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Nov-2007 */
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         OWLEntityURIConverterStrategy {
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();

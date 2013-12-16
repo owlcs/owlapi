@@ -45,19 +45,15 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Apr-2008<br>
- * <br>
- * </p> A class that describes how ontology parsing failed. This class collects
- * parse errors and the parsers that generated the errors. */
+/** A class that describes how ontology parsing failed. This class collects parse
+ * errors and the parsers that generated the errors.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Apr-2008 */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
-
     private static final long serialVersionUID = 40000L;
-
     private boolean includeStackTraceInMessage = true;
-
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;
 
@@ -66,8 +62,11 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * @param exceptions
      *            the map parser-&gt;exceptions
      * @param config */
-    public UnparsableOntologyException(IRI documentIRI, Map<OWLParser, OWLParserException> exceptions,OWLOntologyLoaderConfiguration config) {
-        super("Could not parse ontology from document IRI: " + documentIRI.toQuotedString());
+    public UnparsableOntologyException(IRI documentIRI,
+            Map<OWLParser, OWLParserException> exceptions,
+            OWLOntologyLoaderConfiguration config) {
+        super("Could not parse ontology from document IRI: "
+                + documentIRI.toQuotedString());
         includeStackTraceInMessage = config.isReportStackTrace();
         this.documentIRI = documentIRI;
         this.exceptions = exceptions;
@@ -95,8 +94,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
             msg.append(parser.getName());
             msg.append("\n");
             if (!includeStackTraceInMessage) {
-            msg.append(exception.getMessage());
-            msg.append("\n\n");
+                msg.append(exception.getMessage());
+                msg.append("\n\n");
             } else {
                 msg.append("    Stack trace:\n");
                 Throwable current = exception;

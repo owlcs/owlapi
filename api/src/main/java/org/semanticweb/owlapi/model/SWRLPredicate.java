@@ -38,8 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 04-Jul-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 04-Jul-2009 */
 public interface SWRLPredicate {}

@@ -44,15 +44,13 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Instances of this class represent {@link OWLOntologyChangeData} for changes
+/** Instances of this class represent {@link OWLOntologyChangeData} for changes
  * that that are specific to the addition or removal of import statements
  * to/from an ontology.
- * </p> */
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012 */
 public abstract class ImportChangeData extends
         OWLOntologyChangeData<OWLImportsDeclaration> {
     private static final long serialVersionUID = 40000L;

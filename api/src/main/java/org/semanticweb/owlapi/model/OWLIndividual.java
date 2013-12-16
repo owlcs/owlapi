@@ -40,12 +40,11 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * <br>
- * Represents a named or anonymous individual. */
+/** Represents a named or anonymous individual.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Oct-2006 */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     /** Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this
@@ -60,10 +59,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} Note that
      * this method is the dual of {@link #isNamed()}.
      * 
-     * @return {@code true} if this object represents an anonymous
-     *         individual ({@code OWLAnonymousIndividual)} or
-     *         {@code false} if this object represents a named individual (
-     *         {@code OWLIndividual}) */
+     * @return {@code true} if this object represents an anonymous individual (
+     *         {@code OWLAnonymousIndividual)} or {@code false} if this object
+     *         represents a named individual ( {@code OWLIndividual}) */
     boolean isAnonymous();
 
     /** Obtains this individual as a named individual if it is indeed named.

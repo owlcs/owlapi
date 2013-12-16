@@ -46,12 +46,11 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 25-Oct-2006
- * <p/>
- * An ontology factory is responsible from creating new ontologies and creating
- * ontologies from ontology document IRIs. */
+/** An ontology factory is responsible from creating new ontologies and creating
+ * ontologies from ontology document IRIs.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 25-Oct-2006 */
 public interface OWLOntologyFactory extends Serializable {
     /** @param owlOntologyManager
      *            the ontology manager to set. Cannot be null. */

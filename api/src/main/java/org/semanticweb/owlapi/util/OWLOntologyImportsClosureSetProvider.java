@@ -48,16 +48,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Apr-2007<br>
- * <br>
- * <p/>
- * An {@code OWLOntologySetProvider} which provides a set of ontologies
- * which correspond to the imports closure of a given ontology. Note that the
- * set of provided ontologies will be updated if the imports closure gets
- * updated. */
+/** An {@code OWLOntologySetProvider} which provides a set of ontologies which
+ * correspond to the imports closure of a given ontology. Note that the set of
+ * provided ontologies will be updated if the imports closure gets updated.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Apr-2007 */
 public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
     private final OWLOntologyManager manager;
     private final OWLOntology rootOntology;

@@ -41,11 +41,9 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Apr-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 10-Apr-2008 */
 public class OntologyIRIMappingNotFoundException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 40000L;
     private final IRI ontologyIRI;

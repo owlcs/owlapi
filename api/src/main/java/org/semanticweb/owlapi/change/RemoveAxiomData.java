@@ -44,18 +44,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Represents the specific non-ontology data required by an {@link RemoveAxiom}
- * change.
- * </p>
- * <p>
+/** Represents the specific non-ontology data required by an {@link RemoveAxiom}
+ * change. <br>
  * Instances of this class are immutable.
- * </p>
  * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
  * @since 3.5 */
 public class RemoveAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;

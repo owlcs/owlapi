@@ -40,16 +40,19 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a property or the
- * inverse of a property. */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 Represents a property
+ *         or possibly the inverse of a property.
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression */
 public interface OWLPropertyExpression extends OWLObject {
     /** Determines if this property expression is anonymous.
      * 
-     * @return {@code true} if the property expression is anonymous
-     *         (because it is the inverse of a property). {@code false} if
-     *         this property is a named object property or named data property. */
+     * @return {@code true} if the property expression is anonymous (because it
+     *         is the inverse of a property). {@code false} if this property is
+     *         a named object property or named data property. */
     boolean isAnonymous();
 
     @SuppressWarnings("javadoc")
@@ -72,8 +75,8 @@ public interface OWLPropertyExpression extends OWLObject {
 
     /** Determines if this is the owl:bottomObjectProperty
      * 
-     * @return {@code true} if this property is the
-     *         owl:bottomObjectProperty otherwise {@code false} */
+     * @return {@code true} if this property is the owl:bottomObjectProperty
+     *         otherwise {@code false} */
     boolean isOWLBottomObjectProperty();
 
     /** Determines if this is the owl:topDataProperty

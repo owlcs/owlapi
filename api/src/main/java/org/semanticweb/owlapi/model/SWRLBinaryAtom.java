@@ -40,21 +40,15 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * Represents an atom with two ordered arguments
+/** Represents an atom with two ordered arguments
  * 
  * @param <A>
  *            type of first argument
  * @param <B>
- *            type of second argument */
+ *            type of second argument
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007 */
 public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument> extends
         SWRLAtom {
     /** Gets the first argument

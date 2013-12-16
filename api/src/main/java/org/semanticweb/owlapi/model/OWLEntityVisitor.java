@@ -40,13 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Nov-2006<br>
- * <br>
- * </p> An interface to an object that can accept visits from
- * {@link org.semanticweb.owlapi.model.OWLEntity}s. */
+/** An interface to an object that can accept visits from
+ * {@link org.semanticweb.owlapi.model.OWLEntity}s.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Nov-2006 */
 @SuppressWarnings("javadoc")
 public interface OWLEntityVisitor {
     void visit(@Nonnull OWLClass cls);

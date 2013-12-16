@@ -45,11 +45,11 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Dec-2009 </p> An output target that will output an ontology to
- * {@code System.out} */
+/** An output target that will output an ontology to {@code System.out}.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 18-Dec-2009 */
 public class SystemOutDocumentTarget implements OWLOntologyDocumentTarget {
     @Override
     public IRI getDocumentIRI() {

@@ -43,10 +43,9 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
         OWL2ProfileViolation {

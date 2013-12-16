@@ -43,16 +43,11 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * An interface to a factory that can create SWRL objects */
+/** An interface to a factory that can create SWRL objects
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007 */
 public interface SWRLDataFactory {
     /** Gets an anonymous SWRL Rule
      * 

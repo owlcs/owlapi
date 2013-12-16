@@ -46,14 +46,11 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * <br>
- * <p/>
- * Generates {@code OWLClassAssertionsAxiom}s for inferred individual
- * types. */
+/** Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Jul-2007 */
 public class InferredClassAssertionAxiomGenerator extends
         InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
     @Override

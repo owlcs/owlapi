@@ -42,13 +42,12 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents a <a
- * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Disjoint_Classes"
- * >DisjointClasses</a> axiom in the OWL 2 Specification. */
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Classes">DisjointClasses</a>
+ * axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
     @Override
     @Nonnull

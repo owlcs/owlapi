@@ -40,15 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2006<br>
- * <br>
- * <p/>
- * Represents <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Assertion"
- * >AnnotationAssertion</a> axioms in the OWL 2 specification. */
+/** Represents <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion"
+ * >AnnotationAssertion</a> axioms in the OWL 2 specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Nov-2006 */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
     /** Gets the subject of the annotation assertion. This is either an
      * {@link org.semanticweb.owlapi.model.IRI} or an
@@ -87,8 +84,8 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom {
     /** Determines if this annotation assertion deprecates the IRI that is the
      * subject of the annotation.
      * 
-     * @return {@code true} if this annotation assertion deprecates the
-     *         subject IRI of the assertion, otherwise {@code false}.
+     * @return {@code true} if this annotation assertion deprecates the subject
+     *         IRI of the assertion, otherwise {@code false}.
      * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation() */
     boolean isDeprecatedIRIAssertion();
 

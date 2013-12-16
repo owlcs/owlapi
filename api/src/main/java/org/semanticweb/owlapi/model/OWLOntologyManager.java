@@ -51,13 +51,13 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 </p> An
- * {@code OWLOntologyManager} manages a set of ontologies. It is the main
+/** An {@code OWLOntologyManager} manages a set of ontologies. It is the main
  * point for creating, loading and accessing ontologies. </p> An
- * {@code OWLOntologyManager} also manages the mapping betweem an ontology
- * and its ontology document. */
+ * {@code OWLOntologyManager} also manages the mapping betweem an ontology and
+ * its ontology document.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Gets a data factory which can be used to create OWL API objects such as
      * classes, properties, individuals, axioms etc.
@@ -98,8 +98,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontologyIRI
      *            The IRI of the ontology to test for (the version IRI is
      *            assumed to be {@code null})
-     * @return {@code true} if there is an ontology with the specified IRI,
-     *         and no version IRI, that is managed by this manager, otherwise
+     * @return {@code true} if there is an ontology with the specified IRI, and
+     *         no version IRI, that is managed by this manager, otherwise
      *         {@code false}. */
     boolean contains(@Nonnull IRI ontologyIRI);
 
@@ -108,8 +108,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * 
      * @param id
      *            The id of the ontology to test for
-     * @return {@code true} if there is an ontology with the specified id
-     *         that is managed by this manager, otherwise {@code false}. */
+     * @return {@code true} if there is an ontology with the specified id that
+     *         is managed by this manager, otherwise {@code false}. */
     boolean contains(@Nonnull OWLOntologyID id);
 
     /** Determines if there is an ontology with the specified version IRI, that
@@ -118,9 +118,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontologyVersionIRI
      *            The version IRI of the ontology to test for (the ontology IRI
      *            may be anything)
-     * @return {@code true} if there is an ontology with the specified
-     *         version IRI, that is managed by this manager, otherwise
-     *         {@code false}. */
+     * @return {@code true} if there is an ontology with the specified version
+     *         IRI, that is managed by this manager, otherwise {@code false}. */
     boolean containsVersion(@Nonnull IRI ontologyVersionIRI);
 
     /** Gets a set of OWLOntologyIDs representing ontologies that are managed by
@@ -139,8 +138,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param ontologyIRI
      *            The IRI of the ontology to be retrieved.
      * @return The ontology that has the specified IRI and no version IRI, or
-     *         {@code null} if this manager does not manage an ontology
-     *         with the specified IRI and no version IRI. */
+     *         {@code null} if this manager does not manage an ontology with the
+     *         specified IRI and no version IRI. */
     @Nonnull
     OWLOntology getOntology(@Nonnull IRI ontologyIRI);
 
@@ -149,9 +148,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * 
      * @param ontologyID
      *            The ID of the ontology to retrieve
-     * @return The ontology that has the specified ID, or {@code null} if
-     *         this manager does not manage an ontology with the specified
-     *         ontology ID. */
+     * @return The ontology that has the specified ID, or {@code null} if this
+     *         manager does not manage an ontology with the specified ontology
+     *         ID. */
     @Nullable
     OWLOntology getOntology(@Nonnull OWLOntologyID ontologyID);
 
@@ -161,9 +160,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * @param declaration
      *            The declaration that points to the imported ontology.
      * @return The ontology that the imports declaration resolves to, or
-     *         {@code null} if the imports declaration could not be
-     *         resolved to an ontology, because the ontology was not loaded or
-     *         has been removed from this manager */
+     *         {@code null} if the imports declaration could not be resolved to
+     *         an ontology, because the ontology was not loaded or has been
+     *         removed from this manager */
     @Nullable
     OWLOntology getImportedOntology(@Nonnull OWLImportsDeclaration declaration);
 
@@ -198,14 +197,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * 
      * @param ontology
      *            The ontology whose imports closure is to be retrieved.
-     * @return A {@code Set} of ontologies that contains the imports
-     *         closure for the specified ontology. This set will also include
-     *         the specified ontology. Example: if A imports B and B imports C,
-     *         then calling this method with A will return the set consisting of
-     *         A, B and C. If, for what ever reason, an imported ontology could
-     *         not be loaded, then it will not be contained in the returned set
-     *         of ontologies. If the ontology is not managed by this manager
-     *         then the empty set will be returned. */
+     * @return A {@code Set} of ontologies that contains the imports closure for
+     *         the specified ontology. This set will also include the specified
+     *         ontology. Example: if A imports B and B imports C, then calling
+     *         this method with A will return the set consisting of A, B and C.
+     *         If, for what ever reason, an imported ontology could not be
+     *         loaded, then it will not be contained in the returned set of
+     *         ontologies. If the ontology is not managed by this manager then
+     *         the empty set will be returned. */
     @Nonnull
     Set<OWLOntology> getImportsClosure(@Nonnull OWLOntology ontology);
 
@@ -384,9 +383,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             if the manager already contains an ontology with the
      *             specified {@code ontologyIRI}.
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code ontologyIRI} is mapped to a
-     *             ontology document IRI for which there already exists a
-     *             mapping in this manager. */
+     *             if the specified {@code ontologyIRI} is mapped to a ontology
+     *             document IRI for which there already exists a mapping in this
+     *             manager. */
     @Nonnull
     OWLOntology createOntology(@Nonnull Set<OWLAxiom> axioms, @Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException;
@@ -413,9 +412,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             if the manager already contains an ontology with the
      *             specified {@code ontologyIRI} (and no version IRI).
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code ontologyIRI} is mapped to a
-     *             ontology document IRI for which there already exists a
-     *             mapping in this manager. */
+     *             if the specified {@code ontologyIRI} is mapped to a ontology
+     *             document IRI for which there already exists a mapping in this
+     *             manager. */
     @Nonnull
     OWLOntology createOntology(@Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException;
@@ -439,9 +438,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             if the manager already contains an ontology with the
      *             specified {@code ontologyID} (and no version IRI).
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code ontologyID} is mapped to a
-     *             ontology document IRI for which there already exists a
-     *             mapping in this manager. */
+     *             if the specified {@code ontologyID} is mapped to a ontology
+     *             document IRI for which there already exists a mapping in this
+     *             manager. */
     @Nonnull
     OWLOntology createOntology(@Nonnull OWLOntologyID ontologyID)
             throws OWLOntologyCreationException;
@@ -462,9 +461,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *            The ontologies whose axioms should be copied into the new
      *            ontology
      * @param copyLogicalAxiomsOnly
-     *            If set to {@code true} only logical axioms are copied
-     *            into the new ontology. If set to {@code false} then all
-     *            axioms (including annotation axioms) are copied into the new
+     *            If set to {@code true} only logical axioms are copied into the
+     *            new ontology. If set to {@code false} then all axioms
+     *            (including annotation axioms) are copied into the new
      *            ontology.
      * @return An ontology that has the specified IRI and contains all of the
      *         axioms that are contained in the specified ontologies possibly
@@ -474,12 +473,11 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             ontology already exists in this manager.
      * @throws OWLOntologyAlreadyExistsException
      *             if the manager already contains an ontology with the
-     *             specified {@code ontologyIRI} (and no ontology version
-     *             IRI).
+     *             specified {@code ontologyIRI} (and no ontology version IRI).
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code ontologyIRI} is mapped to a
-     *             ontology document IRI for which there already exists a
-     *             mapping in this manager. */
+     *             if the specified {@code ontologyIRI} is mapped to a ontology
+     *             document IRI for which there already exists a mapping in this
+     *             manager. */
     @Nonnull
     OWLOntology createOntology(@Nonnull IRI ontologyIRI,
             @Nonnull Set<OWLOntology> ontologies, boolean copyLogicalAxiomsOnly)
@@ -509,9 +507,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             if the manager already contains an ontology with the
      *             specified {@code ontologyIRI} (and no version IRI).
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code ontologyIRI} is mapped to a
-     *             ontology document IRI for which there already exists a
-     *             mapping in this manager. */
+     *             if the specified {@code ontologyIRI} is mapped to a ontology
+     *             document IRI for which there already exists a mapping in this
+     *             manager. */
     @Nonnull
     OWLOntology createOntology(@Nonnull IRI ontologyIRI,
             @Nonnull Set<OWLOntology> ontologies) throws OWLOntologyCreationException;
@@ -524,20 +522,20 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Loads an ontology that is assumed to have the specified
-     * {@code ontologyIRI} as its IRI or version IRI. </p> The ontology IRI
-     * will be mapped to an ontology document IRI. The mapping will be
-     * determined using one of the loaded {@link OWLOntologyIRIMapper} objects.
-     * By default, if no custom {@code OWLOntologyIRIMapper}s have been
-     * registered using the {@link #addIRIMapper(OWLOntologyIRIMapper)} method,
-     * or no mapping can be found, the ontology document IRI is taken to be the
-     * specified ontology IRI.
+     * {@code ontologyIRI} as its IRI or version IRI. </p> The ontology IRI will
+     * be mapped to an ontology document IRI. The mapping will be determined
+     * using one of the loaded {@link OWLOntologyIRIMapper} objects. By default,
+     * if no custom {@code OWLOntologyIRIMapper}s have been registered using the
+     * {@link #addIRIMapper(OWLOntologyIRIMapper)} method, or no mapping can be
+     * found, the ontology document IRI is taken to be the specified ontology
+     * IRI.
      * 
      * @param ontologyIRI
      *            The IRI that identifies the ontology. It is expected that the
      *            ontology will also have this IRI (although the OWL API will
      *            tolerated situations where this is not the case).
-     * @return The {@code OWLOntology} representation of the ontology that
-     *         was loaded.
+     * @return The {@code OWLOntology} representation of the ontology that was
+     *         loaded.
      * @throws OWLOntologyCreationException
      *             If there was a problem in creating and loading the ontology.
      * @throws org.semanticweb.owlapi.io.UnparsableOntologyException
@@ -549,22 +547,22 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link MissingImportHandlingStrategy} is set to
      *             {@link MissingImportHandlingStrategy#SILENT} then this
      *             exception will not be thrown. The
-     *             {@code UnloadableImportException} contains information
-     *             about the import declaration that triggered the import and
-     *             the cause of this exception is an
+     *             {@code UnloadableImportException} contains information about
+     *             the import declaration that triggered the import and the
+     *             cause of this exception is an
      *             {@code OWLOntologyCreationException} which contains
      *             information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException
-     *             if there was an {@code IOException} when trying to load
-     *             the ontology.
+     *             if there was an {@code IOException} when trying to load the
+     *             ontology.
      * @throws OWLOntologyAlreadyExistsException
      *             if the manager already contains an ontology with the
-     *             specified {@code ontologyIRI} (where the ontology
-     *             doesn't have a version IRI).
+     *             specified {@code ontologyIRI} (where the ontology doesn't
+     *             have a version IRI).
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code ontologyIRI} is mapped to a
-     *             ontology document IRI for which there already exists a
-     *             mapping in this manager. */
+     *             if the specified {@code ontologyIRI} is mapped to a ontology
+     *             document IRI for which there already exists a mapping in this
+     *             manager. */
     @Nonnull
     OWLOntology loadOntology(@Nonnull IRI ontologyIRI)
             throws OWLOntologyCreationException;
@@ -588,17 +586,17 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link MissingImportHandlingStrategy} is set to
      *             {@link MissingImportHandlingStrategy#SILENT} then this
      *             exception will not be thrown. The
-     *             {@code UnloadableImportException} contains information
-     *             about the import declaration that triggered the import and
-     *             the cause of this exception is an
+     *             {@code UnloadableImportException} contains information about
+     *             the import declaration that triggered the import and the
+     *             cause of this exception is an
      *             {@code OWLOntologyCreationException} which contains
      *             information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException
-     *             if there was an {@code IOException} when trying to load
-     *             the ontology.
+     *             if there was an {@code IOException} when trying to load the
+     *             ontology.
      * @throws OWLOntologyDocumentAlreadyExistsException
-     *             if the specified {@code documentIRI} is already the
-     *             document IRI for a loaded ontology.
+     *             if the specified {@code documentIRI} is already the document
+     *             IRI for a loaded ontology.
      * @throws OWLOntologyAlreadyExistsException
      *             if the manager already contains an ontology whose ontology
      *             IRI and version IRI is the same as the ontology IRI and
@@ -625,14 +623,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link MissingImportHandlingStrategy} is set to
      *             {@link MissingImportHandlingStrategy#SILENT} then this
      *             exception will not be thrown. The
-     *             {@code UnloadableImportException} contains information
-     *             about the import declaration that triggered the import and
-     *             the cause of this exception is an
+     *             {@code UnloadableImportException} contains information about
+     *             the import declaration that triggered the import and the
+     *             cause of this exception is an
      *             {@code OWLOntologyCreationException} which contains
      *             information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException
-     *             if there was an {@code IOException} when trying to load
-     *             the ontology.
+     *             if there was an {@code IOException} when trying to load the
+     *             ontology.
      * @throws OWLOntologyDocumentAlreadyExistsException
      *             if the IRI of the specified file is already the document IRI
      *             for a loaded ontology.
@@ -663,14 +661,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link MissingImportHandlingStrategy} is set to
      *             {@link MissingImportHandlingStrategy#SILENT} then this
      *             exception will not be thrown. The
-     *             {@code UnloadableImportException} contains information
-     *             about the import declaration that triggered the import and
-     *             the cause of this exception is an
+     *             {@code UnloadableImportException} contains information about
+     *             the import declaration that triggered the import and the
+     *             cause of this exception is an
      *             {@code OWLOntologyCreationException} which contains
      *             information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException
-     *             if there was an {@code IOException} when trying to load
-     *             the ontology.
+     *             if there was an {@code IOException} when trying to load the
+     *             ontology.
      * @throws OWLOntologyAlreadyExistsException
      *             if the manager already contains an ontology whose ontology
      *             IRI and version IRI is the same as the ontology IRI and
@@ -697,14 +695,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link MissingImportHandlingStrategy} is set to
      *             {@link MissingImportHandlingStrategy#SILENT} then this
      *             exception will not be thrown. The
-     *             {@code UnloadableImportException} contains information
-     *             about the import declaration that triggered the import and
-     *             the cause of this exception is an
+     *             {@code UnloadableImportException} contains information about
+     *             the import declaration that triggered the import and the
+     *             cause of this exception is an
      *             {@code OWLOntologyCreationException} which contains
      *             information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException
-     *             if there was an {@code IOException} when trying to load
-     *             the ontology.
+     *             if there was an {@code IOException} when trying to load the
+     *             ontology.
      * @throws OWLOntologyDocumentAlreadyExistsException
      *             if the document IRI of the input source is already the
      *             document IRI for a loaded ontology.
@@ -738,14 +736,14 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *             {@link MissingImportHandlingStrategy} is set to
      *             {@link MissingImportHandlingStrategy#SILENT} then this
      *             exception will not be thrown. The
-     *             {@code UnloadableImportException} contains information
-     *             about the import declaration that triggered the import and
-     *             the cause of this exception is an
+     *             {@code UnloadableImportException} contains information about
+     *             the import declaration that triggered the import and the
+     *             cause of this exception is an
      *             {@code OWLOntologyCreationException} which contains
      *             information about why the import could not be loaded.
      * @throws org.semanticweb.owlapi.io.OWLOntologyCreationIOException
-     *             if there was an {@code IOException} when trying to load
-     *             the ontology.
+     *             if there was an {@code IOException} when trying to load the
+     *             ontology.
      * @throws OWLOntologyDocumentAlreadyExistsException
      *             if the document IRI of the input source is already the
      *             document IRI for a loaded ontology.
@@ -1010,8 +1008,8 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
 
     /** Adds an ontology change listener, which listens to all changes for all
      * ontologies. To customise the changes/ontologies that are listened to, the
-     * {@code addOntologyChangeListener} method which takes a broadcast
-     * strategy as an argument should be used.
+     * {@code addOntologyChangeListener} method which takes a broadcast strategy
+     * as an argument should be used.
      * 
      * @param listener
      *            The listener to be added. */

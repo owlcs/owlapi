@@ -41,12 +41,11 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicLong;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 15-Jan-2009
- * <p/>
- * Represents the Node ID for anonymous individuals */
+/** Represents the Node ID for anonymous individuals
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 15-Jan-2009 */
 public class NodeID implements Comparable<NodeID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicLong COUNTER = new AtomicLong();

@@ -56,10 +56,9 @@ import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 14-Jan-2009 Represents International Resource Identifiers */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 14-Jan-2009 Represents International Resource Identifiers */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
         CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,

@@ -44,12 +44,9 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * <br>
- * 
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Jul-2007
  * @param <A>
  *            the axiom type */
 public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataPropertyAxiom>

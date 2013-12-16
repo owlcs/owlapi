@@ -48,12 +48,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009 Describes a violation of an OWLProfile by an axiom.
- * Ultimately, there may be part of the axiom that violates the profile rather
- * than the complete axiom. */
+/** Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
+ * part of the axiom that violates the profile rather than the complete axiom.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 public class OWLProfileViolation {
     private final OWLOntologyID ontologyID;
     private final Map<OWLOntologyID, IRI> importsClosureMap = new HashMap<OWLOntologyID, IRI>();

@@ -38,10 +38,9 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class UnloadableImportException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 40000L;

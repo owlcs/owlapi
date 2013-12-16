@@ -42,77 +42,73 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Jul-2009 </p> Represents a node (set) of entities. The entities in a
- * node are equivalent to each other. </p> <h3>Nodes in hierarchies</h3> In the
- * OWL API, a reasoner treats a class hierarchy, an object property hierarchy or
- * a data property hierarchy as a hierarchy (directed acyclic graph - DAG) of
- * {@code Nodes}. Each node contains entities that are equivalent to each
- * other. A hierarchy contains a <i>top node</i>, which is the ancestor of all
- * nodes in the hierarchy, and a <i>bottom node</i> which is the descendant of
- * all nodes in the hierarchy. </p> In a class hierarchy, the nodes contain
- * {@code OWLClass} objects. The top node contains {@code owl:Thing}
- * (and any other named classes that are equivalent to {@code owl:Thing}).
- * The bottom node contains {@code owl:Nothing} (and any other named
- * classes that are equivalent to {@code owl:Nothing} - these classes are
- * <i>unsatisfiable</i> classes). </p> In an object property hierarchy, the
- * nodes contain {@code OWLObjectProperty} objects. The top node contains
- * {@code owl:topObjectProperty} (and any other named object properties
- * that are equivalent to {@code owl:topObjectProperty}). The bottom node
- * contains {@code owl:bottomObjectProperty} (and any other named object
- * properties that are equivalent to {@code owl:bottomObjectProperty}).
- * </p> In a data property hierarchy, the nodes contain
- * {@code OWLDataProperty} objects. The top node contains
- * {@code owl:topDataProperty} (and any other data properties that are
- * equivalent to {@code owl:topDataProperty}). The bottom node contains
- * {@code owl:bottomDataProperty} (and any other data properties that are
- * equivalent to {@code owl:bottomDataProperty}). <h4>Class Hierarchy
+/** Represents a node (set) of entities. The entities in a node are equivalent to
+ * each other. </p> <h3>Nodes in hierarchies</h3> In the OWL API, a reasoner
+ * treats a class hierarchy, an object property hierarchy or a data property
+ * hierarchy as a hierarchy (directed acyclic graph - DAG) of {@code Nodes}. Each
+ * node contains entities that are equivalent to each other. A hierarchy
+ * contains a <i>top node</i>, which is the ancestor of all nodes in the
+ * hierarchy, and a <i>bottom node</i> which is the descendant of all nodes in
+ * the hierarchy. </p> In a class hierarchy, the nodes contain {@code OWLClass}
+ * objects. The top node contains {@code owl:Thing} (and any other named classes
+ * that are equivalent to {@code owl:Thing}). The bottom node contains
+ * {@code owl:Nothing} (and any other named classes that are equivalent to
+ * {@code owl:Nothing} - these classes are <i>unsatisfiable</i> classes). </p> In
+ * an object property hierarchy, the nodes contain {@code OWLObjectProperty}
+ * objects. The top node contains {@code owl:topObjectProperty} (and any other
+ * named object properties that are equivalent to {@code owl:topObjectProperty}).
+ * The bottom node contains {@code owl:bottomObjectProperty} (and any other named
+ * object properties that are equivalent to {@code owl:bottomObjectProperty}).
+ * </p> In a data property hierarchy, the nodes contain {@code OWLDataProperty}
+ * objects. The top node contains {@code owl:topDataProperty} (and any other data
+ * properties that are equivalent to {@code owl:topDataProperty}). The bottom
+ * node contains {@code owl:bottomDataProperty} (and any other data properties
+ * that are equivalent to {@code owl:bottomDataProperty}). <h4>Class Hierarchy
  * Example</h4> The figure below shows an example class hierarchy. Each box in
- * the hierarchy represents a {@code Node}. In this case the top node
- * contains {@code owl:Thing} and the bottom node contains
- * {@code owl:Nothing} because the nodes in the hierarchy are
- * {@code OWLClass} nodes. In this case, class {@code G} is equivalent
- * to {@code owl:Thing} so it appears as an entity in the top node.
- * Similarly, class {@code K} is unsatisfiable, so it is equivalent to
+ * the hierarchy represents a {@code Node}. In this case the top node contains
+ * {@code owl:Thing} and the bottom node contains {@code owl:Nothing} because the
+ * nodes in the hierarchy are {@code OWLClass} nodes. In this case, class
+ * {@code G} is equivalent to {@code owl:Thing} so it appears as an entity in the
+ * top node. Similarly, class {@code K} is unsatisfiable, so it is equivalent to
  * {@code owl:Nothing} and therefore appears in the bottom node containing
  * {@code owl:Nothing}. </p> <div align=center"> <img
  * src="../../../../doc-files/hierarchy.png"/> </div>
  * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Jul-2009
  * @param <E>
  *            the type of elements represented in the Node */
 public interface Node<E extends OWLObject> extends Iterable<E> {
     /** Determines if this node represents the top node (in a hierarchy). For a
      * named class node, the top node is the node that contains
-     * {@code owl:Thing}. For an object property node, the top node is the
-     * node that contains {@code owl:topObjectProperty}. For a data
-     * property node, the top node is the node that contains
-     * {@code owl:topDataProperty}
+     * {@code owl:Thing}. For an object property node, the top node is the node
+     * that contains {@code owl:topObjectProperty}. For a data property node, the
+     * top node is the node that contains {@code owl:topDataProperty}
      * 
-     * @return {@code true} if this node is an {@code OWLClass} node
-     *         and it contains {@code owl:Thing}. </p> {@code true} if
-     *         this node is an {@code OWLObjectProperty} node and it
-     *         contains {@code owl:topObjectProperty}. </p>
-     *         {@code true} if this node is an {@code OWLDataProperty}
-     *         node and it contains {@code owl:topDataProperty}. </p>
-     *         {@code false} if none of the above. */
+     * @return {@code true} if this node is an {@code OWLClass} node and it
+     *         contains {@code owl:Thing}. </p> {@code true} if this node is an
+     *         {@code OWLObjectProperty} node and it contains
+     *         {@code owl:topObjectProperty}. </p> {@code true} if this node is
+     *         an {@code OWLDataProperty} node and it contains
+     *         {@code owl:topDataProperty}. </p> {@code false} if none of the
+     *         above. */
     boolean isTopNode();
 
     /** Determines if this node represents the bottom node (in a hierarchy). For
      * a named class node, the bottom node is the node that contains
-     * {@code owl:Nothing}. For an object property node, the bottom node is
-     * the node that contains {@code owl:bottomObjectProperty}. For a data
-     * property node, the bottom node is the node that contains
+     * {@code owl:Nothing}. For an object property node, the bottom node is the
+     * node that contains {@code owl:bottomObjectProperty}. For a data property
+     * node, the bottom node is the node that contains
      * {@code owl:bottomDataProperty}
      * 
-     * @return {@code true} if this node is an {@code OWLClass} node
-     *         and it contains {@code owl:Nothing}. </p> {@code true}
-     *         if this node is an {@code OWLObjectProperty} node and it
-     *         contains {@code owl:bottomObjectProperty}. </p>
-     *         {@code true} if this node is an {@code OWLDataProperty}
-     *         node and it contains {@code owl:bottomDataProperty}. </p>
-     *         {@code false} if none of the above. */
+     * @return {@code true} if this node is an {@code OWLClass} node and it
+     *         contains {@code owl:Nothing}. </p> {@code true} if this node is
+     *         an {@code OWLObjectProperty} node and it contains
+     *         {@code owl:bottomObjectProperty}. </p> {@code true} if this node
+     *         is an {@code OWLDataProperty} node and it contains
+     *         {@code owl:bottomDataProperty}. </p> {@code false} if none of the
+     *         above. */
     boolean isBottomNode();
 
     /** Gets the entities contained in this node. The entities are equivalent to
@@ -131,28 +127,26 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @param entity
      *            The entity to check for
      * @return {@code true} if this node contains {@code entity}, or
-     *         {@code false} if this node does not contain
-     *         {@code entity} */
+     *         {@code false} if this node does not contain {@code entity} */
     boolean contains(E entity);
 
     /** Gets the entities contained in this node minus the specified entitie
-     * {@code e}. This essentially returns the entities that are returned
-     * by {@link #getEntities()} minus the specified entity {@code e}
+     * {@code e}. This essentially returns the entities that are returned by
+     * {@link #getEntities()} minus the specified entity {@code e}
      * 
      * @param e
      *            The entity that, is contained within this node, but should not
      *            be included in the return set.
      * @return The set of entities that are contained in this node minus the
-     *         specified entity, {@code e}. If {@code e} is not
-     *         contained within this node then the full set of entities returned
-     *         is the same as that returned by {@link #getEntities()} */
+     *         specified entity, {@code e}. If {@code e} is not contained within
+     *         this node then the full set of entities returned is the same as
+     *         that returned by {@link #getEntities()} */
     Set<E> getEntitiesMinus(E e);
 
     /** Gets the entities contained in this node minus the top entity. For a node
-     * of named classes the top entity is {@code owl:Thing}. For a node of
-     * object properties the top entity is {@code owl:topObjectProperty}.
-     * For a node of data properties the top entity is
-     * {@code owl:topDataProperty}
+     * of named classes the top entity is {@code owl:Thing}. For a node of object
+     * properties the top entity is {@code owl:topObjectProperty}. For a node of
+     * data properties the top entity is {@code owl:topDataProperty}
      * 
      * @return The set of entities contained within this node minus the top
      *         entity. If this node does not contain the top entity then the set
@@ -161,10 +155,10 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
     Set<E> getEntitiesMinusTop();
 
     /** Gets the entities contained in this node minus the bottom entity. For a
-     * node of named classes the bottom entity is {@code owl:Nothing}. For
-     * a node of object properties the bottom entity is
-     * {@code owl:bottomObjectProperty}. For a node of data properties the
-     * bottom entity is {@code owl:bottomDataProperty}
+     * node of named classes the bottom entity is {@code owl:Nothing}. For a node
+     * of object properties the bottom entity is
+     * {@code owl:bottomObjectProperty}. For a node of data properties the bottom
+     * entity is {@code owl:bottomDataProperty}
      * 
      * @return The set of entities contained within this node minus the bottom
      *         entity. If this node does not contain the bottom entity then the
@@ -174,8 +168,8 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
 
     /** Determines if this {@code Node} contains just one entity.
      * 
-     * @return {@code true} if this {@code Node} contains just one
-     *         entity, otherwise {@code false} */
+     * @return {@code true} if this {@code Node} contains just one entity,
+     *         otherwise {@code false} */
     boolean isSingleton();
 
     /** Gets one of the entities contained in this entity set. If this is a

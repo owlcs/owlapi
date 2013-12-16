@@ -38,38 +38,41 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 13-Jan-2009 </p> Represents an <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Annotation_Properties"
- * >AnnotationProperty</a> in the OWL 2 specification. */
+import java.util.Set;
+
+/** Represents an <a href=
+ * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
+ * >AnnotationProperty</a> in the OWL 2 specification.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 13-Jan-2009 */
 public interface OWLAnnotationProperty extends OWLEntity {
     /** Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:comment}.
      * 
      * @return {@code true} if the IRI of this annotation property is
-     *         {@code rdfs:comment}, where {@code rdfs:} expands to
-     *         the usual prefix, otherwise {@code false}. */
+     *         {@code rdfs:comment}, where {@code rdfs:} expands to the usual
+     *         prefix, otherwise {@code false}. */
     boolean isComment();
 
     /** Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:label}.
      * 
      * @return {@code true} if the IRI of this annotation property is
-     *         {@code rdfs:label}, where {@code rdfs:} expands to the
-     *         usual prefix, otherwise {@code false}. */
+     *         {@code rdfs:label}, where {@code rdfs:} expands to the usual
+     *         prefix, otherwise {@code false}. */
     boolean isLabel();
 
     /** Determines if this annotation property has an IRI corresponding to
-     * {@code owl:deprecated}. An annotation along the
-     * {@code owl:deprecated} property which has a value of
-     * {@code "true"^^xsd:boolean} can be used to deprecate IRIs. (See <a
+     * {@code owl:deprecated}. An annotation along the {@code owl:deprecated}
+     * property which has a value of {@code "true"^^xsd:boolean} can be used to
+     * deprecate IRIs. (See <a
      * href="Section 5.5">http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#
      * Annotation_Properties</a> of the OWL 2 specification.
      * 
      * @return {@code true} if the IRI of this annotation property is
-     *         {@code owl:deprecated}, where {@code owl:} expands to
-     *         the usual prefix, otherwise {@code false}. */
+     *         {@code owl:deprecated}, where {@code owl:} expands to the usual
+     *         prefix, otherwise {@code false}. */
     boolean isDeprecated();
 }

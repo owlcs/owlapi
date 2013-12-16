@@ -53,13 +53,12 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16/12/2010 <br>
- * An {@code OWLOntologyDocumentTarget} that supports writing out to a
+/** An {@code OWLOntologyDocumentTarget} that supports writing out to a
  * {@code File}.
  * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 16/12/2010
  * @since 3.2 */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
     private final File file;

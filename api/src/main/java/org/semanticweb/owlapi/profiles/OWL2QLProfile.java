@@ -80,10 +80,9 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Jul-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 18-Jul-2009 */
 @SuppressWarnings("javadoc")
 public class OWL2QLProfile implements OWLProfile {
     final Set<IRI> allowedDatatypes = new HashSet<IRI>();

@@ -40,12 +40,11 @@ package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br>
- * Describes a parse exception which was caused by an {@code IOException} */
+/** Describes a parse exception which was caused by an {@code IOException}.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007 */
 public class OWLParserIOException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

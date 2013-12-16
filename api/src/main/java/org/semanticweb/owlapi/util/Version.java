@@ -38,12 +38,14 @@
  */
 package org.semanticweb.owlapi.util;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 09-Dec-2009 </p> A simple utility class that describes the version of a
- * piece of software e.g. reasoner version. </p> A version number is assumed to
- * be the following format: <b>major.minor.patch.build</b>. </p> */
+/** A simple utility class that describes the version of a piece of software e.g.
+ * reasoner version. <br>
+ * A version number is assumed to be the following format:
+ * <b>major.minor.patch.build</b>.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 09-Dec-2009 */
 public class Version {
     private final int major;
     private final int minor;

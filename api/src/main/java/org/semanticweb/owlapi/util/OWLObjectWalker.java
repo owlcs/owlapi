@@ -144,12 +144,9 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Jul-2008<br>
- * <br>
- * 
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 29-Jul-2008
  * @param <O>
  *            the returned type */
 public class OWLObjectWalker<O extends OWLObject> {
@@ -187,7 +184,6 @@ public class OWLObjectWalker<O extends OWLObject> {
         this.visitor = visitor;
         this.visitorEx = null;
     }
-
 
     /** @param visitDuplicates
      *            true if duplicates should be visited
@@ -227,8 +223,8 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** Gets the last axiom to be visited.
      * 
-     * @return The last axiom to be visited, or {@code null} if an axiom
-     *         has not be visited */
+     * @return The last axiom to be visited, or {@code null} if an axiom has not
+     *         be visited */
     public OWLAxiom getAxiom() {
         return ax;
     }
@@ -260,8 +256,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @param classExpression
      *            The class expression
-     * @return {@code true} if the specified class expression is the first
-     *         class expression in the current class expression path, otherwise
+     * @return {@code true} if the specified class expression is the first class
+     *         expression in the current class expression path, otherwise
      *         {@code false} ({@code false} if the path is empty) */
     public boolean isFirstClassExpressionInPath(
             @Nonnull OWLClassExpression classExpression) {

@@ -43,15 +43,9 @@ import java.net.URI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Medical Informatics Group<br>
+ *         Date: Jan 15, 2007 */
 @SuppressWarnings("javadoc")
 public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
 //@formatter:off
@@ -172,9 +166,8 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
      * 
      * @param iri
      *            The IRI
-     * @return The builtin vocabulary having the specified IRI, or
-     *         {@code null} if there is no builtin vocabulary with the
-     *         specified IRI */
+     * @return The builtin vocabulary having the specified IRI, or {@code null}
+     *         if there is no builtin vocabulary with the specified IRI */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
         for (SWRLBuiltInsVocabulary v : values()) {
             if (v.iri.equals(iri)) {
@@ -188,9 +181,8 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
      * 
      * @param uri
      *            The URI
-     * @return The builtin vocabulary having the specified URI, or
-     *         {@code null} if there is no builtin vocabulary with the
-     *         specified URI */
+     * @return The builtin vocabulary having the specified URI, or {@code null}
+     *         if there is no builtin vocabulary with the specified URI */
     public static SWRLBuiltInsVocabulary getBuiltIn(URI uri) {
         for (SWRLBuiltInsVocabulary v : values()) {
             if (v.getURI().equals(uri)) {

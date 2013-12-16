@@ -38,13 +38,11 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Mar-2009
- * <p>
- * A simple configuration with the general options.
- * </p> */
+/** A simple configuration with the general options.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 18-Mar-2009 */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
     private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
     private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;

@@ -124,15 +124,13 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Jul-2008<br>
- * <br>
- * <p/>
- * A delegating visitor. This utility class can be used to override visiting a
+/** A delegating visitor. This utility class can be used to override visiting a
  * particular type of object.
  * 
+ * @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 29-Jul-2008
  * @param <O>
  *            the returned type */
 public class DelegatingObjectVisitorEx<O> implements OWLObjectVisitorEx<O> {

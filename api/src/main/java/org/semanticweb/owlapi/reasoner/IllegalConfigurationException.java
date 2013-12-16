@@ -38,10 +38,10 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 21-Jan-2009 */
+/** @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 21-Jan-2009 */
 @SuppressWarnings("javadoc")
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;

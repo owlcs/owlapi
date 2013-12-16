@@ -42,12 +42,14 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 Represents <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Class_Expressions">Class
+/** Represents <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">Class
  * Expressions</a> in the OWL 2 specification. This interface covers named and
- * anonymous classes. */
+ * anonymous classes.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate {
     /** Gets the class expression type for this class expression
      * 
@@ -59,8 +61,7 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * expression.
      * 
      * @return {@code true} if this is an anonymous class expression, or
-     *         {@code false} if this is a named class (
-     *         {@code OWLClass}) */
+     *         {@code false} if this is a named class ( {@code OWLClass}) */
     boolean isAnonymous();
 
     /** Determines if this class is a literal. A literal being either a named
@@ -71,9 +72,9 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     boolean isClassExpressionLiteral();
 
     /** If this class expression is in fact a named class then this method may be
-     * used to obtain the expression as an {@code OWLClass} without the
-     * need for casting. The general pattern of use is to use the
-     * {@code isAnonymous} to first check
+     * used to obtain the expression as an {@code OWLClass} without the need for
+     * casting. The general pattern of use is to use the {@code isAnonymous} to
+     * first check
      * 
      * @return This class expression as an {@code OWLClass}.
      * @throws OWLRuntimeException
@@ -84,15 +85,15 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
     /** Determines if this expression is the built in class owl:Thing. This
      * method does not determine if the class is equivalent to owl:Thing.
      * 
-     * @return {@code true} if this expression is owl:Thing, or
-     *         {@code false} if this expression is not owl:Thing */
+     * @return {@code true} if this expression is owl:Thing, or {@code false} if
+     *         this expression is not owl:Thing */
     boolean isOWLThing();
 
     /** Determines if this expression is the built in class owl:Nothing. This
      * method does not determine if the class is equivalent to owl:Nothing.
      * 
-     * @return {@code true} if this expression is owl:Nothing, or
-     *         {@code false} if this expression is not owl:Nothing. */
+     * @return {@code true} if this expression is owl:Nothing, or {@code false}
+     *         if this expression is not owl:Nothing. */
     boolean isOWLNothing();
 
     /** Gets this expression in negation normal form.
@@ -131,11 +132,10 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * 
      * @param ce
      *            The conjunct to test for
-     * @return {@code true} if this class expression is equal to
-     *         {@code ce} or if this class expression is an
-     *         {@code ObjectIntersectionOf} (possibly nested withing
-     *         another {@code ObjectIntersectionOf}) that contains
-     *         {@code ce}, otherwise {@code false}. */
+     * @return {@code true} if this class expression is equal to {@code ce} or
+     *         if this class expression is an {@code ObjectIntersectionOf}
+     *         (possibly nested withing another {@code ObjectIntersectionOf})
+     *         that contains {@code ce}, otherwise {@code false}. */
     boolean containsConjunct(@Nonnull OWLClassExpression ce);
 
     /** Interprets this expression as a disjunction and returns the disjuncts.

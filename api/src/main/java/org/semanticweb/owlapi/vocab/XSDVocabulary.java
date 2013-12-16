@@ -40,10 +40,10 @@ package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 25-Oct-2006 A vocabulary for XML Schema
- * Data Types (XSD) */
+/** A vocabulary for XML Schema Data Types (XSD).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
 public enum XSDVocabulary {
     // @formatter:off

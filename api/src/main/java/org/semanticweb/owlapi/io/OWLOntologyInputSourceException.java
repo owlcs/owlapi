@@ -40,11 +40,9 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 17-Nov-2007 */
 public class OWLOntologyInputSourceException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
 

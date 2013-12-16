@@ -125,22 +125,22 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Jul-2008<br>
- * <br>
- * Provides a default implementation of {@code OWLObjectVisitorEx}. Only
- * the methods that need specific client implementation need be overridden. The
- * adapter can be set up to return a default value. */
+/** Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
+ * methods that need specific client implementation need be overridden. The
+ * adapter can be set up to return a default value.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 29-Jul-2008 */
 @SuppressWarnings("javadoc")
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     private O defaultReturnValue = null;
 
     /** Gets the default return value for this visitor. By default, the default
      * is {@code null}, but a fixed value (independent of the specified
-     * {@code OWLObject} {@code object}) can be specified in the
-     * constructor {@link OWLObjectVisitorExAdapter}
+     * {@code OWLObject} {@code object}) can be specified in the constructor
+     * {@link OWLObjectVisitorExAdapter}
      * 
      * @param object
      *            The object that was visited.

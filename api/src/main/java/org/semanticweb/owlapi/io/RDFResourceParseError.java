@@ -44,19 +44,17 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21/12/2010
+/** Describes why an RDF resource could not be parsed into an {@code OWLObject}.
+ * For example, why an RDF resource could not be parsed into an
+ * {@code OWLClassExpression}. <br>
+ * When these errors occur, the RDF parser generates an {@code OWLEntity} that
+ * represents the error and inserts this where appropriate into the
+ * corresponding complete OWLObject (OWLAxiom) that could not be parsed.
  * 
- * @since 3.2 <br>
- *        Describes why an RDF resource could not be parsed into an
- *        {@code OWLObject}. For example, why an RDF resource could not be
- *        parsed into an {@code OWLClassExpression}. <br>
- *        When these errors occur, the RDF parser generates an
- *        {@code OWLEntity} that represents the error and inserts this
- *        where appropriate into the corresponding complete OWLObject (OWLAxiom)
- *        that could not be parsed. */
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 21/12/2010
+ * @since 3.2 */
 public class RDFResourceParseError {
     private final OWLEntity parserGeneratedErrorEntity;
     private final RDFNode mainNode;

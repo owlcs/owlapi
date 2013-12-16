@@ -52,13 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Dec-2006<br>
- * <br>
- * <p/>
- * A utility class that can be used to determine is a class is a syntactic
+/** A utility class that can be used to determine is a class is a syntactic
  * direct subclass of owl:Thing. A class is considered NOT to be a syntactic
  * direct subclass of owl:Thing if ANY of the following conditions apply:
  * <p/>
@@ -75,7 +69,11 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * hierarchies in editors and browsers. In these situations it is needed because
  * not all "orphan" classes are asserted to be subclasses of owl:Thing. For
  * example, if the only referencing axiom of class A was ObjectDomain(propP A)
- * then A is a syntactic subclass of owl:Thing */
+ * then A is a syntactic subclass of owl:Thing
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 16-Dec-2006 */
 public class SimpleRootClassChecker implements RootClassChecker {
     private final Set<OWLOntology> ontologies;
 

@@ -44,13 +44,11 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents the facets that can be used for restricting a datatype.
+/** Represents the facets that can be used for restricting a datatype.
  * 
- * @see org.semanticweb.owlapi.model.OWLFacetRestriction
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 * @see
+ *         org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
 @SuppressWarnings("javadoc")
 public enum OWLFacet {

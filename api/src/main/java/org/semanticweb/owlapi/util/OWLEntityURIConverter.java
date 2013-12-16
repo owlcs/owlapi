@@ -63,17 +63,15 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br>
- * <br>
- * <p/>
- * Performs a bulk conversion/translation of entity URIs. This utility class can
+/** Performs a bulk conversion/translation of entity URIs. This utility class can
  * be used to replace entity names with IDs for example. The entity converter is
  * supplied with a set of ontologies and a conversion strategy. All of the
  * entities that are referenced in the specified ontologies will have their URIs
- * converted according the specified conversion strategy. */
+ * converted according the specified conversion strategy.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Nov-2007 */
 public class OWLEntityURIConverter {
     private final OWLOntologyManager manager;
     // The ontologies that reference the
@@ -96,7 +94,8 @@ public class OWLEntityURIConverter {
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLEntityURIConverterStrategy strategy) {
         this.manager = checkNotNull(manager, "manager cannot be null");
-        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies, "ontologies cannot be null"));
+        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies,
+                "ontologies cannot be null"));
         this.strategy = checkNotNull(strategy, "strategy cannot be null");
     }
 

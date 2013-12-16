@@ -53,12 +53,11 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br>
- * <br>
- * A convenience class which will prepare an input source from a file. */
+/** A convenience class which will prepare an input source from a file.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 17-Nov-2007 */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
     private final File file;
 

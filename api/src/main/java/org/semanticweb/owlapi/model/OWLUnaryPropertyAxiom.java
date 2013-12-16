@@ -40,10 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 25-Oct-2006
- * 
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 25-Oct-2006
  * @param <P>
  *            property expression */
 public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends

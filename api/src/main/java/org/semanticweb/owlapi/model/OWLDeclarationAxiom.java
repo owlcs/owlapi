@@ -40,16 +40,14 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents a <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entity_Declarations_and_Typing"
- * >Declaration</a> in the OWL 2 Specification.
- * <p/>
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing"
+ * >Declaration</a> in the OWL 2 Specification. <br>
  * A declaration axiom declares an entity in an ontology. It doesn't affect the
- * logical meaning of the ontology. */
+ * logical meaning of the ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDeclarationAxiom extends OWLAxiom {
     /** @return The entity that is declared by this axiom. */
     @Nonnull

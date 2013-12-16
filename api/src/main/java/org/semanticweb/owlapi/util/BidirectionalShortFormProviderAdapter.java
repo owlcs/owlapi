@@ -55,13 +55,12 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * <br>
- * A bidirectional short form provider which uses a specified short form
- * provider to generate the bidirectional entity--shortform mappings. */
+/** A bidirectional short form provider which uses a specified short form
+ * provider to generate the bidirectional entity--shortform mappings.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Apr-2007 */
 public class BidirectionalShortFormProviderAdapter extends
         CachingBidirectionalShortFormProvider {
     private final ShortFormProvider shortFormProvider;
@@ -79,7 +78,8 @@ public class BidirectionalShortFormProviderAdapter extends
      *            the short form provider to use */
     public BidirectionalShortFormProviderAdapter(
             @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+                "shortFormProvider cannot be null");
     }
 
     /** Creates a BidirectionalShortFormProvider that maps between the entities
@@ -94,15 +94,17 @@ public class BidirectionalShortFormProviderAdapter extends
      *            short forms of the referenced entities. */
     public BidirectionalShortFormProviderAdapter(@Nonnull Set<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
-        this.ontologies = new HashSet<OWLOntology>(checkNotNull(ontologies, "ontologies cannot be null"));
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+                "shortFormProvider cannot be null");
+        this.ontologies = new HashSet<OWLOntology>(checkNotNull(ontologies,
+                "ontologies cannot be null"));
         rebuild(new ReferencedEntitySetProvider(ontologies));
     }
 
     /** Creates a BidirectionalShortFormProvider that maps between the entities
      * that are referenced in the specified ontologies and the shortforms of
-     * these entities. Note that the {@code dispose} method must be called
-     * when the provider has been finished with so that the provider may remove
+     * these entities. Note that the {@code dispose} method must be called when
+     * the provider has been finished with so that the provider may remove
      * itself as a listener from the manager.
      * 
      * @param ontologies

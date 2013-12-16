@@ -40,13 +40,11 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Asymmetric_Object_Properties"
- * >AsymmetricObjectProperty</a> axioms in the OWL 2 specification. */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
+ *         Represents <a
+ *         href="http://www.w3.org/TR/owl2-syntax/#Asymmetric_Object_Properties"
+ *         >AsymmetricObjectProperty</a> axioms in the OWL 2 specification. */
 public interface OWLAsymmetricObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom {
     @Override

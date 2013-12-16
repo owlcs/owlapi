@@ -69,15 +69,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Apr-2007<br>
- * <br>
- * <p/>
- * A mapper which given a root folder attempts to automatically discover and map
+/** A mapper which given a root folder attempts to automatically discover and map
  * files to ontologies. The mapper is only capable of mapping ontologies in
- * RDF/XML and OWL/XML (other serialisations are not supported). */
+ * RDF/XML and OWL/XML (other serialisations are not supported).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Apr-2007 */
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper,
         Serializable {
     private static final long serialVersionUID = 40000L;
@@ -99,8 +97,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
      * @param rootDirectory
      *            The root directory which should be searched for ontologies.
      * @param recursive
-     *            Sub directories will be searched recursively if
-     *            {@code true}. */
+     *            Sub directories will be searched recursively if {@code true}. */
     public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
         directory = checkNotNull(rootDirectory, "rootDirectory cannot be null");
         directoryPath = directory.getAbsolutePath();
@@ -325,8 +322,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
          * @param attributes
          *            The attributes which will be examined for the ontology
          *            URI.
-         * @return The ontology URI or {@code null} if no ontology URI
-         *         could be found. */
+         * @return The ontology URI or {@code null} if no ontology URI could be
+         *         found. */
         IRI handle(Attributes attributes);
     }
 

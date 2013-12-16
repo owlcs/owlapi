@@ -40,10 +40,10 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 A high level interface to
- * describe different types of data properties. */
+/** A high level interface to describe different types of data properties.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDataPropertyExpression extends OWLPropertyExpression, SWRLPredicate {
     /** If the property is a named data property then this method will obtain the
      * property as such. The general pattern of use is that the

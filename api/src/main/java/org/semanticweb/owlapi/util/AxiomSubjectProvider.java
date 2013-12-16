@@ -88,13 +88,11 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br>
- * <br>
- * <p/>
- * Provides the object that is the subject of an axiom. */
+/** Provides the object that is the subject of an axiom.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 10-Feb-2008 */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
     private OWLObject subject;
 

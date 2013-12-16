@@ -44,14 +44,12 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Represent the common non-ontology data required by instances of
+/** Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
- * </p> */
+ * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012 */
 public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
     private static final long serialVersionUID = 40000L;
     private final OWLAxiom axiom;

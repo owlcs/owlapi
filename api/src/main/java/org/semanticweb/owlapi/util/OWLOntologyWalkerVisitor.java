@@ -46,11 +46,9 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 30-Jul-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 30-Jul-2008 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
     private final OWLOntologyWalker walker;

@@ -45,18 +45,13 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Represents the specific non-ontology data required by an
- * {@link AddOntologyAnnotation} change.
- * </p>
- * <p>
- * Instances of this class are immutable.
- * </p>
+/** Represents the specific non-ontology data required by an
+ * {@link AddOntologyAnnotation} change. <br>
+ * Instances of this class are immutable. <br>
  * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
  * @since 3.5 */
 public abstract class OntologyAnnotationChangeData extends
         OWLOntologyChangeData<OWLAnnotation> {

@@ -47,13 +47,11 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * An interface for creating entities, class expressions and axioms. All methods
- * throw IllegalArgumentException if null values are passed where they are not
- * allowed in the documentation. */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 <br>
+ *         An interface for creating entities, class expressions and axioms. All
+ *         methods throw IllegalArgumentException if null values are passed
+ *         where they are not allowed in the documentation. */
 public interface OWLDataFactory extends SWRLDataFactory {
     // Entities and data stuff
     /** Gets the built in owl:Thing class, which has a URI of
@@ -339,16 +337,14 @@ public interface OWLDataFactory extends SWRLDataFactory {
     /** Gets an annotation property that has an IRI corresponding to
      * {@code rdfs:isDefinedBy}.
      * 
-     * @return An annotation property with an IRI of
-     *         {@code rdfs:isDefinedBy}. */
+     * @return An annotation property with an IRI of {@code rdfs:isDefinedBy}. */
     @Nonnull
     OWLAnnotationProperty getRDFSIsDefinedBy();
 
     /** Gets an annotation property that has an IRI corresponding to
      * {@code owl:versionInfo}.
      * 
-     * @return An annotation property with an IRI of
-     *         {@code owl:versionInfo}. */
+     * @return An annotation property with an IRI of {@code owl:versionInfo}. */
     @Nonnull
     OWLAnnotationProperty getOWLVersionInfo();
 
@@ -451,33 +447,33 @@ public interface OWLDataFactory extends SWRLDataFactory {
     OWLDatatype getBooleanOWLDatatype();
 
     // Literals
-    /** Gets an {@code OWLLiteral}, which has the specified lexical value,
-     * and is typed with the specified datatype.
+    /** Gets an {@code OWLLiteral}, which has the specified lexical value, and is
+     * typed with the specified datatype.
      * 
      * @param lexicalValue
      *            The lexical value. Cannot be null.
      * @param datatype
      *            The datatype. Cannot be null.
      * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and
-     *         the lexical value contains a language tag then the language tag
-     *         will be parsed out of the lexical value. For example,
+     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
+     *         lexical value contains a language tag then the language tag will
+     *         be parsed out of the lexical value. For example,
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
      *         of "abc" and a language tag of "en". */
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String lexicalValue, @Nonnull OWLDatatype datatype);
 
-    /** Gets an {@code OWLLiteral}, which has the specified lexical value,
-     * and is typed with the specified datatype.
+    /** Gets an {@code OWLLiteral}, which has the specified lexical value, and is
+     * typed with the specified datatype.
      * 
      * @param lexicalValue
      *            The lexical value. Cannot be null.
      * @param datatype
      *            The datatype. Cannot be null.
      * @return An OWLLiteral with the specified lexical value and specified
-     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and
-     *         the lexical value contains a language tag then the language tag
-     *         will be parsed out of the lexical value. For example,
+     *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
+     *         lexical value contains a language tag then the language tag will
+     *         be parsed out of the lexical value. For example,
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
      *         of "abc" and a language tag of "en". */
     @Nonnull
@@ -488,8 +484,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical
-     *         value of the integer, and whose data type is xsd:integer. */
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
+     *         the integer, and whose data type is xsd:integer. */
     @Nonnull
     OWLLiteral getOWLLiteral(int value);
 
@@ -497,8 +493,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical
-     *         value of the double, and whose data type is xsd:double. */
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
+     *         the double, and whose data type is xsd:double. */
     @Nonnull
     OWLLiteral getOWLLiteral(double value);
 
@@ -506,8 +502,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical
-     *         value of the boolean, and whose data type is xsd:boolean. */
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
+     *         the boolean, and whose data type is xsd:boolean. */
     @Nonnull
     OWLLiteral getOWLLiteral(boolean value);
 
@@ -515,8 +511,8 @@ public interface OWLDataFactory extends SWRLDataFactory {
      * 
      * @param value
      *            The value of the literal
-     * @return An {@code OWLTypedConstant} whose literal is the lexical
-     *         value of the float, and whose data type is xsd:float. */
+     * @return An {@code OWLTypedConstant} whose literal is the lexical value of
+     *         the float, and whose data type is xsd:float. */
     @Nonnull
     OWLLiteral getOWLLiteral(float value);
 
@@ -540,10 +536,10 @@ public interface OWLDataFactory extends SWRLDataFactory {
      *            The language tag. The empty string may be specified to
      *            indicate an empty language tag. Leading and trailing white
      *            space will be removed from the tag and the tag will be
-     *            normalised to LOWER CASE. If {@code lang} is
-     *            {@code null} then {@code lang} will be converted to
-     *            the empty string (for backwards compatibility). If not empty,
-     *            the tag is formed according to <a
+     *            normalised to LOWER CASE. If {@code lang} is {@code null} then
+     *            {@code lang} will be converted to the empty string (for
+     *            backwards compatibility). If not empty, the tag is formed
+     *            according to <a
      *            href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">BCP47</a>
      *            but the OWL API will not check that the tag conforms to this
      *            specification - it is up to the caller to ensure this.

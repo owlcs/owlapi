@@ -45,21 +45,15 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Represents an abstraction of the essential non-ontology data required by a
+/** Represents an abstraction of the essential non-ontology data required by a
  * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
- * this class for each concrete class of {@link OWLOntologyChange}.
- * </p>
- * <p>
- * Instances of this class are immutable
- * </p>
+ * this class for each concrete class of {@link OWLOntologyChange}. <br>
+ * Instances of this class are immutable <br>
  * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
  * @param <T>
- *            changed object type
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5 */
 public abstract class OWLOntologyChangeData<T> implements Serializable {

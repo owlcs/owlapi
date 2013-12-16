@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 24-Sep-2009 Thrown when the current reasoner operation has been
- * interrupted due to a satisfiability check timeout. */
+/** Thrown when the current reasoner operation has been interrupted due to a
+ * satisfiability check timeout.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 24-Sep-2009 */
 @SuppressWarnings("javadoc")
 public class TimeOutException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;

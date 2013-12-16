@@ -42,10 +42,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 04-Jul-2010 */
 public interface OWLOntologyChangesVetoedListener {
     /** Called when a list of ontology changes has been vetoed for some reason.
      * 

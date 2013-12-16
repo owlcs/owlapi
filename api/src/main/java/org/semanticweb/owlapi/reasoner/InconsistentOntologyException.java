@@ -38,14 +38,16 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 21-Jan-2009 This type of exception is thrown by an
+/** This type of exception is thrown by an
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that the
  * imports closure of the root ontology (returned by
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is
- * inconsistent. */
+ * inconsistent.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 21-Jan-2009 **/
 @SuppressWarnings("javadoc")
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;

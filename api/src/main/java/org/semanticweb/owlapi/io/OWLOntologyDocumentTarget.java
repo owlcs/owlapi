@@ -46,28 +46,25 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Nov-2007<br>
- * <br>
- * Specifies an interface that provides a pointer to an ontology document where
- * an ontology can be stored.
- * <p>
+/** Specifies an interface that provides a pointer to an ontology document where
+ * an ontology can be stored. <br>
  * Any client that writes an ontology to a "stream" will first try to obtain a
  * writer (if {@link #isWriterAvailable()} returns true), followed by an
  * OutputStream (if {@link #isOutputStreamAvailable()} returns true), followed
  * by trying to open a stream from a document IRI (if isDocumentIRIAvailable
- * returns true).
- * <p>
+ * returns true). <br>
  * A client that writes an ontology to a database or some similar storage will
- * simply try to use the {@link IRI} returned by {@link #getDocumentIRI()}. */
+ * simply try to use the {@link IRI} returned by {@link #getDocumentIRI()}.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Nov-2007 */
 public interface OWLOntologyDocumentTarget {
     /** Determines if this document target can be pointed to by a
      * {@link java.io.Writer}.
      * 
-     * @return {@code true} if a {@link java.io.Writer} can be obtained
-     *         from this document target. */
+     * @return {@code true} if a {@link java.io.Writer} can be obtained from
+     *         this document target. */
     boolean isWriterAvailable();
 
     /** Gets a {@link java.io.Writer} that can be used to write an ontology to an
@@ -85,8 +82,8 @@ public interface OWLOntologyDocumentTarget {
     /** Determines if this document target can be pointed to by an
      * {@link java.io.OutputStream}.
      * 
-     * @return {@code true} if an {@link java.io.OutputStream} can be
-     *         obtained from this document target. */
+     * @return {@code true} if an {@link java.io.OutputStream} can be obtained
+     *         from this document target. */
     boolean isOutputStreamAvailable();
 
     /** Gets an {@link java.io.OutputStream} that can be used to write an
@@ -97,8 +94,8 @@ public interface OWLOntologyDocumentTarget {
      *             if there was a problem obtaining the output stream
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
      *             if an output stream is not available (
-     *             {@link #isOutputStreamAvailable()} returns {@code false}
-     *             ) and this method is called. */
+     *             {@link #isOutputStreamAvailable()} returns {@code false} )
+     *             and this method is called. */
     @Nonnull
     OutputStream getOutputStream() throws IOException;
 
@@ -106,8 +103,7 @@ public interface OWLOntologyDocumentTarget {
      * The IRI encodes the exact details of how an ontology should be saved to a
      * document.
      * 
-     * @return {@code true} if an IRI is available, otherwise
-     *         {@code false}. */
+     * @return {@code true} if an IRI is available, otherwise {@code false}. */
     boolean isDocumentIRIAvailable();
 
     /** Gets an IRI that points to an ontology document.

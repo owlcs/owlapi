@@ -67,11 +67,9 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Feb-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 25-Feb-2008 */
 public class OWLObjectPropertyManager {
     static final class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
@@ -143,9 +141,9 @@ public class OWLObjectPropertyManager {
      * 
      * @param expression
      *            The object property expression to be tested
-     * @return {@code true} if the object property is composite (according
-     *         to the above definition) or {@code false} if the object
-     *         property is not composite. */
+     * @return {@code true} if the object property is composite (according to
+     *         the above definition) or {@code false} if the object property is
+     *         not composite. */
     public boolean isComposite(@Nonnull OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
         return getCompositeProperties().contains(expression.getSimplified());

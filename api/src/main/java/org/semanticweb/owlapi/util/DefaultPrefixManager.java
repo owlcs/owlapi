@@ -59,11 +59,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 10-Sep-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 10-Sep-2008 */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
     private static final long serialVersionUID = 40000L;

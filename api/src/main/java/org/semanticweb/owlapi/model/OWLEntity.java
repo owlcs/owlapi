@@ -40,11 +40,11 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 </p> Represents <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
- * >Entities</a> in the OWL 2 Specification. </p> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
+ *         Represents <a href=
+ *         "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+ *         >Entities</a> in the OWL 2 Specification. */
 public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** Gets the entity type for this entity
      * 
@@ -56,8 +56,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * 
      * @param entityType
      *            The entity type
-     * @return {@code true} if this entity is of the specified type,
-     *         otherwise {@code false}. */
+     * @return {@code true} if this entity is of the specified type, otherwise
+     *         {@code false}. */
     boolean isType(@Nonnull EntityType<?> entityType);
 
     /** Determines if this entity is a built in entity. The entity is a built in
@@ -108,8 +108,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** A convenience method that determines if this entity is an
      * OWLObjectProperty
      * 
-     * @return {@code true} if this entity is an OWLObjectProperty,
-     *         otherwise {@code false} */
+     * @return {@code true} if this entity is an OWLObjectProperty, otherwise
+     *         {@code false} */
     boolean isOWLObjectProperty();
 
     /** A convenience method that obtains this entity as an OWLObjectProperty (in
@@ -141,8 +141,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** A convenience method that determines if this entity is an
      * OWLNamedIndividual
      * 
-     * @return {@code true} if this entity is an OWLNamedIndividual,
-     *         otherwise {@code false} */
+     * @return {@code true} if this entity is an OWLNamedIndividual, otherwise
+     *         {@code false} */
     boolean isOWLNamedIndividual();
 
     /** A convenience method that obtains this entity as an OWLNamedIndividual

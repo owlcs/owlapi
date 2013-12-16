@@ -56,19 +56,17 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Jun-2007<br>
- * <br>
- * <p/>
- * A short form provider that generates short forms from the values of object
+/** A short form provider that generates short forms from the values of object
  * property assertions or data property assertions if the entity is an
  * individual. If the entity whose short form is not being generated is not an
  * individual (i.e. it is a class, property etc.) then an alternate short form
  * provider is used. (As a side note, the use case for this particular short
  * form provider came from the SKOS community, which have individuals that have
- * preferredLabel property assertions). */
+ * preferredLabel property assertions).
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 17-Jun-2007 */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
     private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
@@ -76,8 +74,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     private final ShortFormProvider alternateShortFormProvider;
 
     /** Constructs a property value short form provider. Using
-     * {@code SimpleShortFormProvider} as the alternate short form provider
-     * (see other constructor for details).
+     * {@code SimpleShortFormProvider} as the alternate short form provider (see
+     * other constructor for details).
      * 
      * @param properties
      *            set of properties
@@ -96,11 +94,11 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     /** Constructs a property value short form provider.
      * 
      * @param properties
-     *            A {@code List} of preferred properties. The list is
-     *            searched from start to end, so that property assertions whose
-     *            property is at the start of the list have a higher priority
-     *            and are selected over properties that appear towards or at the
-     *            end of the list.
+     *            A {@code List} of preferred properties. The list is searched
+     *            from start to end, so that property assertions whose property
+     *            is at the start of the list have a higher priority and are
+     *            selected over properties that appear towards or at the end of
+     *            the list.
      * @param preferredLanguageMap
      *            A map which maps data properties to preferred languages. For
      *            any given data property there may be a list of preferred
@@ -125,9 +123,12 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
             @Nonnull OWLOntologySetProvider ontologySetProvider,
             @Nonnull ShortFormProvider alternateShortFormProvider) {
         this.properties = checkNotNull(properties, "properties cannot be null");
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
-        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
-        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider, "alternateShortFormProvider cannot be null");
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap,
+                "preferredLanguageMap cannot be null");
+        this.ontologySetProvider = checkNotNull(ontologySetProvider,
+                "ontologySetProvider cannot be null");
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
+                "alternateShortFormProvider cannot be null");
     }
 
     @Override

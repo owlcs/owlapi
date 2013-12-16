@@ -42,13 +42,12 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents an <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Individual_Equality"
- * >SameIndividual</a> axiom in the OWL 2 Specification. */
+/** Represents an <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
+ * SameIndividual</a> axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     @Override
     @Nonnull
@@ -57,8 +56,7 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     /** Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in same individuals axioms.
      * 
-     * @return {@code true} if this axioms contains anonymous individual
-     *         axioms */
+     * @return {@code true} if this axioms contains anonymous individual axioms */
     boolean containsAnonymousIndividuals();
 
     @Override

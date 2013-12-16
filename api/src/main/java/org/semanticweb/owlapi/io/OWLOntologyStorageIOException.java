@@ -42,11 +42,11 @@ import java.io.IOException;
 
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 17-Dec-2009 </p> An {@code OWLOntologyStorageException} that was
- * caused by an IOException. */
+/** An {@code OWLOntologyStorageException} that was caused by an IOException.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 17-Dec-2009 */
 public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
     private static final long serialVersionUID = 40000L;
     private final IOException ioException;

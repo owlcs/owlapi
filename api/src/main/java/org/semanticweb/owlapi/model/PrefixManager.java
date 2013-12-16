@@ -45,13 +45,12 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 10-Sep-2008<br>
- * <br>
- * <p/>
- * A prefix manager than can provide prefixes for prefix names. */
+/** A prefix manager than can provide prefixes for prefix names.
+ * 
+ * @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 10-Sep-2008 */
 public interface PrefixManager extends Serializable {
     /** Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"
@@ -66,22 +65,21 @@ public interface PrefixManager extends Serializable {
      * 
      * @param prefixName
      *            The prefix name to be tested for.
-     * @return {@code true} if the manager knows about this prefix and
-     *         there is a non-null mapping for this prefix. */
+     * @return {@code true} if the manager knows about this prefix and there is
+     *         a non-null mapping for this prefix. */
     boolean containsPrefixMapping(@Nonnull String prefixName);
 
     /** Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
-     * return the same result as a call to the {@code getDefaultPrefix()}
-     * method.
+     * return the same result as a call to the {@code getDefaultPrefix()} method.
      * 
      * @param prefixName
      *            The prefix name. A string that represents a prefix name of the
      *            prefix to be retrieved. Note that specifying ":" is the same
      *            as asking for the default prefix (see the getDefaultPrefix()
      *            method).
-     * @return The prefix, or {@code null} if there is no prefix name bound
-     *         to this prefix, or the prefix name doesn't exist. */
+     * @return The prefix, or {@code null} if there is no prefix name bound to
+     *         this prefix, or the prefix name doesn't exist. */
     @Nonnull
     String getPrefix(@Nonnull String prefixName);
 
@@ -126,8 +124,8 @@ public interface PrefixManager extends Serializable {
      * 
      * @param defaultPrefix
      *            The namespace to be used as the default namespace. Note that
-     *            the value may be {@code null} in order to clear the
-     *            default namespace. */
+     *            the value may be {@code null} in order to clear the default
+     *            namespace. */
     void setDefaultPrefix(@Nonnull String defaultPrefix);
 
     /** Adds a prefix name to prefix mapping

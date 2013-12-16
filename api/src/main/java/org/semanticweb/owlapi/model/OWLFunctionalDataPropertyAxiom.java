@@ -40,13 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents a <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Functional_Data_Properties"
- * >FunctionalDataProperty</a> axiom in the OWL 2 Specification. */
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Functional_Data_Properties"
+ * >FunctionalDataProperty</a> axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLFunctionalDataPropertyAxiom extends
         OWLDataPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
     @Override

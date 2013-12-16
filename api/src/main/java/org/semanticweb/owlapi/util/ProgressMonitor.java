@@ -38,13 +38,11 @@
  */
 package org.semanticweb.owlapi.util;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jan-2007<br>
- * <br>
- * <p/>
- * A general interface for things whose progress can be monitored. */
+/** A general interface for things whose progress can be monitored.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 04-Jan-2007 */
 public interface ProgressMonitor {
     /** start of the process */
     void setStarted();

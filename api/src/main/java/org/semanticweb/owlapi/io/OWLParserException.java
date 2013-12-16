@@ -40,21 +40,20 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br>
- * Indicates that a parse error happened when trying to parse an ontology. */
+/** Indicates that a parse error happened when trying to parse an ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 13-Apr-2007 */
 public class OWLParserException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
     private final int lineNumber;
     private final int columnNumber;
 
     @SuppressWarnings("javadoc")
-	public OWLParserException() {
+    public OWLParserException() {
         lineNumber = -1;
-        columnNumber=-1;
+        columnNumber = -1;
     }
 
     /** @param message
@@ -62,7 +61,7 @@ public class OWLParserException extends OWLRuntimeException {
     public OWLParserException(String message) {
         super(message);
         lineNumber = -1;
-        columnNumber=-1;
+        columnNumber = -1;
     }
 
     /** @param message
@@ -72,7 +71,7 @@ public class OWLParserException extends OWLRuntimeException {
     public OWLParserException(String message, Throwable cause) {
         super(message, cause);
         lineNumber = -1;
-        columnNumber=-1;
+        columnNumber = -1;
     }
 
     /** @param cause
@@ -80,7 +79,7 @@ public class OWLParserException extends OWLRuntimeException {
     public OWLParserException(Throwable cause) {
         super(cause);
         lineNumber = -1;
-        columnNumber=-1;
+        columnNumber = -1;
     }
 
     /** @param message

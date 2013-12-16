@@ -45,13 +45,12 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20-Nov-2006<br>
- * <br>
- * A change broadcast strategy that broadcasts changes that have been applied to
- * a specific ontology. */
+/** A change broadcast strategy that broadcasts changes that have been applied to
+ * a specific ontology.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 20-Nov-2006 */
 public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
     private static final long serialVersionUID = 40000L;

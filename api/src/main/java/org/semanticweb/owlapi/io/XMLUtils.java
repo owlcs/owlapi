@@ -40,15 +40,15 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22/09/2011 <br>
- * This class contains various methods for checking QNames, NCNames etc. The
+/** This class contains various methods for checking QNames, NCNames etc. The
  * implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C
  * namespaces in XML specification</a>.
  * 
- * @since 3.3.0 */
+ * @since 3.3.0
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 22/09/2011 */
+@SuppressWarnings("javadoc")
 public class XMLUtils {
     private static final String LT = "&lt;";
     private static final String GT = "&gt;";

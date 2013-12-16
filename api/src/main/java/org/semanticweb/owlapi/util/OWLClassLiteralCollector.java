@@ -49,10 +49,9 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 23-Jul-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 23-Jul-2009 */
 public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
     // XXX stateful visitor...
     protected final Set<OWLClass> pos = new HashSet<OWLClass>();

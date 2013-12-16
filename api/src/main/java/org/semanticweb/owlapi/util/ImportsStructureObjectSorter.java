@@ -51,12 +51,7 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 30-May-2008<br>
- * <br>
- * Sorts objects into sets based on where they appear in the imports closure of
+/** Sorts objects into sets based on where they appear in the imports closure of
  * an ontology. Consider ontology B that imports ontology A. A map will be
  * generated that maps each ontology, A, B, to a set of objects that are
  * associated with the ontology. If an object is associated with ontology A and
@@ -66,6 +61,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * to sets of entities where each set of entities contains entities that are
  * first mentioned in the ontology that maps to them.
  * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 30-May-2008
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
  * @param <O>
  *            the type */

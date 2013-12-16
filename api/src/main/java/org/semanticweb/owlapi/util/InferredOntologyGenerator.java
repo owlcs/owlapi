@@ -53,16 +53,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * <br>
- * <p/>
- * Generates an ontology based on inferred axioms which are essentially supplied
+/** Generates an ontology based on inferred axioms which are essentially supplied
  * by a reasoner. The generator can be configured with
- * {@code InferredAxiomGenerator}s which generate specific kinds of axioms
- * e.g. subclass axioms. */
+ * {@code InferredAxiomGenerator}s which generate specific kinds of axioms e.g.
+ * subclass axioms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Jul-2007 */
 public class InferredOntologyGenerator {
     // The reasoner which is used to compute the inferred axioms
     private final OWLReasoner reasoner;

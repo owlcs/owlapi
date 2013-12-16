@@ -42,13 +42,11 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents a <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Disjoint_Union_of_Class_Expressions"
- * >DisjointUnion</a> axiom in the OWL 2 Specification. */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
+ *         Represents a <a href=
+ *         "http://www.w3.org/TR/owl2-syntax/#Disjoint_Union_of_Class_Expressions"
+ *         >DisjointUnion</a> axiom in the OWL 2 Specification. */
 public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
     /** Gets the class which is equivalent to the disjoint union.
      * 
@@ -59,9 +57,9 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
 
     /** Gets the class expressions which are operands of the disjoint union.
      * 
-     * @return A {@code Set} containing the operands of the disjoint union,
-     *         note that this <b>does not</b> include the {@code OWLClass}
-     *         that is equivalent to the disjoint union. */
+     * @return A {@code Set} containing the operands of the disjoint union, note
+     *         that this <b>does not</b> include the {@code OWLClass} that is
+     *         equivalent to the disjoint union. */
     @Nonnull
     Set<OWLClassExpression> getClassExpressions();
 
@@ -71,8 +69,8 @@ public interface OWLDisjointUnionAxiom extends OWLClassAxiom {
      * @return The equivalent classes axiom part of this axiom. This is
      *         essentially, {@code EquivalentClasses(CE, CEUnion)} where
      *         {@code CEUnion} is the union of the classes returned by the
-     *         {@link #getClassExpressions()} method and {@code CE} is the
-     *         class returned by the {@link #getOWLClass()} method. */
+     *         {@link #getClassExpressions()} method and {@code CE} is the class
+     *         returned by the {@link #getOWLClass()} method. */
     @Nonnull
     OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom();
 

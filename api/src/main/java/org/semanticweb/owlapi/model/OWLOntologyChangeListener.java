@@ -42,11 +42,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20-Nov-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 20-Nov-2006 */
 public interface OWLOntologyChangeListener {
     /** Called when some changes have been applied to various ontologies. These
      * may be an axiom added or an axiom removed changes.

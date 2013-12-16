@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * 
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006
+ * @param <R>
+ *            range of the property
+ * @param <P>
+ *            property expression
  * @param <F>
  *            value */
 public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
@@ -57,7 +59,7 @@ public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
      * unqualified if it has a filler that is owl:Thing. A data restriction is
      * unqualified if it has a filler which is the top data type (rdfs:Literal).
      * 
-     * @return {@code true} if this restriction is qualified, or
-     *         {@code false} if this restriction is unqualified. */
+     * @return {@code true} if this restriction is qualified, or {@code false}
+     *         if this restriction is unqualified. */
     boolean isQualified();
 }

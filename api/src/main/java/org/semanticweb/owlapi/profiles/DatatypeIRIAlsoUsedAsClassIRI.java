@@ -42,11 +42,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009 Specifies that an IRI that is used for a datatype is also
- * used for a class IRI */
+/** Specifies that an IRI that is used for a datatype is also used for a class
+ * IRI
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implements
         OWL2DLProfileViolation {

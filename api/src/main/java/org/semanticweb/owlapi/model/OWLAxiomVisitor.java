@@ -40,19 +40,16 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * </p> An interface for objects that can accept visits from axioms. (See the <a
- * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
+/** An interface for objects that can accept visits from axioms. (See the <a
+ * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Oct-2006 */
 @SuppressWarnings("javadoc")
 public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor,
         OWLLogicalAxiomVisitor {
     void visit(@Nonnull OWLDeclarationAxiom axiom);
 
-
     void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
-
 }

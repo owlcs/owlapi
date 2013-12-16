@@ -58,15 +58,13 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br>
- * <br>
- * <p/>
- * Renames entities that have a particular IRI. Entities with the specified IRI
+/** Renames entities that have a particular IRI. Entities with the specified IRI
  * are renamed regardless of whether they are classes, object properties, data
- * properties, individuals or data types. */
+ * properties, individuals or data types.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Dec-2006 */
 public class OWLEntityRenamer {
     private final OWLOntologyManager owlOntologyManager;
     private final Set<OWLOntology> ontologies;
@@ -77,7 +75,8 @@ public class OWLEntityRenamer {
      *            the ontologies to use */
     public OWLEntityRenamer(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull Set<OWLOntology> ontologies) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        this.owlOntologyManager = checkNotNull(owlOntologyManager,
+                "owlOntologyManager cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 

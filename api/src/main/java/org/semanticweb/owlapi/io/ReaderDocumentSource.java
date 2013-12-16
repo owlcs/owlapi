@@ -44,12 +44,11 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Nov-2007<br>
- * <br>
- * An ontology document source which reads an ontology from a reader. */
+/** An ontology document source which reads an ontology from a reader.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 17-Nov-2007 */
 public class ReaderDocumentSource extends StreamDocumentSourceBase {
     /** Constructs and ontology input source which will read an ontology from a
      * reader.

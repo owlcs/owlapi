@@ -51,11 +51,9 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Dec-2006 */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
     private final OWLDataFactory dataFactory;
     private Object obj;
@@ -108,8 +106,8 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
     public OWLObjectDuplicator(@Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
             @Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
-        replacementMap = new HashMap<OWLEntity, IRI>(
-                checkNotNull(entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
+        replacementMap = new HashMap<OWLEntity, IRI>(checkNotNull(
+                entityIRIReplacementMap, "entityIRIReplacementMap cannot be null"));
     }
 
     /** @param object

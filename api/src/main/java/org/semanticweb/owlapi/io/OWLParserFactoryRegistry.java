@@ -42,17 +42,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006<br>
- * <br>
- * <p/>
- * The {@code OWLParserFactoryRegistry} provides a central point for the
+/** The {@code OWLParserFactoryRegistry} provides a central point for the
  * registration of parser factories that create parsers to parse OWL ontologies.
  * The registry is typically used by at least one type of ontology factory for
  * loading ontologies whose concrete representations are contained in some kind
- * of document. */
+ * of document.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 15-Nov-2006 */
 public class OWLParserFactoryRegistry {
     private static final OWLParserFactoryRegistry INSTANCE = new OWLParserFactoryRegistry();
     private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(

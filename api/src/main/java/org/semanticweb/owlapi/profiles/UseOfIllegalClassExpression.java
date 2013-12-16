@@ -42,11 +42,11 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009 Indicates that a class expression in an axiom is not in the
- * profile */
+/** Indicates that a class expression in an axiom is not in the profile
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class UseOfIllegalClassExpression extends OWLProfileViolation implements
         OWL2ELProfileViolation {

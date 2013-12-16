@@ -116,11 +116,9 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 01-Aug-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 01-Aug-2008 */
 public class StructuralTransformation {
     protected final OWLDataFactory df;
     private int nameCounter = 0;

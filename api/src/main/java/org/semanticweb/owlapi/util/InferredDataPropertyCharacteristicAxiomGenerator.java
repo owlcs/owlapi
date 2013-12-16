@@ -46,13 +46,11 @@ import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * <br>
- * <p/>
- * Generates inferred data property characteristics. */
+/** Generates inferred data property characteristics.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Jul-2007 */
 public class InferredDataPropertyCharacteristicAxiomGenerator extends
         InferredDataPropertyAxiomGenerator<OWLDataPropertyCharacteristicAxiom> {
     @Override

@@ -40,20 +40,18 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * <p/>
- * Represents a <a href=
- * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Inverse_Object_Properties"
- * >ObjectInverseOf</a> property expression in the OWL 2 Specification.
- * </p>
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties"
+ * >ObjectInverseOf</a> property expression in the OWL 2 Specification. <br>
  * Represents the inverse of a property expression. This can be used to refer to
  * the inverse of a property, without actually naming the property. For example,
  * consider the property hasPart, the inverse property of hasPart (isPartOf) can
  * be referred to using this interface inverseOf(hasPart), which can be used in
  * restrictions e.g. inverseOf(hasPart) some Car refers to the set of things
- * that are part of at least one car. */
+ * that are part of at least one car.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
     /** Gets the property expression that this is the inverse of.
      * 

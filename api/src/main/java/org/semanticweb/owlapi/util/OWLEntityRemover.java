@@ -60,18 +60,16 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br>
- * <br>
- * <p/>
- * A convenience object that generates the changes which are necessary to remove
+/** A convenience object that generates the changes which are necessary to remove
  * an entity from a set of ontologies. This is accomplished by removing all
  * axioms that refer to the entity. The entity remover follows the visitor
  * design pattern, entities that need to be removed from an ontology should
  * accept visits from the entity remover. Changes are accumulated as the entity
- * remover visits various entities. */
+ * remover visits various entities.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 11-Dec-2006 */
 public class OWLEntityRemover implements OWLEntityVisitor {
     private final List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>();
     private final Collection<OWLOntology> ontologies;
@@ -83,7 +81,8 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      *            The set of ontologies that contain references to axioms to be
      *            removed. */
     public OWLEntityRemover(@Nonnull Set<OWLOntology> ontologies) {
-        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies, "ontologies cannot be null"));
+        this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies,
+                "ontologies cannot be null"));
     }
 
     /** @return the list of ontology changes that are required in order to remove

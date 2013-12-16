@@ -41,10 +41,9 @@ package org.semanticweb.owlapi.reasoner;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 22-Nov-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 22-Nov-2009 */
 @SuppressWarnings("javadoc")
 public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;

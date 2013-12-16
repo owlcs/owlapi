@@ -46,14 +46,12 @@ import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * <br>
- * <p/>
- * Generates inferred disjoint axioms - note that this currently uses a very
- * simple inefficient algorithm. */
+/** Generates inferred disjoint axioms - note that this currently uses a very
+ * simple inefficient algorithm.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 27-Jul-2007 */
 public class InferredDisjointClassesAxiomGenerator extends
         InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
     @Override

@@ -42,12 +42,11 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2007<br>
- * <br>
- * A short form provider that produces short forms for URIs. */
+/** A short form provider that produces short forms for URIs.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Dec-2007 */
 public interface IRIShortFormProvider {
     /** @param iri
      *            the IRI to shorten

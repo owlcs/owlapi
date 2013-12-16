@@ -38,12 +38,11 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 05-Dec-2006<br>
- * <br>
- * A base interface of all axioms that affect the logical meaning of an
+/** A base interface of all axioms that affect the logical meaning of an
  * ontology. This excludes declaration axioms (including imports declarations)
- * and annotation axioms. */
+ * and annotation axioms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 05-Dec-2006 */
 public interface OWLLogicalAxiom extends OWLAxiom {}

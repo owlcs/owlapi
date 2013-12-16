@@ -40,13 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Apr-2008<br>
- * <br>
- * </p> Receives notification of ontology loading starting and finishing from a
- * manager. */
+/** Receives notification of ontology loading starting and finishing from a
+ * manager.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 14-Apr-2008 */
 public interface OWLOntologyLoaderListener {
     /** Called when the process of attempting to load an ontology starts.
      * 

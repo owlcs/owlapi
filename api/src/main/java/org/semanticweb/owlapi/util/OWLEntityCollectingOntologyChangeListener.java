@@ -48,14 +48,12 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Feb-2007<br>
- * <br>
- * <p/>
- * A convenience class which is an ontology change listener which collects the
- * entities which are referenced in a set of ontology changes. */
+/** A convenience class which is an ontology change listener which collects the
+ * entities which are referenced in a set of ontology changes.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 26-Feb-2007 */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
         OWLOntologyChangeListener {
     private final Set<OWLEntity> entities = new HashSet<OWLEntity>();

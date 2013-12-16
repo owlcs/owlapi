@@ -41,10 +41,9 @@ package org.semanticweb.owlapi.reasoner;
 import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadMXBean;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Jan-2010 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 05-Jan-2010 */
 public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
     private int lastPercentage = 0;
     private long lastTime;

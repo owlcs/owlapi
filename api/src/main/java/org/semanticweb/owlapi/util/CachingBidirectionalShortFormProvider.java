@@ -46,15 +46,13 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * <br>
- * <p/>
- * A bidirectional short form provider that caches entity short forms. The
+/** A bidirectional short form provider that caches entity short forms. The
  * provider has various methods to add, remove, update entities in the cache and
- * also to rebuild the cache from scratch. */
+ * also to rebuild the cache from scratch.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Apr-2007 */
 public abstract class CachingBidirectionalShortFormProvider implements
         BidirectionalShortFormProvider {
     private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<String, Set<OWLEntity>>();
@@ -65,8 +63,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
     /** Generates the short form for the specified entity. This short form will
      * be cached so that it can be retrieved efficiently and so that the entity
      * can be obtained from the short form. If the short form for the entity
-     * changes then the cach must explicilty be updated using the
-     * {@code update} method.
+     * changes then the cach must explicilty be updated using the {@code update}
+     * method.
      * 
      * @param entity
      *            The entity whose short form should be generated. */
@@ -82,8 +80,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
      * provider.
      * 
      * @param entitySetProvider
-     *            The {@code OWLEntitySetProvider} that should be used to
-     *            obtain the entities whose short forms will be cached. */
+     *            The {@code OWLEntitySetProvider} that should be used to obtain
+     *            the entities whose short forms will be cached. */
     protected void rebuild(OWLEntitySetProvider<OWLEntity> entitySetProvider) {
         shortForm2EntityMap.clear();
         entity2ShortFormMap.clear();

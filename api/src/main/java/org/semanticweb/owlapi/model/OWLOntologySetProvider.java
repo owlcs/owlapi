@@ -42,13 +42,12 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * <br>
- * Inputs to algorithms etc. can require a set of ontologies. This interface
- * provides a convenient lightweight access point for such a set. */
+/** Inputs to algorithms etc. can require a set of ontologies. This interface
+ * provides a convenient lightweight access point for such a set.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Apr-2007 */
 public interface OWLOntologySetProvider {
     /** @return the set of ontologies held by the implementor */
     @Nonnull

@@ -40,12 +40,13 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 12-Mar-2009 </p> Objects that want to listen to the progress of
- * applying changes to an ontology should implement this interface and add
- * themselves as listener to a manager. */
+/** Objects that want to listen to the progress of applying changes to an
+ * ontology should implement this interface and add themselves as listener to a
+ * manager.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 12-Mar-2009 */
 public interface OWLOntologyChangeProgressListener {
     /** @param size
      *            the start size */

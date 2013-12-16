@@ -81,7 +81,6 @@ public class OWLOntologyChangeVisitorExAdapter<O> implements
         return object;
     }
 
-
     @Override
     public O visit(RemoveAxiom change) {
         return doDefault(change);

@@ -40,10 +40,9 @@ package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Oct-2009 */
+/** @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 29-Oct-2009 */
 @SuppressWarnings("javadoc")
 public class ReasonerInterruptedException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;

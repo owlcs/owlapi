@@ -44,18 +44,13 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 27/04/2012
- * <p>
- * Represents the specific non-ontology data required by a
- * {@link org.semanticweb.owlapi.model.RemoveImport} change.
- * </p>
- * <p>
- * Instances of this class are immutable.
- * </p>
+/** Represents the specific non-ontology data required by a
+ * {@link org.semanticweb.owlapi.model.RemoveImport} change. <br>
+ * Instances of this class are immutable. <br>
  * 
+ * @author Matthew Horridge, Stanford University<br>
+ *         Bio-Medical Informatics Research Group<br>
+ *         Date: 27/04/2012
  * @since 3.5 */
 public class RemoveImportData extends ImportChangeData {
     private static final long serialVersionUID = 40000L;

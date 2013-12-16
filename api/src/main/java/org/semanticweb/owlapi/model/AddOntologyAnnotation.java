@@ -42,11 +42,11 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 24-Mar-2009 </p> Represents an ontology change where an annotation is
- * added to an ontology. */
+/** Represents an ontology change where an annotation is added to an ontology.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 24-Mar-2009 */
 public class AddOntologyAnnotation extends AnnotationChange {
     /** @param ont
      *            the ontology to which the change is to be applied

@@ -38,21 +38,18 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 21-Jan-2009
- * <p>
- * An OWLReasonerConfiguration can be used to customise the setup of a reasoner
+/** An OWLReasonerConfiguration can be used to customise the setup of a reasoner
  * at reasoner creation time via an
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. Specific
  * reasoners may define their own configuration objects with configuration
  * options particular to the reasoner. There are also a set of general options
- * defined by this configuration object.
- * </p>
+ * defined by this configuration object. <br>
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
  * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 21-Jan-2009
  * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
  * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
 public interface OWLReasonerConfiguration {
@@ -88,8 +85,8 @@ public interface OWLReasonerConfiguration {
     FreshEntityPolicy getFreshEntityPolicy();
 
     /** Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
-     * which determines how {@code NodeSet}s of named individuals are
-     * returned from the reasoner.
+     * which determines how {@code NodeSet}s of named individuals are returned
+     * from the reasoner.
      * 
      * @return The {@code IndividualNodeSetPolicy} that should be used. By
      *         default the policy is

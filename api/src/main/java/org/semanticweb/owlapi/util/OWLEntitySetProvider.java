@@ -44,16 +44,13 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * <br>
- * <p/>
- * Provides a set of entities to inputs that require this.
+/** Provides a set of entities to inputs that require this.
  * 
  * @param <E>
- *            the entity type */
+ *            the entity type
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Apr-2007 */
 public interface OWLEntitySetProvider<E extends OWLEntity> {
     /** @return the entities that are provided by this provider. */
     @Nonnull

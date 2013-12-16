@@ -57,18 +57,16 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * <br>
- * <p/>
- * A short form provider that generates short forms based on entity annotation
+/** A short form provider that generates short forms based on entity annotation
  * values. A list of preferred annotation URIs and preferred annotation
  * languages is used to determine which annotation value to select if there are
  * multiple annotations for the entity whose short form is being generated. If
  * there are multiple annotations the these annotations are ranked by preferred
- * URI and then by preferred language. */
+ * IRI and then by preferred language.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 18-Apr-2007 */
 public class AnnotationValueShortFormProvider implements ShortFormProvider {
     private final OWLOntologySetProvider ontologySetProvider;
     private final ShortFormProvider alternateShortFormProvider;
@@ -81,11 +79,11 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      * {@code SimpleShortFormProvider} as the alternate short form provider
      * 
      * @param annotationProperties
-     *            A {@code List} of preferred annotation properties. The
-     *            list is searched from start to end, so that annotations that
-     *            have a property at the start of the list have a higher
-     *            priority and are selected over annotations with properties
-     *            that appear towards or at the end of the list.
+     *            A {@code List} of preferred annotation properties. The list is
+     *            searched from start to end, so that annotations that have a
+     *            property at the start of the list have a higher priority and
+     *            are selected over annotations with properties that appear
+     *            towards or at the end of the list.
      * @param preferredLanguageMap
      *            A map which maps annotation properties to preferred languages.
      *            For any given annotation property there may be a list of
@@ -107,11 +105,11 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     /** Constructs an annotation short form provider.
      * 
      * @param annotationProperties
-     *            A {@code List} of preferred annotation properties. The
-     *            list is searched from start to end, so that annotations that
-     *            have a property at the start of the list have a higher
-     *            priority and are selected over annotations with properties
-     *            that appear towards or at the end of the list.
+     *            A {@code List} of preferred annotation properties. The list is
+     *            searched from start to end, so that annotations that have a
+     *            property at the start of the list have a higher priority and
+     *            are selected over annotations with properties that appear
+     *            towards or at the end of the list.
      * @param preferredLanguageMap
      *            A map which maps annotation properties to preferred languages.
      *            For any given annotation property there may be a list of
@@ -126,8 +124,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            A short form provider which will be used to generate the short
      *            form for an entity that does not have any annotations. This
      *            provider will also be used in the case where the value of an
-     *            annotation is an {@code OWLIndividual} for providing the
-     *            short form of the individual. */
+     *            annotation is an {@code OWLIndividual} for providing the short
+     *            form of the individual. */
     public AnnotationValueShortFormProvider(
             @Nonnull List<OWLAnnotationProperty> annotationProperties,
             @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
@@ -141,11 +139,11 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
     /** Constructs an annotation short form provider.
      * 
      * @param annotationProperties
-     *            A {@code List} of preferred annotation properties. The
-     *            list is searched from start to end, so that annotations that
-     *            have a property at the start of the list have a higher
-     *            priority and are selected over annotations with properties
-     *            that appear towards or at the end of the list.
+     *            A {@code List} of preferred annotation properties. The list is
+     *            searched from start to end, so that annotations that have a
+     *            property at the start of the list have a higher priority and
+     *            are selected over annotations with properties that appear
+     *            towards or at the end of the list.
      * @param preferredLanguageMap
      *            A map which maps annotation properties to preferred languages.
      *            For any given annotation property there may be a list of
@@ -160,8 +158,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
      *            A short form provider which will be used to generate the short
      *            form for an entity that does not have any annotations. This
      *            provider will also be used in the case where the value of an
-     *            annotation is an {@code OWLIndividual} for providing the
-     *            short form of the individual.
+     *            annotation is an {@code OWLIndividual} for providing the short
+     *            form of the individual.
      * @param alternateIRIShortFormProvider
      *            the alternate IRI short form provider */
     public AnnotationValueShortFormProvider(
@@ -199,12 +197,18 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             @Nonnull List<OWLAnnotationProperty> annotationProperties,
             @Nonnull Map<OWLAnnotationProperty, List<String>> preferredLanguageMap,
             @Nonnull OWLAnnotationValueVisitorEx<String> literalRenderer) {
-        this.ontologySetProvider = checkNotNull(ontologySetProvider, "ontologySetProvider cannot be null");
-        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider, "alternateShortFormProvider cannot be null");
-        this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider, "alternateIRIShortFormProvider cannot be null");
-        this.annotationProperties = checkNotNull(annotationProperties, "annotationProperties cannot be null");
-        this.preferredLanguageMap = checkNotNull(preferredLanguageMap, "preferredLanguageMap cannot be null");
-        this.literalRenderer = checkNotNull(literalRenderer, "literalRenderer cannot be null");
+        this.ontologySetProvider = checkNotNull(ontologySetProvider,
+                "ontologySetProvider cannot be null");
+        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
+                "alternateShortFormProvider cannot be null");
+        this.alternateIRIShortFormProvider = checkNotNull(alternateIRIShortFormProvider,
+                "alternateIRIShortFormProvider cannot be null");
+        this.annotationProperties = checkNotNull(annotationProperties,
+                "annotationProperties cannot be null");
+        this.preferredLanguageMap = checkNotNull(preferredLanguageMap,
+                "preferredLanguageMap cannot be null");
+        this.literalRenderer = checkNotNull(literalRenderer,
+                "literalRenderer cannot be null");
     }
 
     @Override

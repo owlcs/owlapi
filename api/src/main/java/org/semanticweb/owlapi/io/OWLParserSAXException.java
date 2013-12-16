@@ -40,13 +40,14 @@ package org.semanticweb.owlapi.io;
 
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009 </p> Many of the various OWL document formats are written
- * in XML. This exception wraps a {@link org.xml.sax.SAXException} as an
- * {@code OWLParserException}. Parser implementers should use this class or
- * subclasses of this class to wrap {@code SAXException}s. */
+/** Many of the various OWL document formats are written in XML. This exception
+ * wraps a {@link org.xml.sax.SAXException} as an {@code OWLParserException}.
+ * Parser implementers should use this class or subclasses of this class to wrap
+ * {@code SAXException}s.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 07-Dec-2009 */
 public class OWLParserSAXException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

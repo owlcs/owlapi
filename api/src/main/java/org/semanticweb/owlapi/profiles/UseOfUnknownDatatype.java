@@ -42,13 +42,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009 Use of an unknown datatype. That is, the datatype isn't in
- * the OWL 2 datatype map, the datatype IRI doesn't begin with the xsd: prefix,
- * the datatype isn't rdfs:Literal, and the datatype isn't defined with a
- * DatatypeDefinition axiom */
+/** Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
+ * map, the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't
+ * rdfs:Literal, and the datatype isn't defined with a DatatypeDefinition axiom
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Information Management Group<br>
+ *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class UseOfUnknownDatatype extends OWLProfileViolation implements
         OWL2ProfileViolation {

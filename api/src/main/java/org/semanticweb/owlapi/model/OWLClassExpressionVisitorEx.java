@@ -40,14 +40,13 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008<br>
- * <br>
- * </p> An interface to objects that can visit
+/** An interface to objects that can visit
  * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the <a
- * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>) */
+ * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 16-Apr-2008 */
 @SuppressWarnings("javadoc")
 public interface OWLClassExpressionVisitorEx<O> {
     O visit(@Nonnull OWLClass ce);

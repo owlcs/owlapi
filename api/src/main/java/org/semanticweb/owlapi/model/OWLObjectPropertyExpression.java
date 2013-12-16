@@ -40,9 +40,9 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 */
+/** @author Matthew Horridge<br>
+ *         The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectPropertyExpression extends OWLPropertyExpression, SWRLPredicate {
     /** If the property is a named object property then this method will obtain
      * the property as such. The general pattern of use is that the

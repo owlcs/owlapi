@@ -38,14 +38,13 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jul-2010
- * <p/>
- * An enumeration that denotes various types of inference task. Each inference
+/** An enumeration that denotes various types of inference task. Each inference
  * task has a name that is associated with it - reasoners may use these names
- * when reporting progress. */
+ * when reporting progress.
+ * 
+ * @author Matthew Horridge, The University of Manchester<br>
+ *         Bio-Health Informatics Group<br>
+ *         Date: 04-Jul-2010 */
 public enum InferenceType {
     /** Denotes the computation of the class hierarchy. */
     CLASS_HIERARCHY("class hierarchy"),
