@@ -70,9 +70,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * </ol>
  * {@code OWLOntologyChangeRecord} objects are immutable.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 03/05/2012
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 03/05/2012
  * @since 3.4.3 */
 public final class OWLOntologyChangeRecord implements Serializable {
     private static final long serialVersionUID = 30406L;

@@ -46,11 +46,10 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 /** Represents an abstraction of the essential non-ontology data required by a
  * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
  * this class for each concrete class of {@link OWLOntologyChange}. <br>
- * Instances of this class are immutable <br>
+ * Instances of this class are immutable.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 27/04/2012
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 27/04/2012
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5 */
 public abstract class OWLOntologyChangeData implements Serializable {
@@ -59,7 +58,7 @@ public abstract class OWLOntologyChangeData implements Serializable {
     /** Default constructor for serialization purposes. */
     protected OWLOntologyChangeData() {}
 
-    /** Accepts a visit from an {@link OWLOntologyChangeDataVisitor}
+    /** Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.
      * 
      * @param visitor
      *            The visitor

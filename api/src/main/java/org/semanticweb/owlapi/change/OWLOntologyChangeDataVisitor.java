@@ -38,12 +38,12 @@
  */
 package org.semanticweb.owlapi.change;
 
-/** @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 08/05/2012
- * 
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 08/05/2012
  * @param <R>
- * @param <E> */
+ *            return type
+ * @param <E>
+ *            exception thrown */
 public interface OWLOntologyChangeDataVisitor<R, E extends Exception> {
     /** @param data
      *            object to visit
