@@ -36,24 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfAnonymousIndividual extends OWLProfileViolation implements OWL2ELProfileViolation, OWL2QLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfAnonymousIndividual extends OWLProfileViolation implements
+        OWL2ELProfileViolation, OWL2QLProfileViolation {
     private final OWLAnonymousIndividual individual;
 
-    public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom, OWLAnonymousIndividual individual) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param individual
+     *            wrong individual */
+    public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom,
+            OWLAnonymousIndividual individual) {
         super(ontology, axiom);
         this.individual = individual;
     }
@@ -68,12 +70,13 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation implements OWL
         visitor.visit(this);
     }
 
+    /** @return wrong individual */
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
         return individual;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of anonymous individual: ");
         sb.append(individual);

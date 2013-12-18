@@ -46,14 +46,18 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * map, the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't
  * rdfs:Literal, and the datatype isn't defined with a DatatypeDefinition axiom
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 03-Aug-2009 */
 public class UseOfUnknownDatatype extends OWLProfileViolation implements
         OWL2ProfileViolation {
     private final OWLDatatype datatype;
 
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param datatype
+     *            unknown datatype */
     public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
         super(ontology, axiom);
         this.datatype = datatype;
@@ -64,7 +68,7 @@ public class UseOfUnknownDatatype extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
-    /** Gets the datatype that is invalid
+    /** Gets the datatype that is invalid.
      * 
      * @return The invalid datatype */
     public OWLDatatype getDatatype() {

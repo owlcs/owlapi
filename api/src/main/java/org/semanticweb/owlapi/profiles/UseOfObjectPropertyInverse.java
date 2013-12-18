@@ -36,24 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfObjectPropertyInverse extends OWLProfileViolation implements  OWL2ELProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfObjectPropertyInverse extends OWLProfileViolation implements
+        OWL2ELProfileViolation {
     private final OWLObjectPropertyExpression propertyExpression;
 
-    public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom, OWLObjectPropertyExpression propertyExpression) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param propertyExpression
+     *            wrong property */
+    public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom,
+            OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom);
         this.propertyExpression = propertyExpression;
     }
@@ -63,12 +65,13 @@ public class UseOfObjectPropertyInverse extends OWLProfileViolation implements  
         visitor.visit(this);
     }
 
+    /** @return wrong property */
     public OWLObjectPropertyExpression getOWLPropertyExpression() {
         return propertyExpression;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of inverse property: ");
         sb.append(propertyExpression);

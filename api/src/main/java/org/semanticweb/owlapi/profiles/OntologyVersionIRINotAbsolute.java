@@ -36,19 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class OntologyVersionIRINotAbsolute extends OWLProfileViolation implements OWL2ProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class OntologyVersionIRINotAbsolute extends OWLProfileViolation implements
+        OWL2ProfileViolation {
+    /** @param ontology
+     *            wrong ontology */
     public OntologyVersionIRINotAbsolute(OWLOntology ontology) {
         super(ontology, null);
     }
@@ -59,7 +56,7 @@ public class OntologyVersionIRINotAbsolute extends OWLProfileViolation implement
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Ontology version IRI not absolute: ");
         sb.append(getOntologyID());

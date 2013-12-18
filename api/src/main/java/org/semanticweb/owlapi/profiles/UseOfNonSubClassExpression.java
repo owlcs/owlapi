@@ -36,24 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfNonSubClassExpression extends OWLProfileViolation implements OWL2QLProfileViolation, OWL2RLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfNonSubClassExpression extends OWLProfileViolation implements
+        OWL2QLProfileViolation, OWL2RLProfileViolation {
     private final OWLClassExpression classExpression;
 
-    public UseOfNonSubClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param classExpression
+     *            wrong class */
+    public UseOfNonSubClassExpression(OWLOntology ontology, OWLAxiom axiom,
+            OWLClassExpression classExpression) {
         super(ontology, axiom);
         this.classExpression = classExpression;
     }
@@ -68,12 +70,13 @@ public class UseOfNonSubClassExpression extends OWLProfileViolation implements O
         visitor.visit(this);
     }
 
+    /** @return wrong class */
     public OWLClassExpression getOWLClassExpression() {
         return classExpression;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-subclass expression in position that requires a subclass expression: ");
         sb.append(classExpression);

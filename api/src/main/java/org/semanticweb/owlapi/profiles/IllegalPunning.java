@@ -4,7 +4,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Punning between properties is not allowed
+/** Punning between properties is not allowed.
  * 
  * @author ignazio */
 public class IllegalPunning extends OWLProfileViolation implements
@@ -13,8 +13,11 @@ public class IllegalPunning extends OWLProfileViolation implements
     private IRI iri;
 
     /** @param currentOntology
+     *            current ontology
      * @param node
-     * @param iri */
+     *            current axiom
+     * @param iri
+     *            punning IRI */
     public IllegalPunning(OWLOntology currentOntology, OWLAxiom node, IRI iri) {
         super(currentOntology, node);
         this.iri = iri;

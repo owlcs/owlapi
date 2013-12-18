@@ -36,19 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
+    /** @param ontology
+     *            wrong ontology */
     public UseOfReservedVocabularyForVersionIRI(OWLOntology ontology) {
         super(ontology, null);
     }
@@ -59,7 +56,7 @@ public class UseOfReservedVocabularyForVersionIRI extends OWLProfileViolation im
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for ontology version IRI: ");
         sb.append(getOntologyID());

@@ -36,28 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfPropertyInChainCausesCycle extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final OWLObjectPropertyExpression property;
 
-    public UseOfPropertyInChainCausesCycle(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyExpression property) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param property
+     *            wrong property */
+    public UseOfPropertyInChainCausesCycle(OWLOntology ontology,
+            OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyExpression property) {
         super(ontology, axiom);
         this.property = property;
     }
 
+    /** @return wrong property */
     public OWLObjectPropertyExpression getOWLObjectProperty() {
         return property;
     }

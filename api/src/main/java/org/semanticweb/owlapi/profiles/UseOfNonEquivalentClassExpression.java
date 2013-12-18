@@ -36,28 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfNonEquivalentClassExpression extends OWLProfileViolation implements OWL2RLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfNonEquivalentClassExpression extends OWLProfileViolation implements
+        OWL2RLProfileViolation {
     private final OWLClassExpression classExpression;
 
-    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom, OWLClassExpression classExpression) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param classExpression
+     *            wrong class expression */
+    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom,
+            OWLClassExpression classExpression) {
         super(ontology, axiom);
         this.classExpression = classExpression;
     }
 
+    /** @return wrong class expression */
     public OWLClassExpression getOWLClassExpression() {
         return classExpression;
     }
@@ -68,7 +71,7 @@ public class UseOfNonEquivalentClassExpression extends OWLProfileViolation imple
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-equivalent class expression in position that requires an equivalent class expression: ");
         sb.append(classExpression);

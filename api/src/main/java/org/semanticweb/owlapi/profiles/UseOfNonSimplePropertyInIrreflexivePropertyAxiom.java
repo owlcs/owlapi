@@ -36,21 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
-
-    public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology, OWLIrreflexiveObjectPropertyAxiom axiom) {
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom */
+    public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology,
+            OWLIrreflexiveObjectPropertyAxiom axiom) {
         super(ontology, axiom);
     }
 
@@ -60,7 +60,7 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends OWLProfile
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(getAxiom().getAxiomType().getName());

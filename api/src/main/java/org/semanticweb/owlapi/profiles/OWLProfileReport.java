@@ -36,73 +36,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008 */
 public class OWLProfileReport {
-
     private final OWLProfile profile;
-
     private final List<OWLProfileViolation> violations;
 
-
-    /**
-     * @param profile the profile used
-     * @param violations the set of violations
-     */
+    /** @param profile
+     *            the profile used
+     * @param violations
+     *            the set of violations */
     public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation> violations) {
         this.profile = profile;
         this.violations = new ArrayList<OWLProfileViolation>(violations);
     }
 
-
-    /**
-     * @return the profile used
-     */
+    /** @return the profile used */
     public OWLProfile getProfile() {
         return profile;
     }
 
-    /**
-     * @return true if there are no violations
-     */
+    /** @return true if there are no violations */
     public boolean isInProfile() {
         return violations.isEmpty();
     }
 
-
-    /**
-     * @return the violations found
-     */
+    /** @return the violations found */
     public List<OWLProfileViolation> getViolations() {
         return violations;
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(profile.getName());
         sb.append(" Profile Report: ");
-        if(isInProfile()) {
+        if (isInProfile()) {
             sb.append("[Ontology and imports closure in profile]\n");
-        }
-        else {
+        } else {
             sb.append("Ontology and imports closure NOT in profile. ");
             sb.append("The following violations are present: ");
             sb.append(":\n");
         }
-
-        for(OWLProfileViolation na : violations) {
+        for (OWLProfileViolation na : violations) {
             sb.append(na);
             sb.append("\n");
         }

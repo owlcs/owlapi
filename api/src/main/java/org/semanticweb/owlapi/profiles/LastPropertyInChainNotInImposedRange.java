@@ -36,26 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation implements OWL2ELProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation implements
+        OWL2ELProfileViolation {
     private final OWLSubPropertyChainOfAxiom axiom;
-
     private final OWLObjectPropertyRangeAxiom rangeAxiom;
 
-    public LastPropertyInChainNotInImposedRange(OWLOntology ontology, OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyRangeAxiom rangeAxiom) {
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param rangeAxiom
+     *            range axiom */
+    public LastPropertyInChainNotInImposedRange(OWLOntology ontology,
+            OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom);
         this.axiom = axiom;
         this.rangeAxiom = rangeAxiom;
@@ -66,16 +67,18 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation im
         visitor.visit(this);
     }
 
+    /** @return chain */
     public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom() {
         return axiom;
     }
 
+    /** @return range */
     public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom() {
         return rangeAxiom;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Last property in chain not in imposed data range: ");
         sb.append(axiom);

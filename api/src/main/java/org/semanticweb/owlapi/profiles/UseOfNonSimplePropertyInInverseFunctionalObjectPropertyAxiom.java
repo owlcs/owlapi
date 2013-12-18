@@ -36,21 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
-
-    public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(OWLOntology ontology, OWLInverseFunctionalObjectPropertyAxiom axiom) {
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extends
+        OWLProfileViolation implements OWL2DLProfileViolation {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom */
+    public UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(
+            OWLOntology ontology, OWLInverseFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom);
     }
 
@@ -60,7 +60,7 @@ public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extend
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(getAxiom().getAxiomType().getName());

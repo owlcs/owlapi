@@ -36,20 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class CycleInDatatypeDefinition extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class CycleInDatatypeDefinition extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation */
     public CycleInDatatypeDefinition(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom);
     }
@@ -60,7 +59,7 @@ public class CycleInDatatypeDefinition extends OWLProfileViolation implements OW
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Cycle in datatype definition");
         sb.append(" [");

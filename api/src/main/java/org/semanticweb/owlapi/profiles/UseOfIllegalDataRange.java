@@ -36,28 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfIllegalDataRange extends OWLProfileViolation implements OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfIllegalDataRange extends OWLProfileViolation implements
+        OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
     private final OWLDataRange dataRange;
 
-    public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom, OWLDataRange dataRange) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param dataRange
+     *            wrong datarange */
+    public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom,
+            OWLDataRange dataRange) {
         super(ontology, axiom);
         this.dataRange = dataRange;
     }
 
+    /** @return wrong datarange */
     public OWLDataRange getOWLDataRange() {
         return dataRange;
     }
@@ -78,7 +81,7 @@ public class UseOfIllegalDataRange extends OWLProfileViolation implements OWL2EL
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of data range not in profile: ");
         sb.append(dataRange);

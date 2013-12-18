@@ -36,23 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfUndeclaredClass extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final OWLClass cls;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param cls
+     *            wrong class */
     public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom);
         this.cls = cls;
@@ -63,12 +64,13 @@ public class UseOfUndeclaredClass extends OWLProfileViolation implements OWL2DLP
         visitor.visit(this);
     }
 
+    /** @return wrong class */
     public OWLClass getOWLClass() {
         return cls;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of undeclared class: ");
         sb.append(cls);

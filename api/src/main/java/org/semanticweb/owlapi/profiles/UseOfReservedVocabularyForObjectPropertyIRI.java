@@ -36,28 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
     private final OWLObjectProperty property;
 
-    public UseOfReservedVocabularyForObjectPropertyIRI(OWLOntology ontology, OWLAxiom axiom, OWLObjectProperty property) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param property
+     *            wrong property */
+    public UseOfReservedVocabularyForObjectPropertyIRI(OWLOntology ontology,
+            OWLAxiom axiom, OWLObjectProperty property) {
         super(ontology, axiom);
         this.property = property;
     }
 
+    /** @return wrong property */
     public OWLObjectProperty getOWLObjectProperty() {
         return property;
     }
@@ -68,7 +71,7 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends OWLProfileViola
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for object property IRI: ");
         sb.append(property);

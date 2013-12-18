@@ -36,15 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-public interface OWL2QLProfileViolation {
-	@SuppressWarnings("javadoc")
-    void accept(OWL2QLProfileViolationVisitor visitor);
 
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public interface OWL2QLProfileViolation {
+    /** @param visitor
+     *            visitor to accept */
+    void accept(OWL2QLProfileViolationVisitor visitor);
 }

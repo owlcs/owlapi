@@ -36,24 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL2ProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class LexicalNotInLexicalSpace extends OWLProfileViolation implements
+        OWL2ProfileViolation {
     private final OWLLiteral literal;
 
-	public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom, OWLLiteral literal) {
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param literal
+     *            wrong literal */
+    public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom,
+            OWLLiteral literal) {
         super(ontology, axiom);
         this.literal = literal;
     }
@@ -63,12 +65,13 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation implements OWL
         visitor.visit(this);
     }
 
+    /** @return wrong literal */
     public OWLLiteral getLiteral() {
         return literal;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Literal lexical value not in lexical space: ");
         sb.append(literal);

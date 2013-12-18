@@ -36,26 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends OWLProfileViolation implements OWL2DLProfileViolation {
-
-    public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(OWLOntology ontology, OWLAsymmetricObjectPropertyAxiom axiom) {
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
+        OWLProfileViolation implements OWL2DLProfileViolation {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom */
+    public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(OWLOntology ontology,
+            OWLAsymmetricObjectPropertyAxiom axiom) {
         super(ontology, axiom);
     }
 
     @Override
-	public OWLAsymmetricObjectPropertyAxiom getAxiom() {
+    public OWLAsymmetricObjectPropertyAxiom getAxiom() {
         return (OWLAsymmetricObjectPropertyAxiom) super.getAxiom();
     }
 
@@ -65,7 +65,7 @@ public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends OWLPr
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of non-simple property in ");
         sb.append(getAxiom().getAxiomType().getName());

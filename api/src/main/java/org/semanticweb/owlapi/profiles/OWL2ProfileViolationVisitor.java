@@ -36,36 +36,86 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public interface OWL2ProfileViolationVisitor {
 
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public interface OWL2ProfileViolationVisitor {
+    /** visit UseOfNonAbsoluteIRI type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(UseOfNonAbsoluteIRI violation);
 
+    /** visit UseOfIllegalFacetRestriction type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(UseOfIllegalFacetRestriction violation);
 
+    /** visit LexicalNotInLexicalSpace type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(LexicalNotInLexicalSpace violation);
 
+    /** visit OntologyIRINotAbsolute type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(OntologyIRINotAbsolute violation);
 
+    /** visit IllegalPunning type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(IllegalPunning violation);
+
+    /** visit OntologyVersionIRINotAbsolute type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(OntologyVersionIRINotAbsolute violation);
 
+    /** visit UseOfDefinedDatatypeInDatatypeRestriction type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(UseOfDefinedDatatypeInDatatypeRestriction violation);
 
+    /** visit UseOfUndeclaredDatatype type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(UseOfUndeclaredDatatype violation);
 
+    /** visit UseOfUnknownDatatype type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(UseOfUnknownDatatype violation);
 
+    /** visit InsufficientPropertyExpressions type
+     * 
+     * @param violation
+     *            object to visit */
     void visit(InsufficientPropertyExpressions violation);
-    void visit(InsufficientIndividuals violation);
-    void visit(InsufficientOperands violation);
-    void visit(EmptyOneOfAxiom violation);
 
+    /** visit InsufficientIndividuals type
+     * 
+     * @param violation
+     *            object to visit */
+    void visit(InsufficientIndividuals violation);
+
+    /** visit InsufficientOperands type
+     * 
+     * @param violation
+     *            object to visit */
+    void visit(InsufficientOperands violation);
+
+    /** visit EmptyOneOfAxiom type
+     * 
+     * @param violation
+     *            object to visit */
+    void visit(EmptyOneOfAxiom violation);
 }

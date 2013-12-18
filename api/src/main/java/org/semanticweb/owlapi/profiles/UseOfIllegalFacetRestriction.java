@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -44,21 +43,25 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements OWL2ProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
+        OWL2ProfileViolation {
     private final OWLDatatypeRestriction datatypeRestriction;
-
     private final OWLFacet facet;
 
-    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom, OWLDatatypeRestriction dtr, OWLFacet facet) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param dtr
+     *            wrong datatype restriction
+     * @param facet
+     *            wrong facet */
+    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
+            OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom);
-        this.datatypeRestriction = dtr;
+        datatypeRestriction = dtr;
         this.facet = facet;
     }
 
@@ -67,16 +70,18 @@ public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
+    /** @return wrong datatype restriction */
     public OWLDatatypeRestriction getDatatypeRestriction() {
         return datatypeRestriction;
     }
 
+    /** @return wrong facet */
     public OWLFacet getFacet() {
         return facet;
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Facet in datatype restriction does not belong to restricted datatype: ");
         sb.append(facet);

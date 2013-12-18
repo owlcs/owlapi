@@ -36,28 +36,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Aug-2009
- */
-@SuppressWarnings("javadoc")
-public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation implements OWL2DLProfileViolation {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
+public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation implements
+        OWL2DLProfileViolation {
     private final OWLClass cls;
 
-    public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param cls
+     *            wrong class */
+    public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, OWLAxiom axiom,
+            OWLClass cls) {
         super(ontology, axiom);
         this.cls = cls;
     }
 
+    /** @return wrong class */
     public OWLClass getOWLClass() {
         return cls;
     }
@@ -68,7 +71,7 @@ public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation impl
     }
 
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Use of reserved vocabulary for class IRI: ");
         sb.append(cls);

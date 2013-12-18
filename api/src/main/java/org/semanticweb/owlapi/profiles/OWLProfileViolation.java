@@ -51,9 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 /** Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
  * part of the axiom that violates the profile rather than the complete axiom.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 03-Aug-2009 */
 public class OWLProfileViolation {
     private final OWLOntologyID ontologyID;
     private final Map<OWLOntologyID, IRI> importsClosureMap = new HashMap<OWLOntologyID, IRI>();
@@ -89,8 +88,8 @@ public class OWLProfileViolation {
         return importsClosureMap.get(ontID);
     }
 
-    /** @return the imports closure set of ids. The set is a copy and the map
-     *         will not be altered by changes to it. */
+    /** @return the imports closure set of ids. The set is a copy and the map will
+     *         not be altered by changes to it. */
     public Set<OWLOntologyID> getImportsClosure() {
         return new HashSet<OWLOntologyID>(importsClosureMap.keySet());
     }

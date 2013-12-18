@@ -42,16 +42,20 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** * Specifies that a datatype is not declared
+/** * Specifies that a datatype is not declared.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 03-Aug-2009 */
 public class UseOfUndeclaredDatatype extends OWLProfileViolation implements
         OWL2ProfileViolation {
     private final OWLDatatype datatype;
 
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param datatype
+     *            undeclared datatype */
     public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom,
             OWLDatatype datatype) {
         super(ontology, axiom);
@@ -63,6 +67,7 @@ public class UseOfUndeclaredDatatype extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
+    /** @return undeclared datatype */
     public OWLDatatype getDatatype() {
         return datatype;
     }
