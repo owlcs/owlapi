@@ -44,9 +44,8 @@ import java.util.List;
 /** A change broadcast strategy that broadcasts changes that have been applied to
  * a specific ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 20-Nov-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 20-Nov-2006 */
 public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
     private static final long serialVersionUID = 30406L;

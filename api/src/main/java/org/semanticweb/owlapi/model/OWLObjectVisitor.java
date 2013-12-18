@@ -36,14 +36,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006 */
-@SuppressWarnings("javadoc")
-public interface OWLObjectVisitor extends OWLAxiomVisitor, OWLClassExpressionVisitor, OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor, OWLAnnotationAxiomVisitor, OWLIndividualVisitor, OWLAnnotationValueVisitor, OWLAnnotationObjectVisitor, SWRLObjectVisitor {
 
-    public void visit(OWLOntology ontology);
-}
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Nov-2006 */
+public interface OWLObjectVisitor extends OWLAxiomVisitor, OWLClassExpressionVisitor,
+        OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor,
+        OWLNamedObjectVisitor, OWLAnnotationAxiomVisitor, OWLIndividualVisitor,
+        OWLAnnotationValueVisitor, OWLAnnotationObjectVisitor, SWRLObjectVisitor {}

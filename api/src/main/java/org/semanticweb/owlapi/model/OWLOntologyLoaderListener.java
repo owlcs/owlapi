@@ -41,9 +41,8 @@ package org.semanticweb.owlapi.model;
 /** Receives notification of ontology loading starting and finishing from a
  * manager.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Apr-2008*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Apr-2008 */
 public interface OWLOntologyLoaderListener {
     /** Called when the process of attempting to load an ontology starts.
      * 
@@ -81,7 +80,7 @@ public interface OWLOntologyLoaderListener {
             return ontologyID;
         }
 
-        /** Gets the document IRI for the ontology being loaded
+        /** Gets the document IRI for the ontology being loaded.
          * 
          * @return The document IRI that describes where the ontology was loaded
          *         from. */
@@ -123,9 +122,9 @@ public interface OWLOntologyLoaderListener {
         /** Determines if the ontology was successfully loaded.
          * 
          * @return {@code true} if the ontology was successfully loaded,
-         *         {@code false} if the ontology was not successfully
-         *         loaded. Note that an ontology being successfully loaded does
-         *         not imply that any ontologies that the ontology imports were
+         *         {@code false} if the ontology was not successfully loaded.
+         *         Note that an ontology being successfully loaded does not
+         *         imply that any ontologies that the ontology imports were
          *         successfully loaded. */
         public boolean isSuccessful() {
             return ex == null;

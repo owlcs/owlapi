@@ -42,9 +42,8 @@ import java.io.Serializable;
 
 /** Represents the different types of OWL 2 class expressions.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 08-Sep-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 08-Sep-2008 */
 public enum ClassExpressionType implements Serializable {
     /** Represents {@link OWLClass} */
     OWL_CLASS("Class"),

@@ -38,21 +38,50 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009
+ * @param <O>
+ *            visitor type */
 public interface OWLDataRangeVisitorEx<O> {
+    /** visit OWLDatatype type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDatatype node);
 
+    /** visit OWLDataOneOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataOneOf node);
 
+    /** visit OWLDataComplementOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataComplementOf node);
 
+    /** visit OWLDataIntersectionOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataIntersectionOf node);
 
+    /** visit OWLDataUnionOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataUnionOf node);
 
+    /** visit OWLDatatypeRestriction type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDatatypeRestriction node);
 }

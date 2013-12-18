@@ -44,9 +44,8 @@ import java.util.List;
 /** A change broadcast strategy that simple broadcasts all changes made to all
  * ontologies.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 20-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 20-Nov-2006 */
 public class DefaultChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy, Serializable {
     private static final long serialVersionUID = 30406L;

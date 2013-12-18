@@ -40,15 +40,14 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006
  * @param <P>
  *            property expression */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends
         OWLPropertyAxiom {
     /** @return all of the properties that appear in this axiom */
-    public Set<P> getProperties();
+    Set<P> getProperties();
 
     /** @param property
      *            the property to skip

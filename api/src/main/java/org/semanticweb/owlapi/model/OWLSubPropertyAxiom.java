@@ -38,16 +38,15 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006
  * @param <P>
  *            property expression */
 public interface OWLSubPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends
         OWLPropertyAxiom {
     /** @return the sub property */
-    public P getSubProperty();
+    P getSubProperty();
 
     /** @return the super property */
-    public P getSuperProperty();
+    P getSuperProperty();
 }

@@ -50,9 +50,9 @@ import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 14-Jan-2009 Represents International Resource Identifiers */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 14-Jan-2009 Represents International Resource
+ *         Identifiers */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
         CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -72,8 +72,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** Determines if this IRI is absolute
      * 
-     * @return {@code true} if this IRI is absolute or {@code false}
-     *         if this IRI is not absolute */
+     * @return {@code true} if this IRI is absolute or {@code false} if this IRI
+     *         is not absolute */
     public boolean isAbsolute() {
         int colonIndex = prefix.indexOf(':');
         if (colonIndex == -1) {
@@ -131,8 +131,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * &lt;http://www.w3.org/2001/XMLSchema#&gt; or
      * &lt;http://www.w3.org/2002/07/owl#&gt;
      * 
-     * @return {@code true} if the IRI is in the reserved vocabulary,
-     *         otherwise {@code false}. */
+     * @return {@code true} if the IRI is in the reserved vocabulary, otherwise
+     *         {@code false}. */
     public boolean isReservedVocabulary() {
         return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
                 || Namespaces.RDFS.inNamespace(prefix)
@@ -150,8 +150,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
                 && Namespaces.OWL.inNamespace(prefix);
     }
 
-    /** Determines if this IRI is equal to the IRI that {@code owl:Nothing}
-     * is named with
+    /** Determines if this IRI is equal to the IRI that {@code owl:Nothing} is
+     * named with
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise

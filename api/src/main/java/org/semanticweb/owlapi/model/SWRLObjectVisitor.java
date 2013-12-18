@@ -36,37 +36,74 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLObjectVisitor {
-
+    /** visit SWRLRule type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLRule node);
 
+    /** visit SWRLClassAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLClassAtom node);
 
+    /** visit SWRLDataRangeAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLDataRangeAtom node);
 
+    /** visit SWRLObjectPropertyAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLObjectPropertyAtom node);
 
+    /** visit SWRLDataPropertyAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLDataPropertyAtom node);
 
+    /** visit SWRLBuiltInAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLBuiltInAtom node);
 
+    /** visit SWRLVariable type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLVariable node);
 
+    /** visit SWRLIndividualArgument type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLIndividualArgument node);
 
+    /** visit SWRLLiteralArgument type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLLiteralArgument node);
 
+    /** visit SWRLSameIndividualAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLSameIndividualAtom node);
 
+    /** visit SWRLDifferentIndividualsAtom type
+     * 
+     * @param node
+     *            object to visit */
     void visit(SWRLDifferentIndividualsAtom node);
 }

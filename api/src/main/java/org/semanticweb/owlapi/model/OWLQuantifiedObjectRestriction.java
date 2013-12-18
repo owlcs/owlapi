@@ -36,11 +36,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * A quantified object restriction
- *
- */
-public interface OWLQuantifiedObjectRestriction extends OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {
-}
+
+/** A quantified object restriction. */
+public interface OWLQuantifiedObjectRestriction
+        extends
+        OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {}

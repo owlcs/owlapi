@@ -41,22 +41,34 @@ package org.semanticweb.owlapi.model;
 /** Describes a situation where a change was vetoed for some reason. Subclasses
  * of this class may provide more information about why the change was vetoed.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Apr-2007*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
     private static final long serialVersionUID = 30406L;
 
+    /** @param change
+     *            change causing the error
+     * @param message
+     *            message */
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message) {
         super(change, message);
     }
 
+    /** @param change
+     *            change causing the error
+     * @param message
+     *            message
+     * @param cause
+     *            cause */
     public OWLOntologyChangeVetoException(OWLOntologyChange change, String message,
             Throwable cause) {
         super(change, message, cause);
     }
 
+    /** @param change
+     *            change causing the error
+     * @param cause
+     *            cause */
     public OWLOntologyChangeVetoException(OWLOntologyChange change, Throwable cause) {
         super(change, cause);
     }

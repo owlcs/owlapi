@@ -41,29 +41,28 @@ package org.semanticweb.owlapi.model;
 /** Represents a <a href="http://www.w3.org/TR/owl2-syntax/#Literals">Literal</a>
  * in the OWL 2 Specification. <br>
  * Each literal consists of a lexical form, which is a string, and a datatype. A
- * literal consisting of a lexical form {@code "abc"} and a datatype
- * identified by the IRI {@code datatypeIRI} is written as
- * {@code "abc"^^datatypeIRI}. <br>
+ * literal consisting of a lexical form {@code "abc"} and a datatype identified
+ * by the IRI {@code datatypeIRI} is written as {@code "abc"^^datatypeIRI}. <br>
  * Note that literals whose datatype is {@code rdf:PlainLiteral} can be
  * abbreviated. For example, literals of the form
- * {@code "abc@"^^rdf:PlainLiteral} can be abbreviated in the
- * functional-style syntax, and other concrete syntaxes to "abc". Literals of
- * the form "abc@langTag"^^rdf:PlainLiteral where "langTag" is not empty are
- * abbreviated in functional-style syntax documents (and other concrete
- * syntaxes) to "abc"@langTag whenever possible.
+ * {@code "abc@"^^rdf:PlainLiteral} can be abbreviated in the functional-style
+ * syntax, and other concrete syntaxes to "abc". Literals of the form
+ * "abc@langTag"^^rdf:PlainLiteral where "langTag" is not empty are abbreviated
+ * in functional-style syntax documents (and other concrete syntaxes) to
+ * "abc"@langTag whenever possible.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue,
         OWLPropertyAssertionObject {
-    /** Determines if the datatype of this literal is
-     * {@code rdf:PlainLiteral}. Note that literals that are abbreviated in
-     * the functional syntax (and other concrete syntaxes) and are of the form
-     * {@code "abc"} or {@code "abc"@langTag} will be of the type
-     * {@code rdf:PlainLiteral} after parsing.
+    /** Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
+     * Note that literals that are abbreviated in the functional syntax (and
+     * other concrete syntaxes) and are of the form {@code "abc"} or
+     * {@code "abc"@langTag} will be of the type {@code rdf:PlainLiteral} after
+     * parsing.
      * 
-     * @return {@code true} if the datatype of this literal is
-     *         rdf:PlainLiteral, otherwise {@code false}. */
+     * @return {@code true} if the datatype of this literal is rdf:PlainLiteral,
+     *         otherwise {@code false}. */
     boolean isRDFPlainLiteral();
 
     /** Gets the lexical value of this literal. Note that if the datatype is
@@ -71,20 +70,20 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * returned. That is, the language tag is not included.
      * 
      * @return The lexical value of this literal. If the datatype is
-     *         {@code rdf:PlainLiteral} then the return values are as
-     *         follows: If the literal is of the form
-     *         {@code "abc@"^^rdf:PlainLiteral} then the return value will
-     *         be "abc" (without the language tag included). If the literal is
-     *         of the form {@code "abc@langTag"^^rdf:PlainLiteral} then the
-     *         return value will be "abc" (without the language tag included). */
+     *         {@code rdf:PlainLiteral} then the return values are as follows:
+     *         If the literal is of the form {@code "abc@"^^rdf:PlainLiteral}
+     *         then the return value will be "abc" (without the language tag
+     *         included). If the literal is of the form
+     *         {@code "abc@langTag"^^rdf:PlainLiteral} then the return value
+     *         will be "abc" (without the language tag included). */
     String getLiteral();
 
     /** Gets the {@code OWLDatatype} which types this literal.
      * 
-     * @return The {@code OWLDatatype} that types this literal. Note that
-     *         for strings with language tag (previously considered to be
-     *         untyped literals) the datatype will be rdf:PlainLiteral. The
-     *         return value is never {@code null}. */
+     * @return The {@code OWLDatatype} that types this literal. Note that for
+     *         strings with language tag (previously considered to be untyped
+     *         literals) the datatype will be rdf:PlainLiteral. The return value
+     *         is never {@code null}. */
     OWLDatatype getDatatype();
 
     /** Determines if this literal has a language tag.
@@ -97,9 +96,9 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * 
      * @return The language tag of this literal. If the literal does not have a
      *         language tag, because it is not of the type
-     *         {@code rdf:PlainLiteral}, or because its language tag is
-     *         empty, then the empty string will be returned. (The
-     *         {@code null} value is never returned). */
+     *         {@code rdf:PlainLiteral}, or because its language tag is empty,
+     *         then the empty string will be returned. (The {@code null} value
+     *         is never returned). */
     String getLang();
 
     /** Determines if this {@code OWLLiteral} has a particular language tag.
@@ -116,8 +115,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * is {@code "http://www.w3.org/2001/XMLSchema#"integer}.
      * 
      * @return {@code true} if this literal is typed with
-     *         {@code "http://www.w3.org/2001/XMLSchema#"integer}, i.e.
-     *         this literal represents an integer, otherwise {@code false}. */
+     *         {@code "http://www.w3.org/2001/XMLSchema#"integer}, i.e. this
+     *         literal represents an integer, otherwise {@code false}. */
     boolean isInteger();
 
     /** Parses the lexical value of this literal into an integer. The lexical
@@ -135,8 +134,8 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      * is {@code "http://www.w3.org/2001/XMLSchema#"boolean}.
      * 
      * @return {@code true} if this literal is typed with
-     *         {@code "http://www.w3.org/2001/XMLSchema#"boolean}, i.e.
-     *         this literal represents a boolean, otherwise {@code false}. */
+     *         {@code "http://www.w3.org/2001/XMLSchema#"boolean}, i.e. this
+     *         literal represents a boolean, otherwise {@code false}. */
     boolean isBoolean();
 
     /** Parses the lexical value of this literal into a boolean. The lexical
@@ -186,9 +185,16 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotatio
      *             it is not in the lexical space of the float datatype. */
     float parseFloat() throws NumberFormatException;
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     void accept(OWLDataVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor
+     * @return visitor value */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

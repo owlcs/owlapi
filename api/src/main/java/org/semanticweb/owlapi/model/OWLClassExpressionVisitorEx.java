@@ -42,44 +42,134 @@ package org.semanticweb.owlapi.model;
  * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the <a
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 16-Apr-2008
+ * @param <O>
+ *            visitor type */
 public interface OWLClassExpressionVisitorEx<O> {
+    /** visit OWLClass type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLClass ce);
 
+    /** visit OWLObjectIntersectionOf type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectIntersectionOf ce);
 
+    /** visit OWLObjectUnionOf type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectUnionOf ce);
 
+    /** visit OWLObjectComplementOf type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectComplementOf ce);
 
+    /** visit OWLObjectSomeValuesFrom type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectSomeValuesFrom ce);
 
+    /** visit OWLObjectAllValuesFrom type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectAllValuesFrom ce);
 
+    /** visit OWLObjectHasValue type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectHasValue ce);
 
+    /** visit OWLObjectMinCardinality type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectMinCardinality ce);
 
+    /** visit OWLObjectExactCardinality type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectExactCardinality ce);
 
+    /** visit OWLObjectMaxCardinality type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectMaxCardinality ce);
 
+    /** visit OWLObjectHasSelf type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectHasSelf ce);
 
+    /** visit OWLObjectOneOf type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLObjectOneOf ce);
 
+    /** visit OWLDataSomeValuesFrom type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataSomeValuesFrom ce);
 
+    /** visit OWLDataAllValuesFrom type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataAllValuesFrom ce);
 
+    /** visit OWLDataHasValue type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataHasValue ce);
 
+    /** visit OWLDataMinCardinality type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataMinCardinality ce);
 
+    /** visit OWLDataExactCardinality type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataExactCardinality ce);
 
+    /** visit OWLDataMaxCardinality type
+     * 
+     * @param ce
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataMaxCardinality ce);
 }

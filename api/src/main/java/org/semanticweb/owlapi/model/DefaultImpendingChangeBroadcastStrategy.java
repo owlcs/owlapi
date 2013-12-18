@@ -36,24 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jul-2010
- */
-public class DefaultImpendingChangeBroadcastStrategy implements ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
+/** @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 04-Jul-2010 */
+public class DefaultImpendingChangeBroadcastStrategy implements
+        ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	@Override
-    public void broadcastChanges(ImpendingOWLOntologyChangeListener listener, List<? extends OWLOntologyChange> changes) {
+    @Override
+    public void broadcastChanges(ImpendingOWLOntologyChangeListener listener,
+            List<? extends OWLOntologyChange> changes) {
         listener.handleImpendingOntologyChanges(changes);
     }
 }

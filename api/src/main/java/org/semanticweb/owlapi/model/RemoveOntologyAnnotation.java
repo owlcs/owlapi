@@ -44,9 +44,8 @@ import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 /** Represents an ontology change where an annotation is removed from an
  * ontology.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 24-Mar-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 24-Mar-2009 */
 public class RemoveOntologyAnnotation extends AnnotationChange {
     /** @param ont
      *            the ontology to which the change is to be applied

@@ -40,14 +40,15 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006<br>
- * Represents <a
+/** Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals"
- * >DataOneOf</a> in the OWL 2 Specification. */
+ * >DataOneOf</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLDataOneOf extends OWLDataRange {
     /** Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 
      * @return The values that this data range consists of. */
-    public Set<OWLLiteral> getValues();
+    Set<OWLLiteral> getValues();
 }

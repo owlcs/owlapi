@@ -36,13 +36,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007 */
-public interface SWRLSameIndividualAtom extends SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
-
-}
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Feb-2007 */
+public interface SWRLSameIndividualAtom extends
+        SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {}

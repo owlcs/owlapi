@@ -38,28 +38,28 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
- * Represents a <a
+/** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the OWL
  * 2 Specification.<br>
  * A high level interface which represents a data range. Example of data ranges
  * are datatypes (e.g. int, float, double, string, ...), complements of data
  * ranges (e.g. not(int)), data enumerations (data oneOfs), datatype
- * restrictions (e.g. int &gt; 3). */
+ * restrictions (e.g. int &gt; 3).
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
     /** Determines if this data range is a datatype (int, float, ...)
      * 
-     * @return {@code true} if this datarange is a datatype, or
-     *         {@code false} if it is not a datatype and is some other data
-     *         range such as a data range restriction, data oneOf or data
-     *         complementOf. */
+     * @return {@code true} if this datarange is a datatype, or {@code false} if
+     *         it is not a datatype and is some other data range such as a data
+     *         range restriction, data oneOf or data complementOf. */
     boolean isDatatype();
 
     /** Determines if this data range is the top data type.
      * 
-     * @return {@code true} if this data range is the top datatype
-     *         otherwise {@code false} */
+     * @return {@code true} if this data range is the top datatype otherwise
+     *         {@code false} */
     boolean isTopDatatype();
 
     /** If this data range is a datatype then this method may be used to obtain
@@ -74,15 +74,29 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
      * @return The data range type */
     DataRangeType getDataRangeType();
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     void accept(OWLDataVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor
+     * @return visitor value */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     void accept(OWLDataRangeVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor
+     * @return visitor value */
     <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

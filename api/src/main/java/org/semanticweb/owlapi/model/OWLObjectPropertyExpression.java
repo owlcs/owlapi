@@ -40,9 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 */
 public interface OWLObjectPropertyExpression extends
         OWLPropertyExpression<OWLClassExpression, OWLObjectPropertyExpression>,
         SWRLPredicate {

@@ -41,21 +41,42 @@ package org.semanticweb.owlapi.model;
 /** An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
  * 
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 17-Jan-2009 */
 public interface OWLDataRangeVisitor {
+    /** visit OWLDatatype type
+     * 
+     * @param node
+     *            object to visit */
     void visit(OWLDatatype node);
 
+    /** visit OWLDataOneOf type
+     * 
+     * @param node
+     *            object to visit */
     void visit(OWLDataOneOf node);
 
+    /** visit OWLDataComplementOf type
+     * 
+     * @param node
+     *            object to visit */
     void visit(OWLDataComplementOf node);
 
+    /** visit OWLDataIntersectionOf type
+     * 
+     * @param node
+     *            object to visit */
     void visit(OWLDataIntersectionOf node);
 
+    /** visit OWLDataUnionOf type
+     * 
+     * @param node
+     *            object to visit */
     void visit(OWLDataUnionOf node);
 
+    /** visit OWLDatatypeRestriction type
+     * 
+     * @param node
+     *            object to visit */
     void visit(OWLDatatypeRestriction node);
 }

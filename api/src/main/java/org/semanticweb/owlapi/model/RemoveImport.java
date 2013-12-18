@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
 import java.util.Collections;
@@ -45,19 +44,14 @@ import java.util.Set;
 import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Mar-2009
- */
+/** @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Mar-2009 */
 public class RemoveImport extends ImportChange {
-
-    /**
-     * @param ont the ontology to which the change is to be applied
-     * @param importDeclaration the import declaration
-     */
-    public RemoveImport(OWLOntology ont,
-                        OWLImportsDeclaration importDeclaration) {
+    /** @param ont
+     *            the ontology to which the change is to be applied
+     * @param importDeclaration
+     *            the import declaration */
+    public RemoveImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
 
@@ -73,26 +67,24 @@ public class RemoveImport extends ImportChange {
     }
 
     @Override
-	public int hashCode() {
+    public int hashCode() {
         return getOntology().hashCode() * 37 + getImportDeclaration().hashCode() + 3;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-        if(obj == this) {
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
         }
-        if(!(obj instanceof RemoveImport)) {
+        if (!(obj instanceof RemoveImport)) {
             return false;
         }
         RemoveImport other = (RemoveImport) obj;
         return getImportDeclaration().equals(other.getImportDeclaration());
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("RemoveImport(");
         sb.append(getImportDeclaration().toString());
@@ -100,14 +92,13 @@ public class RemoveImport extends ImportChange {
         return sb.toString();
     }
 
-
     @Override
-	public void accept(OWLOntologyChangeVisitor visitor) {
+    public void accept(OWLOntologyChangeVisitor visitor) {
         visitor.visit(this);
     }
 
     @Override
     public <O> O accept(OWLOntologyChangeVisitorEx<O> visitor) {
-    	return visitor.visit(this);
+        return visitor.visit(this);
     }
 }

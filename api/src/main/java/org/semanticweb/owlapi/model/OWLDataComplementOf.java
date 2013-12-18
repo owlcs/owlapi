@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006<br>
- * Represents <a
+/** Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Data_Ranges"
- * >DataComplementOf</a> in the OWL 2 Specification. */
+ * >DataComplementOf</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLDataComplementOf extends OWLDataRange {
     /** Gets the data range which this data range is a complement of.
      * 

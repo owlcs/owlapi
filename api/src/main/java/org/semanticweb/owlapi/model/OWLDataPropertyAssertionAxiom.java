@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006<br>
- * Represents a <a
+/** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Positive_Data_Property_Assertions"
- * >DataPropertyAssertion</a> in the OWL 2 Specification. */
+ * >DataPropertyAssertion</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLDataPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLDataPropertyExpression, OWLLiteral>,
         OWLSubClassOfAxiomShortCut {

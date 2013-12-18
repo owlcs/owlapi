@@ -43,9 +43,8 @@ import org.semanticweb.owlapi.change.AddImportData;
 /** Represents an ontology change where an import statement is added to an
  * ontology.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 18-Mar-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Mar-2009 */
 public class AddImport extends ImportChange {
     /** @param ont
      *            the ontology to which the change is to be applied

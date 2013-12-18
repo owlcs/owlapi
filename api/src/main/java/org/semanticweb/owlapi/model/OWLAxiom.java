@@ -40,17 +40,21 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006<br>
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
+/** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
  * the OWL 2 Specification.<br>
  * An OWL ontology contains a set of axioms. These axioms can be annotation
- * axioms, declaration axioms, imports axioms or logical axioms */
+ * axioms, declaration axioms, imports axioms or logical axioms
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLAxiom extends OWLObject {
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept */
     void accept(OWLAxiomVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept
+     * @return visitor value */
     <O> O accept(OWLAxiomVisitorEx<O> visitor);
 
     /** Gets the annotations that are annotate this axiom.
@@ -65,8 +69,7 @@ public interface OWLAxiom extends OWLObject {
      *            The annotation property that will be equal to the annotation
      *            property of each returned annotation.
      * @return A set of annotations that annotate this axiom, each of whose
-     *         annotation properties is equals to
-     *         {@code annotationProperty}. */
+     *         annotation properties is equals to {@code annotationProperty}. */
     Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty);
 
     /** Gets an axiom that is structurally equivalent to this axiom without
@@ -94,17 +97,16 @@ public interface OWLAxiom extends OWLObject {
      * 
      * @param axiom
      *            The axiom to test if equal
-     * @return {@code true} if {@code axiom} without annotations is
-     *         equal to this axiom without annotations otherwise
-     *         {@code false}. */
+     * @return {@code true} if {@code axiom} without annotations is equal to
+     *         this axiom without annotations otherwise {@code false}. */
     boolean equalsIgnoreAnnotations(OWLAxiom axiom);
 
     /** Determines if this axiom is a logical axiom. Logical axioms are defined
      * to be axioms other than both declaration axioms (including imports
      * declarations) and annotation axioms.
      * 
-     * @return {@code true} if the axiom is a logical axiom,
-     *         {@code false} if the axiom is not a logical axiom. */
+     * @return {@code true} if the axiom is a logical axiom, {@code false} if
+     *         the axiom is not a logical axiom. */
     boolean isLogicalAxiom();
 
     /** Determines if this axioms in an annotation axiom (an instance of

@@ -38,9 +38,9 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 The root of checked exceptions
- * in the OWL API. */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 The root of checked exceptions in the OWL
+ *         API. */
 public class OWLException extends Exception {
     private static final long serialVersionUID = 30406L;
 

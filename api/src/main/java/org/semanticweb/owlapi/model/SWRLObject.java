@@ -36,20 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm */
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLObject extends OWLObject {
+    /** @param visitor
+     *            visitor to accept */
+    void accept(SWRLObjectVisitor visitor);
 
-    @SuppressWarnings("javadoc")
-	void accept(SWRLObjectVisitor visitor);
-
-    @SuppressWarnings("javadoc")
-	<O> O accept(SWRLObjectVisitorEx<O> visitor);
+    /** @param visitor
+     *            visitor to accept
+     * @return visitor value */
+    <O> O accept(SWRLObjectVisitorEx<O> visitor);
 }

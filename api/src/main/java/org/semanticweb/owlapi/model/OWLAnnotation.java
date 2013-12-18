@@ -45,9 +45,8 @@ import java.util.Set;
  * An annotation is equal to another annotation if both objects have equal
  * annotation URIs and have equal annotation values.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Dec-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Dec-2006 */
 public interface OWLAnnotation extends OWLObject {
     /** Gets the property that this annotation acts along
      * 
@@ -70,8 +69,8 @@ public interface OWLAnnotation extends OWLObject {
      * {@code owl:deprecated} and the value of the annotation is
      * {@code "true"^^xsd:boolean}
      * 
-     * @return {@code true} if this annotation is an annotation that can be
-     *         used to deprecate an IRI, otherwise {@code false}. */
+     * @return {@code true} if this annotation is an annotation that can be used
+     *         to deprecate an IRI, otherwise {@code false}. */
     boolean isDeprecatedIRIAnnotation();
 
     /** Gets the annotations on this annotation
@@ -89,9 +88,12 @@ public interface OWLAnnotation extends OWLObject {
      *         annotating it */
     OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotations);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept */
     void accept(OWLAnnotationObjectVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept
+     * @return visitor value */
     <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 }

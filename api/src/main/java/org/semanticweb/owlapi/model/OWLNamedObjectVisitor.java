@@ -36,26 +36,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Nov-2006 */
-@SuppressWarnings("javadoc")
-public interface OWLNamedObjectVisitor {
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Nov-2006 */
+public interface OWLNamedObjectVisitor {
+    /** visit OWLClass type
+     * 
+     * @param owlClass
+     *            object to visit */
     void visit(OWLClass owlClass);
 
+    /** visit OWLObjectProperty type
+     * 
+     * @param property
+     *            object to visit */
     void visit(OWLObjectProperty property);
 
+    /** visit OWLDataProperty type
+     * 
+     * @param property
+     *            object to visit */
     void visit(OWLDataProperty property);
 
+    /** visit OWLNamedIndividual type
+     * 
+     * @param owlIndividual
+     *            object to visit */
     void visit(OWLNamedIndividual owlIndividual);
 
+    /** visit OWLOntology type
+     * 
+     * @param ontology
+     *            object to visit */
     void visit(OWLOntology ontology);
 
+    /** visit OWLDatatype type
+     * 
+     * @param datatype
+     *            object to visit */
     void visit(OWLDatatype datatype);
 
+    /** visit OWLAnnotationProperty type
+     * 
+     * @param property
+     *            object to visit */
     void visit(OWLAnnotationProperty property);
 }

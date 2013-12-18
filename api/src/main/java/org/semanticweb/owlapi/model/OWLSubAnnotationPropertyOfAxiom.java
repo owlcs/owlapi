@@ -42,10 +42,8 @@ package org.semanticweb.owlapi.model;
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties"
  * >SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 13-Jan-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 13-Jan-2009 */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     /** Gets the subproperty of this axiom.
      * 

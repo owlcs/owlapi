@@ -42,7 +42,6 @@ package org.semanticweb.owlapi.model;
  * ontology. This excludes declaration axioms (including imports declarations)
  * and annotation axioms.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 05-Dec-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 05-Dec-2006 */
 public interface OWLLogicalAxiom extends OWLAxiom {}

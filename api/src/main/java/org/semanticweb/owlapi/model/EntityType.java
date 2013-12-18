@@ -49,10 +49,10 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** Represents the different types of OWL 2 Entities.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 11-Oct-2009
- * @param <E> */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 11-Oct-2009
+ * @param <E>
+ *            entity type */
 public final class EntityType<E extends OWLEntity> implements Serializable {
     private static final long serialVersionUID = 30406L;
     /** class entity */

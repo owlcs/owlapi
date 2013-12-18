@@ -36,34 +36,87 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008 */
-@SuppressWarnings("javadoc")
-public interface SWRLObjectVisitorEx<O> {
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008
+ * @param <O>
+ *            visitor type */
+public interface SWRLObjectVisitorEx<O> {
+    /** visit SWRLRule type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLRule node);
 
+    /** visit SWRLClassAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLClassAtom node);
 
+    /** visit SWRLDataRangeAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLDataRangeAtom node);
 
+    /** visit SWRLObjectPropertyAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLObjectPropertyAtom node);
 
+    /** visit SWRLDataPropertyAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLDataPropertyAtom node);
 
+    /** visit SWRLBuiltInAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLBuiltInAtom node);
 
+    /** visit SWRLVariable type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLVariable node);
 
+    /** visit SWRLIndividualArgument type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLIndividualArgument node);
 
+    /** visit SWRLLiteralArgument type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLLiteralArgument node);
 
+    /** visit SWRLSameIndividualAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLSameIndividualAtom node);
 
+    /** visit SWRLDifferentIndividualsAtom type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(SWRLDifferentIndividualsAtom node);
 }

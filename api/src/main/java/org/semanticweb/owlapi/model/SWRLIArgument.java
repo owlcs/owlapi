@@ -36,20 +36,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: Jan 15, 2007<br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- *
- * Represents arguments in {@link org.semanticweb.owlapi.model.SWRLAtom}s that are either
- * {@link org.semanticweb.owlapi.model.OWLIndividual}s or variables for
- * individuals {@link SWRLIndividualArgument}
- */
-public interface SWRLIArgument extends SWRLArgument {
-
-}
+/** Represents arguments in {@link org.semanticweb.owlapi.model.SWRLAtom}s that
+ * are either {@link org.semanticweb.owlapi.model.OWLIndividual}s or variables
+ * for individuals {@link SWRLIndividualArgument}.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
+public interface SWRLIArgument extends SWRLArgument {}

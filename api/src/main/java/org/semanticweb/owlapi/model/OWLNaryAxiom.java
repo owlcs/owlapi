@@ -43,9 +43,8 @@ import java.util.Set;
 /** Represents an axiom that contains two or more operands that could also be
  * represented with multiple pairwise axioms
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 05-Jan-2010 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 05-Jan-2010 */
 public interface OWLNaryAxiom extends OWLAxiom {
     /** Gets this axiom as a set of pairwise axioms. Note that annotations on
      * this axiom will not be copied to each axiom returned in the set of

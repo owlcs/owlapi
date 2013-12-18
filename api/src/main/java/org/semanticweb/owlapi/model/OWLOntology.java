@@ -40,9 +40,7 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
- * Represents an OWL 2 <a
+/** Represents an OWL 2 <a
  * href="http://www.w3.org/TR/owl2-syntax/#Ontologies">Ontology</a> in the OWL 2
  * specification. <br>
  * An {@code OWLOntology} consists of a possibly empty set of
@@ -51,9 +49,11 @@ import java.util.Set;
  * used to identify the ontology. If it has an ontology IRI then it may also
  * have an ontology version IRI. Since OWL 2, an ontology need not have an
  * ontology IRI. (See the <a href="http://www.w3.org/TR/owl2-syntax/">OWL 2
- * Structural Specification</a>). <br>
- * An ontology cannot be modified directly. Changes must be applied via its
- * {@code OWLOntologyManager}. */
+ * Structural Specification</a> An ontology cannot be modified directly. Changes
+ * must be applied via its {@code OWLOntologyManager}.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLOntology extends OWLObject {
     // XXX when the interfce changes, uncomment this
     // void accept(OWLNamedObjectVisitor visitor);
@@ -101,14 +101,12 @@ public interface OWLOntology extends OWLObject {
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
      * to via the directlyImports relation. See Section 3.4 of the OWL 2
-     * specification for the definition of the directlyImports relation.
-     * <br>
+     * specification for the definition of the directlyImports relation. <br>
      * Note that there may be fewer ontologies in the set returned by this
      * method than there are IRIs in the set returned by the
      * {@link #getDirectImportsDocuments()} method. This will be the case if
      * some of the ontologies that are directly imported by this ontology are
-     * not loaded for what ever reason.
-     * <br>
+     * not loaded for whatever reason.
      * 
      * @return A set of ontologies such that for this ontology O, and each
      *         ontology O' in the set, (O, O') is in the directlyImports
@@ -121,12 +119,10 @@ public interface OWLOntology extends OWLObject {
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
      * to via the <em>transitive closure</em> of the <a
      * href="http://www.w3.org/TR/owl2-syntax/#Imports">directlyImports
-     * relation</a>.
-     * <br>
+     * relation</a>.<br>
      * For example, if this ontology imports ontology B, and ontology B imports
      * ontology C, then this method will return the set consisting of ontology B
      * and ontology C.
-     * <br>
      * 
      * @return The set of ontologies that this ontology is related to via the
      *         transitive closure of the directlyImports relation. The set that
@@ -142,12 +138,10 @@ public interface OWLOntology extends OWLObject {
      * to via the <em>reflexive transitive closure</em> of the directlyImports
      * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
      * (i.e. The set returned includes all ontologies returned by the
-     * {@link #getImports()} method plus this ontology.)
-     * <br>
+     * {@link #getImports()} method plus this ontology.)<br>
      * For example, if this ontology imports ontology B, and ontology B imports
      * ontology C, then this method will return the set consisting of this
      * ontology, ontology B and ontology C.
-     * <br>
      * 
      * @return The set of ontologies in the reflexive transitive closure of the
      *         directlyImports relation.
@@ -178,8 +172,7 @@ public interface OWLOntology extends OWLObject {
      * and it does not have any annotations (i.e. {@link #getAnnotations()}
      * returns the empty set).
      * 
-     * @return {@code true} if the ontology is empty, otherwise
-     *         {@code false}. */
+     * @return {@code true} if the ontology is empty, otherwise {@code false}. */
     boolean isEmpty();
 
     /** Retrieves all of the axioms in this ontology. Note that to test whether
@@ -189,9 +182,9 @@ public interface OWLOntology extends OWLObject {
      * @return The set of all axioms in this ontology, including logical axioms
      *         and annotation axioms. The set that is returned is a copy of the
      *         axioms in the ontology - it will not be updated if the ontology
-     *         changes. It is recommended that the {@code containsAxiom}
-     *         method is used to determine whether or not this ontology contains
-     *         a particular axiom rather than using getAxioms().contains(). */
+     *         changes. It is recommended that the {@code containsAxiom} method
+     *         is used to determine whether or not this ontology contains a
+     *         particular axiom rather than using getAxioms().contains(). */
     Set<OWLAxiom> getAxioms();
 
     /** Gets the number of axioms in this ontology.
@@ -203,10 +196,9 @@ public interface OWLOntology extends OWLObject {
      * the ontology. In other words, this method returns all axioms that are not
      * annotation axioms, or declaration axioms.
      * 
-     * @return A set of axioms which are of the type
-     *         {@code OWLLogicalAxiom} The set that is returned is a copy
-     *         of the axioms in the ontology - it will not be updated if the
-     *         ontology changes. */
+     * @return A set of axioms which are of the type {@code OWLLogicalAxiom} The
+     *         set that is returned is a copy of the axioms in the ontology - it
+     *         will not be updated if the ontology changes. */
     Set<OWLLogicalAxiom> getLogicalAxioms();
 
     /** Gets the number of logical axioms in this ontology.
@@ -220,7 +212,9 @@ public interface OWLOntology extends OWLObject {
      *            The type of axioms to be retrived.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology - it
-     *         will not be updated if the ontology changes. */
+     *         will not be updated if the ontology changes.
+     * @param <T>
+     *            axiom type */
     <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType);
 
     /** Gets the axioms which are of the specified type.
@@ -228,25 +222,27 @@ public interface OWLOntology extends OWLObject {
      * @param axiomType
      *            The type of axioms to be retrived.
      * @param includeImportsClosure
-     *            if {@code true} then axioms of the specified type will
-     *            also be retrieved from the imports closure of this ontology,
-     *            if {@code false} then axioms of the specified type will
-     *            only be retrieved from this ontology.
+     *            if {@code true} then axioms of the specified type will also be
+     *            retrieved from the imports closure of this ontology, if
+     *            {@code false} then axioms of the specified type will only be
+     *            retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
-     *         changes. */
+     *         changes.
+     * @param <T>
+     *            axiom type */
     <T extends OWLAxiom> Set<T> getAxioms(AxiomType<T> axiomType,
             boolean includeImportsClosure);
 
     /** Gets the axioms that form the TBox for this ontology, i.e., the ones
-     * whose type is in the AxiomType::TBoxAxiomTypes
+     * whose type is in the AxiomType::TBoxAxiomTypes.
      * 
      * @param includeImportsClosure
-     *            if {@code true} then axioms of the specified type will
-     *            also be retrieved from the imports closure of this ontology,
-     *            if {@code false} then axioms of the specified type will
-     *            only be retrieved from this ontology.
+     *            if {@code true} then axioms of the specified type will also be
+     *            retrieved from the imports closure of this ontology, if
+     *            {@code false} then axioms of the specified type will only be
+     *            retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
@@ -254,13 +250,13 @@ public interface OWLOntology extends OWLObject {
     Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axioms that form the ABox for this ontology, i.e., the ones
-     * whose type is in the AxiomType::ABoxAxiomTypes
+     * whose type is in the AxiomType::ABoxAxiomTypes.
      * 
      * @param includeImportsClosure
-     *            if {@code true} then axioms of the specified type will
-     *            also be retrieved from the imports closure of this ontology,
-     *            if {@code false} then axioms of the specified type will
-     *            only be retrieved from this ontology.
+     *            if {@code true} then axioms of the specified type will also be
+     *            retrieved from the imports closure of this ontology, if
+     *            {@code false} then axioms of the specified type will only be
+     *            retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
@@ -268,34 +264,38 @@ public interface OWLOntology extends OWLObject {
     Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axioms that form the RBox for this ontology, i.e., the ones
-     * whose type is in the AxiomType::RBoxAxiomTypes
+     * whose type is in the AxiomType::RBoxAxiomTypes.
      * 
      * @param includeImportsClosure
-     *            if {@code true} then axioms of the specified type will
-     *            also be retrieved from the imports closure of this ontology,
-     *            if {@code false} then axioms of the specified type will
-     *            only be retrieved from this ontology.
+     *            if {@code true} then axioms of the specified type will also be
+     *            retrieved from the imports closure of this ontology, if
+     *            {@code false} then axioms of the specified type will only be
+     *            retrieved from this ontology.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
      *         changes. */
     Set<OWLAxiom> getRBoxAxioms(boolean includeImportsClosure);
 
-    /** Gets the axiom count of a specific type of axiom
+    /** Gets the axiom count of a specific type of axiom.
      * 
      * @param axiomType
      *            The type of axiom to count
+     * @param <T>
+     *            axiom type
      * @return The number of the specified types of axioms in this ontology */
     <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType);
 
     /** Gets the axiom count of a specific type of axiom, possibly in the imports
-     * closure of this ontology
+     * closure of this ontology.
      * 
      * @param axiomType
      *            The type of axiom to count
      * @param includeImportsClosure
      *            Specifies that the imports closure should be included when
      *            counting axioms
+     * @param <T>
+     *            axiom type
      * @return The number of the specified types of axioms in this ontology */
     <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType,
             boolean includeImportsClosure);
@@ -304,9 +304,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param axiom
      *            The axiom to test for.
-     * @return {@code true} if the ontology contains the specified axioms,
-     *         or {@code false} if the ontology doesn't contain the
-     *         specified axiom. */
+     * @return {@code true} if the ontology contains the specified axioms, or
+     *         {@code false} if the ontology doesn't contain the specified
+     *         axiom. */
     boolean containsAxiom(OWLAxiom axiom);
 
     /** Determines if this ontology, and possibly the imports closure, contains
@@ -315,25 +315,25 @@ public interface OWLOntology extends OWLObject {
      * @param axiom
      *            The axiom to test for.
      * @param includeImportsClosure
-     *            if {@code true} the imports closure of this ontology will
-     *            be searched for the specific axiom, if {@code false} just
-     *            this ontology will be searched.
-     * @return {@code true} if the ontology contains the specified axioms,
-     *         or {@code false} if the ontology doesn't contain the
-     *         specified axiom. */
+     *            if {@code true} the imports closure of this ontology will be
+     *            searched for the specific axiom, if {@code false} just this
+     *            ontology will be searched.
+     * @return {@code true} if the ontology contains the specified axioms, or
+     *         {@code false} if the ontology doesn't contain the specified
+     *         axiom. */
     boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure);
 
     /** Determines if this ontology contains the specified axiom, but ignoring
      * any annotations on this axiom. For example, if the ontology contains
      * {@code SubClassOf(Annotation(p V) A B)} then this method will return
-     * {@code true} if the ontology contains {@code SubClassOf(A B)}
-     * or {@code SubClassOf(Annotation(q S) A B)} for any annotation
-     * property {@code q} and any annotation value {@code S}.
+     * {@code true} if the ontology contains {@code SubClassOf(A B)} or
+     * {@code SubClassOf(Annotation(q S) A B)} for any annotation property
+     * {@code q} and any annotation value {@code S}.
      * 
      * @param axiom
      *            The axiom to test for.
-     * @return {@code true} if this ontology contains this axiom with or
-     *         without annotations. */
+     * @return {@code true} if this ontology contains this axiom with or without
+     *         annotations. */
     boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom);
 
     /** Gets the set of axioms contained in this ontology that have the same
@@ -343,11 +343,11 @@ public interface OWLOntology extends OWLObject {
      *            The axiom that specifies the logical structure of the axioms
      *            to retrieve. If this axiom is annotated then the annotations
      *            are ignored.
-     * @return A set of axioms such that for any two axioms, {@code axiomA}
-     *         and {@code axiomB} in the set,
+     * @return A set of axioms such that for any two axioms, {@code axiomA} and
+     *         {@code axiomB} in the set,
      *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
-     *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified
-     *         axiom will be contained in the set. */
+     *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
+     *         will be contained in the set. */
     Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom);
 
     /** Gets the set of axioms contained in this ontology that have the same
@@ -359,33 +359,32 @@ public interface OWLOntology extends OWLObject {
      *            to retrieve. If this axiom is annotated then the annotations
      *            are ignored.
      * @param includeImportsClosure
-     *            if {@code true} then axioms in the imports closure of
-     *            this ontology are returned, if {@code false} only axioms
-     *            in this ontology will be returned.
-     * @return A set of axioms such that for any two axioms, {@code axiomA}
-     *         and {@code axiomB} in the set,
+     *            if {@code true} then axioms in the imports closure of this
+     *            ontology are returned, if {@code false} only axioms in this
+     *            ontology will be returned.
+     * @return A set of axioms such that for any two axioms, {@code axiomA} and
+     *         {@code axiomB} in the set,
      *         {@code axiomA.getAxiomWithoutAnnotations()} is equal to
-     *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified
-     *         axiom will be contained in the set. */
+     *         {@code axiomB.getAxiomWithoutAnnotations()}. The specified axiom
+     *         will be contained in the set. */
     Set<OWLAxiom>
             getAxiomsIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure);
 
     /** Determines if this ontology and possibly its imports closure contains the
      * specified axiom but ignoring any annotations on this axiom. For example,
-     * if the ontology contains {@code SubClassOf(Annotation(p V) A B)}
-     * then this method will return {@code true} if the ontology contains
-     * {@code SubClassOf(A B)} or
-     * {@code SubClassOf(Annotation(q S) A B)} for any annotation property
-     * {@code q} and any annotation value {@code S}.
+     * if the ontology contains {@code SubClassOf(Annotation(p V) A B)} then this
+     * method will return {@code true} if the ontology contains
+     * {@code SubClassOf(A B)} or {@code SubClassOf(Annotation(q S) A B)} for any
+     * annotation property {@code q} and any annotation value {@code S}.
      * 
      * @param axiom
      *            The axiom to test for.
      * @param includeImportsClosure
-     *            if {@code true} the imports closure of this ontology will
-     *            be searched for the specified axiom. If {@code false}
-     *            only this ontology will be searched for the specifed axiom.
-     * @return {@code true} if this ontology contains this axiom with or
-     *         without annotations. */
+     *            if {@code true} the imports closure of this ontology will be
+     *            searched for the specified axiom. If {@code false} only this
+     *            ontology will be searched for the specifed axiom.
+     * @return {@code true} if this ontology contains this axiom with or without
+     *         annotations. */
     boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom, boolean includeImportsClosure);
 
     /** Gets the set of general axioms in this ontology. This includes:
@@ -414,8 +413,8 @@ public interface OWLOntology extends OWLObject {
      * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
      * >The OWL 2 Structural Specification</a>)
      * 
-     * @return A set of {@code OWLEntity} objects. The set that is returned
-     *         is a copy - it will not be updated if the ontology changes. It is
+     * @return A set of {@code OWLEntity} objects. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set.
      * @see #getClassesInSignature()
@@ -435,8 +434,8 @@ public interface OWLOntology extends OWLObject {
      *            Specifies whether or not the returned set of entities should
      *            represent the signature of just this ontology, or the
      *            signature of the imports closure of this ontology.
-     * @return A set of {@code OWLEntity} objects. The set that is returned
-     *         is a copy - it will not be updated if the ontology changes. It is
+     * @return A set of {@code OWLEntity} objects. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set.
      * @see #getClassesInSignature()
@@ -464,9 +463,9 @@ public interface OWLOntology extends OWLObject {
      *            If {@code true} then the set of classes returned will
      *            correspond to the union of the classes in the signatures of
      *            the ontologies in the imports closure of this ontology. If
-     *            {@code false} then the set of classes returned will
-     *            correspond to the classes that are in the signature of this
-     *            just this ontology.
+     *            {@code false} then the set of classes returned will correspond
+     *            to the classes that are in the signature of this just this
+     *            ontology.
      * @return A set of classes that are in the signature of this ontology and
      *         possibly the union of the signatures of the ontologies in the
      *         imports closure of this ontology. The set that is returned is a
@@ -491,13 +490,12 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether object properties should be drawn from the
      *            signature of just this ontology or the imports closure of this
-     *            ontology. If {@code true} then the set of object
-     *            properties returned will correspond to the union of the object
-     *            properties in the signatures of the ontologies in the imports
-     *            closure of this ontology. If {@code false} then the set
-     *            of object properties returned will correspond to the object
-     *            properties that are in the signature of this just this
-     *            ontology.
+     *            ontology. If {@code true} then the set of object properties
+     *            returned will correspond to the union of the object properties
+     *            in the signatures of the ontologies in the imports closure of
+     *            this ontology. If {@code false} then the set of object
+     *            properties returned will correspond to the object properties
+     *            that are in the signature of this just this ontology.
      * @return A set of object properties that are in the signature of this
      *         ontology and possibly the union of the signatures of the
      *         ontologies in the imports closure of this ontology. The set that
@@ -553,12 +551,12 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether individuals should be drawn from the
      *            signature of just this ontology or the imports closure of this
-     *            ontology. If {@code true} then the set of individuals
-     *            returned will correspond to the union of the individuals in
-     *            the signatures of the ontologies in the imports closure of
-     *            this ontology. If {@code false} then the set of
-     *            individuals returned will correspond to the individuals that
-     *            are in the signature of this just this ontology.
+     *            ontology. If {@code true} then the set of individuals returned
+     *            will correspond to the union of the individuals in the
+     *            signatures of the ontologies in the imports closure of this
+     *            ontology. If {@code false} then the set of individuals
+     *            returned will correspond to the individuals that are in the
+     *            signature of this just this ontology.
      * @return A set of individuals that are in the signature of this ontology
      *         and possibly the union of the signatures of the ontologies in the
      *         imports closure of this ontology. The set that is returned is a
@@ -567,7 +565,7 @@ public interface OWLOntology extends OWLObject {
      *         over this set. */
     Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure);
 
-    /** Gets the referenced anonymous individuals
+    /** Gets the referenced anonymous individuals.
      * 
      * @return The set of referenced anonymous individuals */
     Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals();
@@ -636,15 +634,15 @@ public interface OWLOntology extends OWLObject {
      *            Specifies if the axioms returned should just be from this
      *            ontology, or from the imports closure of this ontology. If
      *            {@code true} the axioms returned will be from the imports
-     *            closure of this ontology, if {@code false} the axioms
-     *            returned will just be from this ontology.
+     *            closure of this ontology, if {@code false} the axioms returned
+     *            will just be from this ontology.
      * @return The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     Set<OWLAxiom>
             getReferencingAxioms(OWLEntity owlEntity, boolean includeImportsClosure);
 
-    /** Gets the axioms that reference the specified anonymous individual
+    /** Gets the axioms that reference the specified anonymous individual.
      * 
      * @param individual
      *            The individual
@@ -682,9 +680,9 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param entityIRI
      *            The IRI to test for.
-     * @return {@code true} if the signature of this ontology contains a
-     *         class, object property, data property, named individual,
-     *         annotation property or datatype with the specified IRI. */
+     * @return {@code true} if the signature of this ontology contains a class,
+     *         object property, data property, named individual, annotation
+     *         property or datatype with the specified IRI. */
     boolean containsEntityInSignature(IRI entityIRI);
 
     /** Determines if the signature of this ontology and possibly its imports
@@ -696,15 +694,15 @@ public interface OWLOntology extends OWLObject {
      * @param includeImportsClosure
      *            Specifies whether the imports closure of this ontology should
      *            be examined or not.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if the signature of this ontology or the
-     *         signature of an ontology in the imports closure of this ontology
-     *         contains a class, object property, data property, named
-     *         individual, annotation property or datatype with the specified
-     *         IRI. If {@code includeImportsClosure=false} then returns
-     *         {@code true} if the signature of this ontology contains a
-     *         class, object property, data property, named individual,
-     *         annotation property or datatype with the specified IRI. */
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if the signature of this ontology or the signature of an ontology
+     *         in the imports closure of this ontology contains a class, object
+     *         property, data property, named individual, annotation property or
+     *         datatype with the specified IRI. If
+     *         {@code includeImportsClosure=false} then returns {@code true} if
+     *         the signature of this ontology contains a class, object property,
+     *         data property, named individual, annotation property or datatype
+     *         with the specified IRI. */
     boolean containsEntityInSignature(IRI entityIRI, boolean includeImportsClosure);
 
     /** Determines if this ontology declares an entity i.e. it contains a
@@ -722,12 +720,11 @@ public interface OWLOntology extends OWLObject {
      * @param owlEntity
      *            The entity to be tested for
      * @param includeImportsClosure
-     *            {@code true} if the imports closure of this ontology
-     *            should be examined, {@code false} if just this ontology
-     *            should be examined.
-     * @return {@code true} if the ontology or its imports closure contains
-     *         a declaration for the specified entity, otherwise
-     *         {@code false}. */
+     *            {@code true} if the imports closure of this ontology should be
+     *            examined, {@code false} if just this ontology should be
+     *            examined.
+     * @return {@code true} if the ontology or its imports closure contains a
+     *         declaration for the specified entity, otherwise {@code false}. */
     boolean isDeclared(OWLEntity owlEntity, boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -752,20 +749,18 @@ public interface OWLOntology extends OWLObject {
      * @param owlClassIRI
      *            The IRI of the class to check for
      * @param includeImportsClosure
-     *            {@code true} if the signature of the ontologies in the
-     *            imports closure of this ontology should be checked,
-     *            {@code false} if just the signature of this ontology
-     *            should be chekced.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if there is an OWLClass with
-     *         {@code owlClassIRI} as its IRI in the signature of at least
-     *         one ontology in the imports clousre of this ontology and
-     *         {@code false} if this is not the case. If
-     *         {@code includeImportsClosure=false} then returns
-     *         {@code true} if the signature of this ontology contains an
-     *         OWLClass that has {@code owlClassIRI} as its IRI and
-     *         {@code false} if the signature of this ontology does not
-     *         contain a class with {@code owlClassIRI} as its IRI. */
+     *            {@code true} if the signature of the ontologies in the imports
+     *            closure of this ontology should be checked, {@code false} if
+     *            just the signature of this ontology should be chekced.
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if there is an OWLClass with {@code owlClassIRI} as its IRI in
+     *         the signature of at least one ontology in the imports clousre of
+     *         this ontology and {@code false} if this is not the case. If
+     *         {@code includeImportsClosure=false} then returns {@code true} if
+     *         the signature of this ontology contains an OWLClass that has
+     *         {@code owlClassIRI} as its IRI and {@code false} if the signature
+     *         of this ontology does not contain a class with
+     *         {@code owlClassIRI} as its IRI. */
     boolean containsClassInSignature(IRI owlClassIRI, boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an
@@ -774,8 +769,8 @@ public interface OWLOntology extends OWLObject {
      * @param owlObjectPropertyIRI
      *            The IRI of the OWLObjectProperty to check for.
      * @return {@code true} if the signature of this ontology contains an
-     *         OWLObjectProperty that has {@code owlObjectPropertyIRI} as
-     *         its IRI, otherwise {@code false}. */
+     *         OWLObjectProperty that has {@code owlObjectPropertyIRI} as its
+     *         IRI, otherwise {@code false}. */
     boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -785,21 +780,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlObjectPropertyIRI
      *            The IRI of the OWLObjectProperty to check for
      * @param includeImportsClosure
-     *            {@code true} if the signature of the ontologies in the
-     *            imports closure of this ontology should be checked,
-     *            {@code false} if just the signature of this ontology
-     *            should be chekced.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if there is an OWLObjectProperty with
-     *         {@code owlObjectPropertyIRI} as its IRI in the signature of
-     *         at least one ontology in the imports clousre of this ontology and
+     *            {@code true} if the signature of the ontologies in the imports
+     *            closure of this ontology should be checked, {@code false} if
+     *            just the signature of this ontology should be chekced.
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if there is an OWLObjectProperty with
+     *         {@code owlObjectPropertyIRI} as its IRI in the signature of at
+     *         least one ontology in the imports clousre of this ontology and
      *         {@code false} if this is not the case. If
-     *         {@code includeImportsClosure=false} then returns
-     *         {@code true} if the signature of this ontology contains an
-     *         OWLObjectProperty that has {@code owlObjectPropertyIRI} as
-     *         its IRI and {@code false} if the signature of this ontology
-     *         does not contain a class with {@code owlObjectPropertyIRI}
-     *         as its IRI. */
+     *         {@code includeImportsClosure=false} then returns {@code true} if
+     *         the signature of this ontology contains an OWLObjectProperty that
+     *         has {@code owlObjectPropertyIRI} as its IRI and {@code false} if
+     *         the signature of this ontology does not contain a class with
+     *         {@code owlObjectPropertyIRI} as its IRI. */
     boolean containsObjectPropertyInSignature(IRI owlObjectPropertyIRI,
             boolean includeImportsClosure);
 
@@ -809,8 +802,8 @@ public interface OWLOntology extends OWLObject {
      * @param owlDataPropertyIRI
      *            The IRI of the OWLDataProperty to check for.
      * @return {@code true} if the signature of this ontology contains an
-     *         OWLDataProperty that has {@code owlDataPropertyIRI} as its
-     *         IRI, otherwise {@code false}. */
+     *         OWLDataProperty that has {@code owlDataPropertyIRI} as its IRI,
+     *         otherwise {@code false}. */
     boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -820,21 +813,18 @@ public interface OWLOntology extends OWLObject {
      * @param owlDataPropertyIRI
      *            The IRI of the OWLDataProperty to check for
      * @param includeImportsClosure
-     *            {@code true} if the signature of the ontologies in the
-     *            imports closure of this ontology should be checked,
-     *            {@code false} if just the signature of this ontology
-     *            should be chekced.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if there is an OWLDataProperty with
-     *         {@code owlDataPropertyIRI} as its IRI in the signature of at
-     *         least one ontology in the imports clousre of this ontology and
-     *         {@code false} if this is not the case. If
-     *         {@code includeImportsClosure=false} then returns
+     *            {@code true} if the signature of the ontologies in the imports
+     *            closure of this ontology should be checked, {@code false} if
+     *            just the signature of this ontology should be chekced.
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if there is an OWLDataProperty with {@code owlDataPropertyIRI} as
+     *         its IRI in the signature of at least one ontology in the imports
+     *         clousre of this ontology and {@code false} if this is not the
+     *         case. If {@code includeImportsClosure=false} then returns
      *         {@code true} if the signature of this ontology contains an
-     *         OWLDataProperty that has {@code owlDataPropertyIRI} as its
-     *         IRI and {@code false} if the signature of this ontology does
-     *         not contain a class with {@code owlDataPropertyIRI} as its
-     *         IRI. */
+     *         OWLDataProperty that has {@code owlDataPropertyIRI} as its IRI
+     *         and {@code false} if the signature of this ontology does not
+     *         contain a class with {@code owlDataPropertyIRI} as its IRI. */
     boolean containsDataPropertyInSignature(IRI owlDataPropertyIRI,
             boolean includeImportsClosure);
 
@@ -844,9 +834,8 @@ public interface OWLOntology extends OWLObject {
      * @param owlAnnotationPropertyIRI
      *            The IRI of the OWLAnnotationProperty to check for.
      * @return {@code true} if the signature of this ontology contains an
-     *         OWLAnnotationProperty that has
-     *         {@code owlAnnotationPropertyIRI} as its IRI, otherwise
-     *         {@code false}. */
+     *         OWLAnnotationProperty that has {@code owlAnnotationPropertyIRI}
+     *         as its IRI, otherwise {@code false}. */
     boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -856,22 +845,19 @@ public interface OWLOntology extends OWLObject {
      * @param owlAnnotationPropertyIRI
      *            The IRI of the OWLAnnotationProperty to check for
      * @param includeImportsClosure
-     *            {@code true} if the signature of the ontologies in the
-     *            imports closure of this ontology should be checked,
-     *            {@code false} if just the signature of this ontology
-     *            should be chekced.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if there is an OWLAnnotationProperty with
-     *         {@code owlAnnotationPropertyIRI} as its IRI in the signature
-     *         of at least one ontology in the imports clousre of this ontology
-     *         and {@code false} if this is not the case. If
-     *         {@code includeImportsClosure=false} then returns
-     *         {@code true} if the signature of this ontology contains an
-     *         OWLAnnotationProperty that has
-     *         {@code owlAnnotationPropertyIRI} as its IRI and
-     *         {@code false} if the signature of this ontology does not
-     *         contain a class with {@code owlAnnotationPropertyIRI} as its
-     *         IRI. */
+     *            {@code true} if the signature of the ontologies in the imports
+     *            closure of this ontology should be checked, {@code false} if
+     *            just the signature of this ontology should be chekced.
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if there is an OWLAnnotationProperty with
+     *         {@code owlAnnotationPropertyIRI} as its IRI in the signature of
+     *         at least one ontology in the imports clousre of this ontology and
+     *         {@code false} if this is not the case. If
+     *         {@code includeImportsClosure=false} then returns {@code true} if
+     *         the signature of this ontology contains an OWLAnnotationProperty
+     *         that has {@code owlAnnotationPropertyIRI} as its IRI and
+     *         {@code false} if the signature of this ontology does not contain
+     *         a class with {@code owlAnnotationPropertyIRI} as its IRI. */
     boolean containsAnnotationPropertyInSignature(IRI owlAnnotationPropertyIRI,
             boolean includeImportsClosure);
 
@@ -881,8 +867,8 @@ public interface OWLOntology extends OWLObject {
      * @param owlIndividualIRI
      *            The IRI of the OWLNamedIndividual to check for.
      * @return {@code true} if the signature of this ontology contains an
-     *         OWLNamedIndividual that has {@code owlIndividualIRI} as its
-     *         IRI, otherwise {@code false}. */
+     *         OWLNamedIndividual that has {@code owlIndividualIRI} as its IRI,
+     *         otherwise {@code false}. */
     boolean containsIndividualInSignature(IRI owlIndividualIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -892,21 +878,18 @@ public interface OWLOntology extends OWLObject {
      * @param owlIndividualIRI
      *            The IRI of the OWLNamedIndividual to check for
      * @param includeImportsClosure
-     *            {@code true} if the signature of the ontologies in the
-     *            imports closure of this ontology should be checked,
-     *            {@code false} if just the signature of this ontology
-     *            should be chekced.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if there is an OWLNamedIndividual with
-     *         {@code owlIndividualIRI} as its IRI in the signature of at
-     *         least one ontology in the imports closure of this ontology and
-     *         {@code false} if this is not the case. If
-     *         {@code includeImportsClosure=false} then returns
+     *            {@code true} if the signature of the ontologies in the imports
+     *            closure of this ontology should be checked, {@code false} if
+     *            just the signature of this ontology should be chekced.
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if there is an OWLNamedIndividual with {@code owlIndividualIRI}
+     *         as its IRI in the signature of at least one ontology in the
+     *         imports closure of this ontology and {@code false} if this is not
+     *         the case. If {@code includeImportsClosure=false} then returns
      *         {@code true} if the signature of this ontology contains an
-     *         OWLNamedIndividual that has {@code owlIndividualIRI} as its
-     *         IRI and {@code false} if the signature of this ontology does
-     *         not contain a class with {@code owlIndividualIRI} as its
-     *         IRI. */
+     *         OWLNamedIndividual that has {@code owlIndividualIRI} as its IRI
+     *         and {@code false} if the signature of this ontology does not
+     *         contain a class with {@code owlIndividualIRI} as its IRI. */
     boolean containsIndividualInSignature(IRI owlIndividualIRI,
             boolean includeImportsClosure);
 
@@ -916,8 +899,8 @@ public interface OWLOntology extends OWLObject {
      * @param owlDatatypeIRI
      *            The IRI of the OWLDatatype to check for.
      * @return {@code true} if the signature of this ontology contains an
-     *         OWLDatatype that has {@code owlDatatypeIRI} as its IRI,
-     *         otherwise {@code false}. */
+     *         OWLDatatype that has {@code owlDatatypeIRI} as its IRI, otherwise
+     *         {@code false}. */
     boolean containsDatatypeInSignature(IRI owlDatatypeIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
@@ -927,20 +910,18 @@ public interface OWLOntology extends OWLObject {
      * @param owlDatatypeIRI
      *            The IRI of the OWLDatatype to check for
      * @param includeImportsClosure
-     *            {@code true} if the signature of the ontologies in the
-     *            imports closure of this ontology should be checked,
-     *            {@code false} if just the signature of this ontology
-     *            should be chekced.
-     * @return If {@code includeImportsClosure=true} then returns
-     *         {@code true} if there is an OWLDatatype with
-     *         {@code owlDatatypeIRI} as its IRI in the signature of at
-     *         least one ontology in the imports closure of this ontology and
-     *         {@code false} if this is not the case. If
-     *         {@code includeImportsClosure=false} then returns
-     *         {@code true} if the signature of this ontology contains an
-     *         OWLDatatype that has {@code owlDatatypeIRI} as its IRI and
-     *         {@code false} if the signature of this ontology does not
-     *         contain a class with {@code owlDatatypeIRI} as its IRI. */
+     *            {@code true} if the signature of the ontologies in the imports
+     *            closure of this ontology should be checked, {@code false} if
+     *            just the signature of this ontology should be chekced.
+     * @return If {@code includeImportsClosure=true} then returns {@code true}
+     *         if there is an OWLDatatype with {@code owlDatatypeIRI} as its IRI
+     *         in the signature of at least one ontology in the imports closure
+     *         of this ontology and {@code false} if this is not the case. If
+     *         {@code includeImportsClosure=false} then returns {@code true} if
+     *         the signature of this ontology contains an OWLDatatype that has
+     *         {@code owlDatatypeIRI} as its IRI and {@code false} if the
+     *         signature of this ontology does not contain a class with
+     *         {@code owlDatatypeIRI} as its IRI. */
             boolean
             containsDatatypeInSignature(IRI owlDatatypeIRI, boolean includeImportsClosure);
 
@@ -968,9 +949,9 @@ public interface OWLOntology extends OWLObject {
      *         entities that are in the signature of this ontology or the
      *         signature of an ontology in the imports closure of this ontology
      *         that have {@code iri} as their IRI. If
-     *         {@code includeImportsClosure=false} then returns the
-     *         entities in the signature of just this ontology that have
-     *         {@code iri} as their IRI. */
+     *         {@code includeImportsClosure=false} then returns the entities in
+     *         the signature of just this ontology that have {@code iri} as
+     *         their IRI. */
     Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
@@ -1049,7 +1030,7 @@ public interface OWLOntology extends OWLObject {
      *         this ontology while iterating over this set. */
     Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty prop);
 
-    /** Gets the axioms that form the definition/description of an individual
+    /** Gets the axioms that form the definition/description of an individual.
      * 
      * @param individual
      *            The individual whose defining axioms are to be retrieved.
@@ -1090,7 +1071,7 @@ public interface OWLOntology extends OWLObject {
      *         </ul> */
     Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty property);
 
-    /** Gets the datatype definition axioms for the specified datatype
+    /** Gets the datatype definition axioms for the specified datatype.
      * 
      * @param datatype
      *            The datatype
@@ -1107,28 +1088,28 @@ public interface OWLOntology extends OWLObject {
      * 
      * @param subProperty
      *            The sub-property of the axioms to be retrieved.
-     * @return A set of {@code OWLSubAnnotationPropertyOfAxiom}s such that
-     *         the sub-property is equal to {@code subProperty}. */
+     * @return A set of {@code OWLSubAnnotationPropertyOfAxiom}s such that the
+     *         sub-property is equal to {@code subProperty}. */
     Set<OWLSubAnnotationPropertyOfAxiom> getSubAnnotationPropertyOfAxioms(
             OWLAnnotationProperty subProperty);
 
-    /** Gets the {@code OWLAnnotationPropertyDomainAxiom}s where the
-     * specified property is the property in the domain axiom.
+    /** Gets the {@code OWLAnnotationPropertyDomainAxiom}s where the specified
+     * property is the property in the domain axiom.
      * 
      * @param property
      *            The property that the axiom specifies a domain for.
-     * @return A set of {@code OWLAnnotationPropertyDomainAxiom}s such that
-     *         the property is equal to {@code property}. */
+     * @return A set of {@code OWLAnnotationPropertyDomainAxiom}s such that the
+     *         property is equal to {@code property}. */
     Set<OWLAnnotationPropertyDomainAxiom> getAnnotationPropertyDomainAxioms(
             OWLAnnotationProperty property);
 
-    /** Gets the {@code OWLAnnotationPropertyRangeAxiom}s where the
-     * specified property is the property in the range axiom.
+    /** Gets the {@code OWLAnnotationPropertyRangeAxiom}s where the specified
+     * property is the property in the range axiom.
      * 
      * @param property
      *            The property that the axiom specifies a range for.
-     * @return A set of {@code OWLAnnotationPropertyRangeAxiom}s such that
-     *         the property is equal to {@code property}. */
+     * @return A set of {@code OWLAnnotationPropertyRangeAxiom}s such that the
+     *         property is equal to {@code property}. */
     Set<OWLAnnotationPropertyRangeAxiom> getAnnotationPropertyRangeAxioms(
             OWLAnnotationProperty property);
 
@@ -1247,8 +1228,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom}s
      *         such that each axiom in the set is of the form
-     *         {@code SubObjectPropertyOf(subProperty, pe)}. The set that
-     *         is returned is a copy - it will not be updated if the ontology
+     *         {@code SubObjectPropertyOf(subProperty, pe)}. The set that is
+     *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSubProperty(
@@ -1265,8 +1246,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom}s
      *         such that each axiom in the set is of the form
-     *         {@code SubObjectPropertyOf(pe, superProperty)}. The set that
-     *         is returned is a copy - it will not be updated if the ontology
+     *         {@code SubObjectPropertyOf(pe, superProperty)}. The set that is
+     *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
@@ -1284,10 +1265,10 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code ObjectPropertyDomain(pe, ce)}. The set that is
-     *         returned is a copy - it will not be updated if the ontology
-     *         changes. It is therefore safe to apply changes to this ontology
-     *         while iterating over this set. */
+     *         {@code ObjectPropertyDomain(pe, ce)}. The set that is returned is
+     *         a copy - it will not be updated if the ontology changes. It is
+     *         therefore safe to apply changes to this ontology while iterating
+     *         over this set. */
     Set<OWLObjectPropertyDomainAxiom> getObjectPropertyDomainAxioms(
             OWLObjectPropertyExpression property);
 
@@ -1320,8 +1301,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of {@link OWLInverseObjectPropertiesAxiom}s such that each
      *         axiom in the set is of the form
      *         {@code InverseObjectProperties(property, pe)} or
-     *         {@code InverseObjectProperties(pe, property)}. The set that
-     *         is returned is a copy - it will not be updated if the ontology
+     *         {@code InverseObjectProperties(pe, property)}. The set that is
+     *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     Set<OWLInverseObjectPropertiesAxiom> getInverseObjectPropertyAxioms(
@@ -1362,8 +1343,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code DisjointObjectProperties(pe0, ..., property, ..., pen)}
-     *         . The set that is returned is a copy - it will not be updated if
+     *         {@code DisjointObjectProperties(pe0, ..., property, ..., pen)} .
+     *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     Set<OWLDisjointObjectPropertiesAxiom> getDisjointObjectPropertiesAxioms(
@@ -1511,8 +1492,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom}s
      *         such that each axiom in the set is of the form
-     *         {@code SubDataPropertyOf(pe, superProperty)}. The set that
-     *         is returned is a copy - it will not be updated if the ontology
+     *         {@code SubDataPropertyOf(pe, superProperty)}. The set that is
+     *         returned is a copy - it will not be updated if the ontology
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     Set<OWLSubDataPropertyOfAxiom> getDataSubPropertyAxiomsForSuperProperty(
@@ -1529,8 +1510,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom}s
      *         such that each axiom in the set is of the form
-     *         {@code DataPropertyDomain(pe, ce)}. The set that is returned
-     *         is a copy - it will not be updated if the ontology changes. It is
+     *         {@code DataPropertyDomain(pe, ce)}. The set that is returned is a
+     *         copy - it will not be updated if the ontology changes. It is
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
     Set<OWLDataPropertyDomainAxiom> getDataPropertyDomainAxioms(OWLDataProperty property);
@@ -1546,10 +1527,10 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom}s
      *         such that each axiom in the set is of the form
-     *         {@code DataPropertyRange(property, ce)}. The set that is
-     *         returned is a copy - it will not be updated if the ontology
-     *         changes. It is therefore safe to apply changes to this ontology
-     *         while iterating over this set. */
+     *         {@code DataPropertyRange(property, ce)}. The set that is returned
+     *         is a copy - it will not be updated if the ontology changes. It is
+     *         therefore safe to apply changes to this ontology while iterating
+     *         over this set. */
     Set<OWLDataPropertyRangeAxiom> getDataPropertyRangeAxioms(OWLDataProperty property);
 
     /** Gets the
@@ -1566,8 +1547,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code EquivalentDataProperties(pe0, ..., property, ..., pen)}
-     *         . The set that is returned is a copy - it will not be updated if
+     *         {@code EquivalentDataProperties(pe0, ..., property, ..., pen)} .
+     *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     Set<OWLEquivalentDataPropertiesAxiom> getEquivalentDataPropertiesAxioms(
@@ -1587,8 +1568,8 @@ public interface OWLOntology extends OWLObject {
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code DisjointDataProperties(pe0, ..., property, ..., pen)}
-     *         . The set that is returned is a copy - it will not be updated if
+     *         {@code DisjointDataProperties(pe0, ..., property, ..., pen)} .
+     *         The set that is returned is a copy - it will not be updated if
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     Set<OWLDisjointDataPropertiesAxiom> getDisjointDataPropertiesAxioms(
@@ -1619,8 +1600,8 @@ public interface OWLOntology extends OWLObject {
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////
     /** Gets the {@link org.semanticweb.owlapi.model.OWLClassAssertionAxiom}s
-     * contained in this ontology that make the specified
-     * {@code individual} an instance of some class expression.
+     * contained in this ontology that make the specified {@code individual} an
+     * instance of some class expression.
      * 
      * @param individual
      *            The individual that the returned axioms make an instance of
@@ -1630,9 +1611,9 @@ public interface OWLOntology extends OWLObject {
      *         that each axiom in the set is of the form
      *         {@code ClassAssertion(ce, individual)} (for each axiom
      *         {@link OWLClassAssertionAxiom#getIndividual()} is equal to
-     *         {@code individual}). The set that is returned is a copy - it
-     *         will not be updated if the ontology changes. It is therefore safe
-     *         to apply changes to this ontology while iterating over this set. */
+     *         {@code individual}). The set that is returned is a copy - it will
+     *         not be updated if the ontology changes. It is therefore safe to
+     *         apply changes to this ontology while iterating over this set. */
     Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLClassAssertionAxiom}s
@@ -1647,92 +1628,91 @@ public interface OWLOntology extends OWLObject {
      *         that each axiom in the set is of the form
      *         {@code ClassAssertion(ce, ind)} (for each axiom
      *         {@link OWLClassAssertionAxiom#getClassExpression()} is equal to
-     *         {@code ce}). The set that is returned is a copy - it will
-     *         not be updated if the ontology changes. It is therefore safe to
-     *         apply changes to this ontology while iterating over this set. */
+     *         {@code ce}). The set that is returned is a copy - it will not be
+     *         updated if the ontology changes. It is therefore safe to apply
+     *         changes to this ontology while iterating over this set. */
     Set<OWLClassAssertionAxiom> getClassAssertionAxioms(OWLClassExpression ce);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}s
-     * contained in this ontology that have the specified
-     * {@code individual} as the subject of the axiom.
+     * contained in this ontology that have the specified {@code individual} as
+     * the subject of the axiom.
      * 
      * @param individual
      *            The individual that the returned axioms have as a subject.
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code DataPropertyAssertion(dp, individual, l)} (for each
-     *         axiom {@link OWLDataPropertyAssertionAxiom#getSubject()} is equal
-     *         to {@code individual}). The set that is returned is a copy -
-     *         it will not be updated if the ontology changes. It is therefore
-     *         safe to apply changes to this ontology while iterating over this
-     *         set. */
+     *         {@code DataPropertyAssertion(dp, individual, l)} (for each axiom
+     *         {@link OWLDataPropertyAssertionAxiom#getSubject()} is equal to
+     *         {@code individual}). The set that is returned is a copy - it will
+     *         not be updated if the ontology changes. It is therefore safe to
+     *         apply changes to this ontology while iterating over this set. */
     Set<OWLDataPropertyAssertionAxiom> getDataPropertyAssertionAxioms(
             OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom}s
-     * contained in this ontology that have the specified
-     * {@code individual} as the subject of the axiom.
+     * contained in this ontology that have the specified {@code individual} as
+     * the subject of the axiom.
      * 
      * @param individual
      *            The individual that the returned axioms have as a subject.
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code ObjectPropertyAssertion(dp, individual, obj)} (for
-     *         each axiom {@link OWLObjectPropertyAssertionAxiom#getSubject()}
-     *         is equal to {@code individual}). The set that is returned is
-     *         a copy - it will not be updated if the ontology changes. It is
-     *         therefore safe to apply changes to this ontology while iterating
-     *         over this set. */
+     *         {@code ObjectPropertyAssertion(dp, individual, obj)} (for each
+     *         axiom {@link OWLObjectPropertyAssertionAxiom#getSubject()} is
+     *         equal to {@code individual}). The set that is returned is a copy
+     *         - it will not be updated if the ontology changes. It is therefore
+     *         safe to apply changes to this ontology while iterating over this
+     *         set. */
     Set<OWLObjectPropertyAssertionAxiom> getObjectPropertyAssertionAxioms(
             OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom}
-     * s contained in this ontology that have the specified
-     * {@code individual} as the subject of the axiom.
+     * s contained in this ontology that have the specified {@code individual} as
+     * the subject of the axiom.
      * 
      * @param individual
      *            The individual that the returned axioms have as a subject.
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code NegativeObjectPropertyAssertion(dp, individual, obj)}
-     *         (for each axiom
+     *         {@code NegativeObjectPropertyAssertion(dp, individual, obj)} (for
+     *         each axiom
      *         {@link OWLNegativeObjectPropertyAssertionAxiom#getSubject()} is
-     *         equal to {@code individual}). The set that is returned is a
-     *         copy - it will not be updated if the ontology changes. It is
-     *         therefore safe to apply changes to this ontology while iterating
-     *         over this set. */
+     *         equal to {@code individual}). The set that is returned is a copy
+     *         - it will not be updated if the ontology changes. It is therefore
+     *         safe to apply changes to this ontology while iterating over this
+     *         set. */
     Set<OWLNegativeObjectPropertyAssertionAxiom>
             getNegativeObjectPropertyAssertionAxioms(OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom}
-     * s contained in this ontology that have the specified
-     * {@code individual} as the subject of the axiom.
+     * s contained in this ontology that have the specified {@code individual} as
+     * the subject of the axiom.
      * 
      * @param individual
      *            The individual that the returned axioms have as a subject.
      * @return A set of
      *         {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom}
      *         s such that each axiom in the set is of the form
-     *         {@code NegativeDataPropertyAssertion(dp, individual, obj)}
-     *         (for each axiom
+     *         {@code NegativeDataPropertyAssertion(dp, individual, obj)} (for
+     *         each axiom
      *         {@link OWLNegativeDataPropertyAssertionAxiom#getSubject()} is
-     *         equal to {@code individual}). The set that is returned is a
-     *         copy - it will not be updated if the ontology changes. It is
-     *         therefore safe to apply changes to this ontology while iterating
-     *         over this set. */
+     *         equal to {@code individual}). The set that is returned is a copy
+     *         - it will not be updated if the ontology changes. It is therefore
+     *         safe to apply changes to this ontology while iterating over this
+     *         set. */
     Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
             OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLSameIndividualAxiom}s
-     * contained in this ontology that make the specified
-     * {@code individual} the same as some other individual.
+     * contained in this ontology that make the specified {@code individual} the
+     * same as some other individual.
      * 
      * @param individual
      *            The individual that the returned axioms make the same as some
@@ -1742,15 +1722,15 @@ public interface OWLOntology extends OWLObject {
      *         that each axiom in the set is of the form
      *         {@code SameIndividual(individual, ind, ...)} (for each axiom
      *         returned {@link OWLSameIndividualAxiom#getIndividuals()} contains
-     *         {@code individual}. The set that is returned is a copy - it
-     *         will not be updated if the ontology changes. It is therefore safe
-     *         to apply changes to this ontology while iterating over this set. */
+     *         {@code individual}. The set that is returned is a copy - it will
+     *         not be updated if the ontology changes. It is therefore safe to
+     *         apply changes to this ontology while iterating over this set. */
     Set<OWLSameIndividualAxiom> getSameIndividualAxioms(OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom}s
-     * contained in this ontology that make the specified
-     * {@code individual} different to some other individual.
+     * contained in this ontology that make the specified {@code individual}
+     * different to some other individual.
      * 
      * @param individual
      *            The individual that the returned axioms make the different as
@@ -1761,9 +1741,9 @@ public interface OWLOntology extends OWLObject {
      *         {@code DifferentIndividuals(individual, ind, ...)} (for each
      *         axiom returned
      *         {@link OWLDifferentIndividualsAxiom#getIndividuals()} contains
-     *         {@code individual}. The set that is returned is a copy - it
-     *         will not be updated if the ontology changes. It is therefore safe
-     *         to apply changes to this ontology while iterating over this set. */
+     *         {@code individual}. The set that is returned is a copy - it will
+     *         not be updated if the ontology changes. It is therefore safe to
+     *         apply changes to this ontology while iterating over this set. */
     Set<OWLDifferentIndividualsAxiom> getDifferentIndividualAxioms(
             OWLIndividual individual);
 
@@ -1778,9 +1758,9 @@ public interface OWLOntology extends OWLObject {
      *         {@link org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom}s
      *         such that for each axiom in the set
      *         {@link OWLDatatypeDefinitionAxiom#getDatatype()} is equal to
-     *         {@code datatype}. The set that is returned is a copy - it
-     *         will not be updated if the ontology changes. It is therefore safe
-     *         to apply changes to this ontology while iterating over this set. */
+     *         {@code datatype}. The set that is returned is a copy - it will
+     *         not be updated if the ontology changes. It is therefore safe to
+     *         apply changes to this ontology while iterating over this set. */
     Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(OWLDatatype datatype);
     // XXX when the interface changes, uncomment this
     // /** @param entity

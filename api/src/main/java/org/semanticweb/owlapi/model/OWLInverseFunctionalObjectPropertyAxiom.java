@@ -38,11 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
- * Represents <a href=
+/** Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Inverse-Functional_Object_Properties"
- * >InverseFunctionalObjectProperty</a> axioms in the OWL 2 specification. */
+ * >InverseFunctionalObjectProperty</a> axioms in the OWL 2 specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLInverseFunctionalObjectPropertyAxiom extends
         OWLObjectPropertyCharacteristicAxiom, OWLSubClassOfAxiomShortCut {
     @Override

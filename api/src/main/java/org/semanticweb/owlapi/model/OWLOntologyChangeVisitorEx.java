@@ -36,27 +36,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006 */
-@SuppressWarnings("javadoc")
-public interface OWLOntologyChangeVisitorEx<O>  {
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006
+ * @param <O>
+ *            visitor type */
+public interface OWLOntologyChangeVisitorEx<O> {
+    /** visit AddAxiom type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(AddAxiom change);
 
+    /** visit RemoveAxiom type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(RemoveAxiom change);
 
+    /** visit SetOntologyID type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(SetOntologyID change);
 
+    /** visit AddImport type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(AddImport change);
 
+    /** visit RemoveImport type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(RemoveImport change);
 
+    /** visit AddOntologyAnnotation type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(AddOntologyAnnotation change);
 
+    /** visit RemoveOntologyAnnotation type
+     * 
+     * @param change
+     *            object to visit
+     * @return visitor value */
     O visit(RemoveOntologyAnnotation change);
-
 }

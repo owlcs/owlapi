@@ -36,12 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 04-Jul-2009
- */
-public interface SWRLPredicate {
-}
+
+/** @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 04-Jul-2009 */
+public interface SWRLPredicate {}

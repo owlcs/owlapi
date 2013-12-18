@@ -41,11 +41,10 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 import java.util.Set;
 
-/** An interface to a factory that can create SWRL objects
+/** An interface to a factory that can create SWRL objects.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLDataFactory {
     /** @deprecated Use either
      *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
@@ -77,7 +76,7 @@ public interface SWRLDataFactory {
     SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body,
             Set<? extends SWRLAtom> head);
 
-    /** Gets an anonymous SWRL Rule
+    /** Gets an anonymous SWRL Rule.
      * 
      * @param body
      *            The atoms that make up the body
@@ -86,7 +85,7 @@ public interface SWRLDataFactory {
      * @return An anonymous rule with the specified body and head */
     SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
 
-    /** Gets an anonymous SWRL Rule
+    /** Gets an anonymous SWRL Rule.
      * 
      * @param body
      *            The atoms that make up the body
@@ -174,7 +173,7 @@ public interface SWRLDataFactory {
     SWRLVariable getSWRLVariable(IRI var);
 
     /** Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as
-     * an argument for an atom
+     * an argument for an atom.
      * 
      * @param individual
      *            The individual that is the object argument
@@ -182,7 +181,7 @@ public interface SWRLDataFactory {
     SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual);
 
     /** Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
-     * provide an argument for an atom
+     * provide an argument for an atom.
      * 
      * @param literal
      *            The constant that is the object argument

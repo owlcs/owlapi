@@ -44,10 +44,8 @@ import java.util.Set;
 
 /** A prefix manager than can provide prefixes for prefix names.
  * 
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 10-Sep-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 10-Sep-2008 */
 public interface PrefixManager extends Serializable {
     /** Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"
@@ -61,22 +59,21 @@ public interface PrefixManager extends Serializable {
      * 
      * @param prefixName
      *            The prefix name to be tested for.
-     * @return {@code true} if the manager knows about this prefix and
-     *         there is a non-null mapping for this prefix. */
+     * @return {@code true} if the manager knows about this prefix and there is
+     *         a non-null mapping for this prefix. */
     boolean containsPrefixMapping(String prefixName);
 
     /** Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
-     * return the same result as a call to the {@code getDefaultPrefix()}
-     * method.
+     * return the same result as a call to the {@code getDefaultPrefix()} method.
      * 
      * @param prefixName
      *            The prefix name. A string that represents a prefix name of the
      *            prefix to be retrieved. Note that specifying ":" is the same
      *            as asking for the default prefix (see the getDefaultPrefix()
      *            method).
-     * @return The prefix, or {@code null} if there is no prefix name bound
-     *         to this prefix, or the prefix name doesn't exist. */
+     * @return The prefix, or {@code null} if there is no prefix name bound to
+     *         this prefix, or the prefix name doesn't exist. */
     String getPrefix(String prefixName);
 
     /** Gets a map that maps prefix names to prefixes.
@@ -106,7 +103,7 @@ public interface PrefixManager extends Serializable {
      *         cannot be generated. */
     String getPrefixIRI(IRI iri);
 
-    /** Gets the prefix names that have a mapping in this prefix manager
+    /** Gets the prefix names that have a mapping in this prefix manager.
      * 
      * @return The prefix names as a set of strings. */
     Set<String> getPrefixNames();

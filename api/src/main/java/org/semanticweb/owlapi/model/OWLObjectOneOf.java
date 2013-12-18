@@ -44,14 +44,14 @@ import java.util.Set;
  * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Individuals"
  * >ObjectOneOf</a> class expression in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectOneOf extends OWLAnonymousClassExpression {
     /** Gets the individuals that are in the oneOf. These individuals represent
      * the exact instances (extension) of this class expression.
      * 
-     * @return The individiauls that are the values of this
-     *         {@code ObjectOneOf} class expression. */
+     * @return The individiauls that are the values of this {@code ObjectOneOf}
+     *         class expression. */
     Set<OWLIndividual> getIndividuals();
 
     /** Simplifies this enumeration to a union of singleton nominals

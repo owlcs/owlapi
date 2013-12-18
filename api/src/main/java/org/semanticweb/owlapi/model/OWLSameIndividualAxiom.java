@@ -44,8 +44,8 @@ import java.util.Set;
  * href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
  * SameIndividual</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     @Override
     OWLSameIndividualAxiom getAxiomWithoutAnnotations();
@@ -53,8 +53,7 @@ public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
     /** Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in same individuals axioms.
      * 
-     * @return {@code true} if this axioms contains anonymous individual
-     *         axioms */
+     * @return {@code true} if this axioms contains anonymous individual axioms */
     boolean containsAnonymousIndividuals();
 
     @Override

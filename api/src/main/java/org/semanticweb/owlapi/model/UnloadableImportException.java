@@ -36,36 +36,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009 */
 public class UnloadableImportException extends OWLOntologyCreationException {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLImportsDeclaration importsDeclaration;
-
+    private static final long serialVersionUID = 30406L;
+    private final OWLImportsDeclaration importsDeclaration;
     private final OWLOntologyCreationException ontologyCreationException;
 
-    public UnloadableImportException(OWLOntologyCreationException e, OWLImportsDeclaration importsDeclaration) {
-        super("Could not load imported ontology: " + importsDeclaration.getIRI().toQuotedString() + " Cause: " + e.getMessage(), e);
+    /** @param e
+     *            exception
+     * @param importsDeclaration
+     *            imports declaration */
+    public UnloadableImportException(OWLOntologyCreationException e,
+            OWLImportsDeclaration importsDeclaration) {
+        super("Could not load imported ontology: "
+                + importsDeclaration.getIRI().toQuotedString() + " Cause: "
+                + e.getMessage(), e);
         this.importsDeclaration = importsDeclaration;
-        this.ontologyCreationException = e;
+        ontologyCreationException = e;
     }
 
+    /** @return imports declaration */
     public OWLImportsDeclaration getImportsDeclaration() {
         return importsDeclaration;
     }
 
+    /** @return creation exception */
     public OWLOntologyCreationException getOntologyCreationException() {
         return ontologyCreationException;
     }
-
 }

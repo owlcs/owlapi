@@ -40,10 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 15-Jan-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Jan-2009 */
 public interface OWLNaryDataRange extends OWLDataRange {
     /** @return the data ranges */
     Set<OWLDataRange> getOperands();

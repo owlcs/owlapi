@@ -40,10 +40,9 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 Represents a property or
- * possibly the inverse of a property.
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 Represents a property or possibly the inverse
+ *         of a property.
  * @param <R>
  *            range
  * @param <P>
@@ -55,9 +54,9 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * @param ontology
      *            The ontology that should be examined for axioms which assert a
      *            domain of this property
-     * @return A set of {@code OWLClassExpression}s corresponding to the
-     *         domains of this property (the domain of the property is
-     *         essentially the intersection of these class expressions). */
+     * @return A set of {@code OWLClassExpression}s corresponding to the domains
+     *         of this property (the domain of the property is essentially the
+     *         intersection of these class expressions). */
     Set<OWLClassExpression> getDomains(OWLOntology ontology);
 
     /** Gets the asserted domains of this property by examining the axioms in the
@@ -65,8 +64,8 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * 
      * @param ontologies
      *            The ontologies to be examined.
-     * @return A set of {@code OWLClassExpression}s that represent the
-     *         asserted domains of this property. */
+     * @return A set of {@code OWLClassExpression}s that represent the asserted
+     *         domains of this property. */
     Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies);
 
     /** Gets the ranges of this property that have been asserted in the specified
@@ -153,13 +152,12 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * @return the properties disjoint with this one declared in ontologies */
     Set<P> getDisjointProperties(Set<OWLOntology> ontologies);
 
-    /** Determines if this property is functional in the specified ontology
+    /** Determines if this property is functional in the specified ontology.
      * 
      * @param ontology
      *            The ontology to be tested for a functional property axiom.
-     * @return {@code true} if the specified ontology contains an axiom
-     *         stating that the property is functional, other wise
-     *         {@code false}. */
+     * @return {@code true} if the specified ontology contains an axiom stating
+     *         that the property is functional, other wise {@code false}. */
     boolean isFunctional(OWLOntology ontology);
 
     /** Determines if the property is functional because there is an axiom in one
@@ -168,21 +166,24 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
      * @param ontologies
      *            The ontologies which will be searched for axioms which specify
      *            that this property is fuctional.
-     * @return {@code true} if the property is functional, or
-     *         {@code false} if the property is not functional. */
+     * @return {@code true} if the property is functional, or {@code false} if
+     *         the property is not functional. */
     boolean isFunctional(Set<OWLOntology> ontologies);
 
     /** Determines if this property expression is anonymous.
      * 
-     * @return {@code true} if the property expression is anonymous
-     *         (because it is the inverse of a property). {@code false} if
-     *         this property is a named object property or named data property. */
-    public boolean isAnonymous();
+     * @return {@code true} if the property expression is anonymous (because it
+     *         is the inverse of a property). {@code false} if this property is
+     *         a named object property or named data property. */
+    boolean isAnonymous();
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept */
     void accept(OWLPropertyExpressionVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept
+     * @return visitor value */
     <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
 
     /** @return true if this is a data property */
@@ -191,25 +192,25 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
     /** @return true if this is an object property */
     boolean isObjectPropertyExpression();
 
-    /** Determines if this is the owl:topObjectProperty
+    /** Determines if this is the owl:topObjectProperty.
      * 
      * @return {@code true} if this property is the owl:topObjectProperty
      *         otherwise {@code false} */
     boolean isOWLTopObjectProperty();
 
-    /** Determines if this is the owl:bottomObjectProperty
+    /** Determines if this is the owl:bottomObjectProperty.
      * 
-     * @return {@code true} if this property is the
-     *         owl:bottomObjectProperty otherwise {@code false} */
+     * @return {@code true} if this property is the owl:bottomObjectProperty
+     *         otherwise {@code false} */
     boolean isOWLBottomObjectProperty();
 
-    /** Determines if this is the owl:topDataProperty
+    /** Determines if this is the owl:topDataProperty.
      * 
      * @return {@code true} if this property is the owl:topDataProperty
      *         otherwise {@code false} */
     boolean isOWLTopDataProperty();
 
-    /** Determines if this is the owl:bottomDataProperty
+    /** Determines if this is the owl:bottomDataProperty.
      * 
      * @return {@code true} if this property is the owl:bottomDataProperty
      *         otherwise {@code false} */

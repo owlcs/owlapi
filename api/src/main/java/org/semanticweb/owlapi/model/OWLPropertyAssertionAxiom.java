@@ -38,11 +38,10 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 Represents an <a
- * href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in the OWL
- * 2 specification.
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 Represents an <a
+ *         href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in
+ *         the OWL 2 specification.
  * @param <P>
  *            property expression
  * @param <O>
@@ -52,15 +51,15 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>
     /** Gets the individual that is the subject of this assertion.
      * 
      * @return The individual that represents the subject of this assertion. */
-    public OWLIndividual getSubject();
+    OWLIndividual getSubject();
 
-    /** Gets the property that this assertion acts along
+    /** Gets the property that this assertion acts along.
      * 
      * @return The property */
-    public P getProperty();
+    P getProperty();
 
-    /** Gets the object of this assertion
+    /** Gets the object of this assertion.
      * 
      * @return The object that this assertion points to. */
-    public O getObject();
+    O getObject();
 }

@@ -47,10 +47,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * bundle identifying information of an ontology together. If an ontology
  * doesn't have an ontology IRI then we say that it is "anonymous".
  * 
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 18-Jan-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Jan-2009 */
 public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 30406L;
     private static final AtomicInteger counter = new AtomicInteger();
@@ -60,7 +58,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
     private final IRI versionIRI;
     private int hashCode;
 
-    /** Constructs an ontology identifier specifying the ontology IRI
+    /** Constructs an ontology identifier specifying the ontology IRI.
      * 
      * @param ontologyIRI
      *            The ontology IRI used to indentify the ontology */
@@ -69,13 +67,13 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
     }
 
     /** Constructs an ontology identifier specifiying the ontology IRI and
-     * version IRI
+     * version IRI.
      * 
      * @param ontologyIRI
      *            The ontology IRI (may be {@code null})
      * @param versionIRI
-     *            The version IRI (must be {@code null} if the ontologyIRI
-     *            is null) */
+     *            The version IRI (must be {@code null} if the ontologyIRI is
+     *            null) */
     public OWLOntologyID(IRI ontologyIRI, IRI versionIRI) {
         this.ontologyIRI = ontologyIRI;
         hashCode = 17;
@@ -108,8 +106,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
     /** Determines if this is a valid OWL 2 DL ontology ID. To be a valid OWL 2
      * DL ID, the ontology IRI and version IRI must not be reserved vocabulary.
      * 
-     * @return {@code true} if this is a valid OWL 2 DL ontology ID,
-     *         otherwise {@code false}
+     * @return {@code true} if this is a valid OWL 2 DL ontology ID, otherwise
+     *         {@code false}
      * @see org.semanticweb.owlapi.model.IRI#isReservedVocabulary() */
     public boolean isOWL2DLOntologyID() {
         return ontologyIRI == null || !ontologyIRI.isReservedVocabulary()
@@ -123,8 +121,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
 
     /** Gets the ontology IRI.
      * 
-     * @return the ontology IRI, or {@code null} if there is no ontology
-     *         IRI. */
+     * @return the ontology IRI, or {@code null} if there is no ontology IRI. */
     public IRI getOntologyIRI() {
         return ontologyIRI;
     }
@@ -162,9 +159,8 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>, Serializa
     /** Determines if this ID names an ontology or whether it is an ID for an
      * ontology without an IRI.
      * 
-     * @return {@code true} if this ID is an ID for an ontology without an
-     *         IRI, or {@code false} if this ID is an ID for an ontology
-     *         with an IRI. */
+     * @return {@code true} if this ID is an ID for an ontology without an IRI,
+     *         or {@code false} if this ID is an ID for an ontology with an IRI. */
     public boolean isAnonymous() {
         return ontologyIRI == null;
     }

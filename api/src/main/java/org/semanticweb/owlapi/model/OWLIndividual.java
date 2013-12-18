@@ -43,9 +43,8 @@ import java.util.Set;
 
 /** Represents a named or anonymous individual.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Oct-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Oct-2006 */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     /** Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this
@@ -60,10 +59,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} Note that
      * this method is the dual of {@link #isNamed()}.
      * 
-     * @return {@code true} if this object represents an anonymous
-     *         individual ({@code OWLAnonymousIndividual)} or
-     *         {@code false} if this object represents a named individual (
-     *         {@code OWLIndividual}) */
+     * @return {@code true} if this object represents an anonymous individual (
+     *         {@code OWLAnonymousIndividual)} or {@code false} if this object
+     *         represents a named individual ( {@code OWLIndividual}) */
     boolean isAnonymous();
 
     /** Obtains this individual as a named individual if it is indeed named.
@@ -131,11 +129,10 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      *            The individual value of the property that will be tested for
      * @param ontology
      *            The ontology to search for the property value
-     * @return {@code true} if the individual has the specified property
-     *         value, that is, {@code true} if the specified ontology
-     *         contains an object property assertion
-     *         ObjectPropertyAssertion(property, this, individual), otherwise
-     *         {@code false} */
+     * @return {@code true} if the individual has the specified property value,
+     *         that is, {@code true} if the specified ontology contains an
+     *         object property assertion ObjectPropertyAssertion(property, this,
+     *         individual), otherwise {@code false} */
     boolean hasObjectPropertyValue(OWLObjectPropertyExpression property,
             OWLIndividual individual, OWLOntology ontology);
 
@@ -148,11 +145,10 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      *            The value value of the property that will be tested for
      * @param ontology
      *            The ontology to search for the property value
-     * @return {@code true} if the individual has the specified property
-     *         value, that is, {@code true} if the specified ontology
-     *         contains a data property assertion
-     *         DataPropertyAssertion(property, this, value), otherwise
-     *         {@code false} */
+     * @return {@code true} if the individual has the specified property value,
+     *         that is, {@code true} if the specified ontology contains a data
+     *         property assertion DataPropertyAssertion(property, this, value),
+     *         otherwise {@code false} */
     boolean hasDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral value,
             OWLOntology ontology);
 
@@ -165,9 +161,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      *            The value to test for
      * @param ontology
      *            The ontology to search for the assertion
-     * @return {@code true} if the specified property value has explicitly
-     *         been asserted not to hold, that is, {@code true} if the
-     *         specified ontology contains a negative object property assertion
+     * @return {@code true} if the specified property value has explicitly been
+     *         asserted not to hold, that is, {@code true} if the specified
+     *         ontology contains a negative object property assertion
      *         NegativeObjectPropertyAssertion(property, this, individual),
      *         otherwise {@code false} */
     boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression property,
@@ -222,9 +218,9 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      *            The value to test for
      * @param ontology
      *            The ontology to search for the assertion
-     * @return {@code true} if the specified property value has explicitly
-     *         been asserted not to hold, that is, {@code true} if the
-     *         specified ontology contains a negative data property assertion
+     * @return {@code true} if the specified property value has explicitly been
+     *         asserted not to hold, that is, {@code true} if the specified
+     *         ontology contains a negative data property assertion
      *         NegativeDataPropertyAssertion(property, this, literal), otherwise
      *         {@code false} */
     boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property,
@@ -243,6 +239,7 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * individual.
      * 
      * @param ontology
+     *            the ontology
      * @return the set of different individuals */
     Set<OWLIndividual> getDifferentIndividuals(OWLOntology ontology);
 
@@ -253,10 +250,14 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
      * @return A string representing the toString of the node ID of this entity. */
     String toStringID();
 
-    /** @param visitor */
+    /** @param visitor
+     *            visitor to accept */
     void accept(OWLIndividualVisitor visitor);
 
     /** @param visitor
-     * @return visitor ex type */
+     *            visitor to accept
+     * @return visitor ex type
+     * @param <O>
+     *            return type */
     <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }

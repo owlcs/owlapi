@@ -44,8 +44,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** A configuration object that specifies options and hints to objects that load
- * OWLOntologies. Every {@code OWLOntologyLoaderConfiguration} is
- * immutable. Changing a setting results in the creation of a new
+ * OWLOntologies. Every {@code OWLOntologyLoaderConfiguration} is immutable.
+ * Changing a setting results in the creation of a new
  * {@code OWLOntologyLoaderConfiguration} with that setting. For example,
  * 
  * <pre>
@@ -56,32 +56,31 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * creates an {@code OWLOntologyLoaderConfiguration} object with the load
  * annotation axioms set to {@code false}.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15/12/2010 */
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 15/12/2010 */
 public final class OWLOntologyLoaderConfiguration {
-    /** strategies to cope with missing headers */
+    /** strategies to cope with missing headers. */
     public enum MissingOntologyHeaderStrategy {
-        /** include triples */
+        /** include triples. */
         INCLUDE_GRAPH,
-        /** keep import structure */
+        /** keep import structure. */
         IMPORT_GRAPH
     }
 
-    /** default annotation value */
+    /** default annotation value. */
     public static final boolean DEFAULT_LOAD_ANNOTATIONS_FLAG_VALUE = true;
-    /** default missing ontology strategy */
+    /** default missing ontology strategy. */
     public static final MissingOntologyHeaderStrategy DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
     private boolean loadAnnotations = DEFAULT_LOAD_ANNOTATIONS_FLAG_VALUE;
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = DEFAULT_MISSING_ONTOLOGY_HEADER_STRATEGY;
     private boolean strict = false;
-    /** flag to enable stack traces on parsing exceptions */
+    /** flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = false;
     private boolean followRedirects = true;
     private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
     private final Set<IRI> ignoredImports = new HashSet<IRI>();
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public OWLOntologyLoaderConfiguration() {
         ignoredImports.add(IRI.create(stripHash(Namespaces.OWL.toString())));
         ignoredImports.add(IRI.create(stripHash(Namespaces.RDF.toString())));
@@ -124,16 +123,16 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     /** Specifies whether or not annotation axioms (instances of
-     * {@code OWLAnnotationAxiom}) should be loaded or whether they should
-     * be discarded on loading. By default, the loading of annotation axioms is
+     * {@code OWLAnnotationAxiom}) should be loaded or whether they should be
+     * discarded on loading. By default, the loading of annotation axioms is
      * enabled.
      * 
      * @param b
      *            {@code true} if annotation axioms should be loaded, or
-     *            {@code false} if annotation axioms should not be loaded
-     *            and should be discarded on loading.
-     * @return An {@code OWLOntologyLoaderConfiguration} object with the
-     *         option set. */
+     *            {@code false} if annotation axioms should not be loaded and
+     *            should be discarded on loading.
+     * @return An {@code OWLOntologyLoaderConfiguration} object with the option
+     *         set. */
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
         // do not make copies if setting the same value
         if (loadAnnotations == b) {
@@ -145,12 +144,12 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     /** Determines whether or not annotation axioms (instances of
-     * {@code OWLAnnotationAxiom}) should be loaded. By default, the
-     * loading of annotation axioms is enabled.
+     * {@code OWLAnnotationAxiom}) should be loaded. By default, the loading of
+     * annotation axioms is enabled.
      * 
      * @return {@code true} if annotation assertions will be loaded, or
-     *         {@code false} if annotation assertions will not be loaded
-     *         because they will be discarded on loading. */
+     *         {@code false} if annotation assertions will not be loaded because
+     *         they will be discarded on loading. */
     public boolean isLoadAnnotationAxioms() {
         return loadAnnotations;
     }
@@ -318,8 +317,8 @@ public final class OWLOntologyLoaderConfiguration {
      * 
      * @param b
      *            the new value for the flag
-     * @return A {@code OWLOntologyLoaderConfiguration} with the report
-     *         flag set to the new value. */
+     * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
+     *         to the new value. */
     public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
         if (b == reportStackTraces) {
             return this;
@@ -334,9 +333,7 @@ public final class OWLOntologyLoaderConfiguration {
         return reportStackTraces;
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Internally copies this configuaration object
+    /** Internally copies this configuaration object.
      * 
      * @return The copied configuration */
     private OWLOntologyLoaderConfiguration copyConfiguration() {

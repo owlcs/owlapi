@@ -40,12 +40,11 @@ package org.semanticweb.owlapi.model;
 
 /** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing"
- * >Declaration</a> in the OWL 2 Specification. <br>
- * A declaration axiom declares an entity in an ontology. It doesn't affect the
- * logical meaning of the ontology.
+ * >Declaration</a> A declaration axiom declares an entity in an ontology. It
+ * doesn't affect the logical meaning of the ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLDeclarationAxiom extends OWLAxiom {
     /** Gets the entity that this axiom declares.
      * 

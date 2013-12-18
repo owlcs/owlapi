@@ -42,19 +42,20 @@ package org.semanticweb.owlapi.model;
  * create or load an ontology where the corresponding ontology document IRI
  * already was already mapped to an ontology.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 22-Dec-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 22-Dec-2009 */
 public class OWLOntologyDocumentAlreadyExistsException extends
         OWLOntologyCreationException {
     private static final long serialVersionUID = 30406L;
     private final IRI ontologyDocumentIRI;
 
+    /** @param ontologyDocumentIRI
+     *            iri already present */
     public OWLOntologyDocumentAlreadyExistsException(IRI ontologyDocumentIRI) {
         this.ontologyDocumentIRI = ontologyDocumentIRI;
     }
 
+    /** @return duplicated iri */
     public IRI getOntologyDocumentIRI() {
         return ontologyDocumentIRI;
     }

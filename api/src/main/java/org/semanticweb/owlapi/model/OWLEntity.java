@@ -40,11 +40,12 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006<br>
- * Represents <a href=
+/** Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
- * >Entities</a> in the OWL 2 Specification. */
+ * >Entities</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** Gets the entity type for this entity
      * 
@@ -59,6 +60,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      *            in any way.
      * @return An entity that has the same IRI as this entity and is of the
      *         specified type
+     * @param <E>
+     *            entity type
      * @deprecated use a datafactory instead */
     @Deprecated
     <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType);
@@ -67,8 +70,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * 
      * @param entityType
      *            The entity type
-     * @return {@code true} if this entity is of the specified type,
-     *         otherwise {@code false}. */
+     * @return {@code true} if this entity is of the specified type, otherwise
+     *         {@code false}. */
     boolean isType(EntityType<?> entityType);
 
     /** Gets the annotations for this entity. These are deemed to be annotations
@@ -89,8 +92,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      *            The ontology to examine for annotation axioms
      * @param annotationProperty
      *            The annotation property
-     * @return A set of {@code OWLAnnotation} objects that have the
-     *         specified URI. */
+     * @return A set of {@code OWLAnnotation} objects that have the specified
+     *         URI. */
     Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
             OWLAnnotationProperty annotationProperty);
 
@@ -147,8 +150,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** A convenience method that determines if this entity is an
      * OWLObjectProperty
      * 
-     * @return {@code true} if this entity is an OWLObjectProperty,
-     *         otherwise {@code false} */
+     * @return {@code true} if this entity is an OWLObjectProperty, otherwise
+     *         {@code false} */
     boolean isOWLObjectProperty();
 
     /** A convenience method that obtains this entity as an OWLObjectProperty (in
@@ -178,8 +181,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
     /** A convenience method that determines if this entity is an
      * OWLNamedIndividual
      * 
-     * @return {@code true} if this entity is an OWLNamedIndividual,
-     *         otherwise {@code false} */
+     * @return {@code true} if this entity is an OWLNamedIndividual, otherwise
+     *         {@code false} */
     boolean isOWLNamedIndividual();
 
     /** A convenience method that obtains this entity as an OWLNamedIndividual
@@ -242,16 +245,23 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * @param ontology
      *            The ontology that will be searched for axioms
      * @param includeImports
-     *            If {@code true} then axioms in the imports closure will
-     *            also be returned, if {@code false} then only the axioms
-     *            in the specified ontology will be returned.
+     *            If {@code true} then axioms in the imports closure will also
+     *            be returned, if {@code false} then only the axioms in the
+     *            specified ontology will be returned.
      * @return The axioms in the specified ontology whose signature contains
      *         this entity. */
     Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     void accept(OWLEntityVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor
+     * @return visitor value */
     <O> O accept(OWLEntityVisitorEx<O> visitor);
 }

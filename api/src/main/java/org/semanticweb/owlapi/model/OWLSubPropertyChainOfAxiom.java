@@ -47,9 +47,8 @@ import java.util.List;
  * explicit in the OWL 2 specification, but it is included in the OWL API as a
  * convenience to the programmer.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 22-Nov-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 22-Nov-2006 */
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     /** Gets the chain of properties that represents the subproperty in this
      * axiom.
@@ -58,14 +57,14 @@ public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
      *         of properties that represent the subproperty in this axiom. */
     List<OWLObjectPropertyExpression> getPropertyChain();
 
-    /** Gets the super property of this axiom
+    /** Gets the super property of this axiom.
      * 
      * @return The property expression that represents the superproperty in this
      *         expression. */
     OWLObjectPropertyExpression getSuperProperty();
 
     /** Determines if this axiom is of the form: P o P -&gt; P, which is an
-     * encoding of Transitive(P)
+     * encoding of Transitive(P).
      * 
      * @return {@code true} if this encodes that the super property is
      *         transitive, otherwise {@code false}. */

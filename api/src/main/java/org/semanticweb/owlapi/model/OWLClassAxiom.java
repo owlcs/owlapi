@@ -36,13 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group
- * Date: 24-Oct-2006
- */
-public interface OWLClassAxiom extends OWLLogicalAxiom {
 
-}
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
+public interface OWLClassAxiom extends OWLLogicalAxiom {}

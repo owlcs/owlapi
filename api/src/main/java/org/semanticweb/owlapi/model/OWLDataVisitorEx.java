@@ -36,28 +36,66 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.model;
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Apr-2008 */
-@SuppressWarnings("javadoc")
-public interface OWLDataVisitorEx<O> {
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008
+ * @param <O>
+ *            visitor type */
+public interface OWLDataVisitorEx<O> {
+    /** visit OWLDatatype type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDatatype node);
 
+    /** visit OWLDataComplementOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataComplementOf node);
 
+    /** visit OWLDataOneOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataOneOf node);
 
+    /** visit OWLDataIntersectionOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataIntersectionOf node);
 
+    /** visit OWLDataUnionOf type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDataUnionOf node);
 
+    /** visit OWLDatatypeRestriction type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLDatatypeRestriction node);
 
+    /** visit OWLLiteral type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLLiteral node);
 
+    /** visit OWLFacetRestriction type
+     * 
+     * @param node
+     *            object to visit
+     * @return visitor value */
     O visit(OWLFacetRestriction node);
 }

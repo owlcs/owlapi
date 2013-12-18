@@ -38,10 +38,11 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 24-Oct-2006 <br>
- * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality_2"
- * >DataExactCardinality</a> retrictions in the OWL 2 Specification. */
+/** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality_2"
+ * >DataExactCardinality</a> retrictions in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLDataExactCardinality extends OWLDataCardinalityRestriction {
     /** Obtains an equivalent form that is a conjunction of a min cardinality and
      * max cardinality restriction.

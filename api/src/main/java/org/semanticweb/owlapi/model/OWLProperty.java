@@ -42,9 +42,8 @@ package org.semanticweb.owlapi.model;
  * properties. By definition, properties are either data properties or object
  * properties.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 23-Jan-2007<br>
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jan-2007
  * @param <R>
  *            range
  * @param <P>
