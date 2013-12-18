@@ -36,39 +36,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21/12/2010
- * @since 3.2
- */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/12/2010
+ * @since 3.2 */
 public class RDFResource extends RDFNode implements Serializable {
     private static final long serialVersionUID = 30406L;
-
     private final IRI resource;
-
     private final boolean anonymous;
 
-    /**
-     * @param resource the resource
-     * @param anonymous true if the resource is anonymous
-     */
+    /** @param resource
+     *            the resource
+     * @param anonymous
+     *            true if the resource is anonymous */
     public RDFResource(IRI resource, boolean anonymous) {
         this.resource = resource;
         this.anonymous = anonymous;
     }
 
-    /**
-     * Create an RDFResource that is NOT anonymous
-     * @param resource The IRI of the resource
-     */
+    /** Create an RDFResource that is NOT anonymous.
+     * 
+     * @param resource
+     *            The IRI of the resource */
     public RDFResource(IRI resource) {
         this(resource, false);
     }
@@ -78,16 +72,12 @@ public class RDFResource extends RDFNode implements Serializable {
         return false;
     }
 
-    /**
-     * @return the IRI
-     */
+    /** @return the IRI */
     public IRI getResource() {
         return resource;
     }
 
-    /**
-     * @return true if resource is anonymous
-     */
+    /** @return true if resource is anonymous */
     public boolean isAnonymous() {
         return anonymous;
     }
@@ -111,10 +101,9 @@ public class RDFResource extends RDFNode implements Serializable {
 
     @Override
     public String toString() {
-        if(!anonymous) {
+        if (!anonymous) {
             return resource.toQuotedString();
-        }
-        else {
+        } else {
             return "_:" + resource;
         }
     }

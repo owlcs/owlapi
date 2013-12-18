@@ -48,9 +48,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** An ontology document source which reads an ontology from a reader.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 17-Nov-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 17-Nov-2007 */
 public class ReaderDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;

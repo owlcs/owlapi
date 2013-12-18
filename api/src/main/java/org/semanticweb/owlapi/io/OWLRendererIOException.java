@@ -40,9 +40,8 @@ package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007 */
 public class OWLRendererIOException extends OWLRendererException {
     private static final long serialVersionUID = 30406L;
 

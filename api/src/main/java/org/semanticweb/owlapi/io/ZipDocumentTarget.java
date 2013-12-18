@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.BufferedOutputStream;
@@ -51,66 +50,54 @@ import java.util.zip.ZipOutputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 03-Apr-2009
- */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Apr-2009 */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
-
     private final File file;
 
-
-    /**
-     * @param file the file to use
-     */
+    /** @param file
+     *            the file to use */
     public ZipDocumentTarget(File file) {
         this.file = file;
     }
-
 
     @Override
     public boolean isWriterAvailable() {
         return false;
     }
 
-
     @Override
     public Writer getWriter() {
-        throw new OWLRuntimeException("Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "Writer not available.  getWriter() should not be called if isWriterAvailable() returns false.");
     }
-
-
 
     @Override
     public boolean isOutputStreamAvailable() {
         return true;
     }
 
-
     @Override
     public OutputStream getOutputStream() throws IOException {
         File parentFile = file.getAbsoluteFile().getParentFile();
-
-		if(parentFile.exists() || parentFile.mkdirs()) {
-            ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+        if (parentFile.exists() || parentFile.mkdirs()) {
+            ZipOutputStream os = new ZipOutputStream(new BufferedOutputStream(
+                    new FileOutputStream(file)));
             os.putNextEntry(new ZipEntry("ontology.txt"));
             return os;
-        }
-        else {
+        } else {
             throw new IOException("Could not create directories: " + parentFile);
         }
     }
-
 
     @Override
     public boolean isDocumentIRIAvailable() {
         return false;
     }
 
-
     @Override
     public IRI getDocumentIRI() {
-        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

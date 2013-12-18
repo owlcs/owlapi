@@ -40,11 +40,10 @@ package org.semanticweb.owlapi.io;
 
 import java.io.IOException;
 
-/** Describes a parse exception which was caused by an {@code IOException}
+/** Describes a parse exception which was caused by an {@code IOException}.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLParserIOException extends OWLParserException {
     private static final long serialVersionUID = 30406L;
 
@@ -54,8 +53,7 @@ public class OWLParserIOException extends OWLParserException {
         super(cause);
     }
 
-    /** Gets the cause of this exception which will be an
-     * {@code IOException} */
+    /** @return the cause of this exception which will be an {@code IOException}. */
     @Override
     public synchronized IOException getCause() {
         return (IOException) super.getCause();

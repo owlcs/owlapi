@@ -48,9 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 /** A class that describes how ontology parsing failed. This class collects parse
  * errors and the parsers that generated the errors.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Apr-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Apr-2008 */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 30406L;
     private static boolean staticincludeStackTraceInMessage = false;
@@ -130,7 +129,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     }
 
     /** Gets the ontology document IRI from which there was an attempt to parse
-     * an ontology
+     * an ontology.
      * 
      * @return The ontology document IRI */
     public IRI getDocumentIRI() {
@@ -148,8 +147,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     /** Determines if the stack trace for each parse exception is included in the
      * getMessage() method.
      * 
-     * @return {@code true} if the stack trace is included in the message
-     *         for this exception, other wise {@code false}.
+     * @return {@code true} if the stack trace is included in the message for
+     *         this exception, other wise {@code false}.
      * @deprecated use the fields in OWLOntologyLoaderConfiguration */
     @Deprecated
     public static boolean isIncludeStackTraceInMessage() {
@@ -161,9 +160,9 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      * for debugging purposes, but can bloat the message for end user usage.
      * 
      * @param includeStackTraceInMessage
-     *            Set to {@code true} to indicate that the stack trace for
-     *            each parser exception should be included in the message for
-     *            this exception, otherwise set to {@code false}.
+     *            Set to {@code true} to indicate that the stack trace for each
+     *            parser exception should be included in the message for this
+     *            exception, otherwise set to {@code false}.
      * @deprecated use the fields in OWLOntologyLoaderConfiguration */
     @Deprecated
     public static void setIncludeStackTraceInMessage(boolean includeStackTraceInMessage) {

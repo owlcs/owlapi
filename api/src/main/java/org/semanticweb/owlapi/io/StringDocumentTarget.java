@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.OutputStream;
@@ -46,59 +45,50 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Mar-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Mar-2008 */
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
-
     private final StringWriter writer;
 
-    @SuppressWarnings("javadoc")
-	public StringDocumentTarget() {
+    /** default constructor */
+    public StringDocumentTarget() {
         writer = new StringWriter();
     }
 
-
     @Override
-	public String toString() {
+    public String toString() {
         return writer.getBuffer().toString();
     }
-
 
     @Override
     public boolean isWriterAvailable() {
         return true;
     }
 
-
     @Override
     public Writer getWriter() {
         return writer;
     }
-
 
     @Override
     public boolean isOutputStreamAvailable() {
         return false;
     }
 
-
     @Override
     public OutputStream getOutputStream() {
-        throw new OWLRuntimeException("OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "OutputStream not available.  getOutputStream() should not be called if isOutputStreamAvailable() returns false.");
     }
-
 
     @Override
     public boolean isDocumentIRIAvailable() {
         return false;
     }
 
-
     @Override
     public IRI getDocumentIRI() {
-        throw new OWLRuntimeException("IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
+        throw new OWLRuntimeException(
+                "IRI not available.  getDocumentIRI() should not be called if isDocumentIRIAvailable() returns false.");
     }
 }

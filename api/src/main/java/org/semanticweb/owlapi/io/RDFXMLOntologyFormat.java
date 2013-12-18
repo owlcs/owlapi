@@ -36,20 +36,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 02-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 02-Jan-2007 */
 public class RDFXMLOntologyFormat extends RDFOntologyFormat {
-
-
-	private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 30406L;
 
     @Override
-	public String toString() {
+    public String toString() {
         return "RDF/XML";
     }
 }

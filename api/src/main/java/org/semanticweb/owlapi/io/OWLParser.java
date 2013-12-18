@@ -51,19 +51,17 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 /** An {@code OWLParser} parses an ontology document into an OWL API object
  * representation of an ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Nov-2006 */
 public interface OWLParser {
-    /** Sets the {@code OWLOntologyManager} which should be used to load
-     * imports etc.
+    /** Sets the {@code OWLOntologyManager} which should be used to load imports
+     * etc.
      * 
      * @param owlOntologyManager
      *            The ontology manager to be set
-     * @deprecated Each {@code OWLOntology} contains a reference to its
-     *             manager. This method is no longer necessary. Parsers will
-     *             obtain the manager from the ontology in the various parse
-     *             methods i.e.
+     * @deprecated Each {@code OWLOntology} contains a reference to its manager.
+     *             This method is no longer necessary. Parsers will obtain the
+     *             manager from the ontology in the various parse methods i.e.
      *             {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      *             ,
      *             {@link #parse(OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
@@ -81,9 +79,9 @@ public interface OWLParser {
      *            The document IRI where the ontology should be loaded from
      * @param ontology
      *            The ontology that the concrete representation should be parsed
-     *            into. @return An {@code OWLOntologyFormat} which
-     *            describes the concrete representation format which was parsed
-     *            to obtain the ontology. This will never be {@code null}.
+     *            into. @return An {@code OWLOntologyFormat} which describes the
+     *            concrete representation format which was parsed to obtain the
+     *            ontology. This will never be {@code null}.
      * @return The format of the ontology
      * @throws OWLParserException
      *             if there was a problem parsing the ontology. This indicates
@@ -111,9 +109,9 @@ public interface OWLParser {
      *            the input source can provide a {@code Reader} then the
      *            ontology is parsed from the {@code Reader}. If the input
      *            source cannot provide a reader then it is parsed from the
-     *            {@code InputStream}. If the input source cannot provide
-     *            an {@code InputStream} then it is parsed from the
-     *            ontology document IRI.
+     *            {@code InputStream}. If the input source cannot provide an
+     *            {@code InputStream} then it is parsed from the ontology
+     *            document IRI.
      * @param ontology
      *            The ontology which the representation will be parsed into
      * @return An {@code OWLOntologyFormat} which describes the concrete
@@ -145,9 +143,9 @@ public interface OWLParser {
      *            the input source can provider a {@code Reader} then the
      *            ontology is parsed from the {@code Reader}. If the input
      *            source cannot provide a reader then it is parsed from the
-     *            {@code InputStream}. If the input source cannot provide
-     *            an {@code InputStream} then it is parsed from the
-     *            ontology document IRI.
+     *            {@code InputStream}. If the input source cannot provide an
+     *            {@code InputStream} then it is parsed from the ontology
+     *            document IRI.
      * @param ontology
      *            The ontology which the representation will be parsed into
      * @param configuration

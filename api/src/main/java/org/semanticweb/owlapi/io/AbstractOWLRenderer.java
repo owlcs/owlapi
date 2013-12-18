@@ -47,9 +47,8 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Nov-2006 */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
     // XXX this should not be a field but accessed through the rendered ontology
     private OWLOntologyManager owlOntologyManager;
@@ -91,8 +90,8 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      * @param writer
      *            The writer that should be used to write the ontology. Note
      *            that this writer need not be wrapped with a
-     *            {@code BufferedWriter} because this is taken care of by
-     *            this abstract implementation.
+     *            {@code BufferedWriter} because this is taken care of by this
+     *            abstract implementation.
      * @throws OWLRendererException
      *             if exceptions arise */
     public abstract void render(OWLOntology ontology, Writer writer)

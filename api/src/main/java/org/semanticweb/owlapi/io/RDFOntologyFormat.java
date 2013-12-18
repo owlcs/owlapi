@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.util.HashSet;
@@ -46,48 +45,46 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 28-Jun-2009
- */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 28-Jun-2009 */
 public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
-
-
-	private static final long serialVersionUID = 30406L;
-
+    private static final long serialVersionUID = 30406L;
     private boolean addMissingTypes = true;
-
     private final Set<RDFResourceParseError> errors = new HashSet<RDFResourceParseError>();
 
-    /**
-     * Determines if untyped entities should automatically be typed (declared) during rendering.  (This is a hint to an RDF
-     * renderer - the reference implementation will respect this).
-     * The render will check with the {@link #isMissingType(org.semanticweb.owlapi.model.OWLEntity, org.semanticweb.owlapi.model.OWLOntology)}
+    /** Determines if untyped entities should automatically be typed (declared)
+     * during rendering. (This is a hint to an RDF renderer - the reference
+     * implementation will respect this). The render will check with the
+     * {@link #isMissingType(org.semanticweb.owlapi.model.OWLEntity, org.semanticweb.owlapi.model.OWLOntology)}
      * method to determine if it needs to add a type.
-     * @return {@code true} if untyped entities should automatically be typed during rendering,
-     *         otherwise {@code false}.
-     */
+     * 
+     * @return {@code true} if untyped entities should automatically be typed
+     *         during rendering, otherwise {@code false}. */
     public boolean isAddMissingTypes() {
         return addMissingTypes;
     }
 
-    /**
-     * Determines if a declaration axiom (type triple) needs to be added to the specified ontology for the given entity.
-     * @param entity The entity
-     * @param ontology The ontology.
-     * @return {@code false} if the entity is built in. {@code false} if the ontology doesn't contain
-     *         the entity in its signature. {@code false} if the entity is already declared in the imports closure
-     *         of the ontology. {@code false} if the transitive imports does not contain the ontology but the entity
-     *         is contained in the signature of one of the imported ontologies, {@code true} if none of the previous conditions
-     *         are met.
-     */
+    /** Determines if a declaration axiom (type triple) needs to be added to the
+     * specified ontology for the given entity.
+     * 
+     * @param entity
+     *            The entity
+     * @param ontology
+     *            The ontology.
+     * @return {@code false} if the entity is built in. {@code false} if the
+     *         ontology doesn't contain the entity in its signature.
+     *         {@code false} if the entity is already declared in the imports
+     *         closure of the ontology. {@code false} if the transitive imports
+     *         does not contain the ontology but the entity is contained in the
+     *         signature of one of the imported ontologies, {@code true} if none
+     *         of the previous conditions are met. */
     public static boolean isMissingType(OWLEntity entity, OWLOntology ontology) {
         // We don't need to declare built in entities
         if (entity.isBuiltIn()) {
             return false;
         }
-        // If the ontology doesn't contain the entity in its signature then it shouldn't declare it
+        // If the ontology doesn't contain the entity in its signature then it
+        // shouldn't declare it
         if (!ontology.containsEntityInSignature(entity)) {
             return false;
         }
@@ -107,11 +104,12 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         return true;
     }
 
-    /**
-     * Determines if untyped entities should automatically be typed during rendering.  By default this is true.
-     * @param addMissingTypes {@code true} if untyped entities should automatically be typed during rendering,
-     * otherwise {@code false}.
-     */
+    /** Determines if untyped entities should automatically be typed during
+     * rendering. By default this is true.
+     * 
+     * @param addMissingTypes
+     *            {@code true} if untyped entities should automatically be typed
+     *            during rendering, otherwise {@code false}. */
     public void setAddMissingTypes(boolean addMissingTypes) {
         this.addMissingTypes = addMissingTypes;
     }
@@ -121,9 +119,8 @@ public abstract class RDFOntologyFormat extends PrefixOWLOntologyFormat {
         return (RDFParserMetaData) super.getOntologyLoaderMetaData();
     }
 
-    /**
-     * @param error error to add to the error set
-     */
+    /** @param error
+     *            error to add to the error set */
     public void addError(RDFResourceParseError error) {
         errors.add(error);
     }

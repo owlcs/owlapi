@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** An ontology document source which can read from a stream.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15-Nov-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 15-Nov-2007 */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;
@@ -88,8 +87,8 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
      * 
-     * @param stream
-     *            The stream to be "cached" */
+     * @param reader
+     *            The reader to be "cached" */
     private void readIntoBuffer(InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();

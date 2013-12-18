@@ -38,19 +38,18 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Apr-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2008 */
 public class IOProperties {
     private static final IOProperties instance = new IOProperties();
-    /** default connection timeout */
+    /** default connection timeout. */
     private static final String DEFAULT_CONNECTION_TIME_OUT = "20000";
-    /** timeout property name */
+    /** timeout property name. */
     public static final String CONNECTION_TIME_OUT_PROPERTY_NAME = "owlapi.connectionTimeOut";
     private int connectionTimeout;
     /** accept http compression? */
     public static final boolean DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION = true;
-    /** property name for accept http compression */
+    /** property name for accept http compression. */
     public static final String CONNECTION_ACCEPT_HTTP_COMPRESSION_PROPERTY_NAME = "owlapi.connectionAcceptHTTPCompression";
     private boolean connectionAcceptHTTPCompression = DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION;
 
@@ -82,10 +81,9 @@ public class IOProperties {
         this.connectionTimeout = connectionTimeout;
     }
 
-    /** Determines whether HTTP compression can be used
+    /** Determines whether HTTP compression can be used.
      * 
-     * @return {@code true} if HTTP compression can be used, otherwise
-     *         false */
+     * @return {@code true} if HTTP compression can be used, otherwise false */
     public boolean isConnectionAcceptHTTPCompression() {
         return connectionAcceptHTTPCompression;
     }

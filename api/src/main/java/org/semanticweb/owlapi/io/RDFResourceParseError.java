@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.util.HashSet;
@@ -45,56 +44,47 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21/12/2010
- * @since 3.2
- * <br>
- * Describes why an RDF resource could not be parsed into an {@code OWLObject}.  For example, why an RDF resource could
- * not be parsed into an {@code OWLClassExpression}.
- * <br>
- * When these errors occur, the RDF parser generates an {@code OWLEntity} that represents the error and inserts
- * this where appropriate into the corresponding complete OWLObject (OWLAxiom) that could not be parsed.
- */
+/** Describes why an RDF resource could not be parsed into an {@code OWLObject}.
+ * For example, why an RDF resource could not be parsed into an
+ * {@code OWLClassExpression}. <br>
+ * When these errors occur, the RDF parser generates an {@code OWLEntity} that
+ * represents the error and inserts this where appropriate into the
+ * corresponding complete OWLObject (OWLAxiom) that could not be parsed.
+ * 
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/12/2010
+ * @since 3.2 */
 public class RDFResourceParseError {
-
     private final OWLEntity parserGeneratedErrorEntity;
-
     private final RDFNode mainNode;
-
     private final Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();
 
-    /**
-     * @param parserGeneratedErrorEntity the error entity
-     * @param mainNode the main node
-     * @param mainNodeTriples the main node triples
-     */
-    public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode, Set<RDFTriple> mainNodeTriples) {
+    /** @param parserGeneratedErrorEntity
+     *            the error entity
+     * @param mainNode
+     *            the main node
+     * @param mainNodeTriples
+     *            the main node triples */
+    public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity, RDFNode mainNode,
+            Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;
         this.mainNode = mainNode;
         this.mainNodeTriples.addAll(mainNodeTriples);
     }
 
-    /**
-     * @return the error entity
-     */
+    /** @return the error entity */
     public OWLEntity getParserGeneratedErrorEntity() {
         return parserGeneratedErrorEntity;
     }
 
-    /**
-     * @return the main node
-     */
+    /** @return the main node */
     public RDFNode getMainNode() {
         return mainNode;
     }
 
-    /**
-     * @return the main node triples
-     */
+    /** @return the main node triples */
     public Set<RDFTriple> getMainNodeTriples() {
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(mainNodeTriples);
+        return CollectionFactory
+                .getCopyOnRequestSetFromMutableCollection(mainNodeTriples);
     }
-
 }

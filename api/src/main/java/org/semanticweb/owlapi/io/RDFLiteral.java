@@ -36,34 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21/12/2010
- * @since 3.2
- */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/12/2010
+ * @since 3.2 */
 public class RDFLiteral extends RDFNode implements Serializable {
     private static final long serialVersionUID = 30406L;
-
     private final OWLLiteral literal;
 
-    /**
-     * @param literal the wrapped literal
-     */
+    /** @param literal
+     *            the wrapped literal */
     public RDFLiteral(OWLLiteral literal) {
         this.literal = literal;
     }
 
-    /**
-     * @return the OWLLiteral
-     */
+    /** @return the OWLLiteral */
     public OWLLiteral getLiteral() {
         return literal;
     }

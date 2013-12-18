@@ -38,9 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 02-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 02-Jan-2007 */
 public class DefaultOntologyFormat extends RDFXMLOntologyFormat {
     private static final long serialVersionUID = 30406L;
 

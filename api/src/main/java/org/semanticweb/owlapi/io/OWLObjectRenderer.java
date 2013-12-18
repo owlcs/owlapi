@@ -46,9 +46,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * interfaces, colsole writing etc. etc. Many ontology renderers may also choose
  * to implement this interface.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 08-Oct-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Oct-2007 */
 public interface OWLObjectRenderer {
     /** Sets the short form provider, which determines the short form that should
      * be used for entities.
