@@ -48,21 +48,27 @@ package org.semanticweb.owlapi.reasoner;
  * thrown because the error is unrecoverable and the internal state of the
  * reasoner may be corrupt.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 05-Jul-2010 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 05-Jul-2010 */
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 30406L;
 
+    /** @param cause
+     *            error cause */
     public ReasonerInternalException(Throwable cause) {
         super(cause);
     }
 
+    /** @param message
+     *            error message */
     public ReasonerInternalException(String message) {
         super(message);
     }
 
+    /** @param message
+     *            error message
+     * @param cause
+     *            error cause */
     public ReasonerInternalException(String message, Throwable cause) {
         super(message, cause);
     }

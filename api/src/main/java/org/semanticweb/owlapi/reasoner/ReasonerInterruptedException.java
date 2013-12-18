@@ -36,33 +36,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Oct-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 29-Oct-2009 */
 public class ReasonerInterruptedException extends OWLRuntimeException {
+    private static final long serialVersionUID = 30406L;
 
+    /** default constructor */
+    public ReasonerInterruptedException() {}
 
-	private static final long serialVersionUID = 30406L;
-
-	public ReasonerInterruptedException() {
-    }
-
+    /** @param message
+     *            error message */
     public ReasonerInterruptedException(String message) {
         super(message);
     }
 
+    /** @param message
+     *            error message
+     * @param cause
+     *            error cause */
     public ReasonerInterruptedException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /** @param cause
+     *            error cause */
     public ReasonerInterruptedException(Throwable cause) {
         super(cause);
     }

@@ -38,10 +38,7 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Nov-2009 <br>
- * The ReasonerProgressMonitor interface should be implemented by objects that
+/** The ReasonerProgressMonitor interface should be implemented by objects that
  * wish to montitor the progress of a resoner. The reasoner whose progress is
  * being monitored will call the methods on this interface. The progress monitor
  * is designed to monitor long running reasoner tasks such as loading,
@@ -51,23 +48,26 @@ package org.semanticweb.owlapi.reasoner;
  * {@link #reasonerTaskStarted(String)}, then call either
  * {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)}
  * any number of times and finally call {@link #reasonerTaskStopped()} when the
- * task ends or has been interupted. This cycle may then be repeated. */
+ * task ends or has been interupted. This cycle may then be repeated.
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 29-Nov-2009 */
 public interface ReasonerProgressMonitor {
     /** A standard name for the task of loading a reasoner with axioms. Note that
      * there is no guarantee that the reasoner will use this name for loading. */
-    public static final String LOADING = "Loading";
+    String LOADING = "Loading";
     /** A standard name for the task of computing the class hierarchy. Note that
      * there is no guarantee that the reasoner will use this name for the task
      * of computing the class hierarchy. */
-    public static final String CLASSIFYING = "Classifying";
+    String CLASSIFYING = "Classifying";
     /** A standard name for the task of computing the types of individual. Note
      * that there is no guarantee that the reasoner will use this name for the
      * task of realising. */
-    public static final String REALIZING = "Realizing";
+    String REALIZING = "Realizing";
     /** A standard name for the task of classifying and realising at the same
      * time. Note that there is no guarantee that the reasoner will use this
      * name for the task of classifying. */
-    public static final String CLASSIFYING_AND_REALIZING = "Classifying and Realizing";
+    String CLASSIFYING_AND_REALIZING = "Classifying and Realizing";
 
     /** Indicates that some reasoner task, for example, loading, consistency
      * checking, classification, realisation etc. has started. When the task has

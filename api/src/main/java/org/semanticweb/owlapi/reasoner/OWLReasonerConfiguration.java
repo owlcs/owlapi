@@ -47,9 +47,8 @@ package org.semanticweb.owlapi.reasoner;
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jan-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 21-Jan-2009
  * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
  * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
 public interface OWLReasonerConfiguration {
@@ -85,8 +84,8 @@ public interface OWLReasonerConfiguration {
     FreshEntityPolicy getFreshEntityPolicy();
 
     /** Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
-     * which determines how {@code NodeSet}s of named individuals are
-     * returned from the reasoner.
+     * which determines how {@code NodeSet}s of named individuals are returned
+     * from the reasoner.
      * 
      * @return The {@code IndividualNodeSetPolicy} that should be used. By
      *         default the policy is

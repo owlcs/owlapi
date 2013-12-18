@@ -40,16 +40,15 @@ package org.semanticweb.owlapi.reasoner;
 
 /** A simple configuration with the general options.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 18-Mar-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Mar-2009 */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
     private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
     private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
     private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
     private long timeOut = Long.MAX_VALUE;
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public SimpleConfiguration() {}
 
     /** @param progressMonitor

@@ -36,15 +36,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Jan-2010
- */
-public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
 
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Jan-2010 */
+public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
     private int lastPercentage = 0;
 
     @Override

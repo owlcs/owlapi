@@ -45,10 +45,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * reasons over a set of ontologies that is defined by an ontology and its
  * imports closure.
  * 
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jan-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 21-Jan-2009
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner */
 public interface OWLReasonerFactory {
     /** Gets the name of the reasoner created by this factory.

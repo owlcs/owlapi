@@ -42,9 +42,8 @@ package org.semanticweb.owlapi.reasoner;
  * task has a name that is associated with it - reasoners may use these names
  * when reporting progress.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 04-Jul-2010 */
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 04-Jul-2010 */
 public enum InferenceType {
     /** Denotes the computation of the class hierarchy. */
     CLASS_HIERARCHY("class hierarchy"),

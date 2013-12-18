@@ -36,36 +36,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 22-Nov-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Nov-2009 */
 public class ClassExpressionNotInProfileException extends OWLReasonerRuntimeException {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLClassExpression classExpression;
-
+    private static final long serialVersionUID = 30406L;
+    private final OWLClassExpression classExpression;
     private final OWLProfile profile;
 
-    public ClassExpressionNotInProfileException(OWLClassExpression classExpression, OWLProfile profile) {
+    /** @param classExpression
+     *            wrong class expression
+     * @param profile
+     *            profile */
+    public ClassExpressionNotInProfileException(OWLClassExpression classExpression,
+            OWLProfile profile) {
         this.classExpression = classExpression;
         this.profile = profile;
     }
 
+    /** @return wrong expression */
     public OWLClassExpression getClassExpression() {
         return classExpression;
     }
 
+    /** @return profile */
     public OWLProfile getProfile() {
         return profile;
     }

@@ -44,14 +44,12 @@ package org.semanticweb.owlapi.reasoner;
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is
  * inconsistent.
  * 
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jan-2009 **/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 21-Jan-2009 **/
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 30406L;
 
+    /** default constructor */
     public InconsistentOntologyException() {
         super("Inconsistent ontology");
     }

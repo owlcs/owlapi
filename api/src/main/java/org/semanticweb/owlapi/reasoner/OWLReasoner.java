@@ -54,219 +54,195 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.Version;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jan-2009 <br>
- *         An OWLReasoner reasons over a set of axioms (the set of reasoner
- *         axioms) that is based on the imports closure of a particular ontology
- *         - the "root" ontology. This ontology can be obtained using the
- *         {@link OWLReasoner#getRootOntology()} method. When the client
- *         responsible for creating the reasoner has finished with the reasoner
- *         instance it must call the {@link #dispose()} method to free any
- *         resources that are used by the reasoner. In general, reasoners should
- *         not be instantiated directly, but should be created using the
- *         appropriate
- *         {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. <br>
- *         <h2>Ontology Change Management (Buffering and Non-Buffering Modes)</h2>
- *         At creation time, an OWLReasoner will load the axioms in the root
- *         ontology imports closure. It will attach itself as a listener to the
- *         {@link org.semanticweb.owlapi.model.OWLOntologyManager} that manages
- *         the root ontology. The reasoner will listen to any
- *         {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond
- *         appropriately to them before answering any queries. If the
- *         {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner
- *         (the answer to {@link #getBufferingMode()} is
- *         {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING})
- *         the ontology changes are processed by the reasoner immediately so
- *         that any queries asked after the changes are answered with respect to
- *         the changed ontologies. If the
- *         {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner
- *         is {@link org.semanticweb.owlapi.reasoner.BufferingMode#BUFFERING}
- *         then ontology changes are stored in a buffer and are only taken into
- *         consideration when the buffer is flushed with the {@link #flush()}
- *         method. When reasoning, axioms in the root ontology imports closure,
- *         minus the axioms returned by the {@link #getPendingAxiomAdditions()}
- *         method, plus the axioms returned by the
- *         {@link #getPendingAxiomRemovals()} are taken into consideration. <br>
- *         Note that there is no guarantee that the reasoner implementation will
- *         respond to changes in an incremental (and efficient manner) manner. <br>
- *         <h2>Reasoner Axioms</h2> The set of axioms that the reasoner takes
- *         into consideration when answering queries is known as the <i>set of
- *         reasoner axioms</i>. This corresponds the axioms in the imports
- *         closure of the root ontology plus the axioms returned by the
- *         {@link #getPendingAxiomRemovals()} minus the axioms returned by
- *         {@link #getPendingAxiomAdditions()} <br>
- *         <h2>Nodes</h2> The reasoner interface contains methods that return
- *         {@link org.semanticweb.owlapi.reasoner.NodeSet}s. These are sets of
- *         {@link org.semanticweb.owlapi.reasoner.Node}s. A {@code Node} contains
- *         entities. <br>
- *         For a {@code Node&lt;OWLClass&gt;} of classes, each class in the node
- *         is equivalent to the other classes in the {@code Node} with respect to
- *         the imports closure of the root ontology. <br>
- *         For a {@code Node&lt;OWLObjectProperty&gt;} of object properties, each
- *         object property in the {@code Node} is equivalent to the other object
- *         properties in the node with respect to the imports closure of the
- *         root ontology. <br>
- *         For a {@code Node&lt;OWLDataProperty&gt;} of data properties, each
- *         data property in the {@code Node} is equivalent to the other data
- *         properties in the node with respect to the imports closure of the
- *         root ontology. <br>
- *         For a {@code Node&lt;OWLNamedIndividual&gt;} of named individuals,
- *         each individual in the node is the same as the other individuals in
- *         the node with respect to the imports closure of the root ontology. <br>
- *         By abuse of notation, we say that a {@code NodeSet} "contains" an
- *         entity if that entity is contained in one of the {@code Nodes} in the
- *         {@code NodeSet}. <br>
- *         <h2>Hierarchies</h2> A hierachy (class hierachy, object property
- *         hierarchy, data property hierarchy) is viewed as a directed acyclic
- *         graph (DAG) containing nodes connected via edges. Each node in the
- *         hierarchy represents a set of entities that are equivalent to each
- *         other. Each hierarchy has a top node (see
- *         org.semanticweb.owlapi.reasoner.Node#isTopNode()) and a bottom node
- *         (see org.semanticweb.owlapi.reasoner.Node#isBottomNode()). <br>
- *         The figure below shows an example class hierarchy. Each box in the
- *         hierarchy represents a {@code Node}. In this case the top node
- *         contains {@code owl:Thing} and the bottom node contains
- *         {@code owl:Nothing} because the nodes in the hierarchy are
- *         {@code OWLClass} nodes. In this case, class {@code G} is equivalent to
- *         {@code owl:Thing} so it appears as an entity in the top node along
- *         with {@code owl:Thing}. Similarly, class {@code K} is unsatisfiable,
- *         so it is equivalent to {@code owl:Nothing}, and therefore appears in
- *         the bottom node containing {@code owl:Nothing}. In this example,
- *         classes {@code A} and {@code B} are equivalent so they appear in one
- *         node, also, classes {@code D} and {@code F} are equivalent so they
- *         appear in one node. <br>
- *         Asking for the subclasses of a given class (expression) returns the a
- *         {@code NodeSet} containing the nodes that contain classes that are
- *         strict subclasses of the specified class (expression). For example,
- *         asking for the subclasses of class {@code C} returns the
- *         {@code NodeSet} {@code &#123;E&#125;} and
- *         {@code &#123;owl:Nothing, K&#125;}. <br>
- *         Asking for the direct subclasses of a given class (expression)
- *         returns the {@code NodeSet} that contains the nodes that contains
- *         classes that are direct subclasses of the specified class. For
- *         example, asking for the direct subclasses of class {@code A} returns
- *         the {@code NodeSet} containing the nodes {@code &#123;C&#125;} and
- *         {@code &#123;D, F&#125;}. Note that there are convenience methods on
- *         {@link NodeSet} and {@link org.semanticweb.owlapi.reasoner.Node} that
- *         can be used to directly access the entities in a {@code NodeSet}
- *         without having to iterate over the nodes and entities in a
- *         {@code NodeSet}. For example, a "plain" set of classes contained
- *         inside the {@code Nodes} contained inside a {@code NodeSet} can easily
- *         be obtained using the {@link NodeSet#getFlattened()} method. In this
- *         case we could quickly obtain {@code &#123;C, D, F&#125;} as the direct
- *         subclasses of {@code A} simply by using the
- *         {@link #getSubClasses(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
- *         (with boolean=true) method on {@code OWLReasoner} and then we could
- *         use the {@link NodeSet#getFlattened()} method on the retuned
- *         {@code NodeSet} . <br>
- *         Asking for equivalent classes of a class (expression) returns a
- *         {@code Node} that contains classes that are equivalent to the class
- *         (expression) . For example, asking for the equivalent classes of
- *         {@code owl:Nothing} (i.e. asking for the unsatisfiable classes)
- *         returns the {@code Node} {@code &#123;owl:Nothing, K&#125;}. <br>
- *         <img src="../../../../doc-files/hierarchy.png" alt="hierarchy"><br>
- *         <h2>Definitions</h2> <br>
- *         In what follows, an extension of the <a
- *         href="http://www.w3.org/TR/owl2-syntax/">OWL 2 Functional Syntax</a>
- *         is given in order to capture notions like a class being a "direct"
- *         subclass of another class. <br>
- *         <h3>StrictSubClassOf</h3> <br>
- *         Given two class expressions {@code CE1} and {@code CE2} and an
- *         ontology {@code O}, {@code CE1} is a strict subclass of {@code CE2},
- *         written {@code StrictSubClassOf(CE1 CE2)} if {@code O} entails
- *         {@code SubClassOf(CE1 CE2)} and {@code O} does not entail
- *         {@code SubClassOf(CE2 CE1)} <br>
- *         <h3>DirectSubClassOf</h3> <br>
- *         Given two class expressions {@code CE1} and {@code CE2} and an
- *         ontology {@code O}, {@code CE1} is a <i>direct</i> subclass of
- *         {@code CE2}, written {@code DirectSubClassOf(CE1 CE2)}, with respect
- *         to {@code O} if {@code O} entails {@code StrictSubClassOf(CE1 CE2)}
- *         and there is no class name {@code C} in the signature of {@code O}
- *         such that {@code O} entails {@code StrictSubClassOf(CE1 C)} and
- *         {@code O} entails {@code StrictSubClassOf(C CE2)}. <br>
- *         <h3>StrictSubObjectPropertyOf</h3> <br>
- *         Given two object property expressions {@code OPE1} and {@code OPE2}
- *         and an ontology {@code O}, {@code OPE1} is a strict subproperty of
- *         {@code OPE2}, written {@code StrictSubObjectPropertyOf(OPE1 OPE2)} if
- *         {@code O} entails {@code SubObjectPropertyOf(OPE1 OPE2)} and {@code O}
- *         does not entail {@code SubObjectPropertyOf(OPE2 OPE1)} <br>
- *         <h3>DirectSubObjectPropertyOf</h3> <br>
- *         Given two object property expressions {@code OPE1} and {@code OPE2}
- *         and an ontology {@code O}, {@code OPE1} is a <i>direct</i> subproperty
- *         of {@code OPE2}, written {@code DirectSubObjectPropertyOf(OPE1 OPE2)},
- *         with respect to {@code O} if {@code O} entails
- *         {@code StrictSubObjectPropertyOf(OPE1 OPE2)} and there is no object
- *         property name {@code P} in the signature of {@code O} such that
- *         {@code O} entails {@code StrictSubObjectPropertyOf(OPE1 P)} and
- *         {@code O} entails {@code StrictSubObjectPropertyOf(P OPE2)}. <br>
- *         <h3>StrictSubDataPropertyOf</h3> <br>
- *         Given two dbject property expressions {@code DPE1} and {@code DPE2}
- *         and an ontology {@code O}, {@code DPE1} is a strict subproperty of
- *         {@code DPE2}, written {@code StrictSubDataPropertyOf(DPE1 DPE2)} if
- *         {@code O} entails {@code SubDataPropertyOf(DPE1 DPE2)} and {@code O}
- *         does not entail {@code SubDataPropertyOf(DPE1 DPE2)} <br>
- *         <h3>DirectSubDataPropertyOf</h3> <br>
- *         Given two data property expressions {@code DPE1} and {@code DPE2} and
- *         an ontology {@code O}, {@code DPE1} is a <i>direct</i> subproperty of
- *         {@code DPE2}, written {@code DirectSubDataPropertyOf(DPE1 DPE2)}, with
- *         respect to {@code O} if {@code O} entails
- *         {@code StrictSubDataPropertyOf(DPE1 DPE2)} and there is no data
- *         property name {@code P} in the signature of {@code O} such that
- *         {@code O} entails {@code StrictSubDataPropertyOf(DPE1 P)} and
- *         {@code O} entails {@code StrictSubDataPropertyOf(P DPE2)}. <br>
- *         <h3>DirectClassAssertion</h3> Given an individual {@code j} and a
- *         class expression {@code CE} and an ontology {@code O}, {@code CE} is a
- *         direct class assertion (type) for {@code j}, written
- *         {@code DirectClassAssertion(CE j)}, if {@code O} entails
- *         {@code ClassAssertion(CE j)} and there is no class name {@code C} in
- *         the signature of {@code O} such that {@code O} entails
- *         {@code ClassAssertion(C j)} and {@code O} entails
- *         {@code StrictSubClassOf(C CE)}. <h3>ObjectPropertyComplementOf</h3>
- *         Given an object property expression {@code pe}, the object property
- *         complement of {@code pe} is written as
- *         {@code ObjectPropertyComplementOf(pe)}. The interpretation of
- *         {@code ObjectPropertyComplementOf(pe)} is equal to the interpretation
- *         of {@code owl:topObjectProperty} minus the interpretation of
- *         {@code pe}. In other words, {@code ObjectPropertyComplementOf(pe)} is
- *         the set of pairs of individuals that are not in {@code pe}. <h3>
- *         DataPropertyComplementOf</h3> Given a data property expression
- *         {@code pe}, the data property complement of {@code pe} is written as
- *         {@code DataPropertyComplementOf(pe)}. The interpretation of
- *         {@code DataPropertyComplementOf(pe)} is equal to the interpretation of
- *         {@code owl:topDataProperty} minus the interpretation of {@code pe}. In
- *         other words, {@code DataPropertyComplementOf(pe)} is the set of pairs
- *         of individual and literals that are not in {@code pe}. <h3 id="spe">
- *         Simplified Object Property Expression</h3> A simplified object
- *         property expression is either a named property {@code P}, or an object
- *         inverse property of the form {@code ObjectInverseOf(P)} where
- *         {@code P} is a named property. In other words, there is no nesting of
- *         {@code ObjectInverseOf} operators. <h2>Error Handling</h2> An
- *         {@code OWLReasoner} may throw the following exceptions to indicate
- *         errors. More documentation for each type of exception can be found on
- *         the particular exception class.
- *         <ul>
- *         <li>
+/** An OWLReasoner reasons over a set of axioms (the set of reasoner axioms) that
+ * is based on the imports closure of a particular ontology - the "root"
+ * ontology. This ontology can be obtained using the
+ * {@link OWLReasoner#getRootOntology()} method. When the client responsible for
+ * creating the reasoner has finished with the reasoner instance it must call
+ * the {@link #dispose()} method to free any resources that are used by the
+ * reasoner. In general, reasoners should not be instantiated directly, but
+ * should be created using the appropriate
+ * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. <br>
+ * <h2>Ontology Change Management (Buffering and Non-Buffering Modes)</h2> At
+ * creation time, an OWLReasoner will load the axioms in the root ontology
+ * imports closure. It will attach itself as a listener to the
+ * {@link org.semanticweb.owlapi.model.OWLOntologyManager} that manages the root
+ * ontology. The reasoner will listen to any
+ * {@link org.semanticweb.owlapi.model.OWLOntologyChange}s and respond
+ * appropriately to them before answering any queries. If the
+ * {@link org.semanticweb.owlapi.reasoner.BufferingMode} of the reasoner (the
+ * answer to {@link #getBufferingMode()} is
+ * {@link org.semanticweb.owlapi.reasoner.BufferingMode#NON_BUFFERING}) the
+ * ontology changes are processed by the reasoner immediately so that any
+ * queries asked after the changes are answered with respect to the changed
+ * ontologies. If the {@link org.semanticweb.owlapi.reasoner.BufferingMode} of
+ * the reasoner is
+ * {@link org.semanticweb.owlapi.reasoner.BufferingMode#BUFFERING} then ontology
+ * changes are stored in a buffer and are only taken into consideration when the
+ * buffer is flushed with the {@link #flush()} method. When reasoning, axioms in
+ * the root ontology imports closure, minus the axioms returned by the
+ * {@link #getPendingAxiomAdditions()} method, plus the axioms returned by the
+ * {@link #getPendingAxiomRemovals()} are taken into consideration. <br>
+ * Note that there is no guarantee that the reasoner implementation will respond
+ * to changes in an incremental (and efficient manner) manner. <br>
+ * <h2>Reasoner Axioms</h2> The set of axioms that the reasoner takes into
+ * consideration when answering queries is known as the <i>set of reasoner
+ * axioms</i>. This corresponds the axioms in the imports closure of the root
+ * ontology plus the axioms returned by the {@link #getPendingAxiomRemovals()}
+ * minus the axioms returned by {@link #getPendingAxiomAdditions()} <br>
+ * <h2>Nodes</h2> The reasoner interface contains methods that return
+ * {@link org.semanticweb.owlapi.reasoner.NodeSet}s. These are sets of
+ * {@link org.semanticweb.owlapi.reasoner.Node}s. A {@code Node} contains
+ * entities. <br>
+ * For a {@code Node&lt;OWLClass&gt;} of classes, each class in the node is
+ * equivalent to the other classes in the {@code Node} with respect to the
+ * imports closure of the root ontology. <br>
+ * For a {@code Node&lt;OWLObjectProperty&gt;} of object properties, each object
+ * property in the {@code Node} is equivalent to the other object properties in
+ * the node with respect to the imports closure of the root ontology. <br>
+ * For a {@code Node&lt;OWLDataProperty&gt;} of data properties, each data
+ * property in the {@code Node} is equivalent to the other data properties in the
+ * node with respect to the imports closure of the root ontology. <br>
+ * For a {@code Node&lt;OWLNamedIndividual&gt;} of named individuals, each
+ * individual in the node is the same as the other individuals in the node with
+ * respect to the imports closure of the root ontology. <br>
+ * By abuse of notation, we say that a {@code NodeSet} "contains" an entity if
+ * that entity is contained in one of the {@code Nodes} in the {@code NodeSet}. <br>
+ * <h2>Hierarchies</h2> A hierachy (class hierachy, object property hierarchy,
+ * data property hierarchy) is viewed as a directed acyclic graph (DAG)
+ * containing nodes connected via edges. Each node in the hierarchy represents a
+ * set of entities that are equivalent to each other. Each hierarchy has a top
+ * node (see org.semanticweb.owlapi.reasoner.Node#isTopNode()) and a bottom node
+ * (see org.semanticweb.owlapi.reasoner.Node#isBottomNode()). <br>
+ * The figure below shows an example class hierarchy. Each box in the hierarchy
+ * represents a {@code Node}. In this case the top node contains
+ * {@code owl:Thing} and the bottom node contains {@code owl:Nothing} because the
+ * nodes in the hierarchy are {@code OWLClass} nodes. In this case, class
+ * {@code G} is equivalent to {@code owl:Thing} so it appears as an entity in the
+ * top node along with {@code owl:Thing}. Similarly, class {@code K} is
+ * unsatisfiable, so it is equivalent to {@code owl:Nothing}, and therefore
+ * appears in the bottom node containing {@code owl:Nothing}. In this example,
+ * classes {@code A} and {@code B} are equivalent so they appear in one node,
+ * also, classes {@code D} and {@code F} are equivalent so they appear in one
+ * node. <br>
+ * Asking for the subclasses of a given class (expression) returns the a
+ * {@code NodeSet} containing the nodes that contain classes that are strict
+ * subclasses of the specified class (expression). For example, asking for the
+ * subclasses of class {@code C} returns the {@code NodeSet}
+ * {@code &#123;E&#125;} and {@code &#123;owl:Nothing, K&#125;}. <br>
+ * Asking for the direct subclasses of a given class (expression) returns the
+ * {@code NodeSet} that contains the nodes that contains classes that are direct
+ * subclasses of the specified class. For example, asking for the direct
+ * subclasses of class {@code A} returns the {@code NodeSet} containing the nodes
+ * {@code &#123;C&#125;} and {@code &#123;D, F&#125;}. Note that there are
+ * convenience methods on {@link NodeSet} and
+ * {@link org.semanticweb.owlapi.reasoner.Node} that can be used to directly
+ * access the entities in a {@code NodeSet} without having to iterate over the
+ * nodes and entities in a {@code NodeSet}. For example, a "plain" set of classes
+ * contained inside the {@code Nodes} contained inside a {@code NodeSet} can
+ * easily be obtained using the {@link NodeSet#getFlattened()} method. In this
+ * case we could quickly obtain {@code &#123;C, D, F&#125;} as the direct
+ * subclasses of {@code A} simply by using the
+ * {@link #getSubClasses(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
+ * (with boolean=true) method on {@code OWLReasoner} and then we could use the
+ * {@link NodeSet#getFlattened()} method on the retuned {@code NodeSet} . <br>
+ * Asking for equivalent classes of a class (expression) returns a {@code Node}
+ * that contains classes that are equivalent to the class (expression) . For
+ * example, asking for the equivalent classes of {@code owl:Nothing} (i.e. asking
+ * for the unsatisfiable classes) returns the {@code Node}
+ * {@code &#123;owl:Nothing, K&#125;}. <br>
+ * <img src="../../../../doc-files/hierarchy.png" alt="hierarchy"><br>
+ * <h2>Definitions</h2> In what follows, an extension of the <a
+ * href="http://www.w3.org/TR/owl2-syntax/">OWL 2 Functional Syntax</a> is given
+ * in order to capture notions like a class being a "direct" subclass of another
+ * class. <br>
+ * <h3>StrictSubClassOf</h3> Given two class expressions {@code CE1} and
+ * {@code CE2} and an ontology {@code O}, {@code CE1} is a strict subclass of
+ * {@code CE2}, written {@code StrictSubClassOf(CE1 CE2)} if {@code O} entails
+ * {@code SubClassOf(CE1 CE2)} and {@code O} does not entail
+ * {@code SubClassOf(CE2 CE1)} <br>
+ * <h3>DirectSubClassOf</h3> Given two class expressions {@code CE1} and
+ * {@code CE2} and an ontology {@code O}, {@code CE1} is a <i>direct</i> subclass
+ * of {@code CE2}, written {@code DirectSubClassOf(CE1 CE2)}, with respect to
+ * {@code O} if {@code O} entails {@code StrictSubClassOf(CE1 CE2)} and there is
+ * no class name {@code C} in the signature of {@code O} such that {@code O}
+ * entails {@code StrictSubClassOf(CE1 C)} and {@code O} entails
+ * {@code StrictSubClassOf(C CE2)}. <br>
+ * <h3>StrictSubObjectPropertyOf</h3> Given two object property expressions
+ * {@code OPE1} and {@code OPE2} and an ontology {@code O}, {@code OPE1} is a
+ * strict subproperty of {@code OPE2}, written
+ * {@code StrictSubObjectPropertyOf(OPE1 OPE2)} if {@code O} entails
+ * {@code SubObjectPropertyOf(OPE1 OPE2)} and {@code O} does not entail
+ * {@code SubObjectPropertyOf(OPE2 OPE1)} <br>
+ * <h3>DirectSubObjectPropertyOf</h3> Given two object property expressions
+ * {@code OPE1} and {@code OPE2} and an ontology {@code O}, {@code OPE1} is a
+ * <i>direct</i> subproperty of {@code OPE2}, written
+ * {@code DirectSubObjectPropertyOf(OPE1 OPE2)}, with respect to {@code O} if
+ * {@code O} entails {@code StrictSubObjectPropertyOf(OPE1 OPE2)} and there is no
+ * object property name {@code P} in the signature of {@code O} such that
+ * {@code O} entails {@code StrictSubObjectPropertyOf(OPE1 P)} and {@code O}
+ * entails {@code StrictSubObjectPropertyOf(P OPE2)}. <br>
+ * <h3>StrictSubDataPropertyOf</h3> Given two dbject property expressions
+ * {@code DPE1} and {@code DPE2} and an ontology {@code O}, {@code DPE1} is a
+ * strict subproperty of {@code DPE2}, written
+ * {@code StrictSubDataPropertyOf(DPE1 DPE2)} if {@code O} entails
+ * {@code SubDataPropertyOf(DPE1 DPE2)} and {@code O} does not entail
+ * {@code SubDataPropertyOf(DPE1 DPE2)} <br>
+ * <h3>DirectSubDataPropertyOf</h3> Given two data property expressions
+ * {@code DPE1} and {@code DPE2} and an ontology {@code O}, {@code DPE1} is a
+ * <i>direct</i> subproperty of {@code DPE2}, written
+ * {@code DirectSubDataPropertyOf(DPE1 DPE2)}, with respect to {@code O} if
+ * {@code O} entails {@code StrictSubDataPropertyOf(DPE1 DPE2)} and there is no
+ * data property name {@code P} in the signature of {@code O} such that {@code O}
+ * entails {@code StrictSubDataPropertyOf(DPE1 P)} and {@code O} entails
+ * {@code StrictSubDataPropertyOf(P DPE2)}. <br>
+ * <h3>DirectClassAssertion</h3> Given an individual {@code j} and a class
+ * expression {@code CE} and an ontology {@code O}, {@code CE} is a direct class
+ * assertion (type) for {@code j}, written {@code DirectClassAssertion(CE j)}, if
+ * {@code O} entails {@code ClassAssertion(CE j)} and there is no class name
+ * {@code C} in the signature of {@code O} such that {@code O} entails
+ * {@code ClassAssertion(C j)} and {@code O} entails
+ * {@code StrictSubClassOf(C CE)}. <h3>ObjectPropertyComplementOf</h3> Given an
+ * object property expression {@code pe}, the object property complement of
+ * {@code pe} is written as {@code ObjectPropertyComplementOf(pe)}. The
+ * interpretation of {@code ObjectPropertyComplementOf(pe)} is equal to the
+ * interpretation of {@code owl:topObjectProperty} minus the interpretation of
+ * {@code pe}. In other words, {@code ObjectPropertyComplementOf(pe)} is the set
+ * of pairs of individuals that are not in {@code pe}. <h3>
+ * DataPropertyComplementOf</h3> Given a data property expression {@code pe} ,
+ * the data property complement of {@code pe} is written as
+ * {@code DataPropertyComplementOf(pe)}. The interpretation of
+ * {@code DataPropertyComplementOf(pe)} is equal to the interpretation of
+ * {@code owl:topDataProperty} minus the interpretation of {@code pe}. In other
+ * words, {@code DataPropertyComplementOf(pe)} is the set of pairs of individual
+ * and literals that are not in {@code pe}. <h3 id="spe">Simplified Object
+ * Property Expression</h3> A simplified object property expression is either a
+ * named property {@code P}, or an object inverse property of the form
+ * {@code ObjectInverseOf(P)} where {@code P} is a named property. In other
+ * words, there is no nesting of {@code ObjectInverseOf} operators. <h2>Error
+ * Handling</h2> An {@code OWLReasoner} may throw the following exceptions to
+ * indicate errors. More documentation for each type of exception can be found
+ * on the particular exception class.
+ * <ul>
+ * <li>
  *         {@link org.semanticweb.owlapi.reasoner.AxiomNotInProfileException}</li>
- *         <li>
- *         {@link org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException}
- *         </li>
- *         <li>{@link org.semanticweb.owlapi.reasoner.FreshEntitiesException}</li>
- *         <li>
- *         {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException}
- *         </li>
- *         <li>{@link org.semanticweb.owlapi.reasoner.TimeOutException}</li>
- *         <li>
+ * <li>
+ * {@link org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.FreshEntitiesException}</li>
+ * <li>
+ *         {@link org.semanticweb.owlapi.reasoner.InconsistentOntologyException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.TimeOutException}</li>
+ * <li>
  *         {@link org.semanticweb.owlapi.reasoner.ReasonerInterruptedException}</li>
- *         <li>
- *         {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}
- *         </li>
- *         <li>{@link org.semanticweb.owlapi.reasoner.ReasonerInternalException}
- *         </li>
- *         </ul>
- *         Note that
- *         {@link org.semanticweb.owlapi.reasoner.ReasonerInternalException} may
- *         be throw by any of the reasoner methods below. */
+ * <li>
+ * {@link org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException}</li>
+ * <li>{@link org.semanticweb.owlapi.reasoner.ReasonerInternalException}</li>
+ * </ul>
+ * Note that {@link org.semanticweb.owlapi.reasoner.ReasonerInternalException}
+ * may be throw by any of the reasoner methods below.
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 21-Jan-2009 */
 public interface OWLReasoner {
     /** Gets the name of this reasoner.
      * 
@@ -854,9 +830,8 @@ public interface OWLReasoner {
      *         of reasoner axioms entails
      *         {@code EquivalentObjectProperties(pe P)}. <br>
      *         If {@code pe} is a <a href="#spe">simplified object property
-     *         expression</a> then {@code pe} will be contained in the node. <br>
-     *         If {@code pe} is unsatisfiable with respect to the set of
-     *         reasoner axioms then the node representing and containing
+     *         expression</a> If {@code pe} is unsatisfiable with respect to the
+     *         set of reasoner axioms then the node representing and containing
      *         {@code owl:bottomObjectProperty}, i.e. the bottom node, will be
      *         returned. <br>
      *         If {@code pe} is equivalent to {@code owl:topObjectProperty} with

@@ -36,30 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Mar-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Mar-2009 */
 public class UnsupportedEntailmentTypeException extends OWLRuntimeException {
+    private static final long serialVersionUID = 30406L;
+    private final OWLAxiom axiom;
 
-	private static final long serialVersionUID = 30406L;
-	private final OWLAxiom axiom;
-
-
+    /** @param axiom
+     *            unsupported entailment */
     public UnsupportedEntailmentTypeException(OWLAxiom axiom) {
         super("Cannot check entailment: " + axiom);
         this.axiom = axiom;
     }
 
-
+    /** @return unsupported axiom */
     public OWLAxiom getAxiom() {
         return axiom;
     }

@@ -38,14 +38,13 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Nov-2009<br>
- * A fresh entity is an entity that is not a built in entity (see
+/** A fresh entity is an entity that is not a built in entity (see
  * {@link org.semanticweb.owlapi.model.OWLEntity#isBuiltIn()} and is not
- * contained within the signature of the root ontology imports closure. <br>
- * See also: {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration},
- * {@link FreshEntitiesException} */
+ * contained within the signature of the root ontology imports closure.
+ * 
+ * @see org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 29-Nov-2009 */
 public enum FreshEntityPolicy {
     /** Specifies that fresh entities are allowed when they are encountered in
      * the signature of OWLObjects in queries to a reasoner. */
