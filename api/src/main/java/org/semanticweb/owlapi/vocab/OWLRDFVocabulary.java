@@ -45,9 +45,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public enum OWLRDFVocabulary {
     // //////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -376,15 +375,8 @@ public enum OWLRDFVocabulary {
         }
         BUILT_IN_VOCABULARY_IRIS = Collections.unmodifiableSet(set);
     }
-    /** http://www.w3.org/2000/01/rdf-schema#label <br>
-     * http://www.w3.org/2000/01/rdf-schema#comment <br>
-     * http://www.w3.org/2002/07/owl#versionInfo <br>
-     * http://www.w3.org/2002/07/owl#backwardCompatibleWith <br>
-     * http://www.w3.org/2002/07/owl#priorVersion <br>
-     * http://www.w3.org/2000/01/rdf-schema#seeAlso <br>
-     * http://www.w3.org/2000/01/rdf-schema#isDefinedBy <br>
-     * http://www.w3.org/2002/07/owl#incompatibleWith <br>
-     * http://www.w3.org/2002/07/owl#deprecated */
+    /** label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
+     * seeAlso , isDefinedBy , incompatibleWith , deprecated */
     public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
     static {
         BUILT_IN_ANNOTATION_PROPERTY_IRIS = new HashSet<IRI>();

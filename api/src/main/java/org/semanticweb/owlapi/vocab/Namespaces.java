@@ -36,28 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.vocab;
-
 
 import static org.semanticweb.owlapi.vocab.Namespaces.BuiltIn.*;
 import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006 */
 public enum Namespaces {
-
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
     /** The OWL 2 namespace. */    OWL2        ("owl2",     "http://www.w3.org/2006/12/owl2#", Status.LEGACY),
-    /** Status.LEGACY */           OWL11XML    ("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
+    /** Status.LEGACY. */          OWL11XML    ("owl11xml", "http://www.w3.org/2006/12/owl11-xml#", Status.LEGACY),
     /** The OWL 1.1 namespace. */  OWL11       ("owl11",    "http://www.w3.org/2006/12/owl11#", Status.LEGACY),
-    /**The OWL namespace */        OWL         ("owl",      "http://www.w3.org/2002/07/owl#", IN_USE),
-    /**The RDFS namespace */       RDFS        ("rdfs",     "http://www.w3.org/2000/01/rdf-schema#", IN_USE),
+    /**The OWL namespace. */       OWL         ("owl",      "http://www.w3.org/2002/07/owl#", IN_USE),
+    /**The RDFS namespace. */      RDFS        ("rdfs",     "http://www.w3.org/2000/01/rdf-schema#", IN_USE),
     /** The RDF namespace. */      RDF         ("rdf",      "http://www.w3.org/1999/02/22-rdf-syntax-ns#", IN_USE),
     /** The XSD namespace. */      XSD         ("xsd",      "http://www.w3.org/2001/XMLSchema#", IN_USE),
     /** The XML namespace. */      XML         ("xml",      "http://www.w3.org/XML/1998/namespace"),
@@ -111,13 +106,9 @@ public enum Namespaces {
     /** The DBO namespace. */      DBO         ("dbo",     "http://dbpedia.org/ontology/"),
     /** The YAGO namespace. */     YAGO        ("yago",    "http://dbpedia.org/class/yago/");
     //@formatter:on
-
     final String prefix;
-
     final String ns;
-
     final Status status;
-
     final BuiltIn builtIn;
 
     Namespaces(String prefix, String ns) {
@@ -135,31 +126,25 @@ public enum Namespaces {
         this.builtIn = builtIn;
     }
 
-    /**
-     * @return A short, human-readable, prefix name that matches, and expands to the full IRI. Not {@code null}.
-     */
+    /** @return A short, human-readable, prefix name that matches, and expands to
+     *         the full IRI. Not {@code null}. */
     public String getPrefixName() {
         return prefix;
     }
 
-    /**
-     * @return The prefix IRI which matches the prefix name.  Not {@code null}.
-     */
+    /** @return The prefix IRI which matches the prefix name. Not {@code null}. */
     public String getPrefixIRI() {
         return ns;
     }
 
-    /**
-     * @return {@code true} if this namespace is not obsolete and is currently in active use, otherwise {@code false}.
-     */
+    /** @return {@code true} if this namespace is not obsolete and is currently in
+     *         active use, otherwise {@code false}. */
     public boolean isInUse() {
         return status == IN_USE;
     }
 
-    /**
-     * @return {@code true} if this namespace is defined as a core part of the OWL-2 specification, otherwise
-     * {@code false}.
-     */
+    /** @return {@code true} if this namespace is defined as a core part of the
+     *         OWL-2 specification, otherwise {@code false}. */
     public boolean isBuiltIn() {
         return builtIn == BUILT_IN;
     }
@@ -170,38 +155,33 @@ public enum Namespaces {
     }
 
     /** @param s
+     *            string to check
      * @return true if s equals this namespace */
-
     public boolean inNamespace(String s) {
         return ns.equals(s);
     }
 
     /** @param i
+     *            iri to check
      * @return true if the namespace for i equals this namespace */
-
     public boolean inNamespace(IRI i) {
         return ns.equals(i.getNamespace());
     }
 
-
-    /**
-     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf, rdfs, or xsd
-     */
+    /** Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
+     * rdfs, or xsd */
     public static enum BuiltIn {
-        /** built in flag */
+        /** built in flag. */
         BUILT_IN,
-        /** not built in flag */
+        /** not built in flag. */
         NOT_BUILT_IN
     }
 
-    /**
-     * Indicates whether a prefix is a legacy prefix or not.
-     */
+    /** Indicates whether a prefix is a legacy prefix or not. */
     public static enum Status {
-        /** legacy flag */
+        /** legacy flag. */
         LEGACY,
-        /** in use flag */
+        /** in use flag. */
         IN_USE
     }
-
 }

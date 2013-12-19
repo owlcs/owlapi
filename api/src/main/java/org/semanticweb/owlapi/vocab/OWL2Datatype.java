@@ -38,6 +38,10 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import static org.semanticweb.owlapi.vocab.Namespaces.*;
+import static org.semanticweb.owlapi.vocab.OWLFacet.*;
+import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
+
 import java.net.URI;
 import java.util.Arrays;
 import java.util.Collection;
@@ -55,70 +59,45 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /** An enumeration of the datatypes in the OWL 2 specification. These are the
  * datatypes in the OWL 2 datatype map.
  * 
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 11-Nov-2008 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 11-Nov-2008 */
 public enum OWL2Datatype {
-    RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral", Category.STRING_WITHOUT_LANGUAGE_TAG,
-            false, ".*"), RDFS_LITERAL(Namespaces.RDFS, "Literal", Category.UNIVERSAL,
-            false, ".*"), RDF_PLAIN_LITERAL(Namespaces.RDF, "PlainLiteral",
-            Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), OWL_REAL(Namespaces.OWL,
-            "real", Category.NUMBER, false, ".*"), OWL_RATIONAL(Namespaces.OWL,
-            "rational", Category.NUMBER, false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"), XSD_DECIMAL(
-            XSDVocabulary.DECIMAL, Category.NUMBER, false,
-            "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)"), XSD_INTEGER(XSDVocabulary.INTEGER,
-            Category.NUMBER, false, "(\\+|-)?([0-9]+)"), XSD_NON_NEGATIVE_INTEGER(
-            XSDVocabulary.NON_NEGATIVE_INTEGER, Category.NUMBER, false,
-            "((\\+)?([0-9]+))|-(0+)"), XSD_NON_POSITIVE_INTEGER(
-            XSDVocabulary.NON_POSITIVE_INTEGER, Category.NUMBER, false,
-            "-([0-9]+)|(\\+(0+))"), XSD_POSITIVE_INTEGER(XSDVocabulary.POSITIVE_INTEGER,
-            Category.NUMBER, false, "(\\+)?([0-9]+)"), XSD_NEGATIVE_INTEGER(
-            XSDVocabulary.NEGATIVE_INTEGER, Category.NUMBER, false, "-([0-9]+)"), XSD_LONG(
-            XSDVocabulary.LONG, Category.NUMBER, true, "(\\+|-)?([0-9]+)"), XSD_INT(
-            XSDVocabulary.INT, Category.NUMBER, true, "(\\+|-)?([0-9]+)"), XSD_SHORT(
-            XSDVocabulary.SHORT, Category.NUMBER, true, "(\\+|-)?([0-9]+)"), XSD_BYTE(
-            XSDVocabulary.BYTE, Category.NUMBER, true, "(\\+|-)?([0-9]+)"), XSD_UNSIGNED_LONG(
-            XSDVocabulary.UNSIGNED_LONG, Category.NUMBER, true, "(\\+)?([0-9]+)"), XSD_UNSIGNED_INT(
-            XSDVocabulary.UNSIGNED_INT, Category.NUMBER, true, "(\\+)?([0-9]+)"), XSD_UNSIGNED_SHORT(
-            XSDVocabulary.UNSIGNED_SHORT, Category.NUMBER, true, "(\\+)?([0-9]+)"), XSD_UNSIGNED_BYTE(
-            XSDVocabulary.UNSIGNED_BYTE, Category.NUMBER, true, "(\\+)?([0-9]+)"), XSD_DOUBLE(
-            XSDVocabulary.DOUBLE, Category.NUMBER, true,
-            "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"), XSD_FLOAT(
-            XSDVocabulary.FLOAT, Category.NUMBER, true,
-            "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"), XSD_STRING(
-            XSDVocabulary.STRING, Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), XSD_NORMALIZED_STRING(
-            XSDVocabulary.NORMALIZED_STRING, Category.STRING_WITHOUT_LANGUAGE_TAG, false,
-            "([^\\r\\n\\t])*"), XSD_TOKEN(XSDVocabulary.TOKEN,
-            Category.STRING_WITHOUT_LANGUAGE_TAG, false,
-            "([^\\s])(\\s([^\\s])|([^\\s]))*"), XSD_LANGUAGE(XSDVocabulary.LANGUAGE,
-            Category.STRING_WITHOUT_LANGUAGE_TAG, true,
-            "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"), XSD_NAME(
-            XSDVocabulary.NAME,
-            Category.STRING_WITHOUT_LANGUAGE_TAG,
-            false,
-            ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"), XSD_NCNAME(
-            XSDVocabulary.NCNAME,
-            Category.STRING_WITHOUT_LANGUAGE_TAG,
-            false,
-            "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"), XSD_NMTOKEN(
-            XSDVocabulary.NMTOKEN, Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), XSD_BOOLEAN(
-            XSDVocabulary.BOOLEAN, Category.BOOLEAN, true, "true|false|1|0"), XSD_HEX_BINARY(
-            XSDVocabulary.HEX_BINARY, Category.BINARY, false, "([0-9a-fA-F]{2})*"), XSD_BASE_64_BINARY(
-            XSDVocabulary.BASE_64_BINARY,
-            Category.BINARY,
-            false,
-            "((([A-Za-z0-9+/] ?){4})*(([A-Za-z0-9+/] ?){3}[A-Za-z0-9+/]|([A-Za-z0-9+/] ?){2}[AEIMQUYcgkosw048] ?=|[A-Za-z0-9+/] ?[AQgw] ?= ?=))?"), XSD_ANY_URI(
-            XSDVocabulary.ANY_URI, Category.URI, false, ".*"), XSD_DATE_TIME(
-            XSDVocabulary.DATE_TIME,
-            Category.TIME,
-            false,
-            "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"), XSD_DATE_TIME_STAMP(
-            XSDVocabulary.DATE_TIME_STAMP,
-            Category.TIME,
-            false,
-            "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
+    //@formatter:off
+    /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
+    /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
+    /** RDF_PLAIN_LITERAL */        RDF_PLAIN_LITERAL        (RDF,  "PlainLiteral", Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** OWL_REAL */                 OWL_REAL                 (OWL,  "real",         Category.CAT_NUMBER,                      false, ".*"),
+    /** OWL_RATIONAL */             OWL_RATIONAL             (OWL,  "rational",     Category.CAT_NUMBER,                      false, "(\\+|-)?([0-9]+)(\\s)*(/)(\\s)*([0-9]+)"),
+    /** XSD_STRING */               XSD_STRING               (STRING,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** XSD_NORMALIZED_STRING */    XSD_NORMALIZED_STRING    (NORMALIZED_STRING,    Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\r\\n\\t])*"),
+    /** XSD_TOKEN */                XSD_TOKEN                (TOKEN,                Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "([^\\s])(\\s([^\\s])|([^\\s]))*"),
+    /** XSD_LANGUAGE */             XSD_LANGUAGE             (LANGUAGE,             Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, true,  "[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*"),
+    /** XSD_NAME */                 XSD_NAME                 (NAME,                 Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ":|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD](:|[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    /** XSD_NCNAME */               XSD_NCNAME               (NCNAME,               Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, "[A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]([A-Z]|_|[a-z]|[\\u00C0-\\u00D6]|[\\u00D8-\\u00F6]|[\\u00F8-\\u02FF]|[\\u0370-\\u037D]|[\\u037F-\\u1FFF]|[\\u200C-\\u200D]|[\\u2070-\\u218F]|[\\u2C00-\\u2FEF]|[\\u3001-\\uD7FF]|[\\uF900-\\uFDCF]|[\\uFDF0-\\uFFFD]|\"-\"|\".\"|[0-9]|\\u00B7|[\\u0300-\\u036F]|[\\u203F-\\u2040])*"),
+    /** XSD_NMTOKEN */              XSD_NMTOKEN              (NMTOKEN,              Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
+    /** XSD_DECIMAL */              XSD_DECIMAL              (DECIMAL,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)"),
+    /** XSD_INTEGER */              XSD_INTEGER              (INTEGER,              Category.CAT_NUMBER,  false, "(\\+|-)?([0-9]+)"),
+    /** XSD_NON_NEGATIVE_INTEGER */ XSD_NON_NEGATIVE_INTEGER (NON_NEGATIVE_INTEGER, Category.CAT_NUMBER,  false, "((\\+)?([0-9]+))|-(0+)"),
+    /** XSD_NON_POSITIVE_INTEGER */ XSD_NON_POSITIVE_INTEGER (NON_POSITIVE_INTEGER, Category.CAT_NUMBER,  false, "-([0-9]+)|(\\+(0+))"),
+    /** XSD_POSITIVE_INTEGER */     XSD_POSITIVE_INTEGER     (POSITIVE_INTEGER,     Category.CAT_NUMBER,  false, "(\\+)?([0-9]+)"),
+    /** XSD_NEGATIVE_INTEGER */     XSD_NEGATIVE_INTEGER     (NEGATIVE_INTEGER,     Category.CAT_NUMBER,  false, "-([0-9]+)"),
+    /** XSD_LONG */                 XSD_LONG                 (LONG,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_INT */                  XSD_INT                  (INT,                  Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_SHORT */                XSD_SHORT                (SHORT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_BYTE */                 XSD_BYTE                 (BYTE,                 Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+)"),
+    /** XSD_UNSIGNED_LONG */        XSD_UNSIGNED_LONG        (UNSIGNED_LONG,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_INT */         XSD_UNSIGNED_INT         (UNSIGNED_INT,         Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_SHORT */       XSD_UNSIGNED_SHORT       (UNSIGNED_SHORT,       Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_UNSIGNED_BYTE */        XSD_UNSIGNED_BYTE        (UNSIGNED_BYTE,        Category.CAT_NUMBER,  true,  "(\\+)?([0-9]+)"),
+    /** XSD_DOUBLE */               XSD_DOUBLE               (DOUBLE,               Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
+    /** XSD_FLOAT */                XSD_FLOAT                (FLOAT,                Category.CAT_NUMBER,  true,  "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN"),
+    /** XSD_BOOLEAN */              XSD_BOOLEAN              (BOOLEAN,              Category.CAT_BOOLEAN, true,  "true|false|1|0"),
+    /** XSD_HEX_BINARY */           XSD_HEX_BINARY           (HEX_BINARY,           Category.CAT_BINARY,  false, "([0-9a-fA-F]{2})*"),
+    /** XSD_BASE_ */                XSD_BASE_64_BINARY       (BASE_64_BINARY,       Category.CAT_BINARY,  false, "((([A-Za-z0-9+/] ?){4})*(([A-Za-z0-9+/] ?){3}[A-Za-z0-9+/]|([A-Za-z0-9+/] ?){2}[AEIMQUYcgkosw048] ?=|[A-Za-z0-9+/] ?[AQgw] ?= ?=))?"),
+    /** XSD_ANY_URI */              XSD_ANY_URI              (ANY_URI,              Category.CAT_URI,     false, ".*"),
+    /** XSD_DATE_TIME */            XSD_DATE_TIME            (DATE_TIME,            Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?"),
+    /** XSD_DATE_TIME_STAMP */      XSD_DATE_TIME_STAMP      (DATE_TIME_STAMP,      Category.CAT_TIME,    false, "-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\\\.[0-9]+)?|(24:00:00(\\\\.0+)?))(Z|(\\\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))");
+    //@formatter:on
     private static final Set<IRI> ALL_IRIS;
     static {
         Set<IRI> uris = new HashSet<IRI>();
@@ -199,21 +178,21 @@ public enum OWL2Datatype {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    /** Gets the short human readable name for this datatype
+    /** Gets the short human readable name for this datatype.
      * 
      * @return The short human readable name */
     public String getShortName() {
         return shortName;
     }
 
-    /** Gets the IRI of this datatype
+    /** Gets the IRI of this datatype.
      * 
      * @return The IRI of this datatype */
     public IRI getIRI() {
         return iri;
     }
 
-    /** Gets the URI of this datatype
+    /** Gets the URI of this datatype.
      * 
      * @return The URI that identifies the datatype
      * @deprecated Use {@link #getIRI()}. */
@@ -222,18 +201,18 @@ public enum OWL2Datatype {
         return iri.toURI();
     }
 
-    /** Gets the category for this datatype
+    /** Gets the category for this datatype.
      * 
      * @return The category */
     public Category getCategory() {
         return category;
     }
 
-    /** Determines if this datatype is a numeric datatype
+    /** Determines if this datatype is a numeric datatype.
      * 
      * @return {@code true} if this datatype is a numeric datatype */
     public boolean isNumeric() {
-        return category.equals(Category.NUMBER);
+        return category.equals(Category.CAT_NUMBER);
     }
 
     /** Determines whether or not this datatype is finite.
@@ -244,7 +223,7 @@ public enum OWL2Datatype {
         return finite;
     }
 
-    /** Gets the facets that are allowed for facet restrictions of this datatype
+    /** Gets the facets that are allowed for facet restrictions of this datatype.
      * 
      * @return The allowed facets */
     public Collection<OWLFacet> getFacets() {
@@ -261,7 +240,7 @@ public enum OWL2Datatype {
         return factory.getOWLDatatype(getIRI());
     }
 
-    /** Determines if the specified string is the lexical space of this datatype
+    /** Determines if the specified string is the lexical space of this datatype.
      * 
      * @param s
      *            The string to test
@@ -271,18 +250,18 @@ public enum OWL2Datatype {
         return pattern.matcher(s).matches();
     }
 
+    /** Category enum. */
     public enum Category {
-        UNIVERSAL("Universal literal"), NUMBER("Number", OWLFacet.MIN_INCLUSIVE,
-                OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE, OWLFacet.MAX_EXCLUSIVE), STRING_WITH_LANGUAGE_TAG(
-                "String with a language tag", OWLFacet.MIN_LENGTH, OWLFacet.MAX_LENGTH,
-                OWLFacet.LENGTH, OWLFacet.PATTERN, OWLFacet.LANG_RANGE), STRING_WITHOUT_LANGUAGE_TAG(
-                "String without a language tag", OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH, OWLFacet.LENGTH, OWLFacet.PATTERN), BOOLEAN(
-                "Boolean value"), BINARY("Binary data", OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH, OWLFacet.LENGTH), URI("URI", OWLFacet.MIN_LENGTH,
-                OWLFacet.MAX_LENGTH, OWLFacet.PATTERN), TIME("Time instant",
-                OWLFacet.MIN_INCLUSIVE, OWLFacet.MAX_INCLUSIVE, OWLFacet.MIN_EXCLUSIVE,
-                OWLFacet.MAX_EXCLUSIVE);
+        //@formatter:off
+        /** NUMBER                      */ CAT_NUMBER                     ("Number",                        MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE), 
+        /** STRING_WITH_LANGUAGE_TAG    */ CAT_STRING_WITH_LANGUAGE_TAG   ("String with a language tag",    MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN,      LANG_RANGE), 
+        /** STRING_WITHOUT_LANGUAGE_TAG */ CAT_STRING_WITHOUT_LANGUAGE_TAG("String without a language tag", MIN_LENGTH,    MAX_LENGTH,    LENGTH,        PATTERN), 
+        /** BINARY                      */ CAT_BINARY                     ("Binary data",                   MIN_LENGTH,    MAX_LENGTH,    LENGTH), 
+        /** URI                         */ CAT_URI                        ("URI",                           MIN_LENGTH,    MAX_LENGTH,    PATTERN), 
+        /** TIME                        */ CAT_TIME                       ("Time instant",                  MIN_INCLUSIVE, MAX_INCLUSIVE, MIN_EXCLUSIVE, MAX_EXCLUSIVE),
+        /** BOOLEAN                     */ CAT_BOOLEAN                    ("Boolean value"), 
+        /** UNIVERSAL                   */ CAT_UNIVERSAL                  ("Universal literal");
+        //@formatter:on
         private final String name;
         private final Set<OWLFacet> facets;
 
@@ -292,27 +271,30 @@ public enum OWL2Datatype {
             this.facets = Collections.unmodifiableSet(f);
         }
 
+        /** @return name */
         public String getName() {
             return name;
         }
 
+        /** @return facets */
         public Set<OWLFacet> getFacets() {
             return facets;
         }
     }
 
+    /** Normalization enum. */
     public enum WhiteSpaceNormalisation {
         /** No normalization is done, the value is not changed (this is the
-         * behavior required by [XML] for element content) */
+         * behavior required by [XML] for element content). */
         PRESERVE,
         /** All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage
-         * return) are replaced with #x20 (space) */
+         * return) are replaced with #x20 (space). */
         REPLACE,
         /** After the processing implied by replace, contiguous sequences of
          * #x20's are collapsed to a single #x20, and any #x20 at the start or
          * end of the string is then removed. */
         COLLAPSE;
-        /** Gets the normalised version of a string
+        /** Gets the normalised version of a string.
          * 
          * @param s
          *            The string to normalise

@@ -46,14 +46,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20-Feb-2007*/
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Feb-2007 */
 public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
     private static final long serialVersionUID = 30406L;
     private DefaultPrefixManager nsm;
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public PrefixOWLOntologyFormat() {
         this(new DefaultPrefixManager());
     }
@@ -72,7 +71,7 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         nsm.clear();
     }
 
-    /** A convenience method to add a prefix name to prefix mapping
+    /** A convenience method to add a prefix name to prefix mapping.
      * 
      * @param prefixName
      *            The prefix name which maps to a prefix
@@ -87,13 +86,13 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         nsm.setPrefix(_prefixName, prefix);
     }
 
-    /** Clears any previously set prefixes */
+    /** Clears any previously set prefixes. */
     // XXX not in the interface
     public void clearPrefixes() {
         nsm.clear();
     }
 
-    /** Copies the prefix from another ontology format into this format
+    /** Copies the prefix from another ontology format into this format.
      * 
      * @param fromFormat
      *            The format that the prefixes should be copied from */

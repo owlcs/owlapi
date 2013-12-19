@@ -44,31 +44,30 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Mar-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Mar-2007 */
 public enum DublinCoreVocabulary {
     //@formatter:off
-    CONTRIBUTOR("contributor"),
-    COVERAGE("coverage"),
-    CREATOR("creator"),
-    DATE("date"),
-    DESCRIPTION("description"),
-    FORMAT("format"),
-    IDENTIFIER("identifier"),
-    LANGUAGE("language"),
-    PUBLISHER("publisher"),
-    RELATION("relation"),
-    RIGHTS("rights"),
-    SOURCE("source"),
-    SUBJECT("subject"),
-    TITLE("title"),
-    TYPE("type");
+    /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),
+    /** http://purl.org/dc/elements/1.1/coverage */    COVERAGE   ("coverage"   ),
+    /** http://purl.org/dc/elements/1.1/creator */     CREATOR    ("creator"    ),
+    /** http://purl.org/dc/elements/1.1/date */        DATE       ("date"       ),
+    /** http://purl.org/dc/elements/1.1/description */ DESCRIPTION("description"),
+    /** http://purl.org/dc/elements/1.1/format */      FORMAT     ("format"     ),
+    /** http://purl.org/dc/elements/1.1/identifier */  IDENTIFIER ("identifier" ),
+    /** http://purl.org/dc/elements/1.1/language */    LANGUAGE   ("language"   ),
+    /** http://purl.org/dc/elements/1.1/publisher */   PUBLISHER  ("publisher"  ),
+    /** http://purl.org/dc/elements/1.1/relation */    RELATION   ("relation"   ),
+    /** http://purl.org/dc/elements/1.1/rights */      RIGHTS     ("rights"     ),
+    /** http://purl.org/dc/elements/1.1/source */      SOURCE     ("source"     ),
+    /** http://purl.org/dc/elements/1.1/subject */     SUBJECT    ("subject"    ),
+    /** http://purl.org/dc/elements/1.1/title */       TITLE      ("title"      ),
+    /** http://purl.org/dc/elements/1.1/type */        TYPE       ("type"       );
     //@formatter:on
     private final String shortName;
     private final String qname;
     private final IRI iri;
+    /** Dublin Core name space */
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 
     DublinCoreVocabulary(String name) {
@@ -77,23 +76,29 @@ public enum DublinCoreVocabulary {
         iri = IRI.create(NAME_SPACE, name);
     }
 
+    /** @return IRI fragment */
     public String getShortName() {
         return shortName;
     }
 
+    /** @return qname */
     public String getQName() {
         return qname;
     }
 
+    /** @return IRI as URI.
+     * @deprecated use getIRI() */
     @Deprecated
     public URI getURI() {
         return iri.toURI();
     }
 
+    /** @return the iri for the entity */
     public IRI getIRI() {
         return iri;
     }
 
+    /** all IRIs */
     public static final Set<IRI> ALL_URIS;
     static {
         ALL_URIS = new HashSet<IRI>();
