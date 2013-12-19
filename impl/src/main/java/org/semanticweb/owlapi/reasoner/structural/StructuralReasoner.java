@@ -109,9 +109,8 @@ import org.semanticweb.owlapi.util.Version;
 /** This is a simple structural reasoner that essentially answers with told
  * information. It is incomplete.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 04-Dec-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 04-Dec-2009 */
 public class StructuralReasoner extends OWLReasonerBase {
     private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
     private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
@@ -773,9 +772,9 @@ public class StructuralReasoner extends OWLReasonerBase {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private abstract class HierarchyInfo<T extends OWLObject> {
         private RawHierarchyProvider<T> rawParentChildProvider;
-        /** The entity that always appears in the top node in the hierarchy */
+        /** The entity that always appears in the top node in the hierarchy. */
         T topEntity;
-        /** The entity that always appears as the bottom node in the hierarchy */
+        /** The entity that always appears as the bottom node in the hierarchy. */
         T bottomEntity;
         private Set<T> directChildrenOfTopNode = new HashSet<T>();
         private Set<T> directParentsOfBottomNode = new HashSet<T>();
@@ -796,14 +795,14 @@ public class StructuralReasoner extends OWLReasonerBase {
             return rawParentChildProvider;
         }
 
-        /** Gets the set of relevant entities from the specified ontology
+        /** Gets the set of relevant entities from the specified ontology.
          * 
          * @param ont
          *            The ontology
          * @return A set of entities to be "classified" */
         protected abstract Set<T> getEntities(OWLOntology ont);
 
-        /** Creates a node for a given set of entities
+        /** Creates a node for a given set of entities.
          * 
          * @param cycle
          *            The set of entities
@@ -812,7 +811,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         protected abstract DefaultNode<T> createNode();
 
-        /** Gets the set of relevant entities in a particular axiom
+        /** Gets the set of relevant entities in a particular axiom.
          * 
          * @param ax
          *            The axiom
@@ -906,7 +905,7 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
 
         /** Processes the specified signature that represents the signature of
-         * potential changes
+         * potential changes.
          * 
          * @param signature
          *            The signature
@@ -942,8 +941,8 @@ public class StructuralReasoner extends OWLReasonerBase {
          * @param stackEntities
          *            stack entities
          * @param cache
-         *            A cache of children to parents - may be {@code null}
-         *            if no caching is to take place.
+         *            A cache of children to parents - may be {@code null} if no
+         *            caching is to take place.
          * @param childrenOfTop
          *            A set of entities that have a raw parent that is the top
          *            entity
@@ -1299,7 +1298,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     /** An interface for objects who can provide the parents and children of some
      * object.
      * 
-     * @param <T> */
+     * @param <T>
+     *            type of elements */
     private interface RawHierarchyProvider<T> {
         /** Gets the parents as asserted. These parents may also be children
          * (resulting in equivalences).
@@ -1310,7 +1310,7 @@ public class StructuralReasoner extends OWLReasonerBase {
          *         does not have any parents then the empty set can be returned. */
         Collection<T> getParents(T child);
 
-        /** Gets the children as asserted
+        /** Gets the children as asserted.
          * 
          * @param parent
          *            The parent whose children are to be retrieved

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
@@ -44,39 +43,40 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
+    /** default constructor */
+    public OWLObjectPropertyNode() {}
 
-    public OWLObjectPropertyNode() {
-    }
-
+    /** @param entity
+     *            property to include */
     public OWLObjectPropertyNode(OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
+    /** @param entities
+     *            properties to include */
     public OWLObjectPropertyNode(Set<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
 
     @Override
-	protected OWLObjectProperty getTopEntity() {
+    protected OWLObjectProperty getTopEntity() {
         return TOP_OBJECT_PROPERTY;
     }
 
     @Override
-	protected OWLObjectProperty getBottomEntity() {
+    protected OWLObjectProperty getBottomEntity() {
         return BOTTOM_OBJECT_PROPERTY;
     }
 
+    /** @return top node */
     public static OWLObjectPropertyNode getTopNode() {
         return TOP_OBJECT_NODE;
     }
 
+    /** @return bottom node */
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
     }

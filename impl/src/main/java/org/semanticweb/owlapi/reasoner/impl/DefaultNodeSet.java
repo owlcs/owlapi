@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Collection;
@@ -49,39 +48,30 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009
- * @param <E> the type of owl objects in the node
- */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
+ * @param <E>
+ *            the type of owl objects in the node */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
-
     private final Set<Node<E>> nodes = new HashSet<Node<E>>();
 
-    /**
-     * constructor for an empty node set
-     */
-    public DefaultNodeSet() {
-    }
+    /** constructor for an empty node set. */
+    public DefaultNodeSet() {}
 
-    /**
-     * @param entity the entity to be contained
-     */
+    /** @param entity
+     *            the entity to be contained */
     public DefaultNodeSet(E entity) {
         nodes.add(getNode(entity));
     }
 
-    /**
-     * @param node the node to be contained
-     */
+    /** @param node
+     *            the node to be contained */
     public DefaultNodeSet(Node<E> node) {
         nodes.add(node);
     }
 
-    /**
-     * @param nodes a set of nodes to be contained
-     */
+    /** @param nodes
+     *            a set of nodes to be contained */
     public DefaultNodeSet(Set<Node<E>> nodes) {
         this.nodes.addAll(nodes);
     }
@@ -91,13 +81,15 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(nodes);
     }
 
-    /**
-     * Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
-     * @param entity The entity to be added.  The entity will be wrapped in the {@code Node} and the {@code Node}
-     * added to this set.  Must not be {@code null}.
-     * @throws NullPointerException if {@code entity} is {@code null}.
-     */
-    //XXX not in the interface
+    /** Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
+     * 
+     * @param entity
+     *            The entity to be added. The entity will be wrapped in the
+     *            {@code Node} and the {@code Node} added to this set. Must not
+     *            be {@code null}.
+     * @throws NullPointerException
+     *             if {@code entity} is {@code null}. */
+    // XXX not in the interface
     public void addEntity(E entity) {
         if (entity == null) {
             throw new IllegalArgumentException("entity cannot be null");
@@ -105,12 +97,13 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         addNode(getNode(entity));
     }
 
-    /**
-     * Adds a {@code Node} to this set.
-     * @param node The {@code Node} to be added.
-     * @throws NullPointerException if {@code entity} is {@code null}.
-     */
-    //XXX not in the interface
+    /** Adds a {@code Node} to this set.
+     * 
+     * @param node
+     *            The {@code Node} to be added.
+     * @throws NullPointerException
+     *             if {@code entity} is {@code null}. */
+    // XXX not in the interface
     public void addNode(Node<E> node) {
         if (node == null) {
             throw new IllegalArgumentException("Cannot add null to a NodeSet");
@@ -118,12 +111,12 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         nodes.add(node);
     }
 
-    /**
-     * Adds a collection of {@code Node}s to this set.
-     * @param nodeset The {@code Node}s to be added.  Note that if the collection is not a set then duplicate
-     * {@code Node}s will be filtered out.
-     */
-    //XXX not in the interface
+    /** Adds a collection of {@code Node}s to this set.
+     * 
+     * @param nodeset
+     *            The {@code Node}s to be added. Note that if the collection is
+     *            not a set then duplicate {@code Node}s will be filtered out. */
+    // XXX not in the interface
     public void addAllNodes(Collection<Node<E>> nodeset) {
         for (Node<E> node : nodeset) {
             if (node != null) {
@@ -132,22 +125,22 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         }
     }
 
-    /**
-     * Adds the set of entities as a {@code Node} to this set.
-     * @param entities The set of entities to be added.  The entities will be wrapped in a {@code Node}
-     * which will be added to this {@code NodeSet}.
-     */
-    //XXX not in the interface
+    /** Adds the set of entities as a {@code Node} to this set.
+     * 
+     * @param entities
+     *            The set of entities to be added. The entities will be wrapped
+     *            in a {@code Node} which will be added to this {@code NodeSet}. */
+    // XXX not in the interface
     public void addSameEntities(Set<E> entities) {
         nodes.add(getNode(entities));
     }
 
-    /**
-     * Adds the specified entities as {@code Node}s to this set.
-     * @param entities The entities to be added.  Each entity will be wrapped in a {@code Node} which will then
-     * be added to this {@code NodeSet}.
-     */
-    //XXX not in the interface
+    /** Adds the specified entities as {@code Node}s to this set.
+     * 
+     * @param entities
+     *            The entities to be added. Each entity will be wrapped in a
+     *            {@code Node} which will then be added to this {@code NodeSet}. */
+    // XXX not in the interface
     public void addDifferentEntities(Set<E> entities) {
         for (E e : entities) {
             addNode(getNode(e));
@@ -204,15 +197,14 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Override
     public String toString() {
-
-    	return "Nodeset"+this.nodes.toString();
+        return "Nodeset" + this.nodes.toString();
     }
 
     @Override
     public boolean equals(Object obj) {
-		if (obj == null) {
-			return false;
-		}
+        if (obj == null) {
+            return false;
+        }
         if (obj == this) {
             return true;
         }

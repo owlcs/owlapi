@@ -36,39 +36,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+    /** default constructor. */
+    public OWLDatatypeNode() {}
 
-    public OWLDatatypeNode() {
-    }
-
+    /** @param entity
+     *            datatype to include */
     public OWLDatatypeNode(OWLDatatype entity) {
         super(entity);
     }
 
+    /** @param entities
+     *            set of datatypes to include */
     public OWLDatatypeNode(Set<OWLDatatype> entities) {
         super(entities);
     }
 
     @Override
-	protected OWLDatatype getTopEntity() {
+    protected OWLDatatype getTopEntity() {
         return TOP_DATATYPE;
     }
 
     @Override
-	protected OWLDatatype getBottomEntity() {
+    protected OWLDatatype getBottomEntity() {
         return null;
     }
 }

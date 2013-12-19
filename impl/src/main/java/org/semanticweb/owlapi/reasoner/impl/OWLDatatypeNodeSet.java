@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.Set;
@@ -44,25 +43,26 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Jan-2010
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Jan-2010 */
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
+    /** default constructor. */
+    public OWLDatatypeNodeSet() {}
 
-    public OWLDatatypeNodeSet() {
-    }
-
+    /** @param entity
+     *            datatype to include */
     public OWLDatatypeNodeSet(OWLDatatype entity) {
         super(entity);
     }
 
+    /** @param owlDatatypeNode
+     *            node to include */
     public OWLDatatypeNodeSet(Node<OWLDatatype> owlDatatypeNode) {
         super(owlDatatypeNode);
     }
 
+    /** @param nodes
+     *            nodes to include */
     public OWLDatatypeNodeSet(Set<Node<OWLDatatype>> nodes) {
         super(nodes);
     }

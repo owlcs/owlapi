@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.structural;
 
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -47,13 +46,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 25-Jan-2010
- */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 25-Jan-2010 */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
-
     @Override
     public String getReasonerName() {
         return "Structural Reasoner";
@@ -70,12 +65,14 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
     }
 
     @Override
-    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
+    public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
+            OWLReasonerConfiguration config) throws IllegalConfigurationException {
         return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
     }
 
     @Override
-    public OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config) throws IllegalConfigurationException {
+    public OWLReasoner createReasoner(OWLOntology ontology,
+            OWLReasonerConfiguration config) throws IllegalConfigurationException {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }
 }

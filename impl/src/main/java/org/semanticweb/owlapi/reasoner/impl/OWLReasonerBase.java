@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.reasoner.impl;
 
 import java.util.ArrayList;
@@ -59,35 +58,26 @@ import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 01-Aug-2009
- */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Aug-2009 */
 public abstract class OWLReasonerBase implements OWLReasoner {
-
     private final OWLOntologyManager manager;
-
     private final OWLOntology rootOntology;
-
     private final BufferingMode bufferingMode;
-
     private final List<OWLOntologyChange> rawChanges = new ArrayList<OWLOntologyChange>();
-
     private final Set<OWLAxiom> reasonerAxioms;
-
     private final long timeOut;
-
     private final OWLReasonerConfiguration configuration;
-
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
         @Override
-        public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
+        public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+                throws OWLException {
             handleRawOntologyChanges(changes);
         }
     };
 
-    protected OWLReasonerBase(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
+    protected OWLReasonerBase(OWLOntology rootOntology,
+            OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
         this.rootOntology = rootOntology;
         this.bufferingMode = bufferingMode;
         this.configuration = configuration;
@@ -105,9 +95,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
-    /**
-     * @return the configuration
-     */
+    /** @return the configuration */
     public OWLReasonerConfiguration getReasonerConfiguration() {
         return configuration;
     }
@@ -127,23 +115,21 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return rootOntology;
     }
 
-	/**
-	 * Handles raw ontology changes. If the reasoner is a buffering reasoner
-	 * then the changes will be stored in a buffer. If the reasoner is a
-	 * non-buffering reasoner then the changes will be automatically flushed
-	 * through to the change filter and passed on to the reasoner.
-	 *
-	 * @param changes
-	 *            The list of raw changes.
-	 */
+    /** Handles raw ontology changes. If the reasoner is a buffering reasoner
+     * then the changes will be stored in a buffer. If the reasoner is a
+     * non-buffering reasoner then the changes will be automatically flushed
+     * through to the change filter and passed on to the reasoner.
+     * 
+     * @param changes
+     *            The list of raw changes. */
     protected synchronized void handleRawOntologyChanges(
-			List<? extends OWLOntologyChange> changes) {
-		rawChanges.addAll(changes);
-		// We auto-flush the changes if the reasoner is non-buffering
-		if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
-			flush();
-		}
-	}
+            List<? extends OWLOntologyChange> changes) {
+        rawChanges.addAll(changes);
+        // We auto-flush the changes if the reasoner is non-buffering
+        if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
+            flush();
+        }
+    }
 
     @Override
     public List<OWLOntologyChange> getPendingChanges() {
@@ -178,15 +164,17 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
-
-    /**
-     * Computes a diff of what axioms have been added and what axioms have been removed from the list
-     * of pending changes.  Note that even if the list of pending changes is non-empty then there may be
-     * no changes for the reasoner to deal with.
-     * @param added The logical axioms that have been added to the imports closure of the reasoner root ontology
-     * @param removed The logical axioms that have been removed from the imports closure of the reasoner root
-     * ontology
-     */
+    /** Computes a diff of what axioms have been added and what axioms have been
+     * removed from the list of pending changes. Note that even if the list of
+     * pending changes is non-empty then there may be no changes for the
+     * reasoner to deal with.
+     * 
+     * @param added
+     *            The logical axioms that have been added to the imports closure
+     *            of the reasoner root ontology
+     * @param removed
+     *            The logical axioms that have been removed from the imports
+     *            closure of the reasoner root ontology */
     private void computeDiff(Set<OWLAxiom> added, Set<OWLAxiom> removed) {
         if (rawChanges.isEmpty()) {
             return;
@@ -210,23 +198,27 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
-    /**
-     * Gets the axioms that should be currently being reasoned over.
-     * @return A collections of axioms (not containing duplicates) that the reasoner should be taking into consideration
-     *         when reasoning.  This set of axioms many not correspond to the current state of the imports closure of the
-     *         reasoner root ontology if the reasoner is buffered.
-     */
+    /** Gets the axioms that should be currently being reasoned over.
+     * 
+     * @return A collections of axioms (not containing duplicates) that the
+     *         reasoner should be taking into consideration when reasoning. This
+     *         set of axioms many not correspond to the current state of the
+     *         imports closure of the reasoner root ontology if the reasoner is
+     *         buffered. */
     public Collection<OWLAxiom> getReasonerAxioms() {
         return new ArrayList<OWLAxiom>(reasonerAxioms);
     }
 
-    /**
-     * Asks the reasoner implementation to handle axiom additions and removals from the imports closure of the root
-     * ontology.  The changes will not include annotation axiom additions and removals.
-     * @param addAxioms The axioms to be added to the reasoner.
-     * @param removeAxioms The axioms to be removed from the reasoner
-     */
-    protected abstract void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms);
+    /** Asks the reasoner implementation to handle axiom additions and removals
+     * from the imports closure of the root ontology. The changes will not
+     * include annotation axiom additions and removals.
+     * 
+     * @param addAxioms
+     *            The axioms to be added to the reasoner.
+     * @param removeAxioms
+     *            The axioms to be removed from the reasoner */
+    protected abstract void handleChanges(Set<OWLAxiom> addAxioms,
+            Set<OWLAxiom> removeAxioms);
 
     @Override
     public void dispose() {
@@ -243,9 +235,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         return configuration.getIndividualNodeSetPolicy();
     }
 
-    /**
-     * @return the data factory
-     */
+    /** @return the data factory */
     public OWLDataFactory getOWLDataFactory() {
         return rootOntology.getOWLOntologyManager().getOWLDataFactory();
     }
