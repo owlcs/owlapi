@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
@@ -85,44 +84,35 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br>
- * Provides the object that is the subject of an axiom.
- */
+/** Provides the object that is the subject of an axiom.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Feb-2008 */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
-
     private OWLObject subject;
 
-    /**
-     * @param axiom the axiom to visit
-     * @return the subject
-     */
+    /** @param axiom
+     *            the axiom to visit
+     * @return the subject */
     public OWLObject getSubject(OWLAxiom axiom) {
         axiom.accept(this);
         return subject;
     }
-
 
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
         subject = axiom.getSubClass();
     }
 
-
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         subject = axiom.getSubject();
     }
 
-
     @Override
     public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
-
 
     @Override
     public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
@@ -138,12 +128,10 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         return descs.iterator().next();
     }
 
-
     @Override
     public void visit(OWLDisjointClassesAxiom axiom) {
         subject = selectClassExpression(axiom.getClassExpressions());
     }
-
 
     @Override
     public void visit(OWLDataPropertyDomainAxiom axiom) {
@@ -155,72 +143,60 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         subject = axiom.getProperties().iterator().next();
     }
-
 
     @Override
     public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         subject = axiom.getSubject();
     }
 
-
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
         subject = axiom.getIndividuals().iterator().next();
     }
-
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
         subject = axiom.getProperties().iterator().next();
     }
 
-
     @Override
     public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
         subject = axiom.getProperties().iterator().next();
     }
-
 
     @Override
     public void visit(OWLObjectPropertyRangeAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLObjectPropertyAssertionAxiom axiom) {
         subject = axiom.getSubject();
     }
-
 
     @Override
     public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLSubObjectPropertyOfAxiom axiom) {
         subject = axiom.getSubProperty();
     }
-
 
     @Override
     public void visit(OWLDisjointUnionAxiom axiom) {
         subject = axiom.getOWLClass();
     }
 
-
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
         subject = axiom.getEntity();
     }
-
 
     @Override
     public void visit(OWLAnnotationAssertionAxiom axiom) {
@@ -232,84 +208,70 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLDataPropertyRangeAxiom axiom) {
         subject = axiom.getProperty();
     }
-
 
     @Override
     public void visit(OWLFunctionalDataPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
         subject = axiom.getProperties().iterator().next();
     }
-
 
     @Override
     public void visit(OWLClassAssertionAxiom axiom) {
         subject = axiom.getIndividual();
     }
 
-
     @Override
     public void visit(OWLEquivalentClassesAxiom axiom) {
         subject = selectClassExpression(axiom.getClassExpressions());
     }
-
 
     @Override
     public void visit(OWLDataPropertyAssertionAxiom axiom) {
         subject = axiom.getSubject();
     }
 
-
     @Override
     public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
-
 
     @Override
     public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLSubDataPropertyOfAxiom axiom) {
         subject = axiom.getSubProperty();
     }
-
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         subject = axiom.getProperty();
     }
 
-
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
         subject = axiom.getIndividuals().iterator().next();
     }
-
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
         subject = axiom.getSuperProperty();
     }
 
-
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         subject = axiom.getFirstProperty();
     }
-
 
     @Override
     public void visit(SWRLRule rule) {
@@ -335,7 +297,6 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         subject = axiom.getSubProperty();
     }
-
 
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {

@@ -112,9 +112,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 01-Aug-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 01-Aug-2008 */
 public class StructuralTransformation {
     protected final OWLDataFactory df;
     private int nameCounter = 0;
@@ -128,8 +127,8 @@ public class StructuralTransformation {
     }
 
     protected OWLClass createNewName() {
-        OWLClass cls = df.getOWLClass(IRI.create("http://www.semanticweb.org/ontology#", "X"
-                + nameCounter));
+        OWLClass cls = df.getOWLClass(IRI.create("http://www.semanticweb.org/ontology#",
+                "X" + nameCounter));
         nameCounter++;
         return cls;
     }
@@ -335,8 +334,7 @@ public class StructuralTransformation {
         }
     }
 
-    /** Rewrites axioms into GCIs.
-     * <br>
+    /** Rewrites axioms into GCIs.<br>
      * For example: SubClassOf(A, C) becomes SubClassOf(TOP, not(A) or C) */
     private class AxiomRewriter implements OWLAxiomVisitorEx<Set<OWLAxiom>> {
         public AxiomRewriter() {}

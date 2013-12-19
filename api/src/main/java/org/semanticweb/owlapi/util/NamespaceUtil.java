@@ -46,17 +46,17 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Apr-2007<br>
- * A utility class which can generate namespaces, local names and namespace
- * prefixes in accordance with the XML spec. */
-@SuppressWarnings("javadoc")
+/** A utility class which can generate namespaces, local names and namespace
+ * prefixes in accordance with the XML spec.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 04-Apr-2007 */
 public class NamespaceUtil {
     private final Map<String, String> namespace2PrefixMap;
     private final Map<String, String> standardNamespacePrefixMappings;
     private int candidateIndex = 1;
 
+    /** default constructor */
     public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
@@ -68,7 +68,10 @@ public class NamespaceUtil {
         namespace2PrefixMap.put(Namespaces.XSD.toString(), "xsd");
     }
 
-    /** @deprecated Use
+    /** @param ch
+     *            character to check
+     * @return true if ncname
+     * @deprecated Use
      *             {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameChar(int)} */
     @Deprecated
     public static boolean isNCNameChar(char ch) {
@@ -77,7 +80,10 @@ public class NamespaceUtil {
                 || ch == '_';
     }
 
-    /** @deprecated Use
+    /** @param ch
+     *            character to check
+     * @return true if ncname start
+     * @deprecated Use
      *             {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameStartChar(int)} */
     @Deprecated
     public static boolean isNCNameStartChar(char ch) {
@@ -89,12 +95,11 @@ public class NamespaceUtil {
      * @param s
      *            The string to be split.
      * @param result
-     *            May be {@code null}. If not {@code null} the method
-     *            will fill the array with the result and return the passed in
-     *            array. This allows a String array to be reused. If this
-     *            parameter is {@code null} then a new String array will be
-     *            created to hold the result. <b> The size of the array must be
-     *            2 </b>
+     *            May be {@code null}. If not {@code null} the method will fill
+     *            the array with the result and return the passed in array. This
+     *            allows a String array to be reused. If this parameter is
+     *            {@code null} then a new String array will be created to hold
+     *            the result. <b> The size of the array must be 2 </b>
      * @return The result of the split. The first element corresponds to the
      *         namespace and the second element corresponds to the local name.
      *         If the string could not be split into a namespace and local name
@@ -129,7 +134,14 @@ public class NamespaceUtil {
         return split;
     }
 
-    /** @deprecated Use
+    /** * @param s The string to be split.
+     * 
+     * @return The result of the split. The first element corresponds to the
+     *         namespace and the second element corresponds to the local name.
+     *         If the string could not be split into a namespace and local name
+     *         then the first element will be an empty string and the second
+     *         element will an empty string
+     * @deprecated Use
      *             {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)} */
     @Deprecated
     public String[] split(String s) {
@@ -183,6 +195,7 @@ public class NamespaceUtil {
         return prefix;
     }
 
+    /** @return namespace to prefix map */
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }

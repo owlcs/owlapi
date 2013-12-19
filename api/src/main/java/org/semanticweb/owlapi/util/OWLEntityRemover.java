@@ -65,9 +65,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * accept visits from the entity remover. Changes are accumulated as the entity
  * remover visits various entities.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Dec-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Dec-2006 */
 public class OWLEntityRemover implements OWLEntityVisitor {
     private final List<OWLOntologyChange> changes;
     private final Collection<OWLOntology> ontologies;
@@ -76,8 +75,8 @@ public class OWLEntityRemover implements OWLEntityVisitor {
      * to the entities from the specified ontologies).
      * 
      * @param owlOntologyManager
-     *            The {@code OWLOntologyManager} which contains the
-     *            ontologies that contain entities to be removed.
+     *            The {@code OWLOntologyManager} which contains the ontologies
+     *            that contain entities to be removed.
      * @param ontologies
      *            The set of ontologies that contain references to axioms to be
      *            removed. */

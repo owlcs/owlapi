@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
@@ -45,31 +44,24 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- *
- * Given a reasoner, implementations of this interface generate axioms that
- * represent inferred information.  For example, an implementation might generate
+/** Given a reasoner, implementations of this interface generate axioms that
+ * represent inferred information. For example, an implementation might generate
  * the necessary subclass axioms that represent the inferred class subsumption
- * hierarchy within the reasoner.  It is assumed that axioms generated reflect
+ * hierarchy within the reasoner. It is assumed that axioms generated reflect
  * the inferences drawn from the ontologies which were loaded into the reasoner.
- *
- * @param <A> the axiom type
- */
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007
+ * @param <A>
+ *            the axiom type */
 public interface InferredAxiomGenerator<A extends OWLAxiom> {
+    /** @param manager
+     *            the menager to use
+     * @param reasoner
+     *            the reasoner to use
+     * @return the set of axioms generated */
+    Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner);
 
-	/**
-	 * @param manager the menager to use
-	 * @param reasoner the reasoner to use
-	 * @return the set of axioms generated
-	 */
-	Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner);
-
-    /**
-     * @return the label
-     */
+    /** @return the label */
     String getLabel();
 }

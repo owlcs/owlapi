@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.List;
@@ -45,20 +44,18 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Dec-2006<br>
- *
- * Incorporates a listener into an {@code OWLOntologyChangeFilter}.  This listener listens to and
- * processes axiom added and axiom removed changes.  To filter out axioms of interest, override the
- * appropriate {@code visit} method - see {@code OWLOntologyChangeFilter} for more details.
- */
-public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements OWLOntologyChangeListener {
-
+/** Incorporates a listener into an {@code OWLOntologyChangeFilter}. This
+ * listener listens to and processes axiom added and axiom removed changes. To
+ * filter out axioms of interest, override the appropriate {@code visit} method -
+ * see {@code OWLOntologyChangeFilter} for more details.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 17-Dec-2006 */
+public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements
+        OWLOntologyChangeListener {
     @Override
-    final public void ontologiesChanged(List<? extends OWLOntologyChange> changes) throws OWLException {
+    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+            throws OWLException {
         processChanges(changes);
     }
 }

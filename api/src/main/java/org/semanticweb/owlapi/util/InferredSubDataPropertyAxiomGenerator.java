@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
@@ -46,21 +45,18 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007 */
-public class InferredSubDataPropertyAxiomGenerator extends InferredDataPropertyAxiomGenerator<OWLSubDataPropertyOfAxiom> {
-
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007 */
+public class InferredSubDataPropertyAxiomGenerator extends
+        InferredDataPropertyAxiomGenerator<OWLSubDataPropertyOfAxiom> {
     @Override
-	protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLSubDataPropertyOfAxiom> result) {
-        for (OWLDataProperty prop : reasoner.getSuperDataProperties(entity, true).getFlattened()) {
+    protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
+            OWLDataFactory dataFactory, Set<OWLSubDataPropertyOfAxiom> result) {
+        for (OWLDataProperty prop : reasoner.getSuperDataProperties(entity, true)
+                .getFlattened()) {
             result.add(dataFactory.getOWLSubDataPropertyOfAxiom(entity, prop));
         }
     }
-
 
     @Override
     public String getLabel() {

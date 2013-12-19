@@ -47,14 +47,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007 */
 public class CollectionFactory {
     private static final AtomicInteger expectedThreads = new AtomicInteger(8);
 
@@ -71,44 +71,62 @@ public class CollectionFactory {
         return expectedThreads.get();
     }
 
-    /** @return fresh non threadsafe set */
+    /** @return fresh non threadsafe set
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> createSet() {
         // TODO large number of sets stay very small, wasting space
         return new HashSet<T>();
     }
 
-    /** @return fresh non threadsafe list */
+    /** @return fresh non threadsafe list
+     * @param <T>
+     *            axiom type */
     public static <T> List<T> createList() {
         return new ArrayList<T>();
     }
 
     /** @param c
      *            values to add to the set
-     * @return fresh non threadsafe set */
+     * @return fresh non threadsafe set
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> createSet(Collection<T> c) {
         return new HashSet<T>(c);
     }
 
     /** @param initialCapacity
      *            initial capacity for the new set
-     * @return fresh non threadsafe set */
+     * @return fresh non threadsafe set
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> createSet(int initialCapacity) {
         return new HashSet<T>(initialCapacity);
     }
 
-    /** @return fresh map */
+    /** @return fresh map
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type */
     public static <K, V> Map<K, V> createMap() {
         return new HashMap<K, V>();
     }
 
-    /** @return a new weak hashmap wrapped as a synchronized map */
+    /** @return a new weak hashmap wrapped as a synchronized map
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type */
     public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
         return Collections.synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
     }
 
     /** @param elements
      *            values to add to the set
-     * @return fresh non threadsafe set */
+     * @return fresh non threadsafe set
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> createSet(T... elements) {
         Set<T> result = createSet();
         for (T t : elements) {
@@ -117,13 +135,19 @@ public class CollectionFactory {
         return result;
     }
 
-    /** @return fresh threadsafe set */
+    /** @return fresh threadsafe set
+     * @param <T>
+     *            set type */
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
         return Collections.newSetFromMap(internalMap);
     }
 
-    /** @return fresh threadsafe hashmap */
+    /** @return fresh threadsafe hashmap
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type */
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
     }
@@ -131,7 +155,10 @@ public class CollectionFactory {
     /** this class implements a Set using a ConcurrentHashMap as backing
      * structure; compared to the default HashSet implementation, this structure
      * is threadsafe without being completely synchronized, so it offers better
-     * performances */
+     * performances.
+     * 
+     * @param <T>
+     *            type of collection */
     private static final class SyncSet<T> implements Set<T> {
         private final ConcurrentHashMap<T, Set<T>> backingMap;
 
@@ -266,13 +293,18 @@ public class CollectionFactory {
      *            the collection to lazily copy
      * @return a lazy defensive copy for source; the source collection will not
      *         be copied until a method that modifies the collection gets
-     *         called, e.g., add(), addAll() */
+     *         called, e.g., add(), addAll()
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
 
     /** @param source
-     * @return copy on request that builds a list from the input set */
+     *            source collection
+     * @return copy on request that builds a list from the input set
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T>
             getCopyOnRequestSetFromMutableCollection(Collection<T> source) {
         if (source == null || source.isEmpty()) {
@@ -282,7 +314,10 @@ public class CollectionFactory {
     }
 
     /** @param source
-     * @return copy on request that does not build a list immediately */
+     *            the source collection
+     * @return copy on request that does not build a list immediately
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
             Collection<T> source) {
         if (source == null || source.isEmpty()) {
@@ -293,7 +328,9 @@ public class CollectionFactory {
 
     /** @param source
      *            initial values
-     * @return a threadsafe copy on request set */
+     * @return a threadsafe copy on request set
+     * @param <T>
+     *            axiom type */
     public static <T> Set<T> getThreadSafeCopyOnRequestSet(Set<T> source) {
         return new ThreadSafeConditionalCopySet<T>(source);
     }
@@ -320,9 +357,9 @@ public class CollectionFactory {
      * @param <T>
      *            the type contained */
     public static class ConditionalCopySet<T> implements Set<T> {
+        private static final int maxContains = 10;
         private boolean copyDone = false;
         protected Collection<T> delegate;
-        private final static int maxContains = 10;
         private int containsCounter = 0;
 
         /** @param source
@@ -482,12 +519,12 @@ public class CollectionFactory {
      * @param <T>
      *            the type contained */
     public static class ThreadSafeConditionalCopySet<T> implements Set<T> {
-        private volatile boolean copyDone = false;
+        private static final int maxContains = 10;
+        private final AtomicBoolean copyDone = new AtomicBoolean(false);
         private Collection<T> delegate;
         private final ReadWriteLock lock = new ReentrantReadWriteLock();
         private final Lock readLock = lock.readLock();
         private final Lock writeLock = lock.writeLock();
-        private final static int maxContains = 10;
         private final AtomicInteger containsCounter = new AtomicInteger(0);
 
         /** @param source
@@ -532,8 +569,7 @@ public class CollectionFactory {
         public boolean add(T arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.add(arg0);
@@ -546,8 +582,7 @@ public class CollectionFactory {
         public boolean addAll(Collection<? extends T> arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.addAll(arg0);
@@ -560,8 +595,7 @@ public class CollectionFactory {
         public void clear() {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>();
                 }
                 delegate.clear();
@@ -581,27 +615,26 @@ public class CollectionFactory {
              * optimization would be delayed. This is not an issue, since
              * maxContains is only a rough estimate.
              */
-            if (!copyDone) {
-                if (containsCounter.incrementAndGet() >= maxContains && !copyDone) {
-                    try {
-                        writeLock.lock();
-                        // many calls to contains, inefficient if the delegate
-                        // is not a set
-                        // copyDone is doublechecked, but here it's protected by
-                        // the write
-                        // lock as in all other instances in which its value is
-                        // changed
-                        if (!copyDone && !(delegate instanceof Set)) {
-                            copyDone = true;
+            if (containsCounter.incrementAndGet() >= maxContains && !copyDone.get()) {
+                try {
+                    writeLock.lock();
+                    // many calls to contains, inefficient if the delegate
+                    // is not a set
+                    // copyDone is doublechecked, but here it's protected by
+                    // the write
+                    // lock as in all other instances in which its value is
+                    // changed
+                    if (!(delegate instanceof Set)) {
+                        if (!copyDone.getAndSet(true)) {
                             delegate = new SyncSet<T>(delegate);
                         }
-                        // skip the second portion of the method: no need to
-                        // reacquire
-                        // the lock, it's already a write lock
-                        return delegate.contains(arg0);
-                    } finally {
-                        writeLock.unlock();
                     }
+                    // skip the second portion of the method: no need to
+                    // reacquire
+                    // the lock, it's already a write lock
+                    return delegate.contains(arg0);
+                } finally {
+                    writeLock.unlock();
                 }
             }
             try {
@@ -614,27 +647,26 @@ public class CollectionFactory {
 
         @Override
         public boolean containsAll(Collection<?> arg0) {
-            if (!copyDone) {
-                if (containsCounter.incrementAndGet() >= maxContains && !copyDone) {
-                    try {
-                        writeLock.lock();
-                        // many calls to contains, inefficient if the delegate
-                        // is not a set
-                        // copyDone is doublechecked, but here it's protected by
-                        // the write
-                        // lock as in all other instances in which its value is
-                        // changed
-                        if (!copyDone && !(delegate instanceof Set)) {
-                            copyDone = true;
+            if (containsCounter.incrementAndGet() >= maxContains && !copyDone.get()) {
+                try {
+                    writeLock.lock();
+                    // many calls to contains, inefficient if the delegate
+                    // is not a set
+                    // copyDone is doublechecked, but here it's protected by
+                    // the write
+                    // lock as in all other instances in which its value is
+                    // changed
+                    if (!(delegate instanceof Set)) {
+                        if (!copyDone.getAndSet(true)) {
                             delegate = new SyncSet<T>(delegate);
                         }
-                        // skip the second portion of the method: no need to
-                        // reacquire
-                        // the lock, it's already a write lock
-                        return delegate.containsAll(arg0);
-                    } finally {
-                        writeLock.unlock();
                     }
+                    // skip the second portion of the method: no need to
+                    // reacquire
+                    // the lock, it's already a write lock
+                    return delegate.containsAll(arg0);
+                } finally {
+                    writeLock.unlock();
                 }
             }
             try {
@@ -669,8 +701,7 @@ public class CollectionFactory {
         public boolean remove(Object arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.remove(arg0);
@@ -683,8 +714,7 @@ public class CollectionFactory {
         public boolean removeAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.removeAll(arg0);
@@ -697,8 +727,7 @@ public class CollectionFactory {
         public boolean retainAll(Collection<?> arg0) {
             try {
                 writeLock.lock();
-                if (!copyDone) {
-                    copyDone = true;
+                if (!copyDone.getAndSet(true)) {
                     delegate = new SyncSet<T>(delegate);
                 }
                 return delegate.retainAll(arg0);

@@ -57,9 +57,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 /** A collection of utility methods for creating common data values and data
  * ranges.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 06-Jan-2007*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Jan-2007 */
 public class OWLDataUtil {
     private static final IRI INT_URI = XSDVocabulary.INT.getIRI();
     private static final Map<Class<?>, XSDVocabulary> numberTypeMap;
@@ -100,14 +99,15 @@ public class OWLDataUtil {
         return dataFactory.getOWLDatatype(XSDVocabulary.DOUBLE.getIRI());
     }
 
-    /** Given a {@code Number}, this method returns the datatype of that
-     * number.
+    /** Given a {@code Number}, this method returns the datatype of that number.
      * 
      * @param dataFactory
      *            the factory to use
      * @param n
      *            The {@code Number} whose datatype is to be obtained.
-     * @return The datatype that corresponds to the type of number. */
+     * @return The datatype that corresponds to the type of number.
+     * @param <N>
+     *            number type */
     public static <N extends Number> OWLDatatype getDatatype(OWLDataFactory dataFactory,
             N n) {
         XSDVocabulary v = numberTypeMap.get(n.getClass());
@@ -137,7 +137,9 @@ public class OWLDataUtil {
      * @param val
      *            The number to be translated to a typed constant.
      * @return The typed constant, consisting of a string literal and datatype
-     *         that corresponds to the translation of the specified number. */
+     *         that corresponds to the translation of the specified number.
+     * @param <N>
+     *            number type */
     public static <N extends Number> OWLLiteral getTypedConstant(
             OWLDataFactory dataFactory, N val) {
         return dataFactory.getOWLLiteral(val.toString(), getDatatype(dataFactory, val));
@@ -147,6 +149,8 @@ public class OWLDataUtil {
      *            the factory to use
      * @param minInclusive
      *            the value
+     * @param <N>
+     *            number type
      * @return new data range */
     public static <N extends Number> OWLDataRange getMinInclusiveRestrictedInt(
             OWLDataFactory dataFactory, N minInclusive) {
@@ -160,6 +164,8 @@ public class OWLDataUtil {
      *            the factory to use
      * @param minExclusive
      *            the value
+     * @param <N>
+     *            number type
      * @return new data range */
     public static <N extends Number> OWLDataRange getMinExclusiveRestrictedInt(
             OWLDataFactory dataFactory, N minExclusive) {
@@ -173,6 +179,8 @@ public class OWLDataUtil {
      *            the factory to use
      * @param maxInclusive
      *            the value
+     * @param <N>
+     *            number type
      * @return new data range */
     public static <N extends Number> OWLDataRange getMaxInclusiveRestrictedInteger(
             OWLDataFactory dataFactory, N maxInclusive) {
@@ -186,6 +194,8 @@ public class OWLDataUtil {
      *            the factory to use
      * @param maxExclusive
      *            the value
+     * @param <N>
+     *            number type
      * @return new data range */
     public static <N extends Number> OWLDataRange getMaxExclusiveRestrictedInteger(
             OWLDataFactory dataFactory, N maxExclusive) {
@@ -201,6 +211,8 @@ public class OWLDataUtil {
      *            the min value
      * @param maxInclusive
      *            the max value
+     * @param <N>
+     *            number type
      * @return new data range */
     public static <N extends Number> OWLDataRange getMinMaxInclusiveRestrictedInteger(
             OWLDataFactory dataFactory, N minInclusive, N maxInclusive) {
@@ -219,6 +231,8 @@ public class OWLDataUtil {
      *            the min value
      * @param maxExclusive
      *            the max value
+     * @param <N>
+     *            number type
      * @return new data range */
     public static <N extends Number> OWLDataRange getMinMaxExclusiveRestrictedInteger(
             OWLDataFactory dataFactory, N minExclusive, N maxExclusive) {

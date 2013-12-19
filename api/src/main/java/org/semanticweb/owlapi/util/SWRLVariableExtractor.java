@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.LinkedHashSet;
@@ -57,61 +56,42 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Jul-2007<br>
- *
- * Extracts the variables from rules
- */
+/** Extracts the variables from rules.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Jul-2007 */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
+    private final Set<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
 
-    private final Set<SWRLVariable> variables;
-
-    @SuppressWarnings("javadoc")
-	public SWRLVariableExtractor() {
-        variables = new LinkedHashSet<SWRLVariable>();
-    }
-
-
-    /**
-     * @return the set of variables
-     */
+    /** @return the set of variables */
     public Set<SWRLVariable> getVariables() {
         return new LinkedHashSet<SWRLVariable>(variables);
     }
 
-    /**
-     * clear the variables
-     */
+    /** clear the variables. */
     public void reset() {
         variables.clear();
     }
 
-
     @Override
     public void visit(SWRLRule node) {
-        for(SWRLAtom atom : node.getBody()) {
+        for (SWRLAtom atom : node.getBody()) {
             atom.accept(this);
         }
-        for(SWRLAtom atom : node.getHead()) {
+        for (SWRLAtom atom : node.getHead()) {
             atom.accept(this);
         }
     }
-
 
     @Override
     public void visit(SWRLClassAtom node) {
         node.getArgument().accept(this);
     }
 
-
     @Override
     public void visit(SWRLDataRangeAtom node) {
         node.getArgument().accept(this);
     }
-
 
     @Override
     public void visit(SWRLObjectPropertyAtom node) {
@@ -119,21 +99,18 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
         node.getSecondArgument().accept(this);
     }
 
-
     @Override
     public void visit(SWRLDataPropertyAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
 
-
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        for(SWRLObject o : node.getArguments()) {
+        for (SWRLObject o : node.getArguments()) {
             o.accept(this);
         }
     }
-
 
     @Override
     public void visit(SWRLVariable node) {
@@ -141,21 +118,16 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
     }
 
     @Override
-    public void visit(SWRLIndividualArgument node) {
-
-    }
+    public void visit(SWRLIndividualArgument node) {}
 
     @Override
-    public void visit(SWRLLiteralArgument node) {
-    }
-
+    public void visit(SWRLLiteralArgument node) {}
 
     @Override
     public void visit(SWRLSameIndividualAtom node) {
         node.getFirstArgument().accept(this);
         node.getSecondArgument().accept(this);
     }
-
 
     @Override
     public void visit(SWRLDifferentIndividualsAtom node) {

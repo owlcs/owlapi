@@ -43,10 +43,10 @@ import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- * A short form provider which creates QNames for entities */
+/** A short form provider which creates QNames for entities.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public class QNameShortFormProvider implements ShortFormProvider {
     private final NamespaceUtil namespaceUtil;
 

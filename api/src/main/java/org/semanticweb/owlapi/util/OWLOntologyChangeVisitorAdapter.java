@@ -48,11 +48,13 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006 */
 public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
-    /** override this method to change the default behaviour */
+    /** override this method to change the default behaviour.
+     * 
+     * @param c
+     *            object visited */
     protected void handleDefault(@SuppressWarnings("unused") OWLOntologyChange c) {}
 
     @Override

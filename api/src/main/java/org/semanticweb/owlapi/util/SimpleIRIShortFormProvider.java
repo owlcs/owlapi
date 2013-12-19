@@ -36,33 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.IRI;
 
-
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2007<br>
- * A IRI short form provider that generates short forms from the IRI fragment if
- * there is one, or the IRI last path component if there is one. */
+/** A IRI short form provider that generates short forms from the IRI fragment if
+ * there is one, or the IRI last path component if there is one.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Dec-2007 */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
-
     private static final long serialVersionUID = 30406L;
 
     @Override
     public String getShortForm(IRI iri) {
         String rendering = iri.getFragment();
-        if (rendering != null && rendering.length()>0) {
+        if (rendering != null && rendering.length() > 0) {
             return rendering;
-        }
-        else {
+        } else {
             String s = iri.toString();
             int lastSlashIndex = s.lastIndexOf('/');
-            if(lastSlashIndex != -1 && lastSlashIndex != s.length() - 1) {
+            if (lastSlashIndex != -1 && lastSlashIndex != s.length() - 1) {
                 return s.substring(lastSlashIndex + 1);
             }
         }

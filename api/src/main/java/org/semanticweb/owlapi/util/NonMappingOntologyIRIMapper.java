@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
@@ -44,20 +43,15 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br>
- * An ontology URI mapper that simply returns the ontology URI
- * without performing any mapping operation.
- */
+/** An ontology URI mapper that simply returns the ontology URI without
+ * performing any mapping operation.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 12-Dec-2006 */
 public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	@Override
+    @Override
     public IRI getDocumentIRI(IRI ontologyIRI) {
         return ontologyIRI;
     }

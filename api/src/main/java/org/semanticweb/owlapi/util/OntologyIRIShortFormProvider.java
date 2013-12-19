@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.net.URI;
@@ -45,22 +44,16 @@ import java.util.StringTokenizer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jan-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Jan-2008 */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
-
-    /**
-     * @param ont ontology to use
-     * @return short form of the ontology IRI
-     */
+    /** @param ont
+     *            ontology to use
+     * @return short form of the ontology IRI */
     public String getShortForm(OWLOntology ont) {
         if (!ont.isAnonymous()) {
             return getShortForm(ont.getOntologyID().getOntologyIRI());
-        }
-        else {
+        } else {
             return ont.getOntologyID().toString();
         }
     }
@@ -81,17 +74,14 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
                 }
             }
             if (lastPathComponent.endsWith(".owl")) {
-                shortForm = lastPathComponent.substring(0, lastPathComponent.length() - 4);
-            }
-            else {
+                shortForm = lastPathComponent
+                        .substring(0, lastPathComponent.length() - 4);
+            } else {
                 shortForm = lastPathComponent;
             }
-        }
-        else if (uri.getHost() != null) {
+        } else if (uri.getHost() != null) {
             shortForm = iri.toString();
         }
-
         return shortForm;
-
     }
 }

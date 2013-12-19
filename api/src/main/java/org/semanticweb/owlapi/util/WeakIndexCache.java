@@ -6,10 +6,12 @@ import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-/** A weakly linked cache - elements in the cache can be garbage collected
+/** A weakly linked cache - elements in the cache can be garbage collected.
  * 
  * @param <K>
- * @param <V> */
+ *            key type
+ * @param <V>
+ *            value type */
 public class WeakIndexCache<K, V> implements Serializable {
     private static final long serialVersionUID = 30406L;
     protected transient Map<K, WeakReference<V>> prefixCache = CollectionFactory
@@ -34,7 +36,7 @@ public class WeakIndexCache<K, V> implements Serializable {
     }
 
     private void readObject(ObjectInputStream in) throws IOException,
-    ClassNotFoundException {
+            ClassNotFoundException {
         in.defaultReadObject();
         prefixCache = CollectionFactory.createSyncWeakMap();
     }
@@ -51,21 +53,23 @@ public class WeakIndexCache<K, V> implements Serializable {
         return null;
     }
 
-    /**
-     * @param k the key to check
-     * @return true if the cache contains k as a key; note that, due to the nature of this cache, by the time the method returns the key may no longer be in the map.*/
+    /** @param k
+     *            the key to check
+     * @return true if the cache contains k as a key; note that, due to the
+     *         nature of this cache, by the time the method returns the key may
+     *         no longer be in the map. */
     public boolean contains(K k) {
         WeakReference<V> w = prefixCache.get(k);
         if (w != null) {
             V toReturn = w.get();
-            if(toReturn!=null) {
+            if (toReturn != null) {
                 return true;
             }
         }
         return false;
     }
 
-    /** empty the cache */
+    /** empty the cache. */
     public void clear() {
         prefixCache.clear();
     }

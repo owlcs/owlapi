@@ -140,10 +140,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 29-Jul-2008<br>
- * 
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 29-Jul-2008
  * @param <O>
  *            the returned type */
 public class OWLObjectWalker<O extends OWLObject> {
@@ -190,8 +188,8 @@ public class OWLObjectWalker<O extends OWLObject> {
 
     /** Gets the last axiom to be visited.
      * 
-     * @return The last axiom to be visited, or {@code null} if an axiom
-     *         has not be visited */
+     * @return The last axiom to be visited, or {@code null} if an axiom has not
+     *         be visited */
     public OWLAxiom getAxiom() {
         return ax;
     }
@@ -219,19 +217,19 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     /** Determines if a particular class expression is the first (or root) class
-     * expression in the current class expression path
+     * expression in the current class expression path.
      * 
      * @param classExpression
      *            The class expression
-     * @return {@code true} if the specified class expression is the first
-     *         class expression in the current class expression path, otherwise
+     * @return {@code true} if the specified class expression is the first class
+     *         expression in the current class expression path, otherwise
      *         {@code false} ({@code false} if the path is empty) */
     public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
         return !classExpressionPath.isEmpty()
                 && classExpressionPath.get(0).equals(classExpression);
     }
 
-    /** Pushes a class expression onto the class expression path
+    /** Pushes a class expression onto the class expression path.
      * 
      * @param ce
      *            The class expression to be pushed onto the path */
@@ -261,7 +259,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         return new ArrayList<OWLDataRange>(dataRangePath);
     }
 
-    /** Pushes a data range on to the data range path
+    /** Pushes a data range on to the data range path.
      * 
      * @param dr
      *            The data range to be pushed onto the path */

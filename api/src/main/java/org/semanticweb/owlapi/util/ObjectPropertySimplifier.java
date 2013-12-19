@@ -50,9 +50,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  * then the simplification is inductively defined as: simp(P) = P simp(inv(P)) =
  * inv(P) simp(inv(inv(PE)) = simp(PE)
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 06-Jun-2008*/
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 06-Jun-2008 */
 public class ObjectPropertySimplifier {
     private final OWLDataFactory dataFactory;
     private final Simplifier simplifier;

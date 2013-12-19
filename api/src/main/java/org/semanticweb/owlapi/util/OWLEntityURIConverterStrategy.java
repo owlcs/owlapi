@@ -36,24 +36,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2007<br>
- * An interface for customisation of entity URI conversions.
- */
+/** An interface for customisation of entity URI conversions.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Nov-2007 */
 public interface OWLEntityURIConverterStrategy {
-
-    /**
-     * @param entity the entity to convert
-     * @return the converted IRI
-     */
+    /** @param entity
+     *            the entity to convert
+     * @return the converted IRI */
     IRI getConvertedIRI(OWLEntity entity);
 }

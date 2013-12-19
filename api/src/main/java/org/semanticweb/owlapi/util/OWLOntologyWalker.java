@@ -42,10 +42,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 29-Jul-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 29-Jul-2008 */
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
     /** @param objects
      *            objects to walk */

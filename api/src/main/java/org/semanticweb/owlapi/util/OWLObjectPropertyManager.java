@@ -62,9 +62,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Feb-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Feb-2008 */
 public class OWLObjectPropertyManager {
     static final class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
@@ -113,7 +112,7 @@ public class OWLObjectPropertyManager {
         partialOrderingDirty = true;
     }
 
-    /** clear the object and its resources */
+    /** clear the object and its resources. */
     public void dispose() {}
 
     private void setOntology(OWLOntology ontology) {
@@ -140,9 +139,9 @@ public class OWLObjectPropertyManager {
      * 
      * @param expression
      *            The object property expression to be tested
-     * @return {@code true} if the object property is composite (according
-     *         to the above definition) or {@code false} if the object
-     *         property is not composite. */
+     * @return {@code true} if the object property is composite (according to
+     *         the above definition) or {@code false} if the object property is
+     *         not composite. */
     public boolean isComposite(OWLObjectPropertyExpression expression) {
         return getCompositeProperties().contains(expression.getSimplified());
     }
@@ -282,7 +281,7 @@ public class OWLObjectPropertyManager {
     }
 
     /** Tests to see if one property is a sub property of another property in the
-     * reflexive transitive closure of the property hierarchy
+     * reflexive transitive closure of the property hierarchy.
      * 
      * @param sub
      *            The sub property

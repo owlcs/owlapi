@@ -36,50 +36,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Apr-2007<br>
- *
- * A short form provider which is capable of translating back and forth
- * between entities and their short forms.
- */
+/** A short form provider which is capable of translating back and forth between
+ * entities and their short forms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public interface BidirectionalShortFormProvider extends ShortFormProvider {
-
-    /**
-     * For a given short form this method obtains the entities
-     * which have this short form.
-     * @param shortForm The short form of the entities that will
-     * be retrieved.
-     * @return The set of entities that have the specified short
-     * form.  If there are no entities which have the specified
-     * short form then an empty set will be returned.
-     */
+    /** For a given short form this method obtains the entities which have this
+     * short form.
+     * 
+     * @param shortForm
+     *            The short form of the entities that will be retrieved.
+     * @return The set of entities that have the specified short form. If there
+     *         are no entities which have the specified short form then an empty
+     *         set will be returned. */
     Set<OWLEntity> getEntities(String shortForm);
 
-    /**
-     * A convenience method which gets an entity from its short form.
-     * @param shortForm The short form of the entity.
-     * @return The actual entity or {@code null} if there
-     * is no entity which has the specified short form.  If the specified
-     * short form corresponds to more than one entity then an entity will
-     * be chosen by the implementation of the short form provider.
-     */
+    /** A convenience method which gets an entity from its short form.
+     * 
+     * @param shortForm
+     *            The short form of the entity.
+     * @return The actual entity or {@code null} if there is no entity which has
+     *         the specified short form. If the specified short form corresponds
+     *         to more than one entity then an entity will be chosen by the
+     *         implementation of the short form provider. */
     OWLEntity getEntity(String shortForm);
 
-
-    /**
-     * Gets all of the short forms that are mapped to entities.
-     * @return A set, which contains the strings representing
-     * the short forms of entities for which there is a mapping.
-     */
+    /** Gets all of the short forms that are mapped to entities.
+     * 
+     * @return A set, which contains the strings representing the short forms of
+     *         entities for which there is a mapping. */
     Set<String> getShortForms();
 }

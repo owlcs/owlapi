@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.HashSet;
@@ -48,25 +47,22 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * Generates inferred equivalent classes axioms.
- */
-public class InferredEquivalentClassAxiomGenerator extends InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
-
-
+/** Generates inferred equivalent classes axioms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007 */
+public class InferredEquivalentClassAxiomGenerator extends
+        InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
     @Override
-	protected void addAxioms(OWLClass entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
-        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(reasoner.getEquivalentClasses(entity).getEntities());
+    protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
+            OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {
+        Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>(
+                reasoner.getEquivalentClasses(entity).getEntities());
         equivalentClasses.add(entity);
         if (equivalentClasses.size() > 1) {
             result.add(dataFactory.getOWLEquivalentClassesAxiom(equivalentClasses));
         }
     }
-
 
     @Override
     public String getLabel() {

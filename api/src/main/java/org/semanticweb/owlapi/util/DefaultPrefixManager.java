@@ -54,9 +54,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 10-Sep-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 10-Sep-2008 */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
     private static final long serialVersionUID = 30406L;
@@ -127,7 +126,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         addPrefixes(pm);
     }
 
-    /** clear the map */
+    /** clear the map. */
     // XXX not in the interface
     public void clear() {
         // Clear the default namespace and map
@@ -177,8 +176,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      * 
      * @param defaultPrefix
      *            The namespace to be used as the default namespace. Note that
-     *            the value may be {@code null} in order to clear the
-     *            default namespace. */
+     *            the value may be {@code null} in order to clear the default
+     *            namespace. */
     // XXX not in the interface
     public void setDefaultPrefix(String defaultPrefix) {
         setPrefix(":", defaultPrefix);
@@ -241,7 +240,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         return prefix2NamespaceMap.get(prefixName);
     }
 
-    /** Adds a prefix name to prefix mapping
+    /** Adds a prefix name to prefix mapping.
      * 
      * @param prefixName
      *            name The prefix name (must not be null)
@@ -265,7 +264,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         reverseprefix2NamespaceMap.put(prefix, prefixName);
     }
 
-    /** Removes a previously registerd prefix namespace mapping
+    /** Removes a previously registerd prefix namespace mapping.
      * 
      * @param namespace
      *            The namespace to be removed. */

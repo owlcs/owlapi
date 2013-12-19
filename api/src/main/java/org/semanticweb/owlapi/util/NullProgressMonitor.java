@@ -36,37 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jan-2007 */
 public class NullProgressMonitor implements ProgressMonitor {
+    @Override
+    public void setStarted() {}
 
     @Override
-    public void setStarted() {
-    }
+    public void setSize(long size) {}
 
     @Override
-    public void setSize(long size) {
-    }
+    public void setProgress(long progress) {}
 
     @Override
-    public void setProgress(long progress) {
-    }
+    public void setMessage(String message) {}
 
     @Override
-    public void setMessage(String message) {
-    }
+    public void setIndeterminate(boolean b) {}
 
     @Override
-    public void setIndeterminate(boolean b) {
-    }
-
-    @Override
-    public void setFinished() {
-    }
+    public void setFinished() {}
 
     @Override
     public boolean isCancelled() {

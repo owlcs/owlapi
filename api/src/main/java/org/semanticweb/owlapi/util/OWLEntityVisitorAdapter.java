@@ -47,11 +47,13 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Nov-2006 */
 public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
-    /** override this method to change the default behaviour */
+    /** override this method to change the default behaviour.
+     * 
+     * @param owlObject
+     *            visited object */
     @SuppressWarnings("unused")
     protected void handleDefault(OWLEntity owlObject) {}
 

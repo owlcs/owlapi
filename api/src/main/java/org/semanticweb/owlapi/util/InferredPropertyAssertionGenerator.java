@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
@@ -49,32 +48,29 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007 */
-public class InferredPropertyAssertionGenerator extends InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?,?>> {
-
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007 */
+public class InferredPropertyAssertionGenerator extends
+        InferredIndividualAxiomGenerator<OWLPropertyAssertionAxiom<?, ?>> {
     @Override
-	protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom<?,?>> result) {
-        for (OWLObjectProperty prop : reasoner.getRootOntology().getObjectPropertiesInSignature(true)) {
-            for (OWLNamedIndividual value : reasoner.getObjectPropertyValues(entity, prop).getFlattened()) {
-                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity, value));
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
+            OWLDataFactory dataFactory, Set<OWLPropertyAssertionAxiom<?, ?>> result) {
+        for (OWLObjectProperty prop : reasoner.getRootOntology()
+                .getObjectPropertiesInSignature(true)) {
+            for (OWLNamedIndividual value : reasoner
+                    .getObjectPropertyValues(entity, prop).getFlattened()) {
+                result.add(dataFactory.getOWLObjectPropertyAssertionAxiom(prop, entity,
+                        value));
             }
-
         }
-        for (OWLDataProperty prop : reasoner.getRootOntology().getDataPropertiesInSignature(true)) {
+        for (OWLDataProperty prop : reasoner.getRootOntology()
+                .getDataPropertiesInSignature(true)) {
             for (OWLLiteral value : reasoner.getDataPropertyValues(entity, prop)) {
-                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity, value));
+                result.add(dataFactory.getOWLDataPropertyAssertionAxiom(prop, entity,
+                        value));
             }
-
         }
-
-
     }
-
 
     @Override
     public String getLabel() {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.ArrayList;
@@ -50,37 +49,31 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * Generates an ontology based on inferred axioms which are essentially supplied by a reasoner.
- * The generator can be configured with {@code InferredAxiomGenerator}s which generate specific
- * kinds of axioms e.g. subclass axioms.
- */
+/** Generates an ontology based on inferred axioms which are essentially supplied
+ * by a reasoner. The generator can be configured with
+ * {@code InferredAxiomGenerator}s which generate specific kinds of axioms e.g.
+ * subclass axioms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007 */
 public class InferredOntologyGenerator {
-
-
     // The reasoner which is used to compute the inferred axioms
     private final OWLReasoner reasoner;
-
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators;
 
-
-    /**
-     * @param reasoner the reasoner to use
-     * @param axiomGenerators the axiom generators to use
-     */
-    public InferredOntologyGenerator(OWLReasoner reasoner, List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
+    /** @param reasoner
+     *            the reasoner to use
+     * @param axiomGenerators
+     *            the axiom generators to use */
+    public InferredOntologyGenerator(OWLReasoner reasoner,
+            List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
         this.reasoner = reasoner;
-        this.axiomGenerators =new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>( axiomGenerators);
+        this.axiomGenerators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>(
+                axiomGenerators);
     }
 
-
-    /**
-     * @param reasoner the reasoner to use
-     */
+    /** @param reasoner
+     *            the reasoner to use */
     public InferredOntologyGenerator(OWLReasoner reasoner) {
         this.reasoner = reasoner;
         axiomGenerators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>();
@@ -97,50 +90,47 @@ public class InferredOntologyGenerator {
         axiomGenerators.add(new InferredSubObjectPropertyAxiomGenerator());
     }
 
-
-    /**
-     * @return the axiom generators
-     */
+    /** @return the axiom generators */
     public List<InferredAxiomGenerator<?>> getAxiomGenerators() {
         return new ArrayList<InferredAxiomGenerator<?>>(axiomGenerators);
     }
 
-
-    /**
-     * Adds a generator if it isn't already in the list of generators
-     * @param generator The generator to be added.
-     */
+    /** Adds a generator if it isn't already in the list of generators.
+     * 
+     * @param generator
+     *            The generator to be added. */
     public void addGenerator(InferredAxiomGenerator<?> generator) {
         if (!axiomGenerators.contains(generator)) {
             axiomGenerators.add(generator);
         }
     }
 
-
-    /**
-     * Removes a generator
-     * @param generator the generator to be removed
-     */
+    /** Removes a generator.
+     * 
+     * @param generator
+     *            the generator to be removed */
     public void removeGenerator(InferredAxiomGenerator<?> generator) {
         axiomGenerators.remove(generator);
     }
 
-
-    /**
-     * Adds 'inferred axioms' to an ontology using the generators that have
-     * been registered with this {@code InferredAxiomGenerator}
-     * @param manager  The manager which can be used to obtain a data factory and
-     *                 apply changes.
-     * @param ontology The ontology which the inferred axioms will be added to
-     * @throws OWLOntologyChangeException If there was a problem adding the inferred
-     * axioms to the specified ontology.
-     */
-    public void fillOntology(OWLOntologyManager manager, OWLOntology ontology) throws OWLOntologyChangeException {
+    /** Adds 'inferred axioms' to an ontology using the generators that have been
+     * registered with this {@code InferredAxiomGenerator}.
+     * 
+     * @param manager
+     *            The manager which can be used to obtain a data factory and
+     *            apply changes.
+     * @param ontology
+     *            The ontology which the inferred axioms will be added to
+     * @throws OWLOntologyChangeException
+     *             If there was a problem adding the inferred axioms to the
+     *             specified ontology. */
+    public void fillOntology(OWLOntologyManager manager, OWLOntology ontology)
+            throws OWLOntologyChangeException {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         for (InferredAxiomGenerator<? extends OWLAxiom> axiomGenerator : axiomGenerators) {
-                for (OWLAxiom ax : axiomGenerator.createAxioms(manager, reasoner)) {
-                    changes.add(new AddAxiom(ontology, ax));
-                }
+            for (OWLAxiom ax : axiomGenerator.createAxioms(manager, reasoner)) {
+                changes.add(new AddAxiom(ontology, ax));
+            }
         }
         manager.applyChanges(changes);
     }

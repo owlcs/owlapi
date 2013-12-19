@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.semanticweb.owlapi.util;
 
 import java.util.Set;
@@ -47,23 +46,19 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
- */
-public class InferredClassAssertionAxiomGenerator extends InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
-
-
+/** Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007 */
+public class InferredClassAssertionAxiomGenerator extends
+        InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
     @Override
-	protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
+    protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
+            OWLDataFactory dataFactory, Set<OWLClassAssertionAxiom> result) {
         for (OWLClass type : reasoner.getTypes(entity, false).getFlattened()) {
             result.add(dataFactory.getOWLClassAssertionAxiom(type, entity));
         }
     }
-
 
     @Override
     public String getLabel() {

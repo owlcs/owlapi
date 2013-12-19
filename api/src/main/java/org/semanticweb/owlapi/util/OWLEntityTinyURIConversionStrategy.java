@@ -62,11 +62,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * <li>For individuals: A = "i"</li>
  * </ul>
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Nov-2007*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Nov-2007 */
 public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
-    /** default base */
+    /** default base. */
     public static final String DEFAULT_BASE = "http://tinyname.org#";
     private final String base;
     private final Map<OWLEntity, IRI> entityNameMap;
