@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 07-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 07-Jul-2010 */
 public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
     @SuppressWarnings("javadoc")
     @Test

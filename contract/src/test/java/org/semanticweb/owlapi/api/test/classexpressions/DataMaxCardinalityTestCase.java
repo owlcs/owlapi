@@ -50,9 +50,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 23-Apr-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 23-Apr-2009 */
 @SuppressWarnings("javadoc")
 public class DataMaxCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
     @Test

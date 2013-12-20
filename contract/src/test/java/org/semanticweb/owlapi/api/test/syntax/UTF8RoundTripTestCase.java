@@ -96,8 +96,7 @@ public class UTF8RoundTripTestCase {
     }
 
     private static OWLOntology roundTrip(OWLOntology ontology)
-            throws
-            OWLOntologyStorageException, OWLOntologyCreationException {
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();
         oldManager.saveOntology(ontology, new RDFXMLOntologyFormat(), target);

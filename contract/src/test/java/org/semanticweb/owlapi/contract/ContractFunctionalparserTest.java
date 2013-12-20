@@ -57,7 +57,6 @@ public class ContractFunctionalparserTest {
         String result4 = testSubject0.toString();
     }
 
-
     @Test
     public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants() throws Exception {
         OWLFunctionalSyntaxParserConstants testSubject0 = mock(OWLFunctionalSyntaxParserConstants.class);
@@ -74,5 +73,4 @@ public class ContractFunctionalparserTest {
             throws Exception {
         OWLFunctionalSyntaxParserTreeConstants testSubject0 = mock(OWLFunctionalSyntaxParserTreeConstants.class);
     }
-
 }

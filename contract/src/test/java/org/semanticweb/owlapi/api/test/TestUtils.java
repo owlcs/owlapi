@@ -44,8 +44,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 25-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
 public class TestUtils {
     public static OWLIndividual createOWLIndividual() {

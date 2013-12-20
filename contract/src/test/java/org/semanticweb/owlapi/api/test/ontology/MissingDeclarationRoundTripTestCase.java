@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** Test for 3186250 */
 @SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase {
     String NS;

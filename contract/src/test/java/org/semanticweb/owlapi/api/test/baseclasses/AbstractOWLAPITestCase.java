@@ -66,9 +66,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 10-May-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
@@ -127,7 +126,7 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     /** ignore declarations of builtins and of named individuals - named
-     * individuals do not /need/ a declaration, but addiong one is not an error
+     * individuals do not /need/ a declaration, but addiong one is not an error.
      * 
      * @param parse
      *            true if the axiom belongs to the parsed ones, false for the

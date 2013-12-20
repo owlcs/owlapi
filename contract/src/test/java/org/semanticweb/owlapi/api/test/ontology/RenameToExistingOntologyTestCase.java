@@ -50,9 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 22-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
     @Test(expected = OWLOntologyRenameException.class)

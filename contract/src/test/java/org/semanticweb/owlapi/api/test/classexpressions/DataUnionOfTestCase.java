@@ -51,9 +51,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 02-Feb-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
 public class DataUnionOfTestCase extends AbstractFileRoundTrippingTestCase {
     @Test

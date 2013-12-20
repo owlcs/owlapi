@@ -43,9 +43,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.XMLUtils;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23/09/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 23/09/2011 */
 @SuppressWarnings("javadoc")
 public class XMLUtilsTestCase {
     private static final int CODE_POINT = 0xEFFFF;

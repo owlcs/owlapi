@@ -20,9 +20,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * create duplicate objects for distinguished values (e.g. owl:Thing,
  * rdfs:Literal etc.)
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 24/10/2012 */
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 24/10/2012 */
 @RunWith(value = Parameterized.class)
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryImplTestCase {

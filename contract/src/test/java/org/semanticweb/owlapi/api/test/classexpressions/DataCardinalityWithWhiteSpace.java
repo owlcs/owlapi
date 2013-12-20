@@ -40,9 +40,8 @@ package org.semanticweb.owlapi.api.test.classexpressions;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 22/12/2010 */
 public class DataCardinalityWithWhiteSpace extends AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {

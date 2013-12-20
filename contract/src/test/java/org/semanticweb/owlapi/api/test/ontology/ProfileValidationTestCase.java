@@ -68,9 +68,8 @@ import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Aug-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class ProfileValidationTestCase {
     private static final String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";

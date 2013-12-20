@@ -71,9 +71,8 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case
  * ensure that these axioms are serialsed correctly.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 09-May-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")
 public class DisjointsTestCase {
     private OWLOntologyManager man;

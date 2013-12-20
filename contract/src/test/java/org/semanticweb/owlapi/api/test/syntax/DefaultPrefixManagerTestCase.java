@@ -47,9 +47,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 02-Jun-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Jun-2009 */
 @SuppressWarnings("javadoc")
 public class DefaultPrefixManagerTestCase {
     @Test

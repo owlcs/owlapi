@@ -48,11 +48,11 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxOntologyStorer;
 
-/** <br>
- * Simple Rendering Example. Reads an ontology and then renders it. <br>
- * @author Sean Bechhofer, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 24-April-2007 */
+/** Simple Rendering Example. Reads an ontology and then renders it.
+ * 
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007 */
+@SuppressWarnings("javadoc")
 public class RenderingExample {
     /** @param inputOntology
      *            input ontology IRI

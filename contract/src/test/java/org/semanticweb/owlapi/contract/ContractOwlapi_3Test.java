@@ -345,9 +345,6 @@ public class ContractOwlapi_3Test {
         OWLNaryIndividualAxiomImpl testSubject0 = new OWLNaryIndividualAxiomImpl(
                 Utils.mockSet(mock(OWLIndividual.class)),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30406L;
 
             @Override

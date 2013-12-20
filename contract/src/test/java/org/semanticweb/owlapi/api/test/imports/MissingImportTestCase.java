@@ -21,7 +21,6 @@ public class MissingImportTestCase {
                 + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n"
                 + "    </owl:Ontology>\n" + "</rdf:RDF>";
         OWLOntologyManager manager = Factory.getManager();
-        manager.loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        manager.loadOntologyFromOntologyDocument(new StringDocumentSource(input));
     }
 }

@@ -47,9 +47,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 02-Jul-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Jul-2009 */
 public class ReflexiveObjectPropertyInverseTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

@@ -46,9 +46,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 21-Sep-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 21-Sep-2009 */
 public class PercentCharacterInEntityNameTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

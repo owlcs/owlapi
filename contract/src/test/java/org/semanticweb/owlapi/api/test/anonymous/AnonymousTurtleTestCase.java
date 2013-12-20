@@ -41,9 +41,8 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 30-Jul-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 30-Jul-2008 */
 public class AnonymousTurtleTestCase extends AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {

@@ -48,7 +48,6 @@ public class NullCheckTestCase {
     OWLDataRange owldatarange = f.getOWLDatatypeRestriction(owldatatype,
             lowlfacetrestriction);
     OWLAnnotationProperty owlap = f.getOWLAnnotationProperty(IRI("urn:ap"));
-
     OWLAnnotation owlannotation = f.getOWLAnnotation(owlap, lit);
     String string = "testString";
     OWLClass owlclass = f.getOWLClass(IRI("urn:classexpression"));
@@ -69,7 +68,6 @@ public class NullCheckTestCase {
     Set<OWLIndividual> nullsetowlindividual = getNullSet();
     Set<OWLPropertyExpression<?, ?>> setowlpropertyexpression = new HashSet<OWLPropertyExpression<?, ?>>();
     Set<OWLPropertyExpression<?, ?>> nullsetowlpropertyexpression = getNullSet();
-
     OWLFacetRestriction[] nulllowlfacetrestriction = new OWLFacetRestriction[] {
             f.getOWLFacetRestriction(owlfacet, 1), null };
     Set<OWLClassExpression> setce = new HashSet<OWLClassExpression>();

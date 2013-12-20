@@ -40,9 +40,8 @@ package uk.ac.manchester.owl.owlapi.tutorial.io;
 
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** @author Sean Bechhofer, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 24-April-2007 */
+/** @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007 */
 public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
 

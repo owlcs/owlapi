@@ -61,9 +61,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * reasoning results, rather it is designed to test the reasoner returns the
  * results in the form required by the OWL API reasoner interface.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 08-Jul-2010 */
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Jul-2010 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     private OWLReasonerFactory reasonerFactory;

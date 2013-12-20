@@ -53,12 +53,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
-/** <br>
- * Simple example. Read an ontology, and display the class hierarchy. May use a
- * reasoner to calculate the hierarchy. <br>
- * @author Sean Bechhofer, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 17-03-2007 */
+/** Simple example. Read an ontology, and display the class hierarchy. May use a
+ * reasoner to calculate the hierarchy.
+ * 
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 17-03-2007 */
+@SuppressWarnings("javadoc")
 public class SimpleHierarchyExample {
     private static int INDENT = 4;
     private final OWLReasonerFactory reasonerFactory;
@@ -127,7 +127,6 @@ public class SimpleHierarchyExample {
         }
     }
 
-    @SuppressWarnings("javadoc")
     public static void main(String[] args) throws OWLException, InstantiationException,
             IllegalAccessException, ClassNotFoundException {
         String reasonerFactoryClassName = null;

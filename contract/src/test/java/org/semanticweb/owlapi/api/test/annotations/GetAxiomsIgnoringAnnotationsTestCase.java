@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
     @Test

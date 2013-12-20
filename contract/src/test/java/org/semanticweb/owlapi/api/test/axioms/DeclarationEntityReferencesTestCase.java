@@ -57,9 +57,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * that ontology only contains entity declaration axioms. In other words, entity
  * declaration axioms produce the correct entity references.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 01-May-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 01-May-2007 */
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
     @Test

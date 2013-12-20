@@ -10,9 +10,8 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 22/10/2012 */
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 22/10/2012 */
 @SuppressWarnings("javadoc")
 public class AddAxiomDataTestCase {
     private OWLAxiom mockAxiom;

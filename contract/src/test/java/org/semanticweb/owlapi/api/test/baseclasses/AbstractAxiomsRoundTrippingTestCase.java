@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 28-May-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 28-May-2009 */
 public abstract class AbstractAxiomsRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

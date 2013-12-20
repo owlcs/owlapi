@@ -55,9 +55,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 01-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
     private static final String NS = "urn:test";

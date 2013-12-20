@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20/09/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 20/09/2011 */
 @Ignore
 public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
     private static final String DEFAULT_PREFIX = "http://owlapi.sourceforge.net/ontology/";

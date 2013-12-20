@@ -194,7 +194,6 @@ public class TurtleTestCase {
                 + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
         OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
-
         StringDocumentTarget t = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology,
                 new TurtleOntologyFormat(), t);

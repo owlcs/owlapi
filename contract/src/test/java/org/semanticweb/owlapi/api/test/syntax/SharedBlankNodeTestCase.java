@@ -31,8 +31,11 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class SharedBlankNodeTestCase {
     @Test
     public void verify() throws OWLOntologyCreationException {
-        String input = "Ontology:\n" + "    DataProperty: xsd:a\n" + "        Range: {1.2}";
-        for (OWLAxiom ax : Factory.getManager().loadOntologyFromOntologyDocument(new StringDocumentSource(input)).getAxioms()) {
+        String input = "Ontology:\n" + "    DataProperty: xsd:a\n"
+                + "        Range: {1.2}";
+        for (OWLAxiom ax : Factory.getManager()
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(input))
+                .getAxioms()) {
             System.out.println("HasKeyTestCase.verify() " + ax);
         }
     }
@@ -71,17 +74,22 @@ public class SharedBlankNodeTestCase {
         return ontology;
     }
 
-    public static String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    public static String saveOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
-        ontology.getOWLOntologyManager().saveOntology(ontology, new RDFXMLOntologyFormat(), target);
+        ontology.getOWLOntologyManager().saveOntology(ontology,
+                new RDFXMLOntologyFormat(), target);
         return target.toString();
     }
 
-    public static OWLOntology loadOntology(String ontology) throws OWLOntologyCreationException {
-        return Factory.getManager().loadOntologyFromOntologyDocument(new StringDocumentSource(ontology));
+    public static OWLOntology loadOntology(String ontology)
+            throws OWLOntologyCreationException {
+        return Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(ontology));
     }
 
-    public static void displayOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    public static void displayOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
         manager.saveOntology(ontology, format, new SystemOutDocumentTarget());

@@ -17,9 +17,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import uk.ac.manchester.cs.owl.owlapi.OWL2DatatypeImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 
-/** @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012 */
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 24/10/2012 */
 @SuppressWarnings("javadoc")
 public class OWL2DatatypeImplTestCase {
     private OWLDatatype plainLiteral;

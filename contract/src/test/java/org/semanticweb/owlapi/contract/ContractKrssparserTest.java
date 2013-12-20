@@ -49,7 +49,6 @@ public class ContractKrssparserTest {
         String result1 = testSubject0.toString();
     }
 
-
     @Test
     public void shouldTestInterfaceKRSSParserConstants() throws Exception {
         KRSSParserConstants testSubject0 = mock(KRSSParserConstants.class);
@@ -63,5 +62,4 @@ public class ContractKrssparserTest {
         String result3 = testSubject0.toString();
         int result8 = testSubject0.ordinal();
     }
-
 }

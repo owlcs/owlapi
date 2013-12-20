@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17/02/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 17/02/2011 */
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase {
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");

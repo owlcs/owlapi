@@ -1264,9 +1264,6 @@ public class ContractOwlapi_1Test {
     public void shouldTestOWLAxiomImpl() throws Exception {
         OWLAxiomImpl testSubject0 = new OWLAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30406L;
 
             @Override

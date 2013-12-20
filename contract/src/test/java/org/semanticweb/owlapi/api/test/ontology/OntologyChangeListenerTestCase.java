@@ -56,9 +56,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 04-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010 */
 @SuppressWarnings("javadoc")
 public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
     @Test

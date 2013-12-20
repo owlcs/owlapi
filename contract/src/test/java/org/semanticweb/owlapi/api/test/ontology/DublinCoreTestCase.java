@@ -45,9 +45,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 16/12/2010 */
 @SuppressWarnings("javadoc")
 public class DublinCoreTestCase extends AbstractFileTestCase {
     @Override

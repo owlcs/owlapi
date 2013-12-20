@@ -51,9 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25/02/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 25/02/2011 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCase {
     @Override

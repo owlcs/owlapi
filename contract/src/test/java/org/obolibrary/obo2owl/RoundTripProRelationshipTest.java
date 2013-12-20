@@ -16,6 +16,7 @@ import org.junit.Test;
  * annotations as relationships.
  * 
  * @see RoundTripPropertyValueTest */
+@SuppressWarnings("javadoc")
 public class RoundTripProRelationshipTest extends RoundTripTest {
     /** This test fails due to the non-deterministic translation from OWL2OBO
      * 

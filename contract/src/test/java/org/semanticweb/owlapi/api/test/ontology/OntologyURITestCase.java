@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Sep-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 07-Sep-2008 */
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
     @Test

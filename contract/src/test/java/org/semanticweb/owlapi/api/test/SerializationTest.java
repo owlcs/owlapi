@@ -71,7 +71,6 @@ public class SerializationTest extends TestCase {
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
     OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
 
-
     @Test
     public void testrun() throws Exception {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
