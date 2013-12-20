@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 04-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010 */
 public interface ImpendingOWLOntologyChangeListener {
     /** Called when a list of ontology changes is about to be applied. Note that
      * not all of the changes in the list may be applied. This is due to the

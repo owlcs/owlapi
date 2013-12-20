@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 04-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010 */
 public interface OWLOntologyChangesVetoedListener {
     /** Called when a list of ontology changes has been vetoed for some reason.
      * 

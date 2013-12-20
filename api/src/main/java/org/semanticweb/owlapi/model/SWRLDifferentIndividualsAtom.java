@@ -38,7 +38,7 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Feb-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007 */
 public interface SWRLDifferentIndividualsAtom extends
         SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {}

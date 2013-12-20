@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 04-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010 */
 public interface ImpendingOWLOntologyChangeBroadcastStrategy {
     /** Broadcasts the list of changes to the specified listeners.
      * 

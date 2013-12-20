@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 18-Mar-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Mar-2009 */
 public abstract class AnnotationChange extends OWLOntologyChange {
     private final OWLAnnotation annotation;
 
