@@ -85,7 +85,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeBroadcastStrategy;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyChangeProgressListener;
 import org.semanticweb.owlapi.model.OWLOntologyChangeVetoException;
@@ -114,9 +113,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Oct-2006 */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     private static final long serialVersionUID = 30406L;
@@ -145,7 +143,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy;
     protected final ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy;
 
-    @SuppressWarnings("javadoc")
+    /** @param dataFactory
+     *            data factory */
     public OWLOntologyManagerImpl(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
         properties = new OWLOntologyManagerProperties();
@@ -361,7 +360,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
-    /** A method that gets the imports of a given ontology
+    /** A method that gets the imports of a given ontology.
      * 
      * @param ont
      *            The ontology whose (transitive) imports are to be retrieved.
@@ -447,8 +446,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * 
      * @param change
      *            The change to be applied.
-     * @return A list of changes that were actually applied.
-     * @throws OWLOntologyChangeException */
+     * @return A list of changes that were actually applied. */
     private List<OWLOntologyChange> enactChangeApplication(OWLOntologyChange change) {
         if (!isChangeApplicable(change)) {
             return Collections.emptyList();
@@ -800,6 +798,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @param documentSource
      *            The input source that specifies where the ontology should be
      *            loaded from.
+     * @param configuration
+     *            load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException
      *             If the ontology could not be loaded. */
@@ -1055,10 +1055,9 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @param ontologyID
      *            The ontology ID for which a document IRI is to be retrieved
      * @param quiet
-     *            If set to {@code true} and a mapping can't be found then
-     *            a value of {@code null} is returned. If set to
-     *            {@code false} and a mapping can't be found then an
-     *            exception
+     *            If set to {@code true} and a mapping can't be found then a
+     *            value of {@code null} is returned. If set to {@code false} and
+     *            a mapping can't be found then an exception
      *            {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
      *            is thrown.
      * @return The document IRI that corresponds to the ontology IRI, or
@@ -1251,19 +1250,17 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         IRI iri = declaration.getIRI();
         if (!configuration.isIgnoredImport(iri) && !importedIRIs.contains(iri)) {
             importedIRIs.add(iri);
-                try {
-                    OWLOntology ont = loadImports(declaration, configuration);
-                    if (ont != null) {
-                        ontologyIDsByImportsDeclaration.put(declaration,
-                                ont.getOntologyID());
-                    }
-                } catch (OWLOntologyCreationException e) {
-                    // Wrap as UnloadableImportException and throw
-                    throw new UnloadableImportException(e, declaration);
+            try {
+                OWLOntology ont = loadImports(declaration, configuration);
+                if (ont != null) {
+                    ontologyIDsByImportsDeclaration.put(declaration, ont.getOntologyID());
                 }
+            } catch (OWLOntologyCreationException e) {
+                // Wrap as UnloadableImportException and throw
+                throw new UnloadableImportException(e, declaration);
             }
         }
-
+    }
 
     @Override
     public void setSilentMissingImportsHandling(boolean b) {

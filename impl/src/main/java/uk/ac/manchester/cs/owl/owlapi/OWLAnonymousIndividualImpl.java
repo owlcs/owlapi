@@ -52,16 +52,15 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 15-Jan-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Jan-2009 */
 public class OWLAnonymousIndividualImpl extends OWLIndividualImpl implements
         OWLAnonymousIndividual {
     private static final long serialVersionUID = 30406L;
     private final NodeID nodeId;
 
+    /** @param nodeID
+     *            node id */
     public OWLAnonymousIndividualImpl(NodeID nodeID) {
         super();
         nodeId = nodeID;

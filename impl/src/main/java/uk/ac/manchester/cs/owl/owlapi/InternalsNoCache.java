@@ -236,7 +236,6 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     // private boolean isBooleanFalseValue(String lexicalValue) {
     // return lexicalValue.equals("0") || lexicalValue.equals("false");
     // }
-
     private boolean isBooleanTrueValue(String lexicalValue) {
         return lexicalValue.equals("1") || lexicalValue.equals("true");
     }

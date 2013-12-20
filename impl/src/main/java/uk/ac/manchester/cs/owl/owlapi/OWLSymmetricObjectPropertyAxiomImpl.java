@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -53,24 +52,26 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLSymmetricObjectPropertyAxiomImpl extends
+        OWLObjectPropertyCharacteristicAxiomImpl implements
+        OWLSymmetricObjectPropertyAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLSymmetricObjectPropertyAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
+    public OWLSymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
-
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
-        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(5);
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(
+                5);
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(), getProperty()
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty()
@@ -79,7 +80,8 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
-    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
@@ -93,7 +95,7 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLSymmetricObjectPropertyAxiom;
     }
 
@@ -111,7 +113,6 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

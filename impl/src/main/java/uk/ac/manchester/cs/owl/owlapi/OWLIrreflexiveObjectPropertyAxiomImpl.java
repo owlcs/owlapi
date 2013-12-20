@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -52,17 +51,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLIrreflexiveObjectPropertyAxiomImpl extends
+        OWLObjectPropertyCharacteristicAxiomImpl implements
+        OWLIrreflexiveObjectPropertyAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLIrreflexiveObjectPropertyAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLIrreflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
+    public OWLIrreflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -75,7 +76,8 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     }
 
     @Override
-    public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
@@ -87,7 +89,7 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLIrreflexiveObjectPropertyAxiom;
     }
 
@@ -95,7 +97,6 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
@@ -106,7 +107,6 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyChar
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

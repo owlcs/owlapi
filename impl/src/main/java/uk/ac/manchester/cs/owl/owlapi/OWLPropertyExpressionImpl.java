@@ -50,14 +50,17 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <R>
+ *            range type
+ * @param <P>
+ *            property type */
 public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>>
         extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
     private static final long serialVersionUID = 30406L;
 
+    /** default constructor */
     public OWLPropertyExpressionImpl() {
         super();
     }

@@ -71,11 +71,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDataPropertyImpl extends
         OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements
         OWLDataProperty {
@@ -83,6 +80,8 @@ public class OWLDataPropertyImpl extends
     private final IRI iri;
     private final boolean builtin;
 
+    /** @param iri
+     *            property iri */
     public OWLDataPropertyImpl(IRI iri) {
         super();
         this.iri = iri;

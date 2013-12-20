@@ -36,43 +36,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <P>
+ *            property type
+ * @param <R>
+ *            range type
+ * @param <F>
+ *            range type */
+public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
+        extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
+    private static final long serialVersionUID = 30406L;
+    private final F filler;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
-public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange> extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
-
-
-	private static final long serialVersionUID = 30406L;
-	private final F filler;
-
-
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
     public OWLQuantifiedRestrictionImpl(P property, F filler) {
         super(property);
         this.filler = filler;
     }
-
 
     @Override
     public F getFiller() {
         return filler;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLQuantifiedRestriction) {
-                return ((OWLQuantifiedRestriction<?,?,?>) obj).getFiller().equals(filler);
+                return ((OWLQuantifiedRestriction<?, ?, ?>) obj).getFiller().equals(
+                        filler);
             }
         }
         return false;

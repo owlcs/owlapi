@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -51,21 +50,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLSubDataPropertyOfAxiomImpl extends
+        OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements
+        OWLSubDataPropertyOfAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements OWLSubDataPropertyOfAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty, OWLDataPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
+    /** @param subProperty
+     *            subproperty
+     * @param superProperty
+     *            superproperty
+     * @param annotations
+     *            annotations */
+    public OWLSubDataPropertyOfAxiomImpl(OWLDataPropertyExpression subProperty,
+            OWLDataPropertyExpression superProperty,
+            Collection<? extends OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
     }
-
 
     @Override
     public OWLSubDataPropertyOfAxiom getAxiomWithoutAnnotations() {
@@ -83,10 +85,9 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLSubDataPropertyOfAxiom;
     }
-
 
     @Override
     public void accept(OWLAxiomVisitor visitor) {
@@ -107,7 +108,6 @@ public class OWLSubDataPropertyOfAxiomImpl extends OWLSubPropertyAxiomImpl<OWLDa
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_DATA_PROPERTY;
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

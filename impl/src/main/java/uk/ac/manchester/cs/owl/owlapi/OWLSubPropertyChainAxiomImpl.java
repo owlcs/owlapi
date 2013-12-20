@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -54,22 +53,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006 */
-public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements OWLSubPropertyChainOfAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final List<OWLObjectPropertyExpression> propertyChain;
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Nov-2006 */
+public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements
+        OWLSubPropertyChainOfAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final List<OWLObjectPropertyExpression> propertyChain;
     private final OWLObjectPropertyExpression superProperty;
 
-    @SuppressWarnings("javadoc")
-    public OWLSubPropertyChainAxiomImpl(List<? extends OWLObjectPropertyExpression> propertyChain, OWLObjectPropertyExpression superProperty, Collection<? extends OWLAnnotation> annotations) {
+    /** @param propertyChain
+     *            property chain
+     * @param superProperty
+     *            superproperty
+     * @param annotations
+     *            annotations */
+    public OWLSubPropertyChainAxiomImpl(
+            List<? extends OWLObjectPropertyExpression> propertyChain,
+            OWLObjectPropertyExpression superProperty,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(propertyChain);
         this.superProperty = superProperty;
@@ -95,29 +96,25 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         return new ArrayList<OWLObjectPropertyExpression>(propertyChain);
     }
 
-
     @Override
     public OWLObjectPropertyExpression getSuperProperty() {
         return superProperty;
     }
 
-
     @Override
     public boolean isEncodingOfTransitiveProperty() {
         if (propertyChain.size() == 2) {
-            return superProperty.equals(propertyChain.get(0)) && superProperty.equals(propertyChain.get(1));
-        }
-        else {
+            return superProperty.equals(propertyChain.get(0))
+                    && superProperty.equals(propertyChain.get(1));
+        } else {
             return false;
         }
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLAxiomVisitor visitor) {
@@ -129,14 +126,13 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (!super.equals(obj)) {
             return false;
         }
@@ -144,20 +140,18 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
             return false;
         }
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) obj;
-        return other.getPropertyChain().equals(getPropertyChain()) && other.getSuperProperty().equals(superProperty);
+        return other.getPropertyChain().equals(getPropertyChain())
+                && other.getSuperProperty().equals(superProperty);
     }
-
 
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.SUB_PROPERTY_CHAIN_OF;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
-
         for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {
             int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));
             if (diff != 0) {

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
@@ -55,22 +54,26 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 29-Nov-2006 */
-public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements OWLInverseObjectPropertiesAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLObjectPropertyExpression first;
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 29-Nov-2006 */
+public class OWLInverseObjectPropertiesAxiomImpl extends
+        OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
+        OWLInverseObjectPropertiesAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
-    @SuppressWarnings("javadoc")
-    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first, OWLObjectPropertyExpression second, Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)), annotations);
+
+    /** @param first
+     *            first property
+     * @param second
+     *            second peoperty
+     * @param annotations
+     *            annotations */
+    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
+            OWLObjectPropertyExpression second,
+            Collection<? extends OWLAnnotation> annotations) {
+        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)),
+                annotations);
         this.first = first;
         this.second = second;
     }
@@ -85,7 +88,8 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     }
 
     @Override
-    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLInverseObjectPropertiesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLInverseObjectPropertiesAxiomImpl(getFirstProperty(),
                 getSecondProperty(), mergeAnnos(annotations));
     }
@@ -94,7 +98,6 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLAxiomVisitor visitor) {
@@ -106,36 +109,30 @@ public class OWLInverseObjectPropertiesAxiomImpl extends OWLNaryPropertyAxiomImp
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public OWLObjectPropertyExpression getFirstProperty() {
         return first;
     }
 
-
     @Override
     public OWLObjectPropertyExpression getSecondProperty() {
         return second;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLInverseObjectPropertiesAxiom;
     }
-
 
     @Override
     public AxiomType<?> getAxiomType() {
         return AxiomType.INVERSE_OBJECT_PROPERTIES;
     }
-
 
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {

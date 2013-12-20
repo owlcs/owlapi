@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -57,17 +56,18 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements
+        OWLSameIndividualAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements OWLSameIndividualAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLSameIndividualAxiomImpl(Set<? extends OWLIndividual> individuals, Set<? extends OWLAnnotation> annotations) {
+    /** @param individuals
+     *            individuals
+     * @param annotations
+     *            annotations on the axiom */
+    public OWLSameIndividualAxiomImpl(Set<? extends OWLIndividual> individuals,
+            Set<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
 
@@ -122,15 +122,17 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
         }
         return result;
     }
+
     @SuppressWarnings("javadoc")
     @Deprecated
-    //XXX not in the interface
-    public Set<OWLSameIndividualAxiom> asPairwiseSameIndividualAxioms() {
+    // XXX not in the interface
+            public
+            Set<OWLSameIndividualAxiom> asPairwiseSameIndividualAxioms() {
         return asPairwiseAxioms();
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLSameIndividualAxiom;
     }
 
@@ -148,7 +150,6 @@ public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl imple
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

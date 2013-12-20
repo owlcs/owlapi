@@ -75,17 +75,17 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006 */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
-Serializable {
+        Serializable {
     private static final long serialVersionUID = 30406L;
     private final IRI iri;
     private final boolean isThing;
     private final boolean isNothing;
 
+    /** @param iri
+     *            class iri */
     public OWLClassImpl(IRI iri) {
         super();
         this.iri = iri;
@@ -150,7 +150,7 @@ Serializable {
 
     @Override
     public Set<OWLAxiom>
-    getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
@@ -205,26 +205,38 @@ Serializable {
     }
 
     // XXX not in the interface
-        @Deprecated
+    /** @param ontology
+     *            ontology
+     * @return subclasses */
+    @Deprecated
     public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
         return ontology.getSubClassAxiomsForSubClass(this);
     }
 
     // XXX not in the interface
-        @Deprecated
+    /** @param ontology
+     *            ontology
+     * @return equivalent classes */
+    @Deprecated
     public Set<OWLEquivalentClassesAxiom>
-    getEquivalentClassesAxioms(OWLOntology ontology) {
+            getEquivalentClassesAxioms(OWLOntology ontology) {
         return ontology.getEquivalentClassesAxioms(this);
     }
 
     // XXX not in the interface
-        @Deprecated
+    /** @param ontology
+     *            ontology
+     * @return disjoints */
+    @Deprecated
     public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLOntology ontology) {
         return ontology.getDisjointClassesAxioms(this);
     }
 
     // XXX not in the interface
-        @Deprecated
+    /** @param ontology
+     *            ontology
+     * @return disjoint unions */
+    @Deprecated
     public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLOntology ontology) {
         return ontology.getDisjointUnionAxioms(this);
     }

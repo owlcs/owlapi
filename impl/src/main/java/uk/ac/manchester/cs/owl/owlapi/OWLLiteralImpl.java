@@ -65,9 +65,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Oct-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006 */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 30406L;
     private static final int COMPRESSION_LIMIT = 160;

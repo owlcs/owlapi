@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -54,17 +53,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLDataPropertyAssertionAxiomImpl extends
+        OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+        implements OWLDataPropertyAssertionAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLDataPropertyAssertionAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral value, Set<? extends OWLAnnotation> annotations) {
+    /** @param subject
+     *            subject
+     * @param property
+     *            property
+     * @param value
+     *            value
+     * @param annotations
+     *            annotations */
+    public OWLDataPropertyAssertionAxiomImpl(OWLIndividual subject,
+            OWLDataPropertyExpression property, OWLLiteral value,
+            Set<? extends OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
     }
 
@@ -85,13 +91,14 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
     }
 
     @Override
-    public OWLDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDataPropertyAssertionAxiom
+            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
                 getObject(), mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLDataPropertyAssertionAxiom;
     }
 
@@ -109,7 +116,6 @@ public class OWLDataPropertyAssertionAxiomImpl extends OWLIndividualRelationship
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

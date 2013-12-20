@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.HashSet;
@@ -48,19 +47,16 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16-Mar-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Mar-2007 */
 public class ImplUtils {
-
-    /**
-     * @param entity entity to search
-     * @param ontologies ontologis to search
-     * @return annotations about entity
-     */
-    public static Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(OWLEntity entity, Set<OWLOntology> ontologies) {
+    /** @param entity
+     *            entity to search
+     * @param ontologies
+     *            ontologis to search
+     * @return annotations about entity */
+    public static Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(OWLEntity entity,
+            Set<OWLOntology> ontologies) {
         Set<OWLAnnotationAssertionAxiom> result = new HashSet<OWLAnnotationAssertionAxiom>();
         for (OWLOntology ont : ontologies) {
             result.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
@@ -68,12 +64,13 @@ public class ImplUtils {
         return result;
     }
 
-    /**
-     * @param entity entity to search
-     * @param ontologies ontologies to search
-     * @return annotations about entity
-     */
-    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, Set<OWLOntology> ontologies) {
+    /** @param entity
+     *            entity to search
+     * @param ontologies
+     *            ontologies to search
+     * @return annotations about entity */
+    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity,
+            Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
         for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
             result.add(ax.getAnnotation());
@@ -81,13 +78,16 @@ public class ImplUtils {
         return result;
     }
 
-    /**
-     * @param entity entity to search
-     * @param annotationProperty annotation property to match
-     * @param ontologies ontologies to search
-     * @return annotations about entity whose annotation property is annotationProperty
-     */
-    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity, OWLAnnotationProperty annotationProperty, Set<OWLOntology> ontologies) {
+    /** @param entity
+     *            entity to search
+     * @param annotationProperty
+     *            annotation property to match
+     * @param ontologies
+     *            ontologies to search
+     * @return annotations about entity whose annotation property is
+     *         annotationProperty */
+    public static Set<OWLAnnotation> getAnnotations(OWLEntity entity,
+            OWLAnnotationProperty annotationProperty, Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
         for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
             if (ax.getAnnotation().getProperty().equals(annotationProperty)) {

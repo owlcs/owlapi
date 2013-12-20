@@ -47,109 +47,100 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * @author ignazio
- *
- *         Mutable state in an OWLDataFactory is encapsulated by this interface
- */
+/** @author ignazio Mutable state in an OWLDataFactory is encapsulated by this
+ *         interface */
 public interface OWLDataFactoryInternals {
-    /**
-     * @param iri
+    /** @param iri
      *            new class IRI
-     * @return a new OWLClass object, or a cached one depending on policies
-     */
+     * @return a new OWLClass object, or a cached one depending on policies */
     OWLClass getOWLClass(IRI iri);
 
-    /** purge any caches */
+    /** purge any caches. */
     void purge();
 
-    /**
-     * @param iri
+    /** @param iri
      *            new object property IRI
      * @return a new OWLObjectProperty object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLObjectProperty getOWLObjectProperty(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLDataProperty IRI
      * @return a new OWLDataProperty object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLDataProperty getOWLDataProperty(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLNamedIndividual IRI
      * @return a new OWLNamedIndividual object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLNamedIndividual getOWLNamedIndividual(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLDatatype IRI
-     * @return a new OWLDatatype object, or a cached one depending on policies
-     */
+     * @return a new OWLDatatype object, or a cached one depending on policies */
     OWLDatatype getOWLDatatype(IRI iri);
 
-    /**
-     * @param iri
+    /** @param iri
      *            new OWLAnnotationProperty IRI
      * @return a new OWLAnnotationProperty object, or a cached one depending on
-     *         policies
-     */
+     *         policies */
     OWLAnnotationProperty getOWLAnnotationProperty(IRI iri);
 
     /** @param lexicalValue
+     *            literal value for literal
      * @param datatype
+     *            datatype for literal
      * @return new literal */
-    public OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(String lexicalValue, OWLDatatype datatype);
 
     /** @param value
+     *            int value for literal
      * @return new literal */
-
-    public OWLLiteral getOWLLiteral(int value);
+    OWLLiteral getOWLLiteral(int value);
 
     /** @param value
+     *            boolean value for literal
      * @return new literal */
-
-    public OWLLiteral getOWLLiteral(boolean value);
-
-    /** @param value
-     * @return new literal */
-    public OWLLiteral getOWLLiteral(double value);
+    OWLLiteral getOWLLiteral(boolean value);
 
     /** @param value
+     *            double value for literal
      * @return new literal */
-    public OWLLiteral getOWLLiteral(float value);
+    OWLLiteral getOWLLiteral(double value);
 
     /** @param value
+     *            float value for literal
      * @return new literal */
-    public OWLLiteral getOWLLiteral(String value);
+    OWLLiteral getOWLLiteral(float value);
+
+    /** @param value
+     *            literal form
+     * @return new literal */
+    OWLLiteral getOWLLiteral(String value);
 
     /** @param literal
+     *            literal form
      * @param lang
+     *            language tag, can be null
      * @return new literal */
-    public OWLLiteral getOWLLiteral(String literal, String lang);
+    OWLLiteral getOWLLiteral(String literal, String lang);
 
     /** @return top datatype */
-    public OWLDatatype getTopDatatype();
+    OWLDatatype getTopDatatype();
 
     /** @return integer datatype */
-    public OWLDatatype getIntegerOWLDatatype();
+    OWLDatatype getIntegerOWLDatatype();
 
     /** @return float datatype */
-    public OWLDatatype getFloatOWLDatatype();
+    OWLDatatype getFloatOWLDatatype();
 
     /** @return double datatype */
-    public OWLDatatype getDoubleOWLDatatype();
+    OWLDatatype getDoubleOWLDatatype();
 
     /** @return boolean datatype */
-    public OWLDatatype getBooleanOWLDatatype();
+    OWLDatatype getBooleanOWLDatatype();
 
     /** @return plain literal datatype */
-    public OWLDatatype getRDFPlainLiteral();
-
+    OWLDatatype getRDFPlainLiteral();
 }

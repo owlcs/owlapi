@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -52,17 +51,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLReflexiveObjectPropertyAxiomImpl extends
+        OWLObjectPropertyCharacteristicAxiomImpl implements
+        OWLReflexiveObjectPropertyAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharacteristicAxiomImpl implements OWLReflexiveObjectPropertyAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLReflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
+    public OWLReflexiveObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
 
@@ -81,13 +82,14 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     }
 
     @Override
-    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLReflexiveObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLReflexiveObjectPropertyAxiom;
     }
 
@@ -105,7 +107,6 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends OWLObjectPropertyCharac
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

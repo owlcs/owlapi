@@ -52,20 +52,17 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
-CollectionContainer<OWLAnnotation> {
-
+        CollectionContainer<OWLAnnotation> {
     private static final long serialVersionUID = 30406L;
     private OWLAxiom nnf;
     private final List<OWLAnnotation> annotations;
 
-    public OWLAxiomImpl(
-            Collection<? extends OWLAnnotation> annotations) {
+    /** @param annotations
+     *            annotations on the axiom */
+    public OWLAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
         super();
         if (!annotations.isEmpty()) {
             this.annotations = new ArrayList<OWLAnnotation>(annotations);
@@ -80,7 +77,8 @@ CollectionContainer<OWLAnnotation> {
         return !annotations.isEmpty();
     }
 
-    //TODO when processing annotations on OWLOntology:: add axiom, needs optimizing
+    // TODO when processing annotations on OWLOntology:: add axiom, needs
+    // optimizing
     @Override
     public Set<OWLAnnotation> getAnnotations() {
         if (annotations.isEmpty()) {
@@ -91,13 +89,11 @@ CollectionContainer<OWLAnnotation> {
 
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
-        final int size=annotations.size();
-        for(int i=0;i<size;i++) {
-
+        final int size = annotations.size();
+        for (int i = 0; i < size; i++) {
             t.visitItem(annotations.get(i));
         }
     }
-
 
     @Override
     public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
@@ -116,8 +112,7 @@ CollectionContainer<OWLAnnotation> {
 
     @Override
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-        return getAxiomWithoutAnnotations().equals(
-                axiom.getAxiomWithoutAnnotations());
+        return getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
     }
 
     @Override
@@ -135,14 +130,12 @@ CollectionContainer<OWLAnnotation> {
         return types.contains(getAxiomType());
     }
 
-    /**
-     * A convenience method for implementation that returns a set containing the
+    /** A convenience method for implementation that returns a set containing the
      * annotations on this axiom plus the annotations in the specified set.
-     *
+     * 
      * @param annos
      *            The annotations to add to the annotations on this axiom
-     * @return The annotations
-     */
+     * @return The annotations */
     protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
         merged.addAll(annotations);

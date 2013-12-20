@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -44,13 +43,20 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 
-@SuppressWarnings("javadoc")
+/** @author ignazio */
 public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom> {
-
     private static final long serialVersionUID = 30406L;
 
-    public ClassAxiomByClassPointer(
-            AxiomType<?> t, OWLAxiomVisitorEx<?> v, boolean initialized, Internals i) {
+    /** @param t
+     *            axiom type
+     * @param v
+     *            visitor
+     * @param initialized
+     *            initialized
+     * @param i
+     *            internals */
+    public ClassAxiomByClassPointer(AxiomType<?> t, OWLAxiomVisitorEx<?> v,
+            boolean initialized, Internals i) {
         super(t, v, initialized, i);
     }
 
@@ -62,8 +68,7 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
         super.init();
         // special case: this map needs other maps to be initialized first
         for (OWLClass c : i.getKeyset(i.getEquivalentClassesAxiomsByClass())) {
-            for (OWLClassAxiom ax : i.getValues(
-                    i.getEquivalentClassesAxiomsByClass(), c)) {
+            for (OWLClassAxiom ax : i.getValues(i.getEquivalentClassesAxiomsByClass(), c)) {
                 put(c, ax);
             }
         }
@@ -73,14 +78,12 @@ public class ClassAxiomByClassPointer extends MapPointer<OWLClass, OWLClassAxiom
             }
         }
         for (OWLClass c : i.getKeyset(i.getDisjointClassesAxiomsByClass())) {
-            for (OWLClassAxiom ax : i.getValues(
-                    i.getDisjointClassesAxiomsByClass(), c)) {
+            for (OWLClassAxiom ax : i.getValues(i.getDisjointClassesAxiomsByClass(), c)) {
                 put(c, ax);
             }
         }
         for (OWLClass c : i.getKeyset(i.getDisjointUnionAxiomsByClass())) {
-            for (OWLClassAxiom ax : i.getValues(
-                    i.getDisjointUnionAxiomsByClass(), c)) {
+            for (OWLClassAxiom ax : i.getValues(i.getDisjointUnionAxiomsByClass(), c)) {
                 put(c, ax);
             }
         }

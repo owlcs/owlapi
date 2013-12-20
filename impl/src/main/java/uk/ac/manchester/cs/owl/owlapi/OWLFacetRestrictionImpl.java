@@ -47,15 +47,17 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Jan-2007 */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
     private static final long serialVersionUID = 30406L;
     private final OWLFacet facet;
     private final OWLLiteral facetValue;
 
-    @SuppressWarnings("javadoc")
+    /** @param facet
+     *            facet
+     * @param facetValue
+     *            value */
     public OWLFacetRestrictionImpl(OWLFacet facet, OWLLiteral facetValue) {
         super();
         this.facet = facet;

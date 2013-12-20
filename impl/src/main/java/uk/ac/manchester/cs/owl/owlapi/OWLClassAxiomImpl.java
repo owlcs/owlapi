@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -44,17 +43,15 @@ import java.util.Collection;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 05-Dec-2006 */
+public abstract class OWLClassAxiomImpl extends OWLLogicalAxiomImpl implements
+        OWLClassAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 05-Dec-2006 */
-public abstract class OWLClassAxiomImpl extends OWLLogicalAxiomImpl implements OWLClassAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	protected OWLClassAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
+    /** @param annotations
+     *            annotations on the axiom */
+    protected OWLClassAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }
 }

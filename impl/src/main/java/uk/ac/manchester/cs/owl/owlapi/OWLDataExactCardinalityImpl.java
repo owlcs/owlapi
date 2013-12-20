@@ -52,19 +52,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl
         implements OWLDataExactCardinality {
     private static final long serialVersionUID = 30406L;
 
+    /** @param property
+     *            property
+     * @param cardinality
+     *            cardinality
+     * @param filler
+     *            filler */
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
             int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
+    /** @param property
+     *            property
+     * @param cardinality
+     *            cardinality */
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
         super(property, cardinality, OWL2DatatypeImpl
                 .getDatatype(OWL2Datatype.RDFS_LITERAL));

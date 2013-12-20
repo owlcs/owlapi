@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -54,26 +53,23 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
+    private static final long serialVersionUID = 30406L;
+    private final List<SWRLDArgument> args;
 
-
-	private static final long serialVersionUID = 30406L;
-	private final List<SWRLDArgument> args;
-
-
-    @SuppressWarnings("javadoc")
-	public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
+    /** @param predicate
+     *            predicate
+     * @param args
+     *            builtin argument */
+    public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
         this.args = new ArrayList<SWRLDArgument>(args);
     }
 
     @Override
-	public IRI getPredicate() {
+    public IRI getPredicate() {
         return (IRI) super.getPredicate();
     }
 
@@ -87,18 +83,15 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
         return new ArrayList<SWRLDArgument>(args);
     }
 
-
     @Override
     public Collection<SWRLArgument> getAllArguments() {
         return new ArrayList<SWRLArgument>(args);
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(SWRLObjectVisitor visitor) {
@@ -110,15 +103,13 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -126,12 +117,12 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
             return false;
         }
         SWRLBuiltInAtom other = (SWRLBuiltInAtom) obj;
-        return other.getPredicate().equals(getPredicate()) && other.getArguments().equals(getArguments());
+        return other.getPredicate().equals(getPredicate())
+                && other.getArguments().equals(getArguments());
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         SWRLBuiltInAtom other = (SWRLBuiltInAtom) object;
         int diff = getPredicate().compareTo(other.getPredicate());
         if (diff != 0) {

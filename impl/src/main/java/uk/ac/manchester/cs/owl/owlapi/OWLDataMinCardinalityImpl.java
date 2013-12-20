@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -49,33 +48,39 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
+        implements OWLDataMinCardinality {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl implements OWLDataMinCardinality {
-
-	private static final long serialVersionUID = 30406L;
-
-
-	@SuppressWarnings("javadoc")
-    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+    /** @param property
+     *            property
+     * @param cardinality
+     *            cardinality
+     * @param filler
+     *            filler */
+    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property, int cardinality,
+            OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
-    @SuppressWarnings("javadoc")
+    /** @param property
+     *            property
+     * @param cardinality
+     *            cardinality */
     public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
         this(property, cardinality, OWL2DatatypeImpl
                 .getDatatype(OWL2Datatype.RDFS_LITERAL));
-	}
+    }
+
     @Override
     public ClassExpressionType getClassExpressionType() {
         return ClassExpressionType.DATA_MIN_CARDINALITY;
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataMinCardinality;
         }
@@ -96,7 +101,6 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

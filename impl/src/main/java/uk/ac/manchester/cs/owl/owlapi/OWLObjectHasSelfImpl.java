@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -49,16 +48,16 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression> implements OWLObjectHasSelf {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLObjectHasSelfImpl
+        extends
+        OWLRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLObjectPropertyExpression>
+        implements OWLObjectHasSelf {
     private static final long serialVersionUID = 30406L;
 
-    @SuppressWarnings("javadoc")
+    /** @param property
+     *            self property */
     public OWLObjectHasSelfImpl(OWLObjectPropertyExpression property) {
         super(property);
     }
@@ -100,7 +99,6 @@ public class OWLObjectHasSelfImpl extends OWLRestrictionImpl<OWLClassExpression,
     public <O> O accept(OWLClassExpressionVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

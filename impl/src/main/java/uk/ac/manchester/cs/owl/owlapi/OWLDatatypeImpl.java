@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -70,36 +69,31 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final IRI iri;
-
+    private static final long serialVersionUID = 30406L;
+    private final IRI iri;
     private final boolean top;
-
     private final boolean builtin;
-    @SuppressWarnings("javadoc")
-    public OWLDatatypeImpl( IRI iri) {
+
+    /** @param iri
+     *            datatype iri */
+    public OWLDatatypeImpl(IRI iri) {
         super();
         this.iri = iri;
         top = iri.equals(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-        builtin = top || OWL2Datatype.isBuiltIn(iri) || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+        builtin = top || OWL2Datatype.isBuiltIn(iri)
+                || iri.equals(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
-	public boolean isTopEntity() {
+    public boolean isTopEntity() {
         return top;
     }
 
     @Override
-	public boolean isBottomEntity() {
+    public boolean isBottomEntity() {
         return false;
     }
 
@@ -146,9 +140,9 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     @Override
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
-            throw new OWLRuntimeException("Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
-        }
-        else {
+            throw new OWLRuntimeException(
+                    "Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
+        } else {
             return OWL2Datatype.getDatatype(iri);
         }
     }
@@ -183,92 +177,81 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         return true;
     }
 
-
     @Override
     public boolean isTopDatatype() {
         return top;
     }
 
     @Override
-	public boolean equals(Object obj) {
-		if (super.equals(obj) && obj instanceof OWLDatatype) {
-			return ((OWLDatatype) obj).getIRI().equals(getIRI());
-		}
+    public boolean equals(Object obj) {
+        if (super.equals(obj) && obj instanceof OWLDatatype) {
+            return ((OWLDatatype) obj).getIRI().equals(getIRI());
+        }
         return false;
     }
-
 
     @Override
     public Set<OWLAnnotation> getAnnotations(OWLOntology ontology) {
         return ImplUtils.getAnnotations(this, Collections.singleton(ontology));
     }
 
-
     @Override
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+            OWLOntology ontology) {
         return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
     }
 
-
     @Override
-    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology, OWLAnnotationProperty annotationProperty) {
-        return ImplUtils.getAnnotations(this, annotationProperty, Collections.singleton(ontology));
+    public Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
+            OWLAnnotationProperty annotationProperty) {
+        return ImplUtils.getAnnotations(this, annotationProperty,
+                Collections.singleton(ontology));
     }
-
 
     @Override
     public OWLClass asOWLClass() {
         throw new OWLRuntimeException("Not an OWLClass!");
     }
 
-
     @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not a data property!");
     }
-
 
     @Override
     public OWLDatatype asOWLDatatype() {
         return this;
     }
 
-
     @Override
     public OWLNamedIndividual asOWLNamedIndividual() {
         throw new OWLRuntimeException("Not an individual!");
     }
-
 
     @Override
     public OWLObjectProperty asOWLObjectProperty() {
         throw new OWLRuntimeException("Not an object property");
     }
 
-
     @Override
     public boolean isOWLClass() {
         return false;
     }
-
 
     @Override
     public boolean isOWLDataProperty() {
         return false;
     }
 
-
     @Override
     public boolean isOWLDatatype() {
         return true;
     }
 
-
     @Override
     public boolean isOWLNamedIndividual() {
         return false;
     }
-
 
     @Override
     public boolean isOWLObjectProperty() {
@@ -290,7 +273,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLDataVisitor visitor) {
         visitor.visit(this);
@@ -301,12 +283,10 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLNamedObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLEntityVisitorEx<O> visitor) {
@@ -317,7 +297,6 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public <O> O accept(OWLDataVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
@@ -335,10 +314,9 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((OWLDatatype) object).getIRI());
     }
-
 
     @Override
     public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology) {
@@ -346,7 +324,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom>
+            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 }

@@ -36,31 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
-
-	private static final long serialVersionUID = 30406L;
-	final SWRLPredicate predicate;
+    private static final long serialVersionUID = 30406L;
+    final SWRLPredicate predicate;
 
     protected SWRLAtomImpl(SWRLPredicate predicate) {
         super();
         this.predicate = predicate;
     }
 
-
     @Override
     public SWRLPredicate getPredicate() {
         return predicate;
     }
-
 }

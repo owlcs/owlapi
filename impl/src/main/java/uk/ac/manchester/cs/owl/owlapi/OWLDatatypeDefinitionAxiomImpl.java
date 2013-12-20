@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -54,22 +53,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 24-Mar-2009
- */
-public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLDatatypeDefinitionAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLDatatype datatype;
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 24-Mar-2009 */
+public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
+        OWLDatatypeDefinitionAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLDatatype datatype;
     private final OWLDataRange dataRange;
 
-    @SuppressWarnings("javadoc")
-    public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange, Collection<? extends OWLAnnotation> annotations) {
+    /** @param datatype
+     *            datatype
+     * @param dataRange
+     *            datarange
+     * @param annotations
+     *            annotations on the axiom */
+    public OWLDatatypeDefinitionAxiomImpl(OWLDatatype datatype, OWLDataRange dataRange,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.datatype = datatype;
         this.dataRange = dataRange;
@@ -95,24 +94,20 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         return datatype;
     }
 
-
     @Override
     public OWLDataRange getDataRange() {
         return dataRange;
     }
-
 
     @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public boolean isLogicalAxiom() {
@@ -129,21 +124,18 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         return AxiomType.DATATYPE_DEFINITION;
     }
 
-
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) object;
         int diff = getDatatype().compareTo(other.getDatatype());
         if (diff != 0) {
@@ -152,17 +144,18 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements OWLD
         return getDataRange().compareTo(other.getDataRange());
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
-        if (!(obj instanceof OWLDatatypeDefinitionAxiom)) {
-            return false;
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
+            if (!(obj instanceof OWLDatatypeDefinitionAxiom)) {
+                return false;
+            }
+            OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) obj;
+            return datatype.equals(other.getDatatype())
+                    && dataRange.equals(other.getDataRange());
         }
-        OWLDatatypeDefinitionAxiom other = (OWLDatatypeDefinitionAxiom) obj;
-        return datatype.equals(other.getDatatype()) && dataRange.equals(other.getDataRange());
-    	}
-    	return false;
+        return false;
     }
 }

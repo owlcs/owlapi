@@ -36,27 +36,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
-@SuppressWarnings("javadoc")
-public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> {
 
+/** @author ignazio */
+public abstract class OWLQuantifiedDataRestrictionImpl
+        extends
+        OWLQuantifiedRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> {
+    private static final long serialVersionUID = 30406L;
 
-	private static final long serialVersionUID = 30406L;
-
-	public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property, OWLDataRange filler) {
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
+    public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property,
+            OWLDataRange filler) {
         super(property, filler);
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
-        @SuppressWarnings("unchecked") OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> other = (OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange>) object;
-        OWLDataPropertyExpression p1 = this.getProperty();
+    protected int compareObjectOfSameType(OWLObject object) {
+        @SuppressWarnings("unchecked")
+        OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> other = (OWLQuantifiedRestriction<OWLDataRange, OWLDataPropertyExpression, OWLDataRange>) object;
+        OWLDataPropertyExpression p1 = getProperty();
         OWLDataPropertyExpression p2 = other.getProperty();
         int diff = p1.compareTo(p2);
         if (diff != 0) {
@@ -64,5 +70,4 @@ public abstract class OWLQuantifiedDataRestrictionImpl extends OWLQuantifiedRest
         }
         return getFiller().compareTo(other.getFiller());
     }
-
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -48,17 +47,15 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements OWLObjectComplementOf {
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements
+        OWLObjectComplementOf {
+    private static final long serialVersionUID = 30406L;
+    private final OWLClassExpression operand;
 
-
-	private static final long serialVersionUID = 30406L;
-	private final OWLClassExpression operand;
-
-    @SuppressWarnings("javadoc")
+    /** @param operand
+     *            class to complement */
     public OWLObjectComplementOfImpl(OWLClassExpression operand) {
         super();
         this.operand = operand;
@@ -74,15 +71,13 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
         return !operand.isAnonymous();
     }
 
-
     @Override
     public OWLClassExpression getOperand() {
         return operand;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLObjectComplementOf)) {
                 return false;
@@ -92,12 +87,10 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
         return false;
     }
 
-
     @Override
     public void accept(OWLClassExpressionVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
@@ -109,14 +102,13 @@ public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl i
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLObjectComplementOf other = (OWLObjectComplementOf) object;
         return operand.compareTo(other.getOperand());
     }

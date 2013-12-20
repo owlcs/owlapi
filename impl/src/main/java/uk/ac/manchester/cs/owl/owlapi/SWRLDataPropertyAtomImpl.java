@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
@@ -48,23 +47,25 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
+public class SWRLDataPropertyAtomImpl extends
+        SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007 */
-public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-	public SWRLDataPropertyAtomImpl(OWLDataPropertyExpression predicate, SWRLIArgument arg0, SWRLDArgument arg1) {
+    /** @param predicate
+     *            predicate
+     * @param arg0
+     *            subject
+     * @param arg1
+     *            object */
+    public SWRLDataPropertyAtomImpl(OWLDataPropertyExpression predicate,
+            SWRLIArgument arg0, SWRLDArgument arg1) {
         super(predicate, arg0, arg1);
     }
 
     @Override
-	public OWLDataPropertyExpression getPredicate() {
+    public OWLDataPropertyExpression getPredicate() {
         return (OWLDataPropertyExpression) super.getPredicate();
     }
 
@@ -72,7 +73,6 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(SWRLObjectVisitor visitor) {
@@ -84,14 +84,13 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -99,6 +98,8 @@ public class SWRLDataPropertyAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, 
             return false;
         }
         SWRLDataPropertyAtom other = (SWRLDataPropertyAtom) obj;
-        return other.getPredicate().equals(getPredicate()) && other.getFirstArgument().equals(getFirstArgument()) && other.getSecondArgument().equals(getSecondArgument());
+        return other.getPredicate().equals(getPredicate())
+                && other.getFirstArgument().equals(getFirstArgument())
+                && other.getSecondArgument().equals(getSecondArgument());
     }
 }

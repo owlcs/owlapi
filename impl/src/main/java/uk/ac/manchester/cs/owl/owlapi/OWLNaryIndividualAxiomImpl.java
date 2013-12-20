@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
@@ -51,23 +50,22 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
+        OWLNaryIndividualAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final Set<OWLIndividual> individuals;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements OWLNaryIndividualAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-	private final Set<OWLIndividual> individuals;
-
-    @SuppressWarnings("javadoc")
-    public OWLNaryIndividualAxiomImpl(Set<? extends OWLIndividual> individuals, Collection<? extends OWLAnnotation> annotations) {
+    /** @param individuals
+     *            individuals
+     * @param annotations
+     *            annotations on the axiom */
+    public OWLNaryIndividualAxiomImpl(Set<? extends OWLIndividual> individuals,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.individuals = new TreeSet<OWLIndividual>(individuals);
     }
-
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
@@ -80,7 +78,7 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLNaryIndividualAxiom)) {
                 return false;
@@ -90,9 +88,9 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
         return false;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(individuals, ((OWLNaryIndividualAxiom) object).getIndividuals());
+    protected int compareObjectOfSameType(OWLObject object) {
+        return compareSets(individuals,
+                ((OWLNaryIndividualAxiom) object).getIndividuals());
     }
 }

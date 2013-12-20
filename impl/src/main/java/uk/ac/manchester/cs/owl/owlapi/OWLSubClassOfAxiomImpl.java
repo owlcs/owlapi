@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -53,28 +52,28 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubClassOfAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLClassExpression subClass;
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
+        OWLSubClassOfAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLClassExpression subClass;
     private final OWLClassExpression superClass;
 
-    @SuppressWarnings("javadoc")
-    public OWLSubClassOfAxiomImpl(OWLClassExpression subClass, OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
+    /** @param subClass
+     *            subclass
+     * @param superClass
+     *            superclass
+     * @param annotations
+     *            annotations */
+    public OWLSubClassOfAxiomImpl(OWLClassExpression subClass,
+            OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subClass = subClass;
         this.superClass = superClass;
     }
 
-    //XXX not in the interface
+    // XXX not in the interface
     @SuppressWarnings("javadoc")
     @Deprecated
     public Set<OWLClassExpression> getClassExpressions() {
@@ -83,7 +82,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         classExpressions.add(superClass);
         return classExpressions;
     }
-    //XXX not in the interface
+
+    // XXX not in the interface
     @SuppressWarnings("javadoc")
     @Deprecated
     public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
@@ -106,7 +106,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         }
         return new OWLSubClassOfAxiomImpl(subClass, superClass, NO_ANNOTATIONS);
     }
-    //XXX not in the interface
+
+    // XXX not in the interface
     @SuppressWarnings("javadoc")
     @Deprecated
     public boolean contains(OWLClassExpression ce) {
@@ -118,31 +119,29 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         return subClass;
     }
 
-
     @Override
     public OWLClassExpression getSuperClass() {
         return superClass;
     }
-
 
     @Override
     public boolean isGCI() {
         return subClass.isAnonymous();
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-    	if (!(obj instanceof OWLSubClassOfAxiom)) {
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OWLSubClassOfAxiom)) {
             return false;
         }
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
-
-        OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
-        return other.getSubClass().equals(subClass) && other.getSuperClass().equals(superClass);
-    	}
-    	return false;
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
+            OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) obj;
+            return other.getSubClass().equals(subClass)
+                    && other.getSuperClass().equals(superClass);
+        }
+        return false;
     }
 
     @Override
@@ -160,7 +159,6 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
@@ -171,9 +169,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements OWLSubC
         return AxiomType.SUBCLASS_OF;
     }
 
-
     @Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLSubClassOfAxiom other = (OWLSubClassOfAxiom) object;
         int diff = subClass.compareTo(other.getSubClass());
         if (diff != 0) {

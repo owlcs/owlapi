@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -53,17 +52,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
+        OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
+        implements OWLNegativeObjectPropertyAssertionAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual> implements OWLNegativeObjectPropertyAssertionAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject, OWLObjectPropertyExpression property, OWLIndividual object, Set<? extends OWLAnnotation> annotations) {
+    /** @param subject
+     *            subject
+     * @param property
+     *            property
+     * @param object
+     *            object
+     * @param annotations
+     *            annotations */
+    public OWLNegativeObjectPropertyAssertionAxiomImpl(OWLIndividual subject,
+            OWLObjectPropertyExpression property, OWLIndividual object,
+            Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -77,7 +83,8 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
     }
 
     @Override
-    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(),
                 getProperty(), getObject(), mergeAnnos(annotations));
     }
@@ -95,8 +102,9 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
     }
 
     @Override
-	public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLNegativeObjectPropertyAssertionAxiom;
+    public boolean equals(Object obj) {
+        return super.equals(obj)
+                && obj instanceof OWLNegativeObjectPropertyAssertionAxiom;
     }
 
     @Override
@@ -113,7 +121,6 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends OWLIndividualRe
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

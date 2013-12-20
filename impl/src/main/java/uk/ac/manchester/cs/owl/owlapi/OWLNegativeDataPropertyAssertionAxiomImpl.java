@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collections;
@@ -54,17 +53,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLNegativeDataPropertyAssertionAxiomImpl extends OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral> implements OWLNegativeDataPropertyAssertionAxiom {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLNegativeDataPropertyAssertionAxiomImpl extends
+        OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
+        implements OWLNegativeDataPropertyAssertionAxiom {
     private static final long serialVersionUID = 30406L;
 
-    @SuppressWarnings("javadoc")
-    public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject, OWLDataPropertyExpression property, OWLLiteral object, Set<? extends OWLAnnotation> annotations) {
+    /** @param subject
+     *            subject
+     * @param property
+     *            property
+     * @param object
+     *            object
+     * @param annotations
+     *            annotations */
+    public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject,
+            OWLDataPropertyExpression property, OWLLiteral object,
+            Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
 
@@ -85,7 +91,8 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends OWLIndividualRela
     }
 
     @Override
-    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
                 getObject(), mergeAnnos(annotations));
     }
@@ -114,7 +121,6 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends OWLIndividualRela
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {

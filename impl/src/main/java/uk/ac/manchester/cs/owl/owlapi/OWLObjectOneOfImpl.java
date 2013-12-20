@@ -53,15 +53,15 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements
         OWLObjectOneOf {
     private static final long serialVersionUID = 30406L;
     private final Set<OWLIndividual> values;
 
-    @SuppressWarnings("javadoc")
+    /** @param values
+     *            values for oneof */
     public OWLObjectOneOfImpl(Set<? extends OWLIndividual> values) {
         this.values = new HashSet<OWLIndividual>(values);
     }
@@ -87,9 +87,9 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
             return this;
         }
         Set<OWLClassExpression> ops = new HashSet<OWLClassExpression>();
-            for (OWLIndividual ind : values) {
+        for (OWLIndividual ind : values) {
             ops.add(new OWLObjectOneOfImpl(Collections.singleton(ind)));
-            }
+        }
         return new OWLObjectUnionOfImpl(ops);
     }
 

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -46,44 +45,43 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
+        OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLObjectPropertyExpression property;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-	private final OWLObjectPropertyExpression property;
-
-    @SuppressWarnings("javadoc")
-    public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property, Collection<? extends OWLAnnotation> annotations) {
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
+    public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.property = property;
     }
-
 
     @Override
     public OWLObjectPropertyExpression getProperty() {
         return property;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (!(obj instanceof OWLObjectPropertyCharacteristicAxiom)) {
                 return false;
             }
-            return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty().equals(property);
+            return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty().equals(
+                    property);
         }
         return false;
     }
 
-
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
-        return property.compareTo(((OWLObjectPropertyCharacteristicAxiom) object).getProperty());
+    protected int compareObjectOfSameType(OWLObject object) {
+        return property.compareTo(((OWLObjectPropertyCharacteristicAxiom) object)
+                .getProperty());
     }
 }

@@ -36,32 +36,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
-@SuppressWarnings("javadoc")
-public abstract class OWLQuantifiedObjectRestrictionImpl extends
-		OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {
 
-	private static final long serialVersionUID = 30406L;
+/** @author ignazio */
+public abstract class OWLQuantifiedObjectRestrictionImpl
+        extends
+        OWLQuantifiedRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> {
+    private static final long serialVersionUID = 30406L;
 
-	public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property, OWLClassExpression filler) {
-		super(property, filler);
-	}
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
+    public OWLQuantifiedObjectRestrictionImpl(OWLObjectPropertyExpression property,
+            OWLClassExpression filler) {
+        super(property, filler);
+    }
 
-	@Override
-	protected int compareObjectOfSameType(OWLObject object) {
+    @Override
+    protected int compareObjectOfSameType(OWLObject object) {
         @SuppressWarnings("unchecked")
-		OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> other = (OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>) object;
+        OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression> other = (OWLQuantifiedRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLClassExpression>) object;
         int diff = getProperty().compareTo(other.getProperty());
-        if(diff != 0) {
+        if (diff != 0) {
             return diff;
         }
         return getFiller().compareTo(other.getFiller());
     }
-
 }

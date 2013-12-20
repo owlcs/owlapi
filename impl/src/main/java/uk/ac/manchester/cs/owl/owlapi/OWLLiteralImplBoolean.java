@@ -49,20 +49,18 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
-
     private static final long serialVersionUID = 30406L;
     private final boolean literal;
     private final OWLDatatype datatype;
 
-    @SuppressWarnings("javadoc")
+    /** @param literal
+     *            literal value */
     public OWLLiteralImplBoolean(boolean literal) {
         super();
-        datatype= OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BOOLEAN);
+        datatype = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BOOLEAN);
         this.literal = literal;
         hashcode = getHashCode();
     }
@@ -76,8 +74,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     private int getHashCode() {
         int hashCode = 277;
-            hashCode = hashCode * 37 + getDatatype().hashCode();
-        hashCode = hashCode * 37 +  (literal?  65536:0);
+        hashCode = hashCode * 37 + getDatatype().hashCode();
+        hashCode = hashCode * 37 + (literal ? 65536 : 0);
         return hashCode;
     }
 

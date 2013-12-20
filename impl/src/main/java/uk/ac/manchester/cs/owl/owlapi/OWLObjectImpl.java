@@ -68,19 +68,18 @@ import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006 */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 30406L;
-    /** a convenience reference for an empty annotation set, saves on typing */
+    /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .<OWLAnnotation> emptySet();
     private int hashCode = 0;
     private transient WeakReference<Set<OWLEntity>> signature = null;
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons;
 
-    /** */
+    /** default constructor */
     public OWLObjectImpl() {}
 
     // XXX there should be no datafactory here at all
@@ -88,16 +87,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static OWLDataFactory f = new OWLDataFactoryImpl(false, false);
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
-    // /** @return this object's data factory */
-    // @Deprecated
-    // public static OWLDataFactory getOWLDataFactory() {
-    // return f;
-    // }
-    // @SuppressWarnings("javadoc")
-    // @Deprecated
-    // public static void setOWLDataFactory(OWLDataFactory factory) {
-    // f = factory;
-    // }
+
     static <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
         if (entityType.equals(EntityType.CLASS)) {
             return (E) new OWLClassImpl(iri);
@@ -216,7 +206,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     }
 
     @Override
-    final public int compareTo(OWLObject o) {
+    public int compareTo(OWLObject o) {
         OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
         int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
         int otherTypeIndex = typeIndexProvider.getTypeIndex(o);

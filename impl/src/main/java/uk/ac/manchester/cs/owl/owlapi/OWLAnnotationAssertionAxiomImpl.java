@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Collection;
@@ -54,25 +53,26 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2006 */
-@SuppressWarnings("javadoc")
-public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWLAnnotationAssertionAxiom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	private final OWLAnnotationSubject subject;
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Nov-2006 */
+public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
+        OWLAnnotationAssertionAxiom {
+    private static final long serialVersionUID = 30406L;
+    private final OWLAnnotationSubject subject;
     private final OWLAnnotationProperty property;
-
     private final OWLAnnotationValue value;
 
-
-	public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject, OWLAnnotationProperty property, OWLAnnotationValue value, Collection<? extends OWLAnnotation> annotations) {
+    /** @param subject
+     *            subject for axiom
+     * @param property
+     *            annotation property
+     * @param value
+     *            annotation value
+     * @param annotations
+     *            annotations on the axiom */
+    public OWLAnnotationAssertionAxiomImpl(OWLAnnotationSubject subject,
+            OWLAnnotationProperty property, OWLAnnotationValue value,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subject = subject;
         this.property = property;
@@ -91,8 +91,8 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     /** Determines if this annotation assertion deprecates the IRI that is the
      * subject of the annotation.
      * 
-     * @return {@code true} if this annotation assertion deprecates the
-     *         subject IRI of the assertion, otherwise {@code false}.
+     * @return {@code true} if this annotation assertion deprecates the subject
+     *         IRI of the assertion, otherwise {@code false}.
      * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation() */
     @Override
     public boolean isDeprecatedIRIAssertion() {
@@ -155,7 +155,6 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         visitor.visit(this);
     }
 
-
     @Override
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
@@ -165,7 +164,6 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
     public <O> O accept(OWLAxiomVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
-
 
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
@@ -177,19 +175,19 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements OWL
         return AxiomType.ANNOTATION_ASSERTION;
     }
 
-
     @Override
-	public boolean equals(Object obj) {
-    	if(super.equals(obj)) {
-    		// superclass is responsible for null, identity, owlaxiom type and annotations
+    public boolean equals(Object obj) {
+        if (super.equals(obj)) {
+            // superclass is responsible for null, identity, owlaxiom type and
+            // annotations
             if (!(obj instanceof OWLAnnotationAssertionAxiom)) {
                 return false;
             }
             OWLAnnotationAssertionAxiom other = (OWLAnnotationAssertionAxiom) obj;
-            return subject.equals(other.getSubject()) && property.equals(other.getProperty()) && value.equals(other.getValue());
-    	}
-    	return false;
+            return subject.equals(other.getSubject())
+                    && property.equals(other.getProperty())
+                    && value.equals(other.getValue());
+        }
+        return false;
     }
-
-
 }

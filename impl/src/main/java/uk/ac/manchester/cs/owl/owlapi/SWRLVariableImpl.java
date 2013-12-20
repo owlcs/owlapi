@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -47,16 +46,11 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
-
-
-	private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 30406L;
     private final IRI iri;
-
 
     protected SWRLVariableImpl(IRI iri) {
         super();
@@ -68,9 +62,8 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
         return iri;
     }
 
-
     @Override
-	final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
     }
 
@@ -103,6 +96,6 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
             return false;
         }
         SWRLVariable other = (SWRLVariable) obj;
-        return other.getIRI().equals(this.getIRI());
+        return other.getIRI().equals(getIRI());
     }
 }

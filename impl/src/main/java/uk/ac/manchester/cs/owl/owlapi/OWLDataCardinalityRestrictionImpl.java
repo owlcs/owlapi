@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataCardinalityRestriction;
@@ -44,20 +43,18 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public abstract class OWLDataCardinalityRestrictionImpl
+        extends
+        OWLCardinalityRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange>
+        implements OWLDataCardinalityRestriction {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> implements OWLDataCardinalityRestriction {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property, int cardinality, OWLDataRange filler) {
+    protected OWLDataCardinalityRestrictionImpl(OWLDataPropertyExpression property,
+            int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
     }
-
 
     @Override
     public boolean isQualified() {
@@ -76,7 +73,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends OWLCardinalityRe
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataCardinalityRestriction;
         }

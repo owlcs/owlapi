@@ -52,17 +52,20 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009 */
 public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationPropertyDomainAxiom {
     private static final long serialVersionUID = 30406L;
     private final OWLAnnotationProperty property;
     private final IRI domain;
 
+    /** @param property
+     *            property
+     * @param domain
+     *            domain
+     * @param annotations
+     *            annotations on the axiom */
     public OWLAnnotationPropertyDomainAxiomImpl(OWLAnnotationProperty property,
             IRI domain, Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

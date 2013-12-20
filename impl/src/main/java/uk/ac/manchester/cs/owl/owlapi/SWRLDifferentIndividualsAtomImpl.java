@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -48,27 +47,29 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007 */
+public class SWRLDifferentIndividualsAtomImpl extends
+        SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
+        SWRLDifferentIndividualsAtom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007 */
-public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements SWRLDifferentIndividualsAtom {
-
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-	public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0, SWRLIArgument arg1) {
-        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM.getIRI()), arg0, arg1);
+    /** @param dataFactory
+     *            data factory
+     * @param arg0
+     *            first individual
+     * @param arg1
+     *            second individual */
+    public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory,
+            SWRLIArgument arg0, SWRLIArgument arg1) {
+        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM
+                .getIRI()), arg0, arg1);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(SWRLObjectVisitor visitor) {
@@ -80,14 +81,13 @@ public class SWRLDifferentIndividualsAtomImpl extends SWRLBinaryAtomImpl<SWRLIAr
         return visitor.visit(this);
     }
 
-
     @Override
     public <O> O accept(OWLObjectVisitorEx<O> visitor) {
         return visitor.visit(this);
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }

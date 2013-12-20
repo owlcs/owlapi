@@ -51,15 +51,17 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDataHasValueImpl extends
         OWLValueRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLLiteral>
         implements OWLDataHasValue {
     private static final long serialVersionUID = 30406L;
 
+    /** @param property
+     *            property
+     * @param value
+     *            value */
     public OWLDataHasValueImpl(OWLDataPropertyExpression property, OWLLiteral value) {
         super(property, value);
     }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -46,50 +45,44 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Nov-2006 */
 public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
-
-
-	private static final long serialVersionUID = 30406L;
-	private OWLOntologyManager ontologyManager;
+    private static final long serialVersionUID = 30406L;
+    private OWLOntologyManager ontologyManager;
 
     @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
-    	if (owlOntologyManager == null) {
+        if (owlOntologyManager == null) {
             throw new IllegalArgumentException("ontologyManager cannot be null");
         }
         ontologyManager = owlOntologyManager;
     }
-
 
     @Override
     public OWLOntologyManager getOWLOntologyManager() {
         return ontologyManager;
     }
 
-
     @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return true;
     }
 
-    /**
-     * Creates an empty ontology that a concrete representation can be
-     * parsed into.  Subclasses can override this method to change the implementation
-     * of the ontology.
-     * @param documentIRI the document IRI
-     * @param ontologyID the ontology id
-     * @param handler the creation handler
-     */
-
+    /** Creates an empty ontology that a concrete representation can be parsed
+     * into. Subclasses can override this method to change the implementation of
+     * the ontology.
+     * 
+     * @param documentIRI
+     *            the document IRI
+     * @param ontologyID
+     *            the ontology id
+     * @param handler
+     *            the creation handler */
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI, OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
+            OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
         OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);
-
         handler.ontologyCreated(ont);
         return ont;
     }

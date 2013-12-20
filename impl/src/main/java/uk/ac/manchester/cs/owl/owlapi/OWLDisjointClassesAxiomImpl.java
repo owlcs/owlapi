@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.Arrays;
@@ -54,17 +53,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
+public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
+        OWLDisjointClassesAxiom {
+    private static final long serialVersionUID = 30406L;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
-public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements OWLDisjointClassesAxiom {
-
-	private static final long serialVersionUID = 30406L;
-
-	@SuppressWarnings("javadoc")
-    public OWLDisjointClassesAxiomImpl(Set<? extends OWLClassExpression> classExpressions, Set<? extends OWLAnnotation> annotations) {
+    /** @param classExpressions
+     *            disjoint classes
+     * @param annotations
+     *            annotations */
+    public OWLDisjointClassesAxiomImpl(
+            Set<? extends OWLClassExpression> classExpressions,
+            Set<? extends OWLAnnotation> annotations) {
         super(classExpressions, annotations);
     }
 
@@ -83,7 +84,7 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     }
 
     @Override
-	public boolean equals(Object obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj) && obj instanceof OWLDisjointClassesAxiom;
     }
 
@@ -91,7 +92,6 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
     public void accept(OWLAxiomVisitor visitor) {
         visitor.visit(this);
     }
-
 
     @Override
     public void accept(OWLObjectVisitor visitor) {

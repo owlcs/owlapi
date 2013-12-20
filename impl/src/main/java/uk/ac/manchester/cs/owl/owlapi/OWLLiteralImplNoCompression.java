@@ -53,9 +53,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 30406L;
     static final String utf_8 = "UTF-8";
@@ -79,8 +78,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     /** @param bytes
+     *            actual literal form
      * @param lang
-     * @param datatype */
+     *            language for literal, can be null
+     * @param datatype
+     *            datatype for literal */
     public OWLLiteralImplNoCompression(byte[] bytes, String lang, OWLDatatype datatype) {
         super();
         literal = new byte[bytes.length];
@@ -123,12 +125,10 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         }
     }
 
-
     @Override
     public boolean hasLang() {
         return !lang.equals("");
     }
-
 
     @Override
     public int parseInteger() throws NumberFormatException {
@@ -182,7 +182,6 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     public double parseDouble() throws NumberFormatException {
         return Double.parseDouble(getLiteral());
     }
-
 
     @Override
     public float parseFloat() throws NumberFormatException {

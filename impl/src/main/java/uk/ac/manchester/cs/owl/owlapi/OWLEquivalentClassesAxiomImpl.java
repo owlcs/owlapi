@@ -59,15 +59,17 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
         OWLEquivalentClassesAxiom, Serializable {
     private static final long serialVersionUID = 30406L;
     private transient WeakReference<Set<OWLClass>> namedClasses = null;
 
-    @SuppressWarnings("javadoc")
+    /** @param classExpressions
+     *            equivalent classes
+     * @param annotations
+     *            annotations */
     public OWLEquivalentClassesAxiomImpl(
             Set<? extends OWLClassExpression> classExpressions,
             Collection<? extends OWLAnnotation> annotations) {

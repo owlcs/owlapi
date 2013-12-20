@@ -43,9 +43,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Oct-2006
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
  * @param <R>
  *            the range
  * @param <P>
@@ -90,7 +89,7 @@ public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, 
 
     @SuppressWarnings("unchecked")
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLCardinalityRestriction<R, P, F> other = (OWLCardinalityRestriction<R, P, F>) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {
