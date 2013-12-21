@@ -46,24 +46,34 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006
+ * @param <O>
+ *            handled type */
 public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<O> {
     private OWLXMLParserHandler handler;
     private OWLElementHandler<?> parentHandler;
     private StringBuilder sb;
     private String elementName;
 
+    /** @param handler
+     *            owlxml handler */
     protected AbstractOWLElementHandler(OWLXMLParserHandler handler) {
         this.handler = handler;
     }
 
+    /** @return loader config */
     public OWLOntologyLoaderConfiguration getConfiguration() {
         return handler.getConfiguration();
     }
 
+    /** @param localName
+     *            localName
+     * @param value
+     *            value
+     * @return iri
+     * @throws OWLParserException
+     *             if an error is raised */
     public IRI getIRIFromAttribute(String localName, String value)
             throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName())) {
@@ -79,6 +89,13 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
                 getColumnNumber(), OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
     }
 
+    /** @param elementLocalName
+     *            elementLocalName
+     * @param textContent
+     *            textContent
+     * @return iri
+     * @throws OWLParserException
+     *             if an error is raised */
     public IRI getIRIFromElement(String elementLocalName, String textContent)
             throws OWLParserException {
         if (elementLocalName.equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
@@ -205,7 +222,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
             throws OWLXMLParserException {}
 
     @Override
-    final public void handleChars(char[] chars, int start, int length) {
+    public void handleChars(char[] chars, int start, int length) {
         if (isTextContentPossible()) {
             if (sb == null) {
                 sb = new StringBuilder();

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.util.HashSet;
@@ -44,31 +43,28 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
-
     Set<OWLLiteral> constants;
 
+    /** @param handler
+     *            owlxml handler */
     public OWLDataOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         constants = new HashSet<OWLLiteral>();
     }
 
-
     @Override
-	public void handleChild(OWLLiteralElementHandler handler) {
+    public void handleChild(OWLLiteralElementHandler handler) {
         constants.add(handler.getOWLObject());
     }
 
-
     @Override
-	protected void endDataRangeElement() throws OWLXMLParserException {
+    protected void endDataRangeElement() throws OWLXMLParserException {
         if (constants.isEmpty()) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "data oneOf element");
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), "data oneOf element");
         }
         setDataRange(getOWLDataFactory().getOWLDataOneOf(constants));
     }

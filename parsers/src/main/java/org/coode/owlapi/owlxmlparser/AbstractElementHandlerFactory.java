@@ -36,35 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public abstract class AbstractElementHandlerFactory implements OWLElementHandlerFactory {
-
     private String elementName;
 
+    /** @param v
+     *            vocabulary */
     public AbstractElementHandlerFactory(OWLXMLVocabulary v) {
-        this.elementName = v.getShortName();
+        elementName = v.getShortName();
     }
-
 
     protected AbstractElementHandlerFactory(String elementName) {
         this.elementName = elementName;
     }
 
-
     @Override
     public String getElementName() {
         return elementName;
     }
-
-
 }

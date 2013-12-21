@@ -36,21 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 17-May-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-May-2009 */
 public abstract class AbstractIRIElementHandler extends AbstractOWLElementHandler<IRI> {
-
+    /** @param handler
+     *            owlxml handler */
     public AbstractIRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
-
 }

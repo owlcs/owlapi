@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.util.Collections;
@@ -48,68 +47,60 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */
-@SuppressWarnings("javadoc")
-public abstract class AbstractOWLAxiomElementHandler extends AbstractOWLElementHandler<OWLAxiom> {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
+public abstract class AbstractOWLAxiomElementHandler extends
+        AbstractOWLElementHandler<OWLAxiom> {
     private OWLAxiom axiom;
-
     private Set<OWLAnnotation> annotations;
 
+    /** @param handler
+     *            owlxml handler */
     public AbstractOWLAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
-
 
     @Override
     public OWLAxiom getOWLObject() {
         return axiom;
     }
 
-
+    /** @param axiom
+     *            axiom to add */
     public void setAxiom(OWLAxiom axiom) {
         this.axiom = axiom;
     }
 
-
     @Override
-	public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) throws OWLXMLParserException {
         if (annotations != null) {
             annotations.clear();
         }
     }
 
-
     @Override
-	public void handleChild(OWLAnnotationElementHandler handler) throws OWLXMLParserException {
-        if(annotations == null) {
+    public void handleChild(OWLAnnotationElementHandler handler)
+            throws OWLXMLParserException {
+        if (annotations == null) {
             annotations = new HashSet<OWLAnnotation>();
         }
         annotations.add(handler.getOWLObject());
     }
 
-
     @Override
-    final public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }
 
+    /** @return annotations */
     public Set<OWLAnnotation> getAnnotations() {
-        if(annotations == null) {
+        if (annotations == null) {
             return Collections.emptySet();
-        }
-        else {
+        } else {
             return annotations;
         }
     }
 
-
-
     protected abstract OWLAxiom createAxiom() throws OWLXMLParserException;
-
 }

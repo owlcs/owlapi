@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.util.HashSet;
@@ -46,31 +45,28 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Apr-2007 */@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2007 */
 public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
-
     private OWLClass cls;
-
     private Set<OWLClassExpression> classExpressions;
 
+    /** @param handler
+     *            owlxml handler */
     public OWLDisjointUnionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         classExpressions = new HashSet<OWLClassExpression>();
     }
 
-
     @Override
-	protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions, getAnnotations());
+    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions,
+                getAnnotations());
     }
 
-
     @Override
-	public void handleChild(AbstractClassExpressionElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler handler)
+            throws OWLXMLParserException {
         if (cls == null) {
             OWLClassExpression desc = handler.getOWLObject();
             cls = (OWLClass) desc;
@@ -78,6 +74,4 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
             classExpressions.add(handler.getOWLObject());
         }
     }
-
-
 }

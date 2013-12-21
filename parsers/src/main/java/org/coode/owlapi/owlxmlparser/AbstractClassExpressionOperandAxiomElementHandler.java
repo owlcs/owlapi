@@ -36,26 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */
-@SuppressWarnings("javadoc")
-public abstract class AbstractClassExpressionOperandAxiomElementHandler extends AbstractOperandAxiomElementHandler<OWLClassExpression> {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
+public abstract class AbstractClassExpressionOperandAxiomElementHandler extends
+        AbstractOperandAxiomElementHandler<OWLClassExpression> {
+    /** @param handler
+     *            owlxml handler */
     public AbstractClassExpressionOperandAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
     @Override
-	public void handleChild(AbstractClassExpressionElementHandler handler) {
+    public void handleChild(AbstractClassExpressionElementHandler handler) {
         addOperand(handler.getOWLObject());
     }
 }

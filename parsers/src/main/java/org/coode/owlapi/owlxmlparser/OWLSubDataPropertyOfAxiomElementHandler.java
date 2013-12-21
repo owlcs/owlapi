@@ -36,45 +36,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */@SuppressWarnings("javadoc")
-public class OWLSubDataPropertyOfAxiomElementHandler extends AbstractOWLAxiomElementHandler {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
+public class OWLSubDataPropertyOfAxiomElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLDataPropertyExpression subProperty;
-
     private OWLDataPropertyExpression superProperty;
 
-
+    /** @param handler
+     *            owlxml handler */
     public OWLSubDataPropertyOfAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
     @Override
-	public void handleChild(OWLDataPropertyElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLDataPropertyElementHandler handler)
+            throws OWLXMLParserException {
         if (subProperty == null) {
             subProperty = handler.getOWLObject();
-        }
-        else if (superProperty == null) {
+        } else if (superProperty == null) {
             superProperty = handler.getOWLObject();
-        }
-        else {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "two data property expression elements");
+        } else {
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), "two data property expression elements");
         }
     }
 
-
     @Override
-	protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty, superProperty, getAnnotations());
+    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+        return getOWLDataFactory().getOWLSubDataPropertyOfAxiom(subProperty,
+                superProperty, getAnnotations());
     }
 }

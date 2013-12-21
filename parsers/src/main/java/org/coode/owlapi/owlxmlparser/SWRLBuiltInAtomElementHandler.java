@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import java.util.ArrayList;
@@ -47,17 +46,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 08-Oct-2009
- */@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 08-Oct-2009 */
 public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
-
     private IRI iri;
-
     private List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
+    /** @param handler
+     *            owlxml handler */
     public SWRLBuiltInAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -68,12 +64,14 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void handleChild(SWRLVariableElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(SWRLVariableElementHandler handler)
+            throws OWLXMLParserException {
         args.add(handler.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler) throws OWLXMLParserException {
+    public void handleChild(OWLLiteralElementHandler handler)
+            throws OWLXMLParserException {
         args.add(getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject()));
     }
 

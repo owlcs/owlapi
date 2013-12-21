@@ -137,13 +137,13 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006 */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLXMLWriter writer;
 
+    /** @param writer
+     *            writer */
     public OWLXMLObjectRenderer(OWLXMLWriter writer) {
         this.writer = writer;
     }

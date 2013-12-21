@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -46,17 +45,14 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2006 */@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Dec-2006 */
 public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
-
+    /** @param handler
+     *            owlxml handler */
     public OWLImportsHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
-
 
     @Override
     public void endElement() throws OWLParserException, UnloadableImportException {
@@ -66,15 +62,13 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
         getOWLOntologyManager().makeLoadImportRequest(decl, getConfiguration());
     }
 
-
     @Override
     public OWLOntology getOWLObject() {
         return null;
     }
 
-
     @Override
-	public boolean isTextContentPossible() {
+    public boolean isTextContentPossible() {
         return true;
     }
 }

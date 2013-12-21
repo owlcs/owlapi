@@ -36,36 +36,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */@SuppressWarnings("javadoc")
-public class OWLInverseObjectPropertyElementHandler extends AbstractOWLObjectPropertyElementHandler {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
+public class OWLInverseObjectPropertyElementHandler extends
+        AbstractOWLObjectPropertyElementHandler {
     private OWLObjectPropertyExpression inverse;
 
+    /** @param handler
+     *            owlxml handler */
     public OWLInverseObjectPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
     @Override
-	public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
+    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
         inverse = handler.getOWLObject();
     }
 
-
     @Override
-	protected void endObjectPropertyElement() throws OWLXMLParserException {
-        if(inverse == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), OWLXMLVocabulary.OBJECT_INVERSE_OF.getShortName());
+    protected void endObjectPropertyElement() throws OWLXMLParserException {
+        if (inverse == null) {
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), OWLXMLVocabulary.OBJECT_INVERSE_OF.getShortName());
         }
         setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectInverseOf(inverse));
     }

@@ -42,18 +42,20 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006 */
 public abstract class AbstractOWLDataRangeHandler extends
         AbstractOWLElementHandler<OWLDataRange> {
     private OWLDataRange dataRange;
 
+    /** @param handler
+     *            owlxml handler */
     protected AbstractOWLDataRangeHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    /** @param dataRange
+     *            datarange */
     public void setDataRange(OWLDataRange dataRange) {
         this.dataRange = dataRange;
     }

@@ -36,25 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */@SuppressWarnings("javadoc")
-public class OWLInverseFunctionalObjectPropertyAxiomElementHandler extends AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
-
-    public OWLInverseFunctionalObjectPropertyAxiomElementHandler(OWLXMLParserHandler handler) {
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
+public class OWLInverseFunctionalObjectPropertyAxiomElementHandler extends
+        AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
+    /** @param handler
+     *            owlxml handler */
+    public OWLInverseFunctionalObjectPropertyAxiomElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
     @Override
-	protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(getProperty(), getAnnotations());
+    protected OWLAxiom createPropertyCharacteristicAxiom() {
+        return getOWLDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(
+                getProperty(), getAnnotations());
     }
 }

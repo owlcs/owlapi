@@ -36,26 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */
-@SuppressWarnings("javadoc")
-public abstract class AbstractObjectRestrictionElementHandler<F extends OWLObject> extends AbstractRestrictionElementHandler<OWLObjectPropertyExpression, F> {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ * @param <F>
+ *            filler type */
+public abstract class AbstractObjectRestrictionElementHandler<F extends OWLObject>
+        extends AbstractRestrictionElementHandler<OWLObjectPropertyExpression, F> {
+    /** @param handler
+     *            owlxml handler */
     public AbstractObjectRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-	public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
+    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
         setProperty(handler.getOWLObject());
     }
 }

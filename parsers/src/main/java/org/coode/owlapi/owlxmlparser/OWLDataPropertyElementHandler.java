@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -44,21 +43,18 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006 */@SuppressWarnings("javadoc")
-public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWLDataPropertyExpression> {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006 */
+public class OWLDataPropertyElementHandler extends
+        AbstractOWLElementHandler<OWLDataPropertyExpression> {
     private OWLDataPropertyExpression prop;
-
     private IRI iri;
 
+    /** @param handler
+     *            owlxml handler */
     public OWLDataPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
-
 
     @Override
     public OWLDataPropertyExpression getOWLObject() {
@@ -66,14 +62,13 @@ public class OWLDataPropertyElementHandler extends AbstractOWLElementHandler<OWL
     }
 
     @Override
-	public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value) throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 
     @Override
-    final public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         prop = getOWLDataFactory().getOWLDataProperty(iri);
         getParentHandler().handleChild(this);
     }
-
 }

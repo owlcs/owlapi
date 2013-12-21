@@ -36,44 +36,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */
-@SuppressWarnings("javadoc")
-public abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P extends OWLObject> extends AbstractOWLAxiomElementHandler {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ * @param <P>
+ *            property type */
+public abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P extends OWLObject>
+        extends AbstractOWLAxiomElementHandler {
     private P property;
 
-    public AbstractOWLPropertyCharacteristicAxiomElementHandler(OWLXMLParserHandler handler) {
+    /** @param handler
+     *            owlxml handler */
+    public AbstractOWLPropertyCharacteristicAxiomElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
     }
 
-
+    /** @param property
+     *            property */
     public void setProperty(P property) {
         this.property = property;
     }
-
 
     protected P getProperty() {
         return property;
     }
 
-
     @Override
-	final protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if(property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(), getColumnNumber(), "property element");
+    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+        if (property == null) {
+            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
+                    getColumnNumber(), "property element");
         }
         return createPropertyCharacteristicAxiom();
     }
 
-    protected abstract OWLAxiom createPropertyCharacteristicAxiom() throws OWLXMLParserException;
+    protected abstract OWLAxiom createPropertyCharacteristicAxiom()
+            throws OWLXMLParserException;
 }

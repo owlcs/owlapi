@@ -36,24 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006 */@SuppressWarnings("javadoc")
-public class OWLObjectSomeValuesFromElementHandler extends AbstractClassExpressionFillerRestriction {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
+public class OWLObjectSomeValuesFromElementHandler extends
+        AbstractClassExpressionFillerRestriction {
+    /** @param handler
+     *            owlxml handler */
     public OWLObjectSomeValuesFromElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-	protected OWLClassExpression createRestriction() {
+    protected OWLClassExpression createRestriction() {
         return getOWLDataFactory().getOWLObjectSomeValuesFrom(getProperty(), getFiller());
     }
 }
