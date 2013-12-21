@@ -42,9 +42,6 @@ package org.semanticweb.owlapi.model;
  *         Group, Date: Jan 15, 2007 */
 public interface SWRLDataPropertyAtom extends
         SWRLBinaryAtom<SWRLIArgument, SWRLDArgument> {
-    /** Gets the predicate of this atom.
-     * 
-     * @return The atom predicate */
     @Override
     OWLDataPropertyExpression getPredicate();
 }

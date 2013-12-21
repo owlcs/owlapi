@@ -62,8 +62,7 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
         return (IOException) super.getCause();
     }
 
-    /** Delegates to the getMessage() method of the contained {@code IOException}
-     * .
+    /** Delegates to the getMessage() method of the cause.
      * 
      * @return The message of the IOException */
     @Override

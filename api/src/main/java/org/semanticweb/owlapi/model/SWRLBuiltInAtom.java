@@ -43,9 +43,6 @@ import java.util.List;
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group, Date: Jan 15, 2007 */
 public interface SWRLBuiltInAtom extends SWRLAtom {
-    /** Gets the predicate of this atom.
-     * 
-     * @return The atom predicate */
     @Override
     IRI getPredicate();
 
