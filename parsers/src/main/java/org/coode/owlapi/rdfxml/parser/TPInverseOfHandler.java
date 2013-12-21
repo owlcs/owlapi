@@ -44,21 +44,24 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** owl:inverseOf is used in both property expressions AND axioms.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 09-Dec-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 09-Dec-2006 */
 public class TPInverseOfHandler extends TriplePredicateHandler {
     private boolean axiomParsingMode = false;
 
+    /** @param consumer
+     *            consumer */
     public TPInverseOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_INVERSE_OF.getIRI());
     }
 
+    /** @return axiom parsing mode */
     public boolean isAxiomParsingMode() {
         return axiomParsingMode;
     }
 
+    /** @param axiomParsingMode
+     *            axiomParsingMode */
     public void setAxiomParsingMode(boolean axiomParsingMode) {
         this.axiomParsingMode = axiomParsingMode;
     }

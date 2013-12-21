@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -58,31 +57,24 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006 */
 public class AbstractTripleHandler {
-
     private OWLRDFConsumer consumer;
-
     private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
-
     private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
-
     private IndividualMatcher individualMatcher = new IndividualMatcher();
 
-
+    /** @param consumer
+     *            consumer */
     public AbstractTripleHandler(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
-
+    /** @return consumer */
     public OWLRDFConsumer getConsumer() {
         return consumer;
     }
-
 
     protected Set<OWLAnnotation> getPendingAnnotations() {
         return consumer.getPendingAnnotations();
@@ -96,8 +88,6 @@ public class AbstractTripleHandler {
         consumer.consumeTriple(subject, predicate, object);
     }
 
-
-
     protected boolean isStrict() {
         return consumer.getConfiguration().isStrict();
     }
@@ -110,11 +100,9 @@ public class AbstractTripleHandler {
         return consumer.isDataPropertyOnly(iri);
     }
 
-
     protected boolean isAnnotationPropertyOnly(IRI iri) {
         return consumer.isAnnotationPropertyOnly(iri);
     }
-
 
     protected boolean isAnnotationPropertyStrict(IRI iri) {
         return consumer.isAnnotationPropertyOnly(iri);
@@ -128,38 +116,31 @@ public class AbstractTripleHandler {
         consumer.addAxiom(axiom);
     }
 
-
     protected OWLDataFactory getDataFactory() {
         return consumer.getDataFactory();
     }
-
 
     protected OWLClassExpression translateClassExpression(IRI IRI) {
         return consumer.translateClassExpression(IRI);
     }
 
-
     protected OWLObjectPropertyExpression translateObjectProperty(IRI IRI) {
         return consumer.translateObjectPropertyExpression(IRI);
     }
-
 
     protected OWLDataPropertyExpression translateDataProperty(IRI IRI) {
         return consumer.translateDataPropertyExpression(IRI);
     }
 
-
     protected OWLDataRange translateDataRange(IRI IRI) {
         return consumer.translateDataRange(IRI);
     }
-
 
     protected OWLIndividual translateIndividual(IRI IRI) {
         return consumer.translateIndividual(IRI);
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     protected boolean isAnonymous(IRI node) {
         return consumer.isAnonymousNode(node);
     }
@@ -180,14 +161,16 @@ public class AbstractTripleHandler {
         return consumer.isRestriction(node);
     }
 
-    protected boolean isNonNegativeIntegerStrict(IRI mainNode, OWLRDFVocabulary predicate) {
+    protected boolean
+            isNonNegativeIntegerStrict(IRI mainNode, OWLRDFVocabulary predicate) {
         OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate, false);
         if (literal == null) {
             return false;
         }
         OWLDatatype datatype = literal.getDatatype();
         OWL2Datatype nni = OWL2Datatype.XSD_NON_NEGATIVE_INTEGER;
-        return datatype.getIRI().equals(nni.getIRI()) && nni.isInLexicalSpace(literal.getLiteral());
+        return datatype.getIRI().equals(nni.getIRI())
+                && nni.isInLexicalSpace(literal.getLiteral());
     }
 
     protected boolean isNonNegativeIntegerLax(IRI mainNode, OWLRDFVocabulary predicate) {
@@ -205,8 +188,7 @@ public class AbstractTripleHandler {
         }
         try {
             return Integer.parseInt(literal.getLiteral().trim());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -221,14 +203,14 @@ public class AbstractTripleHandler {
     }
 
     protected boolean isClassExpressionLax(IRI mainNode) {
-        return consumer.isClassExpression(mainNode) || consumer.isParsedAllTriples() && !consumer.isDataRange(mainNode);
+        return consumer.isClassExpression(mainNode) || consumer.isParsedAllTriples()
+                && !consumer.isDataRange(mainNode);
     }
 
     protected boolean isClassExpressionLax(IRI mainNode, OWLRDFVocabulary predicate) {
         IRI object = consumer.getResourceObject(mainNode, predicate, false);
         return object != null && isClassExpressionLax(object);
     }
-
 
     protected boolean isObjectPropertyStrict(IRI node) {
         return consumer.isObjectPropertyOnly(node);
@@ -266,7 +248,6 @@ public class AbstractTripleHandler {
         return object != null && isDataPropertyLax(object);
     }
 
-
     protected boolean isDataRangeStrict(IRI node) {
         return consumer.isDataRange(node) && !consumer.isClassExpression(node);
     }
@@ -285,7 +266,6 @@ public class AbstractTripleHandler {
         return object != null && isDataRangeLax(mainNode);
     }
 
-
     protected boolean isClassExpressionListStrict(IRI mainNode, int minSize) {
         return isResourceListStrict(mainNode, classExpressionMatcher, minSize);
     }
@@ -298,7 +278,8 @@ public class AbstractTripleHandler {
         return isResourceListStrict(mainNode, individualMatcher, minSize);
     }
 
-    protected boolean isResourceListStrict(IRI mainNode, TypeMatcher typeMatcher, int minSize) {
+    protected boolean isResourceListStrict(IRI mainNode, TypeMatcher typeMatcher,
+            int minSize) {
         if (mainNode == null) {
             return false;
         }
@@ -306,15 +287,15 @@ public class AbstractTripleHandler {
         Set<IRI> visitedListNodes = new HashSet<IRI>();
         int size = 0;
         while (true) {
-            IRI firstObject = consumer.getResourceObject(currentListNode, RDF_FIRST, false);
+            IRI firstObject = consumer.getResourceObject(currentListNode, RDF_FIRST,
+                    false);
             if (firstObject == null) {
                 return false;
             }
             if (!typeMatcher.isTypeStrict(firstObject)) {
                 // Something in the list that is not of the required type
                 return false;
-            }
-            else {
+            } else {
                 size++;
             }
             IRI restObject = consumer.getResourceObject(currentListNode, RDF_REST, false);
@@ -336,16 +317,12 @@ public class AbstractTripleHandler {
         }
     }
 
-
     private interface TypeMatcher {
-
         boolean isTypeStrict(IRI node);
     }
 
     private class ClassExpressionMatcher implements TypeMatcher {
-    	public ClassExpressionMatcher() {
-
-		}
+        public ClassExpressionMatcher() {}
 
         @Override
         public boolean isTypeStrict(IRI node) {
@@ -354,9 +331,7 @@ public class AbstractTripleHandler {
     }
 
     private class DataRangeMatcher implements TypeMatcher {
-    	public DataRangeMatcher() {
-
-		}
+        public DataRangeMatcher() {}
 
         @Override
         public boolean isTypeStrict(IRI node) {
@@ -365,9 +340,7 @@ public class AbstractTripleHandler {
     }
 
     private class IndividualMatcher implements TypeMatcher {
-    	public IndividualMatcher() {
-
-		}
+        public IndividualMatcher() {}
 
         @Override
         public boolean isTypeStrict(IRI node) {

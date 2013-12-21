@@ -42,28 +42,27 @@ import java.io.Writer;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: 30-May-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterFactory {
-    private static XMLWriterFactory instance;
+    private static final XMLWriterFactory instance = new XMLWriterFactory();
 
     private XMLWriterFactory() {}
 
-    /** Gets the one and only instance of the {@code XMLWriterFactory} */
-    public static synchronized XMLWriterFactory getInstance() {
-        if (instance == null) {
-            instance = new XMLWriterFactory();
-        }
+    /** @return the one and only instance of the {@code XMLWriterFactory} */
+    public static XMLWriterFactory getInstance() {
         return instance;
     }
 
     /** Creates an XMLWriter.
      * 
      * @param writer
-     *            The {@code Writer} that the XMLWriter will actually write
-     *            to */
+     *            The {@code Writer} that the XMLWriter will actually write to
+     * @param xmlWriterNamespaceManager
+     *            xmlWriterNamespaceManager
+     * @param xmlBase
+     *            xmlBase
+     * @return xml writer */
     public XMLWriter createXMLWriter(Writer writer,
             XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
         return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase);

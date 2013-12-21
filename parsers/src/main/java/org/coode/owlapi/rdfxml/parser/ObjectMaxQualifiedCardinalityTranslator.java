@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -46,33 +45,38 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19/12/2010
- */
-@SuppressWarnings("javadoc")
-public class ObjectMaxQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
-
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 19/12/2010 */
+public class ObjectMaxQualifiedCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
+    /** @param consumer
+     *            consumer */
     public ObjectMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY) && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
+        return isRestrictionStrict(mainNode)
+                && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+                && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
+                && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
     }
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return isNonNegativeIntegerLax(mainNode, OWL_MAX_QUALIFIED_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY) && isClassExpressionLax(mainNode, OWL_ON_CLASS);
+        return isNonNegativeIntegerLax(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY)
+                && isClassExpressionLax(mainNode, OWL_ON_CLASS);
     }
 
     @Override
     public OWLObjectMaxCardinality translate(IRI mainNode) {
         int cardi = translateInteger(mainNode, OWL_MAX_QUALIFIED_CARDINALITY);
-        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
-        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI propertyIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer()
+                .translateObjectPropertyExpression(propertyIRI);
         IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
         OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
         return getDataFactory().getOWLObjectMaxCardinality(cardi, property, filler);

@@ -36,46 +36,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006 */
 public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandler {
-
+    /** @param consumer
+     *            consumer */
     public GTPDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-
     @Override
-	public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
+    public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
         if (isStrict()) {
             return isDataPropertyStrict(predicate);
-        }
-        else {
+        } else {
             // Handle annotation assertions as annotation assertions only!
-            return isDataPropertyLax(predicate) && !getConsumer().isAnnotationProperty(predicate);
+            return isDataPropertyLax(predicate)
+                    && !getConsumer().isAnnotationProperty(predicate);
         }
     }
 
-
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
         return false;
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
-        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(translateDataProperty(predicate), translateIndividual(subject), object, getPendingAnnotations()));
+    public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
+        addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(
+                translateDataProperty(predicate), translateIndividual(subject), object,
+                getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

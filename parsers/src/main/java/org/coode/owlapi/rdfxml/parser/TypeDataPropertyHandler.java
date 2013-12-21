@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.Set;
@@ -47,24 +46,22 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class TypeDataPropertyHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     public TypeDataPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI());
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-            OWLDataProperty owlDataProperty = getDataFactory().getOWLDataProperty(subject);
+            OWLDataProperty owlDataProperty = getDataFactory()
+                    .getOWLDataProperty(subject);
             addAxiom(getDataFactory().getOWLDeclarationAxiom(owlDataProperty, annos));
         }
         getConsumer().addDataProperty(subject, true);

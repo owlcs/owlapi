@@ -36,21 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class TypeIrreflexivePropertyHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     public TypeIrreflexivePropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI());
     }
@@ -62,9 +58,11 @@ public class TypeIrreflexivePropertyHandler extends BuiltInTypeHandler {
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (getConsumer().isObjectProperty(subject)) {
-            addAxiom(getDataFactory().getOWLIrreflexiveObjectPropertyAxiom(translateObjectProperty(subject), getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLIrreflexiveObjectPropertyAxiom(
+                    translateObjectProperty(subject), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }

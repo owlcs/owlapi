@@ -46,15 +46,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
-/** A class expression translator which produces an
- * {@code OWLIntersectionOf}. This relies on the main node having an
- * intersectionOf triple.
+/** A class expression translator which produces an {@code OWLIntersectionOf}.
+ * This relies on the main node having an intersectionOf triple.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 08-Dec-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006 */
 public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
+    /** @param consumer
+     *            consumer */
     public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

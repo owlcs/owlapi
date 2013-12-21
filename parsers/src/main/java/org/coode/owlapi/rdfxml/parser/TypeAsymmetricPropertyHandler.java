@@ -42,12 +42,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 07-Sep-2008 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 07-Sep-2008 */
 public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer
+     *            consumer */
     public TypeAsymmetricPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI());
     }

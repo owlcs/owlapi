@@ -50,11 +50,11 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** Handles rdfs:subClassOf triples. If handling is set to strict then the triple
  * is only consumed if the subject and object are typed as classes.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 08-Dec-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006 */
 public class TPSubClassOfHandler extends TriplePredicateHandler {
+    /** @param consumer
+     *            consumer */
     public TPSubClassOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
     }
@@ -65,6 +65,7 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
                 && isTyped(subject, predicate, object);
     }
 
+    @SuppressWarnings("unused")
     private boolean isTyped(IRI subject, IRI predicate, IRI object) {
         return getConsumer().isClassExpression(subject)
                 && getConsumer().isClassExpression(object);

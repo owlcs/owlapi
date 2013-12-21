@@ -36,26 +36,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006 */
 public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler {
-
+    /** @param consumer
+     *            consumer */
     public AbstractLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
+    /** @param subject
+     *            subject
+     * @param predicate
+     *            predicate
+     * @param object
+     *            object */
     public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
 
+    /** @param subject
+     *            subject
+     * @param predicate
+     *            predicate
+     * @param object
+     *            object
+     * @return true if can handle */
     public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
 
-    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object);
+    /** @param subject
+     *            subject
+     * @param predicate
+     *            predicate
+     * @param object
+     *            object
+     * @return true if can handle streaming */
+    public abstract boolean canHandleStreaming(IRI subject, IRI predicate,
+            OWLLiteral object);
 }

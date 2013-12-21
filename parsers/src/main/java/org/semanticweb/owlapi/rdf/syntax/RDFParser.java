@@ -462,8 +462,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param object
      *            IRI of the object resource
      * @param reificationID
-     *            if not {@code null}, contains IRI of the resource that
-     *            will wold the reified statement */
+     *            if not {@code null}, contains IRI of the resource that will
+     *            wold the reified statement */
     protected void statementWithResourceValue(String subject, String predicate,
             String object, String reificationID) throws SAXException {
         m_consumer.statementWithResourceValue(subject, predicate, object);
@@ -487,8 +487,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
      * @param dataType
      *            the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
-     *            if not {@code null}, contains IRI of the resource that
-     *            will wold the reified statement */
+     *            if not {@code null}, contains IRI of the resource that will
+     *            wold the reified statement */
     protected void statementWithLiteralValue(String subject, String predicate,
             String object, String dataType, String reificationID) throws SAXException {
         m_consumer.statementWithLiteralValue(subject, predicate, object, m_language,
@@ -819,8 +819,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     /** Parses resourcePropertyElt or literalPropertyElt productions. m_text is
-     * {@code null} when startElement is expected on the actual property
-     * element. */
+     * {@code null} when startElement is expected on the actual property element. */
     protected class ResourceOrLiteralPropertyElement extends State {
         protected NodeElement m_nodeElement;
         protected String m_propertyIRI;

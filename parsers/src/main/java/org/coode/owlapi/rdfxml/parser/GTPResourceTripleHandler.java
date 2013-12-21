@@ -36,31 +36,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
-
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18/03/2011
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 18/03/2011 */
 public class GTPResourceTripleHandler extends AbstractResourceTripleHandler {
-
+    /** @param consumer
+     *            consumer */
     public GTPResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-    }
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {}
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         return false;
     }
 

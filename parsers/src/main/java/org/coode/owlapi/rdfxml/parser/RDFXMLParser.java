@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.io.IOException;
@@ -57,35 +56,35 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class RDFXMLParser extends AbstractOWLParser {
-
-
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, IOException,
+            UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
         InputSource is = null;
         try {
-
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             final RDFParser parser = new RDFParser() {
                 @Override
-                public void startPrefixMapping(String prefix, String IRI) throws SAXException {
+                public void startPrefixMapping(String prefix, String IRI)
+                        throws SAXException {
                     super.startPrefixMapping(prefix, IRI);
                     format.setPrefix(prefix, IRI);
                 }
 
-
                 @Override
-                public void startElement(String namespaceIRI, String localName, String qName, Attributes atts) throws SAXException {
+                public void startElement(String namespaceIRI, String localName,
+                        String qName, Attributes atts) throws SAXException {
                     super.startElement(namespaceIRI, localName, qName, atts);
                 }
             };
@@ -95,35 +94,33 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.getIRI(s);
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, new AnonymousNodeChecker() {
+            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
+                    new AnonymousNodeChecker() {
                         @Override
                         public boolean isAnonymousNode(IRI iri) {
                             return NodeID.isAnonymousNodeIRI(iri);
-                }
+                        }
 
-                @Override
-                public boolean isAnonymousSharedNode(String iri) {
+                        @Override
+                        public boolean isAnonymousSharedNode(String iri) {
                             return NodeID.isAnonymousNodeID(iri);
-                }
+                        }
 
                         @Override
                         public boolean isAnonymousNode(String iri) {
                             return NodeID.isAnonymousNodeIRI(iri);
-                }
-            }, configuration);
+                        }
+                    }, configuration);
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
             is = getInputSource(documentSource, configuration);
             parser.parse(is, consumer);
             return format;
-        }
-        catch (TranslatedOntologyChangeException e) {
+        } catch (TranslatedOntologyChangeException e) {
             throw e.getCause();
-        }
-        catch (TranslatedUnloadedImportException e) {
+        } catch (TranslatedUnloadedImportException e) {
             throw e.getCause();
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             throw new OWLRDFXMLParserSAXException(e);
         } finally {
             if (is != null && is.getByteStream() != null) {

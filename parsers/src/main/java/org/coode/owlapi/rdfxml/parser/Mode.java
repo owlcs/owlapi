@@ -36,18 +36,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11/03/2011
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 11/03/2011 */
 public enum Mode {
-
+    /** STRICT */
     STRICT,
-
+    /** LAX */
     LAX
 }

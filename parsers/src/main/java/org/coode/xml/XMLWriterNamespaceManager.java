@@ -47,16 +47,16 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: 30-May-2006 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterNamespaceManager {
     private Map<String, String> prefixNamespaceMap;
     private Map<String, String> namespacePrefixMap;
     private Map<String, String> wellknownNamespaces;
     private String defaultNamespace;
 
+    /** @param defaultNamespace
+     *            defaultNamespace */
     public XMLWriterNamespaceManager(String defaultNamespace) {
         prefixNamespaceMap = new HashMap<String, String>();
         namespacePrefixMap = new HashMap<String, String>();
@@ -64,23 +64,39 @@ public class XMLWriterNamespaceManager {
         this.defaultNamespace = defaultNamespace;
     }
 
+    /** @param prefix
+     *            prefix
+     * @param namespace
+     *            namespace */
     public void addWellKnownNamespace(String prefix, String namespace) {
         wellknownNamespaces.put(prefix, namespace);
     }
 
+    /** @param prefix
+     *            prefix
+     * @param namespace
+     *            namespace */
     public void setPrefix(String prefix, String namespace) {
         prefixNamespaceMap.put(prefix, namespace);
         namespacePrefixMap.put(namespace, prefix);
     }
 
+    /** @param namespace
+     *            namespace
+     * @return prefix */
     public String getPrefixForNamespace(String namespace) {
         return namespacePrefixMap.get(namespace);
     }
 
+    /** @param namespace
+     *            namespace */
     public void setDefaultNamespace(String namespace) {
         defaultNamespace = namespace;
     }
 
+    /** @param prefix
+     *            prefix
+     * @return namespace */
     public String getNamespaceForPrefix(String prefix) {
         return prefixNamespaceMap.get(prefix);
     }
@@ -89,8 +105,8 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *            The name which represents the full name.
-     * @return The QName representation or {@code null} if a QName could
-     *         not be generated. */
+     * @return The QName representation or {@code null} if a QName could not be
+     *         generated. */
     public String getQName(String name) {
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());
@@ -108,8 +124,8 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *            The name which represents the full name.
-     * @return The QName representation or {@code null} if a QName could
-     *         not be generated. */
+     * @return The QName representation or {@code null} if a QName could not be
+     *         generated. */
     public String getQName(IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
             return name.getFragment() == null ? "" : name.getFragment();
@@ -122,6 +138,8 @@ public class XMLWriterNamespaceManager {
         return name.toString();
     }
 
+    /** @param namespace
+     *            namespace */
     public void createPrefixForNamespace(String namespace) {
         if (namespace.equals(defaultNamespace)) {
             return;
@@ -138,18 +156,22 @@ public class XMLWriterNamespaceManager {
         }
     }
 
+    /** @return default namespace */
     public String getDefaultNamespace() {
         return defaultNamespace;
     }
 
+    /** @return prefixes */
     public Set<String> getPrefixes() {
         return new HashSet<String>(prefixNamespaceMap.keySet());
     }
 
+    /** @return namespaces */
     public Set<String> getNamespaces() {
         return new HashSet<String>(namespacePrefixMap.keySet());
     }
 
+    /** @return prefix namespace map */
     public Map<String, String> getPrefixNamespaceMap() {
         return new HashMap<String, String>(prefixNamespaceMap);
     }

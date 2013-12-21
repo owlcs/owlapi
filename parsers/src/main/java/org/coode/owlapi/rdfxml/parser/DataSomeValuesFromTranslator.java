@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -46,34 +45,40 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class DataSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
-
+    /** @param consumer
+     *            consumer */
     public DataSomeValuesFromTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        return isRestrictionStrict(mainNode) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_SOME_VALUES_FROM);
+        return isRestrictionStrict(mainNode)
+                && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY)
+                && isDataRangeStrict(mainNode, OWL_SOME_VALUES_FROM);
     }
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return  (isDataRangeLax(mainNode, OWL_SOME_VALUES_FROM) && isResourcePresent(mainNode, OWL_ON_PROPERTY)) || (isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM));
+        return isDataRangeLax(mainNode, OWL_SOME_VALUES_FROM)
+                && isResourcePresent(mainNode, OWL_ON_PROPERTY)
+                || isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
+                && isResourcePresent(mainNode, OWL_SOME_VALUES_FROM);
     }
 
     @Override
     public OWLDataSomeValuesFrom translate(IRI mainNode) {
-        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
-        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
-        OWLDataPropertyExpression property = getConsumer().translateDataPropertyExpression(propertyIRI);
-        IRI fillerMainNode = getConsumer().getResourceObject(mainNode, OWL_SOME_VALUES_FROM, true);
+        getConsumer()
+                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        IRI propertyIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLDataPropertyExpression property = getConsumer()
+                .translateDataPropertyExpression(propertyIRI);
+        IRI fillerMainNode = getConsumer().getResourceObject(mainNode,
+                OWL_SOME_VALUES_FROM, true);
         OWLDataRange filler = getConsumer().translateDataRange(fillerMainNode);
         return getDataFactory().getOWLDataSomeValuesFrom(property, filler);
     }

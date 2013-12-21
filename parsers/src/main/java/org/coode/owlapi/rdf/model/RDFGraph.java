@@ -51,16 +51,15 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 06-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006 */
 public class RDFGraph {
     private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
     private Set<RDFResourceNode> rootAnonymousNodes;
     private Set<RDFTriple> triples;
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public RDFGraph() {
         triples = new HashSet<RDFTriple>();
         triplesBySubject = new HashMap<RDFResourceNode, Set<RDFTriple>>();
@@ -107,7 +106,9 @@ public class RDFGraph {
     }
 
     /** @param subject
+     *            subject
      * @param sort
+     *            sort
      * @return sorted triples
      * @deprecated use getTriplesForSubject */
     @Deprecated
@@ -136,7 +137,9 @@ public class RDFGraph {
     }
 
     /** @param subject
+     *            subject
      * @param sort
+     *            sort
      * @return sorted triples */
     public Collection<RDFTriple> getTriplesForSubject(RDFNode subject, boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);

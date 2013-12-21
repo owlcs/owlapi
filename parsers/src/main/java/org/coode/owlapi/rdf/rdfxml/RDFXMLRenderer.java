@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.RDF_DESCRIPTION;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -69,28 +70,43 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006 */
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     private Set<RDFResourceNode> pending = new HashSet<RDFResourceNode>();
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
-    @SuppressWarnings("javadoc")
+    /** @param manager
+     *            manager
+     * @param ontology
+     *            ontology
+     * @param w
+     *            writer */
+    @SuppressWarnings("unused")
     @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
         this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
     /** @param ontology
-     * @param w */
+     *            ontology
+     * @param w
+     *            writer */
     public RDFXMLRenderer(OWLOntology ontology, Writer w) {
         this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
-    @SuppressWarnings("javadoc")
+    /** @param manager
+     *            manager
+     * @param ontology
+     *            ontology
+     * @param w
+     *            writer
+     * @param format
+     *            format */
+    @SuppressWarnings("unused")
     @Deprecated
     public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w,
             OWLOntologyFormat format) {
@@ -98,8 +114,11 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     /** @param ontology
+     *            ontology
      * @param w
-     * @param format */
+     *            writer
+     * @param format
+     *            format */
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, format);
         this.format = format;
@@ -200,7 +219,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        final List<RDFTriple> triples = getGraph().getSortedTriplesForSubject(node, true);
+        Collection<RDFTriple> triples = getGraph().getTriplesForSubject(node, true);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getProperty().getIRI();
             if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())

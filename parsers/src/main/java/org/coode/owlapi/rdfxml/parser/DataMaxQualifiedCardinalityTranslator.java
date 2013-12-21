@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -46,35 +45,42 @@ import org.semanticweb.owlapi.model.OWLDataMaxCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19/12/2010
- */
-@SuppressWarnings("javadoc")
-public class DataMaxQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
-
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 19/12/2010 */
+public class DataMaxQualifiedCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
+    /** @param consumer
+     *            consumer */
     public DataMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY) && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY) && isDataRangeStrict(mainNode, OWL_ON_DATA_RANGE);
+        return isRestrictionStrict(mainNode)
+                && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+                && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY)
+                && isDataRangeStrict(mainNode, OWL_ON_DATA_RANGE);
     }
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return isNonNegativeIntegerLax(mainNode, OWL_MAX_QUALIFIED_CARDINALITY) && isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
+        return isNonNegativeIntegerLax(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+                && isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
+                && isDataRangeLax(mainNode, OWL_ON_DATA_RANGE);
     }
 
     @Override
     public OWLDataMaxCardinality translate(IRI mainNode) {
-        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer()
+                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_MAX_QUALIFIED_CARDINALITY);
-        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
-        OWLDataPropertyExpression property = getConsumer().translateDataPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_DATA_RANGE, true);
+        IRI propertyIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLDataPropertyExpression property = getConsumer()
+                .translateDataPropertyExpression(propertyIRI);
+        IRI fillerIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_ON_DATA_RANGE, true);
         OWLDataRange filler = getConsumer().translateDataRange(fillerIRI);
         return getDataFactory().getOWLDataMaxCardinality(cardi, property, filler);
     }

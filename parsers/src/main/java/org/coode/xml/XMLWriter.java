@@ -42,36 +42,33 @@ import java.io.IOException;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** User: matthewhorridge<br>
- * The Univeristy Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: May 30, 2006<br>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * Developed as part of the CO-ODE project http://www.co-ode.org */
-@SuppressWarnings("javadoc")
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The Univeristy Of Manchester, Medical Informatics
+ *         Group, Date: May 30, 2006 */
 public interface XMLWriter {
     /** Sets the encoding for the document that the rdfwriter produces. The
      * default encoding is "UTF-8".
      * 
      * @param encoding
      *            The encoding. */
-    public void setEncoding(String encoding);
+    void setEncoding(String encoding);
 
     /** Gets the Writer's namespace manager.
      * 
      * @return The namespace manager. */
-    public XMLWriterNamespaceManager getNamespacePrefixes();
+    XMLWriterNamespaceManager getNamespacePrefixes();
 
-    public String getXMLBase();
+    /** @return xml base */
+    String getXMLBase();
 
     /** Causes the current element's attributes to be wrapped in the output.
      * 
      * @param b
-     *            If {@code true} then the attributes will be wrapped if
-     *            they are long. If {@code false} then no attribute
-     *            wrapping will occur. */
-    public void setWrapAttributes(boolean b);
+     *            If {@code true} then the attributes will be wrapped if they
+     *            are long. If {@code false} then no attribute wrapping will
+     *            occur. */
+    void setWrapAttributes(boolean b);
 
     /** Starts writing the document. The root element will contain the namespace
      * declarations and xml:base attribute. If the name of the element is an
@@ -81,9 +78,9 @@ public interface XMLWriter {
      *            The name of the root element.
      * @throws IOException
      *             if there was an IO problem
-     * @deprecated use start*/
+     * @deprecated use start */
     @Deprecated
-    public void startDocument(String rootElementName) throws IOException;
+    void startDocument(String rootElementName) throws IOException;
 
     /** Starts writing the document. The root element will contain the namespace
      * declarations and xml:base attribute.
@@ -92,14 +89,14 @@ public interface XMLWriter {
      *            The iri of the root element.
      * @throws IOException
      *             if there was an IO problem */
-    public void startDocument(IRI rootElement) throws IOException;
+    void startDocument(IRI rootElement) throws IOException;
 
     /** Causes all open elements, including the document root element, to be
      * closed.
      * 
      * @throws IOException
      *             if there was an IO problem */
-    public void endDocument() throws IOException;
+    void endDocument() throws IOException;
 
     /** Writes the start of an element.
      * 
@@ -110,8 +107,7 @@ public interface XMLWriter {
      *             if there was an IO problem
      * @throws IllegalElementNameException
      *             if the specified name is not a valid QName */
-    public void writeStartElement(String name) throws IOException,
-            IllegalElementNameException;
+    void writeStartElement(String name) throws IOException, IllegalElementNameException;
 
     /** Writes the start of an element.
      * 
@@ -122,14 +118,13 @@ public interface XMLWriter {
      *             if there was an IO problem
      * @throws IllegalElementNameException
      *             if the specified name is not a valid QName */
-    public void writeStartElement(IRI name) throws IOException,
-            IllegalElementNameException;
+    void writeStartElement(IRI name) throws IOException, IllegalElementNameException;
 
     /** Writes the closing tag of the last element to be started.
      * 
      * @throws IOException
      *             if there was an IO problem */
-    public void writeEndElement() throws IOException;
+    void writeEndElement() throws IOException;
 
     /** Writes an attribute of the last element to be started (that has not been
      * closed). Note: if the attribute is an iri, use writeAttribute(IRI, String
@@ -140,7 +135,7 @@ public interface XMLWriter {
      *            The value of the attribute
      * @throws IOException
      *             if there was an IO problem */
-    public void writeAttribute(String attr, String val) throws IOException;
+    void writeAttribute(String attr, String val) throws IOException;
 
     /** Writes an attribute of the last element to be started (that has not been
      * closed).
@@ -151,7 +146,7 @@ public interface XMLWriter {
      *            The value of the attribute
      * @throws IOException
      *             if there was an IO problem */
-    public void writeAttribute(IRI attr, String val) throws IOException;
+    void writeAttribute(IRI attr, String val) throws IOException;
 
     /** Writes a text element
      * 
@@ -159,7 +154,11 @@ public interface XMLWriter {
      *            The text to be written
      * @throws IOException
      *             if there was an IO problem */
-    public void writeTextContent(String text) throws IOException;
+    void writeTextContent(String text) throws IOException;
 
-    public void writeComment(String commentText) throws IOException;
+    /** @param commentText
+     *            commentText
+     * @throws IOException
+     *             if there was an IO problem */
+    void writeComment(String commentText) throws IOException;
 }

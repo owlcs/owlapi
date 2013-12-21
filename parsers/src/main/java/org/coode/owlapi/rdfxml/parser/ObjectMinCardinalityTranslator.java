@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -46,40 +45,43 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class ObjectMinCardinalityTranslator extends AbstractClassExpressionTranslator {
-
+    /** @param consumer
+     *            consumer */
     public ObjectMinCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        return isRestrictionStrict(mainNode) && isNonNegativeIntegerStrict(mainNode, OWL_MIN_CARDINALITY) && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
+        return isRestrictionStrict(mainNode)
+                && isNonNegativeIntegerStrict(mainNode, OWL_MIN_CARDINALITY)
+                && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY);
     }
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return isNonNegativeIntegerLax(mainNode, OWL_MIN_CARDINALITY) && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
+        return isNonNegativeIntegerLax(mainNode, OWL_MIN_CARDINALITY)
+                && isObjectPropertyLax(mainNode, OWL_ON_PROPERTY);
     }
 
     @Override
     public OWLObjectMinCardinality translate(IRI mainNode) {
-        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer()
+                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_MIN_CARDINALITY);
-        IRI propertyIRI = getConsumer().getResourceObject(mainNode, OWL_ON_PROPERTY, true);
-        OWLObjectPropertyExpression property = getConsumer().translateObjectPropertyExpression(propertyIRI);
+        IRI propertyIRI = getConsumer()
+                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        OWLObjectPropertyExpression property = getConsumer()
+                .translateObjectPropertyExpression(propertyIRI);
         IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
         if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
             // Be tolerant
             OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
             return getDataFactory().getOWLObjectMinCardinality(cardi, property, filler);
-        }
-        else {
+        } else {
             return getDataFactory().getOWLObjectMinCardinality(cardi, property);
         }
     }

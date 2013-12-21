@@ -66,9 +66,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  *            a predicate node
  * @param <LITERAL>
  *            a literal node
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 06-Dec-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006 */
 public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE>
         implements OWLObjectVisitor, SWRLObjectVisitor {
     private OWLOntologyManager manager;
@@ -173,7 +172,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     // //
     // ///////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////
-    /** Add type triples and the owl:onProperty triples for an OWLRestriction
+    /** Add type triples and the owl:onProperty triples for an OWLRestriction.
      * 
      * @param desc
      *            The restriction */
@@ -801,7 +800,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     // Methods to add triples
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Maps Objects to nodes */
+    /** Maps Objects to nodes. */
     private Map<OWLObject, NODE> nodeMap = new IdentityHashMap<OWLObject, NODE>();
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred,
@@ -918,7 +917,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         nodeMap.put(object, getAnonymousNode(object));
     }
 
-    /** Gets a resource that has a IRI
+    /** Gets a resource that has a IRI.
      * 
      * @param IRI
      *            The IRI of the resource
@@ -1084,8 +1083,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /** Renders a set of class expressions in a pairwise manner using the
      * specified IRI. It is assumed that the relationship described by the IRI
      * (e.g. disjointWith) is symmetric. The method delegates to the
-     * {@code addPairwise} method after sorting the class expressions so
-     * that named classes appear first.
+     * {@code addPairwise} method after sorting the class expressions so that
+     * named classes appear first.
      * 
      * @param axiom
      *            The axiom which will dictate which axiom annotation get
@@ -1103,8 +1102,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     }
 
     /** Adds triples to strong type an entity. Triples are only added if the
-     * useStrongTyping flag is set to {@code true} and the entity is not a
-     * built in entity.
+     * useStrongTyping flag is set to {@code true} and the entity is not a built
+     * in entity.
      * 
      * @param entity
      *            The entity for which strong typing triples should be added. */
@@ -1119,7 +1118,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
                 entity.accept(OWLEntityTypeProvider.INSTANCE));
     }
 
-    /** Visits entities and returns their RDF type */
+    /** Visits entities and returns their RDF type. */
     private static class OWLEntityTypeProvider implements OWLEntityVisitorEx<IRI> {
         public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 

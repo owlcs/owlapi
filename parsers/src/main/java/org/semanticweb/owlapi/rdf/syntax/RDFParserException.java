@@ -42,65 +42,71 @@
  * name was edu.unika.aifb.rdf.api
  *
  */
-
 package org.semanticweb.owlapi.rdf.syntax;
 
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-
-/**
- * Throws if an RDF error is encountered while parsing RDF.
- */
-@SuppressWarnings("javadoc")
+/** Throws if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends SAXException {
-
-
-	private static final long serialVersionUID = 30406L;
-
+    private static final long serialVersionUID = 30406L;
     protected String m_publicId;
-
     protected String m_systemId;
-
     protected int m_lineNumber;
-
     protected int m_columnNumber;
 
-
+    /** @param message
+     *            message */
     public RDFParserException(String message) {
         this(message, null, null, -1, -1);
     }
 
-
+    /** @param message
+     *            message
+     * @param locator
+     *            locator */
     public RDFParserException(String message, Locator locator) {
-        this(message, locator.getPublicId(), locator.getSystemId(), locator.getLineNumber(), locator.getColumnNumber());
+        this(message, locator.getPublicId(), locator.getSystemId(), locator
+                .getLineNumber(), locator.getColumnNumber());
     }
 
-
-    public RDFParserException(String message, String publicId, String systemId, int lineNumber, int columnNumber) {
-        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber + ":" + "column=" + columnNumber + "] " : "") + message);
+    /** @param message
+     *            message
+     * @param publicId
+     *            publicId
+     * @param systemId
+     *            systemId
+     * @param lineNumber
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
+    public RDFParserException(String message, String publicId, String systemId,
+            int lineNumber, int columnNumber) {
+        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber + ":"
+                + "column=" + columnNumber + "] " : "")
+                + message);
         m_publicId = publicId;
         m_systemId = systemId;
         m_lineNumber = lineNumber;
         m_columnNumber = columnNumber;
     }
 
-
+    /** @return public id */
     public String getPublicId() {
         return m_publicId;
     }
 
-
+    /** @return system id */
     public String getSystemId() {
         return m_systemId;
     }
 
-
+    /** @return line */
     public int getLineNumber() {
         return m_lineNumber;
     }
 
-
+    /** @return column */
     public int getColumnNumber() {
         return m_columnNumber;
     }

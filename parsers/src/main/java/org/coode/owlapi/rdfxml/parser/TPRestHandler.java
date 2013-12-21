@@ -36,40 +36,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Jan-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Jan-2007 */
 public class TPRestHandler extends TriplePredicateHandler {
+    protected static int count = 0;
 
-    protected  static int count = 0;
-
+    /** @param consumer
+     *            consumer */
     public TPRestHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_REST.getIRI());
     }
-
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return true;
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (!object.equals(OWLRDFVocabulary.RDF_NIL.getIRI())) {
             getConsumer().addRest(subject, object);
-        }
-        else {
+        } else {
             count++;
         }
         consumeTriple(subject, predicate, object);

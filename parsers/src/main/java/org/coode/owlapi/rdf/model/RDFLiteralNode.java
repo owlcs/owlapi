@@ -40,9 +40,8 @@ package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006 */
 public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
     private String literal;
     private String lang;

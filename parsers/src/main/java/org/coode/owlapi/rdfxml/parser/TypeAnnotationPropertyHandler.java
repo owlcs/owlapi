@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.Set;
@@ -47,24 +46,22 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006 */
-@SuppressWarnings("javadoc")
-public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler{
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Dec-2006 */
+public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler {
+    /** @param consumer
+     *            consumer */
     public TypeAnnotationPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(subject);
+            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(
+                    subject);
             addAxiom(getDataFactory().getOWLDeclarationAxiom(property, annos));
             consumeTriple(subject, predicate, object);
         }

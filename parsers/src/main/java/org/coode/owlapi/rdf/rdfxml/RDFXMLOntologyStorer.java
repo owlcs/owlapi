@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdf.rdfxml;
 
 import java.io.IOException;
@@ -52,24 +51,19 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 03-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 03-Jan-2007 */
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-
-	@Override
+    @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat instanceof RDFXMLOntologyFormat;
     }
 
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology, Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
+            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 
@@ -85,14 +79,13 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
                     sb.append(entity.toStringID());
                     sb.append("\n");
                 }
-                throw new OWLOntologyStorageException(sb.toString().trim(), new IllegalElementNameException(sb.toString().trim()));
+                throw new OWLOntologyStorageException(sb.toString().trim(),
+                        new IllegalElementNameException(sb.toString().trim()));
             }
             renderer.render();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
-        }
-        catch (IllegalElementNameException e) {
+        } catch (IllegalElementNameException e) {
             throw new OWLOntologyStorageException(e);
         }
     }

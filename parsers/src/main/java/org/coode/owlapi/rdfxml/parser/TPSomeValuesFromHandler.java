@@ -36,37 +36,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Jan-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Jan-2007 */
 public class TPSomeValuesFromHandler extends TriplePredicateHandler {
-
+    /** @param consumer
+     *            consumer */
     public TPSomeValuesFromHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_SOME_VALUES_FROM.getIRI());
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         handleTriple(subject, predicate, object);
         return false;
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         getConsumer().addOWLRestriction(subject, false);
-        if(getConsumer().isDataRange(object)) {
-            IRI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
-            if(property != null) {
+        if (getConsumer().isDataRange(object)) {
+            IRI property = getConsumer().getResourceObject(subject,
+                    OWLRDFVocabulary.OWL_ON_PROPERTY.getIRI(), false);
+            if (property != null) {
                 getConsumer().addDataProperty(property, false);
             }
         }

@@ -40,11 +40,11 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 09-Mar-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 09-Mar-2009 */
 public interface IRIProvider {
+    /** @param s
+     *            input String
+     * @return iri */
     IRI getIRI(String s);
 }

@@ -42,14 +42,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class ClassExpressionListItemTranslator implements
         ListItemTranslator<OWLClassExpression> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer
+     *            consumer */
     public ClassExpressionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

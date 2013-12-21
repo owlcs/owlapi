@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.Set;
@@ -49,14 +48,12 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006 */
-@SuppressWarnings({"deprecation","javadoc"})
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006 */
+@SuppressWarnings("deprecation")
 public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION.getIRI());
     }
@@ -67,35 +64,45 @@ public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler
     }
 
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
-        IRI source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
+        IRI source = getConsumer().getResourceObject(subject,
+                OWLRDFVocabulary.OWL_SOURCE_INDIVIDUAL.getIRI(), true);
         if (source == null) {
-            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_SUBJECT.getIRI(), true);
+            source = getConsumer().getResourceObject(subject,
+                    OWLRDFVocabulary.OWL_SUBJECT.getIRI(), true);
         }
         if (source == null) {
-            source = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
+            source = getConsumer().getResourceObject(subject,
+                    OWLRDFVocabulary.RDF_SUBJECT.getIRI(), true);
         }
-
-        IRI property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getIRI(), true);
+        IRI property = getConsumer().getResourceObject(subject,
+                OWLRDFVocabulary.OWL_ASSERTION_PROPERTY.getIRI(), true);
         if (property == null) {
-            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_PREDICATE.getIRI(), true);
+            property = getConsumer().getResourceObject(subject,
+                    OWLRDFVocabulary.OWL_PREDICATE.getIRI(), true);
         }
         if (property == null) {
-            property = getConsumer().getResourceObject(subject, OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
+            property = getConsumer().getResourceObject(subject,
+                    OWLRDFVocabulary.RDF_PREDICATE.getIRI(), true);
         }
-        OWLLiteral target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
+        OWLLiteral target = getConsumer().getLiteralObject(subject,
+                OWLRDFVocabulary.OWL_TARGET_VALUE.getIRI(), true);
         if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
+            target = getConsumer().getLiteralObject(subject,
+                    OWLRDFVocabulary.OWL_OBJECT.getIRI(), true);
         }
         if (target == null) {
-            target = getConsumer().getLiteralObject(subject, OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
+            target = getConsumer().getLiteralObject(subject,
+                    OWLRDFVocabulary.RDF_OBJECT.getIRI(), true);
         }
         OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
-        OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(property);
+        OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(
+                property);
         consumeTriple(subject, predicate, object);
         getConsumer().translateAnnotations(subject);
         Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop, sourceInd, target, annos));
-
+        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop,
+                sourceInd, target, annos));
     }
 }

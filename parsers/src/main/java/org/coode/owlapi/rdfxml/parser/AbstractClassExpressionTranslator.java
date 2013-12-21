@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
@@ -51,37 +50,31 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
-public abstract class AbstractClassExpressionTranslator implements ClassExpressionTranslator {
-
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
+public abstract class AbstractClassExpressionTranslator implements
+        ClassExpressionTranslator {
     private OWLRDFConsumer consumer;
-
     private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
-
     private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
-
     private IndividualMatcher individualMatcher = new IndividualMatcher();
 
-
+    /** @param consumer
+     *            consumer */
     protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
     @Override
     public boolean matches(IRI mainNode, Mode mode) {
-        if(mode.equals(Mode.LAX)) {
+        if (mode.equals(Mode.LAX)) {
             return matchesLax(mainNode);
-        }
-        else {
+        } else {
             return matchesStrict(mainNode);
         }
     }
 
+    /** @return consumer */
     public OWLRDFConsumer getConsumer() {
         return consumer;
     }
@@ -110,19 +103,21 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return consumer.isRestriction(node);
     }
 
-    protected boolean isNonNegativeIntegerStrict(IRI mainNode, OWLRDFVocabulary predicate) {
+    protected boolean
+            isNonNegativeIntegerStrict(IRI mainNode, OWLRDFVocabulary predicate) {
         OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate, false);
-        if(literal == null) {
+        if (literal == null) {
             return false;
         }
         OWLDatatype datatype = literal.getDatatype();
         OWL2Datatype nni = OWL2Datatype.XSD_NON_NEGATIVE_INTEGER;
-        return datatype.getIRI().equals(nni.getIRI()) && nni.isInLexicalSpace(literal.getLiteral());
+        return datatype.getIRI().equals(nni.getIRI())
+                && nni.isInLexicalSpace(literal.getLiteral());
     }
 
     protected boolean isNonNegativeIntegerLax(IRI mainNode, OWLRDFVocabulary predicate) {
         OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate, false);
-        if(literal == null) {
+        if (literal == null) {
             return false;
         }
         return OWL2Datatype.XSD_INTEGER.isInLexicalSpace(literal.getLiteral().trim());
@@ -130,13 +125,12 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
 
     protected int translateInteger(IRI mainNode, OWLRDFVocabulary predicate) {
         OWLLiteral literal = consumer.getLiteralObject(mainNode, predicate, true);
-        if(literal == null) {
+        if (literal == null) {
             return 0;
         }
         try {
             return Integer.parseInt(literal.getLiteral().trim());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -151,14 +145,14 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     protected boolean isClassExpressionLax(IRI mainNode) {
-        return consumer.isClassExpression(mainNode) || consumer.isParsedAllTriples() && !consumer.isDataRange(mainNode);
+        return consumer.isClassExpression(mainNode) || consumer.isParsedAllTriples()
+                && !consumer.isDataRange(mainNode);
     }
 
     protected boolean isClassExpressionLax(IRI mainNode, OWLRDFVocabulary predicate) {
         IRI object = consumer.getResourceObject(mainNode, predicate, false);
         return object != null && isClassExpressionLax(object);
     }
-
 
     protected boolean isObjectPropertyStrict(IRI node) {
         return consumer.isObjectPropertyOnly(node);
@@ -196,7 +190,6 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return object != null && isDataPropertyLax(object);
     }
 
-
     protected boolean isDataRangeStrict(IRI node) {
         return consumer.isDataRange(node) && !consumer.isClassExpression(node);
     }
@@ -215,7 +208,6 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return object != null && isDataRangeLax(object);
     }
 
-
     protected boolean isClassExpressionListStrict(IRI mainNode, int minSize) {
         return isResourceListStrict(mainNode, classExpressionMatcher, minSize);
     }
@@ -228,35 +220,36 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         return isResourceListStrict(mainNode, individualMatcher, minSize);
     }
 
-    protected boolean isResourceListStrict(IRI mainNode, TypeMatcher typeMatcher, int minSize) {
-        if(mainNode == null) {
+    protected boolean isResourceListStrict(IRI mainNode, TypeMatcher typeMatcher,
+            int minSize) {
+        if (mainNode == null) {
             return false;
         }
         IRI currentListNode = mainNode;
         Set<IRI> visitedListNodes = new HashSet<IRI>();
         int size = 0;
         while (true) {
-            IRI firstObject = consumer.getResourceObject(currentListNode, RDF_FIRST, false);
-            if(firstObject == null) {
+            IRI firstObject = consumer.getResourceObject(currentListNode, RDF_FIRST,
+                    false);
+            if (firstObject == null) {
                 return false;
             }
-            if(!typeMatcher.isTypeStrict(firstObject)) {
+            if (!typeMatcher.isTypeStrict(firstObject)) {
                 // Something in the list that is not of the required type
                 return false;
-            }
-            else {
+            } else {
                 size++;
             }
             IRI restObject = consumer.getResourceObject(currentListNode, RDF_REST, false);
-            if(visitedListNodes.contains(restObject)) {
+            if (visitedListNodes.contains(restObject)) {
                 // Cycle - Non-terminating
                 return false;
             }
-            if(restObject == null) {
+            if (restObject == null) {
                 // Not terminated properly
                 return false;
             }
-            if(restObject.equals(RDF_NIL.getIRI())) {
+            if (restObject.equals(RDF_NIL.getIRI())) {
                 // Terminated properly
                 return size >= minSize;
             }
@@ -266,19 +259,12 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
         }
     }
 
-
-
-
-
-
     private interface TypeMatcher {
         boolean isTypeStrict(IRI node);
     }
 
     private class ClassExpressionMatcher implements TypeMatcher {
-    	public ClassExpressionMatcher() {
-
-    	}
+        public ClassExpressionMatcher() {}
 
         @Override
         public boolean isTypeStrict(IRI node) {
@@ -287,10 +273,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     private class DataRangeMatcher implements TypeMatcher {
-
-    	public DataRangeMatcher() {
-
-		}
+        public DataRangeMatcher() {}
 
         @Override
         public boolean isTypeStrict(IRI node) {
@@ -299,9 +282,7 @@ public abstract class AbstractClassExpressionTranslator implements ClassExpressi
     }
 
     private class IndividualMatcher implements TypeMatcher {
-    	public IndividualMatcher() {
-
-		}
+        public IndividualMatcher() {}
 
         @Override
         public boolean isTypeStrict(IRI node) {

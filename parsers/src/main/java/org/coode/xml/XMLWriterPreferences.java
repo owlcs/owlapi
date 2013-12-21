@@ -40,10 +40,8 @@ package org.coode.xml;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: 30-May-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterPreferences {
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
@@ -56,30 +54,40 @@ public class XMLWriterPreferences {
         indentSize = 4;
     }
 
+    /** @return instance */
     public static XMLWriterPreferences getInstance() {
         return instance;
     }
 
+    /** @return use namespace entities */
     public boolean isUseNamespaceEntities() {
         return useNamespaceEntities;
     }
 
+    /** @param useNamespaceEntities
+     *            useNamespaceEntities */
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
 
+    /** @return indenting */
     public boolean isIndenting() {
         return indenting;
     }
 
+    /** @param indenting
+     *            indenting */
     public void setIndenting(boolean indenting) {
         this.indenting = indenting;
     }
 
+    /** @return indent size */
     public int getIndentSize() {
         return indentSize;
     }
 
+    /** @param indentSize
+     *            indentSize */
     public void setIndentSize(int indentSize) {
         this.indentSize = indentSize;
     }

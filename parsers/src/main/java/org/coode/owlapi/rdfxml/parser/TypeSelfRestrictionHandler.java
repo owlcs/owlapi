@@ -36,31 +36,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Feb-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Feb-2007 */
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_SELF_RESTRICTION.getIRI());
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
         getConsumer().addOWLRestriction(subject, false);
         // Patch to new OWL syntax
-        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(), getDataFactory().getOWLLiteral(true));
+        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(),
+                getDataFactory().getOWLLiteral(true));
     }
 }

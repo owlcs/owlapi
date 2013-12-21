@@ -42,14 +42,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 02-Feb-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009 */
 public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRange> {
     private OWLRDFConsumer consumer;
 
+    /** @param consumer
+     *            consumer */
     public DataRangeListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

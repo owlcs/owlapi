@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import java.util.Set;
@@ -47,21 +46,18 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class TypeDatatypeHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     public TypeDatatypeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_DATATYPE.getIRI());
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (!getConsumer().isAnonymousNode(subject)) {
             OWLDatatype dt = getDataFactory().getOWLDatatype(subject);
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -45,23 +44,20 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006 */
 public class TypeOntologyHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     public TypeOntologyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
     }
 
-
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
-        if(!isAnonymous(subject) && getConsumer().getOntologies().isEmpty()) {
+        if (!isAnonymous(subject) && getConsumer().getOntologies().isEmpty()) {
             // Set IRI if it is not null before this point, and make sure to
             // preserve the version IRI if it also existed before this point
             if (getConsumer().getOntology().getOntologyID().getOntologyIRI() == null) {

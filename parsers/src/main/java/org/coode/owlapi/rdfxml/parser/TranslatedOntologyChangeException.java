@@ -36,24 +36,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.xml.sax.SAXException;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009 */
 public class TranslatedOntologyChangeException extends SAXException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	public TranslatedOntologyChangeException(OWLOntologyChangeException e) {
+    /** @param e
+     *            cause */
+    public TranslatedOntologyChangeException(OWLOntologyChangeException e) {
         super(e);
     }
 

@@ -49,12 +49,14 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * direct way without an equivalent class triple. For example A intersectionOf
  * (C or C)
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Dec-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Dec-2006 */
 public abstract class AbstractNamedEquivalentClassAxiomHandler extends
         TriplePredicateHandler {
+    /** @param consumer
+     *            consumer
+     * @param predicateIRI
+     *            predicateIRI */
     public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer,
             IRI predicateIRI) {
         super(consumer, predicateIRI);

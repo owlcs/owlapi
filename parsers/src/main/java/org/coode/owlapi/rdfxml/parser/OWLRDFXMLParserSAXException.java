@@ -36,23 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.xml.sax.SAXException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007 */
-@SuppressWarnings("javadoc")
+// TODO: Auto-generated Javadoc
+/** The Class OWLRDFXMLParserSAXException.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLRDFXMLParserSAXException extends OWLRDFXMLParserException {
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-	public OWLRDFXMLParserSAXException(SAXException cause) {
+    /** Instantiates a new oWLRDFXML parser sax exception.
+     * 
+     * @param cause
+     *            the cause */
+    public OWLRDFXMLParserSAXException(SAXException cause) {
         super(cause);
     }
 }

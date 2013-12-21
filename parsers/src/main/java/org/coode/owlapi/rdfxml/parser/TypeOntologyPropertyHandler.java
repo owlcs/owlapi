@@ -36,26 +36,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17/12/2010
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 17/12/2010 */
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
-
+    /** @param consumer
+     *            consumer */
     @SuppressWarnings("deprecation")
     public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ONTOLOGY_PROPERTY.getIRI());
     }
-
 
     @Override
     public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
@@ -63,9 +58,12 @@ public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
-        // Add a type triple for an annotation property (Table 6 in Mapping to RDF Graph Spec)
-        getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
+        // Add a type triple for an annotation property (Table 6 in Mapping to
+        // RDF Graph Spec)
+        getConsumer().handle(subject, predicate,
+                OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
     }
 }

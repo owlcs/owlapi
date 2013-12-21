@@ -36,48 +36,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006 */
 public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHandler {
-
+    /** @param consumer
+     *            consumer */
     public GTPObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-
     @Override
-	public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        if(isStrict()) {
+    public boolean canHandle(IRI subject, IRI predicate, IRI object) {
+        if (isStrict()) {
             return isObjectPropertyStrict(predicate);
-        }
-        else {
+        } else {
             // Handle annotation assertions as annotation assertions only!
             return isObjectPropertyLax(predicate) && !isAnnotationPropertyOnly(predicate);
         }
     }
 
-
     @Override
-	public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object) {
         return false;
     }
 
-
     @Override
-	public void handleTriple(IRI subject, IRI predicate, IRI object) throws UnloadableImportException {
+    public void handleTriple(IRI subject, IRI predicate, IRI object)
+            throws UnloadableImportException {
         if (getConsumer().isObjectProperty(predicate)) {
             consumeTriple(subject, predicate, object);
-            addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(translateObjectProperty(predicate), translateIndividual(subject), translateIndividual(object), getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(
+                    translateObjectProperty(predicate), translateIndividual(subject),
+                    translateIndividual(object), getPendingAnnotations()));
         }
     }
 }

@@ -89,10 +89,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Jan-2008 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008 */
 public abstract class RDFRendererBase {
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
     private static final String DATATYPES_BANNER_TEXT = "Datatypes";
@@ -101,17 +99,25 @@ public abstract class RDFRendererBase {
     private static final String CLASSES_BANNER_TEXT = "Classes";
     private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
     private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    /** general axioms */
     public static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    /** rules banner */
     public static final String RULES_BANNER_TEXT = "Rules";
     protected OWLOntology ontology;
     private RDFGraph graph;
     protected Set<IRI> prettyPrintedTypes;
     private OWLOntologyFormat format;
 
+    /** @param ontology
+     *            ontology */
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
 
+    /** @param ontology
+     *            ontology
+     * @param manager
+     *            manager */
     @Deprecated
     @SuppressWarnings("unused")
     public RDFRendererBase(OWLOntology ontology, OWLOntologyManager manager) {
@@ -130,10 +136,12 @@ public abstract class RDFRendererBase {
         this.format = format;
     }
 
+    /** @return graph */
     public RDFGraph getGraph() {
         return graph;
     }
 
+    /** @return ontology */
     public OWLOntology getOntology() {
         return ontology;
     }
@@ -164,6 +172,7 @@ public abstract class RDFRendererBase {
      * 
      * @throws IOException
      *             if there was a problem writing to the output stream */
+    @SuppressWarnings("unused")
     protected void beginObject() throws IOException {}
 
     /** Called after an OWLObject such as an entity, anonymous individual, rule
@@ -171,6 +180,7 @@ public abstract class RDFRendererBase {
      * 
      * @throws IOException
      *             if there was a problem writing to the output stream */
+    @SuppressWarnings("unused")
     protected void endObject() throws IOException {}
 
     /** Called before an annotation property is rendered to give subclasses the
@@ -230,6 +240,8 @@ public abstract class RDFRendererBase {
     protected abstract void writeIndividualComments(OWLNamedIndividual ind)
             throws IOException;
 
+    /** @throws IOException
+     *             io error */
     public void render() throws IOException {
         beginDocument();
         renderOntologyHeader();
@@ -646,6 +658,8 @@ public abstract class RDFRendererBase {
         return results;
     }
 
+    /** @throws IOException
+     *             io error */
     public void renderAnonRoots() throws IOException {
         for (RDFResourceNode node : graph.getRootAnonymousNodes()) {
             render(node);
@@ -662,7 +676,7 @@ public abstract class RDFRendererBase {
     public abstract void render(RDFResourceNode node) throws IOException;
 
     protected boolean isObjectList(RDFResourceNode node) {
-        for (RDFTriple triple : graph.getSortedTriplesForSubject(node, false)) {
+        for (RDFTriple triple : graph.getTriplesForSubject(node, false)) {
             if (triple.getProperty().getIRI().equals(RDF_TYPE.getIRI())) {
                 if (!triple.getObject().isAnonymous()) {
                     if (triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
@@ -684,12 +698,12 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
-            for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
                 if (triple.getProperty().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
                 if (triple.getProperty().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {

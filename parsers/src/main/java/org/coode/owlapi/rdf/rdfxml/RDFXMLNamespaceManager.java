@@ -51,18 +51,21 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 21/09/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/09/2011 */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     /** @param man
-     * @param ontology */
+     *            man
+     * @param ontology
+     *            ontology */
     public RDFXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology) {
         super(man, ontology);
     }
 
     /** @param ontology
-     * @param format */
+     *            ontology
+     * @param format
+     *            format */
     public RDFXMLNamespaceManager(OWLOntology ontology, OWLOntologyFormat format) {
         super(ontology, format);
     }

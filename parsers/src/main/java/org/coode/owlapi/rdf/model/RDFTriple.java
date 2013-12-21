@@ -47,9 +47,8 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** Represents an RDF triple (S, P, O)
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 06-Dec-2006*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006 */
 public class RDFTriple implements Comparable<RDFTriple> {
     private RDFResourceNode subject;
     private RDFResourceNode property;

@@ -58,10 +58,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: 30-May-2006 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterImpl implements XMLWriter {
     private Stack<XMLElement> elementStack;
     protected Writer writer;
@@ -74,6 +72,12 @@ public class XMLWriterImpl implements XMLWriter {
     private boolean preambleWritten;
     private static final String PERCENT_ENTITY = "&#37;";
 
+    /** @param writer
+     *            writer
+     * @param xmlWriterNamespaceManager
+     *            xmlWriterNamespaceManager
+     * @param xmlBase
+     *            xmlBase */
     public XMLWriterImpl(Writer writer,
             XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
         this.writer = writer;
@@ -119,6 +123,7 @@ public class XMLWriterImpl implements XMLWriter {
         return value;
     }
 
+    /** @return default namespace */
     public String getDefaultNamespace() {
         return xmlWriterNamespaceManager.getDefaultNamespace();
     }
@@ -128,6 +133,7 @@ public class XMLWriterImpl implements XMLWriter {
         return xmlBase;
     }
 
+    /** @return xml base */
     public URI getXMLBaseAsURI() {
         return xmlBaseURI;
     }
@@ -333,6 +339,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
+    /** xml element */
     public class XMLElement {
         private String name;
         private Map<String, String> attributes;
@@ -341,11 +348,17 @@ public class XMLWriterImpl implements XMLWriter {
         private int indentation;
         private boolean wrapAttributes;
 
+        /** @param name
+         *            name */
         public XMLElement(String name) {
             this(name, 0);
             wrapAttributes = false;
         }
 
+        /** @param name
+         *            name
+         * @param indentation
+         *            indentation */
         public XMLElement(String name, int indentation) {
             this.name = name;
             attributes = new LinkedHashMap<String, String>();
@@ -354,18 +367,30 @@ public class XMLWriterImpl implements XMLWriter {
             startWritten = false;
         }
 
+        /** @param b
+         *            b */
         public void setWrapAttributes(boolean b) {
             wrapAttributes = b;
         }
 
+        /** @param attribute
+         *            attribute
+         * @param value
+         *            value */
         public void setAttribute(String attribute, String value) {
             attributes.put(attribute, value);
         }
 
+        /** @param content
+         *            content */
         public void setText(String content) {
             textContent = content;
         }
 
+        /** @param close
+         *            close
+         * @throws IOException
+         *             io error */
         public void writeElementStart(boolean close) throws IOException {
             if (!startWritten) {
                 startWritten = true;
@@ -419,6 +444,10 @@ public class XMLWriterImpl implements XMLWriter {
             }
         }
 
+        /** write end element
+         * 
+         * @throws IOException
+         *             io error */
         public void writeElementEnd() throws IOException {
             if (name != null) {
                 if (!startWritten) {
