@@ -40,12 +40,10 @@ package de.uulm.ecs.ai.owlapi.krssparser;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
+    /** ignore ontology iri parameter */
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 
     @Override
@@ -53,10 +51,13 @@ public class KRSS2OntologyFormat extends OWLOntologyFormat {
         return "KRSS2 Syntax";
     }
 
+    /** @return true if ontology iri is ignored */
     public boolean isIgnoreOntologyURI() {
         return (Boolean) getParameter(IGNORE_ONTOLOGYURI, false);
     }
 
+    /** @param ignore
+     *            ignore ontology iri */
     public void setIgnoreOntologyURI(boolean ignore) {
         setParameter(IGNORE_ONTOLOGYURI, ignore);
     }

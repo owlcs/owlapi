@@ -156,19 +156,19 @@ public class KRSS2Parser implements KRSS2ParserConstants {
             }
             TBoxStatement();
         }
-    if (jj_2_2(2)) {
-        jj_consume_token(ENDTBOX);
-    } else {}
-    label_2: while (true) {
-        if (jj_2_3(2)) {} else {
-            break label_2;
+        if (jj_2_2(2)) {
+            jj_consume_token(ENDTBOX);
+        } else {}
+        label_2: while (true) {
+            if (jj_2_3(2)) {} else {
+                break label_2;
+            }
+            ABoxStatement();
         }
-        ABoxStatement();
-    }
-    if (jj_2_4(2)) {
-        jj_consume_token(ENDABOX);
-    } else {}
-    jj_consume_token(0);
+        if (jj_2_4(2)) {
+            jj_consume_token(ENDABOX);
+        } else {}
+        jj_consume_token(0);
     }
 
     final public void TBoxStatement() throws ParseException, KRSS2OWLParserException {
@@ -208,7 +208,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
 
     // Concepts
     final public void DefinePrimitiveConcept() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLClassExpression subClass = null;
         OWLClassExpression superClass = null;
         jj_consume_token(OPENPAR);
@@ -289,7 +289,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void DefinePrimitiveRole() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectProperty subProp;
         OWLObjectProperty superProp;
         OWLClassExpression desc;
@@ -314,7 +314,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void RightIdentity(OWLObjectProperty r) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectProperty s;
         if (jj_2_20(2)) {
             jj_consume_token(RIGHT_IDENTITY_ATTRIBUTE);
@@ -328,7 +328,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void LeftIdentity(OWLObjectProperty r) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectProperty s;
         if (jj_2_21(2)) {
             jj_consume_token(LEFT_IDENTITY_ATTRIBUTE);
@@ -342,7 +342,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void InverseProperty(OWLObjectProperty subProp) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectPropertyExpression superProp;
         if (jj_2_22(2)) {
             jj_consume_token(INVERSE_ATTRIBUTE);
@@ -352,7 +352,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void DomainAttribute(OWLObjectProperty subProp) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLClassExpression desc;
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         if (jj_2_26(2)) {
@@ -384,7 +384,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void RangeAttribute(OWLObjectProperty subProp) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLClassExpression desc;
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         if (jj_2_30(2)) {
@@ -464,7 +464,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void Parents(OWLObjectProperty subProp) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         Set<OWLObjectProperty> roles;
         OWLObjectProperty superProp;
         if (jj_2_46(2)) {
@@ -506,7 +506,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void Parent(OWLObjectProperty subProp) throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectProperty superProp;
         if (jj_2_47(2)) {
             superProp = RoleName();
@@ -559,7 +559,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public void ComplexRoleInclusion() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectProperty superProp;
         List<OWLObjectPropertyExpression> chain;
         jj_consume_token(OPENPAR);
@@ -571,7 +571,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public List<OWLObjectPropertyExpression> propertyChain() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
         List<OWLObjectPropertyExpression> subChain;
         OWLObjectPropertyExpression prop;
@@ -614,7 +614,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLClassExpression ConceptExpression() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLClassExpression desc;
         if (jj_2_50(2)) {
             desc = ConceptName();
@@ -642,14 +642,14 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLClassExpression ConceptName() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         IRI IRI;
         IRI = Name();
         return dataFactory.getOWLClass(IRI);
     }
 
     final public Set<OWLClassExpression> ConceptSet() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         OWLClassExpression desc;
         label_5: while (true) {
@@ -712,7 +712,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLClassExpression AtLeast() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler = null;
         int card;
@@ -731,7 +731,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLClassExpression AtMost() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler = null;
         int card;
@@ -750,7 +750,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLClassExpression Exactly() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler = null;
         int card;
@@ -769,7 +769,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLObjectProperty RoleName() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         IRI IRI;
         IRI = Name();
         if (IRI == null) {
@@ -779,7 +779,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public Set<OWLObjectProperty> RoleNameSet() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         Set<OWLObjectProperty> roles = new HashSet<OWLObjectProperty>();
         OWLObjectProperty role;
         label_6: while (true) {
@@ -793,7 +793,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLObjectPropertyExpression RoleExpression() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         OWLObjectPropertyExpression exp;
         if (jj_2_64(2)) {
             jj_consume_token(OPENPAR);
@@ -876,7 +876,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     final public OWLIndividual IndividualName() throws ParseException,
-    KRSS2OWLParserException {
+            KRSS2OWLParserException {
         IRI name;
         name = Name();
         return dataFactory.getOWLNamedIndividual(name);
@@ -2969,7 +2969,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding */
+    /** Constructor with InputStream and supplied encoding. */
     public KRSS2Parser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
@@ -3100,7 +3100,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     static private final class LookaheadSuccess extends OWLRuntimeException {
-
         private static final long serialVersionUID = 30406L;
 
         public LookaheadSuccess() {}

@@ -36,20 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.krssparser;
 
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Nov-2006 */
 public class KRSSOWLParserFactory implements OWLParserFactory {
-	  @Override
+    @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new KRSSOWLParser();
     }

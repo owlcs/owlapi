@@ -145,8 +145,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original
- * KRSS syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
+/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
+ * syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
  * <table summary="abbreviations">
  * <tr>
@@ -303,9 +303,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 @SuppressWarnings({ "unused", "javadoc" })
 public class KRSSObjectRenderer implements OWLObjectVisitor {
     private static final String OPEN_BRACKET = "(";

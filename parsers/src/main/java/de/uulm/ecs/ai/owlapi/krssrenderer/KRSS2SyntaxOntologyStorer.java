@@ -51,9 +51,7 @@ import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 /** See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2ObjectRenderer
  * KRSS2ObjectRenderer} for definition/explanation of the syntax.
  * 
- * @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence<br> */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 30406L;
 
@@ -62,8 +60,6 @@ public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
         return ontologyFormat.equals(new KRSS2OntologyFormat());
     }
 
-    // I changed this class to extend AbstractOWLOntologyStorer - Matthew
-    // Horridge
     @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
             Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {

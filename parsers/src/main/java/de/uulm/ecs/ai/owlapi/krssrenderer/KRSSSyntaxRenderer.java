@@ -47,15 +47,13 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence<br> */
+/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
     @SuppressWarnings({ "javadoc", "unused" })
     @Deprecated
     public KRSSSyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public KRSSSyntaxRenderer() {}
 
     @Override

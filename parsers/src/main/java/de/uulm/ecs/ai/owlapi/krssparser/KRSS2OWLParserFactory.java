@@ -42,9 +42,7 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence<br> */
+/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OWLParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {

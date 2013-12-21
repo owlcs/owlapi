@@ -48,15 +48,16 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence<br> */
-@SuppressWarnings("javadoc")
+/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
+    /** @param owlOntologyManager
+     *            manager
+     * @deprecated manager is unnecessary */
     @Deprecated
     @SuppressWarnings("unused")
     public KRSS2SyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
 
+    /** default constructor */
     public KRSS2SyntaxRenderer() {}
 
     @Override

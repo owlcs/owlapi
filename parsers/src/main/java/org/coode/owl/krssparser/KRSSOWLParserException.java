@@ -36,28 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owl.krssparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007 */
 public class KRSSOWLParserException extends OWLParserException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-
+    /** @param e
+     *            cause */
     public KRSSOWLParserException(ParseException e) {
         super(e.getMessage(), e.currentToken.beginLine, e.currentToken.beginColumn);
     }
 
-
+    /** @param cause
+     *            cause */
     public KRSSOWLParserException(Throwable cause) {
         super(cause);
     }

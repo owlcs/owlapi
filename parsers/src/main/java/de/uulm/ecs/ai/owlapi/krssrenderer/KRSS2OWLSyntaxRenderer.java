@@ -52,10 +52,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
     @SuppressWarnings({ "javadoc", "unused" })
     @Deprecated
-    public KRSS2OWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-}
+    public KRSS2OWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public KRSS2OWLSyntaxRenderer() {}
 
     @Override

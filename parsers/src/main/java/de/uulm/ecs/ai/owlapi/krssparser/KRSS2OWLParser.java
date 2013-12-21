@@ -251,9 +251,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OWLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,

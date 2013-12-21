@@ -179,8 +179,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * <tr>
  * <td>OWLDisjointClassesAxiom</td>
  * <td>(disjoint C D)</td>
- * <td><i>OWLDisjointClasses C D1 D2 ... Dn</i> will be translated to: <br>
- * { (disjoint i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
+ * <td><i>OWLDisjointClasses C D1 D2 ... Dn</i> { (disjoint i(j) i(j+k)) | 1
+ * &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>
  * <tr>
@@ -198,8 +198,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * (define-primitive-concept C (and D1...Dn)) <br>
  * Only applicable if there is no OWLEquivalentClasses axiom. In that case the
  * class will be introduced via (define-concept...) and all subclass axioms are
- * handled via implies <br>
- * </td>
+ * handled via implies</td>
  * </tr>
  * <tr>
  * <td>OWLSubClassOfAxiom</td>
@@ -309,9 +308,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens<br>
- *         Ulm University<br>
- *         Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /** If declarations are ignored, entities which are only referenced in a
@@ -326,13 +323,16 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     }
 
     /** @param ontology
-     * @param writer */
+     *            ontology to render
+     * @param writer
+     *            writer to render to */
     public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
 
-    /** @param ignoreDeclarations */
+    /** @param ignoreDeclarations
+     *            true if declarations should be ignored */
     public void setIgnoreDeclarations(boolean ignoreDeclarations) {
         this.ignoreDeclarations = ignoreDeclarations;
     }
