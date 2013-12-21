@@ -36,24 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.turtle;
 
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008 */
 public class TurtleOntologyFormat extends RDFOntologyFormat {
+    private static final long serialVersionUID = 30406L;
 
-
-
-	private static final long serialVersionUID = 30406L;
-
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
         return "Turtle";
     }
 }

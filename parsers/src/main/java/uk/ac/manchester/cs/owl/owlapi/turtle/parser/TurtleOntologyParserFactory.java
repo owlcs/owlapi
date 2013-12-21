@@ -36,23 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Feb-2008 */
+// TODO: Auto-generated Javadoc
+/** A factory for creating TurtleOntologyParser objects.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Feb-2008 */
 public class TurtleOntologyParserFactory implements OWLParserFactory {
-
-
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.semanticweb.owlapi.io.OWLParserFactory#createParser(org.semanticweb
+     * .owlapi.model.OWLOntologyManager)
+     */
     @Override
-	public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
+    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new TurtleOntologyParser();
     }
 }

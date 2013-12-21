@@ -41,6 +41,7 @@ package org.coode.owlapi.turtle;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -71,9 +72,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Jan-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008 */
 public class TurtleRenderer extends RDFRendererBase {
     private PrintWriter writer;
     private Set<RDFResourceNode> pending;
@@ -81,7 +81,14 @@ public class TurtleRenderer extends RDFRendererBase {
     private String base;
     private OWLOntologyFormat format;
 
-    @SuppressWarnings("javadoc")
+    /** @param ontology
+     *            ontology
+     * @param manager
+     *            manager
+     * @param writer
+     *            writer
+     * @param format
+     *            format */
     @Deprecated
     public TurtleRenderer(OWLOntology ontology,
             @SuppressWarnings("unused") OWLOntologyManager manager, Writer writer,
@@ -90,8 +97,11 @@ public class TurtleRenderer extends RDFRendererBase {
     }
 
     /** @param ontology
+     *            ontology
      * @param writer
-     * @param format */
+     *            writer
+     * @param format
+     *            format */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
         this.format = format;
@@ -358,13 +368,13 @@ public class TurtleRenderer extends RDFRendererBase {
     @Override
     public void render(RDFResourceNode node) {
         level++;
-        List<RDFTriple> triples;
+        Collection<RDFTriple> triples;
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any
             // cycles therefore indicate a bug!
             triples = Collections.emptyList();
         } else {
-            triples = getGraph().getSortedTriplesForSubject(node, true);
+            triples = getGraph().getTriplesForSubject(node, true);
         }
         pending.add(node);
         RDFResourceNode lastSubject = null;

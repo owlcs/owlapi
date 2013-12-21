@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
@@ -48,94 +47,150 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.SAXException;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Feb-2008 */
-@SuppressWarnings("javadoc")
+// TODO: Auto-generated Javadoc
+/** The Class OWLRDFConsumerAdapter.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Feb-2008 */
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
-
+    /** Instantiates a new oWLRDF consumer adapter.
+     * 
+     * @param owlOntologyManager
+     *            the owl ontology manager
+     * @param ontology
+     *            the ontology
+     * @param checker
+     *            the checker
+     * @param configuration
+     *            the configuration */
     @SuppressWarnings("unused")
     @Deprecated
-    public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager, OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+    public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager,
+            OWLOntology ontology, AnonymousNodeChecker checker,
+            OWLOntologyLoaderConfiguration configuration) {
         this(ontology, checker, configuration);
     }
 
-    public OWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker, OWLOntologyLoaderConfiguration configuration) {
+    /** Instantiates a new oWLRDF consumer adapter.
+     * 
+     * @param ontology
+     *            the ontology
+     * @param checker
+     *            the checker
+     * @param configuration
+     *            the configuration */
+    public OWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
+            OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#
+     * handlePrefixDirective(java.lang.String, java.lang.String)
+     */
     @Override
-    public void handlePrefixDirective(String prefixName, String prefix) {
+    public void handlePrefixDirective(String prefixName, String prefix) {}
 
-    }
-
-
+    /*
+     * (non-Javadoc)
+     * @see uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#
+     * handleBaseDirective(java.lang.String)
+     */
     @Override
     public void handleBaseDirective(String base) {
-//        setXMLBase(base);
+        // setXMLBase(base);
     }
 
+    /*
+     * (non-Javadoc)
+     * @see
+     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleComment
+     * (java.lang.String)
+     */
     @Override
-    public void handleComment(String comment) {
+    public void handleComment(String comment) {}
 
-    }
-
-
+    /*
+     * (non-Javadoc)
+     * @see
+     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
+     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
+     * org.semanticweb.owlapi.model.IRI)
+     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         try {
             // XXX inefficient?
-            statementWithResourceValue(subject.toString(), predicate.toString(), object.toString());
-        }
-        catch (SAXException e) {
+            statementWithResourceValue(subject.toString(), predicate.toString(),
+                    object.toString());
+        } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see
+     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
+     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
+     * java.lang.String)
+     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, null);
-        }
-        catch (SAXException e) {
+            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
+                    null, null);
+        } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see
+     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
+     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
+     * java.lang.String, java.lang.String)
+     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object, lang, null);
-        }
-        catch (SAXException e) {
+            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
+                    lang, null);
+        } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see
+     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
+     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
+     * java.lang.String, org.semanticweb.owlapi.model.IRI)
+     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object, null, datatype.toString());
-        }
-        catch (SAXException e) {
+            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
+                    null, datatype.toString());
+        } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
-
+    /*
+     * (non-Javadoc)
+     * @see
+     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleEnd()
+     */
     @Override
     public void handleEnd() {
         try {
             endModel();
-        }
-        catch (SAXException e) {
+        } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 }
-
-

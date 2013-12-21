@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import java.io.BufferedInputStream;
@@ -56,57 +55,67 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Feb-2008 */
+// TODO: Auto-generated Javadoc
+/** The Class TurtleOntologyParser.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Feb-2008 */
 public class TurtleOntologyParser extends AbstractOWLParser {
-
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.io.OWLParser#parse(org.semanticweb.owlapi.io.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)
+     */
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, UnloadableImportException, IOException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, UnloadableImportException,
+            IOException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.io.OWLParser#parse(org.semanticweb.owlapi.io.
+     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology,
+     * org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)
+     */
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
         Reader reader = null;
         InputStream is = null;
         try {
             TurtleParser parser;
-            if(documentSource.isReaderAvailable()) {
+            if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
                 parser = new TurtleParser(reader, new ConsoleTripleHandler(),
                         documentSource.getDocumentIRI().toString());
-            }
-            else if(documentSource.isInputStreamAvailable()) {
+            } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
                 parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource
                         .getDocumentIRI().toString());
-            }
-            else {
+            } else {
                 is = new BufferedInputStream(documentSource.getDocumentIRI().toURI()
                         .toURL().openStream());
                 parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource
                         .getDocumentIRI().toString());
             }
-
-            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(ontology, parser, configuration);
+            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(ontology, parser,
+                    configuration);
             TurtleOntologyFormat format = new TurtleOntologyFormat();
             consumer.setOntologyFormat(format);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
             DefaultPrefixManager prefixManager = parser.getPrefixManager();
-            for(String prefixName : prefixManager.getPrefixNames()) {
+            for (String prefixName : prefixManager.getPrefixNames()) {
                 format.setPrefix(prefixName, prefixManager.getPrefix(prefixName));
             }
             return format;
-
-        }
-        catch(ParseException e) {
+        } catch (ParseException e) {
             throw new TurtleParserException(e);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLParserIOException(e);
         } finally {
             if (is != null) {
