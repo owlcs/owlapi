@@ -3,7 +3,6 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
-// TODO: Auto-generated Javadoc
 /** Token Manager. */
 public class TurtleParserTokenManager implements TurtleParserConstants {
     /** Debug output. */

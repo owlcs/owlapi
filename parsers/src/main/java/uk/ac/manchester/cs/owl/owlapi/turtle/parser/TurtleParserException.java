@@ -40,7 +40,6 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-// TODO: Auto-generated Javadoc
 /** The Class TurtleParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

@@ -73,7 +73,6 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-// TODO: Auto-generated Javadoc
 /** The Class OBOConsumer.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

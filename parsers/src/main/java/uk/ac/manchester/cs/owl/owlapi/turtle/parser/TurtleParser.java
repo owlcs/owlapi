@@ -14,7 +14,6 @@ import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-// TODO: Auto-generated Javadoc
 /** The Class TurtleParser. */
 public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
     /** The string2 iri. */
@@ -73,34 +72,16 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         this.handler = handler;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker#isAnonymousNode(java
-     * .lang.String)
-     */
     @Override
     public boolean isAnonymousNode(String iri) {
         return NodeID.isAnonymousNodeIRI(iri);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker#isAnonymousNode(org
-     * .semanticweb.owlapi.model.IRI)
-     */
     @Override
     public boolean isAnonymousNode(IRI iri) {
         return NodeID.isAnonymousNodeIRI(iri);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker#isAnonymousSharedNode
-     * (java.lang.String)
-     */
     @Override
     public boolean isAnonymousSharedNode(String iri) {
         return NodeID.isAnonymousNodeID(iri);

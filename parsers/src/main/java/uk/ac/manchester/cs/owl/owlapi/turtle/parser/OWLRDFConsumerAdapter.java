@@ -47,7 +47,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.SAXException;
 
-// TODO: Auto-generated Javadoc
 /** The Class OWLRDFConsumerAdapter.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -84,40 +83,17 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         super(ontology, checker, configuration);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#
-     * handlePrefixDirective(java.lang.String, java.lang.String)
-     */
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {}
 
-    /*
-     * (non-Javadoc)
-     * @see uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#
-     * handleBaseDirective(java.lang.String)
-     */
     @Override
     public void handleBaseDirective(String base) {
         // setXMLBase(base);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleComment
-     * (java.lang.String)
-     */
     @Override
     public void handleComment(String comment) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * org.semanticweb.owlapi.model.IRI)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         try {
@@ -129,13 +105,6 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * java.lang.String)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         try {
@@ -146,13 +115,6 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * java.lang.String, java.lang.String)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
         try {
@@ -163,13 +125,6 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * java.lang.String, org.semanticweb.owlapi.model.IRI)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
         try {
@@ -180,11 +135,6 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleEnd()
-     */
     @Override
     public void handleEnd() {
         try {

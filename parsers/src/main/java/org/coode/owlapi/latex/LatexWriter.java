@@ -41,7 +41,6 @@ package org.coode.owlapi.latex;
 import java.io.PrintWriter;
 import java.io.Writer;
 
-// TODO: Auto-generated Javadoc
 /** The Class LatexWriter.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics

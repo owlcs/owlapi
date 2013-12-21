@@ -40,7 +40,6 @@
 /* JavaCCOptions:KEEP_LINE_COL=null */
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 
-// TODO: Auto-generated Javadoc
 /** This exception is thrown when parse errors are encountered. You can
  * explicitly create objects of this exception type by calling the method
  * generateParseException in the generated parser. You can modify this class to

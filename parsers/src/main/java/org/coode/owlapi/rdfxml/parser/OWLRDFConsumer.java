@@ -102,7 +102,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 import org.xml.sax.SAXException;
 
-// TODO: Auto-generated Javadoc
 /** A parser/interpreter for an RDF graph which represents an OWL ontology. The
  * consumer interprets triple patterns in the graph to produce the appropriate
  * OWLAPI entities, class expressions and axioms. The parser is based on triple
@@ -1741,12 +1740,6 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.semanticweb.owlapi.rdf.syntax.RDFConsumer#startModel(java.lang.String
-     * )
-     */
     @Override
     public void startModel(String string) throws SAXException {
         count = 0;
@@ -1759,10 +1752,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         return parsedAllTriples;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.rdf.syntax.RDFConsumer#endModel()
-     */
     @Override
     public void endModel() throws SAXException {
         parsedAllTriples = true;
@@ -1997,30 +1986,12 @@ public class OWLRDFConsumer implements RDFConsumer {
         singleValuedResTriplesByPredicate.clear();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.semanticweb.owlapi.rdf.syntax.RDFConsumer#addModelAttribte(java.lang
-     * .String, java.lang.String)
-     */
     @Override
     public void addModelAttribte(String string, String string1) throws SAXException {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.semanticweb.owlapi.rdf.syntax.RDFConsumer#includeModel(java.lang.
-     * String, java.lang.String)
-     */
     @Override
     public void includeModel(String string, String string1) throws SAXException {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.semanticweb.owlapi.rdf.syntax.RDFConsumer#logicalURI(java.lang.String
-     * )
-     */
     @Override
     public void logicalURI(String string) throws SAXException {}
 
@@ -2039,13 +2010,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         return original;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.semanticweb.owlapi.rdf.syntax.RDFConsumer#statementWithLiteralValue
-     * (java.lang.String, java.lang.String, java.lang.String, java.lang.String,
-     * java.lang.String)
-     */
     @Override
     public void statementWithLiteralValue(String subject, String predicate,
             String object, String lang, String datatype) throws SAXException {
@@ -2056,12 +2020,6 @@ public class OWLRDFConsumer implements RDFConsumer {
         handleStreaming(subjectIRI, predicateIRI, object, datatype, lang);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.semanticweb.owlapi.rdf.syntax.RDFConsumer#statementWithResourceValue
-     * (java.lang.String, java.lang.String, java.lang.String)
-     */
     @Override
     public void
             statementWithResourceValue(String subject, String predicate, String object)

@@ -114,7 +114,6 @@ import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-// TODO: Auto-generated Javadoc
 /** The Class ManchesterOWLSyntaxFrameRenderer.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

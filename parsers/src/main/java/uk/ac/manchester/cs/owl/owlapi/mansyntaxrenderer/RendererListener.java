@@ -38,7 +38,6 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
-// TODO: Auto-generated Javadoc
 /** The listener interface for receiving renderer events. The class that is
  * interested in processing a renderer event implements this interface, and the
  * object created with that class is registered with a component using the

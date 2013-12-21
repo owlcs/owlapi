@@ -55,17 +55,11 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-// TODO: Auto-generated Javadoc
 /** The Class TurtleOntologyParser.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 23-Feb-2008 */
 public class TurtleOntologyParser extends AbstractOWLParser {
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.io.OWLParser#parse(org.semanticweb.owlapi.io.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)
-     */
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, UnloadableImportException,
@@ -73,12 +67,6 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.io.OWLParser#parse(org.semanticweb.owlapi.io.
-     * OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology,
-     * org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration)
-     */
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)

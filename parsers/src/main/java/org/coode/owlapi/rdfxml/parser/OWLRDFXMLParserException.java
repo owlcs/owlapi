@@ -40,7 +40,6 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-// TODO: Auto-generated Javadoc
 /** The Class OWLRDFXMLParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

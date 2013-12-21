@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-// TODO: Auto-generated Javadoc
 /** The Class OWLRDFXMLParserMalformedNodeException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

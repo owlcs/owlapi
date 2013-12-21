@@ -40,7 +40,6 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.xml.sax.SAXException;
 
-// TODO: Auto-generated Javadoc
 /** The Class OWLRDFXMLParserSAXException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

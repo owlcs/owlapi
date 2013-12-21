@@ -40,7 +40,6 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
  */
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-// TODO: Auto-generated Javadoc
 /** Token Manager Error. */
 @SuppressWarnings("unused")
 public class TokenMgrError extends OWLRuntimeException {

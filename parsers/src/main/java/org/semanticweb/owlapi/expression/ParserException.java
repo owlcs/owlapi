@@ -43,7 +43,6 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-// TODO: Auto-generated Javadoc
 /** The Class ParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

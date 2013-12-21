@@ -1,6 +1,5 @@
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
-// TODO: Auto-generated Javadoc
 /*
  * This file is part of the OWL API.
  *

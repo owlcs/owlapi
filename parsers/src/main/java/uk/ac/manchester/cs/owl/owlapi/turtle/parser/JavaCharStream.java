@@ -4,7 +4,6 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import java.io.UnsupportedEncodingException;
 
-// TODO: Auto-generated Javadoc
 /** Wrapper for the common JavaCharStream for all parsers. This is needed because
  * we have a request to support UTF-8 files that have an initial BOM. UTF-8 does
  * not need BOMs but some tools insist adding them. Java on the other hand won't

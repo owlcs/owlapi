@@ -40,82 +40,32 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-// TODO: Auto-generated Javadoc
 /** The Class NullTripleHandler.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 17-Apr-2008 */
 public class NullTripleHandler implements TripleHandler {
-    /*
-     * (non-Javadoc)
-     * @see uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#
-     * handlePrefixDirective(java.lang.String, java.lang.String)
-     */
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {}
 
-    /*
-     * (non-Javadoc)
-     * @see uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#
-     * handleBaseDirective(java.lang.String)
-     */
     @Override
     public void handleBaseDirective(String base) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleComment
-     * (java.lang.String)
-     */
     @Override
     public void handleComment(String comment) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * org.semanticweb.owlapi.model.IRI)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * java.lang.String)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * java.lang.String, java.lang.String)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, String lang) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleTriple
-     * (org.semanticweb.owlapi.model.IRI, org.semanticweb.owlapi.model.IRI,
-     * java.lang.String, org.semanticweb.owlapi.model.IRI)
-     */
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {}
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler#handleEnd()
-     */
     @Override
     public void handleEnd() {}
 }

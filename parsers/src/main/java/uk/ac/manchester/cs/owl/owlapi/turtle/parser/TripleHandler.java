@@ -40,7 +40,6 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-// TODO: Auto-generated Javadoc
 /** The Interface TripleHandler.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
