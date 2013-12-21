@@ -38,8 +38,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
+
+import java.io.UnsupportedEncodingException;
 
 /** Wrapper for the common JavaCharStream for all parsers. This is needed because
  * we have a request to support UTF-8 files that have an initial BOM. UTF-8 does
@@ -48,17 +49,37 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
  * the support must be added by hand, and it's easier to have it in one place.
  * This stops JavaCC from rebuilding the wrong files and minimizes duplicated
  * code. */
-@SuppressWarnings("javadoc")
 public class JavaCharStream extends uk.ac.manchester.cs.BOMSafeJavaCharStream {
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     *            stream
+     * @param startline
+     *            start line
+     * @param startcolumn
+     *            start column */
     public JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {
         super(dstream, startline, startcolumn, 4096);
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     *            stream
+     * @param encoding
+     *            encoding
+     * @param startline
+     *            start line
+     * @param startcolumn
+     *            start column
+     * @throws UnsupportedEncodingException
+     *             for unsupported encoding */
     public JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
             int startcolumn) throws java.io.UnsupportedEncodingException {
         super(dstream, encoding, startline, startcolumn, 4096);
     }
 }
-/* JavaCC - OriginalChecksum=c048efc46c9aaa22abb59a0409f26b1f (do not edit this line) */
+/*
+ * JavaCC - OriginalChecksum=c048efc46c9aaa22abb59a0409f26b1f (do not edit this
+ * line)
+ */

@@ -6,36 +6,35 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 /** Token Manager. */
-@SuppressWarnings({"unused","javadoc"})
-public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
-{
-
+@SuppressWarnings({ "unused", "javadoc" })
+public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     /** Debug output. */
-    public  java.io.PrintStream debugStream = System.out;
+    public java.io.PrintStream debugStream = System.out;
+
     /** Set debug output. */
-    public  void setDebugStream(java.io.PrintStream ds) { debugStream = ds; }
-    private final int jjStopStringLiteralDfa_0(int pos, long active0)
-    {
-        switch (pos)
-        {
-            default :
+    public void setDebugStream(java.io.PrintStream ds) {
+        debugStream = ds;
+    }
+
+    private int jjStopStringLiteralDfa_0(int pos, long active0) {
+        switch (pos) {
+            default:
                 return -1;
         }
     }
-    private final int jjStartNfa_0(int pos, long active0)
-    {
+
+    private int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
-    private int jjStopAtPos(int pos, int kind)
-    {
+
+    private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
-    private int jjMoveStringLiteralDfa0_0()
-    {
-        switch(curChar)
-        {
+
+    private int jjMoveStringLiteralDfa0_0() {
+        switch (curChar) {
             case 10:
                 return jjStopAtPos(0, 30);
             case 13:
@@ -58,125 +57,84 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
                 return jjStopAtPos(0, 14);
             case 125:
                 return jjStopAtPos(0, 15);
-            default :
+            default:
                 return jjMoveNfa_0(0, 0);
         }
     }
-    private int jjStartNfaWithStates_0(int pos, int kind, int state)
-    {
+
+    private int jjStartNfaWithStates_0(int pos, int kind, int state) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
-        try { curChar = input_stream.readChar(); }
-        catch(java.io.IOException e) { return pos + 1; }
+        try {
+            curChar = input_stream.readChar();
+        } catch (java.io.IOException e) {
+            return pos + 1;
+        }
         return jjMoveNfa_0(state, pos + 1);
     }
-    static final long[] jjbitVec0 = {
-        0x0L, 0x0L, 0x20000L, 0x0L
-    };
-    static final long[] jjbitVec1 = {
-        0x0L, 0x200000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec2 = {
-        0x0L, 0x100000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec3 = {
-        0x1000000L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec4 = {
-        0x0L, 0x800000000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec5 = {
-        0x0L, 0x0L, 0x80000L, 0x0L
-    };
-    static final long[] jjbitVec6 = {
-        0x0L, 0x0L, 0x100000L, 0x0L
-    };
-    static final long[] jjbitVec7 = {
-        0x0L, 0x0L, 0x100000000000L, 0x0L
-    };
-    static final long[] jjbitVec8 = {
-        0x8L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec9 = {
-        0x1L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec10 = {
-        0x0L, 0x2000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec11 = {
-        0x0L, 0x1000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec12 = {
-        0x100L, 0x0L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec13 = {
-        0x0L, 0x400000000000000L, 0x0L, 0x0L
-    };
-    static final long[] jjbitVec14 = {
-        0xfffffffafffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec16 = {
-        0x0L, 0x0L, 0xffffefffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec17 = {
-        0xffffffffffffffffL, 0xf7ffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    static final long[] jjbitVec18 = {
-        0xfffffffffffffeffL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
-    };
-    private int jjMoveNfa_0(int startState, int curPos)
-    {
+
+    static final long[] jjbitVec0 = { 0x0L, 0x0L, 0x20000L, 0x0L };
+    static final long[] jjbitVec1 = { 0x0L, 0x200000000L, 0x0L, 0x0L };
+    static final long[] jjbitVec2 = { 0x0L, 0x100000000L, 0x0L, 0x0L };
+    static final long[] jjbitVec3 = { 0x1000000L, 0x0L, 0x0L, 0x0L };
+    static final long[] jjbitVec4 = { 0x0L, 0x800000000000000L, 0x0L, 0x0L };
+    static final long[] jjbitVec5 = { 0x0L, 0x0L, 0x80000L, 0x0L };
+    static final long[] jjbitVec6 = { 0x0L, 0x0L, 0x100000L, 0x0L };
+    static final long[] jjbitVec7 = { 0x0L, 0x0L, 0x100000000000L, 0x0L };
+    static final long[] jjbitVec8 = { 0x8L, 0x0L, 0x0L, 0x0L };
+    static final long[] jjbitVec9 = { 0x1L, 0x0L, 0x0L, 0x0L };
+    static final long[] jjbitVec10 = { 0x0L, 0x2000000000L, 0x0L, 0x0L };
+    static final long[] jjbitVec11 = { 0x0L, 0x1000000000L, 0x0L, 0x0L };
+    static final long[] jjbitVec12 = { 0x100L, 0x0L, 0x0L, 0x0L };
+    static final long[] jjbitVec13 = { 0x0L, 0x400000000000000L, 0x0L, 0x0L };
+    static final long[] jjbitVec14 = { 0xfffffffafffffffeL, 0xffffffffffffffffL,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec16 = { 0x0L, 0x0L, 0xffffefffffffffffL,
+            0xffffffffffffffffL };
+    static final long[] jjbitVec17 = { 0xffffffffffffffffL, 0xf7ffffffffffffffL,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec18 = { 0xfffffffffffffeffL, 0xffffffffffffffffL,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
+
+    private int jjMoveNfa_0(int startState, int curPos) {
         int startsAt = 0;
         jjnewStateCnt = 121;
         int i = 1;
         jjstateSet[0] = startState;
         int kind = 0x7fffffff;
-        for (;;)
-        {
+        for (;;) {
             if (++jjround == 0x7fffffff) {
                 ReInitRounds();
             }
-            if (curChar < 64)
-            {
+            if (curChar < 64) {
                 long l = 1L << curChar;
-                do
-                {
-                    switch(jjstateSet[--i])
-                    {
+                do {
+                    switch (jjstateSet[--i]) {
                         case 0:
-                            if ((0x8fffacfefffff9ffL & l) != 0L)
-                            {
+                            if ((0x8fffacfefffff9ffL & l) != 0L) {
                                 if (kind > 29) {
                                     kind = 29;
                                 }
                                 jjCheckNAdd(43);
-                            }
-                            else if (curChar == 61)
-                            {
+                            } else if (curChar == 61) {
                                 if (kind > 24) {
                                     kind = 24;
                                 }
-                            }
-                            else if (curChar == 60)
-                            {
+                            } else if (curChar == 60) {
                                 if (kind > 23) {
                                     kind = 23;
                                 }
-                            }
-                            else if (curChar == 62)
-                            {
+                            } else if (curChar == 62) {
                                 if (kind > 22) {
                                     kind = 22;
                                 }
                             }
-                            if ((0x3ff000000000000L & l) != 0L)
-                            {
+                            if ((0x3ff000000000000L & l) != 0L) {
                                 if (kind > 27) {
                                     kind = 27;
                                 }
                                 jjCheckNAddStates(0, 2);
-                            }
-                            else if (curChar == 33) {
+                            } else if (curChar == 33) {
                                 jjstateSet[jjnewStateCnt++] = 10;
                             } else if (curChar == 61) {
                                 jjstateSet[jjnewStateCnt++] = 7;
@@ -282,26 +240,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
                             }
                             jjCheckNAdd(120);
                             break;
-                        default : break;
+                        default:
+                            break;
                     }
-                } while(i != startsAt);
-            }
-            else if (curChar < 128)
-            {
+                } while (i != startsAt);
+            } else if (curChar < 128) {
                 long l = 1L << (curChar & 077);
-                do
-                {
-                    switch(jjstateSet[--i])
-                    {
+                do {
+                    switch (jjstateSet[--i]) {
                         case 0:
-                            if ((0xd7ffffff97ffffffL & l) != 0L)
-                            {
+                            if ((0xd7ffffff97ffffffL & l) != 0L) {
                                 if (kind > 29) {
                                     kind = 29;
                                 }
                                 jjCheckNAdd(43);
-                            }
-                            else if (curChar == 94) {
+                            } else if (curChar == 94) {
                                 jjstateSet[jjnewStateCnt++] = 14;
                             }
                             if (curChar == 101) {
@@ -325,8 +278,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
                             } else if (curChar == 115) {
                                 jjstateSet[jjnewStateCnt++] = 4;
                             }
-                            if (curChar == 111)
-                            {
+                            if (curChar == 111) {
                                 if (kind > 7) {
                                     kind = 7;
                                 }
@@ -799,102 +751,85 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
                                 jjstateSet[jjnewStateCnt++] = 114;
                             }
                             break;
-                        default : break;
+                        default:
+                            break;
                     }
-                } while(i != startsAt);
-            }
-            else
-            {
+                } while (i != startsAt);
+            } else {
                 int hiByte = curChar >> 8;
                 int i1 = hiByte >> 6;
                 long l1 = 1L << (hiByte & 077);
                 int i2 = (curChar & 0xff) >> 6;
                 long l2 = 1L << (curChar & 077);
-                do
-                {
-                    switch(jjstateSet[--i])
-                    {
+                do {
+                    switch (jjstateSet[--i]) {
                         case 0:
-                            if (jjCanMove_0(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_0(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 4) {
                                     kind = 4;
                                 }
                             }
-                            if (jjCanMove_1(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 5) {
                                     kind = 5;
                                 }
                             }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 6) {
                                     kind = 6;
                                 }
                             }
-                            if (jjCanMove_3(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_3(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 7) {
                                     kind = 7;
                                 }
                             }
-                            if (jjCanMove_4(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_4(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 9) {
                                     kind = 9;
                                 }
                             }
-                            if (jjCanMove_5(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_5(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 17) {
                                     kind = 17;
                                 }
                             }
-                            if (jjCanMove_6(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_6(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 18) {
                                     kind = 18;
                                 }
                             }
-                            if (jjCanMove_7(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_7(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 19) {
                                     kind = 19;
                                 }
                             }
-                            if (jjCanMove_8(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_8(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 20) {
                                     kind = 20;
                                 }
                             }
-                            if (jjCanMove_9(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_9(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 21) {
                                     kind = 21;
                                 }
                             }
-                            if (jjCanMove_10(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_10(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 22) {
                                     kind = 22;
                                 }
                             }
-                            if (jjCanMove_11(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_11(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 23) {
                                     kind = 23;
                                 }
                             }
-                            if (jjCanMove_12(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_12(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 25) {
                                     kind = 25;
                                 }
                             }
-                            if (jjCanMove_14(hiByte, i1, i2, l1, l2))
-                            {
+                            if (jjCanMove_14(hiByte, i1, i2, l1, l2)) {
                                 if (kind > 29) {
                                     kind = 29;
                                 }
@@ -975,12 +910,12 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
                             }
                             jjCheckNAdd(43);
                             break;
-                        default : break;
+                        default:
+                            break;
                     }
-                } while(i != startsAt);
+                } while (i != startsAt);
             }
-            if (kind != 0x7fffffff)
-            {
+            if (kind != 0x7fffffff) {
                 jjmatchedKind = kind;
                 jjmatchedPos = curPos;
                 kind = 0x7fffffff;
@@ -989,165 +924,153 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
             if ((i = jjnewStateCnt) == (startsAt = 121 - (jjnewStateCnt = startsAt))) {
                 return curPos;
             }
-            try { curChar = input_stream.readChar(); }
-            catch(java.io.IOException e) { return curPos; }
+            try {
+                curChar = input_stream.readChar();
+            } catch (java.io.IOException e) {
+                return curPos;
+            }
         }
     }
-    static final int[] jjnextStates = {
-        117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89, 95, 100, 103, 106, 48,
-        57,
-    };
-    private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    static final int[] jjnextStates = { 117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89,
+            95, 100, 103, 106, 48, 57, };
+
+    private static final boolean
+            jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec0[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec1[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec2[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec3[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 32:
                 return (jjbitVec4[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec5[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec6[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 0:
                 return (jjbitVec7[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec8[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_9(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_9(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec9[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_10(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_10(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec10[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_11(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_11(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec11[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_12(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_12(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 34:
                 return (jjbitVec12[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_13(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_13(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 32:
                 return (jjbitVec13[i2] & l2) != 0L;
-            default :
+            default:
                 return false;
         }
     }
-    private static final boolean jjCanMove_14(int hiByte, int i1, int i2, long l1, long l2)
-    {
-        switch(hiByte)
-        {
+
+    private boolean jjCanMove_14(int hiByte, int i1, int i2, long l1, long l2) {
+        switch (hiByte) {
             case 0:
                 return (jjbitVec16[i2] & l2) != 0L;
             case 32:
                 return (jjbitVec17[i2] & l2) != 0L;
             case 34:
                 return (jjbitVec18[i2] & l2) != 0L;
-            default :
+            default:
                 if ((jjbitVec14[i1] & l1) != 0L) {
                     return true;
                 }
@@ -1156,27 +1079,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
     }
 
     /** Token literal values. */
-    public static final String[] jjstrLiteralImages = {
-        "", null, null, null, null, null, null, null, "\56", null, "\50", "\51",
-        "\133", "\135", "\173", "\175", "\72", null, null, null, null, null, null, null, null,
-        null, null, null, null, null, "\12", "\54", };
-
+    public final String[] jjstrLiteralImages = { "", null, null, null, null, null, null,
+            null, "\56", null, "\50", "\51", "\133", "\135", "\173", "\175", "\72", null,
+            null, null, null, null, null, null, null, null, null, null, null, null,
+            "\12", "\54", };
     /** Lexer state names. */
-    public static final String[] lexStateNames = {
-        "DEFAULT",
-    };
-    static final long[] jjtoToken = {
-        0xfffffff1L,
-    };
-    static final long[] jjtoSkip = {
-        0xeL,
-    };
+    public static final String[] lexStateNames = { "DEFAULT", };
+    static final long[] jjtoToken = { 0xfffffff1L, };
+    static final long[] jjtoSkip = { 0xeL, };
     protected BOMSafeJavaCharStream input_stream;
     private final int[] jjrounds = new int[121];
     private final int[] jjstateSet = new int[242];
     protected char curChar;
+
     /** Constructor. */
-    public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream){
+    public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
                     "ERROR: Cannot use a static CharStream class with a non-static lexical analyzer.");
@@ -1185,21 +1102,20 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
     }
 
     /** Constructor. */
-    public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream, int lexState){
+    public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
     /** Reinitialise parser. */
-    public void ReInit(BOMSafeJavaCharStream stream)
-    {
+    public void ReInit(BOMSafeJavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
         input_stream = stream;
         ReInitRounds();
     }
-    private void ReInitRounds()
-    {
+
+    private void ReInitRounds() {
         int i;
         jjround = 0x80000001;
         for (i = 121; i-- > 0;) {
@@ -1208,24 +1124,22 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
     }
 
     /** Reinitialise parser. */
-    public void ReInit(BOMSafeJavaCharStream stream, int lexState)
-    {
+    public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
     /** Switch to specified lex state. */
-    public void SwitchTo(int lexState)
-    {
+    public void SwitchTo(int lexState) {
         if (lexState >= 1 || lexState < 0) {
-            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
+            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
+                    + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
         } else {
             curLexState = lexState;
         }
     }
 
-    protected Token jjFillToken()
-    {
+    protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
         final int beginLine;
@@ -1239,12 +1153,10 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
         endLine = input_stream.getEndLine();
         endColumn = input_stream.getEndColumn();
         t = Token.newToken(jjmatchedKind, curTokenImage);
-
         t.beginLine = beginLine;
         t.endLine = endLine;
         t.beginColumn = beginColumn;
         t.endColumn = endColumn;
-
         return t;
     }
 
@@ -1256,97 +1168,86 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants
     int jjmatchedKind;
 
     /** Get the next Token. */
-    public Token getNextToken()
-    {
+    public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
-
-        EOFLoop :
-            for (;;)
-            {
-                try
-                {
-                    curChar = input_stream.BeginToken();
-                }
-                catch(java.io.IOException e)
-                {
-                    jjmatchedKind = 0;
-                    matchedToken = jjFillToken();
-                    return matchedToken;
-                }
-
-                try { input_stream.backup(0);
+        EOFLoop: for (;;) {
+            try {
+                curChar = input_stream.BeginToken();
+            } catch (java.io.IOException e) {
+                jjmatchedKind = 0;
+                matchedToken = jjFillToken();
+                return matchedToken;
+            }
+            try {
+                input_stream.backup(0);
                 while (curChar <= 32 && (0x100000200L & 1L << curChar) != 0L) {
                     curChar = input_stream.BeginToken();
                 }
-                }
-                catch (java.io.IOException e1) { continue EOFLoop; }
-                jjmatchedKind = 0x7fffffff;
-                jjmatchedPos = 0;
-                curPos = jjMoveStringLiteralDfa0_0();
-                if (jjmatchedKind != 0x7fffffff)
-                {
-                    if (jjmatchedPos + 1 < curPos) {
-                        input_stream.backup(curPos - jjmatchedPos - 1);
-                    }
-                    if ((jjtoToken[jjmatchedKind >> 6] & 1L << (jjmatchedKind & 077)) != 0L)
-                    {
-                        matchedToken = jjFillToken();
-                        return matchedToken;
-                    }
-                    else
-                    {
-                        continue EOFLoop;
-                    }
-                }
-                int error_line = input_stream.getEndLine();
-                int error_column = input_stream.getEndColumn();
-                String error_after = null;
-                boolean EOFSeen = false;
-                try { input_stream.readChar(); input_stream.backup(1); }
-                catch (java.io.IOException e1) {
-                    EOFSeen = true;
-                    error_after = curPos <= 1 ? "" : input_stream.GetImage();
-                    if (curChar == '\n' || curChar == '\r') {
-                        error_line++;
-                        error_column = 0;
-                    } else {
-                        error_column++;
-                    }
-                }
-                if (!EOFSeen) {
-                    input_stream.backup(1);
-                    error_after = curPos <= 1 ? "" : input_stream.GetImage();
-                }
-                throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column, error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+            } catch (java.io.IOException e1) {
+                continue EOFLoop;
             }
+            jjmatchedKind = 0x7fffffff;
+            jjmatchedPos = 0;
+            curPos = jjMoveStringLiteralDfa0_0();
+            if (jjmatchedKind != 0x7fffffff) {
+                if (jjmatchedPos + 1 < curPos) {
+                    input_stream.backup(curPos - jjmatchedPos - 1);
+                }
+                if ((jjtoToken[jjmatchedKind >> 6] & 1L << (jjmatchedKind & 077)) != 0L) {
+                    matchedToken = jjFillToken();
+                    return matchedToken;
+                } else {
+                    continue EOFLoop;
+                }
+            }
+            int error_line = input_stream.getEndLine();
+            int error_column = input_stream.getEndColumn();
+            String error_after = null;
+            boolean EOFSeen = false;
+            try {
+                input_stream.readChar();
+                input_stream.backup(1);
+            } catch (java.io.IOException e1) {
+                EOFSeen = true;
+                error_after = curPos <= 1 ? "" : input_stream.GetImage();
+                if (curChar == '\n' || curChar == '\r') {
+                    error_line++;
+                    error_column = 0;
+                } else {
+                    error_column++;
+                }
+            }
+            if (!EOFSeen) {
+                input_stream.backup(1);
+                error_after = curPos <= 1 ? "" : input_stream.GetImage();
+            }
+            throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column,
+                    error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+        }
     }
 
-    private void jjCheckNAdd(int state)
-    {
-        if (jjrounds[state] != jjround)
-        {
+    private void jjCheckNAdd(int state) {
+        if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
             jjrounds[state] = jjround;
         }
     }
-    private void jjAddStates(int start, int end)
-    {
+
+    private void jjAddStates(int start, int end) {
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
     }
-    private void jjCheckNAddTwoStates(int state1, int state2)
-    {
+
+    private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);
     }
 
-    private void jjCheckNAddStates(int start, int end)
-    {
+    private void jjCheckNAddStates(int start, int end) {
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);
     }
-
 }

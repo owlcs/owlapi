@@ -55,9 +55,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Feb-2008 */
 @SuppressWarnings("unused")
 public abstract class DLSyntaxOntologyStorerBase extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 30406L;

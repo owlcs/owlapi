@@ -55,26 +55,30 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /** Renders objects in unicode DL syntax.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 10-Feb-2008 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Feb-2008 */
 public class DLSyntaxObjectRenderer implements OWLObjectRenderer, OWLObjectVisitor {
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;
     private StringBuilder buffer;
     private OWLObject focusedObject;
 
+    /** default constructor */
     public DLSyntaxObjectRenderer() {
         shortFormProvider = new SimpleShortFormProvider();
         iriShortFormProvider = new SimpleIRIShortFormProvider();
         buffer = new StringBuilder();
     }
 
+    /** @param focusedObject
+     *            focusedObject */
     public void setFocusedObject(OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
+    /** @param obj
+     *            obj
+     * @return true if focused */
     public boolean isFocusedObject(OWLObject obj) {
         if (focusedObject == null) {
             return false;
