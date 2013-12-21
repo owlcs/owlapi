@@ -65,14 +65,19 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 
-/** HST explanation generator */
+/** HST explanation generator. */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
+    /** The Constant log. */
     private static final Logger log = Logger.getLogger(HSTExplanationGenerator.class
             .getName());
+    /** The single explanation generator. */
     private final TransactionAwareSingleExpGen singleExplanationGenerator;
+    /** The progress monitor. */
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
-    /** @param singleExplanationGenerator
+    /** Instantiates a new hST explanation generator.
+     * 
+     * @param singleExplanationGenerator
      *            explanation generator to use */
     public HSTExplanationGenerator(TransactionAwareSingleExpGen singleExplanationGenerator) {
         this.singleExplanationGenerator = singleExplanationGenerator;
@@ -103,7 +108,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return singleExplanationGenerator.getReasonerFactory();
     }
 
-    /** @return the explanation generator */
+    /** Gets the single explanation generator.
+     * 
+     * @return the explanation generator */
     public TransactionAwareSingleExpGen getSingleExplanationGenerator() {
         return singleExplanationGenerator;
     }
@@ -168,7 +175,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param mups
      *            The MUPS containing the axioms to be ordered
      * @param allMups
-     *            The set of all MUPS which is used to calculate the ordering */
+     *            The set of all MUPS which is used to calculate the ordering
+     * @return the ordered mups */
     private static List<OWLAxiom> getOrderedMUPS(List<OWLAxiom> mups,
             final Set<Set<OWLAxiom>> allMups) {
         Comparator<OWLAxiom> mupsComparator = new Comparator<OWLAxiom>() {
@@ -191,7 +199,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      * @param ax
      *            The axiom that will be counted.
      * @param axiomSets
-     *            The sets to count from */
+     *            The sets to count from
+     * @return the occurrences */
     protected static int getOccurrences(OWLAxiom ax, Set<Set<OWLAxiom>> axiomSets) {
         int count = 0;
         for (Set<OWLAxiom> axioms : axiomSets) {
@@ -218,6 +227,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     /** This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
      * 
+     * @param unsatClass
+     *            the unsat class
      * @param mups
      *            The current justification for the current class. This
      *            corresponds to a node in the hitting set tree.
@@ -229,7 +240,11 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *            Paths that have been completed.
      * @param currentPathContents
      *            The contents of the current path. Initially this should be an
-     *            empty set. */
+     *            empty set.
+     * @param maxExplanations
+     *            the max explanations
+     * @throws OWLException
+     *             the oWL exception */
     private void constructHittingSetTree(OWLClassExpression unsatClass,
             Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
             Set<OWLAxiom> currentPathContents, int maxExplanations) throws OWLException {

@@ -50,14 +50,19 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
-/** @author Matthew Horridge, Clark &amp; Parsia, LLC<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Jan-2008 */
+/** The Class DefaultExplanationGenerator.
+ * 
+ * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
+ *         Group, Date: 24-Jan-2008 */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
+    /** The data factory. */
     private final OWLDataFactory dataFactory;
+    /** The gen. */
     private final MultipleExplanationGenerator gen;
 
-    /** @param man
+    /** Instantiates a new default explanation generator.
+     * 
+     * @param man
      *            manager
      * @param reasonerFactory
      *            reasoner factory
@@ -72,7 +77,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
                 .createNonBufferingReasoner(ontology), progressMonitor);
     }
 
-    /** @param man
+    /** Instantiates a new default explanation generator.
+     * 
+     * @param man
      *            manager
      * @param reasonerFactory
      *            reasoner factory
@@ -99,7 +106,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanation(unsatClass);
     }
 
-    /** @param axiom
+    /** Gets the explanation.
+     * 
+     * @param axiom
      *            the axiom to explain
      * @return the explanation */
     public Set<OWLAxiom> getExplanation(OWLAxiom axiom) {
@@ -112,7 +121,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanations(unsatClass);
     }
 
-    /** @param axiom
+    /** Gets the explanations.
+     * 
+     * @param axiom
      *            the axiom to explain
      * @return the set of explanations */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom) {
@@ -126,10 +137,12 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanations(unsatClass, maxExplanations);
     }
 
-    /** @param maxExplanations
-     *            max number of explanations
+    /** Gets the explanations.
+     * 
      * @param axiom
      *            the axiom to explain
+     * @param maxExplanations
+     *            max number of explanations
      * @return the set of explanations */
     public Set<Set<OWLAxiom>> getExplanations(OWLAxiom axiom, int maxExplanations) {
         SatisfiabilityConverter converter = new SatisfiabilityConverter(dataFactory);

@@ -54,16 +54,22 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Tracker for definitions */
+/** Tracker for definitions. */
 public class DefinitionTracker implements OWLOntologyChangeListener {
-    /** Mapping from entities to the number of axioms */
+    /** Mapping from entities to the number of axioms. */
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
+    /** The ontology. */
     private final OWLOntology ontology;
+    /** The axioms. */
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+    /** The manager. */
     private final OWLOntologyManager manager;
+    /** The one. */
     private final Integer ONE = Integer.valueOf(1);
 
-    /** @param ontology
+    /** Instantiates a new definition tracker.
+     * 
+     * @param ontology
      *            ontology to track */
     public DefinitionTracker(OWLOntology ontology) {
         manager = ontology.getOWLOntologyManager();
@@ -78,6 +84,10 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         manager.addOntologyChangeListener(this);
     }
 
+    /** Adds the axiom.
+     * 
+     * @param axiom
+     *            the axiom */
     private void addAxiom(OWLAxiom axiom) {
         if (axioms.add(axiom)) {
             for (OWLEntity entity : getEntities(axiom)) {
@@ -92,10 +102,19 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
+    /** Gets the entities.
+     * 
+     * @param obj
+     *            the obj
+     * @return the entities */
     private Set<OWLEntity> getEntities(OWLObject obj) {
         return obj.getSignature();
     }
 
+    /** Removes the axiom.
+     * 
+     * @param axiom
+     *            the axiom */
     private void removeAxiom(OWLAxiom axiom) {
         if (axioms.remove(axiom)) {
             for (OWLEntity entity : getEntities(axiom)) {
@@ -127,9 +146,9 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * 
      * @param classExpression
      *            description that contains the entities we are searching for
-     * @return {@code true} if all the entities in the given description
-     *         are referred by at least one logical axiom in the imports closure
-     *         of the given ontology */
+     * @return {@code true} if all the entities in the given description are
+     *         referred by at least one logical axiom in the imports closure of
+     *         the given ontology */
     public boolean isDefined(OWLClassExpression classExpression) {
         for (OWLEntity entity : getEntities(classExpression)) {
             if (!isDefined(entity)) {

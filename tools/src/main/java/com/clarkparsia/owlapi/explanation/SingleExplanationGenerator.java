@@ -47,21 +47,29 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-/** Explanation generator for a single explanation */
+/** Explanation generator for a single explanation. */
 public interface SingleExplanationGenerator {
-    /** @return the ontology manager for this explanation generator. */
+    /** Gets the ontology manager.
+     * 
+     * @return the ontology manager for this explanation generator. */
     OWLOntologyManager getOntologyManager();
 
-    /** @return the ontology according to which the explanations are generated */
+    /** Gets the ontology.
+     * 
+     * @return the ontology according to which the explanations are generated */
     OWLOntology getOntology();
 
-    /** dispose of the reasoners and ontologies */
+    /** dispose of the reasoners and ontologies.
+     * 
+     * @return the reasoner */
     // XXX once the interface is changed, uncomment this
     // void dispose();
     /** @return the reasoner associated with this generator. */
     OWLReasoner getReasoner();
 
-    /** @return the reasoner factory used to create fresh reasoners. */
+    /** Gets the reasoner factory.
+     * 
+     * @return the reasoner factory used to create fresh reasoners. */
     OWLReasonerFactory getReasonerFactory();
 
     /** Get a single explanation for an arbitrary class expression, or empty set

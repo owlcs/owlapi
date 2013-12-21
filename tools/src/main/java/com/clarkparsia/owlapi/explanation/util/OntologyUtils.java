@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation.util;
 
 import java.util.HashSet;
@@ -51,27 +50,26 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-
-/**
- * Some ontology utils methods
- *
- */
+/** Some ontology utils methods. */
 public class OntologyUtils {
-
-    /**
-     * Determines if a class description contains any unreferenced entities with
+    /** Determines if a class description contains any unreferenced entities with
      * respect to the ontology that contains the entailments which are being
      * explained.
-     * @param ontology the ontology to search
-     * @param desc The description to be searched
-     * @return {@code true} if the description references entities that
-     *         the ontology that contains entailments which are being explained,
-     *         otherwise {@code false}
-     */
-    public static boolean containsUnreferencedEntity(OWLOntology ontology, OWLClassExpression desc) {
+     * 
+     * @param ontology
+     *            the ontology to search
+     * @param desc
+     *            The description to be searched
+     * @return {@code true} if the description references entities that the
+     *         ontology that contains entailments which are being explained,
+     *         otherwise {@code false} */
+    public static boolean containsUnreferencedEntity(OWLOntology ontology,
+            OWLClassExpression desc) {
         for (OWLEntity entity : desc.getSignature()) {
             if (!ontology.containsEntityInSignature(entity)) {
-                if (entity instanceof OWLClass && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity).isOWLNothing())) {
+                if (entity instanceof OWLClass
+                        && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity)
+                                .isOWLNothing())) {
                     continue;
                 }
                 return true;
@@ -80,37 +78,38 @@ public class OntologyUtils {
         return false;
     }
 
-
-    /**
-     * Removes an axiom from all the given ontologies that contains the axiom
+    /** Removes an axiom from all the given ontologies that contains the axiom
      * and returns those ontologies.
-     * @param axiom axiom being removed
-     * @param ontologies ontologies from which axiom is being removed
-     * @param manager manager to apply the actual change
-     * @return set of ontologies that have been affected
-     */
-    public static Set<OWLOntology> removeAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
+     * 
+     * @param axiom
+     *            axiom being removed
+     * @param ontologies
+     *            ontologies from which axiom is being removed
+     * @param manager
+     *            manager to apply the actual change
+     * @return set of ontologies that have been affected */
+    public static Set<OWLOntology> removeAxiom(OWLAxiom axiom,
+            Set<OWLOntology> ontologies, OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
-
         for (OWLOntology ont : ontologies) {
             if (ont.getAxioms().contains(axiom)) {
                 modifiedOnts.add(ont);
-
                 manager.applyChange(new RemoveAxiom(ont, axiom));
             }
         }
-
         return modifiedOnts;
     }
 
-
-    /**
-     * Add the axiom to all the given ontologies.
-     * @param axiom the axiom to add
-     * @param ontologies the ontologies to add the axiom to
-     * @param manager the manager for the application
-     */
-    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies, OWLOntologyManager manager) {
+    /** Add the axiom to all the given ontologies.
+     * 
+     * @param axiom
+     *            the axiom to add
+     * @param ontologies
+     *            the ontologies to add the axiom to
+     * @param manager
+     *            the manager for the application */
+    public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
+            OWLOntologyManager manager) {
         for (OWLOntology ont : ontologies) {
             manager.applyChange(new AddAxiom(ont, axiom));
         }

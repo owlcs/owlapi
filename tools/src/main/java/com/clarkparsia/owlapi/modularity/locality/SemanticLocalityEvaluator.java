@@ -76,16 +76,23 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-/** Semantic locality evaluator */
+/** Semantic locality evaluator. */
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
+    /** The Constant log. */
     protected static final Logger log = Logger.getLogger(SemanticLocalityEvaluator.class
             .getName());
+    /** The df. */
     protected final OWLDataFactory df;
+    /** The axiom visitor. */
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
+    /** The bottom replacer. */
     private final BottomReplacer bottomReplacer = new BottomReplacer();
+    /** The reasoner. */
     protected final OWLReasoner reasoner;
 
-    /** @param man
+    /** Instantiates a new semantic locality evaluator.
+     * 
+     * @param man
      *            ontology manager
      * @param reasonerFactory
      *            reasoner factory */
@@ -99,22 +106,34 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
+    /** The Class AxiomLocalityVisitor. */
     private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
-    OWLAxiomVisitor {
+            OWLAxiomVisitor {
+        /** The is local. */
         private boolean isLocal;
 
+        /** Instantiates a new axiom locality visitor. */
         public AxiomLocalityVisitor() {}
 
+        /** Checks if is local.
+         * 
+         * @return true, if is local */
         public boolean isLocal() {
             return isLocal;
         }
 
+        /** Checks if is local.
+         * 
+         * @param axiom
+         *            the axiom
+         * @return true, if is local */
         public boolean isLocal(OWLAxiom axiom) {
             reset();
             axiom.accept(this);
             return isLocal();
         }
 
+        /** Reset. */
         public void reset() {
             isLocal = false;
         }
@@ -158,18 +177,33 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
+    /** The Class BottomReplacer. */
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
-    OWLAxiomVisitor, OWLClassExpressionVisitor {
+            OWLAxiomVisitor, OWLClassExpressionVisitor {
+        /** The new axiom. */
         private OWLAxiom newAxiom;
+        /** The new class expression. */
         private OWLClassExpression newClassExpression;
+        /** The signature. */
         private Set<? extends OWLEntity> signature;
 
+        /** Instantiates a new bottom replacer. */
         public BottomReplacer() {}
 
+        /** Gets the result.
+         * 
+         * @return the result */
         public OWLAxiom getResult() {
             return newAxiom;
         }
 
+        /** Replace bottom.
+         * 
+         * @param axiom
+         *            the axiom
+         * @param sig
+         *            the sig
+         * @return the oWL axiom */
         public OWLAxiom replaceBottom(OWLAxiom axiom, Set<? extends OWLEntity> sig) {
             reset(sig);
             axiom.accept(this);
@@ -178,6 +212,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         // Takes an OWLClassExpression and a signature replaces by bottom the
         // entities not in the signature
+        /** Replace bottom.
+         * 
+         * @param desc
+         *            the desc
+         * @return the oWL class expression */
         public OWLClassExpression replaceBottom(OWLClassExpression desc) {
             newClassExpression = null;
             desc.accept(this);
@@ -187,6 +226,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return newClassExpression;
         }
 
+        /** Replace bottom.
+         * 
+         * @param classExpressions
+         *            the class expressions
+         * @return the sets the */
         public Set<OWLClassExpression> replaceBottom(
                 Set<OWLClassExpression> classExpressions) {
             Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
@@ -196,6 +240,10 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return result;
         }
 
+        /** Reset.
+         * 
+         * @param s
+         *            the s */
         public void reset(Set<? extends OWLEntity> s) {
             signature = s;
             newAxiom = null;

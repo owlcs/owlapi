@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.explanation.io;
 
 import java.io.IOException;
@@ -46,22 +45,18 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
-/**
- * Null implementation
- */
+/** Null implementation. */
 public class SilentExplanationRenderer implements ExplanationRenderer {
-
     @Override
     public void endRendering() {
         // do nothing
     }
 
-
     @Override
-    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException, IOException {
+    public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
+            throws OWLException, IOException {
         // do nothing
     }
-
 
     @Override
     public void startRendering(Writer writer) {

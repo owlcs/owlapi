@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.clarkparsia.owlapi.modularity.locality;
 
 import java.util.Collection;
@@ -112,23 +111,21 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/**
- * Syntactic locality evaluator
- *
- */
+/** Syntactic locality evaluator. */
 @SuppressWarnings("unused")
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
-
+    /** The locality cls. */
     protected final LocalityClass localityCls;
-
+    /** The axiom visitor. */
     private final AxiomLocalityVisitor axiomVisitor;
+    /** The Constant supportedLocalityClasses. */
+    private static final EnumSet<LocalityClass> supportedLocalityClasses = EnumSet.of(
+            LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
 
-    private static final EnumSet<LocalityClass> supportedLocalityClasses = EnumSet.of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
-
-    /**
-     * Constructs a new locality evaluator for the given locality class.
-     * @param localityClass the locality class for this evaluator
-     */
+    /** Constructs a new locality evaluator for the given locality class.
+     * 
+     * @param localityClass
+     *            the locality class for this evaluator */
     public SyntacticLocalityEvaluator(LocalityClass localityClass) {
         localityCls = localityClass;
         axiomVisitor = new AxiomLocalityVisitor();
@@ -137,23 +134,22 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-
-    /**
-     * Returns all supported locality classes.
-     * @return a set containing all supported locality classes
-     */
+    /** Returns all supported locality classes.
+     * 
+     * @return a set containing all supported locality classes */
     public Set<LocalityClass> supportedLocalityClasses() {
         return supportedLocalityClasses;
     }
 
-    /**
-     * This is a convenience method for determining whether a given data range expression is the top datatype
-     * or a built-in datatype. This is used in the bottom- and top-equivalence evaluators
-     * for treating cardinality restrictions.
-     * @param dataRange a data range expression
-     * @return {@code true} if the specified data range expression is the top datatype
-     *         or a built-in datatype; {@code false} otherwise
-     */
+    /** This is a convenience method for determining whether a given data range
+     * expression is the top datatype or a built-in datatype. This is used in
+     * the bottom- and top-equivalence evaluators for treating cardinality
+     * restrictions.
+     * 
+     * @param dataRange
+     *            a data range expression
+     * @return {@code true} if the specified data range expression is the top
+     *         datatype or a built-in datatype; {@code false} otherwise */
     protected static boolean isTopOrBuiltInDatatype(OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
@@ -163,36 +159,38 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /**
-     * This is a convenience method for determining whether a given data range expression is the top datatype
-     * or a built-in infinite datatype. This is used in the bottom- and top-equivalence evaluators
-     * for treating cardinality restrictions.
-     * @param dataRange a data range expression
-     * @return {@code true} if the specified data range expression is the top datatype
-     *         or a built-in infinite datatype; {@code false} otherwise
-     */
+    /** This is a convenience method for determining whether a given data range
+     * expression is the top datatype or a built-in infinite datatype. This is
+     * used in the bottom- and top-equivalence evaluators for treating
+     * cardinality restrictions.
+     * 
+     * @param dataRange
+     *            a data range expression
+     * @return {@code true} if the specified data range expression is the top
+     *         datatype or a built-in infinite datatype; {@code false} otherwise */
     protected static boolean isTopOrBuiltInInfiniteDatatype(OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
-            return dataType.isTopDatatype() || dataType.isBuiltIn() && !dataType.getBuiltInDatatype().isFinite();
+            return dataType.isTopDatatype() || dataType.isBuiltIn()
+                    && !dataType.getBuiltInDatatype().isFinite();
         } else {
             return false;
         }
     }
 
     // TODO (TS): only visit logical axioms if possible
-
+    /** The Class AxiomLocalityVisitor. */
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
-
+        /** The bottom evaluator. */
         private final BottomEquivalenceEvaluator bottomEvaluator;
-
+        /** The is local. */
         private boolean isLocal;
-
+        /** The signature. */
         private Collection<? extends OWLEntity> signature;
-
+        /** The top evaluator. */
         private final TopEquivalenceEvaluator topEvaluator;
 
-
+        /** Instantiates a new axiom locality visitor. */
         public AxiomLocalityVisitor() {
             bottomEvaluator = new BottomEquivalenceEvaluator();
             topEvaluator = new TopEquivalenceEvaluator();
@@ -200,7 +198,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             bottomEvaluator.setTopEvaluator(topEvaluator);
         }
 
-
+        /** Checks if is local.
+         * 
+         * @param axiom
+         *            the axiom
+         * @param sig
+         *            the sig
+         * @return true, if is local */
         public boolean isLocal(OWLAxiom axiom, Collection<? extends OWLEntity> sig) {
             signature = sig;
             isLocal = false;
@@ -208,16 +212,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isLocal;
         }
 
-
         @Override
         public void visit(OWLDatatypeDefinitionAxiom axiom) {
             isLocal = true;
         }
 
         // BUGFIX: (TS) Asymm OP axioms are local in the *_BOTTOM case:
-        //              The empty object property is asymmetric!
+        // The empty object property is asymmetric!
         // BUGFIX: (DT) OP in signature makes the axiom non-local
-
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
             switch (localityCls) {
@@ -233,12 +235,11 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
-            isLocal = topEvaluator.isTopEquivalent(axiom.getClassExpression(), signature, localityCls);
+            isLocal = topEvaluator.isTopEquivalent(axiom.getClassExpression(), signature,
+                    localityCls);
         }
-
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
@@ -248,38 +249,42 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isLocal = false;
                     break;
                 case TOP_TOP:
-                    isLocal = !signature.contains(axiom.getProperty().asOWLDataProperty());
+                    isLocal = !signature
+                            .contains(axiom.getProperty().asOWLDataProperty());
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getProperty().asOWLDataProperty()) || topEvaluator.isTopEquivalent(axiom.getDomain(), signature, localityCls);
+                    isLocal = !signature
+                            .contains(axiom.getProperty().asOWLDataProperty())
+                            || topEvaluator.isTopEquivalent(axiom.getDomain(), signature,
+                                    localityCls);
                     break;
                 case TOP_TOP:
-                    isLocal = topEvaluator.isTopEquivalent(axiom.getDomain(), signature, localityCls);
+                    isLocal = topEvaluator.isTopEquivalent(axiom.getDomain(), signature,
+                            localityCls);
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
-
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getProperty().asOWLDataProperty()) || axiom.getRange().isTopDatatype();
+                    isLocal = !signature
+                            .contains(axiom.getProperty().asOWLDataProperty())
+                            || axiom.getRange().isTopDatatype();
                     break;
                 case TOP_TOP:
                     isLocal = axiom.getRange().isTopDatatype();
@@ -289,61 +294,58 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getSubProperty().asOWLDataProperty());
+                    isLocal = !signature.contains(axiom.getSubProperty()
+                            .asOWLDataProperty());
                     break;
                 case TOP_TOP:
-                    isLocal = !signature.contains(axiom.getSuperProperty().asOWLDataProperty());
+                    isLocal = !signature.contains(axiom.getSuperProperty()
+                            .asOWLDataProperty());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS) Declaration axioms are local.
-        //              They need to be added to the module after the locality checks have been performed.
-
+        // They need to be added to the module after the locality checks have
+        // been performed.
         @Override
         public void visit(OWLDeclarationAxiom axiom) {
             isLocal = true;
         }
 
-
         // BUGFIX: (TS) Different individuals axioms are local, too.
-        //              They need to be added to the module after the locality checks have been performed.
-
+        // They need to be added to the module after the locality checks have
+        // been performed.
         @Override
         public void visit(OWLDifferentIndividualsAxiom axiom) {
             isLocal = true;
         }
 
-
         // BUGFIX: (TS) An n-ary disj classes axiom is local
-        //              iff at most one of the involved class expressions is not bot-equivalent.
-
+        // iff at most one of the involved class expressions is not
+        // bot-equivalent.
         @Override
         public void visit(OWLDisjointClassesAxiom axiom) {
             Collection<OWLClassExpression> disjs = axiom.getClassExpressions();
             int size = disjs.size();
             if (size == 1) {
-                //XXX actually being here means the axiom is not OWL 2 conformant
+                // XXX actually being here means the axiom is not OWL 2
+                // conformant
                 isLocal = true;
-            }
-            else {
+            } else {
                 boolean nonBottomEquivDescFound = false;
                 for (OWLClassExpression desc : disjs) {
                     if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
                         if (nonBottomEquivDescFound) {
                             isLocal = false;
                             return;
-                        }
-                        else {
+                        } else {
                             nonBottomEquivDescFound = true;
                         }
                     }
@@ -353,7 +355,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
 
         // BUGFIX (TS): Added the case where it *is* local
-
         @Override
         public void visit(OWLDisjointDataPropertiesAxiom axiom) {
             switch (localityCls) {
@@ -362,18 +363,17 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     Collection<OWLDataPropertyExpression> disjs = axiom.getProperties();
                     int size = disjs.size();
                     if (size == 1) {
-                        //XXX actually being here means the axiom is not OWL 2 conformant
+                        // XXX actually being here means the axiom is not OWL 2
+                        // conformant
                         isLocal = true;
-                    }
-                    else {
+                    } else {
                         boolean nonBottomEquivPropFound = false;
                         for (OWLDataPropertyExpression dpe : disjs) {
                             if (signature.contains(dpe.asOWLDataProperty())) {
                                 if (nonBottomEquivPropFound) {
                                     isLocal = false;
                                     return;
-                                }
-                                else {
+                                } else {
                                     nonBottomEquivPropFound = true;
                                 }
                             }
@@ -389,9 +389,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX (TS): Added the case where it *is* local
-
         @Override
         public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
             switch (localityCls) {
@@ -400,18 +398,17 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     Collection<OWLObjectPropertyExpression> disjs = axiom.getProperties();
                     int size = disjs.size();
                     if (size == 1) {
-                        //XXX actually being here means the axiom is not OWL 2 conformant
+                        // XXX actually being here means the axiom is not OWL 2
+                        // conformant
                         isLocal = true;
-                    }
-                    else {
+                    } else {
                         boolean nonBottomEquivPropFound = false;
                         for (OWLObjectPropertyExpression ope : disjs) {
                             if (signature.contains(ope.getNamedProperty())) {
                                 if (nonBottomEquivPropFound) {
                                     isLocal = false;
                                     return;
-                                }
-                                else {
+                                } else {
                                     nonBottomEquivPropFound = true;
                                 }
                             }
@@ -427,55 +424,56 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX (TS): added the two cases where a disj union axiom *is* local:
         // - if LHS and all class expr on RHS are bot-equiv
-        // - if LHS is top-equiv, one expr on RHS is top-equiv and the others are bot-equiv
+        // - if LHS is top-equiv, one expr on RHS is top-equiv and the others
+        // are bot-equiv
         @Override
         public void visit(OWLDisjointUnionAxiom axiom) {
             OWLClass lhs = axiom.getOWLClass();
             Collection<OWLClassExpression> rhs = axiom.getClassExpressions();
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
-                    // TODO (TS): "!signature.contains(lhs)" is not enough because lhs could be bot
+                    // TODO (TS): "!signature.contains(lhs)" is not enough
+                    // because lhs could be bot
                     if (!signature.contains(lhs)) {
                         for (OWLClassExpression desc : rhs) {
-                            if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
+                            if (!bottomEvaluator.isBottomEquivalent(desc, signature,
+                                    localityCls)) {
                                 isLocal = false;
                                 return;
                             }
                         }
                         isLocal = true;
-                    }
-                    else {
+                    } else {
                         isLocal = false;
                     }
                     break;
                 case TOP_BOTTOM:
                 case TOP_TOP:
-                    // TODO (TS): "!signature.contains(lhs)" is not enough because lhs could be top
+                    // TODO (TS): "!signature.contains(lhs)" is not enough
+                    // because lhs could be top
                     if (!signature.contains(lhs)) {
                         boolean topEquivDescFound = false;
                         for (OWLClassExpression desc : rhs) {
-                            if (!bottomEvaluator.isBottomEquivalent(desc, signature, localityCls)) {
-                                if (topEvaluator.isTopEquivalent(desc, signature, localityCls)) {
+                            if (!bottomEvaluator.isBottomEquivalent(desc, signature,
+                                    localityCls)) {
+                                if (topEvaluator.isTopEquivalent(desc, signature,
+                                        localityCls)) {
                                     if (topEquivDescFound) {
                                         isLocal = false;
                                         return;
-                                    }
-                                    else {
+                                    } else {
                                         topEquivDescFound = true;
                                     }
-                                }
-                                else {
+                                } else {
                                     isLocal = false;
                                     return;
                                 }
                             }
                         }
                         isLocal = true;
-                    }
-                    else {
+                    } else {
                         isLocal = false;
                     }
                     break;
@@ -484,48 +482,43 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLAnnotationAssertionAxiom axiom) {
             isLocal = true;
         }
 
-
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
             isLocal = true;
-
             Iterator<OWLClassExpression> eqs = axiom.getClassExpressions().iterator();
             OWLClassExpression first = eqs.next();
-
             // axiom is local if it contains a single class expression
             if (!eqs.hasNext()) {
                 return;
             }
-
             // axiom is local iff either all class expressions evaluate to TOP
             // or all evaluate to BOTTOM
-
             // check if first class expr. is BOTTOM
-            boolean isBottom = bottomEvaluator.isBottomEquivalent(first, signature, localityCls);
-
+            boolean isBottom = bottomEvaluator.isBottomEquivalent(first, signature,
+                    localityCls);
             // if not BOTTOM or not TOP then this axiom is non-local
             if (!isBottom && !topEvaluator.isTopEquivalent(first, signature, localityCls)) {
                 isLocal = false;
             }
-
             if (isBottom) {
-                // unless we find a non-locality, process all the class expressions
+                // unless we find a non-locality, process all the class
+                // expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
-                    // first class expr. was BOTTOM, so this one should be BOTTOM too
+                    // first class expr. was BOTTOM, so this one should be
+                    // BOTTOM too
                     if (!bottomEvaluator.isBottomEquivalent(next, signature, localityCls)) {
                         isLocal = false;
                     }
                 }
-            }
-            else {
-                // unless we find a non-locality, process all the class expressions
+            } else {
+                // unless we find a non-locality, process all the class
+                // expressions
                 while (isLocal && eqs.hasNext()) {
                     OWLClassExpression next = eqs.next();
                     // first class expr. was TOP, so this one should be TOP too
@@ -536,15 +529,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
             Collection<OWLDataPropertyExpression> eqs = axiom.getProperties();
             int size = eqs.size();
             if (size == 1) {
                 isLocal = true;
-            }
-            else {
+            } else {
                 for (OWLDataPropertyExpression p : eqs) {
                     if (signature.contains(p.asOWLDataProperty())) {
                         isLocal = false;
@@ -555,15 +546,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             Collection<OWLObjectPropertyExpression> eqs = axiom.getProperties();
             int size = eqs.size();
             if (size == 1) {
                 isLocal = true;
-            }
-            else {
+            } else {
                 for (OWLObjectPropertyExpression p : eqs) {
                     if (signature.contains(p.getNamedProperty())) {
                         isLocal = false;
@@ -574,13 +563,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getProperty().asOWLDataProperty());
+                    isLocal = !signature
+                            .contains(axiom.getProperty().asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isLocal = false;
@@ -590,9 +579,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
-        //BUGFIX (TS): replaced call to asOWLObjectProperty() with getNamedProperty()
-
+        // BUGFIX (TS): replaced call to asOWLObjectProperty() with
+        // getNamedProperty()
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
             switch (localityCls) {
@@ -608,11 +596,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
+        /** Visit.
+         * 
+         * @param axiom
+         *            the axiom */
         public void visit(OWLImportsDeclaration axiom) {
             isLocal = false;
         }
-
 
         @Override
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
@@ -629,17 +619,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            isLocal = !signature.contains(axiom.getFirstProperty().getNamedProperty()) && !signature.contains(axiom.getSecondProperty().getNamedProperty());
+            isLocal = !signature.contains(axiom.getFirstProperty().getNamedProperty())
+                    && !signature.contains(axiom.getSecondProperty().getNamedProperty());
         }
 
-
         // BUGFIX: (TS) Irreflexive OP axioms are local in the *_BOTTOM case:
-        //              The empty object property is irreflexive!
+        // The empty object property is irreflexive!
         // BUGFIX: (DT) OP in signature makes the axiom non-local
-
         @Override
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
             switch (localityCls) {
@@ -655,15 +643,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
-        // BUGFIX: (TS) Added the case where this is local. (This is dual to the case of a "positive" DP assertion.)
-
+        // BUGFIX: (TS) Added the case where this is local. (This is dual to the
+        // case of a "positive" DP assertion.)
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getProperty().asOWLDataProperty());
+                    isLocal = !signature
+                            .contains(axiom.getProperty().asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isLocal = false;
@@ -673,9 +661,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
-        // BUGFIX: (TS) Added the case where this is local. (This is dual to the case of a "positive" OP assertion.)
-
+        // BUGFIX: (TS) Added the case where this is local. (This is dual to the
+        // case of a "positive" OP assertion.)
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             switch (localityCls) {
@@ -690,7 +677,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
@@ -707,15 +693,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX: (TS) Added the cases where this is local
-
         @Override
         public void visit(OWLSubPropertyChainOfAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    // Axiom is local iff at least one prop in the chain is bot-equiv
+                    // Axiom is local iff at least one prop in the chain is
+                    // bot-equiv
                     for (OWLObjectPropertyExpression ope : axiom.getPropertyChain()) {
                         if (!signature.contains(ope.getNamedProperty())) {
                             isLocal = true;
@@ -728,8 +713,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     // Axiom is local iff RHS is top-equiv
                     if (!signature.contains(axiom.getSuperProperty().getNamedProperty())) {
                         isLocal = true;
-                    }
-                    else {
+                    } else {
                         isLocal = false;
                     }
                     break;
@@ -738,57 +722,60 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getProperty().getNamedProperty()) || topEvaluator.isTopEquivalent(axiom.getDomain(), signature, localityCls);
+                    isLocal = !signature.contains(axiom.getProperty().getNamedProperty())
+                            || topEvaluator.isTopEquivalent(axiom.getDomain(), signature,
+                                    localityCls);
                     break;
                 case TOP_TOP:
-                    isLocal = topEvaluator.isTopEquivalent(axiom.getDomain(), signature, localityCls);
+                    isLocal = topEvaluator.isTopEquivalent(axiom.getDomain(), signature,
+                            localityCls);
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getProperty().getNamedProperty()) || topEvaluator.isTopEquivalent(axiom.getRange(), signature, localityCls);
+                    isLocal = !signature.contains(axiom.getProperty().getNamedProperty())
+                            || topEvaluator.isTopEquivalent(axiom.getRange(), signature,
+                                    localityCls);
                     break;
                 case TOP_TOP:
-                    isLocal = topEvaluator.isTopEquivalent(axiom.getRange(), signature, localityCls);
+                    isLocal = topEvaluator.isTopEquivalent(axiom.getRange(), signature,
+                            localityCls);
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isLocal = !signature.contains(axiom.getSubProperty().getNamedProperty());
+                    isLocal = !signature.contains(axiom.getSubProperty()
+                            .getNamedProperty());
                     break;
                 case TOP_TOP:
-                    isLocal = !signature.contains(axiom.getSuperProperty().getNamedProperty());
+                    isLocal = !signature.contains(axiom.getSuperProperty()
+                            .getNamedProperty());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (DT) Bottom property is not reflexive
-
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
             switch (localityCls) {
@@ -804,36 +791,33 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX: (TS) Same individuals axioms are local, too.
-        //              They need to be added to the module after the locality checks have been performed.
-
+        // They need to be added to the module after the locality checks have
+        // been performed.
         @Override
         public void visit(OWLSameIndividualAxiom axiom) {
             isLocal = true;
         }
 
-
         @Override
         public void visit(OWLSubClassOfAxiom axiom) {
-            isLocal = bottomEvaluator.isBottomEquivalent(axiom.getSubClass(), signature, localityCls) || topEvaluator.isTopEquivalent(axiom.getSuperClass(), signature, localityCls);
+            isLocal = bottomEvaluator.isBottomEquivalent(axiom.getSubClass(), signature,
+                    localityCls)
+                    || topEvaluator.isTopEquivalent(axiom.getSuperClass(), signature,
+                            localityCls);
         }
-
 
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
             isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
         }
 
-
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
             isLocal = !signature.contains(axiom.getProperty().getNamedProperty());
         }
 
-
-        //TODO: (TS) Can't we treat this in a more differentiated way?
-
+        // TODO: (TS) Can't we treat this in a more differentiated way?
         @Override
         public void visit(SWRLRule axiom) {
             isLocal = false;
@@ -841,50 +825,59 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLHasKeyAxiom axiom) {
-            isLocal=true;
+            isLocal = true;
         }
 
         @Override
         public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-            isLocal=true;
+            isLocal = true;
         }
 
         @Override
         public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-            isLocal=true;
+            isLocal = true;
         }
 
         @Override
         public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-            isLocal=true;
+            isLocal = true;
         }
     }
 
-
-    /**
-     * Used to determine if class expressions are equivalent to \bottom using the provided locality class
-     */
+    /** Used to determine if class expressions are equivalent to \bottom using
+     * the provided locality class. */
     private static class BottomEquivalenceEvaluator implements OWLClassExpressionVisitor {
-
+        /** The is bottom equivalent. */
         private boolean isBottomEquivalent;
-
+        /** The locality cls. */
         private LocalityClass localityCls;
-
+        /** The signature. */
         private Collection<? extends OWLEntity> signature;
-
+        /** The top evaluator. */
         private TopEquivalenceEvaluator topEvaluator;
 
+        /** Instantiates a new bottom equivalence evaluator. */
+        public BottomEquivalenceEvaluator() {}
 
-        public BottomEquivalenceEvaluator() {
-        }
-
-
+        /** Checks if is bottom equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @return true, if is bottom equivalent */
         private boolean isBottomEquivalent(OWLClassExpression desc) {
             desc.accept(this);
             return isBottomEquivalent;
         }
 
-
+        /** Checks if is bottom equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @param sig
+         *            the sig
+         * @param locality
+         *            the locality
+         * @return true, if is bottom equivalent */
         public boolean isBottomEquivalent(OWLClassExpression desc,
                 Collection<? extends OWLEntity> sig, LocalityClass locality) {
             localityCls = locality;
@@ -893,17 +886,20 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isBottomEquivalent;
         }
 
-
+        /** Sets the top evaluator.
+         * 
+         * @param evaluator
+         *            the new top evaluator */
         public void setTopEvaluator(TopEquivalenceEvaluator evaluator) {
             topEvaluator = evaluator;
         }
-
 
         @Override
         public void visit(OWLClass desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
-                    isBottomEquivalent = desc.isOWLNothing() || !desc.isOWLThing() && !signature.contains(desc);
+                    isBottomEquivalent = desc.isOWLNothing() || !desc.isOWLThing()
+                            && !signature.contains(desc);
                     break;
                 case TOP_BOTTOM:
                 case TOP_TOP:
@@ -914,11 +910,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX: (TS) Even in the TOP_TOP case, this is not bottom-equiv:
-        //              "forall top.D" is not necessarily empty
-        // BUGFIX: (TS, 3): In the TOP_TOP case, there is a bottom-equiv possibility.
-
+        // "forall top.D" is not necessarily empty
+        // BUGFIX: (TS, 3): In the TOP_TOP case, there is a bottom-equiv
+        // possibility.
         @Override
         public void visit(OWLDataAllValuesFrom desc) {
             switch (localityCls) {
@@ -927,38 +922,44 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isBottomEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty()) && !desc.getFiller().isTopDatatype();
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty()) && !desc.getFiller().isTopDatatype();
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS) Corrected both conditions; included case n==0
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
         // BUGFIX: (TS, 3) Repaired the cases where the filler is top-equiv
-
         @Override
         public void visit(OWLDataExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = desc.getCardinality() > 0 && !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty());
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = desc.getCardinality() == 0 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInDatatype(desc.getFiller()) || desc.getCardinality() > 0 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInInfiniteDatatype(desc.getFiller());
+                    isBottomEquivalent = desc.getCardinality() == 0
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInDatatype(desc.getFiller())
+                            || desc.getCardinality() > 0
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInInfiniteDatatype(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS) A data max card restriction is never bottom-equiv.
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
         // BUGFIX: (TS, 3) Repaired the cases where the filler is top-equiv
-
         @Override
         public void visit(OWLDataMaxCardinality desc) {
             switch (localityCls) {
@@ -967,22 +968,33 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isBottomEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = desc.getCardinality() == 0 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInDatatype(desc.getFiller()) || desc.getCardinality() == 1 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInDatatype(desc.getFiller()) || desc.getCardinality() > 1 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInInfiniteDatatype(desc.getFiller());
+                    isBottomEquivalent = desc.getCardinality() == 0
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInDatatype(desc.getFiller())
+                            || desc.getCardinality() == 1
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInDatatype(desc.getFiller())
+                            || desc.getCardinality() > 1
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInInfiniteDatatype(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS) The *_BOTTOM case only works if n > 0.
-
         @Override
         public void visit(OWLDataMinCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = desc.getCardinality() > 0 && !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = false;
@@ -991,14 +1003,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLDataSomeValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = false;
@@ -1007,14 +1019,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLDataHasValue desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = false;
@@ -1024,9 +1036,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX (TS): TOP_TOP case was missing the first conjunct
-
         @Override
         public void visit(OWLObjectAllValuesFrom desc) {
             switch (localityCls) {
@@ -1035,38 +1045,44 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isBottomEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) && isBottomEquivalent(desc.getFiller());
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty()) && isBottomEquivalent(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
 
-
         @Override
         public void visit(OWLObjectComplementOf desc) {
-            isBottomEquivalent = topEvaluator.isTopEquivalent(desc.getOperand(), signature, localityCls);
+            isBottomEquivalent = topEvaluator.isTopEquivalent(desc.getOperand(),
+                    signature, localityCls);
         }
 
-
-        // BUGFIX: (TS) Since an exact card restriction is a conjunction of a min and a max card restriction,
-        //              there are cases where it is bottom-local
-
+        // BUGFIX: (TS) Since an exact card restriction is a conjunction of a
+        // min and a max card restriction,
+        // there are cases where it is bottom-local
         @Override
         public void visit(OWLObjectExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = desc.getCardinality() > 0 && (!signature.contains(desc.getProperty().getNamedProperty()) || isBottomEquivalent(desc.getFiller()));
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && (!signature
+                                    .contains(desc.getProperty().getNamedProperty()) || isBottomEquivalent(desc
+                                    .getFiller()));
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = desc.getCardinality() > 0 && (isBottomEquivalent(desc.getFiller()) || !signature.contains(desc.getProperty().getNamedProperty()) && topEvaluator.isTopEquivalent(desc.getFiller(), signature, localityCls));
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && (isBottomEquivalent(desc.getFiller()) || !signature
+                                    .contains(desc.getProperty().getNamedProperty())
+                                    && topEvaluator.isTopEquivalent(desc.getFiller(),
+                                            signature, localityCls));
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
@@ -1079,11 +1095,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             isBottomEquivalent = false;
         }
 
-
         // BUGFIX (TS): Corrected all conditions.
-        //              The n==0 case doesn't affect bottom-equivalence of this type of restriction,
-        //              but n>0 does!
-
+        // The n==0 case doesn't affect bottom-equivalence of this type of
+        // restriction,
+        // but n>0 does!
         @Override
         public void visit(OWLObjectMaxCardinality desc) {
             switch (localityCls) {
@@ -1092,44 +1107,48 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isBottomEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = desc.getCardinality() > 0 && !signature.contains(desc.getProperty().getNamedProperty()) && topEvaluator.isTopEquivalent(desc.getFiller(), signature, localityCls);
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && !signature.contains(desc.getProperty().getNamedProperty())
+                            && topEvaluator.isTopEquivalent(desc.getFiller(), signature,
+                                    localityCls);
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX (TS): Corrected all conditions, considering the case n==0
-
         @Override
         public void visit(OWLObjectMinCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = desc.getCardinality() > 0 && (!signature.contains(desc.getProperty().getNamedProperty()) || isBottomEquivalent(desc.getFiller()));
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && (!signature
+                                    .contains(desc.getProperty().getNamedProperty()) || isBottomEquivalent(desc
+                                    .getFiller()));
                     break;
                 case TOP_TOP:
-                    isBottomEquivalent = desc.getCardinality() > 0 && isBottomEquivalent(desc.getFiller());
+                    isBottomEquivalent = desc.getCardinality() > 0
+                            && isBottomEquivalent(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectOneOf desc) {
             isBottomEquivalent = desc.getIndividuals().isEmpty();
         }
 
-
         @Override
         public void visit(OWLObjectHasSelf desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().getNamedProperty());
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = false;
@@ -1139,13 +1158,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLObjectSomeValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) || isBottomEquivalent(desc.getFiller());
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty()) || isBottomEquivalent(desc.getFiller());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = isBottomEquivalent(desc.getFiller());
@@ -1154,7 +1173,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectUnionOf desc) {
@@ -1167,16 +1185,16 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             isBottomEquivalent = true;
         }
 
-
-        // BUGFIX (TS): desc.getValue() is an individual and therefore is *not* bot-equiv if not in the signature
-        //              -> disjunct removed from *_BOTTOM case
-
+        // BUGFIX (TS): desc.getValue() is an individual and therefore is *not*
+        // bot-equiv if not in the signature
+        // -> disjunct removed from *_BOTTOM case
         @Override
         public void visit(OWLObjectHasValue desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isBottomEquivalent = !signature.contains(desc.getProperty().getNamedProperty());
+                    isBottomEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty());
                     break;
                 case TOP_TOP:
                     isBottomEquivalent = false;
@@ -1187,31 +1205,40 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-
-    /**
-     * Used to determine if class expressions are equivalent to \top using the provided locality class
-     */
+    /** Used to determine if class expressions are equivalent to \top using the
+     * provided locality class. */
     private static class TopEquivalenceEvaluator implements OWLClassExpressionVisitor {
-
+        /** The bottom evaluator. */
         private BottomEquivalenceEvaluator bottomEvaluator;
-
+        /** The is top equivalent. */
         private boolean isTopEquivalent;
-
+        /** The locality cls. */
         private LocalityClass localityCls;
-
+        /** The signature. */
         private Collection<? extends OWLEntity> signature;
 
+        /** Instantiates a new top equivalence evaluator. */
+        public TopEquivalenceEvaluator() {}
 
-        public TopEquivalenceEvaluator() {
-        }
-
-
+        /** Checks if is top equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @return true, if is top equivalent */
         private boolean isTopEquivalent(OWLClassExpression desc) {
             desc.accept(this);
             return isTopEquivalent;
         }
 
-
+        /** Checks if is top equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @param sig
+         *            the sig
+         * @param locality
+         *            the locality
+         * @return true, if is top equivalent */
         public boolean isTopEquivalent(OWLClassExpression desc,
                 Collection<? extends OWLEntity> sig, LocalityClass locality) {
             localityCls = locality;
@@ -1220,11 +1247,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isTopEquivalent;
         }
 
-
+        /** Sets the bottom evaluator.
+         * 
+         * @param evaluator
+         *            the new bottom evaluator */
         public void setBottomEvaluator(BottomEquivalenceEvaluator evaluator) {
             bottomEvaluator = evaluator;
         }
-
 
         @Override
         public void visit(OWLClass desc) {
@@ -1234,22 +1263,22 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     break;
                 case TOP_BOTTOM:
                 case TOP_TOP:
-                    isTopEquivalent = desc.isOWLThing() || !desc.isOWLNothing() && !signature.contains(desc);
+                    isTopEquivalent = desc.isOWLThing() || !desc.isOWLNothing()
+                            && !signature.contains(desc);
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
-
         @Override
         public void visit(OWLDataAllValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty()) || desc.getFiller().isTopDatatype();
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty()) || desc.getFiller().isTopDatatype();
                     break;
                 case TOP_TOP:
                     isTopEquivalent = desc.getFiller().isTopDatatype();
@@ -1259,15 +1288,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // BUGFIX: (TS) Added the case where this is top-equiv (including n==0).
-
         @Override
         public void visit(OWLDataExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = desc.getCardinality() == 0 && !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isTopEquivalent = desc.getCardinality() == 0
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isTopEquivalent = false;
@@ -1277,15 +1306,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         // (TS) No special handling for n==0 required.
-
         @Override
         public void visit(OWLDataMaxCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty());
                     break;
                 case TOP_TOP:
                     isTopEquivalent = false;
@@ -1295,12 +1323,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
-        // BUGFIX: (TS) A data min card restriction is top-equiv iff the cardinality is 0.
+        // BUGFIX: (TS) A data min card restriction is top-equiv iff the
+        // cardinality is 0.
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
-        // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP case
-        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv in TOP_TOP
-
+        // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP
+        // case
+        // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv in
+        // TOP_TOP
         @Override
         public void visit(OWLDataMinCardinality desc) {
             switch (localityCls) {
@@ -1309,17 +1338,23 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = desc.getCardinality() == 0;
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = desc.getCardinality() == 0 || desc.getCardinality() == 1 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInDatatype(desc.getFiller()) || desc.getCardinality() > 1 && !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInInfiniteDatatype(desc.getFiller());
+                    isTopEquivalent = desc.getCardinality() == 0
+                            || desc.getCardinality() == 1
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInDatatype(desc.getFiller())
+                            || desc.getCardinality() > 1
+                            && !signature
+                                    .contains(desc.getProperty().asOWLDataProperty())
+                            && isTopOrBuiltInInfiniteDatatype(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS, 2) Added the cases where the filler is top-equiv
         // BUGFIX: (TS, 3) Extended the cases where the filler is top-equiv
-
         @Override
         public void visit(OWLDataSomeValuesFrom desc) {
             switch (localityCls) {
@@ -1328,16 +1363,16 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty()) && isTopOrBuiltInDatatype(desc.getFiller());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty())
+                            && isTopOrBuiltInDatatype(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS, 2) Added the cases where this is top-equiv
-
         @Override
         public void visit(OWLDataHasValue desc) {
             switch (localityCls) {
@@ -1346,20 +1381,21 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = !signature.contains(desc.getProperty().asOWLDataProperty());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .asOWLDataProperty());
                     break;
                 default:
                     break;
             }
         }
 
-
         @Override
         public void visit(OWLObjectAllValuesFrom desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) || isTopEquivalent(desc.getFiller());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty()) || isTopEquivalent(desc.getFiller());
                     break;
                 case TOP_TOP:
                     isTopEquivalent = isTopEquivalent(desc.getFiller());
@@ -1369,30 +1405,33 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             }
         }
 
-
         @Override
         public void visit(OWLObjectComplementOf desc) {
-            isTopEquivalent = bottomEvaluator.isBottomEquivalent(desc.getOperand(), signature, localityCls);
+            isTopEquivalent = bottomEvaluator.isBottomEquivalent(desc.getOperand(),
+                    signature, localityCls);
         }
 
-
         // BUGFIX: (TS) added the cases where this is top-equiv, including n==0
-
         @Override
         public void visit(OWLObjectExactCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = desc.getCardinality() == 0 && (!signature.contains(desc.getProperty().getNamedProperty()) || bottomEvaluator.isBottomEquivalent(desc.getFiller(), signature, localityCls));
+                    isTopEquivalent = desc.getCardinality() == 0
+                            && (!signature
+                                    .contains(desc.getProperty().getNamedProperty()) || bottomEvaluator
+                                    .isBottomEquivalent(desc.getFiller(), signature,
+                                            localityCls));
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = desc.getCardinality() == 0 && bottomEvaluator.isBottomEquivalent(desc.getFiller(), signature, localityCls);
+                    isTopEquivalent = desc.getCardinality() == 0
+                            && bottomEvaluator.isBottomEquivalent(desc.getFiller(),
+                                    signature, localityCls);
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
@@ -1405,29 +1444,32 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             isTopEquivalent = true;
         }
 
-
-        // BUGFIX: (TS) Added the case of a bottom-equivalent filler to both conditions.
-        //              The n==0 case doesn't affect top-equivalence of this type of restriction.
-
+        // BUGFIX: (TS) Added the case of a bottom-equivalent filler to both
+        // conditions.
+        // The n==0 case doesn't affect top-equivalence of this type of
+        // restriction.
         @Override
         public void visit(OWLObjectMaxCardinality desc) {
             switch (localityCls) {
                 case BOTTOM_BOTTOM:
                 case TOP_BOTTOM:
-                    isTopEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) || bottomEvaluator.isBottomEquivalent(desc.getFiller(), signature, localityCls);
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty())
+                            || bottomEvaluator.isBottomEquivalent(desc.getFiller(),
+                                    signature, localityCls);
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = bottomEvaluator.isBottomEquivalent(desc.getFiller(), signature, localityCls);
+                    isTopEquivalent = bottomEvaluator.isBottomEquivalent(
+                            desc.getFiller(), signature, localityCls);
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX: (TS) Added the case n==0; repaired TOP_TOP condition
-        // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP case
-
+        // BUGFIX: (TS, 2) Left out redundant check cardinality > 0 in TOP_TOP
+        // case
         @Override
         public void visit(OWLObjectMinCardinality desc) {
             switch (localityCls) {
@@ -1436,20 +1478,22 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = desc.getCardinality() == 0;
                     break;
                 case TOP_TOP:
-                    //                    isTopEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) && (desc.getCardinality() <= 1);
-                    isTopEquivalent = desc.getCardinality() == 0 || !signature.contains(desc.getProperty().getNamedProperty()) && isTopEquivalent(desc.getFiller());
+                    // isTopEquivalent =
+                    // !signature.contains(desc.getProperty().getNamedProperty())
+                    // && (desc.getCardinality() <= 1);
+                    isTopEquivalent = desc.getCardinality() == 0
+                            || !signature.contains(desc.getProperty().getNamedProperty())
+                            && isTopEquivalent(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
 
-
         @Override
         public void visit(OWLObjectOneOf desc) {
             isTopEquivalent = false;
         }
-
 
         @Override
         public void visit(OWLObjectHasSelf desc) {
@@ -1459,16 +1503,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = !signature.contains(desc.getProperty().getNamedProperty());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty());
                     break;
                 default:
                     break;
             }
         }
 
-
         // BUGFIX (TS): added ".getNamedProperty()"
-
         @Override
         public void visit(OWLObjectSomeValuesFrom desc) {
             switch (localityCls) {
@@ -1477,13 +1520,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = !signature.contains(desc.getProperty().getNamedProperty()) && isTopEquivalent(desc.getFiller());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty()) && isTopEquivalent(desc.getFiller());
                     break;
                 default:
                     break;
             }
         }
-
 
         @Override
         public void visit(OWLObjectUnionOf desc) {
@@ -1496,7 +1539,6 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             isTopEquivalent = false;
         }
 
-
         @Override
         public void visit(OWLObjectHasValue desc) {
             switch (localityCls) {
@@ -1505,14 +1547,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
                     isTopEquivalent = false;
                     break;
                 case TOP_TOP:
-                    isTopEquivalent = !signature.contains(desc.getProperty().getNamedProperty());
+                    isTopEquivalent = !signature.contains(desc.getProperty()
+                            .getNamedProperty());
                     break;
                 default:
                     break;
             }
         }
     }
-
 
     @Override
     public boolean isLocal(OWLAxiom axiom, Set<? extends OWLEntity> signature) {
