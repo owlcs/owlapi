@@ -43,27 +43,71 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Sep-2007 */
-@SuppressWarnings("javadoc")
+// TODO: Auto-generated Javadoc
+/** The Class ParserException.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Sep-2007 */
 public class ParserException extends OWLParserException {
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 30406L;
+    /** The current token. */
     private String currentToken;
+    /** The line number. */
     private int lineNumber;
+    /** The column number. */
     private int columnNumber;
+    /** The token sequence. */
     private List<String> tokenSequence;
+    /** The class name expected. */
     private boolean classNameExpected = false;
+    /** The object property name expected. */
     private boolean objectPropertyNameExpected = false;
+    /** The data property name expected. */
     private boolean dataPropertyNameExpected = false;
+    /** The individual name expected. */
     private boolean individualNameExpected = false;
+    /** The datatype name expected. */
     private boolean datatypeNameExpected = false;
+    /** The integer expected. */
     private boolean integerExpected = false;
+    /** The annotation property expected. */
     private boolean annotationPropertyExpected = false;
+    /** The ontology name expected. */
     private boolean ontologyNameExpected = false;
+    /** The expected keywords. */
     private Set<String> expectedKeywords;
+    /** The start pos. */
     private int startPos;
 
+    /** Instantiates a new parser exception.
+     * 
+     * @param tokenSequence
+     *            the token sequence
+     * @param startPos
+     *            the start pos
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number
+     * @param ontologyNameExpected
+     *            the ontology name expected
+     * @param classNameExpected
+     *            the class name expected
+     * @param objectPropertyNameExpected
+     *            the object property name expected
+     * @param dataPropertyNameExpected
+     *            the data property name expected
+     * @param individualNameExpected
+     *            the individual name expected
+     * @param datatypeNameExpected
+     *            the datatype name expected
+     * @param annotationPropertyExpected
+     *            the annotation property expected
+     * @param integerExpected
+     *            the integer expected
+     * @param expectedKeywords
+     *            the expected keywords */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
             int columnNumber, boolean ontologyNameExpected, boolean classNameExpected,
             boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
@@ -86,58 +130,96 @@ public class ParserException extends OWLParserException {
         this.integerExpected = integerExpected;
     }
 
+    /** Gets the token sequence.
+     * 
+     * @return the token sequence */
     public List<String> getTokenSequence() {
         return tokenSequence;
     }
 
+    /** Gets the start pos.
+     * 
+     * @return the start pos */
     public int getStartPos() {
         return startPos;
     }
 
+    /** Checks if is class name expected.
+     * 
+     * @return true, if is class name expected */
     public boolean isClassNameExpected() {
         return classNameExpected;
     }
 
+    /** Checks if is object property name expected.
+     * 
+     * @return true, if is object property name expected */
     public boolean isObjectPropertyNameExpected() {
         return objectPropertyNameExpected;
     }
 
+    /** Checks if is data property name expected.
+     * 
+     * @return true, if is data property name expected */
     public boolean isDataPropertyNameExpected() {
         return dataPropertyNameExpected;
     }
 
+    /** Checks if is individual name expected.
+     * 
+     * @return true, if is individual name expected */
     public boolean isIndividualNameExpected() {
         return individualNameExpected;
     }
 
+    /** Checks if is datatype name expected.
+     * 
+     * @return true, if is datatype name expected */
     public boolean isDatatypeNameExpected() {
         return datatypeNameExpected;
     }
 
+    /** Checks if is annotation property name expected.
+     * 
+     * @return true, if is annotation property name expected */
     public boolean isAnnotationPropertyNameExpected() {
         return annotationPropertyExpected;
     }
 
+    /** Checks if is ontology name expected.
+     * 
+     * @return true, if is ontology name expected */
     public boolean isOntologyNameExpected() {
         return ontologyNameExpected;
     }
 
+    /** Gets the expected keywords.
+     * 
+     * @return the expected keywords */
     public Set<String> getExpectedKeywords() {
         return expectedKeywords;
     }
 
+    /** Gets the current token.
+     * 
+     * @return the current token */
     public String getCurrentToken() {
         return currentToken;
     }
 
+    @Override
     public int getLineNumber() {
         return lineNumber;
     }
 
+    @Override
     public int getColumnNumber() {
         return columnNumber;
     }
 
+    /** Checks if is integer expected.
+     * 
+     * @return true, if is integer expected */
     public boolean isIntegerExpected() {
         return integerExpected;
     }

@@ -47,9 +47,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Maps strings to OWL objects.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Sep-2007*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Sep-2007 */
 public interface OWLEntityChecker {
     /** @param name
      *            name to resolve
