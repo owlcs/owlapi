@@ -36,23 +36,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.renderer;
 
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/**
- * @author Nick Drummond, The University Of Manchester<br>
- * Bio Health Informatics Group<br>
- * Date: Dec 19, 2008 */
-@SuppressWarnings("javadoc")
-public class OBOStorageException extends OWLOntologyStorageException{
+/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 19, 2008 */
+public class OBOStorageException extends OWLOntologyStorageException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
-    public OBOStorageException(OWLObject source, OWLObject problem, String message){
+    /** @param source
+     *            source
+     * @param problem
+     *            problem
+     * @param message
+     *            message */
+    public OBOStorageException(OWLObject source, OWLObject problem, String message) {
         super(source + ": " + message + " (" + problem + ")");
     }
 }

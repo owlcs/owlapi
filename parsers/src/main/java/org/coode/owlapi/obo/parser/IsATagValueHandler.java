@@ -36,38 +36,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007 */
 public class IsATagValueHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public IsATagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_A.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         if (getConsumer().isTerm()) {
             // We simply add a subclass axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(
-                    getClassFromId(currentId),
-                    getClassFromId(value))
-            ));
+            applyChange(new AddAxiom(getOntology(), getDataFactory()
+                    .getOWLSubClassOfAxiom(getClassFromId(currentId),
+                            getClassFromId(value))));
         } else if (getConsumer().isTypedef()) {
             // We simply add a sub property axiom
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubObjectPropertyOfAxiom(
-                    getOWLObjectProperty(currentId),
-                    getOWLObjectProperty(value))
-            ));
+            applyChange(new AddAxiom(getOntology(), getDataFactory()
+                    .getOWLSubObjectPropertyOfAxiom(getOWLObjectProperty(currentId),
+                            getOWLObjectProperty(value))));
         }
     }
 }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -45,21 +44,18 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007 */
 public class NameTagValueHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public NameTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.NAME.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         // This is an annotation - but add as a label
         OWLEntity ent;
         if (getConsumer().isTerm()) {
@@ -70,7 +66,9 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
             ent = getDataFactory().getOWLNamedIndividual(getIRIFromOBOId(currentId));
         }
         OWLLiteral con = getDataFactory().getOWLLiteral(value);
-        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(getDataFactory().getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI()), ent.getIRI(), con);
+        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
+                getDataFactory().getOWLAnnotationProperty(
+                        OWLRDFVocabulary.RDFS_LABEL.getIRI()), ent.getIRI(), con);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

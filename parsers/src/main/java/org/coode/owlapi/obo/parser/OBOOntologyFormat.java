@@ -40,9 +40,8 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007 */
 public class OBOOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
     private IDSpaceManager idSpaceManager = new IDSpaceManager();
@@ -59,11 +58,12 @@ public class OBOOntologyFormat extends OWLOntologyFormat {
         idSpaceManager = m;
     }
 
-    /**
-     * Gets the OBO id-space manager.  This is NOT the same as a prefix manager.
-     * @return The {@link IDSpaceManager} for this format.  For ontologies parsed from an OBO file this will contain
-     * any id prefix to IRI prefix mappings that were parsed out of the file (from id-space tags).  Not null.
-     */
+    /** Gets the OBO id-space manager. This is NOT the same as a prefix manager.
+     * 
+     * @return The {@link IDSpaceManager} for this format. For ontologies parsed
+     *         from an OBO file this will contain any id prefix to IRI prefix
+     *         mappings that were parsed out of the file (from id-space tags).
+     *         Not null. */
     public IDSpaceManager getIdSpaceManager() {
         return idSpaceManager;
     }

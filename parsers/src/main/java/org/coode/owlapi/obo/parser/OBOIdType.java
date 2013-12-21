@@ -47,9 +47,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 /** Describes the types of OBO IDs that can be found in OBO Files. Taken from
  * Section 2.5 of the OBO Syntax and Semantics Specification.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 19/04/2012 */
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 19/04/2012 */
 public enum OBOIdType {
     /** Any string with an http: or https: prefix. */
     URL_AS_ID(Pattern.compile("(http:|https:)[^\\s]*"), new OBOIIdTranslator() {
@@ -131,8 +130,11 @@ public enum OBOIdType {
     }
 
     /** @param ontologyID
+     *            ontologyID
      * @param idSpaceManager
+     *            idSpaceManager
      * @param oboId
+     *            oboId
      * @return the translated iri */
     public IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
             String oboId) {
@@ -143,8 +145,8 @@ public enum OBOIdType {
      * 
      * @param oboId
      *            The OBO ID. Must not be null.
-     * @return The OBOIdType for the specified oboId, or {@code null} if
-     *         the specified oboId does not conform to any OBO Id type. */
+     * @return The OBOIdType for the specified oboId, or {@code null} if the
+     *         specified oboId does not conform to any OBO Id type. */
     public static OBOIdType getIdType(String oboId) {
         if (oboId == null) {
             throw new NullPointerException("oboId must not be null");
@@ -159,7 +161,7 @@ public enum OBOIdType {
         return null;
     }
 
-    private static interface OBOIIdTranslator {
+    private interface OBOIIdTranslator {
         IRI getIRIFromOBOId(OWLOntologyID ontologyID, IDSpaceManager idSpaceManager,
                 String id);
     }

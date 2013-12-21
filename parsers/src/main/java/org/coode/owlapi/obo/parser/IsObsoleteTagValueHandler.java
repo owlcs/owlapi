@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -46,25 +45,24 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 18/04/2012
- */
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012 */
 public class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
-
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public IsObsoleteTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_OBSOLETE.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         OWLDataFactory df = getDataFactory();
         OWLAnnotationProperty deprecatedProperty = df.getOWLDeprecated();
         OWLLiteral annotationValue = df.getOWLLiteral(true);
         IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(deprecatedProperty, subject, annotationValue);
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
+                deprecatedProperty, subject, annotationValue);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

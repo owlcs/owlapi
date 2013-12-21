@@ -45,12 +45,11 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
  * abbreviations for IRIs. The description below, taken from the OBOEdit manual,
  * explains their provenance. <br>
  * <h3>OBO Namespaces and Ontology Name (OBO Syntax and Semantics Document:
- * Section 4.3)</h3> <br>
- * Note that OBO namespaces are not the same as OWL namespaces - the analog of
- * OWL namespaces are OBO ID spaces. OBO namespaces are semantics-free
- * properties of a frame that allow partitioning of an ontology into
- * sub-ontologies. For example, the GO is partitioned into 3 ontologies (3 OBO
- * namespaces, 1 OWL namespace). <br>
+ * Section 4.3)</h3> Note that OBO namespaces are not the same as OWL namespaces
+ * - the analog of OWL namespaces are OBO ID spaces. OBO namespaces are
+ * semantics-free properties of a frame that allow partitioning of an ontology
+ * into sub-ontologies. For example, the GO is partitioned into 3 ontologies (3
+ * OBO namespaces, 1 OWL namespace). <br>
  * Every frame must have exactly one namespace. However, these do not need to be
  * explicitly assigned. After parsing an OBO Document, any frame without a
  * namespace is assigned the default-namespace, from the OBO Document header. If
@@ -61,25 +60,23 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
  * is not specified, then the parser should supply a default value. This value
  * should be derived from the URL of the source of the ontology (typically using
  * http or file schemes). <br>
- * <h3>OBO Namespaces (From the OBOEdit Manual)</h3> <br>
- * Namespaces <br>
- * OBO files are designed to be easily merged and separated. Most tools that use
- * OBO files can load many OBO files at once. If several ontologies have been
- * loaded together and saved into a single file, it would be impossible to know
- * which terms came from which file unless the origin of each term is indicated
- * somehow. Namespaces are used to solve this problem by indicating a
- * "logical ontology" to which every term, relation, instance OR relationship
- * belongs, i.e., each entity is tagged with a Namespace that indicates which
- * ontology it is part of. <br>
+ * <h3>OBO Namespaces (From the OBOEdit Manual)</h3> OBO files are designed to
+ * be easily merged and separated. Most tools that use OBO files can load many
+ * OBO files at once. If several ontologies have been loaded together and saved
+ * into a single file, it would be impossible to know which terms came from
+ * which file unless the origin of each term is indicated somehow. Namespaces
+ * are used to solve this problem by indicating a "logical ontology" to which
+ * every term, relation, instance OR relationship belongs, i.e., each entity is
+ * tagged with a Namespace that indicates which ontology it is part of. <br>
  * Namespaces are user-definable. Every ontology object belongs to a single
  * namespace. When terms from many ontologies have been loaded together,
  * namespaces are used to break the merged ontology back into separate files.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 01-Sep-2008*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 01-Sep-2008 */
 public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
+    /** @param consumer
+     *            consumer */
     public DefaultNamespaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEFAULT_NAMESPACE.getName(), consumer);
     }

@@ -36,29 +36,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Mar-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007 */
 public class InverseHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public InverseHandler(OBOConsumer consumer) {
         super(OBOVocabulary.INVERSE.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
-        OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(getOWLObjectProperty(currentId),
-                getOWLObjectProperty(value));
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
+        OWLAxiom ax = getDataFactory().getOWLInverseObjectPropertiesAxiom(
+                getOWLObjectProperty(currentId), getOWLObjectProperty(value));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

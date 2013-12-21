@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.Collections;
@@ -55,46 +54,40 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 18/04/2012 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012 */
 public class DefTagValueHandler extends AbstractTagValueHandler {
-    
-    private static final Pattern PATTERN = Pattern.compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
-
+    private static final Pattern PATTERN = Pattern
+            .compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
     private static final int QUOTED_STRING_CONTENT_GROUP = 1;
-    
     private static final int XREF_GROUP = 3;
-    
+
+    /** @param consumer
+     *            consumer */
     public DefTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEF.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         Matcher matcher = PATTERN.matcher(value);
-
-
         OWLDataFactory df = getDataFactory();
-        
         String annotationValue;
         Set<OWLAnnotation> xrefAnnotations = Collections.emptySet();
-        if(matcher.matches()) {
+        if (matcher.matches()) {
             annotationValue = matcher.group(QUOTED_STRING_CONTENT_GROUP);
             xrefAnnotations = getXRefAnnotations(matcher);
-        }
-        else {
+        } else {
             annotationValue = getUnquotedString(value);
         }
-
         IRI propertyIRI = getTagIRI(getTagName());
         OWLAnnotationProperty property = df.getOWLAnnotationProperty(propertyIRI);
         OWLEntity currentEntity = getConsumer().getCurrentEntity();
         OWLLiteral literal = df.getOWLLiteral(annotationValue);
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(property, currentEntity.getIRI(), literal, xrefAnnotations);
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(property,
+                currentEntity.getIRI(), literal, xrefAnnotations);
         applyChange(new AddAxiom(getOntology(), ax));
-        
     }
 
     private Set<OWLAnnotation> getXRefAnnotations(Matcher matcher) {
@@ -102,7 +95,7 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
-            while(tokenizer.hasMoreTokens()) {
+            while (tokenizer.hasMoreTokens()) {
                 String xrefValue = tokenizer.nextToken();
                 OWLAnnotation xrefAnnotation = getConsumer().parseXRef(xrefValue);
                 annotations.add(xrefAnnotation);
@@ -110,6 +103,4 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
         }
         return annotations;
     }
-
-    
 }

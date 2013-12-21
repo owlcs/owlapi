@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.Collections;
@@ -55,60 +54,53 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 03/02/2011
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 03/02/2011 */
 public class SynonymTagValueHandler extends AbstractTagValueHandler {
-
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
-
-    // synonym:   "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE?  XRefList
-    private static final Pattern valuePattern = Pattern.compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
-
+    // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
+    private static final Pattern valuePattern = Pattern
+            .compile("\"([^\"]*)\"\\s*([^\\s]*)\\s*([^\\[\\s]+)?\\s*\\[([^\\]]*)\\]");
     private static final int VALUE_GROUP = 1;
-
     private static final int SCOPE_GROUP = 2;
-
     private static final int SYNONYM_TYPE_GROUP = 3;
-    
     private static final int XREF_GROUP = 4;
-
+    /** synonym type iri */
     public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
-
+    /** xref iri */
     public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
 
+    /** @param consumer
+     *            consumer */
     public SynonymTagValueHandler(OBOConsumer consumer) {
         super(TAG_NAME, consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         Matcher matcher = valuePattern.matcher(value);
-        if(matcher.matches()) {
+        if (matcher.matches()) {
             OWLDataFactory df = getDataFactory();
             OWLAnnotationProperty property = getSynonymAnnotationProperty(matcher);
-
             Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
             annotations.addAll(getSynonymTypeAnnotations(matcher));
             annotations.addAll(getXRefAnnotations(matcher));
-
             OWLEntity subject = getConsumer().getCurrentEntity();
             String synonym = matcher.group(VALUE_GROUP);
             OWLLiteral synonymLiteral = df.getOWLLiteral(synonym);
-            OWLAnnotationAssertionAxiom annoAssertion = df.getOWLAnnotationAssertionAxiom(property, subject.getIRI(), synonymLiteral, annotations);
+            OWLAnnotationAssertionAxiom annoAssertion = df
+                    .getOWLAnnotationAssertionAxiom(property, subject.getIRI(),
+                            synonymLiteral, annotations);
             applyChange(new AddAxiom(getOntology(), annoAssertion));
         }
     }
 
     private Set<OWLAnnotation> getSynonymTypeAnnotations(Matcher matcher) {
-        if(matcher.group(SYNONYM_TYPE_GROUP) != null) {
+        if (matcher.group(SYNONYM_TYPE_GROUP) != null) {
             OWLAnnotation typeAnnotation = getSynonymTypeAnnotation(matcher);
             return Collections.singleton(typeAnnotation);
-        }
-        else {
+        } else {
             return Collections.emptySet();
         }
     }
@@ -118,7 +110,7 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
         String xrefs = matcher.group(XREF_GROUP);
         if (xrefs != null) {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
-            while(tokenizer.hasMoreTokens()) {
+            while (tokenizer.hasMoreTokens()) {
                 String xref = tokenizer.nextToken();
                 OWLAnnotation xrefAnnotation = getConsumer().parseXRef(xref);
                 annotations.add(xrefAnnotation);
@@ -127,24 +119,18 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
         return annotations;
     }
 
-
-
     private OWLAnnotationProperty getSynonymAnnotationProperty(Matcher matcher) {
         String synonymScope = matcher.group(SCOPE_GROUP);
         IRI annotationPropertyIRI;
-        if(SynonymScope.BROAD.name().equals(synonymScope)) {
+        if (SynonymScope.BROAD.name().equals(synonymScope)) {
             annotationPropertyIRI = getTagIRI(OBOVocabulary.BROAD_SYNONYM);
-        }
-        else if(SynonymScope.EXACT.name().equals(synonymScope)) {
+        } else if (SynonymScope.EXACT.name().equals(synonymScope)) {
             annotationPropertyIRI = getTagIRI(OBOVocabulary.EXACT_SYNONYM);
-        }
-        else if(SynonymScope.NARROW.name().equals(synonymScope)) {
+        } else if (SynonymScope.NARROW.name().equals(synonymScope)) {
             annotationPropertyIRI = getTagIRI(OBOVocabulary.NARROW_SYNONYM);
-        }
-        else if(SynonymScope.RELATED.name().equals(synonymScope)) {
+        } else if (SynonymScope.RELATED.name().equals(synonymScope)) {
             annotationPropertyIRI = getTagIRI(OBOVocabulary.RELATED_SYNONYM);
-        }
-        else {
+        } else {
             annotationPropertyIRI = getTagIRI(OBOVocabulary.SYNONYM);
         }
         return getDataFactory().getOWLAnnotationProperty(annotationPropertyIRI);
@@ -153,6 +139,7 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
     private OWLAnnotation getSynonymTypeAnnotation(Matcher matcher) {
         OWLDataFactory df = getDataFactory();
         String synonymType = matcher.group(SYNONYM_TYPE_GROUP);
-        return df.getOWLAnnotation(df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI), df.getOWLLiteral(synonymType));
+        return df.getOWLAnnotation(df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI),
+                df.getOWLLiteral(synonymType));
     }
 }

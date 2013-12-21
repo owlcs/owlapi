@@ -36,22 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-
-/** @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 19/04/2012 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 19/04/2012 */
 public class DataVersionTagValueHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public DataVersionTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DATA_VERSION.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         getConsumer().setDataVersionTagValue(value);
     }
 }

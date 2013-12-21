@@ -7,7 +7,6 @@ import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 @SuppressWarnings("all")
 public class OBOParser implements OBOParserConstants {
-
     private OBOParserHandler handler;
 
     public void setHandler(OBOParserHandler handler) {
@@ -16,35 +15,33 @@ public class OBOParser implements OBOParserConstants {
 
     final public void parse() throws ParseException {
         Header();
-        label_1:
-            while (true) {
-                Stanza();
-                switch (jj_ntk==-1?jj_ntk():jj_ntk) {
-                    case OPEN_SQUARE_BRACKET:
-                        ;
-                        break;
-                    default:
-                        jj_la1[0] = jj_gen;
-                        break label_1;
-                }
+        label_1: while (true) {
+            Stanza();
+            switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
+                case OPEN_SQUARE_BRACKET:
+                    ;
+                    break;
+                default:
+                    jj_la1[0] = jj_gen;
+                    break label_1;
             }
+        }
         jj_consume_token(0);
     }
 
     final public void Header() throws ParseException {
         handler.startHeader();
-        label_2:
-            while (true) {
-                switch (jj_ntk==-1?jj_ntk():jj_ntk) {
-                    case TAG_NAME:
-                        ;
-                        break;
-                    default:
-                        jj_la1[1] = jj_gen;
-                        break label_2;
-                }
-                TagValuePair();
+        label_2: while (true) {
+            switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
+                case TAG_NAME:
+                    ;
+                    break;
+                default:
+                    jj_la1[1] = jj_gen;
+                    break label_2;
             }
+            TagValuePair();
+        }
         handler.endHeader();
     }
 
@@ -54,18 +51,17 @@ public class OBOParser implements OBOParserConstants {
         t = jj_consume_token(STANZA_TYPE);
         handler.startFrame(t.image);
         jj_consume_token(CLOSE_SQUARE_BRACKET);
-        label_3:
-            while (true) {
-                switch (jj_ntk==-1?jj_ntk():jj_ntk) {
-                    case TAG_NAME:
-                        ;
-                        break;
-                    default:
-                        jj_la1[2] = jj_gen;
-                        break label_3;
-                }
-                TagValuePair();
+        label_3: while (true) {
+            switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
+                case TAG_NAME:
+                    ;
+                    break;
+                default:
+                    jj_la1[2] = jj_gen;
+                    break label_3;
             }
+            TagValuePair();
+        }
         handler.endFrame();
     }
 
@@ -77,38 +73,37 @@ public class OBOParser implements OBOParserConstants {
         Token t;
         StringBuilder sb = new StringBuilder();
         tagToken = jj_consume_token(TAG_NAME);
-        label_4:
-            while (true) {
-                switch (jj_ntk==-1?jj_ntk():jj_ntk) {
-                    case QUOTED_STRING:
-                    case STRING:
-                    case TAG_VALUE_WS:
-                        ;
-                        break;
-                    default:
-                        jj_la1[3] = jj_gen;
-                        break label_4;
-                }
-                switch (jj_ntk==-1?jj_ntk():jj_ntk) {
-                    case QUOTED_STRING:
-                        t = jj_consume_token(QUOTED_STRING);
-                        sb.append(t.image);
-                        break;
-                    case STRING:
-                        t = jj_consume_token(STRING);
-                        sb.append(t.image);
-                        break;
-                    case TAG_VALUE_WS:
-                        t = jj_consume_token(TAG_VALUE_WS);
-                        sb.append(t.image);
-                        break;
-                    default:
-                        jj_la1[4] = jj_gen;
-                        jj_consume_token(-1);
-                        throw new ParseException();
-                }
+        label_4: while (true) {
+            switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
+                case QUOTED_STRING:
+                case STRING:
+                case TAG_VALUE_WS:
+                    ;
+                    break;
+                default:
+                    jj_la1[3] = jj_gen;
+                    break label_4;
             }
-        switch (jj_ntk==-1?jj_ntk():jj_ntk) {
+            switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
+                case QUOTED_STRING:
+                    t = jj_consume_token(QUOTED_STRING);
+                    sb.append(t.image);
+                    break;
+                case STRING:
+                    t = jj_consume_token(STRING);
+                    sb.append(t.image);
+                    break;
+                case TAG_VALUE_WS:
+                    t = jj_consume_token(TAG_VALUE_WS);
+                    sb.append(t.image);
+                    break;
+                default:
+                    jj_la1[4] = jj_gen;
+                    jj_consume_token(-1);
+                    throw new ParseException();
+            }
+        }
+        switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
             case COMMENT:
                 comment = Comment();
                 break;
@@ -118,9 +113,9 @@ public class OBOParser implements OBOParserConstants {
         }
         String name = tagToken.image.trim();
         String val = sb.toString().trim();
-        if(val.endsWith("}")) {
+        if (val.endsWith("}")) {
             int qualifierStart = val.lastIndexOf("{");
-            if(qualifierStart != -1) {
+            if (qualifierStart != -1) {
                 qualifierBlock = val.substring(qualifierStart);
                 val = val.substring(0, qualifierStart).trim();
             }
@@ -131,9 +126,11 @@ public class OBOParser implements OBOParserConstants {
     final public String Comment() throws ParseException {
         Token t;
         t = jj_consume_token(COMMENT);
-        {if (true) {
-            return t.image;
-        }}
+        {
+            if (true) {
+                return t.image;
+            }
+        }
         throw new OWLRuntimeException("Missing return statement in function");
     }
 
@@ -151,15 +148,17 @@ public class OBOParser implements OBOParserConstants {
     static {
         jj_la1_init_0();
     }
+
     private static void jj_la1_init_0() {
-        jj_la1_0 = new int[] {0x40,0x200,0x200,0x19000,0x19000,0x80000,};
+        jj_la1_0 = new int[] { 0x40, 0x200, 0x200, 0x19000, 0x19000, 0x80000, };
     }
 
     /** Constructor with InputStream. */
     public OBOParser(java.io.InputStream stream) {
         this(stream, null);
     }
-    /** Constructor with InputStream and supplied encoding */
+
+    /** Constructor with InputStream and supplied encoding. */
     public OBOParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
@@ -179,6 +178,7 @@ public class OBOParser implements OBOParserConstants {
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
+
     /** Reinitialise. */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
@@ -258,7 +258,6 @@ public class OBOParser implements OBOParserConstants {
         throw generateParseException();
     }
 
-
     /** Get the next Token. */
     final public Token getNextToken() {
         if (token.next != null) {
@@ -285,8 +284,8 @@ public class OBOParser implements OBOParserConstants {
     }
 
     private int jj_ntk() {
-        if ((jj_nt=token.next) == null) {
-            return jj_ntk = (token.next=token_source.getNextToken()).kind;
+        if ((jj_nt = token.next) == null) {
+            return jj_ntk = (token.next = token_source.getNextToken()).kind;
         } else {
             return jj_ntk = jj_nt.kind;
         }
@@ -307,7 +306,7 @@ public class OBOParser implements OBOParserConstants {
         for (int i = 0; i < 6; i++) {
             if (jj_la1[i] == jj_gen) {
                 for (int j = 0; j < 32; j++) {
-                    if ((jj_la1_0[i] & 1<<j) != 0) {
+                    if ((jj_la1_0[i] & 1 << j) != 0) {
                         la1tokens[j] = true;
                     }
                 }
@@ -328,11 +327,8 @@ public class OBOParser implements OBOParserConstants {
     }
 
     /** Enable tracing. */
-    final public void enable_tracing() {
-    }
+    final public void enable_tracing() {}
 
     /** Disable tracing. */
-    final public void disable_tracing() {
-    }
-
+    final public void disable_tracing() {}
 }

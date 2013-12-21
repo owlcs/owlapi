@@ -108,9 +108,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * References: [1] http://www.cs.man.ac.uk/~horrocks/obo/ [2]
  * http://www.geneontology.org/GO.format.obo-1_2.shtml
  * 
- * @author Nick Drummond, The University Of Manchester<br>
- *         Bio Health Informatics Group<br>
- *         Date: Dec 17, 2008*/
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 17, 2008 */
 public class OBOFlatFileRenderer extends AbstractOWLRenderer implements
         OBOExceptionHandler {
     private OBORelationshipGenerator relationshipHandler;

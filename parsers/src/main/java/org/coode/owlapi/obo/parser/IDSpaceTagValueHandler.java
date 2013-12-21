@@ -36,34 +36,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 18/04/2012
- */
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012 */
 public class IDSpaceTagValueHandler extends AbstractTagValueHandler {
-    
     private static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+([^\\s]*)");
-
     private static final int ID_PREFIX_GROUP = 1;
-    
     private static final int IRI_PREFIX_GROUP = 2;
-    
-    /** @param consumer */
+
+    /** @param consumer
+     *            consumer */
     public IDSpaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID_SPACE.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         Matcher matcher = PATTERN.matcher(value);
-        if(matcher.matches()) {
+        if (matcher.matches()) {
             String idPrefix = matcher.group(ID_PREFIX_GROUP);
             String iriPrefix = matcher.group(IRI_PREFIX_GROUP);
             getConsumer().registerIdSpace(idPrefix, iriPrefix);

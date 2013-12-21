@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import java.util.regex.Matcher;
@@ -48,33 +47,35 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Mar-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007 */
 public class RelationshipTagValueHandler extends AbstractTagValueHandler {
+    private Pattern tagValuePattern = Pattern
+            .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
-    private Pattern tagValuePattern = Pattern.compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
-
+    /** @param consumer
+     *            consumer */
     public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         Matcher matcher = tagValuePattern.matcher(value);
-        if(matcher.matches()) {
-            IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(matcher.group(1));
+        if (matcher.matches()) {
+            IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(
+                    matcher.group(1));
             IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
             OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
-            OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
+            OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(
+                    prop, filler);
             OWLClass subCls = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLSubClassOfAxiom(subCls, restriction)));
-            applyChange(new AddAxiom(getOntology(), getDataFactory().getOWLDeclarationAxiom(prop)));
+            applyChange(new AddAxiom(getOntology(), getDataFactory()
+                    .getOWLSubClassOfAxiom(subCls, restriction)));
+            applyChange(new AddAxiom(getOntology(), getDataFactory()
+                    .getOWLDeclarationAxiom(prop)));
         }
-
     }
 }

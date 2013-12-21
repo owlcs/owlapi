@@ -40,9 +40,8 @@ package org.coode.owlapi.obo.parser;
 
 /** Concrete implementations of this interface allow specific behaviour for
  * processing specific tag value pairs in an OBO file to be specified. <br>
- * <h3>Tag-Value Pairs (From the OBO 1.4 Guide)</h3> <br>
- * Tag-value pairs consist of a tag name, an unescaped colon, the tag value, and
- * a newline: <br>
+ * <h3>Tag-Value Pairs (From the OBO 1.4 Guide)</h3> Tag-value pairs consist of
+ * a tag name, an unescaped colon, the tag value, and a newline: <br>
  * &lt;tag&gt;: &lt;value&gt; {&lt;trailing modifiers&gt;} ! &lt;comment&gt; The
  * tag name is always a string. The value is always a string, but the value
  * string may require special parsing depending on the tag with which it is
@@ -54,10 +53,10 @@ package org.coode.owlapi.obo.parser;
  * name for a particular stanza, no error will be generated. This allows new
  * experimental tags to be added without breaking existing parsers. See handling
  * unrecognized tags for specifics. <br>
- * <h3>Trailing Modifiers</h3> <br>
- * Any tag-value pair may be followed by a trailing modifier. Trailing modifiers
- * have been introduced into the OBO 1.2 Specification to allow the graceful
- * addition of new features to existing tags. <br>
+ * <h3>Trailing Modifiers</h3> Any tag-value pair may be followed by a trailing
+ * modifier. Trailing modifiers have been introduced into the OBO 1.2
+ * Specification to allow the graceful addition of new features to existing
+ * tags. <br>
  * A trailing modifier has the following structure: <br>
  * {&lt;name&gt;=&lt;value&gt;, &lt;name=value&gt;, &lt;name=value&gt;} That is,
  * trailing modifiers are lists of name-value pairs. <br>
@@ -69,9 +68,8 @@ package org.coode.owlapi.obo.parser;
  * Trailing modifiers may also occur within dbxref definitions (see dbxref
  * formatting).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 10-Jan-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Jan-2007 */
 public interface TagValueHandler {
     /** Gets the name of the tag handled by this tag value handler
      * 
@@ -86,6 +84,7 @@ public interface TagValueHandler {
      * @param value
      *            The value of the tag
      * @param qualifierBlock
+     *            qualifierBlock
      * @param comment
      *            The hidden comment. This is made up of any characters between
      *            ! and the end of line. */

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -44,34 +43,30 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 03/02/2011
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 03/02/2011 */
 public class XRefTagHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public XRefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.XREF.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         if (currentId == null) {
             return;
         }
         OWLAnnotation xrefAnnotation = getConsumer().parseXRef(value);
         IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(), subject, xrefAnnotation.getValue());
+        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
+                xrefAnnotation.getProperty(), subject, xrefAnnotation.getValue());
         applyChange(new AddAxiom(getOntology(), ax));
-        
-        if(getConsumer().isTypedef() && xrefAnnotation.getValue() instanceof IRI) {
+        if (getConsumer().isTypedef() && xrefAnnotation.getValue() instanceof IRI) {
             IRI xrefIRI = (IRI) xrefAnnotation.getValue();
             String typedefId = getConsumer().getCurrentId();
             getConsumer().addSymbolicIdMapping(typedefId, xrefIRI);
         }
     }
-
-
 }

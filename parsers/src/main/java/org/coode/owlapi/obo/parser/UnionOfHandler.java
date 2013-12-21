@@ -36,23 +36,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Mar-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007 */
 public class UnionOfHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public UnionOfHandler(OBOConsumer consumer) {
         super("union_of", consumer);
     }
 
-
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         getConsumer().addUnionOfOperand(getOWLClassOrRestriction(value));
     }
 }

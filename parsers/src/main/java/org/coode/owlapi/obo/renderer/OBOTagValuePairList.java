@@ -56,12 +56,10 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
 /** An ordered rendering of the Tag Value Pairs that also supports: - default
  * values - unknown tags (which are rendered at the end of the known tags) -
- * extraction of TVPs from annotations
+ * extraction of TVPs from annotations.
  * 
- * @author Nick Drummond, The University Of Manchester<br>
- *         Bio Health Informatics Group<br>
- *         Date: Dec 19, 2008*/
-@SuppressWarnings("javadoc")
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 19, 2008 */
 public class OBOTagValuePairList {
     private Map<String, Set<String>> knownTVPs = new HashMap<String, Set<String>>();
     private Map<String, Set<String>> unknownTVPs = new HashMap<String, Set<String>>();
@@ -77,15 +75,25 @@ public class OBOTagValuePairList {
         iriSFP = new SimpleIRIShortFormProvider();
     }
 
+    /** @param annot
+     *            annot */
     public void visit(OWLAnnotation annot) {
         addPair(annot.getProperty().getIRI(),
                 ((OWLLiteral) annot.getValue()).getLiteral());
     }
 
+    /** @param tag
+     *            tag
+     * @param value
+     *            value */
     public void addPair(OBOVocabulary tag, String value) {
         addPair(tag.getIRI(), value);
     }
 
+    /** @param tag
+     *            tag
+     * @param value
+     *            value */
     public void addPair(IRI tag, String value) {
         boolean found = false;
         for (OBOVocabulary obo : vocab) {
@@ -101,19 +109,34 @@ public class OBOTagValuePairList {
         }
     }
 
+    /** @param key
+     *            key
+     * @param value
+     *            value */
     public void setPair(OBOVocabulary key, String value) {
         knownTVPs.remove(key.getName());
         addPair(key.getIRI(), value);
     }
 
+    /** @param tag
+     *            tag
+     * @param value
+     *            value */
     public void setDefault(OBOVocabulary tag, String value) {
         defaults.put(tag.getIRI(), value);
     }
 
+    /** @param tag
+     *            tag
+     * @param value
+     *            value */
     public void setDefault(IRI tag, String value) {
         defaults.put(tag, value);
     }
 
+    /** @param key
+     *            key
+     * @return values */
     public Set<String> getValues(OBOVocabulary key) {
         Set<String> values = knownTVPs.get(key.getName());
         if (values == null) {
@@ -131,6 +154,8 @@ public class OBOTagValuePairList {
         set.add(value);
     }
 
+    /** @param w
+     *            w */
     public void write(Writer w) {
         writer = w;
         // write tags out in order

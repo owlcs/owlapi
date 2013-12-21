@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.renderer;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -44,66 +43,72 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/**
- * @author Nick Drummond, The University Of Manchester<br>
- * Bio Health Informatics Group<br>
- * Date: Dec 18, 2008 */
-@SuppressWarnings("javadoc")
+/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 18, 2008 */
 public class OBORelationship {
-
     private OWLObjectProperty property;
-
     private int minCardinality = -1;
     private int maxCardinality = -1;
     private int cardinality = -1;
-
     private OWLEntity filler;
 
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
     public OBORelationship(OWLObjectProperty property, OWLNamedIndividual filler) {
         this.property = property;
         this.filler = filler;
     }
 
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
     public OBORelationship(OWLObjectProperty property, OWLClass filler) {
         this.property = property;
         this.filler = filler;
     }
 
+    /** @return property */
     public OWLObjectProperty getProperty() {
         return property;
     }
 
-
+    /** @return min cardinality */
     public int getMinCardinality() {
         return minCardinality;
     }
 
-
+    /** @return filler */
     public OWLEntity getFiller() {
         return filler;
     }
 
-
+    /** @return max cardinality */
     public int getMaxCardinality() {
         return maxCardinality;
     }
 
-
+    /** @param maxCardinality
+     *            maxCardinality */
     public void setMaxCardinality(int maxCardinality) {
         this.maxCardinality = maxCardinality;
     }
 
-
+    /** @param minCardinality
+     *            minCardinality */
     public void setMinCardinality(int minCardinality) {
         this.minCardinality = minCardinality;
     }
 
-
+    /** @return get crdinality */
     public int getCardinality() {
         return cardinality;
     }
 
-
+    /** @param cardinality
+     *            cardinality */
     public void setCardinality(int cardinality) {
         this.cardinality = cardinality;
     }

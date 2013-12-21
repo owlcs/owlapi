@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -44,24 +43,25 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 
-/** @author Matthew Horridge, Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 10/05/2012 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 10/05/2012 */
 public class AltIdTagValueHandler extends AbstractTagValueHandler {
-
+    /** @param consumer
+     *            consumer */
     public AltIdTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ALT_ID.getName(), consumer);
     }
 
     @Override
-    public void handle(String currentId, String value, String qualifierBlock, String comment) {
+    public void handle(String currentId, String value, String qualifierBlock,
+            String comment) {
         IRI subject = getConsumer().getCurrentEntity().getIRI();
         IRI annotationPropertyIRI = OBOVocabulary.ALT_ID.getIRI();
-        OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(annotationPropertyIRI);
+        OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(
+                annotationPropertyIRI);
         IRI object = getIRIFromOBOId(value);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(property, subject, object);
+        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
+                property, subject, object);
         applyChange(new AddAxiom(getOntology(), ax));
-        
     }
 }

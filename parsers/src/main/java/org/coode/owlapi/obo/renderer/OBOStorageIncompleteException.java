@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.obo.renderer;
 
 import java.util.ArrayList;
@@ -44,27 +43,21 @@ import java.util.List;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 
-/**
- * @author drummond, http://www.cs.man.ac.uk/~drummond/<br>
- * The University Of Manchester<br>
- * Bio Health Informatics Group<br>
- * Date: Apr 9, 2009 */
-@SuppressWarnings("javadoc")
+/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Apr 9, 2009 */
 public class OBOStorageIncompleteException extends OWLRendererException {
-
-
-	private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 30406L;
     private List<OBOStorageException> exceptions;
 
-
+    /** @param exceptions
+     *            exceptions */
     public OBOStorageIncompleteException(List<OBOStorageException> exceptions) {
         super("Warning: OBO storage incomplete (" + exceptions.size() + " errors)");
         this.exceptions = exceptions;
     }
 
-
     @Override
-	public String getMessage() {
+    public String getMessage() {
         StringBuilder sb = new StringBuilder(super.getMessage());
         for (OBOStorageException e : exceptions) {
             sb.append("\n");
@@ -73,7 +66,7 @@ public class OBOStorageIncompleteException extends OWLRendererException {
         return sb.toString();
     }
 
-
+    /** @return causes */
     public List<OBOStorageException> getCauses() {
         return new ArrayList<OBOStorageException>(exceptions);
     }

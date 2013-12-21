@@ -49,15 +49,12 @@ import java.util.Map;
  * "id prefix" is the substring before the colon in an OBO id. IRI prefix is the
  * prefix of an IRI that is the result of translating an OBO id to an IRI.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 18/04/2012 */
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012 */
 public class IDSpaceManager {
     private Map<String, String> idPrefix2IRIPrefixMap = new HashMap<String, String>();
 
-    /**
-     * 
-     */
+    /** default constructor */
     public IDSpaceManager() {}
 
     /** Creates an IDSpaceManager and copying the id prefix to IRI prefix
