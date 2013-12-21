@@ -51,26 +51,40 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: 15-Jun-2006*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 15-Jun-2006 */
 public class LatexObjectVisitor implements OWLObjectVisitor {
+    /** AND */
     public static final String AND = "\\ensuremath{\\sqcap}";
+    /** OR */
     public static final String OR = "\\ensuremath{\\sqcup}";
+    /** NOT */
     public static final String NOT = "\\ensuremath{\\lnot}";
+    /** ALL */
     public static final String ALL = "\\ensuremath{\\forall}";
+    /** SOME */
     public static final String SOME = "\\ensuremath{\\exists}";
+    /** HASVALUE */
     public static final String HASVALUE = "\\ensuremath{hasValue}";
+    /** MIN */
     public static final String MIN = "\\ensuremath{\\geq}";
+    /** MAX */
     public static final String MAX = "\\ensuremath{\\leq}";
+    /** EQUAL */
     public static final String EQUAL = "\\ensuremath{=}";
+    /** SUBCLASS */
     public static final String SUBCLASS = "\\ensuremath{\\sqsubseteq}";
+    /** EQUIV */
     public static final String EQUIV = "\\ensuremath{\\equiv}";
+    /** NOT_EQUIV */
     public static final String NOT_EQUIV = "\\ensuremath{\\not\\equiv}";
+    /** TOP */
     public static final String TOP = "\\ensuremath{\\top}";
+    /** BOTTOM */
     public static final String BOTTOM = "\\ensuremath{\\bot}";
+    /** SELF */
     public static final String SELF = "\\ensuremath{\\Self}";
+    /** CIRC */
     public static final String CIRC = "\\ensuremath{\\circ}";
     private OWLObject subject;
     private LatexWriter writer;
@@ -78,6 +92,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     private OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
+    /** @param writer
+     *            writer
+     * @param df
+     *            data factory */
     public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
         this.writer = writer;
         this.df = df;
@@ -85,10 +103,14 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         subject = df.getOWLThing();
     }
 
+    /** @param subject
+     *            subject */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
     }
 
+    /** @param shortFormProvder
+     *            shortFormProvder */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
     }
@@ -109,22 +131,17 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writer.writeCloseBrace();
     }
 
+    /** @return true if pretty print */
     public boolean isPrettyPrint() {
         return prettyPrint;
     }
 
+    /** @param prettyPrint
+     *            prettyPrint */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
     }
 
-    //
-    // private void beginTabbing() {
-    // write("\\begin{tabbing}\n");
-    // }
-    //
-    // private void endTabbing() {
-    // write("\\end{tabbing}\n");
-    // }
     @Override
     public void visit(OWLObjectIntersectionOf node) {
         for (Iterator<OWLClassExpression> it = node.getOperands().iterator(); it
@@ -576,6 +593,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
     }
 
+    /** @param axiom
+     *            the axiom */
     public void visit(OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");
         axiom.getIRI().accept(this);
@@ -925,6 +944,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.getSuperProperty().accept(this);
     }
 
+    /** @param value
+     *            value */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
             @Override

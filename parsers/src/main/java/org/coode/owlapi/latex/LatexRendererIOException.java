@@ -36,22 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import java.io.IOException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jun-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jun-2007 */
 public class LatexRendererIOException extends LatexRendererException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-
+    /** @param cause
+     *            cause */
     public LatexRendererIOException(IOException cause) {
         super(cause);
     }

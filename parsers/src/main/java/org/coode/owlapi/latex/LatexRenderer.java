@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import java.io.IOException;
@@ -64,21 +63,20 @@ import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 15-Jun-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 15-Jun-2007 */
 public class LatexRenderer extends AbstractOWLRenderer {
-
     private ShortFormProvider shortFormProvider;
 
+    /** @param owlOntologyManager
+     *            owlOntologyManager */
     @Deprecated
     @SuppressWarnings("unused")
     public LatexRenderer(OWLOntologyManager owlOntologyManager) {
         this();
     }
 
+    /** default constructor */
     public LatexRenderer() {
         shortFormProvider = new SimpleShortFormProvider();
     }
@@ -96,20 +94,15 @@ public class LatexRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
-
-
             LatexWriter w = new LatexWriter(writer);
             w.write("\\documentclass{article}\n");
             w.write("\\parskip 0pt\n");
             w.write("\\parindent 0pt\n");
             w.write("\\oddsidemargin 0cm\n");
             w.write("\\textwidth 19cm\n");
-
             w.write("\\begin{document}\n\n");
-
             LatexObjectVisitor renderer = new LatexObjectVisitor(w, ontology
                     .getOWLOntologyManager().getOWLDataFactory());
-
             Collection<OWLClass> clses = sortEntities(ontology.getClassesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
@@ -122,49 +115,44 @@ public class LatexRenderer extends AbstractOWLRenderer {
                     w.write("\n\n");
                 }
             }
-
             w.write("\\section*{Object properties}");
-
-            for (OWLObjectProperty prop : sortEntities(ontology.getObjectPropertiesInSignature())) {
+            for (OWLObjectProperty prop : sortEntities(ontology
+                    .getObjectPropertiesInSignature())) {
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
             }
-
             w.write("\\section*{Data properties}");
-
-            for (OWLDataProperty prop : sortEntities(ontology.getDataPropertiesInSignature())) {
+            for (OWLDataProperty prop : sortEntities(ontology
+                    .getDataPropertiesInSignature())) {
                 writeEntitySection(prop, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
             }
-
             w.write("\\section*{Individuals}");
-
-            for (OWLNamedIndividual ind : sortEntities(ontology.getIndividualsInSignature())) {
+            for (OWLNamedIndividual ind : sortEntities(ontology
+                    .getIndividualsInSignature())) {
                 writeEntitySection(ind, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
             }
-
             w.write("\\section*{Datatypes}");
-            for(OWLDatatype type:sortEntities(ontology.getDatatypesInSignature())) {
+            for (OWLDatatype type : sortEntities(ontology.getDatatypesInSignature())) {
                 writeEntitySection(type, w);
-                for(OWLAxiom ax:sortAxioms(ontology.getAxioms(type))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
             }
             writer.write("\\end{document}\n");
             writer.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new LatexRendererIOException(e);
         }
     }
@@ -182,9 +170,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
         return list;
     }
 
-
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
-
         private static final long serialVersionUID = 30406L;
 
         public OWLAxiomComparator() {}

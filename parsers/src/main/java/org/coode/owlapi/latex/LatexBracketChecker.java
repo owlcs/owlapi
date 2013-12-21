@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.model.OWLClass;
@@ -62,20 +61,14 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 15-Jun-2007 */
-@SuppressWarnings({"unused","javadoc"})
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 15-Jun-2007 */
+@SuppressWarnings({ "unused", "javadoc" })
 public class LatexBracketChecker implements OWLClassExpressionVisitor {
-
     private boolean requiresBracket;
-
     private static LatexBracketChecker instance = new LatexBracketChecker();
 
-    private LatexBracketChecker() {
-
-    }
+    private LatexBracketChecker() {}
 
     @Override
     public void visit(OWLObjectIntersectionOf node) {
@@ -140,54 +133,44 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
-
     @Override
     public void visit(OWLDataExactCardinality desc) {
         requiresBracket = true;
     }
-
 
     @Override
     public void visit(OWLDataMaxCardinality desc) {
         requiresBracket = true;
     }
 
-
     @Override
     public void visit(OWLDataMinCardinality desc) {
         requiresBracket = true;
     }
-
 
     @Override
     public void visit(OWLObjectExactCardinality desc) {
         requiresBracket = true;
     }
 
-
     @Override
     public void visit(OWLObjectMaxCardinality desc) {
         requiresBracket = true;
     }
-
 
     @Override
     public void visit(OWLObjectMinCardinality desc) {
         requiresBracket = true;
     }
 
-
     @Override
     public void visit(OWLObjectHasSelf owlHasSelf) {
         requiresBracket = true;
     }
 
-
     public static boolean requiresBracket(OWLClassExpression classExpression) {
-
         instance.requiresBracket = true;
         classExpression.accept(instance);
         return instance.requiresBracket;
-
     }
 }
