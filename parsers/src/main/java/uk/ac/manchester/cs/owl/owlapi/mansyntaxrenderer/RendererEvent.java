@@ -36,47 +36,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 15-Jul-2009
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Jul-2009 */
 public class RendererEvent {
-
     private ManchesterOWLSyntaxFrameRenderer frameRenderer;
-
     private OWLObject frameSubject;
 
-    /**
-     * @param frameRenderer the frame renderer
-     * @param frameSubject the subject
-     */
-    public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer, OWLObject frameSubject) {
+    /** @param frameRenderer
+     *            the frame renderer
+     * @param frameSubject
+     *            the subject */
+    public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer,
+            OWLObject frameSubject) {
         this.frameSubject = frameSubject;
         this.frameRenderer = frameRenderer;
     }
 
-    /**
-     * @return the frame renderer
-     */
+    /** @return the frame renderer */
     public ManchesterOWLSyntaxFrameRenderer getFrameRenderer() {
         return frameRenderer;
     }
 
+    /** @param comment
+     *            comment */
     public void writeComment(String comment) {
         frameRenderer.writeComment(comment, false);
     }
 
+    /** @param comment
+     *            comment */
     public void writeCommentOnNewLine(String comment) {
         frameRenderer.writeComment(comment, true);
     }
 
+    /** @return frame subject */
     public OWLObject getFrameSubject() {
         return frameSubject;
     }

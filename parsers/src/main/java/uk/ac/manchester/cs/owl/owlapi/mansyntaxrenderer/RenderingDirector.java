@@ -41,11 +41,14 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 11-Mar-2010 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 11-Mar-2010 */
 public interface RenderingDirector {
+    /** @param frameSectionKeyword
+     *            frameSectionKeyword
+     * @param ontologies
+     *            ontologies
+     * @return false */
     boolean renderEmptyFrameSection(ManchesterOWLSyntax frameSectionKeyword,
             OWLOntology... ontologies);
 }

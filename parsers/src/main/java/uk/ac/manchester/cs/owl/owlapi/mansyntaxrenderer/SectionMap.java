@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.util.Collection;
@@ -48,47 +47,52 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22/12/2010
- */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 22/12/2010 */
 public class SectionMap {
-
     private Map<Object, Set<OWLAxiom>> object2Axioms = new HashMap<Object, Set<OWLAxiom>>();
 
+    /** @return true if empty */
     public boolean isEmpty() {
         return object2Axioms.isEmpty();
     }
 
+    /** @param o
+     *            key
+     * @param forAxiom
+     *            axiom to add */
     public void add(Object o, OWLAxiom forAxiom) {
         Set<OWLAxiom> axioms = object2Axioms.get(o);
-        if(axioms == null) {
+        if (axioms == null) {
             axioms = new HashSet<OWLAxiom>();
             object2Axioms.put(o, axioms);
         }
         axioms.add(forAxiom);
     }
 
+    /** @param o
+     *            object to remove */
     public void remove(Object o) {
         object2Axioms.remove(o);
     }
 
+    /** @return sections */
     public Collection<Object> getSectionObjects() {
         return object2Axioms.keySet();
     }
 
+    /** @param sectionObject
+     *            sectionObject
+     * @return annotations for objects */
     public Set<Set<OWLAnnotation>> getAnnotationsForSectionObject(Object sectionObject) {
         Collection<OWLAxiom> axioms = object2Axioms.get(sectionObject);
-        if(axioms == null) {
+        if (axioms == null) {
             return new HashSet<Set<OWLAnnotation>>();
         }
         Set<Set<OWLAnnotation>> annos = new HashSet<Set<OWLAnnotation>>();
-        for(OWLAxiom ax : axioms) {
+        for (OWLAxiom ax : axioms) {
             annos.add(ax.getAnnotations());
         }
         return annos;
     }
-
 }

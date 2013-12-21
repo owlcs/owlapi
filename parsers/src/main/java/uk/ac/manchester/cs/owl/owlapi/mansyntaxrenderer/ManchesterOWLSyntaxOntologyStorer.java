@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.Writer;
@@ -48,22 +47,15 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-May-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-May-2007 */
 public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
-
-
-	private static final long serialVersionUID = 30406L;
-
+    private static final long serialVersionUID = 30406L;
 
     @Override
     public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
         return ontologyFormat.equals(new ManchesterOWLSyntaxOntologyFormat());
     }
-
 
     @Override
     protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
@@ -74,7 +66,6 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     @Override
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
-
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
                 ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                         format));

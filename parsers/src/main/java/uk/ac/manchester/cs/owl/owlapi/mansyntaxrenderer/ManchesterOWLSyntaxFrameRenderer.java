@@ -114,25 +114,43 @@ import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Apr-2007 */
-@SuppressWarnings("javadoc")
+// TODO: Auto-generated Javadoc
+/** The Class ManchesterOWLSyntaxFrameRenderer.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Apr-2007 */
 public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectRenderer
         implements OWLEntityVisitor {
+    /** The ontologies. */
     private Set<OWLOntology> ontologies;
+    /** The short form provider. */
     private OntologyIRIShortFormProvider shortFormProvider = new OntologyIRIShortFormProvider();
+    /** The filtered axiom types. */
     private Set<AxiomType<?>> filteredAxiomTypes = new HashSet<AxiomType<?>>();
+    /** The render extensions. */
     private boolean renderExtensions = false;
+    /** The listeners. */
     private List<RendererListener> listeners = new ArrayList<RendererListener>();
+    /** The axiom filter. */
     private OWLAxiomFilter axiomFilter = new OWLAxiomFilter() {
         @Override
         public boolean passes(OWLAxiom axiom) {
             return true;
         }
     };
+    /** The rendering director. */
     private RenderingDirector renderingDirector = new DefaultRenderingDirector();
 
+    /** Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param owlOntologyManager
+     *            the owl ontology manager
+     * @param ontology
+     *            the ontology
+     * @param writer
+     *            the writer
+     * @param entityShortFormProvider
+     *            the entity short form provider */
     @Deprecated
     @SuppressWarnings("unused")
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager,
@@ -140,11 +158,31 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         this(Collections.singleton(ontology), writer, entityShortFormProvider);
     }
 
+    /** Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param ontology
+     *            the ontology
+     * @param writer
+     *            the writer
+     * @param entityShortFormProvider
+     *            the entity short form provider */
     public ManchesterOWLSyntaxFrameRenderer(OWLOntology ontology, Writer writer,
             ShortFormProvider entityShortFormProvider) {
         this(Collections.singleton(ontology), writer, entityShortFormProvider);
     }
 
+    /** Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param owlOntologyManager
+     *            the owl ontology manager
+     * @param ontologies
+     *            the ontologies
+     * @param defaultOntology
+     *            the default ontology
+     * @param writer
+     *            the writer
+     * @param entityShortFormProvider
+     *            the entity short form provider */
     @Deprecated
     @SuppressWarnings("unused")
     public ManchesterOWLSyntaxFrameRenderer(OWLOntologyManager owlOntologyManager,
@@ -153,6 +191,16 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         this(ontologies, writer, entityShortFormProvider);
     }
 
+    /** Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param ontologies
+     *            the ontologies
+     * @param defaultOntology
+     *            the default ontology
+     * @param writer
+     *            the writer
+     * @param entityShortFormProvider
+     *            the entity short form provider */
     @Deprecated
     @SuppressWarnings("unused")
     public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies,
@@ -162,44 +210,84 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
     }
 
+    /** Instantiates a new manchester owl syntax frame renderer.
+     * 
+     * @param ontologies
+     *            the ontologies
+     * @param writer
+     *            the writer
+     * @param entityShortFormProvider
+     *            the entity short form provider */
     public ManchesterOWLSyntaxFrameRenderer(Set<OWLOntology> ontologies, Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
         this.ontologies = new LinkedHashSet<OWLOntology>(ontologies);
     }
 
+    /** Sets the rendering director.
+     * 
+     * @param renderingDirector
+     *            the new rendering director */
     public void setRenderingDirector(RenderingDirector renderingDirector) {
         this.renderingDirector = renderingDirector;
     }
 
+    /** Adds the renderer listener.
+     * 
+     * @param listener
+     *            the listener */
     public void addRendererListener(RendererListener listener) {
         listeners.add(listener);
     }
 
+    /** Removes the renderer listener.
+     * 
+     * @param listener
+     *            the listener */
     public void removeRendererListener(RendererListener listener) {
         listeners.remove(listener);
     }
 
+    /** Sets the axiom filter.
+     * 
+     * @param axiomFilter
+     *            the new axiom filter */
     public void setAxiomFilter(OWLAxiomFilter axiomFilter) {
         this.axiomFilter = axiomFilter;
     }
 
+    /** Clear filtered axiom types. */
     public void clearFilteredAxiomTypes() {
         filteredAxiomTypes.clear();
     }
 
+    /** Adds the filtered axiom type.
+     * 
+     * @param axiomType
+     *            the axiom type */
     public void addFilteredAxiomType(AxiomType<?> axiomType) {
         filteredAxiomTypes.add(axiomType);
     }
 
+    /** Sets the render extensions.
+     * 
+     * @param renderExtensions
+     *            the new render extensions */
     public void setRenderExtensions(boolean renderExtensions) {
         this.renderExtensions = renderExtensions;
     }
 
+    /** Gets the ontologies.
+     * 
+     * @return the ontologies */
     public Set<OWLOntology> getOntologies() {
         return ontologies;
     }
 
+    /** Write ontology.
+     * 
+     * @throws OWLRendererException
+     *             the oWL renderer exception */
     public void writeOntology() throws OWLRendererException {
         if (ontologies.size() != 1) {
             throw new OWLRuntimeException("Can only render one ontology");
@@ -302,6 +390,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         flush();
     }
 
+    /** Write ontology header.
+     * 
+     * @param ontology
+     *            the ontology */
     public void writeOntologyHeader(OWLOntology ontology) {
         event = new RendererEvent(this, ontology);
         fireFrameRenderingPrepared(ONTOLOGY.toString());
@@ -335,6 +427,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         fireFrameRenderingFinished(ONTOLOGY.toString());
     }
 
+    /** Write prefix map. */
     public void writePrefixMap() {
         ShortFormProvider sfp = getShortFormProvider();
         if (!(sfp instanceof ManchesterOWLSyntaxPrefixNameShortFormProvider)) {
@@ -343,8 +436,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         ManchesterOWLSyntaxPrefixNameShortFormProvider prov = (ManchesterOWLSyntaxPrefixNameShortFormProvider) sfp;
         Map<String, String> prefixMap = new HashMap<String, String>();
         PrefixManager prefixManager = prov.getPrefixManager();
-        for (String prefixName : prefixManager.getPrefixName2PrefixMap()
-                .keySet()) {
+        for (String prefixName : prefixManager.getPrefixName2PrefixMap().keySet()) {
             String prefix = prefixManager.getPrefix(prefixName);
             prefixMap.put(prefixName, prefix);
             write(PREFIX.toString());
@@ -360,16 +452,30 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Write full uri.
+     * 
+     * @param uri
+     *            the uri */
     public void writeFullURI(String uri) {
         write("<");
         write(uri);
         write(">");
     }
 
+    /** Checks if is filtered.
+     * 
+     * @param axiomType
+     *            the axiom type
+     * @return true, if is filtered */
     public boolean isFiltered(AxiomType<?> axiomType) {
         return filteredAxiomTypes.contains(axiomType);
     }
 
+    /** Checks if is displayed.
+     * 
+     * @param axiom
+     *            the axiom
+     * @return true, if is displayed */
     public boolean isDisplayed(OWLAxiom axiom) {
         if (axiom == null) {
             return false;
@@ -377,6 +483,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axiomFilter.passes(axiom);
     }
 
+    /** Write frame.
+     * 
+     * @param entity
+     *            the entity
+     * @return the sets the */
     public Set<OWLAxiom> writeFrame(OWLEntity entity) {
         if (entity.isOWLClass()) {
             return write(entity.asOWLClass());
@@ -399,6 +510,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return Collections.emptySet();
     }
 
+    /** @param cls
+     *            the cls
+     * @return the sets the */
     public Set<OWLAxiom> write(OWLClass cls) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(CLASS, cls));
@@ -537,12 +651,19 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** Write entity section end.
+     * 
+     * @param type
+     *            the type */
     protected void writeEntitySectionEnd(String type) {
         fireFrameRenderingFinished(type);
         popTab();
         writeNewLine();
     }
 
+    /** @param property
+     *            the property
+     * @return the sets the */
     public Set<OWLAxiom> write(OWLObjectPropertyExpression property) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(OBJECT_PROPERTY, property));
@@ -742,6 +863,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** @param property
+     *            the property
+     * @return the sets the */
     public Set<OWLAxiom> write(OWLDataProperty property) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(DATA_PROPERTY, property));
@@ -842,6 +966,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** @param individual
+     *            the individual
+     * @return the sets the */
     public Set<OWLAxiom> write(OWLIndividual individual) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(INDIVIDUAL, individual));
@@ -947,6 +1074,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** @param datatype
+     *            the datatype
+     * @return the sets the */
     public Set<OWLAxiom> write(OWLDatatype datatype) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(DATATYPE, datatype));
@@ -967,6 +1097,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** @param rule
+     *            the rule
+     * @return the sets the */
     public Set<OWLAxiom> write(SWRLRule rule) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(1);
         for (OWLOntology ontology : getOntologies()) {
@@ -978,6 +1111,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** @param property
+     *            the property
+     * @return the sets the */
     public Set<OWLAxiom> write(OWLAnnotationProperty property) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(writeEntityStart(ANNOTATION_PROPERTY, property));
@@ -1033,6 +1169,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** Write entity start.
+     * 
+     * @param keyword
+     *            the keyword
+     * @param entity
+     *            the entity
+     * @return the sets the */
     private Set<OWLAnnotationAssertionAxiom> writeEntityStart(
             ManchesterOWLSyntax keyword, OWLObject entity) {
         event = new RendererEvent(this, entity);
@@ -1052,6 +1195,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return Collections.emptySet();
     }
 
+    /** Write annotations.
+     * 
+     * @param subject
+     *            the subject
+     * @return the sets the */
     public Set<OWLAnnotationAssertionAxiom>
             writeAnnotations(OWLAnnotationSubject subject) {
         Set<OWLAnnotationAssertionAxiom> axioms = new HashSet<OWLAnnotationAssertionAxiom>();
@@ -1072,12 +1220,28 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         return axioms;
     }
 
+    /** Write section.
+     * 
+     * @param keyword
+     *            the keyword */
     public void writeSection(ManchesterOWLSyntax keyword) {
         write("", keyword, "");
         write(":");
         writeSpace();
     }
 
+    /** Write section.
+     * 
+     * @param keyword
+     *            the keyword
+     * @param content
+     *            the content
+     * @param delimeter
+     *            the delimeter
+     * @param newline
+     *            the newline
+     * @param ontologiesList
+     *            the ontologies list */
     public void writeSection(ManchesterOWLSyntax keyword, SectionMap content,
             String delimeter, boolean newline, OWLOntology... ontologiesList) {
         String sec = keyword.toString();
@@ -1159,6 +1323,18 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Write section.
+     * 
+     * @param keyword
+     *            the keyword
+     * @param content
+     *            the content
+     * @param delimeter
+     *            the delimeter
+     * @param newline
+     *            the newline
+     * @param ontologiesList
+     *            the ontologies list */
     public void writeSection(ManchesterOWLSyntax keyword, Collection<?> content,
             String delimeter, boolean newline, OWLOntology... ontologiesList) {
         String sec = keyword.toString();
@@ -1195,10 +1371,22 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Write comment.
+     * 
+     * @param comment
+     *            the comment
+     * @param placeOnNewline
+     *            the place on newline */
     public void writeComment(String comment, boolean placeOnNewline) {
         writeComment("#", comment, placeOnNewline);
     }
 
+    /** @param commentDelim
+     *            the comment delim
+     * @param comment
+     *            the comment
+     * @param placeOnNewline
+     *            the place on newline */
     public void writeComment(String commentDelim, String comment, boolean placeOnNewline) {
         if (placeOnNewline) {
             writeNewLine();
@@ -1208,6 +1396,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         writeNewLine();
     }
 
+    /** Write ontologies list.
+     * 
+     * @param ontologiesList
+     *            the ontologies list */
     private void writeOntologiesList(OWLOntology... ontologiesList) {
         if (!renderExtensions) {
             return;
@@ -1227,8 +1419,13 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         write("]");
     }
 
+    /** The event. */
     private RendererEvent event;
 
+    /** Fire frame rendering prepared.
+     * 
+     * @param section
+     *            the section */
     private void fireFrameRenderingPrepared(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1238,6 +1435,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire frame rendering started.
+     * 
+     * @param section
+     *            the section */
     private void fireFrameRenderingStarted(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1247,6 +1448,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire frame rendering finished.
+     * 
+     * @param section
+     *            the section */
     private void fireFrameRenderingFinished(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1256,6 +1461,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire section rendering prepared.
+     * 
+     * @param section
+     *            the section */
     private void fireSectionRenderingPrepared(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1265,6 +1474,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire section rendering started.
+     * 
+     * @param section
+     *            the section */
     private void fireSectionRenderingStarted(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1274,6 +1487,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire section rendering finished.
+     * 
+     * @param section
+     *            the section */
     private void fireSectionRenderingFinished(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1283,6 +1500,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire section item prepared.
+     * 
+     * @param section
+     *            the section */
     private void fireSectionItemPrepared(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1292,6 +1513,10 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** Fire section item finished.
+     * 
+     * @param section
+     *            the section */
     private void fireSectionItemFinished(String section) {
         if (listeners.isEmpty()) {
             return;
@@ -1301,7 +1526,9 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
         }
     }
 
+    /** The Class DefaultRenderingDirector. */
     private static class DefaultRenderingDirector implements RenderingDirector {
+        /** Instantiates a new default rendering director. */
         public DefaultRenderingDirector() {}
 
         @Override

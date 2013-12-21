@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.io.Writer;
@@ -46,23 +45,20 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-May-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2007 */
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
+    /** @param owlOntologyManager
+     *            manager */
     @Deprecated
     @SuppressWarnings("unused")
-    public ManchesterOWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
+    public ManchesterOWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
 
-    }
-
+    /** default constructor */
     public ManchesterOWLSyntaxRenderer() {}
 
     @Override
-	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
                 ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                         ontology.getOWLOntologyManager().getOntologyFormat(ontology)));

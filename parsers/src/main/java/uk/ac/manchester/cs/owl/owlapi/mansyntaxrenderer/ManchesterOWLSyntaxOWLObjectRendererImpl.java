@@ -50,14 +50,13 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 /** An implementation of the OWLObjectRenderer interface. (Renders standalone
  * class class expressions and axioms in the manchester syntax).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Nov-2007*/
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Nov-2007 */
 public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
     private ManchesterOWLSyntaxObjectRenderer ren;
     private WriterDelegate writerDelegate;
 
+    /** default constructor */
     public ManchesterOWLSyntaxOWLObjectRendererImpl() {
         writerDelegate = new WriterDelegate();
         ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,
@@ -79,9 +78,8 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     private static class WriterDelegate extends Writer {
         private StringWriter delegate;
 
-        public WriterDelegate() {
-            // TODO Auto-generated constructor stub
-        }
+        /** default constructor */
+        public WriterDelegate() {}
 
         protected void reset() {
             delegate = new StringWriter();
@@ -103,7 +101,7 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
         }
 
         @Override
-        public void write(char cbuf[], int off, int len) throws IOException {
+        public void write(char[] cbuf, int off, int len) throws IOException {
             delegate.write(cbuf, off, len);
         }
     }
