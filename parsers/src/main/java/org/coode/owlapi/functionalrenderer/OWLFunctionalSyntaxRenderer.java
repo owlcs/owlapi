@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.functionalrenderer;
 
 import java.io.IOException;
@@ -48,30 +47,25 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006 */
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
+    /** @param owlOntologyManager
+     *            manager */
     @SuppressWarnings("unused")
     @Deprecated
-    public OWLFunctionalSyntaxRenderer(OWLOntologyManager owlOntologyManager) {
-}
+    public OWLFunctionalSyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
 
-    public OWLFunctionalSyntaxRenderer() {
-    }
-
+    /** default constructor */
+    public OWLFunctionalSyntaxRenderer() {}
 
     @Override
-	public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {
             OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
             ontology.accept(ren);
             writer.flush();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new OWLRendererIOException(e);
         }
     }

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.functionalparser;
 
 import java.io.IOException;
@@ -52,40 +51,38 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Nov-2006 */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
-
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology) throws OWLParserException, IOException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology) throws OWLParserException, IOException,
+            UnloadableImportException {
         return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
     }
 
     @Override
-    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource, OWLOntology ontology, OWLOntologyLoaderConfiguration configuration) throws OWLParserException, IOException, OWLOntologyChangeException, UnloadableImportException {
+    public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
+            OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
+            throws OWLParserException, IOException, OWLOntologyChangeException,
+            UnloadableImportException {
         Reader reader = null;
         InputStream is = null;
         try {
             OWLFunctionalSyntaxParser parser;
-            if(documentSource.isReaderAvailable()) {
+            if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
                 parser = new OWLFunctionalSyntaxParser(reader);
-            }
-            else if(documentSource.isInputStreamAvailable()) {
+            } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
                 parser = new OWLFunctionalSyntaxParser(is);
-            }
-            else {
+            } else {
                 is = getInputStream(documentSource.getDocumentIRI(), configuration);
                 parser = new OWLFunctionalSyntaxParser(is);
             }
             parser.setUp(ontology, configuration);
             return parser.parse();
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             throw new OWLParserException(e.getMessage(), e, e.currentToken.beginLine,
                     e.currentToken.beginColumn);
         } finally {
