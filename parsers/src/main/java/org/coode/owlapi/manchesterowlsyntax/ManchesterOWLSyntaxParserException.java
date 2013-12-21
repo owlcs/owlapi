@@ -36,25 +36,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-
-/**
- * @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19-Nov-2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 19-Nov-2007 */
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
+    private static final long serialVersionUID = 30406L;
 
-
-	private static final long serialVersionUID = 30406L;
-    public ManchesterOWLSyntaxParserException(String message, int lineNumber, int columnNumber) {
+    /** @param message
+     *            message
+     * @param lineNumber
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
+    public ManchesterOWLSyntaxParserException(String message, int lineNumber,
+            int columnNumber) {
         super(message, lineNumber, columnNumber);
     }
-    public ManchesterOWLSyntaxParserException(String message, Throwable cause, int lineNumber, int columnNumber) {
+
+    /** @param message
+     *            message
+     * @param cause
+     *            cause
+     * @param lineNumber
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
+    public ManchesterOWLSyntaxParserException(String message, Throwable cause,
+            int lineNumber, int columnNumber) {
         super(message, cause, lineNumber, columnNumber);
     }
 }

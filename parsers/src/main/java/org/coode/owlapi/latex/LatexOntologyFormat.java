@@ -40,8 +40,8 @@ package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Jan-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008 */
 public class LatexOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 30406L;
 

@@ -36,7 +36,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -44,35 +43,32 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/**
- * @author Matthew Horridge, The University of Manchester<br>
- * Information Management Group<br>
- * Date: 13-May-2009
- */
-@SuppressWarnings("javadoc")
-public class ManchesterOWLSyntaxInlineAxiomParser implements OWLExpressionParser<OWLAxiom> {
-
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 13-May-2009 */
+public class ManchesterOWLSyntaxInlineAxiomParser implements
+        OWLExpressionParser<OWLAxiom> {
     private OWLDataFactory dataFactory;
-
     private OWLEntityChecker checker;
 
-
+    /** @param dataFactory
+     *            dataFactory
+     * @param checker
+     *            checker */
     public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory,
-                                                OWLEntityChecker checker) {
+            OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
         this.checker = checker;
     }
-
 
     @Override
     public void setOWLEntityChecker(OWLEntityChecker entityChecker) {
         checker = entityChecker;
     }
 
-
     @Override
     public OWLAxiom parse(String expression) {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseAxiom();
     }

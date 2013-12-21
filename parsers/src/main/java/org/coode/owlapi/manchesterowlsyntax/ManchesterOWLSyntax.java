@@ -40,9 +40,8 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 /** The vocabulary that the Manchester OWL Syntax uses.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Apr-2007*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Apr-2007 */
 @SuppressWarnings("javadoc")
 public enum ManchesterOWLSyntax {
     //@formatter:off
@@ -125,7 +124,7 @@ public enum ManchesterOWLSyntax {
     LITERAL_LITERAL             ("\"$Literal$\"",             false, false, false, false, false, "\"$Literal$\""),
     LITERAL_LIT_DATATYPE        ("\"$Literal$\"^^<datatype>", false, false, false, false, false, "\"$Literal$\"^^<datatype>"),
     LITERAL_LIT_LANG            ("\"$Literal$\"@<lang>",      false, false, false, false, false, "\"$Literal$\"@<lang>"),
-    /** For legacy reasons */                                 
+    /** For legacy reasons. */                                 
     ANTI_SYMMETRIC              ("AntiSymmetric",             false, false, true,  false, false, "AntiSymmetric"),
     ASYMMETRIC                  ("Asymmetric",                false, false, true,  false, false, "Asymmetric"),
     INVERSE_OF                  ("InverseOf",                 false, true,  true,  false, false),
@@ -204,7 +203,7 @@ public enum ManchesterOWLSyntax {
         return keyword.equalsIgnoreCase(s) || rendering.equalsIgnoreCase(s);
     }
 
-    /** for keywords which match two tokens */
+    /** for keywords which match two tokens. */
     public boolean matches(String s, String v) {
         return rendering.length() == s.length() + v.length() && rendering.startsWith(s)
                 && rendering.endsWith(v);

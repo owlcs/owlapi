@@ -126,9 +126,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * is used in any class expressions or property assertions (e.g. ObjectProperty:
  * hasPart)
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 10-Sep-2007*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Sep-2007 */
 public class ManchesterOWLSyntaxEditorParser {
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
@@ -160,14 +159,19 @@ public class ManchesterOWLSyntaxEditorParser {
     private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>();
 
     /** @param dataFactory
-     * @param s */
+     *            dataFactory
+     * @param s
+     *            s */
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
         this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
     }
 
     /** @param configuration
+     *            configuration
      * @param dataFactory
-     * @param s */
+     *            dataFactory
+     * @param s
+     *            s */
     public ManchesterOWLSyntaxEditorParser(OWLOntologyLoaderConfiguration configuration,
             OWLDataFactory dataFactory, String s) {
         this.configuration = configuration;
@@ -298,7 +302,8 @@ public class ManchesterOWLSyntaxEditorParser {
                 individualFrameSections);
     }
 
-    /** @param owlEntityChecker */
+    /** @param owlEntityChecker
+     *            owlEntityChecker */
     public void setOWLEntityChecker(OWLEntityChecker owlEntityChecker) {
         this.owlEntityChecker = owlEntityChecker;
     }
@@ -316,12 +321,14 @@ public class ManchesterOWLSyntaxEditorParser {
         return owlOntologyChecker.getOntology(name);
     }
 
-    /** @param owlOntologyChecker */
+    /** @param owlOntologyChecker
+     *            owlOntologyChecker */
     public void setOWLOntologyChecker(OWLOntologyChecker owlOntologyChecker) {
         this.owlOntologyChecker = owlOntologyChecker;
     }
 
     /** @param name
+     *            name
      * @return true if object property */
     private boolean isObjectPropertyName(String name) {
         return objectPropertyNames.contains(name) || owlEntityChecker != null
@@ -329,6 +336,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param name
+     *            name
      * @return true if annotation property */
     private boolean isAnnotationPropertyName(String name) {
         return annotationPropertyNames.contains(name) || owlEntityChecker != null
@@ -336,6 +344,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param name
+     *            name
      * @return true if data property */
     private boolean isDataPropertyName(String name) {
         return dataPropertyNames.contains(name) || owlEntityChecker != null
@@ -343,6 +352,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param name
+     *            name
      * @return true if individual */
     private boolean isIndividualName(String name) {
         return individualNames.contains(name) || owlEntityChecker != null
@@ -350,6 +360,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param name
+     *            name
      * @return true if datatype */
     private boolean isDatatypeName(String name) {
         return dataTypeNames.contains(name) || owlEntityChecker != null
@@ -357,12 +368,14 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param name
+     *            name
      * @return true if SWRL builtin */
     private boolean isSWRLBuiltin(String name) {
         return ruleBuiltIns.containsKey(name);
     }
 
     /** @param name
+     *            name
      * @return class for name */
     private OWLClass getOWLClass(String name) {
         OWLClass cls = owlEntityChecker.getOWLClass(name);
@@ -373,6 +386,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param name
+     *            name
      * @return object property for name */
     private OWLObjectProperty getOWLObjectProperty(String name) {
         OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
@@ -433,7 +447,9 @@ public class ManchesterOWLSyntaxEditorParser {
         return getToken().getToken();
     }
 
-    /** Tokenizer */
+    /** Tokenizer.
+     * 
+     * @return token */
     private String consumeToken() {
         String token = getToken().getToken();
         if (tokenIndex < tokens.size() - 1) {
@@ -460,9 +476,9 @@ public class ManchesterOWLSyntaxEditorParser {
         return tokens.get(tokenIndex < tokens.size() ? tokenIndex : tokenIndex - 1);
     }
 
-    /** Parser */
+    /* Parser */
     /** Parses an OWL class expression that is represented in Manchester OWL
-     * Syntax
+     * Syntax.
      * 
      * @return The parsed class expression
      * @throws ParserException
@@ -557,7 +573,7 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** Parses all class expressions except ObjectIntersectionOf and
-     * ObjectUnionOf
+     * ObjectUnionOf.
      * 
      * @return The class expression which was parsed @ * if a non-nary class
      *         expression could not be parsed */
@@ -863,7 +879,9 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** This method ignores parsing context; its results are unreliable. It is
-     * used by Pellet only, as far as I can tell. */
+     * used by Pellet only, as far as I can tell.
+     * 
+     * @return literal */
     @Deprecated
     public OWLLiteral parseConstant() {
         return parseLiteral(null);
@@ -999,7 +1017,8 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @return frames
-     * @throws ParserException */
+     * @throws ParserException
+     *             parsing error */
     public Set<OntologyAxiomPair> parseFrames() throws ParserException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         Set<ManchesterOWLSyntax> possible = new HashSet<ManchesterOWLSyntax>();
@@ -1229,7 +1248,8 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @return class frames
-     * @throws ParserException */
+     * @throws ParserException
+     *             parsing error */
     public Set<OntologyAxiomPair> parseClassFrameEOF() throws ParserException {
         return parseClassFrame(true);
     }
@@ -1285,7 +1305,8 @@ public class ManchesterOWLSyntaxEditorParser {
         }
     }
 
-    /** @param defaultOntology */
+    /** @param defaultOntology
+     *            defaultOntology */
     public void setDefaultOntology(OWLOntology defaultOntology) {
         this.defaultOntology = defaultOntology;
     }
@@ -2037,9 +2058,12 @@ public class ManchesterOWLSyntaxEditorParser {
     }
 
     /** @param ont
+     *            ont
      * @return format
      * @throws ParserException
-     * @throws UnloadableImportException */
+     *             parsing error
+     * @throws UnloadableImportException
+     *             import error */
     public ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont)
             throws ParserException, UnloadableImportException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
@@ -2419,10 +2443,11 @@ public class ManchesterOWLSyntaxEditorParser {
         return uri;
     }
 
-    /** Parsing "Inline" Axioms
+    /** Parsing "Inline" Axioms.
      * 
      * @return axiom
-     * @throws ParserException */
+     * @throws ParserException
+     *             parsing error */
     public OWLAxiom parseAxiom() throws ParserException {
         String token = peekToken();
         if (isClassName(token)) {

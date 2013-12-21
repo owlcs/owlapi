@@ -43,13 +43,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19-May-2008 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 19-May-2008 */
 public class ManchesterOWLSyntaxTokenizer {
+    /** EOF */
     public static final String EOF = "|EOF|";
 
+    /** @param s
+     *            string to check
+     * @return true if EOF */
     public static boolean EOF(String s) {
         return EOF.equals(s);
     }
@@ -68,6 +70,8 @@ public class ManchesterOWLSyntaxTokenizer {
     private StringBuilder sb;
     private static final char ESCAPE_CHAR = '\\';
 
+    /** @param buffer
+     *            buffer */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
         skip.add(' ');
@@ -102,6 +106,7 @@ public class ManchesterOWLSyntaxTokenizer {
         col = 1;
     }
 
+    /** @return tokens */
     public List<Token> tokenize() {
         reset();
         int bufferLen = buffer.length();
@@ -222,12 +227,21 @@ public class ManchesterOWLSyntaxTokenizer {
         return ch;
     }
 
+    /** @author ignazio */
     public static class Token {
         private String token;
         private int pos;
         private int col;
         private int row;
 
+        /** @param token
+         *            token
+         * @param pos
+         *            pos
+         * @param col
+         *            col
+         * @param row
+         *            row */
         public Token(String token, int pos, int col, int row) {
             this.token = token;
             this.pos = pos;
@@ -235,18 +249,22 @@ public class ManchesterOWLSyntaxTokenizer {
             this.row = row;
         }
 
+        /** @return token */
         public String getToken() {
             return token;
         }
 
+        /** @return position */
         public int getPos() {
             return pos;
         }
 
+        /** @return column */
         public int getCol() {
             return col;
         }
 
+        /** @return row */
         public int getRow() {
             return row;
         }
