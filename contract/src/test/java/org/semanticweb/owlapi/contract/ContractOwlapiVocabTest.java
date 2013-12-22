@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -66,7 +65,6 @@ public class ContractOwlapiVocabTest {
         if (result4) {
             OWL2Datatype result5 = OWL2Datatype.getDatatype(IRI("urn:aFake"));
         }
-        URI result6 = testSubject0.getURI();
         String result7 = testSubject0.getShortName();
         Set<IRI> result8 = OWL2Datatype.getDatatypeIRIs();
         Pattern result9 = testSubject0.getPattern();
@@ -151,7 +149,6 @@ public class ContractOwlapiVocabTest {
         Set<OWLClass> result2 = SKOSVocabulary.getClasses(mock(OWLDataFactory.class));
         IRI result3 = testSubject0.getIRI();
         EntityType<?> result4 = testSubject0.getEntityType();
-        URI result5 = testSubject0.getURI();
         Set<OWLAnnotationProperty> result6 = SKOSVocabulary
                 .getAnnotationProperties(mock(OWLDataFactory.class));
         String result7 = testSubject0.getLocalName();
@@ -169,7 +166,6 @@ public class ContractOwlapiVocabTest {
         SWRLBuiltInsVocabulary testSubject0 = SWRLBuiltInsVocabulary.ABS;
         SWRLBuiltInsVocabulary[] result0 = SWRLBuiltInsVocabulary.values();
         IRI result2 = testSubject0.getIRI();
-        URI result3 = testSubject0.getURI();
         String result4 = testSubject0.getShortName();
         int result5 = testSubject0.getMinArity();
         int result6 = testSubject0.getMaxArity();
@@ -185,7 +181,6 @@ public class ContractOwlapiVocabTest {
         SWRLVocabulary testSubject0 = SWRLVocabulary.ARGUMENT_1;
         SWRLVocabulary[] result0 = SWRLVocabulary.values();
         IRI result2 = testSubject0.getIRI();
-        URI result3 = testSubject0.getURI();
         String result4 = testSubject0.getShortName();
         String result5 = testSubject0.name();
         String result6 = testSubject0.toString();

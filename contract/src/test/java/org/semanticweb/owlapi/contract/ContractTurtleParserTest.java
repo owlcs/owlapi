@@ -69,8 +69,8 @@ public class ContractTurtleParserTest {
     @Test
     public void shouldTestOWLRDFConsumerAdapter() throws Exception {
         OWLRDFConsumerAdapter testSubject0 = new OWLRDFConsumerAdapter(
-                Utils.getMockManager(), Utils.getMockOntology(),
-                mock(AnonymousNodeChecker.class), new OWLOntologyLoaderConfiguration());
+                Utils.getMockOntology(), mock(AnonymousNodeChecker.class),
+                new OWLOntologyLoaderConfiguration());
         OWLRDFConsumerAdapter testSubject1 = new OWLRDFConsumerAdapter(
                 Utils.getMockOntology(), mock(AnonymousNodeChecker.class),
                 new OWLOntologyLoaderConfiguration());

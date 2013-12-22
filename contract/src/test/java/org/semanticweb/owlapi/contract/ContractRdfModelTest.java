@@ -4,7 +4,7 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.Writer;
-import java.util.List;
+import java.util.Collection;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.model.AbstractTranslator;
@@ -54,7 +54,7 @@ public class ContractRdfModelTest {
     public void shouldTestRDFGraph() throws Exception {
         RDFGraph testSubject0 = new RDFGraph();
         testSubject0.addTriple(mock(RDFTriple.class));
-        List<RDFTriple> result1 = testSubject0.getSortedTriplesForSubject(
+        Collection<RDFTriple> result1 = testSubject0.getTriplesForSubject(
                 mock(RDFNode.class), false);
         boolean result2 = testSubject0
                 .isAnonymousNodeSharedSubject(mock(RDFResourceNode.class));

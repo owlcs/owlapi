@@ -329,7 +329,7 @@ public class ContractMediumTest {
     public void shouldTestInterfaceXMLWriter() throws Exception {
         XMLWriter testSubject0 = mock(XMLWriter.class);
         testSubject0.setEncoding("");
-        testSubject0.startDocument("");
+        testSubject0.startDocument(IRI.create("test"));
         testSubject0.endDocument();
         XMLWriterNamespaceManager result0 = testSubject0.getNamespacePrefixes();
         String result1 = testSubject0.getXMLBase();
