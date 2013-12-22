@@ -414,7 +414,6 @@ public class ContractOwlapiModel_1Test {
         Set<OWLAnnotationAssertionAxiom> result16 = testSubject0
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         EntityType<?> result17 = testSubject0.getEntityType();
-        OWLEntity result18 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result19 = !testSubject0.isOWLClass();
         if (testSubject0.isOWLClass()) {
             OWLClass result20 = testSubject0.asOWLClass();
@@ -950,7 +949,6 @@ public class ContractOwlapiModel_1Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result44 = testSubject0.isBuiltIn();
         EntityType<?> result45 = testSubject0.getEntityType();
-        OWLEntity result46 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result47 = !testSubject0.isAnonymous();
         if (!!testSubject0.isAnonymous()) {
             if (!testSubject0.isAnonymous()) {

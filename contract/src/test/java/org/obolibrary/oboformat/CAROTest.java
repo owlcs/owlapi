@@ -1,6 +1,6 @@
 package org.obolibrary.oboformat;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import java.util.Collection;
 

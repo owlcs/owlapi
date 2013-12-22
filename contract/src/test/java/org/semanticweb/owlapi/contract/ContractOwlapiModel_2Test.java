@@ -82,7 +82,6 @@ public class ContractOwlapiModel_2Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result42 = testSubject0.isBuiltIn();
         EntityType<?> result43 = testSubject0.getEntityType();
-        OWLEntity result44 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result45 = !testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
             if (!testSubject0.isAnonymous()) {
@@ -445,7 +444,6 @@ public class ContractOwlapiModel_2Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result32 = testSubject0.isBuiltIn();
         EntityType<?> result33 = testSubject0.getEntityType();
-        OWLEntity result34 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result35 = !testSubject0.isDatatype();
         if (!testSubject0.isOWLClass()) {
             OWLClass result36 = testSubject0.asOWLClass();
@@ -793,7 +791,6 @@ public class ContractOwlapiModel_2Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result7 = testSubject0.isBuiltIn();
         EntityType<?> result8 = testSubject0.getEntityType();
-        OWLEntity result9 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result10 = !testSubject0.isOWLClass();
         if (testSubject0.isOWLClass()) {
             OWLClass result11 = testSubject0.asOWLClass();
@@ -1455,7 +1452,6 @@ public class ContractOwlapiModel_2Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result7 = testSubject0.isBuiltIn();
         EntityType<?> result8 = testSubject0.getEntityType();
-        OWLEntity result9 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result10 = !testSubject0.isOWLClass();
         if (testSubject0.isOWLClass()) {
             OWLClass result11 = testSubject0.asOWLClass();
@@ -1756,7 +1752,6 @@ public class ContractOwlapiModel_2Test {
                 .getAnnotationAssertionAxioms(Utils.getMockOntology());
         boolean result38 = testSubject0.isBuiltIn();
         EntityType<?> result39 = testSubject0.getEntityType();
-        OWLEntity result40 = testSubject0.getOWLEntity(EntityType.CLASS);
         boolean result41 = !testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
             if (!testSubject0.isAnonymous()) {

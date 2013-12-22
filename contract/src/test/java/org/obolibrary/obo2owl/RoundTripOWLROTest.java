@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
 import java.io.StringReader;

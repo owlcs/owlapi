@@ -1,6 +1,6 @@
 package org.obolibrary.oboformat;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.obolibrary.obo2owl.OboFormatTestBasics;
