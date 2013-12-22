@@ -1,6 +1,5 @@
 package org.obolibrary.oboformat.model;
 
-// TODO: Auto-generated Javadoc
 /** The Class FrameMergeException. */
 public class FrameMergeException extends Exception {
     // generated

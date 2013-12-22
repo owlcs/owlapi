@@ -1,6 +1,5 @@
 package org.obolibrary.oboformat.model;
 
-// TODO: Auto-generated Javadoc
 /** The Class FrameStructureException. */
 public class FrameStructureException extends DocumentStructureException {
     // generated

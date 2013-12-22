@@ -2,7 +2,6 @@ package org.obolibrary.oboformat.model;
 
 import java.io.IOException;
 
-// TODO: Auto-generated Javadoc
 /** The Class DocumentStructureException. */
 public class DocumentStructureException extends IOException {
     // generated

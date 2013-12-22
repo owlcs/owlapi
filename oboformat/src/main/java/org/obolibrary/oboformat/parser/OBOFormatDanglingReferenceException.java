@@ -1,6 +1,5 @@
 package org.obolibrary.oboformat.parser;
 
-// TODO: Auto-generated Javadoc
 /** The Class OBOFormatDanglingReferenceException. */
 public class OBOFormatDanglingReferenceException extends OBOFormatException {
     /** The Constant serialVersionUID. */

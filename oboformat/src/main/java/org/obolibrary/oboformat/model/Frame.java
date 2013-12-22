@@ -9,7 +9,6 @@ import java.util.Vector;
 import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-// TODO: Auto-generated Javadoc
 /** The Class Frame. */
 public class Frame {
     /** The Enum FrameType. */

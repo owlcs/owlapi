@@ -1,6 +1,5 @@
 package org.obolibrary.oboformat.parser;
 
-// TODO: Auto-generated Javadoc
 /** The Class InvalidXrefMapException. */
 public class InvalidXrefMapException extends OBOFormatException {
     // generated

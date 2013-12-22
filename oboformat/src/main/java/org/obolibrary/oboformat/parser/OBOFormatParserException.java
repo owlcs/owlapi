@@ -1,6 +1,5 @@
 package org.obolibrary.oboformat.parser;
 
-// TODO: Auto-generated Javadoc
 /** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
     // generated
@@ -69,10 +68,6 @@ public class OBOFormatParserException extends OBOFormatException {
         return line;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.io.OWLParserException#getMessage()
-     */
     @Override
     public String getMessage() {
         StringBuilder sb = new StringBuilder("LINENO: ");
@@ -84,10 +79,6 @@ public class OBOFormatParserException extends OBOFormatException {
         return sb.toString();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Throwable#toString()
-     */
     @Override
     public String toString() {
         return getMessage();

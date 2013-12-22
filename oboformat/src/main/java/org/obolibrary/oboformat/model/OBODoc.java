@@ -12,7 +12,6 @@ import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-// TODO: Auto-generated Javadoc
 /** An OBODoc is a container for a header frame and zero or more entity frames. */
 public class OBODoc {
     /** The header frame. */

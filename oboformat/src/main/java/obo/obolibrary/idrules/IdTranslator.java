@@ -6,7 +6,8 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 
 /** This class will eventually replace the id to uri translation in Owl2Obo and
- * OboO2Owl It is currently in-progress.
+ * OboO2Owl <br>
+ * It is currently in-progress.
  * 
  * @author cjm */
 public class IdTranslator {
