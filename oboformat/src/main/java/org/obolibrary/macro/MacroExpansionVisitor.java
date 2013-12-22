@@ -36,6 +36,8 @@ public class MacroExpansionVisitor {
     private Visitor visitor;
     private ManchesterSyntaxTool manchesterSyntaxTool;
 
+    /** @param inputOntology
+     *            inputOntology */
     public MacroExpansionVisitor(OWLOntology inputOntology) {
         super();
         this.inputOntology = inputOntology;
@@ -44,6 +46,7 @@ public class MacroExpansionVisitor {
         manager = inputOntology.getOWLOntologyManager();
     }
 
+    /** @return ontology with expanded macros */
     public OWLOntology expandAll() {
         Set<OWLAxiom> newAxioms = new HashSet<OWLAxiom>();
         Set<OWLAxiom> rmAxioms = new HashSet<OWLAxiom>();

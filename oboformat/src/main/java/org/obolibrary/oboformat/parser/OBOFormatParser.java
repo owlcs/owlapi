@@ -26,7 +26,7 @@ import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** implements the OBO Format 1.4 specification */
+/** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
     static final Logger LOG = Logger.getLogger(OBOFormatParser.class.getName());
     // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
@@ -156,6 +156,9 @@ public class OBOFormatParser {
 
     protected MyStream stream;
 
+    /**
+     * 
+     */
     public OBOFormatParser() {
         this(new MyStream());
     }
@@ -165,24 +168,32 @@ public class OBOFormatParser {
         stream = s;
     }
 
+    /** @param r
+     *            r */
     public void setReader(BufferedReader r) {
         stream.reader = r;
     }
 
+    /** @param followImports
+     *            followImports */
     public void setFollowImports(boolean followImports) {
         followImport = followImports;
     }
 
+    /** @return follow imports */
     public boolean getFollowImports() {
         return followImport;
     }
 
-    /** Parses a local file or URL to an OBODoc
+    /** Parses a local file or URL to an OBODoc.
      * 
      * @param fn
+     *            fn
      * @return parsed obo document
      * @throws IOException
-     * @throws OBOFormatParserException */
+     *             io exception
+     * @throws OBOFormatParserException
+     *             parser exception */
     public OBODoc parse(String fn) throws IOException, OBOFormatParserException {
         if (fn.startsWith("http:")) {
             return parse(new URL(fn));
@@ -190,12 +201,15 @@ public class OBOFormatParser {
         return parse(new File(fn));
     }
 
-    /** Parses a local file to an OBODoc
+    /** Parses a local file to an OBODoc.
      * 
      * @param file
+     *            file
      * @return parsed obo document
      * @throws IOException
-     * @throws OBOFormatParserException */
+     *             io exception
+     * @throws OBOFormatParserException
+     *             parser exception */
     public OBODoc parse(File file) throws IOException, OBOFormatParserException {
         location = file;
         BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(
@@ -203,12 +217,15 @@ public class OBOFormatParser {
         return parse(in);
     }
 
-    /** Parses a remote URL to an OBODoc
+    /** Parses a remote URL to an OBODoc.
      * 
      * @param url
+     *            url
      * @return parsed obo document
      * @throws IOException
-     * @throws OBOFormatParserException */
+     *             io exception
+     * @throws OBOFormatParserException
+     *             parser exception */
     public OBODoc parse(URL url) throws IOException, OBOFormatParserException {
         location = url;
         BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(),
@@ -216,12 +233,15 @@ public class OBOFormatParser {
         return parse(in);
     }
 
-    /** Parses a remote URL to an OBODoc
+    /** Parses a remote URL to an OBODoc.
      * 
      * @param urlstr
+     *            urlstr
      * @return parsed obo document
      * @throws IOException
-     * @throws OBOFormatParserException */
+     *             io exception
+     * @throws OBOFormatParserException
+     *             parser exception */
     public OBODoc parseURL(String urlstr) throws IOException, OBOFormatParserException {
         URL url = new URL(urlstr);
         return parse(url);
@@ -248,9 +268,12 @@ public class OBOFormatParser {
     }
 
     /** @param reader
+     *            reader
      * @return parsed obo document
      * @throws IOException
-     * @throws OBOFormatParserException */
+     *             io exception
+     * @throws OBOFormatParserException
+     *             parser exception */
     public OBODoc parse(BufferedReader reader) throws IOException,
             OBOFormatParserException {
         setReader(reader);
@@ -287,6 +310,10 @@ public class OBOFormatParser {
     // ----------------------------------------
     // GRAMMAR
     // ----------------------------------------
+    /** @param obodoc
+     *            obodoc
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseOBODoc(OBODoc obodoc) throws OBOFormatParserException {
         Frame h = new Frame(FrameType.HEADER);
         obodoc.setHeaderFrame(h);
@@ -318,6 +345,11 @@ public class OBOFormatParser {
         }
     }
 
+    /** @param doc
+     *            doc
+     * @return list of references
+     * @throws OBOFormatDanglingReferenceException
+     *             dangling reference error */
     public List<String> checkDanglingReferences(OBODoc doc)
             throws OBOFormatDanglingReferenceException {
         List<String> danglingReferences = new ArrayList<String>();
@@ -413,6 +445,10 @@ public class OBOFormatParser {
         return null;
     }
 
+    /** @param h
+     *            h
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseHeaderFrame(Frame h) throws OBOFormatParserException {
         while (parseHeaderClauseNl(h)) {}
     }
@@ -422,7 +458,8 @@ public class OBOFormatParser {
      * @param h
      *            header frame
      * @return false if there are no more header clauses, other wise true
-     * @throws OBOFormatParserException */
+     * @throws OBOFormatParserException
+     *             parser exception */
     protected boolean parseHeaderClauseNl(Frame h) throws OBOFormatParserException {
         parseZeroOrMoreWsOptCmtNl();
         if (stream.peekCharIs('[') || stream.eof()) {
@@ -465,6 +502,10 @@ public class OBOFormatParser {
         }
     }
 
+    /** @param obodoc
+     *            obodoc
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseEntityFrame(OBODoc obodoc) throws OBOFormatParserException {
         parseZeroOrMoreWsOptCmtNl();
         String rest = stream.rest();
@@ -479,10 +520,12 @@ public class OBOFormatParser {
     // [Term] Frames
     // ----------------------------------------
     /** term-frame ::= nl* '[Term]' nl id-Tag Class-ID EOL { term-frame-clause
-     * EOL }
+     * EOL }.
      * 
      * @param obodoc
-     * @throws OBOFormatParserException */
+     *            obodoc
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseTermFrame(OBODoc obodoc) throws OBOFormatParserException {
         Frame f = new Frame(FrameType.TERM);
         parseZeroOrMoreWsOptCmtNl();
@@ -511,7 +554,9 @@ public class OBOFormatParser {
     }
 
     /** @param f
-     * @throws OBOFormatParserException */
+     *            f
+     * @throws OBOFormatParserException
+     *             parser exception */
     protected void parseTermFrameClauseEOL(Frame f) throws OBOFormatParserException {
         // comment line:
         if (stream.peekCharIs('!')) {
@@ -525,6 +570,10 @@ public class OBOFormatParser {
         }
     }
 
+    /** @param cl
+     *            cl
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseTermFrameClause(Clause cl) throws OBOFormatParserException {
         String t = getParseTag();
         if (t == null) {
@@ -606,10 +655,12 @@ public class OBOFormatParser {
     // [Typedef] Frames
     // ----------------------------------------
     /** Typedef-frame ::= nl* '[Typedef]' nl id-Tag Class-ID EOL {
-     * Typedef-frame-clause EOL }
+     * Typedef-frame-clause EOL }.
      * 
      * @param obodoc
-     * @throws OBOFormatParserException */
+     *            obodoc
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseTypedefFrame(OBODoc obodoc) throws OBOFormatParserException {
         Frame f = new Frame(FrameType.TYPEDEF);
         parseZeroOrMoreWsOptCmtNl();
@@ -638,7 +689,9 @@ public class OBOFormatParser {
     }
 
     /** @param f
-     * @throws OBOFormatParserException */
+     *            f
+     * @throws OBOFormatParserException
+     *             parser exception */
     protected void parseTypedefFrameClauseEOL(Frame f) throws OBOFormatParserException {
         // comment line:
         if (stream.peekCharIs('!')) {
@@ -652,6 +705,10 @@ public class OBOFormatParser {
         }
     }
 
+    /** @param cl
+     *            cl
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseTypedefFrameClause(Clause cl) throws OBOFormatParserException {
         String t = getParseTag();
         if (t == null) {
@@ -933,10 +990,12 @@ public class OBOFormatParser {
         }
     }
 
-    /** intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID
+    /** intersection_of-Tag Class-ID | intersection_of-Tag Relation-ID Class-ID.
      * 
      * @param cl
-     * @throws OBOFormatParserException */
+     *            cl
+     * @throws OBOFormatParserException
+     *             parser exception */
     private void parseTermIntersectionOf(Clause cl) throws OBOFormatParserException {
         parseIdRef(cl);
         // consumed the first ID
@@ -1183,6 +1242,10 @@ public class OBOFormatParser {
     // ----------------------------------------
     // End-of-line matter
     // ----------------------------------------
+    /** @param cl
+     *            cl
+     * @throws OBOFormatParserException
+     *             parser exception */
     public void parseEOL(Clause cl) throws OBOFormatParserException {
         parseZeroOrMoreWs();
         parseQualifierBlock(cl);

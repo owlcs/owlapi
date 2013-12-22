@@ -1,16 +1,27 @@
 package org.obolibrary.oboformat.model;
 
+// TODO: Auto-generated Javadoc
+/** The Class FrameStructureException. */
 public class FrameStructureException extends DocumentStructureException {
-	
-	// generated
-	private static final long serialVersionUID = -461365284401308633L;
-	
-	public FrameStructureException(String msg) {
-		super(msg);
-	}
+    // generated
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = -461365284401308633L;
 
-	public FrameStructureException(Frame frame, String msg) {
-		super(msg + " in frame:" + frame.toString());
-	}
+    /** Instantiates a new frame structure exception.
+     * 
+     * @param msg
+     *            the msg */
+    public FrameStructureException(String msg) {
+        super(msg);
+    }
 
+    /** Instantiates a new frame structure exception.
+     * 
+     * @param frame
+     *            the frame
+     * @param msg
+     *            the msg */
+    public FrameStructureException(Frame frame, String msg) {
+        super(msg + " in frame:" + frame.toString());
+    }
 }

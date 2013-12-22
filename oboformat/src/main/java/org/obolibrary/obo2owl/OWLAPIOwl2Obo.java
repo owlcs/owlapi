@@ -66,7 +66,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
@@ -79,6 +78,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+/** owlapi version of Owl2Obo */
 public class OWLAPIOwl2Obo {
     private static Logger LOG = Logger.getLogger(OWLAPIOwl2Obo.class.getName());
     protected OWLOntologyManager manager;
@@ -87,6 +87,7 @@ public class OWLAPIOwl2Obo {
     protected OBODoc obodoc;
     protected Set<OWLAxiom> untranslatableAxioms;
     protected Map<String, String> idSpaceMap;
+    /** annotation map */
     public static Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
     protected Set<OWLAnnotationProperty> apToDeclare;
     protected String ontologyId;
@@ -102,6 +103,8 @@ public class OWLAPIOwl2Obo {
         apToDeclare = new HashSet<OWLAnnotationProperty>();
     }
 
+    /** @param translationManager
+     *            translationManager */
     public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
         manager = translationManager;
         init();
@@ -116,10 +119,13 @@ public class OWLAPIOwl2Obo {
         return map;
     }
 
+    /** @param b
+     *            strict conversion */
     public void setStrictConversion(boolean b) {
         strictConversion = b;
     }
 
+    /** @return strict conversion */
     public boolean getStrictConversion() {
         return strictConversion;
     }
@@ -135,23 +141,32 @@ public class OWLAPIOwl2Obo {
         this.discardUntranslatable = discardUntranslatable;
     }
 
+    /** @return manager */
     public OWLOntologyManager getManager() {
         return manager;
     }
 
+    /** @param manager
+     *            manager */
     public void setManager(OWLOntologyManager manager) {
         this.manager = manager;
     }
 
+    /** @return obo doc */
     public OBODoc getObodoc() {
         return obodoc;
     }
 
+    /** @param obodoc
+     *            obodoc */
     public void setObodoc(OBODoc obodoc) {
         this.obodoc = obodoc;
     }
 
-    public OBODoc convert(OWLOntology ont) throws OWLOntologyCreationException {
+    /** @param ont
+     *            ont
+     * @return obo doc */
+    public OBODoc convert(OWLOntology ont) {
         owlOntology = ont;
         if (ont != null) {
             ontologyId = getOntologyId(ont);
@@ -167,7 +182,8 @@ public class OWLAPIOwl2Obo {
         return untranslatableAxioms;
     }
 
-    protected OBODoc tr() throws OWLOntologyCreationException {
+    /** @return translated obodoc */
+    protected OBODoc tr() {
         obodoc = new OBODoc();
         preProcess(owlOntology);
         tr(owlOntology);
@@ -808,7 +824,9 @@ public class OWLAPIOwl2Obo {
     /** Handle a duplicate clause in a frame during translation.
      * 
      * @param frame
+     *            frame
      * @param clause
+     *            clause
      * @return true if the clause is to be marked as redundant and will not be
      *         added to the */
     protected boolean handleDuplicateClause(Frame frame, Clause clause) {
@@ -895,15 +913,18 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** E.g. http://purl.obolibrary.org/obo/go.owl to "go" <br>
-     * if does not match this pattern, then retain original IRI
+    /** if does not match this pattern, then retain original IRI
      * 
      * @param ontology
+     *            ontology
      * @return The OBO ID of the ontology */
     public static String getOntologyId(OWLOntology ontology) {
         return getOntologyId(ontology.getOntologyID().getOntologyIRI());
     }
 
+    /** @param iriObj
+     *            iriObj
+     * @return ontology id */
     public static String getOntologyId(IRI iriObj) {
         // String id = getIdentifier(ontology.getOntologyID().getOntologyIRI());
         String iri = iriObj.toString();
@@ -916,16 +937,12 @@ public class OWLAPIOwl2Obo {
         } else {
             id = iri;
         }
-        //int index = iri.lastIndexOf("/");
-		//id = iri.substring(index+1);
-		//index = id.lastIndexOf(".owl");
-		//if(index>0){
-		//	id = id.substring(0, index);
-		//}
-
         return id;
     }
 
+    /** @param ontology
+     *            ontology
+     * @return data version */
     public static String getDataVersion(OWLOntology ontology) {
         String oid = getOntologyId(ontology);
         IRI v = ontology.getOntologyID().getVersionIRI();
@@ -1222,6 +1239,9 @@ public class OWLAPIOwl2Obo {
         }
     }
 
+    /** @param obj
+     *            obj
+     * @return identifier */
     public String getIdentifier(OWLObject obj) {
         try {
             return getIdentifierFromObject(obj, owlOntology);
@@ -1231,14 +1251,21 @@ public class OWLAPIOwl2Obo {
         return null;
     }
 
+    /** untranslatable axiom exception */
     public static class UntranslatableAxiomException extends Exception {
         // generated
         private static final long serialVersionUID = 4674805484349471665L;
 
+        /** @param message
+         *            message
+         * @param cause
+         *            cause */
         public UntranslatableAxiomException(String message, Throwable cause) {
             super(message, cause);
         }
 
+        /** @param message
+         *            message */
         public UntranslatableAxiomException(String message) {
             super(message);
         }
@@ -1280,12 +1307,14 @@ public class OWLAPIOwl2Obo {
      * @param ont
      *            the target ontology
      * @return identifier or null
-     * @throws UntranslatableAxiomException */
+     * @throws UntranslatableAxiomException
+     *             UntranslatableAxiomException */
     public static String getIdentifierFromObject(OWLObject obj, OWLOntology ont)
             throws UntranslatableAxiomException {
         if (obj instanceof OWLObjectProperty || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
-			final Set<OWLAnnotationAssertionAxiom> axioms = entity.getAnnotationAssertionAxioms(ont);
+            final Set<OWLAnnotationAssertionAxiom> axioms = entity
+                    .getAnnotationAssertionAxioms(ont);
             for (OWLAnnotationAssertionAxiom ax : axioms) {
                 String propId = getIdentifierFromObject(ax.getProperty().getIRI(), ont);
                 // see BFOROXrefTest
@@ -1313,6 +1342,7 @@ public class OWLAPIOwl2Obo {
     /** See table 5.9.2. Translation of identifiers
      * 
      * @param iriId
+     *            iriId
      * @return obo identifier or null */
     public static String getIdentifier(IRI iriId) {
         return getIdentifier(iriId, null);
@@ -1322,16 +1352,21 @@ public class OWLAPIOwl2Obo {
         return getIdentifier(iriId, owlOntology);
     }
 
+    /** @param iriId
+     *            iriId
+     * @param baseOntology
+     *            baseOntology
+     * @return identifier */
     public static String getIdentifier(IRI iriId, OWLOntology baseOntology) {
         if (iriId == null) {
             return null;
         }
         String iri = iriId.toString();
-		// canonical IRIs
-		//if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
-		//	String canonicalId = iri.replace("http://purl.obolibrary.org/obo/", "");
-		//}
-		 
+        // canonical IRIs
+        // if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
+        // String canonicalId = iri.replace("http://purl.obolibrary.org/obo/",
+        // "");
+        // }
         int indexSlash = iri.lastIndexOf("/");
         String prefixURI = null;
         String id = null;
@@ -1341,7 +1376,7 @@ public class OWLAPIOwl2Obo {
         } else {
             id = iri;
         }
-        String s[] = id.split("#_");
+        String[] s = id.split("#_");
         // table 5.9.2 row 2 - NonCanonical-Prefixed-ID
         if (s.length > 1) {
             return s[0] + ":" + s[1];
@@ -1355,17 +1390,17 @@ public class OWLAPIOwl2Obo {
             if ("owl".equals(s[0]) || "rdf".equals(s[0]) || "rdfs".equals(s[0])) {
                 prefix = s[0] + ":";
             }
-			// TODO: the following implements behavior in current spec, but this leads to undesirable results
-//			else if (baseOntology != null) {
-//				String oid = getOntologyId(baseOntology); // OBO-style ID
-//				if (oid.equals(s[0]))
-//					prefix = "";
-//				else {
-//					return iri;
-//				}
-//				//prefix = s[0];
-//			}
-			
+            // TODO: the following implements behavior in current spec, but this
+            // leads to undesirable results
+            // else if (baseOntology != null) {
+            // String oid = getOntologyId(baseOntology); // OBO-style ID
+            // if (oid.equals(s[0]))
+            // prefix = "";
+            // else {
+            // return iri;
+            // }
+            // //prefix = s[0];
+            // }
             return prefix + s[1];
         }
         // row 1 - Canonical-Prefixed-ID
@@ -1374,7 +1409,7 @@ public class OWLAPIOwl2Obo {
             String localId;
             try {
                 localId = java.net.URLDecoder.decode(s[1], "UTF-8");
-            return s[0] + ":" + localId;
+                return s[0] + ":" + localId;
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException("UTF-8 not supported, JRE corrupted?", e);
             }
@@ -1398,6 +1433,9 @@ public class OWLAPIOwl2Obo {
         return iri;
     }
 
+    /** @param obj
+     *            obj
+     * @return tag for object */
     public static String owlObjectToTag(OWLObject obj) {
         IRI iriObj = null;
         if (obj instanceof OWLNamedObject) {
@@ -1682,6 +1720,7 @@ public class OWLAPIOwl2Obo {
      * cardinality statements. TODO How to merge "all_some", and "all_only"?
      * 
      * @param clauses
+     *            clauses
      * @return normalized list of {@link Clause} */
     public static List<Clause> normalizeRelationshipClauses(List<Clause> clauses) {
         final List<Clause> normalized = new ArrayList<Clause>();

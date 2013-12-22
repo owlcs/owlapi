@@ -66,8 +66,10 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+/** OWLAPI version of Obo2Owl */
 public class OWLAPIObo2Owl {
     private static Logger LOG = Logger.getLogger(OWLAPIObo2Owl.class.getName());
+    /** reversible property chain iri */
     public static final String IRI_PROP_isReversiblePropertyChain = DEFAULT_IRI_PREFIX
             + "IAO_isReversiblePropertyChain";
     protected String defaultIDSpace = "";
@@ -76,11 +78,16 @@ public class OWLAPIObo2Owl {
     protected OWLDataFactory fac;
     protected OBODoc obodoc;
     protected final Map<String, String> idSpaceMap;
+    /**
+     * 
+     */
     public static Map<String, IRI> annotationPropertyMap = initAnnotationPropertyMap();
     protected final Set<OWLAnnotationProperty> apToDeclare;
     protected final Map<String, OWLClass> clsToDeclar;
     protected final Map<String, OWLAnnotationProperty> typedefToAnnotationProperty;
 
+    /** @param manager
+     *            manager */
     public OWLAPIObo2Owl(OWLOntologyManager manager) {
         idSpaceMap = new HashMap<String, String>();
         apToDeclare = new HashSet<OWLAnnotationProperty>();
@@ -89,10 +96,10 @@ public class OWLAPIObo2Owl {
         init(manager);
     }
 
-    protected void init(OWLOntologyManager manager) {
+    protected void init(OWLOntologyManager m) {
         // use the given manager and its factory
-        this.manager = manager;
-        fac = this.manager.getOWLDataFactory();
+        manager = m;
+        fac = manager.getOWLDataFactory();
         // clear all internal maps.
         idSpaceMap.clear();
         apToDeclare.clear();
@@ -100,20 +107,24 @@ public class OWLAPIObo2Owl {
         typedefToAnnotationProperty.clear();
     }
 
-    /** Static convenience method which: 
-     * (1) creates an Obo2Owl bridge object 
-     * (2) parses an obo file from a URL 
-     * (3) converts that to an OWL ontology 
-     * (4) saves the OWL ontology as RDF/XML
+    /** Static convenience method which: (1) creates an Obo2Owl bridge object (2)
+     * parses an obo file from a URL (3) converts that to an OWL ontology (4)
+     * saves the OWL ontology as RDF/XML
      * 
      * @param iri
+     *            iri
      * @param outFile
+     *            outFile
      * @param manager
      *            manager to use
      * @throws IOException
+     *             IOException
      * @throws OWLOntologyCreationException
+     *             OWLOntologyCreationException
      * @throws OWLOntologyStorageException
-     * @throws OBOFormatParserException */
+     *             OWLOntologyStorageException
+     * @throws OBOFormatParserException
+     *             OBOFormatParserException */
     public static void convertURL(String iri, String outFile, OWLOntologyManager manager)
             throws IOException, OWLOntologyCreationException,
             OWLOntologyStorageException, OBOFormatParserException {
@@ -133,16 +144,22 @@ public class OWLAPIObo2Owl {
      * {@link #convertURL(String iri, String outFile, OWLOntologyManager manager)}
      * 
      * @param iri
+     *            iri
      * @param outFile
+     *            outFile
      * @param defaultOnt
      *            -- e.g. "go". If the obo file contains no "ontology:" header
      *            tag, this is added
      * @param manager
      *            the manager to be used
      * @throws IOException
+     *             IOException
      * @throws OWLOntologyCreationException
+     *             OWLOntologyCreationException
      * @throws OWLOntologyStorageException
-     * @throws OBOFormatParserException */
+     *             OWLOntologyStorageException
+     * @throws OBOFormatParserException
+     *             OBOFormatParserException */
     public static void convertURL(String iri, String outFile, String defaultOnt,
             OWLOntologyManager manager) throws IOException, OWLOntologyCreationException,
             OWLOntologyStorageException, OBOFormatParserException {
@@ -174,18 +191,24 @@ public class OWLAPIObo2Owl {
         return map;
     }
 
+    /** @return manager */
     public OWLOntologyManager getManager() {
         return manager;
     }
 
+    /** @param manager
+     *            manager */
     public void setManager(OWLOntologyManager manager) {
         this.manager = manager;
     }
 
+    /** @return obodoc */
     public OBODoc getObodoc() {
         return obodoc;
     }
 
+    /** @param obodoc
+     *            obodoc */
     public void setObodoc(OBODoc obodoc) {
         this.obodoc = obodoc;
     }
@@ -205,8 +228,10 @@ public class OWLAPIObo2Owl {
      * using the convert method
      * 
      * @param oboFile
+     *            oboFile
      * @return ontology
-     * @throws OWLOntologyCreationException */
+     * @throws OWLOntologyCreationException
+     *             OWLOntologyCreationException */
     public OWLOntology convert(String oboFile) throws OWLOntologyCreationException {
         try {
             OBOFormatParser p = new OBOFormatParser();
@@ -220,18 +245,27 @@ public class OWLAPIObo2Owl {
         }
     }
 
-    /** @param obodoc
+    /** @param doc
+     *            obodoc
      * @return ontology
-     * @throws OWLOntologyCreationException */
-    public OWLOntology convert(OBODoc obodoc) throws OWLOntologyCreationException {
-        this.obodoc = obodoc;
+     * @throws OWLOntologyCreationException
+     *             OWLOntologyCreationException */
+    public OWLOntology convert(OBODoc doc) throws OWLOntologyCreationException {
+        obodoc = doc;
         init(manager);
         return tr(manager.createOntology());
     }
 
-    public OWLOntology convert(OBODoc obodoc, OWLOntology in)
+    /** @param doc
+     *            obodoc
+     * @param in
+     *            in
+     * @return converted ontology
+     * @throws OWLOntologyCreationException
+     *             OWLOntologyCreationException */
+    public OWLOntology convert(OBODoc doc, OWLOntology in)
             throws OWLOntologyCreationException {
-        this.obodoc = obodoc;
+        obodoc = doc;
         init(in.getOWLOntologyManager());
         return tr(in);
     }
@@ -305,7 +339,8 @@ public class OWLAPIObo2Owl {
     /** perform any necessary post-processing. currently this only includes the
      * experimental logical-definitions-view-property
      * 
-     * @param ontology */
+     * @param ontology
+     *            ontology */
     protected void postProcess(OWLOntology ontology) {
         IRI pIRI = null;
         for (OWLAnnotation ann : ontology.getAnnotations()) {
@@ -357,6 +392,8 @@ public class OWLAPIObo2Owl {
         return f.toURI().toString();
     }
 
+    /** @param headerFrame
+     *            headerFrame */
     public void trHeaderFrame(Frame headerFrame) {
         for (String t : headerFrame.getTags()) {
             OboFormatTag tag = OBOFormatConstants.getTag(t);
@@ -393,7 +430,7 @@ public class OWLAPIObo2Owl {
             } else if (tag == OboFormatTag.TAG_SYNONYMTYPEDEF) {
                 OWLAnnotationProperty parentAnnotProp = trTagToAnnotationProp(t);
                 for (Clause clause : headerFrame.getClauses(t)) {
-                    Object values[] = clause.getValues().toArray();
+                    Object[] values = clause.getValues().toArray();
                     OWLAnnotationProperty childAnnotProp = trAnnotationProp(values[0]
                             .toString());
                     IRI childIRI = childAnnotProp.getIRI();
@@ -531,6 +568,9 @@ public class OWLAPIObo2Owl {
         apply(addAnn);
     }
 
+    /** @param termFrame
+     *            termFrame
+     * @return term frame class */
     public OWLClassExpression trTermFrame(Frame termFrame) {
         OWLClass cls = trClass(termFrame.getId());
         add(fac.getOWLDeclarationAxiom(cls));
@@ -545,6 +585,13 @@ public class OWLAPIObo2Owl {
         return cls;
     }
 
+    /** @param cls
+     *            cls
+     * @param clauses
+     *            clauses
+     * @param t
+     *            t
+     * @return term frame axioms */
     public Set<OWLAxiom> trTermFrameClauses(OWLClass cls, Collection<Clause> clauses,
             String t) {
         OboFormatTag tag = OBOFormatConstants.getTag(t);
@@ -596,6 +643,9 @@ public class OWLAPIObo2Owl {
         return null;
     }
 
+    /** @param typedefFrame
+     *            typedefFrame
+     * @return typedef frame */
     public OWLNamedObject trTypedefFrame(Frame typedefFrame) {
         // TODO - annotation props
         if (typedefFrame.getTagValue(OboFormatTag.TAG_IS_METADATA_TAG) != null
@@ -759,8 +809,11 @@ public class OWLAPIObo2Owl {
     /** #5.2
      * 
      * @param cls
+     *            cls
      * @param tag
+     *            tag
      * @param clause
+     *            clause
      * @return axiom */
     protected OWLAxiom trTermClause(OWLClass cls, String tag, Clause clause) {
         OWLAxiom ax;
@@ -1071,6 +1124,13 @@ public class OWLAPIObo2Owl {
         return null;
     }
 
+    /** @param relId
+     *            relId
+     * @param classId
+     *            classId
+     * @param quals
+     *            quals
+     * @return relation */
     public OWLClassExpression trRel(String relId, String classId,
             Collection<QualifierValue> quals) {
         OWLClassExpression ex;
@@ -1160,6 +1220,7 @@ public class OWLAPIObo2Owl {
     /** See section "header macros" and treat-xrefs-as-equivalent
      * 
      * @param id
+     *            id
      * @return mapped id */
     protected String mapPropId(String id) {
         Frame f = obodoc.getTypedefFrame(id);
@@ -1185,6 +1246,9 @@ public class OWLAPIObo2Owl {
         return fac.getOWLNamedIndividual(iri);
     }
 
+    /** @param tag
+     *            tag
+     * @return iri for tag */
     public static IRI trTagToIRI(String tag) {
         IRI iri = null;
         if (annotationPropertyMap.containsKey(tag)) {
@@ -1239,8 +1303,7 @@ public class OWLAPIObo2Owl {
         } else if (value instanceof Date) {
             // use proper OWL2 data type, write lexical value as ISO 8601 date
             // string
-            String lexicalValue = Obo2OWLConstants.OWL2_DATE_LITERAL_FORMAT.get().format(
-                    (Date) value);
+            String lexicalValue = Obo2OWLConstants.format((Date) value);
             return fac.getOWLLiteral(lexicalValue, OWL2Datatype.XSD_DATE_TIME);
         } else if (value instanceof Boolean) {
             return fac.getOWLLiteral((Boolean) value);
@@ -1253,6 +1316,9 @@ public class OWLAPIObo2Owl {
         return fac.getOWLLiteral((String) value); // TODO
     }
 
+    /** @param id
+     *            id
+     * @return iri for id */
     public IRI oboIdToIRI(String id) {
         if (id.contains(" ")) {
             LOG.log(Level.SEVERE, "id contains space: \"" + id + "\"");
@@ -1260,16 +1326,17 @@ public class OWLAPIObo2Owl {
             return null;
         }
         // No conversion is required if this is already an IRI (ID-as-URI rule)
-        if (id.startsWith("http:")) { // TODO - roundtrip from other schemes
+        if (id.startsWith("http:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
-        } else if (id.startsWith("https:")) { // TODO - roundtrip from other
-                                              // schemes
+        } else if (id.startsWith("https:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
-        } else if (id.startsWith("ftp:")) { // TODO - roundtrip from other
-                                            // schemes
+        } else if (id.startsWith("ftp:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
-        } else if (id.startsWith("urn:")) { // TODO - roundtrip from other
-                                            // schemes
+        } else if (id.startsWith("urn:")) {
+            // TODO - roundtrip from other schemes
             return IRI.create(id);
         }
         // TODO - treat_xrefs_as_equivalent

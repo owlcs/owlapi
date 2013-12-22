@@ -22,20 +22,21 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
+/** oboformat parser */
 public class OBOFormatOWLAPIParser implements OWLParser {
     private OWLOntologyManager manager;
 
+    /** @param m
+     *            manager */
     public OBOFormatOWLAPIParser(OWLOntologyManager m) {
         manager = m;
     }
+
     @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
         manager = owlOntologyManager;
     }
 
-    
-    
-    
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
             throws OWLParserException, IOException, OWLOntologyChangeException,
