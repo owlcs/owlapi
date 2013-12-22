@@ -92,7 +92,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author ignazio */
+/** base for entity registration manager */
 public abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
         SWRLObjectVisitor {
     // ////////////////////////////////////////////////////////////////////////////////////////////

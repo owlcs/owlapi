@@ -227,7 +227,7 @@ public class ManchesterOWLSyntaxTokenizer {
         return ch;
     }
 
-    /** @author ignazio */
+    /** token */
     public static class Token {
         private String token;
         private int pos;

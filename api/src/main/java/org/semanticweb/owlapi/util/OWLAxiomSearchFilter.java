@@ -5,8 +5,7 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author ignazio
- * @param <O>
+/** @param <O>
  *            axiom type
  * @param <K>
  *            key type */
