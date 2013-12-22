@@ -1300,19 +1300,19 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     } else {
                         write(obj.toString());
                     }
-                    if (it.hasNext()) {
-                        write(delimeter);
-                        fireSectionItemFinished(sec);
-                        if (newline) {
-                            writeNewLine();
-                        }
-                    } else {
-                        fireSectionItemFinished(sec);
-                    }
                     if (annosSetIt.hasNext()) {
                         write(",");
                         writeNewLine();
                     }
+                }
+                if (it.hasNext()) {
+                    write(delimeter);
+                    fireSectionItemFinished(sec);
+                    if (newline) {
+                        writeNewLine();
+                    }
+                } else {
+                    fireSectionItemFinished(sec);
                 }
             }
             fireSectionRenderingFinished(sec);
