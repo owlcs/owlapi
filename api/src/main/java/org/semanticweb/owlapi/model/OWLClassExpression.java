@@ -149,6 +149,8 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      * 
      * @param visitor
      *            The visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
 }

@@ -262,6 +262,8 @@ public interface OWLEntity extends OWLObject, OWLNamedObject {
      * 
      * @param visitor
      *            The visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLEntityVisitorEx<O> visitor);
 }

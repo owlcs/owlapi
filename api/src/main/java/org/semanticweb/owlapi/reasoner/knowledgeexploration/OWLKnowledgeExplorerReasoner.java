@@ -52,7 +52,9 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
     /** Interface for a tableaux node. */
     public interface RootNode {
-        /** @return inner node representation */
+        /** @param <T>
+         *            actual node type
+         * @return inner node representation */
         <T> T getNode();
     }
 

@@ -67,6 +67,8 @@ public interface OWLFacetRestriction extends OWLObject {
      * 
      * @param visitor
      *            The visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

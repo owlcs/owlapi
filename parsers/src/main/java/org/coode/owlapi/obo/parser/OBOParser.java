@@ -5,14 +5,23 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
-@SuppressWarnings("all")
+/** obo parser. */
 public class OBOParser implements OBOParserConstants {
+    /** The handler. */
     private OBOParserHandler handler;
 
+    /** Sets the handler.
+     * 
+     * @param handler
+     *            the new handler */
     public void setHandler(OBOParserHandler handler) {
         this.handler = handler;
     }
 
+    /** Parses the.
+     * 
+     * @throws ParseException
+     *             the parse exception */
     final public void parse() throws ParseException {
         Header();
         label_1: while (true) {
@@ -29,6 +38,10 @@ public class OBOParser implements OBOParserConstants {
         jj_consume_token(0);
     }
 
+    /** Header.
+     * 
+     * @throws ParseException
+     *             the parse exception */
     final public void Header() throws ParseException {
         handler.startHeader();
         label_2: while (true) {
@@ -45,6 +58,10 @@ public class OBOParser implements OBOParserConstants {
         handler.endHeader();
     }
 
+    /** Stanza.
+     * 
+     * @throws ParseException
+     *             the parse exception */
     final public void Stanza() throws ParseException {
         Token t;
         jj_consume_token(OPEN_SQUARE_BRACKET);
@@ -65,6 +82,10 @@ public class OBOParser implements OBOParserConstants {
         handler.endFrame();
     }
 
+    /** Tag value pair.
+     * 
+     * @throws ParseException
+     *             the parse exception */
     final public void TagValuePair() throws ParseException {
         Token tagToken = null;
         Token valToken = null;
@@ -123,6 +144,11 @@ public class OBOParser implements OBOParserConstants {
         handler.handleTagValue(name, val, qualifierBlock, comment);
     }
 
+    /** Comment.
+     * 
+     * @return the string
+     * @throws ParseException
+     *             the parse exception */
     final public String Comment() throws ParseException {
         Token t;
         t = jj_consume_token(COMMENT);
@@ -136,29 +162,43 @@ public class OBOParser implements OBOParserConstants {
 
     /** Generated Token Manager. */
     public OBOParserTokenManager token_source;
+    /** The jj_input_stream. */
     BOMSafeJavaCharStream jj_input_stream;
     /** Current token. */
     public Token token;
     /** Next token. */
     public Token jj_nt;
+    /** The jj_ntk. */
     private int jj_ntk;
+    /** The jj_gen. */
     private int jj_gen;
+    /** The jj_la1. */
     final private int[] jj_la1 = new int[6];
+    /** The jj_la1_0. */
     static private int[] jj_la1_0;
     static {
         jj_la1_init_0();
     }
 
+    /** Jj_la1_init_0. */
     private static void jj_la1_init_0() {
         jj_la1_0 = new int[] { 0x40, 0x200, 0x200, 0x19000, 0x19000, 0x80000, };
     }
 
-    /** Constructor with InputStream. */
+    /** Constructor with InputStream.
+     * 
+     * @param stream
+     *            the stream */
     public OBOParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding. */
+    /** Constructor with InputStream and supplied encoding.
+     * 
+     * @param stream
+     *            the stream
+     * @param encoding
+     *            the encoding */
     public OBOParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
@@ -174,12 +214,20 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param stream
+     *            the stream */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param stream
+     *            the stream
+     * @param encoding
+     *            the encoding */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -195,7 +243,10 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param stream
+     *            the stream */
     public OBOParser(java.io.Reader stream) {
         jj_input_stream = new BOMSafeJavaCharStream(stream, 1, 1);
         token_source = new OBOParserTokenManager(jj_input_stream);
@@ -207,7 +258,10 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param stream
+     *            the stream */
     public void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
@@ -219,7 +273,10 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
-    /** Constructor with generated Token Manager. */
+    /** Constructor with generated Token Manager.
+     * 
+     * @param tm
+     *            the tm */
     public OBOParser(OBOParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -230,7 +287,10 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param tm
+     *            the tm */
     public void ReInit(OBOParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -241,6 +301,13 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
+    /** Jj_consume_token.
+     * 
+     * @param kind
+     *            the kind
+     * @return the token
+     * @throws ParseException
+     *             the parse exception */
     private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
         if ((oldToken = token).next != null) {
@@ -258,7 +325,9 @@ public class OBOParser implements OBOParserConstants {
         throw generateParseException();
     }
 
-    /** Get the next Token. */
+    /** Get the next Token.
+     * 
+     * @return the next token */
     final public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
@@ -270,7 +339,11 @@ public class OBOParser implements OBOParserConstants {
         return token;
     }
 
-    /** Get the specific Token. */
+    /** Get the specific Token.
+     * 
+     * @param index
+     *            the index
+     * @return the token */
     final public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
@@ -283,6 +356,9 @@ public class OBOParser implements OBOParserConstants {
         return t;
     }
 
+    /** Jj_ntk.
+     * 
+     * @return the int */
     private int jj_ntk() {
         if ((jj_nt = token.next) == null) {
             return jj_ntk = (token.next = token_source.getNextToken()).kind;
@@ -291,11 +367,16 @@ public class OBOParser implements OBOParserConstants {
         }
     }
 
+    /** The jj_expentries. */
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+    /** The jj_expentry. */
     private int[] jj_expentry;
+    /** The jj_kind. */
     private int jj_kind = -1;
 
-    /** Generate ParseException. */
+    /** Generate ParseException.
+     * 
+     * @return the parses the exception */
     public ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[22];

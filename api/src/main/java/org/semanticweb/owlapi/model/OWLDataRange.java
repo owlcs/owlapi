@@ -84,6 +84,8 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
      * 
      * @param visitor
      *            The visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 
@@ -97,6 +99,8 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
      * 
      * @param visitor
      *            The visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

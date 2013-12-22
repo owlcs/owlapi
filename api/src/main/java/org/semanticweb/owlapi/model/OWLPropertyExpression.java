@@ -183,6 +183,8 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
 
     /** @param visitor
      *            visitor to accept
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
 

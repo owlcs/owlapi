@@ -53,6 +53,8 @@ public interface OWLAnnotationValue extends OWLAnnotationObject {
 
     /** @param visitor
      *            visitor to accept
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLAnnotationValueVisitorEx<O> visitor);
 }

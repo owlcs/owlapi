@@ -94,6 +94,8 @@ public interface OWLAnnotation extends OWLObject {
 
     /** @param visitor
      *            visitor to accept
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 }

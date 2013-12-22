@@ -134,6 +134,8 @@ public abstract class OWLOntologyChange {
      * 
      * @param visitor
      *            The visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
 }

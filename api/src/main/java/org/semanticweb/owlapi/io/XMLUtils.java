@@ -48,15 +48,15 @@ package org.semanticweb.owlapi.io;
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group, Date: 22/09/2011 */
 public class XMLUtils {
-    /** &lt; shortcut */
+    /** &amp;lt; shortcut */
     public static final String LT = "&lt;";
-    /** &gt; shortcut */
+    /** &amp;gt; shortcut */
     public static final String GT = "&gt;";
-    /** &quot; shortcut */
+    /** &amp;quot; shortcut */
     public static final String QUOT = "&quot;";
-    /** &amp; shortcut */
+    /** &amp;amp; shortcut */
     public static final String AMP = "&amp;";
-    /** &apos; shortcut */
+    /** &amp;apos; shortcut */
     public static final String APOS = "&apos;";
     // For some point in the future
     /** owl processing instruction */
