@@ -476,7 +476,6 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     public void visit(OWLAnnotationAssertionAxiom axiom) {
         sb.append("AnnotationAssertion(");
         writeAnnotations(axiom);
-        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         insertSpace();
         axiom.getSubject().accept(this);
