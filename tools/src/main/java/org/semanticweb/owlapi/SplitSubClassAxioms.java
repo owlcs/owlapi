@@ -78,9 +78,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * example, A subClassOf (B and C), would be replaced with two subclass axioms,
  * A subClassOf B, and A subClassOf C.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15-Aug-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 15-Aug-2007 */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
     private final List<OWLOntologyChange> changes;
 

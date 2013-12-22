@@ -62,7 +62,7 @@ public interface OntologySegmenter {
      * @param signature
      *            the seed signature
      * @return the segment as a set of axioms */
-    public abstract Set<OWLAxiom> extract(Set<OWLEntity> signature);
+    Set<OWLAxiom> extract(Set<OWLEntity> signature);
 
     /** Returns a set of axioms that is a segment of the ontology associated with
      * this segmenter. This segment is determined by a seed signature (set of
@@ -89,7 +89,7 @@ public interface OntologySegmenter {
      *         super-/subclasses are added. If k smaller than 0, then all direct
      *         and indirect super-/subclasses of any class in the signature are
      *         added. */
-    public abstract Set<OWLAxiom> extract(Set<OWLEntity> signature, int superClassLevel,
+    Set<OWLAxiom> extract(Set<OWLEntity> signature, int superClassLevel,
             int subClassLevel, OWLReasoner reasoner);
 
     /** Returns an ontology that is a segment of the ontology associated with
@@ -104,7 +104,7 @@ public interface OntologySegmenter {
      *             if adding axioms to the module fails
      * @throws OWLOntologyCreationException
      *             if the module cannot be created */
-    public abstract OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri)
+    OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri)
             throws OWLOntologyCreationException;
 
     /** Returns an ontology that is a segment of the ontology associated with
@@ -138,7 +138,6 @@ public interface OntologySegmenter {
      *             = 0, then no super-/subclasses are added. If k smaller than
      *             0, then all direct and indirect super-/subclasses of any
      *             class in the signature are added. */
-    public abstract OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri,
-            int superClassLevel, int subClassLevel, OWLReasoner reasoner)
-            throws OWLOntologyCreationException;
+    OWLOntology extractAsOntology(Set<OWLEntity> signature, IRI iri, int superClassLevel,
+            int subClassLevel, OWLReasoner reasoner) throws OWLOntologyCreationException;
 }

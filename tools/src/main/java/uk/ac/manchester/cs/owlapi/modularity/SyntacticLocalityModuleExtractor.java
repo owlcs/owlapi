@@ -187,7 +187,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
-    /** Type of module */
+    /** Type of module. */
     ModuleType moduleType;
     /** Represents the associated ontology. */
     final OntologyAxiomSet ontologyAxiomSet;

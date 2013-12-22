@@ -58,9 +58,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * remove these two axioms and replace them by adding one subclass axiom, A
  * subClassOf (B and C).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15-Aug-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 15-Aug-2007 */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     private final List<OWLOntologyChange> changes;
 

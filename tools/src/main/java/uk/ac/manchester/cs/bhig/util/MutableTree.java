@@ -48,10 +48,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Jan-2008
  * @param <N>
  *            type of elements */
 public class MutableTree<N> implements Tree<N> {
@@ -125,7 +123,7 @@ public class MutableTree<N> implements Tree<N> {
         Collections.sort(children, comparator);
     }
 
-    /** remove all children */
+    /** remove all children. */
     // XXX not in the interface
     public void clearChildren() {
         for (MutableTree<N> child : new ArrayList<MutableTree<N>>(children)) {

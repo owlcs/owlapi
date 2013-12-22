@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Orders an explanation in a flat list, sorting axioms alphabetically.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 22-Jan-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 22-Jan-2008 */
 public final class AlphaExplanationOrderer implements ExplanationOrderer {
     protected final OWLObjectRenderer renderer;
 

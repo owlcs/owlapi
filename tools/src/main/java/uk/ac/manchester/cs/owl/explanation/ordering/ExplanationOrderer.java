@@ -42,9 +42,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Jan-2008 */
 public interface ExplanationOrderer {
     /** Gets an ordered (and possibly indented) explanation. The orderer really
      * provides some kind of "presentation" layer to make an explanation easier

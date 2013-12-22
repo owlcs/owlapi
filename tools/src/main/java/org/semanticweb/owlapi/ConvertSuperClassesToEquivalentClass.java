@@ -87,9 +87,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * is converted to a defined class - functionality which is usually found in
  * editors.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 23-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
     private final OWLOntology targetOntology;
     private final OWLClass cls;

@@ -45,14 +45,13 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 24-Nov-2006 */
 public interface OWLDebugger {
     /** @return the {@code OWLOntology} that is being debugged.
      * @throws OWLException
      *             if there is any problem */
-    public OWLOntology getOWLOntology() throws OWLException;
+    OWLOntology getOWLOntology() throws OWLException;
 
     /** @return the first set of supporting (SOS) axioms that are responsible for
      *         the specified class being inconsistent.
@@ -60,8 +59,7 @@ public interface OWLDebugger {
      *            The class which is inconsistent
      * @throws OWLException
      *             if there is any problem */
-    public Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls)
-            throws OWLException;
+    Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls) throws OWLException;
 
     /** @return all sets of supporting axioms that are responsible for the
      *         specified class being inconsistent
@@ -69,7 +67,7 @@ public interface OWLDebugger {
      *            the inconsistent class
      * @throws OWLException
      *             if there is any problem */
-    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls)
+    Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls)
             throws OWLException;
 
     /** dispose of resources locked such as reasoners */

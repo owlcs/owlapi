@@ -71,9 +71,8 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * where the two are used. For example, given, p value "xyz", the "xyz" constant
  * would be typed with the range of p.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Aug-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Aug-2007 */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
     protected final Map<OWLDataPropertyExpression, OWLDatatype> map;
     private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();

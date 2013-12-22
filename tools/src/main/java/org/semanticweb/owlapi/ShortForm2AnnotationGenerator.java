@@ -53,9 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Feb-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Feb-2008 */
 public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange {
     // The annotation URI to be used.
     private final IRI annotationIRI;

@@ -68,7 +68,6 @@ import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
@@ -91,10 +90,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 01-Mar-2007 */
-@SuppressWarnings("unused")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 01-Mar-2007 */
 public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
     private final OWLDataFactory dataFactory;
     private OWLClassExpression desc;
@@ -137,11 +134,6 @@ public class DebuggerClassExpressionGenerator implements OWLAxiomVisitor {
                 axiom.getProperty(), dataFactory.getTopDatatype());
         OWLAxiom ax = dataFactory.getOWLSubClassOfAxiom(sub, axiom.getDomain());
         ax.accept(this);
-    }
-
-    @SuppressWarnings("javadoc")
-    public void visit(OWLImportsDeclaration axiom) {
-        // Nothing to do
     }
 
     @Override

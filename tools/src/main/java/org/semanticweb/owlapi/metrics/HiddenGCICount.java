@@ -55,9 +55,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
  * in a "hidden" GCI.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Aug-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Aug-2007 */
 public class HiddenGCICount extends IntegerValuedMetric {
     /** @param owlOntologyManager
      *            manager to use */

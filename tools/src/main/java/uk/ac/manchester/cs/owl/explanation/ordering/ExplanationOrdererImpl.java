@@ -115,9 +115,8 @@ import uk.ac.manchester.cs.bhig.util.Tree;
 /** Provides ordering and indenting of explanations based on various ordering
  * heuristics.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Jan-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Jan-2008 */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
     private Set<OWLAxiom> currentExplanation;
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap;
@@ -275,7 +274,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     }
 
     /** A utility method that obtains a set of axioms that are indexed by some
-     * object
+     * object.
      * 
      * @param obj
      *            The object that indexed the axioms
@@ -336,7 +335,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** tree comparator */
+    /** tree comparator. */
     private static final class OWLAxiomTreeComparator implements
             Comparator<Tree<OWLAxiom>>, Serializable {
         private static final long serialVersionUID = 30406L;

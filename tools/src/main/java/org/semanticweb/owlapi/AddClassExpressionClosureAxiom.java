@@ -66,9 +66,8 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * This code is based on the tutorial examples by Sean Bechhofer (see the
  * tutorial module).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 24-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Jul-2007 */
 public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
     private final OWLClass cls;
     protected final OWLObjectPropertyExpression property;

@@ -59,10 +59,8 @@ package uk.ac.manchester.cs.bhig.util;/*
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 27-Nov-2008
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 27-Nov-2008
  * @param <N>
  *            type of nodes to render */
 public interface NodeRenderer<N> {

@@ -40,9 +40,8 @@ package org.semanticweb.owlapi;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Jul-2007 */
 public abstract class AbstractCompositeOntologyChange implements
         OWLCompositeOntologyChange {
     private final OWLDataFactory dataFactory;

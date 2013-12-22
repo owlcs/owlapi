@@ -73,19 +73,17 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /** This composite change will create a value partion - see "pattern 2" in
  * "Representing Specified Values in OWL: "value partitions" and "value sets""
- * (http://www.w3.org/TR/swbp-specified-values.) <br>
- * A value partition is an ontology design pattern which is used to represent a
- * set of closed values for a particular property. For example the property
- * hasSize might only take values from SmallSize, MediumSize and LargeSize. In
- * this case, the value partition is Size, and has the values SmallSize,
- * MediumSize and LargeSize. This composite change will set hasSize to be
- * functional and its range as Size. Size will be covered by SmallSize,
+ * (http:/** A value partition is an ontology design pattern which is used to
+ * represent a set of closed values for a particular property. For example the
+ * property hasSize might only take values from SmallSize, MediumSize and
+ * LargeSize. In this case, the value partition is Size, and has the values
+ * SmallSize, MediumSize and LargeSize. This composite change will set hasSize
+ * to be functional and its range as Size. Size will be covered by SmallSize,
  * MediumSize and LargeSize and these classes which represent the values will be
  * made disjoint with eachother.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 23-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
     private List<OWLOntologyChange> changes;
     private final OWLOntology targetOntology;

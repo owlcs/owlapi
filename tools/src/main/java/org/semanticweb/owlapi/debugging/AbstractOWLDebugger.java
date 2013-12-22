@@ -62,9 +62,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 24-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Nov-2006 */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
     private final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;

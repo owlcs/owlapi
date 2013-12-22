@@ -89,9 +89,8 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * This change supports a common pattern of working, where a class is converted
  * from a defined class to a primitive class.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 23-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
     private final OWLOntology targetOntology;

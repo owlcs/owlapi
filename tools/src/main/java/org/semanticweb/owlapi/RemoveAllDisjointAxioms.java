@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 /** Given a set of ontologies, this composite change will remove all disjoint
  * classes axioms from these ontologies.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 24-Jul-2007*/
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Jul-2007 */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
     private final Set<OWLOntology> ontologies;
     private List<OWLOntologyChange> changes;

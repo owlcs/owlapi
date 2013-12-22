@@ -40,9 +40,8 @@ package org.semanticweb.owlapi.normalform;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Sep-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 24-Sep-2007 */
 public interface NormalFormRewriter {
     /** @param classExpression
      *            expression to check

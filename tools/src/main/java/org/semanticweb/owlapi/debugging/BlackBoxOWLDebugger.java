@@ -73,9 +73,8 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  * on the description of a black box debugger as described in Aditya Kalyanpur's
  * PhD Thesis : "Debugging and Repair of OWL Ontologies".
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 24-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Nov-2006 */
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private static final Logger logger = Logger.getLogger(BlackBoxOWLDebugger.class
             .getName());
@@ -90,7 +89,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private final OWLReasonerFactory reasonerFactory;
     private final Set<OWLAxiom> temporaryAxioms;
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap;
-    /** default expansion limit */
+    /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
     private int expansionLimit = initialExpansionLimit;
@@ -245,7 +244,15 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     /** Creates a set of axioms to expands the debugging axiom set by adding the
-     * defining axioms for the specified entity. */
+     * defining axioms for the specified entity.
+     * 
+     * @param obj
+     *            obj
+     * @param limit
+     *            limit
+     * @return number of additions
+     * @throws OWLException
+     *             owl exception */
     private int expandWithDefiningAxioms(OWLEntity obj, int limit) throws OWLException {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(getOWLOntology())) {
@@ -264,7 +271,15 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     }
 
     /** Expands the axiom set by adding the referencing axioms for the specified
-     * entity. */
+     * entity.
+     * 
+     * @param obj
+     *            obj
+     * @param limit
+     *            limit
+     * @return number of additions
+     * @throws OWLException
+     *             owl exception */
     private int expandWithReferencingAxioms(OWLEntity obj, int limit) throws OWLException {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         // First expand by getting the defining axioms - if this doesn't
@@ -374,7 +389,11 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int satTestCount = 0;
 
     /** Tests the satisfiability of the test class. The ontology is recreated
-     * before the test is performed. */
+     * before the test is performed.
+     * 
+     * @return true if satisfiable
+     * @throws OWLException
+     *             owl exception */
     private boolean isSatisfiable() throws OWLException {
         createDebuggingOntology();
         OWLReasoner reasoner = reasonerFactory

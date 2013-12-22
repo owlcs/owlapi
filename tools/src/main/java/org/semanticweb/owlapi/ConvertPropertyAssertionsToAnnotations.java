@@ -88,9 +88,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * to simulate annotations on a class rather than using actual annotations on a
  * class.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 23-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class ConvertPropertyAssertionsToAnnotations extends
         AbstractCompositeOntologyChange {
     private final Set<OWLOntology> ontologies;

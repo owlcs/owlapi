@@ -43,10 +43,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Jan-2008
  * @param <N>
  *            the kind of elements in the tree */
 public interface Tree<N> {
@@ -57,8 +55,8 @@ public interface Tree<N> {
 
     /** Gets the parent of this tree node.
      * 
-     * @return The parent tree node, or {@code null} if this node doesn't
-     *         have a parent. */
+     * @return The parent tree node, or {@code null} if this node doesn't have a
+     *         parent. */
     Tree<N> getParent();
 
     /** Gets the children of this tree node.
@@ -72,7 +70,7 @@ public interface Tree<N> {
      * @return the object stored as edge */
     Object getEdge(Tree<N> child);
 
-    /** Sorts the children using the specified comparator
+    /** Sorts the children using the specified comparator.
      * 
      * @param comparator
      *            The comparator to be used for the sorting. */
@@ -85,17 +83,15 @@ public interface Tree<N> {
     int getChildCount();
 
     /** A convenience method that determines if this is a root node (because it
-     * has no parent node)
+     * has no parent node).
      * 
-     * @return {@code true} if this is a root node, otherwise
-     *         {@code false}. */
+     * @return {@code true} if this is a root node, otherwise {@code false}. */
     boolean isRoot();
 
     /** A convenience method that determines if this node is a leaf node (because
      * it has no children).
      * 
-     * @return {@code true} if this node is a leaf node otherwise
-     *         {@code false}. */
+     * @return {@code true} if this node is a leaf node otherwise {@code false}. */
     boolean isLeaf();
 
     /** A convenience method that gets the root of this tree.

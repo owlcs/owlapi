@@ -61,9 +61,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * This composite change supports a common design pattern where primitive
  * subclasses of a class are made mutually disjoint.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 24-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Jul-2007 */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends
         AbstractCompositeOntologyChange {
     private final OWLClass cls;
