@@ -962,9 +962,7 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
         if (fragment == null) {
             fragment = node.getIRI().toQuotedString();
         }
-        write("<urn:swrl#");
         write(fragment);
-        write(">");
     }
 
     @Override

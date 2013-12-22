@@ -1659,13 +1659,19 @@ public class ManchesterOWLSyntaxEditorParser implements ManchesterOWLSyntaxParse
     @Override
     public IRI parseVariable() throws ParserException {
         consumeToken("?");
-        IRI iri = parseIRI();
-        String fragment = iri.getFragment();
-        if (fragment == null) {
-            // XXX this would be unexpected but the error will be obvious
-            fragment = iri.toQuotedString();
+        String fragment = peekToken();
+        if (fragment.startsWith("<")) {
+            // then the variable was saved with a full IRI
+            IRI iri = parseIRI();
+            fragment = iri.getFragment();
+            if (fragment == null) {
+                // XXX this would be unexpected but the error will be obvious
+                fragment = iri.toQuotedString();
+            }
+        } else {
+            consumeToken();
         }
-        return IRI.create("urn:swrl#", iri.getFragment());
+        return IRI.create("urn:swrl#", fragment);
     }
 
     private SWRLDArgument parseDObject() {

@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
@@ -66,7 +67,8 @@ public class SWRLRoundTripTestCase {
         OWLDataProperty P = factory.getOWLDataProperty(IRI(NS + "#P"));
         SWRLVariable X = factory.getSWRLVariable(IRI(NS + "#X"));
         SWRLVariable Y = factory.getSWRLVariable(IRI(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(IRI(NS));
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
         body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
         body.add(factory.getSWRLDataRangeAtom(
@@ -79,8 +81,9 @@ public class SWRLRoundTripTestCase {
         ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+        manager = Factory.getManager();
+        ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                onto1));
         t = new StringDocumentTarget();
         format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
