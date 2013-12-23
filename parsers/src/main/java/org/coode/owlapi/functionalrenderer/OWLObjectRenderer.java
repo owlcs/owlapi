@@ -138,6 +138,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         }
     }
 
+    private void flush() {
+        try {
+            writer.flush();
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
+    }
+
     private void write(IRI iri) {
         String qname = prefixManager.getPrefixIRI(iri);
         if (qname != null) {
@@ -190,14 +198,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         for (OWLEntity ent : signature) {
             writeAxioms(ent, writtenAxioms);
         }
-        Set<OWLAxiom> remainingAxioms = ontology1.getAxioms();
-        for (OWLAxiom ax : remainingAxioms) {
+        for (OWLAxiom ax : ontology1.getAxioms()) {
             if (!writtenAxioms.contains(ax)) {
                 ax.accept(this);
                 write("\n");
             }
         }
         write(")");
+        flush();
     }
 
     /** Writes out the axioms that define the specified entity
