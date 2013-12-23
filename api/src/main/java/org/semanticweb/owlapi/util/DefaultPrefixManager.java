@@ -44,6 +44,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     private static final StringLengthComparator STRING_LENGTH_COMPARATOR = new StringLengthComparator();
     private final Map<String, String> prefix2NamespaceMap;
+    private final Map<String, String> reverseprefix2NamespaceMap;
 
     /** Creates a namespace manager that does not have a default namespace. */
     public DefaultPrefixManager() {
@@ -98,6 +100,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     public DefaultPrefixManager(@Nonnull Comparator<String> c) {
         checkNotNull(c, "c cannot be null");
         prefix2NamespaceMap = new TreeMap<String, String>(c);
+        reverseprefix2NamespaceMap = new HashMap<String, String>();
         setupDefaultPrefixes();
     }
 
@@ -120,6 +123,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Override
     public void clear() {
         prefix2NamespaceMap.clear();
+        reverseprefix2NamespaceMap.clear();
     }
 
     @Override
@@ -169,17 +173,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
     @Override
     public String getPrefixIRI(IRI iri) {
         String ns = iri.getNamespace();
-        for (String prefixName : prefix2NamespaceMap.keySet()) {
-            String prefix = prefix2NamespaceMap.get(prefixName);
-            if (ns.equals(prefix)) {
-                String ncNameSuffix = iri.getFragment();
-                if (ncNameSuffix == null) {
-                    ncNameSuffix = "";
-                }
-                return prefixName + ncNameSuffix;
-            }
+        String prefix = reverseprefix2NamespaceMap.get(ns);
+        if (prefix == null) {
+            return null;
         }
-        return null;
+        if (iri.getFragment() == null) {
+            return prefix;
+        }
+        return prefix + iri.getFragment();
     }
 
     @Override
@@ -189,8 +190,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
 
     @Override
     public boolean containsPrefixMapping(String prefix) {
-        return prefix2NamespaceMap.containsKey(prefix)
-                && prefix2NamespaceMap.get(prefix) != null;
+        return prefix2NamespaceMap.get(prefix) != null;
     }
 
     @Override
@@ -243,6 +243,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             throw new IllegalArgumentException("Prefix names must end with a colon (:)");
         }
         prefix2NamespaceMap.put(prefixName, prefix);
+        reverseprefix2NamespaceMap.put(prefix, prefixName);
     }
 
     @Override
@@ -253,6 +254,7 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
                 toRemove.add(e.getKey());
             }
         }
+        reverseprefix2NamespaceMap.remove(namespace);
         for (String s : toRemove) {
             prefix2NamespaceMap.remove(s);
         }
