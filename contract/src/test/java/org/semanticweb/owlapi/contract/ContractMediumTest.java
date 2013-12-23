@@ -319,12 +319,12 @@ public class ContractMediumTest {
     public void shouldTestInterfaceXMLWriter() throws OWLException, IOException {
         XMLWriter testSubject0 = mock(XMLWriter.class);
         testSubject0.setEncoding("");
-        testSubject0.startDocument("");
+        testSubject0.startDocument(IRI.create("iri"));
         testSubject0.endDocument();
         XMLWriterNamespaceManager result0 = testSubject0.getNamespacePrefixes();
         String result1 = testSubject0.getXMLBase();
         testSubject0.setWrapAttributes(false);
-        testSubject0.writeStartElement("");
+        testSubject0.writeStartElement(IRI.create("iri"));
         testSubject0.writeEndElement();
         testSubject0.writeAttribute("", "");
         testSubject0.writeTextContent("");
@@ -345,14 +345,15 @@ public class ContractMediumTest {
     public void shouldTestXMLWriterImpl() throws OWLException, IOException {
         XMLWriterImpl testSubject0 = new XMLWriterImpl(mock(Writer.class),
                 mock(XMLWriterNamespaceManager.class), "");
+        IRI i = IRI.create("iri");
         testSubject0.setEncoding("");
-        testSubject0.startDocument("");
+        testSubject0.startDocument(i);
         testSubject0.endDocument();
         String result0 = testSubject0.getDefaultNamespace();
         XMLWriterNamespaceManager result1 = testSubject0.getNamespacePrefixes();
         String result2 = testSubject0.getXMLBase();
         testSubject0.setWrapAttributes(false);
-        testSubject0.writeStartElement("");
+        testSubject0.writeStartElement(i);
         testSubject0.writeEndElement();
         testSubject0.writeAttribute("", "");
         testSubject0.writeTextContent("");

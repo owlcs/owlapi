@@ -45,6 +45,7 @@ import javax.annotation.Nonnull;
 
 import org.coode.xml.OWLOntologyXMLNamespaceManager;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -83,8 +84,8 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     public Set<OWLEntity> getEntitiesWithInvalidQNames() {
         Set<OWLEntity> result = new HashSet<OWLEntity>();
         for (OWLEntity entity : getEntitiesThatRequireNamespaces()) {
-            final String stringID = entity.toStringID();
-            if (stringID.equals(getQName(stringID))) {
+            IRI iri = entity.getIRI();
+            if (iri.getFragment() == null || iri.getFragment().isEmpty()) {
                 result.add(entity);
             }
         }

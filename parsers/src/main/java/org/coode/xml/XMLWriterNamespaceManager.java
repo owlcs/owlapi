@@ -46,6 +46,8 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.semanticweb.owlapi.model.IRI;
+
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Medical Informatics Group<br>
@@ -123,6 +125,24 @@ public class XMLWriterNamespaceManager {
         return name;
     }
 
+    /** Gets a QName for an IRI.
+     * 
+     * @param name
+     *            The name which represents the full name.
+     * @return The QName representation or {@code null} if a QName could
+     *         not be generated. */
+    public String getQName(IRI name) {
+        if (name.getNamespace().equals(defaultNamespace)) {
+            return name.getFragment() == null ? "" : name.getFragment();
+        }
+        String candidate = namespacePrefixMap.get(name.getNamespace());
+        if (candidate != null) {
+            String localName = name.getFragment() == null ? "" : name.getFragment();
+            return candidate + ":" + localName;
+        }
+        return name.toString();
+    }
+    
     /** @param namespace */
     public void createPrefixForNamespace(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");

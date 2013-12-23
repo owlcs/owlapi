@@ -45,11 +45,11 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.coode.owlapi.rdf.model.RDFGraph;
 import org.coode.owlapi.rdf.model.RDFTranslator;
@@ -618,9 +618,9 @@ public abstract class RDFRendererBase {
 
     protected abstract void writeBanner(String name) throws IOException;
 
-    private static <N extends OWLEntity> Set<N> toSortedSet(Set<N> entities) {
-        Set<N> results = new TreeSet<N>(OWL_ENTITY_IRI_COMPARATOR);
-        results.addAll(entities);
+    private static List<OWLEntity> toSortedSet(Set<? extends OWLEntity> entities) {
+        List<OWLEntity> results = new ArrayList<OWLEntity>(entities);
+        Collections.sort(results, OWL_ENTITY_IRI_COMPARATOR);
         return results;
     }
 
@@ -641,7 +641,7 @@ public abstract class RDFRendererBase {
     public abstract void render(RDFResource node) throws IOException;
 
     protected boolean isObjectList(RDFResource node) {
-        for (RDFTriple triple : graph.getSortedTriplesForSubject(node, false)) {
+        for (RDFTriple triple : graph.getTriplesForSubject(node, false)) {
             if (triple.getPredicate().getIRI().equals(RDF_TYPE.getIRI())
                     && !triple.getObject().isAnonymous()
                     && triple.getObject().getIRI().equals(RDF_LIST.getIRI())) {
@@ -661,12 +661,12 @@ public abstract class RDFRendererBase {
     protected void toJavaList(RDFNode n, List<RDFNode> list) {
         RDFNode currentNode = n;
         while (currentNode != null) {
-            for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
                 if (triple.getPredicate().getIRI().equals(RDF_FIRST.getIRI())) {
                     list.add(triple.getObject());
                 }
             }
-            for (RDFTriple triple : graph.getSortedTriplesForSubject(currentNode, false)) {
+            for (RDFTriple triple : graph.getTriplesForSubject(currentNode, false)) {
                 if (triple.getPredicate().getIRI().equals(RDF_REST.getIRI())) {
                     if (!triple.getObject().isAnonymous()) {
                         if (triple.getObject().getIRI().equals(RDF_NIL.getIRI())) {

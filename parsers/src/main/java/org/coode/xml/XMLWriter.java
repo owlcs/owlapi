@@ -42,6 +42,8 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.IRI;
+
 /** User: matthewhorridge<br>
  * The Univeristy Of Manchester<br>
  * Medical Informatics Group<br>
@@ -78,15 +80,15 @@ public interface XMLWriter {
      *            are long. If {@code false} then no attribute wrapping will
      *            occur. */
     void setWrapAttributes(boolean b);
-
     /** Starts writing the document. The root element will contain the namespace
      * declarations and xml:base attribute.
      * 
-     * @param rootElementName
-     *            The name of the root element.
+     * @param rootElement
+     *            The iri of the root element.
      * @throws IOException
      *             if there was an IO problem */
-    void startDocument(@Nonnull String rootElementName) throws IOException;
+     void startDocument(IRI rootElement) throws IOException;
+
 
     /** Causes all open elements, including the document root element, to be
      * closed.
@@ -104,7 +106,7 @@ public interface XMLWriter {
      *             if there was an IO problem
      * @throws IllegalElementNameException
      *             if the specified name is not a valid QName */
-    void writeStartElement(@Nonnull String name) throws IOException,
+    void writeStartElement(@Nonnull IRI name) throws IOException,
             IllegalElementNameException;
 
     /** Writes the closing tag of the last element to be started.
@@ -114,7 +116,7 @@ public interface XMLWriter {
     void writeEndElement() throws IOException;
 
     /** Writes an attribute of the last element to be started (that has not been
-     * closed).
+     * closed). Note: if the attribute is an iri, use writeAttribute(IRI, String
      * 
      * @param attr
      *            The name of the attribute
@@ -123,6 +125,16 @@ public interface XMLWriter {
      * @throws IOException
      *             if there was an IO problem */
     void writeAttribute(@Nonnull String attr, @Nonnull String val) throws IOException;
+    /** Writes an attribute of the last element to be started (that has not been
+     * closed).
+     * 
+     * @param attr
+     *            The name of the attribute
+     * @param val
+     *            The value of the attribute
+     * @throws IOException
+     *             if there was an IO problem */
+     void writeAttribute(IRI attr, String val) throws IOException;
 
     /** Writes a text element
      * 

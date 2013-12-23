@@ -43,6 +43,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -98,33 +99,30 @@ public class RDFGraph {
     /** @param subject
      * @param sort
      * @return sorted triples */
-    @Nonnull
-    public List<RDFTriple> getSortedTriplesForSubject(@Nonnull RDFNode subject,
-            boolean sort) {
-        List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
-        Set<RDFTriple> set = triplesBySubject.get(checkNotNull(subject,
-                "subject cannot be null"));
-        if (set != null) {
-            toReturn.addAll(set);
+    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject, boolean sort) {
+        Set<RDFTriple> set = triplesBySubject.get(subject);
+        if (set == null) {
+            return Collections.emptyList();
         }
-        if (sort) {
-            try {
-                Collections.sort(toReturn);
-            } catch (IllegalArgumentException e) {
-                // catch possible sorting misbehaviour
-                if (!e.getMessage().contains(
-                        "Comparison method violates its general contract!")) {
-                    throw e;
-                }
-                // otherwise print a warning and leave the list unsorted
-                logger.log(Level.WARNING,
-                        "Misbehaving triple comparator, leaving triples unsorted: "
-                                + toReturn, e);
+        if (!sort) {
+            return set;
+        }
+        List<RDFTriple> toReturn = new ArrayList<RDFTriple>(set);
+        try {
+            Collections.sort(toReturn);
+        } catch (IllegalArgumentException e) {
+            // catch possible sorting misbehaviour
+            if (!e.getMessage().contains(
+                    "Comparison method violates its general contract!")) {
+                throw e;
             }
+            // otherwise print a warning and leave the list unsorted
+            logger.log(Level.WARNING,
+                    "Misbehaving triple comparator, leaving triples unsorted: "
+                            + toReturn, e);
         }
         return toReturn;
     }
-
     /** @return root anonymous nodes */
     @Nonnull
     public Set<RDFResourceBlankNode> getRootAnonymousNodes() {

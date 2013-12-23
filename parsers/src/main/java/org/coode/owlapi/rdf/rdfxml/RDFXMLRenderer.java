@@ -44,6 +44,7 @@ import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -188,7 +189,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        final List<RDFTriple> triples = graph.getSortedTriplesForSubject(node, true);
+        Collection<RDFTriple> triples = graph.getTriplesForSubject(node, true);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getPredicate().getIRI();
             if (propertyIRI.equals(RDF_TYPE.getIRI())

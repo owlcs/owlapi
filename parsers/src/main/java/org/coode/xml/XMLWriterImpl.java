@@ -56,6 +56,7 @@ import java.util.StringTokenizer;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.XMLUtils;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Author: Matthew Horridge<br>
@@ -179,12 +180,12 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void writeStartElement(String name) throws IOException {
+    public void writeStartElement(IRI name) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(name);
-        if ((qName == null || qName.equals(name)) && !isValidQName(name)) {
+        if (qName.length() == name.length()) {
             // Could not generate a valid QName, therefore, we cannot
             // write valid XML - just throw an exception!
-            throw new IllegalElementNameException(name);
+            throw new IllegalElementNameException(name.toString());
         }
         XMLElement element = new XMLElement(qName, elementStack.size());
         if (!elementStack.isEmpty()) {
@@ -215,6 +216,15 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
+    public void writeAttribute(IRI attr, String val) {
+        XMLElement element = elementStack.peek();
+        String qName = xmlWriterNamespaceManager.getQName(attr);
+        if (qName != null) {
+            element.setAttribute(qName, val);
+        }
+    }
+
+    @Override
     public void writeTextContent(String text) {
         XMLElement element = elementStack.peek();
         element.setText(text);
@@ -223,7 +233,7 @@ public class XMLWriterImpl implements XMLWriter {
     @Override
     public void writeComment(String commentText) throws IOException {
         XMLElement element = new XMLElement(null, elementStack.size());
-        element.setText("<!-- " + commentText.replaceAll("--", "&#45;&#45;") + " -->");
+        element.setText("<!-- " + commentText.replace("--", "&#45;&#45;") + " -->");
         if (!elementStack.isEmpty()) {
             XMLElement topElement = elementStack.peek();
             if (topElement != null) {
@@ -237,7 +247,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private void writeEntities(String rootName) throws IOException {
+    private void writeEntities(IRI rootName) throws IOException {
         String qName = xmlWriterNamespaceManager.getQName(rootName);
         if (qName == null) {
             throw new IOException("Cannot create valid XML: qname for " + rootName
@@ -259,20 +269,20 @@ public class XMLWriterImpl implements XMLWriter {
     }
 
     @Override
-    public void startDocument(String rootElementName) throws IOException {
+    public void startDocument(IRI rootElement) throws IOException {
         String encodingString = "";
         if (encoding.length() > 0) {
             encodingString = " encoding=\"" + encoding + "\"";
         }
         writer.write("<?xml version=\"1.0\"" + encodingString + "?>\n");
         if (XMLWriterPreferences.getInstance().isUseNamespaceEntities()) {
-            writeEntities(rootElementName);
+            writeEntities(rootElement);
         }
         preambleWritten = true;
         while (!elementStack.isEmpty()) {
             elementStack.pop().writeElementStart(true);
         }
-        writeStartElement(rootElementName);
+        writeStartElement(rootElement);
         setWrapAttributes(true);
         writeAttribute("xmlns", xmlWriterNamespaceManager.getDefaultNamespace());
         if (xmlBase.length() != 0) {
@@ -308,7 +318,7 @@ public class XMLWriterImpl implements XMLWriter {
         }
     }
 
-    private class XMLElement {
+    public class XMLElement {
         private String name;
         private Map<String, String> attributes;
         String textContent;

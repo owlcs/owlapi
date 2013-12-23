@@ -55,64 +55,77 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * Date: 06-Dec-2006<br>
  * <br> */
 public class RDFXMLWriter {
+    private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
+    private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "resource");
+    private static final String XML_LANG = "xml:lang";
+    private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "nodeID");
+    private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "about");
+    private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "datatype");
+    private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(),
+            "parseType");
     private XMLWriter writer;
 
     protected RDFXMLWriter(@Nonnull XMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
-    protected void writeStartElement(@Nonnull IRI elementName) throws IOException {
+    public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
-        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null").toString());
+        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
     }
 
-    protected void writeParseTypeAttribute() throws IOException {
-        writer.writeAttribute(Namespaces.RDF + "parseType", "Collection");
+    public void writeParseTypeAttribute() throws IOException {
+        writer.writeAttribute(PARSETYPE_IRI, "Collection");
     }
 
-    protected void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
+    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
-        writer.writeAttribute(Namespaces.RDF + "datatype", datatypeIRI.toString());
+        writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
 
-    protected void writeTextContent(@Nonnull String text) throws IOException {
+    public void writeTextContent(@Nonnull String text) throws IOException {
         writer.writeTextContent(text);
     }
 
-    protected void writeLangAttribute(@Nonnull String lang) throws IOException {
-        writer.writeAttribute("xml:lang", lang);
+    public void writeLangAttribute(@Nonnull String lang) throws IOException {
+        writer.writeAttribute(XML_LANG, lang);
     }
 
-    protected void writeEndElement() throws IOException {
+    public void writeEndElement() throws IOException {
         writer.writeEndElement();
     }
 
-    protected void writeAboutAttribute(@Nonnull IRI value) throws IOException {
-        writeAttribute(Namespaces.RDF + "about", value);
+    public void writeAboutAttribute(@Nonnull IRI value) throws IOException {
+        writeAttribute(RDF_ABOUT, value);
     }
 
-    protected void writeNodeIDAttribute(@Nonnull RDFResource node) throws IOException {
-        writer.writeAttribute(Namespaces.RDF + "nodeID", node.toString());
+    public void writeNodeIDAttribute(@Nonnull RDFResource node) throws IOException {
+        writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
-    protected void writeAttribute(@Nonnull String attributeName, @Nonnull IRI value)
+    public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value)
             throws IOException {
-        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null").toString());
+        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null")
+                .toString());
     }
 
-    protected void writeResourceAttribute(@Nonnull IRI value) throws IOException {
-        writeAttribute(Namespaces.RDF + "resource", value);
+    public void writeResourceAttribute(@Nonnull IRI value) throws IOException {
+        writeAttribute(RDF_RESOURCE, value);
     }
 
-    protected void startDocument() throws IOException {
-        writer.startDocument(Namespaces.RDF + "RDF");
+    public void startDocument() throws IOException {
+        writer.startDocument(RDF_RDF);
     }
 
-    protected void endDocument() throws IOException {
+    public void endDocument() throws IOException {
         writer.endDocument();
     }
 
-    protected void writeComment(@Nonnull String comment) throws IOException {
+    public void writeComment(@Nonnull String comment) throws IOException {
         writer.writeComment(comment);
     }
 }

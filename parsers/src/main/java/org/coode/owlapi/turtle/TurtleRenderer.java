@@ -43,6 +43,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -354,11 +356,13 @@ public class TurtleRenderer extends RDFRendererBase {
     @Override
     public void render(RDFResource node) {
         level++;
-        List<RDFTriple> triples = graph.getSortedTriplesForSubject(node, true);
+        Collection<RDFTriple> triples;
         if (pending.contains(node)) {
             // We essentially remove all structure sharing during parsing - any
             // cycles therefore indicate a bug!
-            triples = new ArrayList<RDFTriple>();
+            triples = Collections.emptyList();
+        } else {
+            triples = graph.getTriplesForSubject(node, true);
         }
         pending.add(node);
         RDFResource lastSubject = null;
