@@ -89,7 +89,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
     }
 
     @Override
-    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
                 getObject(), mergeAnnos(annotations));
     }

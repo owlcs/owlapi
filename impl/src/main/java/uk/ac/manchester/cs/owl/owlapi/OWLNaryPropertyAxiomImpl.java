@@ -69,7 +69,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.properties = new TreeSet<P>(checkNotNull(properties, "properties cannot be null"));
+        this.properties = new TreeSet<P>(checkNotNull(properties,
+                "properties cannot be null"));
     }
 
     @Override

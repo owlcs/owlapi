@@ -97,8 +97,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             @Nonnull OWLReasonerFactory reasonerFactory) {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
-            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null").createNonBufferingReasoner(
-                    man.createOntology());
+            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+                    .createNonBufferingReasoner(man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
         }
@@ -193,7 +193,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         public Set<OWLClassExpression> replaceBottom(
                 @Nonnull Set<OWLClassExpression> classExpressions) {
             Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
-            for (OWLClassExpression desc : checkNotNull(classExpressions, "classExpressions cannot be null")) {
+            for (OWLClassExpression desc : checkNotNull(classExpressions,
+                    "classExpressions cannot be null")) {
                 result.add(replaceBottom(desc));
             }
             return result;
@@ -370,7 +371,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine("Replacing axiom by Bottom");
         }
-        OWLAxiom newAxiom = bottomReplacer.replaceBottom(checkNotNull(axiom, "axiom cannot be null"),
+        OWLAxiom newAxiom = bottomReplacer.replaceBottom(
+                checkNotNull(axiom, "axiom cannot be null"),
                 checkNotNull(signature, "signature cannot be null"));
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine("DONE Replacing axiom by Bottom. Success: " + (newAxiom != null));

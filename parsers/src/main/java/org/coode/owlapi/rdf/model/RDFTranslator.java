@@ -82,8 +82,9 @@ public class RDFTranslator extends
     @Override
     protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred,
             @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"), checkNotNull(pred, "pred cannot be null"),
-                checkNotNull(object, "object cannot be null")));
+        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"),
+                checkNotNull(pred, "pred cannot be null"), checkNotNull(object,
+                        "object cannot be null")));
     }
 
     @Override

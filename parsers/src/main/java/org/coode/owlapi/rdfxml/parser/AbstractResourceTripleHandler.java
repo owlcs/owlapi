@@ -57,8 +57,8 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
 
     protected boolean isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
             IRI subject, IRI object) {
-        return isSubjectAndObjectClassExpression(subject, object) || isSubjectAndObjectDataRange(
-                subject, object);
+        return isSubjectAndObjectClassExpression(subject, object)
+                || isSubjectAndObjectDataRange(subject, object);
     }
 
     protected boolean isSubjectAndObjectDataRange(IRI subject, IRI object) {
@@ -66,8 +66,8 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
     }
 
     protected boolean isSubjectAndObjectClassExpression(IRI subject, IRI object) {
-        return getConsumer().isClassExpression(subject) && getConsumer()
-                .isClassExpression(object);
+        return getConsumer().isClassExpression(subject)
+                && getConsumer().isClassExpression(object);
     }
 
     protected abstract void handleTriple(IRI subject, IRI predicate, IRI object)

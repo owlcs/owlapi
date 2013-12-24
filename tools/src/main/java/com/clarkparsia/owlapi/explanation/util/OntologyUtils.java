@@ -121,7 +121,8 @@ public class OntologyUtils {
     public static void addAxiom(@Nonnull OWLAxiom axiom,
             @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
         for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
-            checkNotNull(manager, "manager cannot be null").applyChange(new AddAxiom(ont, checkNotNull(axiom, "axiom cannot be null")));
+            checkNotNull(manager, "manager cannot be null").applyChange(
+                    new AddAxiom(ont, checkNotNull(axiom, "axiom cannot be null")));
         }
     }
 }

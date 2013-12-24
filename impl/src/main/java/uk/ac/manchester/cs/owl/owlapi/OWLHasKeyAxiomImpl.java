@@ -75,8 +75,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.expression = checkNotNull(expression, "expression cannot be null");
-        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(
-                checkNotNull(propertyExpressions, "propertyExpressions cannot be null"));
+        this.propertyExpressions = new TreeSet<OWLPropertyExpression>(checkNotNull(
+                propertyExpressions, "propertyExpressions cannot be null"));
     }
 
     @Override

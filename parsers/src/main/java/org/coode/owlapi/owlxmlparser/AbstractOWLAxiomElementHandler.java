@@ -67,7 +67,6 @@ public abstract class AbstractOWLAxiomElementHandler extends
         return axiom;
     }
 
-
     @Override
     public void startElement(String name) throws OWLXMLParserException {
         if (annotations != null) {

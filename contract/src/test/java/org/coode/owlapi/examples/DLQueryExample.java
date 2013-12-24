@@ -344,27 +344,26 @@ class DLQueryPrinter {
         if (classExpression.length() == 0) {
             System.out.println("No class expression specified");
         } else {
-                StringBuilder sb = new StringBuilder();
-                sb.append("\n--------------------------------------------------------------------------------\n");
-                sb.append("QUERY:   ");
-                sb.append(classExpression);
-                sb.append("\n");
-                sb.append("--------------------------------------------------------------------------------\n\n");
-                // Ask for the subclasses, superclasses etc. of the specified
-                // class expression. Print out the results.
-                Set<OWLClass> superClasses = dlQueryEngine.getSuperClasses(
-                        classExpression, true);
-                printEntities("SuperClasses", superClasses, sb);
-                Set<OWLClass> equivalentClasses = dlQueryEngine
-                        .getEquivalentClasses(classExpression);
-                printEntities("EquivalentClasses", equivalentClasses, sb);
-                Set<OWLClass> subClasses = dlQueryEngine.getSubClasses(classExpression,
-                        true);
-                printEntities("SubClasses", subClasses, sb);
-                Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
-                        classExpression, true);
-                printEntities("Instances", individuals, sb);
-                System.out.println(sb.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n--------------------------------------------------------------------------------\n");
+            sb.append("QUERY:   ");
+            sb.append(classExpression);
+            sb.append("\n");
+            sb.append("--------------------------------------------------------------------------------\n\n");
+            // Ask for the subclasses, superclasses etc. of the specified
+            // class expression. Print out the results.
+            Set<OWLClass> superClasses = dlQueryEngine.getSuperClasses(classExpression,
+                    true);
+            printEntities("SuperClasses", superClasses, sb);
+            Set<OWLClass> equivalentClasses = dlQueryEngine
+                    .getEquivalentClasses(classExpression);
+            printEntities("EquivalentClasses", equivalentClasses, sb);
+            Set<OWLClass> subClasses = dlQueryEngine.getSubClasses(classExpression, true);
+            printEntities("SubClasses", subClasses, sb);
+            Set<OWLNamedIndividual> individuals = dlQueryEngine.getInstances(
+                    classExpression, true);
+            printEntities("Instances", individuals, sb);
+            System.out.println(sb.toString());
         }
     }
 

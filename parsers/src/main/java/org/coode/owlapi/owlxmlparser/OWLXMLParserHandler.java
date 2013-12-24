@@ -105,6 +105,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         } catch (URISyntaxException e) {}
         bases.push(base);
     }
+
     public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler) {
         this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }

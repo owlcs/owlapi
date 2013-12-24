@@ -78,8 +78,7 @@ public class SWRLObjectPropertyAtomImpl extends
             // Flip
             return new SWRLObjectPropertyAtomImpl(prop.getInverseProperty()
                     .getSimplified(), getSecondArgument(), getFirstArgument());
-        }
-        else {
+        } else {
             // No need to flip
             return new SWRLObjectPropertyAtomImpl(prop, getFirstArgument(),
                     getSecondArgument());

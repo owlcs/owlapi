@@ -47,9 +47,9 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * Date: 08-Dec-2006<br>
  * <br>
  * Give a node in an RDF graph, which represents the main node of an OWL class
- * expression, the {@code ClassExpressionTranslator} consumes the triples
- * that represent the class expression, and translates the triples to the
- * appropriate OWL API {@code OWLClassExpression} object. */
+ * expression, the {@code ClassExpressionTranslator} consumes the triples that
+ * represent the class expression, and translates the triples to the appropriate
+ * OWL API {@code OWLClassExpression} object. */
 public interface ClassExpressionTranslator {
     /** @param mainNode
      * @param mode
@@ -64,9 +64,8 @@ public interface ClassExpressionTranslator {
      * @return true if parameter matches in lax mode */
     boolean matchesLax(IRI mainNode);
 
-    /** Translates the specified main node into an
-     * {@code OWLClassExpression}. All triples used in the translation are
-     * consumed.
+    /** Translates the specified main node into an {@code OWLClassExpression}.
+     * All triples used in the translation are consumed.
      * 
      * @param mainNode
      *            The main node of the set of triples that represent the class

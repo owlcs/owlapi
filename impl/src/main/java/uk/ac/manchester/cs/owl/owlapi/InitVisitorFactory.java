@@ -322,7 +322,6 @@ public class InitVisitorFactory {
         }
     }
 
-
     static final InitVisitor<OWLClass> classsubnamed = new InitVisitor<OWLClass>(true,
             true);
     static final InitVisitor<OWLClassExpression> classexpressions = new InitVisitor<OWLClassExpression>(

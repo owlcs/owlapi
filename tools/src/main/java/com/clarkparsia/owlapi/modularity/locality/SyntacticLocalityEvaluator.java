@@ -147,8 +147,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * 
      * @param dataRange
      *            a data range expression
-     * @return {@code true} if the specified data range expression is the
-     *         top datatype or a built-in datatype; {@code false} otherwise */
+     * @return {@code true} if the specified data range expression is the top
+     *         datatype or a built-in datatype; {@code false} otherwise */
     protected static boolean isTopOrBuiltInDatatype(@Nonnull OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
             OWLDatatype dataType = dataRange.asOWLDatatype();
@@ -165,9 +165,8 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * 
      * @param dataRange
      *            a data range expression
-     * @return {@code true} if the specified data range expression is the
-     *         top datatype or a built-in infinite datatype; {@code false}
-     *         otherwise */
+     * @return {@code true} if the specified data range expression is the top
+     *         datatype or a built-in infinite datatype; {@code false} otherwise */
     protected static boolean isTopOrBuiltInInfiniteDatatype(
             @Nonnull OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {

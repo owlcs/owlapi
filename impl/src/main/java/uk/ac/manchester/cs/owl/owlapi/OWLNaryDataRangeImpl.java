@@ -61,7 +61,8 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
     private final Set<OWLDataRange> operands;
 
     protected OWLNaryDataRangeImpl(@Nonnull Set<? extends OWLDataRange> operands) {
-        this.operands = new TreeSet<OWLDataRange>(checkNotNull(operands, "operands cannot be null"));
+        this.operands = new TreeSet<OWLDataRange>(checkNotNull(operands,
+                "operands cannot be null"));
     }
 
     @Override

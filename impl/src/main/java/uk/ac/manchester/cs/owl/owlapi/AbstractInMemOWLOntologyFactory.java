@@ -60,7 +60,8 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
 
     @Override
     public void setOWLOntologyManager(@Nonnull OWLOntologyManager owlOntologyManager) {
-        ontologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        ontologyManager = checkNotNull(owlOntologyManager,
+                "owlOntologyManager cannot be null");
     }
 
     @Override

@@ -80,8 +80,10 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
             @Nonnull ShortFormProvider shortFormProvider, @Nonnull IRI annotationIRI,
             @Nullable String languageTag) {
         super(df);
-        generateChanges(checkNotNull(ontologyManager, "ontologyManager cannot be null"), checkNotNull(ontology, "ontology cannot be null"),
-                checkNotNull(shortFormProvider, "shortFormProvider cannot be null"), checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
+        generateChanges(checkNotNull(ontologyManager, "ontologyManager cannot be null"),
+                checkNotNull(ontology, "ontology cannot be null"),
+                checkNotNull(shortFormProvider, "shortFormProvider cannot be null"),
+                checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
     }
 
     /** @param df

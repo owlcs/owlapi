@@ -78,7 +78,8 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAsymmetricObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

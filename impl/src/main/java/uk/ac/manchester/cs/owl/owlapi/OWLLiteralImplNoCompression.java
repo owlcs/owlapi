@@ -151,7 +151,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isBoolean() {
-       return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
+        return datatype.getIRI().equals(OWL2Datatype.XSD_BOOLEAN.getIRI());
     }
 
     @Override

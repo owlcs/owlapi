@@ -66,7 +66,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -102,7 +101,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -140,7 +138,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -179,7 +176,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -218,7 +214,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -257,7 +252,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -295,7 +289,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -308,7 +301,6 @@ public class ContractOwlxmlparserTest {
             }
         };
         String result0 = testSubject0.getElementName();
-
         OWLElementHandler<?> result2 = testSubject0.createHandler(Utils.mockHandler());
     }
 
@@ -347,7 +339,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
         testSubject0.endElement();
         Object result6 = testSubject0.getOWLObject();
     }
@@ -389,7 +380,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -427,7 +417,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -465,7 +454,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -503,7 +491,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -541,7 +528,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -580,7 +566,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -619,7 +604,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -655,7 +639,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -694,7 +677,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
         testSubject0.endElement();
         Object result6 = testSubject0.getOWLObject();
     }
@@ -735,7 +717,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -774,7 +755,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -813,7 +793,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -853,7 +832,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -889,7 +867,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1003,7 +980,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1035,7 +1011,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1068,7 +1043,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1101,7 +1075,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1134,7 +1107,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1167,7 +1139,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1200,7 +1171,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1233,7 +1203,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1266,7 +1235,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1276,7 +1244,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -1301,7 +1268,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1310,7 +1276,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -1335,7 +1300,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1368,7 +1332,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1402,7 +1365,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1435,7 +1397,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1468,7 +1429,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1501,7 +1461,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1534,7 +1493,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1567,7 +1525,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1600,7 +1557,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1633,7 +1589,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1666,7 +1621,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1700,7 +1654,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1733,7 +1686,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1766,7 +1718,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1799,7 +1750,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1832,7 +1782,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1865,7 +1814,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1898,7 +1846,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1931,7 +1878,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1964,7 +1910,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -1997,7 +1942,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2030,7 +1974,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2063,7 +2006,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2097,7 +2039,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2130,7 +2071,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2164,7 +2104,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2198,7 +2137,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2231,7 +2169,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2300,7 +2237,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2334,7 +2270,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2368,7 +2303,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2378,7 +2312,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockDataPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -2403,7 +2336,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2413,7 +2345,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -2438,7 +2369,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2471,7 +2401,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2502,7 +2431,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2535,7 +2463,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2545,7 +2472,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -2569,7 +2495,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2602,7 +2527,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2635,7 +2559,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2645,7 +2568,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -2670,7 +2592,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2703,7 +2624,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2737,7 +2657,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2771,7 +2690,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2804,7 +2722,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2837,7 +2754,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2870,7 +2786,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2903,7 +2818,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2936,7 +2850,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -2969,7 +2882,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3002,7 +2914,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3035,7 +2946,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3067,7 +2977,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3101,7 +3010,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3134,7 +3042,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3167,7 +3074,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3200,7 +3106,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3233,7 +3138,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3266,7 +3170,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3298,7 +3201,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDatatypeFacetRestrictionHandler());
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3308,7 +3210,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -3333,7 +3234,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3366,7 +3266,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3398,7 +3297,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3431,7 +3329,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3464,7 +3361,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3497,7 +3393,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3530,7 +3425,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3540,7 +3434,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -3565,7 +3458,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3575,7 +3467,6 @@ public class ContractOwlxmlparserTest {
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-
         testSubject0.startElement("");
         testSubject0.endElement();
         Object result1 = testSubject0.getOWLObject();
@@ -3600,7 +3491,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3631,7 +3521,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     public void shouldTestOWLXMLParser() throws OWLException, OWLOntologyChangeException,
@@ -3639,7 +3528,6 @@ public class ContractOwlxmlparserTest {
         OWLXMLParser testSubject0 = new OWLXMLParser();
         OWLOntologyFormat result1 = testSubject0.parse(new StringDocumentSource(""),
                 Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
-
     }
 
     @Test
@@ -3650,7 +3538,6 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-
         String result7 = testSubject0.getLocalizedMessage();
     }
 
@@ -3662,7 +3549,6 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-
         String result7 = testSubject0.getLocalizedMessage();
     }
 
@@ -3673,7 +3559,6 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-
         String result7 = testSubject0.getLocalizedMessage();
     }
 
@@ -3681,7 +3566,6 @@ public class ContractOwlxmlparserTest {
     public void shouldTestOWLXMLParserFactory() throws OWLException {
         OWLXMLParserFactory testSubject0 = new OWLXMLParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
-
     }
 
     @Test
@@ -3717,7 +3601,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
         testSubject0.endElement();
     }
 
@@ -3751,7 +3634,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3785,7 +3667,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3819,7 +3700,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3853,7 +3733,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3888,7 +3767,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3922,7 +3800,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3955,7 +3832,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -3989,7 +3865,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -4022,7 +3897,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationPropertyHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.handleChars(new char[5], 0, 0);
-
     }
 
     @Test
@@ -4031,7 +3905,6 @@ public class ContractOwlxmlparserTest {
                 mock(OWLOntologyChangeException.class));
         OWLOntologyChangeException result0 = testSubject0.getCause();
         Throwable result1 = testSubject0.getCause();
-
         String result3 = testSubject0.getMessage();
         Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();
@@ -4043,7 +3916,6 @@ public class ContractOwlxmlparserTest {
                 mock(OWLParserException.class));
         OWLParserException result0 = testSubject0.getParserException();
         Throwable result1 = testSubject0.getCause();
-
         String result3 = testSubject0.getMessage();
         Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();
@@ -4055,7 +3927,6 @@ public class ContractOwlxmlparserTest {
                 mock(UnloadableImportException.class));
         UnloadableImportException result0 = testSubject0.getUnloadableImportException();
         Throwable result1 = testSubject0.getCause();
-
         String result3 = testSubject0.getMessage();
         Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();

@@ -67,7 +67,8 @@ public class ManchesterOWLSyntaxInlineAxiomParser implements
 
     @Override
     public OWLAxiom parse(String expression) {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseAxiom();
     }

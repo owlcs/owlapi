@@ -95,7 +95,8 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
             @Nonnull OWLClass cls, @Nonnull OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         super(dataFactory);
-        generateChanges(checkNotNull(cls, "cls cannot be null"), checkNotNull(targetOntology, "targetOntology cannot be null"),
+        generateChanges(checkNotNull(cls, "cls cannot be null"),
+                checkNotNull(targetOntology, "targetOntology cannot be null"),
                 usePairwiseDisjointAxioms);
     }
 

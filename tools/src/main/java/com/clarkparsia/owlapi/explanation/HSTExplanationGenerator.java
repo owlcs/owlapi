@@ -79,12 +79,14 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
      *            explanation generator to use */
     public HSTExplanationGenerator(
             @Nonnull TransactionAwareSingleExpGen singleExplanationGenerator) {
-        this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator, "singleExplanationGenerator cannot be null");
+        this.singleExplanationGenerator = checkNotNull(singleExplanationGenerator,
+                "singleExplanationGenerator cannot be null");
     }
 
     @Override
     public void setProgressMonitor(ExplanationProgressMonitor progressMonitor) {
-        this.progressMonitor = checkNotNull(progressMonitor, "progressMonitor cannot be null");
+        this.progressMonitor = checkNotNull(progressMonitor,
+                "progressMonitor cannot be null");
     }
 
     @Override

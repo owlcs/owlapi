@@ -58,7 +58,8 @@ public class OWLMetricManager {
     /** @param metrics
      *            the metrics to use */
     public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
-        this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics, "metrics cannot be null"));
+        this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics,
+                "metrics cannot be null"));
     }
 
     /** @param ontology

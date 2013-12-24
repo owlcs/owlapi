@@ -69,7 +69,8 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
     @SuppressWarnings("javadoc")
     public SWRLBuiltInAtomImpl(@Nonnull IRI predicate, @Nonnull List<SWRLDArgument> args) {
         super(predicate);
-        this.args = new ArrayList<SWRLDArgument>(checkNotNull(args, "args cannot be null"));
+        this.args = new ArrayList<SWRLDArgument>(
+                checkNotNull(args, "args cannot be null"));
     }
 
     @Override

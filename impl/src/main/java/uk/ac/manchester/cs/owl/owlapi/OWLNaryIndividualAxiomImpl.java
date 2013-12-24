@@ -68,7 +68,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
     public OWLNaryIndividualAxiomImpl(@Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals, "individuals cannot be null"));
+        this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals,
+                "individuals cannot be null"));
     }
 
     @Override

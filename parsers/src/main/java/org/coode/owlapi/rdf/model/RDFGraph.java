@@ -123,6 +123,7 @@ public class RDFGraph {
         }
         return toReturn;
     }
+
     /** @return root anonymous nodes */
     @Nonnull
     public Set<RDFResourceBlankNode> getRootAnonymousNodes() {

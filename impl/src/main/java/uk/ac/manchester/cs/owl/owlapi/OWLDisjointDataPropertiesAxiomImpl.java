@@ -78,7 +78,8 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
     }
 
     @Override
-    public OWLDisjointDataPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDisjointDataPropertiesAxiom
+            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }

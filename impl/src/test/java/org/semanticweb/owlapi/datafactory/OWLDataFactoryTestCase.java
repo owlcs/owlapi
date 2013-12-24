@@ -1141,7 +1141,6 @@ public class OWLDataFactoryTestCase {
         assertEquals(hashCodeA, hashCodeB);
     }
 
-
     @Test
     public void testEqualsPositiveObjectHas() {
         OWLObjectProperty prop = OP(IRI());
@@ -1173,7 +1172,6 @@ public class OWLDataFactoryTestCase {
         OWLRestriction restB = testSubject.getOWLObjectHasValue(prop, filler);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
-
 
     @Test
     public void testEqualsPositiveObjectSome() {
@@ -1207,7 +1205,6 @@ public class OWLDataFactoryTestCase {
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 
-
     @Test
     public void testEqualsPositiveObjectAll() {
         OWLObjectProperty prop = OP(IRI());
@@ -1239,7 +1236,6 @@ public class OWLDataFactoryTestCase {
         OWLRestriction restB = testSubject.getOWLObjectAllValuesFrom(prop, filler);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
-
 
     @Test
     public void testEqualsPositiveDataHas() {
@@ -1273,7 +1269,6 @@ public class OWLDataFactoryTestCase {
         assertEquals(restA.hashCode(), restB.hashCode());
     }
 
-
     @Test
     public void testEqualsPositiveDataSome() {
         OWLDataProperty prop = DP(IRI());
@@ -1305,7 +1300,6 @@ public class OWLDataFactoryTestCase {
         OWLRestriction restB = testSubject.getOWLDataSomeValuesFrom(prop, filler);
         assertEquals(restA.hashCode(), restB.hashCode());
     }
-
 
     @Test
     public void testEqualsPositiveDataAll() {

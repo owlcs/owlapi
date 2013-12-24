@@ -91,8 +91,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
-/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original
- * KRSS syntax. Note that only a subset of OWL can be expressed in KRSS.
+/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
+ * syntax. Note that only a subset of OWL can be expressed in KRSS.
  * <p/>
  * <b>Abbreviations</b>
  * <table bordercolor="#000200" border="1">

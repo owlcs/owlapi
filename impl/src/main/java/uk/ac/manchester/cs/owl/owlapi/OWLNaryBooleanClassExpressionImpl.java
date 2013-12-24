@@ -65,7 +65,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
     @SuppressWarnings("javadoc")
     public OWLNaryBooleanClassExpressionImpl(
             @Nonnull Set<? extends OWLClassExpression> operands) {
-        this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands, "operands cannot be null"));
+        this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands,
+                "operands cannot be null"));
     }
 
     @Override

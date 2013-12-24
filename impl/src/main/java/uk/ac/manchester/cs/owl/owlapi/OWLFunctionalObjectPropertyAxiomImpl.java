@@ -84,7 +84,8 @@ public class OWLFunctionalObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLFunctionalObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLFunctionalObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

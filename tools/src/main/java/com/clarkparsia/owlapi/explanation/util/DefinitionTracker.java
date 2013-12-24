@@ -112,7 +112,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      *         imports closure of the given ontology that refers the given
      *         entity */
     public boolean isDefined(@Nonnull OWLEntity entity) {
-        return checkNotNull(entity, "entity cannot be null").isBuiltIn() || referenceCounts.containsKey(entity);
+        return checkNotNull(entity, "entity cannot be null").isBuiltIn()
+                || referenceCounts.containsKey(entity);
     }
 
     /** Checks if all the entities referred in the given concept are also
@@ -121,11 +122,12 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
      * 
      * @param classExpression
      *            description that contains the entities we are searching for
-     * @return {@code true} if all the entities in the given description
-     *         are referred by at least one logical axiom in the imports closure
-     *         of the given ontology */
+     * @return {@code true} if all the entities in the given description are
+     *         referred by at least one logical axiom in the imports closure of
+     *         the given ontology */
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
-        for (OWLEntity entity : checkNotNull(classExpression, "classExpression cannot be null").getSignature()) {
+        for (OWLEntity entity : checkNotNull(classExpression,
+                "classExpression cannot be null").getSignature()) {
             if (!isDefined(entity)) {
                 return false;
             }

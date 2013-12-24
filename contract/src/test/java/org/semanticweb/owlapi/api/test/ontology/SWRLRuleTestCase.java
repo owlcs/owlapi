@@ -117,6 +117,6 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     public void testManchesterOWLSyntax() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
-            super.testManchesterOWLSyntax();
+        super.testManchesterOWLSyntax();
     }
 }

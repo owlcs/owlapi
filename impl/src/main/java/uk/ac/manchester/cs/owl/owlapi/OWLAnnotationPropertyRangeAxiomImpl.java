@@ -84,7 +84,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }

@@ -235,6 +235,5 @@ public class ContractApibindingTest {
         OWLOntologyManager result4 = OWLManager.createOWLOntologyManager();
         OWLOntologyManager result5 = OWLManager
                 .createOWLOntologyManager(mock(OWLDataFactory.class));
-
     }
 }

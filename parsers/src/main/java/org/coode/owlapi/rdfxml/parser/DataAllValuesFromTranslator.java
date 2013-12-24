@@ -65,10 +65,10 @@ public class DataAllValuesFromTranslator extends AbstractClassExpressionTranslat
 
     @Override
     public boolean matchesLax(IRI mainNode) {
-        return isDataRangeLax(mainNode, OWL_ALL_VALUES_FROM) && isResourcePresent(
-                mainNode, OWL_ON_PROPERTY)
-                || isDataPropertyLax(mainNode, OWL_ON_PROPERTY) && isResourcePresent(
-                        mainNode, OWL_ALL_VALUES_FROM);
+        return isDataRangeLax(mainNode, OWL_ALL_VALUES_FROM)
+                && isResourcePresent(mainNode, OWL_ON_PROPERTY)
+                || isDataPropertyLax(mainNode, OWL_ON_PROPERTY)
+                && isResourcePresent(mainNode, OWL_ALL_VALUES_FROM);
     }
 
     @Override

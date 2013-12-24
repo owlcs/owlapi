@@ -113,8 +113,12 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
             @Nonnull OWLObjectProperty valuePartitionProperty,
             @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"), checkNotNull(valuePartionClasses, "valuePartionClasses cannot be null"),
-                checkNotNull(valuePartitionClass, "valuePartitionClass cannot be null"), checkNotNull(valuePartitionProperty, "valuePartitionProperty cannot be null"));
+        generateChanges(
+                checkNotNull(targetOntology, "targetOntology cannot be null"),
+                checkNotNull(valuePartionClasses, "valuePartionClasses cannot be null"),
+                checkNotNull(valuePartitionClass, "valuePartitionClass cannot be null"),
+                checkNotNull(valuePartitionProperty,
+                        "valuePartitionProperty cannot be null"));
     }
 
     private void generateChanges(OWLOntology targetOntology,

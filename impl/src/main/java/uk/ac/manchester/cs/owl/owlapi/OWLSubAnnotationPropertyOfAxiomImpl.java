@@ -76,10 +76,10 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
     }
 
     @Override
-    public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLSubAnnotationPropertyOfAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLSubAnnotationPropertyOfAxiomImpl(getSubProperty(),
-                getSuperProperty(),
-                mergeAnnos(annotations));
+                getSuperProperty(), mergeAnnos(annotations));
     }
 
     @Override

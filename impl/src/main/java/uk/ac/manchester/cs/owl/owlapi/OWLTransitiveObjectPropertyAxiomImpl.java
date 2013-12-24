@@ -75,8 +75,7 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
- NO_ANNOTATIONS);
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
     }
 
     @Override

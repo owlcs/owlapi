@@ -21,11 +21,8 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorerBase;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {
-
-
     public void shouldTestDLSyntaxHTMLOntologyFormat() {
         DLSyntaxHTMLOntologyFormat testSubject0 = new DLSyntaxHTMLOntologyFormat();
-
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -42,7 +39,6 @@ public class ContractDlsyntaxTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-
     }
 
     @Test
@@ -52,12 +48,10 @@ public class ContractDlsyntaxTest {
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
         testSubject0.setFocusedObject(mock(OWLObject.class));
         boolean result1 = testSubject0.isFocusedObject(mock(OWLObject.class));
-
     }
 
     public void shouldTestDLSyntaxOntologyFormat() {
         DLSyntaxOntologyFormat testSubject0 = new DLSyntaxOntologyFormat();
-
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -74,12 +68,10 @@ public class ContractDlsyntaxTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-
     }
 
     public void shouldTestDLSyntaxOntologyStorerBase() throws OWLOntologyStorageException {
         DLSyntaxOntologyStorerBase testSubject0 = new DLSyntaxOntologyStorerBase() {
-            
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -91,7 +83,6 @@ public class ContractDlsyntaxTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-
         boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
     }
 }

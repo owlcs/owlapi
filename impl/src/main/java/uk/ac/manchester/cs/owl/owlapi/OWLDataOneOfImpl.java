@@ -70,7 +70,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     @SuppressWarnings("javadoc")
     public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
-        this.values = new TreeSet<OWLLiteral>(checkNotNull(values, "values cannot be null"));
+        this.values = new TreeSet<OWLLiteral>(checkNotNull(values,
+                "values cannot be null"));
     }
 
     @Override

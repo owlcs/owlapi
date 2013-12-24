@@ -84,7 +84,8 @@ public class OWLAnnotationPropertyDomainAxiomImpl extends OWLAxiomImpl implement
     }
 
     @Override
-    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAnnotationPropertyDomainAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLAnnotationPropertyDomainAxiomImpl(getProperty(), getDomain(),
                 mergeAnnos(annotations));
     }

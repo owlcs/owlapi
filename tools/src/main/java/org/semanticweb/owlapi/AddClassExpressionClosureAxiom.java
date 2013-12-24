@@ -92,8 +92,10 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
             @Nonnull OWLClass cls, @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(cls, "cls cannot be null"), checkNotNull(property, "property cannot be null"),
-                checkNotNull(ontologies, "ontologies cannot be null"), checkNotNull(targetOntology, "targetOntology cannot be null"));
+        generateChanges(checkNotNull(cls, "cls cannot be null"),
+                checkNotNull(property, "property cannot be null"),
+                checkNotNull(ontologies, "ontologies cannot be null"),
+                checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
     private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property,

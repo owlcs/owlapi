@@ -74,8 +74,8 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     public OWLDatatypeRestrictionImpl(@Nonnull OWLDatatype datatype,
             @Nonnull Set<OWLFacetRestriction> facetRestrictions) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
-        this.facetRestrictions = new HashSet<OWLFacetRestriction>(
-                checkNotNull(facetRestrictions, "facetRestrictions cannot be null"));
+        this.facetRestrictions = new HashSet<OWLFacetRestriction>(checkNotNull(
+                facetRestrictions, "facetRestrictions cannot be null"));
     }
 
     @Override

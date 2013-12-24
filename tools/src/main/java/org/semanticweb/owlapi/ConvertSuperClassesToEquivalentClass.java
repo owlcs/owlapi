@@ -111,7 +111,8 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"), checkNotNull(cls, "cls cannot be null"),
+        generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"),
+                checkNotNull(cls, "cls cannot be null"),
                 checkNotNull(ontologies, "ontologies cannot be null"));
     }
 

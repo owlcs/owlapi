@@ -80,7 +80,6 @@ public class ContractReasonerImplTest {
             }
         };
         testSubject0.add(mock(OWLObject.class));
-
         boolean result1 = testSubject0.contains(mock(OWLObject.class));
         Iterator<OWLObject> result2 = testSubject0.iterator();
         int result3 = testSubject0.getSize();
@@ -142,7 +141,6 @@ public class ContractReasonerImplTest {
                 return null;
             }
         };
-
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLObject>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -189,7 +187,6 @@ public class ContractReasonerImplTest {
                 .getOWLNamedIndividualNode(mock(OWLNamedIndividual.class));
         DefaultNode<OWLNamedIndividual> result17 = NodeFactory
                 .getOWLNamedIndividualNode(Utils.mockSet(mock(OWLNamedIndividual.class)));
-
     }
 
     @Test
@@ -200,7 +197,6 @@ public class ContractReasonerImplTest {
         OWLClassNode result0 = OWLClassNode.getTopNode();
         OWLClassNode result1 = OWLClassNode.getBottomNode();
         testSubject0.add(mock(OWLClass.class));
-
         boolean result3 = testSubject0.contains(mock(OWLClass.class));
         Iterator<OWLClass> result4 = testSubject0.iterator();
         int result5 = testSubject0.getSize();
@@ -221,7 +217,6 @@ public class ContractReasonerImplTest {
         OWLClassNodeSet testSubject2 = new OWLClassNodeSet(mock(Node.class));
         OWLClassNodeSet testSubject3 = new OWLClassNodeSet(Utils.mockSet(Utils
                 .mockNode(OWLClass.class)));
-
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLClass>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -247,7 +242,6 @@ public class ContractReasonerImplTest {
         OWLDataPropertyNode result0 = OWLDataPropertyNode.getTopNode();
         OWLDataPropertyNode result1 = OWLDataPropertyNode.getBottomNode();
         testSubject0.add(mock(OWLDataProperty.class));
-
         boolean result3 = testSubject0.contains(mock(OWLDataProperty.class));
         Iterator<OWLDataProperty> result4 = testSubject0.iterator();
         int result5 = testSubject0.getSize();
@@ -270,7 +264,6 @@ public class ContractReasonerImplTest {
         OWLDataPropertyNodeSet testSubject2 = new OWLDataPropertyNodeSet(mock(Node.class));
         OWLDataPropertyNodeSet testSubject3 = new OWLDataPropertyNodeSet(
                 Utils.mockSet(Utils.mockNode(OWLDataProperty.class)));
-
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLDataProperty>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -294,7 +287,6 @@ public class ContractReasonerImplTest {
         OWLDatatypeNode testSubject2 = new OWLDatatypeNode(
                 Utils.mockSet(mock(OWLDatatype.class)));
         testSubject0.add(mock(OWLDatatype.class));
-
         boolean result1 = testSubject0.contains(mock(OWLDatatype.class));
         Iterator<OWLDatatype> result2 = testSubject0.iterator();
         int result3 = testSubject0.getSize();
@@ -315,7 +307,6 @@ public class ContractReasonerImplTest {
         OWLDatatypeNodeSet testSubject2 = new OWLDatatypeNodeSet(mock(Node.class));
         OWLDatatypeNodeSet testSubject3 = new OWLDatatypeNodeSet(Utils.mockSet(Utils
                 .mockNode(OWLDatatype.class)));
-
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLDatatype>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -339,7 +330,6 @@ public class ContractReasonerImplTest {
         OWLNamedIndividualNode testSubject2 = new OWLNamedIndividualNode(
                 Utils.mockSet(mock(OWLNamedIndividual.class)));
         testSubject0.add(mock(OWLNamedIndividual.class));
-
         boolean result1 = testSubject0.contains(mock(OWLNamedIndividual.class));
         Iterator<OWLNamedIndividual> result2 = testSubject0.iterator();
         int result3 = testSubject0.getSize();
@@ -363,7 +353,6 @@ public class ContractReasonerImplTest {
                 mock(Node.class));
         OWLNamedIndividualNodeSet testSubject3 = new OWLNamedIndividualNodeSet(
                 Utils.mockSet(Utils.mockNode(OWLNamedIndividual.class)));
-
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLNamedIndividual>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -390,7 +379,6 @@ public class ContractReasonerImplTest {
         OWLObjectPropertyNode result0 = OWLObjectPropertyNode.getTopNode();
         OWLObjectPropertyNode result1 = OWLObjectPropertyNode.getBottomNode();
         testSubject0.add(Utils.mockObjectProperty());
-
         boolean result3 = testSubject0.contains(Utils.mockObjectProperty());
         Iterator<OWLObjectPropertyExpression> result4 = testSubject0.iterator();
         int result5 = testSubject0.getSize();
@@ -414,7 +402,6 @@ public class ContractReasonerImplTest {
                 mock(Node.class));
         OWLObjectPropertyNodeSet testSubject3 = new OWLObjectPropertyNodeSet(
                 Utils.mockSet(Utils.mockNode(OWLObjectPropertyExpression.class)));
-
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLObjectPropertyExpression>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -726,7 +713,6 @@ public class ContractReasonerImplTest {
         OWLOntology result8 = testSubject0.getRootOntology();
         OWLReasonerConfiguration result9 = testSubject0.getReasonerConfiguration();
         Collection<OWLAxiom> result10 = testSubject0.getReasonerAxioms();
-
         testSubject0.interrupt();
         NodeSet<OWLClass> result12 = testSubject0.getTypes(
                 mock(OWLNamedIndividual.class), false);

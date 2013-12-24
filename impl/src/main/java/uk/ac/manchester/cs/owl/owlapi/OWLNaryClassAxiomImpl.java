@@ -70,8 +70,8 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.classExpressions = new TreeSet<OWLClassExpression>(
-                checkNotNull(classExpressions, "classExpressions cannot be null"));
+        this.classExpressions = new TreeSet<OWLClassExpression>(checkNotNull(
+                classExpressions, "classExpressions cannot be null"));
     }
 
     @Override

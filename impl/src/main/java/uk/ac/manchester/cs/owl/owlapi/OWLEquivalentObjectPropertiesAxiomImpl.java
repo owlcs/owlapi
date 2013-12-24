@@ -82,7 +82,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
     }
 
     @Override
-    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLEquivalentObjectPropertiesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }

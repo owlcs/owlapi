@@ -76,7 +76,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
 
     protected AbstractOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology) {
-        this.owlOntologyManager = checkNotNull(owlOntologyManager, "owlOntologyManager cannot be null");
+        this.owlOntologyManager = checkNotNull(owlOntologyManager,
+                "owlOntologyManager cannot be null");
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         mergeImportsClosure();
     }

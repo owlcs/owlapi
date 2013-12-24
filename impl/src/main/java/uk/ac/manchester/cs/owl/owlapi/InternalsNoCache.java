@@ -66,7 +66,6 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             XSDBOOLEAN);
     private static final OWLLiteral falseLiteral = new OWLLiteralImplBoolean(false,
             XSDBOOLEAN);
-
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 

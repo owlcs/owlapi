@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * <br> */
 public class DLSyntaxOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
- @Override
+
+    @Override
     public String toString() {
         return "DL Syntax";
     }

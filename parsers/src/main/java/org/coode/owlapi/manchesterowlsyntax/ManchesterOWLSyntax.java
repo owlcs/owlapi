@@ -134,7 +134,6 @@ public enum ManchesterOWLSyntax {
     HAS_KEY                     ("HasKey",                    false, true,  false, false, false),
     RULE                        ("Rule",                      true,  true,  false, false, false);
     //@formatter:on
-
     private boolean frameKeyword;
     private boolean sectionKeyword;
     private boolean axiomKeyword;

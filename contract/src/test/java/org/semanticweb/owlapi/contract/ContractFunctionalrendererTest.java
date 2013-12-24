@@ -32,7 +32,6 @@ public class ContractFunctionalrendererTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-
     }
 
     @Test
@@ -40,7 +39,6 @@ public class ContractFunctionalrendererTest {
         OWLFunctionalSyntaxRenderer testSubject0 = new OWLFunctionalSyntaxRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-
     }
 
     public void shouldTestOWLObjectRenderer() {
@@ -63,6 +61,5 @@ public class ContractFunctionalrendererTest {
         testSubject0.writeAxiomEnd();
         testSubject0.writePropertyCharacteristic(OWLXMLVocabulary.COMMENT,
                 mock(OWLAxiom.class), mock(OWLPropertyExpression.class));
-
     }
 }

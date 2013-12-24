@@ -71,7 +71,8 @@ public class ManchesterOWLSyntaxClassFrameParser implements
 
     @Override
     public Set<OntologyAxiomPair> parse(String expression) {
-        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, expression);
+        ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                dataFactory, expression);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassFrameEOF();
     }

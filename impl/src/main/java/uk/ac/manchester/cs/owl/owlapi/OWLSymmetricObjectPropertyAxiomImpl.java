@@ -73,7 +73,8 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
 
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
-        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(5);
+        Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(
+                5);
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(), getProperty()
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty()
@@ -82,7 +83,8 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLSymmetricObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

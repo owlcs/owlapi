@@ -179,7 +179,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        this.shortFormProvider = checkNotNull(shortFormProvider, "shortFormProvider cannot be null");
+        this.shortFormProvider = checkNotNull(shortFormProvider,
+                "shortFormProvider cannot be null");
     }
 
     @Override
@@ -191,8 +192,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Override
     public void visit(OWLOntology ontology) {
-        for (OWLAxiom ax : new TreeSet<OWLAxiom>(checkNotNull(ontology, "ontology cannot be null")
-                .getLogicalAxioms())) {
+        for (OWLAxiom ax : new TreeSet<OWLAxiom>(checkNotNull(ontology,
+                "ontology cannot be null").getLogicalAxioms())) {
             ax.accept(this);
             write("\n");
         }
@@ -204,7 +205,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
 
     @Nonnull
     protected String renderEntity(@Nonnull OWLEntity entity) {
-        return shortFormProvider.getShortForm(checkNotNull(entity, "entity cannot be null"));
+        return shortFormProvider.getShortForm(checkNotNull(entity,
+                "entity cannot be null"));
     }
 
     protected void writeEntity(@Nonnull OWLEntity entity) {

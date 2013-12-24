@@ -80,6 +80,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private transient WeakReference<Set<OWLAnonymousIndividual>> anons = null;
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
+
     @Override
     public Set<OWLEntity> getSignature() {
         Set<OWLEntity> set = null;

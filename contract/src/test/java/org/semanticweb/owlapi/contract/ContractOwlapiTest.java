@@ -39,7 +39,6 @@ public class ContractOwlapiTest {
     public void shouldTestAbstractCompositeOntologyChange() throws OWLException {
         AbstractCompositeOntologyChange testSubject0 = new AbstractCompositeOntologyChange(
                 mock(OWLDataFactory.class)) {};
-
         List<OWLOntologyChange<?>> result1 = testSubject0.getChanges();
     }
 
@@ -50,7 +49,6 @@ public class ContractOwlapiTest {
                 Utils.mockObjectProperty(), Utils.mockSet(Utils.getMockOntology()),
                 Utils.getMockOntology());
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -58,7 +56,6 @@ public class ContractOwlapiTest {
         AmalgamateSubClassAxioms testSubject0 = new AmalgamateSubClassAxioms(
                 mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -66,7 +63,6 @@ public class ContractOwlapiTest {
         CoerceConstantsIntoDataPropertyRange testSubject0 = new CoerceConstantsIntoDataPropertyRange(
                 mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -75,7 +71,6 @@ public class ContractOwlapiTest {
                 mock(OWLDataFactory.class), mock(OWLClass.class), Utils.mockSet(Utils
                         .getMockOntology()), Utils.getMockOntology(), false);
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -83,7 +78,6 @@ public class ContractOwlapiTest {
         ConvertPropertyAssertionsToAnnotations testSubject0 = new ConvertPropertyAssertionsToAnnotations(
                 Factory.getFactory(), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -93,7 +87,6 @@ public class ContractOwlapiTest {
                         IRI.create("urn:test:class")), Utils.mockSet(Utils
                         .getMockOntology()), Utils.getMockOntology());
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -103,7 +96,6 @@ public class ContractOwlapiTest {
                 Utils.mockSet(mock(OWLClass.class)), mock(OWLObjectProperty.class),
                 Utils.getMockOntology());
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -114,7 +106,6 @@ public class ContractOwlapiTest {
         MakeClassesMutuallyDisjoint testSubject0 = new MakeClassesMutuallyDisjoint(
                 Factory.getFactory(), classes, false, Utils.getMockOntology());
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -126,7 +117,6 @@ public class ContractOwlapiTest {
                 Factory.getFactory(), Factory.getFactory().getOWLClass(
                         IRI.create("urn:test:c")), Utils.getMockOntology(), false);
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -140,7 +130,6 @@ public class ContractOwlapiTest {
         RemoveAllDisjointAxioms testSubject0 = new RemoveAllDisjointAxioms(
                 mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     public void shouldTestShortForm2AnnotationGenerator() throws OWLException {
@@ -152,7 +141,6 @@ public class ContractOwlapiTest {
                 mock(OWLDataFactory.class), Utils.getMockManager(),
                 Utils.getMockOntology(), mock(ShortFormProvider.class), IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 
     @Test
@@ -160,6 +148,5 @@ public class ContractOwlapiTest {
         SplitSubClassAxioms testSubject0 = new SplitSubClassAxioms(Utils.mockSet(Utils
                 .getMockOntology()), mock(OWLDataFactory.class));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
-
     }
 }

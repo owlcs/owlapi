@@ -85,7 +85,6 @@ public class ContractFunctionalparserTest {
         testSubject0.openNodeScope(mock(Node.class));
         testSubject0.closeNodeScope(mock(Node.class), 0);
         testSubject0.closeNodeScope(mock(Node.class), false);
-
     }
 
     @Test
@@ -111,7 +110,6 @@ public class ContractFunctionalparserTest {
                 new OWLOntologyLoaderConfiguration());
         OWLOntologyFormat result2 = testSubject0.parse(IRI.create("urn:aFake"),
                 Utils.getMockOntology());
-
     }
 
     public void shouldTestOWLFunctionalSyntaxParser() throws ParseException,
@@ -259,7 +257,6 @@ public class ContractFunctionalparserTest {
         SWRLAtom result119 = testSubject0.Atom();
         SWRLIArgument result120 = testSubject0.IArg();
         SWRLDArgument result121 = testSubject0.DArg();
-
     }
 
     @Test
@@ -271,7 +268,6 @@ public class ContractFunctionalparserTest {
     public void shouldTestOWLFunctionalSyntaxParserFactory() {
         OWLFunctionalSyntaxParserFactory testSubject0 = new OWLFunctionalSyntaxParserFactory();
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
-
     }
 
     @Test

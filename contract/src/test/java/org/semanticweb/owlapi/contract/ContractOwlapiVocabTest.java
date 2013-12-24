@@ -41,14 +41,12 @@ public class ContractOwlapiVocabTest {
         BuiltInVocabulary testSubject0 = BuiltInVocabulary.DUBLIN_CORE;
         BuiltInVocabulary[] result0 = BuiltInVocabulary.values();
         String result2 = testSubject0.name();
-
         int result8 = testSubject0.ordinal();
     }
 
     @Test
     public void shouldTestDublinCoreVocabulary() throws OWLException {
         DublinCoreVocabulary testSubject0 = DublinCoreVocabulary.CONTRIBUTOR;
-
         DublinCoreVocabulary[] result1 = DublinCoreVocabulary.values();
         IRI result3 = testSubject0.getIRI();
         String result5 = testSubject0.getShortName();
@@ -60,7 +58,6 @@ public class ContractOwlapiVocabTest {
     @Test
     public void shouldTestNamespaces() throws OWLException {
         Namespaces testSubject0 = Namespaces.OWL;
-
         Namespaces[] result1 = Namespaces.values();
         String result3 = testSubject0.name();
         int result8 = testSubject0.ordinal();
@@ -84,14 +81,12 @@ public class ContractOwlapiVocabTest {
         Collection<OWLFacet> result12 = testSubject0.getFacets();
         boolean result13 = testSubject0.isInLexicalSpace("");
         String result14 = testSubject0.name();
-
         int result20 = testSubject0.ordinal();
     }
 
     @Test
     public void shouldTestOWLFacet() throws OWLException {
         OWLFacet testSubject0 = OWLFacet.FRACTION_DIGITS;
-
         OWLFacet[] result1 = OWLFacet.values();
         IRI result3 = testSubject0.getIRI();
         String result4 = testSubject0.getShortName();
@@ -108,7 +103,6 @@ public class ContractOwlapiVocabTest {
     @Test
     public void shouldTestOWLRDFVocabulary() throws OWLException {
         OWLRDFVocabulary testSubject0 = OWLRDFVocabulary.OWL_ALL_DIFFERENT;
-
         OWLRDFVocabulary[] result1 = OWLRDFVocabulary.values();
         IRI result3 = testSubject0.getIRI();
         Namespaces result5 = testSubject0.getNamespace();
@@ -120,7 +114,6 @@ public class ContractOwlapiVocabTest {
     @Test
     public void shouldTestOWLXMLVocabulary() throws OWLException {
         OWLXMLVocabulary testSubject0 = OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE;
-
         OWLXMLVocabulary[] result1 = OWLXMLVocabulary.values();
         IRI result3 = testSubject0.getIRI();
         String result5 = testSubject0.getShortName();
@@ -150,7 +143,6 @@ public class ContractOwlapiVocabTest {
         PrefixOWLOntologyFormat result9 = testSubject0.asPrefixOWLOntologyFormat();
         OWLOntologyLoaderMetaData result10 = testSubject0.getOntologyLoaderMetaData();
         testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
-
     }
 
     @Test
@@ -169,7 +161,6 @@ public class ContractOwlapiVocabTest {
         Set<OWLDataProperty> result9 = SKOSVocabulary
                 .getDataProperties(mock(OWLDataFactory.class));
         String result10 = testSubject0.name();
-
         int result16 = testSubject0.ordinal();
     }
 
@@ -185,7 +176,6 @@ public class ContractOwlapiVocabTest {
         SWRLBuiltInsVocabulary result8 = SWRLBuiltInsVocabulary
                 .getBuiltIn(IRI("urn:aFake"));
         String result10 = testSubject0.name();
-
         int result16 = testSubject0.ordinal();
     }
 
@@ -197,14 +187,12 @@ public class ContractOwlapiVocabTest {
         URI result3 = testSubject0.getURI();
         String result4 = testSubject0.getShortName();
         String result5 = testSubject0.name();
-
         int result11 = testSubject0.ordinal();
     }
 
     @Test
     public void shouldTestXSDVocabulary() throws OWLException {
         XSDVocabulary testSubject0 = XSDVocabulary.ANY_SIMPLE_TYPE;
-
         XSDVocabulary[] result1 = XSDVocabulary.values();
         IRI result3 = testSubject0.getIRI();
         String result4 = testSubject0.getShortName();

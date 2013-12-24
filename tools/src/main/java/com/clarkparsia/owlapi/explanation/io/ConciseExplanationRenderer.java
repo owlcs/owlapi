@@ -64,7 +64,8 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     @Override
     public void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
             throws OWLException, IOException {
-        writer.println("Axiom: " + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
+        writer.println("Axiom: "
+                + renderer.render(checkNotNull(axiom, "axiom cannot be null")));
         int expSize = checkNotNull(explanations.size());
         if (expSize == 0) {
             writer.println("Explanation: AXIOM IS NOT ENTAILED!");

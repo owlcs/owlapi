@@ -79,7 +79,8 @@ public class OWLIrreflexiveObjectPropertyAxiomImpl extends
     }
 
     @Override
-    public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLIrreflexiveObjectPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLIrreflexiveObjectPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }

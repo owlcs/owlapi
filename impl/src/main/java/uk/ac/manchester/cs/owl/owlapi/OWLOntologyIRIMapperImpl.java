@@ -72,6 +72,7 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
      * @param documentIRI
      *            new document iri */
     public void addMapping(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
-        iriMap.put(checkNotNull(ontologyIRI, "ontologyIRI cannot be null"), checkNotNull(documentIRI, "documentIRI cannot be null"));
+        iriMap.put(checkNotNull(ontologyIRI, "ontologyIRI cannot be null"),
+                checkNotNull(documentIRI, "documentIRI cannot be null"));
     }
 }

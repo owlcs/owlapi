@@ -918,13 +918,12 @@ public class OWLAPIOwl2Obo {
         } else {
             id = iri;
         }
-        //int index = iri.lastIndexOf("/");
-		//id = iri.substring(index+1);
-		//index = id.lastIndexOf(".owl");
-		//if(index>0){
-		//	id = id.substring(0, index);
-		//}
-
+        // int index = iri.lastIndexOf("/");
+        // id = iri.substring(index+1);
+        // index = id.lastIndexOf(".owl");
+        // if(index>0){
+        // id = id.substring(0, index);
+        // }
         return id;
     }
 
@@ -1330,11 +1329,11 @@ public class OWLAPIOwl2Obo {
             return null;
         }
         String iri = iriId.toString();
-		// canonical IRIs
-		//if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
-		//	String canonicalId = iri.replace("http://purl.obolibrary.org/obo/", "");
-		//}
-		 
+        // canonical IRIs
+        // if (iri.startsWith("http://purl.obolibrary.org/obo/")) {
+        // String canonicalId = iri.replace("http://purl.obolibrary.org/obo/",
+        // "");
+        // }
         int indexSlash = iri.lastIndexOf("/");
         String prefixURI = null;
         String id = null;
@@ -1358,17 +1357,17 @@ public class OWLAPIOwl2Obo {
             if ("owl".equals(s[0]) || "rdf".equals(s[0]) || "rdfs".equals(s[0])) {
                 prefix = s[0] + ":";
             }
-			// TODO: the following implements behavior in current spec, but this leads to undesirable results
-//			else if (baseOntology != null) {
-//				String oid = getOntologyId(baseOntology); // OBO-style ID
-//				if (oid.equals(s[0]))
-//					prefix = "";
-//				else {
-//					return iri;
-//				}
-//				//prefix = s[0];
-//			}
-			
+            // TODO: the following implements behavior in current spec, but this
+            // leads to undesirable results
+            // else if (baseOntology != null) {
+            // String oid = getOntologyId(baseOntology); // OBO-style ID
+            // if (oid.equals(s[0]))
+            // prefix = "";
+            // else {
+            // return iri;
+            // }
+            // //prefix = s[0];
+            // }
             return prefix + s[1];
         }
         // row 1 - Canonical-Prefixed-ID
@@ -1377,7 +1376,7 @@ public class OWLAPIOwl2Obo {
             String localId;
             try {
                 localId = java.net.URLDecoder.decode(s[1], "UTF-8");
-            return s[0] + ":" + localId;
+                return s[0] + ":" + localId;
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException("UTF-8 not supported, JRE corrupted?", e);
             }

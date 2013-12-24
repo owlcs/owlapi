@@ -118,7 +118,8 @@ public class ConvertEquivalentClassesToSuperClasses extends
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);
-        this.targetOntology = checkNotNull(targetOntology, "targetOntology cannot be null");
+        this.targetOntology = checkNotNull(targetOntology,
+                "targetOntology cannot be null");
         this.cls = checkNotNull(cls, "cls cannot be null");
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
         this.splitIntersections = splitIntersections;

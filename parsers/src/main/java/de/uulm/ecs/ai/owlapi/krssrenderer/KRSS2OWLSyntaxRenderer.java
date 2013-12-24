@@ -49,7 +49,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Olaf Noppens */
 public class KRSS2OWLSyntaxRenderer extends AbstractOWLRenderer {
-
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
         try {

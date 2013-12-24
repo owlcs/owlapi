@@ -28,7 +28,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public class ContractLatexTest {
     public void shouldTestLatexAxiomsListOntologyFormat() throws OWLException {
         LatexAxiomsListOntologyFormat testSubject0 = new LatexAxiomsListOntologyFormat();
-
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -51,12 +50,10 @@ public class ContractLatexTest {
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
         boolean result0 = testSubject0.isPrettyPrint();
         testSubject0.setPrettyPrint(false);
-
     }
 
     public void shouldTestLatexOntologyFormat() throws OWLException {
         LatexOntologyFormat testSubject0 = new LatexOntologyFormat();
-
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result1 = testSubject0
                 .getParameter(mock(Object.class), mock(Object.class));
@@ -73,7 +70,6 @@ public class ContractLatexTest {
                 mock(OWLOntologyFormat.class));
         testSubject0.storeOntology(Utils.getMockOntology(),
                 mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
-
     }
 
     @Test
@@ -82,7 +78,6 @@ public class ContractLatexTest {
                 mock(OWLDataFactory.class));
         String result0 = testSubject0.render(mock(OWLObject.class));
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-
     }
 
     @Test
@@ -90,7 +85,6 @@ public class ContractLatexTest {
         LatexRenderer testSubject0 = new LatexRenderer();
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
-
     }
 
     @Test
@@ -102,6 +96,5 @@ public class ContractLatexTest {
         testSubject0.writeOpenBrace();
         testSubject0.writeCloseBrace();
         testSubject0.writeNewLine();
-
     }
 }

@@ -67,13 +67,15 @@ public class XMLWriterNamespaceManager {
     /** @param defaultNamespace
      *            default namespace */
     public XMLWriterNamespaceManager(@Nonnull String defaultNamespace) {
-        this.defaultNamespace = checkNotNull(defaultNamespace, "defaultNamespace cannot be null");
+        this.defaultNamespace = checkNotNull(defaultNamespace,
+                "defaultNamespace cannot be null");
     }
 
     /** @param prefix
      * @param namespace */
     public void addWellKnownNamespace(@Nonnull String prefix, @Nonnull String namespace) {
-        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"), checkNotNull(namespace, "namespace cannot be null"));
+        wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
+                checkNotNull(namespace, "namespace cannot be null"));
     }
 
     /** @param prefix
@@ -89,7 +91,8 @@ public class XMLWriterNamespaceManager {
      * @return prefix for namespace, or null */
     @Nullable
     public String getPrefixForNamespace(@Nonnull String namespace) {
-        return namespacePrefixMap.get(checkNotNull(namespace, "namespace cannot be null"));
+        return namespacePrefixMap
+                .get(checkNotNull(namespace, "namespace cannot be null"));
     }
 
     /** @param namespace */
@@ -108,8 +111,8 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *            The name which represents the full name.
-     * @return The QName representation or {@code null} if a QName could
-     *         not be generated. */
+     * @return The QName representation or {@code null} if a QName could not be
+     *         generated. */
     @Nullable
     public String getQName(@Nonnull String name) {
         checkNotNull(name, "name cannot be null");
@@ -129,8 +132,8 @@ public class XMLWriterNamespaceManager {
      * 
      * @param name
      *            The name which represents the full name.
-     * @return The QName representation or {@code null} if a QName could
-     *         not be generated. */
+     * @return The QName representation or {@code null} if a QName could not be
+     *         generated. */
     public String getQName(IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
             return name.getFragment() == null ? "" : name.getFragment();
@@ -142,7 +145,7 @@ public class XMLWriterNamespaceManager {
         }
         return name.toString();
     }
-    
+
     /** @param namespace */
     public void createPrefixForNamespace(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");

@@ -73,11 +73,12 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
     public OWLAxiom getAxiom() {
         return axiom;
     }
-    
+
     @Override
     public OWLAxiom getItem() {
         return getAxiom();
     }
+
     @Override
     public Set<OWLEntity> getSignature() {
         return axiom.getSignature();

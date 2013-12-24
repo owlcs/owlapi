@@ -64,7 +64,6 @@ public class ContractMetricsTest {
             @Override
             protected void disposeMetric() {}
         };
-
         Object result1 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result2 = testSubject0.getOntologies();
@@ -85,7 +84,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Double result1 = testSubject0.recomputeMetric();
         Object result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -102,7 +100,6 @@ public class ContractMetricsTest {
     public void shouldTestAxiomCount() throws OWLException {
         AxiomCount testSubject0 = new AxiomCount(Utils.getMockOntology());
         String result0 = testSubject0.getName();
-
         Object result2 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result3 = testSubject0.getOntologies();
@@ -132,7 +129,6 @@ public class ContractMetricsTest {
         String result1 = testSubject0.getName();
         Object result2 = testSubject0.recomputeMetric();
         Integer result3 = testSubject0.recomputeMetric();
-
         Object result5 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
@@ -150,7 +146,6 @@ public class ContractMetricsTest {
         AxiomTypeCountMetricFactory testSubject0 = new AxiomTypeCountMetricFactory();
         Set<OWLMetric<?>> result0 = AxiomTypeCountMetricFactory.createMetrics(Utils
                 .getMockOntology());
-
     }
 
     @Ignore
@@ -163,7 +158,6 @@ public class ContractMetricsTest {
         String result2 = testSubject0.getName();
         Object result3 = testSubject0.recomputeMetric();
         Integer result4 = testSubject0.recomputeMetric();
-
         Object result6 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result7 = testSubject0.getOntologies();
@@ -182,7 +176,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         String result1 = testSubject0.recomputeMetric();
         Object result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -216,7 +209,6 @@ public class ContractMetricsTest {
             @Override
             protected void disposeMetric() {}
         };
-
         Object result1 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result2 = testSubject0.getOntologies();
@@ -237,7 +229,6 @@ public class ContractMetricsTest {
         String result1 = testSubject0.getName();
         Object result2 = testSubject0.recomputeMetric();
         Integer result3 = testSubject0.recomputeMetric();
-
         Object result5 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
@@ -254,7 +245,6 @@ public class ContractMetricsTest {
     public void shouldTestHiddenGCICount() throws OWLException {
         HiddenGCICount testSubject0 = new HiddenGCICount(Utils.getMockOntology());
         String result0 = testSubject0.getName();
-
         Object result2 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result3 = testSubject0.getOntologies();
@@ -271,7 +261,6 @@ public class ContractMetricsTest {
     public void shouldTestImportClosureSize() throws OWLException {
         ImportClosureSize testSubject0 = new ImportClosureSize(Utils.getMockOntology());
         String result0 = testSubject0.getName();
-
         Object result2 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result3 = testSubject0.getOntologies();
@@ -306,7 +295,6 @@ public class ContractMetricsTest {
             @Override
             protected void disposeMetric() {}
         };
-
         Object result1 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result2 = testSubject0.getOntologies();
@@ -327,7 +315,6 @@ public class ContractMetricsTest {
         String result1 = testSubject0.getName();
         Object result2 = testSubject0.recomputeMetric();
         Integer result3 = testSubject0.recomputeMetric();
-
         Object result5 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
@@ -347,7 +334,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Integer result1 = testSubject0.recomputeMetric();
         Object result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -367,7 +353,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Integer result1 = testSubject0.recomputeMetric();
         Object result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -397,7 +382,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Object result1 = testSubject0.recomputeMetric();
         Integer result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -426,7 +410,6 @@ public class ContractMetricsTest {
     public void shouldTestOWLMetricManager() throws OWLException {
         OWLMetricManager testSubject0 = new OWLMetricManager(
                 new ArrayList<OWLMetric<?>>());
-
         testSubject0.setOntology(Utils.getMockOntology());
         List<OWLMetric<?>> result1 = testSubject0.getMetrics();
     }
@@ -439,7 +422,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Object result1 = testSubject0.recomputeMetric();
         Integer result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -459,7 +441,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Object result1 = testSubject0.recomputeMetric();
         Integer result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -479,7 +460,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Object result1 = testSubject0.recomputeMetric();
         Integer result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
@@ -499,7 +479,6 @@ public class ContractMetricsTest {
         String result0 = testSubject0.getName();
         Object result1 = testSubject0.recomputeMetric();
         Integer result2 = testSubject0.recomputeMetric();
-
         Object result4 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();

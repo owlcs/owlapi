@@ -76,9 +76,9 @@ public final class EntityType<E extends OWLEntity> implements Serializable {
     public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>(
             "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE);
     @SuppressWarnings("unchecked")
-    private static List<EntityType<?>> values = Collections.<EntityType<?>>unmodifiableList(Arrays
-            .asList(CLASS, OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY,
-                    NAMED_INDIVIDUAL, DATATYPE));
+    private static List<EntityType<?>> values = Collections
+            .<EntityType<?>> unmodifiableList(Arrays.asList(CLASS, OBJECT_PROPERTY,
+                    DATA_PROPERTY, ANNOTATION_PROPERTY, NAMED_INDIVIDUAL, DATATYPE));
     private final String name;
     private final OWLRDFVocabulary vocabulary;
     private final String printName;

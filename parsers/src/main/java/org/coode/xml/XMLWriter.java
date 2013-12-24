@@ -80,6 +80,7 @@ public interface XMLWriter {
      *            are long. If {@code false} then no attribute wrapping will
      *            occur. */
     void setWrapAttributes(boolean b);
+
     /** Starts writing the document. The root element will contain the namespace
      * declarations and xml:base attribute.
      * 
@@ -87,8 +88,7 @@ public interface XMLWriter {
      *            The iri of the root element.
      * @throws IOException
      *             if there was an IO problem */
-     void startDocument(IRI rootElement) throws IOException;
-
+    void startDocument(IRI rootElement) throws IOException;
 
     /** Causes all open elements, including the document root element, to be
      * closed.
@@ -125,6 +125,7 @@ public interface XMLWriter {
      * @throws IOException
      *             if there was an IO problem */
     void writeAttribute(@Nonnull String attr, @Nonnull String val) throws IOException;
+
     /** Writes an attribute of the last element to be started (that has not been
      * closed).
      * 
@@ -134,7 +135,7 @@ public interface XMLWriter {
      *            The value of the attribute
      * @throws IOException
      *             if there was an IO problem */
-     void writeAttribute(IRI attr, String val) throws IOException;
+    void writeAttribute(IRI attr, String val) throws IOException;
 
     /** Writes a text element
      * 

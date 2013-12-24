@@ -81,7 +81,8 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
     }
 
     @Override
-    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLNegativeObjectPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLNegativeObjectPropertyAssertionAxiomImpl(getSubject(),
                 getProperty(), getObject(), mergeAnnos(annotations));
     }

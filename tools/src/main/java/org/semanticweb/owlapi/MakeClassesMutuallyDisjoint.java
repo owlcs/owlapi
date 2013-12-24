@@ -70,18 +70,20 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
      * @param classExpressions
      *            The class expressions which should be made mutually disjoint.
      * @param usePairwiseDisjointAxioms
-     *            {@code true} if multiple disjoint classes axioms should
-     *            be used to make the class expressions pairwise disjoint (for
-     *            backwards compatibility with OWL 1.0), or {@code false}
-     *            if one disjoint classes axiom should be used (preferred OWL
-     *            1.1 method).
+     *            {@code true} if multiple disjoint classes axioms should be
+     *            used to make the class expressions pairwise disjoint (for
+     *            backwards compatibility with OWL 1.0), or {@code false} if one
+     *            disjoint classes axiom should be used (preferred OWL 1.1
+     *            method).
      * @param targetOntology
      *            The target ontology which the changes will be applied to. */
     public MakeClassesMutuallyDisjoint(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             boolean usePairwiseDisjointAxioms, @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(classExpressions, "classExpressions cannot be null"), usePairwiseDisjointAxioms,
+        generateChanges(
+                checkNotNull(classExpressions, "classExpressions cannot be null"),
+                usePairwiseDisjointAxioms,
                 checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 

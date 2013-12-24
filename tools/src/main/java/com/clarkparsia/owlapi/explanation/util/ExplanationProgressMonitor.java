@@ -54,8 +54,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 public interface ExplanationProgressMonitor {
     /** Determines if the process of generating explanations has been cancelled.
      * 
-     * @return {@code true} if the process has been cancelled, or
-     *         {@code false} if the process hasn't been cancelled. */
+     * @return {@code true} if the process has been cancelled, or {@code false}
+     *         if the process hasn't been cancelled. */
     boolean isCancelled();
 
     /** Called when an explanation has been found.

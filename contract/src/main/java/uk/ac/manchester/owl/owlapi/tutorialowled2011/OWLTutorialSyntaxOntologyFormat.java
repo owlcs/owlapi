@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * Date: 24-April-2007<br>
  * <br> */
 public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
-    
     private static final long serialVersionUID = 40000L;
 
     @Override
