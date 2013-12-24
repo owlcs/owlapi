@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  *         An interface for creating entities, class expressions and axioms. All
  *         methods throw IllegalArgumentException if null values are passed
  *         where they are not allowed in the documentation. */
-public interface OWLDataFactory extends SWRLDataFactory, OWLEntityFactory {
+public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
+        OWLEntityByTypeProvider {
     // Entities and data stuff
     /** Gets the built in owl:Thing class, which has a URI of
      * &lt;http://www.w3.org/2002/07/owl#Thing&gt;

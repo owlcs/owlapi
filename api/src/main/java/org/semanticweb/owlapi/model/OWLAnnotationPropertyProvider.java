@@ -6,7 +6,7 @@ package org.semanticweb.owlapi.model;
  * Bio-Medical Informatics Research Group<br>
  * Date: 07/08/2013
  */
-public interface OWLAnnotationPropertyFactory {
+public interface OWLAnnotationPropertyProvider {
 
     /**
      * Gets an instance of {@link OWLAnnotationProperty} that has the specified {@code IRI}.

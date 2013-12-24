@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * Bio-Health Informatics Group<br>
  * Date: 26-Oct-2006<br>
  * <br> */
-public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClassFactory {
+public class OWLDataFactoryImpl implements OWLDataFactory, Serializable, OWLClassProvider {
     private static final String ANNOTATIONS = "annotations";
     private static final long serialVersionUID = 40000L;
     private static final String ABBREVIATED_IRI = "abbreviatedIRI";

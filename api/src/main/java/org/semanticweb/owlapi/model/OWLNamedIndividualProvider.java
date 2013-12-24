@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Bio-Medical Informatics Research Group<br>
  * Date: 07/08/2013
  */
-public interface OWLNamedIndividualFactory extends Serializable {
+public interface OWLNamedIndividualProvider extends Serializable {
 
     /**
      * Gets an instance of {@link OWLNamedIndividual} that has the specified {@code IRI}.
