@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.vocab;
 
 import java.net.URI;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
@@ -47,7 +48,7 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
  *         Medical Informatics Group<br>
  *         Date: Jan 15, 2007 */
 @SuppressWarnings("javadoc")
-public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
+public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasIRI {
 //@formatter:off
     EQUAL("equal", 2),
     NOT_EQUAL("notEqual", 2),

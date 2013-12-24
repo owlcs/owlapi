@@ -67,7 +67,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Information Management Group<br>
  *         Date: 11-Nov-2008 */
 @SuppressWarnings("javadoc")
-public enum OWL2Datatype implements HasIRI{
+public enum OWL2Datatype implements HasIRI {
 //@formatter:off
     RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral", Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
     RDFS_LITERAL(Namespaces.RDFS, "Literal", Category.UNIVERSAL, false, ".*"),
@@ -186,9 +186,7 @@ public enum OWL2Datatype implements HasIRI{
         return shortName;
     }
 
-    /** Gets the IRI of this datatype
-     * 
-     * @return The IRI of this datatype */
+    @Override
     public IRI getIRI() {
         return iri;
     }

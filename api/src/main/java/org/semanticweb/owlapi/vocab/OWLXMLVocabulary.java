@@ -41,13 +41,14 @@ package org.semanticweb.owlapi.vocab;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 12-Dec-2006 */
 @SuppressWarnings("javadoc")
-public enum OWLXMLVocabulary {
+public enum OWLXMLVocabulary implements HasIRI {
 //@formatter:off
     CLASS("Class"),
     DATA_PROPERTY("DataProperty"),
@@ -160,6 +161,7 @@ public enum OWLXMLVocabulary {
         shortName = name;
     }
 
+    @Override
     public IRI getIRI() {
         return iri;
     }

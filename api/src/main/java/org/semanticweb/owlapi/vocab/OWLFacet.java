@@ -42,6 +42,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** Represents the facets that can be used for restricting a datatype.
@@ -51,7 +52,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
 @SuppressWarnings("javadoc")
-public enum OWLFacet {
+public enum OWLFacet implements HasIRI {
 //@formatter:off
     LENGTH(Namespaces.XSD, "length", "length"),
     MIN_LENGTH(Namespaces.XSD, "minLength", "minLength"),

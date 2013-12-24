@@ -38,13 +38,14 @@
  */
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 16-Apr-2008 */
-public interface OWLProfile {
+public interface OWLProfile extends HasIRI {
     /** http://www.w3.org/ns/owl-profile/DL **/
     IRI OWL2_DL = IRI.create("http://www.w3.org/ns/owl-profile/", "DL");
     /** http://www.w3.org/ns/owl-profile/EL **/
@@ -66,6 +67,7 @@ public interface OWLProfile {
      * the list.
      * 
      * @return The IRI that identifies this profile. */
+    @Override
     IRI getIRI();
 
     /** Checks an ontology and its import closure to see if it is within this

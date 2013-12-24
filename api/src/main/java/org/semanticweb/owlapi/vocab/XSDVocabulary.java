@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** A vocabulary for XML Schema Data Types (XSD).
@@ -45,7 +46,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
-public enum XSDVocabulary {
+public enum XSDVocabulary implements HasIRI {
     // @formatter:off
     ANY_TYPE("anyType"),
     ANY_SIMPLE_TYPE("anySimpleType"),

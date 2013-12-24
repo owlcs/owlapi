@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.profiles;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -50,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Date: 03-Aug-2009 */
 @SuppressWarnings("javadoc")
 public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implements
-        OWL2DLProfileViolation {
+        OWL2DLProfileViolation, HasIRI {
     private final IRI iri;
 
     public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom, IRI iri) {
@@ -63,6 +64,7 @@ public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation implement
         visitor.visit(this);
     }
 
+    @Override
     public IRI getIRI() {
         return iri;
     }

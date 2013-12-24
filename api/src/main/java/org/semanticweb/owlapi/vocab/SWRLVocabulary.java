@@ -40,13 +40,14 @@ package org.semanticweb.owlapi.vocab;
 
 import java.net.URI;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Medical Informatics Group<br>
  *         Date: Jan 15, 2007 */
 @SuppressWarnings("javadoc")
-public enum SWRLVocabulary {
+public enum SWRLVocabulary implements HasIRI {
 //@formatter:off
     IMP("Imp"),
     INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"),

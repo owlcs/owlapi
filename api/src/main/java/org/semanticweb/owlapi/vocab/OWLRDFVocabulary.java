@@ -42,17 +42,15 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 26-Oct-2006 */
-public enum OWLRDFVocabulary {
-    // //////////////////////////////////////////////////////////////////////////////////////////////////
-    //
+public enum OWLRDFVocabulary implements HasIRI {
+    //@formatter:off
     // OWL Vocab
-    //
-    // //////////////////////////////////////////////////////////////////////////////////////////////////
     /** http://www.w3.org/2002/07/owl#Thing **/
     OWL_THING(Namespaces.OWL, "Thing"),
     /** http://www.w3.org/2002/07/owl#Nothing **/
@@ -334,6 +332,8 @@ public enum OWLRDFVocabulary {
     OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
     /** http://www.w3.org/2002/07/owl#targetValue **/
     OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
+    
+    //@formatter:on
     final IRI iri;
     final Namespaces namespace;
     final String shortName;
@@ -344,7 +344,7 @@ public enum OWLRDFVocabulary {
         iri = IRI.create(namespace.toString(), shortName);
     }
 
-    /** @return the entry IRI */
+    @Override
     public IRI getIRI() {
         return iri;
     }

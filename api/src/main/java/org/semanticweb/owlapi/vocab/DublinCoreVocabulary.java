@@ -41,13 +41,14 @@ package org.semanticweb.owlapi.vocab;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 09-Mar-2007 */
 @SuppressWarnings("javadoc")
-public enum DublinCoreVocabulary {
+public enum DublinCoreVocabulary implements HasIRI {
 //@formatter:off
     CONTRIBUTOR("contributor"),
     COVERAGE("coverage"),
@@ -84,6 +85,7 @@ public enum DublinCoreVocabulary {
         return qname;
     }
 
+    @Override
     public IRI getIRI() {
         return iri;
     }

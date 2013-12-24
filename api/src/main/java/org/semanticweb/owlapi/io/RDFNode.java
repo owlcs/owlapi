@@ -40,28 +40,20 @@ package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
 
-import javax.annotation.Nullable;
-
-import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.HasIRI;
 
 /** @author: Matthew Horridge<br>
  *          The University of Manchester<br>
  *          Bio-Health Informatics Group<br>
  *          Date: 21/12/2010
  * @since 3.2 */
-public abstract class RDFNode implements Serializable, Comparable<RDFNode> {
+public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasIRI {
     private static final long serialVersionUID = 40000L;
 
     /** Determines if this node is a literal node.
      * 
      * @return {@code true} if this node is a literal, otherwise {@code false}. */
     public abstract boolean isLiteral();
-
-    /** Gets the IRI of the resource.
-     * 
-     * @return The IRI or {@code null} if this is an anonymous resource. */
-    @Nullable
-    public abstract IRI getIRI();
 
     /** Determines if this node is a resource and is anonymous.
      * 

@@ -43,6 +43,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -54,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  *         Bio-Health Informatics Group<br>
  *         Date: 03-Oct-2007 */
 @SuppressWarnings("javadoc")
-public enum SKOSVocabulary {
+public enum SKOSVocabulary implements HasIRI {
 //@formatter:off
     BROADMATCH("broadMatch", EntityType.OBJECT_PROPERTY),
     BROADER("broader", EntityType.OBJECT_PROPERTY),
