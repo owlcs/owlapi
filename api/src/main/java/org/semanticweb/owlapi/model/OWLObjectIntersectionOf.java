@@ -42,7 +42,6 @@ package org.semanticweb.owlapi.model;
  * href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Class_Expressions"
  * >ObjectIntersectionOf</a> class expression in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Oct-2006 */
 public interface OWLObjectIntersectionOf extends OWLNaryBooleanClassExpression {}

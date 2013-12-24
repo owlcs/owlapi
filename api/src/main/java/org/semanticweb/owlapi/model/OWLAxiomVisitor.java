@@ -43,10 +43,8 @@ import javax.annotation.Nonnull;
 /** An interface for objects that can accept visits from axioms. (See the <a
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Oct-2006 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006 */
 public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor,
         OWLLogicalAxiomVisitor {
     void visit(@Nonnull OWLDeclarationAxiom axiom);

@@ -49,7 +49,15 @@ import javax.annotation.Nonnull;
 @SuppressWarnings("javadoc")
 public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
         OWLLogicalAxiomVisitorEx<O> {
+    /** visit OWLDeclarationAxiom type
+     * 
+     * @param axiom
+     *            axiom to visit */
     O visit(@Nonnull OWLDeclarationAxiom axiom);
 
+    /** visit OWLDatatypeDefinitionAxiom type
+     * 
+     * @param axiom
+     *            axiom to visit */
     O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
 }

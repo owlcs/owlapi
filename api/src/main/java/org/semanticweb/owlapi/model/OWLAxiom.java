@@ -42,19 +42,23 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
- *         Represents <a
- *         href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in the OWL
- *         2 Specification.<br>
- *         An OWL ontology contains a set of axioms. These axioms can be
- *         annotation axioms, declaration axioms, imports axioms or logical
- *         axioms */
+/** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Axioms">Axioms</a> in
+ * the OWL 2 Specification.<br>
+ * An OWL ontology contains a set of axioms. These axioms can be annotation
+ * axioms, declaration axioms, imports axioms or logical axioms
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLAxiom extends OWLObject, HasAnnotations {
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept */
     void accept(@Nonnull OWLAxiomVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept
+     * @param <O>
+     *            visitor return type
+     * @return visitor value */
     <O> O accept(@Nonnull OWLAxiomVisitorEx<O> visitor);
 
     /** Gets the annotations that are annotate this axiom.

@@ -38,9 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Nov-2006 */
 public interface OWLObjectVisitor extends OWLAxiomVisitor, OWLClassExpressionVisitor,
         OWLDataVisitor, OWLPropertyExpressionVisitor, OWLEntityVisitor,
         OWLAnnotationAxiomVisitor, OWLIndividualVisitor, OWLAnnotationValueVisitor,

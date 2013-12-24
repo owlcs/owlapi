@@ -42,16 +42,30 @@ import javax.annotation.Nonnull;
 
 /** A visitor which visits the different kinds of annotation axioms.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 17-Jan-2009 */
 public interface OWLAnnotationAxiomVisitor {
+    /** visit OWLAnnotationAssertionAxiom type
+     * 
+     * @param axiom
+     *            object to visit */
     void visit(@Nonnull OWLAnnotationAssertionAxiom axiom);
 
+    /** visit OWLSubAnnotationPropertyOfAxiom type
+     * 
+     * @param axiom
+     *            object to visit */
     void visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom);
 
+    /** visit OWLAnnotationPropertyDomainAxiom type
+     * 
+     * @param axiom
+     *            object to visit */
     void visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom);
 
+    /** visit OWLAnnotationPropertyRangeAxiom type
+     * 
+     * @param axiom
+     *            object to visit */
     void visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom);
 }

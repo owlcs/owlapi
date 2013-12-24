@@ -40,12 +40,22 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2010 */
-@SuppressWarnings("javadoc")
-public interface OWLAnnotationSubjectVisitorEx<E> {
-    E visit(@Nonnull IRI iri);
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2010
+ * @param <O>
+ *            visitor type */
+public interface OWLAnnotationSubjectVisitorEx<O> {
+    /** visit IRI type
+     * 
+     * @param iri
+     *            object to visit
+     * @return visitor value */
+    O visit(@Nonnull IRI iri);
 
-    E visit(@Nonnull OWLAnonymousIndividual individual);
+    /** visit OWLAnonymousIndividual type
+     * 
+     * @param individual
+     *            object to visit
+     * @return visitor value */
+    O visit(@Nonnull OWLAnonymousIndividual individual);
 }

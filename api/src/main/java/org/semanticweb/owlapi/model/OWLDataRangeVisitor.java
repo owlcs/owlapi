@@ -47,17 +47,40 @@ import javax.annotation.Nonnull;
  *         The University of Manchester<br>
  *         Information Management Group<br>
  *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
 public interface OWLDataRangeVisitor {
+    /** visit OWLDatatype type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLDatatype node);
 
+    /** visit OWLDataOneOf type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLDataOneOf node);
 
+    /** visit OWLDataComplementOf type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLDataComplementOf node);
 
+    /** visit OWLDataIntersectionOf type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLDataIntersectionOf node);
 
+    /** visit OWLDataUnionOf type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLDataUnionOf node);
 
+    /** visit OWLDatatypeRestriction type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLDatatypeRestriction node);
 }

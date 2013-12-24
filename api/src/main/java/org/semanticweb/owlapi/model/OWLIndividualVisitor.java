@@ -45,7 +45,15 @@ import javax.annotation.Nonnull;
  *         Date: 20-Mar-2009 */
 @SuppressWarnings("javadoc")
 public interface OWLIndividualVisitor {
+    /** visit OWLNamedIndividual type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(@Nonnull OWLNamedIndividual individual);
 
+    /** visit OWLAnonymousIndividual type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(@Nonnull OWLAnonymousIndividual individual);
 }

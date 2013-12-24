@@ -44,8 +44,8 @@ import javax.annotation.Nonnull;
  * "http://www.w3.org/TR/owl2-syntax/#Positive_Object_Property_Assertions"
  * >ObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLObjectPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
         OWLSubClassOfAxiomShortCut {

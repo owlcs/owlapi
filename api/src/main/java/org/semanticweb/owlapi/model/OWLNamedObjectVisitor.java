@@ -40,22 +40,48 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Nov-2006 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Nov-2006 */
 public interface OWLNamedObjectVisitor {
+    /** visit OWLClass type
+     * 
+     * @param owlClass
+     *            owlClass to visit */
     void visit(@Nonnull OWLClass owlClass);
 
+    /** visit OWLObjectProperty type
+     * 
+     * @param property
+     *            property to visit */
     void visit(@Nonnull OWLObjectProperty property);
 
+    /** visit OWLDataProperty type
+     * 
+     * @param property
+     *            property to visit */
     void visit(@Nonnull OWLDataProperty property);
 
+    /** visit OWLNamedIndividual type
+     * 
+     * @param owlIndividual
+     *            owlIndividual to visit */
     void visit(@Nonnull OWLNamedIndividual owlIndividual);
 
+    /** visit OWLOntology type
+     * 
+     * @param ontology
+     *            ontology to visit */
     void visit(@Nonnull OWLOntology ontology);
 
+    /** visit OWLDatatype type
+     * 
+     * @param datatype
+     *            datatype to visit */
     void visit(@Nonnull OWLDatatype datatype);
 
+    /** visit OWLAnnotationProperty type
+     * 
+     * @param property
+     *            property to visit */
     void visit(@Nonnull OWLAnnotationProperty property);
 }

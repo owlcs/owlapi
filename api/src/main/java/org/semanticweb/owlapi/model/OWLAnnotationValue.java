@@ -46,12 +46,17 @@ import javax.annotation.Nonnull;
  * @see org.semanticweb.owlapi.model.IRI
  * @see org.semanticweb.owlapi.model.OWLLiteral
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 13-Jan-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 13-Jan-2009 */
 public interface OWLAnnotationValue extends OWLAnnotationObject {
+    /** @param visitor
+     *            visitor to accept */
     void accept(@Nonnull OWLAnnotationValueVisitor visitor);
 
+    /** @param visitor
+     *            visitor to accept
+     * @param <O>
+     *            visitor return type
+     * @return visitor value */
     <O> O accept(@Nonnull OWLAnnotationValueVisitorEx<O> visitor);
 }

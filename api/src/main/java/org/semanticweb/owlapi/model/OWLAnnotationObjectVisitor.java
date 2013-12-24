@@ -40,12 +40,13 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009 */
 public interface OWLAnnotationObjectVisitor extends OWLAnnotationAxiomVisitor,
         OWLAnnotationValueVisitor {
+    /** visit OWLAnnotation type
+     * 
+     * @param node
+     *            object to visit */
     void visit(@Nonnull OWLAnnotation node);
 }

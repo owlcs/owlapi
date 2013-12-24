@@ -45,19 +45,59 @@ import javax.annotation.Nonnull;
  *         Date: 16-Apr-2008 */
 @SuppressWarnings("javadoc")
 public interface OWLDataVisitorEx<O> {
+    /** visit OWLDatatype type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDatatype node);
 
+    /** visit OWLDataComplementOf type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDataComplementOf node);
 
+    /** visit OWLDataOneOf type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDataOneOf node);
 
+    /** visit OWLDataIntersectionOf type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDataIntersectionOf node);
 
+    /** visit OWLDataUnionOf type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDataUnionOf node);
 
+    /** visit OWLDatatypeRestriction type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDatatypeRestriction node);
 
+    /** visit OWLLiteral type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLLiteral node);
 
+    /** visit OWLFacetRestriction type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull OWLFacetRestriction node);
 }

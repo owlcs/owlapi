@@ -43,8 +43,8 @@ import javax.annotation.Nonnull;
 /** Represents a named object for example, class, property, ontology etc. - i.e.
  * anything that has an IRI as its name.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLNamedObject extends OWLObject, HasIRI {
     /** Gets the IRI of this object
      * 
@@ -53,6 +53,9 @@ public interface OWLNamedObject extends OWLObject, HasIRI {
     @Nonnull
     IRI getIRI();
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     void accept(@Nonnull OWLNamedObjectVisitor visitor);
 }

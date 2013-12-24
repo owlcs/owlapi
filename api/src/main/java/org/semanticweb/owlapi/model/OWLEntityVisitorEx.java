@@ -45,15 +45,45 @@ import javax.annotation.Nonnull;
  *         Date: 16-Apr-2008 */
 @SuppressWarnings("javadoc")
 public interface OWLEntityVisitorEx<O> {
+    /** visit OWLClass type
+     * 
+     * @param cls
+     *            cls to visit
+     * @return visitor value */
     O visit(@Nonnull OWLClass cls);
 
+    /** visit OWLObjectProperty type
+     * 
+     * @param property
+     *            property to visit
+     * @return visitor value */
     O visit(@Nonnull OWLObjectProperty property);
 
+    /** visit OWLDataProperty type
+     * 
+     * @param property
+     *            property to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDataProperty property);
 
+    /** visit OWLNamedIndividual type
+     * 
+     * @param individual
+     *            individual to visit
+     * @return visitor value */
     O visit(@Nonnull OWLNamedIndividual individual);
 
+    /** visit OWLDatatype type
+     * 
+     * @param datatype
+     *            datatype to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDatatype datatype);
 
+    /** visit OWLAnnotationProperty type
+     * 
+     * @param property
+     *            property to visit
+     * @return visitor value */
     O visit(@Nonnull OWLAnnotationProperty property);
 }

@@ -47,7 +47,15 @@ import javax.annotation.Nonnull;
  *         Date: 13-Nov-2006 */
 @SuppressWarnings("javadoc")
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
+    /** visit OWLLiteral type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLLiteral node);
 
+    /** visit OWLFacetRestriction type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull OWLFacetRestriction node);
 }

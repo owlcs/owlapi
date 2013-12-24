@@ -43,14 +43,24 @@ import javax.annotation.Nonnull;
 /** A visitor that visits values of {@link OWLAnnotation}s and
  * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 17-Jan-2009 */
 public interface OWLAnnotationValueVisitor {
+    /** visit IRI type
+     * 
+     * @param iri
+     *            object to visit */
     void visit(@Nonnull IRI iri);
 
+    /** visit OWLAnonymousIndividual type
+     * 
+     * @param individual
+     *            object to visit */
     void visit(@Nonnull OWLAnonymousIndividual individual);
 
+    /** visit OWLLiteral type
+     * 
+     * @param literal
+     *            object to visit */
     void visit(@Nonnull OWLLiteral literal);
 }

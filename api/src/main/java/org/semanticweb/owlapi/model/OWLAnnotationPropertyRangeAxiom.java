@@ -44,9 +44,8 @@ import javax.annotation.Nonnull;
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range"
  * >AnnotationPropertyRange</a> axiom in the OWL 2 specification.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 13-Jan-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 13-Jan-2009 */
 public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom {
     /** Gets the annotation property that this axiom provides a range for.
      * 

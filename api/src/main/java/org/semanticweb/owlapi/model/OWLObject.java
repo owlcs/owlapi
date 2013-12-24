@@ -43,8 +43,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 */
 public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature,
         HasContainsEntityInSignature, HasAnonymousIndividuals, HasClassesInSignature,
         HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
@@ -128,10 +128,19 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSigna
     @Nonnull
     Set<OWLClassExpression> getNestedClassExpressions();
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     void accept(@Nonnull OWLObjectVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor
+     * @param <O>
+     *            visitor return type
+     * @return visitor value */
     <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
 
     /** Determines if this object is either, owl:Thing (the top class),
