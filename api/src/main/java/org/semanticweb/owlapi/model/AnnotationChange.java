@@ -44,10 +44,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 18-Mar-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Mar-2009 */
 public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> {
     private final OWLAnnotation annotation;
 

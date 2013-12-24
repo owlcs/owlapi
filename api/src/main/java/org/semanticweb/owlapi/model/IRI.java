@@ -56,9 +56,9 @@ import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 14-Jan-2009 Represents International Resource Identifiers */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 14-Jan-2009 Represents International Resource
+ *         Identifiers */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
         CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
@@ -270,7 +270,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     /** @param url
      *            the url to create the IRI from. Cannot be null.
-     * @return an IRI wraopping url.toURI() if the URL is ill formed */
+     * @return an IRI wrapping url.toURI()
+     * @throws OWLRuntimeException
+     *             if the URL is ill formed*/
     @Nonnull
     public static IRI create(@Nonnull URL url) {
         checkNotNull(url, "url cannot be null");
@@ -488,6 +490,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj == this) {
             return true;
         }

@@ -47,9 +47,8 @@ import javax.annotation.Nonnull;
  * An annotation is equal to another annotation if both objects have equal
  * annotation URIs and have equal annotation values.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Dec-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Dec-2006 */
 public interface OWLAnnotation extends OWLObject, HasAnnotations {
     /** Gets the property that this annotation acts along
      * 
@@ -96,9 +95,14 @@ public interface OWLAnnotation extends OWLObject, HasAnnotations {
     @Nonnull
     OWLAnnotation getAnnotatedAnnotation(@Nonnull Set<OWLAnnotation> annotations);
 
-    @SuppressWarnings("javadoc")
-    void accept(@Nonnull OWLAnnotationObjectVisitor visitor);
+    /** @param visitor
+     *            visitor to accept */
+    void accept(OWLAnnotationObjectVisitor visitor);
 
-    @SuppressWarnings("javadoc")
-    <O> O accept(@Nonnull OWLAnnotationObjectVisitorEx<O> visitor);
+    /** @param visitor
+     *            visitor to accept
+     * @param <O>
+     *            visitor return type
+     * @return visitor value */
+    <O> O accept(OWLAnnotationObjectVisitorEx<O> visitor);
 }

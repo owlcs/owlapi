@@ -43,9 +43,8 @@ import javax.annotation.Nonnull;
 /** Represents <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion"
  * >AnnotationAssertion</a> axioms in the OWL 2 specification.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Nov-2006 */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
         HasSubject<OWLAnnotationSubject> {
     /** Gets the subject of the annotation assertion. This is either an

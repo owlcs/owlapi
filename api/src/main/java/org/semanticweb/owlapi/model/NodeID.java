@@ -43,9 +43,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /** Represents the Node ID for anonymous individuals
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 15-Jan-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 15-Jan-2009 */
 public class NodeID implements Comparable<NodeID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicLong COUNTER = new AtomicLong();
@@ -54,6 +53,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
     private static final String PREFIX = "_:";
 
     /** @param id
+     *            the node id
      * @return string version of id */
     public static String nodeString(int id) {
         return NodeID.NODE_ID_PREFIX + Integer.toString(id);
@@ -68,6 +68,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
     /** Returns an absolute IRI from a nodeID attribute.
      * 
      * @param nodeID
+     *            the node id
      * @return absolute IRI */
     public static String getIRIFromNodeID(String nodeID) {
         return PREFIX + SHARED_NODE_ID_PREFIX + nodeID.replace("genid", "");
@@ -105,6 +106,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
     }
 
     /** @param iri
+     *            the iri or node id
      * @return true if the iri is an anonymous label */
     public static boolean isAnonymousNodeID(String iri) {
         return iri != null && iri.indexOf(NodeID.SHARED_NODE_ID_PREFIX) > -1;

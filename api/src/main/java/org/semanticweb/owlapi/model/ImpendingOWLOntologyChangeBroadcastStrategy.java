@@ -42,9 +42,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 04-Jul-2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010 */
 public interface ImpendingOWLOntologyChangeBroadcastStrategy {
     /** Broadcasts the list of changes to the specified listeners.
      * 
