@@ -1151,6 +1151,11 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     } else {
                         write(obj.toString());
                     }
+                    if (annosSetIt.hasNext()) {
+                        write(",");
+                        writeNewLine();
+                    }
+                }
                     if (it.hasNext()) {
                         write(delimeter);
                         fireSectionItemFinished(sec);
@@ -1160,24 +1165,26 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
                     } else {
                         fireSectionItemFinished(sec);
                     }
-                    if (annosSetIt.hasNext()) {
-                        write(",");
-                        writeNewLine();
-                    }
-                }
             }
             fireSectionRenderingFinished(sec);
             popTab();
             writeNewLine();
-            writeNewLine();
-        }
-    }
+                        writeNewLine();
+                    }
+                }
 
-    /** @param keyword
+    /** Write section.
+     * 
+     * @param keyword
+     *            the keyword
      * @param content
+     *            the content
      * @param delimeter
+     *            the delimeter
      * @param newline
-     * @param ontologiesList */
+     *            the newline
+     * @param ontologiesList
+     *            the ontologies list */
     public void writeSection(ManchesterOWLSyntax keyword, Collection<?> content,
             String delimeter, boolean newline, OWLOntology... ontologiesList) {
         String sec = keyword.toString();

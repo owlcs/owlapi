@@ -398,4 +398,24 @@ public class ManchesterOWLSyntaxParserTestCase {
         // then
         assertEquals("Expected " + expected + " actual " + dsvf, expected, dsvf);
     }
+
+    @Test
+    public void shouldNotFailOnAnnotations() throws Exception {
+        String in = "Ontology(<http://x.org/>\n"
+                + "Declaration(Class(<http://x.org/c>))\n"
+                + "AnnotationAssertion(<http://x.org/p> <http://x.org/c> \"v1\")\n"
+                + "AnnotationAssertion(<http://x.org/p> <http://x.org/c> \"orifice\")\n"
+                + "AnnotationAssertion(Annotation(<http://x.org/p2> \"foo\") <http://x.org/p> <http://x.org/c> \"v1\")\n"
+                + ")";
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology o = manager
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(in));
+        StringDocumentTarget target = new StringDocumentTarget();
+        manager.saveOntology(o, new ManchesterOWLSyntaxOntologyFormat(), target);
+        OWLOntology result = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(target.toString()));
+        for (OWLAxiom ax : o.getAxioms()) {
+            assertTrue(ax.toString(), result.containsAxiom(ax));
+        }
+    }
 }
