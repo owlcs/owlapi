@@ -53,6 +53,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -66,7 +67,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Information Management Group<br>
  *         Date: 11-Nov-2008 */
 @SuppressWarnings("javadoc")
-public enum OWL2Datatype {
+public enum OWL2Datatype implements HasIRI{
 //@formatter:off
     RDF_XML_LITERAL(Namespaces.RDF, "XMLLiteral", Category.STRING_WITHOUT_LANGUAGE_TAG, false, ".*"),
     RDFS_LITERAL(Namespaces.RDFS, "Literal", Category.UNIVERSAL, false, ".*"),
