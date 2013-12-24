@@ -45,8 +45,9 @@ import javax.annotation.Nonnull;
  * @param <F>
  *            value */
 public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends
-        OWLRestriction {
+        OWLRestriction, HasFiller<F> {
     /** @return the filler */
+    @Override
     @Nonnull
     F getFiller();
 }

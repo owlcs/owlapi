@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 25-Oct-2006 */
-public abstract class OWLOntologyChange<T> {
+public abstract class OWLOntologyChange<T> implements HasSignature {
     private final OWLOntology ont;
 
     /** @param ont

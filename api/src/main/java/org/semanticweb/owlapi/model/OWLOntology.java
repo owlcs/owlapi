@@ -56,7 +56,8 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLOntology extends OWLObject {
+public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
+        HasAxiomsByType, HasContainsAxiom, HasAnnotations {
     /** interim method to access ontology internals for searching purposes
      * 
      * @return internals for this ontology */
@@ -96,6 +97,7 @@ public interface OWLOntology extends OWLObject {
      *         in this ontology, similarly, any changes that affect the
      *         annotations on this ontology will not change the returned set. */
     @Nonnull
+    @Override
     Set<OWLAnnotation> getAnnotations();
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
@@ -212,6 +214,7 @@ public interface OWLOntology extends OWLObject {
      *         is used to determine whether or not this ontology contains a
      *         particular axiom rather than using getAxioms().contains(). */
     @Nonnull
+    @Override
     Set<OWLAxiom> getAxioms();
 
     /** Gets the number of axioms in this ontology.
@@ -227,6 +230,7 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy of the axioms in the ontology - it
      *         will not be updated if the ontology changes. */
     @Nonnull
+    @Override
     Set<OWLLogicalAxiom> getLogicalAxioms();
 
     /** Gets the number of logical axioms in this ontology.
@@ -242,6 +246,7 @@ public interface OWLOntology extends OWLObject {
      *         set that is returned is a copy of the axioms in the ontology - it
      *         will not be updated if the ontology changes. */
     @Nonnull
+    @Override
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType);
 
     /** Gets the axioms which are of the specified type.
@@ -332,6 +337,7 @@ public interface OWLOntology extends OWLObject {
      * @return {@code true} if the ontology contains the specified axioms, or
      *         {@code false} if the ontology doesn't contain the specified
      *         axiom. */
+    @Override
     boolean containsAxiom(@Nonnull OWLAxiom axiom);
 
     /** Determines if this ontology, and possibly the imports closure, contains

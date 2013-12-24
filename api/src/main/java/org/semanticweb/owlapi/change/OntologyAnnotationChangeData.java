@@ -40,10 +40,13 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Represents the specific non-ontology data required by an
  * {@link AddOntologyAnnotation} change. <br>
@@ -80,5 +83,10 @@ public abstract class OntologyAnnotationChangeData extends
     @Override
     public OWLAnnotation getItem() {
         return getAnnotation();
+    }
+
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return annotation.getSignature();
     }
 }

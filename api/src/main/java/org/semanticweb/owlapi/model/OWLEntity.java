@@ -45,7 +45,7 @@ import javax.annotation.Nonnull;
  *         Represents <a href=
  *         "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
  *         >Entities</a> in the OWL 2 Specification. */
-public interface OWLEntity extends OWLObject, OWLNamedObject {
+public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     /** Gets the entity type for this entity
      * 
      * @return The entity type */

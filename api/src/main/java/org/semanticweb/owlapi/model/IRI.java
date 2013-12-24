@@ -398,6 +398,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     @Override
+    public boolean containsEntityInSignature(OWLEntity owlEntity) {
+        return false;
+    }
+
+    @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return Collections.emptySet();
     }

@@ -46,10 +46,11 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Medical Informatics Group<br>
  *         Date: Jan 15, 2007 */
-public interface SWRLVariable extends SWRLIArgument, SWRLDArgument {
+public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI {
     /** Gets the variable IRI that names the variable
      * 
      * @return The IRI that represents the name of the variable */
     @Nonnull
+    @Override
     IRI getIRI();
 }

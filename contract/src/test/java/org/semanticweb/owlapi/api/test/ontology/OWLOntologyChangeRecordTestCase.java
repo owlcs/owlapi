@@ -3,6 +3,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -11,6 +13,7 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeDataVisitor;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -52,6 +55,11 @@ public class OWLOntologyChangeRecordTestCase {
             @Override
             public <R, E extends Exception> R accept(
                     OWLOntologyChangeDataVisitor<R, E> visitor) throws E {
+                return null;
+            }
+
+            @Override
+            public Set<OWLEntity> getSignature() {
                 return null;
             }
         };

@@ -45,11 +45,15 @@ import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLObject extends Comparable<OWLObject>, Serializable {
+public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature,
+        HasContainsEntityInSignature, HasAnonymousIndividuals, HasClassesInSignature,
+        HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
+        HasIndividualsInSignature, HasDatatypesInSignature {
     /** Gets the signature of this object
      * 
      * @return A set of entities that correspond to the signature of this
      *         object. The set is a copy, changes are not reflected back. */
+    @Override
     @Nonnull
     Set<OWLEntity> getSignature();
 
@@ -57,6 +61,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      * an OWLEntityCollector. The set is a copy, changes are not reflected back.
      * 
      * @return A set of anonymous individuals. */
+    @Override
     @Nonnull
     Set<OWLAnonymousIndividual> getAnonymousIndividuals();
 
@@ -67,6 +72,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         object. The set is a subset of the signature, and is not backed
      *         by the signature; it is a modifiable collection and changes are
      *         not reflected by the signature. */
+    @Override
     @Nonnull
     Set<OWLClass> getClassesInSignature();
 
@@ -77,6 +83,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Override
     @Nonnull
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
@@ -87,6 +94,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         of this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Override
     @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
@@ -97,6 +105,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
      *         changes are not reflected by the signature. */
+    @Override
     @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
@@ -107,6 +116,7 @@ public interface OWLObject extends Comparable<OWLObject>, Serializable {
      *         object.The set is a subset of the signature, and is not backed by
      *         the signature; it is a modifiable collection and changes are not
      *         reflected by the signature. */
+    @Override
     @Nonnull
     Set<OWLDatatype> getDatatypesInSignature();
 

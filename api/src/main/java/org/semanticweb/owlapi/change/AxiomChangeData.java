@@ -40,9 +40,12 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
@@ -70,9 +73,13 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
     public OWLAxiom getAxiom() {
         return axiom;
     }
-
+    
     @Override
     public OWLAxiom getItem() {
         return getAxiom();
+    }
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return axiom.getSignature();
     }
 }

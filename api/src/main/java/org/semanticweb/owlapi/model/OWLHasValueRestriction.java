@@ -42,19 +42,17 @@ import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006
- * @param <R>
- *            range
- * @param <P>
- *            property expression
  * @param <V>
  *            the value type */
-public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestriction {
+public interface OWLHasValueRestriction<V extends OWLObject> extends OWLRestriction,
+        HasFiller<V> {
     /** Gets the value which is the filler for this restriction. In the case of
      * an object restriction this will be an individual, in the case of a data
      * restriction this will be a constant (data value).
      * 
      * @return the value */
     @Nonnull
+    @Deprecated
     V getValue();
 
     /** A convenience method that obtains this restriction as an existential

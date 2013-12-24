@@ -40,8 +40,12 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
@@ -86,6 +90,11 @@ public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
     public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
             throws E {
         return visitor.visit(this);
+    }
+
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
     }
 
     @Override

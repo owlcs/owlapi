@@ -63,7 +63,8 @@ public class SWRLSameIndividualAtomImpl extends
     @SuppressWarnings("javadoc")
     public SWRLSameIndividualAtomImpl(@Nonnull OWLObjectProperty property,
             @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
-        super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0, "arg0 cannot be null"), checkNotNull(arg1, "arg1 cannot be null"));
+        super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0,
+                "arg0 cannot be null"), checkNotNull(arg1, "arg1 cannot be null"));
     }
 
     @Override

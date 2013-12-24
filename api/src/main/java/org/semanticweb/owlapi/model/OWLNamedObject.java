@@ -45,10 +45,11 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLNamedObject extends OWLObject {
+public interface OWLNamedObject extends OWLObject, HasIRI {
     /** Gets the IRI of this object
      * 
      * @return The IRI of this object */
+    @Override
     @Nonnull
     IRI getIRI();
 

@@ -39,9 +39,12 @@
 package org.semanticweb.owlapi.change;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.HasSignature;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
@@ -56,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * @param <T>
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5 */
-public abstract class OWLOntologyChangeData<T> implements Serializable {
+public abstract class OWLOntologyChangeData<T> implements HasSignature, Serializable {
     private static final long serialVersionUID = 40000L;
 
     /** Default constructor for serialization purposes. */
@@ -129,4 +132,7 @@ public abstract class OWLOntologyChangeData<T> implements Serializable {
         }
         return getItem().equals(((OWLOntologyChangeData<?>) obj).getItem());
     }
+
+    @Override
+    public abstract Set<OWLEntity> getSignature();
 }

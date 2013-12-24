@@ -40,8 +40,12 @@ package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collections;
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 /** Instances of this class represent {@link OWLOntologyChangeData} for changes
@@ -79,5 +83,10 @@ public abstract class ImportChangeData extends
     @Override
     public OWLImportsDeclaration getItem() {
         return getDeclaration();
+    }
+
+    @Override
+    public Set<OWLEntity> getSignature() {
+        return Collections.emptySet();
     }
 }

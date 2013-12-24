@@ -59,7 +59,7 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue,
-        OWLPropertyAssertionObject {
+        OWLPropertyAssertionObject, OWLPrimitive {
     /** Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
      * Note that literals that are abbreviated in the functional syntax (and
      * other concrete syntaxes) and are of the form {@code "abc"} or

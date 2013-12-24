@@ -50,7 +50,7 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 18-Dec-2006 */
-public interface OWLAnnotation extends OWLObject {
+public interface OWLAnnotation extends OWLObject, HasAnnotations {
     /** Gets the property that this annotation acts along
      * 
      * @return The annotation property */
@@ -83,6 +83,7 @@ public interface OWLAnnotation extends OWLObject {
      * @return A (possibly empty) set of annotations that annotate this
      *         annotation */
     @Nonnull
+    @Override
     Set<OWLAnnotation> getAnnotations();
 
     /** Gets an OWLAnnotation which is a copy of this annotation but which has

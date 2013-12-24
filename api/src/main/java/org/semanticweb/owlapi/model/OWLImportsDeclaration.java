@@ -44,12 +44,13 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 25-Oct-2006 */
-public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration> {
+public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>, HasIRI {
     /** Gets the import IRI
      * 
      * @return The import IRI that points to the ontology to be imported. The
      *         imported ontology should have this IRI as its IRI (although this
      *         isn't enforced). */
     @Nonnull
+    @Override
     IRI getIRI();
 }

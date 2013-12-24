@@ -99,6 +99,11 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     }
 
     @Override
+    public boolean containsEntityInSignature(OWLEntity owlEntity) {
+        return getSignature().contains(owlEntity);
+    }
+
+    @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         if (signature == null || signature.get() == null) {
             getSignature();
