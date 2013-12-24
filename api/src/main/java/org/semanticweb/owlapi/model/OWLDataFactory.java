@@ -94,26 +94,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     @Nonnull
     OWLDatatype getTopDatatype();
 
-    /** Gets an entity that has the specified IRI and is of the specified type.
-     * 
-     * @param entityType
-     *            The type of the entity that will be returned. Cannot be null.
-     * @param iri
-     *            The IRI of the entity that will be returned. Cannot be null.
-     * @return An entity that has the same IRI as this entity and is of the
-     *         specified type */
-    @Nonnull
-    <E extends OWLEntity> E getOWLEntity(@Nonnull EntityType<E> entityType,
-            @Nonnull IRI iri);
-
-    /** Gets an OWL class that has the specified IRI
-     * 
-     * @param iri
-     *            The IRI of the class. Cannot be null.
-     * @return The object representing the class that has the specified IRI */
-    @Nonnull
-    OWLClass getOWLClass(@Nonnull IRI iri);
-
     /** Gets an OWLClass that has an IRI that is obtained by expanding an
      * abbreviated name using an appropriate prefix mapping. See <a
      * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
@@ -141,15 +121,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     @Nonnull
     OWLClass getOWLClass(@Nonnull String abbreviatedIRI,
             @Nonnull PrefixManager prefixManager);
-
-    /** Gets an OWL object property that has the specified IRI
-     * 
-     * @param iri
-     *            The IRI of the object property to be obtained. Cannot be null.
-     * @return The object representing the object property that has the
-     *         specified IRI */
-    @Nonnull
-    OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri);
 
     /** Gets an OWLObjectProperty that has an IRI that is obtained by expanding
      * an abbreviated name using an appropriate prefix mapping. See <a
@@ -189,15 +160,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     OWLObjectInverseOf
             getOWLObjectInverseOf(@Nonnull OWLObjectPropertyExpression property);
 
-    /** Gets an OWL data property that has the specified IRI
-     * 
-     * @param iri
-     *            The IRI of the data property to be obtained. Cannot be null.
-     * @return The object representing the data property that has the specified
-     *         IRI */
-    @Nonnull
-    OWLDataProperty getOWLDataProperty(@Nonnull IRI iri);
-
     /** Gets an OWLDataProperty that has an IRI that is obtained by expanding an
      * abbreviated name using an appropriate prefix mapping. See <a
      * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
@@ -226,14 +188,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     OWLDataProperty getOWLDataProperty(@Nonnull String abbreviatedIRI,
             @Nonnull PrefixManager prefixManager);
 
-    /** Gets an OWL individual that has the specified IRI
-     * 
-     * @param iri
-     *            The IRI of the individual to be obtained. Cannot be null.
-     * @return The object representing the individual that has the specified IRI */
-    @Nonnull
-    OWLNamedIndividual getOWLNamedIndividual(@Nonnull IRI iri);
-
     /** Gets an OWLNamedIndividual that has an IRI that is obtained by expanding
      * an abbreviated name using an appropriate prefix mapping. See <a
      * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#IRIs">The OWL 2
@@ -261,31 +215,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     @Nonnull
     OWLNamedIndividual getOWLNamedIndividual(@Nonnull String abbreviatedIRI,
             @Nonnull PrefixManager prefixManager);
-
-    /** Gets an anonymous individual that has a specific ID.
-     * 
-     * @param id
-     *            The node ID. Note that the ID will be prefixed with _: if it
-     *            is not specified with _: as a prefix. Cannot be null.
-     * @return An anonymous individual. */
-    @Nonnull
-    OWLAnonymousIndividual getOWLAnonymousIndividual(@Nonnull String id);
-
-    /** Gets an anonymous individual. The node ID for the individual will be
-     * generated automatically
-     * 
-     * @return The anonymous individual */
-    @Nonnull
-    OWLAnonymousIndividual getOWLAnonymousIndividual();
-
-    /** Gets an OWLAnnotationProperty that has the specified IRI
-     * 
-     * @param iri
-     *            The IRI of the annotation property to be obtained. Cannot be
-     *            null.
-     * @return An OWLAnnotationProperty with the specified IRI */
-    @Nonnull
-    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri);
 
     /** Gets an OWLAnnotationProperty that has an IRI that is obtained by
      * expanding an abbreviated name using an appropriate prefix mapping. See <a
@@ -379,14 +308,6 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return The datatype with an IRI of {@code rdf:PlainLiteral} */
     @Nonnull
     OWLDatatype getRDFPlainLiteral();
-
-    /** Gets an OWLDatatype that has the specified IRI
-     * 
-     * @param iri
-     *            The IRI of the datatype to be obtained. Cannot be null.
-     * @return The object representing the datatype that has the specified IRI */
-    @Nonnull
-    OWLDatatype getOWLDatatype(@Nonnull IRI iri);
 
     /** Gets an OWLDatatype that has an IRI that is obtained by expanding an
      * abbreviated name using an appropriate prefix mapping. See <a
