@@ -51,9 +51,8 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  * does not allow for independent rendering; in a multithreaded situation, the
  * rendere may change mid execution because of the static singleton instance
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Jan-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Jan-2008 */
 public class ToStringRenderer {
     private static ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;

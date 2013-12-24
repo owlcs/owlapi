@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 /** An {@code OWLParser} parses an ontology document into an OWL API object
  * representation of an ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Nov-2006 */
 public interface OWLParser {
     /** Parses the ontology that has a concrete representation which is pointed
      * to by the specified document IRI. Implementors of this method should load

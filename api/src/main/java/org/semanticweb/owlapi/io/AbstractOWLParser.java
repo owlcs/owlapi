@@ -65,11 +65,10 @@ import org.xml.sax.InputSource;
 
 /** A convenience base class for parsers, which provides a mechanism to manage
  * the setting and getting of the {@code OWLOntologyManager} that should be
- * associated with the parser
+ * associated with the parser.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Nov-2006 */
 public abstract class AbstractOWLParser implements OWLParser {
     private static final Logger LOGGER = Logger.getLogger(AbstractOWLParser.class
             .getName());
@@ -89,10 +88,12 @@ public abstract class AbstractOWLParser implements OWLParser {
 
     /** A convenience method that obtains an input stream from a URI. This method
      * sets up the correct request type and wraps the input stream within a
-     * buffered input stream
+     * buffered input stream.
      * 
      * @param documentIRI
      *            The URI from which the input stream should be returned
+     * @param config
+     *            the load configuration
      * @return The input stream obtained from the URI
      * @throws IOException
      *             if there was an {@code IOException} in obtaining the input

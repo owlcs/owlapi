@@ -42,9 +42,8 @@ import java.io.IOException;
 
 /** Describes a parse exception which was caused by an {@code IOException}.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLParserIOException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
@@ -52,6 +51,13 @@ public class OWLParserIOException extends OWLParserException {
      *            the cause */
     public OWLParserIOException(IOException cause) {
         super(cause);
+    }
+
+    /** @return the cause of this exception which will be an {@code IOException}. */
+    //XXX verify whether this exception class is necessary at all
+    @Override
+    public IOException getCause() {
+        return (IOException) super.getCause();
     }
 
     @Override

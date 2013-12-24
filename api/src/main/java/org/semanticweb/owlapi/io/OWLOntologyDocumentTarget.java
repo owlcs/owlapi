@@ -56,9 +56,8 @@ import org.semanticweb.owlapi.model.IRI;
  * A client that writes an ontology to a database or some similar storage will
  * simply try to use the {@link IRI} returned by {@link #getDocumentIRI()}.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Nov-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Nov-2007 */
 public interface OWLOntologyDocumentTarget {
     /** Determines if this document target can be pointed to by a
      * {@link java.io.Writer}.

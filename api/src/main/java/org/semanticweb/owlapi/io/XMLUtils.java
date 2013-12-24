@@ -45,16 +45,22 @@ package org.semanticweb.owlapi.io;
  * namespaces in XML specification</a>.
  * 
  * @since 3.3.0
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 22/09/2011 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 22/09/2011 */
 public class XMLUtils {
-    private static final String LT = "&lt;";
-    private static final String GT = "&gt;";
-    private static final String QUOT = "&quot;";
-    private static final String AMP = "&amp;";
-    private static final String APOS = "&apos;";
+    /** &amp;lt; shortcut */
+    public static final String LT = "&lt;";
+    /** &amp;gt; shortcut */
+    public static final String GT = "&gt;";
+    /** &amp;quot; shortcut */
+    public static final String QUOT = "&quot;";
+    /** &amp;amp; shortcut */
+    public static final String AMP = "&amp;";
+    /** &amp;apos; shortcut */
+    public static final String APOS = "&apos;";
+    // For some point in the future
+    /** owl processing instruction */
+    public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
 
     /** Determines if a character is an XML name start character.
      * 
@@ -242,7 +248,8 @@ public class XMLUtils {
         }
     }
 
-    /** utility to get the part of a charsequence that is not the NCName fragment
+    /** utility to get the part of a charsequence that is not the NCName
+     * fragment.
      * 
      * @param s
      *            the charsequence to split

@@ -48,9 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 /** A class that describes how ontology parsing failed. This class collects parse
  * errors and the parsers that generated the errors.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Apr-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Apr-2008 */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 40000L;
     private boolean includeStackTraceInMessage = true;
@@ -61,7 +60,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
      *            the document IRI
      * @param exceptions
      *            the map parser-&gt;exceptions
-     * @param config */
+     * @param config
+     *            the configuration object */
     public UnparsableOntologyException(IRI documentIRI,
             Map<OWLParser, OWLParserException> exceptions,
             OWLOntologyLoaderConfiguration config) {
@@ -124,7 +124,7 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
     }
 
     /** Gets the ontology document IRI from which there was an attempt to parse
-     * an ontology
+     * an ontology.
      * 
      * @return The ontology document IRI */
     public IRI getDocumentIRI() {

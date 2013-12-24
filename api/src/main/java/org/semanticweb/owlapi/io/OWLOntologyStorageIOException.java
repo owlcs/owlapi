@@ -44,9 +44,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** An {@code OWLOntologyStorageException} that was caused by an IOException.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Dec-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 17-Dec-2009 */
 public class OWLOntologyStorageIOException extends OWLOntologyStorageException {
     private static final long serialVersionUID = 40000L;
     private final IOException ioException;

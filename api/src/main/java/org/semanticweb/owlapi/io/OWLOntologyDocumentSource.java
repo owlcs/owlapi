@@ -59,9 +59,8 @@ import org.semanticweb.owlapi.model.IRI;
  * methods return new instances each time the method is called. This allows
  * multiple attempts at loading an ontology.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 24-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Apr-2007 */
 public interface OWLOntologyDocumentSource {
     /** Determines if a reader is available which an ontology document can be
      * parsed from.

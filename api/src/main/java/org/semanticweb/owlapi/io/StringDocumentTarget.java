@@ -45,9 +45,8 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 23-Mar-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Mar-2008 */
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
     private final StringWriter writer;
 

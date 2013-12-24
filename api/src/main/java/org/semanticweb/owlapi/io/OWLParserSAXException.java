@@ -45,9 +45,8 @@ import org.xml.sax.SAXException;
  * Parser implementers should use this class or subclasses of this class to wrap
  * {@code SAXException}s.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 07-Dec-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 07-Dec-2009 */
 public class OWLParserSAXException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
@@ -55,5 +54,10 @@ public class OWLParserSAXException extends OWLParserException {
      *            the cause */
     public OWLParserSAXException(SAXException cause) {
         super(cause);
+    }
+    //XXX verify whether this exception class is necessary at all
+    @Override
+    public  SAXException getCause() {
+        return (SAXException) super.getCause();
     }
 }

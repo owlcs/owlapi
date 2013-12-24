@@ -51,9 +51,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * represents the error and inserts this where appropriate into the
  * corresponding complete OWLObject (OWLAxiom) that could not be parsed.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 21/12/2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 21/12/2010
  * @since 3.2 */
 public class RDFResourceParseError {
     private final OWLEntity parserGeneratedErrorEntity;

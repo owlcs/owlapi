@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 21/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/12/2010 */
 public interface OWLOntologyLoaderMetaData {}

@@ -48,9 +48,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Nov-2006 */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 

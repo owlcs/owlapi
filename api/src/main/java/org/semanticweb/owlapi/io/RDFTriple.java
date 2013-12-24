@@ -50,9 +50,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 21/12/2010
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/12/2010
  * @since 3.2 */
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     private static final long serialVersionUID = 40000L;
@@ -79,6 +78,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            whether the subject is anonymous
      * @param predicate
      *            the predicate
+     * @param predicateAnon
+     *            whether the predicate is anon
      * @param object
      *            the object
      * @param objectAnon
@@ -103,6 +104,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            whether the subject is anonymous
      * @param predicate
      *            the predicate
+     * @param predicateAnon
+     *            whether the predicate is anon
      * @param object
      *            the object */
     public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate,
