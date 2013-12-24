@@ -52,11 +52,10 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 
 /** Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.SetOntologyID} change. <br>
- * Instances of this class are immutable. <br>
+ * Instances of this class are immutable.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 27/04/2012
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 27/04/2012
  * @since 3.5 */
 public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
     private static final long serialVersionUID = 40000L;

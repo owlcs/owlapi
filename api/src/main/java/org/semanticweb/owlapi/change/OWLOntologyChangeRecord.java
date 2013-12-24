@@ -74,9 +74,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * </ol>
  * {@code OWLOntologyChangeRecord} objects are immutable.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 03/05/2012
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 03/05/2012
  * @since 3.4.3 */
 public class OWLOntologyChangeRecord<T> implements Serializable {
     private static final long serialVersionUID = 40000L;
@@ -144,10 +143,10 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      * {@link OWLOntologyChangeData} associated with this
      * {@link OWLOntologyChangeRecord} object. The {@link OWLOntology} that is
      * the target of the resulting {@link OWLOntologyChange} is derived from an
-     * {@link OWLOntologyManager}. The manager <emph>must</emph> contain an
-     * ontology that has an {@link OWLOntologyID} which is equal to the
+     * {@link OWLOntologyManager}. The manager <i>must</i> contain an ontology
+     * that has an {@link OWLOntologyID} which is equal to the
      * {@link OWLOntologyID} associated with this
-     * {@link OWLOntologyChangeRecord} object. </p>
+     * {@link OWLOntologyChangeRecord} object.
      * 
      * @param manager
      *            The manager which will be used to obtain a reference to an

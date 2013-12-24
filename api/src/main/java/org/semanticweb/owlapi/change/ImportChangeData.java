@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
  * that that are specific to the addition or removal of import statements
  * to/from an ontology.
  * 
- * @author Matthew Horridge, Stanford University<br>
- *         Bio-Medical Informatics Research Group<br>
- *         Date: 27/04/2012 */
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 27/04/2012 */
 public abstract class ImportChangeData extends
         OWLOntologyChangeData<OWLImportsDeclaration> {
     private static final long serialVersionUID = 40000L;
