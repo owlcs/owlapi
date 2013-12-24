@@ -53,15 +53,14 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Apr-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Apr-2007 */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implements
         OWLObjectVisitor {
     /** @param writer
-     * @param entityShortFormProvider */
+     *            writer
+     * @param entityShortFormProvider
+     *            entityShortFormProvider */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);
@@ -124,14 +123,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
             ManchesterOWLSyntax keyword) {
         restriction.getProperty().accept(this);
         write(keyword);
-        if (restriction.getFiller() instanceof OWLAnonymousClassExpression) {
-            if (restriction.getFiller() instanceof OWLObjectIntersectionOf
-                    || restriction.getFiller() instanceof OWLObjectUnionOf) {
-                incrementTab(4);
-                writeNewLine();
-            }
-            write("(");
-        }
         restriction.getFiller().accept(this);
     }
 
@@ -907,7 +898,12 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(SWRLVariable node) {
         write("?");
-        write(node.getIRI().toQuotedString());
+        String fragment = node.getIRI().getFragment();
+        // XXX an IRI without a fragment is likely an error
+        if (fragment == null) {
+            fragment = node.getIRI().toQuotedString();
+        }
+        write(fragment);
     }
 
     @Override

@@ -65,8 +65,7 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
-    public void shouldRoundtripDisjointUnion() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundtripDisjointUnion() throws Exception {
         OWLOntology o = Factory.getManager().createOntology();
         OWLClass a = Class(IRI("http://iri/#a"));
         OWLClass b = Class(IRI("http://iri/#b"));
@@ -166,6 +165,44 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     @Test
+    public void shouldParseRuleInManSimpleSyntax() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
+        String inputManSyntax = "Prefix: owl: <http://www.w3.org/2002/07/owl#>\n"
+                + "Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n"
+                + "Prefix: xml: <http://www.w3.org/XML/1998/namespace>\n"
+                + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
+                + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+                + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
+                + "Datatype: xsd:decimal\n"
+                + "Datatype: xsd:int\n"
+                + "Datatype: xsd:dateTime\n"
+                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
+                + "    Characteristics: \n"
+                + "        Functional\n"
+                + "    Range: \n"
+                + "        xsd:int\n"
+                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n"
+                + "    Range: \n"
+                + "        xsd:dateTime\n"
+                + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+                + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n"
+                + "    Types: \n"
+                + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+                + "Rule: \n"
+                + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
+        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(inputManSyntax));
+        StringDocumentTarget t = new StringDocumentTarget();
+        o.getOWLOntologyManager().saveOntology(o,
+                new ManchesterOWLSyntaxOntologyFormat(), t);
+        OWLOntology o1 = Factory.getManager().loadOntologyFromOntologyDocument(
+                new StringDocumentSource(t.toString()));
+        o1.getOWLOntologyManager().saveOntology(o1,
+                new ManchesterOWLSyntaxOntologyFormat(), t);
+        assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
+    }
+
+    @Test
     public void shouldAnnotateAndRoundTrip() throws OWLOntologyCreationException {
         String input = "Prefix: : <http://example.com/owl/families/>\n"
                 + "Ontology: <http://example.com/owl/families>\n" + "Class: Person\n"
@@ -185,14 +222,14 @@ public class ManchesterOWLSyntaxParserTestCase {
 
     public static final String NS = "http://protege.org/ontologies/Test.owl";
     OWLDataProperty p;
-    OWLDatatype datetime;
+    OWLDatatype date_time;
     OWLDataFactory factory;
 
     @Before
     public void setUp() {
         factory = Factory.getFactory();
         p = DataProperty(IRI(NS + "#p"));
-        datetime = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
+        date_time = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
     }
 
     @Test
@@ -201,18 +238,18 @@ public class ManchesterOWLSyntaxParserTestCase {
         OWLClass a = Class(IRI(NS + "#A"));
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
         OWLClassExpression expected = factory.getOWLObjectIntersectionOf(a, factory
-                .getOWLDataSomeValuesFrom(p, factory.getOWLDatatypeRestriction(datetime,
+                .getOWLDataSomeValuesFrom(p, factory.getOWLDatatypeRestriction(date_time,
                         OWLFacet.MAX_EXCLUSIVE,
-                        factory.getOWLLiteral("2009-01-01T00:00:00+00:00", datetime))));
+                        factory.getOWLLiteral("2009-01-01T00:00:00+00:00", date_time))));
         // ontology creation including labels - this is the input ontology
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology o = manager.createOntology();
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
         manager.addAxiom(o, factory.getOWLDeclarationAxiom(p));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(datetime));
+        manager.addAxiom(o, factory.getOWLDeclarationAxiom(date_time));
         manager.addAxiom(o, annotation(a, "'GWAS study'"));
         manager.addAxiom(o, annotation(p, "has_publication_date"));
-        manager.addAxiom(o, annotation(datetime, "dateTime"));
+        manager.addAxiom(o, annotation(date_time, "dateTime"));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
                 Arrays.asList(factory.getRDFSLabel()),
