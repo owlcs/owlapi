@@ -149,9 +149,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Nov-2006 */
 public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEntity>>,
         SWRLObjectVisitorEx<Collection<OWLEntity>> {
     private Collection<OWLEntity> objects;

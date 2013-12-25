@@ -50,15 +50,15 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * entity to short form is functional, but is not inverse functional i.e. an
  * injective mapping.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public interface ShortFormProvider {
     /** Gets the short form for the specified entity.
      * 
      * @param entity
      *            The entity.
-     * @return A string which represents a short rendering of entity. */
+     * @return A string which represents a short rendering of the speicified
+     *         entity. */
     @Nonnull
     String getShortForm(@Nonnull OWLEntity entity);
 

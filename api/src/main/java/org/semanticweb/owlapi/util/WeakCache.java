@@ -8,9 +8,10 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-/** A weakly linked cache - elements in the cache can be garbage collected
+/** A weakly linked cache - elements in the cache can be garbage collected.
  * 
- * @param <K> */
+ * @param <K>
+ *            cached type */
 public class WeakCache<K> implements Serializable {
     private static final long serialVersionUID = 40000L;
     private transient Map<K, WeakReference<K>> prefixCache = CollectionFactory
@@ -54,7 +55,7 @@ public class WeakCache<K> implements Serializable {
         return false;
     }
 
-    /** empty the cache */
+    /** empty the cache. */
     public void clear() {
         prefixCache.clear();
     }

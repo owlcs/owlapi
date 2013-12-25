@@ -129,18 +129,17 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * methods that need specific client implementation need be overridden. The
  * adapter can be set up to return a default value.
  * 
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 29-Jul-2008 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 29-Jul-2008
+ * @param <O>
+ *            visitor return type */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
     private O defaultReturnValue = null;
 
     /** Gets the default return value for this visitor. By default, the default
      * is {@code null}, but a fixed value (independent of the specified
      * {@code OWLObject} {@code object}) can be specified in the constructor
-     * {@link OWLObjectVisitorExAdapter}
+     * {@link org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter#OWLObjectVisitorExAdapter(Object)}
      * 
      * @param object
      *            The object that was visited.
@@ -149,10 +148,13 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         return defaultReturnValue;
     }
 
+    /** default constructor */
     public OWLObjectVisitorExAdapter() {
         this(null);
     }
 
+    /** @param defaultReturnValue
+     *            default return value */
     public OWLObjectVisitorExAdapter(O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }

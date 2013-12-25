@@ -61,13 +61,12 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 04-Dec-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Dec-2007 */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
     private static final String UTF_8 = "UTF-8";
-    protected final static Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
+    protected static final Logger LOGGER = Logger.getLogger(OWLOntologyStorer.class
             .getName());
 
     @Override

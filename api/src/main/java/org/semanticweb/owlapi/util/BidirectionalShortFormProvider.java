@@ -45,11 +45,11 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Apr-2007<br>
- *         A short form provider which is capable of translating back and forth
- *         between entities and their short forms. */
+/** A short form provider which is capable of translating back and forth between
+ * entities and their short forms.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public interface BidirectionalShortFormProvider extends ShortFormProvider {
     /** For a given short form this method obtains the entities which have this
      * short form.

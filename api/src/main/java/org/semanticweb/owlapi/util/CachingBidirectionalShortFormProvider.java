@@ -50,9 +50,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * provider has various methods to add, remove, update entities in the cache and
  * also to rebuild the cache from scratch.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public abstract class CachingBidirectionalShortFormProvider implements
         BidirectionalShortFormProvider {
     private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<String, Set<OWLEntity>>();
@@ -67,7 +66,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
      * method.
      * 
      * @param entity
-     *            The entity whose short form should be generated. */
+     *            The entity whose short form should be generated.
+     * @return short form */
     protected abstract String generateShortForm(OWLEntity entity);
 
     @Override

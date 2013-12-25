@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  * filter out axioms of interest, override the appropriate {@code visit} method -
  * see {@code OWLOntologyChangeFilter} for more details.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 17-Dec-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 17-Dec-2006 */
 public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter implements
         OWLOntologyChangeListener {
     @Override

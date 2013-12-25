@@ -73,9 +73,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * files to ontologies. The mapper is only capable of mapping ontologies in
  * RDF/XML and OWL/XML (other serialisations are not supported).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Apr-2007 */
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper,
         Serializable {
     private static final long serialVersionUID = 40000L;
@@ -154,7 +153,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         fileExtensions.addAll(extensions);
     }
 
-    /** Gets the set of ontology IRIs that this mapper has found
+    /** Gets the set of ontology IRIs that this mapper has found.
      * 
      * @return A {@code Set} of ontology (logical) URIs */
     public Set<IRI> getOntologyIRIs() {
@@ -164,7 +163,7 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         return new HashSet<IRI>(ontologyIRI2PhysicalURIMap.keySet());
     }
 
-    /** update the map */
+    /** update the map. */
     public void update() {
         mapFiles();
     }

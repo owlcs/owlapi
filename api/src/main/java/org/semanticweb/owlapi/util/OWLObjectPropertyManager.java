@@ -67,9 +67,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Feb-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Feb-2008 */
 public class OWLObjectPropertyManager {
     static final class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
@@ -114,7 +113,7 @@ public class OWLObjectPropertyManager {
         partialOrderingDirty = true;
     }
 
-    /** clear the object and its resources */
+    /** clear the object and its resources. */
     public void dispose() {}
 
     private void setOntology(@Nonnull OWLOntology ontology) {
@@ -135,8 +134,9 @@ public class OWLObjectPropertyManager {
 
     /** An object property expression PE is composite in Ax if Ax contains an
      * axiom of the form SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn)
-     * PE) with n > 1, or SubObjectPropertyOf(SubObjectPropertyChain(PE1 ...
-     * PEn) INV(PE)) with n > 1, or TransitiveObjectProperty(PE), or
+     * PE) with n greater than 1, or
+     * SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn) INV(PE)) with n
+     * greater than 1, or TransitiveObjectProperty(PE), or
      * TransitiveObjectProperty(INV(PE)).
      * 
      * @param expression
@@ -190,15 +190,16 @@ public class OWLObjectPropertyManager {
         compositeProperties.add(prop.getInverseProperty().getSimplified());
     }
 
-    /** The object property hierarchy relation -> is the smallest relation on
-     * object property expressions for which the following conditions hold (A ->
-     * B means that -> holds for A and B): if Ax contains an axiom
-     * SubObjectPropertyOf(PE1 PE2), then PE1 -> PE2 holds; and if Ax contains
-     * an axiom EquivalentObjectProperties(PE1 PE2), then PE1 -> PE2 and PE2 ->
-     * PE1 hold; and if Ax contains an axiom InverseObjectProperties(PE1 PE2),
-     * then PE1 -> INV(PE2) and INV(PE2) -> PE1 hold; and if Ax contains an
-     * axiom SymmetricObjectProperty(PE), then PE -> INV(PE) holds; and if PE1
-     * -> PE2 holds, then INV(PE1) -> INV(PE2) holds as well.
+    /** The object property hierarchy relation -&gt; is the smallest relation on
+     * object property expressions for which the following conditions hold (A
+     * -&gt; B means that -&gt; holds for A and B): if Ax contains an axiom
+     * SubObjectPropertyOf(PE1 PE2), then PE1 -&gt; PE2 holds; and if Ax
+     * contains an axiom EquivalentObjectProperties(PE1 PE2), then PE1 -&gt; PE2
+     * and PE2 -&gt; PE1 hold; and if Ax contains an axiom
+     * InverseObjectProperties(PE1 PE2), then PE1 -&gt; INV(PE2) and INV(PE2)
+     * -&gt; PE1 hold; and if Ax contains an axiom SymmetricObjectProperty(PE),
+     * then PE -&gt; INV(PE) holds; and if PE1 -&gt; PE2 holds, then INV(PE1)
+     * -&gt; INV(PE2) holds as well.
      * 
      * @return A Map that maps sub properties to sets of super properties. */
     @Nonnull
@@ -289,7 +290,7 @@ public class OWLObjectPropertyManager {
     }
 
     /** Tests to see if one property is a sub property of another property in the
-     * reflexive transitive closure of the property hierarchy
+     * reflexive transitive closure of the property hierarchy.
      * 
      * @param sub
      *            The sub property
@@ -310,9 +311,10 @@ public class OWLObjectPropertyManager {
         }
     }
 
-    /** The relation ->* is the reflexive-transitive closure of ->. An object
-     * property expression PE is simple in Ax if, for each object property
-     * expression PE' such that PE' ->* PE holds, PE' is not composite.
+    /** The relation -&gt;* is the reflexive-transitive closure of -&gt;. An
+     * object property expression PE is simple in Ax if, for each object
+     * property expression PE' such that PE' -&gt;* PE holds, PE' is not
+     * composite.
      * 
      * @param expression
      *            The expression to be tested.

@@ -144,9 +144,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 29-Jul-2008
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 29-Jul-2008
  * @param <O>
  *            the returned type */
 public class OWLObjectWalker<O extends OWLObject> {
@@ -239,9 +238,10 @@ public class OWLObjectWalker<O extends OWLObject> {
     /** Gets the current class expression path. The current class expression path
      * is a list of class expressions that represents the containing expressions
      * for the current class expressions. The first item in the path (list) is
-     * the root class expression that was visited. For 0 < i < pathLength, the
-     * item at index i+1 is a direct sub-expression of the item at index i. The
-     * last item in the path is the current class expression being visited.
+     * the root class expression that was visited. For i between 0 and
+     * pathLength, the item at index i+1 is a direct sub-expression of the item
+     * at index i. The last item in the path is the current class expression
+     * being visited.
      * 
      * @return A list of class expressions that represents the path of class
      *         expressions, with the root of the class expression being the
@@ -252,7 +252,7 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     /** Determines if a particular class expression is the first (or root) class
-     * expression in the current class expression path
+     * expression in the current class expression path.
      * 
      * @param classExpression
      *            The class expression
@@ -266,7 +266,7 @@ public class OWLObjectWalker<O extends OWLObject> {
                 && classExpressionPath.get(0).equals(classExpression);
     }
 
-    /** Pushes a class expression onto the class expression path
+    /** Pushes a class expression onto the class expression path.
      * 
      * @param ce
      *            The class expression to be pushed onto the path */
@@ -286,9 +286,9 @@ public class OWLObjectWalker<O extends OWLObject> {
     /** Gets the current data range path. The current data range path is a list
      * of data ranges that represents the containing expressions for the current
      * data ranges. The first item in the path (list) is the root data range
-     * that was visited. For 0 < i < pathLength, the item at index i+1 is a
-     * direct sub-expression of the item at index i. The last item in the path
-     * is the current data range being visited.
+     * that was visited. For i between 0 and pathLength, the item at index i+1
+     * is a direct sub-expression of the item at index i. The last item in the
+     * path is the current data range being visited.
      * 
      * @return A list of data ranges that represents the path of data ranges,
      *         with the root of the data range being the first element in the
@@ -298,7 +298,7 @@ public class OWLObjectWalker<O extends OWLObject> {
         return new ArrayList<OWLDataRange>(dataRangePath);
     }
 
-    /** Pushes a data range on to the data range path
+    /** Pushes a data range on to the data range path.
      * 
      * @param dr
      *            The data range to be pushed onto the path */

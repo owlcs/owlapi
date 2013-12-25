@@ -45,9 +45,8 @@ import org.semanticweb.owlapi.model.IRI;
 /** A IRI short form provider that generates short forms from the IRI fragment if
  * there is one, or the IRI last path component if there is one.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Dec-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Dec-2007 */
 public class SimpleIRIShortFormProvider implements IRIShortFormProvider, Serializable {
     private static final long serialVersionUID = 40000L;
 

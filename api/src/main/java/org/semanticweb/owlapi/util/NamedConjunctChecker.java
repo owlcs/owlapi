@@ -52,9 +52,8 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 /** A utility class which checks if a class expression has a named conjunct or a
  * specific named conjunct.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Feb-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 16-Feb-2007 */
 public class NamedConjunctChecker {
     OWLClass conjunct;
     boolean found;

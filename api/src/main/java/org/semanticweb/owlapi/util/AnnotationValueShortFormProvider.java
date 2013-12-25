@@ -64,9 +64,8 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
  * there are multiple annotations the these annotations are ranked by preferred
  * IRI and then by preferred language.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public class AnnotationValueShortFormProvider implements ShortFormProvider {
     private final OWLOntologySetProvider ontologySetProvider;
     private final ShortFormProvider alternateShortFormProvider;
@@ -189,7 +188,18 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
                 });
     }
 
-    @SuppressWarnings("javadoc")
+    /** @param ontologySetProvider
+     *            ontologies
+     * @param alternateShortFormProvider
+     *            short form provider
+     * @param alternateIRIShortFormProvider
+     *            iri short form provider
+     * @param annotationProperties
+     *            annotation properties
+     * @param preferredLanguageMap
+     *            preferred language map
+     * @param literalRenderer
+     *            literal renderer */
     public AnnotationValueShortFormProvider(
             @Nonnull OWLOntologySetProvider ontologySetProvider,
             @Nonnull ShortFormProvider alternateShortFormProvider,

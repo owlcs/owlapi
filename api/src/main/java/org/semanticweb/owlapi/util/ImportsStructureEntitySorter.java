@@ -45,17 +45,18 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 30-May-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 30-May-2008 */
 public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<OWLEntity> {
     /** @param ontology
-     *            the ontology */
+     *            the ontology
+     * @param manager
+     *            the manager */
     public ImportsStructureEntitySorter(@Nonnull OWLOntology ontology) {
         super(ontology, new ReferencedEntitySelector());
     }
 
-    @SuppressWarnings("javadoc")
+    /** Selector of referenced entities. */
     public static class ReferencedEntitySelector implements ObjectSelector<OWLEntity> {
         @Override
         public Set<OWLEntity> getObjects(OWLOntology ontology) {

@@ -51,9 +51,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Dec-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006 */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
     private final OWLDataFactory dataFactory;
     private Object obj;
@@ -112,7 +111,9 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
 
     /** @param object
      *            the object to duplicate
-     * @return the duplicate */
+     * @return the duplicate
+     * @param <O>
+     *            return type */
     @SuppressWarnings("unchecked")
     @Nonnull
     public <O extends OWLObject> O duplicateObject(@Nonnull OWLObject object) {

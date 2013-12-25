@@ -137,9 +137,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 04-Feb-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Feb-2008 */
 public class OWLObjectComponentCollector implements OWLObjectVisitor {
     private final Set<OWLObject> result = new HashSet<OWLObject>();
 

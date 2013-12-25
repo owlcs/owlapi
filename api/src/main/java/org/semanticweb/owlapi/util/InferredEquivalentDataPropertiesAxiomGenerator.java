@@ -46,9 +46,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 27-Jul-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007 */
 public class InferredEquivalentDataPropertiesAxiomGenerator extends
         InferredDataPropertyAxiomGenerator<OWLEquivalentDataPropertiesAxiom> {
     @Override

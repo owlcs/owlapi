@@ -118,10 +118,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 06-Jun-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 06-Jun-2008 */
 public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
     private boolean negated;
@@ -133,7 +131,7 @@ public class NNF implements OWLClassExpressionVisitorEx<OWLClassExpression>,
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
-    /** reset the negation */
+    /** reset the negation. */
     public void reset() {
         negated = false;
     }

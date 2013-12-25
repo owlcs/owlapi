@@ -51,11 +51,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * methods that need specific client implementation need be overridden. The
  * adapter can be set up to return a default value.
  * 
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 29-Jul-2008 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 29-Jul-2008
+ * @param <O>
+ *            visitor return type */
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
     private O defaultReturnValue = null;
 
@@ -70,10 +69,13 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
         return defaultReturnValue;
     }
 
+    /** default constructor with null return value. */
     public OWLEntityVisitorExAdapter() {
         this(null);
     }
 
+    /** @param defaultReturnValue
+     *            default return value */
     public OWLEntityVisitorExAdapter(O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }

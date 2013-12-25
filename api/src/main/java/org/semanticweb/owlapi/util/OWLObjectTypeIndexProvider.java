@@ -130,9 +130,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 09-Feb-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Feb-2008 */
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     private static final int ENTITY_TYPE_INDEX_BASE = 1000;
     private static final int IRI = 0;
@@ -146,7 +145,7 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     private static final int ANON_INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 7;
     private static final int AXIOM_TYPE_INDEX_BASE = 2000;
     private static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE
-            + AxiomType.SUBCLASS_OF.index;
+            + AxiomType.SUBCLASS_OF.getIndex();
     private static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE
             + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
     private int type;

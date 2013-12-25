@@ -49,9 +49,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** Generates axioms which relate to inferred information for a specific entity.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 27-Jul-2007
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007
  * @param <E>
  *            the entity type
  * @param <A>

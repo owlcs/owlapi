@@ -43,9 +43,8 @@ package org.semanticweb.owlapi.util;
  * A version number is assumed to be the following format:
  * <b>major.minor.patch.build</b>.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 09-Dec-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 09-Dec-2009 */
 public class Version {
     private final int major;
     private final int minor;

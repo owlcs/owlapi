@@ -58,9 +58,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 /** A bidirectional short form provider which uses a specified short form
  * provider to generate the bidirectional entity--shortform mappings.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 18-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 18-Apr-2007 */
 public class BidirectionalShortFormProviderAdapter extends
         CachingBidirectionalShortFormProvider {
     private final ShortFormProvider shortFormProvider;

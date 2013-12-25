@@ -142,21 +142,20 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 /** A simple renderer that can be used for debugging purposes and provide an
  * implementation of the toString method for different implementations.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 26-Nov-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Nov-2006 */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     private StringBuilder sb;
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public SimpleRenderer() {
         sb = new StringBuilder();
         resetShortFormProvider();
     }
 
-    /** reset the renderer */
+    /** reset the renderer. */
     public void reset() {
         sb = new StringBuilder();
     }

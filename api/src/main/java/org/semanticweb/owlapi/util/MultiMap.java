@@ -47,9 +47,10 @@ import java.util.Map;
 import java.util.Set;
 
 /** @param <Key>
+ *            key type
  * @param <Value>
+ *            value type
  * @author ignazio palmisano */
-@SuppressWarnings("javadoc")
 public class MultiMap<Key, Value> implements Serializable {
     private static final long serialVersionUID = 40000L;
     private final Map<Key, Collection<Value>> map;
@@ -57,10 +58,13 @@ public class MultiMap<Key, Value> implements Serializable {
     private boolean useSets = true;
     private boolean threadSafe = false;
 
+    /** default constructor */
     public MultiMap() {
         this(false);
     }
 
+    /** @param threadsafe
+     *            true if threadsafe collections should be used */
     public MultiMap(boolean threadsafe) {
         threadSafe = threadsafe;
         if (threadSafe) {
@@ -70,13 +74,20 @@ public class MultiMap<Key, Value> implements Serializable {
         }
     }
 
+    /** @param threadsafe
+     *            true if threadsafe collections should be used
+     * @param usesets
+     *            true if sets should be used */
     public MultiMap(boolean threadsafe, boolean usesets) {
         this(threadsafe);
         this.useSets = usesets;
     }
 
     /** @param key
-     * @param value */
+     *            key
+     * @param value
+     *            value
+     * @return true if an insertion occurs */
     public boolean put(Key key, Value value) {
         Collection<Value> set = this.map.get(key);
         if (set == null) {
@@ -108,17 +119,22 @@ public class MultiMap<Key, Value> implements Serializable {
         return toReturn;
     }
 
-    /** @param key
-     * @param values */
+    /** set an entry to a set of values
+     * 
+     * @param key
+     *            key
+     * @param values
+     *            values */
     public void setEntry(Key key, Collection<Value> values) {
         this.map.put(key, values);
         this.size = -1;
     }
 
     /** returns a mutable set of values connected to the key; if no value is
-     * connected, returns an immutable empty set
+     * connected, returns an immutable empty set.
      * 
      * @param key
+     *            key
      * @return the set of values connected with the key */
     public Collection<Value> get(Key key) {
         final Collection<Value> collection = this.map.get(key);
@@ -142,9 +158,11 @@ public class MultiMap<Key, Value> implements Serializable {
         return toReturn;
     }
 
-    /** removes the set of values connected to the key
+    /** removes the set of values connected to the key.
      * 
-     * @param key */
+     * @param key
+     *            key
+     * @return true if removal occurs */
     public boolean remove(Key key) {
         if (this.map.remove(key) != null) {
             size = -1;
@@ -154,10 +172,13 @@ public class MultiMap<Key, Value> implements Serializable {
     }
 
     /** removes the value connected to the key; if there is more than one value
-     * connected to the key, only one is removed
+     * connected to the key, only one is removed.
      * 
      * @param key
-     * @param value */
+     *            key
+     * @param value
+     *            value
+     * @return true if removal occurs */
     public boolean remove(Key key, Value value) {
         Collection<Value> c = this.map.get(key);
         if (c != null) {
@@ -184,7 +205,9 @@ public class MultiMap<Key, Value> implements Serializable {
     }
 
     /** @param k
+     *            key
      * @param v
+     *            value
      * @return true if the pairing (k, v) is in the map (set equality for v) */
     public boolean contains(Key k, Value v) {
         final Collection<Value> collection = this.map.get(k);
@@ -195,12 +218,14 @@ public class MultiMap<Key, Value> implements Serializable {
     }
 
     /** @param k
+     *            the key
      * @return true if k is a key for the map */
     public boolean containsKey(Key k) {
         return this.map.containsKey(k);
     }
 
     /** @param v
+     *            value
      * @return true if v is a value for a key in the map */
     public boolean containsValue(Value v) {
         for (Collection<Value> c : map.values()) {
@@ -211,6 +236,7 @@ public class MultiMap<Key, Value> implements Serializable {
         return false;
     }
 
+    /** clear map */
     public void clear() {
         this.map.clear();
         this.size = 0;
@@ -222,12 +248,20 @@ public class MultiMap<Key, Value> implements Serializable {
                                                             // "\n");
     }
 
+    /** add all entries from other map.
+     * 
+     * @param otherMap
+     *            map to add */
     public void putAll(MultiMap<Key, Value> otherMap) {
         for (Key k : otherMap.keySet()) {
             putAll(k, otherMap.get(k));
         }
     }
 
+    /** @param k
+     *            key
+     * @param v
+     *            all entries to add */
     public void putAll(Key k, Collection<Value> v) {
         Collection<Value> set = map.get(k);
         if (set == null) {
@@ -238,6 +272,7 @@ public class MultiMap<Key, Value> implements Serializable {
         size = -1;
     }
 
+    /** @return true if all value collections are equal */
     public boolean isValueSetsEqual() {
         if (map.size() < 2) {
             return true;

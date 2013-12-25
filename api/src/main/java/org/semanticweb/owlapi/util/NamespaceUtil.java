@@ -54,15 +54,14 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 /** A utility class which can generate namespaces, local names and namespace
  * prefixes in accordance with the XML spec.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 04-Apr-2007 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 04-Apr-2007 */
 public class NamespaceUtil {
     private final Map<String, String> namespace2PrefixMap = new HashMap<String, String>();
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<String, String>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
 
+    /** default constructor */
     public NamespaceUtil() {
         standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
@@ -106,6 +105,7 @@ public class NamespaceUtil {
         return prefix;
     }
 
+    /** @return namespace to prefix map */
     @Nonnull
     public Map<String, String> getNamespace2PrefixMap() {
         return Collections.unmodifiableMap(namespace2PrefixMap);
@@ -119,7 +119,7 @@ public class NamespaceUtil {
      *            namespace. If it cannot do this, a prefix of the form pn is
      *            generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the
-     *         namespace -> prefix mapping. */
+     *         namespace to prefix mapping. */
     @Nonnull
     private String generatePrefix(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");

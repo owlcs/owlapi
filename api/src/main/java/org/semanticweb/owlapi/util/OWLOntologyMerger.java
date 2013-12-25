@@ -57,10 +57,8 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 /** A very very simple merger, which just creates an ontology which contains the
  * union of axioms from a set of ontologies.
  * 
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 29-Apr-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 29-Apr-2007 */
 public class OWLOntologyMerger implements OWLAxiomFilter {
     private final OWLOntologySetProvider setProvider;
     private final OWLAxiomFilter axiomFilter;

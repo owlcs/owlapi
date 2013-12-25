@@ -47,10 +47,10 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** adapter for axiom visitors
  * 
  * @author ignazio
- * @param <K> */
-public class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>, Serializable {
+ * @param <O> */
+public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>, Serializable {
     private static final long serialVersionUID = 40000L;
-    private K object;
+    private O object;
 
     /** adapter with null default */
     public OWLAxiomVisitorExAdapter() {
@@ -61,7 +61,7 @@ public class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>, Serial
      * 
      * @param object
      *            default return value */
-    public OWLAxiomVisitorExAdapter(K object) {
+    public OWLAxiomVisitorExAdapter(O object) {
         this.object = object;
     }
 
@@ -70,202 +70,202 @@ public class OWLAxiomVisitorExAdapter<K> implements OWLAxiomVisitorEx<K>, Serial
      * @param axiom
      *            visited axiom
      * @return default return value; */
-    protected K doDefault(@SuppressWarnings("unused") OWLAxiom axiom) {
+    protected O doDefault(@SuppressWarnings("unused") OWLAxiom axiom) {
         return object;
     }
 
     @Override
-    public K visit(OWLSubAnnotationPropertyOfAxiom axiom) {
+    public O visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public O visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLAnnotationPropertyRangeAxiom axiom) {
+    public O visit(OWLAnnotationPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLSubClassOfAxiom axiom) {
+    public O visit(OWLSubClassOfAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public O visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public O visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLReflexiveObjectPropertyAxiom axiom) {
+    public O visit(OWLReflexiveObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDisjointClassesAxiom axiom) {
+    public O visit(OWLDisjointClassesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDataPropertyDomainAxiom axiom) {
+    public O visit(OWLDataPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLObjectPropertyDomainAxiom axiom) {
+    public O visit(OWLObjectPropertyDomainAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public O visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public O visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDifferentIndividualsAxiom axiom) {
+    public O visit(OWLDifferentIndividualsAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDisjointDataPropertiesAxiom axiom) {
+    public O visit(OWLDisjointDataPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public O visit(OWLDisjointObjectPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLObjectPropertyRangeAxiom axiom) {
+    public O visit(OWLObjectPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLObjectPropertyAssertionAxiom axiom) {
+    public O visit(OWLObjectPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public O visit(OWLFunctionalObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLSubObjectPropertyOfAxiom axiom) {
+    public O visit(OWLSubObjectPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDisjointUnionAxiom axiom) {
+    public O visit(OWLDisjointUnionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDeclarationAxiom axiom) {
+    public O visit(OWLDeclarationAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLAnnotationAssertionAxiom axiom) {
+    public O visit(OWLAnnotationAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLSymmetricObjectPropertyAxiom axiom) {
+    public O visit(OWLSymmetricObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDataPropertyRangeAxiom axiom) {
+    public O visit(OWLDataPropertyRangeAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLFunctionalDataPropertyAxiom axiom) {
+    public O visit(OWLFunctionalDataPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public O visit(OWLEquivalentDataPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLClassAssertionAxiom axiom) {
+    public O visit(OWLClassAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLEquivalentClassesAxiom axiom) {
+    public O visit(OWLEquivalentClassesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDataPropertyAssertionAxiom axiom) {
+    public O visit(OWLDataPropertyAssertionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public O visit(OWLTransitiveObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public O visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLSubDataPropertyOfAxiom axiom) {
+    public O visit(OWLSubDataPropertyOfAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public O visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLSameIndividualAxiom axiom) {
+    public O visit(OWLSameIndividualAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLSubPropertyChainOfAxiom axiom) {
+    public O visit(OWLSubPropertyChainOfAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLInverseObjectPropertiesAxiom axiom) {
+    public O visit(OWLInverseObjectPropertiesAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLHasKeyAxiom axiom) {
+    public O visit(OWLHasKeyAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(OWLDatatypeDefinitionAxiom axiom) {
+    public O visit(OWLDatatypeDefinitionAxiom axiom) {
         return doDefault(axiom);
     }
 
     @Override
-    public K visit(SWRLRule rule) {
+    public O visit(SWRLRule rule) {
         return doDefault(rule);
     }
 }

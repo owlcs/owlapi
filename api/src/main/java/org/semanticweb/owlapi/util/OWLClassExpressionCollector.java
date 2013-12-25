@@ -136,9 +136,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * the collector could be used to obtain ObjectUnionOf(D C), D, C,
  * ObjectSomeValuesFrom(R F), F
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Jun-2010 */
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Jun-2010 */
 public class OWLClassExpressionCollector implements
         OWLObjectVisitorEx<Set<OWLClassExpression>> {
     @Override

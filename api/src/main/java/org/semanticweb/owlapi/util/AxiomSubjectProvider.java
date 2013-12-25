@@ -90,9 +90,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /** Provides the object that is the subject of an axiom.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 10-Feb-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Feb-2008 */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
     private OWLObject subject;
 

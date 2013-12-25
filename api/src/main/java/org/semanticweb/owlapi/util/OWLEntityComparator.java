@@ -59,9 +59,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * Individual, Datatype) then by their short form (using the specified short
  * form provider).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15-Jun-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 15-Jun-2007 */
 @SuppressWarnings("unused")
 public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor,
         Serializable {
@@ -75,7 +74,7 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     int lastValue;
 
     /** Constructs an entity comparator which uses the specified short form
-     * provider
+     * provider.
      * 
      * @param shortFormProvider
      *            the short form provider to use */

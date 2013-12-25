@@ -64,9 +64,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * form provider came from the SKOS community, which have individuals that have
  * preferredLabel property assertions).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 17-Jun-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 17-Jun-2007 */
 public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
     private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;

@@ -61,9 +61,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * to sets of entities where each set of entities contains entities that are
  * first mentioned in the ontology that maps to them.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 30-May-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 30-May-2008
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
  * @param <O>
  *            the type */
@@ -77,6 +76,8 @@ public class ImportsStructureObjectSorter<O> {
      * 
      * @param ontology
      *            The ontology
+     * @param manager
+     *            The manager that will be used to obtain the imports closure
      * @param objectSelector
      *            The selector that will be used to select objects that are
      *            associated with each ontology. */

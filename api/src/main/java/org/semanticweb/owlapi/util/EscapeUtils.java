@@ -38,9 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008 */
 public class EscapeUtils {
     /** Escapes quotes and backslashes in a string. Double quotes are replaced
      * with a backslash followed by a double quote, and backslashes are replaced

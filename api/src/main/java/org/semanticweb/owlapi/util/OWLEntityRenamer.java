@@ -62,9 +62,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * are renamed regardless of whether they are classes, object properties, data
  * properties, individuals or data types.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 11-Dec-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Dec-2006 */
 public class OWLEntityRenamer {
     private final OWLOntologyManager owlOntologyManager;
     private final Set<OWLOntology> ontologies;

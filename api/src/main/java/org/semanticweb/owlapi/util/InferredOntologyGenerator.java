@@ -58,9 +58,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * {@code InferredAxiomGenerator}s which generate specific kinds of axioms e.g.
  * subclass axioms.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 27-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007 */
 public class InferredOntologyGenerator {
     // The reasoner which is used to compute the inferred axioms
     private final OWLReasoner reasoner;
@@ -105,7 +104,7 @@ public class InferredOntologyGenerator {
         return new ArrayList<InferredAxiomGenerator<?>>(axiomGenerators);
     }
 
-    /** Adds a generator if it isn't already in the list of generators
+    /** Adds a generator if it isn't already in the list of generators.
      * 
      * @param generator
      *            The generator to be added. */
@@ -116,7 +115,7 @@ public class InferredOntologyGenerator {
         }
     }
 
-    /** Removes a generator
+    /** Removes a generator.
      * 
      * @param generator
      *            the generator to be removed */
@@ -126,7 +125,7 @@ public class InferredOntologyGenerator {
     }
 
     /** Adds 'inferred axioms' to an ontology using the generators that have been
-     * registered with this {@code InferredAxiomGenerator}
+     * registered with this {@code InferredAxiomGenerator}.
      * 
      * @param df
      *            data factory.

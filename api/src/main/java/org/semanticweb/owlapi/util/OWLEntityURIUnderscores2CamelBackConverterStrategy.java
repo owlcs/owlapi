@@ -53,9 +53,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * http://another.com/pathA/pathB#has_part then this will be converted to
  * http://another.com/pathA/pathB#hasPart
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Nov-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 25-Nov-2007 */
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         OWLEntityURIConverterStrategy {
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();

@@ -58,9 +58,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** Extracts the variables from rules.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 06-Jul-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Jul-2007 */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
     private final Set<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
 
@@ -69,7 +68,7 @@ public class SWRLVariableExtractor implements SWRLObjectVisitor {
         return new LinkedHashSet<SWRLVariable>(variables);
     }
 
-    /** clear the variables */
+    /** clear the variables. */
     public void reset() {
         variables.clear();
     }
