@@ -47,9 +47,8 @@ package org.semanticweb.owlapi.reasoner;
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jan-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 21-Jan-2009
  * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
  * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
 public interface OWLReasonerConfiguration {
@@ -63,15 +62,15 @@ public interface OWLReasonerConfiguration {
     /** Gets the timeout in milliseconds for basic single reasoner operations
      * (satisfiability check time out). If the value is equal to
      * {@link Long#MAX_VALUE} then this means that the reasoner should never
-     * time out. </p> The reasoner will monitor the elapsed time during a
-     * satisfiability check (attempt to build a model for example) and if the
-     * elapsed time exceeds the timeout then it will abort the test as soon as
-     * possible and terminate all reasoning. A
-     * {@link org.semanticweb.owlapi.reasoner.TimeOutException} will be thrown
-     * in the thread that invoked the last reasoner operation. </p> Note that
-     * this is not a timeout for method calls such as "getSubClasses", which may
-     * involve many satisfiability (or other basic reasoning task) checks, the
-     * sum of which may well exceed the timeout.
+     * time out. <br>
+     * The reasoner will monitor the elapsed time during a satisfiability check
+     * (attempt to build a model for example) and if the elapsed time exceeds
+     * the timeout then it will abort the test as soon as possible and terminate
+     * all reasoning. A {@link org.semanticweb.owlapi.reasoner.TimeOutException}
+     * will be thrown in the thread that invoked the last reasoner operation. <br>
+     * Note that this is not a timeout for method calls such as "getSubClasses",
+     * which may involve many satisfiability (or other basic reasoning task)
+     * checks, the sum of which may well exceed the timeout.
      * 
      * @return The time out in milliseconds. By default this is set to the value
      *         of {@link Long#MAX_VALUE}, which means the reasoner SHOULD NOT

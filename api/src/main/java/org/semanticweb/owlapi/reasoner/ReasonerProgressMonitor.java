@@ -42,17 +42,16 @@ package org.semanticweb.owlapi.reasoner;
  * wish to montitor the progress of a resoner. The reasoner whose progress is
  * being monitored will call the methods on this interface. The progress monitor
  * is designed to monitor long running reasoner tasks such as loading,
- * preprocessing, consistency checking, classification and realisation. </p>
- * Tasks are executed sequentially. Nested tasks are not supported. </p> The
- * general contract is that the reasoner will call
+ * preprocessing, consistency checking, classification and realisation. <br>
+ * Tasks are executed sequentially. Nested tasks are not supported. <br>
+ * The general contract is that the reasoner will call
  * {@link #reasonerTaskStarted(String)}, then call either
  * {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)}
  * any number of times and finally call {@link #reasonerTaskStopped()} when the
  * task ends or has been interupted. This cycle may then be repeated.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 29-Nov-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 29-Nov-2009 */
 public interface ReasonerProgressMonitor {
     /** A standard name for the task of loading a reasoner with axioms. Note that
      * there is no guarantee that the reasoner will use this name for loading. */
@@ -75,8 +74,9 @@ public interface ReasonerProgressMonitor {
      * finished the {@link #reasonerTaskStopped()} method will be called. Once
      * this method has been called it will not be called again unless the
      * {@link #reasonerTaskStopped()} method has been called. The notion of
-     * subtasks is not supported. </p> Note that this method may be called from
-     * a thread that is not the event dispatch thread.
+     * subtasks is not supported. <br>
+     * Note that this method may be called from a thread that is not the event
+     * dispatch thread.
      * 
      * @param taskName
      *            The name of the task */
@@ -84,17 +84,18 @@ public interface ReasonerProgressMonitor {
 
     /** Indicates that a previosly started task has now stopped. This method will
      * only be called after the {@link #reasonerTaskStarted(String)} method has
-     * been called. The notion of subtasks is not supported. </p> Note that this
-     * method may be called from a thread that is not the event dispatch thread. */
+     * been called. The notion of subtasks is not supported. <br>
+     * Note that this method may be called from a thread that is not the event
+     * dispatch thread. */
     void reasonerTaskStopped();
 
     /** Indicates that the reasoner is part way through a particular task, for
      * example consistency checking, classification or reaslisation. This method
      * will only be called after the {@link #reasonerTaskStarted(String)} method
      * has been called. It will not be called after the
-     * {@link #reasonerTaskStopped()} method has been called. </p> Note that
-     * this method may be called from a thread that is not the event dispatch
-     * thread.
+     * {@link #reasonerTaskStopped()} method has been called. <br>
+     * Note that this method may be called from a thread that is not the event
+     * dispatch thread.
      * 
      * @param value
      *            The value or portion of the task completed
@@ -106,7 +107,8 @@ public interface ReasonerProgressMonitor {
      * be determined. This method will only be called after the
      * {@link #reasonerTaskStarted(String)} method has been called. It will not
      * be called after the {@link #reasonerTaskStopped()} method has been
-     * called. </p> Note that this method may be called from a thread that is
-     * not the event dispatch thread. */
+     * called. <br>
+     * Note that this method may be called from a thread that is not the event
+     * dispatch thread. */
     void reasonerTaskBusy();
 }

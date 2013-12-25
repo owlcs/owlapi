@@ -45,9 +45,8 @@ package org.semanticweb.owlapi.reasoner;
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getInstances(org.semanticweb.owlapi.model.OWLClassExpression, boolean)}
  * .
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 09-Dec-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 09-Dec-2009 */
 public enum IndividualNodeSetPolicy {
     /** Indicates that {@code NodeSet}s of named individuals returned by the
      * reasoner will contain {@code Node}s that group individuals which are

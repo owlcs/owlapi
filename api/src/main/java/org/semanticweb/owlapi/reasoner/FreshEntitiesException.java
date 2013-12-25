@@ -50,14 +50,14 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * appropriately. (See {@link FreshEntityPolicy} and
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration}.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jan-2009 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 21-Jan-2009 */
 public class FreshEntitiesException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;
     private final List<OWLEntity> entities;
 
+    /** @param entities
+     *            fresh entities */
     public FreshEntitiesException(Collection<OWLEntity> entities) {
         this(entities, null);
     }
@@ -67,15 +67,21 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
         this.entities = new ArrayList<OWLEntity>(entities);
     }
 
+    /** @param entity
+     *            fresh entity */
     public FreshEntitiesException(OWLEntity entity) {
         this(Collections.singletonList(entity));
     }
 
+    /** @param entity
+     *            fresh entity
+     * @param t
+     *            cause */
     public FreshEntitiesException(OWLEntity entity, Throwable t) {
         this(Collections.singletonList(entity), t);
     }
 
-    /** Gets the entities
+    /** Gets the entities.
      * 
      * @return The entities, none of which are contained in the signature of the
      *         union of a set of ontologies. */

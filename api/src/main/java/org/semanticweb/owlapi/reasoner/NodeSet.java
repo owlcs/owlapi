@@ -44,9 +44,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 
 /** A set of {@link Node}s.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 01-Aug-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 01-Aug-2009
  * @param <E>
  *            the type of elements in the node set */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
@@ -94,7 +93,7 @@ public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {
      *         contains a node that is the bottom node, otherwise {@code false} */
     boolean isBottomSingleton();
 
-    /** Gets the {@code Node}s contained in this {@code NodeSet}
+    /** Gets the {@code Node}s contained in this {@code NodeSet}.
      * 
      * @return The set of {@code Node}s contained in this {@code NodeSet}. Note
      *         that this set will be an unmodifiable set. */
