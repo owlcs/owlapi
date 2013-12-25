@@ -40,8 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 Represents an <a
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 Represents an <a
  *         href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in
  *         the OWL 2 specification.
  * @param <P>
@@ -57,13 +57,13 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O ex
     @Override
     OWLIndividual getSubject();
 
-    /** Gets the property that this assertion acts along
+    /** Gets the property that this assertion acts along.
      * 
      * @return The property */
     @Nonnull
     P getProperty();
 
-    /** Gets the object of this assertion
+    /** Gets the object of this assertion.
      * 
      * @return The object that this assertion points to. */
     @Nonnull

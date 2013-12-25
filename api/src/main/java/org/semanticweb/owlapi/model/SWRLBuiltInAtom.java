@@ -42,13 +42,9 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLBuiltInAtom extends SWRLAtom {
-    /** Gets the predicate of this atom
-     * 
-     * @return The atom predicate */
     @Override
     @Nonnull
     IRI getPredicate();

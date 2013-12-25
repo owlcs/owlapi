@@ -49,21 +49,27 @@ package org.semanticweb.owlapi.model;
  * where client code calling methods such as getAxioms() probably doesn't know
  * (or care) how to handle situations where network/database connections fail.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Apr-2007 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
 
+    /** @param message
+     *            message */
     public OWLOntologyResourceAccessException(String message) {
         super(message);
     }
 
+    /** @param message
+     *            message
+     * @param cause
+     *            cause */
     public OWLOntologyResourceAccessException(String message, Throwable cause) {
         super(message, cause);
     }
 
+    /** @param cause
+     *            cause */
     public OWLOntologyResourceAccessException(Throwable cause) {
         super(cause);
     }

@@ -43,9 +43,8 @@ import javax.annotation.Nonnull;
 /** Receives notification of ontology loading starting and finishing from a
  * manager.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 14-Apr-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Apr-2008 */
 public interface OWLOntologyLoaderListener {
     /** Called when the process of attempting to load an ontology starts.
      * 
@@ -64,8 +63,8 @@ public interface OWLOntologyLoaderListener {
      *            was loaded. */
     void finishedLoadingOntology(@Nonnull LoadingFinishedEvent event);
 
-    /***/
-    class LoadingEvent {
+    /** loading event */
+    static class LoadingEvent {
         private final OWLOntologyID ontologyID;
         private final IRI documentIRI;
         private final boolean imported;
@@ -83,7 +82,7 @@ public interface OWLOntologyLoaderListener {
             return ontologyID;
         }
 
-        /** Gets the document IRI for the ontology being loaded
+        /** Gets the document IRI for the ontology being loaded.
          * 
          * @return The document IRI that describes where the ontology was loaded
          *         from. */
@@ -103,8 +102,8 @@ public interface OWLOntologyLoaderListener {
         }
     }
 
-    /***/
-    class LoadingStartedEvent extends LoadingEvent {
+    /** loading start event */
+    static class LoadingStartedEvent extends LoadingEvent {
         public LoadingStartedEvent(OWLOntologyID ontologyID, IRI documentIRI,
                 boolean imported) {
             super(ontologyID, documentIRI, imported);
@@ -113,7 +112,7 @@ public interface OWLOntologyLoaderListener {
 
     /** Describes the situation when the loading process for an ontology has
      * finished. */
-    class LoadingFinishedEvent extends LoadingEvent {
+    static class LoadingFinishedEvent extends LoadingEvent {
         private final OWLOntologyCreationException ex;
 
         public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI,

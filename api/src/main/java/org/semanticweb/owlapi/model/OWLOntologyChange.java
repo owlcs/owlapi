@@ -47,8 +47,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 25-Oct-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 25-Oct-2006 */
 public abstract class OWLOntologyChange<T> implements HasSignature {
     private final OWLOntology ont;
 
@@ -96,7 +96,7 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
      *         {@code false}. */
     public abstract boolean isImportChange();
 
-    /** Gets the ontology that the change is/was applied to
+    /** Gets the ontology that the change is/was applied to.
      * 
      * @return The ontology that the change is applicable to */
     @Nonnull
@@ -133,9 +133,18 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
     @Nonnull
     public abstract Set<OWLEntity> getSignature();
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor */
     public abstract void accept(OWLOntologyChangeVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** Accepts a visitor
+     * 
+     * @param visitor
+     *            The visitor
+     * @param <O>
+     *            visitor return type
+     * @return visitor value */
     public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
 }

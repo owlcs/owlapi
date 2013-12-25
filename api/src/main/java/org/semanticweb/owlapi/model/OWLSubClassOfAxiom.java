@@ -44,10 +44,10 @@ import javax.annotation.Nonnull;
  * href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a> axiom
  * in the OWL 2 Specification.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLSubClassOfAxiom extends OWLClassAxiom {
-    /** Gets the subclass in this axiom
+    /** Gets the subclass in this axiom.
      * 
      * @return The class expression that represents the subclass in this axiom. */
     @Nonnull

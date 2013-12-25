@@ -40,14 +40,17 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLObject extends OWLObject {
-    /** @param visitor */
+    /** @param visitor
+     *            visitor to accept */
     void accept(@Nonnull SWRLObjectVisitor visitor);
 
     /** @param visitor
+     *            visitor to accept
+     * @param <O>
+     *            visitor return type
      * @return visitor value */
     <O> O accept(@Nonnull SWRLObjectVisitorEx<O> visitor);
 }

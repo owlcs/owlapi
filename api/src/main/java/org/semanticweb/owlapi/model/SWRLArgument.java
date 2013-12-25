@@ -41,7 +41,6 @@ package org.semanticweb.owlapi.model;
 /** Represents an object in an atom (either a data object or and individual
  * object).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLArgument extends SWRLObject {}

@@ -212,8 +212,8 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     public static final AxiomType<OWLDisjointUnionAxiom> DISJOINT_UNION = getInstance(4,
             "DisjointUnion", true, false, true);
     // Individual axioms
-       /** ClassAssertion */
- public static final AxiomType<OWLClassAssertionAxiom> CLASS_ASSERTION = getInstance(
+    /** ClassAssertion */
+    public static final AxiomType<OWLClassAssertionAxiom> CLASS_ASSERTION = getInstance(
             5, "ClassAssertion", false, false, true);
     /** SameIndividual */
     public static final AxiomType<OWLSameIndividualAxiom> SAME_INDIVIDUAL = getInstance(

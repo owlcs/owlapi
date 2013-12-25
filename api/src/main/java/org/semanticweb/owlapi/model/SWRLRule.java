@@ -45,18 +45,17 @@ import javax.annotation.Nonnull;
 /** Represent a rule. A rule consists of a head and a body. Both the head and the
  * body consist of a conjunction of atoms.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
-    /** Gets the atoms in the body of the rule
+    /** Gets the atoms in the body of the rule.
      * 
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
      *         of the rule. */
     @Nonnull
     Set<SWRLAtom> getBody();
 
-    /** Gets the atoms in the head of the rule
+    /** Gets the atoms in the head of the rule.
      * 
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
      *         of the rule */
@@ -66,7 +65,7 @@ public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /** If this rule contains atoms that have predicates that are inverse object
      * properties, then this method creates and returns a rule where the
      * arguments of these atoms are fliped over and the predicate is the inverse
-     * (simplified) property
+     * (simplified) property.
      * 
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
      *         transformed to p(x, y). */

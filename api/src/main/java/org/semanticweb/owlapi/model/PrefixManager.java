@@ -47,10 +47,8 @@ import javax.annotation.Nullable;
 
 /** A prefix manager than can provide prefixes for prefix names.
  * 
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 10-Sep-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 10-Sep-2008 */
 public interface PrefixManager extends Serializable {
     /** Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"
@@ -113,7 +111,7 @@ public interface PrefixManager extends Serializable {
     @Nullable
     String getPrefixIRI(@Nonnull IRI iri);
 
-    /** Gets the prefix names that have a mapping in this prefix manager
+    /** Gets the prefix names that have a mapping in this prefix manager.
      * 
      * @return The prefix names as a set of strings. */
     @Nonnull

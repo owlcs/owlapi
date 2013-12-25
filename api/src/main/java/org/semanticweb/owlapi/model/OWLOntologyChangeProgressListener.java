@@ -44,9 +44,8 @@ import javax.annotation.Nonnull;
  * ontology should implement this interface and add themselves as listener to a
  * manager.
  * 
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 12-Mar-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 12-Mar-2009 */
 public interface OWLOntologyChangeProgressListener {
     /** @param size
      *            the start size */
@@ -56,6 +55,6 @@ public interface OWLOntologyChangeProgressListener {
      *            the change just applied */
     void appliedChange(@Nonnull OWLOntologyChange<?> change);
 
-    /** end of the progress */
+    /** end of the progress. */
     void end();
 }

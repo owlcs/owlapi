@@ -49,13 +49,12 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
  * an ontology format is defined by the equals and hashCode method (not its
  * identity).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 02-Jan-2007 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 02-Jan-2007 */
 public abstract class OWLOntologyFormat implements Serializable {
     private static final long serialVersionUID = 40000L;
     /** if set to "true", an intermediate file will be used for output, even for
-     * remote URIs */
+     * remote URIs. */
     public static final String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
     private Map<Object, Object> paramaterMap;
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
@@ -90,7 +89,7 @@ public abstract class OWLOntologyFormat implements Serializable {
     }
 
     /** Determines if this format is an instance of a format that uses prefixes
-     * to shorted IRIs
+     * to shorted IRIs.
      * 
      * @return {@code true} if this format is an instance of
      *         {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
@@ -102,7 +101,7 @@ public abstract class OWLOntologyFormat implements Serializable {
     /** If this format is an instance of
      * {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat} then this
      * method will obtain it as a
-     * {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
+     * {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}.
      * 
      * @return This format as a more specific
      *         {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}.

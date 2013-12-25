@@ -42,20 +42,20 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents an OWL 2 <a href
- * ="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontologies">Ontology
- * </a> in the OWL 2 specification. </p> An {@code OWLOntology} consists of a
- * possibly empty set of {@link org.semanticweb.owlapi.model.OWLAxiom}s and a
- * possibly empty set of {@link OWLAnnotation}s. An ontology can have an
- * ontology IRI which can be used to identify the ontology. If it has an
- * ontology IRI then it may also have an ontology version IRI. Since OWL 2, an
- * ontology need not have an ontology IRI. (See the <a
- * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/">OWL 2 Structural
- * Specification</a>). </p> An ontology cannot be modified directly. Changes
+/** Represents an OWL 2 <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Ontologies">Ontology</a> in the OWL 2
+ * specification. <br>
+ * An {@code OWLOntology} consists of a possibly empty set of
+ * {@link org.semanticweb.owlapi.model.OWLAxiom}s and a possibly empty set of
+ * {@link OWLAnnotation}s. An ontology can have an ontology IRI which can be
+ * used to identify the ontology. If it has an ontology IRI then it may also
+ * have an ontology version IRI. Since OWL 2, an ontology need not have an
+ * ontology IRI. (See the <a href="http://www.w3.org/TR/owl2-syntax/">OWL 2
+ * Structural Specification</a> An ontology cannot be modified directly. Changes
  * must be applied via its {@code OWLOntologyManager}.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
         HasAxiomsByType, HasContainsAxiom, HasAnnotations {
     /** interim method to access ontology internals for searching purposes
@@ -119,14 +119,12 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
      * to via the directlyImports relation. See Section 3.4 of the OWL 2
-     * specification for the definition of the directlyImports relation.
-     * <p>
+     * specification for the definition of the directlyImports relation. <br>
      * Note that there may be fewer ontologies in the set returned by this
      * method than there are IRIs in the set returned by the
      * {@link #getDirectImportsDocuments()} method. This will be the case if
      * some of the ontologies that are directly imported by this ontology are
      * not loaded for what ever reason.
-     * </p>
      * 
      * @return A set of ontologies such that for this ontology O, and each
      *         ontology O' in the set, (O, O') is in the directlyImports
@@ -139,13 +137,11 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
      * to via the <em>transitive closure</em> of the <a
-     * href="http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Imports"
-     * >directlyImports relation</a>.
-     * <p>
+     * href="http://www.w3.org/TR/owl2-syntax/#Imports">directlyImports
+     * relation</a>.<br>
      * For example, if this ontology imports ontology B, and ontology B imports
      * ontology C, then this method will return the set consisting of ontology B
      * and ontology C.
-     * </p>
      * 
      * @return The set of ontologies that this ontology is related to via the
      *         transitive closure of the directlyImports relation. The set that
@@ -162,12 +158,10 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * to via the <em>reflexive transitive closure</em> of the directlyImports
      * relation as defined in Section 3.4 of the OWL 2 Structural Specification.
      * (i.e. The set returned includes all ontologies returned by the
-     * {@link #getImports()} method plus this ontology.)
-     * <p>
+     * {@link #getImports()} method plus this ontology.)<br>
      * For example, if this ontology imports ontology B, and ontology B imports
      * ontology C, then this method will return the set consisting of this
      * ontology, ontology B and ontology C.
-     * </p>
      * 
      * @return The set of ontologies in the reflexive transitive closure of the
      *         directlyImports relation.
@@ -244,7 +238,9 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *            The type of axioms to be retrived.
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology - it
-     *         will not be updated if the ontology changes. */
+     *         will not be updated if the ontology changes.
+     * @param <T>
+     *            axiom type */
     @Nonnull
     @Override
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType);
@@ -261,13 +257,15 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @return A set containing the axioms which are of the specified type. The
      *         set that is returned is a copy of the axioms in the ontology (and
      *         its imports closure) - it will not be updated if the ontology
-     *         changes. */
+     *         changes.
+     * @param <T>
+     *            axiom type */
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(@Nonnull AxiomType<T> axiomType,
             boolean includeImportsClosure);
 
     /** Gets the axioms that form the TBox for this ontology, i.e., the ones
-     * whose type is in the AxiomType::TBoxAxiomTypes
+     * whose type is in the AxiomType::TBoxAxiomTypes.
      * 
      * @param includeImportsClosure
      *            if {@code true} then axioms of the specified type will also be
@@ -282,7 +280,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getTBoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axioms that form the ABox for this ontology, i.e., the ones
-     * whose type is in the AxiomType::ABoxAxiomTypes
+     * whose type is in the AxiomType::ABoxAxiomTypes.
      * 
      * @param includeImportsClosure
      *            if {@code true} then axioms of the specified type will also be
@@ -297,7 +295,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getABoxAxioms(boolean includeImportsClosure);
 
     /** Gets the axioms that form the RBox for this ontology, i.e., the ones
-     * whose type is in the AxiomType::RBoxAxiomTypes
+     * whose type is in the AxiomType::RBoxAxiomTypes.
      * 
      * @param includeImportsClosure
      *            if {@code true} then axioms of the specified type will also be
@@ -311,7 +309,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLAxiom> getRBoxAxioms(boolean includeImportsClosure);
 
-    /** Gets the axiom count of a specific type of axiom
+    /** Gets the axiom count of a specific type of axiom.
      * 
      * @param axiomType
      *            The type of axiom to count
@@ -319,13 +317,15 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType);
 
     /** Gets the axiom count of a specific type of axiom, possibly in the imports
-     * closure of this ontology
+     * closure of this ontology.
      * 
      * @param axiomType
      *            The type of axiom to count
      * @param includeImportsClosure
      *            Specifies that the imports closure should be included when
      *            counting axioms
+     * @param <T>
+     *            axiom type
      * @return The number of the specified types of axioms in this ontology */
     <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType,
             boolean includeImportsClosure);
@@ -445,7 +445,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     /** Gets the entities that are in the signature of this ontology. The
      * signature of an ontology is the set of entities that are used to build
      * axioms and annotations in the ontology. (See <a href=
-     * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
      * >The OWL 2 Structural Specification</a>)
      * 
      * @return A set of {@code OWLEntity} objects. The set that is returned is a
@@ -463,7 +463,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     /** Gets the entities that are in the signature of this ontology. The
      * signature of an ontology is the set of entities that are used to build
      * axioms and annotations in the ontology. (See <a href=
-     * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
+     * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
      * >The OWL 2 Structural Specification</a>)
      * 
      * @param includeImportsClosure
@@ -610,7 +610,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure);
 
-    /** Gets the referenced anonymous individuals
+    /** Gets the referenced anonymous individuals.
      * 
      * @return The set of referenced anonymous individuals */
     @Nonnull
@@ -693,7 +693,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLEntity owlEntity,
             boolean includeImportsClosure);
 
-    /** Gets the axioms that reference the specified anonymous individual
+    /** Gets the axioms that reference the specified anonymous individual.
      * 
      * @param individual
      *            The individual
@@ -1090,7 +1090,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLDataPropertyAxiom> getAxioms(@Nonnull OWLDataProperty prop);
 
-    /** Gets the axioms that form the definition/description of an individual
+    /** Gets the axioms that form the definition/description of an individual.
      * 
      * @param individual
      *            The individual whose defining axioms are to be retrieved.
@@ -1133,7 +1133,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     @Nonnull
     Set<OWLAnnotationAxiom> getAxioms(@Nonnull OWLAnnotationProperty property);
 
-    /** Gets the datatype definition axioms for the specified datatype
+    /** Gets the datatype definition axioms for the specified datatype.
      * 
      * @param datatype
      *            The datatype

@@ -40,30 +40,72 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLObjectVisitor {
+    /** visit SWRLRule type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLRule node);
 
+    /** visit SWRLClassAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLClassAtom node);
 
+    /** visit SWRLDataRangeAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLDataRangeAtom node);
 
+    /** visit SWRLObjectPropertyAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLObjectPropertyAtom node);
 
+    /** visit SWRLDataPropertyAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLDataPropertyAtom node);
 
+    /** visit SWRLBuiltInAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLBuiltInAtom node);
 
+    /** visit SWRLVariable type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLVariable node);
 
+    /** visit SWRLIndividualArgument type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLIndividualArgument node);
 
+    /** visit SWRLLiteralArgument type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLLiteralArgument node);
 
+    /** visit SWRLSameIndividualAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLSameIndividualAtom node);
 
+    /** visit SWRLDifferentIndividualsAtom type
+     * 
+     * @param node
+     *            node to visit */
     void visit(@Nonnull SWRLDifferentIndividualsAtom node);
 }

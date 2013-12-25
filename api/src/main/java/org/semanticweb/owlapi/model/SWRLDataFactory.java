@@ -43,13 +43,12 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** An interface to a factory that can create SWRL objects
+/** An interface to a factory that can create SWRL objects.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007 */
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007 */
 public interface SWRLDataFactory {
-    /** Gets an anonymous SWRL Rule
+    /** Gets an anonymous SWRL Rule.
      * 
      * @param body
      *            The atoms that make up the body
@@ -60,7 +59,7 @@ public interface SWRLDataFactory {
     SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head);
 
-    /** Gets an anonymous SWRL Rule
+    /** Gets an anonymous SWRL Rule.
      * 
      * @param body
      *            The atoms that make up the body
@@ -162,7 +161,7 @@ public interface SWRLDataFactory {
     SWRLVariable getSWRLVariable(@Nonnull IRI var);
 
     /** Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as
-     * an argument for an atom
+     * an argument for an atom.
      * 
      * @param individual
      *            The individual that is the object argument
@@ -171,7 +170,7 @@ public interface SWRLDataFactory {
     SWRLIndividualArgument getSWRLIndividualArgument(@Nonnull OWLIndividual individual);
 
     /** Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
-     * provide an argument for an atom
+     * provide an argument for an atom.
      * 
      * @param literal
      *            The constant that is the object argument

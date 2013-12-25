@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.io.OWLParser;
 /** An ontology factory is responsible from creating new ontologies and creating
  * ontologies from ontology document IRIs.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 25-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 25-Oct-2006 */
 public interface OWLOntologyFactory extends Serializable {
     /** @param owlOntologyManager
      *            the ontology manager to set. Cannot be null. */
@@ -129,7 +129,7 @@ public interface OWLOntologyFactory extends Serializable {
     boolean canCreateFromDocumentIRI(@Nonnull IRI documentIRI);
 
     /** Determines if the factory can load an ontology for the specified input
-     * souce
+     * source.
      * 
      * @param documentSource
      *            The input source from which to load the ontology

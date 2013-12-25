@@ -52,12 +52,12 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 /** An {@code OWLOntologyManager} manages a set of ontologies. It is the main
- * point for creating, loading and accessing ontologies. </p> An
- * {@code OWLOntologyManager} also manages the mapping betweem an ontology and
+ * point for creating, loading and accessing ontologies. <br>
+ * An {@code OWLOntologyManager} also manages the mapping betweem an ontology and
  * its ontology document.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Gets a data factory which can be used to create OWL API objects such as
      * classes, properties, individuals, axioms etc.
@@ -362,9 +362,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      * initialised to contain specific axioms.
      * 
      * @param ontologyIRI
-     *            The IRI of the new ontology. </p> The ontology document IRI of
-     *            the created ontology will be set to the value returned by any
-     *            installed
+     *            The IRI of the new ontology. <br>
+     *            The ontology document IRI of the created ontology will be set
+     *            to the value returned by any installed
      *            {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If
      *            no mappers are installed or the ontology IRI was not mapped to
      *            a document IRI by any of the installed mappers, then the
@@ -391,8 +391,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
             throws OWLOntologyCreationException;
 
     /** Creates a new (empty) ontology that has the specified ontology IRI (and
-     * no version IRI). </p> The ontology document IRI of the created ontology
-     * will be set to the value returned by any installed
+     * no version IRI). <br>
+     * The ontology document IRI of the created ontology will be set to the
+     * value returned by any installed
      * {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If no mappers
      * are installed or the ontology IRI was not mapped to a document IRI by any
      * of the installed mappers, then the ontology document IRI will be set to
@@ -422,9 +423,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Creates a new (empty) ontology that has the specified ontology ID.
      * 
      * @param ontologyID
-     *            The ID of the ontology to be created. </p> The ontology
-     *            document IRI of the created ontology will be set to the value
-     *            returned by any installed
+     *            The ID of the ontology to be created. <br>
+     *            The ontology document IRI of the created ontology will be set
+     *            to the value returned by any installed
      *            {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If
      *            no mappers are installed or the ontology IRI was not mapped to
      *            a document IRI by any of the installed mappers, then the
@@ -448,8 +449,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Creates a new ontology that has the specified ontology IRI and is
      * initialised to contain the axioms that are contained in the specified
      * ontologies. Note that the specified ontologies need not be managed by
-     * this manager. </p> The ontology document IRI of the created ontology will
-     * be set to the value returned by any installed
+     * this manager. <br>
+     * The ontology document IRI of the created ontology will be set to the
+     * value returned by any installed
      * {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If no mappers
      * are installed or the ontology IRI was not mapped to a document IRI by any
      * of the installed mappers, then the ontology document IRI will be set to
@@ -486,8 +488,9 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Creates a new ontology that has the specified ontology IRI and is
      * initialised to contain the axioms that are contained in the specified
      * ontologies. Note that the specified ontologies need not be managed by
-     * this manager. </p> The ontology document IRI of the created ontology will
-     * be set to the value returned by any installed
+     * this manager. <br>
+     * The ontology document IRI of the created ontology will be set to the
+     * value returned by any installed
      * {@link org.semanticweb.owlapi.model.OWLOntologyIRIMapper}s. If no mappers
      * are installed or the ontology IRI was not mapped to a document IRI by any
      * of the installed mappers, then the ontology document IRI will be set to
@@ -522,13 +525,13 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** Loads an ontology that is assumed to have the specified
-     * {@code ontologyIRI} as its IRI or version IRI. </p> The ontology IRI will
-     * be mapped to an ontology document IRI. The mapping will be determined
-     * using one of the loaded {@link OWLOntologyIRIMapper} objects. By default,
-     * if no custom {@code OWLOntologyIRIMapper}s have been registered using the
-     * {@link #addIRIMapper(OWLOntologyIRIMapper)} method, or no mapping can be
-     * found, the ontology document IRI is taken to be the specified ontology
-     * IRI.
+     * {@code ontologyIRI} as its IRI or version IRI. <br>
+     * The ontology IRI will be mapped to an ontology document IRI. The mapping
+     * will be determined using one of the loaded {@link OWLOntologyIRIMapper}
+     * objects. By default, if no custom {@code OWLOntologyIRIMapper}s have been
+     * registered using the {@link #addIRIMapper(OWLOntologyIRIMapper)} method,
+     * or no mapping can be found, the ontology document IRI is taken to be the
+     * specified ontology IRI.
      * 
      * @param ontologyIRI
      *            The IRI that identifies the ontology. It is expected that the

@@ -40,30 +40,85 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008
+ * @param <O>
+ *            visitor type */
 public interface SWRLObjectVisitorEx<O> {
+    /** visit SWRLRule type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLRule node);
 
+    /** visit SWRLClassAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLClassAtom node);
 
+    /** visit SWRLDataRangeAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLDataRangeAtom node);
 
+    /** visit SWRLObjectPropertyAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLObjectPropertyAtom node);
 
+    /** visit SWRLDataPropertyAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLDataPropertyAtom node);
 
+    /** visit SWRLBuiltInAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLBuiltInAtom node);
 
+    /** visit SWRLVariable type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLVariable node);
 
+    /** visit SWRLIndividualArgument type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLIndividualArgument node);
 
+    /** visit SWRLLiteralArgument type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLLiteralArgument node);
 
+    /** visit SWRLSameIndividualAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLSameIndividualAtom node);
 
+    /** visit SWRLDifferentIndividualsAtom type
+     * 
+     * @param node
+     *            node to visit
+     * @return visitor value */
     O visit(@Nonnull SWRLDifferentIndividualsAtom node);
 }

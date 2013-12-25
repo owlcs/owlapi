@@ -69,9 +69,10 @@ public final class OWLOntologyLoaderConfiguration {
     }
 
     private boolean loadAnnotations = true;
+    /** default missing ontology strategy. */
     private MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = MissingOntologyHeaderStrategy.INCLUDE_GRAPH;
     private boolean strict = false;
-    /** flag to enable stack traces on parsing exceptions */
+    /** flag to enable stack traces on parsing exceptions. */
     private boolean reportStackTraces = false;
     private boolean followRedirects = true;
     private MissingImportHandlingStrategy missingImportHandlingStrategy = MissingImportHandlingStrategy.THROW_EXCEPTION;
@@ -315,9 +316,7 @@ public final class OWLOntologyLoaderConfiguration {
         return configuration;
     }
 
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Internally copies this configuaration object
+    /** Internally copies this configuaration object.
      * 
      * @return The copied configuration */
     private OWLOntologyLoaderConfiguration copyConfiguration() {

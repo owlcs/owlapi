@@ -38,14 +38,18 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 Represents a
- *         restriction (<a
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 Represents a restriction (<a
  *         href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Restrictions"
  *         >Object Property Restriction</a> or <a
  *         href="http://www.w3.org/TR/owl2-syntax/#Data_Property_Restrictions"
  *         >Data Property Restriction</a>) in the OWL 2 specification.
- * @since 4.0.0 */
+ * @param <R>
+ *            range
+ * @param <P>
+ *            property expression
+ * @param <F>
+ *            range */
 public interface OWLRestriction extends OWLAnonymousClassExpression {
     /** Determines if this is an object restriction.
      * 

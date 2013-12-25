@@ -47,10 +47,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * bundle identifying information of an ontology together. If an ontology
  * doesn't have an ontology IRI then we say that it is "anonymous".
  * 
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 18-Jan-2009 */
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Jan-2009 */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicInteger COUNTER = new AtomicInteger();
@@ -60,7 +58,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private final IRI versionIRI;
     private int hashCode;
 
-    /** Constructs an ontology identifier specifying the ontology IRI
+    /** Constructs an ontology identifier specifying the ontology IRI.
      * 
      * @param ontologyIRI
      *            The ontology IRI used to indentify the ontology */
@@ -69,7 +67,7 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     }
 
     /** Constructs an ontology identifier specifiying the ontology IRI and
-     * version IRI
+     * version IRI.
      * 
      * @param ontologyIRI
      *            The ontology IRI (may be {@code null})
@@ -139,9 +137,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
      * representation of an ontology with this ID. This will be the version IRI
      * if there is an ontology IRI and version IRI, else it will be the ontology
      * IRI if there is an ontology IRI but no version IRI, else it will be
-     * {@code null} if there is no ontology IRI. See <a href=
-     * "http://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Ontology_Documents"
-     * >Ontology Documents</a> in the OWL 2 Structural Specification.
+     * {@code null} if there is no ontology IRI. See <a
+     * href="http://www.w3.org/TR/owl2-syntax/#Ontology_Documents">Ontology
+     * Documents</a> in the OWL 2 Structural Specification.
      * 
      * @return The IRI that can be used as a default for an ontology document
      *         containing an ontology as identified by this ontology ID. Returns
@@ -193,6 +191,9 @@ public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj == this) {
             return true;
         }

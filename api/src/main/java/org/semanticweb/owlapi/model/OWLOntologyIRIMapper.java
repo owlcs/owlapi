@@ -44,8 +44,8 @@ import javax.annotation.Nullable;
 /** The interface to an object that is capable of mapping ontology IRIs to
  * document IRIs.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 25-Oct-2006 */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 25-Oct-2006 */
 public interface OWLOntologyIRIMapper {
     /** Given an ontology IRI, this method maps the ontology IRI to a document
      * IRI.

@@ -43,9 +43,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 20-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Nov-2006 */
 public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
     /** Broadcasts the list of changes to the specified listeners.
      * 
@@ -53,7 +52,8 @@ public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
      *            The changes to be broadcast.
      * @param listener
      *            The listeners that the changes should be broadcast to
-     * @throws OWLException */
+     * @throws OWLException
+     *             for any exception raised */
     void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
             @Nonnull List<? extends OWLOntologyChange<?>> changes) throws OWLException;
 }

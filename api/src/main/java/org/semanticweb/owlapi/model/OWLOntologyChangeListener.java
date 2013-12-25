@@ -42,9 +42,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 20-Nov-2006 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Nov-2006 */
 public interface OWLOntologyChangeListener {
     /** Called when some changes have been applied to various ontologies. These
      * may be an axiom added or an axiom removed changes.
@@ -52,7 +51,8 @@ public interface OWLOntologyChangeListener {
      * @param changes
      *            A list of changes that have occurred. Each change may be
      *            examined to determine which ontology it was applied to.
-     * @throws OWLException */
+     * @throws OWLException
+     *             exception */
     void ontologiesChanged(@Nonnull List<? extends OWLOntologyChange> changes)
             throws OWLException;
 }

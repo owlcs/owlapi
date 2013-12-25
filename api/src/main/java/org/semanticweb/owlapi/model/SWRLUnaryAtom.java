@@ -40,9 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Medical Informatics Group<br>
- *         Date: Jan 15, 2007
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007
  * @param <A>
  *            the type of argument */
 public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {

@@ -40,9 +40,9 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 Represents a property
- *         or possibly the inverse of a property.
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 24-Oct-2006 Represents a property or possibly the inverse
+ *         of a property.
  * @param <R>
  *            range
  * @param <P>
@@ -55,10 +55,15 @@ public interface OWLPropertyExpression extends OWLObject {
      *         a named object property or named data property. */
     boolean isAnonymous();
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept */
     void accept(@Nonnull OWLPropertyExpressionVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor to accept
+     * @param <O>
+     *            visitor return type
+     * @return visitor value */
     <O> O accept(@Nonnull OWLPropertyExpressionVisitorEx<O> visitor);
 
     /** @return true if this is a data property */
@@ -67,25 +72,25 @@ public interface OWLPropertyExpression extends OWLObject {
     /** @return true if this is an object property */
     boolean isObjectPropertyExpression();
 
-    /** Determines if this is the owl:topObjectProperty
+    /** Determines if this is the owl:topObjectProperty.
      * 
      * @return {@code true} if this property is the owl:topObjectProperty
      *         otherwise {@code false} */
     boolean isOWLTopObjectProperty();
 
-    /** Determines if this is the owl:bottomObjectProperty
+    /** Determines if this is the owl:bottomObjectProperty.
      * 
      * @return {@code true} if this property is the owl:bottomObjectProperty
      *         otherwise {@code false} */
     boolean isOWLBottomObjectProperty();
 
-    /** Determines if this is the owl:topDataProperty
+    /** Determines if this is the owl:topDataProperty.
      * 
      * @return {@code true} if this property is the owl:topDataProperty
      *         otherwise {@code false} */
     boolean isOWLTopDataProperty();
 
-    /** Determines if this is the owl:bottomDataProperty
+    /** Determines if this is the owl:bottomDataProperty.
      * 
      * @return {@code true} if this property is the owl:bottomDataProperty
      *         otherwise {@code false} */

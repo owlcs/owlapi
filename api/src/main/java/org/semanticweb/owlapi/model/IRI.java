@@ -272,7 +272,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      *            the url to create the IRI from. Cannot be null.
      * @return an IRI wrapping url.toURI()
      * @throws OWLRuntimeException
-     *             if the URL is ill formed*/
+     *             if the URL is ill formed */
     @Nonnull
     public static IRI create(@Nonnull URL url) {
         checkNotNull(url, "url cannot be null");

@@ -48,9 +48,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 01-Apr-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Apr-2009 */
 public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     private final OWLOntologyID ontologyID;
     private final OWLOntologyID newOntologyID;
@@ -110,7 +109,7 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
         throw new UnsupportedOperationException("Not an axiom change");
     }
 
-    /** Gets the original ID of the ontology whose URI was changed
+    /** Gets the original ID of the ontology whose URI was changed.
      * 
      * @return The original ID */
     @Nonnull
