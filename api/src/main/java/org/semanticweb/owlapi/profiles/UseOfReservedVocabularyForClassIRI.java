@@ -42,20 +42,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfReservedVocabularyForClassIRI extends OWLProfileViolation implements
         OWL2DLProfileViolation {
     private final OWLClass cls;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param cls
+     *            wrong class */
     public UseOfReservedVocabularyForClassIRI(OWLOntology ontology, OWLAxiom axiom,
             OWLClass cls) {
         super(ontology, axiom);
         this.cls = cls;
     }
 
+    /** @return wrong class */
     public OWLClass getOWLClass() {
         return cls;
     }

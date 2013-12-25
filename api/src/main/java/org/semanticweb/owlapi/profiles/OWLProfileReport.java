@@ -42,9 +42,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008 */
 public class OWLProfileReport {
     private final OWLProfile profile;
     private final List<OWLProfileViolation> violations;

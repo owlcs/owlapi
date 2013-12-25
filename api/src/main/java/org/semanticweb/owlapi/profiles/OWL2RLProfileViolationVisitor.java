@@ -38,28 +38,66 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public interface OWL2RLProfileViolationVisitor {
+    /** visit UseOfIllegalAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfIllegalAxiom violation);
 
+    /** visit UseOfIllegalDataRange type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfIllegalDataRange violation);
 
+    /** visit IllegalPunning type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(IllegalPunning violation);
 
+    /** visit UseOfNonEquivalentClassExpression type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonEquivalentClassExpression violation);
 
+    /** visit UseOfNonSubClassExpression type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSubClassExpression violation);
 
+    /** visit UseOfNonSuperClassExpression type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSuperClassExpression violation);
 
+    /** visit InsufficientPropertyExpressions type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientPropertyExpressions violation);
 
+    /** visit InsufficientIndividuals type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientIndividuals violation);
 
+    /** visit InsufficientOperands type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientOperands violation);
 
+    /** visit EmptyOneOfAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(EmptyOneOfAxiom violation);
 }

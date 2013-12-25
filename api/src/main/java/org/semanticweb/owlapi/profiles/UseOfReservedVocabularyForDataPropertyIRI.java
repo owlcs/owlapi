@@ -42,20 +42,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfReservedVocabularyForDataPropertyIRI extends OWLProfileViolation
         implements OWL2DLProfileViolation {
     private final OWLDataProperty property;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param property
+     *            wrong property */
     public UseOfReservedVocabularyForDataPropertyIRI(OWLOntology ontology,
             OWLAxiom axiom, OWLDataProperty property) {
         super(ontology, axiom);
         this.property = property;
     }
 
+    /** @return wrong property */
     public OWLDataProperty getOWLDataProperty() {
         return property;
     }

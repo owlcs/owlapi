@@ -80,13 +80,12 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 18-Jul-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Jul-2009 */
 public class OWL2QLProfile implements OWLProfile {
     final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
+    /** default constructor */
     public OWL2QLProfile() {
         allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
         allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
@@ -379,6 +378,9 @@ public class OWL2QLProfile implements OWLProfile {
 
     private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
 
+    /** @param ce
+     *            class
+     * @return true if ce is superclass expression */
     public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }

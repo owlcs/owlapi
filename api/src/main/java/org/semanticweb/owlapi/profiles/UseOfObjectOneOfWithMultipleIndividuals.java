@@ -42,14 +42,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression
         implements OWL2ELProfileViolation {
     private final OWLObjectOneOf oneOf;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param oneOf
+     *            wrong expression */
     public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom,
             OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
@@ -61,6 +65,7 @@ public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassEx
         visitor.visit(this);
     }
 
+    /** @return wrong expression */
     public OWLObjectOneOf getOWLObjectOneOf() {
         return oneOf;
     }

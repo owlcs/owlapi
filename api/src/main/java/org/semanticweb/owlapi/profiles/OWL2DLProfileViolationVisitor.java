@@ -38,66 +38,180 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public interface OWL2DLProfileViolationVisitor {
+    /** visit IllegalPunning type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(IllegalPunning violation);
 
+    /** visit CycleInDatatypeDefinition type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(CycleInDatatypeDefinition violation);
 
+    /** visit UseOfBuiltInDatatypeInDatatypeDefinition type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfBuiltInDatatypeInDatatypeDefinition violation);
 
+    /** visit DatatypeIRIAlsoUsedAsClassIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(DatatypeIRIAlsoUsedAsClassIRI violation);
 
+    /** visit UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom violation);
 
+    /** visit UseOfNonSimplePropertyInCardinalityRestriction type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInCardinalityRestriction violation);
 
+    /** visit UseOfNonSimplePropertyInDisjointPropertiesAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom violation);
 
+    /** visit UseOfNonSimplePropertyInFunctionalPropertyAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom violation);
 
+    /** visit UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom violation);
 
+    /** visit UseOfNonSimplePropertyInIrreflexivePropertyAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom violation);
 
+    /** visit UseOfNonSimplePropertyInObjectHasSelf type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonSimplePropertyInObjectHasSelf violation);
 
+    /** visit UseOfPropertyInChainCausesCycle type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfPropertyInChainCausesCycle violation);
 
+    /** visit UseOfReservedVocabularyForAnnotationPropertyIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForAnnotationPropertyIRI violation);
 
+    /** visit UseOfReservedVocabularyForClassIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForClassIRI violation);
 
+    /** visit UseOfReservedVocabularyForDataPropertyIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForDataPropertyIRI violation);
 
+    /** visit UseOfReservedVocabularyForIndividualIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForIndividualIRI violation);
 
+    /** visit UseOfReservedVocabularyForObjectPropertyIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForObjectPropertyIRI violation);
 
+    /** visit UseOfReservedVocabularyForOntologyIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForOntologyIRI violation);
 
+    /** visit UseOfReservedVocabularyForVersionIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfReservedVocabularyForVersionIRI violation);
 
+    /** visit UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom violation);
 
+    /** visit UseOfUndeclaredAnnotationProperty type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUndeclaredAnnotationProperty violation);
 
+    /** visit UseOfUndeclaredClass type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUndeclaredClass violation);
 
+    /** visit UseOfUndeclaredDataProperty type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUndeclaredDataProperty violation);
 
+    /** visit UseOfUndeclaredDatatype type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUndeclaredDatatype violation);
 
+    /** visit UseOfUndeclaredObjectProperty type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUndeclaredObjectProperty violation);
 
+    /** visit InsufficientPropertyExpressions type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientPropertyExpressions violation);
 
+    /** visit InsufficientIndividuals type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientIndividuals violation);
 
+    /** visit InsufficientOperands type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientOperands violation);
 
+    /** visit EmptyOneOfAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(EmptyOneOfAxiom violation);
 }

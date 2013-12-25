@@ -42,14 +42,18 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfAnonymousIndividual extends OWLProfileViolation implements
         OWL2ELProfileViolation, OWL2QLProfileViolation {
     private final OWLAnonymousIndividual individual;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param individual
+     *            wrong individual */
     public UseOfAnonymousIndividual(OWLOntology ontology, OWLAxiom axiom,
             OWLAnonymousIndividual individual) {
         super(ontology, axiom);
@@ -66,6 +70,7 @@ public class UseOfAnonymousIndividual extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
+    /** @return wrong individual */
     public OWLAnonymousIndividual getOWLAnonymousIndividual() {
         return individual;
     }

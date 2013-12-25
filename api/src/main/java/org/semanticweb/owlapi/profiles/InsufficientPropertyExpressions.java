@@ -3,10 +3,14 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
+/** Insufficient property expressions. */
 public class InsufficientPropertyExpressions extends OWLProfileViolation implements
         OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
         OWL2QLProfileViolation, OWL2RLProfileViolation {
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation */
     public InsufficientPropertyExpressions(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom);
     }

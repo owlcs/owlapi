@@ -42,14 +42,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolation
         implements OWL2ProfileViolation {
     private final OWLDatatypeRestriction restriction;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param restriction
+     *            wrong expression */
     public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology,
             OWLAxiom axiom, OWLDatatypeRestriction restriction) {
         super(ontology, axiom);
@@ -61,6 +65,7 @@ public class UseOfDefinedDatatypeInDatatypeRestriction extends OWLProfileViolati
         visitor.visit(this);
     }
 
+    /** @return wrong expression */
     public OWLDatatypeRestriction getOWLDatatypeRestriction() {
         return restriction;
     }

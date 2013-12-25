@@ -40,12 +40,12 @@ package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class OntologyIRINotAbsolute extends OWLProfileViolation implements
         OWL2ProfileViolation {
+    /** @param ontology
+     *            wrong ontology */
     public OntologyIRINotAbsolute(OWLOntology ontology) {
         super(ontology, null);
     }

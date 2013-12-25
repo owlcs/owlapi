@@ -42,19 +42,24 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
     private final OWLDataOneOf dataOneOf;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param dataOneOf
+     *            wrong expression */
     public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, OWLAxiom axiom,
             OWLDataOneOf dataOneOf) {
         super(ontology, axiom, dataOneOf);
         this.dataOneOf = dataOneOf;
     }
 
+    /** @return wrong expression */
     public OWLDataOneOf getDataOneOf() {
         return dataOneOf;
     }

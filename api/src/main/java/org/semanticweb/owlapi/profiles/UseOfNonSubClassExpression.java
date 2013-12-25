@@ -42,14 +42,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfNonSubClassExpression extends OWLProfileViolation implements
         OWL2QLProfileViolation, OWL2RLProfileViolation {
     private final OWLClassExpression classExpression;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param classExpression
+     *            wrong class */
     public UseOfNonSubClassExpression(OWLOntology ontology, OWLAxiom axiom,
             OWLClassExpression classExpression) {
         super(ontology, axiom);
@@ -66,6 +70,7 @@ public class UseOfNonSubClassExpression extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
+    /** @return wrong class */
     public OWLClassExpression getOWLClassExpression() {
         return classExpression;
     }

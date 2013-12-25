@@ -42,20 +42,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfUndeclaredObjectProperty extends OWLProfileViolation implements
         OWL2DLProfileViolation {
     private final OWLObjectProperty property;
 
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param prop
+     *            undeclared property */
     public UseOfUndeclaredObjectProperty(OWLOntology ontology, OWLAxiom axiom,
             OWLObjectProperty prop) {
         super(ontology, axiom);
-        this.property = prop;
+        property = prop;
     }
 
+    /** @return undeclared property */
     public OWLObjectProperty getOWLObjectProperty() {
         return property;
     }

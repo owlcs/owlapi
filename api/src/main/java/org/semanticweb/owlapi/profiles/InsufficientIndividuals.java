@@ -3,10 +3,14 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
+/** Not enough individuals. */
 public class InsufficientIndividuals extends OWLProfileViolation implements
         OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
         OWL2QLProfileViolation, OWL2RLProfileViolation {
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation */
     public InsufficientIndividuals(OWLOntology currentOntology, OWLAxiom node) {
         super(currentOntology, node);
     }

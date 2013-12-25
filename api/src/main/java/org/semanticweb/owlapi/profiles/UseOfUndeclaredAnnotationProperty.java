@@ -43,26 +43,34 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfUndeclaredAnnotationProperty extends OWLProfileViolation implements
         OWL2DLProfileViolation {
     private final OWLAnnotationProperty property;
     private final OWLAnnotation annotation;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param annotation
+     *            wrong annotation
+     * @param prop
+     *            wrong property */
     public UseOfUndeclaredAnnotationProperty(OWLOntology ontology, OWLAxiom axiom,
             OWLAnnotation annotation, OWLAnnotationProperty prop) {
         super(ontology, axiom);
-        this.property = prop;
+        property = prop;
         this.annotation = annotation;
     }
 
+    /** @return wrong property */
     public OWLAnnotationProperty getOWLAnnotationProperty() {
         return property;
     }
 
+    /** @return wrong annotation */
     public OWLAnnotation getOWLAnnotation() {
         return annotation;
     }

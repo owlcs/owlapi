@@ -42,20 +42,25 @@ import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends OWLProfileViolation
         implements OWL2DLProfileViolation {
     private final OWLObjectPropertyExpression prop;
 
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom
+     * @param prop
+     *            wrong property */
     public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology,
             OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
         super(ontology, axiom);
         this.prop = prop;
     }
 
+    /** @return wrong property */
     public OWLObjectPropertyExpression getOWLObjectProperty() {
         return prop;
     }

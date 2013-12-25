@@ -54,16 +54,15 @@ import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Checks to see if an ontology and its imports closure fall into the OWL 2 Full
+/** Checks to see if an ontology and its imports closure fall into the OWL 2 DL
  * profile. An ontology is OWL Full if any of the global structural restrictions
  * are violated. Violations checked are:
  * UseOfDefinedDatatypeInDatatypeRestriction, OntologyIRINotAbsolute,
  * OntologyVersionIRINotAbsolute, UseOfNonAbsoluteIRI, LexicalNotInLexicalSpace,
  * UseOfIllegalFacetRestriction, UseOfUndeclaredDatatype
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Information Management Group<br>
- *         Date: 21-Jun-2008 */
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 21-Jun-2008 */
 public class OWL2Profile implements OWLProfile {
     @Override
     public String getName() {

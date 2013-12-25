@@ -38,34 +38,84 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public interface OWL2ProfileViolationVisitor {
+    /** visit UseOfNonAbsoluteIRI type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfNonAbsoluteIRI violation);
 
+    /** visit UseOfIllegalFacetRestriction type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfIllegalFacetRestriction violation);
 
+    /** visit LexicalNotInLexicalSpace type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(LexicalNotInLexicalSpace violation);
 
+    /** visit OntologyIRINotAbsolute type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(OntologyIRINotAbsolute violation);
 
+    /** visit IllegalPunning type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(IllegalPunning violation);
 
+    /** visit OntologyVersionIRINotAbsolute type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(OntologyVersionIRINotAbsolute violation);
 
+    /** visit UseOfDefinedDatatypeInDatatypeRestriction type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfDefinedDatatypeInDatatypeRestriction violation);
 
+    /** visit UseOfUndeclaredDatatype type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUndeclaredDatatype violation);
 
+    /** visit UseOfUnknownDatatype type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(UseOfUnknownDatatype violation);
 
+    /** visit InsufficientPropertyExpressions type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientPropertyExpressions violation);
 
+    /** visit InsufficientIndividuals type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientIndividuals violation);
 
+    /** visit InsufficientOperands type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientOperands violation);
 
+    /** visit EmptyOneOfAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(EmptyOneOfAxiom violation);
 }

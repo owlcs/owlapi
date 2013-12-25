@@ -85,13 +85,12 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008 */
 public class OWL2ELProfile implements OWLProfile {
     protected final Set<IRI> allowedDatatypes;
 
-    @SuppressWarnings("javadoc")
+    /** default constructor */
     public OWL2ELProfile() {
         allowedDatatypes = new HashSet<IRI>();
         allowedDatatypes.add(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());

@@ -42,15 +42,19 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation implements
         OWL2ELProfileViolation {
     private final OWLSubPropertyChainOfAxiom axiom;
     private final OWLObjectPropertyRangeAxiom rangeAxiom;
 
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param rangeAxiom
+     *            range axiom */
     public LastPropertyInChainNotInImposedRange(OWLOntology ontology,
             OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyRangeAxiom rangeAxiom) {
         super(ontology, axiom);
@@ -63,10 +67,12 @@ public class LastPropertyInChainNotInImposedRange extends OWLProfileViolation im
         visitor.visit(this);
     }
 
+    /** @return chain */
     public OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom() {
         return axiom;
     }
 
+    /** @return range */
     public OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom() {
         return rangeAxiom;
     }

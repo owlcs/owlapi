@@ -4,12 +4,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-@SuppressWarnings("javadoc")
+/** Not enough operands. */
 public class InsufficientOperands extends OWLProfileViolation implements
         OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
         OWL2QLProfileViolation, OWL2RLProfileViolation {
     private final OWLObject expression;
 
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param c
+     *            object without enough operands */
     public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node, OWLObject c) {
         super(currentOntology, node);
         expression = c;

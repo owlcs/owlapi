@@ -38,32 +38,78 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public interface OWL2QLProfileViolationVisitor {
+    /** visit UseOfAnonymousIndividual type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfAnonymousIndividual individual);
 
+    /** visit UseOfDataOneOfWithMultipleLiterals type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfDataOneOfWithMultipleLiterals individual);
 
+    /** visit UseOfIllegalAxiom type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfIllegalAxiom individual);
 
+    /** visit UseOfIllegalDataRange type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfIllegalDataRange individual);
 
+    /** visit IllegalPunning type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(IllegalPunning violation);
 
+    /** visit UseOfNonAtomicClassExpression type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfNonAtomicClassExpression individual);
 
+    /** visit UseOfNonSubClassExpression type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfNonSubClassExpression individual);
 
+    /** visit UseOfNonSuperClassExpression type
+     * 
+     * @param individual
+     *            individual to visit */
     void visit(UseOfNonSuperClassExpression individual);
 
+    /** visit InsufficientPropertyExpressions type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientPropertyExpressions violation);
 
+    /** visit InsufficientIndividuals type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientIndividuals violation);
 
+    /** visit InsufficientOperands type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(InsufficientOperands violation);
 
+    /** visit EmptyOneOfAxiom type
+     * 
+     * @param violation
+     *            violation to visit */
     void visit(EmptyOneOfAxiom violation);
 }

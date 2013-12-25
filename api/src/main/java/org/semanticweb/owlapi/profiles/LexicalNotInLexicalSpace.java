@@ -42,14 +42,18 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class LexicalNotInLexicalSpace extends OWLProfileViolation implements
         OWL2ProfileViolation {
     private final OWLLiteral literal;
 
+    /** @param ontology
+     *            ontology with violation
+     * @param axiom
+     *            axiom with violation
+     * @param literal
+     *            wrong literal */
     public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom,
             OWLLiteral literal) {
         super(ontology, axiom);
@@ -61,6 +65,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
+    /** @return wrong literal */
     public OWLLiteral getLiteral() {
         return literal;
     }

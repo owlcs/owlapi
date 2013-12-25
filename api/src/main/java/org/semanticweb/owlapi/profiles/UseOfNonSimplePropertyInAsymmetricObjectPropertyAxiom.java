@@ -41,12 +41,14 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom extends
         OWLProfileViolation implements OWL2DLProfileViolation {
+    /** @param ontology
+     *            wrong ontology
+     * @param axiom
+     *            wrong axiom */
     public UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(OWLOntology ontology,
             OWLAsymmetricObjectPropertyAxiom axiom) {
         super(ontology, axiom);

@@ -87,13 +87,12 @@ import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 03-Aug-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009 */
 public class OWL2RLProfile implements OWLProfile {
-    final Set<IRI> allowedDatatypes = new HashSet<IRI>();
+    protected final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 
+    /** default constructor */
     public OWL2RLProfile() {
         allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
         allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
@@ -537,6 +536,9 @@ public class OWL2RLProfile implements OWLProfile {
 
     private final OWL2RLSuperClassExpressionChecker superClassExpressionChecker = new OWL2RLSuperClassExpressionChecker();
 
+    /** @param ce
+     *            class
+     * @return true if OWL 2 RL superclass */
     public boolean isOWL2RLSuperClassExpression(OWLClassExpression ce) {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }
@@ -643,6 +645,9 @@ public class OWL2RLProfile implements OWLProfile {
 
     private final OWL2RLEquivalentClassExpressionChecker equivalentClassExpressionChecker = new OWL2RLEquivalentClassExpressionChecker();
 
+    /** @param ce
+     *            class
+     * @return true if equivalent classes expression */
     public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
         return ce.accept(equivalentClassExpressionChecker).booleanValue();
     }
