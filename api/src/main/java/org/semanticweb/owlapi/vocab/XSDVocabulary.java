@@ -43,57 +43,56 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** A vocabulary for XML Schema Data Types (XSD).
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 25-Oct-2006 */
-@SuppressWarnings("javadoc")
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 25-Oct-2006 */
 public enum XSDVocabulary implements HasIRI {
     // @formatter:off
-    ANY_TYPE("anyType"),
-    ANY_SIMPLE_TYPE("anySimpleType"),
-    STRING("string"),
-    INTEGER("integer"),
-    LONG("long"),
-    INT("int"),
-    SHORT("short"),
-    BYTE("byte"),
-    DECIMAL("decimal"),
-    FLOAT("float"),
-    BOOLEAN("boolean"),
-    DOUBLE("double"),
-    NON_POSITIVE_INTEGER("nonPositiveInteger"),
-    NEGATIVE_INTEGER("negativeInteger"),
-    NON_NEGATIVE_INTEGER("nonNegativeInteger"),
-    UNSIGNED_LONG("unsignedLong"),
-    UNSIGNED_INT("unsignedInt"),
-    POSITIVE_INTEGER("positiveInteger"),
-    BASE_64_BINARY("base64Binary"),
-    HEX_BINARY("hexBinary"),
-    ANY_URI("anyURI"),
-    Q_NAME("QName"),
-    NOTATION("NOTATION"),
-    NORMALIZED_STRING("normalizedString"),
-    TOKEN("token"),
-    LANGUAGE("language"),
-    NAME("Name"),
-    NCNAME("NCName"),
-    NMTOKEN("NMTOKEN"),
-    ID("ID"),
-    IDREF("IDREF"),
-    IDREFS("IDREFS"),
-    ENTITY("ENTITY"),
-    ENTITIES("ENTITIES"),
-    DURATION("duration"),
-    DATE_TIME("dateTime"),
-    DATE_TIME_STAMP("dateTimeStamp"),
-    TIME("time"),
-    DATE("date"),
-    G_YEAR_MONTH("gYearMonth"),
-    G_YEAR("gYear"),
-    G_MONTH_DAY("gMonthYear"),
-    G_DAY("gDay"),
-    G_MONTH("gMonth"),
-    UNSIGNED_SHORT("unsignedShort"),
-    UNSIGNED_BYTE("unsignedByte");
+    /** ANY_TYPE */             ANY_TYPE        ("anyType"),
+    /** ANY_SIMPLE_TYPE */      ANY_SIMPLE_TYPE ("anySimpleType"),
+    /** STRING */               STRING          ("string"),
+    /** INTEGER */              INTEGER         ("integer"),
+    /** LONG */                 LONG            ("long"),
+    /** INT */                  INT             ("int"),
+    /** SHORT */                SHORT           ("short"),
+    /** BYTE */                 BYTE            ("byte"),
+    /** DECIMAL */              DECIMAL         ("decimal"),
+    /** FLOAT */                FLOAT           ("float"),
+    /** BOOLEAN */              BOOLEAN         ("boolean"),
+    /** DOUBLE */               DOUBLE          ("double"),
+    /** NON_POSITIVE_INTEGER */ NON_POSITIVE_INTEGER("nonPositiveInteger"),
+    /** NEGATIVE_INTEGER */     NEGATIVE_INTEGER    ("negativeInteger"),
+    /** NON_NEGATIVE_INTEGER */ NON_NEGATIVE_INTEGER("nonNegativeInteger"),
+    /** UNSIGNED_LONG */        UNSIGNED_LONG       ("unsignedLong"),
+    /** UNSIGNED_INT */         UNSIGNED_INT        ("unsignedInt"),
+    /** POSITIVE_INTEGER */     POSITIVE_INTEGER    ("positiveInteger"),
+    /** BASE_64_BINARY */       BASE_64_BINARY      ("base64Binary"),
+    /** NORMALIZED_STRING */    NORMALIZED_STRING   ("normalizedString"),
+    /** HEX_BINARY */           HEX_BINARY      ("hexBinary"),
+    /** ANY_URI */              ANY_URI         ("anyURI"),
+    /** Q_NAME */               Q_NAME          ("QName"),
+    /** NOTATION */             NOTATION        ("NOTATION"),
+    /** TOKEN */                TOKEN           ("token"),
+    /** LANGUAGE */             LANGUAGE        ("language"),
+    /** NAME */                 NAME            ("Name"),
+    /** NCNAME */               NCNAME          ("NCName"),
+    /** NMTOKEN */              NMTOKEN         ("NMTOKEN"),
+    /** ID */                   ID              ("ID"),
+    /** IDREF */                IDREF           ("IDREF"),
+    /** IDREFS */               IDREFS          ("IDREFS"),
+    /** ENTITY */               ENTITY          ("ENTITY"),
+    /** ENTITIES */             ENTITIES        ("ENTITIES"),
+    /** DURATION */             DURATION        ("duration"),
+    /** DATE_TIME */            DATE_TIME       ("dateTime"),
+    /** DATE_TIME_STAMP */      DATE_TIME_STAMP ("dateTimeStamp"),
+    /** TIME */                 TIME            ("time"),
+    /** DATE */                 DATE            ("date"),
+    /** G_YEAR_MONTH */         G_YEAR_MONTH    ("gYearMonth"),
+    /** G_YEAR */               G_YEAR          ("gYear"),
+    /** G_MONTH_DAY */          G_MONTH_DAY     ("gMonthYear"),
+    /** G_DAY */                G_DAY           ("gDay"),
+    /** G_MONTH */              G_MONTH         ("gMonth"),
+    /** UNSIGNED_SHORT */       UNSIGNED_SHORT  ("unsignedShort"),
+    /** UNSIGNED_BYTE */        UNSIGNED_BYTE   ("unsignedByte");
     // @formatter:on
     private final String shortName;
     private final IRI iri;
@@ -103,6 +102,7 @@ public enum XSDVocabulary implements HasIRI {
         iri = IRI.create(Namespaces.XSD.toString(), name);
     }
 
+    /** @return local name */
     public String getShortName() {
         return shortName;
     }
@@ -120,7 +120,7 @@ public enum XSDVocabulary implements HasIRI {
      * must be exact - uppercase or lowercase variants are not accepted. An
      * IllegalArgumentException will he thrown for null or non matching input.
      * 
-     * @param a
+     * @param s
      *            string of the form {@code xsd:typename}
      * @return the XSDVocabulary item matching xsd:typename, e.g.,
      *         {@code STRING} for {@code "xsd:string"} */

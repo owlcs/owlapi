@@ -47,25 +47,25 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** Represents the facets that can be used for restricting a datatype.
  * 
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 * @see
- *         org.semanticweb.owlapi.model.OWLFacetRestriction
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006
+ * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
-@SuppressWarnings("javadoc")
 public enum OWLFacet implements HasIRI {
 //@formatter:off
-    LENGTH(Namespaces.XSD, "length", "length"),
-    MIN_LENGTH(Namespaces.XSD, "minLength", "minLength"),
-    MAX_LENGTH(Namespaces.XSD, "maxLength", "maxLength"),
-    PATTERN(Namespaces.XSD, "pattern", "pattern"),
-    MIN_INCLUSIVE(Namespaces.XSD, "minInclusive", ">="),
-    MIN_EXCLUSIVE(Namespaces.XSD, "minExclusive", ">"),
-    MAX_INCLUSIVE(Namespaces.XSD, "maxInclusive", "<="),
-    MAX_EXCLUSIVE(Namespaces.XSD, "maxExclusive", "<"),
-    TOTAL_DIGITS(Namespaces.XSD, "totalDigits", "totalDigits"),
-    FRACTION_DIGITS(Namespaces.XSD, "fractionDigits", "fractionDigits"),
-    LANG_RANGE(Namespaces.RDF, "langRange", "langRange");
+    /** LENGTH */           LENGTH          (Namespaces.XSD, "length",          "length"), 
+    /** MIN_LENGTH */       MIN_LENGTH      (Namespaces.XSD, "minLength",       "minLength"), 
+    /** MAX_LENGTH */       MAX_LENGTH      (Namespaces.XSD, "maxLength",       "maxLength"), 
+    /** PATTERN */          PATTERN         (Namespaces.XSD, "pattern",         "pattern"), 
+    /** MIN_INCLUSIVE */    MIN_INCLUSIVE   (Namespaces.XSD, "minInclusive",    ">="), 
+    /** MIN_EXCLUSIVE */    MIN_EXCLUSIVE   (Namespaces.XSD, "minExclusive",    ">"), 
+    /** MAX_INCLUSIVE */    MAX_INCLUSIVE   (Namespaces.XSD, "maxInclusive",    "<="), 
+    /** MAX_EXCLUSIVE */    MAX_EXCLUSIVE   (Namespaces.XSD, "maxExclusive",    "<"), 
+    /** TOTAL_DIGITS */     TOTAL_DIGITS    (Namespaces.XSD, "totalDigits",     "totalDigits"), 
+    /** FRACTION_DIGITS */  FRACTION_DIGITS (Namespaces.XSD, "fractionDigits",  "fractionDigits"), 
+    /** LANG_RANGE */       LANG_RANGE      (Namespaces.RDF, "langRange",       "langRange");
 //@formatter:on
+    /** all facet iris */
     public final static Set<IRI> FACET_IRIS;
     static {
         Set<IRI> iris = new HashSet<IRI>();
@@ -84,14 +84,17 @@ public enum OWLFacet implements HasIRI {
         this.symbolicForm = symbolicForm;
     }
 
-    public IRI getIRI() {
-        return iri;
-    }
-
+    /** @return local name */
     public String getShortName() {
         return shortName;
     }
 
+    /** @return iri */
+    public IRI getIRI() {
+        return iri;
+    }
+
+    /** @return symbolic form */
     public String getSymbolicForm() {
         return symbolicForm;
     }
@@ -101,10 +104,14 @@ public enum OWLFacet implements HasIRI {
         return shortName;
     }
 
+    /** @return all facet iris */
     public static Set<IRI> getFacetIRIs() {
         return FACET_IRIS;
     }
 
+    /** @param iri
+     *            facet IRI
+     * @return facet for iri */
     public static OWLFacet getFacet(IRI iri) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getIRI().equals(iri)) {
@@ -114,7 +121,7 @@ public enum OWLFacet implements HasIRI {
         return null;
     }
 
-    /** Gets a facet by its short name
+    /** Gets a facet by its short name.
      * 
      * @param shortName
      *            The short name of the facet.
@@ -129,6 +136,9 @@ public enum OWLFacet implements HasIRI {
         return null;
     }
 
+    /** @param symbolicName
+     *            symbolic name for facet
+     * @return facet for name */
     public static OWLFacet getFacetBySymbolicName(String symbolicName) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getSymbolicForm().equals(symbolicName)) {
@@ -138,6 +148,7 @@ public enum OWLFacet implements HasIRI {
         return null;
     }
 
+    /** @return all facets */
     public static Set<String> getFacets() {
         Set<String> result = new HashSet<String>();
         for (OWLFacet v : values()) {

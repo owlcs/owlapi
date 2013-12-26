@@ -80,7 +80,7 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
 
     @Override
     public boolean isCoreBuiltIn() {
-        return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate().toURI()) != null;
+        return SWRLBuiltInsVocabulary.getBuiltIn(getPredicate()) != null;
     }
 
     @Override
