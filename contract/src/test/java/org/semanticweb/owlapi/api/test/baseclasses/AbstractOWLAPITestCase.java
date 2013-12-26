@@ -65,11 +65,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-May-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
@@ -120,7 +117,7 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     /** ignore declarations of builtins and of named individuals - named
-     * individuals do not /need/ a declaration, but addiong one is not an error
+     * individuals do not /need/ a declaration, but addiong one is not an error.
      * 
      * @param parse
      *            true if the axiom belongs to the parsed ones, false for the
@@ -203,9 +200,7 @@ public abstract class AbstractOWLAPITestCase {
      * @param ont
      *            The ontology to be round tripped.
      * @param format
-     *            The format to use when doing the round trip.
-     * @throws OWLOntologyStorageException
-     * @throws OWLOntologyCreationException */
+     *            The format to use when doing the round trip. */
     public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();

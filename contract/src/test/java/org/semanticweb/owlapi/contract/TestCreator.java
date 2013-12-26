@@ -12,20 +12,6 @@ import java.util.Set;
 
 @SuppressWarnings("javadoc")
 public class TestCreator {
-    // public static void _main() throws OWLException {
-    // Map<String, PrintStream> streams = new HashMap<String, PrintStream>();
-    // File[] roots = new File[] { new File("api/src/main/java"),
-    // new File("apibinding/src/main/java"), new File("impl/src/main/java"),
-    // new File("misc/src/main/java"), new File("parsers/src/main/java"),
-    // new File("tutorial2012/src/main/java") };
-    // for (File root : roots) {
-    // visit(root, null, streams);
-    // }
-    // for (PrintStream out : streams.values()) {
-    // out.println("}");
-    // out.close();
-    // }
-    // }
     private static PrintStream initPrintStream(String _name) throws FileNotFoundException {
         String name = _name.replace("/", "_");
         PrintStream out = new PrintStream(

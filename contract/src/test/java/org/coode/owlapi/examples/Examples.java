@@ -146,15 +146,13 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Jan-2007 */
 @Ignore
 public class Examples {
     private static final String PIZZA_IRI = "http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl";
 
-    /** The examples here show how to load ontologies
+    /** The examples here show how to load ontologies.
      * 
      * @throws OWLOntologyCreationException */
     public void shouldLoad() throws OWLOntologyCreationException {
@@ -202,7 +200,7 @@ public class Examples {
     }
 
     /** This example shows how an ontology can be saved in various formats to
-     * various locations and streams
+     * various locations and streams.
      * 
      * @throws OWLOntologyStorageException
      * @throws OWLOntologyCreationException
@@ -305,7 +303,7 @@ public class Examples {
         // saved version of the ontology.
     }
 
-    /** This example shows how to create dataranges
+    /** This example shows how to create dataranges.
      * 
      * @throws OWLOntologyCreationException
      * @throws OWLOntologyStorageException */
@@ -561,7 +559,7 @@ public class Examples {
         manager.saveOntology(ontology);
     }
 
-    /** These examples show how to create new ontologies
+    /** These examples show how to create new ontologies.
      * 
      * @throws OWLOntologyCreationException */
     @Test
@@ -768,7 +766,7 @@ public class Examples {
     }
 
     /** This example shows how add an object property assertion (triple) of the
-     * form prop(subject, object) for example hasPart(a, b)
+     * form prop(subject, object) for example hasPart(a, b).
      * 
      * @throws OWLOntologyCreationException
      * @throws OWLOntologyStorageException */
@@ -1159,7 +1157,7 @@ public class Examples {
     }
 
     /** Visits existential restrictions and collects the properties which are
-     * restricted */
+     * restricted. */
     private static class RestrictionVisitor extends OWLClassExpressionVisitorAdapter {
         private final Set<OWLClass> processedClasses;
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
@@ -1419,7 +1417,7 @@ public class Examples {
         }
     }
 
-    /** Prints out the properties that instances of a class expression must have
+    /** Prints out the properties that instances of a class expression must have.
      * 
      * @param man
      *            The manager
@@ -1565,6 +1563,8 @@ public class Examples {
      * 
      * @param ontologyIRI
      *            The IRI of the ontology.
+     * @param Tones
+     *            tones iri
      * @return The document IRI of the ontology in the TONES repository. */
     private static IRI getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI Tones) {
         StringBuilder sb = new StringBuilder();

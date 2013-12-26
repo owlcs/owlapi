@@ -48,10 +48,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 23-Nov-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 23-Nov-2009 */
 public class OntologyAnnotationsTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {

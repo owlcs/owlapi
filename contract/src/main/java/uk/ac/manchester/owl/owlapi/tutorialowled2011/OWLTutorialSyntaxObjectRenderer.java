@@ -121,15 +121,10 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** <p>
- * A renderer that provides an HTML version of the ontology.
- * </p>
- * <p/>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+/** A renderer that provides an HTML version of the ontology.
+ * 
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007 */
 @SuppressWarnings({ "unused", "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     private final OWLOntology ontology;

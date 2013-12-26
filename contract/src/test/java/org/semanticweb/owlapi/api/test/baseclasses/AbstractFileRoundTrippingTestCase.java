@@ -45,11 +45,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 23-Jul-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 23-Jul-2008 */
 public abstract class AbstractFileRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     @Override

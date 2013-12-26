@@ -45,11 +45,8 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+/** @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007 */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {

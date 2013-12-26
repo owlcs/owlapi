@@ -49,10 +49,8 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ParseException;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Jan-2010 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Jan-2010 */
 @SuppressWarnings("javadoc")
 public class BlankNodeTestCase {
     @Test

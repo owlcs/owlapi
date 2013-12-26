@@ -11,21 +11,22 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012 */
+import uk.ac.manchester.cs.owl.owlapi.OWL2DatatypeImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
+
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 24/10/2012 */
 @SuppressWarnings("javadoc")
 public class OWL2DatatypeImplTestCase {
     private OWLDatatype plainLiteral;
 
     @Before
     public void setUp() {
-        plainLiteral = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        plainLiteral = OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
     }
 
     @Test
@@ -36,40 +37,37 @@ public class OWL2DatatypeImplTestCase {
     @Test
     public void isString() {
         assertFalse(plainLiteral.isString());
-        OWLDatatype string = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.XSD_STRING.getIRI());
+        OWLDatatype string = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_STRING);
         assertTrue(string.isString());
     }
 
     @Test
     public void isInteger() {
         assertFalse(plainLiteral.isInteger());
-        OWLDatatype integer = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.XSD_INTEGER.getIRI());
+        OWLDatatype integer = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_INTEGER);
         assertTrue(integer.isInteger());
     }
 
     @Test
     public void isFloat() {
         assertFalse(plainLiteral.isFloat());
-        OWLDatatype floatDatatype = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.XSD_FLOAT.getIRI());
+        OWLDatatype floatDatatype = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_FLOAT);
         assertTrue(floatDatatype.isFloat());
     }
 
     @Test
     public void isDouble() {
         assertFalse(plainLiteral.isDouble());
-        OWLDatatype doubleDatatype = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.XSD_DOUBLE.getIRI());
+        OWLDatatype doubleDatatype = OWL2DatatypeImpl
+                .getDatatype(OWL2Datatype.XSD_DOUBLE);
         assertTrue(doubleDatatype.isDouble());
     }
 
     @Test
     public void isBoolean() {
         assertFalse(plainLiteral.isBoolean());
-        OWLDatatype booleanDatatype = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.XSD_BOOLEAN.getIRI());
+        OWLDatatype booleanDatatype = OWL2DatatypeImpl
+                .getDatatype(OWL2Datatype.XSD_BOOLEAN);
         assertTrue(booleanDatatype.isBoolean());
     }
 
@@ -93,8 +91,8 @@ public class OWL2DatatypeImplTestCase {
 
     @Test
     public void isTopDatatype() {
-        OWLDatatype rdfsLiteralDatatype = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.RDFS_LITERAL.getIRI());
+        OWLDatatype rdfsLiteralDatatype = OWL2DatatypeImpl
+                .getDatatype(OWL2Datatype.RDFS_LITERAL);
         assertTrue(rdfsLiteralDatatype.isTopDatatype());
         assertFalse(plainLiteral.isTopDatatype());
     }
@@ -190,12 +188,9 @@ public class OWL2DatatypeImplTestCase {
     @Test
     public void equals() {
         assertEquals(plainLiteral, plainLiteral);
-        assertEquals(
-                plainLiteral,
-                Factory.getFactory().getOWLDatatype(
-                        OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()));
-        assertNotEquals(plainLiteral,
-                Factory.getFactory().getOWLDatatype(OWL2Datatype.XSD_STRING.getIRI()));
+        assertEquals(plainLiteral,
+                OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL));
+        assertNotSame(plainLiteral, OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_STRING));
     }
 
     @Test
@@ -237,10 +232,10 @@ public class OWL2DatatypeImplTestCase {
 
     @Test
     public void isTopEntity() {
-        assertTrue(Factory.getFactory()
-                .getOWLDatatype(OWL2Datatype.RDFS_LITERAL.getIRI()).isTopDatatype());
-        assertFalse(Factory.getFactory()
-                .getOWLDatatype(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI()).isTopDatatype());
+        assertTrue(OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDFS_LITERAL)
+                .isTopDatatype());
+        assertFalse(OWL2DatatypeImpl.getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL)
+                .isTopDatatype());
     }
 
     @Test
@@ -250,10 +245,13 @@ public class OWL2DatatypeImplTestCase {
 
     @Test
     public void contains() {
+        IRI iri = OWL2Datatype.XSD_BYTE.getIRI();
         Set<OWLDatatype> datatypes = new HashSet<OWLDatatype>();
-        OWLDatatype dt2Impl = Factory.getFactory().getOWLDatatype(
-                OWL2Datatype.XSD_BYTE.getIRI());
+        OWLDatatypeImpl dtImpl = new OWLDatatypeImpl(iri);
+        OWLDatatype dt2Impl = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BYTE);
+        assertEquals(dtImpl, dt2Impl);
         datatypes.add(dt2Impl);
-        assertTrue(datatypes.contains(dt2Impl));
+        assertTrue(datatypes.contains(dtImpl));
+        assertEquals(dt2Impl.hashCode(), dtImpl.hashCode());
     }
 }

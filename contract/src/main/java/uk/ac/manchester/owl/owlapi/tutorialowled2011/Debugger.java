@@ -52,26 +52,20 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-/** <p>
- * This class demonstrates some aspects of the OWL API. It expects three
+/** This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
- * </p>
  * <ol>
  * <li>The URI of an ontology</li>
  * <li>The URI of a reasoner</li>
  * <li>A location to place the results.</li>
  * </ol>
- * <p>
  * When executed, the class will find all inconsistent classes in the ontology.
  * For each inconsistent class, the debugger will be used to determine the set
  * of support for the inconsistency. A report will then be written to the outpur
  * file.
- * </p>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * 
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007 */
 @SuppressWarnings({ "javadoc" })
 public class Debugger {
     private final OWLOntology ontology;
@@ -102,16 +96,16 @@ public class Debugger {
             }
         }
         writer.println("<h1>Ontology Debugging Report</h1>");
-        writer.println("<p>Ontology: " + ontology.getOntologyID() + "</p>");
+        writer.println("<br>Ontology: " + ontology.getOntologyID() + "<br>");
         if (unsatisfiables.isEmpty()) {
-            writer.println("<p>No Unsatisfiable Classes found</p>");
+            writer.println("<br>No Unsatisfiable Classes found<br>");
         } else {
             for (OWLClass unsatisfiable : unsatisfiables) {
                 writer.println("<div class='box'>\n");
                 writer.println("<h2 class='cl'>");
                 unsatisfiable.accept(renderer);
                 writer.println("</h2>");
-                writer.println("<p>Axioms causing inconsistency:</p>");
+                writer.println("<br>Axioms causing inconsistency:<br>");
                 writer.println("<ul>");
                 /*
                  * Find the set of support for the inconsistency. This will

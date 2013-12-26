@@ -54,15 +54,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
-/** <p>
- * Simple example. Read an ontology, and display the class hierarchy. May use a
+/** Simple example. Read an ontology, and display the class hierarchy. May use a
  * reasoner to calculate the hierarchy.
- * </p>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 17-03-2007<br>
- * <br> */
+ * 
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 17-03-2007 */
+@SuppressWarnings("javadoc")
 public class SimpleHierarchyExample {
     private static final int INDENT = 4;
     private final OWLReasonerFactory reasonerFactory;

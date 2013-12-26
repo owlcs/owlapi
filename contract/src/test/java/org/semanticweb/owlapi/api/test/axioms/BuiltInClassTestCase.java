@@ -47,13 +47,10 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 29-Apr-2007<br>
- * <br>
- * <p/>
- * Tests that the isOWLThing and isOWLNothing methods return correct values. */
+/** Tests that the isOWLThing and isOWLNothing methods return correct values.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 29-Apr-2007 */
 @SuppressWarnings("javadoc")
 public class BuiltInClassTestCase {
     @Test

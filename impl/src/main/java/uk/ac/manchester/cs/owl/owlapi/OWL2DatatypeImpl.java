@@ -35,11 +35,10 @@ import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 24/10/2012 </p> An optimised implementation of OWLDatatype for
- * OWL2Datatypes. */
+/** An optimised implementation of OWLDatatype for OWL2Datatypes.
+ * 
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 24/10/2012 */
 public class OWL2DatatypeImpl implements OWLDatatype {
     private static final long serialVersionUID = 40000L;
 
@@ -50,6 +49,19 @@ public class OWL2DatatypeImpl implements OWLDatatype {
      *            The datatype. */
     public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
+    }
+
+    /** A factory method which gets an instance of {@link OWLDatatype} for an
+     * instance of {@link OWL2Datatype} specified by the {@code owl2Datatype}
+     * parameter.
+     * 
+     * @param owl2Datatype
+     *            The datatype to be retrieved.
+     * @return A {@link OWLDatatype} that has the same IRI as the IRI returned
+     *         by {@code owl2Datatype#getIRI()}. */
+    @Deprecated
+    public static OWLDatatype getDatatype(OWL2Datatype owl2Datatype) {
+        return new OWL2DatatypeImpl(owl2Datatype);
     }
 
     private final OWL2Datatype owl2Datatype;
@@ -259,7 +271,7 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        return this.equals(owlEntity);
+        return equals(owlEntity);
     }
 
     @Override

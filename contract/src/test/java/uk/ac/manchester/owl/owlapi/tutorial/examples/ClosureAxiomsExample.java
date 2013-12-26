@@ -49,29 +49,20 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
-/** <p>
- * This class demonstrates some aspects of the OWL API. It expects three
+/** This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
- * </p>
  * <ol>
  * <li>The URI of an ontology</li>
- * <p/>
  * <li>The URI of destination</li>
- * <p/>
  * <li>The URI of a class</li>
  * </ol>
- * <p>
  * When executed, the class will find all subclass axioms that form part of the
  * definition of the given class. For each of these, if the superclass is a
  * conjunction of existential restrictions, then an additional subclass axiom
  * will be added to the ontology, "closing" the restrictions.
- * </p>
- * <p/>
- * Author: Sean Bechhofer<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 24-April-2007<br>
- * <br> */
+ * 
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007 */
 public class ClosureAxiomsExample {
     /** @param inputOntology
      *            input ontology IRI
@@ -79,7 +70,8 @@ public class ClosureAxiomsExample {
      *            output ontology IRI
      * @param classToClose
      *            the class to compute the closure of
-     * @throws OWLException */
+     * @throws OWLException
+     *             if an exception is raised */
     public void closure(String inputOntology, String outputOntology, String classToClose)
             throws OWLException {
         if (inputOntology == null || outputOntology == null || classToClose == null) {

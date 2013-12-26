@@ -51,10 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 22-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPITestCase {
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";

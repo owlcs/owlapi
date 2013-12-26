@@ -45,11 +45,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Sep-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 07-Sep-2008 */
 public class AsymmetricPropertyRoundTripTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {

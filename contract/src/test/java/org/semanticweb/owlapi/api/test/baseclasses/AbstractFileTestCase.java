@@ -46,10 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 21-Jan-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 21-Jan-2009 */
 public abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         String fileName = getFileName();
