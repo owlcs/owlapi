@@ -64,14 +64,11 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
 import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParserFactory;
 import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br>
- * <p/>
- * Provides a point of convenience for creating an {@code OWLOntologyManager}
- * with commonly required features (such as an RDF parser for example). */
+/** Provides a point of convenience for creating an {@code OWLOntologyManager}
+ * with commonly required features (such as an RDF parser for example).
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006 */
 public class OWLManager implements OWLOntologyManagerFactory {
     static {
         // Register useful parsers
