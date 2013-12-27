@@ -52,17 +52,14 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009
- * 
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
  * @param <E>
  *            the type of owl objects in the node */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
     private final Set<Node<E>> nodes = new HashSet<Node<E>>();
 
-    /** constructor for an empty node set */
+    /** constructor for an empty node set. */
     public DefaultNodeSet() {}
 
     /** @param entity
@@ -206,6 +203,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj == this) {
             return true;
         }

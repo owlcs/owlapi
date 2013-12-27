@@ -44,10 +44,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLClassNode extends DefaultNode<OWLClass> {
     /** @param entity
      *            the class to be contained */
@@ -61,7 +59,7 @@ public class OWLClassNode extends DefaultNode<OWLClass> {
         super(entities);
     }
 
-    /** empty constructor */
+    /** default constructor. */
     public OWLClassNode() {}
 
     @Override

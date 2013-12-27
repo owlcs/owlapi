@@ -46,10 +46,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 25-Jan-2010 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 25-Jan-2010 */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
     @Override
     public String getReasonerName() {

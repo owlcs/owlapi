@@ -45,18 +45,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpression> {
+    /** default constructor */
     public OWLObjectPropertyNode() {}
 
+    /** @param entity
+     *            property to include */
     public OWLObjectPropertyNode(@Nonnull OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
+    /** @param entities
+     *            properties to include */
     public OWLObjectPropertyNode(@Nonnull Set<OWLObjectPropertyExpression> entities) {
         super(entities);
     }
@@ -71,10 +73,12 @@ public class OWLObjectPropertyNode extends DefaultNode<OWLObjectPropertyExpressi
         return BOTTOM_OBJECT_PROPERTY;
     }
 
+    /** @return top node */
     public static OWLObjectPropertyNode getTopNode() {
         return TOP_OBJECT_NODE;
     }
 
+    /** @return bottom node */
     public static OWLObjectPropertyNode getBottomNode() {
         return BOTTOM_OBJECT_NODE;
     }

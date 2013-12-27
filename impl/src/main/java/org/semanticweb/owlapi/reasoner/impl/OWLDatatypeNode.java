@@ -44,18 +44,20 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+    /** default constructor. */
     public OWLDatatypeNode() {}
 
+    /** @param entity
+     *            datatype to include */
     public OWLDatatypeNode(@Nonnull OWLDatatype entity) {
         super(entity);
     }
 
+    /** @param entities
+     *            set of datatypes to include */
     public OWLDatatypeNode(@Nonnull Set<OWLDatatype> entities) {
         super(entities);
     }

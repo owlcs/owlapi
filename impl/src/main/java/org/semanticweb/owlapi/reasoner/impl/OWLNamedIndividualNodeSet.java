@@ -45,23 +45,27 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
+    /** default constructor. */
     public OWLNamedIndividualNodeSet() {}
 
+    /** @param entity
+     *            individual to include */
     public OWLNamedIndividualNodeSet(@Nonnull OWLNamedIndividual entity) {
         super(entity);
     }
 
+    /** @param owlNamedIndividualNode
+     *            node to include */
     public OWLNamedIndividualNodeSet(
             @Nonnull Node<OWLNamedIndividual> owlNamedIndividualNode) {
         super(owlNamedIndividualNode);
     }
 
+    /** @param nodes
+     *            nodes to include */
     public OWLNamedIndividualNodeSet(@Nonnull Set<Node<OWLNamedIndividual>> nodes) {
         super(nodes);
     }

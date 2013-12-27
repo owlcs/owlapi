@@ -56,11 +56,8 @@ import org.semanticweb.owlapi.reasoner.Node;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009
- * 
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
  * @param <E>
  *            the type of entities in the node */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
@@ -186,6 +183,9 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
         if (obj == this) {
             return true;
         }

@@ -45,23 +45,27 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
+    /** default constructor. */
     public OWLObjectPropertyNodeSet() {}
 
+    /** @param entity
+     *            property to include */
     public OWLObjectPropertyNodeSet(@Nonnull OWLObjectPropertyExpression entity) {
         super(entity);
     }
 
+    /** @param owlObjectPropertyNode
+     *            property node to include */
     public OWLObjectPropertyNodeSet(
             @Nonnull Node<OWLObjectPropertyExpression> owlObjectPropertyNode) {
         super(owlObjectPropertyNode);
     }
 
+    /** @param nodes
+     *            nodes to include */
     public OWLObjectPropertyNodeSet(@Nonnull Set<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }

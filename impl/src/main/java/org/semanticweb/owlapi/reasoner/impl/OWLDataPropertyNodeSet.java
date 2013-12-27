@@ -45,12 +45,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009 */
 public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
-    /** empty node */
+    /** default constructor. */
     public OWLDataPropertyNodeSet() {}
 
     /** @param entity

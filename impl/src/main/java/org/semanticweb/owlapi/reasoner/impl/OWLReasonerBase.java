@@ -62,10 +62,8 @@ import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 01-Aug-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Aug-2009 */
 public abstract class OWLReasonerBase implements OWLReasoner {
     private final OWLOntologyManager manager;
     private final OWLOntology rootOntology;
