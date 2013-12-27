@@ -51,17 +51,17 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Jan-2007 */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements OWLFacetRestriction {
     private static final long serialVersionUID = 40000L;
     private final OWLFacet facet;
     private final OWLLiteral facetValue;
 
-    @SuppressWarnings("javadoc")
+    /** @param facet
+     *            facet
+     * @param facetValue
+     *            value */
     public OWLFacetRestrictionImpl(@Nonnull OWLFacet facet, @Nonnull OWLLiteral facetValue) {
         this.facet = checkNotNull(facet, "facet cannot be null");
         this.facetValue = checkNotNull(facetValue, "facetValue cannot be null");

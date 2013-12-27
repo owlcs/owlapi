@@ -48,17 +48,19 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <P>
+ *            property type */
 public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
         OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final P property;
 
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
     public OWLUnaryPropertyAxiomImpl(@Nonnull P property,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

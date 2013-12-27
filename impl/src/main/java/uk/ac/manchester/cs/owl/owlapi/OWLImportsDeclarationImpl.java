@@ -47,16 +47,14 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
-    @SuppressWarnings("javadoc")
+    /** @param iri
+     *            iri to import */
     public OWLImportsDeclarationImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }

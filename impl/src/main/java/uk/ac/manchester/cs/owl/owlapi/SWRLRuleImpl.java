@@ -75,11 +75,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private static final long serialVersionUID = 40000L;
     private final Set<SWRLAtom> head;
@@ -88,7 +85,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private Boolean containsAnonymousClassExpressions = null;
     private Set<OWLClassExpression> classAtomsPredicates;
 
-    @SuppressWarnings("javadoc")
+    /** @param body
+     *            rule body
+     * @param head
+     *            rule head
+     * @param annotations
+     *            annotations on the axiom */
     public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

@@ -56,11 +56,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     static final String UTF8 = "UTF-8";
@@ -85,8 +82,11 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     }
 
     /** @param bytes
+     *            actual literal form
      * @param lang
-     * @param datatype */
+     *            language for literal, can be null
+     * @param datatype
+     *            datatype for literal */
     public OWLLiteralImplNoCompression(@Nonnull byte[] bytes, @Nullable String lang,
             @Nullable OWLDatatype datatype) {
         super();

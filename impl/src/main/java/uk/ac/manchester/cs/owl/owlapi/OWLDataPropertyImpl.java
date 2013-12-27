@@ -61,18 +61,16 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
         OWLDataProperty {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
     private final boolean builtin;
 
+    /** @param iri
+     *            property iri */
     public OWLDataPropertyImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())

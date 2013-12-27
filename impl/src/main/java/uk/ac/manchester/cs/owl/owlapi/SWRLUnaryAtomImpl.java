@@ -49,17 +49,19 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007
+ * @param <A>
+ *            atom type */
 public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl
         implements SWRLUnaryAtom<A> {
     private static final long serialVersionUID = 40000L;
     private final A arg;
 
+    /** @param predicate
+     *            predicate
+     * @param arg
+     *            atom */
     public SWRLUnaryAtomImpl(@Nonnull SWRLPredicate predicate, @Nonnull A arg) {
         super(predicate);
         this.arg = checkNotNull(arg, "arg cannot be null");

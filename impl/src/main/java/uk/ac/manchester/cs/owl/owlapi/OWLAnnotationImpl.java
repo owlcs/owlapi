@@ -57,18 +57,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19-Dec-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 19-Dec-2006 */
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     private static final long serialVersionUID = 40000L;
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
     private final Set<OWLAnnotation> annotations;
 
+    /** @param property
+     *            annotation property
+     * @param value
+     *            annotation value
+     * @param annotations
+     *            annotations on the axiom */
     public OWLAnnotationImpl(@Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationValue value,
             @Nonnull Set<? extends OWLAnnotation> annotations) {

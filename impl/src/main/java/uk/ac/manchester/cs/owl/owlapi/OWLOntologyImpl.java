@@ -133,11 +133,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology,
         Serializable {
     private static final long serialVersionUID = 40000L;
@@ -155,7 +152,10 @@ public class OWLOntologyImpl extends OWLObjectImpl implements OWLMutableOntology
         return internals;
     }
 
-    @SuppressWarnings("javadoc")
+    /** @param manager
+     *            ontology manager
+     * @param ontologyID
+     *            ontology id */
     public OWLOntologyImpl(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntologyID ontologyID) {
         super();

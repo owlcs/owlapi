@@ -57,18 +57,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Nov-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Nov-2006 */
 public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements
         OWLSubPropertyChainOfAxiom {
     private static final long serialVersionUID = 40000L;
     private final List<OWLObjectPropertyExpression> propertyChain;
     private final OWLObjectPropertyExpression superProperty;
 
-    @SuppressWarnings("javadoc")
+    /** @param propertyChain
+     *            property chain
+     * @param superProperty
+     *            superproperty
+     * @param annotations
+     *            annotations */
     public OWLSubPropertyChainAxiomImpl(
             @Nonnull List<? extends OWLObjectPropertyExpression> propertyChain,
             @Nonnull OWLObjectPropertyExpression superProperty,

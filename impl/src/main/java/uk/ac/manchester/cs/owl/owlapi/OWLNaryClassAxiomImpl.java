@@ -55,17 +55,17 @@ import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
     private static final long serialVersionUID = 40000L;
     private final Set<OWLClassExpression> classExpressions;
 
-    @SuppressWarnings("javadoc")
+    /** @param classExpressions
+     *            classes
+     * @param annotations
+     *            annotations */
     public OWLNaryClassAxiomImpl(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

@@ -45,14 +45,14 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * 
+/** @param <R>
+ *            the range
+ * @param <P>
+ *            the property expression
  * @param <V>
- *            the value */
+ *            the value
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006 */
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
         OWLRestrictionImpl implements OWLHasValueRestriction<V> {
     private static final long serialVersionUID = 40000L;

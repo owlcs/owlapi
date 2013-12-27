@@ -50,17 +50,23 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <P>
+ *            property type
+ * @param <R>
+ *            range type */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange>
         extends OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyRangeAxiom<P, R> {
     private static final long serialVersionUID = 40000L;
     private final R range;
 
+    /** @param property
+     *            property
+     * @param range
+     *            range
+     * @param annotations
+     *            annotations */
     public OWLPropertyRangeAxiomImpl(@Nonnull P property, @Nonnull R range,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(property, annotations);
@@ -84,7 +90,7 @@ public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression,
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         int diff = getProperty().compareTo(
                 ((OWLPropertyRangeAxiom<?, ?>) object).getProperty());
         if (diff != 0) {

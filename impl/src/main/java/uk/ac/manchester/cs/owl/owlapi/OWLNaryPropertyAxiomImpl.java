@@ -52,12 +52,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
  * @param <P>
  *            the property expression */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
@@ -65,7 +61,10 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     private static final long serialVersionUID = 40000L;
     private final Set<P> properties;
 
-    @SuppressWarnings("javadoc")
+    /** @param properties
+     *            properties
+     * @param annotations
+     *            annotations */
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
@@ -97,7 +96,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(properties, ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 }

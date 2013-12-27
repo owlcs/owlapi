@@ -42,13 +42,16 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectVisitor;
+import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLObjectVisitor;
+import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
@@ -63,7 +66,7 @@ public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return iri.compareTo(((SWRLVariable) object).getIRI());
     }
 

@@ -56,17 +56,17 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLEquivalentObjectPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
         OWLEquivalentObjectPropertiesAxiom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param properties
+     *            properties
+     * @param annotations
+     *            annotations */
     public OWLEquivalentObjectPropertiesAxiomImpl(
             @Nonnull Set<? extends OWLObjectPropertyExpression> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

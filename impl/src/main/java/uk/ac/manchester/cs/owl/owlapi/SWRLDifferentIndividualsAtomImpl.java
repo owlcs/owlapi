@@ -50,17 +50,19 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007 */
 public class SWRLDifferentIndividualsAtomImpl extends
         SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
         SWRLDifferentIndividualsAtom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param dataFactory
+     *            data factory
+     * @param arg0
+     *            first individual
+     * @param arg1
+     *            second individual */
     public SWRLDifferentIndividualsAtomImpl(@Nonnull OWLObjectProperty property,
             @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
         super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0,

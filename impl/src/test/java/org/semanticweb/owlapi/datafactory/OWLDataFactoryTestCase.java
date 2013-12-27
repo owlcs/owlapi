@@ -74,11 +74,10 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group Date: 25-Oct-2006
- * <p/>
- * The base for test cases that need a data factory. */
+/** The base for test cases that need a data factory.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 25-Oct-2006 */
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryTestCase {
     private AtomicInteger counter = new AtomicInteger(1);

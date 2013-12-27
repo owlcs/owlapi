@@ -67,15 +67,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * <p>
- * Implementation of {@link OWLLiteral} that uses compression of strings. See
+/** Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
- * </p> */
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006 */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;

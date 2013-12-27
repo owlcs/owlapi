@@ -57,12 +57,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Nov-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Nov-2006 */
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationAssertionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -70,6 +66,14 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
 
+    /** @param subject
+     *            subject for axiom
+     * @param property
+     *            annotation property
+     * @param value
+     *            annotation value
+     * @param annotations
+     *            annotations on the axiom */
     public OWLAnnotationAssertionAxiomImpl(@Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotationProperty property, @Nonnull OWLAnnotationValue value,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

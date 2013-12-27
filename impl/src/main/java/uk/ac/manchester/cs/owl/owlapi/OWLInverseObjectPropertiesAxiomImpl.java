@@ -58,11 +58,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 29-Nov-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 29-Nov-2006 */
 public class OWLInverseObjectPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
         OWLInverseObjectPropertiesAxiom {
@@ -70,7 +67,12 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
 
-    @SuppressWarnings("javadoc")
+    /** @param first
+     *            first property
+     * @param second
+     *            second peoperty
+     * @param annotations
+     *            annotations */
     public OWLInverseObjectPropertiesAxiomImpl(
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,

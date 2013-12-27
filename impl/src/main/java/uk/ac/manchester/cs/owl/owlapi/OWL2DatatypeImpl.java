@@ -43,10 +43,12 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     private static final long serialVersionUID = 40000L;
 
     /** Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
-     * specified {@link OWL2Datatype}
+     * specified {@link OWL2Datatype}.
      * 
      * @param owl2Datatype
-     *            The datatype. */
+     *            The datatype. Not {@code null}.
+     * @throws NullPointerException
+     *             if {@code owl2Datatype} is {@code null}. */
     public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype, "owl2Datatype must not be null");
     }

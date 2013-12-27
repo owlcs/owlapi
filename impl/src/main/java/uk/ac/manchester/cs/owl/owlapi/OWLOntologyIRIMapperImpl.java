@@ -48,12 +48,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br>
- * <br>
- * Manual IRI mapper */
+/** Manual IRI mapper.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Nov-2006 */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
     private final Map<IRI, IRI> iriMap = new TreeMap<IRI, IRI>();
 

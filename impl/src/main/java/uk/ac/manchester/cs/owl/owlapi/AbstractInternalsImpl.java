@@ -87,7 +87,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** this class encapsulates all lazily built indexes */
+/** this class encapsulates all lazily built indexes. */
 public abstract class AbstractInternalsImpl implements Internals, Serializable {
     private static final long serialVersionUID = 40000L;
 

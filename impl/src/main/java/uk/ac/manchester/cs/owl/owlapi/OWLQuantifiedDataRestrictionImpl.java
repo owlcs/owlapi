@@ -48,12 +48,16 @@ import org.semanticweb.owlapi.model.OWLDataRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLQuantifiedDataRestriction;
 
-@SuppressWarnings("javadoc")
+/** quantified data restriction */
 public abstract class OWLQuantifiedDataRestrictionImpl extends
         OWLQuantifiedRestrictionImpl<OWLDataRange> implements OWLDataRestriction {
     private static final long serialVersionUID = 40000L;
     private final OWLDataPropertyExpression property;
 
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
     public OWLQuantifiedDataRestrictionImpl(@Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange filler) {
         super(filler);

@@ -130,7 +130,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
+/** base for entity registration manager */
+public abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
         SWRLObjectVisitor {
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //

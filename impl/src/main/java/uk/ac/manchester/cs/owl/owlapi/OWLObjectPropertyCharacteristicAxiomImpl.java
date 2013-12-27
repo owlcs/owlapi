@@ -49,17 +49,17 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
         OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
-    @SuppressWarnings("javadoc")
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
     public OWLObjectPropertyCharacteristicAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
@@ -85,7 +85,7 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         return property.compareTo(((OWLObjectPropertyCharacteristicAxiom) object)
                 .getProperty());
     }

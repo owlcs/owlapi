@@ -40,11 +40,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <R>
+ *            range type
+ * @param <P>
+ *            property type */
 public abstract class OWLPropertyExpressionImpl extends OWLObjectImpl implements
         OWLPropertyExpression {
     private static final long serialVersionUID = 40000L;

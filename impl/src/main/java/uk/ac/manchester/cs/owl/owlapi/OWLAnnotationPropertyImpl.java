@@ -59,16 +59,15 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 14-Jan-2009 */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 14-Jan-2009 */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         OWLAnnotationProperty {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
+    /** @param i
+     *            iri for property */
     public OWLAnnotationPropertyImpl(@Nonnull IRI i) {
         iri = checkNotNull(i, "i cannot be null");
     }

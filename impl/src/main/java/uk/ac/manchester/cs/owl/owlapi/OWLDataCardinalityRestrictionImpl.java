@@ -47,11 +47,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public abstract class OWLDataCardinalityRestrictionImpl extends
         OWLCardinalityRestrictionImpl<OWLDataRange> implements
         OWLDataCardinalityRestriction {
@@ -97,7 +94,7 @@ public abstract class OWLDataCardinalityRestrictionImpl extends
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLDataCardinalityRestriction other = (OWLDataCardinalityRestriction) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

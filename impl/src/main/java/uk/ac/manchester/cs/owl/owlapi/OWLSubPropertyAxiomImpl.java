@@ -49,18 +49,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <P>
+ *            property type */
 public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends
         OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final P subProperty;
     private final P superProperty;
 
+    /** @param subProperty
+     *            subProperty
+     * @param superProperty
+     *            superProperty
+     * @param annotations
+     *            annotations */
     public OWLSubPropertyAxiomImpl(@Nonnull P subProperty, @Nonnull P superProperty,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

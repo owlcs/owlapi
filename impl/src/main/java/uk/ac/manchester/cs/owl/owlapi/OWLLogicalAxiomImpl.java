@@ -45,14 +45,13 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 05-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 05-Dec-2006 */
 public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLogicalAxiom {
     private static final long serialVersionUID = 40000L;
 
+    /** @param annotations
+     *            annotations on the axiom */
     protected OWLLogicalAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }

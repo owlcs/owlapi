@@ -51,16 +51,12 @@ import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br>
- * 
- * @param <P>
+/** @param <P>
  *            the property expression
  * @param <O>
- *            the object */
+ *            the object
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006 */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
         extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
     private static final long serialVersionUID = 40000L;
@@ -115,7 +111,7 @@ public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyEx
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject o) {
+    protected int compareObjectOfSameType(OWLObject o) {
         OWLPropertyAssertionAxiom<?, ?> other = (OWLPropertyAssertionAxiom<?, ?>) o;
         int diff = subject.compareTo(other.getSubject());
         if (diff != 0) {

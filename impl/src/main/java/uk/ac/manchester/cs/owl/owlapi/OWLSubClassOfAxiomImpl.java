@@ -55,18 +55,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         OWLSubClassOfAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression subClass;
     private final OWLClassExpression superClass;
 
-    @SuppressWarnings("javadoc")
+    /** @param subClass
+     *            subclass
+     * @param superClass
+     *            superclass
+     * @param annotations
+     *            annotations */
     public OWLSubClassOfAxiomImpl(@Nonnull OWLClassExpression subClass,
             @Nonnull OWLClassExpression superClass,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

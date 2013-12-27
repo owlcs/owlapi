@@ -65,14 +65,11 @@ import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006 */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 40000L;
-    /** a convenience reference for an empty annotation set, saves on typing */
+    /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections
             .<OWLAnnotation> emptySet();
     private int hashCode = 0;
@@ -187,7 +184,7 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     }
 
     @Override
-    final public int compareTo(OWLObject o) {
+    public int compareTo(OWLObject o) {
         OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
         int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
         int otherTypeIndex = typeIndexProvider.getTypeIndex(o);

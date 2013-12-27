@@ -51,17 +51,15 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements
         OWLObjectComplementOf {
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression operand;
 
-    @SuppressWarnings("javadoc")
+    /** @param operand
+     *            class to complement */
     public OWLObjectComplementOfImpl(@Nonnull OWLClassExpression operand) {
         this.operand = checkNotNull(operand, "operand cannot be null");
     }

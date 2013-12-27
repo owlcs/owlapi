@@ -19,7 +19,13 @@ import org.semanticweb.owlapi.util.MultiMap;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
-@SuppressWarnings("javadoc")
+/** Map implementation for a pointer.
+ * 
+ * @author ignazio
+ * @param <K>
+ *            key
+ * @param <V>
+ *            value */
 public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V>,
         Serializable {
     private static final long serialVersionUID = 40000L;
@@ -29,6 +35,14 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
     private boolean initialized;
     protected final Internals i;
 
+    /** @param t
+     *            type of axioms contained
+     * @param v
+     *            visitor
+     * @param initialized
+     *            true if initialized
+     * @param i
+     *            internals containing this pointer */
     public MapPointer(@Nullable AxiomType<?> t, @Nullable OWLAxiomVisitorEx<?> v,
             boolean initialized, @Nonnull Internals i) {
         type = t;
@@ -38,10 +52,12 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
         this.i = checkNotNull(i, "i cannot be null");
     }
 
+    /** @return true if initialized */
     public boolean isInitialized() {
         return initialized;
     }
 
+    /** init the map pointer */
     @SuppressWarnings("unchecked")
     public void init() {
         if (initialized) {
@@ -73,38 +89,65 @@ public class MapPointer<K, V extends OWLAxiom> implements Internals.Pointer<K, V
         return initialized + map.toString();
     }
 
+    /** @return keyset */
     public Set<K> keySet() {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.keySet());
     }
 
+    /** @param key
+     *            key to look up
+     * @return value */
     public Set<V> getValues(K key) {
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map.get(key));
     }
 
+    /** @param key
+     *            key to look up
+     * @return true if there are values for key */
     public boolean hasValues(K key) {
         return map.containsKey(key);
     }
 
+    /** @param key
+     *            key to add
+     * @param value
+     *            value to add
+     * @return true if addition happens */
     public boolean put(K key, V value) {
         return map.put(key, value);
     }
 
+    /** @param key
+     *            key to look up
+     * @param value
+     *            value to remove
+     * @return true if removal happens */
     public boolean remove(K key, V value) {
         return map.remove(key, value);
     }
 
+    /** @param key
+     *            key to look up
+     * @return true if there are values for key */
     public boolean containsKey(K key) {
         return map.containsKey(key);
     }
 
+    /** @param key
+     *            key to look up
+     * @param value
+     *            value to look up
+     * @return true if key and value are contained */
     public boolean contains(K key, V value) {
         return map.contains(key, value);
     }
 
+    /** @return all values contained */
     public Set<V> getAllValues() {
         return map.getAllValues();
     }
 
+    /** @return number of mapping contained */
     public int size() {
         return map.size();
     }

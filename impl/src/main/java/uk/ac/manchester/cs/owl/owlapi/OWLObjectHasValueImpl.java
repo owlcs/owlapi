@@ -56,17 +56,17 @@ import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual>
         implements OWLObjectHasValue, OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
-    @SuppressWarnings("javadoc")
+    /** @param property
+     *            property
+     * @param value
+     *            value */
     public OWLObjectHasValueImpl(@Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLIndividual value) {
         super(value);
@@ -93,7 +93,7 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
     }
 
     @Override
-    final protected int compareObjectOfSameType(OWLObject object) {
+    protected int compareObjectOfSameType(OWLObject object) {
         OWLObjectHasValue other = (OWLObjectHasValue) object;
         int diff = getProperty().compareTo(other.getProperty());
         if (diff != 0) {

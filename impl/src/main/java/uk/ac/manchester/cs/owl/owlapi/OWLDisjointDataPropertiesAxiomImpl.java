@@ -52,17 +52,17 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDisjointDataPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
         OWLDisjointDataPropertiesAxiom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param properties
+     *            disjoint properties
+     * @param annotations
+     *            annotations */
     public OWLDisjointDataPropertiesAxiomImpl(
             @Nonnull Set<? extends OWLDataPropertyExpression> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

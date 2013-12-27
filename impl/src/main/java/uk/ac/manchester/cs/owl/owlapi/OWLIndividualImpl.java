@@ -40,11 +40,8 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006 */
 public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
     private static final long serialVersionUID = 40000L;
 }

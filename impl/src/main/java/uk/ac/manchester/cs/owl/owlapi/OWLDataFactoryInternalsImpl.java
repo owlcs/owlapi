@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.util.WeakIndexCache;
 
-@SuppressWarnings("javadoc")
+/** @author ignazio */
 public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     private static final long serialVersionUID = 40000L;
 
@@ -92,6 +92,8 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return new BuildableWeakIndexCache<V>();
     }
 
+    /** @param useCompression
+     *            true if literals should be compressed */
     public OWLDataFactoryInternalsImpl(boolean useCompression) {
         super(useCompression);
         classesByURI = buildCache();

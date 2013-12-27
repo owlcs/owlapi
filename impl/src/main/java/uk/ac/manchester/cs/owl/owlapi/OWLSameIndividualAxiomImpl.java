@@ -58,16 +58,16 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl implements
         OWLSameIndividualAxiom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param individuals
+     *            individuals
+     * @param annotations
+     *            annotations on the axiom */
     public OWLSameIndividualAxiomImpl(@Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);

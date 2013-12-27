@@ -52,17 +52,14 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Nov-2006<br>
- * <br>
- * <p/>
- * A utility class that visits axioms, class expressions etc. and accumulates
+/** A utility class that visits axioms, class expressions etc. and accumulates
  * the named objects that are referred to in those axioms, class expressions
  * etc. For example, if the collector visited the axiom (propP some C)
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
- * D. */
+ * D.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Nov-2006 */
 public class OWLEntityCollectionContainerCollector extends
         AbstractEntityRegistrationManager {
     private Collection<OWLEntity> objects;
@@ -91,7 +88,7 @@ public class OWLEntityCollectionContainerCollector extends
     }
 
     /** Deprecated default constructor: use one of the other constructors to get
-     * more efficient set creation */
+     * more efficient set creation. */
     @Deprecated
     public OWLEntityCollectionContainerCollector() {
         this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());

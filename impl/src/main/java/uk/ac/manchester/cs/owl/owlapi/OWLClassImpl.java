@@ -67,12 +67,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 25-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006 */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         Serializable {
     private static final long serialVersionUID = 40000L;
@@ -80,6 +76,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     private final boolean isThing;
     private final boolean isNothing;
 
+    /** @param iri
+     *            class iri */
     public OWLClassImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         isThing = getIRI().equals(OWLRDFVocabulary.OWL_THING.getIRI());

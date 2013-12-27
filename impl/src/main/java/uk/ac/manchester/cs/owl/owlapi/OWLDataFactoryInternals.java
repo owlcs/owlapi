@@ -59,7 +59,7 @@ public interface OWLDataFactoryInternals {
     @Nonnull
     OWLClass getOWLClass(@Nonnull IRI iri);
 
-    /** purge any caches */
+    /** purge any caches. */
     void purge();
 
     /** @param iri
@@ -97,39 +97,48 @@ public interface OWLDataFactoryInternals {
     OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull IRI iri);
 
     /** @param lexicalValue
+     *            literal value for literal
      * @param datatype
+     *            datatype for literal
      * @return new literal */
     @Nonnull
     OWLLiteral
             getOWLLiteral(@Nonnull String lexicalValue, @Nullable OWLDatatype datatype);
 
     /** @param value
+     *            int value for literal
      * @return new literal */
     @Nonnull
     OWLLiteral getOWLLiteral(int value);
 
     /** @param value
+     *            boolean value for literal
      * @return new literal */
     @Nonnull
     OWLLiteral getOWLLiteral(boolean value);
 
     /** @param value
+     *            double value for literal
      * @return new literal */
     @Nonnull
     OWLLiteral getOWLLiteral(double value);
 
     /** @param value
+     *            float value for literal
      * @return new literal */
     @Nonnull
     OWLLiteral getOWLLiteral(float value);
 
     /** @param value
+     *            literal form
      * @return new literal */
     @Nonnull
     OWLLiteral getOWLLiteral(String value);
 
     /** @param literal
+     *            literal form
      * @param lang
+     *            language tag, can be null
      * @return new literal */
     @Nonnull
     OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable String lang);

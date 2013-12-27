@@ -50,17 +50,15 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements
         OWLObjectInverseOf {
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression inverseProperty;
 
-    @SuppressWarnings("javadoc")
+    /** @param inverseProperty
+     *            property to invert */
     public OWLObjectInverseOfImpl(@Nonnull OWLObjectPropertyExpression inverseProperty) {
         this.inverseProperty = inverseProperty;
     }

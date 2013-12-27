@@ -48,17 +48,17 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl
         implements OWLDataPropertyCharacteristicAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLDataPropertyExpression property;
 
-    @SuppressWarnings("javadoc")
+    /** @param property
+     *            property
+     * @param annotations
+     *            annotations */
     public OWLDataPropertyCharacteristicAxiomImpl(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

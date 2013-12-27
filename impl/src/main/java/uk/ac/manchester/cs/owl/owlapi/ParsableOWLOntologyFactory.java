@@ -68,18 +68,15 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Nov-2006<br>
- * <br>
- * <p/>
- * An ontology factory that creates ontologies by parsing documents containing
+/** An ontology factory that creates ontologies by parsing documents containing
  * concrete representations of ontologies. This ontology factory will claim that
  * it is suitable for creating an ontology if the document IRI can be opened for
  * reading. This factory will not create empty ontologies. Parsers are
  * instantiated by using a list of {@code OWLParserFactory} objects that are
- * obtained from the {@code OWLParserFactoryRegistry}. */
+ * obtained from the {@code OWLParserFactoryRegistry}.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 14-Nov-2006 */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger
@@ -106,7 +103,7 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     /** Overriden - We don't create new empty ontologies - this isn't our
-     * responsibility
+     * responsibility.
      * 
      * @param documentIRI
      *            ignored

@@ -45,17 +45,23 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <P>
+ *            property type
+ * @param <R>
+ *            range type
+ * @param <F>
+ *            range type */
 public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> extends
         OWLRestrictionImpl implements OWLQuantifiedRestriction<F> {
     private static final long serialVersionUID = 40000L;
     private final F filler;
 
+    /** @param property
+     *            property
+     * @param filler
+     *            filler */
     public OWLQuantifiedRestrictionImpl(@Nonnull F filler) {
         this.filler = checkNotNull(filler, "filler cannot be null");
     }

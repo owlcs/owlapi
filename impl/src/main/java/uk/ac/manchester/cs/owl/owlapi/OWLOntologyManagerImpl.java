@@ -120,11 +120,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Oct-2006 */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     private static final long serialVersionUID = 40000L;
@@ -151,7 +148,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy = new DefaultChangeBroadcastStrategy();
     protected ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy = new DefaultImpendingChangeBroadcastStrategy();
 
-    @SuppressWarnings("javadoc")
+    /** @param dataFactory
+     *            data factory */
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
         installDefaultURIMappers();
@@ -341,6 +339,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
+    /** A method that gets the imports of a given ontology.
+     * 
+     * @param ont
+     *            The ontology whose (transitive) imports are to be retrieved.
+     * @param result
+     *            A place to store the result - the transitive closure of the
+     *            imports will be stored in this result set. */
     private void getImports(OWLOntology ont, Set<OWLOntology> result) {
         for (OWLOntology directImport : getDirectImports(ont)) {
             if (result.add(directImport)) {
@@ -363,6 +368,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(ontologies);
     }
 
+    /** A recursive method that gets the reflexive transitive closure of the
+     * ontologies that are imported by this ontology.
+     * 
+     * @param ontology
+     *            The ontology whose reflexive transitive closure is to be
+     *            retrieved
+     * @param ontologies
+     *            a place to store the result */
     private void getImportsClosure(OWLOntology ontology, Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
         for (OWLOntology ont : getDirectImports(ontology)) {
@@ -378,6 +391,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return new ArrayList<OWLOntology>(ontology.getImportsClosure());
     }
 
+    /** Determines if a change is applicable. A change may not be applicable for
+     * a number of reasons.
+     * 
+     * @param change
+     *            The change to be tested.
+     * @return {@code true} if the change is applicable, otherwise,
+     *         {@code false}. */
     private boolean isChangeApplicable(OWLOntologyChange<?> change) {
         if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()
                 && change.getAxiom() instanceof OWLAnnotationAxiom) {
@@ -391,8 +411,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * 
      * @param change
      *            The change to be applied.
-     * @return A list of changes that were actually applied.
-     * @throws OWLOntologyChangeException */
+     * @return A list of changes that were actually applied. */
     private <T> List<OWLOntologyChange<T>> enactChangeApplication(
             OWLOntologyChange<T> change) {
         if (!isChangeApplicable(change)) {
@@ -738,6 +757,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
      * @param documentSource
      *            The input source that specifies where the ontology should be
      *            loaded from.
+     * @param configuration
+     *            load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException
      *             If the ontology could not be loaded. */

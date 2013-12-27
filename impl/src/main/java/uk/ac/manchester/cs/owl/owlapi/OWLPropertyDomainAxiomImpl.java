@@ -50,17 +50,21 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ * @param <P>
+ *            property type */
 public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends
         OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression domain;
 
+    /** @param property
+     *            property
+     * @param domain
+     *            domain
+     * @param annotations
+     *            annotations */
     public OWLPropertyDomainAxiomImpl(@Nonnull P property,
             @Nonnull OWLClassExpression domain,
             @Nonnull Set<? extends OWLAnnotation> annotations) {

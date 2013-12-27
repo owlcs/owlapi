@@ -57,17 +57,15 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements
         OWLObjectOneOf {
     private static final long serialVersionUID = 40000L;
     private final Set<OWLIndividual> values;
 
-    @SuppressWarnings("javadoc")
+    /** @param values
+     *            values for oneof */
     public OWLObjectOneOfImpl(@Nonnull Set<? extends OWLIndividual> values) {
         this.values = new HashSet<OWLIndividual>(checkNotNull(values,
                 "values cannot be null"));

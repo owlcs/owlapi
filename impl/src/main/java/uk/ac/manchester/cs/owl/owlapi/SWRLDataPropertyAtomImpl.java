@@ -49,16 +49,18 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jan-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007 */
 public class SWRLDataPropertyAtomImpl extends
         SWRLBinaryAtomImpl<SWRLIArgument, SWRLDArgument> implements SWRLDataPropertyAtom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param predicate
+     *            predicate
+     * @param arg0
+     *            subject
+     * @param arg1
+     *            object */
     public SWRLDataPropertyAtomImpl(@Nonnull OWLDataPropertyExpression predicate,
             @Nonnull SWRLIArgument arg0, @Nonnull SWRLDArgument arg1) {
         super(predicate, arg0, arg1);

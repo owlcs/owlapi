@@ -76,7 +76,7 @@ public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExp
     }
 
     @Override
-    final protected void endClassExpressionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() throws OWLXMLParserException {
         setClassExpression(createRestriction());
     }
 

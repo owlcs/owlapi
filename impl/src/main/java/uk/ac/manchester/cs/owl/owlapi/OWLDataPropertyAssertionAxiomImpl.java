@@ -55,17 +55,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDataPropertyAssertionAxiomImpl extends
         OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
         implements OWLDataPropertyAssertionAxiom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param subject
+     *            subject
+     * @param property
+     *            property
+     * @param value
+     *            value
+     * @param annotations
+     *            annotations */
     public OWLDataPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
             @Nonnull OWLDataPropertyExpression property, @Nonnull OWLLiteral value,
             @Nonnull Set<? extends OWLAnnotation> annotations) {

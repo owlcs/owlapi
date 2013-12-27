@@ -55,17 +55,19 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Oct-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006 */
 public class OWLDataPropertyRangeAxiomImpl extends
         OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange> implements
         OWLDataPropertyRangeAxiom {
     private static final long serialVersionUID = 40000L;
 
-    @SuppressWarnings("javadoc")
+    /** @param property
+     *            property
+     * @param range
+     *            range
+     * @param annotations
+     *            annotations */
     public OWLDataPropertyRangeAxiomImpl(@Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange range, @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);

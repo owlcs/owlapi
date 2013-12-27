@@ -104,7 +104,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-@SuppressWarnings("javadoc")
+/** @author ignazio */
 public class InternalsImpl extends AbstractInternalsImpl {
     private static final long serialVersionUID = 40000L;
 
