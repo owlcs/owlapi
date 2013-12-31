@@ -1,45 +1,68 @@
 package org.obolibrary.oboformat.parser;
 
+/** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
     // generated
     private static final long serialVersionUID = 7346016707770104873L;
+    /** The line no. */
     private final int lineNo;
+    /** The line. */
     private final String line;
 
-    /** @param message
+    /** Instantiates a new oBO format parser exception.
+     * 
+     * @param message
+     *            the message
      * @param e
+     *            the cause
      * @param lineNo
-     * @param line */
+     *            the line no
+     * @param line
+     *            the line */
     public OBOFormatParserException(String message, Throwable e, int lineNo, String line) {
         super(message, e);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** @param message
+    /** Instantiates a new oBO format parser exception.
+     * 
+     * @param message
+     *            the message
      * @param lineNo
-     * @param line */
+     *            the line no
+     * @param line
+     *            the line */
     public OBOFormatParserException(String message, int lineNo, String line) {
         super(message);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** @param e
+    /** Instantiates a new oBO format parser exception.
+     * 
+     * @param e
+     *            the e
      * @param lineNo
-     * @param line */
+     *            the line no
+     * @param line
+     *            the line */
     public OBOFormatParserException(Throwable e, int lineNo, String line) {
         super(e);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** @return the lineNo */
+    /** Gets the line no.
+     * 
+     * @return the lineNo */
     public int getLineNo() {
         return lineNo;
     }
 
-    /** @return the line */
+    /** Gets the line.
+     * 
+     * @return the line */
     public String getLine() {
         return line;
     }

@@ -26,7 +26,8 @@ public class OwlStringTools {
         // generated
         private static final long serialVersionUID = 5909865427436329918L;
 
-        /** @param cause */
+        /** @param cause
+         *            cause */
         protected OwlStringException(Throwable cause) {
             super(cause);
         }
@@ -36,9 +37,12 @@ public class OwlStringTools {
      * or if the set is null.
      * 
      * @param axioms
+     *            axioms
      * @param translationManager
+     *            translationManager
      * @return string or null
      * @throws OwlStringException
+     *             OwlStringException
      * @see #translate(String, OWLOntologyManager) */
     public static String translate(Set<OWLAxiom> axioms,
             OWLOntologyManager translationManager) throws OwlStringException {
@@ -63,9 +67,12 @@ public class OwlStringTools {
      * null strings.
      * 
      * @param axioms
+     *            axioms
      * @param translationManager
+     *            translationManager
      * @return set of axioms or null
      * @throws OwlStringException
+     *             OwlStringException
      * @see #translate(Set,OWLOntologyManager) */
     public static Set<OWLAxiom> translate(String axioms,
             OWLOntologyManager translationManager) throws OwlStringException {

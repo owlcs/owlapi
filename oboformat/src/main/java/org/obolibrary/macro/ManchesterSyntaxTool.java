@@ -36,13 +36,13 @@ import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
-/** wrapper for parsing Manchester Syntax
+/** wrapper for parsing Manchester Syntax.
  * 
  * @author heiko */
 public class ManchesterSyntaxTool {
     private static final Logger log = Logger.getLogger(ManchesterSyntaxTool.class
             .getName());
-    private IRIShortFormProvider iriShortFormProvider;
+    protected IRIShortFormProvider iriShortFormProvider;
     private OWLDataFactory dataFactory;
     private OWLEntityChecker entityChecker;
     private ShortFormProvider shortFormProvider;
@@ -54,7 +54,8 @@ public class ManchesterSyntaxTool {
      * parser will also try to resolve OWLObjects via their identifier or
      * rdfs:label.
      * 
-     * @param inputOntology */
+     * @param inputOntology
+     *            inputOntology */
     public ManchesterSyntaxTool(OWLOntology inputOntology) {
         this(inputOntology, null, true);
     }
@@ -64,6 +65,7 @@ public class ManchesterSyntaxTool {
      * rdfs:label.
      * 
      * @param inputOntology
+     *            inputOntology
      * @param auxiliaryOntologies
      *            set of additional ontologies or null */
     public ManchesterSyntaxTool(OWLOntology inputOntology,
@@ -74,6 +76,7 @@ public class ManchesterSyntaxTool {
     /** Create a new parser instance for the given ontologies.
      * 
      * @param inputOntology
+     *            inputOntology
      * @param auxiliaryOntologies
      *            set of additional ontologies or null
      * @param resolveEntities
@@ -122,8 +125,10 @@ public class ManchesterSyntaxTool {
     /** Parse frame expressions in Manchester syntax.
      * 
      * @param expression
+     *            expression
      * @return set of {@link OntologyAxiomPair}
-     * @throws ParserException */
+     * @throws ParserException
+     *             parser exception */
     public Set<OntologyAxiomPair> parseManchesterExpressionFrames(String expression)
             throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
@@ -134,8 +139,10 @@ public class ManchesterSyntaxTool {
     /** Parse a class expression in Manchester syntax.
      * 
      * @param expression
+     *            expression
      * @return {@link OWLClassExpression}
-     * @throws ParserException */
+     * @throws ParserException
+     *             parser exception */
     public OWLClassExpression parseManchesterExpression(String expression)
             throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
@@ -162,6 +169,7 @@ public class ManchesterSyntaxTool {
     /** Translate the {@link IRI} into the short form as expected by the parser.
      * 
      * @param iri
+     *            iri
      * @return short form */
     public String getId(IRI iri) {
         synchronized (disposedLock) {
@@ -177,6 +185,7 @@ public class ManchesterSyntaxTool {
      * expected by the parser.
      * 
      * @param entity
+     *            entity
      * @return short form */
     public String getId(OWLEntity entity) {
         synchronized (disposedLock) {
@@ -202,7 +211,11 @@ public class ManchesterSyntaxTool {
         private OWLOntologyManager manager;
 
         /** @param defaultInstance
-         * @param ontologies */
+         *            defaultInstance
+         * @param ontologies
+         *            ontologies
+         * @param manager
+         *            manager */
         AdvancedEntityChecker(OWLEntityChecker defaultInstance,
                 Set<OWLOntology> ontologies, OWLOntologyManager manager) {
             super();
@@ -291,9 +304,10 @@ public class ManchesterSyntaxTool {
             return b.oboIdToIRI(id);
         }
 
-        /** Retrieve an {@link IRI} by rdfs:label
+        /** Retrieve an {@link IRI} by rdfs:label.
          * 
          * @param label
+         *            label
          * @return {@link IRI} or null */
         IRI getIRIByLabel(String label) {
             IRI iri = null;
@@ -320,6 +334,7 @@ public class ManchesterSyntaxTool {
          * least one {@link OWLDeclarationAxiom}.
          * 
          * @param iri
+         *            iri
          * @return {@link OWLClass} or null */
         OWLClass getOWLClass(IRI iri) {
             for (OWLOntology o : ontologies) {
@@ -340,6 +355,7 @@ public class ManchesterSyntaxTool {
          * it has at least one corresponding {@link OWLDeclarationAxiom}.
          * 
          * @param iri
+         *            iri
          * @return {@link OWLNamedIndividual} or null */
         OWLNamedIndividual getOWLIndividual(IRI iri) {
             for (OWLOntology o : ontologies) {
@@ -359,6 +375,7 @@ public class ManchesterSyntaxTool {
          * has at least one {@link OWLDeclarationAxiom}.
          * 
          * @param iri
+         *            iri
          * @return {@link OWLObjectProperty} or null */
         OWLObjectProperty getOWLObjectProperty(IRI iri) {
             for (OWLOntology o : ontologies) {

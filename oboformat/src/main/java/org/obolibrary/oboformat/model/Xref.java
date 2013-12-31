@@ -1,26 +1,35 @@
 package org.obolibrary.oboformat.model;
 
+/** Xref */
 public class Xref {
     String idref;
     String annotation;
 
+    /** @param idref
+     *            idref */
     public Xref(String idref) {
         super();
         this.idref = idref;
     }
 
+    /** @return idref */
     public String getIdref() {
         return idref;
     }
 
+    /** @param idref
+     *            idref */
     public void setIdref(String idref) {
         this.idref = idref;
     }
 
+    /** @return annotation */
     public String getAnnotation() {
         return annotation;
     }
 
+    /** @param annotation
+     *            annotation */
     public void setAnnotation(String annotation) {
         this.annotation = annotation;
     }

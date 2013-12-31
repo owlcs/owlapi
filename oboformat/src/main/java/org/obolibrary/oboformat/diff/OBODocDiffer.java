@@ -18,6 +18,11 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
  * 
  * @author cjm */
 public class OBODocDiffer {
+    /** @param doc1
+     *            doc1
+     * @param doc2
+     *            doc2
+     * @return list of diffs */
     public List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
         List<Diff> diffs = new ArrayList<Diff>();
         diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(), doc2.getHeaderFrame()));
@@ -93,6 +98,10 @@ public class OBODocDiffer {
         return diffs;
     }
 
+    /** @param args
+     *            args
+     * @throws Exception
+     *             Exception */
     public static void main(String[] args) throws Exception {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc1 = p.parse(args[0]);

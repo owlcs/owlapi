@@ -42,9 +42,8 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 10-Jan-2007 */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007 */
 public class OBOFormatParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {

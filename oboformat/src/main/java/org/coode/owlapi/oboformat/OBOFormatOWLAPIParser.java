@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
+/** oboformat parser */
 public class OBOFormatOWLAPIParser implements OWLParser {
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)

@@ -12,43 +12,64 @@ import org.obolibrary.obo2owl.OboInOwlCardinalityTools;
 import org.obolibrary.oboformat.model.Frame.FrameType;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** An OBODoc is a container for a header frame and zero or more entity frames */
+/** An OBODoc is a container for a header frame and zero or more entity frames. */
 public class OBODoc {
+    /** The header frame. */
     protected Frame headerFrame;
+    /** The term frame map. */
     protected Map<String, Frame> termFrameMap = new HashMap<String, Frame>();
+    /** The typedef frame map. */
     protected Map<String, Frame> typedefFrameMap = new HashMap<String, Frame>();
+    /** The instance frame map. */
     protected Map<String, Frame> instanceFrameMap = new HashMap<String, Frame>();
+    /** The annotation frames. */
     protected Collection<Frame> annotationFrames = new LinkedList<Frame>();
+    /** The imported obo docs. */
     protected Collection<OBODoc> importedOBODocs = new LinkedList<OBODoc>();
 
+    /** default constructor. */
     public OBODoc() {
         super();
     }
 
+    /** @return the header frame */
     public Frame getHeaderFrame() {
         return headerFrame;
     }
 
+    /** @param headerFrame
+     *            the new header frame */
     public void setHeaderFrame(Frame headerFrame) {
         this.headerFrame = headerFrame;
     }
 
+    /** @return the term frames */
     public Collection<Frame> getTermFrames() {
         return termFrameMap.values();
     }
 
+    /** @return the typedef frames */
     public Collection<Frame> getTypedefFrames() {
         return typedefFrameMap.values();
     }
 
+    /** @return the instance frames */
     public Collection<Frame> getInstanceFrames() {
         return instanceFrameMap.values();
     }
 
+    /** @param id
+     *            the id
+     * @return the term frame */
     public Frame getTermFrame(String id) {
         return getTermFrame(id, false);
     }
 
+    /** @param id
+     *            the id
+     * @param followImport
+     *            the follow import
+     * @return the term frame */
     public Frame getTermFrame(String id, boolean followImport) {
         if (followImport == false) {
             return termFrameMap.get(id);
@@ -59,6 +80,11 @@ public class OBODoc {
         return _getTermFrame(id, visited);
     }
 
+    /** @param id
+     *            the id
+     * @param visitedDocs
+     *            the visited docs
+     * @return the frame */
     private Frame _getTermFrame(String id, Set<String> visitedDocs) {
         Frame f = termFrameMap.get(id);
         if (f != null) {
@@ -77,10 +103,18 @@ public class OBODoc {
         return null;
     }
 
+    /** @param id
+     *            the id
+     * @return the typedef frame */
     public Frame getTypedefFrame(String id) {
         return getTypedefFrame(id, false);
     }
 
+    /** @param id
+     *            the id
+     * @param followImports
+     *            the follow imports
+     * @return the typedef frame */
     public Frame getTypedefFrame(String id, boolean followImports) {
         if (followImports == false) {
             return typedefFrameMap.get(id);
@@ -91,6 +125,11 @@ public class OBODoc {
         return _getTypedefFrame(id, visited);
     }
 
+    /** @param id
+     *            the id
+     * @param visitedDocs
+     *            the visited docs
+     * @return the frame */
     private Frame _getTypedefFrame(String id, Set<String> visitedDocs) {
         Frame f = typedefFrameMap.get(id);
         if (f != null) {
@@ -109,18 +148,28 @@ public class OBODoc {
         return null;
     }
 
+    /** @param id
+     *            the id
+     * @return the instance frame */
     public Frame getInstanceFrame(String id) {
         return instanceFrameMap.get(id);
     }
 
+    /** @return the imported obo docs */
     public Collection<OBODoc> getImportedOBODocs() {
         return importedOBODocs;
     }
 
+    /** @param importedOBODocs
+     *            the new imported obo docs */
     public void setImportedOBODocs(Collection<OBODoc> importedOBODocs) {
         this.importedOBODocs = importedOBODocs;
     }
 
+    /** Adds the imported obo doc.
+     * 
+     * @param doc
+     *            the doc */
     public void addImportedOBODoc(OBODoc doc) {
         if (importedOBODocs == null) {
             importedOBODocs = new ArrayList<OBODoc>();
@@ -128,6 +177,12 @@ public class OBODoc {
         importedOBODocs.add(doc);
     }
 
+    /** Adds the frame.
+     * 
+     * @param f
+     *            the frame
+     * @throws FrameMergeException
+     *             the frame merge exception */
     public void addFrame(Frame f) throws FrameMergeException {
         if (f.getType() == FrameType.TERM) {
             addTermFrame(f);
@@ -138,6 +193,12 @@ public class OBODoc {
         }
     }
 
+    /** Adds the term frame.
+     * 
+     * @param f
+     *            the frame
+     * @throws FrameMergeException
+     *             the frame merge exception */
     public void addTermFrame(Frame f) throws FrameMergeException {
         String id = f.getId();
         if (termFrameMap.containsKey(id)) {
@@ -147,6 +208,12 @@ public class OBODoc {
         }
     }
 
+    /** Adds the typedef frame.
+     * 
+     * @param f
+     *            the frame
+     * @throws FrameMergeException
+     *             the frame merge exception */
     public void addTypedefFrame(Frame f) throws FrameMergeException {
         String id = f.getId();
         if (typedefFrameMap.containsKey(id)) {
@@ -156,6 +223,12 @@ public class OBODoc {
         }
     }
 
+    /** Adds the instance frame.
+     * 
+     * @param f
+     *            the frame
+     * @throws FrameMergeException
+     *             the frame merge exception */
     public void addInstanceFrame(Frame f) throws FrameMergeException {
         String id = f.getId();
         if (instanceFrameMap.containsKey(id)) {
@@ -179,6 +252,9 @@ public class OBODoc {
         return null;
     }
 
+    /** @param prefix
+     *            the prefix
+     * @return true, if is treat xrefs as equivalent */
     public boolean isTreatXrefsAsEquivalent(String prefix) {
         if (prefix != null && prefix.equals("RO")) {
             return true;
@@ -186,6 +262,12 @@ public class OBODoc {
         return false;
     }
 
+    /** Merge contents.
+     * 
+     * @param extDoc
+     *            the external doc
+     * @throws FrameMergeException
+     *             the frame merge exception */
     public void mergeContents(OBODoc extDoc) throws FrameMergeException {
         for (Frame f : extDoc.getTermFrames()) {
             addTermFrame(f);
@@ -198,6 +280,10 @@ public class OBODoc {
         }
     }
 
+    /** Adds the default ontology header.
+     * 
+     * @param defaultOnt
+     *            the default ont */
     public void addDefaultOntologyHeader(String defaultOnt) {
         Frame hf = getHeaderFrame();
         Clause ontClause = hf.getClause(OboFormatTag.TAG_ONTOLOGY);
@@ -211,6 +297,7 @@ public class OBODoc {
      * violations.
      * 
      * @throws FrameStructureException
+     *             the frame structure exception
      * @see OboInOwlCardinalityTools for equivalent checks in OWL */
     public void check() throws FrameStructureException {
         getHeaderFrame().check();
@@ -230,6 +317,7 @@ public class OBODoc {
         return getHeaderDescriptor();
     }
 
+    /** @return the header descriptor */
     private String getHeaderDescriptor() {
         return "OBODoc(" + headerFrame + ")";
     }
