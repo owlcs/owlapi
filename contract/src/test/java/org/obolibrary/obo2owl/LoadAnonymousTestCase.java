@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
+@SuppressWarnings("javadoc")
 public class LoadAnonymousTestCase {
     @Test
     public void shouldLoad() throws OWLOntologyCreationException {

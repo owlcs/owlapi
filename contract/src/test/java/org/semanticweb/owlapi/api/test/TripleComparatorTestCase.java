@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+@SuppressWarnings("javadoc")
 public class TripleComparatorTestCase {
     String ns = "http://www.co-ode.org/roberts/pto.owl#";
     RDFResourceIRI g = r(Class(IRI(ns + "MoleOfGoldAtom")));

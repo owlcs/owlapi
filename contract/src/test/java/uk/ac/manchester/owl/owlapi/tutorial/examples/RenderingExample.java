@@ -58,7 +58,9 @@ public class RenderingExample {
      * @param outputOntology
      *            output ontology IRI
      * @throws OWLOntologyCreationException
-     * @throws OWLOntologyStorageException */
+     *             OWLOntologyCreationException
+     * @throws OWLOntologyStorageException
+     *             OWLOntologyStorageException */
     public void render(String inputOntology, String outputOntology)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         if (inputOntology == null || outputOntology == null) {
