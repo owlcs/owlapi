@@ -42,16 +42,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLObjectPropertyDomainElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression domain;
     private OWLObjectPropertyExpression property;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLObjectPropertyDomainElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

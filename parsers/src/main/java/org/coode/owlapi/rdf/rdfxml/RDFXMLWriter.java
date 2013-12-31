@@ -47,13 +47,11 @@ import javax.annotation.Nonnull;
 import org.coode.xml.XMLWriter;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006 */
 public class RDFXMLWriter {
     private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
     private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(),
@@ -73,58 +71,109 @@ public class RDFXMLWriter {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }
 
+    /** @param elementName
+     *            elementName
+     * @throws IOException
+     *             io exception */
     public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
         writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
     }
 
+    /** @throws IOException
+     *             io exception */
     public void writeParseTypeAttribute() throws IOException {
         writer.writeAttribute(PARSETYPE_IRI, "Collection");
     }
 
+    /** @param datatypeIRI
+     *            datatypeIRI
+     * @throws IOException
+     *             io exception */
     public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
         writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
 
+    /** @param text
+     *            text
+     * @throws IOException
+     *             io exception */
     public void writeTextContent(@Nonnull String text) throws IOException {
         writer.writeTextContent(text);
     }
 
+    /** @param lang
+     *            lang
+     * @throws IOException
+     *             io exception */
     public void writeLangAttribute(@Nonnull String lang) throws IOException {
         writer.writeAttribute(XML_LANG, lang);
     }
 
+    /** @throws IOException
+     *             io exception */
     public void writeEndElement() throws IOException {
         writer.writeEndElement();
     }
 
+    /** @param value
+     *            value
+     * @throws IOException
+     *             io exception */
     public void writeAboutAttribute(@Nonnull IRI value) throws IOException {
         writeAttribute(RDF_ABOUT, value);
     }
 
+    /** @param node
+     *            node
+     * @throws IOException
+     *             io exception */
     public void writeNodeIDAttribute(@Nonnull RDFResource node) throws IOException {
         writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
+    /** @param attributeName
+     *            attribute name
+     * @param value
+     *            value
+     * @throws IOException
+     *             io exception */
     public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value)
             throws IOException {
         writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null")
                 .toString());
     }
 
+    /** @param owlObject
+     *            owlObject */
+    @SuppressWarnings("unused")
+    public void writeOWLObject(OWLObject owlObject) {}
+
+    /** @param value
+     *            value
+     * @throws IOException
+     *             io exception */
     public void writeResourceAttribute(@Nonnull IRI value) throws IOException {
         writeAttribute(RDF_RESOURCE, value);
     }
 
+    /** @throws IOException
+     *             io exception */
     public void startDocument() throws IOException {
         writer.startDocument(RDF_RDF);
     }
 
+    /** @throws IOException
+     *             io exception */
     public void endDocument() throws IOException {
         writer.endDocument();
     }
 
+    /** @param comment
+     *            comment
+     * @throws IOException
+     *             io exception */
     public void writeComment(@Nonnull String comment) throws IOException {
         writer.writeComment(comment);
     }

@@ -7,7 +7,6 @@ package org.coode.owlapi.functionalparser;
  * generateParseException in the generated parser. You can modify this class to
  * customize your error reporting mechanisms so long as you retain the public
  * fields. */
-@SuppressWarnings("javadoc")
 public class ParseException extends Exception {
     /** The version identifier for this Serializable class. Increment only if the
      * <i>serialized</i> form of the class changes. */
@@ -16,7 +15,14 @@ public class ParseException extends Exception {
     /** This constructor is used by the method "generateParseException" in the
      * generated parser. Calling this constructor generates a new object of this
      * type with the fields "currentToken", "expectedTokenSequences", and
-     * "tokenImage" set. */
+     * "tokenImage" set.
+     * 
+     * @param currentTokenVal
+     *            current token
+     * @param expectedTokenSequencesVal
+     *            expected tokensa
+     * @param tokenImageVal
+     *            token */
     public ParseException(Token currentTokenVal, int[][] expectedTokenSequencesVal,
             String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal, tokenImageVal));
@@ -35,7 +41,10 @@ public class ParseException extends Exception {
         super();
     }
 
-    /** Constructor with message. */
+    /** Constructor with message.
+     * 
+     * @param message
+     *            exception message */
     public ParseException(String message) {
         super(message);
     }
@@ -56,7 +65,15 @@ public class ParseException extends Exception {
     /** It uses "currentToken" and "expectedTokenSequences" to generate a parse
      * error message and returns it. If this object has been created due to a
      * parse error, and you do not catch it (it gets thrown from the parser) the
-     * correct error message gets displayed. */
+     * correct error message gets displayed.
+     * 
+     * @param currentToken
+     *            token
+     * @param expectedTokenSequences
+     *            expected tokens
+     * @param tokenImage
+     *            token image
+     * @return error message */
     private static String initialise(Token currentToken, int[][] expectedTokenSequences,
             String[] tokenImage) {
         String eol = System.getProperty("line.separator", "\n");
@@ -106,7 +123,11 @@ public class ParseException extends Exception {
     protected String eol = System.getProperty("line.separator", "\n");
 
     /** Used to convert raw characters to their escaped version when these raw
-     * version cannot be used as part of an ASCII string literal. */
+     * version cannot be used as part of an ASCII string literal.
+     * 
+     * @param str
+     *            string to escape
+     * @return escaped string */
     static String add_escapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;

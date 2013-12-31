@@ -75,11 +75,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008 */
 public class TurtleRenderer extends RDFRendererBase {
     private PrintWriter writer;
     private PrefixManager pm;
@@ -88,7 +85,11 @@ public class TurtleRenderer extends RDFRendererBase {
     private OWLOntologyFormat format;
 
     /** @param ontology
+     *            ontology
      * @param writer
+     *            writer
+     * @param format
+     *            format
      * @param format */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
@@ -124,11 +125,11 @@ public class TurtleRenderer extends RDFRendererBase {
     int lastNewLineIndex = 0;
     Stack<Integer> tabs = new Stack<Integer>();
 
-    private void pushTab() {
+    protected void pushTab() {
         tabs.push(getIndent());
     }
 
-    private void popTab() {
+    protected void popTab() {
         if (!tabs.isEmpty()) {
             tabs.pop();
         }

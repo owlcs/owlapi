@@ -60,11 +60,8 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006 */
 public class RDFGraph {
     private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
     private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
@@ -97,7 +94,9 @@ public class RDFGraph {
     }
 
     /** @param subject
+     *            subject
      * @param sort
+     *            sort
      * @return sorted triples */
     public Collection<RDFTriple> getTriplesForSubject(RDFNode subject, boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);

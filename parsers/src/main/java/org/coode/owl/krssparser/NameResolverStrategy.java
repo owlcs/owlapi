@@ -38,17 +38,17 @@
  */
 package org.coode.owl.krssparser;
 
-/** resolver strategies */
+/** resolver strategies. */
 public enum NameResolverStrategy {
     /** if the first n names are URIs(NAMEs) all names are assumed to be URIs
-     * (NAMEs), otherwise we have to CHECK */
+     * (NAMEs), otherwise we have to CHECK. */
     ADAPTIVE,
-    /** every found concept/role name in KRSS is an absolute IRI */
+    /** every found concept/role name in KRSS is an absolute IRI. */
     IRI,
     /** concept/roles names in KRSS are all names, URI must be created (namespace
-     * of the ontology's URI) */
+     * of the ontology's URI). */
     NAME,
     /** for every concept/role name in KRSS we have to check whether it is an URI
-     * or NAME. This is very expensive */
+     * or NAME. This is very expensive. */
     CHECK
 }

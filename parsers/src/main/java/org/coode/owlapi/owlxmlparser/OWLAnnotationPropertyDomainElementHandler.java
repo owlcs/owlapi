@@ -42,16 +42,15 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 16/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 16/12/2010 */
 public class OWLAnnotationPropertyDomainElementHandler extends
         AbstractOWLAxiomElementHandler {
     private IRI domain;
     private OWLAnnotationProperty property;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLAnnotationPropertyDomainElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

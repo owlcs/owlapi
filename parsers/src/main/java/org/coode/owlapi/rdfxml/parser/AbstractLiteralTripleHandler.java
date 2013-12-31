@@ -41,32 +41,39 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006 */
 public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public AbstractLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     /** @param subject
+     *            subject
      * @param predicate
-     * @param object */
+     *            predicate
+     * @param object
+     *            object */
     public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
 
     /** @param subject
+     *            subject
      * @param predicate
+     *            predicate
      * @param object
-     * @return true if triple can be handled */
+     *            object
+     * @return true if can handle */
     public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
 
     /** @param subject
+     *            subject
      * @param predicate
+     *            predicate
      * @param object
-     * @return true if triple can be handled in streaming */
+     *            object
+     * @return true if can handle streaming */
     public abstract boolean canHandleStreaming(IRI subject, IRI predicate,
             OWLLiteral object);
 }

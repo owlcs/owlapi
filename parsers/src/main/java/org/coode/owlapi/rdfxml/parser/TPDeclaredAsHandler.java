@@ -42,13 +42,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21-Feb-2007<br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 21-Feb-2007 */
 @Deprecated
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_DECLARED_AS);
     }

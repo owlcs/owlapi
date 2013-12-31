@@ -47,16 +47,14 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br>
- * <p>
- * Handles rdfs:subClassOf triples. If handling is set to strict then the triple
- * is only consumed if the subject and object are typed as classes. */
+/** Handles rdfs:subClassOf triples. If handling is set to strict then the triple
+ * is only consumed if the subject and object are typed as classes.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006 */
 public class TPSubClassOfHandler extends TriplePredicateHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPSubClassOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
     }

@@ -45,13 +45,11 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class DataSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public DataSomeValuesFromTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

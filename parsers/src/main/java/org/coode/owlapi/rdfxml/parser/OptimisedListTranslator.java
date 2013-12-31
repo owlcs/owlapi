@@ -49,23 +49,24 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Jan-2007<br>
- * <br>
- * <p/>
- * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The type
- * of list (i.e. the type of objects in the list) are determined by a
+/** Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
+ * type of list (i.e. the type of objects in the list) are determined by a
  * {@code ListItemTranslator}. The translator consumes all triples which are used
  * in the translation.
  * 
- * @param <O> */
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Jan-2007
+ * @param <O>
+ *            type */
 public class OptimisedListTranslator<O extends OWLObject> {
     private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
     private OWLRDFConsumer consumer;
     private ListItemTranslator<O> translator;
 
+    /** @param consumer
+     *            consumer
+     * @param translator
+     *            translator */
     protected OptimisedListTranslator(OWLRDFConsumer consumer,
             ListItemTranslator<O> translator) {
         this.consumer = consumer;
@@ -101,6 +102,7 @@ public class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /** @param mainNode
+     *            mainNode
      * @return translated list */
     @SuppressWarnings("unchecked")
     public List<O> translateList(IRI mainNode) {
@@ -123,7 +125,8 @@ public class OptimisedListTranslator<O extends OWLObject> {
     }
 
     /** @param mainNode
-     * @return list as set */
+     *            mainNode
+     * @return translated list */
     public Set<O> translateToSet(IRI mainNode) {
         return new HashSet<O>(translateList(mainNode));
     }

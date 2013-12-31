@@ -53,11 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Aug-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Aug-2007 */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final String COMMENT_START_CHAR = "#";
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";

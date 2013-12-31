@@ -41,44 +41,44 @@ package org.coode.owlapi.latex;
 import java.io.PrintWriter;
 import java.io.Writer;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 25-Aug-2006<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br> */
+/** The Class LatexWriter.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 25-Aug-2006 */
 public class LatexWriter {
+    /** The writer. */
     private PrintWriter writer;
 
-    /** @param writer */
+    /** Instantiates a new latex writer.
+     * 
+     * @param writer
+     *            the writer */
     public LatexWriter(Writer writer) {
         this.writer = new PrintWriter(writer);
     }
 
-    /** @param o */
+    /** @param o
+     *            object to write */
     public void write(Object o) {
         writer.write(o.toString());
     }
 
-    /** add new line */
+    /** Write new line. */
     public void writeNewLine() {
         writer.write("\\\\\n");
     }
 
-    /** non breakable space */
+    /** Write space. */
     public void writeSpace() {
         writer.write("~");
     }
 
-    /** open brace */
+    /** Write open brace. */
     public void writeOpenBrace() {
         writer.write("\\{");
     }
 
-    /** close brace */
+    /** Write close brace. */
     public void writeCloseBrace() {
         writer.write("\\}");
     }

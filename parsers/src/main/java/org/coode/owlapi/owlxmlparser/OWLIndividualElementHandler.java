@@ -43,17 +43,15 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006 */
 public class OWLIndividualElementHandler extends
         AbstractOWLElementHandler<OWLNamedIndividual> {
     private OWLNamedIndividual individual;
     private IRI name;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLIndividualElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -69,7 +67,7 @@ public class OWLIndividualElementHandler extends
     }
 
     @Override
-    final public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException, UnloadableImportException {
         // URI uri = getNameAttribute();
         individual = getOWLDataFactory().getOWLNamedIndividual(name);
         getParentHandler().handleChild(this);

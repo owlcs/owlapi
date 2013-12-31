@@ -4,18 +4,20 @@ package org.coode.owlapi.functionalparser;
 import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 /** Token Manager. */
-@SuppressWarnings({ "javadoc", "unused" })
 public class OWLFunctionalSyntaxParserTokenManager implements
         OWLFunctionalSyntaxParserConstants {
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output. */
+    /** Set debug output.
+     * 
+     * @param ds
+     *            debug stream */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
-    private final int jjStopStringLiteralDfa_0(int pos, long active0, long active1) {
+    private int jjStopStringLiteralDfa_0(int pos, long active0, long active1) {
         switch (pos) {
             case 0:
                 if ((active0 & 0xffffffffffe7c000L) != 0L
@@ -348,7 +350,7 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    private final int jjStartNfa_0(int pos, long active0, long active1) {
+    private int jjStartNfa_0(int pos, long active0, long active1) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0, active1), pos + 1);
     }
 
@@ -3075,17 +3077,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    private final int jjStopStringLiteralDfa_1(int pos, long active0) {
-        switch (pos) {
-            default:
-                return -1;
-        }
-    }
-
-    private final int jjStartNfa_1(int pos, long active0) {
-        return jjMoveNfa_1(jjStopStringLiteralDfa_1(pos, active0), pos + 1);
-    }
-
     private int jjMoveStringLiteralDfa0_1() {
         switch (curChar) {
             case 10:
@@ -3180,8 +3171,7 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    private static final boolean
-            jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec4[i2] & l2) != 0L;
@@ -3207,8 +3197,7 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    private static final boolean
-            jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+    private static boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec11[i2] & l2) != 0L;
@@ -3375,7 +3364,10 @@ public class OWLFunctionalSyntaxParserTokenManager implements
     private final int[] jjstateSet = new int[60];
     protected char curChar;
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param stream
+     *            stream */
     public OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
@@ -3384,13 +3376,21 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         input_stream = stream;
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param stream
+     *            stream
+     * @param lexState
+     *            state */
     public OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser. */
+    /** Reinitialise parser.
+     * 
+     * @param stream
+     *            stream */
     public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -3406,13 +3406,21 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    /** Reinitialise parser. */
+    /** Reinitialise parser.
+     * 
+     * @param stream
+     *            stream
+     * @param lexState
+     *            state */
     public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state. */
+    /** Switch to specified lex state.
+     * 
+     * @param lexState
+     *            state */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
@@ -3450,7 +3458,7 @@ public class OWLFunctionalSyntaxParserTokenManager implements
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /** Get the next Token. */
+    /** @return the next Token. */
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

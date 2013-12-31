@@ -45,13 +45,12 @@ import org.semanticweb.owlapi.model.OWLDataMinCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 19/12/2010 */
 public class DataMinQualifiedCardinalityTranslator extends
         AbstractClassExpressionTranslator {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public DataMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

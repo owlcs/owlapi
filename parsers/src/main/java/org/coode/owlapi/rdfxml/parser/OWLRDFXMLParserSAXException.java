@@ -40,15 +40,17 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br> */
+/** The Class OWLRDFXMLParserSAXException.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLRDFXMLParserSAXException extends OWLRDFXMLParserException {
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause */
+    /** Instantiates a new oWLRDFXML parser sax exception.
+     * 
+     * @param cause
+     *            the cause */
     public OWLRDFXMLParserSAXException(SAXException cause) {
         super(cause);
     }

@@ -41,21 +41,20 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009 */
 public class TranslatedUnloadableImportException extends SAXException {
     private static final long serialVersionUID = 40000L;
     private UnloadableImportException unloadableImportException;
 
-    /** @param e */
+    /** @param e
+     *            cause */
     public TranslatedUnloadableImportException(UnloadableImportException e) {
         super(e);
         unloadableImportException = e;
     }
 
-    /** @return unloadable import */
+    /** @return cause */
     public UnloadableImportException getUnloadableImportException() {
         return unloadableImportException;
     }

@@ -55,11 +55,10 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Feb-2008<br>
- * <br> */
+/** The Class TurtleOntologyParser.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Feb-2008 */
 public class TurtleOntologyParser extends AbstractOWLParser {
     @Override
     public String getName() {

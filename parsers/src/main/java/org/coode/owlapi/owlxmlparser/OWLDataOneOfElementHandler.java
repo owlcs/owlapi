@@ -43,15 +43,13 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
     Set<OWLLiteral> constants;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLDataOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         constants = new HashSet<OWLLiteral>();

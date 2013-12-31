@@ -43,13 +43,11 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20-Mar-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Mar-2007 */
 public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElementHandler {
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

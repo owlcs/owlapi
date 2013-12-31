@@ -45,17 +45,15 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLDataRestrictionElementHandler extends AbstractOWLDataRangeHandler {
     private OWLDataRange dataRange;
     private OWLLiteral constant;
     private IRI facetIRI;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLDataRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -42,13 +42,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007 */
 public class TypeSWRLDataValuedPropertyAtomHandler extends BuiltInTypeHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TypeSWRLDataValuedPropertyAtomHandler(OWLRDFConsumer consumer) {
         super(consumer, SWRLVocabulary.DATAVALUED_PROPERTY_ATOM.getIRI());
     }

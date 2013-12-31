@@ -42,15 +42,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Jan-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Jan-2007 */
 public class TPRestHandler extends TriplePredicateHandler {
     protected static int count = 0;
 
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPRestHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_REST.getIRI());
     }

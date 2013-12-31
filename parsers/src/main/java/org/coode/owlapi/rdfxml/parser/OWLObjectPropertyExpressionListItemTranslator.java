@@ -44,18 +44,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class OWLObjectPropertyExpressionListItemTranslator implements
         ListItemTranslator<OWLObjectPropertyExpression> {
     private static final Logger logger = Logger
             .getLogger(OWLObjectPropertyExpressionListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
 
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public OWLObjectPropertyExpressionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

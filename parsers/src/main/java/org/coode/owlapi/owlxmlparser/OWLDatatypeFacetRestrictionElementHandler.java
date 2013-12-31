@@ -45,17 +45,15 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Apr-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2007 */
 public class OWLDatatypeFacetRestrictionElementHandler extends
         AbstractOWLElementHandler<OWLFacetRestriction> {
     private OWLFacet facet;
     private OWLLiteral constant;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLDatatypeFacetRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

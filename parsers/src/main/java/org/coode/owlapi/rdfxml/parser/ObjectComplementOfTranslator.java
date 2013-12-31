@@ -44,16 +44,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br>
- * <p/>
- * Translates a set of triples that represent an {@code OWLComplementOf} class
- * expression. */
+/** Translates a set of triples that represent an {@code OWLComplementOf} class
+ * expression.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006 */
 public class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public ObjectComplementOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

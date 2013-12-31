@@ -41,16 +41,14 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLInverseObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
     private OWLObjectPropertyExpression inverse;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLInverseObjectPropertyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

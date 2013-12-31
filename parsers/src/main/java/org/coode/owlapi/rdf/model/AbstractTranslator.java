@@ -57,12 +57,7 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br>
- * An abstract translator that can produce an RDF graph from an OWLOntology.
+/** An abstract translator that can produce an RDF graph from an OWLOntology.
  * Subclasses must provide implementations to create concrete representations of
  * resources, triples etc.
  * 
@@ -73,7 +68,9 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * @param <PREDICATE>
  *            a predicate node
  * @param <LITERAL>
- *            a literal node */
+ *            a literal node
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 06-Dec-2006 */
 public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE>
         implements OWLObjectVisitor, SWRLObjectVisitor {
     private OWLOntologyManager manager;
@@ -178,7 +175,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     // //
     // ///////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////
-    /** Add type triples and the owl:onProperty triples for an OWLRestriction
+    /** Add type triples and the owl:onProperty triples for an OWLRestriction.
      * 
      * @param desc
      *            The restriction */
@@ -813,7 +810,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     // Methods to add triples
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Maps Objects to nodes */
+    /** Maps Objects to nodes. */
     private Map<OWLObject, NODE> nodeMap = new IdentityHashMap<OWLObject, NODE>();
 
     private void addSingleTripleAxiom(OWLAxiom ax, OWLObject subject, IRI pred,
@@ -930,7 +927,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         nodeMap.put(object, getAnonymousNode(object));
     }
 
-    /** Gets a resource that has a IRI
+    /** Gets a resource that has a IRI.
      * 
      * @param IRI
      *            The IRI of the resource
@@ -1133,7 +1130,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
                 entity.accept(OWLEntityTypeProvider.INSTANCE));
     }
 
-    /** Visits entities and returns their RDF type */
+    /** Visits entities and returns their RDF type. */
     private static class OWLEntityTypeProvider implements OWLEntityVisitorEx<IRI> {
         public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 

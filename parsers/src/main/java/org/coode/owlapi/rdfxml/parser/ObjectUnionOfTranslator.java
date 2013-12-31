@@ -46,15 +46,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br>
- * <p/>
- * Translates a set of triples to an {@code OWLUnionOf}. */
+/** Translates a set of triples to an {@code OWLUnionOf}.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006 */
 public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public ObjectUnionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

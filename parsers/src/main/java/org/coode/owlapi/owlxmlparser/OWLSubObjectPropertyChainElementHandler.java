@@ -45,16 +45,14 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 03-Apr-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 03-Apr-2007 */
 public class OWLSubObjectPropertyChainElementHandler extends
         AbstractOWLElementHandler<List<OWLObjectPropertyExpression>> {
     private List<OWLObjectPropertyExpression> propertyList;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLSubObjectPropertyChainElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         propertyList = new ArrayList<OWLObjectPropertyExpression>();

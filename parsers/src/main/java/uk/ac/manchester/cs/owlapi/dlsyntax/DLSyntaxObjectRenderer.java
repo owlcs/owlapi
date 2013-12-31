@@ -142,13 +142,10 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br>
- * <br>
- * <p/>
- * Renders objects in unicode DL syntax */
+/** Renders objects in unicode DL syntax.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-Feb-2008 */
 public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         OWLObjectRenderer, OWLObjectVisitor {
     private ShortFormProvider shortFormProvider;
@@ -163,7 +160,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         buffer = new StringBuilder();
     }
 
-    /** @param focusedObject */
+    /** @param focusedObject
+     *            focusedObject */
     public void setFocusedObject(@Nonnull OWLObject focusedObject) {
         this.focusedObject = checkNotNull(focusedObject, "focusedObject cannot be null");
     }

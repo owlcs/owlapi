@@ -40,11 +40,10 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Feb-2008<br>
- * <br> */
+/** The Class ConsoleTripleHandler.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Feb-2008 */
 public class ConsoleTripleHandler implements TripleHandler {
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {

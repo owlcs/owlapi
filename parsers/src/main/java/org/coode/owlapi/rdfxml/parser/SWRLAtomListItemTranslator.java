@@ -55,18 +55,16 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007 */
 public class SWRLAtomListItemTranslator implements ListItemTranslator<SWRLAtom> {
     private static final Logger logger = Logger
             .getLogger(SWRLAtomListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
     protected OWLDataFactory dataFactory;
 
+    /** @param consumer
+     *            consumer */
     public SWRLAtomListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
         dataFactory = consumer.getDataFactory();

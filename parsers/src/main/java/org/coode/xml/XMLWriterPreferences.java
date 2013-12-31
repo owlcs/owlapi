@@ -38,16 +38,10 @@
  */
 package org.coode.xml;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 30-May-2006<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * Developed as part of the CO-ODE project http://www.co-ode.org */
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterPreferences {
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
@@ -70,7 +64,8 @@ public class XMLWriterPreferences {
         return useNamespaceEntities;
     }
 
-    /** @param useNamespaceEntities */
+    /** @param useNamespaceEntities
+     *            useNamespaceEntities */
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
@@ -80,7 +75,8 @@ public class XMLWriterPreferences {
         return indenting;
     }
 
-    /** @param indenting */
+    /** @param indenting
+     *            indenting */
     public void setIndenting(boolean indenting) {
         this.indenting = indenting;
     }
@@ -90,7 +86,8 @@ public class XMLWriterPreferences {
         return indentSize;
     }
 
-    /** @param indentSize */
+    /** @param indentSize
+     *            indentSize */
     public void setIndentSize(int indentSize) {
         this.indentSize = indentSize;
     }

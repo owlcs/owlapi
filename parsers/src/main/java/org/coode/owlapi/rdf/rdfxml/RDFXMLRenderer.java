@@ -72,11 +72,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.VersionInfo;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 06-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006 */
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
     private Set<RDFResource> pending = new HashSet<RDFResource>();
@@ -84,7 +81,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
     private OWLOntologyFormat format;
 
     /** @param ontology
-     * @param w */
+     *            ontology
+     * @param w
+     *            writer */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w,
                 "w cannot be null"), ontology.getOWLOntologyManager().getOntologyFormat(
@@ -93,7 +92,9 @@ public class RDFXMLRenderer extends RDFRendererBase {
 
     /** @param ontology
      * @param w
-     * @param format */
+     *            writer
+     * @param format
+     *            format */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
             @Nonnull OWLOntologyFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(format,
@@ -111,7 +112,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                 checkNotNull(w, "w cannot be null"), qnameManager, base));
     }
 
-    /** @return entities that cannot be serialized */
+    /** @return unserializable entities */
     @Nonnull
     public Set<OWLEntity> getUnserialisableEntities() {
         return qnameManager.getEntitiesWithInvalidQNames();

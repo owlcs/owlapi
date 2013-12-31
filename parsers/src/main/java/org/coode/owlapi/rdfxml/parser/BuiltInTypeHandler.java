@@ -42,14 +42,15 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
     private IRI typeIRI;
 
+    /** @param consumer
+     *            consumer
+     * @param typeIRI
+     *            typeIRI */
     protected BuiltInTypeHandler(OWLRDFConsumer consumer, IRI typeIRI) {
         super(consumer, OWLRDFVocabulary.RDF_TYPE.getIRI());
         this.typeIRI = typeIRI;
@@ -67,7 +68,7 @@ public abstract class BuiltInTypeHandler extends TriplePredicateHandler {
                 && object.equals(typeIRI);
     }
 
-    /** @return the type IRI */
+    /** @return type iri */
     public IRI getTypeIRI() {
         return typeIRI;
     }

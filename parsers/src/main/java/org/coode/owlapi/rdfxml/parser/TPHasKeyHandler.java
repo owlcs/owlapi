@@ -46,14 +46,13 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 02-Feb-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009 */
 public class TPHasKeyHandler extends TriplePredicateHandler {
     private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPHasKeyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_HAS_KEY.getIRI());
         listTranslator = new OptimisedListTranslator<OWLPropertyExpression>(

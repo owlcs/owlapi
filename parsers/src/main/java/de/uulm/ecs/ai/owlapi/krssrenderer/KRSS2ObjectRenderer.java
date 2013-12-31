@@ -73,10 +73,9 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.search.Searcher;
 
 /** {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer
- * KRSSObjectRenderer} which uses the extended vocabulary.
- * <p/>
+ * KRSSObjectRenderer} which uses the extended vocabulary. <br>
  * <b>Abbreviations</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="Abbreviations">
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -94,105 +93,92 @@ import org.semanticweb.owlapi.search.Searcher;
  * <td>role expressions, i.e. role name or inverse role</td>
  * </tr>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS concept language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="KRSS concept language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLClassExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-least n R C)</td>
  * <td>(OWLObjectMinCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-most n R C)</td>
  * <td>(OWLObjectMaxCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(exactly n R C)</td>
  * <td>(OWLObjectExactCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(some R C)</td>
  * <td>(OWLObjectSomeValuesFrom R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(all R C)</td>
  * <td>(OWLObjectAllValuesFrom R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(not C)</td>
  * <td>(OWLObjectComplementOf C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(and C D E)</td>
  * <td>(OWLObjectIntersectionOf C D E)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(or C D E)</td>
  * <td>(OWLObjectUnionOf C D E)</td>
  * </tr>
- * <p/>
- * <p/>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS role language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="KRSS role language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(inv R)</td>
  * <td>(OWLInverseObjectPropertiesAxiom R)</td>
  * </tr>
- * <p/>
  * </table>
  * Each referenced class, object property as well as individual is defined using
  * <i>define-concept</i> resp. <i>define-primitive-concept</i>,
  * <i>define-role</i> and <i>define-individual</i>. In addition, axioms are
- * translated as follows.
- * <p/>
- * <table bordercolor="#000200" border="1">
- * <th>OWLAxiom</th>
- * <th>KRSS syntax</th>
- * <th>Remarks</th>
- * <p/>
+ * translated as follows. <br>
+ * <table summary="remarks">
+ * <tr>
+ * <td>KRSS2</td>
+ * <td>OWLAxiom</td>
+ * <td>KRSS syntax</td>
+ * <td>Remarks</td>
+ * </tr>
  * <tr>
  * <td>OWLDisjointClassesAxiom</td>
  * <td>(disjoint C D)</td>
- * <td><i>OWLDisjointClasses C D1 D2 ... Dn</i> will be translated to: <br>
- * { (disjoint i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
+ * <td><i>OWLDisjointClasses C D1 D2 ... Dn</i> { (disjoint i(j) i(j+k)) | 1
+ * &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
  * </td>
  * </tr>
  * <tr>
  * <td>OWLEquivalentClasses</td>
  * <td>(define-concept C D)</td>
  * <td><i>OWLEquivalentClasses C D1 D2...Dn</i> will be translated to:<br>
- * (define-concept C (and D1 D2...Dn))
- * <p/>
- * Only applicable if there is no OWLSubClassOf axiom.
- * <p></td>
+ * (define-concept C (and D1 D2...Dn)) <br>
+ * Only applicable if there is no OWLSubClassOf axiom. <br>
+ * </td>
  * </tr>
  * <tr>
  * <td>OWLSubClassOfAxiom</td>
  * <td>(define-primitive-concept C D)</td>
- * <td><i>OWLSubClassOfAxiom C D1...Dn</i> (n>1) will be translated to:<br>
- * (define-primitive-concept C (and D1...Dn))
- * <p/>
+ * <td><i>OWLSubClassOfAxiom C D1...Dn</i> (n &gt; 1) will be translated to:<br>
+ * (define-primitive-concept C (and D1...Dn)) <br>
  * Only applicable if there is no OWLEquivalentClasses axiom. In that case the
  * class will be introduced via (define-concept...) and all subclass axioms are
- * handled via implies <br></td>
+ * handled via implies</td>
  * </tr>
  * <tr>
  * <td>OWLSubClassOfAxiom</td>
@@ -201,13 +187,11 @@ import org.semanticweb.owlapi.search.Searcher;
  * case that D is a non-primitive concept. Otherwise superclasses are introduced
  * via (define-primitive-concept D ...)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLEquivalentObjectPropertiesAxiom</td>
  * <td>(roles-equivalent r s)</td>
  * <td>All roles are explicitly introduced via define-primitive-role.</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLSubPropertyChainOfAxiom</td>
  * <td>(role-inclusion (compose r s) t)</td>
@@ -216,13 +200,10 @@ import org.semanticweb.owlapi.search.Searcher;
  * (define-primitive-role) statement as right- resp. left-identities iff it is
  * the only role-inclusion wrt. the super property.</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLSubObjectPropertyAxiom</td>
- * <td>(define-primitive-role R :parent S)
- * <p>
- * (define-primitive-role R :parents S T U)
- * <p>
+ * <td>(define-primitive-role R :parent S)<br>
+ * (define-primitive-role R :parents S T U)<br>
  * Additional attributes:
  * <ul>
  * <li>:transitive t
@@ -242,15 +223,12 @@ import org.semanticweb.owlapi.search.Searcher;
  * here, all others are handled via (inverse) statements. Domains/ranges of
  * multiple domain/range axioms are handled as (and C C1...Cn).</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLSubObjectPropertyAxiom</td>
  * <td>(implies-role r s)</td>
  * <td>Only applicable if r is an inverse property, otherwise superproperties
  * are handled within the define-primitive-role statement.</td>
  * </tr>
- * <p/>
- * <p/>
  * <tr>
  * <td>OWLInverseObjectPropertiesAxiom</td>
  * <td>(inverse r s)</td>
@@ -262,7 +240,6 @@ import org.semanticweb.owlapi.search.Searcher;
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLObjectPropertyDomainAxiom</td>
  * <td></td>
@@ -273,22 +250,19 @@ import org.semanticweb.owlapi.search.Searcher;
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLTransitiveObjectPropertyAxiom</td>
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLReflexiveObjectPropertyAxiom</td>
  * <td></td>
  * <td>see define-primitive-role</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLClassAssertionAxiom</td>
- * <td>(instance i D)</td> </td></td>
+ * <td>(instance i D)</td>
  * </tr>
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
@@ -312,12 +286,9 @@ import org.semanticweb.owlapi.search.Searcher;
  * ...<br>
  * (equal i(n-1) in)</td>
  * </tr>
- * <p/>
  * </table>
- * <p/>
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * 
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
     /** If declarations are ignored, entities which are only referenced in a
@@ -325,13 +296,16 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     protected boolean ignoreDeclarations = false;
 
     /** @param ontology
-     * @param writer */
+     *            ontology to render
+     * @param writer
+     *            writer to render to */
     public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
 
-    /** @param ignoreDeclarations */
+    /** @param ignoreDeclarations
+     *            true if declarations should be ignored */
     public void setIgnoreDeclarations(boolean ignoreDeclarations) {
         this.ignoreDeclarations = ignoreDeclarations;
     }

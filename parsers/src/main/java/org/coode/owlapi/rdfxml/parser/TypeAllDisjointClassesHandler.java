@@ -46,13 +46,11 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Apr-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Apr-2008 */
 public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TypeAllDisjointClassesHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES.getIRI());
     }

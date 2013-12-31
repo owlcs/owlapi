@@ -42,19 +42,19 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br>
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
  * @param <P>
- * @param <F> */
+ *            property type
+ * @param <F>
+ *            filler type */
 public abstract class AbstractRestrictionElementHandler<P extends OWLPropertyExpression, F extends OWLObject>
         extends AbstractClassExpressionElementHandler {
     private P property;
     private F filler;
 
+    /** @param handler
+     *            owlxml handler */
     protected AbstractRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

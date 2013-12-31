@@ -43,14 +43,13 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 23-Apr-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 23-Apr-2009 */
 public class OWLDataIntersectionOfElementHandler extends AbstractOWLDataRangeHandler {
     private Set<OWLDataRange> dataRanges = new HashSet<OWLDataRange>();
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLDataIntersectionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

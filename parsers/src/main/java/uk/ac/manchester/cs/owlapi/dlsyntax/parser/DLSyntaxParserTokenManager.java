@@ -52,14 +52,14 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         debugStream = ds;
     }
 
-    private final int jjStopStringLiteralDfa_0(int pos, long active0) {
+    private int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
             default:
                 return -1;
         }
     }
 
-    private final int jjStartNfa_0(int pos, long active0) {
+    private int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
 
@@ -982,8 +982,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+    private final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec1[i2] & l2) != 0L;
@@ -992,8 +991,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+    private final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -1002,8 +1000,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec3[i2] & l2) != 0L;
@@ -1012,8 +1009,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 32:
                 return (jjbitVec4[i2] & l2) != 0L;
@@ -1022,8 +1018,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec5[i2] & l2) != 0L;
@@ -1032,8 +1027,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec6[i2] & l2) != 0L;
@@ -1042,8 +1036,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec7[i2] & l2) != 0L;
@@ -1052,8 +1045,7 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private static final boolean
-            jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2) {
+    private boolean jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec8[i2] & l2) != 0L;

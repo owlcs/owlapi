@@ -47,12 +47,11 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 01-Jun-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Jun-2009 */
 public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPPropertyChainAxiomHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_CHAIN_AXIOM.getIRI());
     }

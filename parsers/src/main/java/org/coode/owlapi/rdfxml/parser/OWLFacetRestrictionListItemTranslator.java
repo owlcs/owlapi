@@ -43,15 +43,14 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 02-Feb-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009 */
 public class OWLFacetRestrictionListItemTranslator implements
         ListItemTranslator<OWLFacetRestriction> {
     private OWLRDFConsumer consumer;
 
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

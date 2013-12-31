@@ -51,14 +51,11 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 28-Nov-2007<br>
- * <br>
- * <p/>
- * An entity checker that maps from string to entities using a bidirectional
- * short form provider. */
+/** An entity checker that maps from string to entities using a bidirectional
+ * short form provider.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 28-Nov-2007 */
 public class ShortFormEntityChecker implements OWLEntityChecker {
     private final BidirectionalShortFormProvider shortFormProvider;
 

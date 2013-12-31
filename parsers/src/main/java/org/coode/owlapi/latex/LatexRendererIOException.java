@@ -40,15 +40,14 @@ package org.coode.owlapi.latex;
 
 import java.io.IOException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jun-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jun-2007 */
+// XXX do we need these exceptions?
 public class LatexRendererIOException extends LatexRendererException {
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause */
+    /** @param cause
+     *            cause */
     public LatexRendererIOException(IOException cause) {
         super(cause);
     }

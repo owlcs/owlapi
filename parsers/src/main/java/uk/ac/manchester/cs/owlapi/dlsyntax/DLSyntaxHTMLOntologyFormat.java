@@ -40,11 +40,8 @@ package uk.ac.manchester.cs.owlapi.dlsyntax;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Feb-2008 */
 public class DLSyntaxHTMLOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
 

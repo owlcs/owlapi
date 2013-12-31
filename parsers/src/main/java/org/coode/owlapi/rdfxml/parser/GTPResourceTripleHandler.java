@@ -41,12 +41,11 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18/03/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 18/03/2011 */
 public class GTPResourceTripleHandler extends AbstractResourceTripleHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public GTPResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

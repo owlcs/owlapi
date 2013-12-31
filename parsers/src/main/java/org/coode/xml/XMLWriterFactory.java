@@ -42,16 +42,10 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 30-May-2006<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * Developed as part of the CO-ODE project http://www.co-ode.org */
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterFactory {
     private static XMLWriterFactory instance = new XMLWriterFactory();
 
@@ -62,11 +56,15 @@ public class XMLWriterFactory {
         return instance;
     }
 
-    /** @return an XMLWriter.
+    /** Creates an XMLWriter.
+     * 
      * @param writer
      *            The {@code Writer} that the XMLWriter will actually write to
      * @param xmlWriterNamespaceManager
-     * @param xmlBase */
+     *            xmlWriterNamespaceManager
+     * @param xmlBase
+     *            xmlBase
+     * @return xml writer */
     public XMLWriter createXMLWriter(@Nonnull Writer writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {

@@ -42,45 +42,53 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br>
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
  * @param <P>
- * @param <O> */
+ *            property type
+ * @param <O>
+ *            object type */
 public abstract class AbstractOWLAssertionAxiomElementHandler<P extends OWLPropertyExpression, O extends OWLObject>
         extends AbstractOWLAxiomElementHandler {
     private OWLIndividual subject;
     private P property;
     private O object;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public AbstractOWLAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
+    /** @return subject */
     protected OWLIndividual getSubject() {
         return subject;
     }
 
+    /** @return property */
     protected P getProperty() {
         return property;
     }
 
+    /** @return object */
     protected O getObject() {
         return object;
     }
 
+    /** @param subject
+     *            subject */
     protected void setSubject(OWLIndividual subject) {
         this.subject = subject;
     }
 
+    /** @param property
+     *            property */
     protected void setProperty(P property) {
         this.property = property;
     }
 
+    /** @param object
+     *            object */
     protected void setObject(O object) {
         this.object = object;
     }

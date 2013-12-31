@@ -92,10 +92,9 @@ import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
- * syntax. Note that only a subset of OWL can be expressed in KRSS.
- * <p/>
+ * syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="abbreviations">
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -113,89 +112,76 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * <td>role expressions, i.e. role name or inverse role</td>
  * </tr>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS concept language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="krss concept language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLClassExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-least n R C)</td>
  * <td>(OWLObjectMinCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-most n R C)</td>
  * <td>(OWLObjectMaxCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(exactly n R C)</td>
  * <td>(OWLObjectExactCardinality R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(some R C)</td>
  * <td>(OWLObjectSomeValuesFrom R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(all R C)</td>
  * <td>(OWLObjectAllValuesFrom R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(not C)</td>
  * <td>(OWLObjectComplementOf C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(and C D E)</td>
  * <td>(OWLObjectIntersectionOf C D E)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(or C D E)</td>
  * <td>(OWLObjectUnionOf C D E)</td>
  * </tr>
- * <p/>
- * <p/>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS role language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="krss role language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(inv R)</td>
  * <td>(OWLInverseObjectPropertiesAxiom R)</td>
  * </tr>
- * <p/>
  * </table>
- * <p/>
- * <p/>
+ * <br>
  * Each referenced class, object property as well as individual is defined using
  * <i>define-concept</i> resp. <i>define-primitive-concept</i>,
  * <i>define-role</i> and <i>define-individual</i>. In addition, axioms are
- * translated as follows.
- * <p/>
- * <table bordercolor="#000200" border="1">
- * <th>OWLAxiom</th>
- * <th>KRSS syntax</th>
- * <th>Remarks</th>
+ * translated as follows. <br>
+ * <table summary="remarks">
+ * <tr>
+ * <td>OWLAxiom</td>
+ * <td>KRSS syntax</td>
+ * <td>Remarks</td>
+ * </tr>
  * <tr>
  * <td>OWLEquivalentClasses</td>
  * <td>(define-concept C D)</td>
  * <td><i>OWLEquivalentClasses C D1 D2...Dn</i> will be translated to:<br>
- * (define-concept C (and D1 D2...Dn))
- * <p/>
- * Only applicable if there is no OWLSubClassOf axiom.
- * <p></td>
+ * (define-concept C (and D1 D2...Dn)) <br>
+ * Only applicable if there is no OWLSubClassOf axiom. <br>
+ * </td>
  * </tr>
  * <tr>
  * <td>OWLDisjointClassesAxiom</td>
@@ -207,13 +193,11 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * <td>OWLSubClassOf</td>
  * <td>(define-primitive-concept C D)</td>
  * <td>Multiple OWLSubClassOf axioms for C will be combined: <br>
- * (define-primitive-concept C (and D1...Dn))
- * <p/>
+ * (define-primitive-concept C (and D1...Dn)) <br>
  * Only applicable if there is no OWLEquivalentClasses axiom.<br>
  * KRSS does not allow both define-concept C and define-primitive-concept C.
  * GCIs not supported in KRSS (see KRSS2)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>OWLEquivalentObjectPropertiesAxiom</td>
  * <td>(define-role R S)</td>
@@ -239,18 +223,17 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * </tr>
  * <tr>
  * <td>OWLTransitiveObjectPropertyAxiom</td>
- * <td>(transitive P)</td> </td></td>
+ * <td>(transitive P)</td>
  * </tr>
  * <tr>
  * <td>OWLClassAssertionAxiom</td>
- * <td>(instance i D)</td> </td></td>
+ * <td>(instance i D)</td>
  * </tr>
  * <tr>
  * <td>OWLDifferentIndividualsAxiom</td>
  * <td>(distinct i1 i2)</td>
  * <td><i>OWLDifferentIndividualsAxiom i1 i2 ... in</i> will be splitted into:<br>
- * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k} <br>
- * </td>
+ * { (distinct i(j) i(j+k)) | 1 &lt;= j &lt;=n, j&lt;k&lt;=n, j=|=k}</td>
  * </tr>
  * <tr>
  * <td>OWLObjectPropertyAssertionAxiom</td>
@@ -265,9 +248,8 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * </td>
  * </tr>
  * </table>
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * 
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     private static final String OPEN_BRACKET = "(";
     private static final String CLOSE_BRACKET = ")";

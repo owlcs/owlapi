@@ -59,11 +59,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006 */
 public class OWLXMLParser extends AbstractOWLParser {
     @Override
     public String getName() {

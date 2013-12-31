@@ -43,13 +43,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Jan-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Jan-2007 */
 public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPFirstLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

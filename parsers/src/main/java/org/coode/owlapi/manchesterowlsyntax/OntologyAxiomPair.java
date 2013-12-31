@@ -41,16 +41,16 @@ package org.coode.owlapi.manchesterowlsyntax;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 18-Feb-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Feb-2009 */
 public class OntologyAxiomPair {
     private OWLOntology ontology;
     private OWLAxiom axiom;
 
     /** @param ontology
-     * @param axiom */
+     *            ontology
+     * @param axiom
+     *            axiom */
     public OntologyAxiomPair(OWLOntology ontology, OWLAxiom axiom) {
         this.ontology = ontology;
         this.axiom = axiom;

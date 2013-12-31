@@ -44,17 +44,10 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** User: matthewhorridge<br>
- * The Univeristy Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: May 30, 2006<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * <p/>
- * Developed as part of the CO-ODE project http://www.co-ode.org */
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The Univeristy Of Manchester, Medical Informatics
+ *         Group, Date: May 30, 2006 */
 public interface XMLWriter {
     /** Sets the encoding for the document that the rdfwriter produces. The
      * default encoding is "UTF-8".
@@ -146,6 +139,8 @@ public interface XMLWriter {
     void writeTextContent(@Nonnull String text) throws IOException;
 
     /** @param commentText
-     * @throws IOException */
+     *            commentText
+     * @throws IOException
+     *             if there was an IO problem */
     void writeComment(@Nonnull String commentText) throws IOException;
 }

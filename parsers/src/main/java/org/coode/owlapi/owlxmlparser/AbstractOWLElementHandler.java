@@ -46,27 +46,34 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br>
- * 
- * @param <O> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006
+ * @param <O>
+ *            handled type */
 public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<O> {
     private OWLXMLParserHandler handler;
     private OWLElementHandler<?> parentHandler;
     private StringBuilder sb;
     private String elementName;
 
+    /** @param handler
+     *            owlxml handler */
     protected AbstractOWLElementHandler(OWLXMLParserHandler handler) {
         this.handler = handler;
     }
 
+    /** @return loader config */
     protected OWLOntologyLoaderConfiguration getConfiguration() {
         return handler.getConfiguration();
     }
 
+    /** @param localName
+     *            localName
+     * @param value
+     *            value
+     * @return iri
+     * @throws OWLParserException
+     *             if an error is raised */
     protected IRI getIRIFromAttribute(String localName, String value)
             throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName())) {
@@ -208,7 +215,7 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
             throws OWLXMLParserException {}
 
     @Override
-    final public void handleChars(char[] chars, int start, int length) {
+    public void handleChars(char[] chars, int start, int length) {
         if (isTextContentPossible()) {
             if (sb == null) {
                 sb = new StringBuilder();

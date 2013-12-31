@@ -45,14 +45,15 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Feb-2008<br>
- * <br> */
+/** The Class OWLRDFConsumerAdapter.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Feb-2008 */
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
     /** @param ontology
-     * @param configuration */
+     *            ontology
+     * @param configuration
+     *            configuration */
     public OWLRDFConsumerAdapter(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);

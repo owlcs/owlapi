@@ -43,15 +43,14 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 21-May-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 21-May-2009 */
 public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLEntity entity;
     private OWLAnnotation annotation;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public LegacyEntityAnnotationElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

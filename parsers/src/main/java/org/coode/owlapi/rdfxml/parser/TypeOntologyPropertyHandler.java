@@ -42,12 +42,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 17/12/2010 */
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_ONTOLOGY_PROPERTY);
     }

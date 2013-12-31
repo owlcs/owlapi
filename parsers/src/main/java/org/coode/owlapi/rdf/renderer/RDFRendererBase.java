@@ -93,11 +93,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Jan-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008 */
 public abstract class RDFRendererBase {
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
     private static final String DATATYPES_BANNER_TEXT = "Datatypes";
@@ -106,7 +103,9 @@ public abstract class RDFRendererBase {
     private static final String CLASSES_BANNER_TEXT = "Classes";
     private static final String INDIVIDUALS_BANNER_TEXT = "Individuals";
     private static final String ANNOTATED_IRIS_BANNER_TEXT = "Annotations";
+    /** general axioms */
     private static final String GENERAL_AXIOMS_BANNER_TEXT = "General axioms";
+    /** rules banner */
     private static final String RULES_BANNER_TEXT = "Rules";
     private static final OWLEntityIRIComparator OWL_ENTITY_IRI_COMPARATOR = new OWLEntityIRIComparator();
     protected OWLOntology ontology;
@@ -123,7 +122,8 @@ public abstract class RDFRendererBase {
                 RDFS_DATATYPE.getIRI(), OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
     }
 
-    /** @param ontology */
+    /** @param ontology
+     *            ontology */
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
     }
@@ -217,7 +217,8 @@ public abstract class RDFRendererBase {
     protected abstract void writeIndividualComments(OWLNamedIndividual ind)
             throws IOException;
 
-    /** @throws IOException */
+    /** @throws IOException
+     *             io error */
     public void render() throws IOException {
         beginDocument();
         renderOntologyHeader();
@@ -624,7 +625,8 @@ public abstract class RDFRendererBase {
         return results;
     }
 
-    /** @throws IOException */
+    /** @throws IOException
+     *             io error */
     public void renderAnonRoots() throws IOException {
         for (RDFResourceBlankNode node : graph.getRootAnonymousNodes()) {
             render(node);

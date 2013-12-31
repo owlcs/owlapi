@@ -63,7 +63,11 @@ public class TokenMgrError extends Error {
     int errorCode;
 
     /** Replaces unprintable characters by their escaped (or unicode escaped)
-     * equivalents in the given string */
+     * equivalents in the given string.
+     * 
+     * @param str
+     *            string to escape
+     * @return escaped string */
     protected static final String addEscapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;
@@ -115,7 +119,21 @@ public class TokenMgrError extends Error {
      * errorColumn : column number when the error occurred errorAfter : prefix
      * that was seen before this error occurred curchar : the offending
      * character Note: You can customize the lexical error message by modifying
-     * this method. */
+     * this method.
+     * 
+     * @param EOFSeen
+     *            EOFSeen
+     * @param lexState
+     *            lexState
+     * @param errorLine
+     *            errorLine
+     * @param errorColumn
+     *            errorColumn
+     * @param errorAfter
+     *            errorAfter
+     * @param curChar
+     *            curChar
+     * @return error */
     protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine,
             int errorColumn, String errorAfter, char curChar) {
         return "Lexical error at line "
@@ -144,13 +162,33 @@ public class TokenMgrError extends Error {
     /** No arg constructor. */
     public TokenMgrError() {}
 
-    /** Constructor with message and reason. */
+    /** Constructor with message and reason.
+     * 
+     * @param message
+     *            the message
+     * @param reason
+     *            the reason */
     public TokenMgrError(String message, int reason) {
         super(message);
         errorCode = reason;
     }
 
-    /** Full Constructor. */
+    /** Full Constructor.
+     * 
+     * @param EOFSeen
+     *            EOFSeen
+     * @param lexState
+     *            lexState
+     * @param errorLine
+     *            errorLine
+     * @param errorColumn
+     *            errorColumn
+     * @param errorAfter
+     *            errorAfter
+     * @param curChar
+     *            curChar
+     * @param reason
+     *            reason */
     public TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
             String errorAfter, char curChar, int reason) {
         this(

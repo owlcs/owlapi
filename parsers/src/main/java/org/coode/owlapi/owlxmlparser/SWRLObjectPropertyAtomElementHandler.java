@@ -43,16 +43,15 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 08-Oct-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 08-Oct-2009 */
 public class SWRLObjectPropertyAtomElementHandler extends SWRLAtomElementHandler {
     private OWLObjectPropertyExpression prop;
     private SWRLIArgument arg0 = null;
     private SWRLIArgument arg1 = null;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public SWRLObjectPropertyAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

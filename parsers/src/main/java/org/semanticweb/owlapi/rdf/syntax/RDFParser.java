@@ -117,7 +117,9 @@ public class RDFParser extends DefaultHandler {
      * @param consumer
      *            receives notifications about RDF parsing events
      * @throws SAXException
-     * @throws IOException */
+     *             SAXException
+     * @throws IOException
+     *             IOException */
     public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
             throws SAXException, IOException {
         String systemID = checkNotNull(source, "source cannot be null").getSystemId();
@@ -269,7 +271,10 @@ public class RDFParser extends DefaultHandler {
         state = s;
     }
 
-    /** Pops a state from the stack. */
+    /** Pops a state from the stack.
+     * 
+     * @throws SAXException
+     *             SAXException */
     protected void popState() throws SAXException {
         int size = m_states.size();
         if (size == 0) {
@@ -287,7 +292,9 @@ public class RDFParser extends DefaultHandler {
     /** Checks if attribute list contains some of the unsupported attributes.
      * 
      * @param atts
-     *            the attributes */
+     *            the attributes
+     * @throws SAXException
+     *             SAXException */
     protected void checkUnsupportedAttributes(@Nonnull Attributes atts)
             throws SAXException {
         checkNotNull(atts, "atts cannot be null");
@@ -321,7 +328,9 @@ public class RDFParser extends DefaultHandler {
     /** Processes xml:base reference if there is one.
      * 
      * @param atts
-     *            the attributes potentially containing xml:base declaration */
+     *            the attributes potentially containing xml:base declaration
+     * @throws SAXException
+     *             SAXException */
     protected void processXMLBase(@Nonnull Attributes atts) throws SAXException {
         checkNotNull(atts, "atts cannot be null");
         m_baseIRIs.add(0, m_baseIRI);
@@ -357,7 +366,9 @@ public class RDFParser extends DefaultHandler {
      * 
      * @param uri
      *            the IRI being resolved
-     * @return the resolved IRI */
+     * @return the resolved IRI
+     * @throws SAXException
+     *             SAXException */
     @Nonnull
     protected String resolveIRI(@Nonnull String uri) throws SAXException {
         checkNotNull(uri, "uri cannot be null");
@@ -394,26 +405,50 @@ public class RDFParser extends DefaultHandler {
         }
     }
 
-    /** Returns an absolute IRI from an ID. */
+    /** Returns an absolute IRI from an ID.
+     * 
+     * @param id
+     *            id
+     * @return string for IRI
+     * @throws SAXException
+     *             SAXException */
     @Nonnull
     protected String getIRIFromID(@Nonnull String id) throws SAXException {
         return resolveIRI("#" + id);
     }
 
-    /** Returns an absolute IRI from an about attribute. */
+    /** Returns an absolute IRI from an about attribute.
+     * 
+     * @param about
+     *            about
+     * @return string for IRI
+     * @throws SAXException
+     *             SAXException */
     @Nonnull
     protected String getIRIFromAbout(@Nonnull String about) throws SAXException {
         return resolveIRI(about);
     }
 
-    /** Returns an absolute IRI from a resource attribute. */
+    /** Returns an absolute IRI from a resource attribute.
+     * 
+     * @param resource
+     *            resource
+     * @return string for IRI
+     * @throws SAXException
+     *             SAXException */
     @Nonnull
     protected String getIRIFromResource(@Nonnull String resource) throws SAXException {
         return resolveIRI(resource);
     }
 
     /** Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
-     * attribute. If no attribute is found, an IRI is generated. */
+     * attribute. If no attribute is found, an IRI is generated.
+     * 
+     * @param atts
+     *            atts
+     * @return string for IRI
+     * @throws SAXException
+     *             SAXException */
     @Nonnull
     protected String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
@@ -452,7 +487,9 @@ public class RDFParser extends DefaultHandler {
      * 
      * @param atts
      *            the attributes
-     * @return the IRI of the resource or {@code null} */
+     * @return the IRI of the resource or {@code null}
+     * @throws SAXException
+     *             SAXException */
     @Nullable
     protected String getNodeIDResourceResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
@@ -480,7 +517,9 @@ public class RDFParser extends DefaultHandler {
      *            IRI of the object resource
      * @param reificationID
      *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement */
+     *            wold the reified statement
+     * @throws SAXException
+     *             SAXException */
     protected void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String reificationID) throws SAXException {
@@ -506,7 +545,9 @@ public class RDFParser extends DefaultHandler {
      *            the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
      *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement */
+     *            wold the reified statement
+     * @throws SAXException
+     *             SAXException */
     protected void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object, @Nullable String dataType,
             @Nullable String reificationID) throws SAXException {
@@ -529,7 +570,9 @@ public class RDFParser extends DefaultHandler {
      * @param atts
      *            attributes
      * @param reificationManager
-     *            the reification manager */
+     *            the reification manager
+     * @throws SAXException
+     *             SAXException */
     protected void propertyAttributes(@Nonnull String subjectIRI,
             @Nonnull Attributes atts, @Nonnull ReificationManager reificationManager)
             throws SAXException {
@@ -599,7 +642,9 @@ public class RDFParser extends DefaultHandler {
      * 
      * @param atts
      *            the attributes
-     * @return the reification manager */
+     * @return the reification manager
+     * @throws SAXException
+     *             SAXException */
     protected ReificationManager getReificationManager(Attributes atts)
             throws SAXException {
         String bagIDAttr = atts.getValue(RDFNS, ATTR_BAG_ID);
@@ -652,6 +697,7 @@ public class RDFParser extends DefaultHandler {
     }
 
     /** @param s
+     *            string
      * @return iri */
     @Nonnull
     public IRI getIRI(@Nonnull String s) {

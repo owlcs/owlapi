@@ -41,14 +41,13 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.xml.sax.SAXException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 07-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009 */
 public class TranslatedOntologyChangeException extends SAXException {
     private static final long serialVersionUID = 40000L;
 
-    /** @param e */
+    /** @param e
+     *            cause */
     public TranslatedOntologyChangeException(OWLOntologyChangeException e) {
         super(e);
     }

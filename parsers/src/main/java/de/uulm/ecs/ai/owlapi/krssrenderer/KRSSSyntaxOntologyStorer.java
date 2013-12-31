@@ -47,10 +47,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSSObjectRenderer
- * KRSSObjectRenderer} for definition/explanation of the syntax. Author: Olaf
- * Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * KRSSObjectRenderer} for definition/explanation of the syntax.
+ * 
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 

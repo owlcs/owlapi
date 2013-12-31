@@ -42,16 +42,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLIndividual individual;
     private OWLClassExpression classExpression;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLClassAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

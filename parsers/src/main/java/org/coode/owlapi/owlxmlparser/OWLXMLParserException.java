@@ -40,17 +40,17 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007 */
 public class OWLXMLParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
     /** @param message
+     *            message
      * @param lineNumber
-     * @param columnNumber */
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
     public OWLXMLParserException(String message, int lineNumber, int columnNumber) {
         super(message, lineNumber, columnNumber);
     }

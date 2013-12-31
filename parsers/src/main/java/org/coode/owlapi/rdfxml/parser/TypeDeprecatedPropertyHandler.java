@@ -42,12 +42,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 10-Dec-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 10-Dec-2009 */
 public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_PROPERTY.getIRI());
     }

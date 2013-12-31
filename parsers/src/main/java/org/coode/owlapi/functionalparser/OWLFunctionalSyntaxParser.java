@@ -146,7 +146,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    final public OWLFunctionalSyntaxOntologyFormat parse() throws ParseException,
+    public OWLFunctionalSyntaxOntologyFormat parse() throws ParseException,
             UnloadableImportException {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
@@ -163,7 +163,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return format;
     }
 
-    final public void Ontology() throws ParseException, UnloadableImportException {
+    public void Ontology() throws ParseException, UnloadableImportException {
         OWLAnnotation anno;
         OWLAxiom ax;
         OWLImportsDeclaration decl;
@@ -206,7 +206,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         jj_consume_token(CLOSEPAR);
     }
 
-    final public void Prefix() throws ParseException {
+    public void Prefix() throws ParseException {
         String prefixName = "";
         IRI iri;
         jj_consume_token(PREFIX);
@@ -218,7 +218,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         prefixMap.put(prefixName, iri.toString());
     }
 
-    final public IRI IRI() throws ParseException {
+    public IRI IRI() throws ParseException {
         IRI iri;
         if (jj_2_8(2)) {
             iri = FullIRI();
@@ -231,19 +231,19 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return iri;
     }
 
-    final public IRI FullIRI() throws ParseException {
+    public IRI FullIRI() throws ParseException {
         Token t;
         t = jj_consume_token(FULLIRI);
         return getIRI(t.image);
     }
 
-    final public IRI AbbreviatedIRI() throws ParseException {
+    public IRI AbbreviatedIRI() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_LN);
         return getIRI(t.image);
     }
 
-    final public String PrefixName() throws ParseException {
+    public String PrefixName() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_NS);
         return t.image;
@@ -254,7 +254,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Class Descriptions
     //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLClassExpression ClassExpression() throws ParseException {
+    public OWLClassExpression ClassExpression() throws ParseException {
         OWLClassExpression desc;
         if (jj_2_10(2)) {
             desc = ClassIRI();
@@ -299,13 +299,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return desc;
     }
 
-    final public OWLClass ClassIRI() throws ParseException {
+    public OWLClass ClassIRI() throws ParseException {
         IRI iri;
         iri = IRI();
         return dataFactory.getOWLClass(iri);
     }
 
-    final public Set<OWLClassExpression> ClassExpressionSet() throws ParseException {
+    public Set<OWLClassExpression> ClassExpressionSet() throws ParseException {
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         OWLClassExpression desc;
         desc = ClassExpression();
@@ -322,7 +322,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return classExpressions;
     }
 
-    final public Set<OWLIndividual> IndividualMinOneSet() throws ParseException {
+    public Set<OWLIndividual> IndividualMinOneSet() throws ParseException {
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
         OWLIndividual ind;
         ind = Individual();
@@ -337,7 +337,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return individuals;
     }
 
-    final public OWLClassExpression ObjectUnionOf() throws ParseException {
+    public OWLClassExpression ObjectUnionOf() throws ParseException {
         Set<OWLClassExpression> classExpressions;
         jj_consume_token(OBJECTUNIONOF);
         jj_consume_token(OPENPAR);
@@ -346,7 +346,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectUnionOf(classExpressions);
     }
 
-    final public OWLClassExpression ObjectIntersectionOf() throws ParseException {
+    public OWLClassExpression ObjectIntersectionOf() throws ParseException {
         Set<OWLClassExpression> classExpressions;
         jj_consume_token(OBJECTINTERSECTIONOF);
         jj_consume_token(OPENPAR);
@@ -355,7 +355,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectIntersectionOf(classExpressions);
     }
 
-    final public OWLClassExpression ObjectComplementOf() throws ParseException {
+    public OWLClassExpression ObjectComplementOf() throws ParseException {
         OWLClassExpression operand;
         jj_consume_token(OBJECTCOMPLEMENTOF);
         jj_consume_token(OPENPAR);
@@ -364,7 +364,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectComplementOf(operand);
     }
 
-    final public OWLClassExpression ObjectOneOf() throws ParseException {
+    public OWLClassExpression ObjectOneOf() throws ParseException {
         Set<OWLIndividual> individuals;
         jj_consume_token(OBJECTONEOF);
         jj_consume_token(OPENPAR);
@@ -373,7 +373,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectOneOf(individuals);
     }
 
-    final public OWLClassExpression ObjectAllValuesFrom() throws ParseException {
+    public OWLClassExpression ObjectAllValuesFrom() throws ParseException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
         jj_consume_token(OBJECTALLVALUESFROM);
@@ -384,7 +384,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
-    final public OWLClassExpression ObjectSomeValuesFrom() throws ParseException {
+    public OWLClassExpression ObjectSomeValuesFrom() throws ParseException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
         jj_consume_token(OBJECTSOMEVALUESFROM);
@@ -395,7 +395,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
-    final public OWLClassExpression ObjectHasValue() throws ParseException {
+    public OWLClassExpression ObjectHasValue() throws ParseException {
         OWLObjectPropertyExpression prop;
         OWLIndividual ind;
         jj_consume_token(OBJECTHASVALUE);
@@ -406,7 +406,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectHasValue(prop, ind);
     }
 
-    final public OWLClassExpression ObjectSelf() throws ParseException {
+    public OWLClassExpression ObjectSelf() throws ParseException {
         OWLObjectPropertyExpression prop;
         jj_consume_token(OBJECTHASSELF);
         jj_consume_token(OPENPAR);
@@ -415,7 +415,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectHasSelf(prop);
     }
 
-    final public OWLClassExpression ObjectMinCardinality() throws ParseException {
+    public OWLClassExpression ObjectMinCardinality() throws ParseException {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
         OWLClassExpression filler = null;
@@ -434,7 +434,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         }
     }
 
-    final public OWLClassExpression ObjectExactCardinality() throws ParseException {
+    public OWLClassExpression ObjectExactCardinality() throws ParseException {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
         OWLClassExpression filler = null;
@@ -452,7 +452,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectExactCardinality(cardinality, prop, filler);
     }
 
-    final public OWLClassExpression ObjectMaxCardinality() throws ParseException {
+    public OWLClassExpression ObjectMaxCardinality() throws ParseException {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
         OWLClassExpression filler = null;
@@ -470,7 +470,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectMaxCardinality(cardinality, prop, filler);
     }
 
-    final public OWLClassExpression DataAllValuesFrom() throws ParseException {
+    public OWLClassExpression DataAllValuesFrom() throws ParseException {
         OWLDataPropertyExpression prop = null;
         OWLDataRange dataRange = null;
         jj_consume_token(DATAALLVALUESFROM);
@@ -481,7 +481,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
     }
 
-    final public OWLClassExpression DataSomeValuesFrom() throws ParseException {
+    public OWLClassExpression DataSomeValuesFrom() throws ParseException {
         OWLDataPropertyExpression prop = null;
         OWLDataRange dataRange = null;
         jj_consume_token(DATASOMEVALUESFROM);
@@ -492,7 +492,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
     }
 
-    final public OWLClassExpression DataHasValue() throws ParseException {
+    public OWLClassExpression DataHasValue() throws ParseException {
         OWLDataPropertyExpression prop = null;
         OWLLiteral literal = null;
         jj_consume_token(DATAHASVALUE);
@@ -503,7 +503,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataHasValue(prop, literal);
     }
 
-    final public OWLClassExpression DataMinCardinality() throws ParseException {
+    public OWLClassExpression DataMinCardinality() throws ParseException {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
         OWLDataRange rng = null;
@@ -521,7 +521,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataMinCardinality(cardinality, prop, rng);
     }
 
-    final public OWLClassExpression DataExactCardinality() throws ParseException {
+    public OWLClassExpression DataExactCardinality() throws ParseException {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
         OWLDataRange rng = null;
@@ -539,7 +539,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataExactCardinality(cardinality, prop, rng);
     }
 
-    final public OWLClassExpression DataMaxCardinality() throws ParseException {
+    public OWLClassExpression DataMaxCardinality() throws ParseException {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
         OWLDataRange rng = null;
@@ -557,7 +557,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataMaxCardinality(cardinality, prop, rng);
     }
 
-    final public OWLClass Class() throws ParseException {
+    public OWLClass Class() throws ParseException {
         OWLClass cls;
         jj_consume_token(CLASS);
         jj_consume_token(OPENPAR);
@@ -566,8 +566,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return cls;
     }
 
-    final public OWLObjectPropertyExpression ObjectPropertyExpression()
-            throws ParseException {
+    public OWLObjectPropertyExpression ObjectPropertyExpression() throws ParseException {
         OWLObjectPropertyExpression prop;
         if (jj_2_36(2)) {
             prop = InverseObjectProperty();
@@ -580,8 +579,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return prop;
     }
 
-    final public OWLObjectPropertyExpression InverseObjectProperty()
-            throws ParseException {
+    public OWLObjectPropertyExpression InverseObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         jj_consume_token(OBJECTINVERSEOF);
         jj_consume_token(OPENPAR);
@@ -590,7 +588,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectInverseOf(prop);
     }
 
-    final public OWLObjectProperty ObjectProperty() throws ParseException {
+    public OWLObjectProperty ObjectProperty() throws ParseException {
         OWLObjectProperty prop;
         jj_consume_token(OBJECTPROP);
         jj_consume_token(OPENPAR);
@@ -599,19 +597,19 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return prop;
     }
 
-    final public OWLDataPropertyExpression DataPropertyExpression() throws ParseException {
+    public OWLDataPropertyExpression DataPropertyExpression() throws ParseException {
         OWLDataPropertyExpression prop;
         prop = DataPropertyIRI();
         return prop;
     }
 
-    final public OWLDataProperty DataPropertyIRI() throws ParseException {
+    public OWLDataProperty DataPropertyIRI() throws ParseException {
         IRI iri;
         iri = IRI();
         return dataFactory.getOWLDataProperty(iri);
     }
 
-    final public OWLDataProperty DataProperty() throws ParseException {
+    public OWLDataProperty DataProperty() throws ParseException {
         OWLDataProperty prop;
         jj_consume_token(DATAPROP);
         jj_consume_token(OPENPAR);
@@ -620,7 +618,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return prop;
     }
 
-    final public OWLAnnotationProperty AnnotationProperty() throws ParseException {
+    public OWLAnnotationProperty AnnotationProperty() throws ParseException {
         OWLAnnotationProperty prop;
         jj_consume_token(ANNOTATIONPROPERTY);
         jj_consume_token(OPENPAR);
@@ -629,13 +627,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return prop;
     }
 
-    final public OWLAnnotationProperty AnnotationPropertyIRI() throws ParseException {
+    public OWLAnnotationProperty AnnotationPropertyIRI() throws ParseException {
         IRI iri;
         iri = IRI();
         return dataFactory.getOWLAnnotationProperty(iri);
     }
 
-    final public OWLNamedIndividual NamedIndividual() throws ParseException {
+    public OWLNamedIndividual NamedIndividual() throws ParseException {
         OWLNamedIndividual ind;
         jj_consume_token(NAMEDINDIVIDUAL);
         jj_consume_token(OPENPAR);
@@ -644,14 +642,14 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return ind;
     }
 
-    final public OWLAnonymousIndividual AnonymousIndividual() throws ParseException {
+    public OWLAnonymousIndividual AnonymousIndividual() throws ParseException {
         Token t;
         t = jj_consume_token(NODEID);
         String id = t.image.substring(2, t.image.length());
         return dataFactory.getOWLAnonymousIndividual(id);
     }
 
-    final public OWLDatatype Datatype() throws ParseException {
+    public OWLDatatype Datatype() throws ParseException {
         OWLDatatype dt;
         jj_consume_token(DATATYPE);
         jj_consume_token(OPENPAR);
@@ -660,27 +658,26 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dt;
     }
 
-    final public OWLDatatype DatatypeIRI() throws ParseException {
+    public OWLDatatype DatatypeIRI() throws ParseException {
         IRI iri;
         iri = IRI();
         return dataFactory.getOWLDatatype(iri);
     }
 
-    final public int Cardinality() throws ParseException {
+    public int Cardinality() throws ParseException {
         int card = 0;
         card = Integer();
         return card;
     }
 
-    final public int Integer() throws ParseException {
+    public int Integer() throws ParseException {
         Token t;
         t = jj_consume_token(INT);
         int i = Integer.parseInt(t.image);
         return i;
     }
 
-    final public OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom()
-            throws ParseException {
+    public OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom() throws ParseException {
         OWLDatatype datatype;
         OWLDataRange dr;
         Set<OWLAnnotation> axAnnos;
@@ -693,7 +690,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
     }
 
-    final public OWLDataRange DataRange() throws ParseException {
+    public OWLDataRange DataRange() throws ParseException {
         OWLDataRange rng;
         if (jj_2_38(2)) {
             rng = DatatypeIRI();
@@ -714,7 +711,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return rng;
     }
 
-    final public OWLDataRange DataComplementOf() throws ParseException {
+    public OWLDataRange DataComplementOf() throws ParseException {
         OWLDataRange rng;
         jj_consume_token(DATACOMPLEMENTOF);
         jj_consume_token(OPENPAR);
@@ -723,7 +720,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataComplementOf(rng);
     }
 
-    final public OWLDataRange DataOneOf() throws ParseException {
+    public OWLDataRange DataOneOf() throws ParseException {
         Set<OWLLiteral> values = new HashSet<OWLLiteral>();
         OWLLiteral con = null;
         jj_consume_token(DATAONEOF);
@@ -739,7 +736,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataOneOf(values);
     }
 
-    final public OWLDataRange DataUnionOf() throws ParseException {
+    public OWLDataRange DataUnionOf() throws ParseException {
         OWLDataRange dataRange;
         Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
         jj_consume_token(DATAUNIONOF);
@@ -755,7 +752,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataUnionOf(ranges);
     }
 
-    final public OWLDataRange DataIntersectionOf() throws ParseException {
+    public OWLDataRange DataIntersectionOf() throws ParseException {
         OWLDataRange dataRange;
         Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
         jj_consume_token(DATAINTERSECTIONOF);
@@ -771,7 +768,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataIntersectionOf(ranges);
     }
 
-    final public OWLDataRange DataRangeRestriction() throws ParseException {
+    public OWLDataRange DataRangeRestriction() throws ParseException {
         OWLDatatype rng;
         OWLFacetRestriction facetRestriction;
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
@@ -789,7 +786,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
     }
 
-    final public OWLFacetRestriction DataRangeFacetRestriction() throws ParseException {
+    public OWLFacetRestriction DataRangeFacetRestriction() throws ParseException {
         IRI iri;
         OWLLiteral con;
         iri = IRI();
@@ -803,7 +800,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLAxiom Axiom() throws ParseException {
+    public OWLAxiom Axiom() throws ParseException {
         OWLAxiom ax = null;
         if (jj_2_48(2)) {
             ax = ClassAxiom();
@@ -835,7 +832,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Class Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLClassAxiom ClassAxiom() throws ParseException {
+    public OWLClassAxiom ClassAxiom() throws ParseException {
         OWLClassAxiom ax;
         if (jj_2_57(2)) {
             ax = SubClassOf();
@@ -852,7 +849,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return ax;
     }
 
-    final public OWLClassAxiom SubClassOf() throws ParseException {
+    public OWLClassAxiom SubClassOf() throws ParseException {
         OWLClassExpression subClass;
         OWLClassExpression superClass;
         Set<OWLAnnotation> axiomAnnos;
@@ -865,7 +862,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLSubClassOfAxiom(subClass, superClass, axiomAnnos);
     }
 
-    final public OWLClassAxiom EquivalentClasses() throws ParseException {
+    public OWLClassAxiom EquivalentClasses() throws ParseException {
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(EQUIVALENTCLASSES);
@@ -876,7 +873,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLEquivalentClassesAxiom(classExpressions, axiomAnnos);
     }
 
-    final public OWLClassAxiom DisjointClasses() throws ParseException {
+    public OWLClassAxiom DisjointClasses() throws ParseException {
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DISJOINTCLASSES);
@@ -887,7 +884,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDisjointClassesAxiom(classExpressions, axiomAnnos);
     }
 
-    final public OWLClassAxiom DisjointUnion() throws ParseException {
+    public OWLClassAxiom DisjointUnion() throws ParseException {
         OWLClass cls;
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
@@ -905,7 +902,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Object Property Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
+    public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         if (jj_2_61(2)) {
             ax = SubObjectPropertyOf();
@@ -940,7 +937,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return ax;
     }
 
-    final public List<OWLObjectPropertyExpression> SubObjectPropertyChain()
+    public List<OWLObjectPropertyExpression> SubObjectPropertyChain()
             throws ParseException {
         OWLObjectPropertyExpression prop;
         List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>();
@@ -959,7 +956,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return props;
     }
 
-    final public OWLPropertyAxiom SubObjectPropertyOf() throws ParseException {
+    public OWLPropertyAxiom SubObjectPropertyOf() throws ParseException {
         OWLObjectPropertyExpression subProperty = null;
         List<OWLObjectPropertyExpression> chain = null;
         OWLObjectPropertyExpression superProperty = null;
@@ -987,7 +984,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return null;
     }
 
-    final public OWLPropertyAxiom EquivalentObjectProperties() throws ParseException {
+    public OWLPropertyAxiom EquivalentObjectProperties() throws ParseException {
         Set<OWLObjectPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(EQUIVALENTOBJECTPROPERTIES);
@@ -998,7 +995,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLEquivalentObjectPropertiesAxiom(props, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom DisjointObjectProperties() throws ParseException {
+    public OWLPropertyAxiom DisjointObjectProperties() throws ParseException {
         Set<OWLObjectPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DISJOINTOBJECTPROPERTIES);
@@ -1009,8 +1006,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDisjointObjectPropertiesAxiom(props, axiomAnnos);
     }
 
-    final public Set<OWLObjectPropertyExpression> ObjectPropertySet()
-            throws ParseException {
+    public Set<OWLObjectPropertyExpression> ObjectPropertySet() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         prop = ObjectPropertyExpression();
@@ -1027,7 +1023,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return props;
     }
 
-    final public OWLPropertyAxiom ObjectPropertyRange() throws ParseException {
+    public OWLPropertyAxiom ObjectPropertyRange() throws ParseException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression range;
         Set<OWLAnnotation> axiomAnnos;
@@ -1040,7 +1036,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom ObjectPropertyDomain() throws ParseException {
+    public OWLPropertyAxiom ObjectPropertyDomain() throws ParseException {
         OWLObjectPropertyExpression prop;
         OWLClassExpression desc;
         Set<OWLAnnotation> axiomAnnos;
@@ -1053,7 +1049,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLObjectPropertyDomainAxiom(prop, desc, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom FunctionalObjectProperty() throws ParseException {
+    public OWLPropertyAxiom FunctionalObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos = Collections.emptySet();
         jj_consume_token(FUNCTIONALOBJECTPROPERTY);
@@ -1064,7 +1060,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom InverseObjectProperties() throws ParseException {
+    public OWLPropertyAxiom InverseObjectProperties() throws ParseException {
         OWLObjectPropertyExpression propA;
         OWLObjectPropertyExpression propB;
         Set<OWLAnnotation> axiomAnnos;
@@ -1077,7 +1073,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom InverseFunctionalObjectProperty() throws ParseException {
+    public OWLPropertyAxiom InverseFunctionalObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(INVERSEFUNCTIONALOBJECTPROPERTY);
@@ -1088,7 +1084,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom SymmetricObjectProperty() throws ParseException {
+    public OWLPropertyAxiom SymmetricObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(SYMMETRICOBJECTPROPERTY);
@@ -1099,7 +1095,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom AsymmetricObjectProperty() throws ParseException {
+    public OWLPropertyAxiom AsymmetricObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(ASYMMETRICOBJECTPROPERTY);
@@ -1110,7 +1106,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom ReflexiveObjectProperty() throws ParseException {
+    public OWLPropertyAxiom ReflexiveObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(REFLEXIVEOBJECTPROPERTY);
@@ -1121,7 +1117,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom IrreflexiveObjectProperty() throws ParseException {
+    public OWLPropertyAxiom IrreflexiveObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(IRREFLEXIVEOBJECTPROPERTY);
@@ -1132,7 +1128,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom TransitiveObjectProperty() throws ParseException {
+    public OWLPropertyAxiom TransitiveObjectProperty() throws ParseException {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(TRANSITIVEOBJECTPROPERTY);
@@ -1148,7 +1144,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Data Property Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
+    public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
         OWLPropertyAxiom ax;
         if (jj_2_78(2)) {
             ax = SubDataPropertyOf();
@@ -1169,7 +1165,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return ax;
     }
 
-    final public OWLPropertyAxiom SubDataPropertyOf() throws ParseException {
+    public OWLPropertyAxiom SubDataPropertyOf() throws ParseException {
         OWLDataPropertyExpression subProperty;
         OWLDataPropertyExpression superProperty;
         Set<OWLAnnotation> axiomAnnos;
@@ -1183,7 +1179,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 axiomAnnos);
     }
 
-    final public OWLPropertyAxiom EquivalentDataProperties() throws ParseException {
+    public OWLPropertyAxiom EquivalentDataProperties() throws ParseException {
         Set<OWLDataPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(EQUIVALENTDATAPROPERTIES);
@@ -1194,7 +1190,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLEquivalentDataPropertiesAxiom(props, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom DisjointDataProperties() throws ParseException {
+    public OWLPropertyAxiom DisjointDataProperties() throws ParseException {
         Set<OWLDataPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DISJOINTDATAPROPERTIES);
@@ -1205,7 +1201,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
     }
 
-    final public Set<OWLDataPropertyExpression> DataPropertySet() throws ParseException {
+    public Set<OWLDataPropertyExpression> DataPropertySet() throws ParseException {
         OWLDataPropertyExpression prop;
         Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
         prop = DataPropertyExpression();
@@ -1222,7 +1218,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return props;
     }
 
-    final public OWLPropertyAxiom DataPropertyDomain() throws ParseException {
+    public OWLPropertyAxiom DataPropertyDomain() throws ParseException {
         OWLDataPropertyExpression prop;
         OWLClassExpression domain;
         Set<OWLAnnotation> axiomAnnos;
@@ -1235,7 +1231,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom DataPropertyRange() throws ParseException {
+    public OWLPropertyAxiom DataPropertyRange() throws ParseException {
         OWLDataPropertyExpression prop;
         OWLDataRange rng;
         Set<OWLAnnotation> axiomAnnos;
@@ -1248,7 +1244,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
     }
 
-    final public OWLPropertyAxiom FunctionalDataProperty() throws ParseException {
+    public OWLPropertyAxiom FunctionalDataProperty() throws ParseException {
         OWLDataPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(FUNCTIONALDATAPROPERTY);
@@ -1264,7 +1260,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Individual Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLIndividualAxiom IndividualAxiom() throws ParseException {
+    public OWLIndividualAxiom IndividualAxiom() throws ParseException {
         OWLIndividualAxiom ax;
         if (jj_2_85(2)) {
             ax = SameIndividuals();
@@ -1287,7 +1283,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return ax;
     }
 
-    final public Set<OWLIndividual> IndividualSet() throws ParseException {
+    public Set<OWLIndividual> IndividualSet() throws ParseException {
         OWLIndividual ind;
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
         ind = Individual();
@@ -1304,7 +1300,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return individuals;
     }
 
-    final public OWLIndividualAxiom SameIndividuals() throws ParseException {
+    public OWLIndividualAxiom SameIndividuals() throws ParseException {
         Set<OWLIndividual> individuals;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(SAMEINDIVIDUAL);
@@ -1315,7 +1311,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLSameIndividualAxiom(individuals, axiomAnnos);
     }
 
-    final public OWLIndividualAxiom DifferentIndividuals() throws ParseException {
+    public OWLIndividualAxiom DifferentIndividuals() throws ParseException {
         Set<OWLIndividual> individuals;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DIFFERENTINDIVIDUALS);
@@ -1326,7 +1322,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDifferentIndividualsAxiom(individuals, axiomAnnos);
     }
 
-    final public OWLIndividualAxiom ClassAssertion() throws ParseException {
+    public OWLIndividualAxiom ClassAssertion() throws ParseException {
         OWLIndividual ind;
         OWLClassExpression desc;
         Set<OWLAnnotation> axiomAnnos;
@@ -1339,7 +1335,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
     }
 
-    final public OWLIndividualAxiom ObjectPropertyAssertion() throws ParseException {
+    public OWLIndividualAxiom ObjectPropertyAssertion() throws ParseException {
         OWLIndividual subj;
         OWLObjectPropertyExpression prop;
         OWLIndividual obj;
@@ -1355,8 +1351,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 .getOWLObjectPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 
-    final public OWLIndividualAxiom NegativeObjectPropertyAssertion()
-            throws ParseException {
+    public OWLIndividualAxiom NegativeObjectPropertyAssertion() throws ParseException {
         OWLIndividual subj;
         OWLObjectPropertyExpression prop;
         OWLIndividual obj;
@@ -1372,7 +1367,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 axiomAnnos);
     }
 
-    final public OWLIndividualAxiom DataPropertyAssertion() throws ParseException {
+    public OWLIndividualAxiom DataPropertyAssertion() throws ParseException {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
         OWLLiteral obj;
@@ -1387,7 +1382,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 
-    final public OWLIndividualAxiom NegativeDataPropertyAssertion() throws ParseException {
+    public OWLIndividualAxiom NegativeDataPropertyAssertion() throws ParseException {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
         OWLLiteral obj;
@@ -1403,13 +1398,13 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 axiomAnnos);
     }
 
-    final public OWLNamedIndividual IndividualIRI() throws ParseException {
+    public OWLNamedIndividual IndividualIRI() throws ParseException {
         IRI iri;
         iri = IRI();
         return dataFactory.getOWLNamedIndividual(iri);
     }
 
-    final public OWLIndividual Individual() throws ParseException {
+    public OWLIndividual Individual() throws ParseException {
         OWLIndividual ind;
         if (jj_2_93(2)) {
             ind = IndividualIRI();
@@ -1422,7 +1417,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return ind;
     }
 
-    final public OWLObjectProperty ObjectPropertyIRI() throws ParseException {
+    public OWLObjectProperty ObjectPropertyIRI() throws ParseException {
         IRI iri;
         iri = IRI();
         return dataFactory.getOWLObjectProperty(iri);
@@ -1433,7 +1428,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Annotation Stuff
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLAxiom AnnotationAxiom() throws ParseException {
+    public OWLAxiom AnnotationAxiom() throws ParseException {
         OWLAxiom axiom;
         if (jj_2_95(2)) {
             axiom = AnnotationAssertion();
@@ -1450,7 +1445,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return axiom;
     }
 
-    final public OWLAnnotation Annotation() throws ParseException {
+    public OWLAnnotation Annotation() throws ParseException {
         OWLAnnotationProperty prop;
         OWLAnnotationValue val;
         Set<OWLAnnotation> annos = null;
@@ -1471,7 +1466,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLAnnotation(prop, val, annos);
     }
 
-    final public OWLAnnotationSubject AnnotationSubject() throws ParseException {
+    public OWLAnnotationSubject AnnotationSubject() throws ParseException {
         OWLAnnotationSubject subj;
         if (jj_2_100(2)) {
             subj = IRI();
@@ -1484,7 +1479,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return subj;
     }
 
-    final public OWLAnnotationValue AnnotationValue() throws ParseException {
+    public OWLAnnotationValue AnnotationValue() throws ParseException {
         OWLAnnotationValue value;
         if (jj_2_102(2)) {
             value = IRI();
@@ -1499,7 +1494,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return value;
     }
 
-    final public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {
+    public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {
         Set<OWLAnnotation> annos = null;
         OWLAnnotation anno;
         label_15: while (true) {
@@ -1518,7 +1513,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return annos;
     }
 
-    final public OWLImportsDeclaration ImportsDeclaration() throws ParseException {
+    public OWLImportsDeclaration ImportsDeclaration() throws ParseException {
         IRI iri;
         jj_consume_token(IMPORT);
         jj_consume_token(OPENPAR);
@@ -1529,7 +1524,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return importsDeclaration;
     }
 
-    final public OWLAnnotationAssertionAxiom AnnotationAssertion() throws ParseException {
+    public OWLAnnotationAssertionAxiom AnnotationAssertion() throws ParseException {
         OWLAnnotationProperty prop;
         OWLAnnotationSubject subj;
         OWLAnnotationValue val;
@@ -1544,7 +1539,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);
     }
 
-    final public OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf()
+    public OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf()
             throws ParseException {
         OWLAnnotationProperty subProp;
         OWLAnnotationProperty superProperty;
@@ -1559,7 +1554,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
                 axiomAnnos);
     }
 
-    final public OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain()
+    public OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain()
             throws ParseException {
         IRI domain;
         OWLAnnotationProperty prop;
@@ -1573,7 +1568,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
-    final public OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange()
+    public OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange()
             throws ParseException {
         IRI range;
         OWLAnnotationProperty prop;
@@ -1587,7 +1582,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
-    final public OWLHasKeyAxiom HasKey() throws ParseException {
+    public OWLHasKeyAxiom HasKey() throws ParseException {
         OWLClassExpression ce;
         OWLPropertyExpression prop;
         Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
@@ -1618,7 +1613,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLHasKeyAxiom(ce, props, axiomAnnos);
     }
 
-    final public OWLAxiom Declaration() throws ParseException {
+    public OWLAxiom Declaration() throws ParseException {
         OWLEntity entity = null;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DECLARATION);
@@ -1632,7 +1627,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLDeclarationAxiom(entity, axiomAnnos);
     }
 
-    final public OWLEntity Entity() throws ParseException {
+    public OWLEntity Entity() throws ParseException {
         OWLEntity entity;
         if (jj_2_108(2)) {
             entity = Class();
@@ -1658,7 +1653,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Data Stuff
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public OWLLiteral Literal() throws ParseException {
+    public OWLLiteral Literal() throws ParseException {
         boolean plain = true;
         String literal;
         OWLDatatype datatype = null;
@@ -1689,14 +1684,14 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getOWLLiteral(literal, datatype);
     }
 
-    final public String QuotedString() throws ParseException {
+    public String QuotedString() throws ParseException {
         Token t;
         t = jj_consume_token(STRINGLITERAL);
         String raw = t.image.substring(1, t.image.length() - 1);
         return EscapeUtils.unescapeString(raw);
     }
 
-    final public String LangTag() throws ParseException {
+    public String LangTag() throws ParseException {
         String lang = "";
         Token t;
         t = jj_consume_token(PN_LOCAL);
@@ -1709,7 +1704,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     // Rules
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    final public SWRLRule DLSafeRule() throws ParseException {
+    public SWRLRule DLSafeRule() throws ParseException {
         Set<OWLAnnotation> annos;
         SWRLAtom atom;
         Set<SWRLAtom> body;
@@ -1743,7 +1738,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLRule(body, head, annos);
     }
 
-    final public SWRLAtom Atom() throws ParseException {
+    public SWRLAtom Atom() throws ParseException {
         SWRLAtom atom;
         if (jj_2_119(2)) {
             atom = ClassAtom();
@@ -1766,7 +1761,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return atom;
     }
 
-    final public SWRLClassAtom ClassAtom() throws ParseException {
+    public SWRLClassAtom ClassAtom() throws ParseException {
         OWLClassExpression ce;
         SWRLIArgument arg0;
         jj_consume_token(CLASSATOM);
@@ -1777,7 +1772,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLClassAtom(ce, arg0);
     }
 
-    final public SWRLDataRangeAtom DataRangeAtom() throws ParseException {
+    public SWRLDataRangeAtom DataRangeAtom() throws ParseException {
         OWLDataRange rng;
         SWRLDArgument arg0;
         jj_consume_token(DATARANGEATOM);
@@ -1788,7 +1783,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLDataRangeAtom(rng, arg0);
     }
 
-    final public SWRLObjectPropertyAtom ObjectPropertyAtom() throws ParseException {
+    public SWRLObjectPropertyAtom ObjectPropertyAtom() throws ParseException {
         OWLObjectPropertyExpression prop;
         SWRLIArgument arg0;
         SWRLIArgument arg1;
@@ -1801,7 +1796,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);
     }
 
-    final public SWRLDataPropertyAtom DataPropertyAtom() throws ParseException {
+    public SWRLDataPropertyAtom DataPropertyAtom() throws ParseException {
         OWLDataProperty prop;
         SWRLIArgument arg0;
         SWRLDArgument arg1;
@@ -1814,7 +1809,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);
     }
 
-    final public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
+    public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
         IRI iri;
         List<SWRLDArgument> args;
         SWRLDArgument arg;
@@ -1835,7 +1830,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLBuiltInAtom(iri, args);
     }
 
-    final public SWRLSameIndividualAtom SameIndividualAtom() throws ParseException {
+    public SWRLSameIndividualAtom SameIndividualAtom() throws ParseException {
         SWRLIArgument arg0;
         SWRLIArgument arg1;
         jj_consume_token(SAMEINDIVIDUALATOM);
@@ -1846,8 +1841,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
     }
 
-    final public SWRLDifferentIndividualsAtom DifferentIndividualsAtom()
-            throws ParseException {
+    public SWRLDifferentIndividualsAtom DifferentIndividualsAtom() throws ParseException {
         SWRLIArgument arg0;
         SWRLIArgument arg1;
         jj_consume_token(DIFFERENTINDIVIDUALSATOM);
@@ -1858,7 +1852,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
     }
 
-    final public SWRLIArgument IArg() throws ParseException {
+    public SWRLIArgument IArg() throws ParseException {
         OWLNamedIndividual ind;
         IRI iri;
         if (jj_2_127(2)) {
@@ -1875,7 +1869,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
         throw new ParseException();
     }
 
-    final public SWRLDArgument DArg() throws ParseException {
+    public SWRLDArgument DArg() throws ParseException {
         OWLLiteral literal;
         IRI iri;
         if (jj_2_129(2)) {
@@ -5808,7 +5802,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     /** Get the next Token. */
-    final public Token getNextToken() {
+    public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
         } else {
@@ -5819,7 +5813,7 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     /** Get the specific Token. */
-    final public Token getToken(int index) {
+    public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
             if (t.next != null) {
@@ -5914,10 +5908,10 @@ public class OWLFunctionalSyntaxParser implements OWLFunctionalSyntaxParserConst
     }
 
     /** Enable tracing. */
-    final public void enable_tracing() {}
+    public void enable_tracing() {}
 
     /** Disable tracing. */
-    final public void disable_tracing() {}
+    public void disable_tracing() {}
 
     private void jj_rescan_token() {
         jj_rescan = true;

@@ -42,15 +42,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Jun-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Jun-2009 */
 public class OWLDatatypeDefinitionElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLDatatype datatype;
     private OWLDataRange dataRange;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLDatatypeDefinitionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -47,19 +47,19 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006 */
 public class TypeAxiomHandler extends BuiltInTypeHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TypeAxiomHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_AXIOM.getIRI());
     }
 
     /** @param consumer
-     * @param typeIRI */
+     *            consumer
+     * @param typeIRI
+     *            typeIRI */
     public TypeAxiomHandler(OWLRDFConsumer consumer, IRI typeIRI) {
         super(consumer, typeIRI);
     }
@@ -187,7 +187,8 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
      * @param mainNode
      *            The main node of the triple
      * @return The source object
-     * @throws OWLRDFXMLParserMalformedNodeException */
+     * @throws OWLRDFXMLParserMalformedNodeException
+     *             malformed node */
     private IRI getObjectOfSourceTriple(IRI mainNode) {
         IRI subjectTripleObject = getConsumer().getResourceObject(mainNode,
                 getSourceTriplePredicate(), true);

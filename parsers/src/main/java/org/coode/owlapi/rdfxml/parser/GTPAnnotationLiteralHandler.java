@@ -44,13 +44,11 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Dec-2006 */
 public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public GTPAnnotationLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

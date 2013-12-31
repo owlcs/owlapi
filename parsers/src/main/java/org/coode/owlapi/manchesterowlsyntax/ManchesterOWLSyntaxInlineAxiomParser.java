@@ -43,17 +43,17 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 13-May-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 13-May-2009 */
 public class ManchesterOWLSyntaxInlineAxiomParser implements
         OWLExpressionParser<OWLAxiom> {
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
     /** @param dataFactory
-     * @param checker */
+     *            dataFactory
+     * @param checker
+     *            checker */
     public ManchesterOWLSyntaxInlineAxiomParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;

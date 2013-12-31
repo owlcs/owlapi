@@ -40,11 +40,10 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Apr-2008<br>
- * <br> */
+/** The Class NullTripleHandler.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 17-Apr-2008 */
 public class NullTripleHandler implements TripleHandler {
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {}

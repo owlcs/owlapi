@@ -57,21 +57,21 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006 */
 public class AbstractTripleHandler {
     private OWLRDFConsumer consumer;
     private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
     private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
     private IndividualMatcher individualMatcher = new IndividualMatcher();
 
+    /** @param consumer
+     *            consumer */
     protected AbstractTripleHandler(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
 
+    /** @return consumer */
     protected OWLRDFConsumer getConsumer() {
         return consumer;
     }

@@ -41,26 +41,28 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br>
- * Give a node in an RDF graph, which represents the main node of an OWL class
+/** Give a node in an RDF graph, which represents the main node of an OWL class
  * expression, the {@code ClassExpressionTranslator} consumes the triples that
  * represent the class expression, and translates the triples to the appropriate
- * OWL API {@code OWLClassExpression} object. */
+ * OWL API {@code OWLClassExpression} object.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 08-Dec-2006 */
 public interface ClassExpressionTranslator {
     /** @param mainNode
+     *            mainNode
      * @param mode
+     *            mode
      * @return true if parameter matches */
     boolean matches(IRI mainNode, Mode mode);
 
     /** @param mainNode
+     *            mainNode
      * @return true if parameter matches strictly */
     boolean matchesStrict(IRI mainNode);
 
     /** @param mainNode
+     *            mainNode
      * @return true if parameter matches in lax mode */
     boolean matchesLax(IRI mainNode);
 

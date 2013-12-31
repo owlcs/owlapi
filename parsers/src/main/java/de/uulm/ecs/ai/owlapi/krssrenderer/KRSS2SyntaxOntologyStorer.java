@@ -48,10 +48,9 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 
 /** See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2ObjectRenderer
- * KRSS2ObjectRenderer} for definition/explanation of the syntax. Author: Olaf
- * Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * KRSS2ObjectRenderer} for definition/explanation of the syntax.
+ * 
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 

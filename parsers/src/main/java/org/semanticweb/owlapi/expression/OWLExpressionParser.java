@@ -40,16 +40,13 @@ package org.semanticweb.owlapi.expression;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Sep-2007<br>
- * <br>
- * A general purpose interface which provides the ability to parse some
+/** A general purpose interface which provides the ability to parse some
  * expression into some kind of object.
  * 
  * @param <O>
- *            the kind of parsed expression */
+ *            the kind of parsed expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Sep-2007 */
 public interface OWLExpressionParser<O extends Object> {
     /** @param entityChecker
      *            the entity checker to use */
@@ -58,7 +55,8 @@ public interface OWLExpressionParser<O extends Object> {
     /** @param expression
      *            the expression to parse
      * @return the parsed expression
-     * @throws ParserException */
+     * @throws ParserException
+     *             parse exception */
     @Nonnull
     O parse(@Nonnull String expression) throws ParserException;
 }

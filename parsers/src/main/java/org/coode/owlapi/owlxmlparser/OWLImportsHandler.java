@@ -45,13 +45,11 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Dec-2006 */
 public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLImportsHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

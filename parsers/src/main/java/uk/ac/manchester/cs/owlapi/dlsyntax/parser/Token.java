@@ -82,7 +82,9 @@ public class Token implements java.io.Serializable {
      * syntactic sugar will often contain meaningful values that will be used
      * later on by the compiler or interpreter. This attribute value is often
      * different from the image. Any subclass of Token that actually wants to
-     * return a non-null value can override this method as appropriate. */
+     * return a non-null value can override this method as appropriate.
+     * 
+     * @return value */
     public Object getValue() {
         return null;
     }
@@ -90,12 +92,20 @@ public class Token implements java.io.Serializable {
     /** No-argument constructor */
     public Token() {}
 
-    /** Constructs a new token for the specified Image. */
+    /** Constructs a new token for the specified Image.
+     * 
+     * @param kind
+     *            kind */
     public Token(int kind) {
         this(kind, null);
     }
 
-    /** Constructs a new token for the specified Image and Kind. */
+    /** Constructs a new token for the specified Image and Kind.
+     * 
+     * @param kind
+     *            kind
+     * @param image
+     *            string value */
     public Token(int kind, String image) {
         this.kind = kind;
         this.image = image;
@@ -114,7 +124,13 @@ public class Token implements java.io.Serializable {
      * ofKind is ID, simply add something like : case MyParserConstants.ID :
      * return new IDToken(ofKind, image); to the following switch statement.
      * Then you can cast matchedToken variable to the appropriate type and use
-     * sit in your lexical actions. */
+     * sit in your lexical actions.
+     * 
+     * @param ofKind
+     *            kind
+     * @param image
+     *            string value
+     * @return token */
     public static Token newToken(int ofKind, String image) {
         switch (ofKind) {
             default:
@@ -122,6 +138,9 @@ public class Token implements java.io.Serializable {
         }
     }
 
+    /** @param ofKind
+     *            type
+     * @return token */
     public static Token newToken(int ofKind) {
         return newToken(ofKind, null);
     }

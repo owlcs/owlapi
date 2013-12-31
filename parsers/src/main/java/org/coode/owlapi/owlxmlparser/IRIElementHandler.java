@@ -42,12 +42,11 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 17-May-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-May-2009 */
 public class IRIElementHandler extends AbstractIRIElementHandler {
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public IRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

@@ -50,11 +50,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public abstract class AbstractClassExpressionTranslator implements
         ClassExpressionTranslator {
     private OWLRDFConsumer consumer;
@@ -62,6 +59,8 @@ public abstract class AbstractClassExpressionTranslator implements
     private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
     private IndividualMatcher individualMatcher = new IndividualMatcher();
 
+    /** @param consumer
+     *            consumer */
     protected AbstractClassExpressionTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
@@ -75,6 +74,7 @@ public abstract class AbstractClassExpressionTranslator implements
         }
     }
 
+    /** @return consumer */
     protected OWLRDFConsumer getConsumer() {
         return consumer;
     }

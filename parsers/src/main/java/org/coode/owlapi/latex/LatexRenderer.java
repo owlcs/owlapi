@@ -62,11 +62,8 @@ import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 15-Jun-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 15-Jun-2007 */
 public class LatexRenderer extends AbstractOWLRenderer {
     private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 

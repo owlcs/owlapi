@@ -41,12 +41,11 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 28-Jun-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 28-Jun-2009 */
 public class NamedClassTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public NamedClassTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }

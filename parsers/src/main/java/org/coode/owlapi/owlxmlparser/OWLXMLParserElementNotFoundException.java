@@ -38,17 +38,17 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007 */
 public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
     private static final long serialVersionUID = 40000L;
 
     /** @param lineNumber
+     *            lineNumber
      * @param columnNumber
-     * @param elementType */
+     *            columnNumber
+     * @param elementType
+     *            elementType */
     public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber,
             String elementType) {
         super("Element not found: " + elementType, lineNumber, columnNumber);

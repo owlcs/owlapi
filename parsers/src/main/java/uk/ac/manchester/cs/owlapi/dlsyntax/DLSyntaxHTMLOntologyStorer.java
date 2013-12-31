@@ -53,11 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Feb-2008 */
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     private static final long serialVersionUID = 40000L;
     protected ShortFormProvider sfp = new SimpleShortFormProvider();

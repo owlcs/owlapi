@@ -46,13 +46,11 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 08-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006 */
 public class TPDisjointWithHandler extends TriplePredicateHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPDisjointWithHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DISJOINT_WITH.getIRI());
     }

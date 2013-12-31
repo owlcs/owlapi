@@ -41,12 +41,11 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Dec-2006 */
 public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
+    /** @param consumer
+     *            consumer */
     protected AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -70,14 +69,42 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
                 && getConsumer().isClassExpression(object);
     }
 
+    /** @param subject
+     *            subject
+     * @param predicate
+     *            predicate
+     * @param object
+     *            object
+     * @throws UnloadableImportException
+     *             if an ontology cannot be imported */
     protected abstract void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException;
 
+    /** @param subject
+     *            subject
+     * @param predicate
+     *            predicate
+     * @param object
+     *            object
+     * @return true if can handle streaming
+     * @throws UnloadableImportException
+     *             if an ontology cannot be imported */
     protected abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException;
 
+    /** @param subject
+     *            subject
+     * @param predicate
+     *            predicate
+     * @param object
+     *            object
+     * @return true if can handle */
     protected abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
 
+    /** @param subject
+     *            subject
+     * @param object
+     *            object */
     protected void inferTypes(IRI subject, IRI object) {
         if (getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);

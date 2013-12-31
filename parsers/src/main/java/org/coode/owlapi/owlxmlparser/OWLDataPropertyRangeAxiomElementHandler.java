@@ -42,17 +42,15 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLDataPropertyRangeAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLDataPropertyExpression property;
     private OWLDataRange range;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLDataPropertyRangeAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

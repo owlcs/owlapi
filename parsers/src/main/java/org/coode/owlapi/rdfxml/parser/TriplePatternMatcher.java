@@ -41,17 +41,18 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19/12/2010 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 19/12/2010 */
 public interface TriplePatternMatcher {
     /** @param consumer
+     *            consumer
      * @param mainNode
-     * @return true if match found */
+     *            node to match
+     * @return true if matches */
     boolean matches(OWLRDFConsumer consumer, IRI mainNode);
 
     /** @param consumer
-     * @return owl object */
+     *            consumer
+     * @return new object */
     OWLObject createObject(OWLRDFConsumer consumer);
 }

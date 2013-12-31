@@ -58,29 +58,21 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 30-May-2006<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * <p/>
- * Developed as part of the CO-ODE project http://www.co-ode.org
- * <p/>
- * <p/>
- * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
+/** The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
- * NamespaceManager (OWLOntologyFormat) this manager will create them. */
+ * NamespaceManager (OWLOntologyFormat) this manager will create them.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private OWLOntology ontology;
     private NamespaceUtil namespaceUtil = new NamespaceUtil();
     private OWLOntologyFormat ontologyFormat;
 
     /** @param ontology
-     * @param format */
+     *            ontology
+     * @param format
+     *            format */
     public OWLOntologyXMLNamespaceManager(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
@@ -152,6 +144,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
      * 
      * @param ontology
      *            The ontology
+     * @param format
+     *            format
      * @return A suggested default namespace */
     @Nonnull
     private static String getDefaultNamespace(@Nonnull OWLOntology ontology,

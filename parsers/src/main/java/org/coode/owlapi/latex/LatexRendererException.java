@@ -40,26 +40,35 @@ package org.coode.owlapi.latex;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Jun-2007<br>
- * <br> */
-public abstract class LatexRendererException extends OWLRendererException {
+/** The Class LatexRendererException.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 15-Jun-2007 */
+public class LatexRendererException extends OWLRendererException {
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause */
+    /** Instantiates a new latex renderer exception.
+     * 
+     * @param cause
+     *            the cause */
     public LatexRendererException(Throwable cause) {
         super(cause);
     }
 
-    /** @param message */
+    /** Instantiates a new latex renderer exception.
+     * 
+     * @param message
+     *            the message */
     public LatexRendererException(String message) {
         super(message);
     }
 
-    /** @param message
-     * @param cause */
+    /** Instantiates a new latex renderer exception.
+     * 
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause */
     public LatexRendererException(String message, Throwable cause) {
         super(message, cause);
     }

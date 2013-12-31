@@ -42,10 +42,8 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 15-Feb-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Feb-2009 */
 public interface OWLOntologyChecker {
     /** @param name
      *            the ontology name

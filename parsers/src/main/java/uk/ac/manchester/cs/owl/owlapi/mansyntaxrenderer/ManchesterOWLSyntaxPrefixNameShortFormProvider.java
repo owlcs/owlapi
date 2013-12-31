@@ -47,19 +47,19 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 28-Jun-2009 A special short form provider that delegates to a prefix
- * manager to obtain short forms. The only difference between this short form
- * provider and a prefix manager is that names with the default prefix do not
- * have a colon with this short form provider. */
+/** A special short form provider that delegates to a prefix manager to obtain
+ * short forms. The only difference between this short form provider and a
+ * prefix manager is that names with the default prefix do not have a colon with
+ * this short form provider.
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 28-Jun-2009 */
 public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortFormProvider {
     private DefaultPrefixManager prefixManager;
 
     /** Constructs a short form provider that reuses any prefix name mappings
      * obtainable from the format of the specified ontology (the manager will be
-     * asked for the ontology format of the specified ontology)
+     * asked for the ontology format of the specified ontology).
      * 
      * @param ont
      *            The ontology */
@@ -68,7 +68,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
     }
 
     /** Constructs a short form provider that reuses any prefix name mappings
-     * from the specified ontology format
+     * from the specified ontology format.
      * 
      * @param format
      *            The format from which prefix name mappings will be reused */
@@ -82,7 +82,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
         }
     }
 
-    /** Constructs a short form provider that uses the specified prefix mappings
+    /** Constructs a short form provider that uses the specified prefix mappings.
      * 
      * @param prefixManager
      *            A prefix manager which will be used to obtain prefix mappings */
@@ -106,7 +106,7 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
         }
     }
 
-    /** Gets the short form for an IRI
+    /** Gets the short form for an IRI.
      * 
      * @param iri
      *            The IRI

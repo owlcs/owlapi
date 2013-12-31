@@ -42,12 +42,11 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 02-Jul-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Jul-2009 */
 public class TPAnnotatedSourceHandler extends TriplePredicateHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TPAnnotatedSourceHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATED_SOURCE.getIRI());
     }

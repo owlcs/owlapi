@@ -47,13 +47,11 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006 */
 public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public GTPAnnotationResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }

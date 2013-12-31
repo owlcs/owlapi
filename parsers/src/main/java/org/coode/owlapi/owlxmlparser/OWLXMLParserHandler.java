@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
@@ -65,14 +66,10 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Dec-2006<br>
- * <br>
- * <p/>
- * A handler which knows about OWLXML */
-@SuppressWarnings("javadoc")
+/** A handler which knows about OWLXML.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Dec-2006 */
 public class OWLXMLParserHandler extends DefaultHandler {
     private OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
@@ -83,10 +80,16 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private Stack<URI> bases;
     private OWLOntologyLoaderConfiguration configuration;
 
+    /** @param ontology
+     *            ontology to parse into */
     public OWLXMLParserHandler(OWLOntology ontology) {
         this(ontology, null, new OWLOntologyLoaderConfiguration());
     }
 
+    /** @param ontology
+     *            ontology to add to
+     * @param configuration
+     *            load configuration */
     public OWLXMLParserHandler(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
@@ -106,6 +109,10 @@ public class OWLXMLParserHandler extends DefaultHandler {
         bases.push(base);
     }
 
+    /** @param ontology
+     *            ontology to parse into
+     * @param topHandler
+     *            top level handler */
     public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler) {
         this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }
@@ -117,7 +124,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
      * 
      * @param ontology
      *            The ontology object that the XML representation should be
-     *            parsed into. */
+     *            parsed into.
+     * @param topHandler
+     *            top level handler
+     * @param configuration
+     *            load configuration */
     public OWLXMLParserHandler(OWLOntology ontology, OWLElementHandler<?> topHandler,
             OWLOntologyLoaderConfiguration configuration) {
         owlOntologyManager = ontology.getOWLOntologyManager();
@@ -671,6 +682,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         });
     }
 
+    /** @return config */
     public OWLOntologyLoaderConfiguration getConfiguration() {
         return configuration;
     }
@@ -687,6 +699,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
+    /** @return column number */
     public int getColumnNumber() {
         if (locator != null) {
             return locator.getColumnNumber();
@@ -697,6 +710,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
+    /** @param iriStr
+     *            iri
+     * @return parsed, absolute iri
+     * @throws OWLParserException
+     *             if an error is raised */
     public IRI getIRI(String iriStr) throws OWLParserException {
         try {
             IRI iri = iriMap.get(iriStr);
@@ -728,6 +746,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
+    /** @param abbreviatedIRI
+     *            short iri
+     * @return extended iri
+     * @throws OWLParserException
+     *             if an error is raised */
     public IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLParserException {
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
@@ -744,6 +767,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return getIRI(sb.toString());
     }
 
+    /** @return prefix name to prefix */
     public Map<String, String> getPrefixName2PrefixMap() {
         return prefixName2PrefixMap;
     }
@@ -756,10 +780,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
+    /** @return ontology */
     public OWLOntology getOntology() {
         return ontology;
     }
 
+    /** @return data factory */
     public OWLDataFactory getDataFactory() {
         return getOWLOntologyManager().getOWLDataFactory();
     }
@@ -771,14 +797,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
     public void endDocument() throws SAXException {}
 
     @Override
-    public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException {
         if (!handlerStack.isEmpty()) {
             try {
                 OWLElementHandler<?> handler = handlerStack.get(0);
                 if (handler.isTextContentPossible()) {
                     handler.handleChars(ch, start, length);
                 }
-            } catch (OWLParserException e) {
+            } catch (OWLRuntimeException e) {
                 throw new SAXException(e);
             }
         }
@@ -830,7 +856,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    /** Return the base URI for resolution of relative URIs
+    /** Return the base URI for resolution of relative URIs.
      * 
      * @return base URI or null if unavailable (xml:base not present and the
      *         document locator does not provide a URI) */
@@ -870,6 +896,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return super.resolveEntity(publicId, systemId);
     }
 
+    /** @return manager */
     public OWLOntologyManager getOWLOntologyManager() {
         return owlOntologyManager;
     }

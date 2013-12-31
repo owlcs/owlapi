@@ -42,16 +42,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Apr-2008<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Apr-2008 */
 public class DataPropertyListItemTranslator implements
         ListItemTranslator<OWLDataPropertyExpression> {
     private OWLRDFConsumer consumer;
 
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public DataPropertyListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

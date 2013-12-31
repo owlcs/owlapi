@@ -40,16 +40,14 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public class OWLObjectComplementOfElementHandler extends
         AbstractClassExpressionElementHandler {
     private OWLClassExpression operand;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLObjectComplementOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

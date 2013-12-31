@@ -46,15 +46,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 08-Oct-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 08-Oct-2009 */
 public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     private IRI iri;
     private List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public SWRLBuiltInAtomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

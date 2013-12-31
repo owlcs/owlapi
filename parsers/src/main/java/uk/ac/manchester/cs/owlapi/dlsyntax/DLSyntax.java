@@ -38,35 +38,31 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Feb-2008<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Feb-2008 */
 public enum DLSyntax {
     //@formatter:off
-    SUBCLASS("\u2291"),
-    EQUIVALENT_TO("\u2261"),
-    NOT("\u00AC"),
-    DISJOINT_WITH(SUBCLASS + " " + NOT),
-    EXISTS("\u2203"),
-    FORALL("\u2200"),
-    IN("\u2208"),
-    MIN("\u2265"),
-    EQUAL("="),
-    NOT_EQUAL("\u2260"),
-    MAX("\u2264"),
-    INVERSE("\u207B"),
-    AND("\u2293"),
-    TOP("\u22A4"),
-    BOTTOM("\u22A5"),
-    OR("\u2294"),
-    COMP("\u2218"),
-    WEDGE("\u22C0"),
-    IMPLIES("\u2190"),
-    COMMA(","),
-    SELF("self");
+    /** SUBCLASS */         SUBCLASS("\u2291"), 
+    /** EQUIVALENT_TO */    EQUIVALENT_TO("\u2261"), 
+    /** NOT */              NOT("\u00AC"), 
+    /** DISJOINT_WITH */    DISJOINT_WITH(SUBCLASS + " " + NOT), 
+    /** EXISTS */           EXISTS("\u2203"), 
+    /** FORALL */           FORALL("\u2200"), 
+    /** IN */               IN("\u2208"), 
+    /** MIN */              MIN("\u2265"), 
+    /** EQUAL */            EQUAL("="), 
+    /** NOT_EQUAL */        NOT_EQUAL("\u2260"), 
+    /** MAX */              MAX("\u2264"), 
+    /** INVERSE */          INVERSE("\u207B"),  // Superscript minus
+    /** AND */              AND("\u2293"), 
+    /** TOP */              TOP("\u22A4"), 
+    /** BOTTOM */           BOTTOM("\u22A5"), 
+    /** OR */               OR("\u2294"), 
+    /** COMP */             COMP("\u2218"), 
+    /** WEDGE */            WEDGE("\u22C0"), 
+    /** IMPLIES */          IMPLIES("\u2190"), 
+    /** COMMA */            COMMA(","), 
+    /** SELF */             SELF("self");
     //@formatter:on
     private String unicodeSymbol;
 

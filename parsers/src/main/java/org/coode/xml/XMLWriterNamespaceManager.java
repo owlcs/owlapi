@@ -48,16 +48,10 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Medical Informatics Group<br>
- * Date: 30-May-2006<br>
- * <br>
- * <p/>
- * matthew.horridge@cs.man.ac.uk<br>
- * www.cs.man.ac.uk/~horridgm<br>
- * <br>
- * Developed as part of the CO-ODE project http://www.co-ode.org */
+/** Developed as part of the CO-ODE project http://www.co-ode.org
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 30-May-2006 */
 public class XMLWriterNamespaceManager {
     private Map<String, String> prefixNamespaceMap = new HashMap<String, String>();
     private Map<String, String> namespacePrefixMap = new HashMap<String, String>();
@@ -72,14 +66,18 @@ public class XMLWriterNamespaceManager {
     }
 
     /** @param prefix
-     * @param namespace */
+     *            prefix
+     * @param namespace
+     *            namespace */
     public void addWellKnownNamespace(@Nonnull String prefix, @Nonnull String namespace) {
         wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
                 checkNotNull(namespace, "namespace cannot be null"));
     }
 
     /** @param prefix
-     * @param namespace */
+     *            prefix
+     * @param namespace
+     *            namespace */
     public void setPrefix(@Nonnull String prefix, @Nonnull String namespace) {
         checkNotNull(prefix, "prefix cannot be null");
         checkNotNull(namespace, "namespace cannot be null");
@@ -88,6 +86,7 @@ public class XMLWriterNamespaceManager {
     }
 
     /** @param namespace
+     *            namespace
      * @return prefix for namespace, or null */
     @Nullable
     public String getPrefixForNamespace(@Nonnull String namespace) {
@@ -95,12 +94,14 @@ public class XMLWriterNamespaceManager {
                 .get(checkNotNull(namespace, "namespace cannot be null"));
     }
 
-    /** @param namespace */
+    /** @param namespace
+     *            namespace */
     public void setDefaultNamespace(@Nonnull String namespace) {
         defaultNamespace = checkNotNull(namespace, "namespace cannot be null");
     }
 
     /** @param prefix
+     *            prefix
      * @return namespace for prefix or null */
     @Nullable
     public String getNamespaceForPrefix(@Nonnull String prefix) {
@@ -146,7 +147,8 @@ public class XMLWriterNamespaceManager {
         return name.toString();
     }
 
-    /** @param namespace */
+    /** @param namespace
+     *            namespace */
     public void createPrefixForNamespace(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
         if (namespace.equals(defaultNamespace)) {

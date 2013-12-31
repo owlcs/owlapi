@@ -56,10 +56,9 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * an extended KRSS vocabulary available in many reasoning systems. For
  * instance, CGIs can be added with help of (implies subclass superclass),
  * range, domain, inverse, functinal attribute can be provided for roles. Note
- * that DatatypeProperties are not supported within KRSS2.
- * <p/>
+ * that DatatypeProperties are not supported within KRSS2. <br>
  * <b>Abbreviations</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="Abbreviations">
  * <tr>
  * <td>CN</td>
  * <td>concept name</td>
@@ -77,130 +76,110 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <td>role expressions, i.e. role name or inverse role</td>
  * </tr>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS concept language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="KRSS concept language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLDescription</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-least n R C)</td>
  * <td>(OWLObjectMinCardinalityRestriction R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(at-most n R C)</td>
  * <td>(OWLObjectMaxCardinalityRestriction R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(exactly n R C)</td>
  * <td>(OWLObjectExactCardinalityRestriction R n C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(some R C)</td>
  * <td>(OWLObjectSomeRestriction R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(all R C)</td>
  * <td>(OWLObjectAllRestriction R C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(not C)</td>
  * <td>(OWLObjectComplementOf C)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(and C D E)</td>
  * <td>(OWLObjectIntersectionOf C D E)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(or C D E)</td>
  * <td>(OWLObjectUnionOf C D E)</td>
  * </tr>
- * <p/>
- * <p/>
  * </table>
- * <p/>
+ * <br>
  * <b>KRSS role language</b>
- * <table bordercolor="#000200" border="1">
+ * <table summary="KRSS role language">
  * <tr>
  * <td>KRSS</td>
  * <td>OWLObjectPropertyExpression</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(inv R)</td>
  * <td>(OWLInverseObjectPropertiesAxiom R)</td>
  * </tr>
- * <p/>
  * </table>
- * <p/>
- * <table bordercolor="#000200" border="1">
- * <th>KRSS2</th>
- * <th>OWLAxiom</th>
- * <th>Remarks</th>
- * <p/>
+ * <br>
+ * <table summary="remarks">
+ * <tr>
+ * <td>KRSS2</td>
+ * <td>OWLAxiom</td>
+ * <td>Remarks</td>
+ * </tr>
  * <tr>
  * <td>(define-primitive-concept CN C)</td>
  * <td>(OWLSubClassOfAxiom CN C)</td>
  * <td>If C is not given owl:Thing will be used instead.</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-concept CN C)</td>
  * <td>(OWLEquivalentClassesAxiom CN C)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(disjoint C D)</td>
  * <td>(OWLDisjointClassesAxiom C D)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(equivalent C D)</td>
  * <td>(OWLEquivalentClassesAxion C D)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(implies C D)</td>
  * <td>(OWLSubclassOf C D)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-role RN RN2)</td>
  * <td>(OWLEquivalentObjectPropertiesAxiom RN RN2)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-primitive-role RN :right-identity RN1)</td>
  * <td>(OWLObjectPropertyChainSubPropertyAxiom (RN RN1) RN)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-primitive-role RN :left-identity RN1)</td>
  * <td>(OWLObjectPropertyChainSubPropertyAxiom (RN1 RN) RN)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-primitive-role RN RN1)</td>
  * <td>(OWLSubObjectPropertyAxiom RN RN1)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-primitive-role RN :parents (RN1 RN2 ...RNn))</td>
  * <td>(OWLSubObjectPropertyAxiom RN RN1)<br>
@@ -208,7 +187,6 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * (OWLSubObjectPropertyAxiom RN RNn)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(define-primitive-role RN :domain (C D ...E) :range (C D ...E)
  * :transitive t :symmetric t :reflexive t :inverse RN1)</td>
@@ -216,81 +194,64 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <td>Corresponding axioms for domain and range as well as transitive,
  * symmetric, reflexive and inverse will be added.</td>
  * </tr>
- * <p/>
- * <p/>
  * <tr>
  * <td>(disjoint-roles R R1)</td>
  * <td>(OWLDisjointObjectPropertiesAxiom R R1)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(implies-role R R)</td>
  * <td>(OWLSubObjectPropertyAxiom R R1)</td>
  * <td>(OWLInverseObjectPropertiesAxiom R R1)</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(inverse RN RN1)</td>
  * <td></td>
  * <td></td>
  * </tr>
- * <p/>
- * <p/>
  * <tr>
  * <td>(roles-equivalent R R1)</td>
  * <td>(OWLEquivalentObjectPropertiesAxiom R R1)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(role-inclusion (compose RN RN1) RN2</td>
  * <td>(OWLObjectPropertyChainSubPropertyAxiom (RN RN1) RN2)</td>
  * <td>RN1 can also be (compose RN3 ...).</td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(transitive RN)</td>
  * <td>(OWLTransitiveObjectPropertyAxiom RN)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(range RN C)</td>
  * <td>(OWLObjectPropertyRangeAxiom RN C)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(instance i C)</td>
  * <td>(OWLClassAssertionAxiom i C)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(related i R i2)</td>
  * <td>(OWLObjectPropertyAssertionAxiom i R i2)</td>
  * <td></td>
  * </tr>
- * <p/>
- * <p/>
  * <tr>
  * <td>(equal i1 i2)</td>
  * <td>(OWLSameIndividualsAxiom i1 i2)</td>
  * <td></td>
  * </tr>
- * <p/>
  * <tr>
  * <td>(distinct i1 i2)</td>
  * <td>(OWLDifferentIndividualsAxiom i1 i2)</td>
  * <td></td>
  * </tr>
- * <p/>
- * <p/>
  * </table>
- * Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+ * 
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OWLParser extends AbstractOWLParser {
     @Override
     public String getName() {

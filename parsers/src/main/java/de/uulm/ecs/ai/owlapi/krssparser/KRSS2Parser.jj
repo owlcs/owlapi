@@ -11,42 +11,37 @@ PARSER_BEGIN(KRSS2Parser)
 
 package de.uulm.ecs.ai.owlapi.krssparser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.coode.owl.krssparser.NameResolverStrategy;
-import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLMutableOntology;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.util.*;
+import org.coode.owl.krssparser.NameResolverStrategy;
+
+import java.net.*;
+import java.util.*;
 
 // Suppress warnings in auto-generated code
-@SuppressWarnings("javadoc")
+@SuppressWarnings("unchecked")
 public class KRSS2Parser {
+
     private OWLOntology ontology;
+
     private OWLDataFactory dataFactory;
+
     private Map<String, IRI> string2IRI;
+
+    private boolean ignoreAnnotationsAndDeclarations = false;
+
     private String base;
-    private NameResolverStrategy nameResolution;
+
+    private NamespaceUtil utils;
+     private NameResolverStrategy nameResolution;
     //all fields for the adaptive strategy
     private int adaptiveMaxRuns = 10;
     private boolean alwaysIRIs = false;
     private boolean alwaysNames = false;
-    
+    //
+    private String[] splitted=new String[2];
+
     public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory)  {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
@@ -58,6 +53,7 @@ public class KRSS2Parser {
         else {
             this.base = id.toString() + "#";
         }
+        this.utils = new NamespaceUtil();
         this.nameResolution = NameResolverStrategy.CHECK;
 
     }
@@ -71,7 +67,7 @@ public class KRSS2Parser {
         }
     }
 
-     public IRI getIRI(final String s) {
+     public IRI getIRI(final String s) throws URISyntaxException {
             IRI IRI = string2IRI.get(s);
             if (IRI == null) {
                 switch(nameResolution) {
@@ -95,7 +91,8 @@ public class KRSS2Parser {
                         adaptiveMaxRuns--;
                     }
                     case CHECK: {
-                        if (XMLUtils.getNCNamePrefix(s).isEmpty()) {
+                        splitted = utils.split(s, splitted);
+                        if (splitted[0]=="") {
                             IRI = IRI.create(base + s);
                         } else {
                             IRI = IRI.create(s);
@@ -111,6 +108,13 @@ public class KRSS2Parser {
      public void setNameResolution(NameResolverStrategy nameResolution) {
         this.nameResolution = nameResolution;
     }
+
+    public void setIgnoreAnnotationsAndDeclarations(boolean b) {
+        ignoreAnnotationsAndDeclarations = b;
+    }
+
+
+
 }
 
 PARSER_END(KRSS2Parser)
@@ -1080,7 +1084,12 @@ IRI Name():
 }
 {
     ( (t=<NAME>| t=<INT>){
-        return getIRI(t.image);
+        try {
+            return getIRI(t.image);
+        }
+        catch(URISyntaxException e) {
+            return null;
+        }
     }
     |
     (t=<TOP>

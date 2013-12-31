@@ -46,10 +46,8 @@ import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 05-Feb-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Feb-2009 */
 public class ManchesterOWLSyntaxFramesParser implements
         OWLExpressionParser<Set<OntologyAxiomPair>> {
     private OWLDataFactory dataFactory;

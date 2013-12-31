@@ -44,11 +44,8 @@ import org.semanticweb.owlapi.io.AbstractOWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-May-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2007 */
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {

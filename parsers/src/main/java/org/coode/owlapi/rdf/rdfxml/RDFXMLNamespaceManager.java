@@ -52,13 +52,13 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 21/09/2011 */
+/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/09/2011 */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     /** @param ontology
-     * @param format */
+     *            ontology
+     * @param format
+     *            format */
     public RDFXMLNamespaceManager(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
         super(ontology, format);

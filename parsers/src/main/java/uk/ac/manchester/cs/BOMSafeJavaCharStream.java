@@ -46,12 +46,12 @@ import java.io.UnsupportedEncodingException;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** JavaCC generated JavaCharStream with added treatment for BOMs */
+/** JavaCC generated JavaCharStream with added treatment for BOMs. */
 public class BOMSafeJavaCharStream {
     /** Whether parser is static. */
     public static final boolean staticFlag = false;
 
-    private static final int hexval(char c) throws IOException {
+    private static int hexval(char c) throws IOException {
         switch (c) {
             case '0':
                 return 0;
@@ -99,11 +99,11 @@ public class BOMSafeJavaCharStream {
 
     /** Position in buffer. */
     public int bufpos = -1;
-    int bufsize;
-    int available;
-    int tokenBegin;
-    protected int bufline[];
-    protected int bufcolumn[];
+    protected int bufsize;
+    protected int available;
+    protected int tokenBegin;
+    protected int[] bufline;
+    protected int[] bufcolumn;
     protected int column = 0;
     protected int line = 1;
     protected boolean prevCharIsCR = false;
@@ -119,8 +119,8 @@ public class BOMSafeJavaCharStream {
 
     private void ExpandBuff(boolean wrapAround) {
         char[] newbuffer = new char[bufsize + 2048];
-        int newbufline[] = new int[bufsize + 2048];
-        int newbufcolumn[] = new int[bufsize + 2048];
+        int[] newbufline = new int[bufsize + 2048];
+        int[] newbufcolumn = new int[bufsize + 2048];
         if (wrapAround) {
             System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
             System.arraycopy(buffer, 0, newbuffer, bufsize - tokenBegin, bufpos);
@@ -184,7 +184,8 @@ public class BOMSafeJavaCharStream {
     }
 
     /** @return starting character for token.
-     * @throws IOException */
+     * @throws IOException
+     *             IO exception */
     public char BeginToken() throws IOException {
         if (inBuf > 0) {
             --inBuf;
@@ -250,7 +251,8 @@ public class BOMSafeJavaCharStream {
     /** Read a character.
      * 
      * @return character
-     * @throws IOException */
+     * @throws IOException
+     *             IO exception */
     public char readChar() throws IOException {
         if (inBuf > 0) {
             --inBuf;
@@ -341,7 +343,8 @@ public class BOMSafeJavaCharStream {
 
     /** Retreat.
      * 
-     * @param amount */
+     * @param amount
+     *            number of characters to back up */
     public void backup(int amount) {
         inBuf += amount;
         if ((bufpos -= amount) < 0) {
@@ -349,7 +352,16 @@ public class BOMSafeJavaCharStream {
         }
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     *            stream
+     * @param startline
+     *            start line
+     * @param startcolumn
+     *            start column
+     * @param buffersize
+     *            buffer size */
     protected BOMSafeJavaCharStream(Reader dstream, int startline, int startcolumn,
             int buffersize) {
         inputStream = dstream;
@@ -365,13 +377,25 @@ public class BOMSafeJavaCharStream {
     /** Constructor.
      * 
      * @param dstream
+     *            stream
      * @param startline
-     * @param startcolumn */
+     *            start line
+     * @param startcolumn
+     *            start column */
     public BOMSafeJavaCharStream(Reader dstream, int startline, int startcolumn) {
         this(dstream, startline, startcolumn, 4096);
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param dstream
+     *            stream
+     * @param startline
+     *            start line
+     * @param startcolumn
+     *            start column
+     * @param buffersize
+     *            buffer size */
     private void ReInit(Reader dstream, int startline, int startcolumn, int buffersize) {
         inputStream = dstream;
         line = startline;
@@ -391,13 +415,29 @@ public class BOMSafeJavaCharStream {
     /** Reinitialise.
      * 
      * @param dstream
+     *            stream
      * @param startline
-     * @param startcolumn */
+     *            start line
+     * @param startcolumn
+     *            start column */
     public void ReInit(Reader dstream, int startline, int startcolumn) {
         ReInit(dstream, startline, startcolumn, 4096);
     }
 
-    /** Constructor. */
+    /** Constructor.
+     * 
+     * @param dstream
+     *            stream
+     * @param encoding
+     *            encoding
+     * @param startline
+     *            start line
+     * @param startcolumn
+     *            start column
+     * @param buffersize
+     *            buffer size
+     * @throws UnsupportedEncodingException
+     *             if encoding unsupported */
     protected BOMSafeJavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize) throws UnsupportedEncodingException {
         this(encoding == null ? new InputStreamReader(dstream, "UTF-8")
@@ -408,16 +448,34 @@ public class BOMSafeJavaCharStream {
     /** Constructor.
      * 
      * @param dstream
+     *            stream
      * @param encoding
+     *            encoding
      * @param startline
+     *            start line
      * @param startcolumn
-     * @throws UnsupportedEncodingException */
+     *            start column
+     * @throws UnsupportedEncodingException
+     *             if encoding unsupported */
     public BOMSafeJavaCharStream(InputStream dstream, String encoding, int startline,
             int startcolumn) throws UnsupportedEncodingException {
         this(dstream, encoding, startline, startcolumn, 4096);
     }
 
-    /** Reinitialise. */
+    /** Reinitialise.
+     * 
+     * @param dstream
+     *            stream
+     * @param encoding
+     *            encoding
+     * @param startline
+     *            start line
+     * @param startcolumn
+     *            start column
+     * @param buffersize
+     *            buffer size
+     * @throws UnsupportedEncodingException
+     *             if encoding unsupported */
     private void ReInit(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize) throws UnsupportedEncodingException {
         ReInit(encoding == null ? new InputStreamReader(dstream, "UTF-8")
@@ -428,10 +486,15 @@ public class BOMSafeJavaCharStream {
     /** Reinitialise.
      * 
      * @param dstream
+     *            stream
      * @param encoding
+     *            encoding
      * @param startline
+     *            start line
      * @param startcolumn
-     * @throws UnsupportedEncodingException */
+     *            start column
+     * @throws UnsupportedEncodingException
+     *             for unsupported encoding */
     public void ReInit(InputStream dstream, String encoding, int startline,
             int startcolumn) throws UnsupportedEncodingException {
         ReInit(dstream, encoding, startline, startcolumn, 4096);

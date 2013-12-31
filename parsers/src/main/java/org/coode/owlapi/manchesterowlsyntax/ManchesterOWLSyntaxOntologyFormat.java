@@ -40,11 +40,8 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-May-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2007 */
 public class ManchesterOWLSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
 

@@ -50,23 +50,22 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 18-Feb-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007 */
 public class SWRLRuleTranslator {
     private OWLRDFConsumer consumer;
     private OptimisedListTranslator<SWRLAtom> listTranslator;
 
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public SWRLRuleTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
         listTranslator = new OptimisedListTranslator<SWRLAtom>(consumer,
                 new SWRLAtomListItemTranslator(consumer));
     }
 
-    /** @param mainNode */
+    /** @param mainNode
+     *            rule to translate */
     public void translateRule(IRI mainNode) {
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         Set<IRI> predicates = consumer.getPredicatesBySubject(mainNode);

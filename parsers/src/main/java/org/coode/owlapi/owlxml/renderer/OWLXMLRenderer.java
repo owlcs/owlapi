@@ -54,16 +54,17 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 12-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006 */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
     /** @param ontology
+     *            ontology
      * @param writer
+     *            writer
      * @param format
-     * @throws OWLRendererException */
+     *            format
+     * @throws OWLRendererException
+     *             renderer error */
     public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
             @Nonnull OWLOntologyFormat format) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");

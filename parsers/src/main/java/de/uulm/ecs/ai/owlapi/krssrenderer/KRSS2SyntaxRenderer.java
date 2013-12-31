@@ -47,9 +47,7 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Author: Olaf Noppens<br>
- * Ulm University<br>
- * Institute of Artificial Intelligence<br> */
+/** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
     @Override
     public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {

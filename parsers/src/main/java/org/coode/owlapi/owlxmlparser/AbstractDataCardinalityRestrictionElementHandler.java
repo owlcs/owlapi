@@ -40,16 +40,14 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 14-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006 */
 public abstract class AbstractDataCardinalityRestrictionElementHandler extends
         AbstractDataRangeFillerRestrictionElementHandler {
     private int cardinality;
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public AbstractDataCardinalityRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

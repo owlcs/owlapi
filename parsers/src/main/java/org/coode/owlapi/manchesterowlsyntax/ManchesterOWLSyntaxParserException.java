@@ -40,26 +40,30 @@ package org.coode.owlapi.manchesterowlsyntax;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 19-Nov-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 19-Nov-2007 */
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
     /** @param message
+     *            message
      * @param lineNumber
-     * @param columnNumber */
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
     public ManchesterOWLSyntaxParserException(String message, int lineNumber,
             int columnNumber) {
         super(message, lineNumber, columnNumber);
     }
 
     /** @param message
+     *            message
      * @param cause
+     *            cause
      * @param lineNumber
-     * @param columnNumber */
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
     public ManchesterOWLSyntaxParserException(String message, Throwable cause,
             int lineNumber, int columnNumber) {
         super(message, cause, lineNumber, columnNumber);

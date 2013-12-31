@@ -48,13 +48,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Dec-2006<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006 */
 public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
-    /** @param consumer */
+    /** @param consumer
+     *            consumer */
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
         super(consumer, DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION);
     }

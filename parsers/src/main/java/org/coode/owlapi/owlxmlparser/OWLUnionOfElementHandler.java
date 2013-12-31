@@ -43,14 +43,12 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 10-Apr-2007<br>
- * <br> */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2007 */
 public class OWLUnionOfElementHandler extends
         AbstractOWLElementHandler<OWLClassExpression> {
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLUnionOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

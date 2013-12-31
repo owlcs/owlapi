@@ -38,26 +38,35 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 13-Apr-2007<br>
- * <br> */
+/** The Class OWLRDFXMLParserMalformedNodeException.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLRDFXMLParserMalformedNodeException extends OWLRDFXMLParserException {
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause */
+    /** Instantiates a new oWLRDFXML parser malformed node exception.
+     * 
+     * @param cause
+     *            the cause */
     public OWLRDFXMLParserMalformedNodeException(Throwable cause) {
         super(cause);
     }
 
-    /** @param message
-     * @param cause */
+    /** Instantiates a new oWLRDFXML parser malformed node exception.
+     * 
+     * @param message
+     *            the message
+     * @param cause
+     *            the cause */
     public OWLRDFXMLParserMalformedNodeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param message */
+    /** Instantiates a new oWLRDFXML parser malformed node exception.
+     * 
+     * @param message
+     *            the message */
     public OWLRDFXMLParserMalformedNodeException(String message) {
         super(message);
     }

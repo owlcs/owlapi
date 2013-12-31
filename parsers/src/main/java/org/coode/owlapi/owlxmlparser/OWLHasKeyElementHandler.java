@@ -45,15 +45,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 20-May-2009 */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 20-May-2009 */
 public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression ce;
     private Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
 
-    /** @param handler */
+    /** @param handler
+     *            owlxml handler */
     public OWLHasKeyElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
