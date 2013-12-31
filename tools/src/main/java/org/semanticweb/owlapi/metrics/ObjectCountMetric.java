@@ -52,16 +52,22 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
  * <br>
+ * .
  * 
  * @param <E>
  *            the entity type */
 public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedMetric {
-    /** @param o
+    /** Instantiates a new object count metric.
+     * 
+     * @param o
      *            ontology to use */
     public ObjectCountMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 
+    /** Gets the object type name.
+     * 
+     * @return the object type name */
     @Nonnull
     protected abstract String getObjectTypeName();
 
@@ -70,6 +76,11 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
         return getObjectTypeName() + " count";
     }
 
+    /** Gets the objects.
+     * 
+     * @param ont
+     *            the ont
+     * @return the objects */
     @Nonnull
     protected abstract Set<? extends E> getObjects(@Nonnull OWLOntology ont);
 
@@ -78,6 +89,9 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
         return getObjects().size();
     }
 
+    /** Gets the objects.
+     * 
+     * @return the objects */
     @Nonnull
     protected Set<? extends E> getObjects() {
         Set<E> objects = new HashSet<E>();

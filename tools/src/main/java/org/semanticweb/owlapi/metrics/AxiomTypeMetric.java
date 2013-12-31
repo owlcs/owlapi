@@ -50,11 +50,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class AxiomTypeMetric extends AxiomCountMetric {
+    /** The axiom type. */
     private final AxiomType<?> axiomType;
 
-    /** @param o
+    /** Instantiates a new axiom type metric.
+     * 
+     * @param o
      *            ontology to use
      * @param axiomType
      *            type of axioms */
@@ -73,7 +77,9 @@ public class AxiomTypeMetric extends AxiomCountMetric {
         return ont.getAxioms(axiomType);
     }
 
-    /** @return axiom type */
+    /** Gets the axiom type.
+     * 
+     * @return axiom type */
     @Nonnull
     public AxiomType<?> getAxiomType() {
         return axiomType;

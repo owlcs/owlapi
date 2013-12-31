@@ -98,6 +98,16 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
                 checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
+    /** Generate changes.
+     * 
+     * @param cls
+     *            the cls
+     * @param property
+     *            the property
+     * @param ontologies
+     *            the ontologies
+     * @param targetOntology
+     *            the target ontology */
     private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property,
             Set<OWLOntology> ontologies, OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
@@ -121,14 +131,24 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
                 cls, closureAxiomDesc)));
     }
 
+    /** The Class FillerCollector. */
     private class FillerCollector extends OWLClassExpressionVisitorAdapter {
+        /** The fillers. */
         private final Set<OWLClassExpression> fillers = new HashSet<OWLClassExpression>();
+        /** The property. */
         private final OWLObjectPropertyExpression property;
 
+        /** Instantiates a new filler collector.
+         * 
+         * @param p
+         *            the p */
         public FillerCollector(@Nonnull OWLObjectPropertyExpression p) {
             property = p;
         }
 
+        /** Gets the fillers.
+         * 
+         * @return the fillers */
         public Set<OWLClassExpression> getFillers() {
             return fillers;
         }

@@ -167,6 +167,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             return newSubset;
         }
 
+        /** Subset cardinality.
+         * 
+         * @param subset
+         *            the subset
+         * @return the int */
         public int subsetCardinality(boolean[] subset) {
             int card = 0;
             for (int i = 0; i < ax.length; i++) {
@@ -194,14 +199,24 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
-    /** Type of module */
+    /** Type of module. */
     private ModuleType moduleType;
     /** Represents the associated ontology. */
     private final OntologyAxiomSet ontologyAxiomSet;
+    /** The ontology. */
     private final OWLOntology rootOntology, ontology;
     /** Represents the manager for the associated ontology. */
     private final OWLOntologyManager manager;
 
+    /** Creates the ontology.
+     * 
+     * @param man
+     *            the man
+     * @param ont
+     *            the ont
+     * @param axs
+     *            the axs
+     * @return the oWL ontology */
     @Nonnull
     private OWLOntology createOntology(@Nonnull OWLOntologyManager man,
             @Nonnull OWLOntology ont, @Nonnull Set<OWLAxiom> axs) {
@@ -247,6 +262,11 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         this(man, ont, asAxiomSet(ont), moduleType);
     }
 
+    /** As axiom set.
+     * 
+     * @param ont
+     *            the ont
+     * @return the sets the */
     private static Set<OWLAxiom> asAxiomSet(OWLOntology ont) {
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>(ont.getAxioms());
         for (OWLOntology importedOnt : ont.getImportsClosure()) {
@@ -485,12 +505,25 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return enrichedModule;
     }
 
+    /** Minus ontology uri.
+     * 
+     * @param s
+     *            the s
+     * @return the string */
     @Nonnull
     String minusOntologyURI(@Nonnull String s) {
         String uri = manager.getOntologyDocumentIRI(rootOntology).toString() + "#";
         return s.replace(uri, "").replace("<", "").replace(">", "");
     }
 
+    /** Output signature.
+     * 
+     * @param preamble
+     *            the preamble
+     * @param sig
+     *            the sig
+     * @param verbose
+     *            the verbose */
     void outputSignature(@Nonnull String preamble, @Nonnull Set<OWLEntity> sig,
             boolean verbose) {
         if (verbose) {
@@ -502,6 +535,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         }
     }
 
+    /** Extract unnested module.
+     * 
+     * @param sig
+     *            the sig
+     * @param cls
+     *            the cls
+     * @param verbose
+     *            the verbose
+     * @return the sets the */
     @Nonnull
     Set<OWLAxiom> extractUnnestedModule(@Nonnull Set<OWLEntity> sig,
             @Nonnull LocalityClass cls, boolean verbose) {
@@ -514,6 +556,17 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return enrich(moduleAsSet, signature, verbose);
     }
 
+    /** Super or sub classes.
+     * 
+     * @param superOrSubClassLevel
+     *            the super or sub class level
+     * @param superVsSub
+     *            the super vs sub
+     * @param reasoner
+     *            the reasoner
+     * @param classesInSig
+     *            the classes in sig
+     * @return the sets the */
     @Nonnull
     Set<OWLClass> SuperOrSubClasses(int superOrSubClassLevel, boolean superVsSub,
             @Nonnull OWLReasoner reasoner, @Nonnull Set<OWLClass> classesInSig) {
@@ -556,6 +609,17 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         return superOrSubClasses;
     }
 
+    /** Enrich signature.
+     * 
+     * @param sig
+     *            the sig
+     * @param superClassLevel
+     *            the super class level
+     * @param subClassLevel
+     *            the sub class level
+     * @param reasoner
+     *            the reasoner
+     * @return the sets the */
     @Nonnull
     Set<OWLEntity> enrichSignature(@Nonnull Set<OWLEntity> sig, int superClassLevel,
             int subClassLevel, @Nonnull OWLReasoner reasoner) {
@@ -682,6 +746,23 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 reasoner, false);
     }
 
+    /** Extract as ontology.
+     * 
+     * @param signature
+     *            the signature
+     * @param iri
+     *            the iri
+     * @param superClassLevel
+     *            the super class level
+     * @param subClassLevel
+     *            the sub class level
+     * @param reasoner
+     *            the reasoner
+     * @param verbose
+     *            the verbose
+     * @return the oWL ontology
+     * @throws OWLOntologyCreationException
+     *             the oWL ontology creation exception */
     @Nonnull
     OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri,
             int superClassLevel, int subClassLevel, @Nonnull OWLReasoner reasoner,

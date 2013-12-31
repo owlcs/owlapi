@@ -51,18 +51,24 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class OWLMetricManager {
+    /** The metrics. */
     private final List<OWLMetric<?>> metrics;
 
-    /** @param metrics
+    /** Instantiates a new oWL metric manager.
+     * 
+     * @param metrics
      *            the metrics to use */
     public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
         this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics,
                 "metrics cannot be null"));
     }
 
-    /** @param ontology
+    /** Sets the ontology.
+     * 
+     * @param ontology
      *            the ontology to measure */
     public void setOntology(@Nonnull OWLOntology ontology) {
         for (OWLMetric<?> metric : metrics) {
@@ -70,7 +76,9 @@ public class OWLMetricManager {
         }
     }
 
-    /** @return the metrics */
+    /** Gets the metrics.
+     * 
+     * @return the metrics */
     @Nonnull
     public List<OWLMetric<?>> getMetrics() {
         return new ArrayList<OWLMetric<?>>(metrics);

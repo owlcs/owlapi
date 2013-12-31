@@ -57,17 +57,24 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
  * <br>
+ * .
  * 
  * @param <M>
  *            the metric type */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         OWLOntologyChangeListener {
+    /** The ontology. */
     private OWLOntology ontology;
+    /** The dirty. */
     private boolean dirty;
+    /** The imports closure used. */
     private boolean importsClosureUsed;
+    /** The value. */
     private M value;
 
-    /** @param o
+    /** Instantiates a new abstract owl metric.
+     * 
+     * @param o
      *            the ontology to use */
     public AbstractOWLMetric(@Nonnull OWLOntology o) {
         this.ontology = checkNotNull(o, "o cannot be null");
@@ -81,13 +88,16 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     @Override
-    final public void setOntology(OWLOntology ontology) {
+    public void setOntology(OWLOntology ontology) {
         this.ontology.getOWLOntologyManager().removeOntologyChangeListener(this);
         this.ontology = ontology;
         this.ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         setDirty(true);
     }
 
+    /** Recompute metric.
+     * 
+     * @return the m */
     @Nonnull
     protected abstract M recomputeMetric();
 
@@ -99,11 +109,17 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         return value;
     }
 
+    /** Sets the dirty.
+     * 
+     * @param dirty
+     *            the new dirty */
     private void setDirty(boolean dirty) {
         this.dirty = dirty;
     }
 
-    /** @return ontologies as a set */
+    /** Gets the ontologies.
+     * 
+     * @return ontologies as a set */
     @Nonnull
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
@@ -133,7 +149,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     @Override
-    final public boolean isImportsClosureUsed() {
+    public boolean isImportsClosureUsed() {
         return importsClosureUsed;
     }
 
@@ -157,6 +173,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     protected abstract boolean isMetricInvalidated(
             @Nonnull List<? extends OWLOntologyChange> changes);
 
+    /** Dispose metric. */
     protected abstract void disposeMetric();
 
     @Override

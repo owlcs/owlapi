@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+// TODO: Auto-generated Javadoc
 /** An interface for any class implementing ontology segmentation or
  * modularisation.
  * 
@@ -96,53 +97,44 @@ public interface OntologySegmenter {
     Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature, int superClassLevel,
             int subClassLevel, @Nonnull OWLReasoner reasoner);
 
-    /** Returns an ontology that is a segment of the ontology associated with
+    /**
+     * Returns an ontology that is a segment of the ontology associated with
      * this segmenter.
-     * 
-     * @param signature
-     *            the seed signature (set of entities) for the module
-     * @param iri
-     *            the URI for the module
+     *
+     * @param signature the seed signature (set of entities) for the module
+     * @param iri the URI for the module
      * @return the module, having the specified URI
-     * @throws OWLOntologyChangeException
-     *             if adding axioms to the module fails
-     * @throws OWLOntologyCreationException
-     *             if the module cannot be created */
+     * @throws OWLOntologyCreationException if the module cannot be created
+     */
     @Nonnull
     OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri)
             throws OWLOntologyCreationException;
 
-    /** Returns an ontology that is a segment of the ontology associated with
+    /**
+     * Returns an ontology that is a segment of the ontology associated with
      * this segmenter. This segment is determined by a seed signature (set of
      * entities), which is the specified signature plus possibly all
      * superclasses and/or subclasses of the classes therein. Sub-/superclasses
      * are determined using the specified reasoner.
-     * 
-     * @param signature
-     *            the seed signature
-     * @param iri
-     *            the URI for the module
-     * @param superClassLevel
-     *            determines whether superclasses are added to the signature
-     *            before segment extraction, see below for admissible values
-     * @param subClassLevel
-     *            determines whether subclasses are added to the signature
-     *            before segment extraction, see below for admissible values
-     * @param reasoner
-     *            the reasoner to determine super-/subclasses
+     *
+     * @param signature the seed signature
+     * @param iri the URI for the module
+     * @param superClassLevel determines whether superclasses are added to the signature
+     * before segment extraction, see below for admissible values
+     * @param subClassLevel determines whether subclasses are added to the signature
+     * before segment extraction, see below for admissible values
+     * @param reasoner the reasoner to determine super-/subclasses
      * @return the segment as a set of axioms
-     * @throws OWLOntologyChangeException
-     *             if adding axioms to the module fails
-     * @throws OWLOntologyCreationException
-     *             if the module cannot be created Meaning of the value of
-     *             superClassLevel, subClassLevel:<br>
-     *             Let this value be k. If k > 0, then all classes are included
-     *             that are (direct or indirect) super-/subclasses of some class
-     *             in signature, with a distance of at most k to this class in
-     *             the class hierarchy computed by reasoner. If k = 0, then no
-     *             super-/subclasses are added. If k < 0, then all direct and
-     *             indirect super-/subclasses of any class in the signature are
-     *             added. */
+     * @throws OWLOntologyCreationException if the module cannot be created Meaning of the value of
+     * superClassLevel, subClassLevel:<br>
+     * Let this value be k. If k > 0, then all classes are included
+     * that are (direct or indirect) super-/subclasses of some class
+     * in signature, with a distance of at most k to this class in
+     * the class hierarchy computed by reasoner. If k = 0, then no
+     * super-/subclasses are added. If k < 0, then all direct and
+     * indirect super-/subclasses of any class in the signature are
+     * added.
+     */
     @Nonnull
     OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri,
             int superClassLevel, int subClassLevel, @Nonnull OWLReasoner reasoner)

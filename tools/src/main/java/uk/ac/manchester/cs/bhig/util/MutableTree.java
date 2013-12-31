@@ -57,14 +57,20 @@ import javax.annotation.Nonnull;
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br>
  * <br>
+ * .
  * 
  * @param <N>
  *            type of elements */
 public class MutableTree<N> implements Tree<N> {
+    /** The user object. */
     private final N userObject;
+    /** The parent. */
     private MutableTree<N> parent;
+    /** The children. */
     private final List<MutableTree<N>> children = new ArrayList<MutableTree<N>>();
+    /** The child2 edge map. */
     private final Map<Tree<N>, Object> child2EdgeMap = new HashMap<Tree<N>, Object>();
+    /** The to string renderer. */
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
         @Override
         public String render(Tree<N> object) {
@@ -72,7 +78,9 @@ public class MutableTree<N> implements Tree<N> {
         }
     };
 
-    /** @param userObject
+    /** Instantiates a new mutable tree.
+     * 
+     * @param userObject
      *            the user object */
     public MutableTree(@Nonnull N userObject) {
         this.userObject = checkNotNull(userObject, "userObject cannot be null");
@@ -83,14 +91,18 @@ public class MutableTree<N> implements Tree<N> {
         return userObject;
     }
 
-    /** @param child
+    /** Adds the child.
+     * 
+     * @param child
      *            child to add */
     public void addChild(@Nonnull MutableTree<N> child) {
         children.add(child);
         child.parent = this;
     }
 
-    /** @param child
+    /** Removes the child.
+     * 
+     * @param child
      *            child to remove */
     public void removeChild(@Nonnull MutableTree<N> child) {
         children.remove(child);
@@ -171,6 +183,12 @@ public class MutableTree<N> implements Tree<N> {
         return objects;
     }
 
+    /** Gets the user object closure.
+     * 
+     * @param tree
+     *            the tree
+     * @param bin
+     *            the bin */
     private void getUserObjectClosure(@Nonnull Tree<N> tree, @Nonnull Set<N> bin) {
         bin.add(tree.getUserObject());
         for (Tree<N> child : tree.getChildren()) {
@@ -222,6 +240,12 @@ public class MutableTree<N> implements Tree<N> {
         return results;
     }
 
+    /** Fill depth first.
+     * 
+     * @param tree
+     *            the tree
+     * @param bin
+     *            the bin */
     private void fillDepthFirst(@Nonnull Tree<N> tree, @Nonnull List<N> bin) {
         bin.add(tree.getUserObject());
         for (Tree<N> child : tree.getChildren()) {

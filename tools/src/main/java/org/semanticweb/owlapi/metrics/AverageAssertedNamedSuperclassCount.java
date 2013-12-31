@@ -56,9 +56,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
-    /** @param o
+    /** Instantiates a new average asserted named superclass count.
+     * 
+     * @param o
      *            ontology to use */
     public AverageAssertedNamedSuperclassCount(@Nonnull OWLOntology o) {
         super(o);

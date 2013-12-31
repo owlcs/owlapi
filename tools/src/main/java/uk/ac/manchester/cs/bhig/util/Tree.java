@@ -45,14 +45,16 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
+// TODO: Auto-generated Javadoc
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br>
- * <br>
- * 
- * @param <N>
- *            the kind of elements in the tree */
+ * <br>.
+ *
+ * @param <N> the kind of elements in the tree
+ */
 public interface Tree<N> {
     /** Gets the "content" of this tree node.
      * 
@@ -74,16 +76,20 @@ public interface Tree<N> {
     @Nonnull
     List<Tree<N>> getChildren();
 
-    /** @param child
-     *            the child to use
-     * @return the object stored as edge */
+    /**
+     * Gets the edge.
+     *
+     * @param child the child to use
+     * @return the object stored as edge
+     */
     @Nonnull
     Object getEdge(@Nonnull Tree<N> child);
 
-    /** Sorts the children using the specified comparator
-     * 
-     * @param comparator
-     *            The comparator to be used for the sorting. */
+    /**
+     * Sorts the children using the specified comparator.
+     *
+     * @param comparator The comparator to be used for the sorting.
+     */
     void sortChildren(@Nonnull Comparator<Tree<N>> comparator);
 
     /** A convenience method that gets the number of child nodes that this node
@@ -92,10 +98,12 @@ public interface Tree<N> {
      * @return The count of the number of children of this node. */
     int getChildCount();
 
-    /** A convenience method that determines if this is a root node (because it
-     * has no parent node)
-     * 
-     * @return {@code true} if this is a root node, otherwise {@code false}. */
+    /**
+     * A convenience method that determines if this is a root node (because it
+     * has no parent node).
+     *
+     * @return {@code true} if this is a root node, otherwise {@code false}.
+     */
     boolean isRoot();
 
     /** A convenience method that determines if this node is a leaf node (because
@@ -110,33 +118,57 @@ public interface Tree<N> {
     @Nonnull
     Tree<N> getRoot();
 
-    /** @return the path to the root */
+    /**
+     * Gets the path to root.
+     *
+     * @return the path to the root
+     */
     @Nonnull
     List<Tree<N>> getPathToRoot();
 
-    /** @return the elements in the path to root */
+    /**
+     * Gets the user object path to root.
+     *
+     * @return the elements in the path to root
+     */
     @Nonnull
     List<N> getUserObjectPathToRoot();
 
-    /** @param writer
-     *            the writer to print to */
+    /**
+     * Dump.
+     *
+     * @param writer the writer to print to
+     */
     void dump(@Nonnull PrintWriter writer);
 
-    /** @param writer
-     *            the writer to print to
-     * @param indent
-     *            how much to indent */
+    /**
+     * Dump.
+     *
+     * @param writer the writer to print to
+     * @param indent how much to indent
+     */
     void dump(@Nonnull PrintWriter writer, int indent);
 
-    /** @param renderer
-     *            the renderer to use */
+    /**
+     * Sets the node renderer.
+     *
+     * @param renderer the renderer to use
+     */
     void setNodeRenderer(@Nonnull NodeRenderer<N> renderer);
 
-    /** @return the set of user objects */
+    /**
+     * Gets the user object closure.
+     *
+     * @return the set of user objects
+     */
     @Nonnull
     Set<N> getUserObjectClosure();
 
-    /** @return the list of elements */
+    /**
+     * Fill depth first.
+     *
+     * @return the list of elements
+     */
     @Nonnull
     List<N> fillDepthFirst();
 }

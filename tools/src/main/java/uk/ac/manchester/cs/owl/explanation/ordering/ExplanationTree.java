@@ -44,19 +44,30 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 
-/** Author: Matthew Horridge<br>
+// TODO: Auto-generated Javadoc
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br>
- * <br> */
+ * <br>.
+ */
 public class ExplanationTree extends MutableTree<OWLAxiom> {
-    /** @param userObject
-     *            the axiom to wrap */
+    
+    /**
+     * Instantiates a new explanation tree.
+     *
+     * @param userObject the axiom to wrap
+     */
     public ExplanationTree(@Nonnull OWLAxiom userObject) {
         super(userObject);
     }
 
-    /** @return true if entailed */
+    /**
+     * Checks if is entailed.
+     *
+     * @return true if entailed
+     */
     public boolean isEntailed() {
         return false;
     }

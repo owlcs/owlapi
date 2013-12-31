@@ -75,29 +75,46 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 
-/** A black box explanation */
+/** A black box explanation. */
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implements
         SingleExplanationGenerator {
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = Logger.getLogger(BlackBoxExplanation.class
             .getName());
+    /** The debugging ontology. */
     private OWLOntology debuggingOntology;
+    /** The debugging axioms. */
     protected final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
+    /** The objects expanded with defining axioms. */
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<OWLEntity>();
+    /** The objects expanded with referencing axioms. */
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<OWLEntity>();
+    /** The expanded with defining axioms. */
     private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<OWLAxiom>();
+    /** The expanded with referencing axioms. */
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
+    /** The expanded axiom map. */
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
-    /** default expansion limit */
+    /** default expansion limit. */
     public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
+    /** The initial expansion limit. */
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
+    /** The expansion limit. */
     private int expansionLimit = initialExpansionLimit;
+    /** The expansion factor. */
     private double expansionFactor = 1.25;
+    /** The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE. */
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
+    /** The fast pruning window size. */
     private int fastPruningWindowSize = 0;
+    /** The perform repeated fast pruning. */
     private boolean performRepeatedFastPruning = false;
+    /** The owl ontology manager. */
     private final OWLOntologyManager owlOntologyManager;
 
-    /** @param ontology
+    /** Instantiates a new black box explanation.
+     * 
+     * @param ontology
      *            the ontology
      * @param reasonerFactory
      *            the reasoner factory
@@ -115,6 +132,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         getReasoner().dispose();
     }
 
+    /** Reset. */
     private void reset() {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
@@ -154,6 +172,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     // Expansion
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
+    /** Expand axioms.
+     * 
+     * @return the int */
     private int expandAxioms() {
         /*
          * We expand the axiom set using axioms that define entities that are
@@ -216,7 +237,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
     /** Creates a set of axioms to expands the debugging axiom set by adding the
-     * defining axioms for the specified entity. */
+     * defining axioms for the specified entity.
+     * 
+     * @param obj
+     *            the obj
+     * @param limit
+     *            the limit
+     * @return the int */
     private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         for (OWLOntology ont : getOntology().getImportsClosure()) {
@@ -243,7 +270,13 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     }
 
     /** Expands the axiom set by adding the referencing axioms for the specified
-     * entity. */
+     * entity.
+     * 
+     * @param obj
+     *            the obj
+     * @param limit
+     *            the limit
+     * @return the int */
     private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit) {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         // First expand by getting the defining axioms - if this doesn't
@@ -258,6 +291,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     /** A utility method. Adds axioms from one set to another set upto a
      * specified limit. Annotation axioms are stripped out
      * 
+     * @param <N>
+     *            the number type
      * @param source
      *            The source set. Objects from this set will be added to the
      *            destination set
@@ -287,6 +322,12 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     // performed.
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
+    /** Perform fast pruning.
+     * 
+     * @param unsatClass
+     *            the unsat class
+     * @throws OWLException
+     *             the oWL exception */
     private void performFastPruning(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
@@ -325,6 +366,12 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         log("    - End of fast pruning");
     }
 
+    /** Perform slow pruning.
+     * 
+     * @param unsatClass
+     *            the unsat class
+     * @throws OWLException
+     *             the oWL exception */
     private void performSlowPruning(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         // Simply remove axioms one at a time. If the class
@@ -345,10 +392,17 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
     // Creation of debugging ontology and satisfiability testing
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
+    /** The sat test count. */
     private int satTestCount = 0;
 
     /** Tests the satisfiability of the test class. The ontology is recreated
-     * before the test is performed. */
+     * before the test is performed.
+     * 
+     * @param unsatClass
+     *            the unsat class
+     * @return true, if is satisfiable
+     * @throws OWLException
+     *             the oWL exception */
     private boolean isSatisfiable(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         createDebuggingOntology();
@@ -364,6 +418,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         return sat;
     }
 
+    /** Creates the debugging ontology.
+     * 
+     * @throws OWLException
+     *             the oWL exception */
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
@@ -376,10 +434,17 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         owlOntologyManager.applyChanges(changes);
     }
 
+    /** Reset satisfiability test counter. */
     private void resetSatisfiabilityTestCounter() {
         satTestCount = 0;
     }
 
+    /** Expand until unsatisfiable.
+     * 
+     * @param unsatClass
+     *            the unsat class
+     * @throws OWLException
+     *             the oWL exception */
     private void expandUntilUnsatisfiable(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         // Perform the initial expansion - this will cause
@@ -414,6 +479,12 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         log("Total number of axioms added: %s", totalAdded);
     }
 
+    /** Prune until minimal.
+     * 
+     * @param unsatClass
+     *            the unsat class
+     * @throws OWLException
+     *             the oWL exception */
     protected void pruneUntilMinimal(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         log("FOUND CLASH! Pruning %s axioms...", debuggingAxioms.size());
@@ -456,6 +527,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         log("Total number of satisfiability tests performed: %s", totalSatTests);
     }
 
+    /** Removes the declarations. */
     private void removeDeclarations() {
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
             @Override
@@ -475,18 +547,38 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         return "BlackBox";
     }
 
+    /** Log.
+     * 
+     * @param template
+     *            the template
+     * @param objects
+     *            the objects */
     private static void log(String template, Object... objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
+    /** Log.
+     * 
+     * @param template
+     *            the template
+     * @param objects
+     *            the objects */
     private static void log(String template, int objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
+    /** Log.
+     * 
+     * @param template
+     *            the template
+     * @param object1
+     *            the object1
+     * @param object2
+     *            the object2 */
     private static void log(String template, int object1, int object2) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, object1, object2));

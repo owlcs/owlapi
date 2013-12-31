@@ -49,9 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class ReferencedDataPropertyCount extends ObjectCountMetric<OWLDataProperty> {
-    /** @param o
+    /** Instantiates a new referenced data property count.
+     * 
+     * @param o
      *            ontology to use */
     public ReferencedDataPropertyCount(@Nonnull OWLOntology o) {
         super(o);

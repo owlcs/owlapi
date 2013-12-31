@@ -57,9 +57,12 @@ import org.semanticweb.owlapi.util.NamedConjunctChecker;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
-    /** @param o
+    /** Instantiates a new number of classes with multiple inheritance.
+     * 
+     * @param o
      *            ontology to use */
     public NumberOfClassesWithMultipleInheritance(@Nonnull OWLOntology o) {
         super(o);

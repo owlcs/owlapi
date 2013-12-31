@@ -42,11 +42,10 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Author: Matthew Horridge<br>
- * Clark & Parsia, LLC<br>
- * Bio-Health Informatics Group<br>
- * Date: 26-Nov-2007<br>
- * <br> */
+/** The Class SilentExplanationProgressMonitor.
+ * 
+ * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
+ *         Group, Date: 26-Nov-2007 */
 public class SilentExplanationProgressMonitor implements ExplanationProgressMonitor {
     @Override
     public void foundExplanation(Set<OWLAxiom> axioms) {}

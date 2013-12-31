@@ -74,6 +74,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
+// TODO: Auto-generated Javadoc
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -96,17 +97,18 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * is converted to a defined class - functionality which is usually found in
  * editors. */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
-    /** @param dataFactory
-     *            A data factory which can be used to create the appropriate
-     *            axioms
-     * @param cls
-     *            The class whose superclasses will be converted to an
-     *            equivalent class.
-     * @param ontologies
-     *            The ontologies which should be examined for subclass axioms.
-     * @param targetOntology
-     *            The targetOntology which the equivalent classes axiom should
-     *            be added to */
+    
+    /**
+     * Instantiates a new convert super classes to equivalent class.
+     *
+     * @param dataFactory A data factory which can be used to create the appropriate
+     * axioms
+     * @param cls The class whose superclasses will be converted to an
+     * equivalent class.
+     * @param ontologies The ontologies which should be examined for subclass axioms.
+     * @param targetOntology The targetOntology which the equivalent classes axiom should
+     * be added to
+     */
     public ConvertSuperClassesToEquivalentClass(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology) {
@@ -116,6 +118,13 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
                 checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
+    /**
+     * Generate changes.
+     *
+     * @param targetOntology the target ontology
+     * @param cls the cls
+     * @param ontologies the ontologies
+     */
     private void generateChanges(OWLOntology targetOntology, OWLClass cls,
             Set<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these

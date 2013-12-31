@@ -78,10 +78,12 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * where the two are used. For example, given, p value "xyz", the "xyz" constant
  * would be typed with the range of p. */
 public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntologyChange {
-    /** @param ontologies
-     *            the ontologies to use
+    /** Instantiates a new coerce constants into data property range.
+     * 
      * @param dataFactory
-     *            the data factory */
+     *            the data factory
+     * @param ontologies
+     *            the ontologies to use */
     public CoerceConstantsIntoDataPropertyRange(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
@@ -106,15 +108,30 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
         }
     }
 
+    /** The Class OWLConstantReplacer. */
     private class OWLConstantReplacer extends OWLObjectDuplicator {
+        /** The map. */
         final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
+        /** Instantiates a new oWL constant replacer.
+         * 
+         * @param dataFactory
+         *            the data factory
+         * @param m
+         *            the m */
         public OWLConstantReplacer(@Nonnull OWLDataFactory dataFactory,
                 @Nonnull Map<OWLDataPropertyExpression, OWLDatatype> m) {
             super(dataFactory);
             map = m;
         }
 
+        /** Process.
+         * 
+         * @param prop
+         *            the prop
+         * @param oneOf
+         *            the one of
+         * @return the oWL data one of */
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<OWLLiteral>();
@@ -124,6 +141,13 @@ public class CoerceConstantsIntoDataPropertyRange extends AbstractCompositeOntol
             return getDataFactory().getOWLDataOneOf(vals);
         }
 
+        /** Process.
+         * 
+         * @param prop
+         *            the prop
+         * @param con
+         *            the con
+         * @return the oWL literal */
         private OWLLiteral process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLLiteral con) {
             OWLDatatype dt = map.get(prop);

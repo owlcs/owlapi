@@ -62,7 +62,9 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
  * in a "hidden" GCI. */
 public class HiddenGCICount extends IntegerValuedMetric {
-    /** @param o
+    /** Instantiates a new hidden gci count.
+     * 
+     * @param o
      *            ontology to use */
     public HiddenGCICount(@Nonnull OWLOntology o) {
         super(o);

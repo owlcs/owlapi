@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Some ontology utils methods */
+// TODO: Auto-generated Javadoc
+/** Some ontology utils methods. */
 public class OntologyUtils {
     /** Determines if a class description contains any unreferenced entities with
      * respect to the ontology that contains the entailments which are being

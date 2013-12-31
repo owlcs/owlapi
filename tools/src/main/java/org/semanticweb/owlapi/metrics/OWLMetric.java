@@ -43,6 +43,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
+// TODO: Auto-generated Javadoc
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -55,9 +56,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @param <M>
  *            the metric type */
 public interface OWLMetric<M> {
-    /** Gets the human readable name of this metric
-     * 
-     * @return A label which represents the human readable name of this metric. */
+    
+    /**
+     * Gets the human readable name of this metric.
+     *
+     * @return A label which represents the human readable name of this metric.
+     */
     @Nonnull
     String getName();
 
@@ -93,11 +97,13 @@ public interface OWLMetric<M> {
      *         when computing this metric. */
     boolean isImportsClosureUsed();
 
-    /** Sets whether this metric uses the imports closure of the current ontology
-     * 
-     * @param b
-     *            {@code true} if this metric uses the imports closure of the
-     *            current ontology, otherwise false. */
+    /**
+     * Sets whether this metric uses the imports closure of the current ontology.
+     *
+     * @param b the new imports closure used
+     * {@code true} if this metric uses the imports closure of the
+     * current ontology, otherwise false.
+     */
     void setImportsClosureUsed(boolean b);
 
     /** Gets the ontology manager which, amongst other things can be used to

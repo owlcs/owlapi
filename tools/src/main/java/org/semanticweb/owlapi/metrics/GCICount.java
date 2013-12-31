@@ -49,9 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class GCICount extends AxiomCountMetric {
-    /** @param o
+    /** Instantiates a new gCI count.
+     * 
+     * @param o
      *            ontology to use */
     public GCICount(@Nonnull OWLOntology o) {
         super(o);

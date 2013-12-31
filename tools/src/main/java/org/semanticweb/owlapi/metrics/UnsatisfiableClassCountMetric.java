@@ -51,11 +51,15 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 17-Jan-2008<br>
- * <br> */
+ * <br>
+ * . */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
+    /** The reasoner. */
     private final OWLReasoner reasoner;
 
-    /** @param reasoner
+    /** Instantiates a new unsatisfiable class count metric.
+     * 
+     * @param reasoner
      *            the reasoner */
     public UnsatisfiableClassCountMetric(@Nonnull OWLReasoner reasoner) {
         super(checkNotNull(reasoner, "reasoner cannot be null").getRootOntology());

@@ -48,12 +48,17 @@ import org.semanticweb.owlapi.util.NNF;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Sep-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class NegationalNormalFormConverter implements NormalFormRewriter {
+    /** The nnf. */
     private final NNF nnf;
+    /** The extractor. */
     private final OWLObjectComplementOfExtractor extractor = new OWLObjectComplementOfExtractor();
 
-    /** @param dataFactory
+    /** Instantiates a new negational normal form converter.
+     * 
+     * @param dataFactory
      *            the factory */
     public NegationalNormalFormConverter(@Nonnull OWLDataFactory dataFactory) {
         nnf = new NNF(dataFactory);

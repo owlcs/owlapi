@@ -56,9 +56,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
-    /** @param o
+    /** Instantiates a new maximum number of named superclasses.
+     * 
+     * @param o
      *            ontology to use */
     public MaximumNumberOfNamedSuperclasses(@Nonnull OWLOntology o) {
         super(o);

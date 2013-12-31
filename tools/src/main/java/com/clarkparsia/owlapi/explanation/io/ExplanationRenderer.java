@@ -47,9 +47,12 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
-/** Renderer for explanations */
+// TODO: Auto-generated Javadoc
+/** Renderer for explanations. */
 public interface ExplanationRenderer {
-    /** @param writer
+    /** Start rendering.
+     * 
+     * @param writer
      *            the writer to use
      * @throws OWLException
      *             OWL troubles
@@ -57,7 +60,9 @@ public interface ExplanationRenderer {
      *             IO troubles */
     void startRendering(@Nonnull Writer writer) throws OWLException, IOException;
 
-    /** @param axiom
+    /** Render.
+     * 
+     * @param axiom
      *            the axiom to render
      * @param explanations
      *            the explanations to render
@@ -68,7 +73,7 @@ public interface ExplanationRenderer {
     void render(@Nonnull OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations)
             throws OWLException, IOException;
 
-    /** end of rendering
+    /** end of rendering.
      * 
      * @throws OWLException
      *             OWL troubles

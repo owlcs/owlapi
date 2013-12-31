@@ -46,9 +46,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 22-Jan-2008<br>
- * <br> */
+ * <br>
+ * . */
 public class EntailedAxiomTree extends ExplanationTree {
-    /** @param userObject
+    /** Instantiates a new entailed axiom tree.
+     * 
+     * @param userObject
      *            the axiom to wrap */
     public EntailedAxiomTree(@Nonnull OWLAxiom userObject) {
         super(userObject);

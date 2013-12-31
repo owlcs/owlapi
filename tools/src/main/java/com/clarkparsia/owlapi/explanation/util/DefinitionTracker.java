@@ -56,15 +56,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-/** Tracker for definitions */
+/** Tracker for definitions. */
 public class DefinitionTracker implements OWLOntologyChangeListener {
-    /** Mapping from entities to the number of axioms */
+    /** Mapping from entities to the number of axioms. */
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
+    /** The ontology. */
     private final OWLOntology ontology;
+    /** The axioms. */
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+    /** The one. */
     private final Integer ONE = Integer.valueOf(1);
 
-    /** @param ontology
+    /** Instantiates a new definition tracker.
+     * 
+     * @param ontology
      *            ontology to track */
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -76,6 +81,10 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
     }
 
+    /** Adds the axiom.
+     * 
+     * @param axiom
+     *            the axiom */
     private void addAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.add(axiom)) {
             for (OWLEntity entity : axiom.getSignature()) {
@@ -90,6 +99,10 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
+    /** Removes the axiom.
+     * 
+     * @param axiom
+     *            the axiom */
     private void removeAxiom(@Nonnull OWLAxiom axiom) {
         if (axioms.remove(axiom)) {
             for (OWLEntity entity : axiom.getSignature()) {

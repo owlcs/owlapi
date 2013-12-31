@@ -76,6 +76,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
+// TODO: Auto-generated Javadoc
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -99,21 +100,28 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * from a defined class to a primitive class. */
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
+    
+    /** The target ontology. */
     private final OWLOntology targetOntology;
+    
+    /** The cls. */
     private final OWLClass cls;
+    
+    /** The ontologies. */
     private final Set<OWLOntology> ontologies;
+    
+    /** The split intersections. */
     private final boolean splitIntersections;
 
-    /** @param ontologies
-     *            the ontologies to use
-     * @param dataFactory
-     *            the data factory
-     * @param cls
-     *            the class to convert
-     * @param targetOntology
-     *            the target ontology
-     * @param splitIntersections
-     *            whether or not intersections should be split */
+    /**
+     * Instantiates a new convert equivalent classes to super classes.
+     *
+     * @param dataFactory the data factory
+     * @param cls the class to convert
+     * @param ontologies the ontologies to use
+     * @param targetOntology the target ontology
+     * @param splitIntersections whether or not intersections should be split
+     */
     public ConvertEquivalentClassesToSuperClasses(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology, boolean splitIntersections) {
@@ -126,6 +134,9 @@ public class ConvertEquivalentClassesToSuperClasses extends
         generateChanges();
     }
 
+    /**
+     * Generate changes.
+     */
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<OWLClassExpression>();
         for (OWLOntology o : ontologies) {
@@ -143,6 +154,12 @@ public class ConvertEquivalentClassesToSuperClasses extends
         }
     }
 
+    /**
+     * Gets the class expressions.
+     *
+     * @param desc the desc
+     * @return the class expressions
+     */
     @Nonnull
     private Set<OWLClassExpression> getClassExpressions(@Nonnull OWLClassExpression desc) {
         final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();

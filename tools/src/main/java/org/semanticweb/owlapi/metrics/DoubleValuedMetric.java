@@ -42,14 +42,21 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
+// TODO: Auto-generated Javadoc
+/**
+ * Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>.
+ */
 public abstract class DoubleValuedMetric extends AbstractOWLMetric<Double> {
-    /** @param o
-     *            ontology to use */
+    
+    /**
+     * Instantiates a new double valued metric.
+     *
+     * @param o ontology to use
+     */
     public DoubleValuedMetric(@Nonnull OWLOntology o) {
         super(o);
     }

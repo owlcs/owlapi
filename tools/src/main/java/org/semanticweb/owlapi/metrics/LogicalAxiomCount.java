@@ -49,9 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class LogicalAxiomCount extends AxiomCountMetric {
-    /** @param o
+    /** Instantiates a new logical axiom count.
+     * 
+     * @param o
      *            ontology to use */
     public LogicalAxiomCount(@Nonnull OWLOntology o) {
         super(o);

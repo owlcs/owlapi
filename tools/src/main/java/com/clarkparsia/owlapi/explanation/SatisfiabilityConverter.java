@@ -73,40 +73,81 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
-/** Satisfiability converter */
+/** Satisfiability converter. */
 public class SatisfiabilityConverter {
+    /** The Class AxiomConverter. */
     private class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
+        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 40000L;
 
+        /** Instantiates a new axiom converter. */
         public AxiomConverter() {}
 
+        /** And.
+         * 
+         * @param desc1
+         *            the desc1
+         * @param desc2
+         *            the desc2
+         * @return the oWL object intersection of */
         @Nonnull
         private OWLObjectIntersectionOf and(@Nonnull OWLClassExpression desc1,
                 @Nonnull OWLClassExpression desc2) {
             return factory.getOWLObjectIntersectionOf(set(desc1, desc2));
         }
 
+        /** And.
+         * 
+         * @param set
+         *            the set
+         * @return the oWL object intersection of */
         @Nonnull
         private OWLObjectIntersectionOf and(@Nonnull Set<OWLClassExpression> set) {
             return factory.getOWLObjectIntersectionOf(set);
         }
 
+        /** Not.
+         * 
+         * @param desc
+         *            the desc
+         * @return the oWL object complement of */
         @Nonnull
         private OWLObjectComplementOf not(@Nonnull OWLClassExpression desc) {
             return factory.getOWLObjectComplementOf(desc);
         }
 
+        /** One of.
+         * 
+         * @param ind
+         *            the ind
+         * @return the oWL object one of */
         @Nonnull
         private OWLObjectOneOf oneOf(@Nonnull OWLIndividual ind) {
             return factory.getOWLObjectOneOf(Collections.singleton(ind));
         }
 
+        /** Or.
+         * 
+         * @param desc1
+         *            the desc1
+         * @param desc2
+         *            the desc2
+         * @return the oWL object union of */
         @Nonnull
         private OWLObjectUnionOf or(@Nonnull OWLClassExpression desc1,
                 @Nonnull OWLClassExpression desc2) {
             return factory.getOWLObjectUnionOf(set(desc1, desc2));
         }
 
+        /** Sets the.
+         * 
+         * @param <T>
+         *            the generic type
+         * @param desc1
+         *            the desc1
+         * @param desc2
+         *            the desc2
+         * @return the sets the */
         @Nonnull
         private <T> Set<T> set(@Nonnull T desc1, @Nonnull T desc2) {
             Set<T> set = new HashSet<T>();
@@ -248,19 +289,26 @@ public class SatisfiabilityConverter {
         }
     }
 
+    /** The Constant LOGGER. */
     protected static final Logger LOGGER = Logger.getLogger(SatisfiabilityConverter.class
             .getName());
+    /** The converter. */
     private final AxiomConverter converter;
+    /** The factory. */
     protected final OWLDataFactory factory;
 
-    /** @param factory
+    /** Instantiates a new satisfiability converter.
+     * 
+     * @param factory
      *            the factory to use */
     public SatisfiabilityConverter(@Nonnull OWLDataFactory factory) {
         this.factory = checkNotNull(factory, "factory cannot be null");
         converter = new AxiomConverter();
     }
 
-    /** @param axiom
+    /** Convert.
+     * 
+     * @param axiom
      *            axiom to convert
      * @return converted class expression */
     @Nonnull

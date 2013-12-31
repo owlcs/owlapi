@@ -58,9 +58,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * <br>
  * Orders an explanation in a flat list, sorting axioms alphabetically. */
 public class AlphaExplanationOrderer implements ExplanationOrderer {
+    /** The renderer. */
     protected final OWLObjectRenderer renderer;
 
-    /** @param renderer
+    /** Instantiates a new alpha explanation orderer.
+     * 
+     * @param renderer
      *            the renderer to use */
     public AlphaExplanationOrderer(@Nonnull OWLObjectRenderer renderer) {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");

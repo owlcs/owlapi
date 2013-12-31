@@ -53,6 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
+// TODO: Auto-generated Javadoc
 /** Author: Matthew Horridge<br>
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
@@ -65,10 +66,13 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * remove these two axioms and replace them by adding one subclass axiom, A
  * subClassOf (B and C). */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
-    /** @param ontologies
-     *            the ontologies to use
-     * @param dataFactory
-     *            the data factory */
+    
+    /**
+     * Instantiates a new amalgamate sub class axioms.
+     *
+     * @param dataFactory the data factory
+     * @param ontologies the ontologies to use
+     */
     public AmalgamateSubClassAxioms(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);

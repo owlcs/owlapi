@@ -49,9 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 17-Jan-2008<br>
- * <br> */
+ * <br>
+ * . */
 public class ImportClosureSize extends IntegerValuedMetric {
-    /** @param o
+    /** Instantiates a new import closure size.
+     * 
+     * @param o
      *            ontology to use */
     public ImportClosureSize(@Nonnull OWLOntology o) {
         super(o);

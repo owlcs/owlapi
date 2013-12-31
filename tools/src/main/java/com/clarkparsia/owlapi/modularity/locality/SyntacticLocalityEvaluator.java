@@ -115,10 +115,13 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Syntactic locality evaluator */
+/** Syntactic locality evaluator. */
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
+    /** The locality cls. */
     protected final LocalityClass localityCls;
+    /** The axiom visitor. */
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
+    /** The Constant SUPPORTED_LOCALITY_CLASSES. */
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet.of(
             LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM, LocalityClass.TOP_TOP);
 
@@ -179,17 +182,30 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     // TODO (TS): only visit logical axioms if possible
+    /** The Class AxiomLocalityVisitor. */
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
+        /** The bottom evaluator. */
         private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
+        /** The is local. */
         private boolean isLocal;
+        /** The signature. */
         private Collection<? extends OWLEntity> signature;
+        /** The top evaluator. */
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
+        /** Instantiates a new axiom locality visitor. */
         public AxiomLocalityVisitor() {
             topEvaluator.setBottomEvaluator(bottomEvaluator);
             bottomEvaluator.setTopEvaluator(topEvaluator);
         }
 
+        /** Checks if is local.
+         * 
+         * @param axiom
+         *            the axiom
+         * @param sig
+         *            the sig
+         * @return true, if is local */
         public boolean isLocal(@Nonnull OWLAxiom axiom,
                 @Nonnull Collection<? extends OWLEntity> sig) {
             signature = checkNotNull(sig, "sig cannot be null");
@@ -823,20 +839,39 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** Used to determine if class expressions are equivalent to \bottom using
-     * the provided locality class */
+     * the provided locality class. */
     private static class BottomEquivalenceEvaluator implements OWLClassExpressionVisitor {
+        /** The is bottom equivalent. */
         private boolean isBottomEquivalent;
+        /** The locality cls. */
         private LocalityClass localityCls;
+        /** The signature. */
         private Collection<? extends OWLEntity> signature;
+        /** The top evaluator. */
         private TopEquivalenceEvaluator topEvaluator;
 
+        /** Instantiates a new bottom equivalence evaluator. */
         public BottomEquivalenceEvaluator() {}
 
+        /** Checks if is bottom equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @return true, if is bottom equivalent */
         private boolean isBottomEquivalent(@Nonnull OWLClassExpression desc) {
             checkNotNull(desc, "desc cannot be null").accept(this);
             return isBottomEquivalent;
         }
 
+        /** Checks if is bottom equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @param sig
+         *            the sig
+         * @param locality
+         *            the locality
+         * @return true, if is bottom equivalent */
         public boolean isBottomEquivalent(@Nonnull OWLClassExpression desc,
                 @Nonnull Collection<? extends OWLEntity> sig,
                 @Nonnull LocalityClass locality) {
@@ -846,6 +881,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isBottomEquivalent;
         }
 
+        /** Sets the top evaluator.
+         * 
+         * @param evaluator
+         *            the new top evaluator */
         public void setTopEvaluator(@Nonnull TopEquivalenceEvaluator evaluator) {
             topEvaluator = checkNotNull(evaluator, "evaluator cannot be null");
         }
@@ -1162,20 +1201,39 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     /** Used to determine if class expressions are equivalent to \top using the
-     * provided locality class */
+     * provided locality class. */
     private static class TopEquivalenceEvaluator implements OWLClassExpressionVisitor {
+        /** The bottom evaluator. */
         private BottomEquivalenceEvaluator bottomEvaluator;
+        /** The is top equivalent. */
         private boolean isTopEquivalent;
+        /** The locality cls. */
         private LocalityClass localityCls;
+        /** The signature. */
         private Collection<? extends OWLEntity> signature;
 
+        /** Instantiates a new top equivalence evaluator. */
         public TopEquivalenceEvaluator() {}
 
+        /** Checks if is top equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @return true, if is top equivalent */
         private boolean isTopEquivalent(@Nonnull OWLClassExpression desc) {
             checkNotNull(desc, "desc cannot be null").accept(this);
             return isTopEquivalent;
         }
 
+        /** Checks if is top equivalent.
+         * 
+         * @param desc
+         *            the desc
+         * @param sig
+         *            the sig
+         * @param locality
+         *            the locality
+         * @return true, if is top equivalent */
         public boolean isTopEquivalent(@Nonnull OWLClassExpression desc,
                 @Nonnull Collection<? extends OWLEntity> sig,
                 @Nonnull LocalityClass locality) {
@@ -1185,6 +1243,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isTopEquivalent;
         }
 
+        /** Sets the bottom evaluator.
+         * 
+         * @param evaluator
+         *            the new bottom evaluator */
         public void setBottomEvaluator(@Nonnull BottomEquivalenceEvaluator evaluator) {
             bottomEvaluator = checkNotNull(evaluator, "evaluator cannot be null");
         }

@@ -106,9 +106,12 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
         }
     }
 
+    /** The Class ConjunctSplitter. */
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
+        /** The result. */
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
+        /** Instantiates a new conjunct splitter. */
         public ConjunctSplitter() {}
 
         @Override

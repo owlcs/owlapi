@@ -53,25 +53,43 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 23-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public abstract class AbstractCompositeOntologyChange implements
         OWLCompositeOntologyChange {
+    /** The data factory. */
     private final OWLDataFactory dataFactory;
+    /** The changes. */
     private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
 
+    /** Instantiates a new abstract composite ontology change.
+     * 
+     * @param dataFactory
+     *            the data factory */
     protected AbstractCompositeOntologyChange(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
+    /** Gets the data factory.
+     * 
+     * @return the data factory */
     @Nonnull
     protected OWLDataFactory getDataFactory() {
         return dataFactory;
     }
 
+    /** Adds the change.
+     * 
+     * @param change
+     *            the change */
     protected void addChange(OWLOntologyChange<?> change) {
         changes.add(change);
     }
 
+    /** Adds the changes.
+     * 
+     * @param change
+     *            the change */
     protected void addChanges(Collection<OWLOntologyChange<?>> change) {
         changes.addAll(change);
     }

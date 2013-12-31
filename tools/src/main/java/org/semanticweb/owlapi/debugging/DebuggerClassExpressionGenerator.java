@@ -67,18 +67,25 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 01-Mar-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
+    /** The data factory. */
     private final OWLDataFactory dataFactory;
+    /** The desc. */
     private OWLClassExpression desc;
 
-    /** @param dataFactory
+    /** Instantiates a new debugger class expression generator.
+     * 
+     * @param dataFactory
      *            factory to use */
     public DebuggerClassExpressionGenerator(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
-    /** @return the class expression */
+    /** Gets the debugger class expression.
+     * 
+     * @return the class expression */
     @Nullable
     public OWLClassExpression getDebuggerClassExpression() {
         return desc;

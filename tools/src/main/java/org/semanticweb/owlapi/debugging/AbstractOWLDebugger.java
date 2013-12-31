@@ -71,9 +71,17 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability. */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
+    /** The owl ontology manager. */
     protected final OWLOntologyManager owlOntologyManager;
+    /** The ontology. */
     private OWLOntology ontology;
 
+    /** Instantiates a new abstract owl debugger.
+     * 
+     * @param owlOntologyManager
+     *            the owl ontology manager
+     * @param ontology
+     *            the ontology */
     protected AbstractOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology) {
         this.owlOntologyManager = checkNotNull(owlOntologyManager,
@@ -82,6 +90,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         mergeImportsClosure();
     }
 
+    /** Merge imports closure. */
     private void mergeImportsClosure() {
         OWLOntology originalOntology = ontology;
         try {
@@ -99,6 +108,11 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         owlOntologyManager.applyChanges(changes);
     }
 
+    /** Gets the current class.
+     * 
+     * @return the current class
+     * @throws OWLException
+     *             the oWL exception */
     @Nonnull
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 

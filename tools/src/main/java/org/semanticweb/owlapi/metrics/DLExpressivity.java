@@ -50,9 +50,12 @@ import org.semanticweb.owlapi.util.DLExpressivityChecker;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class DLExpressivity extends AbstractOWLMetric<String> {
-    /** @param o
+    /** Instantiates a new dL expressivity.
+     * 
+     * @param o
      *            ontology to use */
     public DLExpressivity(@Nonnull OWLOntology o) {
         super(o);

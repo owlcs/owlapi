@@ -45,7 +45,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** A locality evaluator */
+// TODO: Auto-generated Javadoc
+/**
+ * A locality evaluator.
+ */
 public interface LocalityEvaluator {
     /** Tests whether a given axiom is local with respect to a given signature.
      * 

@@ -59,12 +59,17 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
  * Clark & Parsia, LLC<br>
  * Bio-Health Informatics Group<br>
  * Date: 24-Jan-2008<br>
- * <br> */
+ * <br>
+ * . */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
+    /** The data factory. */
     private final OWLDataFactory dataFactory;
+    /** The gen. */
     private final MultipleExplanationGenerator gen;
 
-    /** @param man
+    /** Instantiates a new default explanation generator.
+     * 
+     * @param man
      *            manager
      * @param reasonerFactory
      *            reasoner factory
@@ -80,7 +85,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
                 progressMonitor);
     }
 
-    /** @param man
+    /** Instantiates a new default explanation generator.
+     * 
+     * @param man
      *            manager
      * @param reasonerFactory
      *            reasoner factory
@@ -110,7 +117,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanation(unsatClass);
     }
 
-    /** @param axiom
+    /** Gets the explanation.
+     * 
+     * @param axiom
      *            the axiom to explain
      * @return the explanation */
     @Nonnull
@@ -125,7 +134,9 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanations(unsatClass);
     }
 
-    /** @param axiom
+    /** Gets the explanations.
+     * 
+     * @param axiom
      *            the axiom to explain
      * @return the set of explanations */
     @Nonnull
@@ -141,10 +152,12 @@ public class DefaultExplanationGenerator implements ExplanationGenerator {
         return gen.getExplanations(unsatClass, maxExplanations);
     }
 
-    /** @param maxExplanations
-     *            max number of explanations
+    /** Gets the explanations.
+     * 
      * @param axiom
      *            the axiom to explain
+     * @param maxExplanations
+     *            max number of explanations
      * @return the set of explanations */
     @Nonnull
     public Set<Set<OWLAxiom>>

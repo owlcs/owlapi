@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/** Explanation renderer in concise form */
+/** Explanation renderer in concise form. */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
+    /** The Constant INDENT. */
     private static final String INDENT = "   ";
+    /** The renderer. */
     private final SimpleRenderer renderer = new SimpleRenderer();
+    /** The writer. */
     private PrintWriter writer;
 
     @Override
@@ -82,6 +85,10 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         writer.println();
     }
 
+    /** Render multiple explanations.
+     * 
+     * @param explanations
+     *            the explanations */
     private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
         int count = 1;
         for (Set<OWLAxiom> exp : explanations) {
@@ -90,6 +97,12 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
+    /** Render single explanation.
+     * 
+     * @param header
+     *            the header
+     * @param axioms
+     *            the axioms */
     private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) {
         boolean first = true;
         for (OWLAxiom axiom : axioms) {

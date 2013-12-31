@@ -45,7 +45,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
-/** Null implementation */
+/** Null implementation. */
 public class SilentExplanationRenderer implements ExplanationRenderer {
     @Override
     public void endRendering() {

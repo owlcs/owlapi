@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  * Date: 22-Jan-2008<br>
  * <br>
  * An implementation of an explanation order, which doesn't really do any
- * ordering! */
+ * ordering!. */
 public class NullExplanationOrderer implements ExplanationOrderer {
     @Override
     public ExplanationTree

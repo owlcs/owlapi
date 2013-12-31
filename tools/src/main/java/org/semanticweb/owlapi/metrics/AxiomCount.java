@@ -49,9 +49,12 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * The University Of Manchester<br>
  * Bio-Health Informatics Group<br>
  * Date: 27-Jul-2007<br>
- * <br> */
+ * <br>
+ * . */
 public class AxiomCount extends IntegerValuedMetric {
-    /** @param o
+    /** Instantiates a new axiom count.
+     * 
+     * @param o
      *            ontology to use */
     public AxiomCount(@Nonnull OWLOntology o) {
         super(o);
