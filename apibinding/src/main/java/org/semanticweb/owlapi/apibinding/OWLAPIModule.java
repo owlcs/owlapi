@@ -6,6 +6,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 import com.google.inject.AbstractModule;
 
+/** owlapi module */
 public class OWLAPIModule extends AbstractModule {
     @Override
     protected void configure() {
