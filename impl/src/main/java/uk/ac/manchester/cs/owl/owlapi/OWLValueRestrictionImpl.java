@@ -45,11 +45,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @param <R>
- *            the range
- * @param <P>
- *            the property expression
- * @param <V>
+/** @param <V>
  *            the value
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006 */

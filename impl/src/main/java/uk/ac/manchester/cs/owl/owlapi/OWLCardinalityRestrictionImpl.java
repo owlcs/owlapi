@@ -47,12 +47,8 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006
- * @param <R>
- *            the range
- * @param <P>
- *            the property expression
  * @param <F>
- *            the value */
+ *            filler type */
 public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange> extends
         OWLRestrictionImpl implements OWLCardinalityRestriction<F> {
     private static final long serialVersionUID = 40000L;

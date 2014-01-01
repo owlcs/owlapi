@@ -112,7 +112,10 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return new SWRLRuleImpl(getBody(), getHead(), annotations);
     }
 
-    @SuppressWarnings("javadoc")
+    /** @param body
+     *            rule body
+     * @param head
+     *            rule head */
     public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
         this(body, head, Collections.<OWLAnnotation> emptyList());
     }

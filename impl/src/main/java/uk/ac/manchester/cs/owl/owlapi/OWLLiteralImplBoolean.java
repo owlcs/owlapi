@@ -60,7 +60,9 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
     private final OWLDatatype datatype;
 
     /** @param literal
-     *            literal value */
+     *            literal value
+     * @param datatype
+     *            datatype */
     public OWLLiteralImplBoolean(boolean literal, @Nonnull OWLDatatype datatype) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.literal = literal;

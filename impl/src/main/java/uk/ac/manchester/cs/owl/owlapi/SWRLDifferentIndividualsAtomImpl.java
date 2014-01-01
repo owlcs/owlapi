@@ -57,8 +57,8 @@ public class SWRLDifferentIndividualsAtomImpl extends
         SWRLDifferentIndividualsAtom {
     private static final long serialVersionUID = 40000L;
 
-    /** @param dataFactory
-     *            data factory
+    /** @param property
+     *            property
      * @param arg0
      *            first individual
      * @param arg1
