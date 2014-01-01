@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
@@ -132,14 +170,17 @@ public class ContractFunctionalparserTest {
         OWLIndividualAxiom result7 = testSubject0.ClassAssertion();
         OWLIndividualAxiom result8 = testSubject0.DifferentIndividuals();
         OWLIndividualAxiom result9 = testSubject0.ObjectPropertyAssertion();
-        OWLIndividualAxiom result10 = testSubject0.NegativeObjectPropertyAssertion();
+        OWLIndividualAxiom result10 = testSubject0
+                .NegativeObjectPropertyAssertion();
         OWLIndividualAxiom result11 = testSubject0.DataPropertyAssertion();
-        OWLIndividualAxiom result12 = testSubject0.NegativeDataPropertyAssertion();
+        OWLIndividualAxiom result12 = testSubject0
+                .NegativeDataPropertyAssertion();
         OWLPropertyAxiom result13 = testSubject0.EquivalentObjectProperties();
         OWLPropertyAxiom result14 = testSubject0.SubObjectPropertyOf();
         OWLPropertyAxiom result15 = testSubject0.InverseObjectProperties();
         OWLPropertyAxiom result16 = testSubject0.FunctionalObjectProperty();
-        OWLPropertyAxiom result17 = testSubject0.InverseFunctionalObjectProperty();
+        OWLPropertyAxiom result17 = testSubject0
+                .InverseFunctionalObjectProperty();
         OWLPropertyAxiom result18 = testSubject0.SymmetricObjectProperty();
         OWLPropertyAxiom result19 = testSubject0.AsymmetricObjectProperty();
         OWLPropertyAxiom result20 = testSubject0.TransitiveObjectProperty();
@@ -154,8 +195,10 @@ public class ContractFunctionalparserTest {
         OWLPropertyAxiom result29 = testSubject0.DataPropertyRange();
         OWLPropertyAxiom result30 = testSubject0.DisjointDataProperties();
         OWLHasKeyAxiom result31 = testSubject0.HasKey();
-        OWLAnnotationAssertionAxiom result32 = testSubject0.AnnotationAssertion();
-        OWLSubAnnotationPropertyOfAxiom result33 = testSubject0.SubAnnotationPropertyOf();
+        OWLAnnotationAssertionAxiom result32 = testSubject0
+                .AnnotationAssertion();
+        OWLSubAnnotationPropertyOfAxiom result33 = testSubject0
+                .SubAnnotationPropertyOf();
         OWLAnnotationPropertyDomainAxiom result34 = testSubject0
                 .AnnotationPropertyDomain();
         OWLClass result35 = testSubject0.Class();
@@ -193,7 +236,8 @@ public class ContractFunctionalparserTest {
         IRI result66 = testSubject0.IRI();
         OWLAnonymousIndividual result67 = testSubject0.AnonymousIndividual();
         OWLPropertyAxiom result68 = testSubject0.IrreflexiveObjectProperty();
-        OWLAnnotationPropertyRangeAxiom result69 = testSubject0.AnnotationPropertyRange();
+        OWLAnnotationPropertyRangeAxiom result69 = testSubject0
+                .AnnotationPropertyRange();
         testSubject0.Prefix();
         IRI result70 = testSubject0.AbbreviatedIRI();
         SWRLRule result71 = testSubject0.DLSafeRule();
@@ -203,7 +247,8 @@ public class ContractFunctionalparserTest {
         SWRLDataPropertyAtom result75 = testSubject0.DataPropertyAtom();
         SWRLBuiltInAtom result76 = testSubject0.BuiltInAtom();
         SWRLSameIndividualAtom result77 = testSubject0.SameIndividualAtom();
-        SWRLDifferentIndividualsAtom result78 = testSubject0.DifferentIndividualsAtom();
+        SWRLDifferentIndividualsAtom result78 = testSubject0
+                .DifferentIndividualsAtom();
         testSubject0.ReInit(mock(InputStream.class));
         testSubject0.ReInit(mock(InputStream.class), "");
         testSubject0.ReInit(mock(Reader.class));
@@ -215,7 +260,8 @@ public class ContractFunctionalparserTest {
         testSubject0.enable_tracing();
         testSubject0.disable_tracing();
         testSubject0.setIgnoreAnnotationsAndDeclarations(false);
-        testSubject0.setUp(Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
+        testSubject0.setUp(Utils.getMockOntology(),
+                new OWLOntologyLoaderConfiguration());
         testSubject0.setPrefixes(new DefaultPrefixManager());
         OWLImportsDeclaration result83 = testSubject0.ImportsDeclaration();
         String result84 = testSubject0.PrefixName();
@@ -225,19 +271,24 @@ public class ContractFunctionalparserTest {
         OWLClassExpression result88 = testSubject0.ObjectSelf();
         Set<OWLClassExpression> result89 = testSubject0.ClassExpressionSet();
         Set<OWLIndividual> result90 = testSubject0.IndividualMinOneSet();
-        OWLObjectPropertyExpression result91 = testSubject0.ObjectPropertyExpression();
+        OWLObjectPropertyExpression result91 = testSubject0
+                .ObjectPropertyExpression();
         int result92 = testSubject0.Cardinality();
-        OWLDataPropertyExpression result93 = testSubject0.DataPropertyExpression();
-        OWLObjectPropertyExpression result94 = testSubject0.InverseObjectProperty();
+        OWLDataPropertyExpression result93 = testSubject0
+                .DataPropertyExpression();
+        OWLObjectPropertyExpression result94 = testSubject0
+                .InverseObjectProperty();
         OWLObjectProperty result95 = testSubject0.ObjectPropertyIRI();
         OWLDataProperty result96 = testSubject0.DataPropertyIRI();
         OWLAnnotationProperty result97 = testSubject0.AnnotationPropertyIRI();
         OWLNamedIndividual result98 = testSubject0.IndividualIRI();
         OWLDatatype result99 = testSubject0.DatatypeIRI();
-        OWLDatatypeDefinitionAxiom result100 = testSubject0.DatatypeDefinitionAxiom();
+        OWLDatatypeDefinitionAxiom result100 = testSubject0
+                .DatatypeDefinitionAxiom();
         Set<OWLAnnotation> result101 = testSubject0.AxiomAnnotationSet();
         OWLDataRange result102 = testSubject0.DataRangeRestriction();
-        OWLFacetRestriction result103 = testSubject0.DataRangeFacetRestriction();
+        OWLFacetRestriction result103 = testSubject0
+                .DataRangeFacetRestriction();
         OWLClassAxiom result104 = testSubject0.ClassAxiom();
         OWLPropertyAxiom result105 = testSubject0.ObjectPropertyAxiom();
         OWLPropertyAxiom result106 = testSubject0.DataPropertyAxiom();
@@ -245,8 +296,10 @@ public class ContractFunctionalparserTest {
         OWLAxiom result108 = testSubject0.AnnotationAxiom();
         List<OWLObjectPropertyExpression> result109 = testSubject0
                 .SubObjectPropertyChain();
-        Set<OWLObjectPropertyExpression> result110 = testSubject0.ObjectPropertySet();
-        Set<OWLDataPropertyExpression> result111 = testSubject0.DataPropertySet();
+        Set<OWLObjectPropertyExpression> result110 = testSubject0
+                .ObjectPropertySet();
+        Set<OWLDataPropertyExpression> result111 = testSubject0
+                .DataPropertySet();
         OWLIndividualAxiom result112 = testSubject0.SameIndividuals();
         Set<OWLIndividual> result113 = testSubject0.IndividualSet();
         OWLAnnotationValue result114 = testSubject0.AnnotationValue();

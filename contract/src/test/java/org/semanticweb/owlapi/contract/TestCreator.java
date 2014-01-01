@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.contract;
 
 import java.io.File;
@@ -12,7 +50,8 @@ import java.util.Set;
 
 @SuppressWarnings("javadoc")
 public class TestCreator {
-    private static PrintStream initPrintStream(String _name) throws FileNotFoundException {
+    private static PrintStream initPrintStream(String _name)
+            throws FileNotFoundException {
         String name = _name.replace("/", "_");
         PrintStream out = new PrintStream(
                 "apibinding/src/test/java/org/semanticweb/owlapi/unit/test/GeneratedJUnitTest"
@@ -23,8 +62,9 @@ public class TestCreator {
     }
 
     @SuppressWarnings("resource")
-    private static void visit(File root, File current, Map<String, PrintStream> outMap)
-            throws ClassNotFoundException, FileNotFoundException {
+    private static void visit(File root, File current,
+            Map<String, PrintStream> outMap) throws ClassNotFoundException,
+            FileNotFoundException {
         if (current == null) {
             for (File f : root.listFiles()) {
                 visit(root, f, outMap);
@@ -41,8 +81,9 @@ public class TestCreator {
                 out = initPrintStream(id);
                 outMap.put(id, out);
             }
-            String fullyQualifiedName = current.getAbsolutePath().replace(".java", "")
-                    .replace(root.getAbsolutePath(), "").replace("/", ".").substring(1);
+            String fullyQualifiedName = current.getAbsolutePath()
+                    .replace(".java", "").replace(root.getAbsolutePath(), "")
+                    .replace("/", ".").substring(1);
             Class<?> theClass = Class.forName(fullyQualifiedName);
             if (theClass.isInterface()) {
                 out.println("@Test\npublic void shouldTestInterface"
@@ -50,16 +91,18 @@ public class TestCreator {
                 out.println(theClass.getSimpleName() + " testSubject0 = mock("
                         + theClass.getSimpleName() + ".class);");
             } else {
-                out.println("@Test\npublic void shouldTest" + theClass.getSimpleName()
-                        + "()throws OWLException{");
+                out.println("@Test\npublic void shouldTest"
+                        + theClass.getSimpleName() + "()throws OWLException{");
                 int counter = 0;
                 Constructor<?>[] constructors = theClass.getConstructors();
                 if (constructors.length > 0) {
                     for (Constructor<?> c : constructors) {
-                        out.print(theClass.getSimpleName() + " testSubject" + counter++
-                                + " = new " + theClass.getSimpleName() + "(");
+                        out.print(theClass.getSimpleName() + " testSubject"
+                                + counter++ + " = new "
+                                + theClass.getSimpleName() + "(");
                         for (int i = 0; i < c.getParameterTypes().length; i++) {
-                            out.print("mock(" + c.getParameterTypes()[i].getSimpleName()
+                            out.print("mock("
+                                    + c.getParameterTypes()[i].getSimpleName()
                                     + ".class)");
                             if (i < c.getParameterTypes().length - 1) {
                                 out.print(",");
@@ -81,7 +124,8 @@ public class TestCreator {
                     }
                     out.print("testSubject0." + m.getName() + "(");
                     for (int i = 0; i < m.getParameterTypes().length; i++) {
-                        out.print("mock(" + m.getParameterTypes()[i].getSimpleName()
+                        out.print("mock("
+                                + m.getParameterTypes()[i].getSimpleName()
                                 + ".class)");
                         if (i < m.getParameterTypes().length - 1) {
                             out.print(",");
@@ -95,6 +139,6 @@ public class TestCreator {
     }
 
     private static Set<String> methodNamesToSkip = new HashSet<String>(
-            Arrays.asList("wait", "equals", "toString()", "hashCode", "getClass",
-                    "notify", "notifyAll"));
+            Arrays.asList("wait", "equals", "toString()", "hashCode",
+                    "getClass", "notify", "notifyAll"));
 }

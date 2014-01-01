@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
  * outside of the "largest" OWL profile (i.e. OWL2DL or OWL2EL or OWL2QL or
  * OWL2RL) that the reasoner can handle. The reasoner will indicate in this
  * exception which profile it expects the axioms to be in.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 22-Nov-2009 */
 public class ImportsClosureNotInProfileException extends OWLReasonerRuntimeException {

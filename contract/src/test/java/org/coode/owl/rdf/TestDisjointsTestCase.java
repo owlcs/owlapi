@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
  * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). This test case
  * ensure that these axioms are serialsed correctly.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")

@@ -27,7 +27,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** A progress monitor for an explanation generator. The progress monitor should
  * be used with an {@code MultipleExpalanationGenerator}
- * 
+ *
  * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
  *         Group, Date: 26-Nov-2007 */
 public interface ExplanationProgressMonitor {

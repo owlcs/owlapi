@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * ontology change listener. We can use the {@code OWLOntologyChangeFilter} to
  * filter out the changes that alter the domain of an object property in the
  * following way:<br>
- * 
+ *
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
  * <br>
@@ -88,7 +88,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * // Process the list of changes
  * filter.processChanges(ontChanges);
  * </pre>
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 17-Dec-2006 */
 public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements

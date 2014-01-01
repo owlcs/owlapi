@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, The University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- *
  */
 package org.semanticweb.owlapi.io;
 
@@ -75,12 +73,15 @@ public class XMLUtils {
                 || codePoint == '_' || codePoint >= 'a' && codePoint <= 'z'
                 || codePoint >= 0xC0 && codePoint <= 0xD6 || codePoint >= 0xD8
                 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
-                || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F
-                && codePoint <= 0x1FFF || codePoint >= 0x200C && codePoint <= 0x200D
-                || codePoint >= 0x2070 && codePoint <= 0x218F || codePoint >= 0x2C00
-                && codePoint <= 0x2FEF || codePoint >= 0x3001 && codePoint <= 0xD7FF
-                || codePoint >= 0xF900 && codePoint <= 0xFDCF || codePoint >= 0xFDF0
-                && codePoint <= 0xFFFD || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+                || codePoint >= 0x370 && codePoint <= 0x37D
+                || codePoint >= 0x37F && codePoint <= 0x1FFF
+                || codePoint >= 0x200C && codePoint <= 0x200D
+                || codePoint >= 0x2070 && codePoint <= 0x218F
+                || codePoint >= 0x2C00 && codePoint <= 0x2FEF
+                || codePoint >= 0x3001 && codePoint <= 0xD7FF
+                || codePoint >= 0xF900 && codePoint <= 0xFDCF
+                || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
+                || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
     }
 
     /** Determines if a character is an XML name character.
@@ -92,9 +93,10 @@ public class XMLUtils {
      * @return {@code true} if {@code codePoint} is an XML name start character,
      *         otherwise {@code false} */
     public static boolean isXMLNameChar(int codePoint) {
-        return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
-                || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
-                || codePoint >= 0x0300 && codePoint <= 0x036F || codePoint >= 0x203F
+        return isXMLNameStartCharacter(codePoint) || codePoint == '-'
+                || codePoint == '.' || codePoint >= '0' && codePoint <= '9'
+                || codePoint == 0xB7 || codePoint >= 0x0300
+                && codePoint <= 0x036F || codePoint >= 0x203F
                 && codePoint <= 0x2040;
     }
 

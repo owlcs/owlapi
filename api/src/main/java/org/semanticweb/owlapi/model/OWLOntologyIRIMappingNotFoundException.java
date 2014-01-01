@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.model;
 /** An exception which describes the situation where no ontology document IRI
  * mapping could be found. This is a runtime exception since clients should
  * really ensure that a mapping exists before attempting to load an ontology.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Apr-2007 */
 public class OWLOntologyIRIMappingNotFoundException extends OWLRuntimeException {

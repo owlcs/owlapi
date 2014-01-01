@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
@@ -60,7 +98,8 @@ public class ContractReasonerTest {
     }
 
     @Test
-    public void shouldTestClassExpressionNotInProfileException() throws OWLException {
+    public void shouldTestClassExpressionNotInProfileException()
+            throws OWLException {
         ClassExpressionNotInProfileException testSubject0 = new ClassExpressionNotInProfileException(
                 Utils.mockAnonClass(), mock(OWLProfile.class));
         OWLClassExpression result0 = testSubject0.getClassExpression();
@@ -105,7 +144,8 @@ public class ContractReasonerTest {
         IllegalConfigurationException testSubject1 = new IllegalConfigurationException(
                 "", mock(OWLReasonerConfiguration.class));
         IllegalConfigurationException testSubject2 = new IllegalConfigurationException(
-                "", new RuntimeException(), mock(OWLReasonerConfiguration.class));
+                "", new RuntimeException(),
+                mock(OWLReasonerConfiguration.class));
         OWLReasonerConfiguration result0 = testSubject0.getConfiguration();
         Throwable result2 = testSubject0.getCause();
         String result5 = testSubject0.getMessage();
@@ -113,7 +153,8 @@ public class ContractReasonerTest {
     }
 
     @Test
-    public void shouldTestImportsClosureNotInProfileException() throws OWLException {
+    public void shouldTestImportsClosureNotInProfileException()
+            throws OWLException {
         ImportsClosureNotInProfileException testSubject0 = new ImportsClosureNotInProfileException(
                 mock(OWLProfile.class));
         OWLProfile result0 = testSubject0.getProfile();
@@ -154,7 +195,8 @@ public class ContractReasonerTest {
         Set<OWLObject> result2 = testSubject0.getEntities();
         boolean result3 = testSubject0.isTopNode();
         boolean result4 = testSubject0.isBottomNode();
-        Set<OWLObject> result5 = testSubject0.getEntitiesMinus(mock(OWLObject.class));
+        Set<OWLObject> result5 = testSubject0
+                .getEntitiesMinus(mock(OWLObject.class));
         Set<OWLObject> result6 = testSubject0.getEntitiesMinusTop();
         Set<OWLObject> result7 = testSubject0.getEntitiesMinusBottom();
         boolean result8 = testSubject0.isSingleton();
@@ -185,12 +227,14 @@ public class ContractReasonerTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLReasonerConfiguration() throws OWLException {
+    public void shouldTestInterfaceOWLReasonerConfiguration()
+            throws OWLException {
         OWLReasonerConfiguration testSubject0 = mock(OWLReasonerConfiguration.class);
         ReasonerProgressMonitor result0 = testSubject0.getProgressMonitor();
         long result1 = testSubject0.getTimeOut();
         FreshEntityPolicy result2 = testSubject0.getFreshEntityPolicy();
-        IndividualNodeSetPolicy result3 = testSubject0.getIndividualNodeSetPolicy();
+        IndividualNodeSetPolicy result3 = testSubject0
+                .getIndividualNodeSetPolicy();
     }
 
     @Test
@@ -201,9 +245,10 @@ public class ContractReasonerTest {
                 .getMockOntology());
         OWLReasoner result2 = testSubject0.createNonBufferingReasoner(
                 Utils.getMockOntology(), mock(OWLReasonerConfiguration.class));
-        OWLReasoner result3 = testSubject0.createReasoner(Utils.getMockOntology());
-        OWLReasoner result4 = testSubject0.createReasoner(Utils.getMockOntology(),
-                mock(OWLReasonerConfiguration.class));
+        OWLReasoner result3 = testSubject0.createReasoner(Utils
+                .getMockOntology());
+        OWLReasoner result4 = testSubject0.createReasoner(
+                Utils.getMockOntology(), mock(OWLReasonerConfiguration.class));
     }
 
     @Test
@@ -215,11 +260,12 @@ public class ContractReasonerTest {
                 new RuntimeException()) {
             private static final long serialVersionUID = 40000L;
         };
-        OWLReasonerRuntimeException testSubject2 = new OWLReasonerRuntimeException("") {
+        OWLReasonerRuntimeException testSubject2 = new OWLReasonerRuntimeException(
+                "") {
             private static final long serialVersionUID = 40000L;
         };
-        OWLReasonerRuntimeException testSubject3 = new OWLReasonerRuntimeException("",
-                new RuntimeException()) {
+        OWLReasonerRuntimeException testSubject3 = new OWLReasonerRuntimeException(
+                "", new RuntimeException()) {
             private static final long serialVersionUID = 40000L;
         };
         Throwable result1 = testSubject0.getCause();
@@ -231,9 +277,10 @@ public class ContractReasonerTest {
     public void shouldTestReasonerInternalException() throws OWLException {
         ReasonerInternalException testSubject0 = new ReasonerInternalException(
                 new RuntimeException());
-        ReasonerInternalException testSubject1 = new ReasonerInternalException("");
-        ReasonerInternalException testSubject2 = new ReasonerInternalException("",
-                new RuntimeException());
+        ReasonerInternalException testSubject1 = new ReasonerInternalException(
+                "");
+        ReasonerInternalException testSubject2 = new ReasonerInternalException(
+                "", new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
@@ -242,9 +289,10 @@ public class ContractReasonerTest {
     @Test
     public void shouldTestReasonerInterruptedException() throws OWLException {
         ReasonerInterruptedException testSubject0 = new ReasonerInterruptedException();
-        ReasonerInterruptedException testSubject1 = new ReasonerInterruptedException("");
-        ReasonerInterruptedException testSubject2 = new ReasonerInterruptedException("",
-                new RuntimeException());
+        ReasonerInterruptedException testSubject1 = new ReasonerInterruptedException(
+                "");
+        ReasonerInterruptedException testSubject2 = new ReasonerInterruptedException(
+                "", new RuntimeException());
         ReasonerInterruptedException testSubject3 = new ReasonerInterruptedException(
                 new RuntimeException());
         Throwable result1 = testSubject0.getCause();
@@ -253,7 +301,8 @@ public class ContractReasonerTest {
     }
 
     @Test
-    public void shouldTestInterfaceReasonerProgressMonitor() throws OWLException {
+    public void shouldTestInterfaceReasonerProgressMonitor()
+            throws OWLException {
         ReasonerProgressMonitor testSubject0 = mock(ReasonerProgressMonitor.class);
         testSubject0.reasonerTaskStarted("");
         testSubject0.reasonerTaskStopped();
@@ -273,14 +322,16 @@ public class ContractReasonerTest {
     public void shouldTestTimeOutException() throws OWLException {
         TimeOutException testSubject0 = new TimeOutException();
         TimeOutException testSubject1 = new TimeOutException("");
-        TimeOutException testSubject2 = new TimeOutException("", new RuntimeException());
+        TimeOutException testSubject2 = new TimeOutException("",
+                new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
 
     @Test
-    public void shouldTestUnsupportedEntailmentTypeException() throws OWLException {
+    public void shouldTestUnsupportedEntailmentTypeException()
+            throws OWLException {
         UnsupportedEntailmentTypeException testSubject0 = new UnsupportedEntailmentTypeException(
                 mock(OWLAxiom.class));
         OWLAxiom result0 = testSubject0.getAxiom();

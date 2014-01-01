@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
@@ -133,8 +171,8 @@ public class ContractOwlapiProfilesTest {
 
     @Test
     public void shouldTestEmptyOneOfAxiom() throws OWLException {
-        EmptyOneOfAxiom testSubject0 = new EmptyOneOfAxiom(Utils.getMockOntology(),
-                mock(OWLAxiom.class));
+        EmptyOneOfAxiom testSubject0 = new EmptyOneOfAxiom(
+                Utils.getMockOntology(), mock(OWLAxiom.class));
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
@@ -164,7 +202,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestInsufficientOperands() throws OWLException {
         InsufficientOperands testSubject0 = new InsufficientOperands(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLObject.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLObject.class));
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
@@ -192,12 +231,15 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestLastPropertyInChainNotInImposedRange() throws OWLException {
+    public void shouldTestLastPropertyInChainNotInImposedRange()
+            throws OWLException {
         LastPropertyInChainNotInImposedRange testSubject0 = new LastPropertyInChainNotInImposedRange(
-                Utils.getMockOntology(), mock(OWLSubPropertyChainOfAxiom.class),
+                Utils.getMockOntology(),
+                mock(OWLSubPropertyChainOfAxiom.class),
                 mock(OWLObjectPropertyRangeAxiom.class));
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
-        OWLSubPropertyChainOfAxiom result1 = testSubject0.getOWLSubPropertyChainOfAxiom();
+        OWLSubPropertyChainOfAxiom result1 = testSubject0
+                .getOWLSubPropertyChainOfAxiom();
         OWLObjectPropertyRangeAxiom result2 = testSubject0
                 .getOWLObjectPropertyRangeAxiom();
         IRI result3 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -209,7 +251,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestLexicalNotInLexicalSpace() throws OWLException {
         LexicalNotInLexicalSpace testSubject0 = new LexicalNotInLexicalSpace(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLLiteral.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLLiteral.class));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
         OWLLiteral result1 = testSubject0.getLiteral();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -244,7 +287,8 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestOWL2DLProfile() throws OWLException {
         OWL2DLProfile testSubject0 = new OWL2DLProfile();
         String result0 = testSubject0.getName();
-        OWLProfileReport result1 = testSubject0.checkOntology(Utils.getMockOntology());
+        OWLProfileReport result1 = testSubject0.checkOntology(Utils
+                .getMockOntology());
     }
 
     @Test
@@ -254,7 +298,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWL2DLProfileViolationVisitor() throws OWLException {
+    public void shouldTestInterfaceOWL2DLProfileViolationVisitor()
+            throws OWLException {
         OWL2DLProfileViolationVisitor testSubject0 = mock(OWL2DLProfileViolationVisitor.class);
         testSubject0
                 .visit(mock(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom.class));
@@ -268,7 +313,8 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestOWL2ELProfile() throws OWLException {
         OWL2ELProfile testSubject0 = new OWL2ELProfile();
         String result0 = testSubject0.getName();
-        OWLProfileReport result1 = testSubject0.checkOntology(Utils.getMockOntology());
+        OWLProfileReport result1 = testSubject0.checkOntology(Utils
+                .getMockOntology());
     }
 
     @Test
@@ -278,7 +324,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWL2ELProfileViolationVisitor() throws OWLException {
+    public void shouldTestInterfaceOWL2ELProfileViolationVisitor()
+            throws OWLException {
         OWL2ELProfileViolationVisitor testSubject0 = mock(OWL2ELProfileViolationVisitor.class);
     }
 
@@ -286,16 +333,21 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestOWL2Profile() throws OWLException {
         OWL2Profile testSubject0 = new OWL2Profile();
         String result0 = testSubject0.getName();
-        OWLProfileReport result1 = testSubject0.checkOntology(Utils.getMockOntology());
+        OWLProfileReport result1 = testSubject0.checkOntology(Utils
+                .getMockOntology());
     }
 
     @Test
     public void shouldTestOWL2ProfileReport() throws OWLException {
-        OWL2ProfileReport testSubject0 = new OWL2ProfileReport(mock(OWLProfile.class),
-                Utils.mockSet(mock(OWLProfileViolation.class)), Utils.mockSet(Utils
-                        .mockObjectProperty()), Utils.mockSet(Utils.mockObjectProperty()));
-        Set<OWLObjectPropertyExpression> result1 = testSubject0.getNonSimpleRoles();
-        Set<OWLObjectPropertyExpression> result2 = testSubject0.getSimpleRoles();
+        OWL2ProfileReport testSubject0 = new OWL2ProfileReport(
+                mock(OWLProfile.class),
+                Utils.mockSet(mock(OWLProfileViolation.class)),
+                Utils.mockSet(Utils.mockObjectProperty()), Utils.mockSet(Utils
+                        .mockObjectProperty()));
+        Set<OWLObjectPropertyExpression> result1 = testSubject0
+                .getNonSimpleRoles();
+        Set<OWLObjectPropertyExpression> result2 = testSubject0
+                .getSimpleRoles();
         boolean result3 = testSubject0.isInProfile();
         List<OWLProfileViolation> result4 = testSubject0.getViolations();
         OWLProfile result5 = testSubject0.getProfile();
@@ -308,16 +360,18 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWL2ProfileViolationVisitor() throws OWLException {
+    public void shouldTestInterfaceOWL2ProfileViolationVisitor()
+            throws OWLException {
         OWL2ProfileViolationVisitor testSubject0 = mock(OWL2ProfileViolationVisitor.class);
     }
 
     public void shouldTestOWL2QLProfile() throws OWLException {
         OWL2QLProfile testSubject0 = new OWL2QLProfile();
         String result0 = testSubject0.getName();
-        OWLProfileReport result1 = testSubject0.checkOntology(Utils.getMockOntology());
-        boolean result2 = testSubject0
-                .isOWL2QLSuperClassExpression(Utils.mockAnonClass());
+        OWLProfileReport result1 = testSubject0.checkOntology(Utils
+                .getMockOntology());
+        boolean result2 = testSubject0.isOWL2QLSuperClassExpression(Utils
+                .mockAnonClass());
     }
 
     @Test
@@ -327,16 +381,18 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWL2QLProfileViolationVisitor() throws OWLException {
+    public void shouldTestInterfaceOWL2QLProfileViolationVisitor()
+            throws OWLException {
         OWL2QLProfileViolationVisitor testSubject0 = mock(OWL2QLProfileViolationVisitor.class);
     }
 
     public void shouldTestOWL2RLProfile() throws OWLException {
         OWL2RLProfile testSubject0 = new OWL2RLProfile();
         String result0 = testSubject0.getName();
-        OWLProfileReport result1 = testSubject0.checkOntology(Utils.getMockOntology());
-        boolean result2 = testSubject0
-                .isOWL2RLSuperClassExpression(Utils.mockAnonClass());
+        OWLProfileReport result1 = testSubject0.checkOntology(Utils
+                .getMockOntology());
+        boolean result2 = testSubject0.isOWL2RLSuperClassExpression(Utils
+                .mockAnonClass());
         boolean result3 = testSubject0.isOWL2RLEquivalentClassExpression(Utils
                 .mockAnonClass());
     }
@@ -348,7 +404,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWL2RLProfileViolationVisitor() throws OWLException {
+    public void shouldTestInterfaceOWL2RLProfileViolationVisitor()
+            throws OWLException {
         OWL2RLProfileViolationVisitor testSubject0 = mock(OWL2RLProfileViolationVisitor.class);
     }
 
@@ -356,12 +413,14 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestInterfaceOWLProfile() throws OWLException {
         OWLProfile testSubject0 = mock(OWLProfile.class);
         String result0 = testSubject0.getName();
-        OWLProfileReport result1 = testSubject0.checkOntology(Utils.getMockOntology());
+        OWLProfileReport result1 = testSubject0.checkOntology(Utils
+                .getMockOntology());
     }
 
     @Test
     public void shouldTestOWLProfileReport() throws OWLException {
-        OWLProfileReport testSubject0 = new OWLProfileReport(mock(OWLProfile.class),
+        OWLProfileReport testSubject0 = new OWLProfileReport(
+                mock(OWLProfile.class),
                 Utils.mockSet(mock(OWLProfileViolation.class)));
         boolean result1 = testSubject0.isInProfile();
         List<OWLProfileViolation> result2 = testSubject0.getViolations();
@@ -385,7 +444,8 @@ public class ContractOwlapiProfilesTest {
                 mock(OWLAnonymousIndividual.class));
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
-        OWLAnonymousIndividual result1 = testSubject0.getOWLAnonymousIndividual();
+        OWLAnonymousIndividual result1 = testSubject0
+                .getOWLAnonymousIndividual();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result3 = testSubject0.getOntologyID();
         Set<OWLOntologyID> result4 = testSubject0.getImportsClosure();
@@ -393,7 +453,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfBuiltInDatatypeInDatatypeDefinition() throws OWLException {
+    public void shouldTestUseOfBuiltInDatatypeInDatatypeDefinition()
+            throws OWLException {
         UseOfBuiltInDatatypeInDatatypeDefinition testSubject0 = new UseOfBuiltInDatatypeInDatatypeDefinition(
                 Utils.getMockOntology(), mock(OWLDatatypeDefinitionAxiom.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
@@ -404,9 +465,11 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfDataOneOfWithMultipleLiterals() throws OWLException {
+    public void shouldTestUseOfDataOneOfWithMultipleLiterals()
+            throws OWLException {
         UseOfDataOneOfWithMultipleLiterals testSubject0 = new UseOfDataOneOfWithMultipleLiterals(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLDataOneOf.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLDataOneOf.class));
         OWLDataOneOf result1 = testSubject0.getDataOneOf();
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
@@ -419,12 +482,14 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfDefinedDatatypeInDatatypeRestriction() throws OWLException {
+    public void shouldTestUseOfDefinedDatatypeInDatatypeRestriction()
+            throws OWLException {
         UseOfDefinedDatatypeInDatatypeRestriction testSubject0 = new UseOfDefinedDatatypeInDatatypeRestriction(
                 Utils.getMockOntology(), mock(OWLAxiom.class),
                 mock(OWLDatatypeRestriction.class));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
-        OWLDatatypeRestriction result1 = testSubject0.getOWLDatatypeRestriction();
+        OWLDatatypeRestriction result1 = testSubject0
+                .getOWLDatatypeRestriction();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result3 = testSubject0.getOntologyID();
         Set<OWLOntologyID> result4 = testSubject0.getImportsClosure();
@@ -433,8 +498,8 @@ public class ContractOwlapiProfilesTest {
 
     @Test
     public void shouldTestUseOfIllegalAxiom() throws OWLException {
-        UseOfIllegalAxiom testSubject0 = new UseOfIllegalAxiom(Utils.getMockOntology(),
-                mock(OWLAxiom.class));
+        UseOfIllegalAxiom testSubject0 = new UseOfIllegalAxiom(
+                Utils.getMockOntology(), mock(OWLAxiom.class));
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
@@ -446,7 +511,8 @@ public class ContractOwlapiProfilesTest {
 
     public void shouldTestUseOfIllegalClassExpression() throws OWLException {
         UseOfIllegalClassExpression testSubject0 = new UseOfIllegalClassExpression(
-                Utils.getMockOntology(), mock(OWLAxiom.class), Utils.mockAnonClass());
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                Utils.mockAnonClass());
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
         OWLClassExpression result1 = testSubject0.getOWLClassExpression();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -458,7 +524,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfIllegalDataRange() throws OWLException {
         UseOfIllegalDataRange testSubject0 = new UseOfIllegalDataRange(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLDataRange.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLDataRange.class));
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
@@ -497,7 +564,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfNonAtomicClassExpression() throws OWLException {
         UseOfNonAtomicClassExpression testSubject0 = new UseOfNonAtomicClassExpression(
-                Utils.getMockOntology(), mock(OWLAxiom.class), Utils.mockAnonClass());
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                Utils.mockAnonClass());
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         OWLClassExpression result1 = testSubject0.getOWLClassExpression();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -507,9 +575,11 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfNonEquivalentClassExpression() throws OWLException {
+    public void shouldTestUseOfNonEquivalentClassExpression()
+            throws OWLException {
         UseOfNonEquivalentClassExpression testSubject0 = new UseOfNonEquivalentClassExpression(
-                Utils.getMockOntology(), mock(OWLAxiom.class), Utils.mockAnonClass());
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                Utils.mockAnonClass());
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         OWLClassExpression result1 = testSubject0.getOWLClassExpression();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -518,10 +588,12 @@ public class ContractOwlapiProfilesTest {
         OWLAxiom result5 = testSubject0.getAxiom();
     }
 
-    public void shouldTestUseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom()
-            throws OWLException {
+    public void
+            shouldTestUseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom()
+                    throws OWLException {
         UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom testSubject0 = new UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom(
-                Utils.getMockOntology(), mock(OWLAsymmetricObjectPropertyAxiom.class));
+                Utils.getMockOntology(),
+                mock(OWLAsymmetricObjectPropertyAxiom.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         OWLAsymmetricObjectPropertyAxiom result1 = testSubject0.getAxiom();
         OWLAxiom result2 = testSubject0.getAxiom();
@@ -547,10 +619,12 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestUseOfNonSimplePropertyInDisjointPropertiesAxiom()
             throws OWLException {
         UseOfNonSimplePropertyInDisjointPropertiesAxiom testSubject0 = new UseOfNonSimplePropertyInDisjointPropertiesAxiom(
-                Utils.getMockOntology(), mock(OWLDisjointObjectPropertiesAxiom.class),
+                Utils.getMockOntology(),
+                mock(OWLDisjointObjectPropertiesAxiom.class),
                 Utils.mockObjectProperty());
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
-        OWLObjectPropertyExpression result1 = testSubject0.getOWLObjectProperty();
+        OWLObjectPropertyExpression result1 = testSubject0
+                .getOWLObjectProperty();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result3 = testSubject0.getOntologyID();
         Set<OWLOntologyID> result4 = testSubject0.getImportsClosure();
@@ -560,7 +634,8 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestUseOfNonSimplePropertyInFunctionalPropertyAxiom()
             throws OWLException {
         UseOfNonSimplePropertyInFunctionalPropertyAxiom testSubject0 = new UseOfNonSimplePropertyInFunctionalPropertyAxiom(
-                Utils.getMockOntology(), mock(OWLFunctionalObjectPropertyAxiom.class));
+                Utils.getMockOntology(),
+                mock(OWLFunctionalObjectPropertyAxiom.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         IRI result1 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result2 = testSubject0.getOntologyID();
@@ -568,8 +643,10 @@ public class ContractOwlapiProfilesTest {
         OWLAxiom result4 = testSubject0.getAxiom();
     }
 
-    public void shouldTestUseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom()
-            throws OWLException {
+    public
+            void
+            shouldTestUseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom()
+                    throws OWLException {
         UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom testSubject0 = new UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom(
                 Utils.getMockOntology(),
                 mock(OWLInverseFunctionalObjectPropertyAxiom.class));
@@ -583,7 +660,8 @@ public class ContractOwlapiProfilesTest {
     public void shouldTestUseOfNonSimplePropertyInIrreflexivePropertyAxiom()
             throws OWLException {
         UseOfNonSimplePropertyInIrreflexivePropertyAxiom testSubject0 = new UseOfNonSimplePropertyInIrreflexivePropertyAxiom(
-                Utils.getMockOntology(), mock(OWLIrreflexiveObjectPropertyAxiom.class));
+                Utils.getMockOntology(),
+                mock(OWLIrreflexiveObjectPropertyAxiom.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         IRI result1 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result2 = testSubject0.getOntologyID();
@@ -592,7 +670,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfNonSimplePropertyInObjectHasSelf() throws OWLException {
+    public void shouldTestUseOfNonSimplePropertyInObjectHasSelf()
+            throws OWLException {
         UseOfNonSimplePropertyInObjectHasSelf testSubject0 = new UseOfNonSimplePropertyInObjectHasSelf(
                 Utils.getMockOntology(), mock(OWLAxiom.class),
                 mock(OWLObjectHasSelf.class));
@@ -607,7 +686,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfNonSubClassExpression() throws OWLException {
         UseOfNonSubClassExpression testSubject0 = new UseOfNonSubClassExpression(
-                Utils.getMockOntology(), mock(OWLAxiom.class), Utils.mockAnonClass());
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                Utils.mockAnonClass());
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         OWLClassExpression result1 = testSubject0.getOWLClassExpression();
@@ -620,7 +700,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfNonSuperClassExpression() throws OWLException {
         UseOfNonSuperClassExpression testSubject0 = new UseOfNonSuperClassExpression(
-                Utils.getMockOntology(), mock(OWLAxiom.class), Utils.mockAnonClass());
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                Utils.mockAnonClass());
         testSubject0.accept(mock(OWL2QLProfileViolationVisitor.class));
         testSubject0.accept(mock(OWL2RLProfileViolationVisitor.class));
         OWLClassExpression result1 = testSubject0.getOWLClassExpression();
@@ -631,9 +712,11 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfObjectOneOfWithMultipleIndividuals() throws OWLException {
+    public void shouldTestUseOfObjectOneOfWithMultipleIndividuals()
+            throws OWLException {
         UseOfObjectOneOfWithMultipleIndividuals testSubject0 = new UseOfObjectOneOfWithMultipleIndividuals(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLObjectOneOf.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLObjectOneOf.class));
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
         OWLObjectOneOf result1 = testSubject0.getOWLObjectOneOf();
         OWLClassExpression result2 = testSubject0.getOWLClassExpression();
@@ -646,9 +729,11 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfObjectPropertyInverse() throws OWLException {
         UseOfObjectPropertyInverse testSubject0 = new UseOfObjectPropertyInverse(
-                Utils.getMockOntology(), mock(OWLAxiom.class), Utils.mockObjectProperty());
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                Utils.mockObjectProperty());
         testSubject0.accept(mock(OWL2ELProfileViolationVisitor.class));
-        OWLObjectPropertyExpression result1 = testSubject0.getOWLPropertyExpression();
+        OWLObjectPropertyExpression result1 = testSubject0
+                .getOWLPropertyExpression();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result3 = testSubject0.getOntologyID();
         Set<OWLOntologyID> result4 = testSubject0.getImportsClosure();
@@ -658,10 +743,12 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfPropertyInChainCausesCycle() throws OWLException {
         UseOfPropertyInChainCausesCycle testSubject0 = new UseOfPropertyInChainCausesCycle(
-                Utils.getMockOntology(), mock(OWLSubPropertyChainOfAxiom.class),
+                Utils.getMockOntology(),
+                mock(OWLSubPropertyChainOfAxiom.class),
                 Utils.mockObjectProperty());
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
-        OWLObjectPropertyExpression result1 = testSubject0.getOWLObjectProperty();
+        OWLObjectPropertyExpression result1 = testSubject0
+                .getOWLObjectProperty();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
         OWLOntologyID result3 = testSubject0.getOntologyID();
         Set<OWLOntologyID> result4 = testSubject0.getImportsClosure();
@@ -683,9 +770,11 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfReservedVocabularyForClassIRI() throws OWLException {
+    public void shouldTestUseOfReservedVocabularyForClassIRI()
+            throws OWLException {
         UseOfReservedVocabularyForClassIRI testSubject0 = new UseOfReservedVocabularyForClassIRI(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLClass.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLClass.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         OWLClass result1 = testSubject0.getOWLClass();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -695,7 +784,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfReservedVocabularyForDataPropertyIRI() throws OWLException {
+    public void shouldTestUseOfReservedVocabularyForDataPropertyIRI()
+            throws OWLException {
         UseOfReservedVocabularyForDataPropertyIRI testSubject0 = new UseOfReservedVocabularyForDataPropertyIRI(
                 Utils.getMockOntology(), mock(OWLAxiom.class),
                 mock(OWLDataProperty.class));
@@ -708,7 +798,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfReservedVocabularyForIndividualIRI() throws OWLException {
+    public void shouldTestUseOfReservedVocabularyForIndividualIRI()
+            throws OWLException {
         UseOfReservedVocabularyForIndividualIRI testSubject0 = new UseOfReservedVocabularyForIndividualIRI(
                 Utils.getMockOntology(), mock(OWLAxiom.class),
                 mock(OWLNamedIndividual.class));
@@ -735,7 +826,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfReservedVocabularyForOntologyIRI() throws OWLException {
+    public void shouldTestUseOfReservedVocabularyForOntologyIRI()
+            throws OWLException {
         UseOfReservedVocabularyForOntologyIRI testSubject0 = new UseOfReservedVocabularyForOntologyIRI(
                 Utils.getMockOntology());
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
@@ -746,7 +838,8 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfReservedVocabularyForVersionIRI() throws OWLException {
+    public void shouldTestUseOfReservedVocabularyForVersionIRI()
+            throws OWLException {
         UseOfReservedVocabularyForVersionIRI testSubject0 = new UseOfReservedVocabularyForVersionIRI(
                 Utils.getMockOntology());
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
@@ -769,10 +862,11 @@ public class ContractOwlapiProfilesTest {
     }
 
     @Test
-    public void shouldTestUseOfUndeclaredAnnotationProperty() throws OWLException {
+    public void shouldTestUseOfUndeclaredAnnotationProperty()
+            throws OWLException {
         UseOfUndeclaredAnnotationProperty testSubject0 = new UseOfUndeclaredAnnotationProperty(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLAnnotation.class),
-                mock(OWLAnnotationProperty.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLAnnotation.class), mock(OWLAnnotationProperty.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         OWLAnnotationProperty result1 = testSubject0.getOWLAnnotationProperty();
         OWLAnnotation result2 = testSubject0.getOWLAnnotation();
@@ -785,7 +879,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfUndeclaredClass() throws OWLException {
         UseOfUndeclaredClass testSubject0 = new UseOfUndeclaredClass(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLClass.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLClass.class));
         testSubject0.accept(mock(OWL2DLProfileViolationVisitor.class));
         OWLClass result1 = testSubject0.getOWLClass();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -810,7 +905,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfUndeclaredDatatype() throws OWLException {
         UseOfUndeclaredDatatype testSubject0 = new UseOfUndeclaredDatatype(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLDatatype.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLDatatype.class));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
         OWLDatatype result1 = testSubject0.getDatatype();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());
@@ -835,7 +931,8 @@ public class ContractOwlapiProfilesTest {
     @Test
     public void shouldTestUseOfUnknownDatatype() throws OWLException {
         UseOfUnknownDatatype testSubject0 = new UseOfUnknownDatatype(
-                Utils.getMockOntology(), mock(OWLAxiom.class), mock(OWLDatatype.class));
+                Utils.getMockOntology(), mock(OWLAxiom.class),
+                mock(OWLDatatype.class));
         testSubject0.accept(mock(OWL2ProfileViolationVisitor.class));
         OWLDatatype result1 = testSubject0.getDatatype();
         IRI result2 = testSubject0.getDocumentIRI(new OWLOntologyID());

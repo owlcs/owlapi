@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.junit.Assert.*;
@@ -35,12 +73,14 @@ public class TurtleTestCase {
     @Test
     public void testLoadingUTF8BOM() throws URISyntaxException,
             OWLOntologyCreationException {
-        IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl").toURI());
+        IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl")
+                .toURI());
         Factory.getManager().loadOntologyFromOntologyDocument(uri);
     }
 
     @Test
-    public void shouldParseOntologyThatworked() throws OWLOntologyCreationException {
+    public void shouldParseOntologyThatworked()
+            throws OWLOntologyCreationException {
         // given
         String working = "@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .\n"
                 + "@prefix foaf:    <http://xmlns.com/foaf/0.1/> .\n"
@@ -57,13 +97,14 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldParseOntologyThatBroke() throws OWLOntologyCreationException {
+    public void shouldParseOntologyThatBroke()
+            throws OWLOntologyCreationException {
         // given
         String input = "@prefix f:    <urn:test/> . f:r f:p f: .";
         OWLDataFactory df = Factory.getFactory();
         OWLAxiom expected = df.getOWLAnnotationAssertionAxiom(
-                df.getOWLAnnotationProperty(IRI("urn:test/p")), IRI("urn:test/r"),
-                IRI("urn:test/"));
+                df.getOWLAnnotationProperty(IRI("urn:test/p")),
+                IRI("urn:test/r"), IRI("urn:test/"));
         // when
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(input));
@@ -94,8 +135,9 @@ public class TurtleTestCase {
                 + "ex:ex1 a ex:Something ; ex:prop1 _:a .\n"
                 + "_:a a ex:Something1 ; ex:prop2 _:b .\n"
                 + "_:b a ex:Something ; ex:prop3 _:a .";
-        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         StringDocumentTarget t = new StringDocumentTarget();
         TurtleOntologyFormat format = new TurtleOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
@@ -111,10 +153,12 @@ public class TurtleTestCase {
 
     // test for 335
     @Test
-    public void shouldParseScientificNotation() throws OWLOntologyCreationException {
+    public void shouldParseScientificNotation()
+            throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
-        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
@@ -125,19 +169,22 @@ public class TurtleTestCase {
     @Test
     public void shouldParseTwo() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
-        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
-        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s, Literal(1))));
+        assertTrue(ontology
+                .containsAxiom(AnnotationAssertion(p, s, Literal(1))));
     }
 
     @Test
     public void shouldParseOne() throws OWLOntologyCreationException {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1.0.";
-        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
@@ -146,15 +193,17 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldParseEmptySpaceInBnode() throws OWLOntologyCreationException {
+    public void shouldParseEmptySpaceInBnode()
+            throws OWLOntologyCreationException {
         String input = "<http://taxonomy.wolterskluwer.de/practicearea/10112>\n"
                 + "      a       <http://schema.wolterskluwer.de/TaxonomyTerm> , <http://www.w3.org/2004/02/skos/core#Concept> ;\n"
                 + "      <http://www.w3.org/2004/02/skos/core#broader>\n"
                 + "              [] ;\n"
                 + "      <http://www.w3.org/2004/02/skos/core#broader>\n"
                 + "              [] .";
-        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         OWLIndividual i = NamedIndividual(IRI("http://taxonomy.wolterskluwer.de/practicearea/10112"));
         OWLAnnotationProperty ap = AnnotationProperty(IRI("http://www.w3.org/2004/02/skos/core#broader"));
         OWLClass c = Class(IRI("http://www.w3.org/2004/02/skos/core#Concept"));
@@ -165,8 +214,8 @@ public class TurtleTestCase {
     }
 
     @Test
-    public void shouldRoundTripAxiomAnnotation() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundTripAxiomAnnotation()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         String input = "@prefix : <urn:fm2#> .\n"
                 + "@prefix fm:    <urn:fm2#> .\n"
                 + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
@@ -193,18 +242,21 @@ public class TurtleTestCase {
                 + ":ManagementType rdf:type owl:Class .\n"
                 + ":DM rdf:type owl:NamedIndividual , prov:Person .\n"
                 + ":FMDomain rdf:type owl:NamedIndividual , prov:Activity ; prov:ass :DM .";
-        OWLOntology ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         StringDocumentTarget t = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology,
                 new TurtleOntologyFormat(), t);
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new StringDocumentSource(t.toString()));
         t = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o, new TurtleOntologyFormat(), t);
+        o.getOWLOntologyManager()
+                .saveOntology(o, new TurtleOntologyFormat(), t);
         Set<OWLSubClassOfAxiom> axioms = o.getAxioms(AxiomType.SUBCLASS_OF);
         assertEquals(1, axioms.size());
-        OWLAnnotation next = axioms.iterator().next().getAnnotations().iterator().next();
+        OWLAnnotation next = axioms.iterator().next().getAnnotations()
+                .iterator().next();
         assertTrue(next.getValue() instanceof OWLAnonymousIndividual);
         OWLAnonymousIndividual ind = (OWLAnonymousIndividual) next.getValue();
         Set<OWLAxiom> anns = new HashSet<OWLAxiom>();

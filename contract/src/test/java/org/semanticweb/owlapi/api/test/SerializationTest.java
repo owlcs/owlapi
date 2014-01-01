@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.api.test;
 
 import static org.junit.Assert.assertEquals;
@@ -43,7 +81,8 @@ public class SerializationTest {
     private static final OWLDataFactory f = OWLManager.getOWLDataFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     OWLDataPropertyExpression dp = f.getOWLDataProperty(IRI.create("urn:dp"));
-    OWLObjectPropertyExpression op = f.getOWLObjectProperty(IRI.create("urn:op"));
+    OWLObjectPropertyExpression op = f.getOWLObjectProperty(IRI
+            .create("urn:op"));
     IRI iri = IRI.create("urn:iri");
     OWLLiteral owlliteral = f.getOWLLiteral(true);
     OWLAnnotationSubject as = IRI.create("urn:i");
@@ -78,19 +117,21 @@ public class SerializationTest {
         OWLOntology o = m.loadOntologyFromOntologyDocument(getClass()
                 .getResourceAsStream("/pizza.owl"));
         m.addAxiom(o, f.getOWLDeclarationAxiom(f.getOWLClass(iri)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLClass(string, prefixmanager)));
+        m.addAxiom(o, f.getOWLSubClassOfAxiom(c,
+                f.getOWLClass(string, prefixmanager)));
         m.addAxiom(o, f.getOWLEquivalentClassesAxiom(f.getOWLClass(iri), c));
         m.addAxiom(o, f.getOWLDisjointClassesAxiom(f.getOWLClass(iri), c));
         m.addAxiom(o, f.getOWLSubObjectPropertyOfAxiom(op, op));
-        m.addAxiom(o,
-                f.getOWLSubPropertyChainOfAxiom(listowlobjectpropertyexpression, op));
+        m.addAxiom(o, f.getOWLSubPropertyChainOfAxiom(
+                listowlobjectpropertyexpression, op));
         m.addAxiom(o, f.getOWLEquivalentObjectPropertiesAxiom(setop));
         m.addAxiom(o, f.getOWLDisjointObjectPropertiesAxiom(setop));
         m.addAxiom(o, f.getOWLInverseObjectPropertiesAxiom(op, op));
         m.addAxiom(o, f.getOWLObjectPropertyDomainAxiom(op, c));
         m.addAxiom(o, f.getOWLObjectPropertyRangeAxiom(op, c));
         m.addAxiom(o, f.getOWLFunctionalObjectPropertyAxiom(op));
-        m.addAxiom(o, f.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
+        m.addAxiom(o,
+                f.getOWLAnnotationAssertionAxiom(ap, as, owlannotationvalue));
         m.applyChange(new AddImport(o, f.getOWLImportsDeclaration(iri)));
         m.addAxiom(o, f.getOWLAnnotationPropertyDomainAxiom(ap, iri));
         m.addAxiom(o, f.getOWLAnnotationPropertyRangeAxiom(ap, iri));
@@ -115,15 +156,26 @@ public class SerializationTest {
         m.addAxiom(o, f.getOWLObjectPropertyAssertionAxiom(op, ai, ai));
         m.addAxiom(o, f.getOWLNegativeObjectPropertyAssertionAxiom(op, ai, ai));
         m.addAxiom(o, f.getOWLDataPropertyAssertionAxiom(dp, ai, owlliteral));
-        m.addAxiom(o, f.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral));
         m.addAxiom(o,
-                f.getOWLInverseObjectPropertiesAxiom(op, f.getOWLObjectInverseOf(op)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLDataExactCardinality(1, dp)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLDataMaxCardinality(1, dp)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLDataMinCardinality(1, dp)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLObjectExactCardinality(1, op)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLObjectMaxCardinality(1, op)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLObjectMinCardinality(1, op)));
+                f.getOWLNegativeDataPropertyAssertionAxiom(dp, ai, owlliteral));
+        m.addAxiom(
+                o,
+                f.getOWLInverseObjectPropertiesAxiom(op,
+                        f.getOWLObjectInverseOf(op)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLDataExactCardinality(1, dp)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLDataMaxCardinality(1, dp)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLDataMinCardinality(1, dp)));
+        m.addAxiom(
+                o,
+                f.getOWLSubClassOfAxiom(c,
+                        f.getOWLObjectExactCardinality(1, op)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLObjectMaxCardinality(1, op)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLObjectMinCardinality(1, op)));
         m.addAxiom(
                 o,
                 f.getOWLDataPropertyRangeAxiom(dp,
@@ -132,13 +184,18 @@ public class SerializationTest {
                 o,
                 f.getOWLDataPropertyAssertionAxiom(dp, ai,
                         f.getOWLLiteral(string, owldatatype)));
-        m.addAxiom(o, f.getOWLDataPropertyRangeAxiom(dp, f.getOWLDataOneOf(owlliteral)));
-        m.addAxiom(o, f.getOWLDataPropertyRangeAxiom(dp, f.getOWLDataUnionOf(dr)));
-        m.addAxiom(o, f.getOWLDataPropertyRangeAxiom(dp, f.getOWLDataIntersectionOf(dr)));
         m.addAxiom(
                 o,
                 f.getOWLDataPropertyRangeAxiom(dp,
-                        f.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
+                        f.getOWLDataOneOf(owlliteral)));
+        m.addAxiom(o,
+                f.getOWLDataPropertyRangeAxiom(dp, f.getOWLDataUnionOf(dr)));
+        m.addAxiom(
+                o,
+                f.getOWLDataPropertyRangeAxiom(dp,
+                        f.getOWLDataIntersectionOf(dr)));
+        m.addAxiom(o, f.getOWLDataPropertyRangeAxiom(dp,
+                f.getOWLDatatypeRestriction(owldatatype, owlfacet, owlliteral)));
         m.addAxiom(
                 o,
                 f.getOWLDataPropertyRangeAxiom(
@@ -151,28 +208,37 @@ public class SerializationTest {
                         c,
                         f.getOWLObjectIntersectionOf(c,
                                 f.getOWLClass(string, prefixmanager))));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLDataSomeValuesFrom(dp, dr)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLDataAllValuesFrom(dp, dr)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLDataHasValue(dp, owlliteral)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLDataSomeValuesFrom(dp, dr)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLDataAllValuesFrom(dp, dr)));
         m.addAxiom(o, f.getOWLSubClassOfAxiom(c,
-                f.getOWLObjectComplementOf(f.getOWLClass(iri))));
+                f.getOWLDataHasValue(dp, owlliteral)));
+        m.addAxiom(
+                o,
+                f.getOWLSubClassOfAxiom(c,
+                        f.getOWLObjectComplementOf(f.getOWLClass(iri))));
         m.addAxiom(
                 o,
                 f.getOWLSubClassOfAxiom(c,
                         f.getOWLObjectOneOf(f.getOWLNamedIndividual(iri))));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLObjectAllValuesFrom(op, c)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLObjectSomeValuesFrom(op, c)));
-        m.addAxiom(o, f.getOWLSubClassOfAxiom(c, f.getOWLObjectHasValue(op, ai)));
         m.addAxiom(o,
-                f.getOWLSubClassOfAxiom(c, f.getOWLObjectUnionOf(f.getOWLClass(iri))));
+                f.getOWLSubClassOfAxiom(c, f.getOWLObjectAllValuesFrom(op, c)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLObjectSomeValuesFrom(op, c)));
+        m.addAxiom(o,
+                f.getOWLSubClassOfAxiom(c, f.getOWLObjectHasValue(op, ai)));
+        m.addAxiom(
+                o,
+                f.getOWLSubClassOfAxiom(c,
+                        f.getOWLObjectUnionOf(f.getOWLClass(iri))));
         m.addAxiom(
                 o,
                 f.getOWLAnnotationAssertionAxiom(iri,
                         f.getOWLAnnotation(ap, owlannotationvalue)));
-        m.addAxiom(
-                o,
-                f.getOWLAnnotationAssertionAxiom(f.getOWLNamedIndividual(iri).getIRI(),
-                        f.getOWLAnnotation(ap, owlannotationvalue)));
+        m.addAxiom(o, f.getOWLAnnotationAssertionAxiom(
+                f.getOWLNamedIndividual(iri).getIRI(),
+                f.getOWLAnnotation(ap, owlannotationvalue)));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
         stream.writeObject(m);
@@ -182,7 +248,8 @@ public class SerializationTest {
         ObjectInputStream inStream = new ObjectInputStream(in);
         OWLOntologyManager copy = (OWLOntologyManager) inStream.readObject();
         for (OWLOntology onto : copy.getOntologies()) {
-            OWLOntology original = m.getOntology(onto.getOntologyID().getOntologyIRI());
+            OWLOntology original = m.getOntology(onto.getOntologyID()
+                    .getOntologyIRI());
             assertEquals("Troubles with ontology " + onto.getOntologyID(),
                     original.getAxioms(), onto.getAxioms());
         }

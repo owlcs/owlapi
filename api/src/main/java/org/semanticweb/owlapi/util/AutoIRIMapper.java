@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -72,7 +72,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /** A mapper which given a root folder attempts to automatically discover and map
  * files to ontologies. The mapper is only capable of mapping ontologies in
  * RDF/XML and OWL/XML (other serialisations are not supported).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Apr-2007 */
 public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper,

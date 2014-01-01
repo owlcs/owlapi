@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.search;
 
 import java.util.ArrayList;
@@ -322,7 +360,8 @@ public class Searcher<T> implements Iterable<T> {
     public Collection<T> asCollection() {
         if (search == Searches.TYPES) {
             Collection<T> toReturn = new HashSet<T>();
-            for (OWLClassAssertionAxiom c : o.getClassAssertionAxioms(individual)) {
+            for (OWLClassAssertionAxiom c : o
+                    .getClassAssertionAxioms(individual)) {
                 toReturn.add((T) c.getClassExpression());
             }
             return toReturn;
@@ -338,7 +377,8 @@ public class Searcher<T> implements Iterable<T> {
             Collection<OWLObjectPropertyExpression> toReturn = new HashSet<OWLObjectPropertyExpression>();
             for (OWLInverseObjectPropertiesAxiom inverse : o
                     .getInverseObjectPropertyAxioms(objectProperty)) {
-                if (inverse.getFirstProperty().equals(inverse.getSecondProperty())) {
+                if (inverse.getFirstProperty().equals(
+                        inverse.getSecondProperty())) {
                     toReturn.add(inverse.getFirstProperty());
                 } else {
                     if (inverse.getFirstProperty().equals(objectProperty)) {
@@ -353,13 +393,16 @@ public class Searcher<T> implements Iterable<T> {
         if (search == Searches.VALUES) {
             if (entity == null) {
                 if (type == Types.DATA) {
-                    return (Collection<T>) o.getDataPropertyAssertionAxioms(individual);
+                    return (Collection<T>) o
+                            .getDataPropertyAssertionAxioms(individual);
                 }
                 if (type == Types.OBJECT) {
-                    return (Collection<T>) o.getObjectPropertyAssertionAxioms(individual);
+                    return (Collection<T>) o
+                            .getObjectPropertyAssertionAxioms(individual);
                 }
                 Set<T> hashSet = new HashSet<T>(
-                        (Collection<T>) o.getDataPropertyAssertionAxioms(individual));
+                        (Collection<T>) o
+                                .getDataPropertyAssertionAxioms(individual));
                 hashSet.addAll((Collection<T>) o
                         .getObjectPropertyAssertionAxioms(individual));
                 return hashSet;
@@ -427,7 +470,8 @@ public class Searcher<T> implements Iterable<T> {
         if (individual != null) {
             if (direction == Direction.SAME) {
                 Set<T> toReturn = new HashSet<T>();
-                for (OWLSameIndividualAxiom i : o.getSameIndividualAxioms(individual)) {
+                for (OWLSameIndividualAxiom i : o
+                        .getSameIndividualAxioms(individual)) {
                     toReturn.addAll((Set<T>) i.getIndividuals());
                 }
                 toReturn.remove(individual);
@@ -449,8 +493,8 @@ public class Searcher<T> implements Iterable<T> {
         }
         if (search == Searches.ANNOTATIONAXIOMS) {
             List<T> annotationAssertionAxioms = new ArrayList<T>();
-            for (OWLAnnotationAssertionAxiom a : o.getAnnotationAssertionAxioms(entity
-                    .getIRI())) {
+            for (OWLAnnotationAssertionAxiom a : o
+                    .getAnnotationAssertionAxioms(entity.getIRI())) {
                 if (property == null || a.getProperty().equals(property)) {
                     annotationAssertionAxioms.add((T) a);
                 }
@@ -793,8 +837,8 @@ public class Searcher<T> implements Iterable<T> {
      * @param ontologies
      *            ontologis to search
      * @return annotations about entity */
-    public Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(OWLEntity entity,
-            Set<OWLOntology> ontologies) {
+    public Set<OWLAnnotationAssertionAxiom> getAnnotationAxioms(
+            OWLEntity entity, Set<OWLOntology> ontologies) {
         Set<OWLAnnotationAssertionAxiom> result = new HashSet<OWLAnnotationAssertionAxiom>();
         for (OWLOntology ont : ontologies) {
             result.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
@@ -809,10 +853,11 @@ public class Searcher<T> implements Iterable<T> {
      * @param ontologies
      *            ontologies to search
      * @return annotations about entity */
-    public Set<OWLAnnotation>
-            getAnnotations(OWLEntity entity, Set<OWLOntology> ontologies) {
+    public Set<OWLAnnotation> getAnnotations(OWLEntity entity,
+            Set<OWLOntology> ontologies) {
         Set<OWLAnnotation> result = new HashSet<OWLAnnotation>();
-        for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
+        for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity,
+                ontologies)) {
             result.add(ax.getAnnotation());
         }
         return result;
@@ -829,9 +874,11 @@ public class Searcher<T> implements Iterable<T> {
      * @return annotations about entity whose annotation property is
      *         annotationProperty */
     public Collection<T> getAnnotations(OWLEntity entity,
-            OWLAnnotationProperty annotationProperty, Set<OWLOntology> ontologies) {
+            OWLAnnotationProperty annotationProperty,
+            Set<OWLOntology> ontologies) {
         Set<T> result = new HashSet<T>();
-        for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity, ontologies)) {
+        for (OWLAnnotationAssertionAxiom ax : getAnnotationAxioms(entity,
+                ontologies)) {
             if (ax.getAnnotation().getProperty().equals(annotationProperty)) {
                 result.add((T) ax.getAnnotation());
             }
@@ -1041,7 +1088,8 @@ public class Searcher<T> implements Iterable<T> {
             // TODO same operation should be allowed on class expressions
             Collection<OWLClassExpression> toReturn = new ArrayList<OWLClassExpression>();
             for (OWLOntology ont : o.getImportsClosure()) {
-                for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(desc)) {
+                for (OWLSubClassOfAxiom ax : ont
+                        .getSubClassAxiomsForSubClass(desc)) {
                     toReturn.add(ax.getSuperClass());
                 }
             }
@@ -1053,7 +1101,8 @@ public class Searcher<T> implements Iterable<T> {
      * 
      * @param <T>
      *            the generic type */
-    private class SubRetriever<T> extends OWLEntityVisitorExAdapter<Collection<T>> {
+    private class SubRetriever<T> extends
+            OWLEntityVisitorExAdapter<Collection<T>> {
         /** Instantiates a new sub retriever. */
         public SubRetriever() {
             // TODO Auto-generated constructor stub
@@ -1122,7 +1171,8 @@ public class Searcher<T> implements Iterable<T> {
             // TODO same operation should be allowed on class expressions
             Collection<OWLClassExpression> toReturn = new ArrayList<OWLClassExpression>();
             for (OWLOntology ont : o.getImportsClosure()) {
-                for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSuperClass(desc)) {
+                for (OWLSubClassOfAxiom ax : ont
+                        .getSubClassAxiomsForSuperClass(desc)) {
                     toReturn.add(ax.getSubClass());
                 }
             }
@@ -1134,7 +1184,8 @@ public class Searcher<T> implements Iterable<T> {
      * 
      * @param <T>
      *            the generic type */
-    private class EquivalentRetriever<T> extends OWLEntityVisitorExAdapter<Collection<T>> {
+    private class EquivalentRetriever<T> extends
+            OWLEntityVisitorExAdapter<Collection<T>> {
         /** Instantiates a new equivalent retriever. */
         public EquivalentRetriever() {
             // TODO Auto-generated constructor stub
@@ -1184,7 +1235,8 @@ public class Searcher<T> implements Iterable<T> {
             // TODO same operation should be allowed on class expressions
             Collection<OWLClassExpression> toReturn = new ArrayList<OWLClassExpression>();
             for (OWLOntology ont : o.getImportsClosure()) {
-                for (OWLEquivalentClassesAxiom ax : ont.getEquivalentClassesAxioms(desc)) {
+                for (OWLEquivalentClassesAxiom ax : ont
+                        .getEquivalentClassesAxioms(desc)) {
                     toReturn.addAll(ax.getClassExpressions());
                 }
             }
@@ -1196,7 +1248,8 @@ public class Searcher<T> implements Iterable<T> {
      * 
      * @param <T>
      *            the generic type */
-    private class DisjointRetriever<T> extends OWLEntityVisitorExAdapter<Collection<T>> {
+    private class DisjointRetriever<T> extends
+            OWLEntityVisitorExAdapter<Collection<T>> {
         /** Instantiates a new disjoint retriever. */
         public DisjointRetriever() {
             // TODO Auto-generated constructor stub
@@ -1246,7 +1299,8 @@ public class Searcher<T> implements Iterable<T> {
             // TODO same operation should be allowed on class expressions
             Collection<OWLClassExpression> toReturn = new ArrayList<OWLClassExpression>();
             for (OWLOntology ont : o.getImportsClosure()) {
-                for (OWLDisjointClassesAxiom ax : ont.getDisjointClassesAxioms(desc)) {
+                for (OWLDisjointClassesAxiom ax : ont
+                        .getDisjointClassesAxioms(desc)) {
                     toReturn.addAll(ax.getClassExpressions());
                 }
             }

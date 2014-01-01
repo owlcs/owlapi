@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
@@ -46,7 +84,8 @@ import org.xml.sax.SAXException;
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractRdfxmlParserTest {
     @Test
-    public void shouldTestAbstractClassExpressionTranslator() throws OWLException {
+    public void shouldTestAbstractClassExpressionTranslator()
+            throws OWLException {
         AbstractClassExpressionTranslator testSubject0 = new AbstractClassExpressionTranslator(
                 Utils.mockOWLRDFConsumer()) {
             @Override
@@ -75,10 +114,12 @@ public class ContractRdfxmlParserTest {
         AbstractLiteralTripleHandler testSubject0 = new AbstractLiteralTripleHandler(
                 Utils.mockOWLRDFConsumer()) {
             @Override
-            public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {}
+            public void handleTriple(IRI subject, IRI predicate,
+                    OWLLiteral object) {}
 
             @Override
-            public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
+            public boolean canHandle(IRI subject, IRI predicate,
+                    OWLLiteral object) {
                 return false;
             }
 
@@ -90,13 +131,14 @@ public class ContractRdfxmlParserTest {
         };
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 mock(OWLLiteral.class));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                mock(OWLLiteral.class));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), mock(OWLLiteral.class));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), mock(OWLLiteral.class));
     }
 
-    public void shouldTestAbstractNamedEquivalentClassAxiomHandler() throws OWLException {
+    public void shouldTestAbstractNamedEquivalentClassAxiomHandler()
+            throws OWLException {
         AbstractNamedEquivalentClassAxiomHandler testSubject0 = new AbstractNamedEquivalentClassAxiomHandler(
                 Utils.mockOWLRDFConsumer(), IRI("urn:aFake")) {
             @Override
@@ -104,9 +146,10 @@ public class ContractRdfxmlParserTest {
                 return null;
             }
         };
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -121,8 +164,8 @@ public class ContractRdfxmlParserTest {
                     throws UnloadableImportException {}
 
             @Override
-            public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
-                    throws UnloadableImportException {
+            public boolean canHandleStreaming(IRI subject, IRI predicate,
+                    IRI object) throws UnloadableImportException {
                 return false;
             }
 
@@ -142,25 +185,28 @@ public class ContractRdfxmlParserTest {
                     throws UnloadableImportException {}
         };
         IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestClassExpressionListItemTranslator() throws OWLException {
+    public void shouldTestClassExpressionListItemTranslator()
+            throws OWLException {
         ClassExpressionListItemTranslator testSubject0 = new ClassExpressionListItemTranslator(
                 Utils.mockOWLRDFConsumer());
         OWLClassExpression result0 = testSubject0.translate(IRI("urn:aFake"));
-        OWLClassExpression result1 = testSubject0.translate(mock(OWLLiteral.class));
+        OWLClassExpression result1 = testSubject0
+                .translate(mock(OWLLiteral.class));
         OWLObject result2 = testSubject0.translate(mock(OWLLiteral.class));
         OWLObject result3 = testSubject0.translate(IRI("urn:aFake"));
     }
 
     @Test
-    public void shouldTestInterfaceClassExpressionTranslator() throws OWLException {
+    public void shouldTestInterfaceClassExpressionTranslator()
+            throws OWLException {
         ClassExpressionTranslator testSubject0 = mock(ClassExpressionTranslator.class);
         boolean result0 = testSubject0.matches(IRI("urn:aFake"), Mode.LAX);
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
@@ -185,7 +231,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestDataCardinalityTranslator() throws OWLException {
         DataCardinalityTranslator testSubject0 = new DataCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataExactCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -209,7 +256,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestDataMaxCardinalityTranslator() throws OWLException {
         DataMaxCardinalityTranslator testSubject0 = new DataMaxCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataMaxCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -218,10 +266,12 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataMaxQualifiedCardinalityTranslator() throws OWLException {
+    public void shouldTestDataMaxQualifiedCardinalityTranslator()
+            throws OWLException {
         DataMaxQualifiedCardinalityTranslator testSubject0 = new DataMaxQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataMaxCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -233,7 +283,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestDataMinCardinalityTranslator() throws OWLException {
         DataMinCardinalityTranslator testSubject0 = new DataMinCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataMinCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -242,10 +293,12 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataMinQualifiedCardinalityTranslator() throws OWLException {
+    public void shouldTestDataMinQualifiedCardinalityTranslator()
+            throws OWLException {
         DataMinQualifiedCardinalityTranslator testSubject0 = new DataMinQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataMinCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -256,7 +309,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestDataPropertyListItemTranslator() throws OWLException {
         DataPropertyListItemTranslator testSubject0 = new DataPropertyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataPropertyExpression result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataPropertyExpression result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLDataPropertyExpression result1 = testSubject0
                 .translate(mock(OWLLiteral.class));
         OWLObject result2 = testSubject0.translate(mock(OWLLiteral.class));
@@ -265,10 +319,12 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestDataQualifiedCardinalityTranslator() throws OWLException {
+    public void shouldTestDataQualifiedCardinalityTranslator()
+            throws OWLException {
         DataQualifiedCardinalityTranslator testSubject0 = new DataQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataExactCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -290,7 +346,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestDataSomeValuesFromTranslator() throws OWLException {
         DataSomeValuesFromTranslator testSubject0 = new DataSomeValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLDataSomeValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLDataSomeValuesFrom result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -302,18 +359,20 @@ public class ContractRdfxmlParserTest {
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 mock(OWLLiteral.class));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                mock(OWLLiteral.class));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), mock(OWLLiteral.class));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), mock(OWLLiteral.class));
     }
 
-    public void shouldTestGTPAnnotationResourceTripleHandler() throws OWLException {
+    public void shouldTestGTPAnnotationResourceTripleHandler()
+            throws OWLException {
         GTPAnnotationResourceTripleHandler testSubject0 = new GTPAnnotationResourceTripleHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
     }
@@ -323,8 +382,8 @@ public class ContractRdfxmlParserTest {
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 mock(OWLLiteral.class));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                mock(OWLLiteral.class));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), mock(OWLLiteral.class));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), mock(OWLLiteral.class));
     }
@@ -335,19 +394,21 @@ public class ContractRdfxmlParserTest {
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 mock(OWLLiteral.class));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                mock(OWLLiteral.class));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), mock(OWLLiteral.class));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), mock(OWLLiteral.class));
     }
 
     @Test
-    public void shouldTestGTPObjectPropertyAssertionHandler() throws OWLException {
+    public void shouldTestGTPObjectPropertyAssertionHandler()
+            throws OWLException {
         GTPObjectPropertyAssertionHandler testSubject0 = new GTPObjectPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
     }
@@ -356,9 +417,10 @@ public class ContractRdfxmlParserTest {
     public void shouldTestGTPResourceTripleHandler() throws OWLException {
         GTPResourceTripleHandler testSubject0 = new GTPResourceTripleHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
     }
@@ -367,8 +429,10 @@ public class ContractRdfxmlParserTest {
     public void shouldTestHasKeyListItemTranslator() throws OWLException {
         HasKeyListItemTranslator testSubject0 = new HasKeyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLPropertyExpression result0 = testSubject0.translate(mock(OWLLiteral.class));
-        OWLPropertyExpression result1 = testSubject0.translate(IRI("urn:aFake"));
+        OWLPropertyExpression result0 = testSubject0
+                .translate(mock(OWLLiteral.class));
+        OWLPropertyExpression result1 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLObject result2 = testSubject0.translate(IRI("urn:aFake"));
         OWLObject result3 = testSubject0.translate(mock(OWLLiteral.class));
     }
@@ -411,7 +475,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestObjectAllValuesFromTranslator() throws OWLException {
         ObjectAllValuesFromTranslator testSubject0 = new ObjectAllValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectAllValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectAllValuesFrom result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -423,7 +488,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestObjectCardinalityTranslator() throws OWLException {
         ObjectCardinalityTranslator testSubject0 = new ObjectCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectExactCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -435,7 +501,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestObjectComplementOfTranslator() throws OWLException {
         ObjectComplementOfTranslator testSubject0 = new ObjectComplementOfTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectComplementOf result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectComplementOf result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -471,7 +538,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestObjectMaxCardinalityTranslator() throws OWLException {
         ObjectMaxCardinalityTranslator testSubject0 = new ObjectMaxCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectMaxCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -480,10 +548,12 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectMaxQualifiedCardinalityTranslator() throws OWLException {
+    public void shouldTestObjectMaxQualifiedCardinalityTranslator()
+            throws OWLException {
         ObjectMaxQualifiedCardinalityTranslator testSubject0 = new ObjectMaxQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectMaxCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectMaxCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -495,7 +565,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestObjectMinCardinalityTranslator() throws OWLException {
         ObjectMinCardinalityTranslator testSubject0 = new ObjectMinCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectMinCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -504,20 +575,24 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectMinQualifiedCardinalityTranslator() throws OWLException {
+    public void shouldTestObjectMinQualifiedCardinalityTranslator()
+            throws OWLException {
         ObjectMinQualifiedCardinalityTranslator testSubject0 = new ObjectMinQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectMinCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectMinCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
         boolean result4 = testSubject0.matches(IRI("urn:aFake"), Mode.LAX);
     }
 
-    public void shouldTestObjectPropertyListItemTranslator() throws OWLException {
+    public void shouldTestObjectPropertyListItemTranslator()
+            throws OWLException {
         ObjectPropertyListItemTranslator testSubject0 = new ObjectPropertyListItemTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectPropertyExpression result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectPropertyExpression result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLObjectPropertyExpression result1 = testSubject0
                 .translate(mock(OWLLiteral.class));
         OWLObject result2 = testSubject0.translate(mock(OWLLiteral.class));
@@ -526,10 +601,12 @@ public class ContractRdfxmlParserTest {
 
     @Ignore
     @Test
-    public void shouldTestObjectQualifiedCardinalityTranslator() throws OWLException {
+    public void shouldTestObjectQualifiedCardinalityTranslator()
+            throws OWLException {
         ObjectQualifiedCardinalityTranslator testSubject0 = new ObjectQualifiedCardinalityTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectExactCardinality result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectExactCardinality result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -541,7 +618,8 @@ public class ContractRdfxmlParserTest {
     public void shouldTestObjectSomeValuesFromTranslator() throws OWLException {
         ObjectSomeValuesFromTranslator testSubject0 = new ObjectSomeValuesFromTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectSomeValuesFrom result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectSomeValuesFrom result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLClassExpression result1 = testSubject0.translate(IRI("urn:aFake"));
         boolean result2 = testSubject0.matchesLax(IRI("urn:aFake"));
         boolean result3 = testSubject0.matchesStrict(IRI("urn:aFake"));
@@ -557,10 +635,12 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestOWLFacetRestrictionListItemTranslator() throws OWLException {
+    public void shouldTestOWLFacetRestrictionListItemTranslator()
+            throws OWLException {
         OWLFacetRestrictionListItemTranslator testSubject0 = new OWLFacetRestrictionListItemTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLFacetRestriction result0 = testSubject0.translate(mock(OWLLiteral.class));
+        OWLFacetRestriction result0 = testSubject0
+                .translate(mock(OWLLiteral.class));
         OWLFacetRestriction result1 = testSubject0.translate(IRI("urn:aFake"));
         OWLObject result2 = testSubject0.translate(IRI("urn:aFake"));
         OWLObject result3 = testSubject0.translate(mock(OWLLiteral.class));
@@ -570,7 +650,8 @@ public class ContractRdfxmlParserTest {
             throws OWLException {
         OWLObjectPropertyExpressionListItemTranslator testSubject0 = new OWLObjectPropertyExpressionListItemTranslator(
                 Utils.mockOWLRDFConsumer());
-        OWLObjectPropertyExpression result0 = testSubject0.translate(IRI("urn:aFake"));
+        OWLObjectPropertyExpression result0 = testSubject0
+                .translate(IRI("urn:aFake"));
         OWLObjectPropertyExpression result1 = testSubject0
                 .translate(mock(OWLLiteral.class));
         OWLObject result2 = testSubject0.translate(mock(OWLLiteral.class));
@@ -579,8 +660,8 @@ public class ContractRdfxmlParserTest {
 
     @Test
     public void shouldTestOWLRDFConsumer() throws OWLException, SAXException {
-        OWLRDFConsumer testSubject0 = new OWLRDFConsumer(Utils.getMockOntology(),
-                new OWLOntologyLoaderConfiguration());
+        OWLRDFConsumer testSubject0 = new OWLRDFConsumer(
+                Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
         testSubject0.setOntologyFormat(mock(RDFOntologyFormat.class));
         testSubject0.startModel("");
         testSubject0.endModel();
@@ -611,10 +692,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestSKOSClassTripleHandler() throws OWLException {
         SKOSClassTripleHandler testSubject0 = new SKOSClassTripleHandler(
                 Utils.mockOWLRDFConsumer(), SKOSVocabulary.ALTLABEL);
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -630,48 +712,52 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPAllValuesFromHandler() throws OWLException {
         TPAllValuesFromHandler testSubject0 = new TPAllValuesFromHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPAnnotatedPropertyHandler() throws OWLException {
         TPAnnotatedPropertyHandler testSubject0 = new TPAnnotatedPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPAnnotatedSourceHandler() throws OWLException {
         TPAnnotatedSourceHandler testSubject0 = new TPAnnotatedSourceHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPAnnotatedTargetHandler() throws OWLException {
         TPAnnotatedTargetHandler testSubject0 = new TPAnnotatedTargetHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPComplementOfHandler() throws OWLException {
@@ -679,9 +765,10 @@ public class ContractRdfxmlParserTest {
                 Utils.mockOWLRDFConsumer());
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
     }
 
@@ -689,9 +776,10 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPDatatypeComplementOfHandler() throws OWLException {
         TPDatatypeComplementOfHandler testSubject0 = new TPDatatypeComplementOfHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -700,20 +788,22 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPDifferentFromHandler() throws OWLException {
         TPDifferentFromHandler testSubject0 = new TPDifferentFromHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPDisjointUnionHandler() throws OWLException {
         TPDisjointUnionHandler testSubject0 = new TPDisjointUnionHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -722,9 +812,10 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPDisjointWithHandler() throws OWLException {
         TPDisjointWithHandler testSubject0 = new TPDisjointWithHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -733,21 +824,23 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPDistinctMembersHandler() throws OWLException {
         TPDistinctMembersHandler testSubject0 = new TPDistinctMembersHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPEquivalentClassHandler() throws OWLException {
         TPEquivalentClassHandler testSubject0 = new TPEquivalentClassHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -757,12 +850,13 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPEquivalentPropertyHandler() throws OWLException {
         TPEquivalentPropertyHandler testSubject0 = new TPEquivalentPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
@@ -771,8 +865,8 @@ public class ContractRdfxmlParserTest {
                 Utils.mockOWLRDFConsumer());
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 mock(OWLLiteral.class));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                mock(OWLLiteral.class));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), mock(OWLLiteral.class));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), mock(OWLLiteral.class));
     }
@@ -781,46 +875,53 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPFirstResourceHandler() throws OWLException {
         TPFirstResourceHandler testSubject0 = new TPFirstResourceHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPHasKeyHandler() throws OWLException {
-        TPHasKeyHandler testSubject0 = new TPHasKeyHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        TPHasKeyHandler testSubject0 = new TPHasKeyHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPHasValueHandler() throws OWLException {
-        TPHasValueHandler testSubject0 = new TPHasValueHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        TPHasValueHandler testSubject0 = new TPHasValueHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Ignore
     @Test
     public void shouldTestTPImportsHandler() throws OWLException {
-        TPImportsHandler testSubject0 = new TPImportsHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        TPImportsHandler testSubject0 = new TPImportsHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPIntersectionOfHandler() throws OWLException {
@@ -828,9 +929,10 @@ public class ContractRdfxmlParserTest {
                 Utils.mockOWLRDFConsumer());
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
     }
 
@@ -838,9 +940,10 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPInverseOfHandler() throws OWLException {
         TPInverseOfHandler testSubject0 = new TPInverseOfHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         testSubject0.setAxiomParsingMode(false);
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
@@ -850,10 +953,12 @@ public class ContractRdfxmlParserTest {
 
     @Test
     public void shouldTestTPOnClassHandler() throws OWLException {
-        TPOnClassHandler testSubject0 = new TPOnClassHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        TPOnClassHandler testSubject0 = new TPOnClassHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -863,19 +968,22 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPOnDataRangeHandler() throws OWLException {
         TPOnDataRangeHandler testSubject0 = new TPOnDataRangeHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
     }
 
     public void shouldTestTPOneOfHandler() throws OWLException {
-        TPOneOfHandler testSubject0 = new TPOneOfHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        TPOneOfHandler testSubject0 = new TPOneOfHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -885,32 +993,35 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPOnPropertyHandler() throws OWLException {
         TPOnPropertyHandler testSubject0 = new TPOnPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPPropertyChainAxiomHandler() throws OWLException {
         TPPropertyChainAxiomHandler testSubject0 = new TPPropertyChainAxiomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPPropertyDisjointWithHandler() throws OWLException {
         TPPropertyDisjointWithHandler testSubject0 = new TPPropertyDisjointWithHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -919,65 +1030,73 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPPropertyDomainHandler() throws OWLException {
         TPPropertyDomainHandler testSubject0 = new TPPropertyDomainHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPPropertyRangeHandler() throws OWLException {
         TPPropertyRangeHandler testSubject0 = new TPPropertyRangeHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPRestHandler() throws OWLException {
-        TPRestHandler testSubject0 = new TPRestHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        TPRestHandler testSubject0 = new TPRestHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPSameAsHandler() throws OWLException {
-        TPSameAsHandler testSubject0 = new TPSameAsHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        TPSameAsHandler testSubject0 = new TPSameAsHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPSomeValuesFromHandler() throws OWLException {
         TPSomeValuesFromHandler testSubject0 = new TPSomeValuesFromHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTPSubClassOfHandler() throws OWLException {
         TPSubClassOfHandler testSubject0 = new TPSubClassOfHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -986,29 +1105,34 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPSubPropertyOfHandler() throws OWLException {
         TPSubPropertyOfHandler testSubject0 = new TPSubPropertyOfHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPTypeHandler() throws OWLException {
-        TPTypeHandler testSubject0 = new TPTypeHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        TPTypeHandler testSubject0 = new TPTypeHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getPredicateIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     public void shouldTestTPUnionOfHandler() throws OWLException {
-        TPUnionOfHandler testSubject0 = new TPUnionOfHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        TPUnionOfHandler testSubject0 = new TPUnionOfHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
@@ -1018,16 +1142,18 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTPVersionIRIHandler() throws OWLException {
         TPVersionIRIHandler testSubject0 = new TPVersionIRIHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestTranslatedOntologyChangeException() throws OWLException {
+    public void shouldTestTranslatedOntologyChangeException()
+            throws OWLException {
         TranslatedOntologyChangeException testSubject0 = new TranslatedOntologyChangeException(
                 mock(OWLOntologyChangeException.class));
         OWLOntologyChangeException result0 = testSubject0.getCause();
@@ -1038,7 +1164,8 @@ public class ContractRdfxmlParserTest {
     }
 
     @Test
-    public void shouldTestTranslatedUnloadedImportException() throws OWLException {
+    public void shouldTestTranslatedUnloadedImportException()
+            throws OWLException {
         TranslatedUnloadedImportException testSubject0 = new TranslatedUnloadedImportException(
                 mock(UnloadableImportException.class));
         UnloadableImportException result0 = testSubject0.getCause();
@@ -1053,7 +1180,8 @@ public class ContractRdfxmlParserTest {
         TriplePatternMatcher testSubject0 = mock(TriplePatternMatcher.class);
         boolean result0 = testSubject0.matches(Utils.mockOWLRDFConsumer(),
                 IRI("urn:aFake"));
-        OWLObject result1 = testSubject0.createObject(Utils.mockOWLRDFConsumer());
+        OWLObject result1 = testSubject0.createObject(Utils
+                .mockOWLRDFConsumer());
     }
 
     @Test
@@ -1065,23 +1193,24 @@ public class ContractRdfxmlParserTest {
                     throws UnloadableImportException {}
 
             @Override
-            public boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
-                    throws UnloadableImportException {
+            public boolean canHandleStreaming(IRI subject, IRI predicate,
+                    IRI object) throws UnloadableImportException {
                 return false;
             }
         };
         IRI result0 = testSubject0.getPredicateIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
     }
 
     @Test
     public void shouldTestTypeAllDifferentHandler() throws OWLException {
         TypeAllDifferentHandler testSubject0 = new TypeAllDifferentHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getTypeIRI();
@@ -1092,9 +1221,10 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeAllDisjointClassesHandler() throws OWLException {
         TypeAllDisjointClassesHandler testSubject0 = new TypeAllDisjointClassesHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        boolean result0 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result1 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result2 = testSubject0.getTypeIRI();
@@ -1105,10 +1235,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeAnnotationHandler() throws OWLException {
         TypeAnnotationHandler testSubject0 = new TypeAnnotationHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1117,10 +1248,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeAnnotationPropertyHandler() throws OWLException {
         TypeAnnotationPropertyHandler testSubject0 = new TypeAnnotationPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1130,35 +1262,40 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeAsymmetricPropertyHandler() throws OWLException {
         TypeAsymmetricPropertyHandler testSubject0 = new TypeAsymmetricPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
     public void shouldTestTypeAxiomHandler() throws OWLException {
-        TypeAxiomHandler testSubject0 = new TypeAxiomHandler(Utils.mockOWLRDFConsumer());
-        TypeAxiomHandler testSubject1 = new TypeAxiomHandler(Utils.mockOWLRDFConsumer(),
+        TypeAxiomHandler testSubject0 = new TypeAxiomHandler(
+                Utils.mockOWLRDFConsumer());
+        TypeAxiomHandler testSubject1 = new TypeAxiomHandler(
+                Utils.mockOWLRDFConsumer(), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     public void shouldTestTypeClassHandler() throws OWLException {
-        TypeClassHandler testSubject0 = new TypeClassHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        TypeClassHandler testSubject0 = new TypeClassHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1167,10 +1304,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeDataPropertyHandler() throws OWLException {
         TypeDataPropertyHandler testSubject0 = new TypeDataPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1180,10 +1318,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeDataRangeHandler() throws OWLException {
         TypeDataRangeHandler testSubject0 = new TypeDataRangeHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1192,10 +1331,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeDatatypeHandler() throws OWLException {
         TypeDatatypeHandler testSubject0 = new TypeDatatypeHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1212,10 +1352,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeDeprecatedClassHandler() throws OWLException {
         TypeDeprecatedClassHandler testSubject0 = new TypeDeprecatedClassHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1224,10 +1365,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeDeprecatedPropertyHandler() throws OWLException {
         TypeDeprecatedPropertyHandler testSubject0 = new TypeDeprecatedPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1237,24 +1379,27 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeFunctionalPropertyHandler() throws OWLException {
         TypeFunctionalPropertyHandler testSubject0 = new TypeFunctionalPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
-    public void shouldTestTypeInverseFunctionalPropertyHandler() throws OWLException {
+    public void shouldTestTypeInverseFunctionalPropertyHandler()
+            throws OWLException {
         TypeInverseFunctionalPropertyHandler testSubject0 = new TypeInverseFunctionalPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
@@ -1262,22 +1407,25 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeIrreflexivePropertyHandler() throws OWLException {
         TypeIrreflexivePropertyHandler testSubject0 = new TypeIrreflexivePropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
     public void shouldTestTypeListHandler() throws OWLException {
-        TypeListHandler testSubject0 = new TypeListHandler(Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        TypeListHandler testSubject0 = new TypeListHandler(
+                Utils.mockOWLRDFConsumer());
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1286,47 +1434,53 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeNamedIndividualHandler() throws OWLException {
         TypeNamedIndividualHandler testSubject0 = new TypeNamedIndividualHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
-    public void shouldTestTypeNegativeDataPropertyAssertionHandler() throws OWLException {
+    public void shouldTestTypeNegativeDataPropertyAssertionHandler()
+            throws OWLException {
         TypeNegativeDataPropertyAssertionHandler testSubject0 = new TypeNegativeDataPropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestTypeNegativePropertyAssertionHandler() throws OWLException {
+    public void shouldTestTypeNegativePropertyAssertionHandler()
+            throws OWLException {
         TypeNegativePropertyAssertionHandler testSubject0 = new TypeNegativePropertyAssertionHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     public void shouldTestTypeObjectPropertyHandler() throws OWLException {
         TypeObjectPropertyHandler testSubject0 = new TypeObjectPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1336,10 +1490,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeOntologyHandler() throws OWLException {
         TypeOntologyHandler testSubject0 = new TypeOntologyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1348,12 +1503,13 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeOntologyPropertyHandler() throws OWLException {
         TypeOntologyPropertyHandler testSubject0 = new TypeOntologyPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
@@ -1361,10 +1517,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypePropertyHandler() throws OWLException {
         TypePropertyHandler testSubject0 = new TypePropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1373,10 +1530,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeRDFSClassHandler() throws OWLException {
         TypeRDFSClassHandler testSubject0 = new TypeRDFSClassHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1386,12 +1544,13 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeReflexivePropertyHandler() throws OWLException {
         TypeReflexivePropertyHandler testSubject0 = new TypeReflexivePropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
@@ -1399,10 +1558,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeRestrictionHandler() throws OWLException {
         TypeRestrictionHandler testSubject0 = new TypeRestrictionHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1412,10 +1572,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSelfRestrictionHandler() throws OWLException {
         TypeSelfRestrictionHandler testSubject0 = new TypeSelfRestrictionHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1425,10 +1586,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLAtomListHandler() throws OWLException {
         TypeSWRLAtomListHandler testSubject0 = new TypeSWRLAtomListHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1438,10 +1600,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLBuiltInAtomHandler() throws OWLException {
         TypeSWRLBuiltInAtomHandler testSubject0 = new TypeSWRLBuiltInAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1451,10 +1614,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLBuiltInHandler() throws OWLException {
         TypeSWRLBuiltInHandler testSubject0 = new TypeSWRLBuiltInHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1464,10 +1628,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLClassAtomHandler() throws OWLException {
         TypeSWRLClassAtomHandler testSubject0 = new TypeSWRLClassAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1477,36 +1642,41 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLDataRangeAtomHandler() throws OWLException {
         TypeSWRLDataRangeAtomHandler testSubject0 = new TypeSWRLDataRangeAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestTypeSWRLDataValuedPropertyAtomHandler() throws OWLException {
+    public void shouldTestTypeSWRLDataValuedPropertyAtomHandler()
+            throws OWLException {
         TypeSWRLDataValuedPropertyAtomHandler testSubject0 = new TypeSWRLDataValuedPropertyAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestTypeSWRLDifferentIndividualsAtomHandler() throws OWLException {
+    public void shouldTestTypeSWRLDifferentIndividualsAtomHandler()
+            throws OWLException {
         TypeSWRLDifferentIndividualsAtomHandler testSubject0 = new TypeSWRLDifferentIndividualsAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1516,36 +1686,41 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLImpHandler() throws OWLException {
         TypeSWRLImpHandler testSubject0 = new TypeSWRLImpHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestTypeSWRLIndividualPropertyAtomHandler() throws OWLException {
+    public void shouldTestTypeSWRLIndividualPropertyAtomHandler()
+            throws OWLException {
         TypeSWRLIndividualPropertyAtomHandler testSubject0 = new TypeSWRLIndividualPropertyAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     @Test
-    public void shouldTestTypeSWRLSameIndividualAtomHandler() throws OWLException {
+    public void shouldTestTypeSWRLSameIndividualAtomHandler()
+            throws OWLException {
         TypeSWRLSameIndividualAtomHandler testSubject0 = new TypeSWRLSameIndividualAtomHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1555,10 +1730,11 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSWRLVariableHandler() throws OWLException {
         TypeSWRLVariableHandler testSubject0 = new TypeSWRLVariableHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        IRI result0 = testSubject0.getTypeIRI();
-        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
+        IRI result0 = testSubject0.getTypeIRI();
+        boolean result1 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         boolean result2 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
@@ -1567,24 +1743,26 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeSymmetricPropertyHandler() throws OWLException {
         TypeSymmetricPropertyHandler testSubject0 = new TypeSymmetricPropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 
     public void shouldTestTypeTransitivePropertyHandler() throws OWLException {
         TypeTransitivePropertyHandler testSubject0 = new TypeTransitivePropertyHandler(
                 Utils.mockOWLRDFConsumer());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result1 = testSubject0.getTypeIRI();
-        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"), IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        boolean result2 = testSubject0.canHandle(IRI("urn:aFake"),
+                IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result3 = testSubject0.getPredicateIRI();
     }
 }

@@ -287,7 +287,7 @@ import org.semanticweb.owlapi.search.Searcher;
  * (equal i(n-1) in)</td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;

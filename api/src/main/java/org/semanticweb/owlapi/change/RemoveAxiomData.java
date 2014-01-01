@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, The University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 /** Represents the specific non-ontology data required by an {@link RemoveAxiom}
  * change. <br>
  * Instances of this class are immutable.
- * 
+ *
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 27/04/2012
  * @since 3.5 */

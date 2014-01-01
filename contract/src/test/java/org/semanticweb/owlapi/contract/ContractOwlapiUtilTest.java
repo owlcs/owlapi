@@ -1,3 +1,41 @@
+/*
+ * This file is part of the OWL API.
+ *
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ *
+ * Copyright (C) 2014, The University of Manchester
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
+ * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ *
+ * Copyright 2014, The University of Manchester
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
@@ -184,26 +222,33 @@ public class ContractOwlapiUtilTest {
 
             @Override
             protected void storeOntology(OWLOntology ontology, Writer writer,
-                    OWLOntologyFormat format) throws OWLOntologyStorageException {}
+                    OWLOntologyFormat format)
+                    throws OWLOntologyStorageException {}
         };
-        boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
+        boolean result1 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
     }
 
     @Test
-    public void shouldTestAnnotationValueShortFormProvider() throws OWLException {
+    public void shouldTestAnnotationValueShortFormProvider()
+            throws OWLException {
         AnnotationValueShortFormProvider testSubject0 = new AnnotationValueShortFormProvider(
-                Utils.mockList(mock(OWLAnnotationProperty.class)), mock(Map.class),
-                mock(OWLOntologySetProvider.class));
+                Utils.mockList(mock(OWLAnnotationProperty.class)),
+                mock(Map.class), mock(OWLOntologySetProvider.class));
         AnnotationValueShortFormProvider testSubject1 = new AnnotationValueShortFormProvider(
-                Utils.mockList(mock(OWLAnnotationProperty.class)), mock(Map.class),
-                mock(OWLOntologySetProvider.class), mock(ShortFormProvider.class));
+                Utils.mockList(mock(OWLAnnotationProperty.class)),
+                mock(Map.class), mock(OWLOntologySetProvider.class),
+                mock(ShortFormProvider.class));
         AnnotationValueShortFormProvider testSubject2 = new AnnotationValueShortFormProvider(
-                mock(OWLOntologySetProvider.class), mock(ShortFormProvider.class),
+                mock(OWLOntologySetProvider.class),
+                mock(ShortFormProvider.class),
                 mock(IRIShortFormProvider.class),
-                Utils.mockList(mock(OWLAnnotationProperty.class)), mock(Map.class));
+                Utils.mockList(mock(OWLAnnotationProperty.class)),
+                mock(Map.class));
         testSubject0.dispose();
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
-        List<OWLAnnotationProperty> result1 = testSubject0.getAnnotationProperties();
+        List<OWLAnnotationProperty> result1 = testSubject0
+                .getAnnotationProperties();
         Map<OWLAnnotationProperty, List<String>> result2 = testSubject0
                 .getPreferredLanguageMap();
     }
@@ -215,7 +260,8 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestInterfaceBidirectionalShortFormProvider() throws OWLException {
+    public void shouldTestInterfaceBidirectionalShortFormProvider()
+            throws OWLException {
         BidirectionalShortFormProvider testSubject0 = mock(BidirectionalShortFormProvider.class);
         Set<OWLEntity> result0 = testSubject0.getEntities("");
         OWLEntity result1 = testSubject0.getEntity("");
@@ -225,11 +271,13 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestBidirectionalShortFormProviderAdapter() throws OWLException {
+    public void shouldTestBidirectionalShortFormProviderAdapter()
+            throws OWLException {
         BidirectionalShortFormProviderAdapter testSubject0 = new BidirectionalShortFormProviderAdapter(
                 mock(ShortFormProvider.class));
         BidirectionalShortFormProviderAdapter testSubject1 = new BidirectionalShortFormProviderAdapter(
-                Utils.mockSet(Utils.getMockOntology()), mock(ShortFormProvider.class));
+                Utils.mockSet(Utils.getMockOntology()),
+                mock(ShortFormProvider.class));
         BidirectionalShortFormProviderAdapter testSubject2 = new BidirectionalShortFormProviderAdapter(
                 Utils.getMockManager(), Utils.mockSet(Utils.getMockOntology()),
                 mock(ShortFormProvider.class));
@@ -242,7 +290,8 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestCachingBidirectionalShortFormProvider() throws OWLException {
+    public void shouldTestCachingBidirectionalShortFormProvider()
+            throws OWLException {
         CachingBidirectionalShortFormProvider testSubject0 = new CachingBidirectionalShortFormProvider() {
             @Override
             protected String generateShortForm(OWLEntity entity) {
@@ -262,11 +311,14 @@ public class ContractOwlapiUtilTest {
         CollectionFactory testSubject0 = new CollectionFactory();
         Map<Object, Object> result0 = CollectionFactory.createMap();
         Set<Object> result1 = CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(Utils.mockCollection());
+                .getCopyOnRequestSetFromMutableCollection(Utils
+                        .mockCollection());
         Set<Object> result2 = CollectionFactory
-                .getCopyOnRequestSetFromImmutableCollection(Utils.mockCollection());
+                .getCopyOnRequestSetFromImmutableCollection(Utils
+                        .mockCollection());
         CollectionFactory.setExpectedThreads(8);
-        Set<Object> result3 = CollectionFactory.createSet(Utils.mockCollection());
+        Set<Object> result3 = CollectionFactory.createSet(Utils
+                .mockCollection());
         Set<OWLClass> result4 = CollectionFactory.createSet(0);
         Set<Object> result5 = CollectionFactory.createSet(new Object());
         Set<OWLClass> result6 = CollectionFactory.createSet();
@@ -274,13 +326,15 @@ public class ContractOwlapiUtilTest {
         Set<OWLClass> result8 = CollectionFactory.createSyncSet();
         Set<Object> result10 = CollectionFactory.getCopyOnRequestSet(Utils
                 .mockCollection());
-        Set<OWLOntology> result11 = CollectionFactory.getThreadSafeCopyOnRequestSet(Utils
-                .mockSet(Utils.getMockOntology()));
+        Set<OWLOntology> result11 = CollectionFactory
+                .getThreadSafeCopyOnRequestSet(Utils.mockSet(Utils
+                        .getMockOntology()));
     }
 
     @Test
     public void shouldTestCommonBaseIRIMapper() throws OWLException {
-        CommonBaseIRIMapper testSubject0 = new CommonBaseIRIMapper(IRI("urn:aFake"));
+        CommonBaseIRIMapper testSubject0 = new CommonBaseIRIMapper(
+                IRI("urn:aFake"));
         IRI result0 = testSubject0.getDocumentIRI(IRI("urn:aFake"));
         testSubject0.addMapping(IRI("urn:aFake"), "");
     }
@@ -360,7 +414,8 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestFilteringOWLOntologyChangeListener() throws OWLException {
+    public void shouldTestFilteringOWLOntologyChangeListener()
+            throws OWLException {
         FilteringOWLOntologyChangeListener testSubject0 = new FilteringOWLOntologyChangeListener();
         testSubject0.ontologiesChanged(Utils.mockList(mock(AddAxiom.class)));
         testSubject0.processChanges(Utils.mockList(mock(AddAxiom.class)));
@@ -392,16 +447,19 @@ public class ContractOwlapiUtilTest {
     public void shouldTestInterfaceInferredAxiomGenerator() throws OWLException {
         InferredAxiomGenerator<OWLAxiom> testSubject0 = mock(InferredAxiomGenerator.class);
         Set<OWLAxiom> result0 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
         String result1 = testSubject0.getLabel();
     }
 
     @Test
-    public void shouldTestInferredClassAssertionAxiomGenerator() throws OWLException {
+    public void shouldTestInferredClassAssertionAxiomGenerator()
+            throws OWLException {
         InferredClassAssertionAxiomGenerator testSubject0 = new InferredClassAssertionAxiomGenerator();
         String result0 = testSubject0.getLabel();
         Set<OWLClassAssertionAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
     }
 
     @Test
@@ -417,12 +475,14 @@ public class ContractOwlapiUtilTest {
                     OWLDataFactory dataFactory, Set<OWLClassAxiom> result) {}
         };
         Set<OWLClassAxiom> result1 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
         String result2 = testSubject0.getLabel();
     }
 
     @Test
-    public void shouldTestInferredDataPropertyAxiomGenerator() throws OWLException {
+    public void shouldTestInferredDataPropertyAxiomGenerator()
+            throws OWLException {
         InferredDataPropertyAxiomGenerator<OWLDataPropertyAxiom> testSubject0 = new InferredDataPropertyAxiomGenerator<OWLDataPropertyAxiom>() {
             @Override
             public String getLabel() {
@@ -430,11 +490,13 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
-                    OWLDataFactory dataFactory, Set<OWLDataPropertyAxiom> result) {}
+            protected void addAxioms(OWLDataProperty entity,
+                    OWLReasoner reasoner, OWLDataFactory dataFactory,
+                    Set<OWLDataPropertyAxiom> result) {}
         };
         Set<OWLDataPropertyAxiom> result1 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
         String result2 = testSubject0.getLabel();
     }
 
@@ -443,24 +505,29 @@ public class ContractOwlapiUtilTest {
             throws OWLException {
         InferredDataPropertyCharacteristicAxiomGenerator testSubject0 = new InferredDataPropertyCharacteristicAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLDataPropertyCharacteristicAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLDataPropertyCharacteristicAxiom> result2 = testSubject0
+                .createAxioms(Utils.getMockManagerMockFactory()
+                        .getOWLDataFactory(), Utils.structReasoner());
     }
 
     @Test
-    public void shouldTestInferredDisjointClassesAxiomGenerator() throws OWLException {
+    public void shouldTestInferredDisjointClassesAxiomGenerator()
+            throws OWLException {
         InferredDisjointClassesAxiomGenerator testSubject0 = new InferredDisjointClassesAxiomGenerator();
         String result0 = testSubject0.getLabel();
         Set<OWLDisjointClassesAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
     }
 
     @Test
-    public void shouldTestInferredEquivalentClassAxiomGenerator() throws OWLException {
+    public void shouldTestInferredEquivalentClassAxiomGenerator()
+            throws OWLException {
         InferredEquivalentClassAxiomGenerator testSubject0 = new InferredEquivalentClassAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLEquivalentClassesAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLEquivalentClassesAxiom> result2 = testSubject0.createAxioms(
+                Utils.getMockManagerMockFactory().getOWLDataFactory(),
+                Utils.structReasoner());
     }
 
     @Test
@@ -468,8 +535,9 @@ public class ContractOwlapiUtilTest {
             throws OWLException {
         InferredEquivalentDataPropertiesAxiomGenerator testSubject0 = new InferredEquivalentDataPropertiesAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLEquivalentDataPropertiesAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLEquivalentDataPropertiesAxiom> result2 = testSubject0
+                .createAxioms(Utils.getMockManagerMockFactory()
+                        .getOWLDataFactory(), Utils.structReasoner());
     }
 
     @Test
@@ -477,12 +545,14 @@ public class ContractOwlapiUtilTest {
             throws OWLException {
         InferredEquivalentObjectPropertyAxiomGenerator testSubject0 = new InferredEquivalentObjectPropertyAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLEquivalentObjectPropertiesAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLEquivalentObjectPropertiesAxiom> result2 = testSubject0
+                .createAxioms(Utils.getMockManagerMockFactory()
+                        .getOWLDataFactory(), Utils.structReasoner());
     }
 
     @Test
-    public void shouldTestInferredIndividualAxiomGenerator() throws OWLException {
+    public void shouldTestInferredIndividualAxiomGenerator()
+            throws OWLException {
         InferredIndividualAxiomGenerator<OWLIndividualAxiom> testSubject0 = new InferredIndividualAxiomGenerator<OWLIndividualAxiom>() {
             @Override
             public String getLabel() {
@@ -490,11 +560,13 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(OWLNamedIndividual entity, OWLReasoner reasoner,
-                    OWLDataFactory dataFactory, Set<OWLIndividualAxiom> result) {}
+            protected void addAxioms(OWLNamedIndividual entity,
+                    OWLReasoner reasoner, OWLDataFactory dataFactory,
+                    Set<OWLIndividualAxiom> result) {}
         };
         Set<OWLIndividualAxiom> result1 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
         String result2 = testSubject0.getLabel();
     }
 
@@ -503,12 +575,14 @@ public class ContractOwlapiUtilTest {
             throws OWLException {
         InferredInverseObjectPropertiesAxiomGenerator testSubject0 = new InferredInverseObjectPropertiesAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLInverseObjectPropertiesAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLInverseObjectPropertiesAxiom> result2 = testSubject0
+                .createAxioms(Utils.getMockManagerMockFactory()
+                        .getOWLDataFactory(), Utils.structReasoner());
     }
 
     @Test
-    public void shouldTestInferredObjectPropertyAxiomGenerator() throws OWLException {
+    public void shouldTestInferredObjectPropertyAxiomGenerator()
+            throws OWLException {
         InferredObjectPropertyAxiomGenerator<OWLObjectPropertyAxiom> testSubject0 = new InferredObjectPropertyAxiomGenerator<OWLObjectPropertyAxiom>() {
             @Override
             public String getLabel() {
@@ -516,11 +590,13 @@ public class ContractOwlapiUtilTest {
             }
 
             @Override
-            protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-                    OWLDataFactory dataFactory, Set<OWLObjectPropertyAxiom> result) {}
+            protected void addAxioms(OWLObjectProperty entity,
+                    OWLReasoner reasoner, OWLDataFactory dataFactory,
+                    Set<OWLObjectPropertyAxiom> result) {}
         };
         Set<OWLObjectPropertyAxiom> result1 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
         String result2 = testSubject0.getLabel();
     }
 
@@ -529,9 +605,9 @@ public class ContractOwlapiUtilTest {
             throws OWLException {
         InferredObjectPropertyCharacteristicAxiomGenerator testSubject0 = new InferredObjectPropertyCharacteristicAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLObjectPropertyCharacteristicAxiom> result2 = testSubject0.createAxioms(
-                Utils.getMockManagerMockFactory().getOWLDataFactory(),
-                Utils.structReasoner());
+        Set<OWLObjectPropertyCharacteristicAxiom> result2 = testSubject0
+                .createAxioms(Utils.getMockManagerMockFactory()
+                        .getOWLDataFactory(), Utils.structReasoner());
     }
 
     @Test
@@ -541,19 +617,22 @@ public class ContractOwlapiUtilTest {
                 new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>());
         InferredOntologyGenerator testSubject1 = new InferredOntologyGenerator(
                 Utils.structReasoner());
-        List<InferredAxiomGenerator<?>> result0 = testSubject0.getAxiomGenerators();
+        List<InferredAxiomGenerator<?>> result0 = testSubject0
+                .getAxiomGenerators();
         testSubject0.addGenerator(mock(InferredAxiomGenerator.class));
         testSubject0.removeGenerator(mock(InferredAxiomGenerator.class));
-        testSubject0.fillOntology(Utils.getMockManagerMockFactory().getOWLDataFactory(),
-                Utils.getMockOntology());
+        testSubject0.fillOntology(Utils.getMockManagerMockFactory()
+                .getOWLDataFactory(), Utils.getMockOntology());
     }
 
     @Test
-    public void shouldTestInferredPropertyAssertionGenerator() throws OWLException {
+    public void shouldTestInferredPropertyAssertionGenerator()
+            throws OWLException {
         InferredPropertyAssertionGenerator testSubject0 = new InferredPropertyAssertionGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLPropertyAssertionAxiom<?, ?>> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLPropertyAssertionAxiom<?, ?>> result2 = testSubject0
+                .createAxioms(Utils.getMockManagerMockFactory()
+                        .getOWLDataFactory(), Utils.structReasoner());
     }
 
     @Test
@@ -561,23 +640,28 @@ public class ContractOwlapiUtilTest {
         InferredSubClassAxiomGenerator testSubject0 = new InferredSubClassAxiomGenerator();
         String result0 = testSubject0.getLabel();
         Set<OWLSubClassOfAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+                .getMockManagerMockFactory().getOWLDataFactory(), Utils
+                .structReasoner());
     }
 
     @Test
-    public void shouldTestInferredSubDataPropertyAxiomGenerator() throws OWLException {
+    public void shouldTestInferredSubDataPropertyAxiomGenerator()
+            throws OWLException {
         InferredSubDataPropertyAxiomGenerator testSubject0 = new InferredSubDataPropertyAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLSubDataPropertyOfAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLSubDataPropertyOfAxiom> result2 = testSubject0.createAxioms(
+                Utils.getMockManagerMockFactory().getOWLDataFactory(),
+                Utils.structReasoner());
     }
 
     @Test
-    public void shouldTestInferredSubObjectPropertyAxiomGenerator() throws OWLException {
+    public void shouldTestInferredSubObjectPropertyAxiomGenerator()
+            throws OWLException {
         InferredSubObjectPropertyAxiomGenerator testSubject0 = new InferredSubObjectPropertyAxiomGenerator();
         String result0 = testSubject0.getLabel();
-        Set<OWLSubObjectPropertyOfAxiom> result2 = testSubject0.createAxioms(Utils
-                .getMockManagerMockFactory().getOWLDataFactory(), Utils.structReasoner());
+        Set<OWLSubObjectPropertyOfAxiom> result2 = testSubject0.createAxioms(
+                Utils.getMockManagerMockFactory().getOWLDataFactory(),
+                Utils.structReasoner());
     }
 
     @Test
@@ -597,17 +681,22 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestMultiMap() throws OWLException {
-        MultiMap<Object, Object> testSubject0 = new MultiMap<Object, Object>(false);
-        MultiMap<Object, Object> testSubject1 = new MultiMap<Object, Object>(false, false);
+        MultiMap<Object, Object> testSubject0 = new MultiMap<Object, Object>(
+                false);
+        MultiMap<Object, Object> testSubject1 = new MultiMap<Object, Object>(
+                false, false);
         MultiMap<Object, Object> testSubject2 = new MultiMap<Object, Object>();
         Collection<Object> result0 = testSubject0.get(mock(Object.class));
-        boolean result1 = testSubject0.put(mock(Object.class), mock(Object.class));
+        boolean result1 = testSubject0.put(mock(Object.class),
+                mock(Object.class));
         testSubject0.clear();
-        boolean result3 = testSubject0.contains(mock(Object.class), mock(Object.class));
+        boolean result3 = testSubject0.contains(mock(Object.class),
+                mock(Object.class));
         int result4 = testSubject0.size();
         testSubject0.putAll(new MultiMap<Object, Object>());
         testSubject0.putAll(mock(Object.class), Utils.mockCollection());
-        boolean result5 = testSubject0.remove(mock(Object.class), mock(Object.class));
+        boolean result5 = testSubject0.remove(mock(Object.class),
+                mock(Object.class));
         boolean result6 = testSubject0.remove(mock(Object.class));
         Set<Object> result7 = testSubject0.keySet();
         boolean result8 = testSubject0.containsValue(mock(Object.class));
@@ -623,7 +712,8 @@ public class ContractOwlapiUtilTest {
         boolean result0 = testSubject0.isNamedConjunct(mock(OWLClass.class),
                 Utils.mockAnonClass());
         boolean result1 = testSubject0.hasNamedConjunct(Utils.mockAnonClass());
-        Set<OWLClass> result2 = testSubject0.getNamedConjuncts(Utils.mockAnonClass());
+        Set<OWLClass> result2 = testSubject0.getNamedConjuncts(Utils
+                .mockAnonClass());
     }
 
     @Test
@@ -675,7 +765,8 @@ public class ContractOwlapiUtilTest {
     public void shouldTestInterfaceOWLAxiomSearchFilter() throws OWLException {
         OWLAxiomSearchFilter<OWLAxiom, Object> testSubject0 = mock(OWLAxiomSearchFilter.class);
         AxiomType<?> result0 = testSubject0.getAxiomType();
-        boolean result1 = testSubject0.pass(mock(OWLAxiom.class), mock(Object.class));
+        boolean result1 = testSubject0.pass(mock(OWLAxiom.class),
+                mock(Object.class));
     }
 
     @Test
@@ -689,12 +780,14 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestOWLClassExpressionVisitorAdapter() throws OWLException {
+    public void shouldTestOWLClassExpressionVisitorAdapter()
+            throws OWLException {
         OWLClassExpressionVisitorAdapter testSubject0 = new OWLClassExpressionVisitorAdapter();
     }
 
     @Test
-    public void shouldTestOWLClassExpressionVisitorExAdapter() throws OWLException {
+    public void shouldTestOWLClassExpressionVisitorExAdapter()
+            throws OWLException {
         OWLClassExpressionVisitorExAdapter<Object> testSubject0 = new OWLClassExpressionVisitorExAdapter<Object>();
     }
 
@@ -710,14 +803,16 @@ public class ContractOwlapiUtilTest {
         OWLOntology result3 = testSubject0.getOntology();
         OWLAxiom result4 = testSubject0.getAxiom();
         testSubject0.walkStructure(Utils.mockObject());
-        List<OWLClassExpression> result5 = testSubject0.getClassExpressionPath();
-        boolean result6 = testSubject0
-                .isFirstClassExpressionInPath(Utils.mockAnonClass());
+        List<OWLClassExpression> result5 = testSubject0
+                .getClassExpressionPath();
+        boolean result6 = testSubject0.isFirstClassExpressionInPath(Utils
+                .mockAnonClass());
         List<OWLDataRange> result7 = testSubject0.getDataRangePath();
     }
 
     @Test
-    public void shouldTestOWLEntityCollectingOntologyChangeListener() throws OWLException {
+    public void shouldTestOWLEntityCollectingOntologyChangeListener()
+            throws OWLException {
         OWLEntityCollectingOntologyChangeListener testSubject0 = new OWLEntityCollectingOntologyChangeListener() {
             @Override
             public void ontologiesChanged() throws OWLException {}
@@ -729,8 +824,8 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLEntityCollector() throws OWLException {
-        OWLEntityCollector testSubject0 = new OWLEntityCollector(Utils.mockSet(Utils
-                .mockOWLEntity()));
+        OWLEntityCollector testSubject0 = new OWLEntityCollector(
+                Utils.mockSet(Utils.mockOWLEntity()));
     }
 
     @Test
@@ -741,21 +836,22 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLEntityRemover() throws OWLException {
-        OWLEntityRemover testSubject0 = new OWLEntityRemover(Utils.mockSet(Utils
-                .getMockOntology()));
+        OWLEntityRemover testSubject0 = new OWLEntityRemover(
+                Utils.mockSet(Utils.getMockOntology()));
         testSubject0.reset();
         List<RemoveAxiom> result0 = testSubject0.getChanges();
     }
 
     @Test
     public void shouldTestOWLEntityRenamer() throws OWLException {
-        OWLEntityRenamer testSubject0 = new OWLEntityRenamer(Utils.getMockManager(),
-                Utils.mockSet(Utils.getMockOntology()));
-        List<OWLOntologyChange<?>> result0 = testSubject0.changeIRI(IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        OWLEntityRenamer testSubject0 = new OWLEntityRenamer(
+                Utils.getMockManager(), Utils.mockSet(Utils.getMockOntology()));
+        List<OWLOntologyChange<?>> result0 = testSubject0.changeIRI(
+                IRI("urn:aFake"), IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result1 = testSubject0.changeIRI(
                 Utils.mockOWLEntity(), IRI("urn:aFake"));
-        List<OWLOntologyChange<?>> result2 = testSubject0.changeIRI(mock(Map.class));
+        List<OWLOntologyChange<?>> result2 = testSubject0
+                .changeIRI(mock(Map.class));
     }
 
     @Test
@@ -765,7 +861,8 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestOWLEntityTinyURIConversionStrategy() throws OWLException {
+    public void shouldTestOWLEntityTinyURIConversionStrategy()
+            throws OWLException {
         OWLEntityTinyURIConversionStrategy testSubject0 = new OWLEntityTinyURIConversionStrategy();
         OWLEntityTinyURIConversionStrategy testSubject1 = new OWLEntityTinyURIConversionStrategy(
                 "");
@@ -781,7 +878,8 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLEntityURIConverterStrategy() throws OWLException {
+    public void shouldTestInterfaceOWLEntityURIConverterStrategy()
+            throws OWLException {
         OWLEntityURIConverterStrategy testSubject0 = mock(OWLEntityURIConverterStrategy.class);
         IRI result0 = testSubject0.getConvertedIRI(Utils.mockOWLEntity());
     }
@@ -808,7 +906,8 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestOWLObjectComponentCollector() throws OWLException {
         OWLObjectComponentCollector testSubject0 = new OWLObjectComponentCollector();
-        Set<OWLObject> result0 = testSubject0.getComponents(mock(OWLObject.class));
+        Set<OWLObject> result0 = testSubject0
+                .getComponents(mock(OWLObject.class));
         Set<OWLObject> result1 = testSubject0.getResult();
     }
 
@@ -818,8 +917,8 @@ public class ContractOwlapiUtilTest {
                 mock(OWLDataFactory.class));
         OWLObjectDuplicator testSubject1 = new OWLObjectDuplicator(
                 mock(OWLDataFactory.class), mock(Map.class));
-        OWLObjectDuplicator testSubject2 = new OWLObjectDuplicator(mock(Map.class),
-                mock(OWLDataFactory.class));
+        OWLObjectDuplicator testSubject2 = new OWLObjectDuplicator(
+                mock(Map.class), mock(OWLDataFactory.class));
         OWLObject result0 = testSubject0.duplicateObject(mock(OWLObject.class));
     }
 
@@ -828,26 +927,29 @@ public class ContractOwlapiUtilTest {
                 Utils.getMockManager(), Utils.getMockOntology());
         testSubject0.dispose();
         Collection<Set<OWLObjectPropertyExpression>> result0 = OWLObjectPropertyManager
-                .getEquivalentObjectProperties(Utils.mockSet(Utils.getMockOntology()));
+                .getEquivalentObjectProperties(Utils.mockSet(Utils
+                        .getMockOntology()));
         Collection<Set<OWLObjectPropertyExpression>> result1 = testSubject0
                 .getEquivalentObjectProperties();
         boolean result2 = testSubject0.isComposite(Utils.mockObjectProperty());
-        Set<OWLObjectPropertyExpression> result3 = testSubject0.getCompositeProperties();
+        Set<OWLObjectPropertyExpression> result3 = testSubject0
+                .getCompositeProperties();
         Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> result4 = testSubject0
                 .getPropertyHierarchy();
         Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> result5 = testSubject0
                 .getHierarchyReflexiveTransitiveClosure();
-        boolean result6 = testSubject0.isSubPropertyOf(Utils.mockObjectProperty(),
-                Utils.mockObjectProperty());
+        boolean result6 = testSubject0.isSubPropertyOf(
+                Utils.mockObjectProperty(), Utils.mockObjectProperty());
         boolean result7 = testSubject0.isNonSimple(Utils.mockObjectProperty());
-        Set<OWLObjectPropertyExpression> result8 = testSubject0.getNonSimpleProperties();
+        Set<OWLObjectPropertyExpression> result8 = testSubject0
+                .getNonSimpleProperties();
         Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> result9 = testSubject0
                 .getPropertyPartialOrdering();
         boolean result10 = testSubject0.isLessThan(Utils.mockObjectProperty(),
                 Utils.mockObjectProperty());
         OWLObjectPropertyManager.tarjan(Utils.mockSet(Utils.getMockOntology()),
-                Utils.mockObjectProperty(), 0, mock(Stack.class), mock(Map.class),
-                mock(Map.class),
+                Utils.mockObjectProperty(), 0, mock(Stack.class),
+                mock(Map.class), mock(Map.class),
                 Utils.mockSet(Utils.mockSet(Utils.mockObjectProperty())),
                 Utils.mockSet(Utils.mockObjectProperty()),
                 Utils.mockSet(Utils.mockObjectProperty()));
@@ -899,9 +1001,10 @@ public class ContractOwlapiUtilTest {
         OWLOntology result1 = testSubject0.getOntology();
         OWLAxiom result2 = testSubject0.getAxiom();
         testSubject0.walkStructure(Utils.mockObject());
-        List<OWLClassExpression> result3 = testSubject0.getClassExpressionPath();
-        boolean result4 = testSubject0
-                .isFirstClassExpressionInPath(Utils.mockAnonClass());
+        List<OWLClassExpression> result3 = testSubject0
+                .getClassExpressionPath();
+        boolean result4 = testSubject0.isFirstClassExpressionInPath(Utils
+                .mockAnonClass());
         List<OWLDataRange> result5 = testSubject0.getDataRangePath();
     }
 
@@ -917,11 +1020,13 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestOWLOntologyChangeVisitorAdapterEx() throws OWLException {
+    public void shouldTestOWLOntologyChangeVisitorAdapterEx()
+            throws OWLException {
         OWLOntologyChangeVisitorExAdapter<Object> testSubject0 = new OWLOntologyChangeVisitorExAdapter<Object>();
     }
 
-    public void shouldTestOWLOntologyImportsClosureSetProvider() throws OWLException {
+    public void shouldTestOWLOntologyImportsClosureSetProvider()
+            throws OWLException {
         OWLOntologyImportsClosureSetProvider testSubject0 = new OWLOntologyImportsClosureSetProvider(
                 Utils.getMockManager(), Utils.getMockOntology());
         Set<OWLOntology> result0 = testSubject0.getOntologies();
@@ -936,8 +1041,8 @@ public class ContractOwlapiUtilTest {
         OWLOntologyMerger testSubject2 = new OWLOntologyMerger(
                 mock(OWLOntologySetProvider.class), mock(OWLAxiomFilter.class));
         boolean result0 = testSubject0.passes(mock(OWLAxiom.class));
-        OWLOntology result1 = testSubject0.createMergedOntology(Utils.getMockManager(),
-                IRI("urn:aFake"));
+        OWLOntology result1 = testSubject0.createMergedOntology(
+                Utils.getMockManager(), IRI("urn:aFake"));
     }
 
     @Test
@@ -957,15 +1062,16 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLOntologyWalker() throws OWLException {
-        OWLOntologyWalker testSubject0 = new OWLOntologyWalker(Utils.mockSet(Utils
-                .getMockOntology()));
+        OWLOntologyWalker testSubject0 = new OWLOntologyWalker(
+                Utils.mockSet(Utils.getMockOntology()));
         OWLAnnotation result0 = testSubject0.getAnnotation();
         OWLOntology result1 = testSubject0.getOntology();
         OWLAxiom result2 = testSubject0.getAxiom();
         testSubject0.walkStructure(Utils.mockObject());
-        List<OWLClassExpression> result3 = testSubject0.getClassExpressionPath();
-        boolean result4 = testSubject0
-                .isFirstClassExpressionInPath(Utils.mockAnonClass());
+        List<OWLClassExpression> result3 = testSubject0
+                .getClassExpressionPath();
+        boolean result4 = testSubject0.isFirstClassExpressionInPath(Utils
+                .mockAnonClass());
         List<OWLDataRange> result5 = testSubject0.getDataRangePath();
     }
 
@@ -1011,13 +1117,15 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestPropertyAssertionValueShortFormProvider() throws OWLException {
+    public void shouldTestPropertyAssertionValueShortFormProvider()
+            throws OWLException {
         PropertyAssertionValueShortFormProvider testSubject0 = new PropertyAssertionValueShortFormProvider(
                 new ArrayList<OWLPropertyExpression>(), mock(Map.class),
                 mock(OWLOntologySetProvider.class));
         PropertyAssertionValueShortFormProvider testSubject1 = new PropertyAssertionValueShortFormProvider(
                 new ArrayList<OWLPropertyExpression>(), mock(Map.class),
-                mock(OWLOntologySetProvider.class), mock(ShortFormProvider.class));
+                mock(OWLOntologySetProvider.class),
+                mock(ShortFormProvider.class));
         List<OWLPropertyExpression> result0 = testSubject0.getProperties();
         testSubject0.dispose();
         String result1 = testSubject0.getShortForm(Utils.mockOWLEntity());
@@ -1027,7 +1135,8 @@ public class ContractOwlapiUtilTest {
 
     public void shouldTestQNameShortFormProvider() throws OWLException {
         QNameShortFormProvider testSubject0 = new QNameShortFormProvider();
-        QNameShortFormProvider testSubject1 = new QNameShortFormProvider(mock(Map.class));
+        QNameShortFormProvider testSubject1 = new QNameShortFormProvider(
+                mock(Map.class));
         testSubject0.dispose();
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
     }
@@ -1110,7 +1219,8 @@ public class ContractOwlapiUtilTest {
     }
 
     @Test
-    public void shouldTestInterfaceSWRLVariableShortFormProvider() throws OWLException {
+    public void shouldTestInterfaceSWRLVariableShortFormProvider()
+            throws OWLException {
         SWRLVariableShortFormProvider testSubject0 = mock(SWRLVariableShortFormProvider.class);
         String result0 = testSubject0.getShortForm(mock(SWRLVariable.class));
     }
@@ -1144,7 +1254,8 @@ public class ContractOwlapiUtilTest {
     public void shouldTestWeakIndexCache() throws OWLException {
         WeakIndexCache<Object, Object> testSubject0 = new WeakIndexCache<Object, Object>();
         Object result0 = testSubject0.get(mock(Object.class));
-        Object result1 = testSubject0.cache(mock(Object.class), mock(Object.class));
+        Object result1 = testSubject0.cache(mock(Object.class),
+                mock(Object.class));
         testSubject0.clear();
         boolean result2 = testSubject0.contains(mock(Object.class));
     }

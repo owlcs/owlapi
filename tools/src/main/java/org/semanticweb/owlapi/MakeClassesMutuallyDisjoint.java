@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2011, The University of Manchester
+ * Copyright (C) 2014, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2011, The University of Manchester
+ * Copyright 2014, The University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * mutually disjoint. The composite change offers the option of using one
  * disjoint classes axiom to do this or using multiple disjoint classes axioms
  * to make them pairwise disjoint (for backwards compatibility with OWL 1.0).
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Jul-2007 */
 public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {

@@ -250,7 +250,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <td></td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OWLParser extends AbstractOWLParser {
     @Override

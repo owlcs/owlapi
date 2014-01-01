@@ -248,7 +248,7 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * </td>
  * </tr>
  * </table>
- * 
+ *
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     private static final String OPEN_BRACKET = "(";
