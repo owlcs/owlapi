@@ -88,10 +88,14 @@ public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     @Nonnull
     String toStringID();
 
-    /** @param visitor */
+    /** @param visitor
+     *            visitor */
     void accept(@Nonnull OWLIndividualVisitor visitor);
 
     /** @param visitor
+     *            visitor
+     * @param <O>
+     *            visitor return type
      * @return visitor ex type */
     <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor);
 }

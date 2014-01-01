@@ -76,8 +76,6 @@ public class ImportsStructureObjectSorter<O> {
      * 
      * @param ontology
      *            The ontology
-     * @param manager
-     *            The manager that will be used to obtain the imports closure
      * @param objectSelector
      *            The selector that will be used to select objects that are
      *            associated with each ontology. */

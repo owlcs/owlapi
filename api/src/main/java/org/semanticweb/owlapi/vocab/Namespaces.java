@@ -153,7 +153,9 @@ public enum Namespaces {
         return builtIn == BUILT_IN;
     }
 
-    /** @re this namespace without hash or slash at the end */
+    /** @param ns
+     *            namespace
+     * @return this namespace without hash or slash at the end */
     private static String hashless(String ns) {
         int index = ns.length() - 1;
         if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
@@ -162,6 +164,7 @@ public enum Namespaces {
         return ns;
     }
 
+    /** ignored imports */
     public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS,
             SWRL, SWRLB, XML, XSD);
 

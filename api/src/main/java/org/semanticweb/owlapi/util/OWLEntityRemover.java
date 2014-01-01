@@ -76,9 +76,6 @@ public class OWLEntityRemover implements OWLEntityVisitor {
     /** Creates an entity remover, which will remove entities (axioms referring
      * to the entities from the specified ontologies).
      * 
-     * @param owlOntologyManager
-     *            The {@code OWLOntologyManager} which contains the ontologies
-     *            that contain entities to be removed.
      * @param ontologies
      *            The set of ontologies that contain references to axioms to be
      *            removed. */

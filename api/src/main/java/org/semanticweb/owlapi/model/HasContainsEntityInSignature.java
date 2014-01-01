@@ -1,12 +1,9 @@
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 29/07/2013
- * <p>
- * An interface to an object that has a signature.
- * </p> */
+/** An interface to an object that has a signature.
+ * 
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 29/07/2013 */
 public interface HasContainsEntityInSignature {
     /** Determines if the signature of this object contains the specified entity.
      * 

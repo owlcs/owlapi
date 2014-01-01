@@ -2,10 +2,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 29/07/2013 */
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 29/07/2013 */
 public interface HasIndividualsInSignature {
     /** A convenience method that obtains the individuals that are in the
      * signature of this object

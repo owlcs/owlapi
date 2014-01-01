@@ -47,9 +47,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 30-Jul-2008
- * @param <O>
- *            visitor return type */
+ *         Group, Date: 30-Jul-2008 */
 public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
     private final OWLOntologyWalker walker;
 

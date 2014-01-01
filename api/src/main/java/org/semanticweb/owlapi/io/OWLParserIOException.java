@@ -54,7 +54,7 @@ public class OWLParserIOException extends OWLParserException {
     }
 
     /** @return the cause of this exception which will be an {@code IOException}. */
-    //XXX verify whether this exception class is necessary at all
+    // XXX verify whether this exception class is necessary at all
     @Override
     public IOException getCause() {
         return (IOException) super.getCause();

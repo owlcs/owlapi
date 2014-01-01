@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 /** adapter for axiom visitors
  * 
  * @author ignazio
- * @param <O> */
+ * @param <O>
+ *            return type */
 public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>, Serializable {
     private static final long serialVersionUID = 40000L;
     private O object;

@@ -313,6 +313,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * 
      * @param axiomType
      *            The type of axiom to count
+     * @param <T>
+     *            axiom type class
      * @return The number of the specified types of axioms in this ontology */
     <T extends OWLAxiom> int getAxiomCount(@Nonnull AxiomType<T> axiomType);
 

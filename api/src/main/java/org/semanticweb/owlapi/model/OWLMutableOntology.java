@@ -47,6 +47,8 @@ import javax.annotation.Nonnull;
 public interface OWLMutableOntology extends OWLOntology {
     /** @param change
      *            the change to apply
+     * @param <T>
+     *            type class
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
      *             if errors happen */

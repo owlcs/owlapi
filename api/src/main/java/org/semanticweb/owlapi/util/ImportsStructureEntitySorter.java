@@ -49,9 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Group, Date: 30-May-2008 */
 public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<OWLEntity> {
     /** @param ontology
-     *            the ontology
-     * @param manager
-     *            the manager */
+     *            the ontology */
     public ImportsStructureEntitySorter(@Nonnull OWLOntology ontology) {
         super(ontology, new ReferencedEntitySelector());
     }

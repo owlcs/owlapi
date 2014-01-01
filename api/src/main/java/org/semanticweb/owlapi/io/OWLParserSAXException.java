@@ -55,9 +55,10 @@ public class OWLParserSAXException extends OWLParserException {
     public OWLParserSAXException(SAXException cause) {
         super(cause);
     }
-    //XXX verify whether this exception class is necessary at all
+
+    // XXX verify whether this exception class is necessary at all
     @Override
-    public  SAXException getCause() {
+    public SAXException getCause() {
         return (SAXException) super.getCause();
     }
 }

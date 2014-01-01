@@ -6,6 +6,8 @@ public class OWLAPIPreconditions {
      * 
      * @param object
      *            reference to check
+     * @param <T>
+     *            reference type
      * @return the input reference if not null
      * @throws IllegalArgumentException
      *             if object is null */
@@ -19,6 +21,8 @@ public class OWLAPIPreconditions {
      *            reference to check
      * @param message
      *            message for the illegal argument exception
+     * @param <T>
+     *            reference type
      * @return the input reference if not null
      * @throws IllegalArgumentException
      *             if object is null */

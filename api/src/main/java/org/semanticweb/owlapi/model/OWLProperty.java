@@ -43,10 +43,6 @@ package org.semanticweb.owlapi.model;
  * properties.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Jan-2007
- * @param <R>
- *            range
- * @param <P>
- *            property expression */
+ *         Informatics Group, Date: 23-Jan-2007 */
 public interface OWLProperty extends OWLPropertyExpression, OWLLogicalEntity,
         OWLNamedObject {}

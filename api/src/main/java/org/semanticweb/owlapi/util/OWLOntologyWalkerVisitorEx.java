@@ -46,27 +46,30 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Information Management Group<br>
- * Date: 30-Jul-2008<br>
- * <br> */
-@SuppressWarnings("javadoc")
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 30-Jul-2008
+ * @param <E>
+ *            visitor type */
 public class OWLOntologyWalkerVisitorEx<E> extends OWLObjectVisitorExAdapter<E> {
     private final OWLOntologyWalker walker;
 
+    /** @param walker
+     *            walker */
     public OWLOntologyWalkerVisitorEx(@Nonnull OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");
     }
 
+    /** @return current axiom */
     public OWLAxiom getCurrentAxiom() {
         return walker.getAxiom();
     }
 
+    /** @return current ontology */
     public OWLOntology getCurrentOntology() {
         return walker.getOntology();
     }
 
+    /** @return annotation */
     public OWLAnnotation getCurrentAnnotation() {
         return walker.getAnnotation();
     }

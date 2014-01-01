@@ -55,8 +55,8 @@ public interface OWLRenderer {
      *            The ontology
      * @param os
      *            The OutputStream
-     * @throws OWLException 
-     *             for any exception raised*/
+     * @throws OWLException
+     *             for any exception raised */
     void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLException;
 }

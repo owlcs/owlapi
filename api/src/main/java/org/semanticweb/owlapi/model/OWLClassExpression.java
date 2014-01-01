@@ -155,6 +155,10 @@ public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPre
      *            The visitor that wants to visit */
     void accept(@Nonnull OWLClassExpressionVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor
+     * @param <O>
+     *            visitor return type
+     * @return visitor return value */
     <O> O accept(@Nonnull OWLClassExpressionVisitorEx<O> visitor);
 }

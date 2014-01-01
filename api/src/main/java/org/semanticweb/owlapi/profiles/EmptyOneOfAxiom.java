@@ -11,8 +11,8 @@ public class EmptyOneOfAxiom extends OWLProfileViolation implements
      *            ontology with violation
      * @param axiom
      *            axiom with violation */
-    public EmptyOneOfAxiom(OWLOntology currentOntology, OWLAxiom currentAxiom) {
-        super(currentOntology, currentAxiom);
+    public EmptyOneOfAxiom(OWLOntology ontology, OWLAxiom axiom) {
+        super(ontology, axiom);
     }
 
     @Override

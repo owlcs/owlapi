@@ -55,5 +55,5 @@ public interface OWLAnnotationSubject extends OWLAnnotationObject {
      * @param <O>
      *            visitor return type
      * @return visitor value */
-    <E> E accept(@Nonnull OWLAnnotationSubjectVisitorEx<E> visitor);
+    <O> O accept(@Nonnull OWLAnnotationSubjectVisitorEx<O> visitor);
 }

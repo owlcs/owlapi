@@ -11,8 +11,8 @@ public class InsufficientIndividuals extends OWLProfileViolation implements
      *            ontology with violation
      * @param axiom
      *            axiom with violation */
-    public InsufficientIndividuals(OWLOntology currentOntology, OWLAxiom node) {
-        super(currentOntology, node);
+    public InsufficientIndividuals(OWLOntology ontology, OWLAxiom axiom) {
+        super(ontology, axiom);
     }
 
     @Override

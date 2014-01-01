@@ -45,19 +45,22 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008 */
-@SuppressWarnings("javadoc")
+ *         Date: 16-Apr-2008
+ * @param <O>
+ *            visitor return type */
 public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
         OWLLogicalAxiomVisitorEx<O> {
     /** visit OWLDeclarationAxiom type
      * 
      * @param axiom
-     *            axiom to visit */
+     *            axiom to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDeclarationAxiom axiom);
 
     /** visit OWLDatatypeDefinitionAxiom type
      * 
      * @param axiom
-     *            axiom to visit */
+     *            axiom to visit
+     * @return visitor value */
     O visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
 }

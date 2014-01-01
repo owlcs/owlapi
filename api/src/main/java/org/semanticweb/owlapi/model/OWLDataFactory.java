@@ -47,11 +47,12 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 <br>
- *         An interface for creating entities, class expressions and axioms. All
- *         methods throw IllegalArgumentException if null values are passed
- *         where they are not allowed in the documentation. */
+/** An interface for creating entities, class expressions and axioms. All methods
+ * throw IllegalArgumentException if null values are passed where they are not
+ * allowed in the documentation.
+ * 
+ * @author Matthew Horridge, The University Of Manchester<br>
+ *         Bio-Health Informatics Group Date: 24-Oct-2006 <br> */
 public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
         OWLEntityByTypeProvider, OWLAnonymousIndividualProvider,
         OWLAnonymousIndividualByIdProvider {
@@ -109,11 +110,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            The prefix manager that is responsible for mapping prefix
      *            names to prefix IRIs. Cannot be null.
      * @return An OWLClass that has the IRI obtained by expanding the specified
-     *         abbreviated IRI using the specified prefix manager. </p> For
-     *         example, suppose "m:Cat" was specified as the abbreviated IRI,
-     *         the prefix manager would be used to obtain the IRI prefix for the
-     *         "m:" prefix name, this prefix would then be concatenated with
-     *         "Cat" to obtain the full IRI which would be the IRI of the
+     *         abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated
+     *         IRI, the prefix manager would be used to obtain the IRI prefix
+     *         for the "m:" prefix name, this prefix would then be concatenated
+     *         with "Cat" to obtain the full IRI which would be the IRI of the
      *         OWLClass obtained by this method.
      * @throws OWLRuntimeException
      *             if the prefix name in the specified abbreviated IRI does not
@@ -137,12 +138,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            The prefix manager that is responsible for mapping prefix
      *            names to prefix IRIs. Cannot be null.
      * @return An OWLObjectProperty that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager.
-     *         </p> For example, suppose "m:Cat" was specified as the
-     *         abbreviated IRI, the prefix manager would be used to obtain the
-     *         IRI prefix for the "m:" prefix name, this prefix would then be
-     *         concatenated with "Cat" to obtain the full IRI which would be the
-     *         IRI of the OWLObjectProperty obtained by this method.
+     *         specified abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated
+     *         IRI, the prefix manager would be used to obtain the IRI prefix
+     *         for the "m:" prefix name, this prefix would then be concatenated
+     *         with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLObjectProperty obtained by this method.
      * @throws OWLRuntimeException
      *             if the prefix name in the specified abbreviated IRI does not
      *             have a mapping to a prefix in the specified prefix manager. */
@@ -175,12 +176,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            The prefix manager that is responsible for mapping prefix
      *            names to prefix IRIs. Cannot be null.
      * @return An OWLDataProperty that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager.
-     *         </p> For example, suppose "m:Cat" was specified as the
-     *         abbreviated IRI, the prefix manager would be used to obtain the
-     *         IRI prefix for the "m:" prefix name, this prefix would then be
-     *         concatenated with "Cat" to obtain the full IRI which would be the
-     *         IRI of the OWLDataProperty obtained by this method.
+     *         specified abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated
+     *         IRI, the prefix manager would be used to obtain the IRI prefix
+     *         for the "m:" prefix name, this prefix would then be concatenated
+     *         with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLDataProperty obtained by this method.
      * @throws OWLRuntimeException
      *             if the prefix name in the specified abbreviated IRI does not
      *             have a mapping to a prefix in the specified prefix manager. */
@@ -203,12 +204,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            The prefix manager that is responsible for mapping prefix
      *            names to prefix IRIs. Cannot be null.
      * @return An OWLNamedIndividual that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager.
-     *         </p> For example, suppose "m:Cat" was specified as the
-     *         abbreviated IRI, the prefix manager would be used to obtain the
-     *         IRI prefix for the "m:" prefix name, this prefix would then be
-     *         concatenated with "Cat" to obtain the full IRI which would be the
-     *         IRI of the OWLNamedIndividual obtained by this method.
+     *         specified abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated
+     *         IRI, the prefix manager would be used to obtain the IRI prefix
+     *         for the "m:" prefix name, this prefix would then be concatenated
+     *         with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLNamedIndividual obtained by this method.
      * @throws OWLRuntimeException
      *             if the prefix name in the specified abbreviated IRI does not
      *             have a mapping to a prefix in the specified prefix manager. */
@@ -231,12 +232,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            The prefix manager that is responsible for mapping prefix
      *            names to prefix IRIs. Cannot be null.
      * @return An OWLAnnotationProperty that has the IRI obtained by expanding
-     *         the specified abbreviated IRI using the specified prefix manager.
-     *         </p> For example, suppose "m:Cat" was specified as the
-     *         abbreviated IRI, the prefix manager would be used to obtain the
-     *         IRI prefix for the "m:" prefix name, this prefix would then be
-     *         concatenated with "Cat" to obtain the full IRI which would be the
-     *         IRI of the OWLAnnotationProperty obtained by this method.
+     *         the specified abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated
+     *         IRI, the prefix manager would be used to obtain the IRI prefix
+     *         for the "m:" prefix name, this prefix would then be concatenated
+     *         with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLAnnotationProperty obtained by this method.
      * @throws OWLRuntimeException
      *             if the prefix name in the specified abbreviated IRI does not
      *             have a mapping to a prefix in the specified prefix manager. */
@@ -324,12 +325,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            The prefix manager that is responsible for mapping prefix
      *            names to prefix IRIs. Cannot be null.
      * @return An OWLDatatype that has the IRI obtained by expanding the
-     *         specified abbreviated IRI using the specified prefix manager.
-     *         </p> For example, suppose "m:Cat" was specified as the
-     *         abbreviated IRI, the prefix manager would be used to obtain the
-     *         IRI prefix for the "m:" prefix name, this prefix would then be
-     *         concatenated with "Cat" to obtain the full IRI which would be the
-     *         IRI of the OWLDatatype obtained by this method.
+     *         specified abbreviated IRI using the specified prefix manager. <br>
+     *         For example, suppose "m:Cat" was specified as the abbreviated
+     *         IRI, the prefix manager would be used to obtain the IRI prefix
+     *         for the "m:" prefix name, this prefix would then be concatenated
+     *         with "Cat" to obtain the full IRI which would be the IRI of the
+     *         OWLDatatype obtained by this method.
      * @throws OWLRuntimeException
      *             if the prefix name in the specified abbreviated IRI does not
      *             have a mapping to a prefix in the specified prefix manager. */
@@ -748,6 +749,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param facet
      *            Cannot be null.
      * @param facetValue
+     *            facet value
      * @return an OWLFacetRestriction on specified facet and value */
     @Nonnull
     OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet, int facetValue);

@@ -194,9 +194,14 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
     @Nonnull
     String toStringID();
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor */
     void accept(@Nonnull OWLEntityVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor
+     * @param <O>
+     *            visitor return type
+     * @return visitor return value */
     <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor);
 }

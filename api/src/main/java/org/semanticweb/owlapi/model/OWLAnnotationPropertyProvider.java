@@ -2,10 +2,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 07/08/2013 */
+/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 07/08/2013 */
 public interface OWLAnnotationPropertyProvider {
     /** Gets an instance of {@link OWLAnnotationProperty} that has the specified
      * {@code IRI}.

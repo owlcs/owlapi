@@ -38,8 +38,8 @@
  */
 package org.semanticweb.owlapi.vocab;
 
-import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import static org.semanticweb.owlapi.vocab.Namespaces.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 import static org.semanticweb.owlapi.vocab.XSDVocabulary.*;
 
@@ -66,7 +66,6 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group, Date: 11-Nov-2008 */
-@SuppressWarnings("javadoc")
 public enum OWL2Datatype implements HasIRI {
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 

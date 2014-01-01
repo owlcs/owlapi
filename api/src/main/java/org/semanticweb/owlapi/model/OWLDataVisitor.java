@@ -45,7 +45,6 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 13-Nov-2006 */
-@SuppressWarnings("javadoc")
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
     /** visit OWLLiteral type
      * 

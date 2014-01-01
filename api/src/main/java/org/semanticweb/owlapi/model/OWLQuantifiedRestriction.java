@@ -42,10 +42,6 @@ import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group Date: 25-Oct-2006
- * @param <R>
- *            range
- * @param <P>
- *            property expression
  * @param <F>
  *            value */
 public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends

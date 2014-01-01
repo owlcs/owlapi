@@ -53,6 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 27/04/2012
+ * @param <T>
+ *            change type
  * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
  * @since 3.5 */
 public abstract class OWLOntologyChangeData<T> implements HasSignature, Serializable {

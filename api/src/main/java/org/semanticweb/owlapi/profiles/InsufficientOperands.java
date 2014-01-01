@@ -16,8 +16,8 @@ public class InsufficientOperands extends OWLProfileViolation implements
      *            axiom with violation
      * @param c
      *            object without enough operands */
-    public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node, OWLObject c) {
-        super(currentOntology, node);
+    public InsufficientOperands(OWLOntology ontology, OWLAxiom axiom, OWLObject c) {
+        super(ontology, axiom);
         expression = c;
     }
 

@@ -65,7 +65,9 @@ public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSou
     protected byte[] byteBuffer;
     protected char[] charBuffer;
 
-    /** @return a fresh IRI */
+    /** @param prefix
+     *            prefix for result
+     * @return a fresh IRI */
     protected static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
@@ -98,7 +100,7 @@ public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSou
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
      * 
-     * @param stream
+     * @param reader
      *            The stream to be "cached" */
     private void readIntoBuffer(@Nonnull InputStream reader) {
         try {

@@ -4,16 +4,12 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 07/08/2013
- * <p>
- * An interface to an object that can provide instances if
+/** An interface to an object that can provide instances if
  * {@link OWLAnonymousIndividual}.
- * </p>
  * 
- * @since 3.5
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 07/08/2013
+ * @since 4.0.0
  * @see OWLDataFactory */
 public interface OWLAnonymousIndividualProvider extends Serializable {
     /** Gets an {@link OWLAnonymousIndividual}. The {@link NodeID} for the
@@ -23,7 +19,7 @@ public interface OWLAnonymousIndividualProvider extends Serializable {
      * been used previously.
      * 
      * @return The instance of {@link OWLAnonymousIndividual}. Not {@code null}.
-     * @see {@link OWLAnonymousIndividualByIdProvider} */
+     * @see OWLAnonymousIndividualByIdProvider */
     @Nonnull
     OWLAnonymousIndividual getOWLAnonymousIndividual();
 }

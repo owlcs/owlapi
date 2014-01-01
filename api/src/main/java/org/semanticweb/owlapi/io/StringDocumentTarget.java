@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class StringDocumentTarget implements OWLOntologyDocumentTarget {
     private final StringWriter writer;
 
-    @SuppressWarnings("javadoc")
+    /** default constructor. */
     public StringDocumentTarget() {
         writer = new StringWriter();
     }

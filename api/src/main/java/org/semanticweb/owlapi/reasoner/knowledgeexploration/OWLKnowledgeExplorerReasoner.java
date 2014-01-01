@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 /** Extension of OWLReasoner to allow access to reasoner completion graph. */
 public interface OWLKnowledgeExplorerReasoner extends OWLReasoner {
     /** Interface for a tableaux node. */
-     interface RootNode {
+    interface RootNode {
         /** @param <T>
          *            actual node type
          * @return inner node representation */

@@ -38,8 +38,6 @@
  */
 package org.semanticweb.owlapi.vocab;
 
-import java.net.URI;
-
 import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 

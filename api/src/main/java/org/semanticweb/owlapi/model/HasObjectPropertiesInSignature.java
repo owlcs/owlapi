@@ -2,14 +2,11 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 29/07/2013
- * <p>
- * An interface to an object that has a signature and can provide the object
+/** An interface to an object that has a signature and can provide the object
  * properties that are contained in its signature.
- * </p> */
+ * 
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 29/07/2013 */
 public interface HasObjectPropertiesInSignature {
     /** A convenience method that obtains the object properties that are in the
      * signature of this object

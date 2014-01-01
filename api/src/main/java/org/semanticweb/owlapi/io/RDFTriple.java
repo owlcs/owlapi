@@ -78,8 +78,6 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            whether the subject is anonymous
      * @param predicate
      *            the predicate
-     * @param predicateAnon
-     *            whether the predicate is anon
      * @param object
      *            the object
      * @param objectAnon
@@ -104,8 +102,6 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            whether the subject is anonymous
      * @param predicate
      *            the predicate
-     * @param predicateAnon
-     *            whether the predicate is anon
      * @param object
      *            the object */
     public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate,

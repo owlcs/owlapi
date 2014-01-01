@@ -40,10 +40,6 @@ package org.semanticweb.owlapi.model;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006
- * @param <R>
- *            range of the property
- * @param <P>
- *            property expression
  * @param <F>
  *            value */
 public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends

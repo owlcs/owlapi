@@ -43,7 +43,6 @@ import javax.annotation.Nonnull;
 /** @author Matthew Horridge, The University of Manchester<br>
  *         Information Management Group<br>
  *         Date: 20-Mar-2009 */
-@SuppressWarnings("javadoc")
 public interface OWLIndividualVisitor {
     /** visit OWLNamedIndividual type
      * 

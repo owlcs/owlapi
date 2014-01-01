@@ -62,6 +62,10 @@ public class FreshEntitiesException extends OWLReasonerRuntimeException {
         this(entities, null);
     }
 
+    /** @param entities
+     *            entities
+     * @param t
+     *            cause */
     public FreshEntitiesException(Collection<OWLEntity> entities, Throwable t) {
         super(t);
         this.entities = new ArrayList<OWLEntity>(entities);

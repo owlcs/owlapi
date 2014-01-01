@@ -47,7 +47,11 @@ import javax.annotation.Nonnull;
  *         Informatics Group, Date: 26-Oct-2006 */
 public interface OWLAxiomVisitor extends OWLAnnotationAxiomVisitor,
         OWLLogicalAxiomVisitor {
+    /** @param axiom
+     *            axiom to visit */
     void visit(@Nonnull OWLDeclarationAxiom axiom);
 
+    /** @param axiom
+     *            axiom to visit */
     void visit(@Nonnull OWLDatatypeDefinitionAxiom axiom);
 }

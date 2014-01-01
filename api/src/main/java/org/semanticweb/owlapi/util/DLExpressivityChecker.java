@@ -75,7 +75,6 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
@@ -114,20 +113,23 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Feb-2007 */
-@SuppressWarnings({ "unused", "javadoc" })
 public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
     private Set<Construct> constructs;
     private Set<OWLOntology> ontologies;
 
-    public List<Construct> getConstructs() throws OWLException {
+    /** @return ordered constructs */
+    public List<Construct> getConstructs() {
         return getOrderedConstructs();
     }
 
+    /** @param ontologies
+     *            ontologies */
     public DLExpressivityChecker(Set<OWLOntology> ontologies) {
         this.ontologies = ontologies;
         constructs = new HashSet<Construct>();
     }
 
+    /** @return DL name */
     public String getDescriptionLogicName() {
         List<Construct> orderedConstructs = getOrderedConstructs();
         StringBuilder s = new StringBuilder();
@@ -608,25 +610,26 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
         constructs.add(I);
     }
 
+    /** Construct enum */
     public enum Construct {
         //@formatter:off
-        AL("AL"),
-        U("U"),
-        C("C"),
-        E("E"),
-        N("N"),
-        Q("Q"),
-        H("H"),
-        I("I"),
-        O("O"),
-        F("F"),
-        TRAN("+"),
-        D("(D)"),
-        R("R"),
-        S("S"),
-        EL("EL"),
-        ELPLUSPLUS("EL++");
-      //@formatter:on
+        /** AL */       AL("AL"),
+        /** U */        U("U"),
+        /** C */        C("C"),
+        /** E */        E("E"),
+        /** N */        N("N"),
+        /** Q */        Q("Q"),
+        /** H */        H("H"),
+        /** I */        I("I"),
+        /** O */        O("O"),
+        /** F */        F("F"),
+        /** TRAN */     TRAN("+"),
+        /** D */        D("(D)"),
+        /** R */        R("R"),
+        /** S */        S("S"),
+        /** EL */       EL("EL"),
+        /** EL++ */     ELPLUSPLUS("EL++");
+        //@formatter:on
         Construct(String s) {
             this.s = s;
         }

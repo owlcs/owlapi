@@ -48,7 +48,9 @@ import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006 */
+ *         Group Date: 25-Oct-2006
+ * @param <T>
+ *            change type */
 public abstract class OWLOntologyChange<T> implements HasSignature {
     private final OWLOntology ont;
 

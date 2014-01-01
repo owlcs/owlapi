@@ -89,6 +89,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     Set<OWLOntology> getVersions(@Nonnull IRI ontology);
 
     /** @param ontology
+     *            ontology to check
      * @return true if the ontology is contained */
     boolean contains(@Nonnull OWLOntology ontology);
 

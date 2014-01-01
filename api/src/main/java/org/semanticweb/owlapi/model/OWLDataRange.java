@@ -77,15 +77,25 @@ public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate
     @Nonnull
     DataRangeType getDataRangeType();
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor */
     void accept(@Nonnull OWLDataVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor
+     * @param <O>
+     *            visitor return type
+     * @return visitor return value */
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor */
     void accept(@Nonnull OWLDataRangeVisitor visitor);
 
-    @SuppressWarnings("javadoc")
+    /** @param visitor
+     *            visitor
+     * @param <O>
+     *            visitor return type
+     * @return visitor return value */
     <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor);
 }

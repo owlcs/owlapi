@@ -60,6 +60,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
     }
 
     /** @param id
+     *            id
      * @return IRI with full node id */
     public static IRI nodeId(int id) {
         return IRI.create(PREFIX + NodeID.NODE_ID_PREFIX + Integer.toString(id));

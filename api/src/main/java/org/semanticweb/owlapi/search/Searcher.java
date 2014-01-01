@@ -50,64 +50,143 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter;
 
-/** A configurable search
+/** A configurable search.
  * 
- * @author ignazio
- * @param <T> */
+ * @param <T>
+ *            the generic type
+ * @author ignazio */
 public class Searcher<T> implements Iterable<T> {
+    /** The Enum Searches. */
     enum Searches {
-        CLASSES, PROPERTIES, ANNOTATIONPROPERTIES, AXIOMS, ENTITIES, DOMAINS, RANGES, ANNOTATIONAXIOMS, ANNOTATIONS, VALUES, NEGATIVEVALUES, INSTANCES, TYPES
+        /** The classes. */
+        CLASSES,
+        /** The properties. */
+        PROPERTIES,
+        /** The annotationproperties. */
+        ANNOTATIONPROPERTIES,
+        /** The axioms. */
+        AXIOMS,
+        /** The entities. */
+        ENTITIES,
+        /** The domains. */
+        DOMAINS,
+        /** The ranges. */
+        RANGES,
+        /** The annotationaxioms. */
+        ANNOTATIONAXIOMS,
+        /** The annotations. */
+        ANNOTATIONS,
+        /** The values. */
+        VALUES,
+        /** The negativevalues. */
+        NEGATIVEVALUES,
+        /** The instances. */
+        INSTANCES,
+        /** The types. */
+        TYPES
     }
 
+    /** The Enum Tasks. */
     enum Tasks {
-        SEARCH, DESCRIBE
+        /** The search. */
+        SEARCH,
+        /** The describe. */
+        DESCRIBE
     }
 
+    /** The Enum Direction. */
     enum Direction {
-        SUPER, SUB, EQUIVALENT, DISJOINT, DIFFERENT, SAME, INVERSE
+        /** The super. */
+        SUPER,
+        /** The sub. */
+        SUB,
+        /** The equivalent. */
+        EQUIVALENT,
+        /** The disjoint. */
+        DISJOINT,
+        /** The different. */
+        DIFFERENT,
+        /** The same. */
+        SAME,
+        /** The inverse. */
+        INVERSE
     }
 
+    /** The Enum Types. */
     enum Types {
-        OBJECT, DATA, ANNOTATION
+        /** The object. */
+        OBJECT,
+        /** The data. */
+        DATA,
+        /** The annotation. */
+        ANNOTATION
     }
 
-    /** @return a new searcher */
+    /** Find.
+     * 
+     * @param <T>
+     *            the generic type
+     * @return a new searcher */
     public static <T> Searcher<T> find() {
         return new Searcher<T>().task(Tasks.SEARCH);
     }
 
-    /** @param c
+    /** Find.
+     * 
+     * @param <T>
+     *            the generic type
+     * @param c
      *            Class of the returned type
      * @return a Searcher whose final return type will be T */
     public static <T> Searcher<T> find(@SuppressWarnings("unused") Class<T> c) {
         return new Searcher<T>().task(Tasks.SEARCH);
     }
 
-    /** @param c
+    /** Describe.
+     * 
+     * @param c
+     *            the c
      * @return a searcher that retrieves the axioms describing (mentioning) c */
     public static Searcher<OWLAxiom> describe(OWLEntity c) {
         return find(OWLAxiom.class).task(Tasks.DESCRIBE).entity(c);
     }
 
+    /** The o. */
     protected OWLOntology o;
+    /** The search. */
     private Searches search;
+    /** The task. */
     private Tasks task;
+    /** The axiom type. */
     private AxiomType axiomType;
+    /** The entity. */
     private OWLEntity entity;
+    /** The direction. */
     private Direction direction = Direction.SUPER;
+    /** The include imports. */
     private boolean includeImports = true;
+    /** The ce. */
     private OWLClassExpression ce;
+    /** The property. */
     private OWLEntity property;
+    /** The individual. */
     private OWLIndividual individual;
+    /** The object property. */
     private OWLObjectPropertyExpression objectProperty;
+    /** The type. */
     private Types type;
 
+    /** Task.
+     * 
+     * @param t
+     *            the t
+     * @return the searcher */
     Searcher<T> task(Tasks t) {
         task = t;
         return this;
     }
 
-    /** toggle imports closure off
+    /** toggle imports closure off.
      * 
      * @return modified searcher */
     public Searcher<T> excludeImports() {
@@ -115,46 +194,66 @@ public class Searcher<T> implements Iterable<T> {
         return this;
     }
 
-    /** @return modified searcher */
+    /** Data.
+     * 
+     * @return modified searcher */
     public Searcher<T> data() {
         type = Types.DATA;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Object.
+     * 
+     * @return modified searcher */
     public Searcher<T> object() {
         type = Types.OBJECT;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Axioms of type.
+     * 
+     * @param type
+     *            the type
+     * @return modified searcher */
     public Searcher<T> axiomsOfType(AxiomType type) {
         axiomType = type;
         search = Searches.AXIOMS;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Entity.
+     * 
+     * @param e
+     *            the e
+     * @return modified searcher */
     public Searcher<T> entity(OWLEntity e) {
         search = Searches.ENTITIES;
         entity = e;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Classes.
+     * 
+     * @return modified searcher */
     public Searcher<T> classes() {
         search = Searches.CLASSES;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Classes.
+     * 
+     * @param c
+     *            the c
+     * @return modified searcher */
     public Searcher<T> classes(OWLClass c) {
         search = Searches.ENTITIES;
         entity = c;
         return this;
     }
 
-    /** @param c
+    /** Annotation axioms.
+     * 
+     * @param c
      *            annotated entity
      * @return modified searcher */
     public Searcher<T> annotationAxioms(OWLEntity c) {
@@ -163,7 +262,9 @@ public class Searcher<T> implements Iterable<T> {
         return this;
     }
 
-    /** @param c
+    /** Annotations.
+     * 
+     * @param c
      *            annotated entity
      * @return modified searcher */
     public Searcher<T> annotations(OWLEntity c) {
@@ -172,7 +273,9 @@ public class Searcher<T> implements Iterable<T> {
         return this;
     }
 
-    /** @param p
+    /** For property.
+     * 
+     * @param p
      *            property to consider
      * @return modified searcher */
     public Searcher<T> forProperty(OWLEntity p) {
@@ -180,7 +283,9 @@ public class Searcher<T> implements Iterable<T> {
         return this;
     }
 
-    /** @param ontology
+    /** In.
+     * 
+     * @param ontology
      *            the ontology
      * @return modified searcher */
     public Searcher<T> in(OWLOntology ontology) {
@@ -188,23 +293,32 @@ public class Searcher<T> implements Iterable<T> {
         return this;
     }
 
-    /** @param object
+    /** Contains.
+     * 
+     * @param object
+     *            the object
      * @return true if object is contained in the search results */
     public boolean contains(T object) {
         return asCollection().contains(object);
     }
 
-    /** @return true if there are no search results */
+    /** Checks if is empty.
+     * 
+     * @return true if there are no search results */
     public boolean isEmpty() {
         return asCollection().isEmpty();
     }
 
-    /** @return number of results */
+    /** Size.
+     * 
+     * @return number of results */
     public int size() {
         return asCollection().size();
     }
 
-    /** @return this searcher as a collection of results */
+    /** As collection.
+     * 
+     * @return this searcher as a collection of results */
     public Collection<T> asCollection() {
         if (search == Searches.TYPES) {
             Collection<T> toReturn = new HashSet<T>();
@@ -439,152 +553,242 @@ public class Searcher<T> implements Iterable<T> {
         return Collections.emptyList();
     }
 
-    /** @return modified searcher */
+    /** Sub.
+     * 
+     * @return modified searcher */
     public Searcher<T> sub() {
         direction = Direction.SUB;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Different.
+     * 
+     * @param i
+     *            the i
+     * @return modified searcher */
     public Searcher<T> different(OWLIndividual i) {
         direction = Direction.DIFFERENT;
         individual = i;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Same.
+     * 
+     * @param i
+     *            the i
+     * @return modified searcher */
     public Searcher<T> same(OWLIndividual i) {
         direction = Direction.SAME;
         individual = i;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Individual.
+     * 
+     * @param i
+     *            the i
+     * @return modified searcher */
     public Searcher<T> individual(OWLIndividual i) {
         individual = i;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Sup.
+     * 
+     * @return modified searcher */
     public Searcher<T> sup() {
         direction = Direction.SUPER;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Equivalent.
+     * 
+     * @return modified searcher */
     public Searcher<T> equivalent() {
         direction = Direction.EQUIVALENT;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Disjoint.
+     * 
+     * @return modified searcher */
     public Searcher<T> disjoint() {
         direction = Direction.DISJOINT;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Properties of.
+     * 
+     * @param d
+     *            the d
+     * @return modified searcher */
     public Searcher<T> propertiesOf(OWLEntity d) {
         search = Searches.PROPERTIES;
         entity = d;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Domains.
+     * 
+     * @param property
+     *            the property
+     * @return modified searcher */
     public Searcher<T> domains(OWLEntity property) {
         search = Searches.DOMAINS;
         entity = property;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Ranges.
+     * 
+     * @param property
+     *            the property
+     * @return modified searcher */
     public Searcher<T> ranges(OWLEntity property) {
         search = Searches.RANGES;
         entity = property;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Values.
+     * 
+     * @param p
+     *            the p
+     * @return modified searcher */
     public Searcher<T> values(OWLEntity p) {
         entity = p;
         search = Searches.VALUES;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Types.
+     * 
+     * @param p
+     *            the p
+     * @return modified searcher */
     public Searcher<T> types(OWLIndividual p) {
         individual = p;
         search = Searches.TYPES;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Individuals.
+     * 
+     * @param p
+     *            the p
+     * @return modified searcher */
     public Searcher<T> individuals(OWLClassExpression p) {
         ce = p;
         search = Searches.INSTANCES;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Inverse.
+     * 
+     * @param p
+     *            the p
+     * @return modified searcher */
     public Searcher<T> inverse(OWLObjectPropertyExpression p) {
         objectProperty = p;
         direction = Direction.INVERSE;
         return this;
     }
 
-    /** @return modified searcher */
+    /** Negative values.
+     * 
+     * @param p
+     *            the p
+     * @return modified searcher */
     public Searcher<T> negativeValues(OWLEntity p) {
         entity = p;
         search = Searches.NEGATIVEVALUES;
         return this;
     }
 
-    /** @return true for transitive properties */
+    /** Checks if is transitive.
+     * 
+     * @param e
+     *            the e
+     * @return true for transitive properties */
     public boolean isTransitive(OWLObjectProperty e) {
         return !o.getTransitiveObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for symmetric properties */
+    /** Checks if is symmetric.
+     * 
+     * @param e
+     *            the e
+     * @return true for symmetric properties */
     public boolean isSymmetric(OWLObjectProperty e) {
         return !o.getSymmetricObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for asymmetric properties */
+    /** Checks if is asymmetric.
+     * 
+     * @param e
+     *            the e
+     * @return true for asymmetric properties */
     public boolean isAsymmetric(OWLObjectProperty e) {
         return !o.getAsymmetricObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for reflexive properties */
+    /** Checks if is reflexive.
+     * 
+     * @param e
+     *            the e
+     * @return true for reflexive properties */
     public boolean isReflexive(OWLObjectProperty e) {
         return !o.getReflexiveObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for irreflexive properties */
+    /** Checks if is irreflexive.
+     * 
+     * @param e
+     *            the e
+     * @return true for irreflexive properties */
     public boolean isIrreflexive(OWLObjectProperty e) {
         return !o.getIrreflexiveObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for inverse functional properties */
+    /** Checks if is inverse functional.
+     * 
+     * @param e
+     *            the e
+     * @return true for inverse functional properties */
     public boolean isInverseFunctional(OWLObjectProperty e) {
         return !o.getInverseFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for functional object properties */
+    /** Checks if is functional.
+     * 
+     * @param e
+     *            the e
+     * @return true for functional object properties */
     public boolean isFunctional(OWLObjectProperty e) {
         return !o.getFunctionalObjectPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for functional data properties */
+    /** Checks if is functional.
+     * 
+     * @param e
+     *            the e
+     * @return true for functional data properties */
     public boolean isFunctional(OWLDataProperty e) {
         return !o.getFunctionalDataPropertyAxioms(e).isEmpty();
     }
 
-    /** @return true for defined classes */
+    /** Checks if is defined.
+     * 
+     * @param c
+     *            the c
+     * @return true for defined classes */
     public boolean isDefined(OWLClass c) {
         return !o.getEquivalentClassesAxioms(c).isEmpty();
     }
 
-    /** @param entity
+    /** Gets the annotation axioms.
+     * 
+     * @param entity
      *            entity to search
      * @param ontologies
      *            ontologis to search
@@ -598,7 +802,9 @@ public class Searcher<T> implements Iterable<T> {
         return result;
     }
 
-    /** @param entity
+    /** Gets the annotations.
+     * 
+     * @param entity
      *            entity to search
      * @param ontologies
      *            ontologies to search
@@ -612,7 +818,9 @@ public class Searcher<T> implements Iterable<T> {
         return result;
     }
 
-    /** @param entity
+    /** Gets the annotations.
+     * 
+     * @param entity
      *            entity to search
      * @param annotationProperty
      *            annotation property to match
@@ -693,45 +901,90 @@ public class Searcher<T> implements Iterable<T> {
     // }
     // return result;
     // }
+    /** The Class AxiomsRetriever. */
     private class AxiomsRetriever implements OWLEntityVisitorEx<Collection<T>> {
+        /** Instantiates a new axioms retriever. */
         public AxiomsRetriever() {
             // TODO Auto-generated constructor stub
         }
 
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
+         * .owlapi.model.OWLClass)
+         */
         @Override
         public Collection<T> visit(OWLClass e) {
             return (Collection<T>) o.getAxioms(e);
         }
 
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
+         * .owlapi.model.OWLObjectProperty)
+         */
         @Override
         public Collection<T> visit(OWLObjectProperty e) {
             return (Collection<T>) o.getAxioms(e);
         }
 
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
+         * .owlapi.model.OWLDataProperty)
+         */
         @Override
         public Collection<T> visit(OWLDataProperty e) {
             return (Collection<T>) o.getAxioms(e);
         }
 
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
+         * .owlapi.model.OWLNamedIndividual)
+         */
         @Override
         public Collection<T> visit(OWLNamedIndividual e) {
             return (Collection<T>) o.getAxioms(e);
         }
 
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
+         * .owlapi.model.OWLDatatype)
+         */
         @Override
         public Collection<T> visit(OWLDatatype e) {
             return (Collection<T>) o.getAxioms(e);
         }
 
+        /*
+         * (non-Javadoc)
+         * @see
+         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
+         * .owlapi.model.OWLAnnotationProperty)
+         */
         @Override
         public Collection<T> visit(OWLAnnotationProperty e) {
             return (Collection<T>) o.getAxioms(e);
         }
     }
 
+    /** The Class SupRetriever. */
     private class SupRetriever extends OWLEntityVisitorExAdapter<Collection<T>> {
+        /** Instantiates a new sup retriever. */
         public SupRetriever() {}
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLObjectProperty)
+         */
         @Override
         public Collection<T> visit(OWLObjectProperty e) {
             Collection<OWLObjectPropertyExpression> toReturn = new ArrayList<OWLObjectPropertyExpression>();
@@ -744,6 +997,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLDataProperty)
+         */
         @Override
         public Collection<T> visit(OWLDataProperty e) {
             Collection<OWLDataPropertyExpression> toReturn = new ArrayList<OWLDataPropertyExpression>();
@@ -756,6 +1014,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLAnnotationProperty)
+         */
         @Override
         public Collection<T> visit(OWLAnnotationProperty e) {
             Collection<OWLAnnotationProperty> toReturn = new ArrayList<OWLAnnotationProperty>();
@@ -768,6 +1031,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLClass)
+         */
         @Override
         public Collection<T> visit(OWLClass desc) {
             // TODO same operation should be allowed on class expressions
@@ -781,11 +1049,21 @@ public class Searcher<T> implements Iterable<T> {
         }
     }
 
+    /** The Class SubRetriever.
+     * 
+     * @param <T>
+     *            the generic type */
     private class SubRetriever<T> extends OWLEntityVisitorExAdapter<Collection<T>> {
+        /** Instantiates a new sub retriever. */
         public SubRetriever() {
             // TODO Auto-generated constructor stub
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLObjectProperty)
+         */
         @Override
         public Collection<T> visit(OWLObjectProperty e) {
             Collection<OWLObjectPropertyExpression> toReturn = new ArrayList<OWLObjectPropertyExpression>();
@@ -798,6 +1076,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLDataProperty)
+         */
         @Override
         public Collection<T> visit(OWLDataProperty e) {
             Collection<OWLDataPropertyExpression> toReturn = new ArrayList<OWLDataPropertyExpression>();
@@ -810,6 +1093,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLAnnotationProperty)
+         */
         @Override
         public Collection<T> visit(OWLAnnotationProperty e) {
             Collection<OWLAnnotationProperty> toReturn = new ArrayList<OWLAnnotationProperty>();
@@ -824,6 +1112,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLClass)
+         */
         @Override
         public Collection<T> visit(OWLClass desc) {
             // TODO same operation should be allowed on class expressions
@@ -837,11 +1130,21 @@ public class Searcher<T> implements Iterable<T> {
         }
     }
 
+    /** The Class EquivalentRetriever.
+     * 
+     * @param <T>
+     *            the generic type */
     private class EquivalentRetriever<T> extends OWLEntityVisitorExAdapter<Collection<T>> {
+        /** Instantiates a new equivalent retriever. */
         public EquivalentRetriever() {
             // TODO Auto-generated constructor stub
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLObjectProperty)
+         */
         @Override
         public Collection<T> visit(OWLObjectProperty e) {
             Collection<OWLObjectPropertyExpression> toReturn = new ArrayList<OWLObjectPropertyExpression>();
@@ -854,6 +1157,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLDataProperty)
+         */
         @Override
         public Collection<T> visit(OWLDataProperty e) {
             Collection<OWLDataPropertyExpression> toReturn = new ArrayList<OWLDataPropertyExpression>();
@@ -866,6 +1174,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLClass)
+         */
         @Override
         public Collection<T> visit(OWLClass desc) {
             // TODO same operation should be allowed on class expressions
@@ -879,11 +1192,21 @@ public class Searcher<T> implements Iterable<T> {
         }
     }
 
+    /** The Class DisjointRetriever.
+     * 
+     * @param <T>
+     *            the generic type */
     private class DisjointRetriever<T> extends OWLEntityVisitorExAdapter<Collection<T>> {
+        /** Instantiates a new disjoint retriever. */
         public DisjointRetriever() {
             // TODO Auto-generated constructor stub
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLObjectProperty)
+         */
         @Override
         public Collection<T> visit(OWLObjectProperty e) {
             Collection<OWLObjectPropertyExpression> toReturn = new ArrayList<OWLObjectPropertyExpression>();
@@ -896,6 +1219,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLDataProperty)
+         */
         @Override
         public Collection<T> visit(OWLDataProperty e) {
             Collection<OWLDataPropertyExpression> toReturn = new ArrayList<OWLDataPropertyExpression>();
@@ -908,6 +1236,11 @@ public class Searcher<T> implements Iterable<T> {
             return (Collection<T>) toReturn;
         }
 
+        /*
+         * (non-Javadoc)
+         * @see org.semanticweb.owlapi.util.OWLEntityVisitorExAdapter#visit(org.
+         * semanticweb.owlapi.model.OWLClass)
+         */
         @Override
         public Collection<T> visit(OWLClass desc) {
             // TODO same operation should be allowed on class expressions
@@ -922,6 +1255,10 @@ public class Searcher<T> implements Iterable<T> {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Iterable#iterator()
+     */
     @Override
     public Iterator<T> iterator() {
         return asCollection().iterator();

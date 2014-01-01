@@ -1,12 +1,9 @@
 package org.semanticweb.owlapi.model;
 
-/** Author: Matthew Horridge<br>
- * Stanford University<br>
- * Bio-Medical Informatics Research Group<br>
- * Date: 29/07/2013
- * <p>
- * An interface to objects that have an {@link OWLOntologyID}.
- * </p> */
+/** An interface to objects that have an {@link OWLOntologyID}.
+ * 
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 29/07/2013 */
 public interface HasOntologyID {
     /** Gets the {@link OWLOntologyID} belonging to this object.
      * 

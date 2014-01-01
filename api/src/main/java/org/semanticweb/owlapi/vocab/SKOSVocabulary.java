@@ -40,7 +40,6 @@ package org.semanticweb.owlapi.vocab;
 
 import static org.semanticweb.owlapi.model.EntityType.*;
 
-import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -133,13 +132,9 @@ public enum SKOSVocabulary implements HasIRI {
         return localName;
     }
 
-    /** @return iri */
+    @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    public URI getURI() {
-        return iri.toURI();
     }
 
     /** @param dataFactory

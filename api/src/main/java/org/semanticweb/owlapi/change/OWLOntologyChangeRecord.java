@@ -76,6 +76,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 03/05/2012
+ * @param <T>
+ *            change type
  * @since 3.4.3 */
 public class OWLOntologyChangeRecord<T> implements Serializable {
     private static final long serialVersionUID = 40000L;
@@ -111,6 +113,8 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      * 
      * @param change
      *            The {@link OWLOntologyChange} object.
+     * @param <T>
+     *            change type
      * @return instance of OntologychangeRecord */
     @Nonnull
     public static <T> OWLOntologyChangeRecord<T> createFromOWLOntologyChange(

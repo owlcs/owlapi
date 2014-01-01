@@ -50,7 +50,7 @@ public interface OWLDataExactCardinality extends OWLDataCardinalityRestriction {
      * max cardinality restriction.
      * 
      * @return The semantically equivalent but structurally simpler form simp(=
-     *         1 R C) = >= 1 R C and <= 1 R C */
+     *         1 R C) = &gt;= 1 R C and &lt;= 1 R C */
     @Nonnull
     OWLClassExpression asIntersectionOfMinMax();
 }
