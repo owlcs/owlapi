@@ -11,7 +11,9 @@ public class ParseTypeResourcePropertyElement implements State {
     private RDFParser parser;
 
     /** @param nodeElement
-     * @param parser */
+     *            nodeElement
+     * @param parser
+     *            parser */
     public ParseTypeResourcePropertyElement(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;

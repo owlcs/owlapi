@@ -151,6 +151,7 @@ public abstract class RDFRendererBase {
      * 
      * @throws IOException
      *             if there was a problem writing to the output stream */
+    @SuppressWarnings("unused")
     protected void beginObject() throws IOException {}
 
     /** Called after an OWLObject such as an entity, anonymous individual, rule
@@ -158,6 +159,7 @@ public abstract class RDFRendererBase {
      * 
      * @throws IOException
      *             if there was a problem writing to the output stream */
+    @SuppressWarnings("unused")
     protected void endObject() throws IOException {}
 
     /** Called before an annotation property is rendered to give subclasses the
@@ -226,7 +228,10 @@ public abstract class RDFRendererBase {
         endDocument();
     }
 
-    /** Rendering implementation */
+    /** Rendering implementation
+     * 
+     * @throws IOException
+     *             io exception */
     private void renderOntologyComponents() throws IOException {
         renderInOntologySignatureEntities();
         renderAnonymousIndividuals();

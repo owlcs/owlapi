@@ -89,8 +89,7 @@ public class TurtleRenderer extends RDFRendererBase {
      * @param writer
      *            writer
      * @param format
-     *            format
-     * @param format */
+     *            format */
     public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");

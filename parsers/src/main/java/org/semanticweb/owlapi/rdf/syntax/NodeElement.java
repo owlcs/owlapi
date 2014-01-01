@@ -8,31 +8,48 @@ import org.xml.sax.SAXException;
 
 /** Parses the nodeElement production. */
 public class NodeElement implements State {
+    /** The m_subject iri. */
     protected String m_subjectIRI;
+    /** The m_reification manager. */
     protected ReificationManager m_reificationManager;
+    /** The m_next li. */
     protected int m_nextLi = 1;
+    /** The parser. */
     private RDFParser parser;
 
-    /** @param parser */
+    /** Instantiates a new node element.
+     * 
+     * @param parser
+     *            the parser */
     public NodeElement(RDFParser parser) {
         this.parser = parser;
     }
 
-    /** @param atts
-     * @throws SAXException */
+    /** Start dummy element.
+     * 
+     * @param atts
+     *            the atts
+     * @throws SAXException
+     *             the sAX exception */
     public void startDummyElement(Attributes atts) throws SAXException {
         m_subjectIRI = NodeID.nextAnonymousIRI();
         m_reificationManager = parser.getReificationManager(atts);
     }
 
-    /** @return subject iri */
+    /** Gets the subject iri.
+     * 
+     * @return subject iri */
     public String getSubjectIRI() {
         return m_subjectIRI;
     }
 
-    /** @param atts
+    /** Gets the reification id.
+     * 
+     * @param atts
+     *            the atts
      * @return reification id
-     * @throws SAXException */
+     * @throws SAXException
+     *             the sAX exception */
     public String getReificationID(Attributes atts) throws SAXException {
         String rdfID = atts.getValue(RDFConstants.RDFNS, RDFConstants.ATTR_ID);
         if (rdfID != null) {
@@ -41,12 +58,17 @@ public class NodeElement implements State {
         return m_reificationManager.getReificationID(rdfID);
     }
 
-    /** @return next list item */
+    /** Gets the next li.
+     * 
+     * @return next list item */
     public String getNextLi() {
         return RDFConstants.RDFNS + "_" + m_nextLi++;
     }
 
-    /** @param uri
+    /** Gets the property iri.
+     * 
+     * @param uri
+     *            the uri
      * @return property iri */
     public String getPropertyIRI(String uri) {
         if (RDFConstants.RDF_LI.equals(uri)) {
@@ -56,6 +78,12 @@ public class NodeElement implements State {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.semanticweb.owlapi.rdf.syntax.State#startElement(java.lang.String,
+     * java.lang.String, java.lang.String, org.xml.sax.Attributes)
+     */
     @Override
     public void startElement(String namespaceIRI, String localName, String qName,
             Attributes atts) throws SAXException {
@@ -71,12 +99,21 @@ public class NodeElement implements State {
         parser.pushState(new PropertyElementList(this, parser));
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.rdf.syntax.State#endElement(java.lang.String,
+     * java.lang.String, java.lang.String)
+     */
     @Override
     public void endElement(String namespaceIRI, String localName, String qName)
             throws SAXException {
         parser.popState();
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.rdf.syntax.State#characters(char[], int, int)
+     */
     @Override
     public void characters(char[] data, int start, int length) throws SAXException {
         if (!parser.isWhitespaceOnly(data, start, length)) {

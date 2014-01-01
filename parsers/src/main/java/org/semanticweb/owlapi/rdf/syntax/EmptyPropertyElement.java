@@ -12,7 +12,9 @@ public class EmptyPropertyElement implements State {
     private RDFParser parser;
 
     /** @param nodeElement
-     * @param parser */
+     *            node element
+     * @param parser
+     *            parser */
     public EmptyPropertyElement(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;

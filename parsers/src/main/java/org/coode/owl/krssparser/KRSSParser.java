@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** The Class KRSSParser. */
-@SuppressWarnings("unused")
 public class KRSSParser implements KRSSParserConstants {
     /** The ontology. */
     private OWLOntology ontology;

@@ -157,8 +157,6 @@ public class ManchesterOWLSyntaxFrameRenderer extends ManchesterOWLSyntaxObjectR
      * 
      * @param ontologies
      *            the ontologies
-     * @param defaultOntology
-     *            the default ontology
      * @param writer
      *            the writer
      * @param entityShortFormProvider

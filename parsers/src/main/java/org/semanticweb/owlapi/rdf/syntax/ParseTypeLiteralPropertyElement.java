@@ -14,7 +14,9 @@ public class ParseTypeLiteralPropertyElement implements State {
     private RDFParser parser;
 
     /** @param nodeElement
-     * @param parser */
+     *            nodeElement
+     * @param parser
+     *            parser */
     public ParseTypeLiteralPropertyElement(NodeElement nodeElement, RDFParser parser) {
         m_nodeElement = nodeElement;
         this.parser = parser;

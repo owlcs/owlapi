@@ -63,7 +63,7 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group, Date: 15-Jun-2007 */
-@SuppressWarnings({ "unused", "javadoc" })
+@SuppressWarnings("unused")
 public class LatexBracketChecker implements OWLClassExpressionVisitor {
     private boolean requiresBracket;
     private static LatexBracketChecker instance = new LatexBracketChecker();
@@ -80,7 +80,8 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
-    /** @param node */
+    /** @param node
+     *            node */
     public void visit(OWLDataCardinalityRestriction node) {
         requiresBracket = true;
     }
@@ -100,7 +101,8 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
         requiresBracket = true;
     }
 
-    /** @param node */
+    /** @param node
+     *            node */
     public void visit(OWLObjectCardinalityRestriction node) {
         requiresBracket = true;
     }
@@ -171,6 +173,7 @@ public class LatexBracketChecker implements OWLClassExpressionVisitor {
     }
 
     /** @param classExpression
+     *            class expression
      * @return true if bracket required */
     public static boolean requiresBracket(OWLClassExpression classExpression) {
         instance.requiresBracket = true;

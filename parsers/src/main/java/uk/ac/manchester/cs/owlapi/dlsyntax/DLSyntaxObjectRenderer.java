@@ -167,6 +167,7 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
     }
 
     /** @param obj
+     *            obj
      * @return true if obj is equal to focusedObject */
     public boolean isFocusedObject(OWLObject obj) {
         if (focusedObject == null) {

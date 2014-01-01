@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.expression;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,6 +51,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 11-Sep-2007 */
 public class ParserException extends OWLParserException {
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 40000L;
     /** The current token. */
     private String currentToken;
@@ -76,7 +78,7 @@ public class ParserException extends OWLParserException {
     /** The ontology name expected. */
     private boolean ontologyNameExpected = false;
     /** The expected keywords. */
-    private Set<String> expectedKeywords;
+    private Set<String> expectedKeywords = new LinkedHashSet<String>();
     /** The start pos. */
     private int startPos;
 
@@ -122,6 +124,30 @@ public class ParserException extends OWLParserException {
         this.integerExpected = integerExpected;
     }
 
+    /** Instantiates a new parser exception.
+     * 
+     * @param tokenSequence
+     *            the token sequence
+     * @param startPos
+     *            the start pos
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number
+     * @param classNameExpected
+     *            the class name expected
+     * @param objectPropertyNameExpected
+     *            the object property name expected
+     * @param dataPropertyNameExpected
+     *            the data property name expected
+     * @param individualNameExpected
+     *            the individual name expected
+     * @param datatypeNameExpected
+     *            the datatype name expected
+     * @param annotationPropertyExpected
+     *            the annotation property expected
+     * @param expectedKeywords
+     *            the expected keywords */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
             int columnNumber, boolean classNameExpected,
             boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
@@ -138,10 +164,36 @@ public class ParserException extends OWLParserException {
         this.individualNameExpected = individualNameExpected;
         this.datatypeNameExpected = datatypeNameExpected;
         this.annotationPropertyExpected = annotationPropertyExpected;
-        this.expectedKeywords.addAll(expectedKeywords);
+        if (expectedKeywords != null) {
+            this.expectedKeywords.addAll(expectedKeywords);
+        }
         this.startPos = startPos;
     }
 
+    /** Instantiates a new parser exception.
+     * 
+     * @param tokenSeqence
+     *            the token seqence
+     * @param startPos
+     *            the start pos
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number
+     * @param classNameExpected
+     *            the class name expected
+     * @param objectPropertyNameExpected
+     *            the object property name expected
+     * @param dataPropertyNameExpected
+     *            the data property name expected
+     * @param individualNameExpected
+     *            the individual name expected
+     * @param datatypeNameExpected
+     *            the datatype name expected
+     * @param annotationPropertyExpected
+     *            the annotation property expected
+     * @param keywords
+     *            the keywords */
     public ParserException(List<String> tokenSeqence, int startPos, int lineNumber,
             int columnNumber, boolean classNameExpected,
             boolean objectPropertyNameExpected, boolean dataPropertyNameExpected,
@@ -153,6 +205,18 @@ public class ParserException extends OWLParserException {
                 CollectionFactory.createSet(keywords));
     }
 
+    /** Instantiates a new parser exception.
+     * 
+     * @param tokenSequence
+     *            the token sequence
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number
+     * @param integerExpected
+     *            the integer expected
+     * @param startPos
+     *            the start pos */
     public ParserException(List<String> tokenSequence, int lineNumber, int columnNumber,
             boolean integerExpected, int startPos) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false,
@@ -160,6 +224,18 @@ public class ParserException extends OWLParserException {
         this.integerExpected = integerExpected;
     }
 
+    /** Instantiates a new parser exception.
+     * 
+     * @param tokenSequence
+     *            the token sequence
+     * @param startPos
+     *            the start pos
+     * @param lineNumber
+     *            the line number
+     * @param columnNumber
+     *            the column number
+     * @param keywords
+     *            the keywords */
     public ParserException(List<String> tokenSequence, int startPos, int lineNumber,
             int columnNumber, String... keywords) {
         this(tokenSequence, startPos, lineNumber, columnNumber, false, false, false,
@@ -243,11 +319,19 @@ public class ParserException extends OWLParserException {
         return currentToken;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.io.OWLParserException#getLineNumber()
+     */
     @Override
     public int getLineNumber() {
         return lineNumber;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.io.OWLParserException#getColumnNumber()
+     */
     @Override
     public int getColumnNumber() {
         return columnNumber;
@@ -260,6 +344,10 @@ public class ParserException extends OWLParserException {
         return integerExpected;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.semanticweb.owlapi.io.OWLParserException#getMessage()
+     */
     @Override
     public String getMessage() {
         StringBuilder sb = new StringBuilder();

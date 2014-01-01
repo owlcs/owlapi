@@ -260,7 +260,9 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     private int lastNewLinePos = 0;
 
     /** @param ontology
-     * @param writer */
+     *            ontology
+     * @param writer
+     *            writer */
     public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = new PrintWriter(writer);

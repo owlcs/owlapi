@@ -178,7 +178,9 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /** Add type triples and the owl:onProperty triples for an OWLRestriction.
      * 
      * @param desc
-     *            The restriction */
+     *            The restriction
+     * @param property
+     *            property */
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
             void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,

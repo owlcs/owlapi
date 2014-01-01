@@ -286,8 +286,6 @@ public class OWLRDFConsumer implements RDFConsumer {
      * 
      * @param ontology
      *            the ontology
-     * @param checker
-     *            the checker
      * @param configuration
      *            the configuration */
     public OWLRDFConsumer(OWLOntology ontology,

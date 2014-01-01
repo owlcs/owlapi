@@ -16,7 +16,9 @@ public class ResourceOrLiteralPropertyElement implements State {
     private RDFParser parser;
 
     /** @param nodeElement
-     * @param parser */
+     *            nodeElement
+     * @param parser
+     *            parser */
     public ResourceOrLiteralPropertyElement(NodeElement nodeElement, RDFParser parser) {
         this.nodeElement = nodeElement;
         this.parser = parser;

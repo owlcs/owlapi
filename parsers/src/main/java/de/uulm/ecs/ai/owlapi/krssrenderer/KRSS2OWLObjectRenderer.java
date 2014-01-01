@@ -87,7 +87,9 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
     private final Writer writer;
 
     /** @param ontology
-     * @param writer */
+     *            ontology
+     * @param writer
+     *            writer */
     public KRSS2OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;

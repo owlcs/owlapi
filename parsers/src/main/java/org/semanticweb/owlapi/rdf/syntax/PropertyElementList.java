@@ -12,7 +12,9 @@ public class PropertyElementList implements State {
     private RDFParser parser;
 
     /** @param nodeElement
-     * @param parser */
+     *            node element
+     * @param parser
+     *            parser */
     public PropertyElementList(NodeElement nodeElement, RDFParser parser) {
         this.nodeElement = nodeElement;
         this.parser = parser;

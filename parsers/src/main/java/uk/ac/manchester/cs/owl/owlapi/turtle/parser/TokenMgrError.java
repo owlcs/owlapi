@@ -43,7 +43,7 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Token Manager Error. */
-@SuppressWarnings({ "javadoc", "unused" })
+@SuppressWarnings("unused")
 public class TokenMgrError extends OWLRuntimeException {
     /** The version identifier for this Serializable class. Increment only if the
      * <i>serialized</i> form of the class changes. */

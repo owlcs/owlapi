@@ -109,7 +109,7 @@ public class JJTOWLFunctionalSyntaxParserState {
         return sp - mk;
     }
 
-    public void clearNodeScope(@SuppressWarnings("unused") Node n) {
+    public void clearNodeScope(Node n) {
         while (sp > mk) {
             popNode();
         }

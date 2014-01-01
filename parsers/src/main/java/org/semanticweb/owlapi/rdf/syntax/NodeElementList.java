@@ -7,7 +7,8 @@ import org.xml.sax.SAXException;
 public class NodeElementList implements State {
     private RDFParser parser;
 
-    /** @param parser */
+    /** @param parser
+     *            parser */
     public NodeElementList(RDFParser parser) {
         this.parser = parser;
     }

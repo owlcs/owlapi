@@ -8,7 +8,8 @@ import org.xml.sax.SAXException;
 public class StartRDF implements State {
     private final RDFParser parser;
 
-    /** @param parser */
+    /** @param parser
+     *            parser */
     public StartRDF(RDFParser parser) {
         this.parser = parser;
     }

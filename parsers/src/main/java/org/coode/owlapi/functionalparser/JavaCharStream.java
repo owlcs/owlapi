@@ -32,7 +32,7 @@ public class JavaCharStream extends uk.ac.manchester.cs.BOMSafeJavaCharStream {
      *            start line
      * @param startcolumn
      *            start column
-     * @throws UnsupportedEncodingException
+     * @throws java.io.UnsupportedEncodingException
      *             for unsupported encoding */
     public JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
             int startcolumn) throws java.io.UnsupportedEncodingException {

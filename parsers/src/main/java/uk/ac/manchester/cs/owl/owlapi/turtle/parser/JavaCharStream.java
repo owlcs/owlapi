@@ -2,6 +2,8 @@
 /* JavaCCOptions:STATIC=false,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
+import java.io.UnsupportedEncodingException;
+
 /** Wrapper for the common JavaCharStream for all parsers. This is needed because
  * we have a request to support UTF-8 files that have an initial BOM. UTF-8 does
  * not need BOMs but some tools insist adding them. Java on the other hand won't
@@ -35,7 +37,7 @@ public class JavaCharStream extends uk.ac.manchester.cs.BOMSafeJavaCharStream {
      * @throws UnsupportedEncodingException
      *             for unsupported encoding */
     public JavaCharStream(java.io.InputStream dstream, String encoding, int startline,
-            int startcolumn) throws java.io.UnsupportedEncodingException {
+            int startcolumn) throws UnsupportedEncodingException {
         super(dstream, encoding, startline, startcolumn, 4096);
     }
 }
