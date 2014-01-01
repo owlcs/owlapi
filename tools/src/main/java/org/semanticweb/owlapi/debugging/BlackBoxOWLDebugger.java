@@ -73,15 +73,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Nov-2006<br>
- * <br>
- * <p/>
- * This is an implementation of a blackbox debugger. The implementation is based
+/** This is an implementation of a blackbox debugger. The implementation is based
  * on the description of a black box debugger as described in Aditya Kalyanpur's
- * PhD Thesis : "Debugging and Repair of OWL Ontologies". */
+ * PhD Thesis : "Debugging and Repair of OWL Ontologies".
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Nov-2006 */
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     /** The Constant LOGGER. */
     private static final Logger LOGGER = Logger.getLogger(BlackBoxOWLDebugger.class

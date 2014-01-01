@@ -104,14 +104,11 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 import uk.ac.manchester.cs.bhig.util.Tree;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2008<br>
- * <br>
- * <p/>
- * Provides ordering and indenting of explanations based on various ordering
- * heuristics. */
+/** Provides ordering and indenting of explanations based on various ordering
+ * heuristics.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 11-Jan-2008 */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The current explanation. */
     private Set<OWLAxiom> currentExplanation;

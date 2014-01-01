@@ -47,12 +47,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 17-Jan-2008<br>
- * <br>
- * . */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 17-Jan-2008 */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     /** The reasoner. */
     private final OWLReasoner reasoner;

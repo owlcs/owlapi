@@ -671,14 +671,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      *            Admissible values for superClassLevel (analogously for
      *            subClassLevel):
      *            <ul>
-     *            <li>If superClassLevel > 0, then all classes C are included
-     *            for which the class hierarchy computed by the reasoner
-     *            contains a path of length at most superClassLevel downwards
-     *            from C to some class from the signature.</li>
+     *            <li>If superClassLevel greater than 0, then all classes C are
+     *            included for which the class hierarchy computed by the
+     *            reasoner contains a path of length at most superClassLevel
+     *            downwards from C to some class from the signature.</li>
      *            <li>If superClassLevel = 0, then no super-/subclasses are
      *            added.</li>
-     *            <li>If superClassLevel < 0, then all direct and indirect
-     *            super-/subclasses of any class in the signature are added.</li>
+     *            <li>If superClassLevel lesser than 0, then all direct and
+     *            indirect super-/subclasses of any class in the signature are
+     *            added.</li>
      *            </ul>
      * @param reasoner
      *            the reasoner to determine super-/subclasses. This can be an

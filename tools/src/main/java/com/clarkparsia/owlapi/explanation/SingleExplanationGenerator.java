@@ -49,46 +49,32 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-// TODO: Auto-generated Javadoc
-/**
- * Explanation generator for a single explanation.
- */
+/** Explanation generator for a single explanation. */
 public interface SingleExplanationGenerator {
-    
-    /**
-     * Gets the ontology manager.
-     *
-     * @return the ontology manager for this explanation generator.
-     */
+    /** Gets the ontology manager.
+     * 
+     * @return the ontology manager for this explanation generator. */
     @Nonnull
     OWLOntologyManager getOntologyManager();
 
-    /**
-     * Gets the ontology.
-     *
-     * @return the ontology according to which the explanations are generated
-     */
+    /** Gets the ontology.
+     * 
+     * @return the ontology according to which the explanations are generated */
     @Nonnull
     OWLOntology getOntology();
 
-    /**
-     * dispose of the reasoners and ontologies.
-     */
+    /** dispose of the reasoners and ontologies. */
     void dispose();
 
-    /**
-     * Gets the reasoner.
-     *
-     * @return the reasoner associated with this generator.
-     */
+    /** Gets the reasoner.
+     * 
+     * @return the reasoner associated with this generator. */
     @Nonnull
     OWLReasoner getReasoner();
 
-    /**
-     * Gets the reasoner factory.
-     *
-     * @return the reasoner factory used to create fresh reasoners.
-     */
+    /** Gets the reasoner factory.
+     * 
+     * @return the reasoner factory used to create fresh reasoners. */
     @Nonnull
     OWLReasonerFactory getReasonerFactory();
 

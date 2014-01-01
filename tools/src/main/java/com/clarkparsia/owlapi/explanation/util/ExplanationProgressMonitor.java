@@ -44,7 +44,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-// TODO: Auto-generated Javadoc
 /** A progress monitor for an explanation generator. The progress monitor should
  * be used with an {@code MultipleExpalanationGenerator}
  * 

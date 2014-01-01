@@ -72,17 +72,9 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-// TODO: Auto-generated Javadoc
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br>
- * <br>
- * <p/>
- * This composite change will create a value partion - see "pattern 2" in
+/** This composite change will create a value partion - see "pattern 2" in
  * "Representing Specified Values in OWL: "value partitions" and "value sets""
- * (http://www.w3.org/TR/swbp-specified-values.)
- * <p/>
+ * (http://www.w3.org/TR/swbp-specified-values.)<br>
  * A value partition is an ontology design pattern which is used to represent a
  * set of closed values for a particular property. For example the property
  * hasSize might only take values from SmallSize, MediumSize and LargeSize. In
@@ -90,7 +82,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * MediumSize and LargeSize. This composite change will set hasSize to be
  * functional and its range as Size. Size will be covered by SmallSize,
  * MediumSize and LargeSize and these classes which represent the values will be
- * made disjoint with eachother. */
+ * made disjoint with eachother.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
     /** Creates a composite change that will create a value partition.
      * 
@@ -122,14 +117,16 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
                         "valuePartitionProperty cannot be null"));
     }
 
-    /**
-     * Generate changes.
-     *
-     * @param targetOntology the target ontology
-     * @param valuePartionClasses the value partion classes
-     * @param valuePartitionClass the value partition class
-     * @param valuePartitionProperty the value partition property
-     */
+    /** Generate changes.
+     * 
+     * @param targetOntology
+     *            the target ontology
+     * @param valuePartionClasses
+     *            the value partion classes
+     * @param valuePartitionClass
+     *            the value partition class
+     * @param valuePartitionProperty
+     *            the value partition property */
     private void generateChanges(OWLOntology targetOntology,
             Set<OWLClass> valuePartionClasses, OWLClass valuePartitionClass,
             OWLObjectProperty valuePartitionProperty) {

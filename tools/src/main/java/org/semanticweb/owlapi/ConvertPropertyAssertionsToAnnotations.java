@@ -81,36 +81,30 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-// TODO: Auto-generated Javadoc
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br>
- * <br>
- * <p/>
- * Given a set of ontologies, this composite change will convert all property
+/** Given a set of ontologies, this composite change will convert all property
  * assertion axioms whose subject is a 'punned' individual (i.e. an individual
  * that shares a name with a class), removes these axioms and replaces them with
  * annotations on the class that shares the same name as the individual. For
  * example for a class A and an individual A, the data property assertion
  * hasX(A, "Val") would be converted to an entity annotation on the class A with
- * an annotation URI of "hasX" and a value of "Val".
- * <p/>
+ * an annotation URI of "hasX" and a value of "Val".<br>
  * This composite change supports refactoring an ontology where punning was used
  * to simulate annotations on a class rather than using actual annotations on a
- * class. */
+ * class.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class ConvertPropertyAssertionsToAnnotations extends
         AbstractCompositeOntologyChange {
-    
     /** The ontologies. */
     private final Set<OWLOntology> ontologies;
 
-    /**
-     * Instantiates a new convert property assertions to annotations.
-     *
-     * @param dataFactory factory to use
-     * @param ontologies ontologies to change
-     */
+    /** Instantiates a new convert property assertions to annotations.
+     * 
+     * @param dataFactory
+     *            factory to use
+     * @param ontologies
+     *            ontologies to change */
     public ConvertPropertyAssertionsToAnnotations(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
@@ -118,12 +112,11 @@ public class ConvertPropertyAssertionsToAnnotations extends
         generateChanges();
     }
 
-    /**
-     * Gets the punned individuals.
-     *
-     * @param individuals the individuals
-     * @return the punned individuals
-     */
+    /** Gets the punned individuals.
+     * 
+     * @param individuals
+     *            the individuals
+     * @return the punned individuals */
     @Nonnull
     private Collection<OWLNamedIndividual> getPunnedIndividuals(
             Collection<OWLNamedIndividual> individuals) {
@@ -138,9 +131,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
         return punned;
     }
 
-    /**
-     * Generate changes.
-     */
+    /** Generate changes. */
     private void generateChanges() {
         Collection<OWLNamedIndividual> individuals = getPunnedIndividuals(collectIndividuals());
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
@@ -153,11 +144,10 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /**
-     * Removes the declarations and axioms.
-     *
-     * @param prop the prop
-     */
+    /** Removes the declarations and axioms.
+     * 
+     * @param prop
+     *            the prop */
     private void removeDeclarationsAndAxioms(@Nonnull OWLDataProperty prop) {
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
@@ -169,11 +159,10 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /**
-     * Removes the declarations and class assertions.
-     *
-     * @param ind the ind
-     */
+    /** Removes the declarations and class assertions.
+     * 
+     * @param ind
+     *            the ind */
     private void removeDeclarationsAndClassAssertions(@Nonnull OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getDeclarationAxioms(ind)) {
@@ -185,12 +174,12 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /**
-     * Convert data assertions to annotations.
-     *
-     * @param convertedDataProperties the converted data properties
-     * @param ind the ind
-     */
+    /** Convert data assertions to annotations.
+     * 
+     * @param convertedDataProperties
+     *            the converted data properties
+     * @param ind
+     *            the ind */
     private void convertDataAssertionsToAnnotations(
             Set<OWLDataProperty> convertedDataProperties, OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
@@ -205,13 +194,13 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /**
-     * Convert to annotation.
-     *
-     * @param ind the ind
-     * @param ax the ax
-     * @return the oWL annotation assertion axiom
-     */
+    /** Convert to annotation.
+     * 
+     * @param ind
+     *            the ind
+     * @param ax
+     *            the ax
+     * @return the oWL annotation assertion axiom */
     @Nonnull
     private OWLAnnotationAssertionAxiom convertToAnnotation(
             @Nonnull OWLNamedIndividual ind, @Nonnull OWLDataPropertyAssertionAxiom ax) {
@@ -223,11 +212,9 @@ public class ConvertPropertyAssertionsToAnnotations extends
         return annoAx;
     }
 
-    /**
-     * Collect individuals.
-     *
-     * @return the sets the
-     */
+    /** Collect individuals.
+     * 
+     * @return the sets the */
     @Nonnull
     private Set<OWLNamedIndividual> collectIndividuals() {
         Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();

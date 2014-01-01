@@ -38,10 +38,7 @@
  */
 package com.clarkparsia.owlapi.modularity.locality;
 
-// TODO: Auto-generated Javadoc
-/**
- * Types of locality classes that can be used.
- */
+/** Types of locality classes that can be used. */
 public enum LocalityClass {
     /** Locality class obtained when concepts and roles not present in the
      * signature are given empty interpretations. In the literature, ^{r

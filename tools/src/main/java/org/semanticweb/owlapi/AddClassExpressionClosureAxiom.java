@@ -57,22 +57,18 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Jul-2007<br>
- * <br>
- * <p/>
- * This composite change adds a 'closure' axiom to an ontology for a given class
+/** This composite change adds a 'closure' axiom to an ontology for a given class
  * and object property. In this case, a closure axiom is defined for a given
  * class, A, and object property, P, to be a subclass axiom, whose subclass is
  * class A, and whose superclass is a universal restriction along the property,
  * P, whose filler is the union of any other existential (including hasValue
  * restrictions - i.e. nominals) restriction fillers that are the superclasses
- * of class A.
- * <p/>
+ * of class A. <br>
  * This code is based on the tutorial examples by Sean Bechhofer (see the
- * tutorial module). */
+ * tutorial module).
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Jul-2007 */
 public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
     /** Creates a composite change that will add a closure axiom for a given
      * class along a specified property.

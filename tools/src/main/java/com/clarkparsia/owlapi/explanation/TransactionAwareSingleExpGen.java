@@ -38,10 +38,7 @@
  */
 package com.clarkparsia.owlapi.explanation;
 
-// TODO: Auto-generated Javadoc
-/**
- * transactional support for single explanation generator.
- */
+/** transactional support for single explanation generator. */
 public interface TransactionAwareSingleExpGen extends SingleExplanationGenerator {
     /** Indicates to the explanation generator that a transaction which may
      * modify the ontology state is starting. Intended to allow the explanation

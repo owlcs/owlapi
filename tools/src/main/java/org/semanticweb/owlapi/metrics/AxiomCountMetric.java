@@ -45,30 +45,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-// TODO: Auto-generated Javadoc
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 20-Dec-2007<br>
- * <br>.
- */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Dec-2007 */
 public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
-    
-    /**
-     * Instantiates a new axiom count metric.
-     *
-     * @param o ontology to use
-     */
+    /** Instantiates a new axiom count metric.
+     * 
+     * @param o
+     *            ontology to use */
     public AxiomCountMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 
-    /**
-     * Gets the axioms.
-     *
-     * @return the set of axioms
-     */
+    /** Gets the axioms.
+     * 
+     * @return the set of axioms */
     @Nonnull
     public Set<? extends OWLAxiom> getAxioms() {
         return getObjects();

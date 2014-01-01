@@ -52,13 +52,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 22-Jan-2008<br>
- * <br>
- * .
- * 
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Jan-2008
  * @param <N>
  *            type of elements */
 public class MutableTree<N> implements Tree<N> {

@@ -60,16 +60,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Nov-2006<br>
- * <br>
- * <p/>
- * An abstract debugger which provides common infrastructure for finding
+/** An abstract debugger which provides common infrastructure for finding
  * multiple justification. This functionality relies on a concrete
  * implementation of a debugger that can compute a minimal set of axioms that
- * cause the unsatisfiability. */
+ * cause the unsatisfiability.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Nov-2006 */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
     /** The owl ontology manager. */
     protected final OWLOntologyManager owlOntologyManager;

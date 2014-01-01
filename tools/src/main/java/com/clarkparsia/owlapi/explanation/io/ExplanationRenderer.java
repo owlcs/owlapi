@@ -47,7 +47,6 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLException;
 
-// TODO: Auto-generated Javadoc
 /** Renderer for explanations. */
 public interface ExplanationRenderer {
     /** Start rendering.

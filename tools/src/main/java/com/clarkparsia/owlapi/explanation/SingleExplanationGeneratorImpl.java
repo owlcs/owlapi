@@ -51,7 +51,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 
 /** The Class SingleExplanationGeneratorImpl. */
-@SuppressWarnings("javadoc")
 public abstract class SingleExplanationGeneratorImpl implements
         TransactionAwareSingleExpGen {
     /** The in transaction. */

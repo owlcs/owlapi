@@ -45,10 +45,7 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-// TODO: Auto-generated Javadoc
-/**
- * a generator for explanations.
- */
+/** a generator for explanations. */
 public interface ExplanationGenerator {
     /** Returns a single explanation for the given unsatisfiable class.
      * 

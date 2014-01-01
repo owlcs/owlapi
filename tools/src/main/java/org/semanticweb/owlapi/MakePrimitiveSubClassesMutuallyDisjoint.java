@@ -52,48 +52,44 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.search.Searcher;
 
-// TODO: Auto-generated Javadoc
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 24-Jul-2007<br>
- * <br>
- * <p/>
- * For a given class, this composite change makes its told primitive subclasses
+/** For a given class, this composite change makes its told primitive subclasses
  * mutually disjoint. For example, if B, C, and D are primitive subclasses of A
- * then this composite change will make B, C, and D mutually disjoint.
- * <p/>
+ * then this composite change will make B, C, and D mutually disjoint. <br>
  * More formally, for a given class, A, and a set of ontologies, S, this method
  * will obtain a set of classes, G, where all classes in G are named and
  * primitive. Moreover, for any class, B in G, some ontology O in S will contain
  * an axiom, SubClassOf(B, A). All classes in G will be made mutually disjoint
- * by creating axiom(s) in a target ontology T.
- * <p/>
+ * by creating axiom(s) in a target ontology T. <br>
  * This composite change supports a common design pattern where primitive
- * subclasses of a class are made mutually disjoint. */
+ * subclasses of a class are made mutually disjoint.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 24-Jul-2007 */
 public class MakePrimitiveSubClassesMutuallyDisjoint extends
         AbstractCompositeOntologyChange {
-    
-    /**
-     * Instantiates a new make primitive sub classes mutually disjoint.
-     *
-     * @param dataFactory the datafactory to use
-     * @param cls the class to convert
-     * @param targetOntology the target ontology
-     */
+    /** Instantiates a new make primitive sub classes mutually disjoint.
+     * 
+     * @param dataFactory
+     *            the datafactory to use
+     * @param cls
+     *            the class to convert
+     * @param targetOntology
+     *            the target ontology */
     public MakePrimitiveSubClassesMutuallyDisjoint(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass cls, @Nonnull OWLOntology targetOntology) {
         this(dataFactory, cls, targetOntology, false);
     }
 
-    /**
-     * Instantiates a new make primitive sub classes mutually disjoint.
-     *
-     * @param dataFactory the datafactory to use
-     * @param cls the class to convert
-     * @param targetOntology the target ontology
-     * @param usePairwiseDisjointAxioms true if pairwise disjoint axioms should be used
-     */
+    /** Instantiates a new make primitive sub classes mutually disjoint.
+     * 
+     * @param dataFactory
+     *            the datafactory to use
+     * @param cls
+     *            the class to convert
+     * @param targetOntology
+     *            the target ontology
+     * @param usePairwiseDisjointAxioms
+     *            true if pairwise disjoint axioms should be used */
     public MakePrimitiveSubClassesMutuallyDisjoint(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass cls, @Nonnull OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
@@ -103,13 +99,14 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
                 usePairwiseDisjointAxioms);
     }
 
-    /**
-     * Generate changes.
-     *
-     * @param cls the cls
-     * @param targetOntology the target ontology
-     * @param usePairwiseDisjointAxioms the use pairwise disjoint axioms
-     */
+    /** Generate changes.
+     * 
+     * @param cls
+     *            the cls
+     * @param targetOntology
+     *            the target ontology
+     * @param usePairwiseDisjointAxioms
+     *            the use pairwise disjoint axioms */
     private void generateChanges(OWLClass cls, OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         Set<OWLClass> subclasses = new HashSet<OWLClass>();

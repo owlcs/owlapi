@@ -57,26 +57,23 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-// TODO: Auto-generated Javadoc
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 15-Feb-2008<br>
- * <br>.
- */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Feb-2008 */
 public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChange {
-    
-    /**
-     * Instantiates a new short form2 annotation generator.
-     *
-     * @param df data factory
-     * @param ontologyManager the ontology manager
-     * @param ontology the ontology
-     * @param shortFormProvider the short form provider
-     * @param annotationIRI The annotation IRI to be used
-     * @param languageTag language
-     */
+    /** Instantiates a new short form2 annotation generator.
+     * 
+     * @param df
+     *            data factory
+     * @param ontologyManager
+     *            the ontology manager
+     * @param ontology
+     *            the ontology
+     * @param shortFormProvider
+     *            the short form provider
+     * @param annotationIRI
+     *            The annotation IRI to be used
+     * @param languageTag
+     *            language */
     public ShortForm2AnnotationGenerator(OWLDataFactory df,
             @Nonnull OWLOntologyManager ontologyManager, @Nonnull OWLOntology ontology,
             @Nonnull ShortFormProvider shortFormProvider, @Nonnull IRI annotationIRI,
@@ -88,30 +85,36 @@ public class ShortForm2AnnotationGenerator extends AbstractCompositeOntologyChan
                 checkNotNull(annotationIRI, "annotationIRI cannot be null"), languageTag);
     }
 
-    /**
-     * Instantiates a new short form2 annotation generator.
-     *
-     * @param df data factory
-     * @param ontologyManager the ontology manager
-     * @param ontology the ontology
-     * @param shortFormProvider the short form provider
-     * @param annotationIRI iri for annotation property
-     */
+    /** Instantiates a new short form2 annotation generator.
+     * 
+     * @param df
+     *            data factory
+     * @param ontologyManager
+     *            the ontology manager
+     * @param ontology
+     *            the ontology
+     * @param shortFormProvider
+     *            the short form provider
+     * @param annotationIRI
+     *            iri for annotation property */
     public ShortForm2AnnotationGenerator(OWLDataFactory df,
             OWLOntologyManager ontologyManager, OWLOntology ontology,
             ShortFormProvider shortFormProvider, IRI annotationIRI) {
         this(df, ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
-    /**
-     * Generate changes.
-     *
-     * @param ontologyManager the ontology manager
-     * @param ontology the ontology
-     * @param shortFormProvider the short form provider
-     * @param annotationIRI the annotation iri
-     * @param languageTag the language tag
-     */
+    /** Generate changes.
+     * 
+     * @param ontologyManager
+     *            the ontology manager
+     * @param ontology
+     *            the ontology
+     * @param shortFormProvider
+     *            the short form provider
+     * @param annotationIRI
+     *            the annotation iri
+     * @param languageTag
+     *            the language tag */
     private void generateChanges(OWLOntologyManager ontologyManager,
             OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI,
             String languageTag) {

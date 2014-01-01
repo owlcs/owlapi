@@ -40,23 +40,16 @@ package uk.ac.manchester.cs.bhig.util;
 
 import javax.annotation.Nonnull;
 
-// TODO: Auto-generated Javadoc
-/**
- * Author: Matthew Horridge<br>
- * The University of Manchester<br>
- * Information Management Group<br>
- * Date: 27-Nov-2008.
- *
- * @param <N> type of nodes to render
- */
+/** @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 27-Nov-2008
+ * @param <N>
+ *            type of nodes to render */
 public interface NodeRenderer<N> {
-    
-    /**
-     * Render.
-     *
-     * @param node the node to render
-     * @return the rendering
-     */
+    /** Render.
+     * 
+     * @param node
+     *            the node to render
+     * @return the rendering */
     @Nonnull
     String render(@Nonnull Tree<N> node);
 }

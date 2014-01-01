@@ -42,22 +42,15 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-// TODO: Auto-generated Javadoc
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 27-Jul-2007<br>
- * <br>
- * An {@code OWLMetric} that returns an integer value.
- */
+/** An {@code OWLMetric} that returns an integer value.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Jul-2007 */
 public abstract class IntegerValuedMetric extends AbstractOWLMetric<Integer> {
-    
-    /**
-     * Instantiates a new integer valued metric.
-     *
-     * @param o the o
-     */
+    /** Instantiates a new integer valued metric.
+     * 
+     * @param o
+     *            the o */
     protected IntegerValuedMetric(@Nonnull OWLOntology o) {
         super(o);
     }

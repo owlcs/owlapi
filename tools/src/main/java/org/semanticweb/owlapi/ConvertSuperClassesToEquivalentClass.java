@@ -74,41 +74,36 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-// TODO: Auto-generated Javadoc
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br>
- * <br>
- * <p/>
- * This composite change will convert a primitive class to a defined class by
+/** This composite change will convert a primitive class to a defined class by
  * replacing subclass axioms where the class in question is on the left hand
  * side of the subclass axiom to an equivalent classes axiom which makes the
- * class equivalent to the intersection of its superclasses.
- * <p/>
+ * class equivalent to the intersection of its superclasses. <br>
  * More formally, given a class A, a set of ontologies S, and a target
  * targetOntology T, for each targetOntology O in S, subclass axioms whose LHS
  * is A will be removed from O. The superclasses from these axioms will be
  * combined into an intersection class which will be made equivalent to A using
  * an equivalent classes axioms E. E will be added to the target targetOntology
- * T.
- * <p/>
+ * T.<br>
  * This composite change supports the pattern of working where a primitive class
  * is converted to a defined class - functionality which is usually found in
- * editors. */
+ * editors.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jul-2007 */
 public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
-    
-    /**
-     * Instantiates a new convert super classes to equivalent class.
-     *
-     * @param dataFactory A data factory which can be used to create the appropriate
-     * axioms
-     * @param cls The class whose superclasses will be converted to an
-     * equivalent class.
-     * @param ontologies The ontologies which should be examined for subclass axioms.
-     * @param targetOntology The targetOntology which the equivalent classes axiom should
-     * be added to
-     */
+    /** Instantiates a new convert super classes to equivalent class.
+     * 
+     * @param dataFactory
+     *            A data factory which can be used to create the appropriate
+     *            axioms
+     * @param cls
+     *            The class whose superclasses will be converted to an
+     *            equivalent class.
+     * @param ontologies
+     *            The ontologies which should be examined for subclass axioms.
+     * @param targetOntology
+     *            The targetOntology which the equivalent classes axiom should
+     *            be added to */
     public ConvertSuperClassesToEquivalentClass(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology) {
@@ -118,13 +113,14 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
                 checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    /**
-     * Generate changes.
-     *
-     * @param targetOntology the target ontology
-     * @param cls the cls
-     * @param ontologies the ontologies
-     */
+    /** Generate changes.
+     * 
+     * @param targetOntology
+     *            the target ontology
+     * @param cls
+     *            the cls
+     * @param ontologies
+     *            the ontologies */
     private void generateChanges(OWLOntology targetOntology, OWLClass cls,
             Set<OWLOntology> ontologies) {
         // We remove the existing superclasses and then combine these

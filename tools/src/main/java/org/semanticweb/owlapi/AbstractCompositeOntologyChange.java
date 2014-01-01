@@ -49,12 +49,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 23-Jul-2007<br>
- * <br>
- * . */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Jul-2007 */
 public abstract class AbstractCompositeOntologyChange implements
         OWLCompositeOntologyChange {
     /** The data factory. */

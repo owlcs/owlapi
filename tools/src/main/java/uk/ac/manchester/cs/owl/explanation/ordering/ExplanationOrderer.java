@@ -44,14 +44,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-// TODO: Auto-generated Javadoc
-/**
- * Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 11-Jan-2008<br>
- * <br>.
- */
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Jan-2008 */
 public interface ExplanationOrderer {
     /** Gets an ordered (and possibly indented) explanation. The orderer really
      * provides some kind of "presentation" layer to make an explanation easier

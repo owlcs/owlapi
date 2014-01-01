@@ -42,10 +42,7 @@ import javax.annotation.Nonnull;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 
-// TODO: Auto-generated Javadoc
-/**
- * multiple explanation generator.
- */
+/** multiple explanation generator. */
 public interface MultipleExplanationGenerator extends ExplanationGenerator,
         SingleExplanationGenerator {
     /** Sets the progress monitor for this multiple explanation generator.
