@@ -1098,8 +1098,8 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** E.g. http://purl.obolibrary.org/obo/go.owl --> "go" if does not match
-     * this pattern, then retain original IRI
+    /** E.g. http://purl.obolibrary.org/obo/go.owl to "go"<br>
+     * if does not match this pattern, then retain original IRI
      * 
      * @param ontology
      *            the ontology

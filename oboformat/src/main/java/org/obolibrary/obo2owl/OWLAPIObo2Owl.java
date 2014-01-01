@@ -1281,7 +1281,7 @@ public class OWLAPIObo2Owl {
      * 
      * @param clauses
      *            the clauses
-     * @return the set<? extends owl annotation> */
+     * @return the set of annotations */
     protected Set<? extends OWLAnnotation> trAnnotations(Collection<Clause> clauses) {
         if (clauses != null) {
             Set<OWLAnnotation> anns = new HashSet<OWLAnnotation>();

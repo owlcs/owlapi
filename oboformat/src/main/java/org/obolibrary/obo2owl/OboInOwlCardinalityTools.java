@@ -28,8 +28,8 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 /** Tools for checking and fixing cardinality constrains for OBO ontologies in
  * OWL. */
 public class OboInOwlCardinalityTools {
-    protected static final Logger LOGGER = Logger.getLogger(OboInOwlCardinalityTools.class
-            .getName());
+    protected static final Logger LOGGER = Logger
+            .getLogger(OboInOwlCardinalityTools.class.getName());
 
     /** Functor for resolving conflicts for an annotation property and its
      * cardinality constraint. */
@@ -45,7 +45,8 @@ public class OboInOwlCardinalityTools {
          * @param axioms
          *            axioms
          * @return list of resolved axioms
-         * @throws AnnotationCardinalityException AnnotationCardinalityException*/
+         * @throws AnnotationCardinalityException
+         *             AnnotationCardinalityException */
         public List<OWLAnnotationAssertionAxiom> handleConflict(OWLEntity entity,
                 OWLAnnotationProperty property,
                 Collection<OWLAnnotationAssertionAxiom> axioms)
@@ -60,7 +61,8 @@ public class OboInOwlCardinalityTools {
          * @param ontologyAnnotations
          *            ontologyAnnotations
          * @return list of resolved annotations
-         * @throws AnnotationCardinalityException AnnotationCardinalityException*/
+         * @throws AnnotationCardinalityException
+         *             AnnotationCardinalityException */
         public List<OWLAnnotation> handleConflict(OWLAnnotationProperty property,
                 Collection<OWLAnnotation> ontologyAnnotations)
                 throws AnnotationCardinalityException;
@@ -73,16 +75,20 @@ public class OboInOwlCardinalityTools {
          * 
          * @param entity
          *            entity
-         * @param property property
-         * @param axioms axioms*/
+         * @param property
+         *            property
+         * @param axioms
+         *            axioms */
         public void reportConflict(OWLEntity entity, OWLAnnotationProperty property,
                 Collection<OWLAnnotationAssertionAxiom> axioms);
 
         /** Report a conflict for a given annotation property and ontology
          * annotations.
          * 
-         * @param property property
-         * @param ontologyAnnotations ontologyAnnotations*/
+         * @param property
+         *            property
+         * @param ontologyAnnotations
+         *            ontologyAnnotations */
         public void reportConflict(OWLAnnotationProperty property,
                 Collection<OWLAnnotation> ontologyAnnotations);
     }

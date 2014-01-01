@@ -99,6 +99,8 @@ public class Clause {
 
     /** @param cls
      *            cls
+     * @param <T>
+     *            value type
      * @return value */
     public <T> T getValue(Class<T> cls) {
         Object value = getValue();
@@ -121,6 +123,8 @@ public class Clause {
 
     /** @param cls
      *            cls
+     * @param <T>
+     *            value type
      * @return value2 */
     public <T> T getValue2(Class<T> cls) {
         Object value = getValue2();
