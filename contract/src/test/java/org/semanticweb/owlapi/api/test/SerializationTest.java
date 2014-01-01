@@ -1,5 +1,7 @@
 package org.semanticweb.owlapi.api.test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -9,8 +11,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -39,7 +39,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings("javadoc")
-public class SerializationTest extends TestCase {
+public class SerializationTest {
     private static final OWLDataFactory f = OWLManager.getOWLDataFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     OWLDataPropertyExpression dp = f.getOWLDataProperty(IRI.create("urn:dp"));
@@ -70,10 +70,6 @@ public class SerializationTest extends TestCase {
     Set<OWLClassExpression> setowlclassexpression = new HashSet<OWLClassExpression>();
     Set<OWLFacetRestriction> setowlfacetrestriction = new HashSet<OWLFacetRestriction>();
     OWLPropertyExpression[] owlpropertyexpression = new OWLPropertyExpression[] {};
-
-    public static void main(String[] args) {
-        new SerializationTest().run();
-    }
 
     @Test
     public void testrun() throws Exception {

@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -152,7 +151,6 @@ public class ContractOwlapiVocabTest {
         Set<OWLClass> result2 = SKOSVocabulary.getClasses(mock(OWLDataFactory.class));
         IRI result3 = testSubject0.getIRI();
         EntityType<?> result4 = testSubject0.getEntityType();
-        URI result5 = testSubject0.getURI();
         Set<OWLAnnotationProperty> result6 = SKOSVocabulary
                 .getAnnotationProperties(mock(OWLDataFactory.class));
         String result7 = testSubject0.getLocalName();

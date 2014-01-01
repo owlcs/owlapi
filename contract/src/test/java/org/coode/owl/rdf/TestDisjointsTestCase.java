@@ -66,18 +66,15 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-/** Author: Matthew Horridge<br>
- * The University Of Manchester<br>
- * Bio-Health Informatics Group<br>
- * Date: 09-May-2007<br>
- * <br>
- * <p/>
- * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
+/** Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
  * it possible to specify that a set of classes are mutually disjoint.
  * Unfortunately, this must be represented in RDF as a set of pairwise disjoint
  * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
- * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case
- * ensure that these axioms are serialsed correctly. */
+ * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). This test case
+ * ensure that these axioms are serialsed correctly.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")
 public class TestDisjointsTestCase {
     private OWLOntologyManager man;
