@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
 
 /** Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
