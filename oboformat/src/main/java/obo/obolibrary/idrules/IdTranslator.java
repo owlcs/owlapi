@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.IRI;
 /** This class will eventually replace the id to uri translation in Owl2Obo and
  * OboO2Owl <br>
  * It is currently in-progress.
- * 
+ *
  * @author cjm */
 public class IdTranslator {
     String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";

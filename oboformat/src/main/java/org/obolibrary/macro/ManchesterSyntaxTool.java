@@ -37,7 +37,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
 /** wrapper for parsing Manchester Syntax.
- * 
+ *
  * @author heiko */
 public class ManchesterSyntaxTool {
     private static final Logger log = Logger.getLogger(ManchesterSyntaxTool.class

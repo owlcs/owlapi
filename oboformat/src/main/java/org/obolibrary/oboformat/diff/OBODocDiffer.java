@@ -15,7 +15,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 
 /** Diffs two OBO Documents. Performs structural diffing only - does not use
  * reasoning (use OWLDiff or similar tools for this)
- * 
+ *
  * @author cjm */
 public class OBODocDiffer {
     /** @param doc1

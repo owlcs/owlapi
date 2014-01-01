@@ -34,7 +34,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
 /** The Class OBOFormatWriter.
- * 
+ *
  * @author Shahid Manzoor */
 public class OBOFormatWriter {
     /** The log. */
