@@ -80,6 +80,7 @@ public class Clause {
     /** @param v
      *            v */
     public void setValue(Object v) {
+        values.clear();
         values.add(v);
     }
 

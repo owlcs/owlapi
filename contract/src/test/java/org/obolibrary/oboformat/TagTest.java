@@ -140,8 +140,7 @@ public class TagTest extends OboFormatTestBasics {
         BufferedReader br = new BufferedReader(sr);
         p.setReader(br);
         try {
-            Clause cl = new Clause();
-            p.parseTermFrameClause(cl);
+            Clause cl = p.parseTermFrameClause();
             return cl;
         } catch (OBOFormatParserException e) {
             fail(e.getMessage());

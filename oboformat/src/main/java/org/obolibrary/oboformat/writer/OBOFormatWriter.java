@@ -38,7 +38,8 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
  * @author Shahid Manzoor */
 public class OBOFormatWriter {
     /** The log. */
-    private static Logger LOG = Logger.getLogger(OBOFormatWriter.class.getName());
+    private static Logger LOG = Logger.getLogger(OBOFormatWriter.class
+            .getName());
     /** The tags informative. */
     private static HashSet<String> tagsInformative = buildTagsInformative();
     /** The is check structure. */
@@ -99,7 +100,8 @@ public class OBOFormatWriter {
         if (fn.startsWith("http:")) {
             write(new URL(fn), writer);
         } else {
-            BufferedReader reader = new BufferedReader(new FileReader(new File(fn)));
+            BufferedReader reader = new BufferedReader(new FileReader(new File(
+                    fn)));
             write(reader, writer);
         }
     }
@@ -116,8 +118,8 @@ public class OBOFormatWriter {
      *             the oBO format parser exception */
     public void write(URL url, BufferedWriter writer) throws IOException,
             OBOFormatParserException {
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(url.openStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                url.openStream()));
         write(reader, writer);
     }
 
@@ -129,8 +131,8 @@ public class OBOFormatWriter {
      *             Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
      *             the oBO format parser exception */
-    public void write(BufferedReader reader, BufferedWriter writer) throws IOException,
-            OBOFormatParserException {
+    public void write(BufferedReader reader, BufferedWriter writer)
+            throws IOException, OBOFormatParserException {
         OBOFormatParser parser = new OBOFormatParser();
         OBODoc doc = parser.parse(reader);
         write(doc, writer);
@@ -170,8 +172,8 @@ public class OBOFormatWriter {
      *            the name provider
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    public void write(OBODoc doc, BufferedWriter writer, NameProvider nameProvider)
-            throws IOException {
+    public void write(OBODoc doc, BufferedWriter writer,
+            NameProvider nameProvider) throws IOException {
         if (isCheckStructure) {
             doc.check();
         }
@@ -205,7 +207,8 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    private void writeLine(StringBuilder ln, BufferedWriter writer) throws IOException {
+    private void writeLine(StringBuilder ln, BufferedWriter writer)
+            throws IOException {
         ln.append('\n');
         writer.write(ln.toString());
     }
@@ -255,13 +258,12 @@ public class OBOFormatWriter {
      *            the name provider
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    public void
-            writeHeader(Frame frame, BufferedWriter writer, NameProvider nameProvider)
-                    throws IOException {
+    public void writeHeader(Frame frame, BufferedWriter writer,
+            NameProvider nameProvider) throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, HeaderTagsComparator.instance);
-        write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"), writer,
-                nameProvider);
+        write(new Clause(OboFormatTag.TAG_FORMAT_VERSION.getTag(), "1.2"),
+                writer, nameProvider);
         for (String tag : tags) {
             if (tag.equals(OboFormatTag.TAG_FORMAT_VERSION.getTag())) {
                 continue;
@@ -295,8 +297,8 @@ public class OBOFormatWriter {
      *            the name provider
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    public void write(Frame frame, BufferedWriter writer, NameProvider nameProvider)
-            throws IOException {
+    public void write(Frame frame, BufferedWriter writer,
+            NameProvider nameProvider) throws IOException {
         Comparator<String> comparator = null;
         if (frame.getType() == FrameType.TERM) {
             writeLine("[Term]", writer);
@@ -323,7 +325,8 @@ public class OBOFormatWriter {
                     extra = " ! " + label;
                 }
             }
-            writeLine(OboFormatTag.TAG_ID.getTag() + ": " + frame.getId() + extra, writer);
+            writeLine(OboFormatTag.TAG_ID.getTag() + ": " + frame.getId()
+                    + extra, writer);
         }
         List<String> tags = duplicateTags(frame.getTags());
         Collections.sort(tags, comparator);
@@ -342,16 +345,18 @@ public class OBOFormatWriter {
                     writeDef(clause, writer);
                 } else if (OboFormatTag.TAG_SYNONYM.getTag().equals(clauseTag)) {
                     writeSynonym(clause, writer);
-                } else if (OboFormatTag.TAG_PROPERTY_VALUE.getTag().equals(clauseTag)) {
+                } else if (OboFormatTag.TAG_PROPERTY_VALUE.getTag().equals(
+                        clauseTag)) {
                     writePropertyValue(clause, writer);
-                } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(
-                        clauseTag)
+                } else if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag()
+                        .equals(clauseTag)
                         || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag()
                                 .equals(clauseTag)) {
                     writeClauseWithQuotedString(clause, writer);
                 } else if (OboFormatTag.TAG_XREF.getTag().equals(clauseTag)) {
                     writeXRefClause(clause, writer);
-                } else if (OboFormatTag.TAG_NAMESPACE.getTag().equals(clauseTag)) {
+                } else if (OboFormatTag.TAG_NAMESPACE.getTag()
+                        .equals(clauseTag)) {
                     // only write OBO namespace,
                     // if it is different from the default OBO namespace
                     if (defaultOboNamespace == null
@@ -374,7 +379,8 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    private void writeXRefClause(Clause clause, BufferedWriter writer) throws IOException {
+    private void writeXRefClause(Clause clause, BufferedWriter writer)
+            throws IOException {
         Xref xref = clause.getValue(Xref.class);
         if (xref != null) {
             StringBuilder sb = new StringBuilder();
@@ -444,18 +450,21 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    private void writeHeaderDate(Clause clause, BufferedWriter writer) throws IOException {
+    private void writeHeaderDate(Clause clause, BufferedWriter writer)
+            throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
         Object value = clause.getValue();
         if (value instanceof Date) {
-            sb.append(OBOFormatConstants.headerDateFormat.get().format((Date) value));
+            sb.append(OBOFormatConstants.headerDateFormat.get().format(
+                    (Date) value));
         } else if (value instanceof String) {
             sb.append(value);
         } else {
             if (LOG.isLoggable(Level.WARNING)) {
-                LOG.log(Level.WARNING, "Unknown datatype ('" + value.getClass().getName()
+                LOG.log(Level.WARNING, "Unknown datatype ('"
+                        + value.getClass().getName()
                         + "') for value in clause: " + clause);
                 sb.append(value.toString());
             }
@@ -471,7 +480,8 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    private void writeIdSpace(Clause cl, BufferedWriter writer) throws IOException {
+    private void writeIdSpace(Clause cl, BufferedWriter writer)
+            throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(cl.getTag());
         sb.append(": ");
@@ -503,8 +513,8 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    private void writeClauseWithQuotedString(Clause clause, BufferedWriter writer)
-            throws IOException {
+    private void writeClauseWithQuotedString(Clause clause,
+            BufferedWriter writer) throws IOException {
         StringBuilder sb = new StringBuilder();
         sb.append(clause.getTag());
         sb.append(": ");
@@ -529,11 +539,13 @@ public class OBOFormatWriter {
         // this location
         // not that the value may be a non-null empty list - here we still want
         // to write []
-        if (xrefs != null) {
+        if (xrefs != null && !xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
-                || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
-                || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(clause.getTag())) {
+                || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(
+                        clause.getTag())
+                || OboFormatTag.TAG_EXPAND_ASSERTION_TO.getTag().equals(
+                        clause.getTag())) {
             sb.append(" []");
         }
         appendQualifiers(sb, clause);
@@ -586,7 +598,8 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    public void writeDef(Clause clause, BufferedWriter writer) throws IOException {
+    public void writeDef(Clause clause, BufferedWriter writer)
+            throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
 
@@ -603,8 +616,9 @@ public class OBOFormatWriter {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
             if (LOG.isLoggable(Level.WARNING)) {
-                LOG.log(Level.WARNING, "The " + OboFormatTag.TAG_PROPERTY_VALUE.getTag()
-                        + " has incorrect number of values: " + clause);
+                LOG.log(Level.WARNING,
+                        "The " + OboFormatTag.TAG_PROPERTY_VALUE.getTag()
+                                + " has incorrect number of values: " + clause);
             }
             return;
         }
@@ -640,7 +654,8 @@ public class OBOFormatWriter {
      *            the writer
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    public void writeSynonym(Clause clause, BufferedWriter writer) throws IOException {
+    public void writeSynonym(Clause clause, BufferedWriter writer)
+            throws IOException {
         Collection<Xref> xrefs = clause.getXrefs();
         // xrefs in synonyms must never be null, otherwise this will generate
         // invalid obo
@@ -660,8 +675,8 @@ public class OBOFormatWriter {
      *            the name provider
      * @throws IOException
      *             Signals that an I/O exception has occurred. */
-    public void write(Clause clause, BufferedWriter writer, NameProvider nameProvider)
-            throws IOException {
+    public void write(Clause clause, BufferedWriter writer,
+            NameProvider nameProvider) throws IOException {
         if (OboFormatTag.TAG_IS_OBSELETE.getTag().equals(clause.getTag())) {
             // only write the obsolete tag if the value is Boolean.TRUE or
             // "true"
@@ -691,7 +706,8 @@ public class OBOFormatWriter {
                 if (nameProvider != null) {
                     String label = nameProvider.getName(value);
                     if (label != null
-                            && (isOpaqueIdentifier(value) || !valuesIterator.hasNext())) {
+                            && (isOpaqueIdentifier(value) || !valuesIterator
+                                    .hasNext())) {
                         // only print label if the label exists
                         // and the label is different from the id
                         // relationships: ID part_of LABEL part_of
@@ -712,7 +728,7 @@ public class OBOFormatWriter {
             }
         }
         Collection<Xref> xrefs = clause.getXrefs();
-        if (xrefs != null) {
+        if (xrefs != null && !xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         }
         appendQualifiers(sb, clause);
@@ -766,7 +782,8 @@ public class OBOFormatWriter {
                 QualifierValue qv = qvsIterator.next();
                 sb.append(qv.getQualifier());
                 sb.append("=\"");
-                sb.append(escapeOboString(qv.getValue().toString(), EscapeMode.quotes));
+                sb.append(escapeOboString(qv.getValue().toString(),
+                        EscapeMode.quotes));
                 sb.append("\"");
                 if (qvsIterator.hasNext()) {
                     sb.append(", ");
@@ -811,7 +828,8 @@ public class OBOFormatWriter {
             } else if (c == '\\') {
                 modfied = true;
                 sb.append("\\\\");
-            } else if (c == '"' && (mode == EscapeMode.most || mode == EscapeMode.quotes)) {
+            } else if (c == '"'
+                    && (mode == EscapeMode.most || mode == EscapeMode.quotes)) {
                 modfied = true;
                 sb.append("\\\"");
             } else if (c == '{'
@@ -825,7 +843,8 @@ public class OBOFormatWriter {
             // modfied = true;
             // sb.append("\\}");
             // }
-            else if (c == ',' && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
+            else if (c == ','
+                    && (mode == EscapeMode.xref || mode == EscapeMode.xrefList)) {
                 modfied = true;
                 sb.append("\\,");
             } else if (c == ':'
@@ -869,7 +888,9 @@ public class OBOFormatWriter {
             table.put(OboFormatTag.TAG_NAMESPACE_ID_RULE.getTag(), 46);
             table.put(OboFormatTag.TAG_IDSPACE.getTag(), 50);
             table.put(OboFormatTag.TAG_TREAT_XREFS_AS_EQUIVALENT.getTag(), 55);
-            table.put(OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag(), 60);
+            table.put(
+                    OboFormatTag.TAG_TREAT_XREFS_AS_GENUS_DIFFERENTIA.getTag(),
+                    60);
             table.put(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag(), 65);
             table.put(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(), 70);
             table.put(OboFormatTag.TAG_REMARK.getTag(), 75);
@@ -948,7 +969,8 @@ public class OBOFormatWriter {
     }
 
     /** The Class ClauseListComparator. */
-    private static final class ClauseListComparator implements Comparator<Clause> {
+    private static final class ClauseListComparator implements
+            Comparator<Clause> {
         /** The Constant instance. */
         private static final ClauseListComparator instance = new ClauseListComparator();
 
