@@ -29,12 +29,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author cjm TODO - allow use of prefixes */
 public class MacroExpansionVisitor {
-    private static final Logger log = Logger.getLogger(MacroExpansionVisitor.class
-            .getName());
+    protected static final Logger log = Logger
+            .getLogger(MacroExpansionVisitor.class.getName());
     private OWLOntology inputOntology;
     private OWLOntologyManager manager;
     private Visitor visitor;
-    private ManchesterSyntaxTool manchesterSyntaxTool;
+    protected ManchesterSyntaxTool manchesterSyntaxTool;
 
     /** @param inputOntology
      *            inputOntology */
@@ -110,7 +110,8 @@ public class MacroExpansionVisitor {
             }
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
-            expandTo = expandTo.replaceAll("\\?Y", manchesterSyntaxTool.getId(axValIRI));
+            expandTo = expandTo.replaceAll("\\?Y",
+                    manchesterSyntaxTool.getId(axValIRI));
             if (log.isLoggable(Level.WARNING)) {
                 log.log(Level.WARNING, "Expanding " + expandTo);
             }
@@ -134,8 +135,8 @@ public class MacroExpansionVisitor {
         }
 
         @Override
-        protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-                OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjSomeVal(
+                OWLClassExpression filler, OWLObjectPropertyExpression p) {
             return expandObject(filler, p);
         }
 
@@ -144,22 +145,25 @@ public class MacroExpansionVisitor {
                 OWLIndividual filler, OWLObjectPropertyExpression p) {
             OWLClassExpression result = expandObject(filler, p);
             if (result != null) {
-                result = dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(),
-                        result);
+                result = dataFactory.getOWLObjectSomeValuesFrom(
+                        desc.getProperty(), result);
             }
             return result;
         }
 
-        OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
+        OWLClassExpression expandObject(Object filler,
+                OWLObjectPropertyExpression p) {
             OWLClassExpression result = null;
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
             if (expandExpressionMap.containsKey(iri)) {
                 System.out.println("svf " + p + " " + filler);
                 if (filler instanceof OWLObjectOneOf) {
-                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
+                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler)
+                            .getIndividuals();
                     if (inds.size() == 1) {
-                        System.out.println("**svf " + p + " " + inds.iterator().next());
+                        System.out.println("**svf " + p + " "
+                                + inds.iterator().next());
                         OWLIndividual ind = inds.iterator().next();
                         if (ind instanceof OWLNamedIndividual) {
                             templateVal = ((OWLNamedObject) ind).getIRI();
@@ -170,14 +174,16 @@ public class MacroExpansionVisitor {
                     templateVal = ((OWLNamedObject) filler).getIRI();
                 }
                 if (templateVal != null) {
-                    System.out.println("TEMPLATEVAL: " + templateVal.toString());
+                    System.out
+                            .println("TEMPLATEVAL: " + templateVal.toString());
                     String tStr = expandExpressionMap.get(iri);
                     System.out.println("t: " + tStr);
                     String exStr = tStr.replaceAll("\\?Y",
                             manchesterSyntaxTool.getId(templateVal));
                     System.out.println("R: " + exStr);
                     try {
-                        result = manchesterSyntaxTool.parseManchesterExpression(exStr);
+                        result = manchesterSyntaxTool
+                                .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
                         log.log(Level.SEVERE, e.getMessage(), e);
                     }

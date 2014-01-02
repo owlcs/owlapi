@@ -185,7 +185,7 @@ public class OWLAPIOwl2Obo {
     /** @return translated obodoc */
     protected OBODoc tr() {
         obodoc = new OBODoc();
-        preProcess(owlOntology);
+        preProcess();
         tr(owlOntology);
         for (OWLAxiom ax : owlOntology.getAxioms()) {
             if (ax instanceof OWLDeclarationAxiom) {
@@ -255,7 +255,7 @@ public class OWLAPIOwl2Obo {
         return obodoc;
     }
 
-    protected void preProcess(OWLOntology owlOntology2) {
+    protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
         for (OWLAnnotation ann : owlOntology.getAnnotations()) {
@@ -1141,7 +1141,8 @@ public class OWLAPIOwl2Obo {
                     }
                 }
                 if (cls2 != null) {
-                    Clause c = new Clause(OboFormatTag.TAG_INTERSECTION_OF.getTag());
+                    Clause c = new Clause(
+                            OboFormatTag.TAG_INTERSECTION_OF.getTag());
                     if (r != null) {
                         c.addValue(r);
                     }
@@ -1386,10 +1387,8 @@ public class OWLAPIOwl2Obo {
         // "");
         // }
         int indexSlash = iri.lastIndexOf("/");
-        String prefixURI = null;
         String id = null;
         if (indexSlash > -1) {
-            prefixURI = iri.substring(0, indexSlash + 1);
             id = iri.substring(indexSlash + 1);
         } else {
             id = iri;
@@ -1567,7 +1566,6 @@ public class OWLAPIOwl2Obo {
             return;
         }
         // 5.2.2
-        boolean isRewrittenToGCI = false;
         if (sub instanceof OWLObjectIntersectionOf) {
             Set<OWLClassExpression> xs = ((OWLObjectIntersectionOf) sub)
                     .getOperands();
@@ -1595,7 +1593,6 @@ public class OWLAPIOwl2Obo {
                     }
                 }
                 if (c != null && p != null && filler != null) {
-                    isRewrittenToGCI = true;
                     sub = c;
                     qvs.add(new QualifierValue("gci_relation", getIdentifier(p)));
                     qvs.add(new QualifierValue("gci_filler",

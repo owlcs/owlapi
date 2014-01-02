@@ -42,7 +42,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException {
         try {
-            OWLOntology o = parse(documentIRI, null, ontology);
+            parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         } catch (OWLOntologyCreationException e) {
@@ -57,7 +57,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             OWLOntology ontology) throws OWLParserException, IOException,
             OWLOntologyChangeException, UnloadableImportException {
         try {
-            OWLOntology o = parse(null, documentSource, ontology);
+            parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         } catch (OWLOntologyCreationException e) {
@@ -73,7 +73,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException {
         try {
-            OWLOntology o = parse(null, documentSource, ontology);
+            parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         } catch (OWLOntologyCreationException e) {
@@ -83,9 +83,9 @@ public class OBOFormatOWLAPIParser implements OWLParser {
         return format;
     }
 
-    private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source, OWLOntology in)
-            throws OBOFormatParserException, MalformedURLException, IOException,
-            OWLOntologyCreationException {
+    private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source,
+            OWLOntology in) throws OBOFormatParserException,
+            MalformedURLException, IOException, OWLOntologyCreationException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
         if (iri != null) {
@@ -94,8 +94,8 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             if (source.isReaderAvailable()) {
                 obodoc = p.parse(new BufferedReader(source.getReader()));
             } else if (source.isInputStreamAvailable()) {
-                obodoc = p.parse(new BufferedReader(new InputStreamReader(source
-                        .getInputStream())));
+                obodoc = p.parse(new BufferedReader(new InputStreamReader(
+                        source.getInputStream())));
             } else {
                 return parse(source.getDocumentIRI(), null, in);
             }

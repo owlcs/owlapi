@@ -49,7 +49,7 @@ public class OBOFormatParser {
             reader = r;
         }
 
-        private char peekChar() {
+        protected char peekChar() {
             prepare();
             return line.charAt(pos);
         }

@@ -17,13 +17,9 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** renderer for obo */
 public class OBOFormatRenderer implements OWLRenderer {
-    private OWLOntologyManager manager;
-
     @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager)
-            throws OWLException {
-        manager = owlOntologyManager;
-    }
+            throws OWLException {}
 
     @Override
     public void render(OWLOntology ontology, OutputStream os)
@@ -40,7 +36,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     public void render(OWLOntology ontology, Writer writer)
             throws OWLOntologyStorageException {
         try {
-            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
+            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
+                    ontology.getOWLOntologyManager());
             OBODoc result = translator.convert(ontology);
             new OBOFormatWriter().write(result, new BufferedWriter(writer));
         } catch (IOException e) {

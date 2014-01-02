@@ -27,12 +27,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** macro expansion gci visitor */
 public class MacroExpansionGCIVisitor {
-    private static final Logger log = Logger.getLogger(MacroExpansionGCIVisitor.class
-            .getName());
+    protected static final Logger log = Logger
+            .getLogger(MacroExpansionGCIVisitor.class.getName());
     private OWLOntology inputOntology;
     private OWLOntologyManager outputManager;
     private OWLOntology outputOntology;
-    private ManchesterSyntaxTool manchesterSyntaxTool;
+    protected ManchesterSyntaxTool manchesterSyntaxTool;
     private GCIVisitor visitor;
 
     /** @param inputOntology
@@ -47,13 +47,14 @@ public class MacroExpansionGCIVisitor {
         manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
         this.outputManager = outputManager;
         try {
-            outputOntology = outputManager.createOntology(inputOntology.getOntologyID());
+            outputOntology = outputManager.createOntology(inputOntology
+                    .getOntologyID());
         } catch (Exception ex) {
             log.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
-    private void output(OWLAxiom axiom) {
+    protected void output(OWLAxiom axiom) {
         if (axiom == null) {
             log.log(Level.SEVERE, "no axiom");
             return;
@@ -115,14 +116,14 @@ public class MacroExpansionGCIVisitor {
         }
 
         @Override
-        protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-                OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjSomeVal(
+                OWLClassExpression filler, OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
-                OWLClassExpression gciLHS = dataFactory.getOWLObjectSomeValuesFrom(p,
-                        filler);
-                OWLEquivalentClassesAxiom ax = dataFactory.getOWLEquivalentClassesAxiom(
-                        gciLHS, gciRHS);
+                OWLClassExpression gciLHS = dataFactory
+                        .getOWLObjectSomeValuesFrom(p, filler);
+                OWLEquivalentClassesAxiom ax = dataFactory
+                        .getOWLEquivalentClassesAxiom(gciLHS, gciRHS);
                 output(ax);
             }
             return gciRHS;
@@ -133,9 +134,10 @@ public class MacroExpansionGCIVisitor {
                 OWLIndividual filler, OWLObjectPropertyExpression p) {
             OWLClassExpression gciRHS = expandObject(filler, p);
             if (gciRHS != null) {
-                OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p, filler);
-                OWLEquivalentClassesAxiom ax = dataFactory.getOWLEquivalentClassesAxiom(
-                        gciLHS, gciRHS);
+                OWLClassExpression gciLHS = dataFactory.getOWLObjectHasValue(p,
+                        filler);
+                OWLEquivalentClassesAxiom ax = dataFactory
+                        .getOWLEquivalentClassesAxiom(gciLHS, gciRHS);
                 output(ax);
             }
             return gciRHS;
@@ -149,7 +151,8 @@ public class MacroExpansionGCIVisitor {
             if (expandExpressionMap.containsKey(iri)) {
                 System.out.println("svf " + p + " " + filler);
                 if (filler instanceof OWLObjectOneOf) {
-                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
+                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler)
+                            .getIndividuals();
                     if (inds.size() == 1) {
                         OWLIndividual ind = inds.iterator().next();
                         System.out.println("**svf " + p + " " + ind);
@@ -162,14 +165,16 @@ public class MacroExpansionGCIVisitor {
                     templateVal = ((OWLNamedObject) filler).getIRI();
                 }
                 if (templateVal != null) {
-                    System.out.println("TEMPLATEVAL: " + templateVal.toString());
+                    System.out
+                            .println("TEMPLATEVAL: " + templateVal.toString());
                     String tStr = expandExpressionMap.get(iri);
                     System.out.println("t: " + tStr);
                     String exStr = tStr.replaceAll("\\?Y",
                             manchesterSyntaxTool.getId(templateVal));
                     System.out.println("R: " + exStr);
                     try {
-                        result = manchesterSyntaxTool.parseManchesterExpression(exStr);
+                        result = manchesterSyntaxTool
+                                .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
                         log.log(Level.SEVERE, e.getMessage(), e);
                     }

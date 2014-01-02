@@ -972,7 +972,7 @@ public class OBOFormatWriter {
     private static final class ClauseListComparator implements
             Comparator<Clause> {
         /** The Constant instance. */
-        private static final ClauseListComparator instance = new ClauseListComparator();
+        protected static final ClauseListComparator instance = new ClauseListComparator();
 
         @Override
         public int compare(Clause c1, Clause c2) {
