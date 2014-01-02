@@ -39,6 +39,9 @@ public class Xref {
         if (e == null || !(e instanceof Xref)) {
             return false;
         }
+        if (e == this) {
+            return true;
+        }
         Xref other = (Xref) e;
         if (!idref.equals(other.idref)) {
             return false;
@@ -55,6 +58,11 @@ public class Xref {
             return annotation.equals(other.annotation);
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return idref.hashCode();
     }
 
     @Override
