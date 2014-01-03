@@ -22,28 +22,22 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 @SuppressWarnings("javadoc")
 public class RoundTripCardinalityTest extends RoundTripTest {
-    private static final boolean RENDER_OWL = false;
-    private static final boolean RENDER_OBO = false;
-
     @Test
     public void testRoundTripCardinality() throws Exception {
         // create minimal ontology
         OBODoc oboDocSource = super.parseOBOFile("roundtrip_cardinality.obo");
         // convert to OWL and retrieve def
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = bridge.convert(oboDocSource);
-        if (RENDER_OWL) {
-            System.out.println("------------");
-            renderOWL(owlOntology);
-            System.out.println("------------");
-        }
-        final OWLDataFactory factory = owlOntology.getOWLOntologyManager()
+        OWLDataFactory factory = owlOntology.getOWLOntologyManager()
                 .getOWLDataFactory();
         OWLClass c = factory.getOWLClass(bridge.oboIdToIRI("PR:000027136"));
         // Relations
         boolean foundRel1 = false;
         boolean foundRel2 = false;
-        Set<OWLSubClassOfAxiom> axioms = owlOntology.getSubClassAxiomsForSubClass(c);
+        Set<OWLSubClassOfAxiom> axioms = owlOntology
+                .getSubClassAxiomsForSubClass(c);
         assertEquals(3, axioms.size());
         for (OWLSubClassOfAxiom axiom : axioms) {
             OWLClassExpression superClass = axiom.getSuperClass();
@@ -64,7 +58,8 @@ public class RoundTripCardinalityTest extends RoundTripTest {
         assertTrue(foundRel1);
         assertTrue(foundRel2);
         // convert back to OBO
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
         Frame convertedFrame = convertedOboDoc.getTermFrame("PR:000027136");
         Collection<Clause> clauses = convertedFrame
@@ -72,7 +67,8 @@ public class RoundTripCardinalityTest extends RoundTripTest {
         // check that round trip still contains relationships
         assertEquals(2, clauses.size());
         for (Clause clause : clauses) {
-            Collection<QualifierValue> qualifierValues = clause.getQualifierValues();
+            Collection<QualifierValue> qualifierValues = clause
+                    .getQualifierValues();
             assertEquals(1, qualifierValues.size());
             QualifierValue value = qualifierValues.iterator().next();
             assertEquals("cardinality", value.getQualifier());
@@ -81,11 +77,6 @@ public class RoundTripCardinalityTest extends RoundTripTest {
             } else if (clause.getValue2().equals("PR:000027122")) {
                 assertEquals("2", value.getValue());
             }
-        }
-        if (RENDER_OBO) {
-            System.out.println("------------");
-            renderOBO(convertedOboDoc);
-            System.out.println("------------");
         }
     }
 

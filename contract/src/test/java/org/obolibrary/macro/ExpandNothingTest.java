@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -21,9 +21,6 @@ public class ExpandNothingTest extends OboFormatTestBasics {
         int axiomCount = gciOntology.getAxiomCount();
         assertTrue(axiomCount > 0);
         Set<OWLAxiom> axioms = gciOntology.getAxioms();
-        for (OWLAxiom axiom : axioms) {
-            System.out.println(axiom);
-            // TODO - do actual tests
-        }
+        assertEquals(2, axioms.size());
     }
 }

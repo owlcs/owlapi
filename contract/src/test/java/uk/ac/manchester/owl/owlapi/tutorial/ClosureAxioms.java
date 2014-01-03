@@ -76,7 +76,8 @@ public class ClosureAxioms {
 
     public void addClosureAxioms(OWLClass clazz) {
         /* Get the class axioms */
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
         /* Collect those that assert superclasses of the class */
         SubClassCollector collector = new SubClassCollector(clazz);
         for (OWLClassAxiom axiom : axioms) {
@@ -93,15 +94,12 @@ public class ClosureAxioms {
         }
         /* For any existentials.... */
         for (OWLObjectPropertyExpression prop : restrictions.keySet()) {
-            System.out.println("prop: " + prop);
             Set<OWLClassExpression> fillers = restrictions.get(prop);
-            for (OWLClassExpression filler : fillers) {
-                System.out.println("------> " + filler);
-            }
             /* Create a union of the fillers */
             OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
             /* Create a universal restriction */
-            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop, union);
+            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(
+                    prop, union);
             /* Create a new axiom */
             OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
             /* Now add the axiom to the ontology */

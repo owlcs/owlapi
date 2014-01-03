@@ -28,15 +28,16 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         assertNotNull(owlFile);
         IRI ontologyIRI = IRI.create(owlFile);
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(ontologyIRI);
+        OWLOntology ontology = manager
+                .loadOntologyFromOntologyDocument(ontologyIRI);
         Set<OWLAnnotation> ontAnns = ontology.getAnnotations();
         Set<OWLAnnotationAssertionAxiom> axioms = ontology
                 .getAnnotationAssertionAxioms(ontologyIRI);
-        System.out.println("ont.getAnnotation() = " + ontology.getAnnotations());
         // two tags in the header of the obo file are translated as annotation
         // assertions, so the axioms
         // should have two axioms in count.
-        assertTrue(ontAnns.size() == 2);
+        assertEquals(2, ontAnns.size());
+        assertEquals(0, axioms.size());
     }
 
     private OWLOntology convertOBOFile(String fn) throws Exception {

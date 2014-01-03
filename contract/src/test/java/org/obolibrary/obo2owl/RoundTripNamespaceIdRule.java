@@ -33,10 +33,11 @@ public class RoundTripNamespaceIdRule extends RoundTripTest {
         OWLOntology owlOntology = convert(oboDoc);
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         StringDocumentTarget documentTarget = new StringDocumentTarget();
-        manager.saveOntology(owlOntology, new OWLXMLOntologyFormat(), documentTarget);
+        manager.saveOntology(owlOntology, new OWLXMLOntologyFormat(),
+                documentTarget);
         String owlString = documentTarget.toString();
-        System.out.println(owlString);
-        OWLOntologyDocumentSource documentSource = new StringDocumentSource(owlString);
+        OWLOntologyDocumentSource documentSource = new StringDocumentSource(
+                owlString);
         OWLOntology reloadedOwl = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(documentSource);
         assertEquals(owlOntology.getAxiomCount(), reloadedOwl.getAxiomCount());

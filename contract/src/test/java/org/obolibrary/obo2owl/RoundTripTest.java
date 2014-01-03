@@ -50,23 +50,23 @@ public class RoundTripTest extends OboFormatTestBasics {
         OBODocDiffer dd = new OBODocDiffer();
         List<Diff> diffs = dd.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
-            for (Diff diff : diffs) {
-                System.out.println(diff);
-            }
             assertEquals("Expected no diffs", 0, diffs.size());
         }
         return diffs;
     }
 
     public boolean roundTripOWLFile(String fn, boolean isExpectRoundtrip)
-            throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
+            throws IOException, OWLOntologyCreationException,
+            OWLOntologyStorageException {
         OWLOntology oo = parseOWLFile(fn);
         return roundTripOWLOOntology(oo, isExpectRoundtrip);
     }
 
-    public boolean roundTripOWLOOntology(OWLOntology oo, boolean isExpectRoundtrip)
-            throws IOException, OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+    public boolean roundTripOWLOOntology(OWLOntology oo,
+            boolean isExpectRoundtrip) throws IOException,
+            OWLOntologyCreationException, OWLOntologyStorageException {
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc obodoc = bridge.convert(oo);
         writeOBO(obodoc, "owl2obo-roundtrip-intermediate.obo");
         try {
@@ -82,8 +82,9 @@ public class RoundTripTest extends OboFormatTestBasics {
         return ok || !isExpectRoundtrip;
     }
 
-    private boolean compareOWLOntologiesPartial(OWLOntology oo, OWLOntology oo2,
-            boolean isExpectRoundtrip, Collection<OWLAxiom> untranslatableAxioms) {
+    private boolean compareOWLOntologiesPartial(OWLOntology oo,
+            OWLOntology oo2, boolean isExpectRoundtrip,
+            Collection<OWLAxiom> untranslatableAxioms) {
         if (isExpectRoundtrip) {
             int untranslatedSize = 0;
             if (untranslatableAxioms != null) {
@@ -93,8 +94,8 @@ public class RoundTripTest extends OboFormatTestBasics {
             Set<OWLAxiom> foundAxioms = oo2.getAxioms();
             int expectedSize = expectedAxioms.size();
             int foundSize = foundAxioms.size();
-            assertEquals("Expected same number of axioms", expectedSize, foundSize
-                    + untranslatedSize);
+            assertEquals("Expected same number of axioms", expectedSize,
+                    foundSize + untranslatedSize);
             return false;
         }
         return true;

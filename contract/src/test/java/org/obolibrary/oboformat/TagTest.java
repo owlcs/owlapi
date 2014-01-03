@@ -16,14 +16,9 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
 @SuppressWarnings("javadoc")
 public class TagTest extends OboFormatTestBasics {
-    static boolean useSystemOut = false;
-
     @Test
     public void testParseOBOFile() throws Exception {
         OBODoc obodoc = parseOBOFile("tag_test.obo");
-        if (useSystemOut) {
-            System.out.println("F:" + obodoc);
-        }
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
         Frame frame = obodoc.getTermFrame("X:1");
@@ -34,29 +29,15 @@ public class TagTest extends OboFormatTestBasics {
     @Test
     public void testParseOBOFile2() throws Exception {
         OBODoc obodoc = parseOBOFile("testqvs.obo");
-        if (useSystemOut) {
-            System.out.println("F:" + obodoc);
-        }
         assertEquals(4, obodoc.getTermFrames().size());
         assertEquals(1, obodoc.getTypedefFrames().size());
-        if (useSystemOut) {
-            for (Frame f : obodoc.getTermFrames()) {
-                System.out.println(f);
-            }
-        }
     }
 
     @Test
     public void testParseOBODoc() {
         OBODoc obodoc = parseOBODoc("[Term]\nid: x\nname: foo\n\n\n[Term]\nid: y\nname: y");
-        if (useSystemOut) {
-            System.out.println(obodoc);
-        }
         assertEquals(2, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrame("x");
-        if (useSystemOut) {
-            System.out.println(frame);
-        }
         assertEquals("foo", frame.getTagValue(OboFormatTag.TAG_NAME));
     }
 
@@ -65,20 +46,12 @@ public class TagTest extends OboFormatTestBasics {
         OBODoc obodoc = parseFrames("[Term]\nid: x\nname: foo");
         assertEquals(1, obodoc.getTermFrames().size());
         Frame frame = obodoc.getTermFrames().iterator().next();
-        if (useSystemOut) {
-            for (Clause cl : frame.getClauses()) {
-                System.out.println(cl);
-            }
-        }
         assertEquals("foo", frame.getTagValue(OboFormatTag.TAG_NAME));
     }
 
     @Test
     public void testParseDefTag() {
         Clause cl = parseLine("def: \"a b c\" [foo:1, bar:2]");
-        if (useSystemOut) {
-            System.out.println("DEF:" + cl);
-        }
         assertEquals(OboFormatTag.TAG_DEF.getTag(), cl.getTag());
         assertEquals("a b c", cl.getValue());
         assertEquals(1, cl.getValues().size());
@@ -87,9 +60,6 @@ public class TagTest extends OboFormatTestBasics {
     @Test
     public void testParseDefTag2() {
         Clause cl = parseLine("def: \"a b c\" [foo:1 \"blah blah\", bar:2]");
-        if (useSystemOut) {
-            System.out.println("DEF2:" + cl);
-        }
         assertEquals(OboFormatTag.TAG_DEF.getTag(), cl.getTag());
         assertEquals("a b c", cl.getValue());
     }
@@ -98,9 +68,6 @@ public class TagTest extends OboFormatTestBasics {
     public void testParseCreationDateTag() {
         Clause cl = parseLine("creation_date: 2009-04-28T10:29:37Z");
         assertEquals(OboFormatTag.TAG_CREATION_DATE.getTag(), cl.getTag());
-        if (useSystemOut) {
-            System.out.println("cr:" + cl.getValue());
-        }
     }
 
     @Test
@@ -114,9 +81,6 @@ public class TagTest extends OboFormatTestBasics {
     public void testParseNameTag2() {
         Clause cl = parseLine("name:    a b c");
         assertEquals(OboFormatTag.TAG_NAME.getTag(), cl.getTag());
-        if (useSystemOut) {
-            System.out.println("n2 ='" + cl.getValue() + "'");
-        }
         assertEquals("a b c", cl.getValue());
     }
 

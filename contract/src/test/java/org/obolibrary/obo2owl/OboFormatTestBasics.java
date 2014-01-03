@@ -13,16 +13,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.junit.BeforeClass;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -38,17 +42,30 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class OboFormatTestBasics {
+    @BeforeClass
+    public static void setUp() {
+        Logger globalLogger = Logger.getLogger("");
+        Handler[] handlers = globalLogger.getHandlers();
+        for (Handler handler : handlers) {
+            globalLogger.removeHandler(handler);
+        }
+        globalLogger.setLevel(Level.OFF);
+        globalLogger.setUseParentHandlers(false);
+    }
+
     private final static File systemTempDir = new File(
             System.getProperty("java.io.tmpdir"));
 
-    protected OBODoc parseOBOURL(String fn) throws IOException, OBOFormatParserException {
+    protected OBODoc parseOBOURL(String fn) throws IOException,
+            OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parseURL(fn);
         assertTrue(obodoc.getTermFrames().size() > 0);
         return obodoc;
     }
 
-    protected OBODoc parseOBOFile(String fn) throws IOException, OBOFormatParserException {
+    protected OBODoc parseOBOFile(String fn) throws IOException,
+            OBOFormatParserException {
         return parseOBOFile(fn, false);
     }
 
@@ -56,7 +73,8 @@ public class OboFormatTestBasics {
             throws IOException, OBOFormatParserException {
         InputStream inputStream = getInputStream(fn);
         OBOFormatParser p = new OBOFormatParser();
-        OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(inputStream)));
+        OBODoc obodoc = p.parse(new BufferedReader(new InputStreamReader(
+                inputStream)));
         assertNotNull("The obodoc should not be null", obodoc);
         if (obodoc.getTermFrames().size() == 0 && !allowEmptyFrames) {
             fail("Term frames should not be empty.");
@@ -88,13 +106,15 @@ public class OboFormatTestBasics {
         return inputStream;
     }
 
-    protected OBODoc parseOBOFile(File file) throws IOException, OBOFormatParserException {
+    protected OBODoc parseOBOFile(File file) throws IOException,
+            OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = p.parse(file.getCanonicalPath());
         return obodoc;
     }
 
-    protected OWLOntology parseOWLFile(String fn) throws OWLOntologyCreationException {
+    protected OWLOntology parseOWLFile(String fn)
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         // TODO replace
         OWLOntology ontology = manager
@@ -102,21 +122,26 @@ public class OboFormatTestBasics {
         return ontology;
     }
 
-    protected OWLOntology convert(OBODoc obodoc) throws OWLOntologyCreationException {
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+    protected OWLOntology convert(OBODoc obodoc)
+            throws OWLOntologyCreationException {
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology ontology = bridge.convert(obodoc);
         return ontology;
     }
 
     protected OWLOntology convert(OBODoc obodoc, String filename)
-            throws OWLOntologyCreationException, OWLOntologyStorageException, IOException {
+            throws OWLOntologyCreationException, OWLOntologyStorageException,
+            IOException {
         OWLOntology ontology = convert(obodoc);
         writeOWL(ontology, filename);
         return ontology;
     }
 
-    protected OBODoc convert(OWLOntology ontology) throws OWLOntologyCreationException {
-        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+    protected OBODoc convert(OWLOntology ontology)
+            throws OWLOntologyCreationException {
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc doc = bridge.convert(ontology);
         return doc;
     }
@@ -127,8 +152,8 @@ public class OboFormatTestBasics {
         }
         File file = new File(systemTempDir, fn);
         OBOFormatWriter oboWriter = new OBOFormatWriter();
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(file),
-                "UTF-8");
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(
+                file), "UTF-8");
         BufferedWriter bw = new BufferedWriter(osw);
         oboWriter.write(obodoc, bw);
         bw.close();
@@ -148,7 +173,6 @@ public class OboFormatTestBasics {
         File tempFile = new File(systemTempDir, filename);
         IRI iri = IRI.create(tempFile);
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        System.out.println("saving to " + iri);
         manager.saveOntology(ontology, format, iri);
         return tempFile;
     }
@@ -163,8 +187,8 @@ public class OboFormatTestBasics {
         return out.getBuffer().toString();
     }
 
-    protected static OBODoc parseOboToString(String oboString) throws IOException,
-            OBOFormatParserException {
+    protected static OBODoc parseOboToString(String oboString)
+            throws IOException, OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
         BufferedReader reader = new BufferedReader(new StringReader(oboString));
         OBODoc parsedOboDoc = p.parse(reader);
@@ -175,7 +199,7 @@ public class OboFormatTestBasics {
     protected static void renderOBO(OBODoc oboDoc) throws IOException {
         OBOFormatWriter writer = new OBOFormatWriter();
         writer.setCheckStructure(true);
-        BufferedWriter stream = new BufferedWriter(new PrintWriter(System.out));
+        BufferedWriter stream = new BufferedWriter(new StringWriter());
         writer.write(oboDoc, stream);
         stream.close();
     }
@@ -183,12 +207,13 @@ public class OboFormatTestBasics {
     protected static void renderOWL(OWLOntology owlOntology)
             throws OWLOntologyStorageException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
-        manager.saveOntology(owlOntology, new OWLXMLOntologyFormat(), System.out);
+        manager.saveOntology(owlOntology, new OWLXMLOntologyFormat(),
+                new StringDocumentTarget());
     }
 
     protected static String renderOWL(OWLOntology owlOntology,
-            OWLOntologyFormat ontologyFormat) throws OWLOntologyStorageException,
-            IOException {
+            OWLOntologyFormat ontologyFormat)
+            throws OWLOntologyStorageException, IOException {
         OWLOntologyManager manager = owlOntology.getOWLOntologyManager();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         manager.saveOntology(owlOntology, ontologyFormat, out);
@@ -215,7 +240,8 @@ public class OboFormatTestBasics {
 
     protected String readResource(String resource) throws IOException {
         InputStream inputStream = getInputStream(resource);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                inputStream));
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {

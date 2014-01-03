@@ -19,16 +19,14 @@ public class XrefExpanderTest extends OboFormatTestBasics {
         x.expandXrefs();
         OBODoc tdoc = obodoc.getImportedOBODocs().iterator().next();
         assertTrue(tdoc.getTermFrames().size() > 0);
-        for (Frame f : tdoc.getTermFrames()) {
-            System.out.println(f);
-        }
         assertTrue(tdoc.getTermFrame("ZFA:0001689")
                 .getClauses(OboFormatTag.TAG_INTERSECTION_OF).size() == 2);
-        assertTrue(tdoc.getTermFrame("EHDAA:571").getClause(OboFormatTag.TAG_IS_A)
-                .getValue().equals("UBERON:0002539"));
-        assertTrue(tdoc.getTermFrame("UBERON:0006800").getClause(OboFormatTag.TAG_IS_A)
-                .getValue().equals("CARO:0000008"));
-        // assertTrue(frame.getClause("name").getValue().equals("x1"));
+        assertTrue(tdoc.getTermFrame("EHDAA:571")
+                .getClause(OboFormatTag.TAG_IS_A).getValue()
+                .equals("UBERON:0002539"));
+        assertTrue(tdoc.getTermFrame("UBERON:0006800")
+                .getClause(OboFormatTag.TAG_IS_A).getValue()
+                .equals("CARO:0000008"));
     }
 
     @Test
@@ -38,7 +36,6 @@ public class XrefExpanderTest extends OboFormatTestBasics {
         x.expandXrefs();
         int n = 0;
         for (OBODoc tdoc : obodoc.getImportedOBODocs()) {
-            // System.out.println("IMP:"+tdoc);
             Frame hf = tdoc.getHeaderFrame();
             if (hf == null) {
                 continue;
@@ -47,14 +44,14 @@ public class XrefExpanderTest extends OboFormatTestBasics {
             if (impClause == null) {
                 continue;
             }
-            String tid = impClause.getValue(String.class).replace("bridge-", "");
-            System.out.println("BRIDGE: " + tid);
+            String tid = impClause.getValue(String.class)
+                    .replace("bridge-", "");
             if (tid.equals("zfa")) {
                 assertTrue(tdoc.getTermFrame("ZFA:0001689")
                         .getClauses(OboFormatTag.TAG_INTERSECTION_OF).size() == 2);
                 Frame pf = tdoc.getTypedefFrame("part_of");
-                assertTrue(pf.getClause(OboFormatTag.TAG_XREF).getValue().toString()
-                        .equals("BFO:0000050"));
+                assertTrue(pf.getClause(OboFormatTag.TAG_XREF).getValue()
+                        .toString().equals("BFO:0000050"));
                 n++;
             }
             if (tid.equals("ehdaa")) {

@@ -15,8 +15,6 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class OboEscapeCharsTest extends OboFormatTestBasics {
-    static boolean useSystemOut = false;
-
     @Test
     public void testEscapeChars() throws Exception {
         OBODoc obodoc = parseOBOFile("escape_chars_test.obo");
@@ -39,16 +37,11 @@ public class OboEscapeCharsTest extends OboFormatTestBasics {
     public void testRoundTripEscapeChars() throws Exception {
         OBODoc oboDoc = parseOBOFile("escape_chars_test.obo");
         String oboToString = renderOboToString(oboDoc);
-        if (useSystemOut) {
-            System.out.println(oboToString);
-        }
         OBODoc oboDoc2 = parseOboToString(oboToString);
-        assertNotNull("There was an error during parsing of the obodoc", oboDoc2);
+        assertNotNull("There was an error during parsing of the obodoc",
+                oboDoc2);
         OBODocDiffer differ = new OBODocDiffer();
         List<Diff> diffs = differ.getDiffs(oboDoc, oboDoc2);
-        for (Diff diff : diffs) {
-            System.out.println(diff);
-        }
         assertEquals("Expected no diffs.", 0, diffs.size());
         String original = readResource("escape_chars_test.obo");
         assertEquals(original, oboToString);

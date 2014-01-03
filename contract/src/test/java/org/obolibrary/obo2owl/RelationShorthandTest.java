@@ -25,22 +25,25 @@ public class RelationShorthandTest extends OboFormatTestBasics {
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
-        OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"),
-                "x.owl");
+        OWLOntology ontology = convert(
+                parseOBOFile("relation_shorthand_test.obo"), "x.owl");
         // TEST CONTENTS OF OWL ONTOLOGY
         if (true) {
-            Set<OWLSubClassOfAxiom> scas = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+            Set<OWLSubClassOfAxiom> scas = ontology
+                    .getAxioms(AxiomType.SUBCLASS_OF);
             boolean ok = false;
             for (OWLSubClassOfAxiom sca : scas) {
-                System.out.println(sca);
                 OWLClassExpression sup = sca.getSuperClass();
                 if (sup instanceof OWLObjectSomeValuesFrom) {
                     OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) sup)
                             .getProperty();
-                    OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup).getFiller();
-                    if (p.getIRI().toString()
+                    OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup)
+                            .getFiller();
+                    if (p.getIRI()
+                            .toString()
                             .equals("http://purl.obolibrary.org/obo/BFO_0000051")
-                            && v.getIRI().toString()
+                            && v.getIRI()
+                                    .toString()
                                     .equals("http://purl.obolibrary.org/obo/GO_0004055")) {
                         ok = true;
                     }
@@ -49,18 +52,21 @@ public class RelationShorthandTest extends OboFormatTestBasics {
             assertTrue(ok);
         }
         if (true) {
-            Set<OWLSubClassOfAxiom> scas = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+            Set<OWLSubClassOfAxiom> scas = ontology
+                    .getAxioms(AxiomType.SUBCLASS_OF);
             boolean ok = false;
             for (OWLSubClassOfAxiom sca : scas) {
-                System.out.println(sca);
                 OWLClassExpression sup = sca.getSuperClass();
                 if (sup instanceof OWLObjectSomeValuesFrom) {
                     OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) sup)
                             .getProperty();
-                    OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup).getFiller();
-                    if (p.getIRI().toString()
+                    OWLClass v = (OWLClass) ((OWLObjectSomeValuesFrom) sup)
+                            .getFiller();
+                    if (p.getIRI()
+                            .toString()
                             .equals("http://purl.obolibrary.org/obo/BFO_0000050")
-                            && v.getIRI().toString()
+                            && v.getIRI()
+                                    .toString()
                                     .equals("http://purl.obolibrary.org/obo/XX_0000001")) {
                         ok = true;
                     }
@@ -75,7 +81,6 @@ public class RelationShorthandTest extends OboFormatTestBasics {
             Frame tf = obodoc.getTermFrame("GO:0000050");
             Clause c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
             Object v = c.getValue();
-            System.out.println("V=" + v);
             assertEquals("has_part", v); // should be converted back to symbolic
                                          // form
         }
@@ -83,7 +88,6 @@ public class RelationShorthandTest extends OboFormatTestBasics {
             Frame tf = obodoc.getTermFrame("GO:0004055");
             Clause c = tf.getClause(OboFormatTag.TAG_RELATIONSHIP);
             Object v = c.getValue();
-            System.out.println("V=" + v);
             assertEquals("part_of", v); // should be converted back to symbolic
                                         // form
         }
@@ -92,7 +96,6 @@ public class RelationShorthandTest extends OboFormatTestBasics {
             Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_XREF);
             assertEquals(1, cs.size());
             String v = cs.iterator().next().getValue(Xref.class).getIdref();
-            System.out.println("(expect BFO) V=" + v);
             assertEquals("BFO:0000051", v); // should be converted back to
                                             // symbolic form
         }

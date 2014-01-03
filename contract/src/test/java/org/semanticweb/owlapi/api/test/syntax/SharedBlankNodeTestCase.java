@@ -33,9 +33,10 @@ public class SharedBlankNodeTestCase {
     public void verify() throws OWLOntologyCreationException {
         String input = "Ontology:\n" + "    DataProperty: xsd:a\n"
                 + "        Range: {1.2}";
-        for (OWLAxiom ax : Factory.getManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(input))
-                .getAxioms()) {
+        for (OWLAxiom ax : Factory
+                .getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input)).getAxioms()) {
             System.out.println("HasKeyTestCase.verify() " + ax);
         }
     }
@@ -45,12 +46,12 @@ public class SharedBlankNodeTestCase {
         OWLOntology ontology = createOntology();
         testAnnotation(ontology);
         String s = saveOntology(ontology);
-        System.out.println(s);
         ontology = loadOntology(s);
         testAnnotation(ontology);
     }
 
-    public static OWLOntology createOntology() throws OWLOntologyCreationException {
+    public static OWLOntology createOntology()
+            throws OWLOntologyCreationException {
         String NS = "urn:test";
         OWLDataProperty P = DataProperty(IRI(NS + "#p"));
         OWLObjectProperty P1 = ObjectProperty(IRI(NS + "#p1"));
@@ -63,7 +64,8 @@ public class SharedBlankNodeTestCase {
         manager.addAxiom(ontology, Declaration(P1));
         manager.addAxiom(ontology, Declaration(P2));
         manager.addAxiom(ontology, Declaration(ann));
-        manager.applyChange(new AddOntologyAnnotation(ontology, Annotation(ann, i)));
+        manager.applyChange(new AddOntologyAnnotation(ontology, Annotation(ann,
+                i)));
         OWLAxiom ass = DataPropertyAssertion(P, i, Literal("hello world"));
         OWLNamedIndividual ind = NamedIndividual(IRI(NS + "#test"));
         OWLAxiom ax1 = ObjectPropertyAssertion(P1, ind, i);
@@ -93,14 +95,14 @@ public class SharedBlankNodeTestCase {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
         manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
-        System.out.println();
     }
 
     public static void testAnnotation(OWLOntology ontology) {
         for (OWLAnnotation annotation : ontology.getAnnotations()) {
             OWLIndividual i = (OWLIndividual) annotation.getValue();
             System.out.println("Found individual " + i);
-            System.out.println("Property values = " + i.getDataPropertyValues(ontology));
+            System.out.println("Property values = "
+                    + i.getDataPropertyValues(ontology));
         }
     }
 }

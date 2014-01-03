@@ -30,11 +30,9 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
                 .getAnnotationAssertionAxioms(subj);
         boolean okDeprecated = false;
         for (OWLAnnotationAssertionAxiom aa : aas) {
-            System.out.println(aa);
             if (aa.getProperty().getIRI()
                     .equals(OWLRDFVocabulary.OWL_DEPRECATED.getIRI())) {
                 OWLLiteral v = (OWLLiteral) aa.getValue();
-                System.out.println("  dep=" + v);
                 if (v.isBoolean()) {
                     if (v.parseBoolean()) {
                         okDeprecated = true;
@@ -50,7 +48,6 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         Frame tf = obodoc.getTermFrame("XX:0000034");
         Clause c = tf.getClause(OboFormatTag.TAG_IS_OBSELETE);
         Object v = c.getValue();
-        System.out.println("V=" + v);
         assertTrue(v.equals("true")); // should this be a Boolean object? TODO
     }
 }

@@ -19,11 +19,11 @@ public class UnionOfTest extends OboFormatTestBasics {
         assertNotNull(owlOnt);
         OWLOntologyManager manager = owlOnt.getOWLOntologyManager();
         OWLDataFactory df = manager.getOWLDataFactory();
-        IRI iri = IRI.create("http://purl.obolibrary.org/obo/NCBITaxon_Union_0000000");
+        IRI iri = IRI
+                .create("http://purl.obolibrary.org/obo/NCBITaxon_Union_0000000");
         OWLClass cls = df.getOWLClass(iri);
         boolean ok = false;
         for (OWLObject ec : cls.getEquivalentClasses(owlOnt)) {
-            System.out.println(cls + " = " + ec);
             if (ec instanceof OWLObjectUnionOf) {
                 ok = true;
             }

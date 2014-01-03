@@ -17,24 +17,19 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * axioms will be added in a tag in the ontology header. */
 @SuppressWarnings("javadoc")
 public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
-    public static boolean USE_SYSTEM_OUT = false;
-
     @Test
     public void testUntranslatableAxioms() throws Exception {
         final OWLOntology original = parseOWLFile("untranslatable_axioms.owl");
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc obo = owl2Obo.convert(original);
         String oboString = renderOboToString(obo);
-        if (USE_SYSTEM_OUT) {
-            System.out.println("----------------");
-            System.out.println(oboString);
-            System.out.println("----------------");
-        }
         Frame headerFrame = obo.getHeaderFrame();
-        String owlAxiomString = headerFrame.getTagValue(OboFormatTag.TAG_OWL_AXIOMS,
-                String.class);
+        String owlAxiomString = headerFrame.getTagValue(
+                OboFormatTag.TAG_OWL_AXIOMS, String.class);
         assertNotNull(owlAxiomString);
-        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology converted = obo2Owl.convert(obo);
         Set<OWLEquivalentClassesAxiom> originalEqAxioms = original
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES);
@@ -48,19 +43,16 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
     @Test
     public void testUntranslatableAxioms2() throws Exception {
         final OWLOntology original = parseOWLFile("untranslatable_axioms2.owl");
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc obo = owl2Obo.convert(original);
         String oboString = renderOboToString(obo);
-        if (USE_SYSTEM_OUT) {
-            System.out.println("----------------");
-            System.out.println(oboString);
-            System.out.println("----------------");
-        }
         Frame headerFrame = obo.getHeaderFrame();
-        String owlAxiomString = headerFrame.getTagValue(OboFormatTag.TAG_OWL_AXIOMS,
-                String.class);
+        String owlAxiomString = headerFrame.getTagValue(
+                OboFormatTag.TAG_OWL_AXIOMS, String.class);
         assertNotNull(owlAxiomString);
-        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology converted = obo2Owl.convert(obo);
         Set<OWLEquivalentClassesAxiom> originalEqAxioms = original
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES);

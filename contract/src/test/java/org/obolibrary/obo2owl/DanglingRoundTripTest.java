@@ -16,10 +16,10 @@ public class DanglingRoundTripTest extends OboFormatTestBasics {
     @Test
     public void testConvertXPs() throws Exception {
         OWLOntology owlOnt = convertOBOFile("dangling_roundtrip_test.obo");
-        OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc d2 = revbridge.convert(owlOnt);
         Frame f = d2.getTermFrame("UBERON:0000020");
-        System.out.println("F=" + f);
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
         assertTrue(rc.getValue().equals("sense organ"));
         OBOFormatWriter w = new OBOFormatWriter();

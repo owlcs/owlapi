@@ -16,7 +16,6 @@ public class DanglingOwl2OboTest extends OboFormatTestBasics {
     public void testConversion() throws Exception {
         OBODoc doc = convert(parseOWLFile("dangling_owl2_obo_test.owl"));
         Frame f = doc.getTermFrame("UBERON:0000020");
-        System.out.println("F=" + f);
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
         assertTrue(rc.getValue().equals("sense organ"));
         Collection<Clause> ics = f.getClauses(OboFormatTag.TAG_INTERSECTION_OF);

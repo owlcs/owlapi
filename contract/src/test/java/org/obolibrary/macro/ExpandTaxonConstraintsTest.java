@@ -5,8 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.obolibrary.obo2owl.RoundTripTest;
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /*
@@ -28,16 +26,9 @@ public class ExpandTaxonConstraintsTest extends RoundTripTest {
     @Test
     public void testExpand() throws Exception {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));
-        OWLDataFactory df = ontology.getOWLOntologyManager().getOWLDataFactory();
         MacroExpansionVisitor mev = new MacroExpansionVisitor(ontology);
         OWLOntology outputOntology = mev.expandAll();
-        int n = 0;
-        for (OWLDisjointClassesAxiom dca : outputOntology
-                .getAxioms(AxiomType.DISJOINT_CLASSES)) {
-            n++;
-        }
-        System.out.println("Disjoint class axioms: " + n);
+        int n = outputOntology.getAxioms(AxiomType.DISJOINT_CLASSES).size();
         assertTrue(n > 0);
-        // writeOWL(ontology, "expanded-taxon-constraints.owl");
     }
 }

@@ -29,12 +29,14 @@ public class BFOROXrefTest extends OboFormatTestBasics {
             // System.out.println("OP:"+op);
         }
         assertTrue(ops.size() == 4);
-        Set<OWLAnnotationAssertionAxiom> aaas = owlOnt.getAnnotationAssertionAxioms(IRI
-                .create("http://purl.obolibrary.org/obo/BFO_0000051"));
+        Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
+                .getAnnotationAssertionAxioms(IRI
+                        .create("http://purl.obolibrary.org/obo/BFO_0000051"));
         boolean ok = false;
         for (OWLAnnotationAssertionAxiom a : aaas) {
-            System.out.println(a);
-            if (a.getProperty().getIRI().toString()
+            if (a.getProperty()
+                    .getIRI()
+                    .toString()
                     .equals("http://www.geneontology.org/formats/oboInOwl#shorthand")) {
                 OWLLiteral v = (OWLLiteral) a.getValue();
                 if (v.getLiteral().equals("has_part")) {
@@ -53,7 +55,8 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         aaas = owlOnt.getAnnotationAssertionAxioms(IRI
                 .create("http://purl.obolibrary.org/obo/BAR_0000001"));
         assertTrue(aaas.size() > 0);
-        OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo revbridge = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc d2 = revbridge.convert(owlOnt);
         Frame part_of = d2.getTypedefFrame("part_of");
         Collection<Clause> xrcs = part_of.getClauses(OboFormatTag.TAG_XREF);

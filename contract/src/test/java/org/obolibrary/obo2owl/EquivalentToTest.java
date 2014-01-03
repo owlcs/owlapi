@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,14 +33,11 @@ public class EquivalentToTest extends OboFormatTestBasics {
         if (true) {
             Set<OWLEquivalentClassesAxiom> ecas = ontology
                     .getAxioms(AxiomType.EQUIVALENT_CLASSES);
-            boolean ok = false;
-            for (OWLEquivalentClassesAxiom eca : ecas) {
-                System.out.println(eca);
-            }
-            // assertTrue(ecas.size() == 3);
+            assertEquals(2, ecas.size());
         }
         // CONVERT BACK TO OBO
-        OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2obo = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc obodoc = owl2obo.convert(ontology);
         checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
@@ -61,24 +58,26 @@ public class EquivalentToTest extends OboFormatTestBasics {
         // test ECA between named classes is persisted using correct tag
         if (true) {
             Frame tf = obodoc.getTermFrame("X:1");
-            Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
+            Collection<Clause> cs = tf
+                    .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
             assertTrue(cs.size() == 1);
             Object v = cs.iterator().next().getValue();
-            System.out.println("V=" + v);
             assertTrue(v.equals("X:2"));
         }
         // test ECA between named class and anon class is persisted as
         // genus-differentia intersection_of tags
         if (true) {
             Frame tf = obodoc.getTermFrame("X:1");
-            Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
+            Collection<Clause> cs = tf
+                    .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
             assertTrue(cs.size() == 2);
             boolean okGenus = false;
             boolean okDifferentia = false;
             for (Clause c : cs) {
                 Collection<Object> vs = c.getValues();
                 if (vs.size() == 2) {
-                    if (c.getValue().equals("R:1") && c.getValue2().equals("Z:1")) {
+                    if (c.getValue().equals("R:1")
+                            && c.getValue2().equals("Z:1")) {
                         okDifferentia = true;
                     }
                 } else if (vs.size() == 1) {
@@ -95,11 +94,11 @@ public class EquivalentToTest extends OboFormatTestBasics {
         // check reciprocal direction
         if (true) {
             Frame tf2 = obodoc.getTermFrame("X:2");
-            System.out.println(tf2);
-            Collection<Clause> cs2 = tf2.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
+            Collection<Clause> cs2 = tf2
+                    .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
             Frame tf1 = obodoc.getTermFrame("X:1");
-            System.out.println(tf1);
-            Collection<Clause> cs1 = tf1.getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
+            Collection<Clause> cs1 = tf1
+                    .getClauses(OboFormatTag.TAG_EQUIVALENT_TO);
             boolean ok = false;
             if (cs2.size() == 1) {
                 if (cs2.iterator().next().getValue(String.class).equals("X:1")) {

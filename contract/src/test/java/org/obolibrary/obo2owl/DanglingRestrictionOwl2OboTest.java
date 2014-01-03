@@ -17,7 +17,6 @@ public class DanglingRestrictionOwl2OboTest extends OboFormatTestBasics {
         // this is a test ontology that has had its imports axioms removed
         OBODoc doc = convert(parseOWLFile("dangling_restriction_test.owl"));
         Frame f = doc.getTermFrame("FUNCARO:0000014");
-        System.out.println("F=" + f);
         Clause rc = f.getClause(OboFormatTag.TAG_NAME);
         assertTrue(rc.getValue().equals("digestive system"));
         Collection<Clause> isas = f.getClauses(OboFormatTag.TAG_IS_A);

@@ -24,14 +24,11 @@ public class RoundTripMultipleDefXrefTest extends RoundTripTest {
         for (OWLAxiom ax : owlOnt.getAxioms()) {
             // System.out.println(ax);
             for (OWLAnnotation ann : ax.getAnnotations()) {
-                System.out.println(" NESTED:" + ann);
                 OWLAnnotationProperty p = ann.getProperty();
-                System.out.println(" P:" + p);
                 if (p.getIRI()
                         .equals(IRI
                                 .create("http://www.geneontology.org/formats/oboInOwl#hasDbXref"))) {
                     OWLLiteral v = (OWLLiteral) ann.getValue();
-                    System.out.println(" V:" + v);
                     // expect this twice, as we have annotations on synonyms
                     if (v.getLiteral().equals("BTO:0001750")) {
                         n++;

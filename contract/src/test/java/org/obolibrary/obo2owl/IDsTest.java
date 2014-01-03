@@ -46,7 +46,6 @@ public class IDsTest {
                 .toString()));
         // OWL 2 obo
         oboId = OWLAPIOwl2Obo.getIdentifier(iri);
-        System.out.println("roundtrip:" + oboId);
         assertTrue("My_Ont:002".equals(oboId));
         // unprefixed IDs are prefixed with the current ontology ID
         iri = obo2owl.oboIdToIRI("003");

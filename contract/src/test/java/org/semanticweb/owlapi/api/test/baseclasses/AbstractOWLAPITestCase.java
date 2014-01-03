@@ -72,11 +72,11 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public abstract class AbstractOWLAPITestCase {
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
-            assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
-                    ont2.getOntologyID());
+            assertEquals("Ontologies supposed to be the same",
+                    ont1.getOntologyID(), ont2.getOntologyID());
         }
-        assertEquals("Annotations supposed to be the same", ont1.getAnnotations(),
-                ont2.getAnnotations());
+        assertEquals("Annotations supposed to be the same",
+                ont1.getAnnotations(), ont2.getAnnotations());
         Set<OWLAxiom> axioms1 = ont1.getAxioms();
         Set<OWLAxiom> axioms2 = ont2.getAxioms();
         // This isn't great - we normalise axioms by changing the ids of
@@ -113,6 +113,7 @@ public abstract class AbstractOWLAPITestCase {
                 }
             }
             if (counter > 0) {
+                new RuntimeException().printStackTrace(System.out);
                 System.out.println(this.getClass().getSimpleName()
                         + " roundTripOntology() Failing to match axioms: "
                         + sb.toString());
@@ -140,7 +141,8 @@ public abstract class AbstractOWLAPITestCase {
                 return true;
             }
             // declarations of builtin and named individuals can be ignored
-            return d.getEntity().isBuiltIn() || d.getEntity().isOWLNamedIndividual();
+            return d.getEntity().isBuiltIn()
+                    || d.getEntity().isOWLNamedIndividual();
         }
         return false;
     }
@@ -180,7 +182,8 @@ public abstract class AbstractOWLAPITestCase {
             URL url = getClass().getResource("/" + fileName);
             return manager.loadOntologyFromOntologyDocument(
                     new IRIDocumentSource(IRI.create(url)),
-                    new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+                    new OWLOntologyLoaderConfiguration()
+                            .setReportStackTraces(true));
         } catch (OWLOntologyCreationException e) {
             fail(e.getMessage());
             throw new OWLRuntimeException(e);
@@ -212,8 +215,8 @@ public abstract class AbstractOWLAPITestCase {
      *            The ontology to be round tripped.
      * @param format
      *            The format to use when doing the round trip. */
-    public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws Exception {
+    public OWLOntology roundTripOntology(OWLOntology ont,
+            OWLOntologyFormat format) throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat
@@ -231,11 +234,13 @@ public abstract class AbstractOWLAPITestCase {
         try {
             OWLOntology ont2 = man.loadOntologyFromOntologyDocument(
                     new StringDocumentSource(target.toString()),
-                    new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+                    new OWLOntologyLoaderConfiguration()
+                            .setReportStackTraces(true));
             equal(ont, ont2);
             return ont2;
         } catch (UnparsableOntologyException e) {
-            System.out.println("AbstractOWLAPITestCase.roundTripOntology() \n" + target);
+            System.out.println("AbstractOWLAPITestCase.roundTripOntology() \n"
+                    + target);
             e.printStackTrace();
             throw e;
         }
@@ -247,7 +252,8 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     @SuppressWarnings("unused")
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target,
+            OWLOntologyFormat format) {
         // System.out.println(target.toString());
     }
 }

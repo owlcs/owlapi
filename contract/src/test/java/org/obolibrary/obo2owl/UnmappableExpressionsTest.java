@@ -19,9 +19,6 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
     @Test
     public void testConvert() throws Exception {
         OBODoc obodoc = convert(parseOWLFile("nesting.owl"));
-        for (Frame f : obodoc.getTermFrames()) {
-            System.out.println(f);
-        }
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
         File file = writeOBO(obodoc, "nesting.obo");
@@ -33,7 +30,8 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
         // OBODoc tests
         if (true) {
             Frame tf = obodoc.getTermFrame("x1"); // TODO - may change
-            Collection<Clause> cs = tf.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
+            Collection<Clause> cs = tf
+                    .getClauses(OboFormatTag.TAG_INTERSECTION_OF);
             assertTrue(cs.size() != 1); // there should NEVER be a situation
                                         // with single intersection tags
             // TODO - add validation step prior to saving
