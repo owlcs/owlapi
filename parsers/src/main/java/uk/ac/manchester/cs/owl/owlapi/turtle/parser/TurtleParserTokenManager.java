@@ -206,14 +206,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjStartNfa_0(0, active0);
     }
 
-    /** Jj move string literal dfa2_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa2_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa2_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(0, old0);
         }
@@ -247,14 +241,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjStartNfa_0(1, active0);
     }
 
-    /** Jj move string literal dfa3_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa3_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa3_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(1, old0);
         }
@@ -284,14 +272,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjStartNfa_0(2, active0);
     }
 
-    /** Jj move string literal dfa4_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa4_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa4_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(2, old0);
         }
@@ -324,14 +306,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjStartNfa_0(3, active0);
     }
 
-    /** Jj move string literal dfa5_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa5_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa5_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(3, old0);
         }
@@ -360,14 +336,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjStartNfa_0(4, active0);
     }
 
-    /** Jj move string literal dfa6_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa6_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa6_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(4, old0);
         }
@@ -421,14 +391,14 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     /** The Constant jjbitVec4. */
     static final long[] jjbitVec4 = { 0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL };
     /** The Constant jjbitVec5. */
-    static final long[] jjbitVec5 = { 0x0L, 0xbfff000000000000L, 0xffffffffffffffffL,
-            0xffffffffffffffffL };
+    static final long[] jjbitVec5 = { 0x0L, 0xbfff000000000000L,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
     /** The Constant jjbitVec6. */
-    static final long[] jjbitVec6 = { 0x3000L, 0xffff000000000000L, 0xffffffffffffffffL,
-            0xffffffffffffffffL };
+    static final long[] jjbitVec6 = { 0x3000L, 0xffff000000000000L,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
     /** The Constant jjbitVec7. */
-    static final long[] jjbitVec7 = { 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL,
-            0x0L };
+    static final long[] jjbitVec7 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
+            0xffffL, 0x0L };
     /** The Constant jjbitVec8. */
     static final long[] jjbitVec8 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffL };
@@ -436,25 +406,20 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     static final long[] jjbitVec9 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffff00000000ffffL };
     /** The Constant jjbitVec10. */
-    static final long[] jjbitVec10 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
-            0xffffffffffffffffL, 0x3fffffffffffffffL };
+    static final long[] jjbitVec10 = { 0xffffffffffffffffL,
+            0xffffffffffffffffL, 0xffffffffffffffffL, 0x3fffffffffffffffL };
     /** The Constant jjbitVec11. */
-    static final long[] jjbitVec11 = { 0x0L, 0x0L, 0x80000000000000L, 0xff7fffffff7fffffL };
+    static final long[] jjbitVec11 = { 0x0L, 0x0L, 0x80000000000000L,
+            0xff7fffffff7fffffL };
     /** The Constant jjbitVec12. */
-    static final long[] jjbitVec12 = { 0xffffffffffffffffL, 0xbfffffffffffffffL,
-            0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec12 = { 0xffffffffffffffffL,
+            0xbfffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
     /** The Constant jjbitVec13. */
-    static final long[] jjbitVec13 = { 0x8000000000003000L, 0xffff000000000001L,
-            0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec13 = { 0x8000000000003000L,
+            0xffff000000000001L, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
-    /** Jj move nfa_0.
-     * 
-     * @param startState
-     *            the start state
-     * @param curPos
-     *            the cur pos
-     * @return the int */
-    private int jjMoveNfa_0(int startState, int curPos) {
+    private int jjMoveNfa_0(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 56;
         int i = 1;
@@ -1186,17 +1151,20 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 13:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2) && kind > 40) {
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 40) {
                                 kind = 40;
                             }
                             break;
                         case 14:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2) && kind > 44) {
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 44) {
                                 kind = 44;
                             }
                             break;
                         case 15:
-                            if (jjCanMove_1(hiByte, i1, i2, l1, l2) && kind > 45) {
+                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)
+                                    && kind > 45) {
                                 kind = 45;
                             }
                             break;
@@ -1215,7 +1183,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 19:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2) && kind > 46) {
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 46) {
                                 kind = 46;
                             }
                             break;
@@ -1263,7 +1232,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 52:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2) && kind > 41) {
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 41) {
                                 kind = 41;
                             }
                             break;
@@ -1273,7 +1243,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 54:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2) && kind > 42) {
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 42) {
                                 kind = 42;
                             }
                             break;
@@ -1330,14 +1301,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj move string literal dfa2_2.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa2_2(long old0, long active0) {
+    private int jjMoveStringLiteralDfa2_2(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return 2;
         }
@@ -1358,31 +1323,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return 3;
     }
 
-    /** Jj stop string literal dfa_1.
-     * 
-     * @param pos
-     *            the pos
-     * @param active0
-     *            the active0
-     * @return the int */
-    private final int jjStopStringLiteralDfa_1(int pos, long active0) {
-        switch (pos) {
-            default:
-                return -1;
-        }
-    }
-
-    /** Jj start nfa_1.
-     * 
-     * @param pos
-     *            the pos
-     * @param active0
-     *            the active0
-     * @return the int */
-    private final int jjStartNfa_1(int pos, long active0) {
-        return jjMoveNfa_1(jjStopStringLiteralDfa_1(pos, active0), pos + 1);
-    }
-
     /** Jj move string literal dfa0_1.
      * 
      * @return the int */
@@ -1395,14 +1335,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj move nfa_1.
-     * 
-     * @param startState
-     *            the start state
-     * @param curPos
-     *            the cur pos
-     * @return the int */
-    private int jjMoveNfa_1(int startState, int curPos) {
+    private int jjMoveNfa_1(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 3;
         int i = 1;
@@ -1431,7 +1365,6 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                     }
                 } while (i != startsAt);
             } else if (curChar < 128) {
-                long l = 1L << (curChar & 077);
                 do {
                     switch (jjstateSet[--i]) {
                         case 0:
@@ -1497,9 +1430,9 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     }
 
     /** The Constant jjnextStates. */
-    static final int[] jjnextStates = { 22, 23, 24, 26, 29, 30, 32, 22, 23, 34, 39, 41,
-            23, 24, 26, 29, 30, 32, 44, 45, 46, 47, 48, 49, 53, 54, 3, 4, 9, 10, 27, 28,
-            37, 38, };
+    static final int[] jjnextStates = { 22, 23, 24, 26, 29, 30, 32, 22, 23, 34,
+            39, 41, 23, 24, 26, 29, 30, 32, 44, 45, 46, 47, 48, 49, 53, 54, 3,
+            4, 9, 10, 27, 28, 37, 38, };
 
     /** Jj can move_0.
      * 
@@ -1514,8 +1447,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
      * @param l2
      *            the l2
      * @return true, if successful */
-    private static final boolean
-            jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
+            long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -1540,8 +1473,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
      * @param l2
      *            the l2
      * @return true, if successful */
-    private static final boolean
-            jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+    private static final boolean jjCanMove_1(int hiByte, int i1, int i2,
+            long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec4[i2] & l2) != 0L;
@@ -1580,8 +1513,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
      * @param l2
      *            the l2
      * @return true, if successful */
-    private static final boolean
-            jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+    private static final boolean jjCanMove_2(int hiByte, int i1, int i2,
+            long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec11[i2] & l2) != 0L;
@@ -1608,21 +1541,23 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     }
 
     /** Token literal values. */
-    public static final String[] jjstrLiteralImages = { "", null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null,
-            "\50", "\51", "\133", "\135", "\54", "\56", "\73",
-            "\100\160\162\145\146\151\170", "\136\136", "\100\142\141\163\145", "\100",
-            "\141", null, "\137\72", "\164\162\165\145", "\146\141\154\163\145",
+    public static final String[] jjstrLiteralImages = { "", null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, "\50", "\51", "\133", "\135", "\54", "\56",
+            "\73", "\100\160\162\145\146\151\170", "\136\136",
+            "\100\142\141\163\145", "\100", "\141", null, "\137\72",
+            "\164\162\165\145", "\146\141\154\163\145",
             "\123\105\114\105\103\124", "\127\110\105\122\105",
-            "\106\111\114\124\105\122", null, null, null, null, null, null, null, null,
-            null, null, null, };
+            "\106\111\114\124\105\122", null, null, null, null, null, null,
+            null, null, null, null, null, };
     /** Lexer state names. */
     public static final String[] lexStateNames = { "DEFAULT", "IN_STRING",
             "IN_LONG_STRING", };
     /** Lex State array. */
-    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, 1, -1, -1, 0, 2,
-            -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
+    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, 1, -1,
+            -1, 0, 2, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, };
     /** The Constant jjtoToken. */
     static final long[] jjtoToken = { 0xfffffffff201L, };
     /** The Constant jjtoSkip. */
@@ -1698,8 +1633,9 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
      *            the lex state */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
-            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
-                    + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
+            throw new TokenMgrError("Error: Ignoring invalid lexical state : "
+                    + lexState + ". State unchanged.",
+                    TokenMgrError.INVALID_LEXICAL_STATE);
         } else {
             curLexState = lexState;
         }
@@ -1763,7 +1699,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                     case 0:
                         try {
                             input_stream.backup(0);
-                            while (curChar <= 32 && (0x100002600L & 1L << curChar) != 0L) {
+                            while (curChar <= 32
+                                    && (0x100002600L & 1L << curChar) != 0L) {
                                 curChar = input_stream.BeginToken();
                             }
                         } catch (java.io.IOException e1) {
@@ -1837,8 +1774,9 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                     input_stream.backup(1);
                     error_after = curPos <= 1 ? "" : input_stream.GetImage();
                 }
-                throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column,
-                        error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+                throw new TokenMgrError(EOFSeen, curLexState, error_line,
+                        error_column, error_after, curChar,
+                        TokenMgrError.LEXICAL_ERROR);
             }
         }
     }
@@ -1854,13 +1792,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj add states.
-     * 
-     * @param start
-     *            the start
-     * @param end
-     *            the end */
-    private void jjAddStates(int start, int end) {
+    private void jjAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
@@ -1877,13 +1810,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         jjCheckNAdd(state2);
     }
 
-    /** Jj check n add states.
-     * 
-     * @param start
-     *            the start
-     * @param end
-     *            the end */
-    private void jjCheckNAddStates(int start, int end) {
+    private void jjCheckNAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);

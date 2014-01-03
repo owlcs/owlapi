@@ -27,7 +27,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
     static final long[] jjbitVec2 = { 0x0L, 0x0L, 0xffffffffffffffffL,
             0xffffffffffffffffL };
 
-    private int jjMoveNfa_4(int startState, int curPos) {
+    private int jjMoveNfa_4(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 7;
         int i = 1;
@@ -195,7 +196,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
         return jjMoveNfa_3(state, pos + 1);
     }
 
-    private int jjMoveNfa_3(int startState, int curPos) {
+    private int jjMoveNfa_3(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 3;
         int i = 1;
@@ -320,7 +322,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
         return jjMoveNfa_0(state, pos + 1);
     }
 
-    private int jjMoveNfa_0(int startState, int curPos) {
+    private int jjMoveNfa_0(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 3;
         int i = 1;
@@ -452,7 +455,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
         }
     }
 
-    private int jjMoveNfa_1(int startState, int curPos) {
+    private int jjMoveNfa_1(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 1;
         int i = 1;
@@ -531,7 +535,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
         return jjMoveNfa_5(5, 0);
     }
 
-    private int jjMoveNfa_5(int startState, int curPos) {
+    private int jjMoveNfa_5(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 5;
         int i = 1;
@@ -667,7 +672,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
         return jjMoveNfa_2(0, 0);
     }
 
-    private int jjMoveNfa_2(int startState, int curPos) {
+    private int jjMoveNfa_2(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 2;
         int i = 1;
@@ -732,7 +738,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
 
     static final int[] jjnextStates = { 2, 3, 4, 2, 3, };
 
-    private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+    private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1,
+            long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -745,15 +752,16 @@ public class OBOParserTokenManager implements OBOParserConstants {
     }
 
     /** Token literal values. */
-    public static final String[] jjstrLiteralImages = { "", null, null, null, null, null,
-            "\133", null, "\135", null, null, null, null, null, null, null, null, null,
-            null, null, null, null, };
+    public static final String[] jjstrLiteralImages = { "", null, null, null,
+            null, null, "\133", null, "\135", null, null, null, null, null,
+            null, null, null, null, null, null, null, null, };
     /** Lexer state names. */
-    public static final String[] lexStateNames = { "DEFAULT", "IN_STANZA_HEADER",
-            "IN_TAG_VALUE_PAIR", "IN_TAG_VALUE", "IN_QUOTED_STRING", "IN_COMMENT", };
+    public static final String[] lexStateNames = { "DEFAULT",
+            "IN_STANZA_HEADER", "IN_TAG_VALUE_PAIR", "IN_TAG_VALUE",
+            "IN_QUOTED_STRING", "IN_COMMENT", };
     /** Lex State array. */
-    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, 1, -1, 0, 2, 3,
-            4, -1, 3, 0, -1, -1, 0, 5, -1, 0, -1, };
+    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, 1, -1,
+            0, 2, 3, 4, -1, 3, 0, -1, -1, 0, 5, -1, 0, -1, };
     static final long[] jjtoToken = { 0x2993c1L, };
     static final long[] jjtoSkip = { 0x166c3eL, };
     protected BOMSafeJavaCharStream input_stream;
@@ -820,8 +828,9 @@ public class OBOParserTokenManager implements OBOParserConstants {
      *            lexState */
     public void SwitchTo(int lexState) {
         if (lexState >= 6 || lexState < 0) {
-            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
-                    + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
+            throw new TokenMgrError("Error: Ignoring invalid lexical state : "
+                    + lexState + ". State unchanged.",
+                    TokenMgrError.INVALID_LEXICAL_STATE);
         } else {
             curLexState = lexState;
         }
@@ -950,8 +959,9 @@ public class OBOParserTokenManager implements OBOParserConstants {
                 input_stream.backup(1);
                 error_after = curPos <= 1 ? "" : input_stream.GetImage();
             }
-            throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column,
-                    error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+            throw new TokenMgrError(EOFSeen, curLexState, error_line,
+                    error_column, error_after, curChar,
+                    TokenMgrError.LEXICAL_ERROR);
         }
     }
 
@@ -962,7 +972,8 @@ public class OBOParserTokenManager implements OBOParserConstants {
         }
     }
 
-    private void jjAddStates(int start, int end) {
+    private void jjAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);

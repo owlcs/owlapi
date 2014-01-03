@@ -98,7 +98,8 @@ public class KRSSParser implements KRSSParserConstants {
      *             the kRSSOWL parser exception */
     protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {
         try {
-            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology, ax));
+            ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology,
+                    ax));
         } catch (OWLOntologyChangeException e) {
             throw new KRSSOWLParserException(e);
         }
@@ -106,11 +107,11 @@ public class KRSSParser implements KRSSParserConstants {
 
     /** Gets the iri.
      * 
-     * @param s
-     *            the s
+     * @param _s
+     *            the string
      * @return the iri */
-    public IRI getIRI(String s) {
-        s = base + s;
+    public IRI getIRI(String _s) {
+        String s = base + _s;
         IRI iri = string2IRI.get(s);
         if (iri == null) {
             iri = IRI.create(s);
@@ -236,7 +237,8 @@ public class KRSSParser implements KRSSParserConstants {
         } else {}
         jj_consume_token(CLOSEPAR);
         if (superProp != null) {
-            return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
+            return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp,
+                    superProp);
         }
         throw new ParseException("Missing return statement in function");
     }
@@ -1814,7 +1816,8 @@ public class KRSSParser implements KRSSParserConstants {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
             if (jj_scanpos.next == null) {
-                jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
+                jj_lastpos = jj_scanpos = jj_scanpos.next = token_source
+                        .getNextToken();
             } else {
                 jj_lastpos = jj_scanpos = jj_scanpos.next;
             }
@@ -1911,8 +1914,8 @@ public class KRSSParser implements KRSSParserConstants {
             for (int i = 0; i < jj_endpos; i++) {
                 jj_expentry[i] = jj_lasttokens[i];
             }
-            jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it
-                    .hasNext();) {
+            jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries
+                    .iterator(); it.hasNext();) {
                 int[] oldentry = (int[]) it.next();
                 if (oldentry.length == jj_expentry.length) {
                     for (int i = 0; i < jj_expentry.length; i++) {

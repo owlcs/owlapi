@@ -87,16 +87,17 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     static final long[] jjbitVec11 = { 0x0L, 0x1000000000L, 0x0L, 0x0L };
     static final long[] jjbitVec12 = { 0x100L, 0x0L, 0x0L, 0x0L };
     static final long[] jjbitVec13 = { 0x0L, 0x400000000000000L, 0x0L, 0x0L };
-    static final long[] jjbitVec14 = { 0xfffffffafffffffeL, 0xffffffffffffffffL,
-            0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec14 = { 0xfffffffafffffffeL,
+            0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
     static final long[] jjbitVec16 = { 0x0L, 0x0L, 0xffffefffffffffffL,
             0xffffffffffffffffL };
-    static final long[] jjbitVec17 = { 0xffffffffffffffffL, 0xf7ffffffffffffffL,
-            0xffffffffffffffffL, 0xffffffffffffffffL };
-    static final long[] jjbitVec18 = { 0xfffffffffffffeffL, 0xffffffffffffffffL,
-            0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec17 = { 0xffffffffffffffffL,
+            0xf7ffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
+    static final long[] jjbitVec18 = { 0xfffffffffffffeffL,
+            0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
-    private int jjMoveNfa_0(int startState, int curPos) {
+    private int jjMoveNfa_0(int startState, int _curPos) {
+        int curPos = _curPos;
         int startsAt = 0;
         jjnewStateCnt = 121;
         int i = 1;
@@ -857,47 +858,56 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
                             }
                             break;
                         case 16:
-                            if (jjCanMove_5(hiByte, i1, i2, l1, l2) && kind > 17) {
+                            if (jjCanMove_5(hiByte, i1, i2, l1, l2)
+                                    && kind > 17) {
                                 kind = 17;
                             }
                             break;
                         case 20:
-                            if (jjCanMove_6(hiByte, i1, i2, l1, l2) && kind > 18) {
+                            if (jjCanMove_6(hiByte, i1, i2, l1, l2)
+                                    && kind > 18) {
                                 kind = 18;
                             }
                             break;
                         case 23:
-                            if (jjCanMove_7(hiByte, i1, i2, l1, l2) && kind > 19) {
+                            if (jjCanMove_7(hiByte, i1, i2, l1, l2)
+                                    && kind > 19) {
                                 kind = 19;
                             }
                             break;
                         case 27:
-                            if (jjCanMove_8(hiByte, i1, i2, l1, l2) && kind > 20) {
+                            if (jjCanMove_8(hiByte, i1, i2, l1, l2)
+                                    && kind > 20) {
                                 kind = 20;
                             }
                             break;
                         case 28:
-                            if (jjCanMove_9(hiByte, i1, i2, l1, l2) && kind > 21) {
+                            if (jjCanMove_9(hiByte, i1, i2, l1, l2)
+                                    && kind > 21) {
                                 kind = 21;
                             }
                             break;
                         case 35:
-                            if (jjCanMove_10(hiByte, i1, i2, l1, l2) && kind > 22) {
+                            if (jjCanMove_10(hiByte, i1, i2, l1, l2)
+                                    && kind > 22) {
                                 kind = 22;
                             }
                             break;
                         case 36:
-                            if (jjCanMove_11(hiByte, i1, i2, l1, l2) && kind > 23) {
+                            if (jjCanMove_11(hiByte, i1, i2, l1, l2)
+                                    && kind > 23) {
                                 kind = 23;
                             }
                             break;
                         case 40:
-                            if (jjCanMove_12(hiByte, i1, i2, l1, l2) && kind > 25) {
+                            if (jjCanMove_12(hiByte, i1, i2, l1, l2)
+                                    && kind > 25) {
                                 kind = 25;
                             }
                             break;
                         case 41:
-                            if (jjCanMove_13(hiByte, i1, i2, l1, l2) && kind > 26) {
+                            if (jjCanMove_13(hiByte, i1, i2, l1, l2)
+                                    && kind > 26) {
                                 kind = 26;
                             }
                             break;
@@ -932,11 +942,11 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    static final int[] jjnextStates = { 117, 118, 119, 111, 115, 68, 73, 76, 81, 86, 89,
-            95, 100, 103, 106, 48, 57, };
+    static final int[] jjnextStates = { 117, 118, 119, 111, 115, 68, 73, 76,
+            81, 86, 89, 95, 100, 103, 106, 48, 57, };
 
-    private static final boolean
-            jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
+            long l1, long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec0[i2] & l2) != 0L;
@@ -945,7 +955,8 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+    private final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1,
+            long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec1[i2] & l2) != 0L;
@@ -954,7 +965,8 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2) {
+    private final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1,
+            long l2) {
         switch (hiByte) {
             case 34:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -1079,10 +1091,10 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     }
 
     /** Token literal values. */
-    public final String[] jjstrLiteralImages = { "", null, null, null, null, null, null,
-            null, "\56", null, "\50", "\51", "\133", "\135", "\173", "\175", "\72", null,
-            null, null, null, null, null, null, null, null, null, null, null, null,
-            "\12", "\54", };
+    public final String[] jjstrLiteralImages = { "", null, null, null, null,
+            null, null, null, "\56", null, "\50", "\51", "\133", "\135",
+            "\173", "\175", "\72", null, null, null, null, null, null, null,
+            null, null, null, null, null, null, "\12", "\54", };
     /** Lexer state names. */
     public static final String[] lexStateNames = { "DEFAULT", };
     static final long[] jjtoToken = { 0xfffffff1L, };
@@ -1132,8 +1144,9 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     /** Switch to specified lex state. */
     public void SwitchTo(int lexState) {
         if (lexState >= 1 || lexState < 0) {
-            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
-                    + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
+            throw new TokenMgrError("Error: Ignoring invalid lexical state : "
+                    + lexState + ". State unchanged.",
+                    TokenMgrError.INVALID_LEXICAL_STATE);
         } else {
             curLexState = lexState;
         }
@@ -1222,8 +1235,9 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
                 input_stream.backup(1);
                 error_after = curPos <= 1 ? "" : input_stream.GetImage();
             }
-            throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column,
-                    error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+            throw new TokenMgrError(EOFSeen, curLexState, error_line,
+                    error_column, error_after, curChar,
+                    TokenMgrError.LEXICAL_ERROR);
         }
     }
 
@@ -1234,7 +1248,8 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    private void jjAddStates(int start, int end) {
+    private void jjAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
@@ -1245,7 +1260,8 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         jjCheckNAdd(state2);
     }
 
-    private void jjCheckNAddStates(int start, int end) {
+    private void jjCheckNAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);

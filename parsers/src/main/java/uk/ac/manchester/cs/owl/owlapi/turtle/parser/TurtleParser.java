@@ -15,7 +15,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** The Class TurtleParser. */
-public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants {
+public class TurtleParser implements AnonymousNodeChecker,
+        TurtleParserConstants {
     /** The string2 iri. */
     private Map<String, IRI> string2IRI;
     /** The base. */
@@ -135,10 +136,11 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
 
     /** Gets the iri.
      * 
-     * @param s
-     *            the s
+     * @param _s
+     *            the string
      * @return the iri */
-    public IRI getIRI(String s) {
+    public IRI getIRI(String _s) {
+        String s = _s;
         if (s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
         }
@@ -146,7 +148,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         if (iri == null) {
             iri = IRI.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base.substring(0, base.lastIndexOf('/') + 1) + s);
+                iri = IRI.create(base.substring(0, base.lastIndexOf('/') + 1)
+                        + s);
             }
             string2IRI.put(s, iri);
         }
@@ -347,7 +350,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
      *            the subject
      * @throws ParseException
      *             the parse exception */
-    final public void parsePredicateObjectList(IRI subject) throws ParseException {
+    final public void parsePredicateObjectList(IRI subject)
+            throws ParseException {
         IRI predicate;
         predicate = parseVerb();
         parseObjectList(subject, predicate);
@@ -422,7 +426,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
      *            the predicate
      * @throws ParseException
      *             the parse exception */
-    final public void parseObjectList(IRI subject, IRI predicate) throws ParseException {
+    final public void parseObjectList(IRI subject, IRI predicate)
+            throws ParseException {
         parseObject(subject, predicate);
         label_3: while (true) {
             if (jj_2_22(2)) {} else {
@@ -441,7 +446,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
      *            the predicate
      * @throws ParseException
      *             the parse exception */
-    final public void parseObject(IRI subject, IRI predicate) throws ParseException {
+    final public void parseObject(IRI subject, IRI predicate)
+            throws ParseException {
         IRI resObject;
         if (jj_2_25(2)) {
             parseLiteral(subject, predicate);
@@ -521,7 +527,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
      *            the predicate
      * @throws ParseException
      *             the parse exception */
-    final public void parseLiteral(IRI subject, IRI predicate) throws ParseException {
+    final public void parseLiteral(IRI subject, IRI predicate)
+            throws ParseException {
         String literal;
         String lang = null;
         IRI datatype = null;
@@ -2172,8 +2179,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     public Token token;
     /** Next token. */
     public Token jj_nt;
-    /** The jj_ntk. */
-    private int jj_ntk;
     /** The jj_lastpos. */
     private Token jj_scanpos, jj_lastpos;
     /** The jj_la. */
@@ -2230,7 +2235,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         }
         token_source = new TurtleParserTokenManager(jj_input_stream);
         token = new Token();
-        jj_ntk = -1;
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
@@ -2262,7 +2266,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         }
         token_source.ReInit(jj_input_stream);
         token = new Token();
-        jj_ntk = -1;
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
@@ -2280,7 +2283,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new TurtleParserTokenManager(jj_input_stream);
         token = new Token();
-        jj_ntk = -1;
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
@@ -2298,7 +2300,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
         token = new Token();
-        jj_ntk = -1;
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
@@ -2315,7 +2316,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     public TurtleParser(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
-        jj_ntk = -1;
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
@@ -2332,7 +2332,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     public void ReInit(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
-        jj_ntk = -1;
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
             jj_la1[i] = -1;
@@ -2356,7 +2355,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         } else {
             token = token.next = token_source.getNextToken();
         }
-        jj_ntk = -1;
         if (token.kind == kind) {
             jj_gen++;
             if (++jj_gc > 100) {
@@ -2379,7 +2377,11 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
     }
 
     /** The Class LookaheadSuccess. */
-    static private final class LookaheadSuccess extends java.lang.Error {}
+    static private final class LookaheadSuccess extends java.lang.Error {
+        public LookaheadSuccess() {}
+
+        private static final long serialVersionUID = 1L;
+    }
 
     /** The jj_ls. */
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
@@ -2393,7 +2395,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
             if (jj_scanpos.next == null) {
-                jj_lastpos = jj_scanpos = jj_scanpos.next = token_source.getNextToken();
+                jj_lastpos = jj_scanpos = jj_scanpos.next = token_source
+                        .getNextToken();
             } else {
                 jj_lastpos = jj_scanpos = jj_scanpos.next;
             }
@@ -2429,7 +2432,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
         } else {
             token = token.next = token_source.getNextToken();
         }
-        jj_ntk = -1;
         jj_gen++;
         return token;
     }
@@ -2449,17 +2451,6 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             }
         }
         return t;
-    }
-
-    /** Jj_ntk.
-     * 
-     * @return the int */
-    private int jj_ntk() {
-        if ((jj_nt = token.next) == null) {
-            return jj_ntk = (token.next = token_source.getNextToken()).kind;
-        } else {
-            return jj_ntk = jj_nt.kind;
-        }
     }
 
     /** The jj_expentries. */
@@ -2490,8 +2481,8 @@ public class TurtleParser implements AnonymousNodeChecker, TurtleParserConstants
             for (int i = 0; i < jj_endpos; i++) {
                 jj_expentry[i] = jj_lasttokens[i];
             }
-            jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries.iterator(); it
-                    .hasNext();) {
+            jj_entries_loop: for (java.util.Iterator<?> it = jj_expentries
+                    .iterator(); it.hasNext();) {
                 int[] oldentry = (int[]) it.next();
                 if (oldentry.length == jj_expentry.length) {
                     for (int i = 0; i < jj_expentry.length; i++) {

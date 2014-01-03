@@ -127,7 +127,8 @@ public class JJTOWLFunctionalSyntaxParserState {
      * number of nodes are popped from the stack and made the children of the
      * definite node. Then the definite node is pushed on to the stack.
      */
-    public void closeNodeScope(Node n, int num) {
+    public void closeNodeScope(Node n, int _num) {
+        int num = _num;
         mk = marks.remove(marks.size() - 1);
         while (num-- > 0) {
             Node c = popNode();

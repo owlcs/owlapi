@@ -28,7 +28,6 @@ public class OBOParser implements OBOParserConstants {
             Stanza();
             switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
                 case OPEN_SQUARE_BRACKET:
-                    ;
                     break;
                 default:
                     jj_la1[0] = jj_gen;
@@ -47,7 +46,6 @@ public class OBOParser implements OBOParserConstants {
         label_2: while (true) {
             switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
                 case TAG_NAME:
-                    ;
                     break;
                 default:
                     jj_la1[1] = jj_gen;
@@ -71,7 +69,6 @@ public class OBOParser implements OBOParserConstants {
         label_3: while (true) {
             switch (jj_ntk == -1 ? jj_ntk() : jj_ntk) {
                 case TAG_NAME:
-                    ;
                     break;
                 default:
                     jj_la1[2] = jj_gen;
@@ -88,7 +85,6 @@ public class OBOParser implements OBOParserConstants {
      *             the parse exception */
     final public void TagValuePair() throws ParseException {
         Token tagToken = null;
-        Token valToken = null;
         String qualifierBlock = "";
         String comment = "";
         Token t;
@@ -99,7 +95,6 @@ public class OBOParser implements OBOParserConstants {
                 case QUOTED_STRING:
                 case STRING:
                 case TAG_VALUE_WS:
-                    ;
                     break;
                 default:
                     jj_la1[3] = jj_gen;
@@ -130,7 +125,6 @@ public class OBOParser implements OBOParserConstants {
                 break;
             default:
                 jj_la1[5] = jj_gen;
-                ;
         }
         String name = tagToken.image.trim();
         String val = sb.toString().trim();
@@ -152,12 +146,7 @@ public class OBOParser implements OBOParserConstants {
     final public String Comment() throws ParseException {
         Token t;
         t = jj_consume_token(COMMENT);
-        {
-            if (true) {
-                return t.image;
-            }
-        }
-        throw new OWLRuntimeException("Missing return statement in function");
+        return t.image;
     }
 
     /** Generated Token Manager. */
