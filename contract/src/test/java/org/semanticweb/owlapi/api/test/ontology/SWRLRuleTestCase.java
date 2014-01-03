@@ -64,40 +64,49 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         SWRLVariable varX = Factory.getFactory().getSWRLVariable(
-                IRI("http://www.owlapi#x"));
+                IRI("urn:swrl#x"));
         SWRLVariable varY = Factory.getFactory().getSWRLVariable(
-                IRI("http://www.owlapi#y"));
+                IRI("urn:swrl#y"));
         SWRLVariable varZ = Factory.getFactory().getSWRLVariable(
-                IRI("http://www.owlapi#z"));
+                IRI("urn:swrl#z"));
         Set<SWRLAtom> body = new HashSet<SWRLAtom>();
-        body.add(Factory.getFactory().getSWRLClassAtom(Class(getIRI("A")), varX));
-        SWRLIndividualArgument indIArg = Factory.getFactory().getSWRLIndividualArgument(
-                NamedIndividual(getIRI("i")));
-        SWRLIndividualArgument indJArg = Factory.getFactory().getSWRLIndividualArgument(
-                NamedIndividual(getIRI("j")));
-        body.add(Factory.getFactory().getSWRLClassAtom(Class(getIRI("D")), indIArg));
-        body.add(Factory.getFactory().getSWRLClassAtom(Class(getIRI("B")), varX));
+        body.add(Factory.getFactory()
+                .getSWRLClassAtom(Class(getIRI("A")), varX));
+        SWRLIndividualArgument indIArg = Factory.getFactory()
+                .getSWRLIndividualArgument(NamedIndividual(getIRI("i")));
+        SWRLIndividualArgument indJArg = Factory.getFactory()
+                .getSWRLIndividualArgument(NamedIndividual(getIRI("j")));
+        body.add(Factory.getFactory().getSWRLClassAtom(Class(getIRI("D")),
+                indIArg));
+        body.add(Factory.getFactory()
+                .getSWRLClassAtom(Class(getIRI("B")), varX));
         SWRLVariable varQ = Factory.getFactory().getSWRLVariable(
-                IRI("http://www.owlapi#q"));
+                IRI("urn:swrl#q"));
         SWRLVariable varR = Factory.getFactory().getSWRLVariable(
-                IRI("http://www.owlapi#r"));
-        body.add(Factory.getFactory().getSWRLDataPropertyAtom(DataProperty(getIRI("d")),
-                varX, varQ));
+                IRI("urn:swrl#r"));
+        body.add(Factory.getFactory().getSWRLDataPropertyAtom(
+                DataProperty(getIRI("d")), varX, varQ));
         OWLLiteral lit = Literal(33);
-        SWRLLiteralArgument litArg = Factory.getFactory().getSWRLLiteralArgument(lit);
-        body.add(Factory.getFactory().getSWRLDataPropertyAtom(DataProperty(getIRI("d")),
-                varY, litArg));
+        SWRLLiteralArgument litArg = Factory.getFactory()
+                .getSWRLLiteralArgument(lit);
+        body.add(Factory.getFactory().getSWRLDataPropertyAtom(
+                DataProperty(getIRI("d")), varY, litArg));
         Set<SWRLAtom> head = new HashSet<SWRLAtom>();
-        head.add(Factory.getFactory().getSWRLClassAtom(Class(getIRI("C")), varX));
+        head.add(Factory.getFactory()
+                .getSWRLClassAtom(Class(getIRI("C")), varX));
         head.add(Factory.getFactory().getSWRLObjectPropertyAtom(
                 ObjectProperty(getIRI("p")), varY, varZ));
         head.add(Factory.getFactory().getSWRLSameIndividualAtom(varX, varY));
-        head.add(Factory.getFactory().getSWRLSameIndividualAtom(indIArg, indJArg));
-        head.add(Factory.getFactory().getSWRLDifferentIndividualsAtom(varX, varZ));
-        head.add(Factory.getFactory().getSWRLDifferentIndividualsAtom(varX, varZ));
-        head.add(Factory.getFactory().getSWRLDifferentIndividualsAtom(indIArg, indJArg));
-        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(ObjectProperty(getIRI("p")),
-                Class(getIRI("A")));
+        head.add(Factory.getFactory().getSWRLSameIndividualAtom(indIArg,
+                indJArg));
+        head.add(Factory.getFactory().getSWRLDifferentIndividualsAtom(varX,
+                varZ));
+        head.add(Factory.getFactory().getSWRLDifferentIndividualsAtom(varX,
+                varZ));
+        head.add(Factory.getFactory().getSWRLDifferentIndividualsAtom(indIArg,
+                indJArg));
+        OWLObjectSomeValuesFrom svf = ObjectSomeValuesFrom(
+                ObjectProperty(getIRI("p")), Class(getIRI("A")));
         head.add(Factory.getFactory().getSWRLClassAtom(svf, varX));
         List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
         args.add(varQ);
