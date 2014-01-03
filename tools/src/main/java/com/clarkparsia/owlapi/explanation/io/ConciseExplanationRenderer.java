@@ -58,7 +58,8 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
 
     @Override
     public void startRendering(Writer w) {
-        writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
+        writer = w instanceof PrintWriter ? (PrintWriter) w
+                : new PrintWriter(w);
     }
 
     @Override
@@ -95,11 +96,12 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
 
     /** Render single explanation.
      * 
-     * @param header
+     * @param _header
      *            the header
      * @param axioms
      *            the axioms */
-    private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) {
+    private void renderSingleExplanation(String _header, Set<OWLAxiom> axioms) {
+        String header = _header;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {
             if (first) {
