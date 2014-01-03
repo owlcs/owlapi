@@ -970,12 +970,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(SWRLVariable node) {
         write("?");
-        String fragment = node.getIRI().getFragment();
-        // XXX an IRI without a fragment is likely an error
-        if (fragment == null) {
-            fragment = node.getIRI().toQuotedString();
+        // do not save the namespace if it's the conventional one
+        if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
+            String fragment = node.getIRI().getFragment();
+            if (fragment != null) {
+                write(fragment);
+            }
+        } else {
+            write(node.getIRI().toQuotedString());
         }
-        write(fragment);
     }
 
     @Override

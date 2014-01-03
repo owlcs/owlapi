@@ -1714,12 +1714,8 @@ public class ManchesterOWLSyntaxEditorParser implements
         String fragment = peekToken();
         if (fragment.startsWith("<")) {
             // then the variable was saved with a full IRI
-            IRI iri = parseIRI();
-            fragment = iri.getFragment();
-            if (fragment == null) {
-                // XXX this would be unexpected but the error will be obvious
-                fragment = iri.toQuotedString();
-            }
+            // preserve the namespace
+            return parseIRI();
         } else {
             consumeToken();
         }
