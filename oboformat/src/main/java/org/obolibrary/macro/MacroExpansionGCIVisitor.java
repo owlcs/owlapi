@@ -149,13 +149,11 @@ public class MacroExpansionGCIVisitor {
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
             if (expandExpressionMap.containsKey(iri)) {
-                System.out.println("svf " + p + " " + filler);
                 if (filler instanceof OWLObjectOneOf) {
                     Set<OWLIndividual> inds = ((OWLObjectOneOf) filler)
                             .getIndividuals();
                     if (inds.size() == 1) {
                         OWLIndividual ind = inds.iterator().next();
-                        System.out.println("**svf " + p + " " + ind);
                         if (ind instanceof OWLNamedIndividual) {
                             templateVal = ((OWLNamedObject) ind).getIRI();
                         }
@@ -165,13 +163,9 @@ public class MacroExpansionGCIVisitor {
                     templateVal = ((OWLNamedObject) filler).getIRI();
                 }
                 if (templateVal != null) {
-                    System.out
-                            .println("TEMPLATEVAL: " + templateVal.toString());
                     String tStr = expandExpressionMap.get(iri);
-                    System.out.println("t: " + tStr);
                     String exStr = tStr.replaceAll("\\?Y",
                             manchesterSyntaxTool.getId(templateVal));
-                    System.out.println("R: " + exStr);
                     try {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
