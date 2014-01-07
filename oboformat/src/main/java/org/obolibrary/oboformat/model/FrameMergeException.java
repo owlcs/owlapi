@@ -3,7 +3,7 @@ package org.obolibrary.oboformat.model;
 /** The Class FrameMergeException. */
 public class FrameMergeException extends Exception {
     // generated
-    private static final long serialVersionUID = -8507935937267018171L;
+    private static final long serialVersionUID = 40000L;
 
     /** Instantiates a new frame merge exception.
      * 

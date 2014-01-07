@@ -3020,7 +3020,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     static private final class LookaheadSuccess extends java.lang.Error {
         public LookaheadSuccess() {}
 
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 40000L;
     }
 
     /** The jj_ls. */

@@ -76,8 +76,8 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 /** Satisfiability converter. */
 public class SatisfiabilityConverter {
     /** The Class AxiomConverter. */
-    private class AxiomConverter extends OWLAxiomVisitorExAdapter<OWLClassExpression> {
-        /** The Constant serialVersionUID. */
+    private class AxiomConverter extends
+            OWLAxiomVisitorExAdapter<OWLClassExpression> {
         private static final long serialVersionUID = 40000L;
 
         /** Instantiates a new axiom converter. */
@@ -102,7 +102,8 @@ public class SatisfiabilityConverter {
          *            the set
          * @return the oWL object intersection of */
         @Nonnull
-        private OWLObjectIntersectionOf and(@Nonnull Set<OWLClassExpression> set) {
+        private OWLObjectIntersectionOf
+                and(@Nonnull Set<OWLClassExpression> set) {
             return factory.getOWLObjectIntersectionOf(set);
         }
 
@@ -172,8 +173,8 @@ public class SatisfiabilityConverter {
         @Override
         public OWLClassExpression visit(OWLDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLDataHasValue(
+                    axiom.getProperty(), axiom.getObject());
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
             return ax.accept(this);
         }
@@ -207,7 +208,8 @@ public class SatisfiabilityConverter {
 
         @Override
         public OWLClassExpression visit(OWLEquivalentClassesAxiom axiom) {
-            Iterator<OWLClassExpression> classes = axiom.getClassExpressions().iterator();
+            Iterator<OWLClassExpression> classes = axiom.getClassExpressions()
+                    .iterator();
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
             if (classes.hasNext()) {
@@ -229,35 +231,36 @@ public class SatisfiabilityConverter {
         }
 
         @Override
-        public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(
+                OWLNegativeDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLDataHasValue(
+                    axiom.getProperty(), axiom.getObject());
             return factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
         @Override
-        public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+        public OWLClassExpression visit(
+                OWLNegativeObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLObjectHasValue(
+                    axiom.getProperty(), axiom.getObject());
             return factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
         @Override
         public OWLClassExpression visit(OWLObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLObjectHasValue(
+                    axiom.getProperty(), axiom.getObject());
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
             return ax.accept(this);
         }
 
         @Override
         public OWLClassExpression visit(OWLObjectPropertyDomainAxiom axiom) {
-            return and(
-                    factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
-                            factory.getOWLThing()), not(axiom.getDomain()));
+            return and(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
+                    factory.getOWLThing()), not(axiom.getDomain()));
         }
 
         @Override
@@ -290,8 +293,8 @@ public class SatisfiabilityConverter {
     }
 
     /** The Constant LOGGER. */
-    protected static final Logger LOGGER = Logger.getLogger(SatisfiabilityConverter.class
-            .getName());
+    protected static final Logger LOGGER = Logger
+            .getLogger(SatisfiabilityConverter.class.getName());
     /** The converter. */
     private final AxiomConverter converter;
     /** The factory. */

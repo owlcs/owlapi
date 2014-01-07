@@ -42,7 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 40000L;
     /** ignore ontology iri parameter */
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
 

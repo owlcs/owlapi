@@ -129,7 +129,8 @@ public class JustificationMap {
             OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
             ax.accept(extractor);
             Set<OWLEntity> rhscollected = new HashSet<OWLEntity>();
-            OWLEntityCollector rhsCollector = new OWLEntityCollector(rhscollected);
+            OWLEntityCollector rhsCollector = new OWLEntityCollector(
+                    rhscollected);
             for (OWLObject rhsObject : extractor.getRHS()) {
                 rhsObject.accept(rhsCollector);
             }
@@ -137,7 +138,8 @@ public class JustificationMap {
                 index(rhsEntity, axiomsByRHS, ax);
             }
             Set<OWLEntity> lhscollected = new HashSet<OWLEntity>();
-            OWLEntityCollector lhsCollector = new OWLEntityCollector(lhscollected);
+            OWLEntityCollector lhsCollector = new OWLEntityCollector(
+                    lhscollected);
             for (OWLObject lhsObject : extractor.getLHS()) {
                 lhsObject.accept(lhsCollector);
             }
@@ -239,8 +241,8 @@ public class JustificationMap {
      * @param value
      *            the value */
     @Nonnull
-    private static <K, V> void index(@Nonnull K key, @Nonnull Map<K, Set<V>> map,
-            @Nonnull V value) {
+    private static <K, V> void index(@Nonnull K key,
+            @Nonnull Map<K, Set<V>> map, @Nonnull V value) {
         Set<V> values = map.get(key);
         if (values == null) {
             values = new HashSet<V>();
@@ -485,9 +487,8 @@ public class JustificationMap {
     }
 
     /** The Class OWLAxiomComparator. */
-    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements
-            Comparator<OWLAxiom>, Serializable {
-        /** The Constant serialVersionUID. */
+    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter
+            implements Comparator<OWLAxiom>, Serializable {
         private static final long serialVersionUID = 40000L;
 
         /** Instantiates a new oWL axiom comparator. */

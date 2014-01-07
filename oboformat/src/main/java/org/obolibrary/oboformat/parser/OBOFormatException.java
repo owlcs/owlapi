@@ -5,7 +5,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 /** The Class OBOFormatException. */
 public class OBOFormatException extends OWLParserException {
     // generated
-    private static final long serialVersionUID = 6785258968276915779L;
+    private static final long serialVersionUID = 40000L;
 
     /** Instantiates a new oBO format exception. */
     public OBOFormatException() {}

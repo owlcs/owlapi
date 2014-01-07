@@ -2,7 +2,7 @@ package org.obolibrary.oboformat.parser;
 
 /** The Class OBOFormatDanglingReferenceException. */
 public class OBOFormatDanglingReferenceException extends OBOFormatException {
-    private static final long serialVersionUID = -7805725187214533880L;
+    private static final long serialVersionUID = 40000L;
 
     /** Instantiates a new oBO format dangling reference exception. */
     public OBOFormatDanglingReferenceException() {}

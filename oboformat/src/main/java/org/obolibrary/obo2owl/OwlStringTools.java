@@ -24,7 +24,7 @@ public class OwlStringTools {
      * strings. */
     public static class OwlStringException extends Exception {
         // generated
-        private static final long serialVersionUID = 5909865427436329918L;
+        private static final long serialVersionUID = 40000L;
 
         /** @param cause
          *            cause */
@@ -81,7 +81,8 @@ public class OwlStringTools {
         }
         try {
             OWLFunctionalSyntaxOWLParser p = new OWLFunctionalSyntaxOWLParser();
-            OWLOntologyDocumentSource documentSource = new StringDocumentSource(axioms);
+            OWLOntologyDocumentSource documentSource = new StringDocumentSource(
+                    axioms);
             OWLOntology ontology = translationManager.createOntology();
             p.parse(documentSource, ontology);
             return ontology.getAxioms();

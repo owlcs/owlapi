@@ -2399,8 +2399,7 @@ public class TurtleParser implements TurtleParserConstants {
 
     /** The Class LookaheadSuccess. */
     static private final class LookaheadSuccess extends RuntimeException {
-        /** The Constant serialVersionUID. */
-        private static final long serialVersionUID = 1L;
+        private static final long serialVersionUID = 40000L;
 
         /** Instantiates a new lookahead success. */
         public LookaheadSuccess() {}

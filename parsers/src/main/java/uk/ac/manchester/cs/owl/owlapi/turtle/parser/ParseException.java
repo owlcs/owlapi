@@ -46,9 +46,7 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
  * customize your error reporting mechanisms so long as you retain the public
  * fields. */
 public class ParseException extends Exception {
-    /** The version identifier for this Serializable class. Increment only if the
-     * <i>serialized</i> form of the class changes. */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 40000L;
 
     /** This constructor is used by the method "generateParseException" in the
      * generated parser. Calling this constructor generates a new object of this

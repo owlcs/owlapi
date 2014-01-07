@@ -43,9 +43,7 @@ package uk.ac.manchester.cs.owlapi.dlsyntax.parser;
 /** Token Manager Error. */
 @SuppressWarnings("unused")
 public class TokenMgrError extends Error {
-    /** The version identifier for this Serializable class. Increment only if the
-     * <i>serialized</i> form of the class changes. */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 40000L;
     /*
      * Ordinals for various reasons why an Error of this type can be thrown.
      */

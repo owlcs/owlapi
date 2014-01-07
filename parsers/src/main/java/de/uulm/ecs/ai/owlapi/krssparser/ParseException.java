@@ -46,9 +46,7 @@ package de.uulm.ecs.ai.owlapi.krssparser;
  * customize your error reporting mechanisms so long as you retain the public
  * fields. */
 public class ParseException extends Exception {
-    /** The version identifier for this Serializable class. Increment only if the
-     * <i>serialized</i> form of the class changes. */
-    private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 40000L;
 
     /** This constructor is used by the method "generateParseException" in the
      * generated parser. Calling this constructor generates a new object of this
@@ -61,9 +59,10 @@ public class ParseException extends Exception {
      *            expected tokensa
      * @param tokenImageVal
      *            token */
-    public ParseException(Token currentTokenVal, int[][] expectedTokenSequencesVal,
-            String[] tokenImageVal) {
-        super(initialise(currentTokenVal, expectedTokenSequencesVal, tokenImageVal));
+    public ParseException(Token currentTokenVal,
+            int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
+        super(initialise(currentTokenVal, expectedTokenSequencesVal,
+                tokenImageVal));
         currentToken = currentTokenVal;
         expectedTokenSequences = expectedTokenSequencesVal;
         tokenImage = tokenImageVal;
@@ -112,8 +111,8 @@ public class ParseException extends Exception {
      * @param tokenImage
      *            token image
      * @return error message */
-    private static String initialise(Token currentToken, int[][] expectedTokenSequences,
-            String[] tokenImage) {
+    private static String initialise(Token currentToken,
+            int[][] expectedTokenSequences, String[] tokenImage) {
         String eol = System.getProperty("line.separator", "\n");
         StringBuffer expected = new StringBuffer();
         int maxSize = 0;
@@ -122,7 +121,8 @@ public class ParseException extends Exception {
                 maxSize = expectedTokenSequences[i].length;
             }
             for (int j = 0; j < expectedTokenSequences[i].length; j++) {
-                expected.append(tokenImage[expectedTokenSequences[i][j]]).append(' ');
+                expected.append(tokenImage[expectedTokenSequences[i][j]])
+                        .append(' ');
             }
             if (expectedTokenSequences[i][expectedTokenSequences[i].length - 1] != 0) {
                 expected.append("...");
@@ -200,7 +200,8 @@ public class ParseException extends Exception {
                 default:
                     if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
                         String s = "0000" + Integer.toString(ch, 16);
-                        retval.append("\\u" + s.substring(s.length() - 4, s.length()));
+                        retval.append("\\u"
+                                + s.substring(s.length() - 4, s.length()));
                     } else {
                         retval.append(ch);
                     }

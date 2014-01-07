@@ -44,9 +44,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Token Manager Error. */
 public class TokenMgrError extends OWLRuntimeException {
-    /** The version identifier for this Serializable class. Increment only if the
-     * <i>serialized</i> form of the class changes. */
-    private static final long serialVersionUID = 30406L;
+    private static final long serialVersionUID = 40000L;
     /*
      * Ordinals for various reasons why an Error of this type can be thrown.
      */
@@ -103,7 +101,8 @@ public class TokenMgrError extends OWLRuntimeException {
                 default:
                     if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
                         String s = "0000" + Integer.toString(ch, 16);
-                        retval.append("\\u" + s.substring(s.length() - 4, s.length()));
+                        retval.append("\\u"
+                                + s.substring(s.length() - 4, s.length()));
                     } else {
                         retval.append(ch);
                     }
@@ -136,15 +135,16 @@ public class TokenMgrError extends OWLRuntimeException {
      *            curChar
      * @return error */
     @SuppressWarnings("unused")
-    protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine,
-            int errorColumn, String errorAfter, char curChar) {
+    protected static String LexicalError(boolean EOFSeen, int lexState,
+            int errorLine, int errorColumn, String errorAfter, char curChar) {
         return "Lexical error at line "
                 + errorLine
                 + ", column "
                 + errorColumn
                 + ".  Encountered: "
-                + (EOFSeen ? "<EOF> " : "\"" + addEscapes(String.valueOf(curChar)) + "\""
-                        + " (" + (int) curChar + "), ") + "after : \""
+                + (EOFSeen ? "<EOF> " : "\""
+                        + addEscapes(String.valueOf(curChar)) + "\"" + " ("
+                        + (int) curChar + "), ") + "after : \""
                 + addEscapes(errorAfter) + "\"";
     }
 
@@ -191,11 +191,10 @@ public class TokenMgrError extends OWLRuntimeException {
      *            curChar
      * @param reason
      *            reason */
-    public TokenMgrError(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
-            String errorAfter, char curChar, int reason) {
-        this(
-                LexicalError(EOFSeen, lexState, errorLine, errorColumn, errorAfter,
-                        curChar), reason);
+    public TokenMgrError(boolean EOFSeen, int lexState, int errorLine,
+            int errorColumn, String errorAfter, char curChar, int reason) {
+        this(LexicalError(EOFSeen, lexState, errorLine, errorColumn,
+                errorAfter, curChar), reason);
     }
 }
 /*
