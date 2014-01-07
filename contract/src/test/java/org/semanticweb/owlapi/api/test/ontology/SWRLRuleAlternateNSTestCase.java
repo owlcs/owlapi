@@ -3,7 +3,7 @@
  *
  * The contents of this file are subject to the LGPL License, Version 3.0.
  *
- * Copyright (C) 2014, The University of Manchester
+ * Copyright (C) 2011, The University of Manchester
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0
  * in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
  *
- * Copyright 2014, The University of Manchester
+ * Copyright 2011, University of Manchester
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,14 +45,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIndividualArgument;
@@ -61,16 +58,17 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 08-Jul-2009 */
-public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class SWRLRuleAlternateNSTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         SWRLVariable varX = Factory.getFactory().getSWRLVariable(
-                IRI("urn:swrl#x"));
+                IRI("http://www.owlapi#x"));
         SWRLVariable varY = Factory.getFactory().getSWRLVariable(
-                IRI("urn:swrl#y"));
+                IRI("http://www.owlapi#y"));
         SWRLVariable varZ = Factory.getFactory().getSWRLVariable(
-                IRI("urn:swrl#z"));
+                IRI("http://www.owlapi#z"));
         Set<SWRLAtom> body = new HashSet<SWRLAtom>();
         body.add(Factory.getFactory()
                 .getSWRLClassAtom(Class(getIRI("A")), varX));
@@ -83,9 +81,9 @@ public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {
         body.add(Factory.getFactory()
                 .getSWRLClassAtom(Class(getIRI("B")), varX));
         SWRLVariable varQ = Factory.getFactory().getSWRLVariable(
-                IRI("urn:swrl#q"));
+                IRI("http://www.owlapi#q"));
         SWRLVariable varR = Factory.getFactory().getSWRLVariable(
-                IRI("urn:swrl#r"));
+                IRI("http://www.owlapi#r"));
         body.add(Factory.getFactory().getSWRLDataPropertyAtom(
                 DataProperty(getIRI("d")), varX, varQ));
         OWLLiteral lit = Literal(33);

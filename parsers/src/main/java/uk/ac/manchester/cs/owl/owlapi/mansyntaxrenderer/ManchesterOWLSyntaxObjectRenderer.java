@@ -52,6 +52,7 @@ import java.util.TreeSet;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 25-Apr-2007 */
@@ -382,7 +383,9 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
 
     @Override
     public void visit(OWLLiteral node) {
-        if (node.getDatatype().isDouble()) {
+        // xsd:decimal is the default datatype for literal forms like "33.3"
+        // with no specified datatype
+        if (XSDVocabulary.DECIMAL.getIRI().equals(node.getDatatype().getIRI())) {
             write(node.getLiteral());
         } else if (node.getDatatype().isFloat()) {
             write(node.getLiteral());
@@ -898,12 +901,15 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer implemen
     @Override
     public void visit(SWRLVariable node) {
         write("?");
+        // do not save the namespace if it's the conventional one
+        if ("urn:swrl#".equals(node.getIRI().getNamespace())) {
         String fragment = node.getIRI().getFragment();
-        // XXX an IRI without a fragment is likely an error
-        if (fragment == null) {
-            fragment = node.getIRI().toQuotedString();
+            if (fragment != null) {
+                write(fragment);
+            }
+        } else {
+            write(node.getIRI().toQuotedString());
         }
-        write(fragment);
     }
 
     @Override

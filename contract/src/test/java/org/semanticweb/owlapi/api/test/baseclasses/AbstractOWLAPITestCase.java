@@ -104,9 +104,12 @@ public abstract class AbstractOWLAPITestCase {
                 }
             }
             if (counter > 0) {
-                System.out.println(this.getClass().getSimpleName()
+                new RuntimeException().printStackTrace(System.out);
+                String x = this.getClass().getSimpleName()
                         + " roundTripOntology() Failing to match axioms: "
-                        + sb.toString());
+                        + sb.toString();
+                System.out.println(x);
+                fail(x);
                 return false;
             } else {
                 return true;
