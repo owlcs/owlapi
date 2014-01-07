@@ -30,7 +30,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 public class OBOFormatParser {
     static final Logger LOG = Logger.getLogger(OBOFormatParser.class.getName());
     // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
-    SimpleDateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    SimpleDateFormat isoDateFormat = new SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss'Z'");
     private boolean followImport;
     private Object location;
 
@@ -212,8 +213,9 @@ public class OBOFormatParser {
      *             parser exception */
     public OBODoc parse(File file) throws IOException, OBOFormatParserException {
         location = file;
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(
-                file), OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                new FileInputStream(file),
+                OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
         return parse(in);
     }
 
@@ -228,8 +230,9 @@ public class OBOFormatParser {
      *             parser exception */
     public OBODoc parse(URL url) throws IOException, OBOFormatParserException {
         location = url;
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(),
-                OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(url.openStream(),
+                        OBOFormatConstants.DEFAULT_CHARACTER_ENCODING));
         return parse(in);
     }
 
@@ -242,7 +245,8 @@ public class OBOFormatParser {
      *             io exception
      * @throws OBOFormatParserException
      *             parser exception */
-    public OBODoc parseURL(String urlstr) throws IOException, OBOFormatParserException {
+    public OBODoc parseURL(String urlstr) throws IOException,
+            OBOFormatParserException {
         URL url = new URL(urlstr);
         return parse(url);
     }
@@ -333,12 +337,14 @@ public class OBOFormatParser {
         }
     }
 
-    private void addOboNamespace(Collection<Frame> frames, String defaultOboNamespace) {
+    private void addOboNamespace(Collection<Frame> frames,
+            String defaultOboNamespace) {
         if (frames != null && !frames.isEmpty()) {
             for (Frame termFrame : frames) {
                 Clause clause = termFrame.getClause(OboFormatTag.TAG_NAMESPACE);
                 if (clause == null) {
-                    clause = new Clause(OboFormatTag.TAG_NAMESPACE, defaultOboNamespace);
+                    clause = new Clause(OboFormatTag.TAG_NAMESPACE,
+                            defaultOboNamespace);
                     termFrame.addClause(clause);
                 }
             }
@@ -365,19 +371,19 @@ public class OBOFormatParser {
                         || _tag == OboFormatTag.TAG_RELATIONSHIP
                         || _tag == OboFormatTag.TAG_IS_A) {
                     if (c.getValues().size() > 1) {
-                        String error = checkRelation(c.getValue(String.class), tag,
-                                f.getId(), doc);
+                        String error = checkRelation(c.getValue(String.class),
+                                tag, f.getId(), doc);
                         if (error != null) {
                             danglingReferences.add(error);
                         }
-                        error = checkClassReference(c.getValue2(String.class), tag,
-                                f.getId(), doc);
+                        error = checkClassReference(c.getValue2(String.class),
+                                tag, f.getId(), doc);
                         if (error != null) {
                             danglingReferences.add(error);
                         }
                     } else {
-                        String error = checkClassReference(c.getValue(String.class), tag,
-                                f.getId(), doc);
+                        String error = checkClassReference(
+                                c.getValue(String.class), tag, f.getId(), doc);
                         if (error != null) {
                             danglingReferences.add(error);
                         }
@@ -406,19 +412,20 @@ public class OBOFormatParser {
                 } else if (_tag == OboFormatTag.TAG_HOLDS_OVER_CHAIN
                         || _tag == OboFormatTag.TAG_EQUIVALENT_TO_CHAIN
                         || _tag == OboFormatTag.TAG_RELATIONSHIP) {
-                    String error = checkRelation(c.getValue().toString(), tag, f.getId(),
-                            doc);
+                    String error = checkRelation(c.getValue().toString(), tag,
+                            f.getId(), doc);
                     if (error != null) {
                         danglingReferences.add(error);
                     }
-                    error = checkRelation(c.getValue2().toString(), tag, f.getId(), doc);
+                    error = checkRelation(c.getValue2().toString(), tag,
+                            f.getId(), doc);
                     if (error != null) {
                         danglingReferences.add(error);
                     }
                 } else if (_tag == OboFormatTag.TAG_DOMAIN
                         || _tag == OboFormatTag.TAG_RANGE) {
-                    String error = checkClassReference(c.getValue().toString(), tag,
-                            f.getId(), doc);
+                    String error = checkClassReference(c.getValue().toString(),
+                            tag, f.getId(), doc);
                     if (error != null) {
                         danglingReferences.add(error);
                     }
@@ -428,19 +435,22 @@ public class OBOFormatParser {
         return danglingReferences;
     }
 
-    private String checkRelation(String relId, String tag, String frameId, OBODoc doc) {
+    private String checkRelation(String relId, String tag, String frameId,
+            OBODoc doc) {
         if (doc.getTypedefFrame(relId, followImport) == null) {
-            return "The relation '" + relId + "' reference in" + " the tag '" + tag
-                    + " ' in the frame of id '" + frameId + "' is not declared";
+            return "The relation '" + relId + "' reference in" + " the tag '"
+                    + tag + " ' in the frame of id '" + frameId
+                    + "' is not declared";
         }
         return null;
     }
 
-    private String checkClassReference(String classId, String tag, String frameId,
-            OBODoc doc) {
+    private String checkClassReference(String classId, String tag,
+            String frameId, OBODoc doc) {
         if (doc.getTermFrame(classId, followImport) == null) {
-            return "The class '" + classId + "' reference in" + " the tag '" + tag
-                    + " ' in the frame of id '" + frameId + "'is not declared";
+            return "The class '" + classId + "' reference in" + " the tag '"
+                    + tag + " ' in the frame of id '" + frameId
+                    + "'is not declared";
         }
         return null;
     }
@@ -460,7 +470,8 @@ public class OBOFormatParser {
      * @return false if there are no more header clauses, other wise true
      * @throws OBOFormatParserException
      *             parser exception */
-    protected boolean parseHeaderClauseNl(Frame h) throws OBOFormatParserException {
+    protected boolean parseHeaderClauseNl(Frame h)
+            throws OBOFormatParserException {
         parseZeroOrMoreWsOptCmtNl();
         if (stream.peekCharIs('[') || stream.eof()) {
             return false;
@@ -545,8 +556,8 @@ public class OBOFormatParser {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException("Could not add frame " + f
-                        + " to document, duplicate frame definition?", e, stream.lineNo,
-                        stream.line);
+                        + " to document, duplicate frame definition?", e,
+                        stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Term] frame, but found unknown stanza type.");
@@ -557,7 +568,8 @@ public class OBOFormatParser {
      *            f
      * @throws OBOFormatParserException
      *             parser exception */
-    protected void parseTermFrameClauseEOL(Frame f) throws OBOFormatParserException {
+    protected void parseTermFrameClauseEOL(Frame f)
+            throws OBOFormatParserException {
         // comment line:
         if (stream.peekCharIs('!')) {
             parseHiddenComment();
@@ -660,7 +672,8 @@ public class OBOFormatParser {
      *            obodoc
      * @throws OBOFormatParserException
      *             parser exception */
-    public void parseTypedefFrame(OBODoc obodoc) throws OBOFormatParserException {
+    public void parseTypedefFrame(OBODoc obodoc)
+            throws OBOFormatParserException {
         Frame f = new Frame(FrameType.TYPEDEF);
         parseZeroOrMoreWsOptCmtNl();
         if (stream.consume("[Typedef]")) {
@@ -679,8 +692,8 @@ public class OBOFormatParser {
                 obodoc.addFrame(f);
             } catch (FrameMergeException e) {
                 throw new OBOFormatParserException("Could not add frame " + f
-                        + " to document, duplicate frame definition?", e, stream.lineNo,
-                        stream.line);
+                        + " to document, duplicate frame definition?", e,
+                        stream.lineNo, stream.line);
             }
         } else {
             error("Expected a [Typedef] frame, but found unknown stanza type.");
@@ -691,7 +704,8 @@ public class OBOFormatParser {
      *            f
      * @throws OBOFormatParserException
      *             parser exception */
-    protected void parseTypedefFrameClauseEOL(Frame f) throws OBOFormatParserException {
+    protected void parseTypedefFrameClauseEOL(Frame f)
+            throws OBOFormatParserException {
         // comment line:
         if (stream.peekCharIs('!')) {
             parseHiddenComment();
@@ -703,8 +717,7 @@ public class OBOFormatParser {
         }
     }
 
-    /** @param cl
-     *            cl
+    /** @return parsed clause
      * @throws OBOFormatParserException
      *             parser exception */
     public Clause parseTypedefFrameClause() throws OBOFormatParserException {
@@ -846,7 +859,8 @@ public class OBOFormatParser {
         parseIdRef(cl, false);
     }
 
-    private void parseIdRef(Clause cl, boolean optional) throws OBOFormatParserException {
+    private void parseIdRef(Clause cl, boolean optional)
+            throws OBOFormatParserException {
         String id = getParseUntil(" !{");
         if (!optional) {
             if (id == null || id.length() < 1) {
@@ -920,8 +934,9 @@ public class OBOFormatParser {
             Date date = OBOFormatConstants.headerDateFormat.get().parse(v);
             cl.addValue(date);
         } catch (ParseException e) {
-            throw new OBOFormatParserException("Could not parse date from string: " + v,
-                    e, stream.lineNo, stream.line);
+            throw new OBOFormatParserException(
+                    "Could not parse date from string: " + v, e, stream.lineNo,
+                    stream.line);
         }
     }
 
@@ -995,7 +1010,8 @@ public class OBOFormatParser {
      *            cl
      * @throws OBOFormatParserException
      *             parser exception */
-    private void parseTermIntersectionOf(Clause cl) throws OBOFormatParserException {
+    private void parseTermIntersectionOf(Clause cl)
+            throws OBOFormatParserException {
         parseIdRef(cl);
         // consumed the first ID
         parseZeroOrMoreWs();
@@ -1008,7 +1024,8 @@ public class OBOFormatParser {
         }
     }
 
-    private void parseTypedefIntersectionOf(Clause cl) throws OBOFormatParserException {
+    private void parseTypedefIntersectionOf(Clause cl)
+            throws OBOFormatParserException {
         // single values only
         parseIdRef(cl);
     }
@@ -1102,7 +1119,8 @@ public class OBOFormatParser {
                 error("Missing closing ']' for xref list at pos: " + stream.pos);
             }
         } else if (!optional) {
-            error("Clause: " + cl.getTag()
+            error("Clause: "
+                    + cl.getTag()
                     + "; expected an xref list, or at least an empty list '[]' at pos: "
                     + stream.pos);
         }
@@ -1172,7 +1190,8 @@ public class OBOFormatParser {
         }
     }
 
-    private void parseZeroOrMoreQuals(Clause cl) throws OBOFormatParserException {
+    private void parseZeroOrMoreQuals(Clause cl)
+            throws OBOFormatParserException {
         if (parseQual(cl)) {
             while (stream.consume(",") && parseQual(cl)) {}
         }
@@ -1192,8 +1211,8 @@ public class OBOFormatParser {
                 v = getParseUntilAdv("\"");
             } else {
                 v = getParseUntil(" ,}");
-                warn("qualifier values should be enclosed in quotes. You have: " + q
-                        + "=" + stream.rest());
+                warn("qualifier values should be enclosed in quotes. You have: "
+                        + q + "=" + stream.rest());
             }
             if (v == null || v.length() == 0) {
                 warn("Empty value for qualifier in trailing qualifier block.");
@@ -1258,7 +1277,8 @@ public class OBOFormatParser {
         }
     }
 
-    protected void parseUnquotedString(Clause cl) throws OBOFormatParserException {
+    protected void parseUnquotedString(Clause cl)
+            throws OBOFormatParserException {
         parseZeroOrMoreWs();
         String v = getParseUntil("!{");
         // strip whitespace from the end - TODO
