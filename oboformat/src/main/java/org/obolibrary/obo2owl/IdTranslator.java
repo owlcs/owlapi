@@ -1,4 +1,4 @@
-package obo.obolibrary.idrules;
+package org.obolibrary.obo2owl;
 
 import java.util.HashMap;
 import java.util.Map;

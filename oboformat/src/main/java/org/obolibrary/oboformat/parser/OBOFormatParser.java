@@ -48,7 +48,7 @@ public class OBOFormatParser {
             reader = r;
         }
 
-        private char peekChar() {
+        protected char peekChar() {
             prepare();
             return line.charAt(pos);
         }
@@ -563,30 +563,28 @@ public class OBOFormatParser {
             parseHiddenComment();
             forceParseNlOrEof();
         } else {
-            Clause cl = new Clause();
-            parseTermFrameClause(cl);
+            Clause cl = parseTermFrameClause();
             parseEOL(cl);
             f.addClause(cl);
         }
     }
 
-    /** @param cl
-     *            cl
-     * @throws OBOFormatParserException
-     *             parser exception */
-    public void parseTermFrameClause(Clause cl) throws OBOFormatParserException {
+    /** @throws OBOFormatParserException
+     *             parser exception
+     * @return parsed clause */
+    public Clause parseTermFrameClause() throws OBOFormatParserException {
         String t = getParseTag();
         if (t == null) {
             error("Could not find tag in clause.");
         }
+        Clause cl = new Clause(t);
         if (parseDeprecatedSynonym(t, cl)) {
-            return;
+            return cl;
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag == null) {
             error("Could not find tag for: " + t);
         }
-        cl.setTag(t);
         if (tag == OboFormatTag.TAG_IS_ANONYMOUS) {
             parseBoolean(cl);
         } else if (tag == OboFormatTag.TAG_NAME) {
@@ -649,6 +647,7 @@ public class OBOFormatParser {
         } else {
             error("Unexpected tag " + tag.getTag() + " in term frame.");
         }
+        return cl;
     }
 
     // ----------------------------------------
@@ -698,8 +697,7 @@ public class OBOFormatParser {
             parseHiddenComment();
             forceParseNlOrEof();
         } else {
-            Clause cl = new Clause();
-            parseTypedefFrameClause(cl);
+            Clause cl = parseTypedefFrameClause();
             parseEOL(cl);
             f.addClause(cl);
         }
@@ -709,7 +707,7 @@ public class OBOFormatParser {
      *            cl
      * @throws OBOFormatParserException
      *             parser exception */
-    public void parseTypedefFrameClause(Clause cl) throws OBOFormatParserException {
+    public Clause parseTypedefFrameClause() throws OBOFormatParserException {
         String t = getParseTag();
         if (t == null) {
             error("Could not find tag in clause.");
@@ -718,14 +716,14 @@ public class OBOFormatParser {
             LOG.info("is_metadata DEPRECATED; switching to is_metadata_tag");
             t = OboFormatTag.TAG_IS_METADATA_TAG.getTag();
         }
+        Clause cl = new Clause(t);
         if (parseDeprecatedSynonym(t, cl)) {
-            return;
+            return cl;
         }
         OboFormatTag tag = OBOFormatConstants.getTag(t);
         if (tag == null) {
             error("Could not find tag for: " + t);
         }
-        cl.setTag(t);
         if (tag == OboFormatTag.TAG_IS_ANONYMOUS) {
             parseBoolean(cl);
         } else if (tag == OboFormatTag.TAG_NAME) {
@@ -811,6 +809,7 @@ public class OBOFormatParser {
         } else {
             error("Unexpected tag " + tag.getTag() + " in type def frame.");
         }
+        return cl;
     }
 
     // ----------------------------------------
@@ -1227,8 +1226,7 @@ public class OBOFormatParser {
         if (tag != OboFormatTag.TAG_ID) {
             error("Expected id tag as first line in frame, but was: " + tag);
         }
-        Clause cl = new Clause();
-        cl.setTag(t);
+        Clause cl = new Clause(t);
         f.addClause(cl);
         String id = getParseUntil(" !{");
         if (id == null || id.length() == 0) {

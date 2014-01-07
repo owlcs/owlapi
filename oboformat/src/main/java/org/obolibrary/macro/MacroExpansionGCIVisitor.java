@@ -32,7 +32,7 @@ public class MacroExpansionGCIVisitor {
     private OWLOntology inputOntology;
     private OWLOntologyManager outputManager;
     private OWLOntology outputOntology;
-    private ManchesterSyntaxTool manchesterSyntaxTool;
+    protected ManchesterSyntaxTool manchesterSyntaxTool;
     private GCIVisitor visitor;
 
     /** @param inputOntology
@@ -53,7 +53,7 @@ public class MacroExpansionGCIVisitor {
         }
     }
 
-    private void output(OWLAxiom axiom) {
+    protected void output(OWLAxiom axiom) {
         if (axiom == null) {
             log.log(Level.SEVERE, "no axiom");
             return;
@@ -147,12 +147,10 @@ public class MacroExpansionGCIVisitor {
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
             if (expandExpressionMap.containsKey(iri)) {
-                System.out.println("svf " + p + " " + filler);
                 if (filler instanceof OWLObjectOneOf) {
                     Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
                     if (inds.size() == 1) {
                         OWLIndividual ind = inds.iterator().next();
-                        System.out.println("**svf " + p + " " + ind);
                         if (ind instanceof OWLNamedIndividual) {
                             templateVal = ((OWLNamedObject) ind).getIRI();
                         }
@@ -162,12 +160,9 @@ public class MacroExpansionGCIVisitor {
                     templateVal = ((OWLNamedObject) filler).getIRI();
                 }
                 if (templateVal != null) {
-                    System.out.println("TEMPLATEVAL: " + templateVal.toString());
                     String tStr = expandExpressionMap.get(iri);
-                    System.out.println("t: " + tStr);
                     String exStr = tStr.replaceAll("\\?Y",
                             manchesterSyntaxTool.getId(templateVal));
-                    System.out.println("R: " + exStr);
                     try {
                         result = manchesterSyntaxTool.parseManchesterExpression(exStr);
                     } catch (ParserException e) {

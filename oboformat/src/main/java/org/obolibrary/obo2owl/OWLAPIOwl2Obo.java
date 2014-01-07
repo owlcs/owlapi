@@ -1159,21 +1159,18 @@ public class OWLAPIOwl2Obo {
         Frame f = new Frame(FrameType.HEADER);
         obodoc.setHeaderFrame(f);
         for (IRI iri : ontology.getDirectImportsDocuments()) {
-            Clause c = new Clause();
-            c.setTag(OboFormatTag.TAG_IMPORT.getTag());
+            Clause c = new Clause(OboFormatTag.TAG_IMPORT.getTag());
             // c.setValue(getOntologyId(iri));
             c.setValue(iri.toString());
             f.addClause(c);
         }
         String id = getOntologyId(owlOntology);
-        Clause c = new Clause();
-        c.setTag(OboFormatTag.TAG_ONTOLOGY.getTag());
+        Clause c = new Clause(OboFormatTag.TAG_ONTOLOGY.getTag());
         c.setValue(id);
         f.addClause(c);
         String vid = getDataVersion(owlOntology);
         if (vid != null) {
-            Clause c2 = new Clause();
-            c2.setTag(OboFormatTag.TAG_DATA_VERSION.getTag());
+            Clause c2 = new Clause(OboFormatTag.TAG_DATA_VERSION.getTag());
             c2.setValue(vid);
             f.addClause(c2);
         }
@@ -1235,8 +1232,7 @@ public class OWLAPIOwl2Obo {
         List<Clause> equivalenceAxiomClauses = new ArrayList<Clause>();
         String cls2 = this.getIdentifier(ce2);
         if (cls2 != null) {
-            Clause c = new Clause();
-            c.setTag(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
+            Clause c = new Clause(OboFormatTag.TAG_EQUIVALENT_TO.getTag());
             c.setValue(cls2);
             f.addClause(c);
             addQualifiers(c, ax.getAnnotations());
@@ -1244,8 +1240,7 @@ public class OWLAPIOwl2Obo {
             List<OWLClassExpression> list2 = ((OWLObjectUnionOf) ce2).getOperandsAsList();
             for (OWLClassExpression oce : list2) {
                 String id = this.getIdentifier(oce);
-                Clause c = new Clause();
-                c.setTag(OboFormatTag.TAG_UNION_OF.getTag());
+                Clause c = new Clause(OboFormatTag.TAG_UNION_OF.getTag());
                 if (id == null) {
                     isUntranslateable = true;
                     error(ax);
@@ -1329,8 +1324,8 @@ public class OWLAPIOwl2Obo {
                     }
                 }
                 if (cls2 != null) {
-                    Clause c = new Clause();
-                    c.setTag(OboFormatTag.TAG_INTERSECTION_OF.getTag());
+                    Clause c = new Clause(
+                            OboFormatTag.TAG_INTERSECTION_OF.getTag());
                     if (r != null) {
                         c.addValue(r);
                     }
@@ -1406,8 +1401,7 @@ public class OWLAPIOwl2Obo {
         }
         OWLClass cls1 = ce1.asOWLClass();
         Frame f = getTermFrame(cls1);
-        Clause c = new Clause();
-        c.setTag(OboFormatTag.TAG_DISJOINT_FROM.getTag());
+        Clause c = new Clause(OboFormatTag.TAG_DISJOINT_FROM.getTag());
         c.setValue(cls2);
         f.addClause(c);
         addQualifiers(c, ax.getAnnotations());
@@ -1469,7 +1463,6 @@ public class OWLAPIOwl2Obo {
     /** The Class UntranslatableAxiomException. */
     public static class UntranslatableAxiomException extends Exception {
         // generated
-        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 4674805484349471665L;
 
         /** Instantiates a new untranslatable axiom exception.
@@ -1594,15 +1587,13 @@ public class OWLAPIOwl2Obo {
         // "");
         // }
         int indexSlash = iri.lastIndexOf("/");
-        String prefixURI = null;
         String id = null;
         if (indexSlash > -1) {
-            prefixURI = iri.substring(0, indexSlash + 1);
             id = iri.substring(indexSlash + 1);
         } else {
             id = iri;
         }
-        String s[] = id.split("#_");
+        String[] s = id.split("#_");
         // table 5.9.2 row 2 - NonCanonical-Prefixed-ID
         if (s.length > 1) {
             return s[0] + ":" + s[1];
@@ -1820,7 +1811,6 @@ public class OWLAPIOwl2Obo {
                     }
                 }
                 if (c != null && p != null && filler != null) {
-                    isRewrittenToGCI = true;
                     sub = c;
                     qvs.add(new QualifierValue("gci_relation", getIdentifier(p)));
                     qvs.add(new QualifierValue("gci_filler", getIdentifier(filler)));
@@ -1830,8 +1820,7 @@ public class OWLAPIOwl2Obo {
         if (sub instanceof OWLClass) {
             Frame f = getTermFrame((OWLClass) sub);
             if (sup instanceof OWLClass) {
-                Clause c = new Clause();
-                c.setTag(OboFormatTag.TAG_IS_A.getTag());
+                Clause c = new Clause(OboFormatTag.TAG_IS_A.getTag());
                 c.setValue(this.getIdentifier(sup));
                 c.setQualifierValues(qvs);
                 f.addClause(c);
@@ -1941,8 +1930,7 @@ public class OWLAPIOwl2Obo {
     protected Clause createRelationshipClauseWithRestrictions(
             OWLQuantifiedObjectRestriction r, String fillerId, Set<QualifierValue> qvs,
             OWLSubClassOfAxiom ax) {
-        Clause c = new Clause();
-        c.setTag(OboFormatTag.TAG_RELATIONSHIP.getTag());
+        Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
         c.addValue(this.getIdentifier(r.getProperty()));
         c.addValue(fillerId);
         c.setQualifierValues(qvs);
@@ -1964,8 +1952,7 @@ public class OWLAPIOwl2Obo {
     protected Clause createRelationshipClauseWithCardinality(
             OWLObjectCardinalityRestriction restriction, String fillerId,
             Set<QualifierValue> qvs, OWLSubClassOfAxiom ax) {
-        Clause c = new Clause();
-        c.setTag(OboFormatTag.TAG_RELATIONSHIP.getTag());
+        Clause c = new Clause(OboFormatTag.TAG_RELATIONSHIP.getTag());
         c.addValue(this.getIdentifier(restriction.getProperty()));
         c.addValue(fillerId);
         c.setQualifierValues(qvs);

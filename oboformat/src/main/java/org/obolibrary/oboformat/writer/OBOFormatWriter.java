@@ -529,7 +529,7 @@ public class OBOFormatWriter {
         // this location
         // not that the value may be a non-null empty list - here we still want
         // to write []
-        if (xrefs != null) {
+        if (xrefs != null && !xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         } else if (OboFormatTag.TAG_DEF.getTag().equals(clause.getTag())
                 || OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(clause.getTag())
@@ -712,7 +712,7 @@ public class OBOFormatWriter {
             }
         }
         Collection<Xref> xrefs = clause.getXrefs();
-        if (xrefs != null) {
+        if (xrefs != null && !xrefs.isEmpty()) {
             appendXrefs(sb, xrefs);
         }
         appendQualifiers(sb, clause);
@@ -950,7 +950,7 @@ public class OBOFormatWriter {
     /** The Class ClauseListComparator. */
     private static final class ClauseListComparator implements Comparator<Clause> {
         /** The Constant instance. */
-        private static final ClauseListComparator instance = new ClauseListComparator();
+        protected static final ClauseListComparator instance = new ClauseListComparator();
 
         @Override
         public int compare(Clause c1, Clause c2) {

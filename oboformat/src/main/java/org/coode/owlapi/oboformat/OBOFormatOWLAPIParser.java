@@ -28,7 +28,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException {
         try {
-            OWLOntology o = parse(documentIRI, null, ontology);
+            parse(documentIRI, null, ontology);
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         } catch (OWLOntologyCreationException e) {
@@ -43,7 +43,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             OWLOntology ontology) throws OWLParserException, IOException,
             OWLOntologyChangeException, UnloadableImportException {
         try {
-            OWLOntology o = parse(null, documentSource, ontology);
+            parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         } catch (OWLOntologyCreationException e) {
@@ -59,7 +59,7 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException {
         try {
-            OWLOntology o = parse(null, documentSource, ontology);
+            parse(null, documentSource, ontology);
         } catch (OBOFormatParserException e) {
             throw new OWLParserException(e);
         } catch (OWLOntologyCreationException e) {

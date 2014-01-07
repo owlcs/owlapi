@@ -10,9 +10,9 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 /** Clause */
 public class Clause {
     protected String tag;
-    protected Collection<Object> values;
-    protected Collection<Xref> xrefs;
-    protected Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
+    protected final Collection<Object> values = new ArrayList<Object>();
+    protected final Collection<Xref> xrefs = new ArrayList<Xref>();
+    protected final Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
 
     /** @param tag
      *            tag */
@@ -32,8 +32,7 @@ public class Clause {
      * @param value
      *            value */
     public Clause(String tag, String value) {
-        super();
-        this.tag = tag;
+        this(tag);
         setValue(value);
     }
 
@@ -45,7 +44,11 @@ public class Clause {
         this(tag.getTag(), value);
     }
 
-    /** default constructor */
+    /** default constructor
+     * 
+     * @deprecated use Clause(String). Using this constructor makes the hashcode
+     *             variable. */
+    @Deprecated
     public Clause() {
         super();
     }
@@ -56,7 +59,9 @@ public class Clause {
     }
 
     /** @param tag
-     *            tag */
+     *            tag
+     * @deprecated Using this method makes the hashcode variable. */
+    @Deprecated
     public void setTag(String tag) {
         this.tag = tag;
     }
@@ -69,22 +74,20 @@ public class Clause {
     /** @param values
      *            values */
     public void setValues(Collection<Object> values) {
-        this.values = values;
+        this.values.clear();
+        this.values.addAll(values);
     }
 
     /** @param v
      *            v */
     public void setValue(Object v) {
-        values = new ArrayList<Object>(1);
+        values.clear();
         values.add(v);
     }
 
     /** @param v
      *            v */
     public void addValue(Object v) {
-        if (values == null) {
-            values = new ArrayList<Object>(1);
-        }
         values.add(v);
     }
 
@@ -142,15 +145,13 @@ public class Clause {
     /** @param xrefs
      *            xrefs */
     public void setXrefs(Collection<Xref> xrefs) {
-        this.xrefs = xrefs;
+        this.xrefs.clear();
+        this.xrefs.addAll(xrefs);
     }
 
     /** @param xref
      *            xref */
     public void addXref(Xref xref) {
-        if (xrefs == null) {
-            xrefs = new Vector<Xref>();
-        }
         xrefs.add(xref);
     }
 
@@ -162,15 +163,13 @@ public class Clause {
     /** @param qualifierValues
      *            qualifierValues */
     public void setQualifierValues(Collection<QualifierValue> qualifierValues) {
-        this.qualifierValues = qualifierValues;
+        this.qualifierValues.clear();
+        this.qualifierValues.addAll(qualifierValues);
     }
 
     /** @param qv
      *            qv */
     public void addQualifierValue(QualifierValue qv) {
-        if (qualifierValues == null) {
-            qualifierValues = new Vector<QualifierValue>();
-        }
         qualifierValues.add(qv);
     }
 
@@ -226,9 +225,19 @@ public class Clause {
     }
 
     @Override
+    public int hashCode() {
+        return 31 * 31 * 31 * qualifierValues.hashCode() + 31
+                * xrefs.hashCode() + 31 * 31 * values.hashCode()
+                + (tag == null ? 0 : tag.hashCode());
+    }
+
+    @Override
     public boolean equals(Object e) {
         if (e == null || !(e instanceof Clause)) {
             return false;
+        }
+        if (e == this) {
+            return true;
         }
         Clause other = (Clause) e;
         if (!getTag().equals(other.getTag())) {

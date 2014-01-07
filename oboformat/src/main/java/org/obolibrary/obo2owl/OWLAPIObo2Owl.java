@@ -475,7 +475,7 @@ public class OWLAPIObo2Owl {
             } else if (tag == OboFormatTag.TAG_SYNONYMTYPEDEF) {
                 OWLAnnotationProperty parentAnnotProp = trTagToAnnotationProp(t);
                 for (Clause clause : headerFrame.getClauses(t)) {
-                    Object values[] = clause.getValues().toArray();
+                    Object[] values = clause.getValues().toArray();
                     OWLAnnotationProperty childAnnotProp = trAnnotationProp(values[0]
                             .toString());
                     IRI childIRI = childAnnotProp.getIRI();

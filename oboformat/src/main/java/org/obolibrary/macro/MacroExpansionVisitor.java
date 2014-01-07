@@ -29,12 +29,12 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author cjm TODO - allow use of prefixes */
 public class MacroExpansionVisitor {
-    private static final Logger log = Logger.getLogger(MacroExpansionVisitor.class
-            .getName());
+    protected static final Logger log = Logger
+            .getLogger(MacroExpansionVisitor.class.getName());
     private OWLOntology inputOntology;
     private OWLOntologyManager manager;
     private Visitor visitor;
-    private ManchesterSyntaxTool manchesterSyntaxTool;
+    protected ManchesterSyntaxTool manchesterSyntaxTool;
 
     /** @param inputOntology
      *            inputOntology */
@@ -155,11 +155,9 @@ public class MacroExpansionVisitor {
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
             if (expandExpressionMap.containsKey(iri)) {
-                System.out.println("svf " + p + " " + filler);
                 if (filler instanceof OWLObjectOneOf) {
                     Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
                     if (inds.size() == 1) {
-                        System.out.println("**svf " + p + " " + inds.iterator().next());
                         OWLIndividual ind = inds.iterator().next();
                         if (ind instanceof OWLNamedIndividual) {
                             templateVal = ((OWLNamedObject) ind).getIRI();
@@ -170,12 +168,9 @@ public class MacroExpansionVisitor {
                     templateVal = ((OWLNamedObject) filler).getIRI();
                 }
                 if (templateVal != null) {
-                    System.out.println("TEMPLATEVAL: " + templateVal.toString());
                     String tStr = expandExpressionMap.get(iri);
-                    System.out.println("t: " + tStr);
                     String exStr = tStr.replaceAll("\\?Y",
                             manchesterSyntaxTool.getId(templateVal));
-                    System.out.println("R: " + exStr);
                     try {
                         result = manchesterSyntaxTool.parseManchesterExpression(exStr);
                     } catch (ParserException e) {
