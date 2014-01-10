@@ -49,7 +49,10 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** An {@code OWLParser} parses an ontology document and adds the axioms
- * of the parsed ontology to an existing ontology.
+ * of the parsed ontology to an existing ontology.  OWLParsers are typically
+ * used by {@link OWLOntologyManager OWLOntologyManagers} to populate empty
+ * {@link OWLOntology OWLOntologies}, but can be used to add axioms to 
+ * OWLOntologies that already contains axioms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 14-Nov-2006 */
@@ -77,7 +80,7 @@ public interface OWLParser {
      * method.
      * 
      * @param documentIRI
-     *            the IRI of the ontology to parse
+     *            the IRI of the document to load the ontology from
      * @param ontology
      *            the ontology to which the parsed ontology's axioms are added
      * @return the format of the parsed ontology, never {@code null}
