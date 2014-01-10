@@ -44,6 +44,11 @@
 			<artifactId>owlapi-oboformat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapi-contract</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -95,6 +100,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-contract</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>
