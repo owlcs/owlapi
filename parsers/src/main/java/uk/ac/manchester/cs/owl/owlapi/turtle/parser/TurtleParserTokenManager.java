@@ -1884,13 +1884,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj add states.
-     * 
-     * @param start
-     *            the start
-     * @param end
-     *            the end */
-    private void jjAddStates(int start, int end) {
+    private void jjAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
@@ -1907,13 +1902,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         jjCheckNAdd(state2);
     }
 
-    /** Jj check n add states.
-     * 
-     * @param start
-     *            the start
-     * @param end
-     *            the end */
-    private void jjCheckNAddStates(int start, int end) {
+    private void jjCheckNAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);

@@ -11,13 +11,10 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** renderer for obo */
 public class OBOFormatRenderer implements OWLRenderer {
-    private OWLOntologyManager manager;
-
     @Override
     public void render(OWLOntology ontology, OutputStream os)
             throws OWLOntologyStorageException {
@@ -33,7 +30,8 @@ public class OBOFormatRenderer implements OWLRenderer {
     public void render(OWLOntology ontology, Writer writer)
             throws OWLOntologyStorageException {
         try {
-            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(ontology.getOWLOntologyManager());
+            OWLAPIOwl2Obo translator = new OWLAPIOwl2Obo(
+                    ontology.getOWLOntologyManager());
             OBODoc result = translator.convert(ontology);
             new OBOFormatWriter().write(result, new BufferedWriter(writer));
         } catch (IOException e) {

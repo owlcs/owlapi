@@ -331,15 +331,11 @@ public class TurtleParser implements TurtleParserConstants {
             iri = parseNodeID();
         } else if (jj_2_12(2)) {
             jj_consume_token(EMPTY_BLANK_NODE);
-            if (iri == null) {
-                iri = getNextBlankNode(null);
-            }
+            iri = getNextBlankNode(null);
         } else if (jj_2_13(2)) {
             jj_consume_token(OPEN_SQUARE_BRACKET);
             if (jj_2_10(2)) {
-                if (iri == null) {
-                    iri = getNextBlankNode(null);
-                }
+                iri = getNextBlankNode(null);
                 parsePredicateObjectList(iri);
                 if (jj_2_9(2)) {
                     jj_consume_token(DOT);

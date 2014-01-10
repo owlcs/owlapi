@@ -46,17 +46,17 @@ public class Xref {
         if (!idref.equals(other.idref)) {
             return false;
         }
-        if (false) {
-            // TODO: make this configurable?
-            // xref comments are treated as semi-invisible
-            if (annotation == null && other.annotation == null) {
-                return true;
-            }
-            if (annotation == null || other.annotation == null) {
-                return false;
-            }
-            return annotation.equals(other.annotation);
-        }
+        // if (false) {
+        // // TODO: make this configurable?
+        // // xref comments are treated as semi-invisible
+        // if (annotation == null && other.annotation == null) {
+        // return true;
+        // }
+        // if (annotation == null || other.annotation == null) {
+        // return false;
+        // }
+        // return annotation.equals(other.annotation);
+        // }
         return true;
     }
 

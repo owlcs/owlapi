@@ -3242,7 +3242,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements
                     }
                 } while (i != startsAt);
             } else if (curChar < 128) {
-                long l = 1L << (curChar & 077);
                 do {
                     switch (jjstateSet[--i]) {
                         case 0:
@@ -3342,7 +3341,6 @@ public class OWLFunctionalSyntaxParserTokenManager implements
                     }
                 } while (i != startsAt);
             } else if (curChar < 128) {
-                long l = 1L << (curChar & 077);
                 do {
                     switch (jjstateSet[--i]) {
                         case 0:
@@ -3797,7 +3795,8 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    private void jjAddStates(int start, int end) {
+    private void jjAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
@@ -3808,7 +3807,8 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         jjCheckNAdd(state2);
     }
 
-    private void jjCheckNAddStates(int start, int end) {
+    private void jjCheckNAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);

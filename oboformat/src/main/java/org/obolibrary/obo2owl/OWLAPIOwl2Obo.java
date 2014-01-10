@@ -226,7 +226,7 @@ public class OWLAPIOwl2Obo {
      * @return the oBO doc */
     protected OBODoc tr() {
         obodoc = new OBODoc();
-        preProcess(owlOntology);
+        preProcess();
         tr(owlOntology);
         for (OWLAxiom ax : owlOntology.getAxioms()) {
             if (ax instanceof OWLDeclarationAxiom) {
@@ -296,11 +296,8 @@ public class OWLAPIOwl2Obo {
         return obodoc;
     }
 
-    /** Pre process.
-     * 
-     * @param owlOntology2
-     *            the owl ontology2 */
-    protected void preProcess(OWLOntology owlOntology2) {
+    /** Pre process. */
+    protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
         for (OWLAnnotation ann : owlOntology.getAnnotations()) {
@@ -1815,7 +1812,6 @@ public class OWLAPIOwl2Obo {
             return;
         }
         // 5.2.2
-        boolean isRewrittenToGCI = false;
         if (sub instanceof OWLObjectIntersectionOf) {
             Set<OWLClassExpression> xs = ((OWLObjectIntersectionOf) sub)
                     .getOperands();

@@ -120,9 +120,11 @@ public class RDFParser extends DefaultHandler {
      *             SAXException
      * @throws IOException
      *             IOException */
-    public void parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
-            throws SAXException, IOException {
-        String systemID = checkNotNull(source, "source cannot be null").getSystemId();
+    public void
+            parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
+                    throws SAXException, IOException {
+        String systemID = checkNotNull(source, "source cannot be null")
+                .getSystemId();
         checkNotNull(consumer, "consumer cannot be null");
         try {
             m_documentLocator = s_nullDocumentLocator;
@@ -160,7 +162,8 @@ public class RDFParser extends DefaultHandler {
      * @param errorHandler
      *            the error handler */
     public void setErrorHandler(@Nonnull ErrorHandler errorHandler) {
-        m_errorHandler = checkNotNull(errorHandler, "errorHandler cannot be null");
+        m_errorHandler = checkNotNull(errorHandler,
+                "errorHandler cannot be null");
     }
 
     @Override
@@ -199,13 +202,14 @@ public class RDFParser extends DefaultHandler {
     @Override
     public void endDocument() throws SAXException {
         if (state != null) {
-            throw new RDFParserException("RDF content not finished.", m_documentLocator);
+            throw new RDFParserException("RDF content not finished.",
+                    m_documentLocator);
         }
     }
 
     @Override
-    public void startElement(String namespaceIRI, String localName, String qName,
-            Attributes atts) throws SAXException {
+    public void startElement(String namespaceIRI, String localName,
+            String qName, Attributes atts) throws SAXException {
         processXMLBase(atts);
         processXMLLanguage(atts);
         state.startElement(namespaceIRI, localName, qName, atts);
@@ -220,12 +224,14 @@ public class RDFParser extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] data, int start, int length) throws SAXException {
+    public void characters(char[] data, int start, int length)
+            throws SAXException {
         state.characters(data, start, length);
     }
 
     @Override
-    public void processingInstruction(String target, String data) throws SAXException {
+    public void processingInstruction(String target, String data)
+            throws SAXException {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
             if (arguments.size() > 2) {
@@ -278,7 +284,8 @@ public class RDFParser extends DefaultHandler {
     protected void popState() throws SAXException {
         int size = m_states.size();
         if (size == 0) {
-            throw new RDFParserException("Internal exception: state stack is empty.",
+            throw new RDFParserException(
+                    "Internal exception: state stack is empty.",
                     m_documentLocator);
         }
         if (size == 1) {
@@ -299,12 +306,14 @@ public class RDFParser extends DefaultHandler {
             throws SAXException {
         checkNotNull(atts, "atts cannot be null");
         if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1) {
-            throw new RDFParserException("rdf:aboutEach attribute is not supported.",
+            throw new RDFParserException(
+                    "rdf:aboutEach attribute is not supported.",
                     m_documentLocator);
         }
         if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1) {
             throw new RDFParserException(
-                    "rdf:aboutEachPrefix attribute is not supported.", m_documentLocator);
+                    "rdf:aboutEachPrefix attribute is not supported.",
+                    m_documentLocator);
         }
     }
 
@@ -340,9 +349,11 @@ public class RDFParser extends DefaultHandler {
                 m_baseIRI = resolveFromDelegate(m_baseIRI, value);
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
-                RDFParserException exception = new RDFParserException("New base IRI '"
-                        + value + "' cannot be resolved against curent base IRI "
-                        + m_baseIRI.toString(), m_documentLocator);
+                RDFParserException exception = new RDFParserException(
+                        "New base IRI '"
+                                + value
+                                + "' cannot be resolved against curent base IRI "
+                                + m_baseIRI.toString(), m_documentLocator);
                 exception.initCause(e);
                 throw exception;
             }
@@ -396,8 +407,8 @@ public class RDFParser extends DefaultHandler {
                     return u;
                 }
             } catch (IllegalArgumentException e) {
-                RDFParserException exception = new RDFParserException("IRI '" + uri
-                        + "' cannot be resolved against curent base IRI "
+                RDFParserException exception = new RDFParserException("IRI '"
+                        + uri + "' cannot be resolved against curent base IRI "
                         + m_baseIRI.toString(), m_documentLocator);
                 exception.initCause(e);
                 throw exception;
@@ -437,7 +448,8 @@ public class RDFParser extends DefaultHandler {
      * @throws SAXException
      *             SAXException */
     @Nonnull
-    protected String getIRIFromResource(@Nonnull String resource) throws SAXException {
+    protected String getIRIFromResource(@Nonnull String resource)
+            throws SAXException {
         return resolveIRI(resource);
     }
 
@@ -525,11 +537,14 @@ public class RDFParser extends DefaultHandler {
             @Nullable String reificationID) throws SAXException {
         m_consumer.statementWithResourceValue(subject, predicate, object);
         if (reificationID != null) {
-            m_consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);
-            m_consumer.statementWithResourceValue(reificationID, RDF_SUBJECT, subject);
-            m_consumer
-                    .statementWithResourceValue(reificationID, RDF_PREDICATE, predicate);
-            m_consumer.statementWithResourceValue(reificationID, RDF_OBJECT, object);
+            m_consumer.statementWithResourceValue(reificationID, RDF_TYPE,
+                    RDF_STATEMENT);
+            m_consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
+                    subject);
+            m_consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
+                    predicate);
+            m_consumer.statementWithResourceValue(reificationID, RDF_OBJECT,
+                    object);
         }
     }
 
@@ -549,17 +564,20 @@ public class RDFParser extends DefaultHandler {
      * @throws SAXException
      *             SAXException */
     protected void statementWithLiteralValue(@Nonnull String subject,
-            @Nonnull String predicate, @Nonnull String object, @Nullable String dataType,
-            @Nullable String reificationID) throws SAXException {
-        m_consumer.statementWithLiteralValue(subject, predicate, object, m_language,
-                dataType);
+            @Nonnull String predicate, @Nonnull String object,
+            @Nullable String dataType, @Nullable String reificationID)
+            throws SAXException {
+        m_consumer.statementWithLiteralValue(subject, predicate, object,
+                m_language, dataType);
         if (reificationID != null) {
-            m_consumer.statementWithResourceValue(reificationID, RDF_TYPE, RDF_STATEMENT);
-            m_consumer.statementWithResourceValue(reificationID, RDF_SUBJECT, subject);
-            m_consumer
-                    .statementWithResourceValue(reificationID, RDF_PREDICATE, predicate);
-            m_consumer.statementWithLiteralValue(reificationID, RDF_OBJECT, object,
-                    m_language, dataType);
+            m_consumer.statementWithResourceValue(reificationID, RDF_TYPE,
+                    RDF_STATEMENT);
+            m_consumer.statementWithResourceValue(reificationID, RDF_SUBJECT,
+                    subject);
+            m_consumer.statementWithResourceValue(reificationID, RDF_PREDICATE,
+                    predicate);
+            m_consumer.statementWithLiteralValue(reificationID, RDF_OBJECT,
+                    object, m_language, dataType);
         }
     }
 
@@ -574,8 +592,8 @@ public class RDFParser extends DefaultHandler {
      * @throws SAXException
      *             SAXException */
     protected void propertyAttributes(@Nonnull String subjectIRI,
-            @Nonnull Attributes atts, @Nonnull ReificationManager reificationManager)
-            throws SAXException {
+            @Nonnull Attributes atts,
+            @Nonnull ReificationManager reificationManager) throws SAXException {
         int length = atts.getLength();
         for (int i = 0; i < length; i++) {
             String nsIRI = atts.getURI(i);
@@ -584,21 +602,24 @@ public class RDFParser extends DefaultHandler {
                     && !XMLLANG.equals(localName)
                     && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName)
                             || ATTR_NODE_ID.equals(localName)
-                            || ATTR_ABOUT.equals(localName) || ELT_TYPE.equals(localName)
+                            || ATTR_ABOUT.equals(localName)
+                            || ELT_TYPE.equals(localName)
                             || ATTR_RESOURCE.equals(localName)
                             || ATTR_PARSE_TYPE.equals(localName)
                             || ATTR_ABOUT_EACH.equals(localName)
                             || ATTR_ABOUT_EACH_PREFIX.equals(localName) || ATTR_BAG_ID
                                 .equals(localName)))) {
                 String value = atts.getValue(i);
-                String reificationID = reificationManager.getReificationID(null);
-                statementWithLiteralValue(subjectIRI, nsIRI + localName, value, null,
-                        reificationID);
+                String reificationID = reificationManager
+                        .getReificationID(null);
+                statementWithLiteralValue(subjectIRI, nsIRI + localName, value,
+                        null, reificationID);
             } else if (RDFNS.equals(nsIRI) && ELT_TYPE.equals(localName)) {
                 String value = resolveIRI(atts.getValue(i));
-                String reificationID = reificationManager.getReificationID(null);
-                statementWithResourceValue(subjectIRI, nsIRI + localName, value,
-                        reificationID);
+                String reificationID = reificationManager
+                        .getReificationID(null);
+                statementWithResourceValue(subjectIRI, nsIRI + localName,
+                        value, reificationID);
             }
         }
     }
@@ -664,24 +685,29 @@ public class RDFParser extends DefaultHandler {
      * @throws SAXException
      *             if there was an IOException this will be wrapped in a parse
      *             exception */
-    protected Map<String, String> parseStringArguments(String string) throws SAXException {
+    protected Map<String, String> parseStringArguments(String string)
+            throws SAXException {
         try {
-            StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(string));
+            StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(
+                    string));
             Map<String, String> result = new HashMap<String, String>();
             tokenizer.nextToken();
             while (tokenizer.ttype != StreamTokenizer.TT_EOF) {
                 if (tokenizer.ttype != StreamTokenizer.TT_WORD) {
                     throw new RDFParserException(
-                            "Invalid processing instruction argument.", m_documentLocator);
+                            "Invalid processing instruction argument.",
+                            m_documentLocator);
                 }
                 String name = tokenizer.sval;
                 if ('=' != tokenizer.nextToken()) {
-                    throw new RDFParserException("Expecting token =", m_documentLocator);
+                    throw new RDFParserException("Expecting token =",
+                            m_documentLocator);
                 }
                 tokenizer.nextToken();
                 if (tokenizer.ttype != '\"' && tokenizer.ttype != '\'') {
                     throw new RDFParserException(
-                            "Invalid processing instruction argument.", m_documentLocator);
+                            "Invalid processing instruction argument.",
+                            m_documentLocator);
                 }
                 String value = tokenizer.sval;
                 result.put(name, value);
@@ -707,7 +733,9 @@ public class RDFParser extends DefaultHandler {
     protected static class ReificationManager {
         public static final ReificationManager INSTANCE = new ReificationManager();
 
-        public String getReificationID(String reificationID) throws SAXException {
+        @SuppressWarnings("unused")
+        public String getReificationID(String reificationID)
+                throws SAXException {
             return reificationID;
         }
     }
@@ -723,14 +751,16 @@ public class RDFParser extends DefaultHandler {
         }
 
         @Override
-        public String getReificationID(String reificationID) throws SAXException {
+        public String getReificationID(String reificationID)
+                throws SAXException {
             String resultIRI;
             if (reificationID == null) {
                 resultIRI = NodeID.nextAnonymousIRI();
             } else {
                 resultIRI = reificationID;
             }
-            statementWithResourceValue(m_uri, RDFNS + "_" + ++m_elements, resultIRI, null);
+            statementWithResourceValue(m_uri, RDFNS + "_" + ++m_elements,
+                    resultIRI, null);
             return resultIRI;
         }
     }

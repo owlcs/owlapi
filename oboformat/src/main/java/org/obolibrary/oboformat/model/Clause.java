@@ -3,7 +3,6 @@ package org.obolibrary.oboformat.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Vector;
 
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
@@ -248,7 +247,8 @@ public class Clause {
             // this is a bit of a hack - ideally owl2obo would use the correct
             // types
             if (!getValue().equals(other.getValue())) {
-                if (getValue().equals(Boolean.TRUE) && other.getValue().equals("true")) {
+                if (getValue().equals(Boolean.TRUE)
+                        && other.getValue().equals("true")) {
                     // special case - OK
                 } else if (other.getValue().equals(Boolean.TRUE)
                         && getValue().equals("true")) {

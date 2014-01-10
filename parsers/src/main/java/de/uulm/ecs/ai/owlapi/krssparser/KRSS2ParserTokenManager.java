@@ -173,92 +173,104 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         switch (curChar) {
             case 65:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000000L,
+                        active1, 0L);
             case 69:
-                return jjMoveStringLiteralDfa2_0(active0, 0x4400006001800000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x4400006001800000L,
+                        active1, 0L);
             case 73:
-                return jjMoveStringLiteralDfa2_0(active0, 0x800008002010000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x800008002010000L,
+                        active1, 0L);
             case 76:
-                return jjMoveStringLiteralDfa2_0(active0, 0x80000000L, active1, 0L);
-            case 77:
-                return jjMoveStringLiteralDfa2_0(active0, 0x8000000L, active1, 0L);
-            case 78:
-                return jjMoveStringLiteralDfa2_0(active0, 0x2000000110300000L, active1,
-                        0x1L);
-            case 79:
-                return jjMoveStringLiteralDfa2_0(active0, 0x30000240400000L, active1, 0L);
-            case 80:
-                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000000L, active1, 0L);
-            case 81:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000000004000000L, active1,
+                return jjMoveStringLiteralDfa2_0(active0, 0x80000000L, active1,
                         0L);
+            case 77:
+                return jjMoveStringLiteralDfa2_0(active0, 0x8000000L, active1,
+                        0L);
+            case 78:
+                return jjMoveStringLiteralDfa2_0(active0, 0x2000000110300000L,
+                        active1, 0x1L);
+            case 79:
+                return jjMoveStringLiteralDfa2_0(active0, 0x30000240400000L,
+                        active1, 0L);
+            case 80:
+                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000000L,
+                        active1, 0L);
+            case 81:
+                return jjMoveStringLiteralDfa2_0(active0, 0x1000000004000000L,
+                        active1, 0L);
             case 82:
                 if ((active0 & 0x20000000L) != 0L) {
                     jjmatchedKind = 29;
                     jjmatchedPos = 1;
                 }
-                return jjMoveStringLiteralDfa2_0(active0, 0x100000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x100000000000000L,
+                        active1, 0L);
             case 84:
-                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000L,
+                        active1, 0L);
             case 88:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000L,
+                        active1, 0L);
             case 97:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000000L,
+                        active1, 0L);
             case 100:
-                return jjMoveStringLiteralDfa2_0(active0, 0x10000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x10000000000L,
+                        active1, 0L);
             case 101:
-                return jjMoveStringLiteralDfa2_0(active0, 0x4400006001800000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x4400006001800000L,
+                        active1, 0L);
             case 105:
-                return jjMoveStringLiteralDfa2_0(active0, 0x800108002010000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x800108002010000L,
+                        active1, 0L);
             case 108:
-                return jjMoveStringLiteralDfa2_0(active0, 0x200080000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x200080000000L,
+                        active1, 0L);
             case 109:
-                return jjMoveStringLiteralDfa2_0(active0, 0x20008000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x20008000000L,
+                        active1, 0L);
             case 110:
-                return jjMoveStringLiteralDfa2_0(active0, 0x20000c0110300000L, active1,
-                        0x1L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x20000c0110300000L,
+                        active1, 0x1L);
             case 111:
-                return jjMoveStringLiteralDfa2_0(active0, 0x30000240400000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x30000240400000L,
+                        active1, 0L);
             case 112:
-                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000000L,
+                        active1, 0L);
             case 113:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000000004000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x1000000004000000L,
+                        active1, 0L);
             case 114:
                 if ((active0 & 0x20000000L) != 0L) {
                     jjmatchedKind = 29;
                     jjmatchedPos = 1;
                 }
-                return jjMoveStringLiteralDfa2_0(active0, 0x10e000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x10e000000000000L,
+                        active1, 0L);
             case 115:
-                return jjMoveStringLiteralDfa2_0(active0, 0x80000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x80000000000000L,
+                        active1, 0L);
             case 116:
-                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0xc00000000L,
+                        active1, 0L);
             case 117:
-                return jjMoveStringLiteralDfa2_0(active0, 0x40000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x40000000000000L,
+                        active1, 0L);
             case 120:
-                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x1000000000L,
+                        active1, 0L);
             default:
                 break;
         }
         return jjMoveNfa_0(2, 1);
     }
 
-    /** Jj move string literal dfa2_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @param old1
-     *            the old1
-     * @param active1
-     *            the active1
-     * @return the int */
-    private int
-            jjMoveStringLiteralDfa2_0(long old0, long active0, long old1, long active1) {
+    private int jjMoveStringLiteralDfa2_0(long old0, long _active0, long old1,
+            long _active1) {
+        long active0 = _active0;
+        long active1 = _active1;
         if (((active0 &= old0) | (active1 &= old1)) == 0L) {
             return jjMoveNfa_0(2, 1);
         }
@@ -269,19 +281,24 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         switch (curChar) {
             case 45:
-                return jjMoveStringLiteralDfa3_0(active0, 0xc00000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0xc00000000L,
+                        active1, 0L);
             case 65:
-                return jjMoveStringLiteralDfa3_0(active0, 0x100c01000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x100c01000000000L,
+                        active1, 0L);
             case 68:
                 if ((active0 & 0x10000000L) != 0L) {
                     jjmatchedKind = 28;
                     jjmatchedPos = 2;
                 }
-                return jjMoveStringLiteralDfa3_0(active0, 0x300000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x300000L, active1,
+                        0L);
             case 69:
-                return jjMoveStringLiteralDfa3_0(active0, 0x100000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x100000000L,
+                        active1, 0L);
             case 70:
-                return jjMoveStringLiteralDfa3_0(active0, 0x400006001800000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x400006001800000L,
+                        active1, 0L);
             case 76:
                 if ((active0 & 0x10000L) != 0L) {
                     jjmatchedKind = 16;
@@ -290,17 +307,20 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                     jjmatchedKind = 31;
                     jjmatchedPos = 2;
                 }
-                return jjMoveStringLiteralDfa3_0(active0, 0x4030000000000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x4030000000000000L,
+                        active1, 0L);
             case 77:
-                return jjMoveStringLiteralDfa3_0(active0, 0x200400000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x200400000L,
+                        active1, 0L);
             case 78:
-                return jjMoveStringLiteralDfa3_0(active0, 0x1000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x1000000000000L,
+                        active1, 0L);
             case 80:
-                return jjMoveStringLiteralDfa3_0(active0, 0x8000000L, active1, 0L);
-            case 83:
-                return jjMoveStringLiteralDfa3_0(active0, 0x2800008002000000L, active1,
+                return jjMoveStringLiteralDfa3_0(active0, 0x8000000L, active1,
                         0L);
+            case 83:
+                return jjMoveStringLiteralDfa3_0(active0, 0x2800008002000000L,
+                        active1, 0L);
             case 84:
                 if ((active0 & 0x40000000L) != 0L) {
                     jjmatchedKind = 30;
@@ -308,24 +328,30 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                 }
                 break;
             case 85:
-                return jjMoveStringLiteralDfa3_0(active0, 0x1000000004000000L, active1,
-                        0x1L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x1000000004000000L,
+                        active1, 0x1L);
             case 97:
-                return jjMoveStringLiteralDfa3_0(active0, 0x102c01000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x102c01000000000L,
+                        active1, 0L);
             case 98:
-                return jjMoveStringLiteralDfa3_0(active0, 0x40000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x40000000000000L,
+                        active1, 0L);
             case 100:
                 if ((active0 & 0x10000000L) != 0L) {
                     jjmatchedKind = 28;
                     jjmatchedPos = 2;
                 }
-                return jjMoveStringLiteralDfa3_0(active0, 0x300000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x300000L, active1,
+                        0L);
             case 101:
-                return jjMoveStringLiteralDfa3_0(active0, 0x4200100000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x4200100000000L,
+                        active1, 0L);
             case 102:
-                return jjMoveStringLiteralDfa3_0(active0, 0x400006001800000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x400006001800000L,
+                        active1, 0L);
             case 105:
-                return jjMoveStringLiteralDfa3_0(active0, 0x8000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x8000000000000L,
+                        active1, 0L);
             case 108:
                 if ((active0 & 0x10000L) != 0L) {
                     jjmatchedKind = 16;
@@ -334,19 +360,23 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                     jjmatchedKind = 31;
                     jjmatchedPos = 2;
                 }
-                return jjMoveStringLiteralDfa3_0(active0, 0x4030000000000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x4030000000000000L,
+                        active1, 0L);
             case 109:
-                return jjMoveStringLiteralDfa3_0(active0, 0x200400000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x200400000L,
+                        active1, 0L);
             case 110:
-                return jjMoveStringLiteralDfa3_0(active0, 0x1100000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x1100000000000L,
+                        active1, 0L);
             case 111:
-                return jjMoveStringLiteralDfa3_0(active0, 0x10000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x10000000000L,
+                        active1, 0L);
             case 112:
-                return jjMoveStringLiteralDfa3_0(active0, 0x20008000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x20008000000L,
+                        active1, 0L);
             case 115:
-                return jjMoveStringLiteralDfa3_0(active0, 0x2800008002000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x2800008002000000L,
+                        active1, 0L);
             case 116:
                 if ((active0 & 0x40000000L) != 0L) {
                     jjmatchedKind = 30;
@@ -354,35 +384,28 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                 }
                 break;
             case 117:
-                return jjMoveStringLiteralDfa3_0(active0, 0x1000000004000000L, active1,
-                        0x1L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x1000000004000000L,
+                        active1, 0x1L);
             case 118:
                 if ((active0 & 0x40000000000L) != 0L) {
                     jjmatchedKind = 42;
                     jjmatchedPos = 2;
                 }
-                return jjMoveStringLiteralDfa3_0(active0, 0x80000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x80000000000L,
+                        active1, 0L);
             case 121:
-                return jjMoveStringLiteralDfa3_0(active0, 0x80000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x80000000000000L,
+                        active1, 0L);
             default:
                 break;
         }
         return jjMoveNfa_0(2, 2);
     }
 
-    /** Jj move string literal dfa3_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @param old1
-     *            the old1
-     * @param active1
-     *            the active1
-     * @return the int */
-    private int
-            jjMoveStringLiteralDfa3_0(long old0, long active0, long old1, long active1) {
+    private int jjMoveStringLiteralDfa3_0(long old0, long _active0, long old1,
+            long _active1) {
+        long active0 = _active0;
+        long active1 = _active1;
         if (((active0 &= old0) | (active1 &= old1)) == 0L) {
             return jjMoveNfa_0(2, 2);
         }
@@ -393,98 +416,112 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
         switch (curChar) {
             case 45:
-                return jjMoveStringLiteralDfa4_0(active0, 0x100300000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x100300000L,
+                        active1, 0L);
             case 65:
-                return jjMoveStringLiteralDfa4_0(active0, 0x5000000000000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x5000000000000000L,
+                        active1, 0L);
             case 67:
-                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L,
+                        active1, 0L);
             case 69:
                 if ((active0 & 0x200000000L) != 0L) {
                     jjmatchedKind = 33;
                     jjmatchedPos = 3;
                 }
-                return jjMoveStringLiteralDfa4_0(active0, 0x30000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x30000000000000L,
+                        active1, 0L);
             case 71:
-                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000000L,
+                        active1, 0L);
             case 73:
-                return jjMoveStringLiteralDfa4_0(active0, 0x400006005800000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x400006005800000L,
+                        active1, 0L);
             case 74:
-                return jjMoveStringLiteralDfa4_0(active0, 0x8002000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x8002000000L,
+                        active1, 0L);
             case 76:
-                return jjMoveStringLiteralDfa4_0(active0, 0x408000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x408000000L,
+                        active1, 0L);
             case 77:
                 if ((active1 & 0x1L) != 0L) {
                     jjmatchedKind = 64;
                     jjmatchedPos = 3;
                 }
-                return jjMoveStringLiteralDfa4_0(active0, 0x800000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x800000000L,
+                        active1, 0L);
             case 78:
-                return jjMoveStringLiteralDfa4_0(active0, 0x100000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x100000000000000L,
+                        active1, 0L);
             case 80:
-                return jjMoveStringLiteralDfa4_0(active0, 0x400000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x400000L, active1,
+                        0L);
             case 82:
-                return jjMoveStringLiteralDfa4_0(active0, 0xc00000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0xc00000000000L,
+                        active1, 0L);
             case 84:
-                return jjMoveStringLiteralDfa4_0(active0, 0x2800000000000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x2800000000000000L,
+                        active1, 0L);
             case 97:
-                return jjMoveStringLiteralDfa4_0(active0, 0x5000000000000000L, active1,
-                        0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x5000000000000000L,
+                        active1, 0L);
             case 99:
-                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L,
+                        active1, 0L);
             case 101:
                 if ((active0 & 0x200000000L) != 0L) {
                     jjmatchedKind = 33;
                     jjmatchedPos = 3;
                 }
-                return jjMoveStringLiteralDfa4_0(active0, 0x30080000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x30080000000000L,
+                        active1, 0L);
             case 102:
-                return jjMoveStringLiteralDfa4_0(active0, 0x4200000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x4200000000000L,
+                        active1, 0L);
             case 103:
-                return jjMoveStringLiteralDfa4_0(active0, 0x9000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x9000000000000L,
+                        active1, 0L);
             case 105:
-                return jjMoveStringLiteralDfa4_0(active0, 0x400006005800000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x400006005800000L,
+                        active1, 0L);
             case 106:
-                return jjMoveStringLiteralDfa4_0(active0, 0x8002000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x8002000000L,
+                        active1, 0L);
             case 108:
-                return jjMoveStringLiteralDfa4_0(active0, 0x20408000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x20408000000L,
+                        active1, 0L);
             case 109:
                 if ((active1 & 0x1L) != 0L) {
                     jjmatchedKind = 64;
                     jjmatchedPos = 3;
                 }
-                return jjMoveStringLiteralDfa4_0(active0, 0x80010800000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x80010800000000L,
+                        active1, 0L);
             case 110:
-                return jjMoveStringLiteralDfa4_0(active0, 0x102000000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x102000000000000L,
+                        active1, 0L);
             case 112:
-                return jjMoveStringLiteralDfa4_0(active0, 0x400000L, active1, 0L);
-            case 114:
-                return jjMoveStringLiteralDfa4_0(active0, 0x40c00000000000L, active1, 0L);
-            case 116:
-                return jjMoveStringLiteralDfa4_0(active0, 0x2800000000000000L, active1,
+                return jjMoveStringLiteralDfa4_0(active0, 0x400000L, active1,
                         0L);
+            case 114:
+                return jjMoveStringLiteralDfa4_0(active0, 0x40c00000000000L,
+                        active1, 0L);
+            case 116:
+                return jjMoveStringLiteralDfa4_0(active0, 0x2800000000000000L,
+                        active1, 0L);
             case 118:
-                return jjMoveStringLiteralDfa4_0(active0, 0x100000000000L, active1, 0L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x100000000000L,
+                        active1, 0L);
             default:
                 break;
         }
         return jjMoveNfa_0(2, 3);
     }
 
-    /** Jj move string literal dfa4_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @param old1
-     *            the old1
-     * @param active1
-     *            the active1
-     * @return the int */
-    private int
-            jjMoveStringLiteralDfa4_0(long old0, long active0, long old1, long active1) {
+    private int jjMoveStringLiteralDfa4_0(long old0, long _active0, long old1,
+            long _active1) {
+        long active0 = _active0;
+        long active1 = _active1;
         if (((active0 &= old0) | (active1 &= old1)) == 0L) {
             return jjMoveNfa_0(2, 3);
         }
@@ -562,14 +599,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 4);
     }
 
-    /** Jj move string literal dfa5_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa5_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa5_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 4);
         }
@@ -635,14 +666,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 5);
     }
 
-    /** Jj move string literal dfa6_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa6_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa6_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 5);
         }
@@ -756,14 +781,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 6);
     }
 
-    /** Jj move string literal dfa7_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa7_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa7_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 6);
         }
@@ -872,14 +891,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 7);
     }
 
-    /** Jj move string literal dfa8_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa8_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa8_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 7);
         }
@@ -927,14 +940,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 8);
     }
 
-    /** Jj move string literal dfa9_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa9_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa9_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 8);
         }
@@ -1009,14 +1016,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 9);
     }
 
-    /** Jj move string literal dfa10_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa10_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa10_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 9);
         }
@@ -1074,14 +1075,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 10);
     }
 
-    /** Jj move string literal dfa11_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa11_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa11_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 10);
         }
@@ -1123,14 +1118,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 11);
     }
 
-    /** Jj move string literal dfa12_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa12_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa12_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 11);
         }
@@ -1170,14 +1159,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 12);
     }
 
-    /** Jj move string literal dfa13_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa13_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa13_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 12);
         }
@@ -1247,14 +1230,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 13);
     }
 
-    /** Jj move string literal dfa14_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa14_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa14_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 13);
         }
@@ -1288,14 +1265,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 14);
     }
 
-    /** Jj move string literal dfa15_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa15_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa15_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 14);
         }
@@ -1331,14 +1302,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 15);
     }
 
-    /** Jj move string literal dfa16_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa16_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa16_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 15);
         }
@@ -1368,14 +1333,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 16);
     }
 
-    /** Jj move string literal dfa17_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa17_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa17_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 16);
         }
@@ -1399,14 +1358,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 17);
     }
 
-    /** Jj move string literal dfa18_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa18_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa18_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 17);
         }
@@ -1426,14 +1379,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 18);
     }
 
-    /** Jj move string literal dfa19_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa19_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa19_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 18);
         }
@@ -1457,14 +1404,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 19);
     }
 
-    /** Jj move string literal dfa20_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa20_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa20_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 19);
         }
@@ -1496,14 +1437,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 20);
     }
 
-    /** Jj move string literal dfa21_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa21_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa21_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 20);
         }
@@ -1523,14 +1458,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 21);
     }
 
-    /** Jj move string literal dfa22_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa22_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa22_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 21);
         }
@@ -1550,14 +1479,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return jjMoveNfa_0(2, 22);
     }
 
-    /** Jj move string literal dfa23_0.
-     * 
-     * @param old0
-     *            the old0
-     * @param active0
-     *            the active0
-     * @return the int */
-    private int jjMoveStringLiteralDfa23_0(long old0, long active0) {
+    private int jjMoveStringLiteralDfa23_0(long old0, long _active0) {
+        long active0 = _active0;
         if ((active0 &= old0) == 0L) {
             return jjMoveNfa_0(2, 22);
         }
@@ -1591,14 +1514,14 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     /** The Constant jjbitVec2. */
     static final long[] jjbitVec2 = { 0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL };
     /** The Constant jjbitVec3. */
-    static final long[] jjbitVec3 = { 0x0L, 0xbfff000000000000L, 0xffffffffffffffffL,
-            0xffffffffffffffffL };
+    static final long[] jjbitVec3 = { 0x0L, 0xbfff000000000000L,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
     /** The Constant jjbitVec4. */
-    static final long[] jjbitVec4 = { 0x3000L, 0xffff000000000000L, 0xffffffffffffffffL,
-            0xffffffffffffffffL };
+    static final long[] jjbitVec4 = { 0x3000L, 0xffff000000000000L,
+            0xffffffffffffffffL, 0xffffffffffffffffL };
     /** The Constant jjbitVec5. */
-    static final long[] jjbitVec5 = { 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffL,
-            0x0L };
+    static final long[] jjbitVec5 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
+            0xffffL, 0x0L };
     /** The Constant jjbitVec6. */
     static final long[] jjbitVec6 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffL };
@@ -1606,16 +1529,11 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     static final long[] jjbitVec7 = { 0xfffffffffffffffeL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffffffL };
     /** The Constant jjbitVec8. */
-    static final long[] jjbitVec8 = { 0x0L, 0x0L, 0x80000000000000L, 0xff7fffffff7fffffL };
+    static final long[] jjbitVec8 = { 0x0L, 0x0L, 0x80000000000000L,
+            0xff7fffffff7fffffL };
 
-    /** Jj move nfa_0.
-     * 
-     * @param startState
-     *            the start state
-     * @param curPos
-     *            the cur pos
-     * @return the int */
-    private int jjMoveNfa_0(int startState, int curPos) {
+    private int jjMoveNfa_0(int startState, int _curPos) {
+        int curPos = _curPos;
         int strKind = jjmatchedKind;
         int strPos = jjmatchedPos;
         int seenUpto;
@@ -1982,7 +1900,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                             }
                             break;
                         case 10:
-                            if (jjCanMove_0(hiByte, i1, i2, l1, l2) && kind > 68) {
+                            if (jjCanMove_0(hiByte, i1, i2, l1, l2)
+                                    && kind > 68) {
                                 kind = 68;
                             }
                             break;
@@ -2078,8 +1997,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      * @param l2
      *            the l2
      * @return true, if successful */
-    private static final boolean
-            jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
+    private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
+            long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec2[i2] & l2) != 0L;
@@ -2114,8 +2033,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      * @param l2
      *            the l2
      * @return true, if successful */
-    private static final boolean
-            jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2) {
+    private static final boolean jjCanMove_1(int hiByte, int i1, int i2,
+            long l1, long l2) {
         switch (hiByte) {
             case 0:
                 return (jjbitVec8[i2] & l2) != 0L;
@@ -2138,27 +2057,29 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     }
 
     /** Token literal values. */
-    public static final String[] jjstrLiteralImages = { "", null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null,
-            "\50", "\51", null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null,
-            "\72\144\157\155\141\151\156",
+    public static final String[] jjstrLiteralImages = { "", null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, "\50", "\51", null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, "\72\144\157\155\141\151\156",
             "\151\155\160\154\151\145\163\55\162\157\154\145", "\151\156\166",
             "\151\156\166\145\162\163\145", "\72\151\156\166\145\162\163\145",
-            "\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null, null, null,
-            "\72\162\141\156\147\145", "\72\162\145\146\154\145\170\151\166\145",
-            "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null, null,
-            "\163\165\142\162\157\154\145", "\72\163\171\155\155\145\164\162\151\143",
-            null, null, null, null, null, null, null, "\72", null, null, null, null,
-            null, null, };
+            "\72\154\145\146\164\55\151\144\145\156\164\151\164\171", null,
+            null, null, "\72\162\141\156\147\145",
+            "\72\162\145\146\154\145\170\151\166\145",
+            "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", null,
+            null, "\163\165\142\162\157\154\145",
+            "\72\163\171\155\155\145\164\162\151\143", null, null, null, null,
+            null, null, null, "\72", null, null, null, null, null, null, };
     /** Lexer state names. */
-    public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT", "IN_IRI", };
+    public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT",
+            "IN_IRI", };
     /** Lex State array. */
-    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, -1, -1, 1, 0, -1,
-            2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, };
+    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, -1, -1,
+            1, 0, -1, 2, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
     /** The Constant jjtoToken. */
     static final long[] jjtoToken = { 0xffffffffffffd001L, 0x3fL, };
     /** The Constant jjtoSkip. */
@@ -2234,8 +2155,9 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
      *            the lex state */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
-            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
-                    + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
+            throw new TokenMgrError("Error: Ignoring invalid lexical state : "
+                    + lexState + ". State unchanged.",
+                    TokenMgrError.INVALID_LEXICAL_STATE);
         } else {
             curLexState = lexState;
         }
@@ -2368,8 +2290,9 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
                     input_stream.backup(1);
                     error_after = curPos <= 1 ? "" : input_stream.GetImage();
                 }
-                throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column,
-                        error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+                throw new TokenMgrError(EOFSeen, curLexState, error_line,
+                        error_column, error_after, curChar,
+                        TokenMgrError.LEXICAL_ERROR);
             }
         }
     }
@@ -2385,13 +2308,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Jj add states.
-     * 
-     * @param start
-     *            the start
-     * @param end
-     *            the end */
-    private void jjAddStates(int start, int end) {
+    private void jjAddStates(int _start, int end) {
+        int start = _start;
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);

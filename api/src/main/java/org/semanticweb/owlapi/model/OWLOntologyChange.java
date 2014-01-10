@@ -124,7 +124,8 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
      *         . */
     @Nonnull
     public OWLOntologyChangeRecord<T> getChangeRecord() {
-        return new OWLOntologyChangeRecord<T>(ont.getOntologyID(), getChangeData());
+        return new OWLOntologyChangeRecord<T>(ont.getOntologyID(),
+                getChangeData());
     }
 
     /** Gets the signature of this ontology change. That is, the set of entities
@@ -132,6 +133,7 @@ public abstract class OWLOntologyChange<T> implements HasSignature {
      * 
      * @return A set of entities that correspond to the signature of this
      *         object. The set is a copy, changes are not reflected back. */
+    @Override
     @Nonnull
     public abstract Set<OWLEntity> getSignature();
 

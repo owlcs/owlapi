@@ -53,7 +53,7 @@ import javax.annotation.Nonnull;
  * ontology IRI. (See the <a href="http://www.w3.org/TR/owl2-syntax/">OWL 2
  * Structural Specification</a> An ontology cannot be modified directly. Changes
  * must be applied via its {@code OWLOntologyManager}.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
@@ -354,7 +354,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @return {@code true} if the ontology contains the specified axioms, or
      *         {@code false} if the ontology doesn't contain the specified
      *         axiom. */
-    boolean containsAxiom(@Nonnull OWLAxiom axiom, boolean includeImportsClosure);
+            boolean
+            containsAxiom(@Nonnull OWLAxiom axiom, boolean includeImportsClosure);
 
     /** Determines if this ontology contains the specified axiom, but ignoring
      * any annotations on this axiom. For example, if the ontology contains
@@ -545,7 +546,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     @Nonnull
-    Set<OWLObjectProperty> getObjectPropertiesInSignature(boolean includeImportsClosure);
+    Set<OWLObjectProperty> getObjectPropertiesInSignature(
+            boolean includeImportsClosure);
 
     /** Gets the data properties that are in the signature of this ontology.
      * 
@@ -577,7 +579,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     @Nonnull
-    Set<OWLDataProperty> getDataPropertiesInSignature(boolean includeImportsClosure);
+    Set<OWLDataProperty> getDataPropertiesInSignature(
+            boolean includeImportsClosure);
 
     /** Gets the individuals that are in the signature of this ontology.
      * 
@@ -610,7 +613,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         therefore safe to apply changes to this ontology while iterating
      *         over this set. */
     @Nonnull
-    Set<OWLNamedIndividual> getIndividualsInSignature(boolean includeImportsClosure);
+    Set<OWLNamedIndividual> getIndividualsInSignature(
+            boolean includeImportsClosure);
 
     /** Gets the referenced anonymous individuals.
      * 
@@ -701,7 +705,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *            The individual
      * @return The axioms that reference the specified anonymous individual */
     @Nonnull
-    Set<OWLAxiom> getReferencingAxioms(@Nonnull OWLAnonymousIndividual individual);
+    Set<OWLAxiom> getReferencingAxioms(
+            @Nonnull OWLAnonymousIndividual individual);
 
     /** Determines if the signature of the ontology contains the specified
      * entity.
@@ -710,6 +715,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *            The entity
      * @return {@code true} if the signature of this ontology contains
      *         {@code owlEntity}, otherwise {@code false}. */
+    @Override
     boolean containsEntityInSignature(@Nonnull OWLEntity owlEntity);
 
     /** Determines if the signature of this ontology, and possibly the signature
@@ -781,7 +787,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *            examined.
      * @return {@code true} if the ontology or its imports closure contains a
      *         declaration for the specified entity, otherwise {@code false}. */
-    boolean isDeclared(@Nonnull OWLEntity owlEntity, boolean includeImportsClosure);
+    boolean isDeclared(@Nonnull OWLEntity owlEntity,
+            boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -828,7 +835,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @return {@code true} if the signature of this ontology contains an
      *         OWLObjectProperty that has {@code owlObjectPropertyIRI} as its
      *         IRI, otherwise {@code false}. */
-    boolean containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI);
+            boolean
+            containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -850,8 +858,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         has {@code owlObjectPropertyIRI} as its IRI and {@code false} if
      *         the signature of this ontology does not contain a class with
      *         {@code owlObjectPropertyIRI} as its IRI. */
-    boolean containsObjectPropertyInSignature(@Nonnull IRI owlObjectPropertyIRI,
-            boolean includeImportsClosure);
+    boolean containsObjectPropertyInSignature(
+            @Nonnull IRI owlObjectPropertyIRI, boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an OWLDataProperty
      * with the specified IRI.
@@ -893,7 +901,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @return {@code true} if the signature of this ontology contains an
      *         OWLAnnotationProperty that has {@code owlAnnotationPropertyIRI}
      *         as its IRI, otherwise {@code false}. */
-    boolean containsAnnotationPropertyInSignature(@Nonnull IRI owlAnnotationPropertyIRI);
+    boolean containsAnnotationPropertyInSignature(
+            @Nonnull IRI owlAnnotationPropertyIRI);
 
     /** Determines if the signature of this ontology, or possibly the signature
      * of one of the ontologies in the imports closure of this ontology,
@@ -915,8 +924,10 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         that has {@code owlAnnotationPropertyIRI} as its IRI and
      *         {@code false} if the signature of this ontology does not contain
      *         a class with {@code owlAnnotationPropertyIRI} as its IRI. */
-    boolean containsAnnotationPropertyInSignature(@Nonnull IRI owlAnnotationPropertyIRI,
-            boolean includeImportsClosure);
+    boolean
+            containsAnnotationPropertyInSignature(
+                    @Nonnull IRI owlAnnotationPropertyIRI,
+                    boolean includeImportsClosure);
 
     /** Determines if the signature of this ontology contains an
      * OWLNamedIndividual with the specified IRI.
@@ -1010,8 +1021,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         the signature of just this ontology that have {@code iri} as
      *         their IRI. */
     @Nonnull
-    Set<OWLEntity>
-            getEntitiesInSignature(@Nonnull IRI iri, boolean includeImportsClosure);
+    Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri,
+            boolean includeImportsClosure);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -1066,7 +1077,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLObjectPropertyAxiom> getAxioms(@Nonnull OWLObjectPropertyExpression prop);
+    Set<OWLObjectPropertyAxiom> getAxioms(
+            @Nonnull OWLObjectPropertyExpression prop);
 
     /** Gets the axioms that form the definition/description of a data property.
      * 
@@ -1239,7 +1251,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLSubClassOfAxiom> getSubClassAxiomsForSuperClass(@Nonnull OWLClass cls);
+    Set<OWLSubClassOfAxiom>
+            getSubClassAxiomsForSuperClass(@Nonnull OWLClass cls);
 
     /** Gets all of the equivalent axioms in this ontology that contain the
      * specified class as an operand.
@@ -1251,7 +1264,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         be updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(@Nonnull OWLClass cls);
+    Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(
+            @Nonnull OWLClass cls);
 
     /** Gets the set of disjoint class axioms that contain the specified class as
      * an operand.
@@ -1264,7 +1278,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         ontology changes. It is therefore safe to apply changes to this
      *         ontology while iterating over this set. */
     @Nonnull
-    Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(@Nonnull OWLClass cls);
+    Set<OWLDisjointClassesAxiom>
+            getDisjointClassesAxioms(@Nonnull OWLClass cls);
 
     /** Gets the set of disjoint union axioms that have the specified class as
      * the named class that is equivalent to the disjoint union of operands. For
@@ -1277,7 +1292,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(@Nonnull OWLClass owlClass);
+    Set<OWLDisjointUnionAxiom>
+            getDisjointUnionAxioms(@Nonnull OWLClass owlClass);
 
     /** Gets the has key axioms that have the specified class as their subject.
      * 
@@ -1328,8 +1344,9 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         changes. It is therefore safe to apply changes to this ontology
      *         while iterating over this set. */
     @Nonnull
-    Set<OWLSubObjectPropertyOfAxiom> getObjectSubPropertyAxiomsForSuperProperty(
-            @Nonnull OWLObjectPropertyExpression superProperty);
+    Set<OWLSubObjectPropertyOfAxiom>
+            getObjectSubPropertyAxiomsForSuperProperty(
+                    @Nonnull OWLObjectPropertyExpression superProperty);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom}s where
@@ -1408,8 +1425,9 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         the ontology changes. It is therefore safe to apply changes to
      *         this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLEquivalentObjectPropertiesAxiom> getEquivalentObjectPropertiesAxioms(
-            @Nonnull OWLObjectPropertyExpression property);
+    Set<OWLEquivalentObjectPropertiesAxiom>
+            getEquivalentObjectPropertiesAxioms(
+                    @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom}s
@@ -1715,8 +1733,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         not be updated if the ontology changes. It is therefore safe to
      *         apply changes to this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLClassAssertionAxiom>
-            getClassAssertionAxioms(@Nonnull OWLIndividual individual);
+    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
+            @Nonnull OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLClassAssertionAxiom}s
      * contained in this ontology that make the specified class expression,
@@ -1734,7 +1752,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         updated if the ontology changes. It is therefore safe to apply
      *         changes to this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(@Nonnull OWLClassExpression ce);
+    Set<OWLClassAssertionAxiom> getClassAssertionAxioms(
+            @Nonnull OWLClassExpression ce);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom}s
@@ -1794,7 +1813,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         set. */
     @Nonnull
     Set<OWLNegativeObjectPropertyAssertionAxiom>
-            getNegativeObjectPropertyAssertionAxioms(@Nonnull OWLIndividual individual);
+            getNegativeObjectPropertyAssertionAxioms(
+                    @Nonnull OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom}
@@ -1814,8 +1834,9 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         safe to apply changes to this ontology while iterating over this
      *         set. */
     @Nonnull
-    Set<OWLNegativeDataPropertyAssertionAxiom> getNegativeDataPropertyAssertionAxioms(
-            @Nonnull OWLIndividual individual);
+    Set<OWLNegativeDataPropertyAssertionAxiom>
+            getNegativeDataPropertyAssertionAxioms(
+                    @Nonnull OWLIndividual individual);
 
     /** Gets the {@link org.semanticweb.owlapi.model.OWLSameIndividualAxiom}s
      * contained in this ontology that make the specified {@code individual} the
@@ -1833,8 +1854,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         not be updated if the ontology changes. It is therefore safe to
      *         apply changes to this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLSameIndividualAxiom>
-            getSameIndividualAxioms(@Nonnull OWLIndividual individual);
+    Set<OWLSameIndividualAxiom> getSameIndividualAxioms(
+            @Nonnull OWLIndividual individual);
 
     /** Gets the
      * {@link org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom}s
@@ -1872,7 +1893,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         not be updated if the ontology changes. It is therefore safe to
      *         apply changes to this ontology while iterating over this set. */
     @Nonnull
-    Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(@Nonnull OWLDatatype datatype);
+    Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
+            @Nonnull OWLDatatype datatype);
 
     /** @param entity
      *            entyty to check
