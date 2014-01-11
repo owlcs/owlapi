@@ -47,110 +47,96 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** An {@code OWLParser} parses an ontology document into an OWL API object
- * representation of an ontology.
- *
+/** An {@code OWLParser} parses an ontology document and adds the axioms
+ * of the parsed ontology to the {@code OWLOntology} object passed to the 
+ * {@code parse} methods.  OWLParsers are typically
+ * used by {@link OWLOntologyManager OWLOntologyManagers} to populate empty
+ * {@link OWLOntology OWLOntologies}, but can be used to add axioms to an 
+ * {@code OWLOntology} that already contains axioms.<br>
+ * One such case is parsing {@code owl:imports} which point to documents 
+ * that are not ontologies. In this case, any axioms parsed from the imported 
+ * document are added to the existing ontology, which already contains axioms 
+ * parsed from a different document.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 14-Nov-2006 */
 public interface OWLParser {
-    /** Parses the ontology that has a concrete representation which is pointed
-     * to by the specified document IRI. Implementors of this method should load
-     * any imported ontologies with the loadImports method on
-     * OWLOntologyManager.
+    /** Parses the ontology with a concrete representation available at {@code documentIRI}
+     * and adds its axioms to {@code ontology}. Implementors of this method should
+     * load imported ontologies through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
      * 
      * @param documentIRI
-     *            The document IRI where the ontology should be loaded from
+     *            the IRI of the document to parse
      * @param ontology
-     *            The ontology that the concrete representation should be parsed
-     *            into. @return An {@code OWLOntologyFormat} which describes the
-     *            concrete representation format which was parsed to obtain the
-     *            ontology. This will never be {@code null}.
-     * @return The format of the ontology
+     *            the ontology to which the parsed axioms are added
+     * @return the format of the parsed ontology, never {@code null}
      * @throws OWLParserException
-     *             if there was a problem parsing the ontology. This indicates
-     *             an error in the syntax with this ontology document that the
-     *             parser reads.
+     *             if there was a parsing problem parsing the ontology.
      * @throws IOException
-     *             if there was an IOException during parsing
+     *             if there was an IO problem during parsing.
      * @throws OWLOntologyChangeException
-     *             if there was a problem updating the specified ontology from
-     *             information that was parsed.
+     *             if there was a problem updating {@code ontology}. 
+     *             Typically this depends on the document being parsed containing
+     *             an ontology with an ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException
-     *             if loading this ontology prompted the loading of an import
-     *             and the import could not be loaded. */
+     *             if one or more imports could not be loaded. */
     @Nonnull
     OWLOntologyFormat parse(@Nonnull IRI documentIRI, @Nonnull OWLOntology ontology)
             throws OWLParserException, IOException, OWLOntologyChangeException,
             UnloadableImportException;
 
-    /** Parses the ontology that has a concrete representation which is pointed
-     * to by the specified input source. Implementors of this method should load
-     * any imported ontologies with the makeImportsLoadRequest method on
-     * OWLOntologyManager.
+    /** Parses the ontology with a concrete representation in {@code documentSource}
+     * and adds its axioms to {@code ontology}. Implementors of this method should
+     * load imported ontologies through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
      * 
      * @param documentSource
-     *            The input source which points the concrete representation. If
-     *            the input source can provide a {@code Reader} then the
-     *            ontology is parsed from the {@code Reader}. If the input
-     *            source cannot provide a reader then it is parsed from the
-     *            {@code InputStream}. If the input source cannot provide an
-     *            {@code InputStream} then it is parsed from the ontology
-     *            document IRI.
+     *            the source of a concrete representation of the document to parse.
      * @param ontology
-     *            The ontology which the representation will be parsed into
-     * @return An {@code OWLOntologyFormat} which describes the concrete
-     *         representation format which was parsed to obtain the ontology.
+     *            the ontology to which the parsed axioms are added
+     * @return the format of the parsed ontology, never {@code null}
      * @throws OWLParserException
-     *             if there was a problem parsing the ontology. This indicates
-     *             an error in the syntax with this ontology document that the
-     *             parser reads.
+     *             if there was a parsing problem parsing the ontology.
      * @throws IOException
-     *             if there was an IOException during parsing
+     *             if there was an IO problem during parsing.
      * @throws OWLOntologyChangeException
-     *             if there was a problem updating the specified ontology from
-     *             information that was parsed.
+     *             if there was a problem updating {@code ontology}. 
+     *             Typically this depends on the document being parsed containing
+     *             an ontology with an ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException
-     *             if loading this ontology prompted the loading of an import
-     *             and the import could not be loaded. */
+     *             if one or more imports could not be loaded. */
     @Nonnull
-    OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
-            @Nonnull OWLOntology ontology) throws OWLParserException, IOException,
-            OWLOntologyChangeException, UnloadableImportException;
+    OWLOntologyFormat
+            parse(@Nonnull OWLOntologyDocumentSource documentSource, @Nonnull OWLOntology ontology)
+                    throws OWLParserException, IOException, OWLOntologyChangeException,
+                    UnloadableImportException;
 
-    /** Parses the ontology that has a concrete representation which is pointed
-     * to by the specified input source. Implementors of this method should load
-     * any imported ontologies with the makeImportsLoadRequest method on
-     * OWLOntologyManager.
+    /** Parses the ontology with a concrete representation in {@code documentSource}
+     * and adds its axioms to {@code ontology}. Implementors of this method should
+     * load imported ontologies through
+     * {@link OWLOntologyManager#makeLoadImportRequest(org.semanticweb.owlapi.model.OWLImportsDeclaration, OWLOntologyLoaderConfiguration) makeLoadImportRequest()}.
      * 
      * @param documentSource
-     *            The input source which points the concrete representation. If
-     *            the input source can provider a {@code Reader} then the
-     *            ontology is parsed from the {@code Reader}. If the input
-     *            source cannot provide a reader then it is parsed from the
-     *            {@code InputStream}. If the input source cannot provide an
-     *            {@code InputStream} then it is parsed from the ontology
-     *            document IRI.
+     *            the source of a concrete representation of the document to parse
      * @param ontology
-     *            The ontology which the representation will be parsed into
+     *            the ontology to which the parsed axioms are added
      * @param configuration
-     *            A configuration object that provides various generic options
-     *            to the parser.
-     * @return An {@code OWLOntologyFormat} which describes the concrete
-     *         representation format which was parsed to obtain the ontology.
+     *            parsing options for the parser
+     * @return the format of the parsed ontology, never {@code null}
      * @throws OWLParserException
-     *             if there was a problem parsing the ontology. This indicates
-     *             an error in the syntax with this ontology document that the
-     *             parser reads.
+     *             if there was a parsing problem parsing the ontology.
      * @throws IOException
-     *             if there was an IOException during parsing
+     *             if there was an IO problem during parsing.
      * @throws OWLOntologyChangeException
-     *             if there was a problem updating the specified ontology from
-     *             information that was parsed.
+     *             if there was a problem updating {@code ontology}. 
+     *             Typically this depends on the document being parsed containing
+     *             an ontology with an ontology IRI clashing with one already loaded.
      * @throws UnloadableImportException
-     *             if loading this ontology prompted the loading of an import
-     *             and the import could not be loaded. */
+     *             if one or more imports could not be loaded. */
     @Nonnull
     OWLOntologyFormat parse(@Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntology ontology,
@@ -159,5 +145,6 @@ public interface OWLParser {
             UnloadableImportException;
 
     /** @return a name for the parser, typically the simple class name */
+    @Nonnull 
     String getName();
 }
