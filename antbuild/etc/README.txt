@@ -1,3 +1,32 @@
+3.4.10
+
+Bugs:
+Fixes #72 Manchester syntax roundtrip of doubles and SWRL rules fails
+Fixes #24 Manchester Syntax writer generates unparsable file
+simple renderer writes duplicate annotations
+Optimised functional renderer and prefix manager
+Fix #63 null pointer exception loading an ontology and fix #64 empty ontology returned
+Fixes #63 OBO Ontology Parsing throws NullPointer
+updated OSGi settings for oboformat, module name, dependencies
+fix bundle configuration for oboformat
+
+Features:
+Improved feature 32 implementation (simple SWRL variables rendering)
+javadoc warnings and errors removed to allow building with Java 8
+refactored OWLAxiomVisitorExAdapter for general use
+performance improvement for rdf/xml
+Renamed variables, added explicit flush. Fixes #67 slow functional sytnax renderer on Java 6
+default, final and abstract classes changed to allow interface verification
+add oraclejdk8 early access build to travis
+update oboformat class names to sync with oboformat project
+make OBOFormatException extend OWLParserException
+
+3.4.9 25 November 2013
+Features:
+Added default methods and return values for a few visitor adapters
+#57 Reimplement NodeID so that it doesn't use an inner class
+#56 parse things like xsd:string easily
+
 3.4.8 02 November 2013
 
 Bug fixes:
