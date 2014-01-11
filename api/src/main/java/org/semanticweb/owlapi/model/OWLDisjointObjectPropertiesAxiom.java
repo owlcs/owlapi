@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester<br>
@@ -46,7 +48,12 @@ import javax.annotation.Nonnull;
  *         href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Object_Properties"
  *         >DisjointObjectProperties</a> axioms in the OWL 2 specification. */
 public interface OWLDisjointObjectPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+        OWLObjectPropertyAxiom {
+    @Override
+    @Nonnull
+    Set<OWLDisjointObjectPropertiesAxiom> asPairwiseAxioms();
+
     @Override
     @Nonnull
     OWLDisjointObjectPropertiesAxiom getAxiomWithoutAnnotations();

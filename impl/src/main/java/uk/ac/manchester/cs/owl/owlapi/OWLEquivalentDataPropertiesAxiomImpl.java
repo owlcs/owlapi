@@ -39,6 +39,7 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -78,7 +79,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
+        return new OWLEquivalentDataPropertiesAxiomImpl(getProperties(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -89,8 +91,24 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
     }
 
     @Override
+    public Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms() {
+        Set<OWLEquivalentDataPropertiesAxiom> result = new HashSet<OWLEquivalentDataPropertiesAxiom>();
+        List<OWLDataPropertyExpression> list = new ArrayList<OWLDataPropertyExpression>(
+                getProperties());
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                result.add(new OWLEquivalentDataPropertiesAxiomImpl(
+                        new HashSet<OWLDataPropertyExpression>(Arrays.asList(
+                                list.get(i), list.get(j))), NO_ANNOTATIONS));
+            }
+        }
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLEquivalentDataPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLEquivalentDataPropertiesAxiom;
     }
 
     @Override
@@ -126,8 +144,8 @@ public class OWLEquivalentDataPropertiesAxiomImpl extends
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {
                 if (i != j) {
-                    result.add(new OWLSubDataPropertyOfAxiomImpl(props.get(i), props
-                            .get(j), NO_ANNOTATIONS));
+                    result.add(new OWLSubDataPropertyOfAxiomImpl(props.get(i),
+                            props.get(j), NO_ANNOTATIONS));
                 }
             }
         }

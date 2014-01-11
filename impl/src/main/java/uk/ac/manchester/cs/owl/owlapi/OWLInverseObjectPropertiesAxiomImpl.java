@@ -42,6 +42,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -82,6 +83,11 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
                 checkNotNull(second, "second cannot be null"))), annotations);
         this.first = first;
         this.second = second;
+    }
+
+    @Override
+    public Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms() {
+        return Collections.<OWLInverseObjectPropertiesAxiom> singleton(this);
     }
 
     @Override
@@ -132,7 +138,8 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLInverseObjectPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLInverseObjectPropertiesAxiom;
     }
 
     @Override
@@ -143,10 +150,10 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty()
-                .getSimplified(), NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty()
-                .getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second
+                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first
+                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
 }

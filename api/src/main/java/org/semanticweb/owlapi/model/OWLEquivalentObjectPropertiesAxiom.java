@@ -48,7 +48,12 @@ import javax.annotation.Nonnull;
  *         "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties"
  *         >EquivalentObjectProperties</a> axioms in the OWL 2 specification. */
 public interface OWLEquivalentObjectPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+        OWLObjectPropertyAxiom {
+    @Override
+    @Nonnull
+    Set<OWLEquivalentObjectPropertiesAxiom> asPairwiseAxioms();
+
     /** @return the axioms equivalent to the equivalent object property axiom */
     @Nonnull
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();

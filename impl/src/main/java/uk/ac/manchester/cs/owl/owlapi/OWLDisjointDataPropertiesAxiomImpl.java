@@ -38,7 +38,11 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -74,19 +78,36 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
+        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointDataPropertiesAxiom
-            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDisjointDataPropertiesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }
 
     @Override
+    public Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms() {
+        Set<OWLDisjointDataPropertiesAxiom> result = new HashSet<OWLDisjointDataPropertiesAxiom>();
+        List<OWLDataPropertyExpression> list = new ArrayList<OWLDataPropertyExpression>(
+                getProperties());
+        for (int i = 0; i < list.size() - 1; i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                result.add(new OWLDisjointDataPropertiesAxiomImpl(
+                        new HashSet<OWLDataPropertyExpression>(Arrays.asList(
+                                list.get(i), list.get(j))), NO_ANNOTATIONS));
+            }
+        }
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDisjointDataPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLDisjointDataPropertiesAxiom;
     }
 
     @Override

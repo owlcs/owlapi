@@ -38,16 +38,22 @@
  */
 package org.semanticweb.owlapi.model;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 /** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Data_Properties"
  * >DisjointDataProperties</a> axiom in the OWL 2 Specification.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group Date: 24-Oct-2006 */
 public interface OWLDisjointDataPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
+    @Override
+    @Nonnull
+    Set<OWLDisjointDataPropertiesAxiom> asPairwiseAxioms();
+
     @Override
     @Nonnull
     OWLDisjointDataPropertiesAxiom getAxiomWithoutAnnotations();

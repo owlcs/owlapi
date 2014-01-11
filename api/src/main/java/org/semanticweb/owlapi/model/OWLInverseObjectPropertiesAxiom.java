@@ -49,12 +49,17 @@ import javax.annotation.Nonnull;
  * This property axiom contains a set of two properties. inverseOf(P, Q) is
  * considered to be equal to inverseOf(Q, P) - i.e. the order in which the
  * properties are specified isn't important.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester<br>
  *         Bio-Health Informatics Group<br>
  *         Date: 29-Nov-2006 */
 public interface OWLInverseObjectPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+        OWLObjectPropertyAxiom {
+    @Override
+    @Nonnull
+    Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();
+
     /** @return the first of the two object properties. */
     @Nonnull
     OWLObjectPropertyExpression getFirstProperty();

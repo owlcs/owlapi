@@ -51,6 +51,10 @@ public interface OWLEquivalentDataPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLDataPropertyExpression>, OWLDataPropertyAxiom {
     @Override
     @Nonnull
+    Set<OWLEquivalentDataPropertiesAxiom> asPairwiseAxioms();
+
+    @Override
+    @Nonnull
     OWLEquivalentDataPropertiesAxiom getAxiomWithoutAnnotations();
 
     /** @return the axioms equivalent to the equivalent data properties axiom */

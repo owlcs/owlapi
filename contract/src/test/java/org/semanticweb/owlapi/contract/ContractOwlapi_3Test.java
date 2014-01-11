@@ -494,6 +494,11 @@ public class ContractOwlapi_3Test {
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
+
+            @Override
+            public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
+                return null;
+            }
         };
         Set<OWLObjectPropertyExpression> result0 = testSubject0.getProperties();
         Set<OWLObjectPropertyExpression> result1 = testSubject0

@@ -47,7 +47,7 @@ import javax.annotation.Nonnull;
  * @param <P>
  *            property expression */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiom {
+        OWLPropertyAxiom, OWLNaryAxiom {
     /** @return all of the properties that appear in this axiom */
     @Nonnull
     Set<P> getProperties();
