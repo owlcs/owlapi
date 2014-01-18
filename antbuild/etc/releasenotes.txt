@@ -1,4 +1,4 @@
-3.4.10
+3.4.10 18 January 2014
 
 Bugs:
 Fixes #72 Manchester syntax roundtrip of doubles and SWRL rules fails
