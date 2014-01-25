@@ -122,6 +122,10 @@ public interface Internals {
      *            key
      * @param value
      *            value
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return true if added */
     <K, V extends OWLAxiom> boolean add(Pointer<K, V> pointer, K key, V value);
 
@@ -148,6 +152,10 @@ public interface Internals {
      *            pointer to work on
      * @param k
      *            key
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return true if k contained */
     <K, V extends OWLAxiom> boolean contains(Pointer<K, V> pointer, K k);
 
@@ -157,6 +165,10 @@ public interface Internals {
      *            key
      * @param v
      *            value
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return true if k and v contained */
     <K, V extends OWLAxiom> boolean contains(Pointer<K, V> pointer, K k, V v);
 
@@ -173,6 +185,8 @@ public interface Internals {
 
     /** @param axiomType
      *            axiom type
+     * @param <T>
+     *            axiom type
      * @return count of axioms */
     <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType);
 
@@ -180,10 +194,12 @@ public interface Internals {
     Set<OWLAxiom> getAxioms();
 
     /** @return pointer */
-    Pointer<OWLClassExpression, OWLClassAssertionAxiom> getClassAssertionAxiomsByClass();
+    Pointer<OWLClassExpression, OWLClassAssertionAxiom>
+            getClassAssertionAxiomsByClass();
 
     /** @return pointer */
-    Pointer<OWLIndividual, OWLClassAssertionAxiom> getClassAssertionAxiomsByIndividual();
+    Pointer<OWLIndividual, OWLClassAssertionAxiom>
+            getClassAssertionAxiomsByIndividual();
 
     /** @return pointer */
     Pointer<OWLClass, OWLClassAxiom> getClassAxiomsByClass();
@@ -216,7 +232,8 @@ public interface Internals {
             getDifferentIndividualsAxiomsByIndividual();
 
     /** @return pointer */
-    Pointer<OWLClass, OWLDisjointClassesAxiom> getDisjointClassesAxiomsByClass();
+    Pointer<OWLClass, OWLDisjointClassesAxiom>
+            getDisjointClassesAxiomsByClass();
 
     /** @return pointer */
     Pointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom>
@@ -230,7 +247,8 @@ public interface Internals {
     Pointer<OWLClass, OWLDisjointUnionAxiom> getDisjointUnionAxiomsByClass();
 
     /** @return pointer */
-    Pointer<OWLClass, OWLEquivalentClassesAxiom> getEquivalentClassesAxiomsByClass();
+    Pointer<OWLClass, OWLEquivalentClassesAxiom>
+            getEquivalentClassesAxiomsByClass();
 
     /** @return pointer */
     Pointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom>
@@ -258,7 +276,7 @@ public interface Internals {
     Set<OWLImportsDeclaration> getImportsDeclarations();
 
     /** @return pointer */
-    Pointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom>
+            Pointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom>
             getInverseFunctionalPropertyAxiomsByProperty();
 
     /** @return pointer */
@@ -307,10 +325,12 @@ public interface Internals {
     Set<OWLAnnotation> getOntologyAnnotations();
 
     /** @return pointer */
-    Pointer<OWLAnnotationProperty, OWLAxiom> getOwlAnnotationPropertyReferences();
+    Pointer<OWLAnnotationProperty, OWLAxiom>
+            getOwlAnnotationPropertyReferences();
 
     /** @return pointer */
-    Pointer<OWLAnonymousIndividual, OWLAxiom> getOwlAnonymousIndividualReferences();
+    Pointer<OWLAnonymousIndividual, OWLAxiom>
+            getOwlAnonymousIndividualReferences();
 
     /** @return pointer */
     Pointer<OWLClass, OWLAxiom> getOwlClassReferences();
@@ -332,7 +352,8 @@ public interface Internals {
             getReflexivePropertyAxiomsByProperty();
 
     /** @return pointer */
-    Pointer<OWLIndividual, OWLSameIndividualAxiom> getSameIndividualsAxiomsByIndividual();
+    Pointer<OWLIndividual, OWLSameIndividualAxiom>
+            getSameIndividualsAxiomsByIndividual();
 
     /** @return pointer */
     Pointer<OWLClass, OWLSubClassOfAxiom> getSubClassAxiomsByLHS();
@@ -352,6 +373,10 @@ public interface Internals {
      *            pointer to work on
      * @param key
      *            key
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return values for pointer */
     <K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key);
 
@@ -359,11 +384,19 @@ public interface Internals {
      *            pointer to work on
      * @param key
      *            key
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return true if there are values */
     <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer, K key);
 
     /** @param pointer
      *            pointer to work on
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return keyset */
     <K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer);
 
@@ -371,8 +404,13 @@ public interface Internals {
      *            filter for search
      * @param key
      *            key
+     * @param <K>
+     *            key type
+     * @param <T>
+     *            value type
      * @return set of objects selected */
-    <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter, K key);
+    <T extends OWLAxiom, K> Set<T> filterAxioms(
+            OWLAxiomSearchFilter<T, K> filter, K key);
 
     /** @param ax
      *            axiom
@@ -412,6 +450,10 @@ public interface Internals {
      *            key
      * @param v
      *            value
+     * @param <K>
+     *            key type
+     * @param <V>
+     *            value type
      * @return true if match removed */
     <K, V extends OWLAxiom> boolean remove(Pointer<K, V> pointer, K k, V v);
 
