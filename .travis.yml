@@ -4,3 +4,7 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+notifications:
+  email:
+    recipients:
+      - ipalmisano.mailings@gmail.com
