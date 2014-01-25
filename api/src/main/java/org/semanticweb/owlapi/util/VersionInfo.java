@@ -51,7 +51,7 @@ public class VersionInfo {
         if (v != null) {
             version = v;
         } else {
-            version = "3.4.10-SNAPSHOT";
+            version = "3.4.11-SNAPSHOT";
         }
     }
 
