@@ -41,7 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 /** The listener interface for receiving renderer events. The class that is
  * interested in processing a renderer event implements this interface, and the
  * object created with that class is registered with a component using the
- * component's <code>addRendererListener</code> method. When the renderer event
+ * component's {@code addRendererListener} method. When the renderer event
  * occurs, that object's appropriate method is invoked.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
