@@ -130,6 +130,8 @@ public abstract class AbstractOWLAPITestCase {
                     System.out.println(x);
                     fail(x);
                     return false;
+                } else {
+                    return true;
                 }
             } else {
                 return true;
