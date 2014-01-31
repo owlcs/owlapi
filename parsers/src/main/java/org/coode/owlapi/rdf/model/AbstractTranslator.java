@@ -749,7 +749,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addTriple(node, RDF_TYPE.getIRI(), BUILT_IN_ATOM.getIRI());
         addTriple(node, BUILT_IN.getIRI(), node.getPredicate());
         addTriple(getResourceNode(node.getPredicate()),
-                getPredicateNode(BUILT_IN_CLASS.getIRI()),
+                getPredicateNode(RDF_TYPE.getIRI()),
                 getResourceNode(BUILT_IN_CLASS.getIRI()));
         addTriple(getResourceNode(node), getPredicateNode(ARGUMENTS.getIRI()),
                 translateList(new ArrayList<OWLObject>(node.getArguments())));
