@@ -42,6 +42,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Before;
@@ -71,11 +72,11 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 public abstract class AbstractOWLAPITestCase {
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
-            assertEquals("Ontologies supposed to be the same", ont1.getOntologyID(),
-                    ont2.getOntologyID());
+            assertEquals("Ontologies supposed to be the same",
+                    ont1.getOntologyID(), ont2.getOntologyID());
         }
-        assertEquals("Annotations supposed to be the same", ont1.getAnnotations(),
-                ont2.getAnnotations());
+        assertEquals("Annotations supposed to be the same",
+                ont1.getAnnotations(), ont2.getAnnotations());
         Set<OWLAxiom> axioms1 = ont1.getAxioms();
         Set<OWLAxiom> axioms2 = ont2.getAxioms();
         // This isn't great - we normalise axioms by changing the ids of
@@ -91,32 +92,72 @@ public abstract class AbstractOWLAPITestCase {
         if (!axioms1.equals(axioms2)) {
             int counter = 0;
             StringBuilder sb = new StringBuilder();
+            Set<OWLAxiom> leftOnly = new HashSet<OWLAxiom>();
+            Set<OWLAxiom> rightOnly = new HashSet<OWLAxiom>();
             for (OWLAxiom ax : axioms1) {
-                if (!axioms2.contains(ax) && !isIgnorableAxiom(ax, false)) {
-                    sb.append("Rem axiom: ").append(ax).append("\n");
-                    counter++;
+                if (!axioms2.contains(ax)) {
+                    if (!isIgnorableAxiom(ax, false)) {
+                        leftOnly.add(ax);
+                        sb.append("Rem axiom: ");
+                        sb.append(ax);
+                        sb.append("\n");
+                        counter++;
+                    }
                 }
             }
             for (OWLAxiom ax : axioms2) {
-                if (!axioms1.contains(ax) && !isIgnorableAxiom(ax, true)) {
-                    sb.append("Add axiom: ").append(ax).append("\n");
-                    counter++;
+                if (!axioms1.contains(ax)) {
+                    if (!isIgnorableAxiom(ax, true)) {
+                        rightOnly.add(ax);
+                        sb.append("Add axiom: ");
+                        sb.append(ax);
+                        sb.append("\n");
+                        counter++;
+                    }
                 }
             }
             if (counter > 0) {
-                new RuntimeException().printStackTrace(System.out);
-                String x = this.getClass().getSimpleName()
-                        + " roundTripOntology() Failing to match axioms: "
-                        + sb.toString();
-                System.out.println(x);
-                fail(x);
-                return false;
+                // a test fails on OpenJDK implementations because of ordering
+                // testing here if blank node ids are the only difference
+                boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
+                        rightOnly);
+                if (fixed) {
+                    new RuntimeException().printStackTrace(System.out);
+                    String x = this.getClass().getSimpleName()
+                            + " roundTripOntology() Failing to match axioms: "
+                            + sb.toString();
+                    System.out.println(x);
+                    fail(x);
+                    return false;
+                } else {
+                    return true;
+                }
             } else {
                 return true;
             }
         }
         assertEquals(axioms1, axioms2);
         return true;
+    }
+
+    /** @param leftOnly
+     * @param rightOnly
+     * @return */
+    public static boolean verifyErrorIsDueToBlankNodesId(
+            Set<OWLAxiom> leftOnly, Set<OWLAxiom> rightOnly) {
+        Set<String> leftOnlyStrings = new HashSet<String>();
+        Set<String> rightOnlyStrings = new HashSet<String>();
+        for (OWLAxiom ax : leftOnly) {
+            leftOnlyStrings.add(ax.toString()
+                    .replaceAll("_:anon-ind-[0-9]+", "blank")
+                    .replaceAll("_:genid[0-9]+", "blank"));
+        }
+        for (OWLAxiom ax : rightOnly) {
+            rightOnlyStrings.add(ax.toString()
+                    .replaceAll("_:anon-ind-[0-9]+", "blank")
+                    .replaceAll("_:genid[0-9]+", "blank"));
+        }
+        return rightOnlyStrings.equals(leftOnlyStrings);
     }
 
     /** ignore declarations of builtins and of named individuals - named
@@ -134,7 +175,8 @@ public abstract class AbstractOWLAPITestCase {
                 return true;
             }
             // declarations of builtin and named individuals can be ignored
-            return d.getEntity().isBuiltIn() || d.getEntity().isOWLNamedIndividual();
+            return d.getEntity().isBuiltIn()
+                    || d.getEntity().isOWLNamedIndividual();
         }
         return false;
     }
@@ -174,7 +216,8 @@ public abstract class AbstractOWLAPITestCase {
             URL url = getClass().getResource("/" + fileName);
             return manager.loadOntologyFromOntologyDocument(
                     new IRIDocumentSource(IRI.create(url)),
-                    new OWLOntologyLoaderConfiguration().setReportStackTraces(true));
+                    new OWLOntologyLoaderConfiguration()
+                            .setReportStackTraces(true));
         } catch (OWLOntologyCreationException e) {
             fail(e.getMessage());
             throw new OWLRuntimeException(e);
@@ -189,8 +232,8 @@ public abstract class AbstractOWLAPITestCase {
         manager.addAxiom(ont, ax);
     }
 
-    public void roundTripOntology(OWLOntology ont) throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
+    public void roundTripOntology(OWLOntology ont)
+            throws OWLOntologyStorageException, OWLOntologyCreationException {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
 
@@ -204,8 +247,9 @@ public abstract class AbstractOWLAPITestCase {
      *            The ontology to be round tripped.
      * @param format
      *            The format to use when doing the round trip. */
-    public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
+    public OWLOntology roundTripOntology(OWLOntology ont,
+            OWLOntologyFormat format) throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat
@@ -220,9 +264,11 @@ public abstract class AbstractOWLAPITestCase {
         manager.saveOntology(ont, format, target);
         handleSaved(target, format);
         OWLOntologyManager man = Factory.getManager();
-        OWLOntology ont2 = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target.toString()), new OWLOntologyLoaderConfiguration()
-                .setReportStackTraces(true));
+        OWLOntology ont2 = man
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        target.toString()),
+                        new OWLOntologyLoaderConfiguration()
+                                .setReportStackTraces(true));
         equal(ont, ont2);
         return ont2;
     }
@@ -233,7 +279,8 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     @SuppressWarnings("unused")
-    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+    protected void handleSaved(StringDocumentTarget target,
+            OWLOntologyFormat format) {
         // System.out.println(target.toString());
     }
 }
