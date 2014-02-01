@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-contract</artifactId>
 	<packaging>jar</packaging>
-	<name>public interface enforcement, tests and tutorials</name>
+	<name>tests and tutorials</name>
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>

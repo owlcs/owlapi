@@ -71,12 +71,12 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>14.0.1</version>
+			<version>16.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>3.0</version>
+			<version>4.0-beta</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
@@ -139,22 +139,23 @@
 							</execution>
 						</executions>
 					</plugin>
-				<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>2.3.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
-						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Export-Package>{local-packages}</Export-Package>
-					</instructions>
-				</configuration>
-			</plugin>
-			</plugins>
+					<plugin>
+						<groupId>org.apache.felix</groupId>
+						<artifactId>maven-bundle-plugin</artifactId>
+						<version>2.3.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<instructions>
+								<Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+								<Bundle-Name>${project.artifactId}</Bundle-Name>
+								<Export-Package>{local-packages}</Export-Package>
+							</instructions>
+						</configuration>
+					</plugin>
+				</plugins>
 			</build>
 		</profile>
+
 	</profiles>
 
 	<build>
@@ -226,5 +227,4 @@
 		<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>
 		<url>https://github.com/owlcs/owlapi</url>
 	</scm>
-
 </project>

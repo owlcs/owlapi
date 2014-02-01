@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-oboformat</artifactId>
 	<packaging>bundle</packaging>
-	<name>oboformat parser adapted for direct OWLAPI inclusion</name>
+	<name>oboformat parser</name>
 	<parent>
 		<groupId>net.sourceforge.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
