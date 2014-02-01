@@ -1,4 +1,4 @@
-package org.obolibrary.owl;
+package org.semanticweb.owlapi.formats;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
@@ -8,4 +8,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * for human readable version version control diffs. */
 public class LabelFunctionalFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
+
+    @Override
+    public String toString() {
+        return "Label functional Syntax";
+    }
 }

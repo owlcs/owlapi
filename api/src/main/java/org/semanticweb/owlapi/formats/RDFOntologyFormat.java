@@ -36,14 +36,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
+package org.semanticweb.owlapi.formats;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.io.RDFParserMetaData;
+import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 28-Jun-2009 */

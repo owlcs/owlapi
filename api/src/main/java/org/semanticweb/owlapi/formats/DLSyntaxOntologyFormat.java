@@ -36,17 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owl.krssparser;
+package org.semanticweb.owlapi.formats;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
-public class KRSSOntologyFormat extends OWLOntologyFormat {
+ *         Group, Date: 10-Feb-2008 */
+public class DLSyntaxOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String toString() {
-        return "KRSS Syntax";
+        return "DL Syntax";
     }
 }

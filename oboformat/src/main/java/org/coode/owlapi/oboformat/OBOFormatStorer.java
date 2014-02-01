@@ -40,7 +40,7 @@ package org.coode.owlapi.oboformat;
 
 import java.io.Writer;
 
-import org.coode.owlapi.obo.parser.OBOOntologyFormat;
+import org.semanticweb.owlapi.formats.OBOOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;

@@ -39,9 +39,9 @@
 
 import static org.junit.Assert.assertTrue;
 
-import org.coode.owlapi.latex.LatexOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.formats.LatexOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;

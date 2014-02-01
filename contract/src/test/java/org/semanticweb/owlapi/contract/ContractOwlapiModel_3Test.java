@@ -52,13 +52,13 @@ import java.util.Set;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
+import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiModel_3Test {

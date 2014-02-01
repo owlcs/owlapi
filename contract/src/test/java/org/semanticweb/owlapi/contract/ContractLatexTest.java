@@ -44,15 +44,16 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import org.coode.owlapi.latex.LatexAxiomsListOntologyFormat;
 import org.coode.owlapi.latex.LatexBracketChecker;
 import org.coode.owlapi.latex.LatexOWLObjectRenderer;
 import org.coode.owlapi.latex.LatexObjectVisitor;
-import org.coode.owlapi.latex.LatexOntologyFormat;
 import org.coode.owlapi.latex.LatexOntologyStorer;
 import org.coode.owlapi.latex.LatexRenderer;
 import org.coode.owlapi.latex.LatexWriter;
 import org.junit.Test;
+import org.semanticweb.owlapi.formats.LatexAxiomsListOntologyFormat;
+import org.semanticweb.owlapi.formats.LatexOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -60,7 +61,6 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractLatexTest {

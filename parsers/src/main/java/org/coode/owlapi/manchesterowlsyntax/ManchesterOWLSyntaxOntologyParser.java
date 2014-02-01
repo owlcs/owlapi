@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.semanticweb.owlapi.expression.ParserException;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;

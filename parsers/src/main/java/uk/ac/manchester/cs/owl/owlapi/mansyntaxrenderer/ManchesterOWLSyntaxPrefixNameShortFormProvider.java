@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
+import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -45,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.ShortFormProvider;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** A special short form provider that delegates to a prefix manager to obtain
  * short forms. The only difference between this short form provider and a

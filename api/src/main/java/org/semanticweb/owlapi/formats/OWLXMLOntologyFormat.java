@@ -36,17 +36,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
+package org.semanticweb.owlapi.formats;
 
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 02-Jan-2007 */
-public class OWLFunctionalSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
+public class OWLXMLOntologyFormat extends PrefixOWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String toString() {
-        return "OWL Functional Syntax";
+        return "OWL/XML";
     }
 }

@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.io;
 
+import org.semanticweb.owlapi.formats.RDFOntologyFormat;
+
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 02-Jan-2007 */
 public class RDFXMLOntologyFormat extends RDFOntologyFormat {

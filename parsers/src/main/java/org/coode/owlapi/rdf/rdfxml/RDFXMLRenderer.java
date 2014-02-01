@@ -53,9 +53,9 @@ import javax.annotation.Nonnull;
 
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.xml.XMLWriterFactory;
+import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFLiteral;
 import org.semanticweb.owlapi.io.RDFNode;
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;

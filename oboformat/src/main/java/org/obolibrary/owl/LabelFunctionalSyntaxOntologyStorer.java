@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.coode.owlapi.functionalrenderer.OWLObjectRenderer;
+import org.semanticweb.owlapi.formats.LabelFunctionalFormat;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;

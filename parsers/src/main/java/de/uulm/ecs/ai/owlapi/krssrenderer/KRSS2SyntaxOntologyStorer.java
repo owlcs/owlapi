@@ -40,12 +40,11 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import java.io.Writer;
 
+import org.semanticweb.owlapi.formats.KRSS2OntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-
-import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 
 /** See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2ObjectRenderer
  * KRSS2ObjectRenderer} for definition/explanation of the syntax.

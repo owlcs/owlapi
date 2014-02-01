@@ -57,7 +57,7 @@ import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserTreeConstants;
 import org.coode.owlapi.functionalparser.ParseException;
 import org.coode.owlapi.functionalparser.Token;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;

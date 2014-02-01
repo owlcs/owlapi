@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;

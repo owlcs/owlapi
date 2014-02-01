@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.turtle;
 
-import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Jan-2008 */

@@ -38,6 +38,7 @@
  */
 package uk.ac.manchester.cs.owlapi.dlsyntax;
 
+import org.semanticweb.owlapi.formats.DLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics

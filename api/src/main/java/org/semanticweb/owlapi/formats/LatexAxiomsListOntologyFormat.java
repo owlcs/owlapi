@@ -36,17 +36,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owlapi.dlsyntax;
+package org.semanticweb.owlapi.formats;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Feb-2008 */
-public class DLSyntaxHTMLOntologyFormat extends OWLOntologyFormat {
+/** @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 03-Aug-2008 */
+public class LatexAxiomsListOntologyFormat extends OWLOntologyFormat {
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String toString() {
-        return "DL Syntax - HTML Format";
+        return "Latex Axiom List";
     }
 }

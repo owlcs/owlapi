@@ -51,11 +51,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /** The Class OWLObjectRenderer.
  *

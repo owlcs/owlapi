@@ -48,7 +48,6 @@ import java.util.Set;
 
 import org.coode.owl.krssparser.KRSSOWLParser;
 import org.coode.owl.krssparser.KRSSOWLParserFactory;
-import org.coode.owl.krssparser.KRSSOntologyFormat;
 import org.coode.owl.krssparser.KRSSParser;
 import org.coode.owl.krssparser.KRSSParserConstants;
 import org.coode.owl.krssparser.KRSSParserTokenManager;
@@ -57,6 +56,8 @@ import org.coode.owl.krssparser.ParseException;
 import org.coode.owl.krssparser.Token;
 import org.coode.owl.krssparser.TokenMgrError;
 import org.junit.Test;
+import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -70,7 +71,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractKrssparserTest {

@@ -40,7 +40,7 @@ package de.uulm.ecs.ai.owlapi.krssrenderer;
 
 import java.io.Writer;
 
-import org.coode.owl.krssparser.KRSSOntologyFormat;
+import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
