@@ -113,7 +113,7 @@ import org.semanticweb.owlapi.util.Version;
 
 /** This is a simple structural reasoner that essentially answers with told
  * information. It is incomplete.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 04-Dec-2009 */
 public class StructuralReasoner extends OWLReasonerBase {
@@ -162,7 +162,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    protected void handleChanges(Set<OWLAxiom> addAxioms, Set<OWLAxiom> removeAxioms) {
+    protected void handleChanges(Set<OWLAxiom> addAxioms,
+            Set<OWLAxiom> removeAxioms) {
         handleChanges(addAxioms, removeAxioms, classHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, objectPropertyHierarchyInfo);
         handleChanges(addAxioms, removeAxioms, dataPropertyHierarchyInfo);
@@ -190,7 +191,8 @@ public class StructuralReasoner extends OWLReasonerBase {
      *             on interruption
      * @throws TimeOutException
      *             on timeout */
-    public void prepareReasoner() throws ReasonerInterruptedException, TimeOutException {
+    public void prepareReasoner() throws ReasonerInterruptedException,
+            TimeOutException {
         classHierarchyInfo.computeHierarchy();
         objectPropertyHierarchyInfo.computeHierarchy();
         dataPropertyHierarchyInfo.computeHierarchy();
@@ -225,7 +227,8 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     // ////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
-    public boolean isConsistent() throws ReasonerInterruptedException, TimeOutException {
+    public boolean isConsistent() throws ReasonerInterruptedException,
+            TimeOutException {
         return true;
     }
 
@@ -235,18 +238,19 @@ public class StructuralReasoner extends OWLReasonerBase {
             ClassExpressionNotInProfileException, FreshEntitiesException,
             InconsistentOntologyException {
         return !classExpression.isAnonymous()
-                && !getEquivalentClasses(classExpression.asOWLClass()).contains(
-                        getDataFactory().getOWLNothing());
+                && !getEquivalentClasses(classExpression.asOWLClass())
+                        .contains(getDataFactory().getOWLNothing());
     }
 
     @Override
-    public Node<OWLClass> getUnsatisfiableClasses() throws ReasonerInterruptedException,
-            TimeOutException {
+    public Node<OWLClass> getUnsatisfiableClasses()
+            throws ReasonerInterruptedException, TimeOutException {
         return OWLClassNode.getBottomNode();
     }
 
     @Override
-    public boolean isEntailed(OWLAxiom axiom) throws ReasonerInterruptedException,
+    public boolean isEntailed(OWLAxiom axiom)
+            throws ReasonerInterruptedException,
             UnsupportedEntailmentTypeException, TimeOutException,
             AxiomNotInProfileException, FreshEntitiesException,
             InconsistentOntologyException {
@@ -255,8 +259,9 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     @Override
     public boolean isEntailed(Set<? extends OWLAxiom> axioms)
-            throws ReasonerInterruptedException, UnsupportedEntailmentTypeException,
-            TimeOutException, AxiomNotInProfileException, FreshEntitiesException,
+            throws ReasonerInterruptedException,
+            UnsupportedEntailmentTypeException, TimeOutException,
+            AxiomNotInProfileException, FreshEntitiesException,
             InconsistentOntologyException {
         for (OWLAxiom ax : axioms) {
             if (!getRootOntology().containsAxiomIgnoreAnnotations(ax, true)) {
@@ -274,45 +279,52 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Override
     public Node<OWLClass> getTopClassNode() {
         ensurePrepared();
-        return classHierarchyInfo.getEquivalents(getDataFactory().getOWLThing());
+        return classHierarchyInfo
+                .getEquivalents(getDataFactory().getOWLThing());
     }
 
     @Override
     public Node<OWLClass> getBottomClassNode() {
         ensurePrepared();
-        return classHierarchyInfo.getEquivalents(getDataFactory().getOWLNothing());
+        return classHierarchyInfo.getEquivalents(getDataFactory()
+                .getOWLNothing());
     }
 
     @Override
-    public NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct)
-            throws InconsistentOntologyException, ClassExpressionNotInProfileException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLClass>
+            getSubClasses(OWLClassExpression ce, boolean direct)
+                    throws InconsistentOntologyException,
+                    ClassExpressionNotInProfileException,
+                    FreshEntitiesException, ReasonerInterruptedException,
+                    TimeOutException {
         OWLClassNodeSet ns = new OWLClassNodeSet();
         if (!ce.isAnonymous()) {
             ensurePrepared();
-            return classHierarchyInfo.getNodeHierarchyChildren(ce.asOWLClass(), direct,
-                    ns);
+            return classHierarchyInfo.getNodeHierarchyChildren(ce.asOWLClass(),
+                    direct, ns);
         }
         return ns;
     }
 
     @Override
-    public NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce, boolean direct)
-            throws InconsistentOntologyException, ClassExpressionNotInProfileException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce,
+            boolean direct) throws InconsistentOntologyException,
+            ClassExpressionNotInProfileException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         OWLClassNodeSet ns = new OWLClassNodeSet();
         if (!ce.isAnonymous()) {
             ensurePrepared();
-            return classHierarchyInfo
-                    .getNodeHierarchyParents(ce.asOWLClass(), direct, ns);
+            return classHierarchyInfo.getNodeHierarchyParents(ce.asOWLClass(),
+                    direct, ns);
         }
         return ns;
     }
 
     @Override
     public Node<OWLClass> getEquivalentClasses(OWLClassExpression ce)
-            throws InconsistentOntologyException, ClassExpressionNotInProfileException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+            throws InconsistentOntologyException,
+            ClassExpressionNotInProfileException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
         if (!ce.isAnonymous()) {
             return classHierarchyInfo.getEquivalents(ce.asOWLClass());
@@ -327,8 +339,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         OWLClassNodeSet nodeSet = new OWLClassNodeSet();
         if (!ce.isAnonymous()) {
             for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
-                for (OWLDisjointClassesAxiom ax : ontology.getDisjointClassesAxioms(ce
-                        .asOWLClass())) {
+                for (OWLDisjointClassesAxiom ax : ontology
+                        .getDisjointClassesAxioms(ce.asOWLClass())) {
                     for (OWLClassExpression op : ax.getClassExpressions()) {
                         if (!op.isAnonymous()) {
                             nodeSet.addNode(getEquivalentClasses(op));
@@ -361,7 +373,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             ReasonerInterruptedException, TimeOutException {
         OWLObjectPropertyNodeSet ns = new OWLObjectPropertyNodeSet();
         ensurePrepared();
-        return objectPropertyHierarchyInfo.getNodeHierarchyChildren(pe, direct, ns);
+        return objectPropertyHierarchyInfo.getNodeHierarchyChildren(pe, direct,
+                ns);
     }
 
     @Override
@@ -371,36 +384,42 @@ public class StructuralReasoner extends OWLReasonerBase {
             ReasonerInterruptedException, TimeOutException {
         OWLObjectPropertyNodeSet ns = new OWLObjectPropertyNodeSet();
         ensurePrepared();
-        return objectPropertyHierarchyInfo.getNodeHierarchyParents(pe, direct, ns);
+        return objectPropertyHierarchyInfo.getNodeHierarchyParents(pe, direct,
+                ns);
     }
 
     @Override
     public Node<OWLObjectPropertyExpression> getEquivalentObjectProperties(
-            OWLObjectPropertyExpression pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+            OWLObjectPropertyExpression pe)
+            throws InconsistentOntologyException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
         return objectPropertyHierarchyInfo.getEquivalents(pe);
     }
 
     @Override
     public NodeSet<OWLObjectPropertyExpression> getDisjointObjectProperties(
-            OWLObjectPropertyExpression pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+            OWLObjectPropertyExpression pe)
+            throws InconsistentOntologyException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         return new OWLObjectPropertyNodeSet();
     }
 
     @Override
     public Node<OWLObjectPropertyExpression> getInverseObjectProperties(
-            OWLObjectPropertyExpression pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+            OWLObjectPropertyExpression pe)
+            throws InconsistentOntologyException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
-        OWLObjectPropertyExpression inv = pe.getInverseProperty().getSimplified();
+        OWLObjectPropertyExpression inv = pe.getInverseProperty()
+                .getSimplified();
         return getEquivalentObjectProperties(inv);
     }
 
     @Override
-    public NodeSet<OWLClass> getObjectPropertyDomains(OWLObjectPropertyExpression pe,
-            boolean direct) throws InconsistentOntologyException, FreshEntitiesException,
+    public NodeSet<OWLClass> getObjectPropertyDomains(
+            OWLObjectPropertyExpression pe, boolean direct)
+            throws InconsistentOntologyException, FreshEntitiesException,
             ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
         DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
@@ -413,14 +432,14 @@ public class StructuralReasoner extends OWLReasonerBase {
                             .getNodes());
                 }
             }
-            for (OWLObjectPropertyExpression invPe : getInverseObjectProperties(pe)
-                    .getEntities()) {
+            for (OWLObjectPropertyExpression invPe : getInverseObjectProperties(
+                    pe).getEntities()) {
                 for (OWLObjectPropertyRangeAxiom axiom : ontology
                         .getObjectPropertyRangeAxioms(invPe)) {
                     result.addNode(getEquivalentClasses(axiom.getRange()));
                     if (!direct) {
-                        result.addAllNodes(getSuperClasses(axiom.getRange(), false)
-                                .getNodes());
+                        result.addAllNodes(getSuperClasses(axiom.getRange(),
+                                false).getNodes());
                     }
                 }
             }
@@ -429,8 +448,9 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public NodeSet<OWLClass> getObjectPropertyRanges(OWLObjectPropertyExpression pe,
-            boolean direct) throws InconsistentOntologyException, FreshEntitiesException,
+    public NodeSet<OWLClass> getObjectPropertyRanges(
+            OWLObjectPropertyExpression pe, boolean direct)
+            throws InconsistentOntologyException, FreshEntitiesException,
             ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
         DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
@@ -443,14 +463,14 @@ public class StructuralReasoner extends OWLReasonerBase {
                             .getNodes());
                 }
             }
-            for (OWLObjectPropertyExpression invPe : getInverseObjectProperties(pe)
-                    .getEntities()) {
+            for (OWLObjectPropertyExpression invPe : getInverseObjectProperties(
+                    pe).getEntities()) {
                 for (OWLObjectPropertyDomainAxiom axiom : ontology
                         .getObjectPropertyDomainAxioms(invPe)) {
                     result.addNode(getEquivalentClasses(axiom.getDomain()));
                     if (!direct) {
-                        result.addAllNodes(getSuperClasses(axiom.getDomain(), false)
-                                .getNodes());
+                        result.addAllNodes(getSuperClasses(axiom.getDomain(),
+                                false).getNodes());
                     }
                 }
             }
@@ -474,46 +494,53 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     @Override
     public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe,
-            boolean direct) throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException {
+            boolean direct) throws InconsistentOntologyException,
+            FreshEntitiesException, ReasonerInterruptedException,
+            TimeOutException {
         ensurePrepared();
         OWLDataPropertyNodeSet ns = new OWLDataPropertyNodeSet();
-        return dataPropertyHierarchyInfo.getNodeHierarchyChildren(pe, direct, ns);
+        return dataPropertyHierarchyInfo.getNodeHierarchyChildren(pe, direct,
+                ns);
     }
 
     @Override
     public NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe,
-            boolean direct) throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException {
+            boolean direct) throws InconsistentOntologyException,
+            FreshEntitiesException, ReasonerInterruptedException,
+            TimeOutException {
         ensurePrepared();
         OWLDataPropertyNodeSet ns = new OWLDataPropertyNodeSet();
-        return dataPropertyHierarchyInfo.getNodeHierarchyParents(pe, direct, ns);
+        return dataPropertyHierarchyInfo
+                .getNodeHierarchyParents(pe, direct, ns);
     }
 
     @Override
-    public Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException {
+    public Node<OWLDataProperty>
+            getEquivalentDataProperties(OWLDataProperty pe)
+                    throws InconsistentOntologyException,
+                    FreshEntitiesException, ReasonerInterruptedException,
+                    TimeOutException {
         ensurePrepared();
         return dataPropertyHierarchyInfo.getEquivalents(pe);
     }
 
     @Override
-    public NodeSet<OWLDataProperty>
-            getDisjointDataProperties(OWLDataPropertyExpression pe)
-                    throws InconsistentOntologyException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLDataProperty> getDisjointDataProperties(
+            OWLDataPropertyExpression pe) throws InconsistentOntologyException,
+            FreshEntitiesException, ReasonerInterruptedException,
+            TimeOutException {
         ensurePrepared();
         DefaultNodeSet<OWLDataProperty> result = new OWLDataPropertyNodeSet();
         for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
             for (OWLDisjointDataPropertiesAxiom axiom : ontology
                     .getDisjointDataPropertiesAxioms(pe.asOWLDataProperty())) {
-                for (OWLDataPropertyExpression dpe : axiom.getPropertiesMinus(pe)) {
+                for (OWLDataPropertyExpression dpe : axiom
+                        .getPropertiesMinus(pe)) {
                     if (!dpe.isAnonymous()) {
-                        result.addNode(dataPropertyHierarchyInfo.getEquivalents(dpe
-                                .asOWLDataProperty()));
-                        result.addAllNodes(getSubDataProperties(dpe.asOWLDataProperty(),
-                                false).getNodes());
+                        result.addNode(dataPropertyHierarchyInfo
+                                .getEquivalents(dpe.asOWLDataProperty()));
+                        result.addAllNodes(getSubDataProperties(
+                                dpe.asOWLDataProperty(), false).getNodes());
                     }
                 }
             }
@@ -522,9 +549,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe, boolean direct)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe,
+            boolean direct) throws InconsistentOntologyException,
+            FreshEntitiesException, ReasonerInterruptedException,
+            TimeOutException {
         ensurePrepared();
         DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
         for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
@@ -547,12 +575,15 @@ public class StructuralReasoner extends OWLReasonerBase {
         ensurePrepared();
         DefaultNodeSet<OWLClass> result = new OWLClassNodeSet();
         for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
-            for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(ind)) {
+            for (OWLClassAssertionAxiom axiom : ontology
+                    .getClassAssertionAxioms(ind)) {
                 OWLClassExpression ce = axiom.getClassExpression();
                 if (!ce.isAnonymous()) {
-                    result.addNode(classHierarchyInfo.getEquivalents(ce.asOWLClass()));
+                    result.addNode(classHierarchyInfo.getEquivalents(ce
+                            .asOWLClass()));
                     if (!direct) {
-                        result.addAllNodes(getSuperClasses(ce, false).getNodes());
+                        result.addAllNodes(getSuperClasses(ce, false)
+                                .getNodes());
                     }
                 }
             }
@@ -561,11 +592,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public NodeSet<OWLNamedIndividual>
-            getInstances(OWLClassExpression ce, boolean direct)
-                    throws InconsistentOntologyException,
-                    ClassExpressionNotInProfileException, FreshEntitiesException,
-                    ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce,
+            boolean direct) throws InconsistentOntologyException,
+            ClassExpressionNotInProfileException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
         DefaultNodeSet<OWLNamedIndividual> result = new OWLNamedIndividualNodeSet();
         if (!ce.isAnonymous()) {
@@ -586,8 +616,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                                 result.addNode(getSameIndividuals(individual
                                         .asOWLNamedIndividual()));
                             } else {
-                                result.addNode(new OWLNamedIndividualNode(individual
-                                        .asOWLNamedIndividual()));
+                                result.addNode(new OWLNamedIndividualNode(
+                                        individual.asOWLNamedIndividual()));
                             }
                         }
                     }
@@ -598,9 +628,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ind,
-            OWLObjectPropertyExpression pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
+            OWLNamedIndividual ind, OWLObjectPropertyExpression pe)
+            throws InconsistentOntologyException, FreshEntitiesException,
+            ReasonerInterruptedException, TimeOutException {
         ensurePrepared();
         OWLNamedIndividualNodeSet result = new OWLNamedIndividualNodeSet();
         Node<OWLObjectPropertyExpression> inverses = getInverseObjectProperties(pe);
@@ -608,18 +639,20 @@ public class StructuralReasoner extends OWLReasonerBase {
             for (OWLObjectPropertyAssertionAxiom axiom : ontology
                     .getObjectPropertyAssertionAxioms(ind)) {
                 if (!axiom.getObject().isAnonymous()
-                        && axiom.getProperty().getSimplified().equals(pe.getSimplified())) {
+                        && axiom.getProperty().getSimplified()
+                                .equals(pe.getSimplified())) {
                     if (getIndividualNodeSetPolicy().equals(
                             IndividualNodeSetPolicy.BY_SAME_AS)) {
                         result.addNode(getSameIndividuals(axiom.getObject()
                                 .asOWLNamedIndividual()));
                     } else {
-                        result.addNode(new OWLNamedIndividualNode(axiom.getObject()
-                                .asOWLNamedIndividual()));
+                        result.addNode(new OWLNamedIndividualNode(axiom
+                                .getObject().asOWLNamedIndividual()));
                     }
                 }
                 // Inverse of pe
-                if (axiom.getObject().equals(ind) && !axiom.getSubject().isAnonymous()) {
+                if (axiom.getObject().equals(ind)
+                        && !axiom.getSubject().isAnonymous()) {
                     OWLObjectPropertyExpression invPe = axiom.getProperty()
                             .getInverseProperty().getSimplified();
                     if (!invPe.isAnonymous()
@@ -629,8 +662,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                             result.addNode(getSameIndividuals(axiom.getObject()
                                     .asOWLNamedIndividual()));
                         } else {
-                            result.addNode(new OWLNamedIndividualNode(axiom.getObject()
-                                    .asOWLNamedIndividual()));
+                            result.addNode(new OWLNamedIndividualNode(axiom
+                                    .getObject().asOWLNamedIndividual()));
                         }
                     }
                 }
@@ -643,7 +676,8 @@ public class StructuralReasoner extends OWLReasonerBase {
     @Override
     public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind,
             OWLDataProperty pe) throws InconsistentOntologyException,
-            FreshEntitiesException, ReasonerInterruptedException, TimeOutException {
+            FreshEntitiesException, ReasonerInterruptedException,
+            TimeOutException {
         ensurePrepared();
         Set<OWLLiteral> literals = new HashSet<OWLLiteral>();
         Set<OWLDataProperty> superProperties = getSuperDataProperties(pe, false)
@@ -652,7 +686,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         for (OWLOntology ontology : getRootOntology().getImportsClosure()) {
             for (OWLDataPropertyAssertionAxiom axiom : ontology
                     .getDataPropertyAssertionAxioms(ind)) {
-                if (superProperties.contains(axiom.getProperty().asOWLDataProperty())) {
+                if (superProperties.contains(axiom.getProperty()
+                        .asOWLDataProperty())) {
                     literals.add(axiom.getObject());
                 }
             }
@@ -678,7 +713,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                         processed.add(axiom);
                         for (OWLIndividual i : axiom.getIndividuals()) {
                             if (!i.isAnonymous()) {
-                                OWLNamedIndividual namedInd = i.asOWLNamedIndividual();
+                                OWLNamedIndividual namedInd = i
+                                        .asOWLNamedIndividual();
                                 if (!inds.contains(namedInd)) {
                                     inds.add(namedInd);
                                     stack.add(namedInd);
@@ -693,9 +729,10 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     @Override
-    public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind)
-            throws InconsistentOntologyException, FreshEntitiesException,
-            ReasonerInterruptedException, TimeOutException {
+    public NodeSet<OWLNamedIndividual> getDifferentIndividuals(
+            OWLNamedIndividual ind) throws InconsistentOntologyException,
+            FreshEntitiesException, ReasonerInterruptedException,
+            TimeOutException {
         return new OWLNamedIndividualNodeSet();
     }
 
@@ -709,14 +746,14 @@ public class StructuralReasoner extends OWLReasonerBase {
         dumpClassHierarchy(OWLClassNode.getTopNode(), 0, showBottomNode);
     }
 
-    private void
-            dumpClassHierarchy(Node<OWLClass> cls, int level, boolean showBottomNode) {
+    private void dumpClassHierarchy(Node<OWLClass> cls, int level,
+            boolean showBottomNode) {
         if (!showBottomNode && cls.isBottomNode()) {
             return;
         }
         printIndent(level);
         OWLClass representative = cls.getRepresentativeElement();
-        // System.out.println(getEquivalentClasses(representative));
+        System.out.println(getEquivalentClasses(representative));
         for (Node<OWLClass> subCls : getSubClasses(representative, true)) {
             dumpClassHierarchy(subCls, level + 1, showBottomNode);
         }
@@ -725,17 +762,20 @@ public class StructuralReasoner extends OWLReasonerBase {
     /** @param showBottomNode
      *            true if bottom node is to be showed */
     public void dumpObjectPropertyHierarchy(boolean showBottomNode) {
-        dumpObjectPropertyHierarchy(OWLObjectPropertyNode.getTopNode(), 0, showBottomNode);
+        dumpObjectPropertyHierarchy(OWLObjectPropertyNode.getTopNode(), 0,
+                showBottomNode);
     }
 
-    private void dumpObjectPropertyHierarchy(Node<OWLObjectPropertyExpression> cls,
-            int level, boolean showBottomNode) {
+    private void dumpObjectPropertyHierarchy(
+            Node<OWLObjectPropertyExpression> cls, int level,
+            boolean showBottomNode) {
         if (!showBottomNode && cls.isBottomNode()) {
             return;
         }
         printIndent(level);
-        OWLObjectPropertyExpression representative = cls.getRepresentativeElement();
-        // System.out.println(getEquivalentObjectProperties(representative));
+        OWLObjectPropertyExpression representative = cls
+                .getRepresentativeElement();
+        System.out.println(getEquivalentObjectProperties(representative));
         for (Node<OWLObjectPropertyExpression> subProp : getSubObjectProperties(
                 representative, true)) {
             dumpObjectPropertyHierarchy(subProp, level + 1, showBottomNode);
@@ -745,18 +785,20 @@ public class StructuralReasoner extends OWLReasonerBase {
     /** @param showBottomNode
      *            true if bottom node is to be showed */
     public void dumpDataPropertyHierarchy(boolean showBottomNode) {
-        dumpDataPropertyHierarchy(OWLDataPropertyNode.getTopNode(), 0, showBottomNode);
+        dumpDataPropertyHierarchy(OWLDataPropertyNode.getTopNode(), 0,
+                showBottomNode);
     }
 
-    private void dumpDataPropertyHierarchy(Node<OWLDataProperty> cls, int level,
-            boolean showBottomNode) {
+    private void dumpDataPropertyHierarchy(Node<OWLDataProperty> cls,
+            int level, boolean showBottomNode) {
         if (!showBottomNode && cls.isBottomNode()) {
             return;
         }
         printIndent(level);
         OWLDataProperty representative = cls.getRepresentativeElement();
         System.out.println(getEquivalentDataProperties(representative));
-        for (Node<OWLDataProperty> subProp : getSubDataProperties(representative, true)) {
+        for (Node<OWLDataProperty> subProp : getSubDataProperties(
+                representative, true)) {
             dumpDataPropertyHierarchy(subProp, level + 1, showBottomNode);
         }
     }
@@ -848,7 +890,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             pm.reasonerTaskStopped();
         }
 
-        private void updateForSignature(Set<T> signature, Map<T, Collection<T>> cache) {
+        private void updateForSignature(Set<T> signature,
+                Map<T, Collection<T>> cache) {
             HashSet<Set<T>> cyclesResult = new HashSet<Set<T>>();
             Set<T> processed = new HashSet<T>();
             nodeCache.clearTopNode();
@@ -859,8 +902,10 @@ public class StructuralReasoner extends OWLReasonerBase {
             Set<T> equivBottomOrParentsOfBottom = new HashSet<T>();
             for (T entity : signature) {
                 if (!processed.contains(entity)) {
-                    pm.reasonerTaskProgressChanged(processed.size(), signature.size());
-                    tarjan(entity, 0, new Stack<T>(), new HashMap<T, Integer>(),
+                    pm.reasonerTaskProgressChanged(processed.size(),
+                            signature.size());
+                    tarjan(entity, 0, new Stack<T>(),
+                            new HashMap<T, Integer>(),
                             new HashMap<T, Integer>(), cyclesResult, processed,
                             new HashSet<T>(), cache, equivTopOrChildrenOfTop,
                             equivBottomOrParentsOfBottom);
@@ -872,9 +917,11 @@ public class StructuralReasoner extends OWLReasonerBase {
                 nodeCache.addNode(cycle);
             }
             directChildrenOfTopNode.addAll(equivTopOrChildrenOfTop);
-            directChildrenOfTopNode.removeAll(nodeCache.getTopNode().getEntities());
+            directChildrenOfTopNode.removeAll(nodeCache.getTopNode()
+                    .getEntities());
             directParentsOfBottomNode.addAll(equivBottomOrParentsOfBottom);
-            directParentsOfBottomNode.removeAll(nodeCache.getBottomNode().getEntities());
+            directParentsOfBottomNode.removeAll(nodeCache.getBottomNode()
+                    .getEntities());
             // Now check that each found cycle has a proper parent an child
             for (Set<T> node : cyclesResult) {
                 if (!node.contains(topEntity) && !node.contains(bottomEntity)) {
@@ -897,7 +944,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                         Collection<T> children = rawParentChildProvider
                                 .getChildren(element);
                         children.removeAll(node);
-                        children.removeAll(nodeCache.getBottomNode().getEntities());
+                        children.removeAll(nodeCache.getBottomNode()
+                                .getEntities());
                         if (!children.isEmpty()) {
                             parentOfBottom = false;
                             break;
@@ -956,13 +1004,15 @@ public class StructuralReasoner extends OWLReasonerBase {
          *            A set of entities that have a raw parent that is the
          *            bottom entity */
         public void tarjan(T entity, int _index, Stack<T> stack,
-                Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap, Set<Set<T>> result,
-                Set<T> processed, Set<T> stackEntities, Map<T, Collection<T>> cache,
-                Set<T> childrenOfTop, Set<T> parentsOfBottom) {
+                Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap,
+                Set<Set<T>> result, Set<T> processed, Set<T> stackEntities,
+                Map<T, Collection<T>> cache, Set<T> childrenOfTop,
+                Set<T> parentsOfBottom) {
             int index = _index;
             throwExceptionIfInterrupted();
             if (processed.add(entity)) {
-                Collection<T> rawChildren = rawParentChildProvider.getChildren(entity);
+                Collection<T> rawChildren = rawParentChildProvider
+                        .getChildren(entity);
                 if (rawChildren.isEmpty() || rawChildren.contains(bottomEntity)) {
                     parentsOfBottom.add(entity);
                 }
@@ -996,16 +1046,18 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
             for (T superEntity : rawParents) {
                 if (!indexMap.containsKey(superEntity)) {
-                    tarjan(superEntity, index, stack, indexMap, lowlinkMap, result,
-                            processed, stackEntities, cache, childrenOfTop,
-                            parentsOfBottom);
-                    lowlinkMap
-                            .put(entity,
-                                    Math.min(lowlinkMap.get(entity),
-                                            lowlinkMap.get(superEntity)));
+                    tarjan(superEntity, index, stack, indexMap, lowlinkMap,
+                            result, processed, stackEntities, cache,
+                            childrenOfTop, parentsOfBottom);
+                    lowlinkMap.put(
+                            entity,
+                            Math.min(lowlinkMap.get(entity),
+                                    lowlinkMap.get(superEntity)));
                 } else if (stackEntities.contains(superEntity)) {
-                    lowlinkMap.put(entity,
-                            Math.min(lowlinkMap.get(entity), indexMap.get(superEntity)));
+                    lowlinkMap.put(
+                            entity,
+                            Math.min(lowlinkMap.get(entity),
+                                    indexMap.get(superEntity)));
                 }
             }
             if (lowlinkMap.get(entity).equals(indexMap.get(entity))) {
@@ -1035,7 +1087,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
             Set<T> directChildren = new HashSet<T>();
             for (T equiv : node) {
-                directChildren.addAll(rawParentChildProvider.getChildren(equiv));
+                directChildren
+                        .addAll(rawParentChildProvider.getChildren(equiv));
                 if (directParentsOfBottomNode.contains(equiv)) {
                     ns.addNode(nodeCache.getBottomNode());
                 }
@@ -1126,7 +1179,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (parentNode != null) {
                 return parentNode;
             } else {
-                return hierarchyInfo.createNode(Collections.singleton(containing));
+                return hierarchyInfo.createNode(Collections
+                        .singleton(containing));
             }
         }
 
@@ -1208,15 +1262,18 @@ public class StructuralReasoner extends OWLReasonerBase {
     private class ObjectPropertyHierarchyInfo extends
             HierarchyInfo<OWLObjectPropertyExpression> {
         public ObjectPropertyHierarchyInfo() {
-            super("object property", getDataFactory().getOWLTopObjectProperty(),
+            super("object property",
+                    getDataFactory().getOWLTopObjectProperty(),
                     getDataFactory().getOWLBottomObjectProperty(),
                     new RawObjectPropertyHierarchyProvider());
         }
 
         @Override
-        protected Set<OWLObjectPropertyExpression> getEntitiesInSignature(OWLAxiom ax) {
+        protected Set<OWLObjectPropertyExpression> getEntitiesInSignature(
+                OWLAxiom ax) {
             Set<OWLObjectPropertyExpression> result = new HashSet<OWLObjectPropertyExpression>();
-            for (OWLObjectProperty property : ax.getObjectPropertiesInSignature()) {
+            for (OWLObjectProperty property : ax
+                    .getObjectPropertiesInSignature()) {
                 result.add(property);
                 result.add(property.getInverseProperty());
             }
@@ -1271,7 +1328,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    private class DataPropertyHierarchyInfo extends HierarchyInfo<OWLDataProperty> {
+    private class DataPropertyHierarchyInfo extends
+            HierarchyInfo<OWLDataProperty> {
         public DataPropertyHierarchyInfo() {
             super("data property", getDataFactory().getOWLTopDataProperty(),
                     getDataFactory().getOWLBottomDataProperty(),
@@ -1289,7 +1347,8 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
 
         @Override
-        protected DefaultNode<OWLDataProperty> createNode(Set<OWLDataProperty> cycle) {
+        protected DefaultNode<OWLDataProperty> createNode(
+                Set<OWLDataProperty> cycle) {
             return new OWLDataPropertyNode(cycle);
         }
 
@@ -1325,28 +1384,33 @@ public class StructuralReasoner extends OWLReasonerBase {
         Collection<T> getChildren(T parent);
     }
 
-    private class RawClassHierarchyProvider implements RawHierarchyProvider<OWLClass> {
+    private class RawClassHierarchyProvider implements
+            RawHierarchyProvider<OWLClass> {
         public RawClassHierarchyProvider() {}
 
         @Override
         public Collection<OWLClass> getParents(OWLClass child) {
             Collection<OWLClass> result = new HashSet<OWLClass>();
             for (OWLOntology ont : getRootOntology().getImportsClosure()) {
-                for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(child)) {
+                for (OWLSubClassOfAxiom ax : ont
+                        .getSubClassAxiomsForSubClass(child)) {
                     OWLClassExpression superCls = ax.getSuperClass();
                     if (!superCls.isAnonymous()) {
                         result.add(superCls.asOWLClass());
                     } else if (superCls instanceof OWLObjectIntersectionOf) {
                         OWLObjectIntersectionOf intersectionOf = (OWLObjectIntersectionOf) superCls;
-                        for (OWLClassExpression conjunct : intersectionOf.asConjunctSet()) {
+                        for (OWLClassExpression conjunct : intersectionOf
+                                .asConjunctSet()) {
                             if (!conjunct.isAnonymous()) {
                                 result.add(conjunct.asOWLClass());
                             }
                         }
                     }
                 }
-                for (OWLEquivalentClassesAxiom ax : ont.getEquivalentClassesAxioms(child)) {
-                    for (OWLClassExpression ce : ax.getClassExpressionsMinus(child)) {
+                for (OWLEquivalentClassesAxiom ax : ont
+                        .getEquivalentClassesAxioms(child)) {
+                    for (OWLClassExpression ce : ax
+                            .getClassExpressionsMinus(child)) {
                         if (!ce.isAnonymous()) {
                             result.add(ce.asOWLClass());
                         } else if (ce instanceof OWLObjectIntersectionOf) {
@@ -1372,8 +1436,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                     if (ax instanceof OWLSubClassOfAxiom) {
                         OWLSubClassOfAxiom sca = (OWLSubClassOfAxiom) ax;
                         if (!sca.getSubClass().isAnonymous()) {
-                            Set<OWLClassExpression> conjuncts = sca.getSuperClass()
-                                    .asConjunctSet();
+                            Set<OWLClassExpression> conjuncts = sca
+                                    .getSuperClass().asConjunctSet();
                             if (conjuncts.contains(parent)) {
                                 result.add(sca.getSubClass().asOWLClass());
                             }
@@ -1382,7 +1446,8 @@ public class StructuralReasoner extends OWLReasonerBase {
                         OWLEquivalentClassesAxiom eca = (OWLEquivalentClassesAxiom) ax;
                         for (OWLClassExpression ce : eca.getClassExpressions()) {
                             if (ce.containsConjunct(parent)) {
-                                for (OWLClassExpression sub : eca.getClassExpressions()) {
+                                for (OWLClassExpression sub : eca
+                                        .getClassExpressions()) {
                                     if (!sub.isAnonymous() && !sub.equals(ce)) {
                                         result.add(sub.asOWLClass());
                                     }
@@ -1413,7 +1478,8 @@ public class StructuralReasoner extends OWLReasonerBase {
             super2Sub = new HashMap<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>();
             for (OWLObjectPropertyExpression sub : sub2Super.keySet()) {
                 for (OWLObjectPropertyExpression superProp : sub2Super.get(sub)) {
-                    Set<OWLObjectPropertyExpression> subs = super2Sub.get(superProp);
+                    Set<OWLObjectPropertyExpression> subs = super2Sub
+                            .get(superProp);
                     if (subs == null) {
                         subs = new HashSet<OWLObjectPropertyExpression>();
                         super2Sub.put(superProp, subs);
@@ -1429,11 +1495,13 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (child.isBottomEntity()) {
                 return Collections.emptySet();
             }
-            Set<OWLObjectPropertyExpression> propertyExpressions = sub2Super.get(child);
+            Set<OWLObjectPropertyExpression> propertyExpressions = sub2Super
+                    .get(child);
             if (propertyExpressions == null) {
                 return Collections.emptySet();
             } else {
-                return new HashSet<OWLObjectPropertyExpression>(propertyExpressions);
+                return new HashSet<OWLObjectPropertyExpression>(
+                        propertyExpressions);
             }
         }
 
@@ -1443,11 +1511,13 @@ public class StructuralReasoner extends OWLReasonerBase {
             if (parent.isTopEntity()) {
                 return Collections.emptySet();
             }
-            Set<OWLObjectPropertyExpression> propertyExpressions = super2Sub.get(parent);
+            Set<OWLObjectPropertyExpression> propertyExpressions = super2Sub
+                    .get(parent);
             if (propertyExpressions == null) {
                 return Collections.emptySet();
             } else {
-                return new HashSet<OWLObjectPropertyExpression>(propertyExpressions);
+                return new HashSet<OWLObjectPropertyExpression>(
+                        propertyExpressions);
             }
         }
     }
@@ -1459,8 +1529,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getParents(OWLDataProperty child) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : find(OWLDataPropertyExpression.class)
-                    .in(getRootOntology()).sup().propertiesOf(child)) {
+            for (OWLDataPropertyExpression prop : find(
+                    OWLDataPropertyExpression.class).in(getRootOntology())
+                    .sup().propertiesOf(child)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;
@@ -1469,8 +1540,9 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getChildren(OWLDataProperty parent) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : find(OWLDataPropertyExpression.class)
-                    .in(getRootOntology()).sub().propertiesOf(parent)) {
+            for (OWLDataPropertyExpression prop : find(
+                    OWLDataPropertyExpression.class).in(getRootOntology())
+                    .sub().propertiesOf(parent)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;
