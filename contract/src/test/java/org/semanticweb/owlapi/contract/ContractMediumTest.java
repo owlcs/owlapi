@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
-import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
@@ -516,9 +516,6 @@ public class ContractMediumTest {
         NodeSet<OWLNamedIndividual> result39 = testSubject0.getInstances(
                 Utils.mockAnonClass(), false);
         testSubject0.prepareReasoner();
-        testSubject0.dumpClassHierarchy(false);
-        testSubject0.dumpObjectPropertyHierarchy(false);
-        testSubject0.dumpDataPropertyHierarchy(false);
         testSubject0.flush();
         testSubject0.dispose();
         OWLDataFactory result40 = testSubject0.getOWLDataFactory();
