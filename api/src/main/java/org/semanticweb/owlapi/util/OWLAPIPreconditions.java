@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.util;
 
+import com.google.common.base.Optional;
+
 /** a set of personalized preconditions */
 public class OWLAPIPreconditions {
     /** check for null and throw IllegalArgumentException if null
@@ -69,5 +71,23 @@ public class OWLAPIPreconditions {
             throw new IllegalArgumentException(message);
         }
         return object;
+    }
+
+    /** check for absent and throw IllegalArgumentException if null or absent
+     * 
+     * @param object
+     *            reference to check
+     * @param message
+     *            message for the illegal argument exception
+     * @param <T>
+     *            reference type
+     * @return the input reference if not null
+     * @throws IllegalArgumentException
+     *             if object is null */
+    public static <T> T checkNotNull(Optional<T> object, String message) {
+        if (object == null || !object.isPresent()) {
+            throw new IllegalArgumentException(message);
+        }
+        return object.get();
     }
 }
