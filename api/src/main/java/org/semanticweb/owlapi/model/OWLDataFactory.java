@@ -50,9 +50,9 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** An interface for creating entities, class expressions and axioms. All methods
  * throw IllegalArgumentException if null values are passed where they are not
  * allowed in the documentation.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 <br> */
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 <br> */
 public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
         OWLEntityByTypeProvider, OWLAnonymousIndividualProvider,
         OWLAnonymousIndividualByIdProvider {
@@ -103,12 +103,12 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @param abbreviatedIRI
      *            The abbreviated IRI, which is of the form PREFIX_NAME:RC,
      *            where PREFIX_NAME may be the empty string (the default
-     *            prefix). Cannot be null. Note that abbreviated IRIs always
-     *            contain a colon as a delimiter, even if the prefix name is the
-     *            empty string.
+     *            prefix).<br>
+     *            Note that abbreviated IRIs always contain a colon as a
+     *            delimiter, even if the prefix name is the empty string.
      * @param prefixManager
      *            The prefix manager that is responsible for mapping prefix
-     *            names to prefix IRIs. Cannot be null.
+     *            names to prefix IRIs.
      * @return An OWLClass that has the IRI obtained by expanding the specified
      *         abbreviated IRI using the specified prefix manager. <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
@@ -131,12 +131,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @param abbreviatedIRI
      *            The abbreviated IRI, which is of the form PREFIX_NAME:RC,
      *            where PREFIX_NAME may be the empty string (the default
-     *            prefix). Cannot be null. Note that abbreviated IRIs always
-     *            contain a colon as a delimiter, even if the prefix name is the
-     *            empty string.
+     *            prefix). Note that abbreviated IRIs always contain a colon as
+     *            a delimiter, even if the prefix name is the empty string.
      * @param prefixManager
      *            The prefix manager that is responsible for mapping prefix
-     *            names to prefix IRIs. Cannot be null.
+     *            names to prefix IRIs.
      * @return An OWLObjectProperty that has the IRI obtained by expanding the
      *         specified abbreviated IRI using the specified prefix manager. <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
@@ -154,12 +153,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** Gets the inverse of an object property.
      * 
      * @param property
-     *            The property of which the inverse will be returned. Cannot be
-     *            null.
+     *            The property of which the inverse will be returned
      * @return The inverse of the specified object property */
     @Nonnull
-    OWLObjectInverseOf
-            getOWLObjectInverseOf(@Nonnull OWLObjectPropertyExpression property);
+    OWLObjectInverseOf getOWLObjectInverseOf(
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** Gets an OWLDataProperty that has an IRI that is obtained by expanding an
      * abbreviated name using an appropriate prefix mapping. See <a
@@ -171,10 +169,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            where PREFIX_NAME may be the empty string (the default
      *            prefix). Note that abbreviated IRIs always contain a colon as
      *            a delimiter, even if the prefix name is the empty string.
-     *            Cannot be null.
      * @param prefixManager
      *            The prefix manager that is responsible for mapping prefix
-     *            names to prefix IRIs. Cannot be null.
+     *            names to prefix IRIs.
      * @return An OWLDataProperty that has the IRI obtained by expanding the
      *         specified abbreviated IRI using the specified prefix manager. <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
@@ -199,10 +196,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            where PREFIX_NAME may be the empty string (the default
      *            prefix). Note that abbreviated IRIs always contain a colon as
      *            a delimiter, even if the prefix name is the empty string.
-     *            Cannot be null.
      * @param prefixManager
      *            The prefix manager that is responsible for mapping prefix
-     *            names to prefix IRIs. Cannot be null.
+     *            names to prefix IRIs.
      * @return An OWLNamedIndividual that has the IRI obtained by expanding the
      *         specified abbreviated IRI using the specified prefix manager. <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
@@ -227,10 +223,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            where PREFIX_NAME may be the empty string (the default
      *            prefix). Note that abbreviated IRIs always contain a colon as
      *            a delimiter, even if the prefix name is the empty string.
-     *            Cannot be null.
      * @param prefixManager
      *            The prefix manager that is responsible for mapping prefix
-     *            names to prefix IRIs. Cannot be null.
+     *            names to prefix IRIs.
      * @return An OWLAnnotationProperty that has the IRI obtained by expanding
      *         the specified abbreviated IRI using the specified prefix manager. <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
@@ -242,8 +237,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *             if the prefix name in the specified abbreviated IRI does not
      *             have a mapping to a prefix in the specified prefix manager. */
     @Nonnull
-    OWLAnnotationProperty getOWLAnnotationProperty(@Nonnull String abbreviatedIRI,
-            @Nonnull PrefixManager prefixManager);
+    OWLAnnotationProperty
+            getOWLAnnotationProperty(@Nonnull String abbreviatedIRI,
+                    @Nonnull PrefixManager prefixManager);
 
     /** Gets an annotation property that has an IRI corresponding to
      * {@code rdfs:label}.
@@ -320,10 +316,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *            where PREFIX_NAME may be the empty string (the default
      *            prefix). Note that abbreviated IRIs always contain a colon as
      *            a delimiter, even if the prefix name is the empty string.
-     *            Cannot be null.
      * @param prefixManager
      *            The prefix manager that is responsible for mapping prefix
-     *            names to prefix IRIs. Cannot be null.
+     *            names to prefix IRIs.
      * @return An OWLDatatype that has the IRI obtained by expanding the
      *         specified abbreviated IRI using the specified prefix manager. <br>
      *         For example, suppose "m:Cat" was specified as the abbreviated
@@ -375,9 +370,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * typed with the specified datatype.
      * 
      * @param lexicalValue
-     *            The lexical value. Cannot be null.
+     *            The lexical value.
      * @param datatype
-     *            The datatype. Cannot be null.
+     *            The datatype.
      * @return An OWLLiteral with the specified lexical value and specified
      *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
      *         lexical value contains a language tag then the language tag will
@@ -385,15 +380,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
      *         of "abc" and a language tag of "en". */
     @Nonnull
-    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue, @Nonnull OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nonnull OWLDatatype datatype);
 
     /** Gets an {@code OWLLiteral}, which has the specified lexical value, and is
      * typed with the specified datatype.
      * 
      * @param lexicalValue
-     *            The lexical value. Cannot be null.
+     *            The lexical value.
      * @param datatype
-     *            The datatype. Cannot be null.
+     *            The datatype.
      * @return An OWLLiteral with the specified lexical value and specified
      *         datatype. If the datatype is {@code rdf:PlainLiteral}, and the
      *         lexical value contains a language tag then the language tag will
@@ -401,8 +397,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         "abc@en"^^rdf:PlainLiteral would be parsed into a lexical value
      *         of "abc" and a language tag of "en". */
     @Nonnull
-    OWLLiteral
-            getOWLLiteral(@Nonnull String lexicalValue, @Nonnull OWL2Datatype datatype);
+    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nonnull OWL2Datatype datatype);
 
     /** Convenience method that obtains a literal typed as an integer.
      * 
@@ -444,18 +440,18 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * xsd:string. The literal will not have a language tag.
      * 
      * @param value
-     *            The lexical value of the literal. Cannot be null.
+     *            The lexical value of the literal.
      * @return A literal (without a language tag) that has a datatype of
      *         xsd:string. */
     @Nonnull
-    OWLLiteral getOWLLiteral(String value);
+    OWLLiteral getOWLLiteral(@Nonnull String value);
 
     /** Gets an OWLLiteral with a language tag. The datatype of this literal will
      * have an IRI of rdf:PlainLiteral (
      * {@link org.semanticweb.owlapi.vocab.OWLRDFVocabulary#RDF_PLAIN_LITERAL}).
      * 
      * @param literal
-     *            The string literal. Cannot be null.
+     *            The string literal.
      * @param lang
      *            The language tag. The empty string may be specified to
      *            indicate an empty language tag. Leading and trailing white
@@ -478,8 +474,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * >(see spec)</a>
      * 
      * @param values
-     *            The set of values that the data one of should contain. Cannot
-     *            be null.
+     *            The set of values that the data one of should contain.
      * @return A data one of that enumerates the specified set of values */
     @Nonnull
     OWLDataOneOf getOWLDataOneOf(@Nonnull Set<? extends OWLLiteral> values);
@@ -500,7 +495,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * >(see spec)</a>
      * 
      * @param dataRange
-     *            The datarange to be complemented. Cannot be null.
+     *            The datarange to be complemented.
      * @return An OWLDataComplementOf of the specified data range */
     @Nonnull
     OWLDataComplementOf getOWLDataComplementOf(@Nonnull OWLDataRange dataRange);
@@ -509,40 +504,43 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
      * spec</a>
      * 
-     * @param dataRange
-     *            Cannot be null.
+     * @param dataType
+     *            datatype for the restriction
      * @param facetRestrictions
-     *            Cannot be null.
+     *            facet restrictions. Cannot contain nulls.
      * @return an OWLDatatypeRestriction for the specified data type and
      *         restrictions */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeRestriction(@Nonnull OWLDatatype dataRange,
+    OWLDatatypeRestriction getOWLDatatypeRestriction(
+            @Nonnull OWLDatatype dataType,
             @Nonnull Set<OWLFacetRestriction> facetRestrictions);
 
     /** OWLDatatypeRestriction <a
      * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions">see
      * spec</a>
      * 
-     * @param dataRange
-     *            Cannot be null.
+     * @param dataType
+     *            datatype for the restriction
      * @param facet
-     *            Cannot be null.
+     *            facet for restriction
      * @param typedLiteral
-     *            Cannot be null.
+     *            literal for facet.
      * @return an OWLDatatypeRestriction with given value for the specified
      *         facet */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeRestriction(@Nonnull OWLDatatype dataRange,
-            @Nonnull OWLFacet facet, @Nonnull OWLLiteral typedLiteral);
+    OWLDatatypeRestriction getOWLDatatypeRestriction(
+            @Nonnull OWLDatatype dataType, @Nonnull OWLFacet facet,
+            @Nonnull OWLLiteral typedLiteral);
 
-    /** @param dataRange
-     *            Cannot be null.
+    /** @param dataType
+     *            datatype for the restriction
      * @param facetRestrictions
-     *            Cannot be null or contain nulls.
+     *            facet restrictions. Cannot contain nulls.
      * @return an OWLDatatypeRestriction for the specified data type and
      *         restrictions */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeRestriction(@Nonnull OWLDatatype dataRange,
+    OWLDatatypeRestriction getOWLDatatypeRestriction(
+            @Nonnull OWLDatatype dataType,
             @Nonnull OWLFacetRestriction... facetRestrictions);
 
     /** Creates a datatype restriction on xsd:integer with a minInclusive facet
@@ -557,7 +555,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
      *         value specified by the {@code minInclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(int minInclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
+            int minInclusive);
 
     /** Creates a datatype restriction on xsd:integer with a maxInclusive facet
      * restriction
@@ -571,7 +570,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(int maxInclusive);
+    OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
+            int maxInclusive);
 
     /** Creates a datatype restriction on xsd:integer with min and max inclusive
      * facet restrictions
@@ -590,8 +590,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(int minInclusive,
-            int maxInclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
+            int minInclusive, int maxInclusive);
 
     /** Creates a datatype restriction on xsd:integer with a minExclusive facet
      * restriction
@@ -605,7 +605,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
      *         value specified by the {@code minExclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(int minExclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
+            int minExclusive);
 
     /** Creates a datatype restriction on xsd:integer with a maxExclusive facet
      * restriction
@@ -619,7 +620,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(int maxExclusive);
+    OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
+            int maxExclusive);
 
     /** Creates a datatype restriction on xsd:integer with min and max exclusive
      * facet restrictions
@@ -638,8 +640,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(int minExclusive,
-            int maxExclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
+            int minExclusive, int maxExclusive);
 
     /** Creates a datatype restriction on xsd:double with a minInclusive facet
      * restriction
@@ -653,7 +655,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_INCLUSIVE} facet
      *         value specified by the {@code minInclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(double minInclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinInclusiveRestriction(
+            double minInclusive);
 
     /** Creates a datatype restriction on xsd:double with a maxInclusive facet
      * restriction
@@ -667,7 +670,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(double maxInclusive);
+    OWLDatatypeRestriction getOWLDatatypeMaxInclusiveRestriction(
+            double maxInclusive);
 
     /** Creates a datatype restriction on xsd:double with min and max inclusive
      * facet restrictions
@@ -686,8 +690,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_INCLUSIVE} facet
      *         value specified by the {@code maxInclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(double minInclusive,
-            double maxInclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinMaxInclusiveRestriction(
+            double minInclusive, double maxInclusive);
 
     /** Creates a datatype restriction on xsd:double with a minExclusive facet
      * restriction
@@ -701,7 +705,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MIN_EXCLUSIVE} facet
      *         value specified by the {@code minExclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(double minExclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinExclusiveRestriction(
+            double minExclusive);
 
     /** Creates a datatype restriction on xsd:double with a maxExclusive facet
      * restriction
@@ -715,7 +720,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(double maxExclusive);
+    OWLDatatypeRestriction getOWLDatatypeMaxExclusiveRestriction(
+            double maxExclusive);
 
     /** Creates a datatype restriction on xsd:double with min and max exclusive
      * facet restrictions
@@ -734,78 +740,84 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      *         {@link org.semanticweb.owlapi.vocab.OWLFacet#MAX_EXCLUSIVE} facet
      *         value specified by the {@code maxExclusive} parameter. */
     @Nonnull
-    OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(double minExclusive,
-            double maxExclusive);
+    OWLDatatypeRestriction getOWLDatatypeMinMaxExclusiveRestriction(
+            double minExclusive, double maxExclusive);
 
     /** @param facet
-     *            Cannot be null.
+     *            facet for restriction.
      * @param facetValue
-     *            Cannot be null.
+     *            literal for restriction.
      * @return an OWLFacetRestriction on specified facet and value */
     @Nonnull
     OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
             @Nonnull OWLLiteral facetValue);
 
     /** @param facet
-     *            Cannot be null.
+     *            facet for restriction.
      * @param facetValue
      *            facet value
      * @return an OWLFacetRestriction on specified facet and value */
     @Nonnull
-    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet, int facetValue);
+    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
+            int facetValue);
 
     /** @param facet
-     *            Cannot be null.
+     *            facet for restriction
      * @param facetValue
-     *            Cannot be null.
+     *            facet value.
      * @return an OWLFacetRestriction on specified facet and value */
     @Nonnull
-    OWLFacetRestriction
-            getOWLFacetRestriction(@Nonnull OWLFacet facet, double facetValue);
+    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
+            double facetValue);
 
     /** @param facet
-     *            Cannot be null.
+     *            facet for restriction
      * @param facetValue
-     *            Cannot be null.
+     *            facet value.
      * @return an OWLFacetRestriction on specified facet and value */
     @Nonnull
-    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet, float facetValue);
+    OWLFacetRestriction getOWLFacetRestriction(@Nonnull OWLFacet facet,
+            float facetValue);
 
     /** @param dataRanges
-     *            Cannot be null or contain nulls.
+     *            data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges */
     @Nonnull
-    OWLDataUnionOf getOWLDataUnionOf(@Nonnull Set<? extends OWLDataRange> dataRanges);
+    OWLDataUnionOf getOWLDataUnionOf(
+            @Nonnull Set<? extends OWLDataRange> dataRanges);
 
     /** @param dataRanges
-     *            Cannot be null or contain nulls.
+     *            data ranges for union. Cannot be null or contain nulls.
      * @return an OWLDataUnionOf on the specified dataranges */
     @Nonnull
     OWLDataUnionOf getOWLDataUnionOf(@Nonnull OWLDataRange... dataRanges);
 
     /** @param dataRanges
-     *            Cannot be null or contain nulls.
+     *            data ranges for intersection. Cannot be null or contain nulls.
      * @return an OWLDataIntersectionOf on the specified dataranges */
     @Nonnull
     OWLDataIntersectionOf getOWLDataIntersectionOf(
             @Nonnull Set<? extends OWLDataRange> dataRanges);
 
     /** @param dataRanges
-     *            Cannot be null or contain nulls.
+     *            data ranges for intersection. Cannot be null or contain nulls.
      * @return an OWLDataIntersectionOf on the specified dataranges */
     @Nonnull
-    OWLDataIntersectionOf getOWLDataIntersectionOf(@Nonnull OWLDataRange... dataRanges);
+    OWLDataIntersectionOf getOWLDataIntersectionOf(
+            @Nonnull OWLDataRange... dataRanges);
 
     // Class Expressions
     /** @param operands
-     *            Cannot be null or contain nulls.
+     *            class expressions for intersection. Cannot be null or contain
+     *            nulls.
      * @return an OWLObjectIntersectionOf on the specified operands */
     @Nonnull
     OWLObjectIntersectionOf getOWLObjectIntersectionOf(
             @Nonnull Set<? extends OWLClassExpression> operands);
 
     /** @param operands
-     *            Cannot be null or contain nulls.
+     *            class expressions for intersection. Cannot be null or contain
+     *            nulls.
      * @return an OWLObjectIntersectionOf on the specified operands */
     @Nonnull
     OWLObjectIntersectionOf getOWLObjectIntersectionOf(
@@ -815,29 +827,31 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** Gets an OWLDataSomeValuesFrom restriction
      * 
      * @param property
-     *            The property that the restriction acts along. Cannot be null.
+     *            The property that the restriction acts along.
      * @param dataRange
-     *            The data range that is the filler. Cannot be null.
+     *            The data range that is the filler.
      * @return An OWLDataSomeValuesFrom restriction that acts along the
      *         specified property and has the specified filler */
     @Nonnull
     OWLDataSomeValuesFrom getOWLDataSomeValuesFrom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange dataRange);
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange dataRange);
 
     /** @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param dataRange
-     *            Cannot be null.
+     *            The data range that is the filler.
      * @return An OWLDataAllValuesFrom restriction that acts along the specified
      *         property and has the specified filler */
     @Nonnull
     OWLDataAllValuesFrom getOWLDataAllValuesFrom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange dataRange);
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange dataRange);
 
     /** @param cardinality
      *            Cannot be negative
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
@@ -846,18 +860,19 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param dataRange
-     *            Cannot be null.
+     *            data range for restricition
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange dataRange);
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange dataRange);
 
     /** @param cardinality
      *            Cannot be negative
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
@@ -866,18 +881,19 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param dataRange
-     *            Cannot be null.
+     *            data range for restriction
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange dataRange);
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange dataRange);
 
     /** @param cardinality
      *            Cannot be negative
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
@@ -886,46 +902,50 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param dataRange
-     *            Cannot be null.
+     *            data range for restriction
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLDataRange dataRange);
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLDataRange dataRange);
 
     /** @param property
-     *            Cannot be null
+     *            The property that the restriction acts along.
      * @param value
-     *            Cannot be null.
+     *            value for restriction
      * @return a HasValue restriction with specified property and value */
     @Nonnull
-    OWLDataHasValue getOWLDataHasValue(@Nonnull OWLDataPropertyExpression property,
+    OWLDataHasValue getOWLDataHasValue(
+            @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLLiteral value);
 
     /** @param operand
-     *            Cannot be null.
+     *            class expression to complement
      * @return the complement of the specified argument */
     @Nonnull
-    OWLObjectComplementOf getOWLObjectComplementOf(@Nonnull OWLClassExpression operand);
+    OWLObjectComplementOf getOWLObjectComplementOf(
+            @Nonnull OWLClassExpression operand);
 
     /** @param values
-     *            Cannot be null or contain nulls.
+     *            indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals */
     @Nonnull
-    OWLObjectOneOf getOWLObjectOneOf(@Nonnull Set<? extends OWLIndividual> values);
+    OWLObjectOneOf getOWLObjectOneOf(
+            @Nonnull Set<? extends OWLIndividual> values);
 
     /** @param individuals
-     *            Cannot be null or contain nulls.
+     *            indivudals for restriction. Cannot be null or contain nulls.
      * @return a OneOf expression on specified individuals */
     @Nonnull
     OWLObjectOneOf getOWLObjectOneOf(@Nonnull OWLIndividual... individuals);
 
     // Object restrictions
     /** @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param classExpression
-     *            Cannot be null.
+     *            the class expression for the restriction
      * @return an AllValuesFrom on specified property and class expression */
     @Nonnull
     OWLObjectAllValuesFrom getOWLObjectAllValuesFrom(
@@ -935,10 +955,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** Gets an OWLObjectSomeValuesFrom restriction
      * 
      * @param property
-     *            The object property that the restriction acts along. Cannot be
-     *            null.
+     *            The object property that the restriction acts along.
      * @param classExpression
-     *            The class expression that is the filler. Cannot be null.
+     *            The class expression that is the filler.
      * @return An OWLObjectSomeValuesFrom restriction along the specified
      *         property with the specified filler */
     @Nonnull
@@ -949,7 +968,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
@@ -958,9 +977,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param classExpression
-     *            Cannot be null.
+     *            class expression for restriction
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
@@ -970,7 +989,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
@@ -979,9 +998,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param classExpression
-     *            Cannot be null.
+     *            class expression for restriction
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
@@ -991,7 +1010,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
@@ -1000,9 +1019,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param cardinality
      *            Cannot be negative.
      * @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param classExpression
-     *            Cannot be null.
+     *            class expression for restriction
      * @return an ExactCardinality on the specified property */
     @Nonnull
     OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
@@ -1010,38 +1029,41 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression classExpression);
 
     /** @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @return a ObjectHasSelf class expression on the specified property */
     @Nonnull
-    OWLObjectHasSelf getOWLObjectHasSelf(@Nonnull OWLObjectPropertyExpression property);
+    OWLObjectHasSelf getOWLObjectHasSelf(
+            @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            The property that the restriction acts along.
      * @param individual
-     *            Cannot be null.
+     *            individual for restriction
      * @return a HasValue restriction with specified property and value */
     @Nonnull
-    OWLObjectHasValue getOWLObjectHasValue(@Nonnull OWLObjectPropertyExpression property,
+    OWLObjectHasValue getOWLObjectHasValue(
+            @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLIndividual individual);
 
     /** @param operands
-     *            cannot be null or contain nulls.
+     *            class expressions for union
      * @return a class union over the specified arguments */
     @Nonnull
     OWLObjectUnionOf getOWLObjectUnionOf(
             @Nonnull Set<? extends OWLClassExpression> operands);
 
     /** @param operands
-     *            cannot be null or contain nulls.
+     *            class expressions for union
      * @return a class union over the specified arguments */
     @Nonnull
-    OWLObjectUnionOf getOWLObjectUnionOf(@Nonnull OWLClassExpression... operands);
+    OWLObjectUnionOf getOWLObjectUnionOf(
+            @Nonnull OWLClassExpression... operands);
 
     // Axioms
     /** Gets a declaration for an entity
      * 
      * @param owlEntity
-     *            The declared entity. Cannot be null.
+     *            The declared entity.
      * @return The declaration axiom for the specified entity. */
     @Nonnull
     OWLDeclarationAxiom getOWLDeclarationAxiom(@Nonnull OWLEntity owlEntity);
@@ -1049,10 +1071,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** Gets a declaration with zero or more annotations for an entity
      * 
      * @param owlEntity
-     *            The declared entity. Cannot be null.
+     *            The declared entity.
      * @param annotations
-     *            A possibly empty set of annotations. Cannot be null or contain
-     *            nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return The declaration axiom for the specified entity which is annotated
      *         with the specified annotations */
     @Nonnull
@@ -1061,28 +1082,30 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
 
     // Class Axioms
     /** @param subClass
-     *            Cannot be null.
+     *            sub class
      * @param superClass
-     *            Cannot be null.
+     *            super class
      * @return a subclass axiom with no annotations */
     @Nonnull
-    OWLSubClassOfAxiom getOWLSubClassOfAxiom(@Nonnull OWLClassExpression subClass,
+    OWLSubClassOfAxiom getOWLSubClassOfAxiom(
+            @Nonnull OWLClassExpression subClass,
             @Nonnull OWLClassExpression superClass);
 
     /** @param subClass
-     *            Cannot be null.
+     *            sub class
      * @param superClass
-     *            Cannot be null.
+     *            super class
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a subclass axiom with specified annotations */
     @Nonnull
-    OWLSubClassOfAxiom getOWLSubClassOfAxiom(@Nonnull OWLClassExpression subClass,
+    OWLSubClassOfAxiom getOWLSubClassOfAxiom(
+            @Nonnull OWLClassExpression subClass,
             @Nonnull OWLClassExpression superClass,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param classExpressions
-     *            Cannot be null or contain nulls.
+     *            equivalent classes. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and no
      *         annotations */
     @Nonnull
@@ -1090,9 +1113,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLClassExpression> classExpressions);
 
     /** @param classExpressions
-     *            Cannot be null or contain nulls.
+     *            equivalent classes. Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and
      *         annotations */
     @Nonnull
@@ -1101,7 +1124,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param classExpressions
-     *            Cannot be null or contain nulls.
+     *            equivalent classes. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and no
      *         annotations */
     @Nonnull
@@ -1109,9 +1132,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression... classExpressions);
 
     /** @param clsA
-     *            Cannot be null.
+     *            one class for equivalence
      * @param clsB
-     *            Cannot be null.
+     *            one class for equivalence
      * @return an equivalent classes axiom with specified operands and no
      *         annotations (special case with only two operands) */
     @Nonnull
@@ -1119,11 +1142,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression clsA, @Nonnull OWLClassExpression clsB);
 
     /** @param clsA
-     *            Cannot be null.
+     *            one class for equivalence
      * @param clsB
-     *            Cannot be null.
+     *            one class for equivalence
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent classes axiom with specified operands and
      *         annotations (special case with only two operands) */
     @Nonnull
@@ -1132,23 +1155,23 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param classExpressions
-     *            Cannot be null or contain nulls.
+     *            Disjoint classes. Cannot be null or contain nulls.
      * @return a disjoint class axiom with no annotations */
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
             @Nonnull Set<? extends OWLClassExpression> classExpressions);
 
     /** @param classExpressions
-     *            Cannot be null or contain nulls.
+     *            Disjoint classes. Cannot be null or contain nulls.
      * @return a disjoint class axiom with no annotations */
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
             @Nonnull OWLClassExpression... classExpressions);
 
     /** @param classExpressions
-     *            Cannot be null or contain nulls.
+     *            Disjoint classes. Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint class axiom with annotations */
     @Nonnull
     OWLDisjointClassesAxiom getOWLDisjointClassesAxiom(
@@ -1156,7 +1179,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param owlClass
-     *            left hand side of the axiom. Cannot be null.
+     *            left hand side of the axiom.
      * @param classExpressions
      *            right hand side of the axiom. Cannot be null or contain nulls.
      * @return a disjoint union axiom */
@@ -1169,7 +1192,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @param classExpressions
      *            right hand side of the axiom. Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint union axiom with annotations */
     @Nonnull
     OWLDisjointUnionAxiom getOWLDisjointUnionAxiom(@Nonnull OWLClass owlClass,
@@ -1178,9 +1201,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
 
     // Object property axioms
     /** @param subProperty
-     *            Cannot be null.
+     *            sub property
      * @param superProperty
-     *            Cannot be null.
+     *            super property
      * @return a subproperty axiom */
     @Nonnull
     OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
@@ -1188,11 +1211,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLObjectPropertyExpression superProperty);
 
     /** @param subProperty
-     *            Cannot be null.
+     *            sub Property
      * @param superProperty
-     *            Cannot be null.
+     *            super Property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a subproperty axiom with annotations */
     @Nonnull
     OWLSubObjectPropertyOfAxiom getOWLSubObjectPropertyOfAxiom(
@@ -1201,9 +1224,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param chain
-     *            Cannot be null or contain nulls.
+     *            Chain of properties. Cannot be null or contain nulls.
      * @param superProperty
-     *            Cannot be null.
+     *            super property
      * @return a subproperty chain axiom */
     @Nonnull
     OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
@@ -1211,11 +1234,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLObjectPropertyExpression superProperty);
 
     /** @param chain
-     *            Cannot be null or contain nulls.
+     *            Chain of properties. Cannot be null or contain nulls.
      * @param superProperty
-     *            Cannot be null.
+     *            super property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a subproperty chain axiom */
     @Nonnull
     OWLSubPropertyChainOfAxiom getOWLSubPropertyChainOfAxiom(
@@ -1233,7 +1256,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param properties
      *            Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent properties axiom with specified properties and
      *         annotations */
     @Nonnull
@@ -1249,9 +1272,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLObjectPropertyExpression... properties);
 
     /** @param propertyA
-     *            Cannot be null.
+     *            property A
      * @param propertyB
-     *            Cannot be null.
+     *            property B
      * @return an equivalent properties axiom with specified properties */
     @Nonnull
     OWLEquivalentObjectPropertiesAxiom getOWLEquivalentObjectPropertiesAxiom(
@@ -1259,11 +1282,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLObjectPropertyExpression propertyB);
 
     /** @param propertyA
-     *            Cannot be null.
+     *            property A
      * @param propertyB
-     *            Cannot be null.
+     *            property B
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent properties axiom with specified properties and
      *         annotations */
     @Nonnull
@@ -1289,7 +1312,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param properties
      *            Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint object properties axiom with specified properties and
      *         annotations */
     @Nonnull
@@ -1298,9 +1321,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param forwardProperty
-     *            Cannot be null.
+     *            forward Property
      * @param inverseProperty
-     *            Cannot be null.
+     *            inverse Property
      * @return an inverse object property axiom */
     @Nonnull
     OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
@@ -1308,11 +1331,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLObjectPropertyExpression inverseProperty);
 
     /** @param forwardProperty
-     *            Cannot be null.
+     *            forward Property
      * @param inverseProperty
-     *            Cannot be null.
+     *            inverse Property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an inverse object property axiom with annotations */
     @Nonnull
     OWLInverseObjectPropertiesAxiom getOWLInverseObjectPropertiesAxiom(
@@ -1321,9 +1344,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param classExpression
-     *            Cannot be null.
+     *            class Expression
      * @return an object property domain axiom */
     @Nonnull
     OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
@@ -1331,11 +1354,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression classExpression);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param classExpression
-     *            Cannot be null.
+     *            class Expression
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an object property domain axiom with annotations */
     @Nonnull
     OWLObjectPropertyDomainAxiom getOWLObjectPropertyDomainAxiom(
@@ -1344,9 +1367,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param range
-     *            Cannot be null.
+     *            range
      * @return an object property range axiom */
     @Nonnull
     OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
@@ -1354,11 +1377,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression range);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param range
-     *            Cannot be null.
+     *            range
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an object property range axiom with annotations */
     @Nonnull
     OWLObjectPropertyRangeAxiom getOWLObjectPropertyRangeAxiom(
@@ -1367,16 +1390,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return a functional object property axiom */
     @Nonnull
     OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a functional object property axiom with annotations */
     @Nonnull
     OWLFunctionalObjectPropertyAxiom getOWLFunctionalObjectPropertyAxiom(
@@ -1384,33 +1407,35 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return an inverse functional object property axiom */
     @Nonnull
-    OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property);
+    OWLInverseFunctionalObjectPropertyAxiom
+            getOWLInverseFunctionalObjectPropertyAxiom(
+                    @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an inverse functional object property axiom with annotations */
     @Nonnull
-    OWLInverseFunctionalObjectPropertyAxiom getOWLInverseFunctionalObjectPropertyAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
+    OWLInverseFunctionalObjectPropertyAxiom
+            getOWLInverseFunctionalObjectPropertyAxiom(
+                    @Nonnull OWLObjectPropertyExpression property,
+                    @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return a reflexive object property axiom */
     @Nonnull
     OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a reflexive object property axiom with annotations */
     @Nonnull
     OWLReflexiveObjectPropertyAxiom getOWLReflexiveObjectPropertyAxiom(
@@ -1418,16 +1443,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return an irreflexive object property axiom */
     @Nonnull
     OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an irreflexive object property axiom with annotations */
     @Nonnull
     OWLIrreflexiveObjectPropertyAxiom getOWLIrreflexiveObjectPropertyAxiom(
@@ -1435,16 +1460,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return a symmetric property axiom */
     @Nonnull
     OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a symmetric property axiom with annotations */
     @Nonnull
     OWLSymmetricObjectPropertyAxiom getOWLSymmetricObjectPropertyAxiom(
@@ -1452,16 +1477,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param propertyExpression
-     *            Cannot be null.
+     *            property Expression
      * @return an asymmetric object property axiom on the specified argument */
     @Nonnull
     OWLAsymmetricObjectPropertyAxiom getOWLAsymmetricObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression propertyExpression);
 
     /** @param propertyExpression
-     *            Cannot be null.
+     *            property Expression
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an asymmetric object property axiom on the specified argument
      *         with annotations */
     @Nonnull
@@ -1470,16 +1495,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return a transitive object property axiom on the specified argument */
     @Nonnull
     OWLTransitiveObjectPropertyAxiom getOWLTransitiveObjectPropertyAxiom(
             @Nonnull OWLObjectPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a transitive object property axiom on the specified argument with
      *         annotations */
     @Nonnull
@@ -1489,9 +1514,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
 
     // Data property axioms
     /** @param subProperty
-     *            Cannot be null.
+     *            sub Property
      * @param superProperty
-     *            Cannot be null.
+     *            super Property
      * @return a subproperty axiom */
     @Nonnull
     OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
@@ -1499,11 +1524,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLDataPropertyExpression superProperty);
 
     /** @param subProperty
-     *            Cannot be null.
+     *            sub Property
      * @param superProperty
-     *            Cannot be null.
+     *            super Property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a subproperty axiom with annotations */
     @Nonnull
     OWLSubDataPropertyOfAxiom getOWLSubDataPropertyOfAxiom(
@@ -1519,9 +1544,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLDataPropertyExpression> properties);
 
     /** @param properties
-     *            Cannot be null.
+     *            properties
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent data properties axiom with annotations */
     @Nonnull
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
@@ -1536,9 +1561,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLDataPropertyExpression... properties);
 
     /** @param propertyA
-     *            Cannot be null.
+     *            property A
      * @param propertyB
-     *            Cannot be null.
+     *            property B
      * @return an equivalent data properties axiom */
     @Nonnull
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
@@ -1546,11 +1571,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLDataPropertyExpression propertyB);
 
     /** @param propertyA
-     *            Cannot be null.
+     *            property A
      * @param propertyB
-     *            Cannot be null.
+     *            property B
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an equivalent data properties axiom with annotations */
     @Nonnull
     OWLEquivalentDataPropertiesAxiom getOWLEquivalentDataPropertiesAxiom(
@@ -1575,7 +1600,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param properties
      *            Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a disjoint data properties axiom with specified properties and
      *         annotations */
     @Nonnull
@@ -1584,9 +1609,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param domain
-     *            Cannot be null.
+     *            domain
      * @return a data property domain axiom */
     @Nonnull
     OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
@@ -1594,11 +1619,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLClassExpression domain);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param domain
-     *            Cannot be null.
+     *            domain
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a data property domain axiom with annotations */
     @Nonnull
     OWLDataPropertyDomainAxiom getOWLDataPropertyDomainAxiom(
@@ -1607,9 +1632,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param owlDataRange
-     *            Cannot be null.
+     *            data range
      * @return a data property range axiom */
     @Nonnull
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
@@ -1617,11 +1642,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLDataRange owlDataRange);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param owlDataRange
-     *            Cannot be null.
+     *            data range
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a data property range axiom with annotations */
     @Nonnull
     OWLDataPropertyRangeAxiom getOWLDataPropertyRangeAxiom(
@@ -1630,16 +1655,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @return a functional data property axiom */
     @Nonnull
     OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
             @Nonnull OWLDataPropertyExpression property);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a functional data property axiom with annotations */
     @Nonnull
     OWLFunctionalDataPropertyAxiom getOWLFunctionalDataPropertyAxiom(
@@ -1648,7 +1673,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
 
     // Data axioms
     /** @param ce
-     *            Cannot be null.
+     *            class expression
      * @param properties
      *            Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments */
@@ -1657,7 +1682,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLPropertyExpression> properties);
 
     /** @param ce
-     *            Cannot be null.
+     *            class expression
      * @param properties
      *            Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments */
@@ -1666,11 +1691,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLPropertyExpression... properties);
 
     /** @param ce
-     *            Cannot be null.
+     *            class expression
      * @param objectProperties
      *            Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a hasKey axiom on given arguments and annotations */
     @Nonnull
     OWLHasKeyAxiom getOWLHasKeyAxiom(@Nonnull OWLClassExpression ce,
@@ -1678,20 +1703,20 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param datatype
-     *            Cannot be null.
+     *            data type
      * @param dataRange
-     *            Cannot be null.
+     *            data Range
      * @return a datatype definition axiom */
     @Nonnull
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
             @Nonnull OWLDatatype datatype, @Nonnull OWLDataRange dataRange);
 
     /** @param datatype
-     *            Cannot be null.
+     *            data type
      * @param dataRange
-     *            Cannot be null.
+     *            data Range
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a datatype definition axiom with annotations */
     @Nonnull
     OWLDatatypeDefinitionAxiom getOWLDatatypeDefinitionAxiom(
@@ -1707,16 +1732,16 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLIndividual> individuals);
 
     /** @param individual
-     *            Cannot be null.
+     *            individual
      * @return a same individuals axiom with specified individuals */
     @Nonnull
-    OWLSameIndividualAxiom
-            getOWLSameIndividualAxiom(@Nonnull OWLIndividual... individual);
+    OWLSameIndividualAxiom getOWLSameIndividualAxiom(
+            @Nonnull OWLIndividual... individual);
 
     /** @param individuals
      *            Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a same individuals axiom with specified individuals and
      *         annotations */
     @Nonnull
@@ -1741,7 +1766,7 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** @param individuals
      *            Cannot be null or contain nulls.
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a different individuals axiom with specified individuals and
      *         annotations */
     @Nonnull
@@ -1750,21 +1775,21 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param classExpression
-     *            Cannot be null.
+     *            class Expression
      * @param individual
-     *            Cannot be null.
+     *            individual
      * @return a class assertion axiom */
     @Nonnull
-    OWLClassAssertionAxiom
-            getOWLClassAssertionAxiom(@Nonnull OWLClassExpression classExpression,
-                    @Nonnull OWLIndividual individual);
+    OWLClassAssertionAxiom getOWLClassAssertionAxiom(
+            @Nonnull OWLClassExpression classExpression,
+            @Nonnull OWLIndividual individual);
 
     /** @param classExpression
-     *            Cannot be null.
+     *            class Expression
      * @param individual
-     *            Cannot be null.
+     *            individual
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a class assertion axiom with annotations */
     @Nonnull
     OWLClassAssertionAxiom getOWLClassAssertionAxiom(
@@ -1773,11 +1798,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param individual
-     *            Cannot be null.
+     *            individual
      * @param object
-     *            Cannot be null.
+     *            object
      * @return an object property assertion */
     @Nonnull
     OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
@@ -1785,13 +1810,13 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull OWLIndividual individual, @Nonnull OWLIndividual object);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param individual
-     *            Cannot be null.
+     *            individual
      * @param object
-     *            Cannot be null.
+     *            object
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an object property assertion with annotations */
     @Nonnull
     OWLObjectPropertyAssertionAxiom getOWLObjectPropertyAssertionAxiom(
@@ -1800,140 +1825,145 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param subject
-     *            Cannot be null.
+     *            subject
      * @param object
-     *            Cannot be null.
+     *            object
      * @return a negative property assertion axiom on given arguments */
     @Nonnull
-    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull OWLIndividual object);
+    OWLNegativeObjectPropertyAssertionAxiom
+            getOWLNegativeObjectPropertyAssertionAxiom(
+                    @Nonnull OWLObjectPropertyExpression property,
+                    @Nonnull OWLIndividual subject,
+                    @Nonnull OWLIndividual object);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param subject
-     *            Cannot be null.
+     *            subject
      * @param object
-     *            Cannot be null.
+     *            object
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a negative property assertion axiom on given arguments with
      *         annotations */
     @Nonnull
-    OWLNegativeObjectPropertyAssertionAxiom getOWLNegativeObjectPropertyAssertionAxiom(
-            @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull OWLIndividual subject, @Nonnull OWLIndividual object,
-            @Nonnull Set<? extends OWLAnnotation> annotations);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
-     * @param object
-     *            Cannot be null.
-     * @return a data property assertion */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            @Nonnull OWLLiteral object);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
-     * @param object
-     *            Cannot be null.
-     * @param annotations
-     *            Cannot be null or contain nulls.
-     * @return a data property assertion with annotations */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom
-            getOWLDataPropertyAssertionAxiom(@Nonnull OWLDataPropertyExpression property,
-                    @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object,
+    OWLNegativeObjectPropertyAssertionAxiom
+            getOWLNegativeObjectPropertyAssertionAxiom(
+                    @Nonnull OWLObjectPropertyExpression property,
+                    @Nonnull OWLIndividual subject,
+                    @Nonnull OWLIndividual object,
                     @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param subject
-     *            Cannot be null.
-     * @param value
-     *            Cannot be null.
-     * @return a data property assertion */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            int value);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
-     * @param value
-     *            Cannot be null.
-     * @return a data property assertion */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            double value);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
-     * @param value
-     *            Cannot be null.
-     * @return a data property assertion */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            float value);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
-     * @param value
-     *            Cannot be null.
-     * @return a data property assertion */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            boolean value);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
-     * @param value
-     *            Cannot be null.
-     * @return a data property assertion */
-    @Nonnull
-    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            @Nonnull String value);
-
-    /** @param property
-     *            Cannot be null.
-     * @param subject
-     *            Cannot be null.
+     *            subject
      * @param object
-     *            Cannot be null.
+     *            object
+     * @return a data property assertion */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param object
+     *            object
+     * @param annotations
+     *            A set of annotations. Cannot be null or contain nulls.
+     * @return a data property assertion with annotations */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object,
+            @Nonnull Set<? extends OWLAnnotation> annotations);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param value
+     *            value
+     * @return a data property assertion */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, int value);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param value
+     *            value
+     * @return a data property assertion */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, double value);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param value
+     *            value
+     * @return a data property assertion */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, float value);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param value
+     *            value
+     * @return a data property assertion */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, boolean value);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param value
+     *            value
+     * @return a data property assertion */
+    @Nonnull
+    OWLDataPropertyAssertionAxiom getOWLDataPropertyAssertionAxiom(
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLIndividual subject, @Nonnull String value);
+
+    /** @param property
+     *            property
+     * @param subject
+     *            subject
+     * @param object
+     *            object
      * @return a negative property assertion axiom on given arguments */
     @Nonnull
-    OWLNegativeDataPropertyAssertionAxiom getOWLNegativeDataPropertyAssertionAxiom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLIndividual subject,
-            @Nonnull OWLLiteral object);
+    OWLNegativeDataPropertyAssertionAxiom
+            getOWLNegativeDataPropertyAssertionAxiom(
+                    @Nonnull OWLDataPropertyExpression property,
+                    @Nonnull OWLIndividual subject, @Nonnull OWLLiteral object);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param subject
-     *            Cannot be null.
+     *            subject
      * @param object
-     *            Cannot be null.
+     *            object
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a negative property assertion axiom on given arguments with
      *         annotations */
     @Nonnull
@@ -1947,9 +1977,9 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** Gets an annotation
      * 
      * @param property
-     *            the annotation property. Cannot be null.
+     *            the annotation property.
      * @param value
-     *            The annotation value. Cannot be null.
+     *            The annotation value.
      * @return The annotation on the specified property with the specified value */
     @Nonnull
     OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
@@ -1958,12 +1988,11 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
     /** Gets an annotation
      * 
      * @param property
-     *            the annotation property. Cannot be null.
+     *            the annotation property.
      * @param value
-     *            The annotation value. Cannot be null.
+     *            The annotation value.
      * @param annotations
-     *            Annotations on the annotation. Cannot be null or contain
-     *            nulls.
+     *            A set of annotations. Cannot be null or contain nulls. nulls.
      * @return The annotation on the specified property with the specified value */
     @Nonnull
     OWLAnnotation getOWLAnnotation(@Nonnull OWLAnnotationProperty property,
@@ -1972,51 +2001,55 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
 
     // Annotation axioms
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param subject
-     *            Cannot be null.
+     *            subject
      * @param value
-     *            Cannot be null.
+     *            value
      * @return an annotation assertion axiom */
     @Nonnull
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             @Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationSubject subject, @Nonnull OWLAnnotationValue value);
+            @Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotationValue value);
 
     /** @param subject
-     *            Cannot be null.
+     *            subject
      * @param annotation
-     *            Cannot be null.
+     *            annotation
      * @return an annotation assertion axiom */
     @Nonnull
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
-            @Nonnull OWLAnnotationSubject subject, @Nonnull OWLAnnotation annotation);
+            @Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotation annotation);
 
     /** @param property
-     *            Cannot be null.
+     *            property
      * @param subject
-     *            Cannot be null.
+     *            subject
      * @param value
-     *            Cannot be null.
+     *            value
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an annotation assertion axiom - with annotations */
     @Nonnull
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
             @Nonnull OWLAnnotationProperty property,
-            @Nonnull OWLAnnotationSubject subject, @Nonnull OWLAnnotationValue value,
+            @Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotationValue value,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param subject
-     *            Cannot be null.
+     *            subject
      * @param annotation
-     *            Cannot be null.
+     *            annotation
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an annotation assertion axiom - with annotations */
     @Nonnull
     OWLAnnotationAssertionAxiom getOWLAnnotationAssertionAxiom(
-            @Nonnull OWLAnnotationSubject subject, @Nonnull OWLAnnotation annotation,
+            @Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotation annotation,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** Gets an annotation assertion that specifies that an IRI is deprecated.
@@ -2026,33 +2059,34 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * >Annotation Properties</a> in the OWL 2 Specification
      * 
      * @param subject
-     *            The IRI to be deprecated. Cannot be null.
+     *            The IRI to be deprecated.
      * @return The annotation assertion that deprecates the specified IRI. */
     @Nonnull
     OWLAnnotationAssertionAxiom getDeprecatedOWLAnnotationAssertionAxiom(
             @Nonnull IRI subject);
 
     /** @param importedOntologyIRI
-     *            Cannot be null.
+     *            imported ontology
      * @return an imports declaration */
     @Nonnull
-    OWLImportsDeclaration getOWLImportsDeclaration(@Nonnull IRI importedOntologyIRI);
+    OWLImportsDeclaration getOWLImportsDeclaration(
+            @Nonnull IRI importedOntologyIRI);
 
     /** @param prop
-     *            Cannot be null.
+     *            prop
      * @param domain
-     *            Cannot be null.
+     *            domain
      * @return an annotation property domain assertion */
     @Nonnull
     OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
             @Nonnull OWLAnnotationProperty prop, @Nonnull IRI domain);
 
     /** @param prop
-     *            Cannot be null.
+     *            prop
      * @param domain
-     *            Cannot be null.
+     *            domain
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an annotation property domain assertion with annotations */
     @Nonnull
     OWLAnnotationPropertyDomainAxiom getOWLAnnotationPropertyDomainAxiom(
@@ -2060,20 +2094,20 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param prop
-     *            Cannot be null.
+     *            prop
      * @param range
-     *            Cannot be null.
+     *            range
      * @return an annotation property range assertion */
     @Nonnull
     OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
             @Nonnull OWLAnnotationProperty prop, @Nonnull IRI range);
 
     /** @param prop
-     *            Cannot be null.
+     *            prop
      * @param range
-     *            Cannot be null.
+     *            range
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return an annotation property range assertion with annotations */
     @Nonnull
     OWLAnnotationPropertyRangeAxiom getOWLAnnotationPropertyRangeAxiom(
@@ -2081,25 +2115,27 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** @param sub
-     *            Cannot be null.
+     *            sub property
      * @param sup
-     *            Cannot be null.
+     *            super property
      * @return a sub annotation property axiom with specified properties */
     @Nonnull
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
-            @Nonnull OWLAnnotationProperty sub, @Nonnull OWLAnnotationProperty sup);
+            @Nonnull OWLAnnotationProperty sub,
+            @Nonnull OWLAnnotationProperty sup);
 
     /** @param sub
-     *            Cannot be null.
+     *            sub property
      * @param sup
-     *            Cannot be null.
+     *            super property
      * @param annotations
-     *            Cannot be null or contain nulls.
+     *            A set of annotations. Cannot be null or contain nulls.
      * @return a sub annotation property axiom with specified properties and
      *         annotations */
     @Nonnull
     OWLSubAnnotationPropertyOfAxiom getOWLSubAnnotationPropertyOfAxiom(
-            @Nonnull OWLAnnotationProperty sub, @Nonnull OWLAnnotationProperty sup,
+            @Nonnull OWLAnnotationProperty sub,
+            @Nonnull OWLAnnotationProperty sup,
             @Nonnull Set<? extends OWLAnnotation> annotations);
 
     /** Empty all caches */

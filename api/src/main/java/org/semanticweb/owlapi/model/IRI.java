@@ -59,8 +59,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 14-Jan-2009 Represents International Resource
  *         Identifiers */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
-        CharSequence {
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
+        SWRLPredicate, CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
      * 
@@ -96,7 +96,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return true;
     }
 
-    /** @return the IRI scheme, e.g., http, urn... can be null */
+    /** @return the IRI scheme, e.g., http, urn */
     @Nullable
     public String getScheme() {
         int colonIndex = prefix.indexOf(':');
@@ -106,7 +106,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return prefix.substring(0, colonIndex);
     }
 
-    /** @return the prefix. Can be null. */
+    /** @return the prefix */
     @Nullable
     public String getNamespace() {
         return prefix;
@@ -137,7 +137,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * @return {@code true} if the IRI is in the reserved vocabulary, otherwise
      *         {@code false}. */
     public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
+        return Namespaces.OWL.inNamespace(prefix)
+                || Namespaces.RDF.inNamespace(prefix)
                 || Namespaces.RDFS.inNamespace(prefix)
                 || Namespaces.XSD.inNamespace(prefix);
     }
@@ -201,7 +202,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     /** Creates an IRI from the specified String.
      * 
      * @param str
-     *            The String that specifies the IRI. Cannot be null.
+     *            The String that specifies the IRI
      * @return The IRI that has the specified string representation. */
     @Nonnull
     public static IRI create(@Nonnull String str) {
@@ -218,9 +219,9 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * contains the characters in prefix + suffix.
      * 
      * @param prefix
-     *            The first string. May be {@code null}.
+     *            The first string
      * @param suffix
-     *            The second string. May be {@code null}.
+     *            The second string
      * @return An IRI whose characters consist of prefix + suffix.
      * @since 3.3 */
     @Nonnull
@@ -251,7 +252,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /** @param file
-     *            the file to create the IRI from. Cannot be null.
+     *            the file to create the IRI from
      * @return file.toURI() IRI */
     @Nonnull
     public static IRI create(@Nonnull File file) {
@@ -260,7 +261,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /** @param uri
-     *            the uri to create the IRI from. Cannot be null
+     *            the uri to create the IRI from
      * @return the IRI wrapping the uri */
     @Nonnull
     public static IRI create(@Nonnull URI uri) {
@@ -269,7 +270,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     }
 
     /** @param url
-     *            the url to create the IRI from. Cannot be null.
+     *            the url to create the IRI from
      * @return an IRI wrapping url.toURI()
      * @throws OWLRuntimeException
      *             if the URL is ill formed */
@@ -463,7 +464,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            hashCode = prefix.hashCode() + (remainder != null ? remainder.hashCode() : 0);
+            hashCode = prefix.hashCode()
+                    + (remainder != null ? remainder.hashCode() : 0);
         }
         return hashCode;
     }

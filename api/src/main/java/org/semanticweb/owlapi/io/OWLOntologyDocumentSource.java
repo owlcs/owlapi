@@ -58,7 +58,7 @@ import org.semanticweb.owlapi.model.IRI;
  * source, an important difference is that the getReader and getInputStream
  * methods return new instances each time the method is called. This allows
  * multiple attempts at loading an ontology.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Apr-2007 */
 public interface OWLOntologyDocumentSource {
@@ -98,8 +98,7 @@ public interface OWLOntologyDocumentSource {
 
     /** Gets the IRI of the ontology document.
      * 
-     * @return An IRI which represents the ontology document IRI - this will
-     *         never be {@code null}. */
+     * @return An IRI which represents the ontology document IRI */
     @Nonnull
     IRI getDocumentIRI();
 }

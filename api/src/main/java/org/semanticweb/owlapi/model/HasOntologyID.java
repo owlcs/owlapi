@@ -38,6 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
+import javax.annotation.Nonnull;
+
 /** An interface to objects that have an {@link OWLOntologyID}.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
@@ -45,6 +47,7 @@ package org.semanticweb.owlapi.model;
 public interface HasOntologyID {
     /** Gets the {@link OWLOntologyID} belonging to this object.
      * 
-     * @return The {@link OWLOntologyID}. Not {@code null}. */
+     * @return The {@link OWLOntologyID} */
+    @Nonnull
     OWLOntologyID getOntologyID();
 }
