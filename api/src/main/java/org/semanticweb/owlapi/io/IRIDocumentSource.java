@@ -46,17 +46,29 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 24-Apr-2007 */
 public class IRIDocumentSource implements OWLOntologyDocumentSource {
     private final IRI documentIRI;
+    private OWLOntologyFormat format;
 
     /** @param documentIRI
      *            the source document IRI */
     public IRIDocumentSource(@Nonnull IRI documentIRI) {
-        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
+        this(documentIRI, null);
+    }
+
+    /** @param documentIRI
+     *            the source document IRI
+     * @param format
+     *            ontology format */
+    public IRIDocumentSource(@Nonnull IRI documentIRI, OWLOntologyFormat format) {
+        this.documentIRI = checkNotNull(documentIRI,
+                "document iri cannot be null");
+        this.format = format;
     }
 
     @Override
@@ -89,5 +101,10 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public String toString() {
         return documentIRI.toString();
+    }
+
+    @Override
+    public OWLOntologyFormat getFormat() {
+        return format;
     }
 }

@@ -48,16 +48,18 @@ import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** An ontology document source which can read from a GZIP stream.
- *
+ * 
  * @author ignazio
  * @since 3.4.8 */
 public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     private static int counter = 0;
     private final IRI documentIRI;
     private byte[] buffer;
+    private OWLOntologyFormat format;
 
     /** Constructs an input source which will read an ontology from a
      * representation from the specified file.
@@ -82,8 +84,23 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
      * @param documentIRI
      *            The document IRI */
     public GZipStreamDocumentSource(InputStream stream, IRI documentIRI) {
+        this(stream, documentIRI, null);
+    }
+
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *            The stream that the ontology representation will be read from.
+     * @param documentIRI
+     *            The document IRI
+     * @param format
+     *            ontology format */
+    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
+            OWLOntologyFormat format) {
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);
+        this.format = format;
     }
 
     private void readIntoBuffer(InputStream reader) {
@@ -140,5 +157,10 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public boolean isReaderAvailable() {
         return isInputStreamAvailable();
+    }
+
+    @Override
+    public OWLOntologyFormat getFormat() {
+        return format;
     }
 }

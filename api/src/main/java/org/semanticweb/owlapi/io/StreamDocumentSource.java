@@ -43,9 +43,10 @@ import java.io.InputStream;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** An ontology document source which can read from a stream.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 15-Nov-2007 */
 public class StreamDocumentSource extends StreamDocumentSourceBase {
@@ -55,7 +56,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      * @param is
      *            The stream that the ontology representation will be read from. */
     public StreamDocumentSource(@Nonnull InputStream is) {
-        this(is, getNextDocumentIRI("inputstream:ontology"));
+        this(is, getNextDocumentIRI("inputstream:ontology"), null);
     }
 
     /** Constructs an input source which will read an ontology from a
@@ -65,7 +66,23 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      *            The stream that the ontology representation will be read from.
      * @param documentIRI
      *            The document IRI */
-    public StreamDocumentSource(@Nonnull InputStream stream, @Nonnull IRI documentIRI) {
+    public StreamDocumentSource(@Nonnull InputStream stream,
+            @Nonnull IRI documentIRI) {
+        this(stream, documentIRI, null);
+    }
+
+    /** Constructs an input source which will read an ontology from a
+     * representation from the specified stream.
+     * 
+     * @param stream
+     *            The stream that the ontology representation will be read from.
+     * @param documentIRI
+     *            The document IRI
+     * @param f
+     *            ontology format */
+    public StreamDocumentSource(@Nonnull InputStream stream,
+            @Nonnull IRI documentIRI, OWLOntologyFormat f) {
         super(stream, documentIRI);
+        setFormat(f);
     }
 }

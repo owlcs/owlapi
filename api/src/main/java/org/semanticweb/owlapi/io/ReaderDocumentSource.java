@@ -43,9 +43,10 @@ import java.io.Reader;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** An ontology document source which reads an ontology from a reader.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 17-Nov-2007 */
 public class ReaderDocumentSource extends StreamDocumentSourceBase {
@@ -55,7 +56,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      * @param reader
      *            The reader that will be used to read an ontology. */
     public ReaderDocumentSource(@Nonnull Reader reader) {
-        this(reader, getNextDocumentIRI("reader:ontology"));
+        this(reader, getNextDocumentIRI("reader:ontology"), null);
     }
 
     /** Constructs and ontology input source which will read an ontology from a
@@ -67,6 +68,22 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *            The ontology document IRI which will be used as the base of
      *            the document if needed. */
     public ReaderDocumentSource(@Nonnull Reader reader, @Nonnull IRI documentIRI) {
+        this(reader, documentIRI, null);
+    }
+
+    /** Constructs and ontology input source which will read an ontology from a
+     * reader.
+     * 
+     * @param reader
+     *            The reader that will be used to read an ontology.
+     * @param documentIRI
+     *            The ontology document IRI which will be used as the base of
+     *            the document if needed.
+     * @param f
+     *            ontology format */
+    public ReaderDocumentSource(@Nonnull Reader reader,
+            @Nonnull IRI documentIRI, OWLOntologyFormat f) {
         super(reader, documentIRI);
+        setFormat(f);
     }
 }

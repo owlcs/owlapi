@@ -48,16 +48,18 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** An ontology input source that wraps a string.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Apr-2007 */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
     private static AtomicLong counter = new AtomicLong();
     private final IRI documentIRI;
     private final String string;
+    private OWLOntologyFormat format;
 
     /** @param string
      *            the source string */
@@ -77,8 +79,23 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
      * @param documentIRI
      *            The document IRI */
     public StringDocumentSource(@Nonnull String string, @Nonnull IRI documentIRI) {
+        this(string, documentIRI, null);
+    }
+
+    /** Specifies a string as an ontology document.
+     * 
+     * @param string
+     *            The string
+     * @param documentIRI
+     *            The document IRI
+     * @param f
+     *            ontology format */
+    public StringDocumentSource(@Nonnull String string,
+            @Nonnull IRI documentIRI, OWLOntologyFormat f) {
         this.string = checkNotNull(string, "string cannot be null");
-        this.documentIRI = checkNotNull(documentIRI, "documentIRI cannot be null");
+        this.documentIRI = checkNotNull(documentIRI,
+                "documentIRI cannot be null");
+        format = f;
     }
 
     @Override
@@ -105,5 +122,10 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
+    }
+
+    @Override
+    public OWLOntologyFormat getFormat() {
+        return format;
     }
 }

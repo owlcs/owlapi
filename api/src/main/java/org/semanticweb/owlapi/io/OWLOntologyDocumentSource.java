@@ -42,8 +42,10 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** A document source provides a point for loading an ontology. A document source
  * may provide three ways of obtaining an ontology document:
@@ -101,4 +103,8 @@ public interface OWLOntologyDocumentSource {
      * @return An IRI which represents the ontology document IRI */
     @Nonnull
     IRI getDocumentIRI();
+
+    /** @return format for the ontology, if known, null otherwise */
+    @Nullable
+    OWLOntologyFormat getFormat();
 }

@@ -51,19 +51,22 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Base class for common utilities among stream, reader and file input sources.
- *
+ * 
  * @since 4.0.0 TODO both stream and reader sources copy the input in memory in
  *        case reloading is needed. This can be bad for memory. Remote loading
  *        will download the ontologies multiple times too, until parsing fails.
  *        Both issues could be addressed with a local file copy. */
-public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSource {
+public abstract class StreamDocumentSourceBase implements
+        OWLOntologyDocumentSource {
     private static final AtomicLong COUNTER = new AtomicLong();
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     protected char[] charBuffer;
+    private OWLOntologyFormat format;
 
     /** @param prefix
      *            prefix for result
@@ -79,8 +82,10 @@ public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSou
      *            The stream that the ontology representation will be read from.
      * @param documentIRI
      *            The document IRI */
-    public StreamDocumentSourceBase(@Nonnull InputStream stream, @Nonnull IRI documentIRI) {
-        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
+    public StreamDocumentSourceBase(@Nonnull InputStream stream,
+            @Nonnull IRI documentIRI) {
+        this.documentIRI = checkNotNull(documentIRI,
+                "document iri cannot be null");
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
     }
 
@@ -91,9 +96,22 @@ public abstract class StreamDocumentSourceBase implements OWLOntologyDocumentSou
      *            The stream that the ontology representation will be read from.
      * @param documentIRI
      *            The document IRI */
-    public StreamDocumentSourceBase(@Nonnull Reader stream, @Nonnull IRI documentIRI) {
-        this.documentIRI = checkNotNull(documentIRI, "document iri cannot be null");
+    public StreamDocumentSourceBase(@Nonnull Reader stream,
+            @Nonnull IRI documentIRI) {
+        this.documentIRI = checkNotNull(documentIRI,
+                "document iri cannot be null");
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
+    }
+
+    @Override
+    public OWLOntologyFormat getFormat() {
+        return format;
+    }
+
+    /** @param f
+     *            format for this source */
+    protected void setFormat(OWLOntologyFormat f) {
+        format = f;
     }
 
     /** Reads all the bytes from the specified stream into a temporary buffer,
