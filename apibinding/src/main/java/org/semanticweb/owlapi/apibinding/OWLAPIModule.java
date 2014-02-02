@@ -39,8 +39,10 @@
 package org.semanticweb.owlapi.apibinding;
 
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 import com.google.inject.AbstractModule;
 
@@ -49,5 +51,6 @@ public class OWLAPIModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(OWLDataFactory.class).to(OWLDataFactoryImpl.class);
+        bind(OWLOntologyManager.class).to(OWLOntologyManagerImpl.class);
     }
 }
