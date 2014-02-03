@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 28-Jun-2009 */
-public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
+public class DataUnionOf2TestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#SSN"));
