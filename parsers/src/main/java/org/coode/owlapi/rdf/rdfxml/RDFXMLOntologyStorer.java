@@ -45,7 +45,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.coode.xml.IllegalElementNameException;
-import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;

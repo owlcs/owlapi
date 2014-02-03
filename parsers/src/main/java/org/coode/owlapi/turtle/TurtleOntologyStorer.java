@@ -41,6 +41,7 @@ package org.coode.owlapi.turtle;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;

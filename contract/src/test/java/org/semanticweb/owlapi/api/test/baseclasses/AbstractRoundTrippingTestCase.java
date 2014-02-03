@@ -40,12 +40,12 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import java.net.URISyntaxException;
 
-import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;

@@ -36,9 +36,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.io;
+package org.semanticweb.owlapi.formats;
 
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 02-Jan-2007 */
