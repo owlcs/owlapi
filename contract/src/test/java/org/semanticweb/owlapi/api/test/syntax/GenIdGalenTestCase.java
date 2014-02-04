@@ -38,39 +38,6 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.profiles.OWL2DLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 @SuppressWarnings("javadoc")
-public class GenIdGalenTestCase {
-    @Test
-    public void testGenIdGalenFragment() throws OWLOntologyCreationException {
-        String test = "<?xml version=\"1.0\"?>\n"
-                + "<rdf:RDF \n"
-                + "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-                + "    <owl:Ontology rdf:about=\"http://www.co-ode.org/ontologies/galen\"/>\n"
-                + "<owl:ObjectProperty rdf:about=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
-                + "<owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#test\">\n"
-                + "<rdfs:subClassOf><owl:Restriction>\n"
-                + "<owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
-                + "<owl:someValuesFrom><owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#anotherTest\"/></owl:someValuesFrom>\n"
-                + "</owl:Restriction></rdfs:subClassOf></owl:Class></rdf:RDF>";
-        OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(test));
-        OWL2DLProfile profile = new OWL2DLProfile();
-        OWLProfileReport report = profile.checkOntology(o);
-        assertTrue(report.isInProfile());
-    }
-}
+public class GenIdGalenTestCase {}

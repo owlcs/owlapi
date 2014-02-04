@@ -40,25 +40,20 @@ package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.mock;
 
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.profiles.OWLProfile;
-import org.semanticweb.owlapi.reasoner.AxiomNotInProfileException;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
-import org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException;
 import org.semanticweb.owlapi.reasoner.ConsoleProgressMonitor;
 import org.semanticweb.owlapi.reasoner.FreshEntitiesException;
 import org.semanticweb.owlapi.reasoner.FreshEntityPolicy;
 import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
-import org.semanticweb.owlapi.reasoner.ImportsClosureNotInProfileException;
 import org.semanticweb.owlapi.reasoner.InconsistentOntologyException;
 import org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy;
 import org.semanticweb.owlapi.reasoner.InferenceType;
@@ -79,34 +74,11 @@ import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractReasonerTest {
     @Test
-    public void shouldTestAxiomNotInProfileException() throws OWLException {
-        AxiomNotInProfileException testSubject0 = new AxiomNotInProfileException(
-                mock(OWLAxiom.class), mock(OWLProfile.class));
-        OWLAxiom result0 = testSubject0.getAxiom();
-        OWLProfile result1 = testSubject0.getProfile();
-        Throwable result3 = testSubject0.getCause();
-        String result6 = testSubject0.getMessage();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
     public void shouldTestBufferingMode() throws OWLException {
         BufferingMode testSubject0 = BufferingMode.BUFFERING;
         BufferingMode[] result0 = BufferingMode.values();
         String result2 = testSubject0.name();
         int result8 = testSubject0.ordinal();
-    }
-
-    @Test
-    public void shouldTestClassExpressionNotInProfileException()
-            throws OWLException {
-        ClassExpressionNotInProfileException testSubject0 = new ClassExpressionNotInProfileException(
-                Utils.mockAnonClass(), mock(OWLProfile.class));
-        OWLClassExpression result0 = testSubject0.getClassExpression();
-        OWLProfile result1 = testSubject0.getProfile();
-        Throwable result3 = testSubject0.getCause();
-        String result6 = testSubject0.getMessage();
-        String result7 = testSubject0.getLocalizedMessage();
     }
 
     public void shouldTestConsoleProgressMonitor() throws OWLException {
@@ -124,7 +96,7 @@ public class ContractReasonerTest {
         FreshEntitiesException testSubject1 = new FreshEntitiesException(
                 Utils.mockOWLEntity());
         String result0 = testSubject0.getMessage();
-        List<OWLEntity> result1 = testSubject0.getEntities();
+        Collection<OWLEntity> result1 = testSubject0.getEntities();
         Throwable result3 = testSubject0.getCause();
         String result6 = testSubject0.getLocalizedMessage();
     }
@@ -147,17 +119,6 @@ public class ContractReasonerTest {
                 "", new RuntimeException(),
                 mock(OWLReasonerConfiguration.class));
         OWLReasonerConfiguration result0 = testSubject0.getConfiguration();
-        Throwable result2 = testSubject0.getCause();
-        String result5 = testSubject0.getMessage();
-        String result6 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestImportsClosureNotInProfileException()
-            throws OWLException {
-        ImportsClosureNotInProfileException testSubject0 = new ImportsClosureNotInProfileException(
-                mock(OWLProfile.class));
-        OWLProfile result0 = testSubject0.getProfile();
         Throwable result2 = testSubject0.getCause();
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();

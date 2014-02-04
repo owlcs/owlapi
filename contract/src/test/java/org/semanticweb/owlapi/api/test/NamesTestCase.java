@@ -70,11 +70,6 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.profiles.OWL2DLProfile;
-import org.semanticweb.owlapi.profiles.OWL2ELProfile;
-import org.semanticweb.owlapi.profiles.OWL2Profile;
-import org.semanticweb.owlapi.profiles.OWL2QLProfile;
-import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParser;
@@ -158,11 +153,6 @@ public class NamesTestCase {
                         return super.getName();
                     }
                 }.getName());
-        assertEquals("OWL 2 DL", new OWL2DLProfile().getName());
-        assertEquals("OWL 2 EL", new OWL2ELProfile().getName());
-        assertEquals("OWL 2", new OWL2Profile().getName());
-        assertEquals("OWL 2 QL", new OWL2QLProfile().getName());
-        assertEquals("OWL 2 RL", new OWL2RLProfile().getName());
         assertEquals("KRSS2OWLParser", new KRSS2OWLParser().getName());
         assertEquals("KRSSOWLParser", new KRSSOWLParser().getName());
         assertEquals("OWLFunctionalSyntaxOWLParser",

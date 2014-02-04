@@ -1028,8 +1028,7 @@ public class OWLAPIOwl2Obo {
             OWLAnnotationValue annVal, Set<OWLAnnotation> qualifiers,
             Frame frame) {
         // no built-in obo tag for this: use the generic property_value tag
-        Clause clause = new Clause();
-        clause.setTag(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
+        Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         String propId = this.getIdentifier(prop);
         addQualifiers(clause, qualifiers);
         if (propId.equals("shorthand") == false) {

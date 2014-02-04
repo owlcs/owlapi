@@ -47,13 +47,12 @@ import java.util.List;
  * The registry is typically used by at least one type of ontology factory for
  * loading ontologies whose concrete representations are contained in some kind
  * of document.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 15-Nov-2006 */
 public class OWLParserFactoryRegistry {
     private static final OWLParserFactoryRegistry INSTANCE = new OWLParserFactoryRegistry();
-    private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(
-            10);
+    private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>();
 
     private OWLParserFactoryRegistry() {}
 
