@@ -148,10 +148,11 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * etc. For example, if the collector visited the axiom (propP some C)
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Nov-2006 */
-public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEntity>>,
+public class OWLEntityCollector implements
+        OWLObjectVisitorEx<Collection<OWLEntity>>,
         SWRLObjectVisitorEx<Collection<OWLEntity>> {
     private Collection<OWLEntity> objects;
 
@@ -177,7 +178,8 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public Collection<OWLEntity> visit(
+            OWLNegativeObjectPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -225,7 +227,8 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public Collection<OWLEntity>
+            visit(OWLEquivalentObjectPropertiesAxiom axiom) {
         for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
             prop.accept(this);
         }
@@ -234,7 +237,8 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public Collection<OWLEntity> visit(
+            OWLNegativeDataPropertyAssertionAxiom axiom) {
         axiom.getSubject().accept(this);
         axiom.getProperty().accept(this);
         axiom.getObject().accept(this);
@@ -398,7 +402,8 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     }
 
     @Override
-    public Collection<OWLEntity> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public Collection<OWLEntity> visit(
+            OWLInverseFunctionalObjectPropertyAxiom axiom) {
         axiom.getProperty().accept(this);
         processAxiomAnnotations(axiom);
         return objects;
@@ -491,7 +496,7 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     @Override
     public Collection<OWLEntity> visit(OWLObjectHasValue desc) {
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
         return objects;
     }
 
@@ -547,7 +552,7 @@ public class OWLEntityCollector implements OWLObjectVisitorEx<Collection<OWLEnti
     @Override
     public Collection<OWLEntity> visit(OWLDataHasValue desc) {
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
         return objects;
     }
 

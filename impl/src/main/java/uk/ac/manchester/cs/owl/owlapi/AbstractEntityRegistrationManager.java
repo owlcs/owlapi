@@ -131,8 +131,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** base for entity registration manager */
-public abstract class AbstractEntityRegistrationManager implements OWLObjectVisitor,
-        SWRLObjectVisitor {
+public abstract class AbstractEntityRegistrationManager implements
+        OWLObjectVisitor, SWRLObjectVisitor {
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Axiom Visitor stuff
@@ -442,7 +442,7 @@ public abstract class AbstractEntityRegistrationManager implements OWLObjectVisi
     @Override
     public void visit(OWLObjectHasValue desc) {
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
     }
 
     @Override
@@ -490,7 +490,7 @@ public abstract class AbstractEntityRegistrationManager implements OWLObjectVisi
     @Override
     public void visit(OWLDataHasValue desc) {
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
     }
 
     @Override

@@ -59,11 +59,6 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
     }
 
     @Override
-    public V getValue() {
-        return value;
-    }
-
-    @Override
     public V getFiller() {
         return value;
     }
@@ -74,7 +69,7 @@ public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
             if (!(obj instanceof OWLHasValueRestriction<?>)) {
                 return false;
             }
-            return ((OWLHasValueRestriction<?>) obj).getValue().equals(value);
+            return ((OWLHasValueRestriction<?>) obj).getFiller().equals(value);
         }
         return false;
     }

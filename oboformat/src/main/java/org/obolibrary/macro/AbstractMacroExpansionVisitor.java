@@ -192,7 +192,7 @@ public abstract class AbstractMacroExpansionVisitor implements
     @Override
     public OWLClassExpression visit(OWLObjectHasValue desc) {
         OWLClassExpression result = null;
-        OWLIndividual filler = desc.getValue();
+        OWLIndividual filler = desc.getFiller();
         OWLObjectPropertyExpression p = desc.getProperty();
         if (p instanceof OWLObjectProperty) {
             result = expandOWLObjHasVal(desc, filler, p);

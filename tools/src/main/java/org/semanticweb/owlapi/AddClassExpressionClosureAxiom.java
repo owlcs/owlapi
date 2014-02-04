@@ -66,10 +66,11 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * of class A. <br>
  * This code is based on the tutorial examples by Sean Bechhofer (see the
  * tutorial module).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 24-Jul-2007 */
-public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
+public class AddClassExpressionClosureAxiom extends
+        AbstractCompositeOntologyChange {
     /** Creates a composite change that will add a closure axiom for a given
      * class along a specified property.
      * 
@@ -85,8 +86,10 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
      * @param targetOntology
      *            The target ontology that changes will be applied to. */
     public AddClassExpressionClosureAxiom(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLClass cls, @Nonnull OWLObjectPropertyExpression property,
-            @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntology targetOntology) {
+            @Nonnull OWLClass cls,
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
         generateChanges(checkNotNull(cls, "cls cannot be null"),
                 checkNotNull(property, "property cannot be null"),
@@ -104,8 +107,9 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
      *            the ontologies
      * @param targetOntology
      *            the target ontology */
-    private void generateChanges(OWLClass cls, OWLObjectPropertyExpression property,
-            Set<OWLOntology> ontologies, OWLOntology targetOntology) {
+    private void generateChanges(OWLClass cls,
+            OWLObjectPropertyExpression property, Set<OWLOntology> ontologies,
+            OWLOntology targetOntology) {
         // We collect all of the fillers for existential restrictions along
         // the target property and all of the fillers for hasValue restrictions
         // as nominals
@@ -119,12 +123,12 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
         if (fillers.isEmpty()) {
             return;
         }
-        OWLClassExpression closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(
-                fillers);
-        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllValuesFrom(
-                property, closureAxiomFiller);
-        addChange(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(
-                cls, closureAxiomDesc)));
+        OWLClassExpression closureAxiomFiller = getDataFactory()
+                .getOWLObjectUnionOf(fillers);
+        OWLClassExpression closureAxiomDesc = getDataFactory()
+                .getOWLObjectAllValuesFrom(property, closureAxiomFiller);
+        addChange(new AddAxiom(targetOntology, getDataFactory()
+                .getOWLSubClassOfAxiom(cls, closureAxiomDesc)));
     }
 
     /** The Class FillerCollector. */
@@ -160,7 +164,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
         public void visit(OWLObjectHasValue desc) {
             if (desc.getProperty().equals(property)) {
                 fillers.add(getDataFactory().getOWLObjectOneOf(
-                        CollectionFactory.createSet(desc.getValue())));
+                        CollectionFactory.createSet(desc.getFiller())));
             }
         }
     }

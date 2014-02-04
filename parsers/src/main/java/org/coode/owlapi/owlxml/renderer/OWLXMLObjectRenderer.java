@@ -538,7 +538,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLDataHasValue desc) {
         writer.writeStartElement(DATA_HAS_VALUE);
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
         writer.writeEndElement();
     }
 
@@ -630,7 +630,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     public void visit(OWLObjectHasValue desc) {
         writer.writeStartElement(OBJECT_HAS_VALUE);
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
         writer.writeEndElement();
     }
 

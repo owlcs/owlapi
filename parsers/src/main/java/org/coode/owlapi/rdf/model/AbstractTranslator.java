@@ -245,8 +245,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     @Override
     public void visit(OWLObjectHasValue desc) {
         addRestrictionCommonTriplePropertyExpression(desc, desc.getProperty());
-        addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getValue());
-        processIfAnonymous(desc.getValue(), null);
+        addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getFiller());
+        processIfAnonymous(desc.getFiller(), null);
     }
 
     @Override
@@ -306,7 +306,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     @Override
     public void visit(OWLDataHasValue desc) {
         addRestrictionCommonTriplePropertyExpression(desc, desc.getProperty());
-        addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getValue());
+        addTriple(desc, OWL_HAS_VALUE.getIRI(), desc.getFiller());
     }
 
     @Override

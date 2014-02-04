@@ -122,7 +122,7 @@ import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /** A renderer that provides an HTML version of the ontology.
- *
+ * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 24-April-2007 */
 @SuppressWarnings({ "unused", "javadoc" })
@@ -177,7 +177,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write(".box { border: solid 1px grey; padding: 10px; margin: 10px; }\n");
         int width = 100 / TABLE_COLUMNS;
         write("table { width: 100%; }\n");
-        write("td { padding-left: 10px; padding-right: 10px; width: " + width + "%;}\n");
+        write("td { padding-left: 10px; padding-right: 10px; width: " + width
+                + "%;}\n");
         write("</style>\n");
         write("<body>\n");
     }
@@ -198,7 +199,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     private void writeTable(Collection<? extends OWLObject> objects) {
         writeTableStart();
         int count = 0;
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it
+                .hasNext();) {
             if (count % TABLE_COLUMNS == 0) {
                 if (count > 0) {
                     writeTableRowEnd();
@@ -216,7 +218,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     private void writeList(Collection<? extends OWLObject> objects) {
         writeListStart();
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it
+                .hasNext();) {
             writeListItemStart();
             it.next().accept(this);
             writeListItemEnd();
@@ -271,8 +274,10 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write(")");
     }
 
-    private void write(Collection<? extends OWLObject> objects, String separator) {
-        for (Iterator<? extends OWLObject> it = objects.iterator(); it.hasNext();) {
+    private void
+            write(Collection<? extends OWLObject> objects, String separator) {
+        for (Iterator<? extends OWLObject> it = objects.iterator(); it
+                .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -463,7 +468,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-        writePropertyCharacteristic("inversefunctional", axiom, axiom.getProperty());
+        writePropertyCharacteristic("inversefunctional", axiom,
+                axiom.getProperty());
     }
 
     @Override
@@ -582,7 +588,8 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("<span class='cl'>" + labelFor(desc) + "</span>");
     }
 
-    private void writeRestriction(String str, OWLCardinalityRestriction restriction,
+    private void writeRestriction(String str,
+            OWLCardinalityRestriction restriction,
             OWLPropertyExpression property) {
         write(str);
         writeOpenBracket();
@@ -596,17 +603,20 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         writeCloseBracket();
     }
 
-    private void writeRestriction(String str, OWLQuantifiedDataRestriction restriction) {
-        writeRestriction(str, restriction.getProperty(), restriction.getFiller());
+    private void writeRestriction(String str,
+            OWLQuantifiedDataRestriction restriction) {
+        writeRestriction(str, restriction.getProperty(),
+                restriction.getFiller());
     }
 
-    private void writeRestriction(String str, OWLQuantifiedObjectRestriction restriction) {
-        writeRestriction(str, restriction.getProperty(), restriction.getFiller());
+    private void writeRestriction(String str,
+            OWLQuantifiedObjectRestriction restriction) {
+        writeRestriction(str, restriction.getProperty(),
+                restriction.getFiller());
     }
 
-    private void
-            writeRestriction(String str, OWLPropertyExpression prop, OWLObject filler)
-                    throws OWLRuntimeException {
+    private void writeRestriction(String str, OWLPropertyExpression prop,
+            OWLObject filler) throws OWLRuntimeException {
         write(str);
         writeOpenBracket();
         prop.accept(this);
@@ -642,7 +652,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLDataHasValue desc) {
-        writeRestriction("has-value", desc.getProperty(), desc.getValue());
+        writeRestriction("has-value", desc.getProperty(), desc.getFiller());
     }
 
     @Override
@@ -704,7 +714,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
 
     @Override
     public void visit(OWLObjectHasValue desc) {
-        writeRestriction("hasValue", desc.getProperty(), desc.getValue());
+        writeRestriction("hasValue", desc.getProperty(), desc.getFiller());
     }
 
     @Override

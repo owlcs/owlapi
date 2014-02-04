@@ -1859,7 +1859,7 @@ public class ContractOwlapiModel_1Test {
     @Test
     public void shouldTestInterfaceOWLDataHasValue() throws OWLException {
         OWLDataHasValue testSubject0 = mock(OWLDataHasValue.class);
-        OWLObject result0 = testSubject0.getValue();
+        OWLObject result0 = testSubject0.getFiller();
         OWLClassExpression result1 = testSubject0.asSomeValuesFrom();
         boolean result3 = testSubject0.isObjectRestriction();
         boolean result4 = testSubject0.isDataRestriction();

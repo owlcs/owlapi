@@ -852,7 +852,7 @@ public class ContractOwlapi_3Test {
         ClassExpressionType result2 = testSubject0.getClassExpressionType();
         boolean result3 = testSubject0.isObjectRestriction();
         boolean result4 = testSubject0.isDataRestriction();
-        OWLObject result6 = testSubject0.getValue();
+        OWLObject result6 = testSubject0.getFiller();
         OWLObjectPropertyExpression result7 = testSubject0.getProperty();
         boolean result8 = testSubject0.isClassExpressionLiteral();
         boolean result9 = testSubject0.isAnonymous();

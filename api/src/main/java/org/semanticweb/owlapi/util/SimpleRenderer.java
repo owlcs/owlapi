@@ -141,7 +141,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** A simple renderer that can be used for debugging purposes and provide an
  * implementation of the toString method for different implementations.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Nov-2006 */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
@@ -191,7 +191,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             OWLOntologyManager manager, boolean processImportedOntologies) {
         resetShortFormProvider();
         if (processImportedOntologies) {
-            for (OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
+            for (OWLOntology importedOntology : manager
+                    .getImportsClosure(ontology)) {
                 if (!importedOntology.equals(ontology)) {
                     copyPrefixes(manager.getOntologyFormat(importedOntology));
                 }
@@ -206,8 +207,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             return;
         }
         PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
-        for (String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
-            String prefix = prefixFormat.getPrefixName2PrefixMap().get(prefixName);
+        for (String prefixName : prefixFormat.getPrefixName2PrefixMap()
+                .keySet()) {
+            String prefix = prefixFormat.getPrefixName2PrefixMap().get(
+                    prefixName);
             setPrefix(prefixName, prefix);
         }
     }
@@ -223,7 +226,8 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         if (!isUsingDefaultShortFormProvider()) {
             resetShortFormProvider();
         }
-        ((DefaultPrefixManager) shortFormProvider).setPrefix(prefixName, prefix);
+        ((DefaultPrefixManager) shortFormProvider)
+                .setPrefix(prefixName, prefix);
     }
 
     @Override
@@ -643,7 +647,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("ObjectHasValue(");
         desc.getProperty().accept(this);
         insertSpace();
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
         sb.append(")");
     }
 
@@ -717,7 +721,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("DataHasValue(");
         desc.getProperty().accept(this);
         insertSpace();
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
         sb.append(")");
     }
 
@@ -844,12 +848,14 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("HasKey(");
         axiom.getClassExpression().accept(this);
         sb.append(" (");
-        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
+        for (OWLObjectPropertyExpression prop : axiom
+                .getObjectPropertyExpressions()) {
             prop.accept(this);
             sb.append(" ");
         }
         sb.append(") (");
-        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+        for (OWLDataPropertyExpression prop : axiom
+                .getDataPropertyExpressions()) {
             prop.accept(this);
             sb.append(" ");
         }

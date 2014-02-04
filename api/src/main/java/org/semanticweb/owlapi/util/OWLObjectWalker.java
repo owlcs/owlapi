@@ -189,7 +189,8 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param objects
      *            the set of objects to visit */
     public OWLObjectWalker(@Nonnull Set<O> objects, boolean visitDuplicates) {
-        this.objects = new ArrayList<O>(checkNotNull(objects, "objects cannot be null"));
+        this.objects = new ArrayList<O>(checkNotNull(objects,
+                "objects cannot be null"));
         this.visitDuplicates = visitDuplicates;
     }
 
@@ -672,10 +673,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getClassExpression().accept(this);
-            for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
+            for (OWLObjectPropertyExpression prop : axiom
+                    .getObjectPropertyExpressions()) {
                 prop.accept(this);
             }
-            for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+            for (OWLDataPropertyExpression prop : axiom
+                    .getDataPropertyExpressions()) {
                 prop.accept(this);
             }
         }
@@ -738,7 +741,7 @@ public class OWLObjectWalker<O extends OWLObject> {
             pushClassExpression(desc);
             process(desc);
             desc.getProperty().accept(this);
-            desc.getValue().accept(this);
+            desc.getFiller().accept(this);
             popClassExpression();
         }
 
@@ -838,7 +841,7 @@ public class OWLObjectWalker<O extends OWLObject> {
             pushClassExpression(desc);
             process(desc);
             desc.getProperty().accept(this);
-            desc.getValue().accept(this);
+            desc.getFiller().accept(this);
             popClassExpression();
         }
 

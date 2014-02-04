@@ -160,7 +160,8 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     /** @return the resulting owl objects */
     @Nonnull
     public Set<OWLObject> getResult() {
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(result);
+        return CollectionFactory
+                .getCopyOnRequestSetFromMutableCollection(result);
     }
 
     private void process(@Nonnull Set<? extends OWLObject> objects) {
@@ -253,7 +254,7 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLObjectHasValue desc) {
         handleObject(desc);
         desc.getProperty().accept(this);
-        desc.getValue().accept(this);
+        desc.getFiller().accept(this);
     }
 
     @Override
@@ -585,10 +586,12 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
     public void visit(OWLHasKeyAxiom axiom) {
         handleObject(axiom);
         axiom.getClassExpression().accept(this);
-        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
+        for (OWLObjectPropertyExpression prop : axiom
+                .getObjectPropertyExpressions()) {
             prop.accept(this);
         }
-        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+        for (OWLDataPropertyExpression prop : axiom
+                .getDataPropertyExpressions()) {
             prop.accept(this);
         }
     }

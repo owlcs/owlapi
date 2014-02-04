@@ -58,8 +58,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006 */
-public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> implements
-        OWLDataHasValue, OWLDataRestriction {
+public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral>
+        implements OWLDataHasValue, OWLDataRestriction {
     private static final long serialVersionUID = 40000L;
     private final OWLDataPropertyExpression property;
 
@@ -97,7 +97,8 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> imp
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLDataHasValue
-                    && getProperty().equals(((OWLDataHasValue) obj).getProperty());
+                    && getProperty().equals(
+                            ((OWLDataHasValue) obj).getProperty());
         }
         return false;
     }
@@ -109,13 +110,13 @@ public class OWLDataHasValueImpl extends OWLValueRestrictionImpl<OWLLiteral> imp
         if (diff != 0) {
             return diff;
         }
-        return value.compareTo(other.getValue());
+        return value.compareTo(other.getFiller());
     }
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return new OWLDataSomeValuesFromImpl(getProperty(), new OWLDataOneOfImpl(
-                Collections.singleton(getValue())));
+        return new OWLDataSomeValuesFromImpl(getProperty(),
+                new OWLDataOneOfImpl(Collections.singleton(getFiller())));
     }
 
     @Override

@@ -58,8 +58,9 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006 */
-public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual>
-        implements OWLObjectHasValue, OWLObjectRestriction {
+public class OWLObjectHasValueImpl extends
+        OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue,
+        OWLObjectRestriction {
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
@@ -87,7 +88,8 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             return obj instanceof OWLObjectHasValue
-                    && getProperty().equals(((OWLObjectHasValue) obj).getProperty());
+                    && getProperty().equals(
+                            ((OWLObjectHasValue) obj).getProperty());
         }
         return false;
     }
@@ -99,7 +101,7 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
         if (diff != 0) {
             return diff;
         }
-        return value.compareTo(other.getValue());
+        return value.compareTo(other.getFiller());
     }
 
     @Override
@@ -115,8 +117,8 @@ public class OWLObjectHasValueImpl extends OWLValueRestrictionImpl<OWLIndividual
     @Override
     @Deprecated
     public OWLClassExpression asSomeValuesFrom() {
-        return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(
-                Collections.singleton(getValue())));
+        return new OWLObjectSomeValuesFromImpl(getProperty(),
+                new OWLObjectOneOfImpl(Collections.singleton(getFiller())));
     }
 
     @Override
