@@ -42,8 +42,12 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -112,5 +116,12 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                 reader.close();
             }
         }
+    }
+    
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new TurtleOntologyFormatFactory());
+        return result;
     }
 }

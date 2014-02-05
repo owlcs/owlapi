@@ -38,7 +38,7 @@
  */
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
-import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 
 /** @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 24-April-2007 */
@@ -48,5 +48,10 @@ public class OWLTutorialSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
     @Override
     public String toString() {
         return "OWL Tutorial Syntax";
+    }
+
+    @Override
+    public String getKey() {
+        return toString();
     }
 }

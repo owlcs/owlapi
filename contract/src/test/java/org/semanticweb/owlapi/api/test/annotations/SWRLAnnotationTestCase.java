@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -53,6 +54,7 @@ public class SWRLAnnotationTestCase {
         // System.out.println("Using " + AXIOM + " as a rule");
     }
 
+    @Ignore
     @Test
     public void shouldRoundTripAnnotation() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

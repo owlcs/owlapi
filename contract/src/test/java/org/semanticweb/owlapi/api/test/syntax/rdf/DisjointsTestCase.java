@@ -80,10 +80,12 @@ public class DisjointsTestCase {
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(
-                new RDFXMLParserFactory());
+        OWLParserFactoryRegistry testRegistry = new OWLParserFactoryRegistry();
+        // clear the automatically included parser factories out
+        testRegistry.clear();
+        testRegistry.registerParserFactory(new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
-        man.addOntologyFactory(new ParsableOWLOntologyFactory());
+        man.addOntologyFactory(new ParsableOWLOntologyFactory(testRegistry));
         man.addOntologyStorer(new RDFXMLOntologyStorer());
     }
 

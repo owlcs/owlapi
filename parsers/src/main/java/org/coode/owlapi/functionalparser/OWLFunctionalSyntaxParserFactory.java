@@ -38,15 +38,27 @@
  */
 package org.coode.owlapi.functionalparser;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 15-Nov-2006 */
+@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class OWLFunctionalSyntaxParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new OWLFunctionalSyntaxOWLParser();
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new OWLFunctionalSyntaxOntologyFormatFactory());
     }
 }

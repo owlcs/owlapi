@@ -41,13 +41,13 @@ package uk.ac.manchester.owl.owlapi.tutorial.examples;
 import java.io.PrintStream;
 import java.util.Set;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactoryRegistry;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
@@ -133,7 +133,7 @@ public class SimpleHierarchyExample {
         // We first need to obtain a copy of an
         // OWLOntologyManager, which, as the name
         // suggests, manages a set of ontologies.
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = OWLOntologyManagerFactoryRegistry.createOWLOntologyManager();
         // We load an ontology from the URI specified
         // on the command line
         System.out.println(args[0]);

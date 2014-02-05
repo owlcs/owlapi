@@ -47,6 +47,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactoryRegistry;
 import org.semanticweb.owlapi.model.IRI;
 
 /** A convenience class which will prepare an input source from a file.
@@ -55,6 +57,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group, Date: 17-Nov-2007 */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
     private final File file;
+    private final OWLOntologyFormatFactory format;
 
     /** Constructs an ontology input source using the specified file.
      * 
@@ -63,11 +66,36 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
      *            will be obtained. */
     public FileDocumentSource(File file) {
         this.file = file;
+        this.format = null;
     }
 
     @Override
     public IRI getDocumentIRI() {
         return IRI.create(file);
+    }
+
+    /**
+     * Constructs an ontology input source using the specified file.
+     * 
+     * @param file
+     *            The file from which a concrete representation of an ontology will be obtained.
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public FileDocumentSource(File file, OWLOntologyFormatFactory format) {
+        this.file = file;
+        this.format = format;
+    }
+
+    /**
+     * Constructs an ontology input source using the specified file, and attempts to find a format based on a mime type.
+     * 
+     * @param file
+     *            The file from which a concrete representation of an ontology will be obtained.
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public FileDocumentSource(File file, String mimeType) {
+        this.file = file;
+        this.format = OWLOntologyFormatFactoryRegistry.getInstance().getByMIMEType(mimeType);
     }
 
     @Override
@@ -97,5 +125,15 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
             // it cannot not support UTF-8
             throw new OWLOntologyInputSourceException(e);
         }
+    }
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return this.format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return this.format != null;
     }
 }

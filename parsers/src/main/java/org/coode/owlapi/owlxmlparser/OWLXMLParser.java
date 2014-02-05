@@ -39,12 +39,16 @@
 package org.coode.owlapi.owlxmlparser;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -107,5 +111,12 @@ public class OWLXMLParser extends AbstractOWLParser {
                 isrc.getCharacterStream().close();
             }
         }
+    }
+    
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new OWLXMLOntologyFormatFactory());
+        return result;
     }
 }

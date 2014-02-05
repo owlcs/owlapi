@@ -9,6 +9,9 @@ import java.util.TreeSet;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -25,7 +28,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
-public class SWRLRoundTripTestCase {
+public class SWRLRoundTripTestCase extends AbstractOWLAPITestCase {
     // test for 3562978
     @Test
     public void shouldDoCompleteRoundtrip() throws OWLOntologyCreationException,
@@ -49,8 +52,8 @@ public class SWRLRoundTripTestCase {
         OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+        ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t.toString(), new OWLXMLOntologyFormatFactory()));
         t = new StringDocumentTarget();
         format = new OWLXMLOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
@@ -81,9 +84,9 @@ public class SWRLRoundTripTestCase {
         ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        manager = Factory.getManager();
-        ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                onto1));
+        ontology = Factory.getManager()
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(onto1, 
+                        new ManchesterOWLSyntaxOntologyFormatFactory()));
         t = new StringDocumentTarget();
         format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);

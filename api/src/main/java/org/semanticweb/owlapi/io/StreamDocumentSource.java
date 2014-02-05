@@ -43,18 +43,27 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactoryRegistry;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** An ontology document source which can read from a stream.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 15-Nov-2007 */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
-    private static int counter = 0;
+    private static final Logger log = LoggerFactory.getLogger(StreamDocumentSource.class);
+    
+    private static final AtomicInteger counter = new AtomicInteger(0);
+
     private final IRI documentIRI;
     private byte[] buffer;
+    private OWLOntologyFormatFactory format;
 
     /** Constructs an input source which will read an ontology from a
      * representation from the specified stream.
@@ -64,11 +73,35 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
     public StreamDocumentSource(InputStream is) {
         this(is, getNextDocumentIRI());
     }
-
+    
+    
+    /**
+     * Constructs an input source which will read an ontology from
+     * a representation from the specified stream.
+     * @param is The stream that the ontology representation will be
+     * read from.
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public StreamDocumentSource(InputStream is, OWLOntologyFormatFactory format) {
+        this(is, getNextDocumentIRI(), format);
+    }
+    
+    
+    /**
+     * Constructs an input source which will read an ontology from
+     * a representation from the specified stream.
+     * @param is The stream that the ontology representation will be
+     * read from.
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public StreamDocumentSource(InputStream is, String mimeType) {
+        this(is, getNextDocumentIRI(), mimeType);
+    }
+    
+    
     /** @return a fresh IRI */
-    public static synchronized IRI getNextDocumentIRI() {
-        counter = counter + 1;
-        return IRI.create("inputstream:ontology" + counter);
+    public static IRI getNextDocumentIRI() {
+        return IRI.create("inputstream:ontology" + counter.incrementAndGet());
     }
 
     /** Constructs an input source which will read an ontology from a
@@ -83,6 +116,38 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
         readIntoBuffer(stream);
     }
 
+    /**
+     * Constructs an input source which will read an ontology from
+     * a representation from the specified stream.
+     * @param stream The stream that the ontology representation will be
+     * read from.
+     * @param documentIRI The document IRI
+     * @param mimeType The MIME type to use when finding a format
+     */
+    public StreamDocumentSource(InputStream stream, IRI documentIRI, String mimeType) {
+        this(stream, documentIRI);
+        OWLOntologyFormatFactory formatFactory = OWLOntologyFormatFactoryRegistry.getInstance().getByMIMEType(mimeType);
+        
+        if(formatFactory != null) {
+            this.format = formatFactory;
+        }
+    }
+
+
+    /**
+     * Constructs an input source which will read an ontology from
+     * a representation from the specified stream.
+     * @param stream The stream that the ontology representation will be
+     * read from.
+     * @param documentIRI The document IRI
+     * @param format An {@link OWLOntologyFormatFactory} that matches this file, or null if it is not known. 
+     */
+    public StreamDocumentSource(InputStream stream, IRI documentIRI, OWLOntologyFormatFactory format) {
+        this(stream, documentIRI);
+        this.format = format;
+    }
+
+
     /** Reads all the bytes from the specified stream into a temporary buffer,
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
@@ -90,8 +155,9 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
      * @param reader
      *            The reader to be "cached" */
     private void readIntoBuffer(InputStream reader) {
+        long start = System.currentTimeMillis();
         try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(8096);
             final int length = 100000;
             byte[] tempBuffer = new byte[length];
             int read = 0;
@@ -104,6 +170,11 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
             buffer = bos.toByteArray();
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
+        }
+        finally {
+            if(log.isDebugEnabled()) {
+                log.debug("readIntoBuffer: timing={}", System.currentTimeMillis()-start);
+            }
         }
     }
 
@@ -131,5 +202,17 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public boolean isReaderAvailable() {
         return false;
+    }
+
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return this.format;
+    }
+
+
+    @Override
+    public boolean isFormatKnown() {
+        return this.format != null;
     }
 }

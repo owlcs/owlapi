@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -87,6 +88,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 16-Apr-2008 */
+@MetaInfServices(org.semanticweb.owlapi.profiles.OWLProfile.class)
 public class OWL2ELProfile implements OWLProfile {
     protected final Set<IRI> allowedDatatypes;
 

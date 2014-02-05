@@ -46,10 +46,10 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
  * @since 3.2 */
-public class RDFTriple implements Serializable {
+public class RDFTriple implements Comparable<RDFTriple>, Serializable {
     private static final long serialVersionUID = 30406L;
     private final RDFResource subject;
-    private final RDFResource predicate;
+    private final RDFResourceIRI predicate;
     private final RDFNode object;
 
     /** @param subject
@@ -58,7 +58,11 @@ public class RDFTriple implements Serializable {
      *            the predicate
      * @param object
      *            the object */
-    public RDFTriple(RDFResource subject, RDFResource predicate, RDFNode object) {
+    public RDFTriple(RDFResource subject, RDFResourceIRI predicate, RDFNode object) {
+        if(subject == null || predicate == null || object == null) {
+            throw new IllegalArgumentException("RDF Triple must contain three elements");
+        }
+
         this.subject = subject;
         this.predicate = predicate;
         this.object = object;
@@ -76,11 +80,24 @@ public class RDFTriple implements Serializable {
      *            the object
      * @param objectAnon
      *            whether the object is anonymous */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
-            boolean predicateAnon, IRI object, boolean objectAnon) {
-        this.subject = new RDFResource(subject, subjectAnon);
-        this.predicate = new RDFResource(predicate, predicateAnon);
-        this.object = new RDFResource(object, objectAnon);
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, boolean predicateAnon, IRI object, boolean objectAnon) {
+        if(subject == null || predicate == null || object == null) {
+            throw new IllegalArgumentException("RDF Triple must contain three elements");
+        }
+        
+        if(subjectAnon) {
+            this.subject = new RDFResourceBlankNode(subject);
+        } else {
+            this.subject = new RDFResourceIRI(subject);
+        }
+        // Predicate is not allowed to be anonymous
+        this.predicate = new RDFResourceIRI(predicate);
+        if(objectAnon) {
+            this.object = new RDFResourceBlankNode(object);
+        } else {
+            this.object = new RDFResourceIRI(object);
+        }
+        
     }
 
     /** @param subject
@@ -93,10 +110,18 @@ public class RDFTriple implements Serializable {
      *            whether the predicate is anon
      * @param object
      *            the object */
-    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
-            boolean predicateAnon, OWLLiteral object) {
-        this.subject = new RDFResource(subject, subjectAnon);
-        this.predicate = new RDFResource(predicate, predicateAnon);
+    public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate, boolean predicateAnon, OWLLiteral object) {
+        if(subject == null || predicate == null || object == null) {
+            throw new IllegalArgumentException("RDF Triple must contain three elements");
+        }
+        
+        if(subjectAnon) {
+            this.subject = new RDFResourceBlankNode(subject);
+        } else {
+            this.subject = new RDFResourceIRI(subject);
+        }
+        // Predicate is not allowed to be anonymous
+        this.predicate = new RDFResourceIRI(predicate);
         this.object = new RDFLiteral(object);
     }
 
@@ -106,10 +131,17 @@ public class RDFTriple implements Serializable {
     }
 
     /** @return the predicate */
-    public RDFResource getPredicate() {
+    public RDFResourceIRI getPredicate() {
         return predicate;
     }
-
+    
+    /** @return the predicate
+     * @deprecated Use getPredicate instead. */
+    @Deprecated
+    public RDFResourceIRI getProperty() {
+        return getPredicate();
+    }
+    
     /** @return the object */
     public RDFNode getObject() {
         return object;
@@ -129,8 +161,28 @@ public class RDFTriple implements Serializable {
             return false;
         }
         RDFTriple other = (RDFTriple) o;
-        return subject.equals(other.subject) && predicate.equals(other.predicate)
-                && object.equals(other.object);
+        return subject.equals(other.getSubject()) && predicate.equals(other.getPredicate()) && object.equals(other.getObject());
+    }
+
+    @Override
+    public int compareTo(RDFTriple o) {
+        if(this == o) {
+            return 0;
+        }
+        
+        if(getSubject().equals(o.getSubject())) {
+            if(getPredicate().equals(o.getPredicate())) {
+                if(getObject().equals(o.getObject())) {
+                    return 0;
+                } else {
+                    return getObject().compareTo(o.getObject());
+                }
+            } else {
+                return getPredicate().compareTo(o.getPredicate());
+            }
+        } else {
+            return getSubject().compareTo(o.getSubject());
+        }
     }
 
     @Override
@@ -144,4 +196,5 @@ public class RDFTriple implements Serializable {
         sb.append(".");
         return sb.toString();
     }
+
 }

@@ -38,30 +38,43 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 30-Jul-2008 */
+@Ignore("Nothing in Turtle spec that requires blank node identity to be preserved")
 public class AnonymousTurtleAssertionTestCase extends AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {
         return "testBlankNodesAssertions.ttl";
     }
 
+    @Ignore
     @Override
     @Test
     public void testFunctionalSyntax() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testManchesterOWLSyntax() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testOWLXML() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testRDFXML() throws Exception {}
+    
+    @Override
+    protected OWLOntologyFormatFactory getFileFormat() {
+        return new TurtleOntologyFormatFactory();
+    }
 }

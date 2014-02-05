@@ -45,6 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.xml.IllegalElementNameException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -54,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 17-Dec-2009 */
+@Ignore
 public class NoQNameTestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {

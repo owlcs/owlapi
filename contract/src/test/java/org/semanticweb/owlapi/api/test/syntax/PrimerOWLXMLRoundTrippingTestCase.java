@@ -38,8 +38,11 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLXMLOntologyFormatFactory;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 07-Aug-2009 */
@@ -49,6 +52,7 @@ public class PrimerOWLXMLRoundTrippingTestCase extends AbstractFileRoundTripping
         return "primer.owlxml.xml";
     }
 
+    @Ignore
     @Override
     @Test
     public void testRDFXML() throws Exception {}
@@ -59,15 +63,23 @@ public class PrimerOWLXMLRoundTrippingTestCase extends AbstractFileRoundTripping
         super.testOWLXML();
     }
 
+    @Ignore
     @Override
     @Test
     public void testFunctionalSyntax() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testTurtle() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testManchesterOWLSyntax() throws Exception {}
+    
+    @Override
+    protected OWLOntologyFormatFactory getFileFormat() {
+        return new OWLXMLOntologyFormatFactory();
+    }
 }

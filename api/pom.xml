@@ -1,16 +1,72 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>owlapi-api</artifactId>
-	<packaging>bundle</packaging>
-	<name>OWLAPI Model Interfaces and utilities</name>
+	<packaging>jar</packaging>
+	<name>OWLAPI :: Model Interfaces and utilities</name>
 	<parent>
-		<groupId>net.sourceforge.owlapi</groupId>
+		<groupId>com.github.ansell.owlapi</groupId>
 		<artifactId>owlapi-parent</artifactId>
-		<version>3.4.11-SNAPSHOT</version>
+		<version>3.4.11.1-ansell-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-	<build>
-		<plugins>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ansell.abstract-service-loader</groupId>
+			<artifactId>abstract-service-loader</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-model</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openrdf.sesame</groupId>
+			<artifactId>sesame-rio-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+        	<dependency>
+        		<groupId>org.slf4j</groupId>
+        		<artifactId>slf4j-log4j12</artifactId>
+        		<scope>test</scope>
+        	</dependency>
+		<!-- Sets up the META-INF/services/ files automatically at compile time. optional so it is not a transitive dependency -->
+        	<dependency>
+        		<groupId>org.kohsuke.metainf-services</groupId>
+        		<artifactId>metainf-services</artifactId>
+        		<scope>compile</scope>
+        		<optional>true</optional>
+		</dependency>
+	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
@@ -24,6 +80,6 @@
 					</instructions>
 				</configuration>
 			</plugin>
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 </project>

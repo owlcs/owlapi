@@ -38,13 +38,17 @@
  */
 package org.semanticweb.owlapi.io;
 
+import org.openrdf.rio.RDFFormat;
+
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 02-Jan-2007 */
-public class RDFXMLOntologyFormat extends RDFOntologyFormat {
+public class RDFXMLOntologyFormat extends org.semanticweb.owlapi.formats.RioRDFOntologyFormat {
     private static final long serialVersionUID = 30406L;
 
-    @Override
-    public String toString() {
-        return "RDF/XML";
+    /**
+     * RDF format for {@link RDFFormat#RDFXML} documents.
+     */
+    public RDFXMLOntologyFormat() {
+        super(RDFFormat.RDFXML);
     }
 }

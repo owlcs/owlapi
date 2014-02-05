@@ -40,16 +40,6 @@ package org.semanticweb.owlapi.io;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 02-Jan-2007 */
-public class DefaultOntologyFormat extends RDFXMLOntologyFormat {
-    private static final long serialVersionUID = 30406L;
-
-    @Override
-    public boolean equals(Object obj) {
-        return obj instanceof RDFXMLOntologyFormat;
-    }
-
-    @Override
-    public int hashCode() {
-        return super.getClass().hashCode();
-    }
+public class DefaultOntologyFormat extends org.semanticweb.owlapi.formats.RDFXMLOntologyFormat {
+	private static final long serialVersionUID = 30406L;
 }

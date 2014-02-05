@@ -41,8 +41,12 @@ package org.coode.owlapi.manchesterowlsyntax;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.semanticweb.owlapi.expression.ParserException;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -145,5 +149,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private boolean startsWithMagicNumber(String line) {
         return line.indexOf(ManchesterOWLSyntax.PREFIX.toString()) != -1
                 || line.indexOf(ManchesterOWLSyntax.ONTOLOGY.toString()) != -1;
+    }
+    
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new ManchesterOWLSyntaxOntologyFormatFactory());
+        return result;
     }
 }

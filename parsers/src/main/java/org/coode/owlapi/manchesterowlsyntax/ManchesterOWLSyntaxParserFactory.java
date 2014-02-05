@@ -38,15 +38,27 @@
  */
 package org.coode.owlapi.manchesterowlsyntax;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Aug-2007 */
+@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class ManchesterOWLSyntaxParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new ManchesterOWLSyntaxOntologyParser();
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new ManchesterOWLSyntaxOntologyFormatFactory());
     }
 }

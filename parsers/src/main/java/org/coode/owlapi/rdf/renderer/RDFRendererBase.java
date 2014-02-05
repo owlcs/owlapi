@@ -50,11 +50,14 @@ import java.util.List;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.model.RDFGraph;
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
 import org.coode.owlapi.rdf.model.RDFTranslator;
-import org.coode.owlapi.rdf.model.RDFTriple;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFResourceIRI;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -336,7 +339,7 @@ public abstract class RDFRendererBase {
     private void renderEntity(OWLEntity entity) throws IOException {
         beginObject();
         writeEntityComment(entity);
-        render(new RDFResourceNode(entity.getIRI()));
+        render(new RDFResourceIRI(entity.getIRI()));
         renderAnonRoots();
         endObject();
     }
@@ -380,7 +383,7 @@ public abstract class RDFRendererBase {
             for (IRI iri : annotatedIRIs) {
                 beginObject();
                 createGraph(ontology.getAnnotationAssertionAxioms(iri));
-                render(new RDFResourceNode(iri));
+                render(new RDFResourceIRI(iri));
                 renderAnonRoots();
                 endObject();
             }
@@ -421,7 +424,7 @@ public abstract class RDFRendererBase {
                 rule.accept(variableExtractor);
             }
             for (SWRLVariable var : variableExtractor.getVariables()) {
-                render(new RDFResourceNode(var.getIRI()));
+                render(new RDFResourceIRI(var.getIRI()));
             }
             renderAnonRoots();
         }
@@ -430,7 +433,7 @@ public abstract class RDFRendererBase {
     private void renderGeneralAxioms() throws IOException {
         Set<OWLAxiom> generalAxioms = getGeneralAxioms();
         createGraph(generalAxioms);
-        Set<RDFResourceNode> rootNodes = graph.getRootAnonymousNodes();
+        Set<RDFResourceBlankNode> rootNodes = graph.getRootAnonymousNodes();
         if (!rootNodes.isEmpty()) {
             writeBanner(GENERAL_AXIOMS_BANNER_TEXT);
             beginObject();
@@ -479,55 +482,51 @@ public abstract class RDFRendererBase {
     private void renderOntologyHeader() throws IOException {
         graph = new RDFGraph();
         OWLOntologyID ontID = ontology.getOntologyID();
-        RDFResourceNode ontologyHeaderNode = createOntologyHeaderNode();
+        RDFResource ontologyHeaderNode = createOntologyHeaderNode();
         addVersionIRIToOntologyHeader(ontologyHeaderNode);
         addImportsDeclarationsToOntologyHeader(ontologyHeaderNode);
         addAnnotationsToOntologyHeader(ontologyHeaderNode);
-        if (!ontID.isAnonymous() || !graph.isEmpty()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(
-                    RDF_TYPE.getIRI()), new RDFResourceNode(OWL_ONTOLOGY.getIRI())));
+        if(!ontID.isAnonymous() || !graph.isEmpty()) {
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(RDF_TYPE.getIRI()), new RDFResourceIRI(OWL_ONTOLOGY.getIRI())));
         }
         if (!graph.isEmpty()) {
             render(ontologyHeaderNode);
         }
     }
 
-    private RDFResourceNode createOntologyHeaderNode() {
+    private RDFResource createOntologyHeaderNode() {
         OWLOntologyID ontID = ontology.getOntologyID();
-        if (ontID.isAnonymous()) {
-            return new RDFResourceNode(System.identityHashCode(ontology));
+        if(ontID.isAnonymous()) {
+            return new RDFResourceBlankNode(System.identityHashCode(ontology));
         } else {
-            return new RDFResourceNode(ontID.getOntologyIRI());
+            return new RDFResourceIRI(ontID.getOntologyIRI());
         }
     }
 
-    private void addVersionIRIToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
+    private void addVersionIRIToOntologyHeader(RDFResource ontologyHeaderNode) {
         OWLOntologyID ontID = ontology.getOntologyID();
         if (ontID.getVersionIRI() != null) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(
-                    OWL_VERSION_IRI.getIRI()), new RDFResourceNode(ontID.getVersionIRI())));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_VERSION_IRI.getIRI()), new RDFResourceIRI(ontID.getVersionIRI())));
         }
     }
 
-    private void
-            addImportsDeclarationsToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
+    private void addImportsDeclarationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         for (OWLImportsDeclaration decl : ontology.getImportsDeclarations()) {
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(
-                    OWL_IMPORTS.getIRI()), new RDFResourceNode(decl.getIRI())));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(OWL_IMPORTS.getIRI()), new RDFResourceIRI(decl.getIRI())));
         }
     }
 
-    private void addAnnotationsToOntologyHeader(RDFResourceNode ontologyHeaderNode) {
+    private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
                 @Override
                 public RDFNode visit(IRI iri) {
-                    return new RDFResourceNode(iri);
+                    return new RDFResourceIRI(iri);
                 }
 
                 @Override
                 public RDFNode visit(OWLAnonymousIndividual individual) {
-                    return new RDFResourceNode(System.identityHashCode(individual));
+                    return new RDFResourceBlankNode(System.identityHashCode(individual));
                 }
 
                 @Override
@@ -536,8 +535,7 @@ public abstract class RDFRendererBase {
                 }
             };
             RDFNode node = anno.getValue().accept(valVisitor);
-            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceNode(anno
-                    .getProperty().getIRI()), node));
+            graph.addTriple(new RDFTriple(ontologyHeaderNode, new RDFResourceIRI(anno.getProperty().getIRI()), node));
         }
     }
 
@@ -661,7 +659,7 @@ public abstract class RDFRendererBase {
     /** @throws IOException
      *             io error */
     public void renderAnonRoots() throws IOException {
-        for (RDFResourceNode node : graph.getRootAnonymousNodes()) {
+        for (RDFResourceBlankNode node : graph.getRootAnonymousNodes()) {
             render(node);
         }
     }
@@ -673,9 +671,9 @@ public abstract class RDFRendererBase {
      *            The main node to be rendered
      * @throws IOException
      *             If there was a problem rendering the triples. */
-    public abstract void render(RDFResourceNode node) throws IOException;
+    public abstract void render(RDFResource node) throws IOException;
 
-    protected boolean isObjectList(RDFResourceNode node) {
+    protected boolean isObjectList(RDFResource node) {
         for (RDFTriple triple : graph.getTriplesForSubject(node, false)) {
             if (triple.getProperty().getIRI().equals(RDF_TYPE.getIRI())) {
                 if (!triple.getObject().isAnonymous()) {
@@ -711,9 +709,11 @@ public abstract class RDFRendererBase {
                             currentNode = null;
                         }
                     } else {
-                        // Should be another list
-                        currentNode = triple.getObject();
-                        // toJavaList(triple.getObject(), list);
+                        if(triple.getObject() instanceof RDFResource) {
+                            // Should be another list
+                            currentNode = (RDFResource)triple.getObject();
+//                        toJavaList(triple.getObject(), list);
+                        }
                     }
                 }
             }

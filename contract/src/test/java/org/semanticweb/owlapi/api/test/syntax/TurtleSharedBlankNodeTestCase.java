@@ -40,11 +40,19 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
+
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 19-Aug-2010 */
 public class TurtleSharedBlankNodeTestCase extends AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {
         return "annotatedpropertychain.ttl.rdf";
+    }
+
+    @Override
+    protected OWLOntologyFormatFactory getFileFormat() {
+        return new TurtleOntologyFormatFactory();
     }
 }

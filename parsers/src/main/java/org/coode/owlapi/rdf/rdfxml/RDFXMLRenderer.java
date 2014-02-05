@@ -48,13 +48,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.rdf.model.RDFLiteralNode;
-import org.coode.owlapi.rdf.model.RDFNode;
-import org.coode.owlapi.rdf.model.RDFResourceNode;
-import org.coode.owlapi.rdf.model.RDFTriple;
 import org.coode.owlapi.rdf.renderer.RDFRendererBase;
 import org.coode.xml.XMLWriterFactory;
 import org.semanticweb.owlapi.io.RDFOntologyFormat;
+import org.semanticweb.owlapi.io.RDFLiteral;
+import org.semanticweb.owlapi.io.RDFNode;
+import org.semanticweb.owlapi.io.RDFResource;
+import org.semanticweb.owlapi.io.RDFResourceBlankNode;
+import org.semanticweb.owlapi.io.RDFTriple;
 import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -74,7 +75,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  *         Group, Date: 06-Dec-2006 */
 public class RDFXMLRenderer extends RDFRendererBase {
     private RDFXMLWriter writer;
-    private Set<RDFResourceNode> pending = new HashSet<RDFResourceNode>();
+    private Set<RDFResource> pending = new HashSet<RDFResource>();
+
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
@@ -121,7 +123,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
      *            format */
     public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
         super(ontology, format);
-        this.format = format;
+
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
         String defaultNamespace = qnameManager.getDefaultNamespace();
         String base;
@@ -213,7 +215,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    public void render(RDFResourceNode node) throws IOException {
+    public void render(RDFResource node) throws IOException {
         if (pending.contains(node)) {
             return;
         }
@@ -253,7 +255,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
             writer.writeStartElement(triple.getProperty().getIRI());
             RDFNode objectNode = triple.getObject();
             if (!objectNode.isLiteral()) {
-                RDFResourceNode objectRes = (RDFResourceNode) objectNode;
+                RDFResource objectRes = (RDFResource) objectNode;
                 if (objectRes.isAnonymous()) {
                     // Special rendering for lists
                     if (isObjectList(objectRes)) {
@@ -262,10 +264,11 @@ public class RDFXMLRenderer extends RDFRendererBase {
                         toJavaList(objectRes, list);
                         for (RDFNode n : list) {
                             if (n.isAnonymous()) {
-                                render((RDFResourceNode) n);
-                            } else {
+                                render((RDFResourceBlankNode) n);
+                            }
+                            else {
                                 if (n.isLiteral()) {
-                                    RDFLiteralNode litNode = (RDFLiteralNode) n;
+                                    RDFLiteral litNode = (RDFLiteral) n;
                                     writer.writeStartElement(OWLRDFVocabulary.RDFS_LITERAL
                                             .getIRI());
                                     if (litNode.getDatatype() != null) {
@@ -290,7 +293,7 @@ public class RDFXMLRenderer extends RDFRendererBase {
                     writer.writeResourceAttribute(objectRes.getIRI());
                 }
             } else {
-                RDFLiteralNode rdfLiteralNode = (RDFLiteralNode) objectNode;
+                RDFLiteral rdfLiteralNode = (RDFLiteral) objectNode;
                 if (rdfLiteralNode.getDatatype() != null) {
                     writer.writeDatatypeAttribute(rdfLiteralNode.getDatatype());
                 } else if (rdfLiteralNode.getLang() != null) {

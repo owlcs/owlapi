@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -104,24 +105,24 @@ public class OptimisedListTranslator<O extends OWLObject> {
     /** @param mainNode
      *            mainNode
      * @return translated list */
-    public List<O> translateList(IRI mainNode) {
-        boolean shared = consumer.isSharedAnonymousNode(mainNode);
-        List<O> list;
-        if (shared) {
-            Object o = consumer.getSharedAnonymousNode(mainNode);
-            if (o != null && o instanceof List) {
-                list = (List<O>) o;
-            } else {
-                list = new ArrayList<O>();
-                translateList(mainNode, list);
-                consumer.addSharedAnonymousNode(mainNode, list);
-            }
-        } else {
-            list = new ArrayList<O>();
-            translateList(mainNode, list);
-        }
-        return list;
-    }
+	public List<O> translateList(IRI mainNode) {
+		boolean shared = consumer.isSharedAnonymousNode(mainNode);
+		List<O> list;
+		if (shared) {
+			Object o = consumer.getSharedAnonymousNode(mainNode);
+			if (o != null && o instanceof List) {
+				list = (List<O>) o;
+			} else {
+				list = new CopyOnWriteArrayList<O>();
+				translateList(mainNode, list);
+				consumer.addSharedAnonymousNode(mainNode, list);
+			}
+		} else {
+			list = new CopyOnWriteArrayList<O>();
+			translateList(mainNode, list);
+		}
+		return list;
+	}
 
     /** @param mainNode
      *            mainNode

@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.profiles;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.kohsuke.MetaInfServices;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -95,6 +96,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 18-Jul-2009 */
+@MetaInfServices(org.semanticweb.owlapi.profiles.OWLProfile.class)
 public class OWL2QLProfile implements OWLProfile {
     protected final Set<IRI> allowedDatatypes = new HashSet<IRI>();
 

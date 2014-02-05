@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OBOOntologyFormatFactory;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -22,7 +24,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
-public class LoadAnonymousTestCase {
+public class LoadAnonymousTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldLoad() throws OWLOntologyCreationException {
         OWLOntologyManager rootOntologyManager = OWLManager.createOWLOntologyManager();
@@ -65,7 +67,7 @@ public class LoadAnonymousTestCase {
                 + "subset: unit_group_slim\n" + "is_a: UO:0000000 ! unit\n"
                 + "relationship: is_unit_of PATO:0001708 ! 1-D extent\n"
                 + "created_by: george gkoutos";
-        StringDocumentSource streamDocumentSource = new StringDocumentSource(input);
+        StringDocumentSource streamDocumentSource = new StringDocumentSource(input, new OBOOntologyFormatFactory());
         OWLOntologyLoaderConfiguration loaderConfig = new OWLOntologyLoaderConfiguration()
                 .setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
         OWLOntology ontology = rootOntologyManager.loadOntologyFromOntologyDocument(
@@ -239,6 +241,6 @@ public class LoadAnonymousTestCase {
                                                 hasDbXref,
                                                 Literal("Wikipedia:Wikipedia",
                                                         OWL2Datatype.XSD_STRING))))));
-        assertEquals(expected, ontology.getAxioms());
+        assertTrue(equal(expected, ontology.getAxioms(), rootOntologyManager.getOWLDataFactory()));
     }
 }

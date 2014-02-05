@@ -39,7 +39,11 @@
 package org.coode.owl.krssparser;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.semanticweb.owlapi.formats.KRSSOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -82,5 +86,12 @@ public class KRSSOWLParser extends AbstractOWLParser {
         } catch (ParseException e) {
             throw new KRSSOWLParserException(e);
         }
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new KRSSOntologyFormatFactory());
+        return result;
     }
 }

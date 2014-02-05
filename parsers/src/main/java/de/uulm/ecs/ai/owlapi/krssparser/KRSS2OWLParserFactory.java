@@ -38,14 +38,26 @@
  */
 package de.uulm.ecs.ai.owlapi.krssparser;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.KRSS2OntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class KRSS2OWLParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new KRSS2OWLParser();
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new KRSS2OntologyFormatFactory());
     }
 }

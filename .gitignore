@@ -6,3 +6,8 @@
 target/
 bin/
 .idea
+*~
+*.save
+*.bak
+*.backup
+pom.xml.versionsBackup

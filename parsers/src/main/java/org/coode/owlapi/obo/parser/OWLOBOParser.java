@@ -41,8 +41,12 @@ package org.coode.owlapi.obo.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.semanticweb.owlapi.formats.OBOOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -153,5 +157,12 @@ public class OWLOBOParser extends AbstractOWLParser {
                     tagValuePair.getValue(), tagValuePair.getQualifier(),
                     tagValuePair.getComment());
         }
+    }
+    
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        Set<OWLOntologyFormatFactory> result = new HashSet<OWLOntologyFormatFactory>();
+        result.add(new OBOOntologyFormatFactory());
+        return result;
     }
 }

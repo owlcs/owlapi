@@ -158,7 +158,9 @@ public abstract class AbstractReasonerTestCase extends AbstractOWLAPITestCase {
     }
 
     @After
-    public void tearDown() {
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
         reasoner.dispose();
     }
 

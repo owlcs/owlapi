@@ -38,10 +38,15 @@
  */
 package org.semanticweb.owlapi.api.test.baseclasses;
 
-import java.net.URISyntaxException;
-import java.net.URL;
+import static org.junit.Assert.*;
 
 import org.semanticweb.owlapi.model.IRI;
+import java.io.InputStream;
+
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
@@ -53,15 +58,32 @@ public abstract class AbstractFileRoundTrippingTestCase extends
     protected OWLOntology createOntology() {
         try {
             String fileName = getFileName();
-            URL resource = getClass().getResource("/" + fileName);
-            IRI iri = IRI.create(resource.toURI());
-            return getManager().loadOntologyFromOntologyDocument(iri);
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        } catch (OWLOntologyCreationException e) {
+            InputStream resource = getClass().getResourceAsStream("/" + fileName);
+            assertNotNull("Could not find test resource: "+fileName, resource);
+            //IRI iri = IRI.create(resource.toURI());
+            //UnparsableOntologyException.setIncludeStackTraceInMessage(true);
+            OWLOntologyDocumentSource source = new StreamDocumentSource(resource, getFileFormat());
+            OWLOntology owlOntology = getManager().loadOntologyFromOntologyDocument(source);
+            
+            assertFalse(fileName+" was not loaded properly", owlOntology.isEmpty());
+            
+            return owlOntology;
+        }
+        catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
         }
     }
 
     protected abstract String getFileName();
+    
+    /**
+     * Returns the expected format for the test resource for this test case.
+     * 
+     * Returns null by default to indicate that the format is not known.
+     * 
+     * @return An instance of OWLOntologyFormatFactory that matches the test resource for this test case.
+     */
+    protected OWLOntologyFormatFactory getFileFormat() {
+        return null;
+    }
 }

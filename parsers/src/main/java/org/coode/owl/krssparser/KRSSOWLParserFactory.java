@@ -38,15 +38,27 @@
  */
 package org.coode.owl.krssparser;
 
+import java.util.Collections;
+import java.util.Set;
+
+import org.kohsuke.MetaInfServices;
+import org.semanticweb.owlapi.formats.KRSSOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 15-Nov-2006 */
+@MetaInfServices(org.semanticweb.owlapi.io.OWLParserFactory.class)
 public class KRSSOWLParserFactory implements OWLParserFactory {
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new KRSSOWLParser();
+    }
+	  
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new KRSSOntologyFormatFactory());
     }
 }

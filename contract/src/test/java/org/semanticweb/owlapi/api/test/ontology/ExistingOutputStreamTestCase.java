@@ -85,5 +85,6 @@ public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
         w.write("<!-- Comment -->");
         w.flush();
         w.close();
+        os.close();
     }
 }

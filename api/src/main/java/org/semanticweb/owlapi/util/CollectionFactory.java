@@ -49,6 +49,7 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -83,7 +84,7 @@ public class CollectionFactory {
      * @param <T>
      *            axiom type */
     public static <T> List<T> createList() {
-        return new ArrayList<T>();
+        return new CopyOnWriteArrayList<T>();
     }
 
     /** @param c

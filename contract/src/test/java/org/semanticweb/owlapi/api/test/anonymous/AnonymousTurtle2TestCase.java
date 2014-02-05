@@ -38,6 +38,7 @@
  */
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
@@ -49,6 +50,7 @@ public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase 
         return "testBlankNodes2.ttl";
     }
 
+    @Ignore
     @Override
     @Test
     public void testTurtle() throws Exception {
@@ -57,18 +59,22 @@ public class AnonymousTurtle2TestCase extends AbstractFileRoundTrippingTestCase 
         // super.testTurtle();
     }
 
+    @Ignore
     @Override
     @Test
     public void testFunctionalSyntax() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testManchesterOWLSyntax() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testOWLXML() throws Exception {}
 
+    @Ignore
     @Override
     @Test
     public void testRDFXML() throws Exception {}

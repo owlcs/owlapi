@@ -4,12 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.util.Collections;
+import java.util.Set;
 
 import org.coode.owlapi.obo.parser.OBOOntologyFormat;
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.semanticweb.owlapi.formats.OBOOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -107,5 +111,10 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             return in;
         }
         return ontology;
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections.<OWLOntologyFormatFactory>singleton(new OBOOntologyFormatFactory());
     }
 }

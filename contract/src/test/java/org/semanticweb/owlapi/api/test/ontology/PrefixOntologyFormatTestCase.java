@@ -41,6 +41,8 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
@@ -48,6 +50,9 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 05/01/2011 */
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
+
+    private OWLOntologyFormat format = null;
+    
     @Override
     protected OWLOntology createOntology() throws Exception {
         OWLOntology ont = getManager().createOntology();
@@ -60,22 +65,28 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
     }
 
     @Override
-    public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws Exception {
-        OWLOntology ont2 = super.roundTripOntology(ont, format);
-        OWLOntologyFormat ont2Format = ont2.getOWLOntologyManager().getOntologyFormat(
-                ont2);
-        if (format instanceof PrefixOWLOntologyFormat
-                && ont2Format instanceof PrefixOWLOntologyFormat) {
+    public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormatFactory formatFactory) throws Exception {
+        OWLOntology ont2 = super.roundTripOntology(ont, formatFactory);
+        OWLOntologyFormat ont2Format = ont2.getOWLOntologyManager().getOntologyFormat(ont2);
+        if(format instanceof PrefixOWLOntologyFormat && ont2Format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
             prefixFormat.getPrefixName2PrefixMap();
             PrefixOWLOntologyFormat prefixFormat2 = (PrefixOWLOntologyFormat) ont2Format;
-            for (String prefixName : prefixFormat.getPrefixNames()) {
-                assertTrue(prefixFormat2.containsPrefixMapping(prefixName));
-                assertEquals(prefixFormat.getPrefix(prefixName),
-                        prefixFormat2.getPrefix(prefixName));
+            for(String prefixName : prefixFormat.getPrefixNames()) {
+                assertTrue("Prefix was not persisted {"+prefixName+"}<"+prefixFormat.getPrefix(prefixName)+">", 
+                        prefixFormat2.containsPrefixMapping(prefixName));
+                assertEquals(
+                        "Prefix was modified before={"+prefixName+"}<"+prefixFormat.getPrefix(prefixName)+"> after={"+prefixName+"}<"+prefixFormat2.getPrefix(prefixName)+">", 
+                        prefixFormat.getPrefix(prefixName), prefixFormat2.getPrefix(prefixName));
             }
         }
         return ont2;
+    }
+    
+    /**
+     * We need access to the format that had its prefixes copied to in super class testing.
+     */
+    protected void handleSaved(StringDocumentTarget target, OWLOntologyFormat format) {
+        this.format = format;
     }
 }

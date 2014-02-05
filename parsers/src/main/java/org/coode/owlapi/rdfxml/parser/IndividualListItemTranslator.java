@@ -38,17 +38,16 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-import java.util.logging.Logger;
-
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 08-Dec-2006 */
 public class IndividualListItemTranslator implements ListItemTranslator<OWLIndividual> {
-    private static final Logger logger = Logger
-            .getLogger(IndividualListItemTranslator.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private OWLRDFConsumer consumer;
 
     /** @param consumer
@@ -64,7 +63,7 @@ public class IndividualListItemTranslator implements ListItemTranslator<OWLIndiv
 
     @Override
     public OWLIndividual translate(OWLLiteral firstObject) {
-        logger.info("Cannot translate list item to individual, because rdf:first triple is a literal triple");
+        logger.warn("Cannot translate list item to individual, because rdf:first triple is a literal triple");
         return null;
     }
 }

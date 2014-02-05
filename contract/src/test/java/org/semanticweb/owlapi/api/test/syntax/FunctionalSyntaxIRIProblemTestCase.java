@@ -6,6 +6,10 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyFormat;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.OWLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -36,19 +40,19 @@ public class FunctionalSyntaxIRIProblemTestCase {
         manager.addAxiom(ontology,
                 SubClassOf(b, factory.getOWLObjectSomeValuesFrom(p, a)));
         String rdfxmlSaved = saveOntology(ontology, new RDFXMLOntologyFormat());
-        OWLOntology loadOntology = loadOntology(rdfxmlSaved);
+        OWLOntology loadOntology = loadOntology(rdfxmlSaved, new RDFXMLOntologyFormatFactory());
         OWLFunctionalSyntaxOntologyFormat functionalFormat = new OWLFunctionalSyntaxOntologyFormat();
         functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example",
                 "http://example.org/");
         String functionalSaved = saveOntology(ontology, functionalFormat);
-        OWLOntology loadOntology2 = loadOntology(functionalSaved);
+        OWLOntology loadOntology2 = loadOntology(functionalSaved, new OWLFunctionalSyntaxOntologyFormatFactory());
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterOWLSyntaxOntologyFormat manchesterFormat = new ManchesterOWLSyntaxOntologyFormat();
         manchesterFormat.asPrefixOWLOntologyFormat().setPrefix("example",
                 "http://example.org/");
         String manchesterSaved = saveOntology(ontology, manchesterFormat);
-        OWLOntology loadOntology3 = loadOntology(manchesterSaved);
+        OWLOntology loadOntology3 = loadOntology(manchesterSaved, new ManchesterOWLSyntaxOntologyFormatFactory());
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);
         assertEquals(ontology, loadOntology3);
@@ -66,10 +70,10 @@ public class FunctionalSyntaxIRIProblemTestCase {
         return t.toString();
     }
 
-    public static OWLOntology loadOntology(String ontologyFile)
+    public static OWLOntology loadOntology(String ontologyFile, OWLOntologyFormatFactory format)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
-        StringDocumentSource s = new StringDocumentSource(ontologyFile);
+        StringDocumentSource s = new StringDocumentSource(ontologyFile, format);
         OWLOntology ontology = manager.loadOntologyFromOntologyDocument(s);
         return ontology;
     }

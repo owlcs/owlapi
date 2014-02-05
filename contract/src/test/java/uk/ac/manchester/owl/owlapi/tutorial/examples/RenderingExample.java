@@ -38,12 +38,12 @@
  */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyManagerFactoryRegistry;
 
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxOntologyStorer;
@@ -67,7 +67,8 @@ public class RenderingExample {
         }
         // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = OWLOntologyManagerFactoryRegistry.createOWLOntologyManager();
+
         IRI inputDocumentIRI = IRI.create(inputOntology);
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology from a document IRI */
