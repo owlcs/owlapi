@@ -172,11 +172,7 @@ public class OWLFunctionalSyntaxParser implements
      * @param chg
      *            the chg */
     protected void applyChange(OWLOntologyChange chg) {
-        try {
-            man.applyChange(chg);
-        } catch (OWLOntologyChangeException e) {
-            e.printStackTrace();
-        }
+        man.applyChange(chg);
     }
 
     /** Adds the axiom.
