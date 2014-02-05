@@ -46,15 +46,19 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 14-Jan-2009 Represents International Resource
@@ -303,7 +307,24 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final long serialVersionUID = 40000L;
-    private static WeakCache<String> prefixCache = new WeakCache<String>();
+    private static final LoadingCache<String, String> prefixCache = CacheBuilder
+            .newBuilder().concurrencyLevel(8).maximumSize(1024)
+            .build(new CacheLoader<String, String>() {
+                @Override
+                public String load(String key) throws Exception {
+                    return key;
+                }
+            });
+
+    private static final String cache(String s) {
+        try {
+            return prefixCache.get(s);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
     private final String remainder;
     private final String prefix;
     private int hashCode = 0;
@@ -316,7 +337,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      * @param fragment
      *            The suffix. */
     protected IRI(@Nonnull String prefix, @Nullable String fragment) {
-        this.prefix = prefixCache.cache(prefix);
+        this.prefix = cache(prefix);
         remainder = fragment;
     }
 
