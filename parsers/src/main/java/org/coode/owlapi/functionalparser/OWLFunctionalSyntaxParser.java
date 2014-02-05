@@ -83,7 +83,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -194,11 +193,7 @@ public class OWLFunctionalSyntaxParser implements
      * @param chg
      *            the chg */
     protected void applyChange(OWLOntologyChange chg) {
-        try {
-            man.applyChange(chg);
-        } catch (OWLOntologyChangeException e) {
-            e.printStackTrace();
-        }
+        man.applyChange(chg);
     }
 
     /** Adds the axiom.
