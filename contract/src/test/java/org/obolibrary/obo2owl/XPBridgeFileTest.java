@@ -12,8 +12,4 @@ public class XPBridgeFileTest extends OboFormatTestBasics {
         OWLOntology owlOnt = convertOBOFile("xptest.obo");
         assertNotNull(owlOnt);
     }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
-    }
 }

@@ -2,7 +2,7 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
+import java.io.StringReader;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -21,8 +21,8 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
         OBODoc obodoc = convert(parseOWLFile("nesting.owl"));
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
-        File file = writeOBO(obodoc, "nesting.obo");
-        obodoc = parseOBOFile(file);
+        String file = writeOBO(obodoc, "nesting.obo");
+        obodoc = parseOBOFile(new StringReader(file), false);
         checkOBODoc(obodoc);
     }
 

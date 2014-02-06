@@ -25,8 +25,4 @@ public class DanglingRoundTripTest extends OboFormatTestBasics {
         OBOFormatWriter w = new OBOFormatWriter();
         w.write(d2, "/tmp/z.obo");
     }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
-    }
 }

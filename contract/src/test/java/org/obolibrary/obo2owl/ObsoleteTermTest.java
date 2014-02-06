@@ -42,7 +42,7 @@ public class ObsoleteTermTest extends OboFormatTestBasics {
         }
         assertTrue(okDeprecated);
         // CONVERT TO OWL FILE
-        writeOWL(ontology, "obsolete_term_test.owl", new RDFXMLOntologyFormat());
+        writeOWL(ontology, new RDFXMLOntologyFormat());
         // CONVERT BACK TO OBO
         OBODoc obodoc = convert(ontology);
         Frame tf = obodoc.getTermFrame("XX:0000034");

@@ -64,6 +64,6 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
             }
         }
         assertTrue(ok);
-        writeOWL(ontology, "no_overlap.owl");
+        writeOWL(ontology);
     }
 }

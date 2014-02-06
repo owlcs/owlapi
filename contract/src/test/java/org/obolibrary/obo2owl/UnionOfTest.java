@@ -30,8 +30,4 @@ public class UnionOfTest extends OboFormatTestBasics {
         }
         assertTrue(ok);
     }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
-    }
 }

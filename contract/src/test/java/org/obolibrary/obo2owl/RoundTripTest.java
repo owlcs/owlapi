@@ -76,7 +76,7 @@ public class RoundTripTest extends OboFormatTestBasics {
             fail("No syntax errors allowed");
         }
         OWLOntology oo2 = convert(obodoc);
-        writeOWL(oo2, "owl2obo-roundtrip.owl");
+        writeOWL(oo2);
         boolean ok = compareOWLOntologiesPartial(oo, oo2, isExpectRoundtrip,
                 bridge.getUntranslatableAxioms());
         return ok || !isExpectRoundtrip;

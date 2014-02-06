@@ -23,8 +23,7 @@ public class TransitiveOverTest extends RoundTripTest {
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE, CONVERT TO OWL
-        OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"),
-                "x.owl");
+        OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
         IRI regulatesIRI = getIriByLabel(ontology, "regulates");
         assertNotNull(regulatesIRI);
@@ -35,7 +34,8 @@ public class TransitiveOverTest extends RoundTripTest {
         for (OWLSubPropertyChainOfAxiom axiom : axioms) {
             OWLObjectProperty p = (OWLObjectProperty) axiom.getSuperProperty();
             if (regulatesIRI.equals(p.getIRI())) {
-                List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
+                List<OWLObjectPropertyExpression> chain = axiom
+                        .getPropertyChain();
                 assertEquals(2, chain.size());
                 assertEquals(p, chain.get(0));
                 assertEquals("http://purl.obolibrary.org/obo/BFO_0000050",

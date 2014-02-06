@@ -42,12 +42,15 @@ public class AnonymousFunctionalRoundtripTestCase {
             + "Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)\n"
             + "Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)\n"
             + "Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)\n"
-            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + "\n" + "\n"
-            + "Ontology(<http://namespace.owl>\n" + "\n" + "Declaration(Class(:C))\n"
-            + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n" + "Declaration(Class(:D))\n"
-            + "Declaration(ObjectProperty(:p))\n" + "Declaration(DataProperty(:q))\n"
+            + "Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)\n" + "\n"
+            + "\n" + "Ontology(<http://namespace.owl>\n" + "\n"
+            + "Declaration(Class(:C))\n"
+            + "SubClassOf(:C ObjectHasValue(:p _:genid2))\n"
+            + "Declaration(Class(:D))\n" + "Declaration(ObjectProperty(:p))\n"
+            + "Declaration(DataProperty(:q))\n"
             + "ClassAssertion(:D _:genid2)\n"
-            + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n" + ")";
+            + "DataPropertyAssertion(:q _:genid2 \"hello\"^^xsd:string)\n"
+            + ")";
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
@@ -76,7 +79,8 @@ public class AnonymousFunctionalRoundtripTestCase {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i, Literal("hello"))));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
+                Literal("hello"))));
         manager.applyChanges(changes);
         String saved = saveOntology(ontology, new RDFXMLOntologyFormat());
         ontology = loadOntology(saved);
@@ -93,10 +97,11 @@ public class AnonymousFunctionalRoundtripTestCase {
         return target.toString();
     }
 
-    OWLOntology loadOntology(String ontologyFile) throws OWLOntologyCreationException {
+    OWLOntology loadOntology(String input) throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile));
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        input));
         return ontology;
     }
 }

@@ -2,9 +2,11 @@ package org.obolibrary.obo2owl;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Collection;
 import java.util.Set;
@@ -41,15 +43,15 @@ public class EquivalentToTest extends OboFormatTestBasics {
         OBODoc obodoc = owl2obo.convert(ontology);
         checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
-        String fn = "/tmp/equivtest.obo";
         OBOFormatWriter w = new OBOFormatWriter();
-        FileOutputStream os = new FileOutputStream(new File(fn));
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
         OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
         BufferedWriter bw = new BufferedWriter(osw);
         w.write(obodoc, bw);
         bw.close();
         OBOFormatParser p = new OBOFormatParser();
-        obodoc = p.parse(fn);
+        obodoc = p.parse(new BufferedReader(new InputStreamReader(
+                new ByteArrayInputStream(os.toByteArray()))));
         checkOBODoc(obodoc);
     }
 

@@ -18,8 +18,4 @@ public class Obo2OwlTest extends OboFormatTestBasics {
         OWLOntology owlOnt = convertOBOFile("testqvs.obo");
         assertNotNull(owlOnt);
     }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
-    }
 }

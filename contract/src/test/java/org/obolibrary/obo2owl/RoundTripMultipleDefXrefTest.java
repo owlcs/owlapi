@@ -41,8 +41,4 @@ public class RoundTripMultipleDefXrefTest extends RoundTripTest {
         }
         assertEquals(3, n);
     }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
-    }
 }

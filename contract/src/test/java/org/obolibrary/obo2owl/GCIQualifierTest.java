@@ -20,8 +20,7 @@ public class GCIQualifierTest extends OboFormatTestBasics {
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
-        OWLOntology ontology = convert(parseOBOFile("gci_qualifier_test.obo"),
-                "x.owl");
+        OWLOntology ontology = convert(parseOBOFile("gci_qualifier_test.obo"));
         if (true) {
             Set<OWLSubClassOfAxiom> scas = ontology
                     .getAxioms(AxiomType.SUBCLASS_OF);

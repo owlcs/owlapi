@@ -55,7 +55,6 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
@@ -82,13 +81,11 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
     /** default constructor */
     public OWLObjectImpl() {}
 
-    // XXX there should be no datafactory here at all
-    @Deprecated
-    private static OWLDataFactory f = new OWLDataFactoryImpl(false, false);
     protected static final OWLClass OWL_THING = new OWLClassImpl(
             OWLRDFVocabulary.OWL_THING.getIRI());
 
-    static <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType, IRI iri) {
+    static <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType,
+            IRI iri) {
         if (entityType.equals(EntityType.CLASS)) {
             return (E) new OWLClassImpl(iri);
         } else if (entityType.equals(EntityType.OBJECT_PROPERTY)) {
@@ -120,7 +117,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             signature = new WeakReference<Set<OWLEntity>>(set);
             anons = new WeakReference<Set<OWLAnonymousIndividual>>(anon);
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(set);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(set);
     }
 
     @Override
@@ -128,7 +126,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         if (signature == null || signature.get() == null) {
             getSignature();
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons.get());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(anons.get());
     }
 
     @Override

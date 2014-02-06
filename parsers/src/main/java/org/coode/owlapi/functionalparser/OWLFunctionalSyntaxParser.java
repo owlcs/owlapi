@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;

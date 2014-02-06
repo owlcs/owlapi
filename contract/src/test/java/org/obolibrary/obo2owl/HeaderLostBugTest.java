@@ -1,22 +1,21 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.io.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class HeaderLostBugTest extends OboFormatTestBasics {
-    private File owlFile = null;
-
     /** During the conversion of the rdfxml formatfile the ontology header tags
      * are lost. The possible reason is that the RDFXMLOntologyFormat format
      * writes the annotation assertion axioms as annotations.
@@ -24,12 +23,8 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
      * @throws Exception */
     @Test
     public void testHeaderLog() throws Exception {
-        convertOBOFile("header_lost_bug.obo");
-        assertNotNull(owlFile);
-        IRI ontologyIRI = IRI.create(owlFile);
-        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(ontologyIRI);
+        OWLOntology ontology = convertOBOFile("header_lost_bug.obo");
+        IRI ontologyIRI = IRI.create("http://purl.obolibrary.org/obo/test.owl");
         Set<OWLAnnotation> ontAnns = ontology.getAnnotations();
         Set<OWLAnnotationAssertionAxiom> axioms = ontology
                 .getAnnotationAssertionAxioms(ontologyIRI);
@@ -40,9 +35,15 @@ public class HeaderLostBugTest extends OboFormatTestBasics {
         assertEquals(0, axioms.size());
     }
 
-    private OWLOntology convertOBOFile(String fn) throws Exception {
+    @Override
+    protected OWLOntology convertOBOFile(String fn) throws Exception {
         OWLOntology ontology = convert(parseOBOFile(fn));
-        owlFile = writeOWL(ontology, fn);
-        return ontology;
+        StringDocumentTarget target = new StringDocumentTarget();
+        ontology.getOWLOntologyManager().saveOntology(ontology,
+                new RDFXMLOntologyFormat(), target);
+        OWLOntology in = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(target));
+        return in;
     }
 }

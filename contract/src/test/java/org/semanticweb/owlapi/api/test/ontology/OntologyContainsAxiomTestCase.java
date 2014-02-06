@@ -46,7 +46,9 @@ import java.io.FileOutputStream;
 import java.util.Collections;
 
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.OWLFunctionalSyntaxOntologyFormat;
@@ -69,6 +71,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *         Group, Date: 07-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Test
     public void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = SubClassOf(Class(getIRI("A")), Class(getIRI("B")));
@@ -90,7 +95,8 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiomIgnoreAnnotations(axiom));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom
+                .getAxiomWithoutAnnotations()));
     }
 
     @Test
@@ -115,7 +121,8 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLFunctionalSyntax1() throws Exception {
+    public void testOntologyContainsAxiomsForOWLFunctionalSyntax1()
+            throws Exception {
         runTestOntologyContainsAxioms1(new OWLFunctionalSyntaxOntologyFormat());
     }
 
@@ -169,17 +176,19 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1.containsAxiom(ax_AsubB, true));
         assertTrue(ont2.containsAxiom(ax_AsubB, false));
         assertTrue(ont2.containsAxiom(ax_AsubB, true));
-        File savedLocation1 = File.createTempFile("testont1A", ".owl");
+        File savedLocation1 = folder.newFile("testont1A.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         getManager().saveOntology(ont1, format, writer1);
-        File savedLocation2 = File.createTempFile("testont2A.owl", ".owl");
+        File savedLocation2 = folder.newFile("testont2A.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
         getManager().saveOntology(ont2, format, writer2);
         OWLOntologyManager man = Factory.getManager();
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
-        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
+        OWLOntology ont1L = man
+                .loadOntologyFromOntologyDocument(savedLocation1);
+        OWLOntology ont2L = man
+                .loadOntologyFromOntologyDocument(savedLocation2);
         // annoProp is in ont1 and in the import closure of ont2
         assertTrue(ont1L.containsAxiom(ax_annoProp_decl, false));
         assertFalse(ont2L.containsAxiom(ax_annoProp_decl, false));
@@ -209,7 +218,8 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testOntologyContainsAxiomsForOWLFunctionalSyntax2() throws Exception {
+    public void testOntologyContainsAxiomsForOWLFunctionalSyntax2()
+            throws Exception {
         runTestOntologyContainsAxioms2(new OWLFunctionalSyntaxOntologyFormat());
     }
 
@@ -256,18 +266,20 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertFalse(ont1.containsAxiom(ax_AsubB, true));
         assertTrue(ont2.containsAxiom(ax_AsubB, false));
         assertTrue(ont2.containsAxiom(ax_AsubB, true));
-        File savedLocation1 = File.createTempFile("testont1B", ".owl");
+        File savedLocation1 = folder.newFile("testont1B.owl");
         FileOutputStream out1 = new FileOutputStream(savedLocation1);
         StreamDocumentTarget writer1 = new StreamDocumentTarget(out1);
         getManager().saveOntology(ont1, format, writer1);
-        File savedLocation2 = File.createTempFile("testont2B", ".owl");
+        File savedLocation2 = folder.newFile("testont2B.owl");
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
         getManager().saveOntology(ont2, format, writer2);
         OWLOntologyManager man = Factory.getManager();
         @SuppressWarnings("unused")
-        OWLOntology ont1L = man.loadOntologyFromOntologyDocument(savedLocation1);
-        OWLOntology ont2L = man.loadOntologyFromOntologyDocument(savedLocation2);
+        OWLOntology ont1L = man
+                .loadOntologyFromOntologyDocument(savedLocation1);
+        OWLOntology ont2L = man
+                .loadOntologyFromOntologyDocument(savedLocation2);
         for (OWLOntology importedOntology : ont2L.getImports()) {
             for (OWLAxiom importedAxiom : importedOntology.getAxioms()) {
                 assertTrue(importedOntology.containsAxiom(importedAxiom, false));

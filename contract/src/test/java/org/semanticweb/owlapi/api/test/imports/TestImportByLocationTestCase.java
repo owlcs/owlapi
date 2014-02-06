@@ -38,14 +38,16 @@
  */
 package org.semanticweb.owlapi.api.test.imports;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -55,28 +57,25 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase {
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Test
-    public void testImportOntologyByLocation() {
-        File f = new File("a.owl");
-        try {
-            createOntologyFile(IRI("http://a.com"), f);
-            OWLOntologyManager mngr = Factory.getManager();
-            OWLDataFactory df = mngr.getOWLDataFactory();
-            // have to load an ontology for it to get a document IRI
-            OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
-            IRI locA = mngr.getOntologyDocumentIRI(a);
-            IRI bIRI = IRI("http://b.com");
-            OWLOntology b = mngr.createOntology(bIRI);
-            // import from the document location of a.owl (rather than the
-            // ontology IRI)
-            mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
-            assertEquals(1, b.getImportsDeclarations().size());
-            assertEquals(1, b.getImports().size());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-        f.delete();
+    public void testImportOntologyByLocation() throws Exception {
+        File f = folder.newFile("a.owl");
+        createOntologyFile(IRI("http://a.com"), f);
+        OWLOntologyManager mngr = Factory.getManager();
+        OWLDataFactory df = mngr.getOWLDataFactory();
+        // have to load an ontology for it to get a document IRI
+        OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
+        IRI locA = mngr.getOntologyDocumentIRI(a);
+        IRI bIRI = IRI("http://b.com");
+        OWLOntology b = mngr.createOntology(bIRI);
+        // import from the document location of a.owl (rather than the
+        // ontology IRI)
+        mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
+        assertEquals(1, b.getImportsDeclarations().size());
+        assertEquals(1, b.getImports().size());
     }
 
     private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {

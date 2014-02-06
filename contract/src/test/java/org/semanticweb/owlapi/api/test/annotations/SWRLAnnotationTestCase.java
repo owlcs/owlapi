@@ -54,8 +54,8 @@ public class SWRLAnnotationTestCase {
     }
 
     @Test
-    public void shouldRoundTripAnnotation() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldRoundTripAnnotation()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(AXIOM));
         String saved = saveOntology(ontology);
@@ -72,17 +72,19 @@ public class SWRLAnnotationTestCase {
         return ontology;
     }
 
-    public String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    public String saveOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, target);
         return target.toString();
     }
 
-    public OWLOntology loadOntology(String ontologyFile)
+    public OWLOntology loadOntology(String ontology)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
-        return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                ontologyFile));
+        return manager
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        ontology));
     }
 }

@@ -23,7 +23,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc obo = owl2Obo.convert(original);
-        String oboString = renderOboToString(obo);
+        renderOboToString(obo);
         Frame headerFrame = obo.getHeaderFrame();
         String owlAxiomString = headerFrame.getTagValue(
                 OboFormatTag.TAG_OWL_AXIOMS, String.class);
@@ -46,7 +46,7 @@ public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
         OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc obo = owl2Obo.convert(original);
-        String oboString = renderOboToString(obo);
+        renderOboToString(obo);
         Frame headerFrame = obo.getHeaderFrame();
         String owlAxiomString = headerFrame.getTagValue(
                 OboFormatTag.TAG_OWL_AXIOMS, String.class);

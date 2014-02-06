@@ -61,6 +61,12 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
         documentIRI = getNextDocumentIRI();
     }
 
+    /** @param target
+     *            a document target */
+    public StringDocumentSource(StringDocumentTarget target) {
+        this(target.toString());
+    }
+
     /** @return a fresh IRI */
     public static synchronized IRI getNextDocumentIRI() {
         counter = counter + 1;

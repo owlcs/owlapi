@@ -18,10 +18,7 @@ public class RoundTripVersionIRITest extends RoundTripTest {
         OWLOntology owlOnt = convertOBOFile("version_iri_test.obo");
         assertNotNull(owlOnt);
         IRI v = owlOnt.getOntologyID().getVersionIRI();
-        assertEquals("http://purl.obolibrary.org/obo/go/2012-01-01/go.owl", v.toString());
-    }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
+        assertEquals("http://purl.obolibrary.org/obo/go/2012-01-01/go.owl",
+                v.toString());
     }
 }

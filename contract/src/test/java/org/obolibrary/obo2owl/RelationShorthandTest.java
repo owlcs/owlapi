@@ -25,8 +25,7 @@ public class RelationShorthandTest extends OboFormatTestBasics {
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE, CONVERT TO OWL, AND WRITE TO OWL FILE
-        OWLOntology ontology = convert(
-                parseOBOFile("relation_shorthand_test.obo"), "x.owl");
+        OWLOntology ontology = convert(parseOBOFile("relation_shorthand_test.obo"));
         // TEST CONTENTS OF OWL ONTOLOGY
         if (true) {
             Set<OWLSubClassOfAxiom> scas = ontology

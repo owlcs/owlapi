@@ -25,9 +25,6 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");
         // test initial conversion
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
-        for (OWLObjectProperty op : ops) {
-            // System.out.println("OP:"+op);
-        }
         assertTrue(ops.size() == 4);
         Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
                 .getAnnotationAssertionAxioms(IRI
@@ -77,9 +74,5 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         Clause rc = a.getClause(OboFormatTag.TAG_RELATIONSHIP);
         assertTrue(rc.getValue().equals("part_of"));
         assertTrue(rc.getValue2().equals("TEST:b"));
-    }
-
-    private OWLOntology convertOBOFile(String fn) throws Exception {
-        return convert(parseOBOFile(fn), fn);
     }
 }

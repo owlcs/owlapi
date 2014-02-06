@@ -8,11 +8,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.logging.Handler;
@@ -53,9 +52,6 @@ public class OboFormatTestBasics {
         globalLogger.setUseParentHandlers(false);
     }
 
-    private final static File systemTempDir = new File(
-            System.getProperty("java.io.tmpdir"));
-
     protected OBODoc parseOBOURL(String fn) throws IOException,
             OBOFormatParserException {
         OBOFormatParser p = new OBOFormatParser();
@@ -82,6 +78,17 @@ public class OboFormatTestBasics {
         return obodoc;
     }
 
+    protected OBODoc parseOBOFile(Reader fn, boolean allowEmptyFrames)
+            throws IOException, OBOFormatParserException {
+        OBOFormatParser p = new OBOFormatParser();
+        OBODoc obodoc = p.parse(new BufferedReader(fn));
+        assertNotNull("The obodoc should not be null", obodoc);
+        if (obodoc.getTermFrames().size() == 0 && !allowEmptyFrames) {
+            fail("Term frames should not be empty.");
+        }
+        return obodoc;
+    }
+
     protected InputStream getInputStream(String fn) {
         InputStream inputStream = getClass().getResourceAsStream(fn);
         if (inputStream == null) {
@@ -99,9 +106,6 @@ public class OboFormatTestBasics {
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
-        }
-        if (inputStream == null) {
-            fail("Could not find resource in classpath: " + fn);
         }
         return inputStream;
     }
@@ -130,51 +134,42 @@ public class OboFormatTestBasics {
         return ontology;
     }
 
-    protected OWLOntology convert(OBODoc obodoc, String filename)
-            throws OWLOntologyCreationException, OWLOntologyStorageException,
-            IOException {
-        OWLOntology ontology = convert(obodoc);
-        writeOWL(ontology, filename);
-        return ontology;
+    protected OWLOntology convertOBOFile(String fn) throws Exception {
+        OWLOntology convert = convert(parseOBOFile(fn));
+        writeOWL(convert);
+        return convert;
     }
 
-    protected OBODoc convert(OWLOntology ontology)
-            throws OWLOntologyCreationException {
+    protected OBODoc convert(OWLOntology ontology) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc doc = bridge.convert(ontology);
         return doc;
     }
 
-    protected File writeOBO(OBODoc obodoc, String fn) throws IOException {
+    protected String writeOBO(OBODoc obodoc, String fn) throws IOException {
         if (!fn.toLowerCase().endsWith(".obo")) {
             fn += ".obo";
         }
-        File file = new File(systemTempDir, fn);
+        StringWriter target = new StringWriter();
         OBOFormatWriter oboWriter = new OBOFormatWriter();
-        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(
-                file), "UTF-8");
-        BufferedWriter bw = new BufferedWriter(osw);
+        BufferedWriter bw = new BufferedWriter(target);
         oboWriter.write(obodoc, bw);
-        bw.close();
-        return file;
+        bw.flush();
+        return target.toString();
     }
 
-    protected File writeOWL(OWLOntology ontology, String filename)
+    protected StringDocumentTarget writeOWL(OWLOntology ontology)
             throws OWLOntologyStorageException {
-        return writeOWL(ontology, filename, new OWLXMLOntologyFormat());
+        return writeOWL(ontology, new OWLXMLOntologyFormat());
     }
 
-    protected File writeOWL(OWLOntology ontology, String filename,
+    protected StringDocumentTarget writeOWL(OWLOntology ontology,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
-        if (!filename.toLowerCase().endsWith(".owl")) {
-            filename += ".owl";
-        }
-        File tempFile = new File(systemTempDir, filename);
-        IRI iri = IRI.create(tempFile);
+        StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        manager.saveOntology(ontology, format, iri);
-        return tempFile;
+        manager.saveOntology(ontology, format, target);
+        return target;
     }
 
     protected static String renderOboToString(OBODoc oboDoc) throws IOException {
