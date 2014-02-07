@@ -72,7 +72,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
  * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). This test case
  * ensure that these axioms are serialsed correctly.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")
@@ -93,25 +93,28 @@ public class TestDisjointsTestCase {
     public void testAnonDisjoints() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLOntology ontA = man.createOntology(TestUtils.createIRI());
-        OWLClass clsA = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
-        OWLClass clsB = man.getOWLDataFactory().getOWLClass(TestUtils.createIRI());
+        OWLClass clsA = man.getOWLDataFactory().getOWLClass(
+                TestUtils.createIRI());
+        OWLClass clsB = man.getOWLDataFactory().getOWLClass(
+                TestUtils.createIRI());
         OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
-        OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(
-                prop, clsA);
-        OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(
-                prop, clsB);
+        OWLClassExpression descA = man.getOWLDataFactory()
+                .getOWLObjectSomeValuesFrom(prop, clsA);
+        OWLClassExpression descB = man.getOWLDataFactory()
+                .getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(descA);
         classExpressions.add(descB);
-        OWLAxiom ax = man.getOWLDataFactory()
-                .getOWLDisjointClassesAxiom(classExpressions);
+        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(
+                classExpressions);
         man.applyChange(new AddAxiom(ontA, ax));
         StringDocumentTarget target = new StringDocumentTarget();
         man.saveOntology(ontA, new RDFXMLOntologyFormat(), target);
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target.toString()));
+        OWLOntology ontB = man
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        target));
         assertTrue(ontB.getAxioms().contains(ax));
     }
 }

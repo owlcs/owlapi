@@ -159,7 +159,7 @@ public class TutorialSnippets {
         m.removeOntology(o);
         OWLOntology o2 = m
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target.toString()));
+                        target));
         assertNotNull(o2);
     }
 

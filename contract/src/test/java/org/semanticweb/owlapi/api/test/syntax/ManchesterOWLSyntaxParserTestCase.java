@@ -197,7 +197,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         OWLOntology o1 = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+                new StringDocumentSource(t));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
@@ -235,7 +235,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         OWLOntology o1 = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+                new StringDocumentSource(t));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
@@ -470,7 +470,7 @@ public class ManchesterOWLSyntaxParserTestCase {
         manager.saveOntology(o, new ManchesterOWLSyntaxOntologyFormat(), target);
         OWLOntology result = Factory.getManager()
                 .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target.toString()));
+                        new StringDocumentSource(target));
         for (OWLAxiom ax : o.getAxioms()) {
             assertTrue(ax.toString(), result.containsAxiom(ax));
         }

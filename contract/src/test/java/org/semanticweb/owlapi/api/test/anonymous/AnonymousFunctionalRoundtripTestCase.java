@@ -134,12 +134,11 @@ public class AnonymousFunctionalRoundtripTestCase {
         return target.toString();
     }
 
-    OWLOntology loadOntology(String ontologyFile)
-            throws OWLOntologyCreationException {
+    OWLOntology loadOntology(String input) throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        ontologyFile));
+                        input));
         return ontology;
     }
 }

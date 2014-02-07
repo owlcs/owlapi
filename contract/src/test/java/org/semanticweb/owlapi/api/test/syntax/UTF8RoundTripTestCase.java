@@ -88,8 +88,8 @@ public class UTF8RoundTripTestCase {
         return ontology;
     }
 
-    private static boolean
-            checkOntology(OWLOntology ontology, OWLClass C, String CHINESE) {
+    private static boolean checkOntology(OWLOntology ontology, OWLClass C,
+            String CHINESE) {
         for (OWLAnnotation annotation : find(OWLAnnotation.class).in(ontology)
                 .annotations(C)) {
             String value = ((OWLLiteral) annotation.getValue()).getLiteral();
@@ -106,8 +106,8 @@ public class UTF8RoundTripTestCase {
         OWLOntologyManager newManager = Factory.getManager();
         OWLOntology newOntology;
         newOntology = newManager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(target
-                        .toString()));
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        target));
         return newOntology;
     }
 }

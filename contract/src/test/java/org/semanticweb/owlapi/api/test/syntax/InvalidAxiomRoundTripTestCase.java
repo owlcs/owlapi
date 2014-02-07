@@ -86,7 +86,7 @@ public class InvalidAxiomRoundTripTestCase {
                 new OWLFunctionalSyntaxOntologyFormat(), target);
         OWLOntology reloaded = Factory.getManager()
                 .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target.toString()));
+                        new StringDocumentSource(target));
         return reloaded;
     }
 

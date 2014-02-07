@@ -266,9 +266,8 @@ public abstract class AbstractOWLAPITestCase {
         OWLOntologyManager man = Factory.getManager();
         OWLOntology ont2 = man
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target.toString()),
-                        new OWLOntologyLoaderConfiguration()
-                                .setReportStackTraces(true));
+                        target), new OWLOntologyLoaderConfiguration()
+                        .setReportStackTraces(true));
         equal(ont, ont2);
         return ont2;
     }

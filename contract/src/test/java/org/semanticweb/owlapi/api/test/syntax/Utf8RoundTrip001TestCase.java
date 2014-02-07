@@ -72,8 +72,8 @@ public class Utf8RoundTrip001TestCase {
     }
 
     @Test
-    public void testPositiveUTF8roundTrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void testPositiveUTF8roundTrip()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "http://protege.org/UTF8.owl";
         OWLOntologyManager manager;
         OWLOntology ontology;
@@ -82,15 +82,17 @@ public class Utf8RoundTrip001TestCase {
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLClass a = Class(IRI(NS + "#A"));
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(a));
-        OWLAnnotationAssertionAxiom axiom = factory.getOWLAnnotationAssertionAxiom(
-                a.getIRI(),
-                factory.getOWLAnnotation(factory.getRDFSLabel(),
-                        factory.getOWLLiteral("Chinese=處方")));
+        OWLAnnotationAssertionAxiom axiom = factory
+                .getOWLAnnotationAssertionAxiom(a.getIRI(), factory
+                        .getOWLAnnotation(factory.getRDFSLabel(),
+                                factory.getOWLLiteral("Chinese=處方")));
         manager.addAxiom(ontology, axiom);
         StringDocumentTarget ontFile = new StringDocumentTarget();
-        manager.saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat(), ontFile);
+        manager.saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat(),
+                ontFile);
         manager = Factory.getManager();
-        ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                ontFile.toString()));
+        ontology = manager
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        ontFile));
     }
 }

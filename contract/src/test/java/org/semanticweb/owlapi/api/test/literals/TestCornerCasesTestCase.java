@@ -158,8 +158,8 @@ public class TestCornerCasesTestCase {
                 + "   <owl:Restriction>\n"
                 + "    <owl:onProperty rdf:resource=\"#p\"/>\n"
                 + "    <owl:minCardinality rdf:datatype=\"&xsd;int\">1</owl:minCardinality>\n"
-                + "   </owl:Restriction>\n" + "  </rdf:type>\n" + " </owl:Thing>\n"
-                + "</rdf:RDF>";
+                + "   </owl:Restriction>\n" + "  </rdf:type>\n"
+                + " </owl:Thing>\n" + "</rdf:RDF>";
         Set<String> expectedResult = new TreeSet<String>();
         expectedResult
                 .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"1\"^^xsd:integer \"2\"^^xsd:integer \"3\"^^xsd:integer \"4\"^^xsd:integer ))");
@@ -172,7 +172,8 @@ public class TestCornerCasesTestCase {
         expectedResult
                 .add("ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
         OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m.loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+        OWLOntology o = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(s));
         Set<String> result = new TreeSet<String>();
         for (OWLAxiom ax : o.getAxioms()) {
             result.add(ax.toString());
@@ -206,11 +207,12 @@ public class TestCornerCasesTestCase {
         OWLOntology o = m.loadOntologyFromOntologyDocument(in);
         StringDocumentTarget t = new StringDocumentTarget();
         m.saveOntology(o, t);
-        assertTrue(t.toString() + " should contain -INF", t.toString().contains("-INF"));
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(t
-                .toString()));
-        assertEquals("Obtologies were supposed to be the same", o.getLogicalAxioms(),
-                o1.getLogicalAxioms());
+        assertTrue(t.toString() + " should contain -INF", t.toString()
+                .contains("-INF"));
+        OWLOntology o1 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
+        assertEquals("Obtologies were supposed to be the same",
+                o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
     @Test
@@ -231,10 +233,11 @@ public class TestCornerCasesTestCase {
         OWLOntology o = m.loadOntologyFromOntologyDocument(in);
         StringDocumentTarget t = new StringDocumentTarget();
         m.saveOntology(o, t);
-        assertTrue(t.toString() + " should contain -INF", t.toString().contains("-INF"));
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(t
-                .toString()));
-        assertEquals("Obtologies were supposed to be the same", o.getLogicalAxioms(),
-                o1.getLogicalAxioms());
+        assertTrue(t.toString() + " should contain -INF", t.toString()
+                .contains("-INF"));
+        OWLOntology o1 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
+        assertEquals("Obtologies were supposed to be the same",
+                o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 }

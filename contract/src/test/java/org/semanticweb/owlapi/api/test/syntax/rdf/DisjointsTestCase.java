@@ -41,8 +41,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -51,16 +49,15 @@ import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -73,7 +70,7 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
  * DisjointWith(A, B), DisjointWith(A, C) DisjointWith(B, C). ~This test case
  * ensure that these axioms are serialsed correctly.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")
@@ -91,27 +88,28 @@ public class DisjointsTestCase {
     }
 
     @Test
-    public void testAnonDisjoints() throws IOException, OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void testAnonDisjoints() throws Exception {
         OWLOntology ontA = man.createOntology(TestUtils.createIRI());
         OWLClass clsA = Class(TestUtils.createIRI());
         OWLClass clsB = Class(TestUtils.createIRI());
         OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
-        OWLClassExpression descA = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(
-                prop, clsA);
-        OWLClassExpression descB = man.getOWLDataFactory().getOWLObjectSomeValuesFrom(
-                prop, clsB);
+        OWLClassExpression descA = man.getOWLDataFactory()
+                .getOWLObjectSomeValuesFrom(prop, clsA);
+        OWLClassExpression descB = man.getOWLDataFactory()
+                .getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(descA);
         classExpressions.add(descB);
-        OWLAxiom ax = man.getOWLDataFactory()
-                .getOWLDisjointClassesAxiom(classExpressions);
+        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(
+                classExpressions);
         man.applyChange(new AddAxiom(ontA, ax));
-        File tempFile = File.createTempFile("Ontology", ".owlapi");
-        man.saveOntology(ontA, IRI.create(tempFile.toURI()));
+        StringDocumentTarget tempFile = new StringDocumentTarget();
+        man.saveOntology(ontA, tempFile);
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(tempFile);
+        OWLOntology ontB = man
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        tempFile));
         assertTrue(ontB.getAxioms().contains(ax));
     }
 }

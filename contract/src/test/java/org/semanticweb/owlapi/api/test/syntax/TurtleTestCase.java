@@ -143,7 +143,7 @@ public class TurtleTestCase {
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
         ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+                new StringDocumentSource(t));
         t = new StringDocumentTarget();
         format = new TurtleOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
@@ -249,7 +249,7 @@ public class TurtleTestCase {
         ontology.getOWLOntologyManager().saveOntology(ontology,
                 new TurtleOntologyFormat(), t);
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+                new StringDocumentSource(t));
         t = new StringDocumentTarget();
         o.getOWLOntologyManager()
                 .saveOntology(o, new TurtleOntologyFormat(), t);

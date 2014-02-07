@@ -87,7 +87,7 @@ public class SWRLRoundTripTestCase {
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
         ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t.toString()));
+                new StringDocumentSource(t));
         t = new StringDocumentTarget();
         format = new OWLXMLOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);

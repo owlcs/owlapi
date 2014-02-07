@@ -71,24 +71,25 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
         OWLOntology ontology = manager.createOntology(IRI(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
+        manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(
+                factory.getRDFSLabel(), i,
+                factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
         manager.addAxiom(
                 ontology,
-                factory.getOWLAnnotationAssertionAxiom(factory.getRDFSLabel(), i,
-                        factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
-        manager.addAxiom(ontology,
-                factory.getOWLClassAssertionAxiom(Class(IRI(NS + "#CheeseyPizza")), i));
+                factory.getOWLClassAssertionAxiom(Class(IRI(NS
+                        + "#CheeseyPizza")), i));
         OWLIndividual j = factory.getOWLAnonymousIndividual();
-        manager.addAxiom(ontology,
-                factory.getOWLClassAssertionAxiom(Class(IRI(NS + "#CheeseTopping")), j));
         manager.addAxiom(
                 ontology,
-                factory.getOWLObjectPropertyAssertionAxiom(
-                        factory.getOWLObjectProperty(IRI(NS + "#hasTopping")), i, j));
+                factory.getOWLClassAssertionAxiom(Class(IRI(NS
+                        + "#CheeseTopping")), j));
+        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(
+                factory.getOWLObjectProperty(IRI(NS + "#hasTopping")), i, j));
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
         OWLOntologyManager manager2 = Factory.getManager();
-        manager2.loadOntologyFromOntologyDocument(new StringDocumentSource(target
-                .toString()));
+        manager2.loadOntologyFromOntologyDocument(new StringDocumentSource(
+                target));
     }
 
     @Test
@@ -98,16 +99,16 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
         OWLDataFactory df = o.getOWLOntologyManager().getOWLDataFactory();
         o.getOWLOntologyManager().addAxiom(
                 o,
-                df.getOWLSubClassOfAxiom(
-                        df.getOWLClass(IRI.create("urn:c")),
+                df.getOWLSubClassOfAxiom(df.getOWLClass(IRI.create("urn:c")),
                         df.getOWLObjectHasValue(
                                 df.getOWLObjectProperty(IRI.create("urn:p")),
                                 df.getOWLAnonymousIndividual())));
         StringDocumentTarget target = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o, new OWLXMLOntologyFormat(), target);
+        o.getOWLOntologyManager().saveOntology(o, new OWLXMLOntologyFormat(),
+                target);
         OWLOntology roundtrip = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target.toString()));
+                        new StringDocumentSource(target));
         assertEquals(o.getAxioms(), roundtrip.getAxioms());
     }
 }

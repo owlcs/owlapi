@@ -39,8 +39,7 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
@@ -65,8 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 @SuppressWarnings("javadoc")
 public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
     @Test
-    public void testOutputStreamRemainsOpen() throws OWLOntologyStorageException,
-            IOException, OWLOntologyCreationException {
+    public void testOutputStreamRemainsOpen() throws Exception {
         OWLOntologyManager manager = getManager();
         OWLOntology ontology = manager.createOntology();
         saveOntology(ontology, new RDFXMLOntologyFormat());
@@ -78,8 +76,8 @@ public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
 
     private void saveOntology(OWLOntology ontology, OWLOntologyFormat format)
             throws IOException, OWLOntologyStorageException {
-        File file = File.createTempFile("ontology", ".owl");
-        BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(file));
+        BufferedOutputStream os = new BufferedOutputStream(
+                new ByteArrayOutputStream());
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         manager.saveOntology(ontology, format, os);
         os.flush();

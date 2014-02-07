@@ -43,25 +43,26 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase {
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Test
-    public void testImportOntologyByLocation() throws OWLOntologyCreationException,
-            OWLOntologyStorageException, IOException {
-        File f = File.createTempFile("a.owl", ".owl");
+    public void testImportOntologyByLocation() throws Exception {
+        File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com"), f);
         OWLOntologyManager mngr = Factory.getManager();
         OWLDataFactory df = mngr.getOWLDataFactory();
@@ -75,16 +76,13 @@ public class TestImportByLocationTestCase {
         mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
         assertEquals(1, b.getImportsDeclarations().size());
         assertEquals(1, b.getImports().size());
-        f.delete();
     }
 
-    private OWLOntology createOntologyFile(IRI iri, File f)
-            throws OWLOntologyCreationException, OWLOntologyStorageException, IOException {
+    private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {
         OWLOntologyManager mngr = Factory.getManager();
         OWLOntology a = mngr.createOntology(iri);
         OutputStream out = new FileOutputStream(f);
         mngr.saveOntology(a, out);
-        out.close();
         return a;
     }
 }

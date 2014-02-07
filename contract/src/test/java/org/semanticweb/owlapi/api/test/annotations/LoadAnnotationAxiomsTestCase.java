@@ -55,6 +55,8 @@ import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.FileDocumentSource;
 import org.semanticweb.owlapi.io.FileDocumentTarget;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -133,15 +135,16 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
     }
 
     private OWLOntology reload(OWLOntology ontology, OWLOntologyFormat format,
-            OWLOntologyLoaderConfiguration configuration) throws IOException,
+            OWLOntologyLoaderConfiguration configuration) throws 
             OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager man = ontology.getOWLOntologyManager();
-        File tempFile = File.createTempFile("Ontology", ".owl");
-        man.saveOntology(ontology, format, new FileDocumentTarget(tempFile));
+        StringDocumentTarget tempFile = new StringDocumentTarget();
+        man.saveOntology(ontology, format, tempFile);
         OWLOntologyManager man2 = Factory.getManager();
         OWLOntology reloaded = man2.loadOntologyFromOntologyDocument(
-                new FileDocumentSource(tempFile), configuration);
-        man2.removeAxioms(reloaded,
+                new StringDocumentSource(tempFile), configuration);
+        man2.removeAxioms(
+                reloaded,
                 new HashSet<OWLAxiom>(reloaded.getAxioms(AxiomType.DECLARATION)));
         return reloaded;
     }

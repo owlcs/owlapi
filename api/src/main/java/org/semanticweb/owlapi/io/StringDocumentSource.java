@@ -66,6 +66,11 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     public StringDocumentSource(@Nonnull String string) {
         this(string, getNextDocumentIRI());
     }
+    /** @param target
+     *            a document target */
+    public StringDocumentSource(@Nonnull StringDocumentTarget target) {
+        this(target.toString());
+    }
 
     /** @return a fresh IRI */
     public static IRI getNextDocumentIRI() {

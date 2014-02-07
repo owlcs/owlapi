@@ -94,8 +94,7 @@ public class SWRLAnnotationTestCase {
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
-        String saved = saveOntology(ontology);
-        ontology = loadOntology(saved);
+        ontology = loadOntology(saveOntology(ontology));
         assertTrue(ontology.containsAxiom(axiom));
     }
 
@@ -108,19 +107,19 @@ public class SWRLAnnotationTestCase {
         return ontology;
     }
 
-    public String saveOntology(OWLOntology ontology)
+    public StringDocumentTarget saveOntology(OWLOntology ontology)
             throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, target);
-        return target.toString();
+        return target;
     }
 
-    public OWLOntology loadOntology(String ontologyFile)
+    public OWLOntology loadOntology(StringDocumentTarget ontology)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         return manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        ontologyFile));
+                        ontology));
     }
 }

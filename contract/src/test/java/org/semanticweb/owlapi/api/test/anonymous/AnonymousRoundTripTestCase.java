@@ -40,14 +40,13 @@ package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.StreamDocumentTarget;
+import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
@@ -66,8 +65,7 @@ public class AnonymousRoundTripTestCase {
             OWLOntologyStorageException, IOException {
         AnonymousRoundTrip ma = new AnonymousRoundTrip();
         ma.buildOntology();
-        ma.write();
-        ma.loadOntology();
+        ma.reload();
     }
 }
 
@@ -79,7 +77,6 @@ class AnonymousRoundTrip {
     private final OWLAnonymousIndividual h, i;
     private final OWLAnnotationProperty p;
     private final OWLObjectProperty q;
-    private File savedLocation;
 
     public AnonymousRoundTrip() {
         a = Class(IRI(NS + "#A"));
@@ -98,22 +95,19 @@ class AnonymousRoundTrip {
                 factory.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
         manager.addAxiom(ontology, ClassAssertion(a, h));
         manager.addAxiom(ontology, ObjectPropertyAssertion(q, h, i));
-        OWLAnnotation annotation2 = factory.getOWLAnnotation(factory.getRDFSLabel(),
-                Literal("Second", "en"));
-        manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(h, annotation2));
+        OWLAnnotation annotation2 = factory.getOWLAnnotation(
+                factory.getRDFSLabel(), Literal("Second", "en"));
+        manager.addAxiom(ontology,
+                factory.getOWLAnnotationAssertionAxiom(h, annotation2));
     }
 
-    public void loadOntology() throws OWLOntologyCreationException {
+    public void reload() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
+        StringDocumentTarget out = new StringDocumentTarget();
+        manager.saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat(),
+                out);
         manager = Factory.getManager();
-        ontology = manager.loadOntologyFromOntologyDocument(savedLocation);
-    }
-
-    public void write() throws OWLOntologyStorageException, IOException {
-        savedLocation = File.createTempFile("RoundTripTest", ".owl");
-        FileOutputStream out = new FileOutputStream(savedLocation);
-        StreamDocumentTarget writer = new StreamDocumentTarget(out);
-        manager.saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat(), writer);
-        out.flush();
-        out.close();
+        ontology = manager
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(out));
     }
 }
