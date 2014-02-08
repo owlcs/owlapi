@@ -102,8 +102,6 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-import uk.ac.manchester.cs.bhig.util.Tree;
-
 /** Provides ordering and indenting of explanations based on various ordering
  * heuristics.
  * 
