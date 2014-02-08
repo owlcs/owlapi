@@ -38,40 +38,38 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadMXBean;
+import java.io.Serializable;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 05-Jan-2010 */
-public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor {
+public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Serializable {
     private int lastPercentage = 0;
     private long lastTime;
-    private final ThreadMXBean bean = ManagementFactory.getThreadMXBean();
     private long beginTime;
 
     @Override
     public void reasonerTaskStarted(String taskName) {
         System.out.print(taskName);
         System.out.println(" ...");
-        lastTime = bean.getCurrentThreadCpuTime();
+        lastTime = System.nanoTime();
         beginTime = lastTime;
     }
 
     @Override
     public void reasonerTaskStopped() {
         System.out.println("    ... finished in "
-                + ((bean.getCurrentThreadCpuTime() - beginTime)) / 1000000D);
+                + (System.nanoTime() - beginTime) / 1000000D);
         lastPercentage = 0;
     }
 
     @Override
     public void reasonerTaskProgressChanged(int value, int max) {
-        long time = bean.getCurrentThreadCpuTime();
+        long time = System.nanoTime();
         if (max > 0) {
-            int percent = (value * 100) / max;
+            int percent = value * 100 / max;
             if (lastPercentage != percent) {
-                System.out.println("    " + percent + "%\t"
-                        + ((time - lastTime) / 1000000));
+                System.out.println("    " + percent + "%\t" + (time - lastTime)
+                        / 1000000);
                 lastTime = time;
                 lastPercentage = percent;
             }

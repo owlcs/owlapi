@@ -38,9 +38,11 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
+import java.io.Serializable;
+
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 05-Jan-2010 */
-public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
+public class ConsoleProgressMonitor implements ReasonerProgressMonitor, Serializable {
     private int lastPercentage = 0;
 
     @Override
@@ -58,7 +60,7 @@ public class ConsoleProgressMonitor implements ReasonerProgressMonitor {
     @Override
     public void reasonerTaskProgressChanged(int value, int max) {
         if (max > 0) {
-            int percent = (value * 100) / max;
+            int percent = value * 100 / max;
             if (lastPercentage != percent) {
                 System.out.print("    ");
                 System.out.print(percent);
