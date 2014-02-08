@@ -36,55 +36,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi;
+package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Given a set of ontologies S, for each ontology, O, in S, this change combines
- * multiple subclass axioms with a common left hand side into one subclass
- * axiom. For example, given A subClassOf B, A subClassOf C, this change will
- * remove these two axioms and replace them by adding one subclass axiom, A
- * subClassOf (B and C).
+/** Given a set of ontologies, this composite change will remove all disjoint
+ * classes axioms from these ontologies.
  *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Aug-2007 */
-public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
-    /** Instantiates a new amalgamate sub class axioms.
+ *         Informatics Group, Date: 24-Jul-2007 */
+public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
+    /** Instantiates a new removes the all disjoint axioms.
      * 
      * @param dataFactory
-     *            the data factory
+     *            factory to use
      * @param ontologies
-     *            the ontologies to use */
-    public AmalgamateSubClassAxioms(@Nonnull OWLDataFactory dataFactory,
+     *            ontologies to change */
+    public RemoveAllDisjointAxioms(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
-            for (OWLClass cls : ont.getClassesInSignature()) {
-                Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForSubClass(cls);
-                if (axioms.size() > 1) {
-                    Set<OWLClassExpression> superClasses = new HashSet<OWLClassExpression>();
-                    for (OWLSubClassOfAxiom ax : axioms) {
-                        addChange(new RemoveAxiom(ont, ax));
-                        superClasses.add(ax.getSuperClass());
-                    }
-                    OWLClassExpression combinedSuperClass = getDataFactory()
-                            .getOWLObjectIntersectionOf(superClasses);
-                    addChange(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(
-                            cls, combinedSuperClass)));
-                }
+        generateChanges(checkNotNull(ontologies, "ontologies cannot be null"));
+    }
+
+    /** Generate changes.
+     * 
+     * @param ontologies
+     *            the ontologies */
+    private void generateChanges(Set<OWLOntology> ontologies) {
+        for (OWLOntology ont : ontologies) {
+            for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
+                addChange(new RemoveAxiom(ont, ax));
             }
         }
     }

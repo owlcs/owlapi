@@ -36,47 +36,62 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi;
+package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.RemoveAxiom;
+import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** Given a set of ontologies, this composite change will remove all disjoint
- * classes axioms from these ontologies.
- *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Jul-2007 */
-public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
-    /** Instantiates a new removes the all disjoint axioms.
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Jul-2007 */
+public abstract class AbstractCompositeOntologyChange implements
+        OWLCompositeOntologyChange {
+    /** The data factory. */
+    private final OWLDataFactory dataFactory;
+    /** The changes. */
+    private final List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
+
+    /** Instantiates a new abstract composite ontology change.
      * 
      * @param dataFactory
-     *            factory to use
-     * @param ontologies
-     *            ontologies to change */
-    public RemoveAllDisjointAxioms(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull Set<OWLOntology> ontologies) {
-        super(dataFactory);
-        generateChanges(checkNotNull(ontologies, "ontologies cannot be null"));
+     *            the data factory */
+    protected AbstractCompositeOntologyChange(@Nonnull OWLDataFactory dataFactory) {
+        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
 
-    /** Generate changes.
+    /** Gets the data factory.
      * 
-     * @param ontologies
-     *            the ontologies */
-    private void generateChanges(Set<OWLOntology> ontologies) {
-        for (OWLOntology ont : ontologies) {
-            for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
-                addChange(new RemoveAxiom(ont, ax));
-            }
-        }
+     * @return the data factory */
+    @Nonnull
+    protected OWLDataFactory getDataFactory() {
+        return dataFactory;
+    }
+
+    /** Adds the change.
+     * 
+     * @param change
+     *            the change */
+    protected void addChange(OWLOntologyChange<?> change) {
+        changes.add(change);
+    }
+
+    /** Adds the changes.
+     * 
+     * @param change
+     *            the change */
+    protected void addChanges(Collection<OWLOntologyChange<?>> change) {
+        changes.addAll(change);
+    }
+
+    @Override
+    public List<OWLOntologyChange<?>> getChanges() {
+        return changes;
     }
 }

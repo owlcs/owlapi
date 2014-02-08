@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi;/*
+package org.semanticweb.owlapi.change;/*
  * Copyright (C) 2007, University of Manchester
  *
  * Modifications to the initial code base are copyright of their

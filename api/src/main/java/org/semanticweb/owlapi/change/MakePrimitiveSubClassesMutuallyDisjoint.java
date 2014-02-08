@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi;
+package org.semanticweb.owlapi.change;
 
 import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
