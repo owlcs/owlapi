@@ -157,8 +157,7 @@ public class ContractRdfxmlParserTest {
 
     @Test
     public void shouldTestAbstractResourceTripleHandler() throws OWLException {
-        AbstractResourceTripleHandler testSubject0 = new AbstractResourceTripleHandler(
-                Utils.mockOWLRDFConsumer()) {
+        new AbstractResourceTripleHandler(Utils.mockOWLRDFConsumer()) {
             @Override
             public void handleTriple(IRI subject, IRI predicate, IRI object)
                     throws UnloadableImportException {}
@@ -1276,8 +1275,7 @@ public class ContractRdfxmlParserTest {
     public void shouldTestTypeAxiomHandler() throws OWLException {
         TypeAxiomHandler testSubject0 = new TypeAxiomHandler(
                 Utils.mockOWLRDFConsumer());
-        TypeAxiomHandler testSubject1 = new TypeAxiomHandler(
-                Utils.mockOWLRDFConsumer(), IRI("urn:aFake"));
+        new TypeAxiomHandler(Utils.mockOWLRDFConsumer(), IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
                 IRI("urn:aFake"));
         boolean result0 = testSubject0.canHandleStreaming(IRI("urn:aFake"),

@@ -82,9 +82,8 @@ public class ContractMansyntaxrendererTest {
         ManchesterOWLSyntaxFrameRenderer testSubject0 = new ManchesterOWLSyntaxFrameRenderer(
                 Utils.mockSet(Utils.getMockOntology()), mock(Writer.class),
                 mock(ShortFormProvider.class));
-        ManchesterOWLSyntaxFrameRenderer testSubject1 = new ManchesterOWLSyntaxFrameRenderer(
-                Utils.getMockOntology(), mock(Writer.class),
-                mock(ShortFormProvider.class));
+        new ManchesterOWLSyntaxFrameRenderer(Utils.getMockOntology(),
+                mock(Writer.class), mock(ShortFormProvider.class));
         Set<OWLAxiom> result0 = testSubject0.write(mock(SWRLRule.class));
         Set<OWLAxiom> result1 = testSubject0.write(mock(OWLDatatype.class));
         Set<OWLAxiom> result2 = testSubject0.write(mock(OWLIndividual.class));
@@ -118,8 +117,8 @@ public class ContractMansyntaxrendererTest {
 
     @Test
     public void shouldTestManchesterOWLSyntaxObjectRenderer() throws Exception {
-        ManchesterOWLSyntaxObjectRenderer testSubject0 = new ManchesterOWLSyntaxObjectRenderer(
-                mock(Writer.class), mock(ShortFormProvider.class));
+        new ManchesterOWLSyntaxObjectRenderer(mock(Writer.class),
+                mock(ShortFormProvider.class));
     }
 
     public void shouldTestManchesterOWLSyntaxOntologyStorer() throws Exception {
@@ -146,7 +145,7 @@ public class ContractMansyntaxrendererTest {
             throws Exception {
         ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject0 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 mock(OWLOntologyFormat.class));
-        ManchesterOWLSyntaxPrefixNameShortFormProvider testSubject2 = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
+        new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 mock(DefaultPrefixManager.class));
         testSubject0.dispose();
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());

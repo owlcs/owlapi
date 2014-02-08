@@ -119,7 +119,7 @@ public class ContractOwlapiIoTest {
                     OWLOntology ontology) throws OWLParserException,
                     IOException, OWLOntologyChangeException,
                     UnloadableImportException {
-                return null;
+                return mock(OWLOntologyFormat.class);
             }
 
             @Override
@@ -129,7 +129,7 @@ public class ContractOwlapiIoTest {
                     OWLOntologyLoaderConfiguration configuration)
                     throws OWLParserException, IOException,
                     OWLOntologyChangeException, UnloadableImportException {
-                return null;
+                return mock(OWLOntologyFormat.class);
             }
         };
         OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
@@ -458,8 +458,7 @@ public class ContractOwlapiIoTest {
     public void shouldTestStreamDocumentSource() throws OWLException {
         StreamDocumentSource testSubject0 = new StreamDocumentSource(
                 mock(InputStream.class));
-        StreamDocumentSource testSubject1 = new StreamDocumentSource(
-                mock(InputStream.class), IRI("urn:aFake"));
+        new StreamDocumentSource(mock(InputStream.class), IRI("urn:aFake"));
         boolean result3 = testSubject0.isInputStreamAvailable();
         if (result3) {
             InputStream result0 = testSubject0.getInputStream();
@@ -489,8 +488,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestStringDocumentSource() throws OWLException {
         StringDocumentSource testSubject0 = new StringDocumentSource("");
-        StringDocumentSource testSubject1 = new StringDocumentSource("",
-                IRI("urn:aFake"));
+        new StringDocumentSource("", IRI("urn:aFake"));
         boolean result1 = testSubject0.isReaderAvailable();
         if (result1) {
             Reader result2 = testSubject0.getReader();
@@ -568,7 +566,7 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestXMLUtils() throws OWLException {
-        XMLUtils testSubject0 = new XMLUtils();
+        new XMLUtils();
         boolean result0 = XMLUtils.isXMLNameStartCharacter(0);
         boolean result1 = XMLUtils.isXMLNameChar(0);
         boolean result2 = XMLUtils.isNCNameStartChar(0);

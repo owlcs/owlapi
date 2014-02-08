@@ -122,7 +122,7 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 public class ContractSmallsTest {
     @Test
     public void shouldTestEscapeUtils() throws OWLException {
-        EscapeUtils testSubject0 = new EscapeUtils();
+        new EscapeUtils();
         String result1 = EscapeUtils.escapeString("");
         String result2 = EscapeUtils.unescapeString("");
     }
@@ -216,8 +216,8 @@ public class ContractSmallsTest {
         SyntacticLocalityModuleExtractor testSubject0 = new SyntacticLocalityModuleExtractor(
                 Utils.getMockManager(), Utils.getMockOntology(),
                 Utils.mockSet(mock(OWLAxiom.class)), ModuleType.BOT);
-        SyntacticLocalityModuleExtractor testSubject1 = new SyntacticLocalityModuleExtractor(
-                Utils.getMockManager(), Utils.getMockOntology(), ModuleType.BOT);
+        new SyntacticLocalityModuleExtractor(Utils.getMockManager(),
+                Utils.getMockOntology(), ModuleType.BOT);
         Set<OWLAxiom> result0 = testSubject0.extract(Utils.mockSet(Utils
                 .mockOWLEntity()));
         Set<OWLAxiom> result1 = testSubject0.extract(
@@ -256,7 +256,7 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestOntologyUtils() throws OWLException {
-        OntologyUtils testSubject0 = new OntologyUtils();
+        new OntologyUtils();
         OntologyUtils.addAxiom(mock(OWLAxiom.class),
                 Utils.mockSet(Utils.getMockOntology()), Utils.getMockManager());
         Set<OWLOntology> result0 = OntologyUtils.removeAxiom(
@@ -280,8 +280,8 @@ public class ContractSmallsTest {
         RDFXMLNamespaceManager testSubject0 = new RDFXMLNamespaceManager(
                 Utils.getMockOntology(),
                 new OWLFunctionalSyntaxOntologyFormat());
-        RDFXMLNamespaceManager testSubject1 = new RDFXMLNamespaceManager(
-                Utils.getMockOntology(), mock(OWLOntologyFormat.class));
+        new RDFXMLNamespaceManager(Utils.getMockOntology(),
+                mock(OWLOntologyFormat.class));
         Set<OWLEntity> result0 = testSubject0.getEntitiesWithInvalidQNames();
         String result1 = testSubject0.getQName("");
         testSubject0.setPrefix("", "");
@@ -447,10 +447,8 @@ public class ContractSmallsTest {
     @Test
     public void shouldTestRDFParserException() throws OWLException {
         RDFParserException testSubject0 = new RDFParserException("");
-        RDFParserException testSubject1 = new RDFParserException("",
-                mock(Locator.class));
-        RDFParserException testSubject2 = new RDFParserException("", "", "", 0,
-                0);
+        new RDFParserException("", mock(Locator.class));
+        new RDFParserException("", "", "", 0, 0);
         int result0 = testSubject0.getLineNumber();
         int result1 = testSubject0.getColumnNumber();
         String result2 = testSubject0.getPublicId();
@@ -463,8 +461,7 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestOWLXMLObjectRenderer() throws OWLException {
-        OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(
-                mock(OWLXMLWriter.class));
+        new OWLXMLObjectRenderer(mock(OWLXMLWriter.class));
     }
 
     @Ignore
@@ -527,7 +524,7 @@ public class ContractSmallsTest {
 
             @Override
             protected OWLClassExpression getCurrentClass() throws OWLException {
-                return null;
+                return mock(OWLClassExpression.class);
             }
         };
         OWLOntology result1 = testSubject0.getOWLOntology();

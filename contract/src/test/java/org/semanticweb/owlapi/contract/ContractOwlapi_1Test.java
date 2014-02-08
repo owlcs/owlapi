@@ -182,7 +182,7 @@ public class ContractOwlapi_1Test {
                     OWLOntologyDocumentSource documentSource,
                     OWLOntologyCreationHandler handler)
                     throws OWLOntologyCreationException {
-                return null;
+                return mock(OWLOntology.class);
             }
 
             @Override
@@ -191,7 +191,7 @@ public class ContractOwlapi_1Test {
                     OWLOntologyCreationHandler handler,
                     OWLOntologyLoaderConfiguration configuration)
                     throws OWLOntologyCreationException {
-                return null;
+                return mock(OWLOntology.class);
             }
 
             @Override
@@ -281,23 +281,23 @@ public class ContractOwlapi_1Test {
 
             @Override
             public Set<OWLAxiom> getAxioms() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public Pointer<OWLEntity, OWLDeclarationAxiom>
                     getDeclarationsByEntity() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Set<OWLClassAxiom> getGeneralClassAxioms() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public Set<OWLImportsDeclaration> getImportsDeclarations() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
@@ -307,58 +307,58 @@ public class ContractOwlapi_1Test {
 
             @Override
             public Set<OWLLogicalAxiom> getLogicalAxioms() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public Set<OWLAnnotation> getOntologyAnnotations() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public Pointer<OWLAnnotationProperty, OWLAxiom>
                     getOwlAnnotationPropertyReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Pointer<OWLAnonymousIndividual, OWLAxiom>
                     getOwlAnonymousIndividualReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Pointer<OWLClass, OWLAxiom> getOwlClassReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Pointer<OWLDataProperty, OWLAxiom>
                     getOwlDataPropertyReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Pointer<OWLDatatype, OWLAxiom> getOwlDatatypeReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Pointer<OWLNamedIndividual, OWLAxiom>
                     getOwlIndividualReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public Pointer<OWLObjectProperty, OWLAxiom>
                     getOwlObjectPropertyReferences() {
-                return null;
+                return mock(Pointer.class);
             }
 
             @Override
             public <K, V extends OWLAxiom> Set<V> getValues(
                     Pointer<K, V> pointer, K key) {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
@@ -370,13 +370,13 @@ public class ContractOwlapi_1Test {
             @Override
             public <K, V extends OWLAxiom> Set<K> getKeyset(
                     Pointer<K, V> pointer) {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public <T extends OWLAxiom, K> Set<T> filterAxioms(
                     OWLAxiomSearchFilter<T, K> filter, K key) {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
@@ -613,7 +613,7 @@ public class ContractOwlapi_1Test {
 
     @Test
     public void shouldTestInitVisitorFactory() throws OWLException {
-        InitVisitorFactory testSubject0 = new InitVisitorFactory();
+        new InitVisitorFactory();
     }
 
     @Test
@@ -1171,7 +1171,7 @@ public class ContractOwlapi_1Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override
@@ -1559,7 +1559,7 @@ public class ContractOwlapi_1Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override
@@ -1574,7 +1574,7 @@ public class ContractOwlapi_1Test {
 
             @Override
             public OWLClass asOWLClass() {
-                return null;
+                return mock(OWLClass.class);
             }
 
             @Override
@@ -1589,22 +1589,22 @@ public class ContractOwlapi_1Test {
 
             @Override
             public OWLClassExpression getNNF() {
-                return null;
+                return mock(OWLClassExpression.class);
             }
 
             @Override
             public OWLClassExpression getComplementNNF() {
-                return null;
+                return mock(OWLClassExpression.class);
             }
 
             @Override
             public OWLClassExpression getObjectComplementOf() {
-                return null;
+                return mock(OWLClassExpression.class);
             }
 
             @Override
             public Set<OWLClassExpression> asConjunctSet() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
@@ -1614,7 +1614,7 @@ public class ContractOwlapi_1Test {
 
             @Override
             public Set<OWLClassExpression> asDisjunctSet() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
@@ -1791,7 +1791,7 @@ public class ContractOwlapi_1Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override

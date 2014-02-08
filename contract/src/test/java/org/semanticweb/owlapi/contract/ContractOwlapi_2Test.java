@@ -1160,8 +1160,8 @@ public class ContractOwlapi_2Test {
         OWLEntityCollectionContainerCollector testSubject0 = new OWLEntityCollectionContainerCollector(
                 Utils.mockSet(Utils.mockOWLEntity()),
                 Utils.mockCollection(mock(OWLAnonymousIndividual.class)));
-        OWLEntityCollectionContainerCollector testSubject1 = new OWLEntityCollectionContainerCollector(
-                Utils.mockSet(Utils.mockOWLEntity()));
+        new OWLEntityCollectionContainerCollector(Utils.mockSet(Utils
+                .mockOWLEntity()));
         testSubject0.reset(Utils.mockSet(Utils.mockOWLEntity()));
         testSubject0.setCollectClasses(false);
         testSubject0.setCollectObjectProperties(false);
@@ -1566,17 +1566,17 @@ public class ContractOwlapi_2Test {
 
             @Override
             public OWLNamedIndividual asOWLNamedIndividual() {
-                return null;
+                return mock(OWLNamedIndividual.class);
             }
 
             @Override
             public OWLAnonymousIndividual asOWLAnonymousIndividual() {
-                return null;
+                return mock(OWLAnonymousIndividual.class);
             }
 
             @Override
             public String toStringID() {
-                return null;
+                return "";
             }
 
             @Override
@@ -1672,7 +1672,7 @@ public class ContractOwlapi_2Test {
 
             @Override
             public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-                return null;
+                return mock(OWLSubClassOfAxiom.class);
             }
         };
         OWLObjectPropertyExpression result0 = testSubject0.getProperty();
@@ -1901,8 +1901,7 @@ public class ContractOwlapi_2Test {
 
     @Test
     public void shouldTestOWLLiteralImplDouble() throws OWLException {
-        OWLLiteralImplDouble testSubject0 = new OWLLiteralImplDouble(0D,
-                mock(OWLDatatype.class));
+        new OWLLiteralImplDouble(0D, mock(OWLDatatype.class));
     }
 
     @Test

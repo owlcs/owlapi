@@ -109,12 +109,12 @@ public class OWLAPIObo2Owl {
 
     /** Init
      * 
-     * @param manager
+     * @param m
      *            the manager */
-    protected void init(OWLOntologyManager manager) {
+    protected void init(OWLOntologyManager m) {
         // use the given manager and its factory
-        this.manager = manager;
-        fac = this.manager.getOWLDataFactory();
+        manager = m;
+        fac = manager.getOWLDataFactory();
         // clear all internal maps.
         idSpaceMap.clear();
         apToDeclare.clear();
@@ -282,30 +282,29 @@ public class OWLAPIObo2Owl {
 
     /** Convert.
      * 
-     * @param obodoc
+     * @param doc
      *            the obodoc
      * @return ontology
      * @throws OWLOntologyCreationException
      *             the oWL ontology creation exception */
-    public OWLOntology convert(OBODoc obodoc)
-            throws OWLOntologyCreationException {
-        this.obodoc = obodoc;
+    public OWLOntology convert(OBODoc doc) throws OWLOntologyCreationException {
+        obodoc = doc;
         init(manager);
         return tr(manager.createOntology());
     }
 
     /** Convert.
      * 
-     * @param obodoc
+     * @param doc
      *            the obodoc
      * @param in
      *            the in
      * @return the oWL ontology
      * @throws OWLOntologyCreationException
      *             the oWL ontology creation exception */
-    public OWLOntology convert(OBODoc obodoc, OWLOntology in)
+    public OWLOntology convert(OBODoc doc, OWLOntology in)
             throws OWLOntologyCreationException {
-        this.obodoc = obodoc;
+        obodoc = doc;
         init(in.getOWLOntologyManager());
         return tr(in);
     }
@@ -1350,8 +1349,8 @@ public class OWLAPIObo2Owl {
         Integer exact = getQVInt("cardinality", quals);
         Integer min = getQVInt("minCardinality", quals);
         Integer max = getQVInt("maxCardinality", quals);
-        Boolean allSome = getQVBoolean("all_some", quals);
-        Boolean allOnly = getQVBoolean("all_only", quals);
+        boolean allSome = getQVBoolean("all_some", quals);
+        boolean allOnly = getQVBoolean("all_only", quals);
         // obo-format allows dangling references to classes in class
         // expressions;
         // create an explicit class declaration to be sure
@@ -1371,11 +1370,11 @@ public class OWLAPIObo2Owl {
             ex = fac.getOWLObjectMinCardinality(min, pe, ce);
         } else if (max != null) {
             ex = fac.getOWLObjectMaxCardinality(max, pe, ce);
-        } else if (allSome != null && allSome && allOnly != null && allOnly) {
+        } else if (allSome && allOnly) {
             ex = fac.getOWLObjectIntersectionOf(
                     fac.getOWLObjectSomeValuesFrom(pe, ce),
                     fac.getOWLObjectAllValuesFrom(pe, ce));
-        } else if (allOnly != null && allOnly) {
+        } else if (allOnly) {
             ex = fac.getOWLObjectAllValuesFrom(pe, ce);
         } else if (relFrame != null
                 && relFrame.getTagValue(OboFormatTag.TAG_IS_CLASS_LEVEL_TAG) != null
@@ -1414,14 +1413,14 @@ public class OWLAPIObo2Owl {
      * @param quals
      *            the quals
      * @return the qV boolean */
-    protected Boolean getQVBoolean(String q, Collection<QualifierValue> quals) {
+    protected boolean getQVBoolean(String q, Collection<QualifierValue> quals) {
         for (QualifierValue qv : quals) {
             if (qv.getQualifier().equals(q)) {
                 Object v = qv.getValue();
-                return Boolean.valueOf((String) v);
+                return Boolean.valueOf((String) v).booleanValue();
             }
         }
-        return null;
+        return false;
     }
 
     /** Gets the qV int.

@@ -23,6 +23,6 @@ public class DanglingRestrictionOwl2OboTest extends OboFormatTestBasics {
         assertTrue(isas.size() == 1);
         Collection<Clause> rs = f.getClauses(OboFormatTag.TAG_RELATIONSHIP);
         assertTrue(rs.size() == 1);
-        writeOBO(doc, "dangling_restriction_test.owl.obo");
+        writeOBO(doc);
     }
 }

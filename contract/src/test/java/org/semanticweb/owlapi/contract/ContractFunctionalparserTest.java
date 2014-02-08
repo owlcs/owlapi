@@ -154,12 +154,9 @@ public class ContractFunctionalparserTest {
             UnloadableImportException, OWLParserException, IOException {
         OWLFunctionalSyntaxParser testSubject0 = new OWLFunctionalSyntaxParser(
                 mock(OWLFunctionalSyntaxParserTokenManager.class));
-        OWLFunctionalSyntaxParser testSubject1 = new OWLFunctionalSyntaxParser(
-                mock(InputStream.class));
-        OWLFunctionalSyntaxParser testSubject2 = new OWLFunctionalSyntaxParser(
-                mock(InputStream.class), "");
-        OWLFunctionalSyntaxParser testSubject3 = new OWLFunctionalSyntaxParser(
-                mock(Reader.class));
+        new OWLFunctionalSyntaxParser(mock(InputStream.class));
+        new OWLFunctionalSyntaxParser(mock(InputStream.class), "");
+        new OWLFunctionalSyntaxParser(mock(Reader.class));
         OWLFunctionalSyntaxOntologyFormat result0 = testSubject0.parse();
         IRI result1 = testSubject0.getIRI("");
         OWLAxiom result2 = testSubject0.Declaration();

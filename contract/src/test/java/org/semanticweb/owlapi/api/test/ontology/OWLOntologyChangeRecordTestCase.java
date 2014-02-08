@@ -41,17 +41,13 @@ package org.semanticweb.owlapi.api.test.ontology;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-import java.util.Set;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
-import org.semanticweb.owlapi.change.OWLOntologyChangeDataVisitor;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -70,49 +66,8 @@ public class OWLOntologyChangeRecordTestCase {
     @Before
     public void setUp() {
         mockOntologyID = new OWLOntologyID();
-        mockChangeData = new OWLOntologyChangeData<OWLAxiom>() {
-            private static final long serialVersionUID = 1L;
-
-            @Override
-            protected String getName() {
-                return "test";
-            }
-
-            @Override
-            public OWLAxiom getItem() {
-                return null;
-            }
-
-            @Override
-            public OWLOntologyChange<OWLAxiom> createOntologyChange(
-                    OWLOntology ontology) {
-                return null;
-            }
-
-            @Override
-            public <R, E extends Exception> R accept(
-                    OWLOntologyChangeDataVisitor<R, E> visitor) throws E {
-                return null;
-            }
-
-            @Override
-            public Set<OWLEntity> getSignature() {
-                return null;
-            }
-        };
+        mockChangeData = mock(OWLOntologyChangeData.class);
         mockAxiom = mock(OWLAxiom.class);
-    }
-
-    @SuppressWarnings("unused")
-    @Test(expected = IllegalArgumentException.class)
-    public void testNewWithNullOntologyID() {
-        new OWLOntologyChangeRecord<OWLAxiom>(null, mockChangeData);
-    }
-
-    @SuppressWarnings("unused")
-    @Test(expected = IllegalArgumentException.class)
-    public void testNewWithNullChangeData() {
-        new OWLOntologyChangeRecord<OWLAxiom>(mockOntologyID, null);
     }
 
     @Test

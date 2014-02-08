@@ -101,15 +101,15 @@ public class ContractManchesterowlsyntaxTest {
     @Test
     public void shouldTestManchesterOWLSyntaxClassExpressionParser()
             throws OWLException {
-        ManchesterOWLSyntaxClassExpressionParser testSubject0 = new ManchesterOWLSyntaxClassExpressionParser(
+        new ManchesterOWLSyntaxClassExpressionParser(
                 mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
     }
 
     @Test
     public void shouldTestManchesterOWLSyntaxClassFrameParser()
             throws OWLException {
-        ManchesterOWLSyntaxClassFrameParser testSubject0 = new ManchesterOWLSyntaxClassFrameParser(
-                mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
+        new ManchesterOWLSyntaxClassFrameParser(mock(OWLDataFactory.class),
+                mock(OWLEntityChecker.class));
     }
 
     @Ignore
@@ -119,8 +119,7 @@ public class ContractManchesterowlsyntaxTest {
         ManchesterOWLSyntaxEditorParser testSubject0 = new ManchesterOWLSyntaxEditorParser(
                 new OWLOntologyLoaderConfiguration(),
                 mock(OWLDataFactory.class), "");
-        ManchesterOWLSyntaxEditorParser testSubject1 = new ManchesterOWLSyntaxEditorParser(
-                mock(OWLDataFactory.class), "");
+        new ManchesterOWLSyntaxEditorParser(mock(OWLDataFactory.class), "");
         testSubject0.setOWLEntityChecker(mock(OWLEntityChecker.class));
         OWLClassExpression result12 = testSubject0.parseClassExpression();
         Set<OntologyAxiomPair> result13 = testSubject0.parseClassFrameEOF();
@@ -147,8 +146,8 @@ public class ContractManchesterowlsyntaxTest {
     @Test
     public void shouldTestManchesterOWLSyntaxInlineAxiomParser()
             throws OWLException {
-        ManchesterOWLSyntaxInlineAxiomParser testSubject0 = new ManchesterOWLSyntaxInlineAxiomParser(
-                mock(OWLDataFactory.class), mock(OWLEntityChecker.class));
+        new ManchesterOWLSyntaxInlineAxiomParser(mock(OWLDataFactory.class),
+                mock(OWLEntityChecker.class));
     }
 
     @Test

@@ -20,6 +20,6 @@ public class DanglingOwl2OboTest extends OboFormatTestBasics {
         assertTrue(rc.getValue().equals("sense organ"));
         Collection<Clause> ics = f.getClauses(OboFormatTag.TAG_INTERSECTION_OF);
         assertTrue(ics.size() == 2);
-        writeOBO(doc, "dangling_owl2_obo_test.owl.obo");
+        writeOBO(doc);
     }
 }

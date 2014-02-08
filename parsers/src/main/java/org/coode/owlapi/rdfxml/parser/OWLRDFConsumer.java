@@ -1965,7 +1965,9 @@ public class OWLRDFConsumer implements RDFConsumer {
             throws SAXException {}
 
     @Override
-    public void includeModel(String string, String string1) throws SAXException {}
+    public void includeModel(String string, String string1) throws SAXException {
+        // XXX should this do nothing?
+    }
 
     @Override
     public void logicalURI(String string) throws SAXException {}

@@ -15,7 +15,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParser;
 
 /** Diffs two OBO Documents. Performs structural diffing only - does not use
  * reasoning (use OWLDiff or similar tools for this)
- *
+ * 
  * @author cjm */
 public class OBODocDiffer {
     /** @param doc1
@@ -25,9 +25,12 @@ public class OBODocDiffer {
      * @return list of diffs */
     public List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
         List<Diff> diffs = new ArrayList<Diff>();
-        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(), doc2.getHeaderFrame()));
-        diffs.addAll(getDiffs("Term", doc1.getTermFrames(), doc2.getTermFrames()));
-        diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(), doc2.getTypedefFrames()));
+        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
+                doc2.getHeaderFrame()));
+        diffs.addAll(getDiffs("Term", doc1.getTermFrames(),
+                doc2.getTermFrames()));
+        diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(),
+                doc2.getTypedefFrames()));
         diffs.addAll(getDiffs("Instance", doc1.getInstanceFrames(),
                 doc2.getInstanceFrames()));
         return diffs;
@@ -55,8 +58,8 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    private List<Diff>
-            getDiffs(String ftype, Collection<Frame> fl1, Collection<Frame> fl2) {
+    private List<Diff> getDiffs(String ftype, Collection<Frame> fl1,
+            Collection<Frame> fl2) {
         List<Diff> diffs = getDiffsAsym(ftype, fl1, fl2, 1, true);
         diffs.addAll(getDiffsAsym(ftype, fl1, fl2, 2, false));
         return diffs;
@@ -74,12 +77,8 @@ public class OBODocDiffer {
                         if (OboFormatTag.TAG_XREF.getTag().equals(c.getTag())) {
                             String a1 = c.getValue(Xref.class).getAnnotation();
                             String a2 = c2.getValue(Xref.class).getAnnotation();
-                            if (a1 != a2) {
-                                isMatched = false;
-                                if (a1 != null && a2 != null) {
-                                    isMatched = a1.equals(a2);
-                                }
-                            }
+                            isMatched = a1 == null && a2 == null || a1 != null
+                                    && a1.equals(a2);
                         }
                         break;
                     }

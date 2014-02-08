@@ -2261,6 +2261,10 @@ public class ManchesterOWLSyntaxEditorParser implements
                     throw new ExceptionBuilder().withOnto()
                             .withKeyword("<$ONTOLOGYYURI$>").build();
                 }
+                if (importedIRI == null) {
+                    throw new ExceptionBuilder().withOnto()
+                            .withKeyword("Imported IRI is null").build();
+                }
                 imports.add(dataFactory.getOWLImportsDeclaration(importedIRI));
             } else if (ANNOTATIONS.matches(section)) {
                 consumeToken();

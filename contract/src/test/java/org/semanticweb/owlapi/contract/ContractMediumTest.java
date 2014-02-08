@@ -352,8 +352,8 @@ public class ContractMediumTest {
         OWLOntologyXMLNamespaceManager testSubject0 = new OWLOntologyXMLNamespaceManager(
                 Utils.getMockOntology(),
                 new OWLFunctionalSyntaxOntologyFormat());
-        OWLOntologyXMLNamespaceManager testSubject1 = new OWLOntologyXMLNamespaceManager(
-                Utils.getMockOntology(), mock(OWLOntologyFormat.class));
+        new OWLOntologyXMLNamespaceManager(Utils.getMockOntology(),
+                mock(OWLOntologyFormat.class));
         String result0 = testSubject0.getQName("");
         testSubject0.setPrefix("", "");
         String result1 = testSubject0.getDefaultPrefix();
@@ -549,11 +549,9 @@ public class ContractMediumTest {
     public void shouldTestDLSyntaxParser() throws OWLException, ParseException {
         DLSyntaxParser testSubject0 = new DLSyntaxParser(
                 mock(InputStream.class));
-        DLSyntaxParser testSubject1 = new DLSyntaxParser(
-                mock(DLSyntaxParserTokenManager.class));
-        DLSyntaxParser testSubject2 = new DLSyntaxParser(mock(Reader.class));
-        DLSyntaxParser testSubject3 = new DLSyntaxParser(
-                mock(InputStream.class), "UTF-8");
+        new DLSyntaxParser(mock(DLSyntaxParserTokenManager.class));
+        new DLSyntaxParser(mock(Reader.class));
+        new DLSyntaxParser(mock(InputStream.class), "UTF-8");
         IRI result0 = testSubject0.getIRI("");
         testSubject0.setDefaultNamespace("");
         testSubject0.ReInit(mock(InputStream.class), "UTF-8");

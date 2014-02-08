@@ -42,7 +42,9 @@ import java.io.Serializable;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 05-Jan-2010 */
-public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor, Serializable {
+public class TimedConsoleProgressMonitor implements ReasonerProgressMonitor,
+        Serializable {
+    private static final long serialVersionUID = 40000L;
     private int lastPercentage = 0;
     private long lastTime;
     private long beginTime;

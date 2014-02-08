@@ -105,8 +105,7 @@ public class ContractReasonerImplTest {
                 return null;
             }
         };
-        DefaultNode<OWLObject> testSubject1 = new DefaultNode<OWLObject>(
-                Utils.mockSet(mock(OWLObject.class))) {
+        new DefaultNode<OWLObject>(Utils.mockSet(mock(OWLObject.class))) {
             @Override
             protected OWLObject getTopEntity() {
                 return null;
@@ -145,8 +144,7 @@ public class ContractReasonerImplTest {
                 return null;
             }
         };
-        DefaultNodeSet<OWLObject> testSubject1 = new DefaultNodeSet<OWLObject>(
-                mock(Node.class)) {
+        new DefaultNodeSet<OWLObject>(mock(Node.class)) {
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -157,8 +155,8 @@ public class ContractReasonerImplTest {
                 return null;
             }
         };
-        DefaultNodeSet<OWLObject> testSubject2 = new DefaultNodeSet<OWLObject>(
-                Utils.mockSet(Utils.mockNode(OWLObject.class))) {
+        new DefaultNodeSet<OWLObject>(Utils.mockSet(Utils
+                .mockNode(OWLObject.class))) {
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -169,7 +167,7 @@ public class ContractReasonerImplTest {
                 return null;
             }
         };
-        DefaultNodeSet<OWLObject> testSubject3 = new DefaultNodeSet<OWLObject>() {
+        new DefaultNodeSet<OWLObject>() {
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -196,7 +194,7 @@ public class ContractReasonerImplTest {
 
     @Test
     public void shouldTestNodeFactory() throws OWLException {
-        NodeFactory testSubject0 = new NodeFactory();
+        new NodeFactory();
         DefaultNode<OWLClass> result0 = NodeFactory.getOWLClassNode();
         DefaultNode<OWLClass> result1 = NodeFactory
                 .getOWLClassNode(mock(OWLClass.class));
@@ -238,9 +236,8 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLClassNode() throws OWLException {
         OWLClassNode testSubject0 = new OWLClassNode(mock(OWLClass.class));
-        OWLClassNode testSubject1 = new OWLClassNode();
-        OWLClassNode testSubject2 = new OWLClassNode(
-                Utils.mockSet(mock(OWLClass.class)));
+        new OWLClassNode();
+        new OWLClassNode(Utils.mockSet(mock(OWLClass.class)));
         OWLClassNode result0 = OWLClassNode.getTopNode();
         OWLClassNode result1 = OWLClassNode.getBottomNode();
         testSubject0.add(mock(OWLClass.class));
@@ -261,10 +258,9 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLClassNodeSet() throws OWLException {
         OWLClassNodeSet testSubject0 = new OWLClassNodeSet();
-        OWLClassNodeSet testSubject1 = new OWLClassNodeSet(mock(OWLClass.class));
-        OWLClassNodeSet testSubject2 = new OWLClassNodeSet(mock(Node.class));
-        OWLClassNodeSet testSubject3 = new OWLClassNodeSet(Utils.mockSet(Utils
-                .mockNode(OWLClass.class)));
+        new OWLClassNodeSet(mock(OWLClass.class));
+        new OWLClassNodeSet(mock(Node.class));
+        new OWLClassNodeSet(Utils.mockSet(Utils.mockNode(OWLClass.class)));
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLClass>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -284,10 +280,8 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLDataPropertyNode() throws OWLException {
         OWLDataPropertyNode testSubject0 = new OWLDataPropertyNode();
-        OWLDataPropertyNode testSubject1 = new OWLDataPropertyNode(
-                Utils.mockSet(mock(OWLDataProperty.class)));
-        OWLDataPropertyNode testSubject2 = new OWLDataPropertyNode(
-                mock(OWLDataProperty.class));
+        new OWLDataPropertyNode(Utils.mockSet(mock(OWLDataProperty.class)));
+        new OWLDataPropertyNode(mock(OWLDataProperty.class));
         OWLDataPropertyNode result0 = OWLDataPropertyNode.getTopNode();
         OWLDataPropertyNode result1 = OWLDataPropertyNode.getBottomNode();
         testSubject0.add(mock(OWLDataProperty.class));
@@ -308,12 +302,10 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLDataPropertyNodeSet() throws OWLException {
         OWLDataPropertyNodeSet testSubject0 = new OWLDataPropertyNodeSet();
-        OWLDataPropertyNodeSet testSubject1 = new OWLDataPropertyNodeSet(
-                mock(OWLDataProperty.class));
-        OWLDataPropertyNodeSet testSubject2 = new OWLDataPropertyNodeSet(
-                mock(Node.class));
-        OWLDataPropertyNodeSet testSubject3 = new OWLDataPropertyNodeSet(
-                Utils.mockSet(Utils.mockNode(OWLDataProperty.class)));
+        new OWLDataPropertyNodeSet(mock(OWLDataProperty.class));
+        new OWLDataPropertyNodeSet(mock(Node.class));
+        new OWLDataPropertyNodeSet(Utils.mockSet(Utils
+                .mockNode(OWLDataProperty.class)));
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLDataProperty>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -336,10 +328,8 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLDatatypeNode() throws OWLException {
         OWLDatatypeNode testSubject0 = new OWLDatatypeNode();
-        OWLDatatypeNode testSubject1 = new OWLDatatypeNode(
-                mock(OWLDatatype.class));
-        OWLDatatypeNode testSubject2 = new OWLDatatypeNode(
-                Utils.mockSet(mock(OWLDatatype.class)));
+        new OWLDatatypeNode(mock(OWLDatatype.class));
+        new OWLDatatypeNode(Utils.mockSet(mock(OWLDatatype.class)));
         testSubject0.add(mock(OWLDatatype.class));
         boolean result1 = testSubject0.contains(mock(OWLDatatype.class));
         Iterator<OWLDatatype> result2 = testSubject0.iterator();
@@ -358,12 +348,9 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLDatatypeNodeSet() throws OWLException {
         OWLDatatypeNodeSet testSubject0 = new OWLDatatypeNodeSet();
-        OWLDatatypeNodeSet testSubject1 = new OWLDatatypeNodeSet(
-                mock(OWLDatatype.class));
-        OWLDatatypeNodeSet testSubject2 = new OWLDatatypeNodeSet(
-                mock(Node.class));
-        OWLDatatypeNodeSet testSubject3 = new OWLDatatypeNodeSet(
-                Utils.mockSet(Utils.mockNode(OWLDatatype.class)));
+        new OWLDatatypeNodeSet(mock(OWLDatatype.class));
+        new OWLDatatypeNodeSet(mock(Node.class));
+        new OWLDatatypeNodeSet(Utils.mockSet(Utils.mockNode(OWLDatatype.class)));
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLDatatype>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -384,9 +371,8 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLNamedIndividualNode() throws OWLException {
         OWLNamedIndividualNode testSubject0 = new OWLNamedIndividualNode();
-        OWLNamedIndividualNode testSubject1 = new OWLNamedIndividualNode(
-                mock(OWLNamedIndividual.class));
-        OWLNamedIndividualNode testSubject2 = new OWLNamedIndividualNode(
+        new OWLNamedIndividualNode(mock(OWLNamedIndividual.class));
+        new OWLNamedIndividualNode(
                 Utils.mockSet(mock(OWLNamedIndividual.class)));
         testSubject0.add(mock(OWLNamedIndividual.class));
         boolean result1 = testSubject0.contains(mock(OWLNamedIndividual.class));
@@ -406,12 +392,10 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLNamedIndividualNodeSet() throws OWLException {
         OWLNamedIndividualNodeSet testSubject0 = new OWLNamedIndividualNodeSet();
-        OWLNamedIndividualNodeSet testSubject1 = new OWLNamedIndividualNodeSet(
-                mock(OWLNamedIndividual.class));
-        OWLNamedIndividualNodeSet testSubject2 = new OWLNamedIndividualNodeSet(
-                mock(Node.class));
-        OWLNamedIndividualNodeSet testSubject3 = new OWLNamedIndividualNodeSet(
-                Utils.mockSet(Utils.mockNode(OWLNamedIndividual.class)));
+        new OWLNamedIndividualNodeSet(mock(OWLNamedIndividual.class));
+        new OWLNamedIndividualNodeSet(mock(Node.class));
+        new OWLNamedIndividualNodeSet(Utils.mockSet(Utils
+                .mockNode(OWLNamedIndividual.class)));
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLNamedIndividual>> result2 = testSubject0.iterator();
         boolean result3 = testSubject0.isSingleton();
@@ -434,10 +418,8 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLObjectPropertyNode() throws OWLException {
         OWLObjectPropertyNode testSubject0 = new OWLObjectPropertyNode();
-        OWLObjectPropertyNode testSubject1 = new OWLObjectPropertyNode(
-                Utils.mockSet(Utils.mockObjectProperty()));
-        OWLObjectPropertyNode testSubject2 = new OWLObjectPropertyNode(
-                Utils.mockObjectProperty());
+        new OWLObjectPropertyNode(Utils.mockSet(Utils.mockObjectProperty()));
+        new OWLObjectPropertyNode(Utils.mockObjectProperty());
         OWLObjectPropertyNode result0 = OWLObjectPropertyNode.getTopNode();
         OWLObjectPropertyNode result1 = OWLObjectPropertyNode.getBottomNode();
         testSubject0.add(Utils.mockObjectProperty());
@@ -460,12 +442,10 @@ public class ContractReasonerImplTest {
     @Test
     public void shouldTestOWLObjectPropertyNodeSet() throws OWLException {
         OWLObjectPropertyNodeSet testSubject0 = new OWLObjectPropertyNodeSet();
-        OWLObjectPropertyNodeSet testSubject1 = new OWLObjectPropertyNodeSet(
-                Utils.mockObjectProperty());
-        OWLObjectPropertyNodeSet testSubject2 = new OWLObjectPropertyNodeSet(
-                mock(Node.class));
-        OWLObjectPropertyNodeSet testSubject3 = new OWLObjectPropertyNodeSet(
-                Utils.mockSet(Utils.mockNode(OWLObjectPropertyExpression.class)));
+        new OWLObjectPropertyNodeSet(Utils.mockObjectProperty());
+        new OWLObjectPropertyNodeSet(mock(Node.class));
+        new OWLObjectPropertyNodeSet(Utils.mockSet(Utils
+                .mockNode(OWLObjectPropertyExpression.class)));
         boolean result1 = testSubject0.isEmpty();
         Iterator<Node<OWLObjectPropertyExpression>> result2 = testSubject0
                 .iterator();

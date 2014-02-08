@@ -90,7 +90,8 @@ public class OboFormatTestBasics {
     }
 
     protected InputStream getInputStream(String fn) {
-        InputStream inputStream = getClass().getResourceAsStream(fn);
+        InputStream inputStream = OboFormatTestBasics.class
+                .getResourceAsStream(fn);
         if (inputStream == null) {
             inputStream = getClass().getResourceAsStream("obo/" + fn);
         }
@@ -147,10 +148,7 @@ public class OboFormatTestBasics {
         return doc;
     }
 
-    protected String writeOBO(OBODoc obodoc, String fn) throws IOException {
-        if (!fn.toLowerCase().endsWith(".obo")) {
-            fn += ".obo";
-        }
+    protected String writeOBO(OBODoc obodoc) throws IOException {
         StringWriter target = new StringWriter();
         OBOFormatWriter oboWriter = new OBOFormatWriter();
         BufferedWriter bw = new BufferedWriter(target);

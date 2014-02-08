@@ -153,10 +153,8 @@ public class ContractOwlapiModel_4Test {
     public void shouldTestOWLOntologyStorageException() throws OWLException {
         OWLOntologyStorageException testSubject0 = new OWLOntologyStorageException(
                 "");
-        OWLOntologyStorageException testSubject1 = new OWLOntologyStorageException(
-                "", new RuntimeException());
-        OWLOntologyStorageException testSubject2 = new OWLOntologyStorageException(
-                new RuntimeException());
+        new OWLOntologyStorageException("", new RuntimeException());
+        new OWLOntologyStorageException(new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
@@ -671,11 +669,9 @@ public class ContractOwlapiModel_4Test {
     @Test
     public void shouldTestOWLRuntimeException() throws OWLException {
         OWLRuntimeException testSubject0 = new OWLRuntimeException();
-        OWLRuntimeException testSubject1 = new OWLRuntimeException("");
-        OWLRuntimeException testSubject2 = new OWLRuntimeException("",
-                new RuntimeException());
-        OWLRuntimeException testSubject3 = new OWLRuntimeException(
-                new RuntimeException());
+        new OWLRuntimeException("");
+        new OWLRuntimeException("", new RuntimeException());
+        new OWLRuntimeException(new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();

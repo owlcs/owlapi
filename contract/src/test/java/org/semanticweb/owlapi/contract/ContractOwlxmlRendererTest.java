@@ -54,8 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 public class ContractOwlxmlRendererTest {
     @Test
     public void shouldTestOWLXMLObjectRenderer() throws OWLException {
-        OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(
-                mock(OWLXMLWriter.class));
+        new OWLXMLObjectRenderer(mock(OWLXMLWriter.class));
     }
 
     @Test

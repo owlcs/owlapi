@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -85,12 +86,12 @@ public class ContractMetricsTest {
                 Utils.getMockOntology()) {
             @Override
             public String getName() {
-                return null;
+                return "";
             }
 
             @Override
             protected Object recomputeMetric() {
-                return null;
+                return new Object();
             }
 
             @Override
@@ -157,12 +158,12 @@ public class ContractMetricsTest {
                 Utils.getMockOntology()) {
             @Override
             protected String getObjectTypeName() {
-                return null;
+                return "";
             }
 
             @Override
             protected Set<? extends OWLAxiom> getObjects(OWLOntology ont) {
-                return null;
+                return Collections.emptySet();
             }
         };
         Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
@@ -183,7 +184,7 @@ public class ContractMetricsTest {
     @Ignore
     @Test
     public void shouldTestAxiomTypeCountMetricFactory() throws OWLException {
-        AxiomTypeCountMetricFactory testSubject0 = new AxiomTypeCountMetricFactory();
+        new AxiomTypeCountMetricFactory();
         Set<OWLMetric<?>> result0 = AxiomTypeCountMetricFactory
                 .createMetrics(Utils.getMockOntology());
     }
@@ -234,12 +235,12 @@ public class ContractMetricsTest {
                 Utils.getMockOntology()) {
             @Override
             public String getName() {
-                return null;
+                return "";
             }
 
             @Override
             protected Double recomputeMetric() {
-                return null;
+                return 0D;
             }
 
             @Override
@@ -322,12 +323,12 @@ public class ContractMetricsTest {
                 Utils.getMockOntology()) {
             @Override
             public String getName() {
-                return null;
+                return "";
             }
 
             @Override
             protected Integer recomputeMetric() {
-                return null;
+                return 1;
             }
 
             @Override
@@ -418,12 +419,12 @@ public class ContractMetricsTest {
                 Factory.getManager().createOntology()) {
             @Override
             protected String getObjectTypeName() {
-                return null;
+                return "";
             }
 
             @Override
             protected Set<Object> getObjects(OWLOntology ont) {
-                return null;
+                return Collections.emptySet();
             }
         };
         String result0 = testSubject0.getName();

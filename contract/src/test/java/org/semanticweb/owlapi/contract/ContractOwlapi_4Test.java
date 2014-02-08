@@ -42,6 +42,7 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -136,7 +137,7 @@ public class ContractOwlapi_4Test {
 
             @Override
             public Collection<SWRLArgument> getAllArguments() {
-                return null;
+                return Collections.emptyList();
             }
 
             @Override
@@ -450,8 +451,7 @@ public class ContractOwlapi_4Test {
         SWRLRuleImpl testSubject0 = new SWRLRuleImpl(
                 Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockSet(mock(SWRLAtom.class)));
-        SWRLRuleImpl testSubject1 = new SWRLRuleImpl(
-                Utils.mockSet(mock(SWRLAtom.class)),
+        new SWRLRuleImpl(Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockSet(mock(SWRLAtom.class)),
                 Utils.mockCollection(mock(OWLAnnotation.class)));
         Object result0 = testSubject0.accept(Utils.mockSWRLObject());

@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -9,7 +9,6 @@ import java.util.Set;
 
 import org.obolibrary.oboformat.diff.Diff;
 import org.obolibrary.oboformat.diff.OBODocDiffer;
-import org.obolibrary.oboformat.model.FrameStructureException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -32,21 +31,11 @@ public class RoundTripTest extends OboFormatTestBasics {
     }
 
     public List<Diff> roundTripOBODoc(OBODoc obodoc, boolean isExpectRoundtrip)
-            throws OWLOntologyCreationException {
+            throws Exception {
         OWLOntology oo = convert(obodoc);
         OBODoc obodoc2 = convert(oo);
-        try {
-            obodoc2.check();
-        } catch (FrameStructureException exception) {
-            exception.printStackTrace();
-            fail("No syntax errors allowed");
-        }
-        try {
-            writeOBO(obodoc2, "roundtrip.obo");
-        } catch (IOException e) {
-            e.printStackTrace();
-            fail("No IOExceptions allowed");
-        }
+        obodoc2.check();
+        writeOBO(obodoc2);
         OBODocDiffer dd = new OBODocDiffer();
         List<Diff> diffs = dd.getDiffs(obodoc, obodoc2);
         if (isExpectRoundtrip) {
@@ -68,13 +57,8 @@ public class RoundTripTest extends OboFormatTestBasics {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
         OBODoc obodoc = bridge.convert(oo);
-        writeOBO(obodoc, "owl2obo-roundtrip-intermediate.obo");
-        try {
-            obodoc.check();
-        } catch (FrameStructureException exception) {
-            exception.printStackTrace();
-            fail("No syntax errors allowed");
-        }
+        writeOBO(obodoc);
+        obodoc.check();
         OWLOntology oo2 = convert(obodoc);
         writeOWL(oo2);
         boolean ok = compareOWLOntologiesPartial(oo, oo2, isExpectRoundtrip,

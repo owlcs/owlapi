@@ -109,9 +109,9 @@ public class ContractKrssparserTest {
     public void shouldTestKRSSParser() throws OWLException, ParseException {
         KRSSParser testSubject0 = new KRSSParser(
                 mock(KRSSParserTokenManager.class));
-        KRSSParser testSubject1 = new KRSSParser(mock(Reader.class));
-        KRSSParser testSubject2 = new KRSSParser(mock(InputStream.class), "");
-        KRSSParser testSubject3 = new KRSSParser(mock(InputStream.class));
+        new KRSSParser(mock(Reader.class));
+        new KRSSParser(mock(InputStream.class), "");
+        new KRSSParser(mock(InputStream.class));
         testSubject0.parse();
         IRI result0 = testSubject0.Name();
         OWLAxiom result1 = testSubject0.Instance();
@@ -169,8 +169,8 @@ public class ContractKrssparserTest {
     public void shouldTestParseException() throws OWLException {
         ParseException testSubject0 = new ParseException(mock(Token.class),
                 mock(int[][].class), new String[0]);
-        ParseException testSubject1 = new ParseException();
-        ParseException testSubject2 = new ParseException("");
+        new ParseException();
+        new ParseException("");
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
@@ -179,8 +179,8 @@ public class ContractKrssparserTest {
     @Test
     public void shouldTestToken() throws OWLException {
         Token testSubject0 = new Token();
-        Token testSubject1 = new Token(0);
-        Token testSubject2 = new Token(0, "");
+        new Token(0);
+        new Token(0, "");
         Object result1 = testSubject0.getValue();
         Token result2 = Token.newToken(0, "");
         Token result3 = Token.newToken(0);
@@ -188,9 +188,8 @@ public class ContractKrssparserTest {
 
     public void shouldTestTokenMgrError() throws OWLException {
         TokenMgrError testSubject0 = new TokenMgrError();
-        TokenMgrError testSubject1 = new TokenMgrError("", 0);
-        TokenMgrError testSubject2 = new TokenMgrError(false, 0, 0, 0, "",
-                mock(char.class), 0);
+        new TokenMgrError("", 0);
+        new TokenMgrError(false, 0, 0, 0, "", mock(char.class), 0);
         String result0 = testSubject0.getMessage();
         Throwable result2 = testSubject0.getCause();
         String result5 = testSubject0.getLocalizedMessage();

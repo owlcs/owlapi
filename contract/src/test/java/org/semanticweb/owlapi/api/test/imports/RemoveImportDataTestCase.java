@@ -69,12 +69,6 @@ public class RemoveImportDataTestCase {
         mockOntology = mock(OWLOntology.class);
     }
 
-    @SuppressWarnings("unused")
-    @Test(expected = IllegalArgumentException.class)
-    public void testNewWithNullArgs() {
-        new RemoveImportData(null);
-    }
-
     @Test
     public void testEquals() {
         RemoveImportData data1 = createData();

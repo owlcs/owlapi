@@ -69,12 +69,6 @@ public class AddOntologyAnnotationDataTestCase {
         mockOntology = mock(OWLOntology.class);
     }
 
-    @SuppressWarnings("unused")
-    @Test(expected = IllegalArgumentException.class)
-    public void testNewWithNullArgs() {
-        new AddOntologyAnnotationData(null);
-    }
-
     @Test
     public void testEquals() {
         AddOntologyAnnotationData data1 = createData();

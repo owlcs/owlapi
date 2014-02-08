@@ -382,8 +382,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         OWLObjectProperty subProp;
         OWLObjectProperty superProp;
         OWLClassExpression desc;
-        Set<OWLObjectProperty> roles = new HashSet<OWLObjectProperty>();
-        Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         jj_consume_token(OPENPAR);
         jj_consume_token(DEFINEPRIMITIVEROLE);
         subProp = RoleName();

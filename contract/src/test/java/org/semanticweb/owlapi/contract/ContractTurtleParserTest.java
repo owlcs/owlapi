@@ -92,8 +92,8 @@ public class ContractTurtleParserTest {
             SAXException {
         OWLRDFConsumerAdapter testSubject0 = new OWLRDFConsumerAdapter(
                 Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
-        OWLRDFConsumerAdapter testSubject1 = new OWLRDFConsumerAdapter(
-                Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
+        new OWLRDFConsumerAdapter(Utils.getMockOntology(),
+                new OWLOntologyLoaderConfiguration());
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE),
                 IRI(URN_A_FAKE));
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE), "");

@@ -76,8 +76,9 @@ public interface RDFConsumer {
      *            URI of the object resource
      * @throws SAXException
      *             SAXException */
-    void statementWithResourceValue(@Nonnull String subject, @Nonnull String predicate,
-            @Nonnull String object) throws SAXException;
+    void statementWithResourceValue(@Nonnull String subject,
+            @Nonnull String predicate, @Nonnull String object)
+            throws SAXException;
 
     /** Called when a statement with literal value is added to the model.
      * 
@@ -93,8 +94,9 @@ public interface RDFConsumer {
      *            the URI of the literal's datatype (may be {@code null})
      * @throws SAXException
      *             SAXException */
-    void statementWithLiteralValue(@Nonnull String subject, @Nonnull String predicate,
-            @Nonnull String object, @Nullable String language, @Nullable String datatype)
+    void statementWithLiteralValue(@Nonnull String subject,
+            @Nonnull String predicate, @Nonnull String object,
+            @Nullable String language, @Nullable String datatype)
             throws SAXException;
 
     /** Receives the logical URI of the model.
@@ -114,8 +116,9 @@ public interface RDFConsumer {
      *            physical URI of the model
      * @throws SAXException
      *             SAXException */
-    void includeModel(@Nonnull String logicalURI, @Nonnull String physicalURI)
-            throws SAXException;
+    void
+            includeModel(@Nullable String logicalURI,
+                    @Nullable String physicalURI) throws SAXException;
 
     /** Receives the notification that the attribute and its value has been
      * parsed.
@@ -126,5 +129,6 @@ public interface RDFConsumer {
      *            the value of the attribute
      * @throws SAXException
      *             SAXException */
-    void addModelAttribte(@Nonnull String key, @Nonnull String value) throws SAXException;
+    void addModelAttribte(@Nonnull String key, @Nonnull String value)
+            throws SAXException;
 }

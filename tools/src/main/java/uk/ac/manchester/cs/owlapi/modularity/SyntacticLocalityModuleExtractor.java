@@ -625,8 +625,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @return the sets the */
     @Nonnull
     Set<OWLEntity> enrichSignature(@Nonnull Set<OWLEntity> sig,
-            int superClassLevel, int subClassLevel,
-            @Nonnull OWLReasoner reasoner) {
+            int superClassLevel, int subClassLevel, OWLReasoner reasoner) {
         Set<OWLEntity> enrichedSig = new HashSet<OWLEntity>(sig);
         Set<OWLClass> classesInSig = new HashSet<OWLClass>();
         for (OWLEntity ent : sig) {
@@ -688,14 +687,15 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
      * @param reasoner
      *            the reasoner to determine super-/subclasses. This can be an
      *            arbitrary reasoner, including a ToldClassHierarchyReasoner. It
-     *            must have loaded the ontology.
+     *            must have loaded the ontology. Can be null if superClassLevel
+     *            and subClassLevel are 0.
      * @param verbose
      *            true if verbose output is required
      * @return the module */
     @Nonnull
     public Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> sig,
-            int superClassLevel, int subClassLevel,
-            @Nonnull OWLReasoner reasoner, boolean verbose) {
+            int superClassLevel, int subClassLevel, OWLReasoner reasoner,
+            boolean verbose) {
         Set<OWLEntity> enrichedSig = enrichSignature(sig, superClassLevel,
                 subClassLevel, reasoner);
         switch (moduleType) {
@@ -776,7 +776,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     @Nonnull
     OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
             @Nonnull IRI iri, int superClassLevel, int subClassLevel,
-            @Nonnull OWLReasoner reasoner, boolean verbose)
+            OWLReasoner reasoner, boolean verbose)
             throws OWLOntologyCreationException {
         Set<OWLAxiom> axs = extract(signature, superClassLevel, subClassLevel,
                 reasoner, verbose);

@@ -235,11 +235,11 @@ public class ContractOwlapiUtilTest {
         AnnotationValueShortFormProvider testSubject0 = new AnnotationValueShortFormProvider(
                 Utils.mockList(mock(OWLAnnotationProperty.class)),
                 mock(Map.class), mock(OWLOntologySetProvider.class));
-        AnnotationValueShortFormProvider testSubject1 = new AnnotationValueShortFormProvider(
+        new AnnotationValueShortFormProvider(
                 Utils.mockList(mock(OWLAnnotationProperty.class)),
                 mock(Map.class), mock(OWLOntologySetProvider.class),
                 mock(ShortFormProvider.class));
-        AnnotationValueShortFormProvider testSubject2 = new AnnotationValueShortFormProvider(
+        new AnnotationValueShortFormProvider(
                 mock(OWLOntologySetProvider.class),
                 mock(ShortFormProvider.class),
                 mock(IRIShortFormProvider.class),
@@ -275,11 +275,10 @@ public class ContractOwlapiUtilTest {
             throws OWLException {
         BidirectionalShortFormProviderAdapter testSubject0 = new BidirectionalShortFormProviderAdapter(
                 mock(ShortFormProvider.class));
-        BidirectionalShortFormProviderAdapter testSubject1 = new BidirectionalShortFormProviderAdapter(
+        new BidirectionalShortFormProviderAdapter(Utils.mockSet(Utils
+                .getMockOntology()), mock(ShortFormProvider.class));
+        new BidirectionalShortFormProviderAdapter(Utils.getMockManager(),
                 Utils.mockSet(Utils.getMockOntology()),
-                mock(ShortFormProvider.class));
-        BidirectionalShortFormProviderAdapter testSubject2 = new BidirectionalShortFormProviderAdapter(
-                Utils.getMockManager(), Utils.mockSet(Utils.getMockOntology()),
                 mock(ShortFormProvider.class));
         testSubject0.dispose();
         testSubject0.add(Utils.mockOWLEntity());
@@ -308,7 +307,7 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestCollectionFactory() throws OWLException {
-        CollectionFactory testSubject0 = new CollectionFactory();
+        new CollectionFactory();
         Map<Object, Object> result0 = CollectionFactory.createMap();
         Set<Object> result1 = CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(Utils
@@ -343,8 +342,8 @@ public class ContractOwlapiUtilTest {
     public void shouldTestDefaultPrefixManager() throws OWLException {
         DefaultPrefixManager testSubject0 = new DefaultPrefixManager(
                 new DefaultPrefixManager());
-        DefaultPrefixManager testSubject1 = new DefaultPrefixManager();
-        DefaultPrefixManager testSubject2 = new DefaultPrefixManager("");
+        new DefaultPrefixManager();
+        new DefaultPrefixManager("");
         testSubject0.clear();
         String result0 = testSubject0.getPrefix("");
         testSubject0.dispose();
@@ -423,24 +422,23 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestHashCode() throws OWLException {
-        HashCode testSubject0 = new HashCode();
+        new HashCode();
     }
 
     @Test
     public void shouldTestHornAxiomVisitorEx() throws OWLException {
-        HornAxiomVisitorEx testSubject0 = new HornAxiomVisitorEx();
+        new HornAxiomVisitorEx();
     }
 
     @Test
     public void shouldTestImportsStructureEntitySorter() throws OWLException {
-        ImportsStructureEntitySorter testSubject0 = new ImportsStructureEntitySorter(
-                Utils.getMockOntology());
+        new ImportsStructureEntitySorter(Utils.getMockOntology());
     }
 
     @Test
     public void shouldTestImportsStructureObjectSorter() throws OWLException {
-        ImportsStructureObjectSorter<Object> testSubject0 = new ImportsStructureObjectSorter<Object>(
-                Utils.getMockOntology(), mock(ObjectSelector.class));
+        new ImportsStructureObjectSorter<Object>(Utils.getMockOntology(),
+                mock(ObjectSelector.class));
     }
 
     @Test
@@ -615,8 +613,7 @@ public class ContractOwlapiUtilTest {
         InferredOntologyGenerator testSubject0 = new InferredOntologyGenerator(
                 Utils.structReasoner(),
                 new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>());
-        InferredOntologyGenerator testSubject1 = new InferredOntologyGenerator(
-                Utils.structReasoner());
+        new InferredOntologyGenerator(Utils.structReasoner());
         List<InferredAxiomGenerator<?>> result0 = testSubject0
                 .getAxiomGenerators();
         testSubject0.addGenerator(mock(InferredAxiomGenerator.class));
@@ -683,9 +680,8 @@ public class ContractOwlapiUtilTest {
     public void shouldTestMultiMap() throws OWLException {
         MultiMap<Object, Object> testSubject0 = new MultiMap<Object, Object>(
                 false);
-        MultiMap<Object, Object> testSubject1 = new MultiMap<Object, Object>(
-                false, false);
-        MultiMap<Object, Object> testSubject2 = new MultiMap<Object, Object>();
+        new MultiMap<Object, Object>(false, false);
+        new MultiMap<Object, Object>();
         Collection<Object> result0 = testSubject0.get(mock(Object.class));
         boolean result1 = testSubject0.put(mock(Object.class),
                 mock(Object.class));
@@ -771,32 +767,32 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLAxiomVisitorAdapter() throws OWLException {
-        OWLAxiomVisitorAdapter testSubject0 = new OWLAxiomVisitorAdapter();
+        new OWLAxiomVisitorAdapter();
     }
 
     @Test
     public void shouldTestOWLClassExpressionCollector() throws OWLException {
-        OWLClassExpressionCollector testSubject0 = new OWLClassExpressionCollector();
+        new OWLClassExpressionCollector();
     }
 
     @Test
     public void shouldTestOWLClassExpressionVisitorAdapter()
             throws OWLException {
-        OWLClassExpressionVisitorAdapter testSubject0 = new OWLClassExpressionVisitorAdapter();
+        new OWLClassExpressionVisitorAdapter();
     }
 
     @Test
     public void shouldTestOWLClassExpressionVisitorExAdapter()
             throws OWLException {
-        OWLClassExpressionVisitorExAdapter<Object> testSubject0 = new OWLClassExpressionVisitorExAdapter<Object>();
+        new OWLClassExpressionVisitorExAdapter<Object>();
     }
 
     @Test
     public void shouldTestOWLClassLiteralCollector() throws OWLException {
         OWLClassLiteralCollector testSubject0 = new OWLClassLiteralCollector(
                 Utils.mockSet(mock(OWLObject.class)));
-        OWLClassLiteralCollector testSubject1 = new OWLClassLiteralCollector(
-                Utils.mockSet(mock(OWLObject.class)), false);
+        new OWLClassLiteralCollector(Utils.mockSet(mock(OWLObject.class)),
+                false);
         Set<OWLClass> result0 = testSubject0.getPositiveLiterals();
         Set<OWLClass> result1 = testSubject0.getNegativeLiterals();
         OWLAnnotation result2 = testSubject0.getAnnotation();
@@ -824,14 +820,12 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLEntityCollector() throws OWLException {
-        OWLEntityCollector testSubject0 = new OWLEntityCollector(
-                Utils.mockSet(Utils.mockOWLEntity()));
+        new OWLEntityCollector(Utils.mockSet(Utils.mockOWLEntity()));
     }
 
     @Test
     public void shouldTestOWLEntityComparator() throws OWLException {
-        OWLEntityComparator testSubject0 = new OWLEntityComparator(
-                mock(ShortFormProvider.class));
+        new OWLEntityComparator(mock(ShortFormProvider.class));
     }
 
     @Test
@@ -864,8 +858,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLEntityTinyURIConversionStrategy()
             throws OWLException {
         OWLEntityTinyURIConversionStrategy testSubject0 = new OWLEntityTinyURIConversionStrategy();
-        OWLEntityTinyURIConversionStrategy testSubject1 = new OWLEntityTinyURIConversionStrategy(
-                "");
+        new OWLEntityTinyURIConversionStrategy("");
         IRI result0 = testSubject0.getConvertedIRI(Utils.mockOWLEntity());
     }
 
@@ -893,14 +886,13 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLEntityVisitorAdapter() throws OWLException {
-        OWLEntityVisitorAdapter testSubject0 = new OWLEntityVisitorAdapter();
+        new OWLEntityVisitorAdapter();
     }
 
     @Test
     public void shouldTestOWLEntityVisitorExAdapter() throws OWLException {
-        OWLEntityVisitorExAdapter<Object> testSubject0 = new OWLEntityVisitorExAdapter<Object>(
-                mock(Object.class));
-        OWLEntityVisitorExAdapter<Object> testSubject1 = new OWLEntityVisitorExAdapter<Object>();
+        new OWLEntityVisitorExAdapter<Object>(mock(Object.class));
+        new OWLEntityVisitorExAdapter<Object>();
     }
 
     @Test
@@ -915,10 +907,8 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLObjectDuplicator() throws OWLException {
         OWLObjectDuplicator testSubject0 = new OWLObjectDuplicator(
                 mock(OWLDataFactory.class));
-        OWLObjectDuplicator testSubject1 = new OWLObjectDuplicator(
-                mock(OWLDataFactory.class), mock(Map.class));
-        OWLObjectDuplicator testSubject2 = new OWLObjectDuplicator(
-                mock(Map.class), mock(OWLDataFactory.class));
+        new OWLObjectDuplicator(mock(OWLDataFactory.class), mock(Map.class));
+        new OWLObjectDuplicator(mock(Map.class), mock(OWLDataFactory.class));
         OWLObject result0 = testSubject0.duplicateObject(mock(OWLObject.class));
     }
 
@@ -963,14 +953,14 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLObjectVisitorAdapter() throws OWLException {
-        OWLObjectVisitorAdapter testSubject0 = new OWLObjectVisitorAdapter();
+        new OWLObjectVisitorAdapter();
     }
 
     @Test
     public void shouldTestOWLObjectVisitorExAdapter() throws OWLException {
         OWLObjectVisitorExAdapter<Object> testSubject0 = new OWLObjectVisitorExAdapter<Object>(
                 mock(Object.class));
-        OWLObjectVisitorExAdapter<Object> testSubject1 = new OWLObjectVisitorExAdapter<Object>();
+        new OWLObjectVisitorExAdapter<Object>();
         Object result12 = testSubject0
                 .visit(mock(OWLEquivalentDataPropertiesAxiom.class));
         Object result13 = testSubject0
@@ -995,7 +985,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLObjectWalker() throws OWLException {
         OWLObjectWalker<OWLOntology> testSubject0 = new OWLObjectWalker<OWLOntology>(
                 Utils.mockSet(Utils.getMockOntology()));
-        OWLObjectWalker<OWLOntology> testSubject1 = new OWLObjectWalker<OWLOntology>(
+        new OWLObjectWalker<OWLOntology>(
                 Utils.mockSet(Utils.getMockOntology()), false);
         OWLAnnotation result0 = testSubject0.getAnnotation();
         OWLOntology result1 = testSubject0.getOntology();
@@ -1016,13 +1006,13 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestOWLOntologyChangeVisitorAdapter() throws OWLException {
-        OWLOntologyChangeVisitorAdapter testSubject0 = new OWLOntologyChangeVisitorAdapter();
+        new OWLOntologyChangeVisitorAdapter();
     }
 
     @Test
     public void shouldTestOWLOntologyChangeVisitorAdapterEx()
             throws OWLException {
-        OWLOntologyChangeVisitorExAdapter<Object> testSubject0 = new OWLOntologyChangeVisitorExAdapter<Object>();
+        new OWLOntologyChangeVisitorExAdapter<Object>();
     }
 
     public void shouldTestOWLOntologyImportsClosureSetProvider()
@@ -1036,10 +1026,9 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLOntologyMerger() throws OWLException {
         OWLOntologyMerger testSubject0 = new OWLOntologyMerger(
                 mock(OWLOntologySetProvider.class));
-        OWLOntologyMerger testSubject1 = new OWLOntologyMerger(
-                mock(OWLOntologySetProvider.class), false);
-        OWLOntologyMerger testSubject2 = new OWLOntologyMerger(
-                mock(OWLOntologySetProvider.class), mock(OWLAxiomFilter.class));
+        new OWLOntologyMerger(mock(OWLOntologySetProvider.class), false);
+        new OWLOntologyMerger(mock(OWLOntologySetProvider.class),
+                mock(OWLAxiomFilter.class));
         boolean result0 = testSubject0.passes(mock(OWLAxiom.class));
         OWLOntology result1 = testSubject0.createMergedOntology(
                 Utils.getMockManager(), IRI("urn:aFake"));
@@ -1122,7 +1111,7 @@ public class ContractOwlapiUtilTest {
         PropertyAssertionValueShortFormProvider testSubject0 = new PropertyAssertionValueShortFormProvider(
                 new ArrayList<OWLPropertyExpression>(), mock(Map.class),
                 mock(OWLOntologySetProvider.class));
-        PropertyAssertionValueShortFormProvider testSubject1 = new PropertyAssertionValueShortFormProvider(
+        new PropertyAssertionValueShortFormProvider(
                 new ArrayList<OWLPropertyExpression>(), mock(Map.class),
                 mock(OWLOntologySetProvider.class),
                 mock(ShortFormProvider.class));
@@ -1135,8 +1124,7 @@ public class ContractOwlapiUtilTest {
 
     public void shouldTestQNameShortFormProvider() throws OWLException {
         QNameShortFormProvider testSubject0 = new QNameShortFormProvider();
-        QNameShortFormProvider testSubject1 = new QNameShortFormProvider(
-                mock(Map.class));
+        new QNameShortFormProvider(mock(Map.class));
         testSubject0.dispose();
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
     }

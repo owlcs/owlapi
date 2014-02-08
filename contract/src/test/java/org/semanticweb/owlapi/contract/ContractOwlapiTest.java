@@ -162,10 +162,9 @@ public class ContractOwlapiTest {
         MakePrimitiveSubClassesMutuallyDisjoint testSubject0 = new MakePrimitiveSubClassesMutuallyDisjoint(
                 Factory.getFactory(), Factory.getFactory().getOWLClass(
                         IRI.create("urn:test:c")), Utils.getMockOntology());
-        MakePrimitiveSubClassesMutuallyDisjoint testSubject1 = new MakePrimitiveSubClassesMutuallyDisjoint(
-                Factory.getFactory(), Factory.getFactory().getOWLClass(
-                        IRI.create("urn:test:c")), Utils.getMockOntology(),
-                false);
+        new MakePrimitiveSubClassesMutuallyDisjoint(Factory.getFactory(),
+                Factory.getFactory().getOWLClass(IRI.create("urn:test:c")),
+                Utils.getMockOntology(), false);
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
     }
 
@@ -189,10 +188,9 @@ public class ContractOwlapiTest {
                 mock(OWLDataFactory.class), Utils.getMockManager(),
                 Utils.getMockOntology(), mock(ShortFormProvider.class),
                 IRI("urn:aFake"), "");
-        ShortForm2AnnotationGenerator testSubject1 = new ShortForm2AnnotationGenerator(
-                mock(OWLDataFactory.class), Utils.getMockManager(),
-                Utils.getMockOntology(), mock(ShortFormProvider.class),
-                IRI("urn:aFake"));
+        new ShortForm2AnnotationGenerator(mock(OWLDataFactory.class),
+                Utils.getMockManager(), Utils.getMockOntology(),
+                mock(ShortFormProvider.class), IRI("urn:aFake"));
         List<OWLOntologyChange<?>> result0 = testSubject0.getChanges();
     }
 

@@ -67,7 +67,7 @@ public class HashCodeTestCase {
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3", null,
                 datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplInteger(3, datatype);
-        assertEquals(litNoComp, litIntImpl);
+        assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<OWLLiteral>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));
@@ -83,7 +83,7 @@ public class HashCodeTestCase {
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
                 datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplDouble(3.0D, datatype);
-        assertEquals(litNoComp, litIntImpl);
+        assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<OWLLiteral>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));
@@ -99,7 +99,7 @@ public class HashCodeTestCase {
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("3.0", null,
                 datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplFloat(3.0F, datatype);
-        assertEquals(litNoComp, litIntImpl);
+        assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<OWLLiteral>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));
@@ -115,7 +115,7 @@ public class HashCodeTestCase {
         OWLLiteral litNoComp2 = new OWLLiteralImplNoCompression("true", null,
                 datatype);
         OWLLiteral litIntImpl = new OWLLiteralImplBoolean(true, datatype);
-        assertEquals(litNoComp, litIntImpl);
+        assertEquals(litNoComp.getLiteral(), litIntImpl.getLiteral());
         Set<OWLLiteral> lncset = new HashSet<OWLLiteral>();
         lncset.add(litNoComp);
         assertTrue(lncset.contains(litNoComp2));

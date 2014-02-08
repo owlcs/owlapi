@@ -46,6 +46,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -1172,17 +1173,17 @@ public class ContractOwlapiModel_3Test {
 
             @Override
             public Set<OWLEntity> getSignature() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public OWLOntologyChangeData<OWLAxiom> getChangeData() {
-                return null;
+                return mock(OWLOntologyChangeData.class);
             }
 
             @Override
             public OWLAxiom getAxiom() {
-                return null;
+                return mock(OWLAxiom.class);
             }
 
             @Override
@@ -1309,9 +1310,8 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestOWLOntologyID() throws OWLException {
         OWLOntologyID testSubject0 = new OWLOntologyID();
-        OWLOntologyID testSubject1 = new OWLOntologyID(IRI("urn:aFake"),
-                IRI("urn:aFake"));
-        OWLOntologyID testSubject2 = new OWLOntologyID(IRI("urn:aFake"));
+        new OWLOntologyID(IRI("urn:aFake"), IRI("urn:aFake"));
+        new OWLOntologyID(IRI("urn:aFake"));
         boolean result3 = testSubject0.isAnonymous();
         IRI result4 = testSubject0.getOntologyIRI();
         boolean result5 = testSubject0.isOWL2DLOntologyID();

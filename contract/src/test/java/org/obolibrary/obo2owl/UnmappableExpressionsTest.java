@@ -21,7 +21,7 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
         OBODoc obodoc = convert(parseOWLFile("nesting.owl"));
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
-        String file = writeOBO(obodoc, "nesting.obo");
+        String file = writeOBO(obodoc);
         obodoc = parseOBOFile(new StringReader(file), false);
         checkOBODoc(obodoc);
     }

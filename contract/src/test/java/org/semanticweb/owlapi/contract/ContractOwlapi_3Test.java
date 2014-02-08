@@ -42,6 +42,7 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -165,7 +166,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override
@@ -257,12 +258,12 @@ public class ContractOwlapi_3Test {
 
             @Override
             public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-                return null;
+                return Collections.emptySet();
             }
         };
         boolean result0 = testSubject0.contains(Utils.mockAnonClass());
@@ -313,7 +314,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public DataRangeType getDataRangeType() {
-                return null;
+                return DataRangeType.DATA_COMPLEMENT_OF;
             }
 
             @Override
@@ -413,12 +414,12 @@ public class ContractOwlapi_3Test {
 
             @Override
             public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
-                return null;
+                return Collections.emptySet();
             }
 
             @Override
             public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
-                return null;
+                return Collections.emptySet();
             }
         };
         Set<OWLIndividual> result0 = testSubject0.getIndividuals();
@@ -497,7 +498,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
-                return null;
+                return Collections.emptySet();
             }
         };
         Set<OWLObjectPropertyExpression> result0 = testSubject0.getProperties();
@@ -675,7 +676,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override
@@ -1258,7 +1259,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public OWLObjectProperty asOWLObjectProperty() {
-                return null;
+                return mock(OWLObjectProperty.class);
             }
 
             @Override
@@ -1668,7 +1669,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-                return null;
+                return mock(OWLSubClassOfAxiom.class);
             }
         };
         OWLClassExpression result0 = testSubject0.getDomain();
@@ -1771,7 +1772,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-                return null;
+                return mock(OWLSubClassOfAxiom.class);
             }
         };
         OWLPropertyRange result0 = testSubject0.getRange();
@@ -1823,7 +1824,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override
@@ -1894,7 +1895,7 @@ public class ContractOwlapi_3Test {
 
             @Override
             public ClassExpressionType getClassExpressionType() {
-                return null;
+                return ClassExpressionType.DATA_ALL_VALUES_FROM;
             }
 
             @Override

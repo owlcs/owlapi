@@ -41,9 +41,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -235,7 +233,6 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
         write("</h1>\n");
         write("<div>");
         write("<div class='box'>\n");
-        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>(ontology1.getAxioms());
         for (OWLImportsDeclaration decl : ontology1.getImportsDeclarations()) {
             write("Imports: ");
             write(decl.getIRI().toString());
