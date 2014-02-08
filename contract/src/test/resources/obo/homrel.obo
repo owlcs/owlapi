@@ -1,0 +1,39 @@
+ontology: homrel
+remark: The idea is that we can declare a relation homeomorphic for a particular class; e.g. part_of is homemorphic for continuants and processes. this means that parthood relations are always continuant-continuant or process-process, never continuant-process. note that this isn't possible with ordinary domain/range constraints without making sub-relations for part_of
+
+[Typedef]
+id: TEST:0000001
+name: homeomorphic for
+is_metadata_tag: true
+expand_assertion_to: "Class: ?Y SubClassOf: ?X only ?Y" []
+
+[Typedef]
+id: part_of
+name: part of
+xref: BFO:0000050
+is_reflexive: true
+is_transitive: true
+is_anti_symmetric: true
+relationship: TEST:0000001 BFO:0000002
+relationship: TEST:0000001 BFO:0000007
+
+[Typedef]
+id: has_part
+name: has part
+xref: BFO:0000051 
+is_transitive: true
+inverse_of: part_of
+relationship: TEST:0000001 BFO:0000002
+relationship: TEST:0000001 BFO:0000007
+
+[Term]
+id: BFO:0000002 ! continuant
+name: continuant
+
+[Term]
+id: BFO:0000007 ! process
+name: process
+
+
+
+

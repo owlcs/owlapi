@@ -1,0 +1,50 @@
+ontology: chebi
+data-version: 83
+format-version: 1.2
+date: 01:09:2011 10:14
+saved-by: pmatos
+default-namespace: chebi_ontology
+synonymtypedef: IUPAC_NAME "IUPAC NAME"
+synonymtypedef: FORMULA "FORMULA"
+synonymtypedef: SMILES "SMILES"
+synonymtypedef: InChI "InChI"
+synonymtypedef: InChIKey "InChIKey"
+synonymtypedef: BRAND_NAME "BRAND NAME"
+synonymtypedef: INN "INN"
+
+[Term]
+id: CHEBI:41189
+name: butane-1,4-diol
+def: "A member of the class of butanediols that is butane in which one hydrogen of each of the methyl groups is substituted by a hydroxy group. A colourless, water-miscible, viscous liquid at room temperature (melting point 16degreeC) with a high boiling point (230degreeC), it is mainly used for the production of other organic chemicals, particularly the solvent oxolane (also known as tetrahydrofuran or THF)." []
+synonym: "1,4-butylene glycol" RELATED [ChemIDplus:]
+synonym: "tetramethylene 1,4-diol" RELATED [ChemIDplus:]
+synonym: "1,4-BD" RELATED [ChemIDplus:]
+synonym: "butane-1,4-diol" EXACT IUPAC_NAME [IUPAC:]
+synonym: "1,4-dihydroxybutane" RELATED [ChemIDplus:]
+synonym: "HOCH2CH2CH2CH2OH" RELATED [ChEBI:]
+synonym: "tetramethylene glycol" RELATED [ChemIDplus:]
+synonym: "1,4-tetramethylene glycol" RELATED [ChemIDplus:]
+synonym: "1,4-BUTANEDIOL" RELATED [PDBeChem:]
+synonym: "HO(CH2)4OH" RELATED [ChEBI:]
+synonym: "C4H10O2" RELATED FORMULA [ChEBI:]
+synonym: "OCCCCO" RELATED SMILES [ChEBI:]
+synonym: "InChI=1S/C4H10O2/c5-3-1-2-4-6/h5-6H,1-4H2" RELATED InChI [ChEBI:]
+synonym: "InChIKey=WERYXYBDKMZEQL-UHFFFAOYSA-N" RELATED InChIKey [ChEBI:]
+xref: ChemIDplus:110-63-4 "CAS Registry Number"
+xref: NIST Chemistry WebBook:110-63-4 "CAS Registry Number"
+xref: CiteXplore:15298490 "PubMed citation"
+xref: CiteXplore:18203723 "PubMed citation"
+xref: Reaxys:1633445 "Reaxys Registry Number"
+xref: CiteXplore:21602812 "PubMed citation"
+xref: PDBeChem:BU1 "PDBeChem"
+xref: CiteXplore:19915428 "PubMed citation"
+xref: CiteXplore:17854202 "PubMed citation"
+xref: CiteXplore:11803699 "PubMed citation"
+xref: CiteXplore:16193534 "PubMed citation"
+xref: CiteXplore:20112336 "PubMed citation"
+xref: CiteXplore:21548140 "PubMed citation"
+xref: Wikipedia:1,4-Butanediol "Wikipedia"
+is_a: CHEBI:22944
+relationship: has_role CHEBI:50911
+relationship: has_role CHEBI:48356
+relationship: has_role CHEBI:50266

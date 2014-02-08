@@ -1,0 +1,5 @@
+ontology: test
+
+[Term]
+id: X:1
+comment: Connectivity inferred from EM reconstructions from a single EM section. The subtype of Tm5 was not specified. The neurotransmitter was assessed in cells labelled with a glutamate Gal4 driver P{GawB}VGlut[OK371] [FBti0076967] (Gao et al., 2008).

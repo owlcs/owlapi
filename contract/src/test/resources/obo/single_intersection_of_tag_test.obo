@@ -1,0 +1,9 @@
+ontology: test
+remark: single intersection_of tags are not allowed. This test ontology deliberately violates this
+
+[Term]
+id: MP:0000008 ! increased white adipose tissue amount
+intersection_of: PATO:0002002 ! has extra parts of type
+
+[Term]
+id: PATO:0002002 ! has extra parts of type

@@ -1,0 +1,26 @@
+format-version: 1.2
+saved-by: tanyaberardini
+default-namespace: gene_ontology
+ontology: go
+
+[Typedef]
+id: part_of
+name: part_of
+xref: BFO:0000050
+xref: OBO_REL:part_of
+is_transitive: true
+
+[Typedef]
+id: positively_regulates
+name: positively_regulates
+xref: RO:0002213
+holds_over_chain: results_in positively_regulates
+is_a: regulates ! regulates
+
+[Typedef]
+id: regulates
+name: regulates
+xref: RO:0002211
+holds_over_chain: results_in regulates
+transitive_over: part_of ! part_of
+

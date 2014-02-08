@@ -1,0 +1,96 @@
+format-version: 1.2
+ontology: test
+
+[Term]
+id: TEST:0000
+is_a: TEST:0100
+intersection_of: TEST:0100 {foo="bar"}
+intersection_of: rel TEST:0200 {cardinality="2", foo="bar"}
+relationship: rel TEST:0200
+
+[Term]
+id: TEST:0001
+is_a: TEST:0101
+intersection_of: TEST:0101 {foo="bar"}
+intersection_of: rel TEST:0201 {cardinality="0", foo="bar"}
+relationship: rel TEST:0201
+
+[Term]
+id: TEST:0002
+is_a: TEST:0102
+intersection_of: TEST:0102 {foo="bar"}
+intersection_of: rel TEST:0202 {minCardinality="1", foo="bar"}
+relationship: rel TEST:0202
+
+[Term]
+id: TEST:0003
+is_a: TEST:0103
+intersection_of: TEST:0103 {foo="bar"}
+intersection_of: rel TEST:0203 {maxCardinality="2", foo="bar"}
+relationship: rel TEST:0203
+
+[Term]
+id: TEST:0004
+is_a: TEST:0104
+intersection_of: TEST:0104 {foo="bar"}
+intersection_of: rel TEST:0204 {minCardinality="1", maxCardinality="2", foo="bar"}
+relationship: rel TEST:0204
+
+[Term]
+id: TEST:0005
+is_a: TEST:0105
+intersection_of: TEST:0105 {foo="bar"}
+intersection_of: rel TEST:0205 {all_some="true", all_only="true", foo="bar"}
+relationship: rel TEST:0205
+
+[Term]
+id: TEST:0006
+is_a: TEST:0106
+intersection_of: TEST:0106 {foo="bar"}
+intersection_of: rel TEST:0206 {all_only="true", foo="bar"}
+relationship: rel TEST:0206
+
+[Term]
+id: TEST:0100
+
+[Term]
+id: TEST:0101
+
+[Term]
+id: TEST:0102
+
+[Term]
+id: TEST:0103
+
+[Term]
+id: TEST:0104
+
+[Term]
+id: TEST:0105
+
+[Term]
+id: TEST:0106
+
+[Term]
+id: TEST:0200
+
+[Term]
+id: TEST:0201
+
+[Term]
+id: TEST:0202
+
+[Term]
+id: TEST:0203
+
+[Term]
+id: TEST:0204
+
+[Term]
+id: TEST:0205
+
+[Term]
+id: TEST:0206
+
+[Typedef]
+id: rel

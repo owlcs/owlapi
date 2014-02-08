@@ -1,0 +1,7 @@
+format-version: 1.4
+ontology: test
+date: 20:06:2011 05:05
+
+[Term]
+id: test:t1
+name: t1

@@ -1,0 +1,107 @@
+format-version: 1.4
+saved-by: noone ! comment
+auto-generated-by: hand-edited {val1="one",val2="two"} ! comment
+subsetdef: GO_SLIM "GO Slim" {val1="one",val2="two"} ! comment
+synonymtypedef: UK_SPELLING "British spelling" EXACT {val1="one",val2="two"} ! comment
+default-namespace: test_default_namespace {val1="one",val2="two"} ! comment
+idspace: GO urn:lsid:bioontology.org:GO: "gene ontology terms" {val1="one",val2="two"} ! comment
+remark: Do remark tag support comments or trailing qualifiers?
+remark: This is not a valid ontology, all content is for test purposes only.
+ontology: test
+property_value: FOO:0000009 http://purl.obolibrary.org/obo/go.owl {val1="one",val2="two"} ! comment
+property_value: dc-title "test title" xsd:string {val1="one",val2="two"} ! comment
+
+[Term]
+id: TEST:0001 ! comment
+name: test1 {val1="one",val2="two"} ! comment
+namespace: test1_namepsace {val1="one",val2="two"} ! comment
+alt_id: TEST:0002 {val1="one",val2="two"} ! comment
+def: "The fake definition for test1." [REF:0001 , REF:0002] {val1="one",val2="two"} ! comment
+comment: bla bla bla bla {val1="one",val2="two"} ! comment
+subset: GO_SLIM {val1="one",val2="two"} ! comment
+synonym: "test one" UK_SPELLING [REF:0001, REF:0002] {val1="one",val2="two"} ! comment
+xref: ISBN:0000000 "Book title" {val1="one",val2="two"} ! comment
+builtin: false {val1="one",val2="two"} ! comment
+property_value: external_definition "An external definition string" xsd:string {val1="one",val2="two"} ! comment
+property_value: IAO:0000412 http://purl.obolibrary.org/obo/uberon.owl {val1="one",val2="two"} ! comment
+is_a: TEST:0002 {val1="one",val2="two"} ! comment
+intersection_of: TEST:0002 {val1="one",val2="two"} ! comment
+intersection_of: TEST_REL:0001 TEST:0003 {val1="one",val2="two"} ! comment
+union_of: TEST:0004 {val1="one",val2="two"} ! comment
+union_of: TEST:0005 {val1="one",val2="two"} ! comment
+equivalent_to: TEST:0006 {val1="one",val2="two"} ! comment
+disjoint_from: TEST:0007 {derived="true",val1="one",val2="two"} ! comment
+relationship: TEST_REL:0001 TEST:0003 {val1="one",val2="two"} ! comment
+created_by: none {val1="one",val2="two"} ! comment
+
+[Term]
+id: TEST:0002 ! comment
+
+[Term]
+id: TEST:0003 ! comment
+
+[Term]
+id: TEST:0004 ! comment
+
+[Term]
+id: TEST:0005 ! comment
+
+[Term]
+id: TEST:0006 ! comment
+
+[Term]
+id: TEST:0007 ! comment
+
+[Term]
+id: TEST:0008 ! comment
+is_obsolete: true {val1="one",val2="two"} ! comment
+replaced_by: TEST:0007 {val1="one",val2="two"} ! comment
+
+[Term]
+id: TEST:0009 ! comment
+is_obsolete: true {val1="one",val2="two"} ! comment
+consider: TEST:0007 {val1="one",val2="two"} ! comment
+
+[Typedef]
+id: TEST_REL:0001
+name: rel1
+domain: FOO:0001 {val1="one",val2="two"} ! comment
+range: FOO:0002 {val1="one",val2="two"} ! comment
+is_anti_symmetric: false {val1="one",val2="two"} ! comment
+is_cyclic: true {val1="one",val2="two"} ! comment
+is_reflexive: true {val1="one",val2="two"} ! comment
+is_symmetric: true {val1="one",val2="two"} ! comment
+is_transitive: true {val1="one",val2="two"} ! comment
+inverse_of: TEST_REL:0002 {val1="one",val2="two"} ! comment
+transitive_over: TEST_REL:0003 {val1="one",val2="two"} ! comment
+holds_over_chain: TEST_REL:0004 TEST_REL:0005 {val1="one",val2="two"} ! comment
+is_class_level: false {val1="one",val2="two"} ! comment
+
+[Typedef]
+id: TEST_REL:0002
+name: 1rel
+
+[Typedef]
+id: TEST_REL:0003
+
+[Typedef]
+id: TEST_REL:0004
+
+[Typedef]
+id: TEST_REL:0005
+
+[Typedef]
+id: TEST_REL:0006
+equivalent_to_chain: TEST_REL:0007 TEST_REL:0008 {val1="one",val2="two"} ! comment
+
+[Typedef]
+id: TEST_REL:0007
+is_inverse_functional: true {val1="one",val2="two"} ! comment
+
+[Typedef]
+id: TEST_REL:0008
+is_functional: true {val1="one",val2="two"} ! comment
+
+[Typedef]
+id: TEST_REL:0009
+is_metadata_tag: true {val1="one",val2="two"} ! comment

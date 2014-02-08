@@ -1,0 +1,127 @@
+ontology: test
+
+[Term]
+id: FBbt:00005106
+name: neuron
+namespace: fly_anatomy.ontology
+def: "Electrically active cell of the nervous system which has an axon and/or dendrite and which is synapsed with other cells and/or has other cells synapsed to it." [FBC:DOS]
+synonym: "nerve cell" RELATED []
+xref: CL:0000540
+
+[Term]
+id: FBbt:00005123
+name: motor neuron
+is_a: FBbt:00005106  ! neuron
+def: "A neuron that sends movement impulses to the muscle system." [FBC:gg]
+
+[Term]
+id: FBbt:00004023
+name: cibarial pump muscle neuron
+subset: cur
+synonym: "procurrent nerve" RELATED []
+is_a: FBbt:00005123 ! motor neuron
+relationship: synapsed_to FBbt:00003271 ! cibarial muscle
+
+[Term]
+id: FBbt:00003719
+name: lamina monopolar neuron L1
+def: "A lamina monopolar neuron with short collaterals that project radially from the main projection in the lamina (Fischbach and Dittrich, 1989). These short collaterals are postsynaptic to the terminals of photoreceptors R1-6 (Meinertzhagen and O'Neil, 1991). It arborizes in medulla layers M1 and M5. In the medulla, it receives synaptic input from photoreceptor R8 (in M1), makes reciprocal synaptic connections with monopolar lamina cell L5 and centrifugal neuron C2, and makes presynaptic contacts with centrifugal neuron C3 (Takemura et al., 2008)." [FlyBase:FBrf0049410, FlyBase:FBrf0054529, FlyBase:FBrf0205531]
+comment: Connectivity in the lamina is extrapolated from serial EM of a single column (Meinertzhagen and O'Neil, 1991). Connectivity in the medulla is extrapolated from serial EM of 3 columns from a single sample (Takemura et al., 2008).
+subset: cur
+synonym: "L1" RELATED [FlyBrain_NDB:10089]
+synonym: "monopolar laminar cell L1" EXACT []
+xref: FlyBrain_NDB:10089
+is_a: FBbt:00005106  ! neuron
+relationship: synapsed_by FBbt:00006007 ! outer photoreceptor cell
+relationship: synapsed_to FBbt:00003744 ! centrifugal neuron C3
+relationship: synapsed_to FBbt:00003743 ! centrifugal neuron C2
+
+[Term]
+id: FBbt:00006007
+name: outer photoreceptor cell
+namespace: fly_anatomy.ontology
+def: "An eye photoreceptor cell whose rhabdomere is part of the outer trapezoid of rhabdomeres of each ommatidium. There are six of these per ommatidium. Each has a single axon that projects along a single lamina optic cartridge within which it makes extensive synaptic connections before terminating in the proximal lamina. This axon is presynaptic to lamina monopolar cells L1, L2 and L3 (at tetrad synapses), but also postsynaptic at (dyad) feedback synapses from L2 and L4 (Meinertzhagen and O'Neil, 1991)." [FlyBase:FBrf0054529, FlyBase:FBrf0064798]
+is_a: FBbt:00005106  ! neuron
+
+[Term]
+id: FBbt:00003744
+name: centrifugal neuron C3
+namespace: fly_anatomy.ontology
+def: "A centrifugal neuron with wide field arborizations in the medulla layers M1-2, M5, and M8-10 and more restricted arborizations in the lamina (Fischbach and Dittrich, 1989). In the lamina it is presynaptic to lamina monopolar neurons. In the medulla it is presynaptic to monopolar lamina neuron L2 and to T1, and postsynaptic to L1." [FlyBase:FBrf0049410]
+is_a: FBbt:00005106  ! neuron
+
+[Term]
+id: FBbt:00003743 ! centrifugal neuron C2
+
+[Term]
+id: FBbt:00003271
+name: cibarial muscle
+
+[Term]
+id: GO:0042734
+
+[Term]
+id: GO:0045202
+
+[Term]
+id: GO:0045211
+
+[Term]
+id: FBbt:00004154
+name: chemosensory labral sensillum 7
+subset: cur
+is_a: FBbt:00007232 ! eo-type sensillum
+relationship: has_function_in GO:0050907 ! detection of chemical stimulus involved in sensory perception
+relationship: part_of FBbt:00004146 ! adult labral sense organ
+
+[Term]
+id: FBbt:00007232
+
+[Term]
+id: FBbt:00004146
+
+[Term]
+id: GO:0050907
+
+[Typedef]
+id: overlaps
+name: overlaps
+xref: RO:0002131
+holds_over_chain: has_part overlaps
+holds_over_chain: overlaps part_of
+holds_over_chain: has_part part_of
+
+[Typedef]
+id: part_of
+name: part_of
+namespace: relationship
+xref: BFO:0000050
+xref_analog: OBO_REL:part_of
+is_transitive: true
+is_a: overlaps ! overlaps
+
+[Typedef]
+id: has_part
+name: has_part
+namespace: relationship
+xref: BFO:0000051
+xref_analog: OBO_REL:has_part
+is_transitive: true
+is_a: overlaps ! overlaps
+inverse_of: part_of ! part_of
+
+[Typedef]
+id: synapsed_by
+name: synapsed_by
+def: "Relation between an anatomical structure and a neuron that chemically synapses to it." [FBC:DOS]
+xref: RO:0002103
+range: FBbt:00005106 ! neuron
+expand_expression_to: "BFO_0000051 some (GO_0045211 that BFO_0000050 some (GO_0045202 that BFO_0000051 some (GO_0042734 that BFO_0000050 some ?Y)))" []
+
+[Typedef]
+id: synapsed_to
+name: synapsed_to
+def: "Relation between a neuron and an anatomical structure that it chemically synapses to." [FBC:DOS]
+xref: RO:0002120
+domain: FBbt:00005106 ! neuron
+expand_expression_to: "BFO_0000051 some (GO_0042734 that BFO_0000050 some (GO_0045202 that BFO_0000051 some (GO_0045211 that BFO_0000050 some ?Y)))" []

@@ -1,0 +1,4 @@
+Prefix(:=<http://www.example.org/#>)
+Ontology(<http://purl.obolibrary.org/obo/tests/import_test_imported.owl>
+SubClassOf(:a :b)
+)

@@ -1,0 +1,1788 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.obolibrary.org/obo/CARO.owl#"
+     xml:base="http://purl.obolibrary.org/obo/CARO.owl"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:error="http://org.semanticweb.owlapi/error#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://purl.obolibrary.org/obo/CARO.owl">
+        <obo:IAO_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">09:03:2011 21:11</obo:IAO_date>
+        <obo:IAO_format-version rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1.2</obo:IAO_format-version>
+        <obo:IAO_treat-xrefs-as-equivalent rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GO</obo:IAO_treat-xrefs-as-equivalent>
+        <obo:IAO_auto-generated-by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">OBO-Edit 2.1-beta3</obo:IAO_auto-generated-by>
+        <obo:IAO_remark rdf:datatype="http://www.w3.org/2001/XMLSchema#string">alpha draft revision - likely to change - use at your own risk.</obo:IAO_remark>
+        <obo:IAO_default-namespace rdf:datatype="http://www.w3.org/2001/XMLSchema#string">caro</obo:IAO_default-namespace>
+        <obo:IAO_saved-by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_saved-by>
+        <obo:IAO_pairwise-disjoint rdf:datatype="http://www.w3.org/2001/XMLSchema#string">true</obo:IAO_pairwise-disjoint>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_synonym_typedef"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_id"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_date"/>
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_alt_id"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_pairwise-disjoint"/>
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2002/07/owl#deprecated"/>
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_remark"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_auto-generated-by"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_default-namespace"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_created_by"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000115">
+        <rdfs:label xml:lang="en">definition</rdfs:label>
+        <obo:IAO_0000117 xml:lang="en">PERSON:Daniel Schober</obo:IAO_0000117>
+        <obo:IAO_0000115 xml:lang="en">The official definition, explaining the meaning of a class or property. Shall be Aristotelian, formalized and normalized. Can be augmented with colloquial definitions.</obo:IAO_0000115>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000122"/>
+    </owl:AnnotationProperty>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_format-version"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_saved-by"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_creation_date"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_treat-xrefs-as-equivalent"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000117">
+        <rdfs:label xml:lang="en">definition editor</rdfs:label>
+        <obo:IAO_0000115 xml:lang="en">Name of editor entering the definition in the file. The definition editor is a point of contact for information regarding the term. The definition editor may be, but is not always, the author of the definition, which may have been worked upon by several people</obo:IAO_0000115>
+        <obo:IAO_0000117 xml:lang="en">PERSON:Daniel Schober</obo:IAO_0000117>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000122"/>
+    </owl:AnnotationProperty>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_0000118">
+        <rdfs:label xml:lang="en">alternative term</rdfs:label>
+        <obo:IAO_0000115 xml:lang="en">An alternative name for a class or property which means the same thing as the preferred name (semantically equivalent)</obo:IAO_0000115>
+        <obo:IAO_0000117 xml:lang="en">PERSON:Daniel Schober</obo:IAO_0000117>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
+    </owl:AnnotationProperty>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_xref"/>
+    <owl:AnnotationProperty rdf:about="http://purl.obolibrary.org/obo/IAO_scope"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000050 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000050">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">part_of</rdfs:label>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BFO:0000050</obo:IAO_xref>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">part_of</obo:IAO_id>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002131"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000051 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_0000051">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_part</rdfs:label>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BFO:0000051</obo:IAO_xref>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_part</obo:IAO_id>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/RO_0002131"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_000015 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/BFO_000015">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_function_in</rdfs:label>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">BFO:000015</obo:IAO_xref>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_function_in</obo:IAO_id>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/CARO_0000000"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_has_quality -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/CARO_has_quality">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_quality</rdfs:label>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">has_quality</obo:IAO_id>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002000 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002000">
+        <rdfs:label xml:lang="en">located_in</rdfs:label>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/CARO_0000005"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002001 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002001">
+        <rdfs:label xml:lang="en">contained_in</rdfs:label>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002131 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002131">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">overlaps</rdfs:label>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RO:0002131</obo:IAO_xref>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">overlaps</obo:IAO_id>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002150 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002150">
+        <rdfs:label xml:lang="en">connected_to</rdfs:label>
+        <obo:IAO_0000117 rdf:datatype="http://www.w3.org/2000/01/rdf-schema#Literal">David Osumi-Sutherland</obo:IAO_0000117>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">X connected_to Y if and only if X and Y share a fiat boundary.</obo:IAO_0000115>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002180 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002180">
+        <rdfs:label xml:lang="en">has_component</rdfs:label>
+        <rdfs:comment xml:lang="en">For use in recording has_part with a cardinality constraint.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000000 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000000">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical entity</rdfs:label>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/GO_0008150"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Biological entity that is either an individual member of a biological species or is part_of or located in an individual member of a biological species.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000000</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Biological entity that is either an individual member of a biological species or is part_of or located in an individual member of a biological species.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">caro2_cur:DOS</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000000"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000003 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000003">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical structure</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/CARO_has_quality"/>
+                <owl:someValuesFrom rdf:resource="http://org.semanticweb.owlapi/error#Error2"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000004"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000032"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000054"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000003</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Material anatomical entity that is a single connected structure with inherent 3D shape generated by coordinated expression of the organism&#39;s own genome.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000004 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000004">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portion of organism substance</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000032"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000054"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000004</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Material anatomical entity in a gaseous, liquid, semisolid or solid state; produced by anatomical structures or derived from inhaled and ingested substances that have been modified by anatomical structures as they pass through the body and that does not have inherent 3D shape generated by coordinated expression of the organism&#39;s own genome.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000005 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000005">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical space</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000008"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000009"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000010"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000005</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of three dimensions, that is generated by morphogenetic or other physiologic processes; is surrounded by one or more anatomical structures.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000006 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000006">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">material anatomical entity</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000000"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/CARO_has_quality"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/PATO_0000125"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+        <owl:disjointWith>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+            </owl:Restriction>
+        </owl:disjointWith>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical entity that has mass.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000006</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical entity that has mass.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000007 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000007">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">immaterial anatomical entity</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000054"/>
+        <owl:disjointWith>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+            </owl:Restriction>
+        </owl:disjointWith>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical entity that has no mass.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000007</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical entity that has no mass.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000008 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000008">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical line</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000009"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000010"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000008</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of one dimension, which forms a boundary of an anatomical surface or is a modulation of an anatomical surface.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of one dimension, which forms a boundary of an anatomical surface or is a modulation of an anatomical surface.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000008"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000009 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000009">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical point</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000010"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000009</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of zero dimension, which forms a boundary of an anatomical line or surface.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of zero dimension, which forms a boundary of an anatomical line or surface.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000009"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000010 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000010">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical surface</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000007"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000010</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of two dimensions, that is demarcated by anatomical lines or points on the external or internal surfaces of anatomical structures.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Non-material anatomical entity of two dimensions, that is demarcated by anatomical lines or points on the external or internal surfaces of anatomical structures.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000010"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000011 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000011">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">connected anatomical system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000012"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000024"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000043"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010001"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010002"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000011</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multicellular structure  that is has as its parts distinct anatomical structures interconnected by anatomical structures at a lower level of granularity.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multicellular structure  that is has as its parts distinct anatomical structures interconnected by anatomical structures at a lower level of granularity.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000011"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000012 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000012">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multi-cellular organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000024"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000043"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010001"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010002"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that is an individual member of a species and consists of more than one cell.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000012</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that is an individual member of a species and consists of more than one cell.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000012"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000013 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000013">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cell</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000003"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000014"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000040"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000042"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0001000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An anatomical structure that has as its parts a maximally connected cell compartment surrounded by a plasma membrane.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000013</obo:IAO_id>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GO:0005623</obo:IAO_xref>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000014 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000014">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cell component</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000003"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0000013"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000040"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000042"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0001000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that is part of a cell and that has a granularity level equal to that of a protein complex or higher.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000014</obo:IAO_id>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000019 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000019">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compound organ component</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0000024"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000019</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-tissue structure that is part of a compound organ.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-tissue structure that is part of a compound organ.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000019"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000021 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000021">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple organ</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000021</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-tissue structure that is not part of a compound organ.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-tissue structure that is not part of a compound organ.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000021"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000024 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000024">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compound organ</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000043"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010001"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010002"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that has as its parts two or more multi-tissue structures of at least two different types and which through specific morphogenetic processes forms a single distinct structural unit demarcated by bona fide boundaries from other distinct anatomical structures of different types.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000024</obo:IAO_id>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Examples: compound eye; Johnston&#39;s organ.</rdfs:comment>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that has as its parts two or more multi-tissue structures of at least two different types and which through specific morphogenetic processes forms a single distinct structural unit demarcated by bona fide boundaries from other distinct anatomical structures of different types.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000024"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000027 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000027">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">male organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000048"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000027</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gonochoristic organism that can produce male gametes.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gonochoristic organism that can produce male gametes.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000027"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000028 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000028">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">female organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000048"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000028</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gonochoristic organism that can produce female gametes.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Gonochoristic organism that can produce female gametes.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000028"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000029 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000029">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hermaphroditic organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000012"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000029</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-cellular organism that can produce both male and female gametes.</obo:IAO_0000115>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dioecious organism</obo:IAO_0000118>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-cellular organism that can produce both male and female gametes.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000029"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <obo:IAO_scope rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RELATED</obo:IAO_scope>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">dioecious organism</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000029"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000030 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000030">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">asexual organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000012"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000030</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-cellular organism that does not produce gametes.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-cellular organism that does not produce gametes.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000030"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000032 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000032">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">organism subdivision</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000054"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000032</obo:IAO_id>
+        <obo:IAO_0000115 xml:lang="en">Anatomical structure which is a subdivision of a whole organism, consisting of components of multiple anatomical systems, largely surrounded by integument.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000040 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000040">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">acellular anatomical structure</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000013"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000014"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000042"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0001000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that has no cells as a part.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000040</obo:IAO_id>
+        <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Example.  Insect cuticle, eggshell, hair.</rdfs:comment>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that has no cells as a part.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000040"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000041 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000041">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical cluster</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000054"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical group that has its parts adjacent to one another.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000041</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical group that has its parts adjacent to one another.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000041"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000042 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000042">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">extraembryonic structure</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000003"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0001000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that is contiguous with the embryo and is comprised of portions of tissue or cells that will not contribute to the embryo.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000042</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that is contiguous with the embryo and is comprised of portions of tissue or cells that will not contribute to the embryo.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000042"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000043 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000043">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portion of tissue</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010001"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010002"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000043</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multicellular anatomical structure that consists of many cells of one or a few types, arranged in an extracellular matrix such that their long-range organisation is at least partly a repetition of their short-range organisation.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000045 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000045">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sequential hermaphroditic organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000029"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000045</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hermaphroditic organism that produces gametes first of one sex, and then later of the other sex.</obo:IAO_0000115>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">consecutive hermaphroditic organism</obo:IAO_0000118>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_scope rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RELATED</obo:IAO_scope>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">consecutive hermaphroditic organism</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000045"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hermaphroditic organism that produces gametes first of one sex, and then later of the other sex.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000045"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000046 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000046">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">synchronous hermaphroditic organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000029"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000046</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hermaphroditic organism that produces both male and female gametes at the same time.</obo:IAO_0000115>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">serially hermaphroditic organism</obo:IAO_0000118>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hermaphroditic organism that produces both male and female gametes at the same time.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000046"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <obo:IAO_scope rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RELATED</obo:IAO_scope>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">serially hermaphroditic organism</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000046"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000048 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000048">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">gonochoristic organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000012"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000048</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-cellular organism that has male and female sexes.</obo:IAO_0000115>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">monoecious organism</obo:IAO_0000118>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-cellular organism that has male and female sexes.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000048"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <obo:IAO_scope rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RELATED</obo:IAO_scope>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">monoecious organism</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000048"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000049 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000049">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">protandrous hermaphroditic organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000045"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000049</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sequential hermaphroditic organism that produces\ngametes first of the male sex, and then later of the\nfemale sex.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sequential hermaphroditic organism that produces\ngametes first of the male sex, and then later of the\nfemale sex.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000049"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000050 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000050">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">protogynous hermaphroditic organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000045"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000050</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sequential hermaphroditic organism that produces\ngametes first of the female sex, and then later of the\nmale sex.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sequential hermaphroditic organism that produces\ngametes first of the female sex, and then later of the\nmale sex.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000050"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000054 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000054">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">anatomical group</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000054</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Material anatomical entity consisting of multiple anatomical structures that are not connected to each other.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CaroCur:DOS</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Material anatomical entity consisting of multiple anatomical structures that are not connected to each other.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000054"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000055 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000055">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multi-tissue structure</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000043"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010001"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010002"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that has as its parts two or more portions of tissue of at least two different types and which through specific morphogenetic processes forms a single distinct structural unit demarcated by bona-fide boundaries from other distinct structural units of different types.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000055</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical structure that has as its parts two or more portions of tissue of at least two different types and which through specific morphogenetic processes forms a single distinct structural unit demarcated by bona-fide boundaries from other distinct structural units of different types.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000055"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000062 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000062">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cell space</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000005"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical space that is part of a cell.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000062</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Anatomical space that is part of a cell.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:mah</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000062"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000063 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000063">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">portion of cell substance</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000004"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000063</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Portion of organism substance located within a cell.</obo:IAO_0000115>
+        <rdfs:comment>Deprecate this as better to leave it up to GO to define?</rdfs:comment>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:mah</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Portion of organism substance located within a cell.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000063"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000064 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000064">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">single cell organism</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000013"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000064</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cell that is an individual member of a species.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cell that is an individual member of a species.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000064"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000065 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000065">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">basal lamina</rdfs:label>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Acellular anatomical structure that consists of a thin sheet of fibrous proteins that underlie and support the cells of an epithelium. It separates the cells of an epithelium from any underlying tissue.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000065</obo:IAO_id>
+        <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#string">true</owl:deprecated>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Acellular anatomical structure that consists of a thin sheet of fibrous proteins that underlie and support the cells of an epithelium. It separates the cells of an epithelium from any underlying tissue.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000065"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000066 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000066">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">epithelium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000043"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/CARO_has_quality"/>
+                <owl:someValuesFrom rdf:resource="http://org.semanticweb.owlapi/error#Error1"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000066</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Portion of tissue, that consists of one or more layers of epithelial cells connected to each other by cell junctions and which is underlain by a basal lamina.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Portion of tissue, that consists of one or more layers of epithelial cells connected to each other by cell junctions and which is underlain by a basal lamina.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000066"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000067 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000067">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple cuboidal epithelium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000073"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000067</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unilaminar epithelium that consists of a single layer of cuboidal cells.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unilaminar epithelium that consists of a single layer of cuboidal cells.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000067"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000068 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000068">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple columnar epithlium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000073"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000068</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unilaminar epithelium that consists of a single layer of columnar cells.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unilaminar epithelium that consists of a single layer of columnar cells.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000068"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000069 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000069">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multilaminar epithelium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000066"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000071"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000073"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000069</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Epithelium that consists of more than one layer of epithelial cells.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Epithelium that consists of more than one layer of epithelial cells.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000069"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000070 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000070">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">simple squamous epithelium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000073"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000070</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unilaminar epithelium that consists of a single layer of squamous cells.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Unilaminar epithelium that consists of a single layer of squamous cells.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000070"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000071 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000071">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">atypical epithelium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000066"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000073"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000071</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Epithelium that consists of epithelial cells not arranged in one ore more layers.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Epithelium that consists of epithelial cells not arranged in one ore more layers.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000071"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000072 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000072">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cavitated compound organ</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000024"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000072</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compound organ that contains one or more macroscopic anatomical spaces.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compound organ that contains one or more macroscopic anatomical spaces.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000072"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000073 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000073">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unilaminar epithelium</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000066"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000073</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Epithelium that consists of a single layer of epithelial cells.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Epithelium that consists of a single layer of epithelial cells.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000073"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000074 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000074">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">solid compound organ</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000024"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000074</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compound organ that does not contain macroscopic anatomical spaces.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compound organ that does not contain macroscopic anatomical spaces.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000074"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000077 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000077">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">epithelial cell</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000013"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0000077</obo:IAO_id>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cell which has as its part a cytoskeleton that allows for tight cell to cell contact and which has apical-basal cell polarity.</obo:IAO_0000115>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:MAH</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cell which has as its part a cytoskeleton that allows for tight cell to cell contact and which has apical-basal cell polarity.</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0000077"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000081 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000081">
+        <rdfs:label>circulating fluid</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000004"/>
+        <rdfs:comment>Examples: blood, lymph, hemolymph</rdfs:comment>
+        <obo:IAO_0000115>A fluid that is circulated around a multicellular organism carrying nutrients and carrying away waste products.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000133 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000133">
+        <rdfs:label xml:lang="en">paired appendage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010003"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0000134"/>
+        <obo:IAO_0000115 xml:lang="en">An appendage that is one of a bilateral pair.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0000134 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0000134">
+        <rdfs:label xml:lang="en">unpaired appendage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010003"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0001000 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0001000">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multi-cell-component structure</rdfs:label>
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000014"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000013"/>
+                        <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:qualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A structure consisting of multiple cell components but which is not itself a cell and does not have (complete) cells as a part.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0001000</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A structure consisting of multiple cell components but which is not itself a cell and does not have (complete) cells as a part.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FBC:DOS</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0001000"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0001001 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0001001">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">neuron projection bundle</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0001000"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A fasciculated bundle of neuron projections (GO:0043005), largely or completely lacking synapses.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0001001</obo:IAO_id>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nerve fiber bundle</obo:IAO_0000118>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_scope rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EXACT</obo:IAO_scope>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FBC:DOS</obo:IAO_xref>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">nerve fiber bundle</owl:annotatedTarget>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0001001"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A fasciculated bundle of neuron projections (GO:0043005), largely or completely lacking synapses.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FBC:DOS</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0001001"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0002000 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0002000">
+        <rdfs:label>epidermis</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000066"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0002001"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000115>Epithelium of the integumentary system.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0002001 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0002001">
+        <rdfs:label>integumentary system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000011"/>
+        <obo:IAO_0000115>Connected anatomical system that forms a barrier between an animal and its environment - generally consisting of an epidermis, which may be covered by some acellular structure.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010000 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010000">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">multicellular anatomical structure</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                        <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0000013"/>
+                        <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An anatomical structure that has more than one cell as a part.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010000</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sun Feb 27 10:53:00 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010001 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010001">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cell cluster organ</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010002"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A multicellular anatomical strucure consisting of a few cells of various types which forms a discrete structure with a largely bona fide boundary.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010001</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sun Feb 27 11:00:35 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010002 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010002">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compound cell cluster organ</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0010000"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/RO_0002180"/>
+                <owl:onClass rdf:resource="http://purl.obolibrary.org/obo/CARO_0010001"/>
+                <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An anatomical structure consisting of multiple cell cluster organs, that has a largely bona-fide boundary and that does not contain portions of tissue.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010002</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sun Feb 27 11:13:17 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010003 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010003">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">appendage</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000032"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010005"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010006"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010007"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010003</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fri Mar 04 07:09:17 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+        <obo:IAO_0000115 xml:lang="en">An organism subdivision that protrudes from the body.</obo:IAO_0000115>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010005 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010005">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">segment</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000032"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0010006"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010006"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010007"/>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010005</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fri Mar 04 07:13:46 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Metameric subdivision of an organism along its anterior-posterior axis.</obo:IAO_0000115>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010006 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010006">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">tagma</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000032"/>
+        <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/CARO_0010007"/>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A subdivision of the organism along the anterior-posterior axis that consists of multiple adjacent segments that are either fused, and/or share more structure with each other than with segments in adjacent tagmata.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010006</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fri Mar 04 07:14:57 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010007 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010007">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">appendage segment</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000032"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/CARO_0010003"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A metameric subdivision of an appendage along its proximal-distal axis.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010007</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fri Mar 04 07:16:21 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010009 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010009">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">epithelial tube</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000066"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/CARO_has_quality"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/PATO_0001873"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/CARO_has_quality"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/PATO_0002078"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An epithelium that is rolled into a tube.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010009</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wed Mar 09 06:22:07 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An epithelium that is rolled into a tube.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">caro_cur:DOS</obo:IAO_xref>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/CARO_0010009"/>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/CARO_0010010 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/CARO_0010010">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">epithelial sac</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000066"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/CARO_has_quality"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/PATO_0001987"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CARO:0010010</obo:IAO_id>
+        <obo:IAO_creation_date rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wed Mar 09 08:02:50 GMT 2011</obo:IAO_creation_date>
+        <obo:IAO_created_by rdf:datatype="http://www.w3.org/2001/XMLSchema#string">djs93</obo:IAO_created_by>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000000 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000000">
+        <rdfs:label xml:lang="en">sense organ</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error1"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000001 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000001">
+        <rdfs:label>chemosensory organ</rdfs:label>
+        <rdfs:label xml:lang="en">chemosensory organ</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error2"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000002 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000002">
+        <rdfs:label xml:lang="en">gustatory organ</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error3"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000003 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000003">
+        <rdfs:label xml:lang="en">olfactory sense organ</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error4"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000004 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000004">
+        <rdfs:label xml:lang="en">mechanosensory organ</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error5"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000005 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000005">
+        <rdfs:label xml:lang="en">auditory organ</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error17"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000006 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000006">
+        <rdfs:label xml:lang="en">functional system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/CARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000007 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000007">
+        <rdfs:label xml:lang="en">endocrine system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://org.semanticweb.owlapi/error#Error16"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000008 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000008">
+        <rdfs:label xml:lang="en">endocrine system component</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error15"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000007"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000009 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000009">
+        <rdfs:label xml:lang="en">immune system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://org.semanticweb.owlapi/error#Error18"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000010 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000010">
+        <rdfs:label xml:lang="en">immune system component</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error8"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000009"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000011 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000011">
+        <rdfs:label xml:lang="en">respiratory system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://org.semanticweb.owlapi/error#Error9"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000012 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000012">
+        <rdfs:label xml:lang="en">circulatory system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000013 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000013">
+        <rdfs:label xml:lang="en">adipose system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000014 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000014">
+        <rdfs:label xml:lang="en">digestive system</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://org.semanticweb.owlapi/error#Error10"/>
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000006"/>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000015 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000015">
+        <rdfs:label xml:lang="en">digestive system component</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error11"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000014"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000016 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000016">
+        <rdfs:label xml:lang="en">respiratory system component</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error6"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0000003"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000050"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000011"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000017 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000017">
+        <rdfs:label xml:lang="en">endocrine gland</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error7"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000077 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000077">
+        <rdfs:label xml:lang="en">gland</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error14"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000078 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000078">
+        <rdfs:label xml:lang="en">duct</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error12"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010009"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/FUNCARO_0000079 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/FUNCARO_0000079">
+        <rdfs:label xml:lang="en">ducted gland</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://org.semanticweb.owlapi/error#Error13"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/CARO_0010000"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/BFO_0000051"/>
+                        <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/FUNCARO_0000078"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/GO_0008150 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/GO_0008150"/>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/PATO_0000125 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/PATO_0000125">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mass</rdfs:label>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A physical quality that inheres in a bearer by virtue of the proportion of the bearer&#39;s amount of matter.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATO:0000125</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A physical quality that inheres in a bearer by virtue of the proportion of the bearer&#39;s amount of matter.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATOC:GVG</obo:IAO_xref>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/PATO_0000125"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/PATO_0001873 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/PATO_0001873">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cylindrical</rdfs:label>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A convex 3-D shape quality inhering in a bearer by virtue of the bearer&#39;s exhibiting a consistently-sized round cross section.</obo:IAO_0000115>
+        <obo:IAO_alt_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATO:0001203</obo:IAO_alt_id>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATO:0001873</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A convex 3-D shape quality inhering in a bearer by virtue of the bearer&#39;s exhibiting a consistently-sized round cross section.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATOC:MAH</obo:IAO_xref>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/PATO_0001873"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/PATO_0001987 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/PATO_0001987">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">saccular</rdfs:label>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A structural quality inhering in a bearer by virtue of the bearer&#39;s having a three dimensional cavity with a narrow or no opening, and often containing an anatomical substance.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATO:0001987</obo:IAO_id>
+        <obo:IAO_0000118 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sacular</obo:IAO_0000118>
+    </owl:Class>
+    <owl:Axiom>
+        <obo:IAO_scope rdf:datatype="http://www.w3.org/2001/XMLSchema#string">EXACT</obo:IAO_scope>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sacular</owl:annotatedTarget>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000118"/>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/PATO_0001987"/>
+    </owl:Axiom>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A structural quality inhering in a bearer by virtue of the bearer&#39;s having a three dimensional cavity with a narrow or no opening, and often containing an anatomical substance.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATOC:MAH</obo:IAO_xref>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/PATO_0001987"/>
+    </owl:Axiom>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/PATO_0002078 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/PATO_0002078">
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">hollow</rdfs:label>
+        <obo:IAO_0000115 rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A quality inhering in a bearer by virtue of the bearer&#39;s having an empty space or cavity within.</obo:IAO_0000115>
+        <obo:IAO_id rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PATO:0002078</obo:IAO_id>
+    </owl:Class>
+    <owl:Axiom>
+        <owl:annotatedTarget rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A quality inhering in a bearer by virtue of the bearer&#39;s having an empty space or cavity within.</owl:annotatedTarget>
+        <obo:IAO_xref rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MW:merriam webster</obo:IAO_xref>
+        <owl:annotatedProperty rdf:resource="http://purl.obolibrary.org/obo/IAO_0000115"/>
+        <owl:annotatedSource rdf:resource="http://purl.obolibrary.org/obo/PATO_0002078"/>
+    </owl:Axiom>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.0.1502) http://owlapi.sourceforge.net -->
+

@@ -1,0 +1,11 @@
+ontology: test
+
+[Term]
+id: XX:0000034
+name: foo
+is_obsolete: true
+replaced_by: XX:0000035
+
+[Term]
+id: XX:0000035
+name: bar

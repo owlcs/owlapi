@@ -1,0 +1,47 @@
+format-version: 1.4
+subsetdef: goslim_candida "Candida GO slim"
+subsetdef: goslim_generic "Generic GO slim"
+subsetdef: goslim_pir "PIR GO slim"
+subsetdef: goslim_plant "Plant GO slim"
+subsetdef: goslim_pombe "Fission yeast GO slim"
+subsetdef: goslim_yeast "Yeast GO slim"
+subsetdef: gosubset_prok "Prokaryotic GO subset"
+subsetdef: high_level_annotation_qc "High-level terms not to be used for direct annotation"
+subsetdef: unvetted "unvetted"
+synonymtypedef: systematic_synonym "Systematic synonym" EXACT
+ontology: subset_test
+
+! Note that the gosubset_prok assignment deliberately has a space character at the end;
+! Leave this here, it is for testing purposes
+[Term]
+id: GO:0008150
+name: biological_process
+namespace: biological_process
+alt_id: GO:0000004
+alt_id: GO:0007582
+def: "Any process specifically pertinent to the functioning of integrated living units: cells, tissues, organs, and organisms. A process is a collection of molecular events with a defined beginning and end." [GOC:go_curators, GOC:isa_complete]
+comment: Note that, in addition to forming the root of the biological process ontology, this term is recommended for use for the annotation of gene products whose biological process is unknown. Note that when this term is used for annotation, it indicates that no information was available about the biological process of the gene product annotated as of the date the annotation was made; the evidence code ND, no data, is used to indicate this.
+subset: goslim_candida
+subset: goslim_pir
+subset: goslim_plant
+subset: goslim_yeast
+subset: gosubset_prok 
+synonym: "biological process" EXACT []
+synonym: "biological process unknown" NARROW []
+synonym: "physiological process" EXACT []
+xref: Wikipedia:Biological_process
+
+[Term]
+id: GO:0000003
+name: reproduction
+namespace: biological_process
+alt_id: GO:0019952
+alt_id: GO:0050876
+def: "The production by an organism of new individuals that contain some portion of their genetic material inherited from that organism." [GOC:go_curators, GOC:isa_complete, ISBN:0198506732 "Oxford Dictionary of Biochemistry and Molecular Biology"]
+subset: goslim_generic
+subset: goslim_pir
+subset: goslim_plant
+subset: gosubset_prok
+synonym: "reproductive physiological process" EXACT []
+xref: Wikipedia:Reproduction
+is_a: GO:0008150 ! biological_process

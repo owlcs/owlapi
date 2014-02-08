@@ -1,0 +1,63 @@
+format-version: 1.2
+ontology: pr
+
+[Term]
+id: NCBITaxon:9606
+name: Homo sapiens
+namespace: taxon
+synonym: "human" RELATED []
+
+[Term]
+id: PR:000025531
+name: amyloid beta A4 protein isoform APP639
+def: "An amyloid beta A4 protein that is a translation product of some mRNA giving rise to a protein with the amino acid sequence represented by UniProtKB:P05067-10 or a 1:1 ortholog thereof." [PRO:DAN]
+comment: Category=sequence. Requested by=Alzforum.
+synonym: "APP/iso:APP639" EXACT PRO-short-label []
+
+[Term]
+id: PR:000025532
+name: amyloid beta A4 protein (human)
+def: "An amyloid beta A4 protein that is encoded in the genome of humans." [PRO:DAN]
+comment: Category=organism-gene. Requested by=Alzforum.
+synonym: "hAPP" EXACT PRO-short-label []
+xref: UniProtKB:P05067
+
+[Term]
+id: PR:000025557
+name: amyloid beta A4 protein isoform APP639, signal peptide removed form
+def: "An amyloid beta A4 protein isoform APP639 that has had the signal peptide removed." [PRO:DAN]
+comment: Category=modification. Requested by=Alzforum.
+synonym: "APP/iso:APP639/SigPep-" EXACT PRO-short-label []
+intersection_of: PR:000025531 ! amyloid beta A4 protein isoform APP639
+intersection_of: lacks_part SO:0000418 ! signal_peptide
+
+[Term]
+id: PR:000025558
+name: amyloid beta A4 protein sequence variant (human)
+def: "An amyloid beta A4 protein (human) that has at least one amino acid residue that differs from the corresponding residue found in another amyloid beta A4 protein (human) when such a difference arises as the result of genetic differences, i.e., different alleles of amyloid beta A4 protein (human). Operationally, this means the sequence representation of the amyloid beta A4 protein (human) has at least one amino acid residue that differs from the corresponding residue found in the sequence representation given by UniProtKB:P05067-1." [PRO:DAN]
+comment: Category=organism-sequence. Requested by=Alzforum.
+is_a: PR:000025532 ! amyloid beta A4 protein (human)
+relationship: only_in_taxon NCBITaxon:9606 ! Homo sapiens
+
+[Term]
+id: SO:0000418
+name: signal_peptide
+namespace: SO
+comment: The signal peptide can be cleaved either co- or post-translationally. For this reason, we do not use the derives_from relation when defining protein forms lacking the signal peptide (because the precursor form might not yet exist at the time of removal).
+synonym: "signal" RELATED [uniprot:feature_type]
+synonym: "signal peptide" EXACT []
+
+[Typedef]
+id: lacks_part
+name: lacks_part
+
+[Typedef]
+id: only_in_taxon
+name: only_in_taxon
+def: "U only_in_taxon T: U is a feature found in only in organisms of species of taxon T. The feature cannot be found in an organism of any species outside of (not subsumed by) that taxon. Down-propagates in U hierarchy, up-propagates in T hierarchy (species taxonomy). Implies applicable_to_taxon." [ROC:Waclaw]
+comment: Down-propagates. The original name for this in the paper is 'specific_to'. Applicable to genes because some genes are lost in sub-species (strains) of a species.
+synonym: "never_outside_taxon" EXACT []
+synonym: "specific_to" EXACT []
+synonym: "specific_to_taxon" EXACT []
+is_metadata_tag: true
+

@@ -1,0 +1,7 @@
+format-version: 1.2
+idspace: GO urn:lsid:bioontology.org:GO: "gene ontology terms" 
+ontology: test
+
+[Term]
+id: TEST:0001
+

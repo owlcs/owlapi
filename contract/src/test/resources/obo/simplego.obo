@@ -1,0 +1,66 @@
+ontology: simplego
+default-namespace: gene_ontology
+
+[Term]
+id: GO:0018901
+name: 2,4-dichlorophenoxyacetic acid metabolic process
+namespace: biological_process
+def: "The chemical reactions and pathways involving 2,4-dichlorophenoxyacetic acid, a chlorinated phenoxy compound which functions as a systemic herbicide and is used to control many types of broadleaf weeds." [UM-BBD_pathwayID:2\,4d]
+subset: gosubset_prok
+synonym: "2,4-D metabolic process" EXACT []
+synonym: "2,4-D metabolism" EXACT []
+synonym: "2,4-dichlorophenoxyacetic acid metabolism" EXACT []
+xref: UM-BBD_pathwayID:2\,4-d
+is_a: GO:0018904 ! organic ether metabolic process
+is_a: GO:0019752 ! carboxylic acid metabolic process
+is_a: GO:0042196 ! chlorinated hydrocarbon metabolic process
+is_a: GO:0042537 ! benzene and derivative metabolic process
+
+! ignore me
+[Term]
+id: GO:0055124
+name: premature neural plate formation
+namespace: biological_process
+def: "The formation of the neural plate before the appropriate time." [GOC:jid]
+is_obsolete: true
+
+[Term]
+id: GO:0055125
+name: Nic96 complex
+namespace: cellular_component
+def: "A protein complex that forms part of the nuclear pore complex, and is required for its correct assembly. In Saccharomyces cerevisiae Nic96 contains Nsp1p, Nup57p, Nup49p, and Nic96p." [GOC:jh, PMID:12791264, PMID:15741174]
+is_a: GO:0043234 ! protein complex
+relationship: part_of GO:0005643 ! nuclear pore
+created_by: Jennifer I Deegan
+creation_date: 2009-10-12T08:35:18Z
+
+[Typedef]
+id: has_part
+name: has_part
+xref: OBO_REL:has_part
+is_transitive: true
+created_by: midori
+creation_date: 2009-07-30T12:00:35Z
+
+[Typedef]
+id: negatively_regulates
+name: negatively_regulates
+is_a: regulates ! regulates
+
+[Typedef]
+id: part_of
+name: part_of
+xref: OBO_REL:part_of
+xref: BFO:0000050
+is_transitive: true
+
+[Typedef]
+id: positively_regulates
+name: positively_regulates
+is_a: regulates ! regulates
+
+[Typedef]
+id: regulates
+name: regulates
+transitive_over: part_of ! part_of
+

@@ -755,7 +755,7 @@ public class OWLAPIOwl2Obo {
             String scope = null;
             for (OWLAnnotationAssertionAxiom axiom : find(
                     OWLAnnotationAssertionAxiom.class).in(owlOntology)
-                    .annotations(sub)) {
+                    .annotationAxioms(sub)) {
                 String tg = owlObjectToTag(axiom.getProperty());
                 if (OboFormatTag.TAG_NAME.getTag().equals(tg)) {
                     name = ((OWLLiteral) axiom.getValue()).getLiteral();
@@ -782,7 +782,7 @@ public class OWLAPIOwl2Obo {
             String comment = "";
             for (OWLAnnotationAssertionAxiom axiom : find(
                     OWLAnnotationAssertionAxiom.class).in(owlOntology)
-                    .annotations(sub)) {
+                    .annotationAxioms(sub)) {
                 String tg = owlObjectToTag(axiom.getProperty());
                 if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
                     comment = ((OWLLiteral) axiom.getValue()).getLiteral();
@@ -1439,7 +1439,7 @@ public class OWLAPIOwl2Obo {
         }
         Collection<OWLAnnotationAssertionAxiom> set = find(
                 OWLAnnotationAssertionAxiom.class).in(owlOntology)
-                .annotations(entity).asCollection();
+                .annotationAxioms(entity).asCollection();
         if (set.isEmpty()) {
             return;
         }
@@ -1549,9 +1549,10 @@ public class OWLAPIOwl2Obo {
         if (obj instanceof OWLObjectProperty
                 || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
-            for (OWLAnnotationAssertionAxiom ax : find(
+            Collection<OWLAnnotationAssertionAxiom> asCollection = find(
                     OWLAnnotationAssertionAxiom.class).in(ont)
-                    .annotations(entity).asCollection()) {
+                    .annotationAxioms(entity).asCollection();
+            for (OWLAnnotationAssertionAxiom ax : asCollection) {
                 String propId = getIdentifierFromObject(ax.getProperty()
                         .getIRI(), ont);
                 // see BFOROXrefTest

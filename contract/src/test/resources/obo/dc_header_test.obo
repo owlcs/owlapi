@@ -1,0 +1,95 @@
+ontology: test
+property_value: FOO:0000009 http://purl.obolibrary.org/obo/go.owl {foo="bar"}
+property_value: dc-title "test title" xsd:string
+property_value: dc-creator "iggy" xsd:string
+property_value: dc-creator "piggy" xsd:string
+property_value: dc-contributor "wiggy" xsd:string
+property_value: dc-publisher "foo" xsd:string
+property_value: foaf-homepage "http://foo.org" xsd:anyURI
+property_value: dc-source http://blah.org
+
+[Term]
+id: UBERON:0004657
+name: mandible condylar process
+def: "The posterior process on the ramus of the mandible composed of two parts: a superior part, the articular portion, and an inferior part, the condylar neck." [BTO:0001750, Wikipedia:Mandibular_condyle]
+property_value: external_definition "The condyloid process is part of the mandible and is thicker than the coronoid, and consists of two portions: the condyle, and the constricted portion which supports it, the neck." xsd:string {term="Wikipedia:Condyloid_process", external_source="Wikipedia"}
+property_value: IAO:0000412 http://purl.obolibrary.org/obo/uberon.owl
+synonym: "mandibular condyloid process" RELATED [MA:0002816]
+synonym: "Processus condylaris" EXACT [FMA:52836]
+synonym: "condylar process of mandible" EXACT [FMA:52836]
+synonym: "mandibular condyle" EXACT [BTO:0001750]
+xref: FMA:52836 ! Condylar process of mandible
+xref: MA:0002816 ! mandible condylar process
+xref: GAID:219 ! mandibular condyle
+xref: BTO:0001750 ! mandibular condyle
+property_value: foaf-depicted_by http://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Processuscondylarismandibulae.PNG/200px-Processuscondylarismandibulae.PNG {dc-creator="foo bar"}
+xref: MESH:A.02.835.232.781.324.502.632.600 ! mandibular condyle
+
+
+[Typedef]
+id: external_definition
+name: external_definition
+def: "An alternate textual definition for a class taken unmodified from an external source. This definition may have been used to derive a generalized definition for the new class." [UBERON:cjm]
+is_metadata_tag: true
+xref: UBPROP:0000001
+
+[Typedef]
+id: axiom_lost_from_external_ontology
+name: axiom_lost_from_external_ontology
+def: "A textual description of an axiom loss in this ontology compared to an external ontology." [UBERON:cjm]
+is_metadata_tag: true
+xref: UBPROP:0000002
+
+[Typedef]
+id: external_source
+is_metadata_tag: true
+xref: FOO:0000001
+
+[Typedef]
+id: foaf-homepage
+name: homepage
+is_metadata_tag: true
+xref: http://xmlns.com/foaf/0.1/homepage
+
+[Typedef]
+id: dc-title
+name: title
+is_metadata_tag: true
+xref: http://purl.org/dc/elements/1.1/title
+
+[Typedef]
+id: dc-contributor
+name: contributor
+is_metadata_tag: true
+xref: http://purl.org/dc/elements/1.1/contributor
+
+[Typedef]
+id: dc-creator
+name: creator
+is_metadata_tag: true
+xref: http://purl.org/dc/elements/1.1/creator
+
+[Typedef]
+id: dc-publisher
+name: publisher
+is_metadata_tag: true
+xref: http://purl.org/dc/elements/1.1/publisher
+
+[Typedef]
+id: dc-description
+name: description
+is_metadata_tag: true
+xref: http://purl.org/dc/elements/1.1/description
+
+[Typedef]
+id: foaf-depicted_by
+name: depicted_by
+is_metadata_tag: true
+xref: http://xmlns.com/foaf/0.1/depicted_by
+
+
+[Typedef]
+id: dc-source
+name: derived from resource
+is_metadata_tag: true
+xref: http://purl.org/dc/elements/1.1/source

@@ -1,0 +1,85 @@
+format-version: 1.2
+subsetdef: uberon_slim "Uberon slim - somewhat arbitrary subset that excludes obscure terms and deep compositional terms"
+subsetdef: grouping_class "Subset consisting of classes creating for grouping purposes"
+subsetdef: developmental_classification "developmental_classification"
+subsetdef: functional_classification "functional_classification"
+subsetdef: emapa_ehdaa2 "derived from the union of EHDAA2 and EMAPA - still to be checked"
+subsetdef: inconsistent_with_fma "classes that have some inconsistency with FMA"
+subsetdef: inherited_grouping_class "A grouping class that originates in two or more separate anatomical ontologies. Includes 'region of X' type terms"
+subsetdef: dubious_grouping "Indicates that subclasses in AOs may be inappropriately linked"
+subsetdef: upper_level "abstract upper-level terms not directly useful for analysis"
+subsetdef: defined_by_ordinal_series "classes that are defined by relative position counting from first in a series in an individual organism rather than by homology"
+subsetdef: vertebrate_core "core classes typically found across vertebrates. one purpose is to create a rough set of terms that could be used to start a new vertebrate AO"
+subsetdef: metazoa_core "core classes typically found across metazoa. one purpose is to create a rough set of terms that could be used to start a new metazoan AO. Note this subset is not yet fully fleshed out"
+subsetdef: major_organ "somewhat fuzzy grouping for analysis purposes, currently composed of something like: liver, heart, skeletal, kidney, bladder, brain, skin, mouth, esophagus, stomach, small intestine, large intestines, trachea nose, lungs, brain, spinal cord,  peripheral nerves, kidneys, ureters, bladder, urethra, gonads"
+subsetdef: organ_slim "organs, excluding individual muscles and skeletal elements"
+subsetdef: upper_ontology_conflict "Terms in this subset group together terms from different anatomy ontologies that have conflicting upper ontology/CARO assignments. For example, in FMA the naris is immaterial and in ZFA it is an organism subdivision."
+subsetdef: disjointness_axiom_removed "A class which has a weakened disjointness axiom, to avoid inconsistency. These are kept separately in the uberon_disjoint_from_strict ontology."
+subsetdef: early_development "A class that represents an early developmental structure, like a blastocyst. This part of the ontology is undergoing review to remove inappropriate grouping classes."
+subsetdef: phenotype_rcn "A subset specifically created for the 2012 Phenotype RCN meeting. Includes some human-specific terms that may eventually be removed when they are adequately represented with part of relationships in FMA"
+synonymtypedef: PLURAL "plural term"
+synonymtypedef: DEVELOPMENTAL "developmental term"
+synonymtypedef: DUBIOUS "dubious or contested synonym"
+synonymtypedef: SENSU "taxonomic disambiguation"
+synonymtypedef: ATTRIBUTION_REQUIRED "expert consultation and attribution required"
+synonymtypedef: INCONSISTENT "indicates that a synonym is used in an inconsistent or confusing way, typically between species"
+synonymtypedef: HOMOLOGY "a synonym made on the basis of a possibly homologous structure in another species"
+default-namespace: uberon
+treat-xrefs-as-equivalent: CARO
+treat-xrefs-as-equivalent: GO
+treat-xrefs-as-equivalent: BSPO
+treat-xrefs-as-equivalent: NIF_GrossAnatomy
+treat-xrefs-as-equivalent: BILA
+treat-xrefs-as-equivalent: OG
+treat-xrefs-as-equivalent: VAO
+treat-xrefs-as-has-subclass: EMAPA
+treat-xrefs-as-has-subclass: EHDAA
+treat-xrefs-as-has-subclass: EHDAA2
+treat-xrefs-as-has-subclass: OGES
+treat-xrefs-as-has-subclass: EV
+treat-xrefs-as-reverse-genus-differentia: AAO part_of NCBITaxon:8292
+treat-xrefs-as-reverse-genus-differentia: FBbt part_of NCBITaxon:7227
+treat-xrefs-as-reverse-genus-differentia: FMA part_of NCBITaxon:9606
+treat-xrefs-as-reverse-genus-differentia: HAO part_of NCBITaxon:7399
+treat-xrefs-as-reverse-genus-differentia: MA part_of NCBITaxon:10088
+treat-xrefs-as-reverse-genus-differentia: MFO part_of NCBITaxon:8089
+treat-xrefs-as-reverse-genus-differentia: SPD part_of NCBITaxon:6893
+treat-xrefs-as-reverse-genus-differentia: TGMA part_of NCBITaxon:44484
+treat-xrefs-as-reverse-genus-differentia: TADS part_of NCBITaxon:6939
+treat-xrefs-as-reverse-genus-differentia: TAO part_of NCBITaxon:32443
+treat-xrefs-as-reverse-genus-differentia: WBbt part_of NCBITaxon:6237
+treat-xrefs-as-reverse-genus-differentia: XAO part_of NCBITaxon:8353
+treat-xrefs-as-reverse-genus-differentia: ZFA part_of NCBITaxon:7954
+treat-xrefs-as-reverse-genus-differentia: ncithesaurus part_of NCBITaxon:40674
+ontology: uberon
+idspace: Wikipedia http://en.wikipedia.org/wiki/
+idspace: NIF_GrossAnatomy http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#
+
+
+[Term]
+id: UBERON:0000002
+name: uterine cervix
+def: "Lower, narrow portion of the uterus where it joins with the top end of the vagina." [Wikipedia:Cervix]
+comment: This class was created automatically from a combination of ontologies.
+subset: uberon_slim
+synonym: "cervical canal" EXACT []
+synonym: "cervical canal of uterus" EXACT []
+synonym: "cervix" EXACT []
+synonym: "cervix of uterus" EXACT []
+synonym: "neck of uterus" EXACT []
+synonym: "uterine cervix" EXACT []
+synonym: "cervix uteri" EXACT [EMAPA:29927]
+xref: FMA:17740 ! Cervix of uterus
+xref: GAID:376 ! cervix
+xref: EMAPA:29927 ! cervix uteri
+xref: VHOG:0001359 ! uterine cervix
+xref: MA:0000392 ! uterine cervix
+xref: MAT:0000292 ! cervix
+xref: OpenCyc:Mx4rvVipEJwpEbGdrcN5Y29ycA
+xref: BTO:0001421 ! uterine cervix
+xref: EFO:0000979 ! cervix
+xref: OpenCyc:Mx4rvVipEJwpEbGdrcN5Y29ycA ! uterine cervix
+xref: MESH:A.05.360.319.679.256 ! cervix uteri
+xref: EV:0100114 ! cervix
+synonym: "canalis cervicis uteri" EXACT [FMA:TA, FMA:17740]
+xref: SCTID:245494008 ! Entire cervical canal of uterus

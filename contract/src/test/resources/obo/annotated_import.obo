@@ -1,0 +1,6 @@
+ontology: foo
+import: http://purl.obolibrary.org/obo/tests/test.obo {foo="bar"}
+
+[Term]
+id: FOO:1
+

@@ -1,0 +1,29 @@
+ontology: test
+synonymtypedef: s1 "s1" EXACT
+synonymtypedef: s1 "s1 duplicate" EXACT
+synonymtypedef: x:s2 "x-s2" 
+synonymtypedef: y:s2 "y-s2" 
+synonymtypedef: http://foo.org#s3 "s3" 
+synonymtypedef: http://bar.org#s3 "s3" 
+subsetdef: x:sub1_foo "x-sub1"
+subsetdef: y:sub1_foo "y-sub1"
+subsetdef: sub2_bar "y-sub1"
+subsetdef: http://gah.org#zyx "zyx"
+idspace: foaf http://x.org#
+
+
+[Term]
+id: X:1
+synonym: "x-1" EXACT s1 []
+synonym: "x-1 via x-s2" EXACT x:s2 []
+synonym: "x-1 via s3" EXACT s3 []
+subset: x:sub1_foo
+subset: sub2_bar
+subset: http://gah.org#zyx
+relationship: foaf:rel X:2
+
+[Term]
+id: X:2
+
+[Typedef]
+id: foaf:rel

@@ -1,0 +1,52 @@
+format-version: 1.4
+subsetdef: goslim_candida "Candida GO slim"
+subsetdef: goslim_generic "Generic GO slim"
+subsetdef: goslim_pir "PIR GO slim"
+subsetdef: goslim_plant "Plant GO slim"
+subsetdef: goslim_pombe "Fission yeast GO slim"
+subsetdef: goslim_yeast "Yeast GO slim"
+subsetdef: gosubset_prok "Prokaryotic GO subset"
+subsetdef: high_level_annotation_qc "High-level terms not to be used for direct annotation"
+subsetdef: unvetted "unvetted"
+synonymtypedef: systematic_synonym "Systematic synonym" EXACT
+ontology: subset_test
+
+[Term]
+id: GO:0009556
+name: microsporogenesis
+namespace: biological_process
+def: "The process in which the microsporocyte undergoes meiosis, giving rise to four haploid microspores." [GOC:mtg_plant, GOC:tb]
+synonym: "microspore development" EXACT systematic_synonym []
+
+[Term]
+id: GO:0009560
+name: embryo sac egg cell differentiation
+namespace: biological_process
+alt_id: GO:0048233
+def: "The process in which an uncellularized embryo sac nucleus cellularizes and acquires the specialized features of an egg cell. An example of this process is found in Arabidopsis thaliana." [GOC:jid, GOC:mtg_plant, GOC:mtg_sensu]
+synonym: "female gamete generation" BROAD []
+synonym: "female gametophyte egg cell differentiation" EXACT []
+
+[Term]
+id: GO:0009579
+name: thylakoid
+namespace: cellular_component
+def: "A membranous cellular structure that bears the photosynthetic pigments in plants, algae, and cyanobacteria. In cyanobacteria thylakoids are of various shapes and are attached to, or continuous with, the plasma membrane. In eukaryotes they are flattened, membrane-bounded disk-like structures located in the chloroplasts; in the chloroplasts of higher plants the thylakoids form dense stacks called grana. Isolated thylakoid preparations can carry out photosynthetic electron transport and the associated phosphorylation." [GOC:ds, GOC:mtg_sensu, ISBN:0198506732 "Oxford Dictionary of Biochemistry and Molecular Biology"]
+comment: A thylakoid is not considered an organelle, but some thylakoids are part of organelles.
+subset: goslim_generic
+subset: goslim_pir
+subset: goslim_plant
+subset: gosubset_prok
+synonym: "photosynthetic membrane" RELATED []
+xref: Wikipedia:Thylakoid
+
+[Term]
+id: GO:0009607
+name: response to biotic stimulus
+namespace: biological_process
+def: "Any process that results in a change in state or activity of a cell or an organism (in terms of movement, secretion, enzyme production, gene expression, etc.) as a result of a biotic stimulus, a stimulus caused or produced by a living organism." [GOC:hb]
+comment: Note that this term is in the subset of terms that should not be used for direct gene product annotation. Annotations to this term will be removed during annotation QC.
+subset: goslim_plant
+subset: gosubset_prok
+subset: high_level_annotation_qc
+synonym: "response to biotic stress" NARROW []
