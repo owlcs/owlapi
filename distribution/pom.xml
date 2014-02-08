@@ -45,6 +45,11 @@
 			<artifactId>owlapi-oboformat</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>owlapitools-fixers</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -59,10 +64,11 @@
 					<instructions>
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Export-Package>
-							com.clarkparsia.*, 
-							de.uulm.*, 
-							org.coode.*, 
-							org.semanticweb.owlapi.*;-split-package:=merge-first, 
+							com.clarkparsia.*,
+							de.uulm.*,
+							org.coode.*,
+							org.semanticweb.owlapi.*;-split-package:=merge-first,
+							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,
 							org.obolibrary.*
 						</Export-Package>
@@ -71,13 +77,13 @@
 						<execution>
 							<id>bundle-manifest</id>
 							<phase>install</phase>
-							<goals>    
+							<goals>
 								<goal>manifest</goal>
-							</goals>   
+							</goals>
 						</execution>
 					</executions>
 				</configuration>
-            </plugin>
+			</plugin>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.8.1</version>
@@ -96,6 +102,7 @@
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-tools</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-impl</dependencySourceInclude>
 								<dependencySourceInclude>net.sourceforge.owlapi:owlapi-oboparser</dependencySourceInclude>
+								<dependencySourceInclude>net.sourceforge.owlapi:owlapitools-fixers</dependencySourceInclude>
 							</dependencySourceIncludes>
 						</configuration>
 					</execution>
@@ -121,7 +128,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>
