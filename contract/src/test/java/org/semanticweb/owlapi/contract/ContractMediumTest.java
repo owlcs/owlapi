@@ -104,14 +104,14 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.Version;
 
-import uk.ac.manchester.cs.bhig.util.MutableTree;
-import uk.ac.manchester.cs.bhig.util.NodeRenderer;
-import uk.ac.manchester.cs.bhig.util.Tree;
 import uk.ac.manchester.cs.owl.explanation.ordering.AlphaExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.EntailedAxiomTree;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.ExplanationTree;
+import uk.ac.manchester.cs.owl.explanation.ordering.MutableTree;
+import uk.ac.manchester.cs.owl.explanation.ordering.NodeRenderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.NullExplanationOrderer;
+import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParser;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserConstants;
 import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserTokenManager;

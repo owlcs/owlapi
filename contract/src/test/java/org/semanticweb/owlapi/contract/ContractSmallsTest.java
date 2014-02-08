@@ -100,9 +100,9 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-import uk.ac.manchester.cs.bhig.util.MutableTree;
-import uk.ac.manchester.cs.bhig.util.NodeRenderer;
-import uk.ac.manchester.cs.bhig.util.Tree;
+import uk.ac.manchester.cs.owl.explanation.ordering.MutableTree;
+import uk.ac.manchester.cs.owl.explanation.ordering.NodeRenderer;
+import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
