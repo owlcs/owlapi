@@ -7,7 +7,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 /** Builder class for OWLDataOneOf */
 public class BuilderDataOneOf extends
         BaseSetBuilder<OWLDataOneOf, BuilderDataOneOf, OWLLiteral> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDataOneOf(OWLDataFactory df) {
         super(df);
     }
@@ -15,7 +16,9 @@ public class BuilderDataOneOf extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataOneOf(OWLDataOneOf expected, OWLDataFactory df) {
         this(df);
         withItems(expected.getValues());

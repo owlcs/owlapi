@@ -8,7 +8,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 public class BuilderDataPropertyDomain
         extends
         BaseDomainBuilder<OWLDataPropertyDomainAxiom, BuilderDataPropertyDomain, OWLDataPropertyExpression> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDataPropertyDomain(OWLDataFactory df) {
         super(df);
     }
@@ -16,7 +17,9 @@ public class BuilderDataPropertyDomain
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataPropertyDomain(OWLDataPropertyDomainAxiom expected,
             OWLDataFactory df) {
         this(df);

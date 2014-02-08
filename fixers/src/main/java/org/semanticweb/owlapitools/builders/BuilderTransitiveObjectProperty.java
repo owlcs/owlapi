@@ -7,7 +7,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 public class BuilderTransitiveObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLTransitiveObjectPropertyAxiom, BuilderTransitiveObjectProperty> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderTransitiveObjectProperty(OWLDataFactory df) {
         super(df);
     }
@@ -15,7 +16,9 @@ public class BuilderTransitiveObjectProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderTransitiveObjectProperty(
             OWLTransitiveObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);

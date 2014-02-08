@@ -192,7 +192,7 @@ public class OWLFunctionalSyntaxParser implements
      * 
      * @param chg
      *            the chg */
-    protected void applyChange(OWLOntologyChange chg) {
+    protected void applyChange(OWLOntologyChange<?> chg) {
         man.applyChange(chg);
     }
 

@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  *         Group, Date: 27-Jul-2007
  * @param <E>
  *            the entity type */
-public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedMetric {
+public abstract class ObjectCountMetric<E extends Object> extends
+        IntegerValuedMetric {
     /** Instantiates a new object count metric.
      * 
      * @param o
@@ -97,7 +98,8 @@ public abstract class ObjectCountMetric<E extends Object> extends IntegerValuedM
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         return true;
     }
 

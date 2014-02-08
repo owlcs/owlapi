@@ -10,7 +10,9 @@ public class BuilderSymmetricObjectProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderSymmetricObjectProperty(
             OWLSymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
@@ -18,7 +20,8 @@ public class BuilderSymmetricObjectProperty
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderSymmetricObjectProperty(OWLDataFactory df) {
         super(df);
     }

@@ -39,10 +39,9 @@
 package uk.ac.manchester.cs.owlapi.modularity;
 
 /** Enumeration for module types.
- *
- * @author Thomas Schneider
- * @author School of Computer Science
- * @author University of Manchester */
+ * 
+ * @author Thomas Schneider, School of Computer Science, University of
+ *         Manchester */
 public enum ModuleType {
     /** Module type representing top modules (aka lower modules). */
     TOP("top"),

@@ -11,7 +11,9 @@ public class BuilderObjectMinCardinality extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectMinCardinality(OWLObjectMinCardinality expected,
             OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderObjectMinCardinality extends
                 expected.getProperty()).withRange(expected.getFiller());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectMinCardinality(OWLDataFactory df) {
         super(df);
     }

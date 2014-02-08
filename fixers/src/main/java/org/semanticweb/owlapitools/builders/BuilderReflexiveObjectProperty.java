@@ -10,7 +10,9 @@ public class BuilderReflexiveObjectProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderReflexiveObjectProperty(
             OWLReflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
@@ -18,7 +20,8 @@ public class BuilderReflexiveObjectProperty
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderReflexiveObjectProperty(OWLDataFactory df) {
         super(df);
     }

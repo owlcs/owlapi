@@ -7,7 +7,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 public class BuilderAsymmetricObjectProperty
         extends
         BaseObjectPropertyBuilder<OWLAsymmetricObjectPropertyAxiom, BuilderAsymmetricObjectProperty> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderAsymmetricObjectProperty(OWLDataFactory df) {
         super(df);
     }
@@ -15,7 +16,9 @@ public class BuilderAsymmetricObjectProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderAsymmetricObjectProperty(
             OWLAsymmetricObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);

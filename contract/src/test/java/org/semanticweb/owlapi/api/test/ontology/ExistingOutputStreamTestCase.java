@@ -51,14 +51,13 @@ import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** API writers/storers/renderers should not close streams if they didn't open
  * them.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group, Date: 16/02/2011 */
 @SuppressWarnings("javadoc")

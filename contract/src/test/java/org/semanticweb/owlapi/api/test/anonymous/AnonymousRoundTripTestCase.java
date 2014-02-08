@@ -40,8 +40,6 @@ package org.semanticweb.owlapi.api.test.anonymous;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.io.IOException;
-
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
@@ -62,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class AnonymousRoundTripTestCase {
     @Test
     public void testRoundTrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException, IOException {
+            OWLOntologyStorageException {
         AnonymousRoundTrip ma = new AnonymousRoundTrip();
         ma.buildOntology();
         ma.reload();

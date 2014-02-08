@@ -11,7 +11,9 @@ public class BuilderDifferentIndividuals
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDifferentIndividuals(OWLDifferentIndividualsAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderDifferentIndividuals
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDifferentIndividuals(OWLDataFactory df) {
         super(df);
     }

@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Collections;
 
 import org.junit.Rule;
@@ -65,10 +64,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 07-Dec-2009 */
@@ -98,7 +95,8 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         assertTrue(ont.containsAxiom(axiom));
         assertTrue(ont.containsAxiomIgnoreAnnotations(axiom));
         assertFalse(ont.containsAxiom(axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.containsAxiomIgnoreAnnotations(axiom
+                .getAxiomWithoutAnnotations()));
     }
 
     @Test

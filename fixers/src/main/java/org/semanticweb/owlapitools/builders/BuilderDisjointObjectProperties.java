@@ -11,7 +11,9 @@ public class BuilderDisjointObjectProperties
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDisjointObjectProperties(
             OWLDisjointObjectPropertiesAxiom expected, OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderDisjointObjectProperties
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDisjointObjectProperties(OWLDataFactory df) {
         super(df);
     }

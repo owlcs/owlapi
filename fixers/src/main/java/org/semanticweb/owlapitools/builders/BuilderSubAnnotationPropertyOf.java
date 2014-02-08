@@ -11,7 +11,9 @@ public class BuilderSubAnnotationPropertyOf
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderSubAnnotationPropertyOf(
             OWLSubAnnotationPropertyOfAxiom expected, OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderSubAnnotationPropertyOf
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderSubAnnotationPropertyOf(OWLDataFactory df) {
         super(df);
     }

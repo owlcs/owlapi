@@ -15,7 +15,9 @@ public class BuilderNegativeDataPropertyAssertion
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderNegativeDataPropertyAssertion(
             OWLNegativeDataPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);

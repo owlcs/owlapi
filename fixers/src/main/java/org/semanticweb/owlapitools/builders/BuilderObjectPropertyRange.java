@@ -10,7 +10,9 @@ public class BuilderObjectPropertyRange
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectPropertyRange(OWLObjectPropertyRangeAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -18,7 +20,8 @@ public class BuilderObjectPropertyRange
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectPropertyRange(OWLDataFactory df) {
         super(df);
     }

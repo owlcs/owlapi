@@ -84,7 +84,8 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
 
     @Override
     public void setOntology(OWLOntology ontology) {
-        this.ontology.getOWLOntologyManager().removeOntologyChangeListener(this);
+        this.ontology.getOWLOntologyManager()
+                .removeOntologyChangeListener(this);
         this.ontology = ontology;
         this.ontology.getOWLOntologyManager().addOntologyChangeListener(this);
         setDirty(true);
@@ -125,7 +126,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         if (isMetricInvalidated(changes)) {
             setDirty(true);
@@ -166,7 +167,7 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
      *         list of changes, or {@code false} if the list of changes do not
      *         cause the value of this metric to be invalidated. */
     protected abstract boolean isMetricInvalidated(
-            @Nonnull List<? extends OWLOntologyChange> changes);
+            @Nonnull List<? extends OWLOntologyChange<?>> changes);
 
     /** Dispose metric. */
     protected abstract void disposeMetric();

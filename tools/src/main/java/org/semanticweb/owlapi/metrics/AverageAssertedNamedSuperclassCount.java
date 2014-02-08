@@ -79,8 +79,9 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
                     count++;
                     int prevTotal = total;
                     processedClasses.add(cls);
-                    for (OWLClassExpression desc : find(OWLClassExpression.class).sup()
-                            .classes(cls).in(ont)) {
+                    for (OWLClassExpression desc : find(
+                            OWLClassExpression.class).sup().classes(cls)
+                            .in(ont)) {
                         if (!desc.isAnonymous()) {
                             total++;
                         }
@@ -95,9 +96,11 @@ public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange()
+                    && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

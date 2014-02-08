@@ -11,14 +11,17 @@ public class BuilderObjectIntersectionOf
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectIntersectionOf(OWLObjectIntersectionOf expected,
             OWLDataFactory df) {
         this(df);
         withItems(expected.getOperands());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectIntersectionOf(OWLDataFactory df) {
         super(df);
     }

@@ -13,7 +13,9 @@ public class BuilderInverseObjectProperties
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderInverseObjectProperties(
             OWLInverseObjectPropertiesAxiom expected, OWLDataFactory df) {
         this(df);
@@ -22,7 +24,8 @@ public class BuilderInverseObjectProperties
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderInverseObjectProperties(OWLDataFactory df) {
         super(df);
     }

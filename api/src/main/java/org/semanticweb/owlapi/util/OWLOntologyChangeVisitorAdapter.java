@@ -50,12 +50,14 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 12-Dec-2006 */
-public class OWLOntologyChangeVisitorAdapter implements OWLOntologyChangeVisitor {
+public class OWLOntologyChangeVisitorAdapter implements
+        OWLOntologyChangeVisitor {
     /** override this method to change the default behaviour.
      * 
      * @param c
      *            object visited */
-    protected void handleDefault(@SuppressWarnings("unused") OWLOntologyChange c) {}
+    protected void handleDefault(
+            @SuppressWarnings("unused") OWLOntologyChange<?> c) {}
 
     @Override
     public void visit(RemoveAxiom change) {

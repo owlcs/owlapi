@@ -19,7 +19,9 @@ public class BuilderAnnotationPropertyDomain
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderAnnotationPropertyDomain(
             OWLAnnotationPropertyDomainAxiom expected, OWLDataFactory df) {
         this(df);

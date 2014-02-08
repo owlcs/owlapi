@@ -59,7 +59,8 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
 
     @Override
     public String recomputeMetric() {
-        DLExpressivityChecker checker = new DLExpressivityChecker(getOntologies());
+        DLExpressivityChecker checker = new DLExpressivityChecker(
+                getOntologies());
         return checker.getDescriptionLogicName();
     }
 
@@ -72,7 +73,8 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> change : changes) {
             if (change.isAxiomChange() && change.getAxiom().isLogicalAxiom()) {
                 return true;

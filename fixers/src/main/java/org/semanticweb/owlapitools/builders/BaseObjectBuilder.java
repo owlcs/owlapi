@@ -14,6 +14,8 @@ public abstract class BaseObjectBuilder<T extends OWLObject, Type> extends
         BaseObjectPropertyBuilder<T, Type> {
     protected OWLClassExpression range = null;
 
+    /** @param df
+     *            data factory */
     public BaseObjectBuilder(OWLDataFactory df) {
         super(df);
     }

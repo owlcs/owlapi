@@ -77,8 +77,9 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
                 if (!processedClasses.contains(cls)) {
                     processedClasses.add(cls);
                     int curCount = 0;
-                    for (OWLClassExpression desc : find(OWLClassExpression.class).in(ont)
-                            .equivalent().classes(cls)) {
+                    for (OWLClassExpression desc : find(
+                            OWLClassExpression.class).in(ont).equivalent()
+                            .classes(cls)) {
                         if (!desc.isAnonymous()) {
                             curCount++;
                         }
@@ -93,9 +94,11 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange()
+                    && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

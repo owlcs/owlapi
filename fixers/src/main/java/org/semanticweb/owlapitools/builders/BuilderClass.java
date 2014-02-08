@@ -5,7 +5,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** Builder class for OWLClass */
 public class BuilderClass extends BaseEntityBuilder<OWLClass, BuilderClass> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderClass(OWLDataFactory df) {
         super(df);
     }
@@ -13,7 +14,9 @@ public class BuilderClass extends BaseEntityBuilder<OWLClass, BuilderClass> {
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderClass(OWLClass expected, OWLDataFactory df) {
         this(df);
         withIRI(expected.getIRI());

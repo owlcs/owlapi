@@ -9,13 +9,16 @@ public class BuilderNamedIndividual extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderNamedIndividual(OWLNamedIndividual expected, OWLDataFactory df) {
         this(df);
         withIRI(expected.getIRI());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderNamedIndividual(OWLDataFactory df) {
         super(df);
     }

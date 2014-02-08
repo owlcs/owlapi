@@ -13,7 +13,9 @@ public class BuilderHasKey extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderHasKey(OWLHasKeyAxiom expected, OWLDataFactory df) {
         this(df);
         withClass(expected.getClassExpression())
@@ -22,7 +24,8 @@ public class BuilderHasKey extends
                 .withItems(expected.getObjectPropertyExpressions());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderHasKey(OWLDataFactory df) {
         super(df);
     }

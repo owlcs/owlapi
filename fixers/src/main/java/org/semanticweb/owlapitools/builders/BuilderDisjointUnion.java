@@ -14,7 +14,9 @@ public class BuilderDisjointUnion
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDisjointUnion(OWLDisjointUnionAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -23,7 +25,8 @@ public class BuilderDisjointUnion
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDisjointUnion(OWLDataFactory df) {
         super(df);
     }

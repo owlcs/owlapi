@@ -9,13 +9,16 @@ public class BuilderObjectInverseOf extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectInverseOf(OWLObjectInverseOf expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getInverse());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectInverseOf(OWLDataFactory df) {
         super(df);
     }

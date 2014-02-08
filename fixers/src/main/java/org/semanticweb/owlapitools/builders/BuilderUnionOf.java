@@ -7,7 +7,8 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 /** Builder class for OWLObjectUnionOf */
 public class BuilderUnionOf extends
         BaseSetBuilder<OWLObjectUnionOf, BuilderUnionOf, OWLClassExpression> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderUnionOf(OWLDataFactory df) {
         super(df);
     }
@@ -15,7 +16,9 @@ public class BuilderUnionOf extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderUnionOf(OWLObjectUnionOf expected, OWLDataFactory df) {
         this(df);
         withItems(expected.getOperands());

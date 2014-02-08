@@ -8,7 +8,8 @@ public class BuilderDataMinCardinality extends
         BaseDataBuilder<OWLDataMinCardinality, BuilderDataMinCardinality> {
     private int cardinality = -1;
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDataMinCardinality(OWLDataFactory df) {
         super(df);
     }
@@ -16,7 +17,9 @@ public class BuilderDataMinCardinality extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataMinCardinality(OWLDataMinCardinality expected,
             OWLDataFactory df) {
         this(df);

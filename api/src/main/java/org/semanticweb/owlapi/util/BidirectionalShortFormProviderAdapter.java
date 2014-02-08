@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /** A bidirectional short form provider which uses a specified short form
  * provider to generate the bidirectional entity--shortform mappings.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 18-Apr-2007 */
 public class BidirectionalShortFormProviderAdapter extends
@@ -67,7 +67,8 @@ public class BidirectionalShortFormProviderAdapter extends
     private OWLOntologyManager man;
     private final OWLOntologyChangeListener changeListener = new OWLOntologyChangeListener() {
         @Override
-        public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+        public void ontologiesChanged(
+                List<? extends OWLOntologyChange<?>> changes)
                 throws OWLException {
             handleChanges(changes);
         }
@@ -91,7 +92,8 @@ public class BidirectionalShortFormProviderAdapter extends
      * @param shortFormProvider
      *            The short form provider that should be used to generate the
      *            short forms of the referenced entities. */
-    public BidirectionalShortFormProviderAdapter(@Nonnull Set<OWLOntology> ontologies,
+    public BidirectionalShortFormProviderAdapter(
+            @Nonnull Set<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
         this.shortFormProvider = checkNotNull(shortFormProvider,
                 "shortFormProvider cannot be null");
@@ -117,7 +119,8 @@ public class BidirectionalShortFormProviderAdapter extends
      *            provider will listen for ontology changes and update the cache
      *            of entity--shortform mappings based on whether the specified
      *            ontologies contain references to entities or not. */
-    public BidirectionalShortFormProviderAdapter(@Nonnull OWLOntologyManager man,
+    public BidirectionalShortFormProviderAdapter(
+            @Nonnull OWLOntologyManager man,
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull ShortFormProvider shortFormProvider) {
         this(ontologies, shortFormProvider);
@@ -137,7 +140,7 @@ public class BidirectionalShortFormProviderAdapter extends
         }
     }
 
-    void handleChanges(List<? extends OWLOntologyChange> changes) {
+    void handleChanges(List<? extends OWLOntologyChange<?>> changes) {
         if (ontologies == null) {
             return;
         }

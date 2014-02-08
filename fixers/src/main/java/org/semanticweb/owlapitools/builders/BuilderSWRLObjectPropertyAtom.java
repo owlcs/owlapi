@@ -14,7 +14,9 @@ public class BuilderSWRLObjectPropertyAtom
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderSWRLObjectPropertyAtom(SWRLObjectPropertyAtom expected,
             OWLDataFactory df) {
         this(df);
@@ -23,7 +25,8 @@ public class BuilderSWRLObjectPropertyAtom
                 expected.getPredicate());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderSWRLObjectPropertyAtom(OWLDataFactory df) {
         super(df);
     }

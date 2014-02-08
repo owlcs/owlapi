@@ -14,7 +14,9 @@ public class BuilderDatatypeRestriction
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDatatypeRestriction(OWLDatatypeRestriction expected,
             OWLDataFactory df) {
         this(df);
@@ -22,7 +24,8 @@ public class BuilderDatatypeRestriction
                 expected.getFacetRestrictions());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDatatypeRestriction(OWLDataFactory df) {
         super(df);
     }

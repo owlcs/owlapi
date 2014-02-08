@@ -19,7 +19,9 @@ public class BuilderAnnotationPropertyRange
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderAnnotationPropertyRange(
             OWLAnnotationPropertyRangeAxiom expected, OWLDataFactory df) {
         this(df);

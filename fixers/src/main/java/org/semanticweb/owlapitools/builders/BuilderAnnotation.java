@@ -9,7 +9,8 @@ public class BuilderAnnotation extends
         BaseAnnotationtPropertyBuilder<OWLAnnotation, BuilderAnnotation> {
     private OWLAnnotationValue value = null;
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderAnnotation(OWLDataFactory df) {
         super(df);
     }
@@ -17,7 +18,9 @@ public class BuilderAnnotation extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderAnnotation(OWLAnnotation expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withValue(expected.getValue());

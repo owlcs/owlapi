@@ -16,14 +16,17 @@ public class BuilderSWRLRule extends BaseBuilder<SWRLRule, BuilderSWRLRule> {
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderSWRLRule(SWRLRule expected, OWLDataFactory df) {
         this(df);
         withBody(expected.getBody()).withHead(expected.getHead())
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderSWRLRule(OWLDataFactory df) {
         super(df);
     }

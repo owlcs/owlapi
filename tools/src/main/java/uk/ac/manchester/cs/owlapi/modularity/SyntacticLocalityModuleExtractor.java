@@ -75,9 +75,8 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
 /** Implementation of module extraction based on syntactic locality.
  * 
- * @author Thomas Schneider
- * @author School of Computer Science
- * @author University of Manchester */
+ * @author Thomas Schneider, School of Computer Science, University of
+ *         Manchester */
 public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
     private static final Logger logger = Logger
             .getLogger(SyntacticLocalityModuleExtractor.class.getName());

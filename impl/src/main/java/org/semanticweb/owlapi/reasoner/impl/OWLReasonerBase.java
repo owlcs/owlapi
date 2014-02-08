@@ -74,7 +74,8 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     private final OWLReasonerConfiguration configuration;
     private OWLOntologyChangeListener ontologyChangeListener = new OWLOntologyChangeListener() {
         @Override
-        public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+        public void ontologiesChanged(
+                List<? extends OWLOntologyChange<?>> changes)
                 throws OWLException {
             handleRawOntologyChanges(changes);
         }
@@ -83,9 +84,12 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     protected OWLReasonerBase(@Nonnull OWLOntology rootOntology,
             @Nonnull OWLReasonerConfiguration configuration,
             @Nonnull BufferingMode bufferingMode) {
-        this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
-        this.bufferingMode = checkNotNull(bufferingMode, "bufferingMode cannot be null");
-        this.configuration = checkNotNull(configuration, "configuration cannot be null");
+        this.rootOntology = checkNotNull(rootOntology,
+                "rootOntology cannot be null");
+        this.bufferingMode = checkNotNull(bufferingMode,
+                "bufferingMode cannot be null");
+        this.configuration = checkNotNull(configuration,
+                "configuration cannot be null");
         timeOut = configuration.getTimeOut();
         manager = rootOntology.getOWLOntologyManager();
         manager.addOntologyChangeListener(ontologyChangeListener);

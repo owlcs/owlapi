@@ -10,7 +10,9 @@ public class BuilderIrreflexiveObjectProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderIrreflexiveObjectProperty(
             OWLIrreflexiveObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
@@ -18,7 +20,8 @@ public class BuilderIrreflexiveObjectProperty
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderIrreflexiveObjectProperty(OWLDataFactory df) {
         super(df);
     }

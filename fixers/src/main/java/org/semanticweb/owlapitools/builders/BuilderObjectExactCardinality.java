@@ -12,7 +12,9 @@ public class BuilderObjectExactCardinality
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectExactCardinality(OWLObjectExactCardinality expected,
             OWLDataFactory df) {
         this(df);
@@ -20,7 +22,8 @@ public class BuilderObjectExactCardinality
                 expected.getProperty()).withRange(expected.getFiller());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectExactCardinality(OWLDataFactory df) {
         super(df);
     }

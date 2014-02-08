@@ -589,7 +589,7 @@ public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     }
 
     private void writeRestriction(String str,
-            OWLCardinalityRestriction restriction,
+            OWLCardinalityRestriction<?> restriction,
             OWLPropertyExpression property) {
         write(str);
         writeOpenBracket();

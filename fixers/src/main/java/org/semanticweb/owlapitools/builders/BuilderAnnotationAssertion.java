@@ -21,7 +21,9 @@ public class BuilderAnnotationAssertion
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected,
             OWLDataFactory df) {
         this(df);

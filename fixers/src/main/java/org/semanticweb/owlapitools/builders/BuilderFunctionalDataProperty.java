@@ -10,7 +10,9 @@ public class BuilderFunctionalDataProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderFunctionalDataProperty(
             OWLFunctionalDataPropertyAxiom expected, OWLDataFactory df) {
         this(df);

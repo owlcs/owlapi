@@ -15,7 +15,9 @@ public class BuilderSWRLDataPropertyAtom
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderSWRLDataPropertyAtom(SWRLDataPropertyAtom expected,
             OWLDataFactory df) {
         this(df);

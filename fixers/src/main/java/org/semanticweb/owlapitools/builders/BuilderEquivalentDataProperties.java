@@ -11,7 +11,9 @@ public class BuilderEquivalentDataProperties
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderEquivalentDataProperties(
             OWLEquivalentDataPropertiesAxiom expected, OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderEquivalentDataProperties
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderEquivalentDataProperties(OWLDataFactory df) {
         super(df);
     }

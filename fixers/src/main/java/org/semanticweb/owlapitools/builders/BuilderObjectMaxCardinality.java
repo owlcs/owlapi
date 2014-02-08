@@ -11,7 +11,9 @@ public class BuilderObjectMaxCardinality extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectMaxCardinality(OWLObjectMaxCardinality expected,
             OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderObjectMaxCardinality extends
                 expected.getProperty()).withRange(expected.getFiller());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectMaxCardinality(OWLDataFactory df) {
         super(df);
     }

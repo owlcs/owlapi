@@ -6,7 +6,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 /** Builder class for OWLDataAllValuesFrom */
 public class BuilderDataAllValuesFrom extends
         BaseDataBuilder<OWLDataAllValuesFrom, BuilderDataAllValuesFrom> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDataAllValuesFrom(OWLDataFactory df) {
         super(df);
     }
@@ -14,7 +15,9 @@ public class BuilderDataAllValuesFrom extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataAllValuesFrom(OWLDataAllValuesFrom expected,
             OWLDataFactory df) {
         this(df);

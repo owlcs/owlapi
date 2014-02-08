@@ -10,14 +10,17 @@ public class BuilderSubClass extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderSubClass(OWLSubClassOfAxiom expected, OWLDataFactory df) {
         this(df);
         withSub(expected.getSubClass()).withSup(expected.getSuperClass())
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderSubClass(OWLDataFactory df) {
         super(df);
     }

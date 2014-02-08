@@ -6,7 +6,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 /** Builder class for OWLAnnotationProperty */
 public class BuilderAnnotationProperty extends
         BaseEntityBuilder<OWLAnnotationProperty, BuilderAnnotationProperty> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderAnnotationProperty(OWLDataFactory df) {
         super(df);
     }
@@ -14,7 +15,9 @@ public class BuilderAnnotationProperty extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderAnnotationProperty(OWLAnnotationProperty expected,
             OWLDataFactory df) {
         this(df);

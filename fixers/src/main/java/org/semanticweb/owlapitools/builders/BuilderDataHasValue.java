@@ -18,7 +18,9 @@ public class BuilderDataHasValue extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataHasValue(OWLDataHasValue expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withLiteral(expected.getFiller());

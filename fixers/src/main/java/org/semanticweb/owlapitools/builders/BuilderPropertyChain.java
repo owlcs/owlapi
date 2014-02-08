@@ -17,7 +17,9 @@ public class BuilderPropertyChain
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderPropertyChain(OWLSubPropertyChainOfAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -26,7 +28,8 @@ public class BuilderPropertyChain
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderPropertyChain(OWLDataFactory df) {
         super(df);
     }

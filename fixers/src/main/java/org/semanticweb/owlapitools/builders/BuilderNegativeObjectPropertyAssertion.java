@@ -14,7 +14,9 @@ public class BuilderNegativeObjectPropertyAssertion
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderNegativeObjectPropertyAssertion(
             OWLNegativeObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
@@ -23,7 +25,8 @@ public class BuilderNegativeObjectPropertyAssertion
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderNegativeObjectPropertyAssertion(OWLDataFactory df) {
         super(df);
     }

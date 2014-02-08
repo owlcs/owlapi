@@ -11,7 +11,9 @@ public class BuilderObjectPropertyDomain
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectPropertyDomain(OWLObjectPropertyDomainAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -19,7 +21,8 @@ public class BuilderObjectPropertyDomain
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectPropertyDomain(OWLDataFactory df) {
         super(df);
     }

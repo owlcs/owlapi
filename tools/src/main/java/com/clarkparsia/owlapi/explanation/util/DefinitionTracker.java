@@ -149,11 +149,12 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
     }
 
     @Override
-    public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+    public void ontologiesChanged(List<? extends OWLOntologyChange<?>> changes)
             throws OWLException {
         for (OWLOntologyChange<?> change : changes) {
             if (!change.isAxiomChange()
-                    || !ontology.getImportsClosure().contains(change.getOntology())) {
+                    || !ontology.getImportsClosure().contains(
+                            change.getOntology())) {
                 continue;
             }
             final OWLAxiom axiom = change.getAxiom();
@@ -162,8 +163,8 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
             } else if (change.isRemoveAxiom()) {
                 removeAxiom(axiom);
             } else {
-                throw new UnsupportedOperationException("Unrecognized axiom change: "
-                        + change);
+                throw new UnsupportedOperationException(
+                        "Unrecognized axiom change: " + change);
             }
         }
     }

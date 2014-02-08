@@ -71,7 +71,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * ontology change listener. We can use the {@code OWLOntologyChangeFilter} to
  * filter out the changes that alter the domain of an object property in the
  * following way:<br>
- *
+ * 
  * <pre>
  * OWLOntologyChangeFilter filter = new OWLOntologyChangeFilter() {
  * <br>
@@ -88,7 +88,7 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * // Process the list of changes
  * filter.processChanges(ontChanges);
  * </pre>
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 17-Dec-2006 */
 public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
@@ -98,7 +98,8 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
 
     /** @param changes
      *            changes to process */
-    public void processChanges(@Nonnull List<? extends OWLOntologyChange> changes) {
+    public void processChanges(
+            @Nonnull List<? extends OWLOntologyChange<?>> changes) {
         checkNotNull(changes, "changes cannot be null");
         for (OWLOntologyChange<?> change : changes) {
             change.accept(this);

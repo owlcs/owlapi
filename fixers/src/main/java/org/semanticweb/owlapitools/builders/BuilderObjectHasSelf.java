@@ -9,13 +9,16 @@ public class BuilderObjectHasSelf extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectHasSelf(OWLObjectHasSelf expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectHasSelf(OWLDataFactory df) {
         super(df);
     }

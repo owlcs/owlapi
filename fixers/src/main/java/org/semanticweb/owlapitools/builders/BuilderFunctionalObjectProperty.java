@@ -10,7 +10,9 @@ public class BuilderFunctionalObjectProperty
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderFunctionalObjectProperty(
             OWLFunctionalObjectPropertyAxiom expected, OWLDataFactory df) {
         this(df);
@@ -18,7 +20,8 @@ public class BuilderFunctionalObjectProperty
                 expected.getAnnotations());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderFunctionalObjectProperty(OWLDataFactory df) {
         super(df);
     }

@@ -9,13 +9,16 @@ public class BuilderObjectProperty extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderObjectProperty(OWLObjectProperty expected, OWLDataFactory df) {
         this(df);
         withIRI(expected.getIRI());
     }
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderObjectProperty(OWLDataFactory df) {
         super(df);
     }

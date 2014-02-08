@@ -8,7 +8,8 @@ public class BuilderDataExactCardinality extends
         BaseDataBuilder<OWLDataExactCardinality, BuilderDataExactCardinality> {
     private int cardinality = -1;
 
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDataExactCardinality(OWLDataFactory df) {
         super(df);
     }
@@ -16,7 +17,9 @@ public class BuilderDataExactCardinality extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataExactCardinality(OWLDataExactCardinality expected,
             OWLDataFactory df) {
         this(df);

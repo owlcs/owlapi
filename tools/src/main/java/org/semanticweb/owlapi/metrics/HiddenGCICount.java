@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * equivalent class axiom and a subclass axioms where the LHS of the subclass
  * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
  * in a "hidden" GCI.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 13-Aug-2007 */
 public class HiddenGCICount extends IntegerValuedMetric {
@@ -71,7 +71,8 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected void disposeMetric() {}
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         for (OWLOntologyChange<?> chg : changes) {
             if (chg.isAxiomChange()
                     && chg.getAxiom() instanceof OWLEquivalentClassesAxiom
@@ -97,12 +98,12 @@ public class HiddenGCICount extends IntegerValuedMetric {
                 boolean foundSubClassAxiom = false;
                 for (OWLOntology o : getOntologies()) {
                     if (!foundEquivalentClassesAxiom) {
-                        foundEquivalentClassesAxiom = !o.getEquivalentClassesAxioms(cls)
-                                .isEmpty();
+                        foundEquivalentClassesAxiom = !o
+                                .getEquivalentClassesAxioms(cls).isEmpty();
                     }
                     if (!foundSubClassAxiom) {
-                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(cls)
-                                .isEmpty();
+                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(
+                                cls).isEmpty();
                     }
                     if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
                         result.add(cls);

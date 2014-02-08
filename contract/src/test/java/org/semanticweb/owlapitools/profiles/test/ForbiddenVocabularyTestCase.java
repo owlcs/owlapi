@@ -30,11 +30,12 @@ public class ForbiddenVocabularyTestCase {
     public void shouldFindViolation() throws Exception {
         String input = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" ><owl:Ontology rdf:about=\"\"/>\n<owl:Class rdf:about=\"http://phenomebrowser.net/cellphenotype.owl#C3PO:000000015\"><rdf:Description rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">Any.</rdf:Description></owl:Class></rdf:RDF>";
         OWLOntology o = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(input));
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
         assertEquals(2, checkOntology.getViolations().size());
-        OWLProfileViolation v = checkOntology.getViolations().get(0);
+        OWLProfileViolation<?> v = checkOntology.getViolations().get(0);
         assertTrue(v instanceof UseOfUndeclaredAnnotationProperty
                 || v instanceof UseOfReservedVocabularyForAnnotationPropertyIRI);
         v = checkOntology.getViolations().get(1);
@@ -103,18 +104,25 @@ public class ForbiddenVocabularyTestCase {
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
-        OWLObjectProperty father = f.getOWLObjectProperty(IRI("urn:test:hasFather"));
-        OWLObjectProperty brother = f.getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = f.getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI("urn:test:hasUncle"));
+        OWLObjectProperty father = f
+                .getOWLObjectProperty(IRI("urn:test:hasFather"));
+        OWLObjectProperty brother = f
+                .getOWLObjectProperty(IRI("urn:test:hasBrother"));
+        OWLObjectProperty child = f
+                .getOWLObjectProperty(IRI("urn:test:hasChild"));
+        OWLObjectProperty uncle = f
+                .getOWLObjectProperty(IRI("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
+        o.getOWLOntologyManager()
+                .addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
-                Arrays.asList(father, brother), uncle);
-        OWLSubPropertyChainOfAxiom brokenAxiom2 = f.getOWLSubPropertyChainOfAxiom(
-                Arrays.asList(child, uncle), brother);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = f
+                .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
+                        uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom2 = f
+                .getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
+                        brother);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
@@ -127,7 +135,7 @@ public class ForbiddenVocabularyTestCase {
         List<OWLProfileViolation<?>> violations = profile.checkOntology(o)
                 .getViolations();
         assertFalse(violations.isEmpty());
-        for (OWLProfileViolation v : violations) {
+        for (OWLProfileViolation<?> v : violations) {
             assertTrue(v.getAxiom().equals(brokenAxiom1)
                     || v.getAxiom().equals(brokenAxiom2));
         }
@@ -137,16 +145,22 @@ public class ForbiddenVocabularyTestCase {
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
         OWLDataFactory f = OWLManager.getOWLDataFactory();
-        OWLObjectProperty father = f.getOWLObjectProperty(IRI("urn:test:hasFather"));
-        OWLObjectProperty brother = f.getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = f.getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI("urn:test:hasUncle"));
+        OWLObjectProperty father = f
+                .getOWLObjectProperty(IRI("urn:test:hasFather"));
+        OWLObjectProperty brother = f
+                .getOWLObjectProperty(IRI("urn:test:hasBrother"));
+        OWLObjectProperty child = f
+                .getOWLObjectProperty(IRI("urn:test:hasChild"));
+        OWLObjectProperty uncle = f
+                .getOWLObjectProperty(IRI("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
+        o.getOWLOntologyManager()
+                .addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
-                Arrays.asList(father, brother), uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = f
+                .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
+                        uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
@@ -232,8 +246,10 @@ public class ForbiddenVocabularyTestCase {
             + "                        </owl:onProperty>\n"
             + "                        <owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#nonNegativeInteger\">1</owl:cardinality>\n"
             + "                    </owl:Restriction>\n"
-            + "                </owl:intersectionOf>\n" + "            </owl:Class>\n"
-            + "        </rdfs:subClassOf>\n" + "    </owl:Class>\n"
+            + "                </owl:intersectionOf>\n"
+            + "            </owl:Class>\n"
+            + "        </rdfs:subClassOf>\n"
+            + "    </owl:Class>\n"
             + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n"
             + "</rdf:RDF>";
     String input2 = "<?xml version=\"1.0\"?>\n"
@@ -468,13 +484,16 @@ public class ForbiddenVocabularyTestCase {
             + "                        </owl:onProperty>\n"
             + "                        <owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#nonNegativeInteger\">1</owl:cardinality>\n"
             + "                    </owl:Restriction>\n"
-            + "                </owl:intersectionOf>\n" + "            </owl:Class>\n"
-            + "        </rdfs:subClassOf>\n" + "    </owl:Class>\n"
+            + "                </owl:intersectionOf>\n"
+            + "            </owl:Class>\n"
+            + "        </rdfs:subClassOf>\n"
+            + "    </owl:Class>\n"
             + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n"
             + "</rdf:RDF>";
 
     @Test
-    public void shouldNotCauseViolationsInput1() throws OWLOntologyCreationException {
+    public void shouldNotCauseViolationsInput1()
+            throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new ByteArrayInputStream(input1.getBytes()));
@@ -485,7 +504,8 @@ public class ForbiddenVocabularyTestCase {
     }
 
     @Test
-    public void shouldNotCauseViolationsInput2() throws OWLOntologyCreationException {
+    public void shouldNotCauseViolationsInput2()
+            throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new ByteArrayInputStream(input2.getBytes()));

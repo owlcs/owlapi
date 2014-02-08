@@ -8,7 +8,8 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 public class BuilderEquivalentClasses
         extends
         BaseSetBuilder<OWLEquivalentClassesAxiom, BuilderEquivalentClasses, OWLClassExpression> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderEquivalentClasses(OWLDataFactory df) {
         super(df);
     }
@@ -16,7 +17,9 @@ public class BuilderEquivalentClasses
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderEquivalentClasses(OWLEquivalentClassesAxiom expected,
             OWLDataFactory df) {
         this(df);

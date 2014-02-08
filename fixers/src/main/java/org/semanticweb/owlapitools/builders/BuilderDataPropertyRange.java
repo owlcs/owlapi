@@ -6,7 +6,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 /** Builder class for OWLDataPropertyRangeAxiom */
 public class BuilderDataPropertyRange extends
         BaseDataBuilder<OWLDataPropertyRangeAxiom, BuilderDataPropertyRange> {
-    /** uninitialized builder */
+    /** @param df
+     *            data factory */
     public BuilderDataPropertyRange(OWLDataFactory df) {
         super(df);
     }
@@ -14,7 +15,9 @@ public class BuilderDataPropertyRange extends
     /** builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object */
+     *            the existing object
+     * @param df
+     *            data factory */
     public BuilderDataPropertyRange(OWLDataPropertyRangeAxiom expected,
             OWLDataFactory df) {
         this(df);

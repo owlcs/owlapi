@@ -58,7 +58,8 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
      * @param reasoner
      *            the reasoner */
     public UnsatisfiableClassCountMetric(@Nonnull OWLReasoner reasoner) {
-        super(checkNotNull(reasoner, "reasoner cannot be null").getRootOntology());
+        super(checkNotNull(reasoner, "reasoner cannot be null")
+                .getRootOntology());
         this.reasoner = reasoner;
     }
 
@@ -73,7 +74,8 @@ public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange<?>> changes) {
         return false;
     }
 
