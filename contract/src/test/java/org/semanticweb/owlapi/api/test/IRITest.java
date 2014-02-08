@@ -46,13 +46,13 @@ import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.model.IRI;
 
 /** Unit tests for the {@link IRI} class.
- *
+ * 
  * @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
 public class IRITest {
     /** All of the unit tests individually timeout after 60 seconds. */
     @Rule
-    public Timeout timeout = new Timeout(60000);
+    public Timeout timeout = new Timeout(6000);
 
     /** Test method for
      * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
@@ -69,7 +69,7 @@ public class IRITest {
                 public void run() {
                     try {
                         openLatch.await();
-                        for (int j = 0; j < 1000000; j++) {
+                        for (int j = 0; j < 100000; j++) {
                             final int k = j % 371;
                             // final String nextPrefix = "urn:test" + k + "#";
                             // IRI.create(nextPrefix, "test");
@@ -110,7 +110,7 @@ public class IRITest {
                 public void run() {
                     try {
                         openLatch.await();
-                        for (int j = 0; j < 1000000; j++) {
+                        for (int j = 0; j < 100000; j++) {
                             final int k = j % 371;
                             // final String nextPrefix = "urn:test" + k + "#";
                             // IRI.create(nextPrefix, "test");
@@ -140,7 +140,7 @@ public class IRITest {
      * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
     @Test
     public void testIRIStringSerialWithCacheUse() {
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 100000; i++) {
             final int k = i % 371;
             IRI.create("urn:test" + k + "#test");
         }
@@ -150,7 +150,7 @@ public class IRITest {
      * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
     @Test
     public void testIRIStringSerialNoCacheUse() {
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < 100000; i++) {
             final int k = i % 371;
             IRI.create("urn:test#" + k + "test");
         }
