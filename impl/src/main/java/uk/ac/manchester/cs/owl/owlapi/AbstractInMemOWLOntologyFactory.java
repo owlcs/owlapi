@@ -38,8 +38,6 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
-
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -51,20 +49,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 15-Nov-2006 */
-public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
+public abstract class AbstractInMemOWLOntologyFactory implements
+        OWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
-    private OWLOntologyManager ontologyManager;
-
-    @Override
-    public void setOWLOntologyManager(@Nonnull OWLOntologyManager owlOntologyManager) {
-        ontologyManager = checkNotNull(owlOntologyManager,
-                "owlOntologyManager cannot be null");
-    }
-
-    @Override
-    public OWLOntologyManager getOWLOntologyManager() {
-        return ontologyManager;
-    }
 
     @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
@@ -72,9 +59,11 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
     }
 
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);
+    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+            OWLOntologyID ontologyID, IRI documentIRI,
+            OWLOntologyCreationHandler handler)
+            throws OWLOntologyCreationException {
+        OWLOntology ont = new OWLOntologyImpl(manager, ontologyID);
         handler.ontologyCreated(ont);
         return ont;
     }

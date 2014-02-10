@@ -38,43 +38,39 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 15-Nov-2006 */
-public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
+public class EmptyInMemOWLOntologyFactory extends
+        AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
 
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
-            OWLOntologyCreationHandler mediator) throws OWLOntologyCreationException {
-        throw new OWLRuntimeException(new UnsupportedOperationException(
-                "Cannot load OWL ontologies."));
-    }
-
-    @Override
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+    public OWLOntology loadOWLOntology(OWLOntologyManager m,
+            OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler handler,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
-        return loadOWLOntology(documentSource, handler);
+        throw new OWLRuntimeException(new UnsupportedOperationException(
+                "Cannot load OWL ontologies in an empty factory."));
     }
 
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
-        OWLOntology ont = super.createOWLOntology(ontologyID, documentIRI, handler);
+    public OWLOntology createOWLOntology(OWLOntologyManager m,
+            OWLOntologyID ontologyID, IRI documentIRI,
+            OWLOntologyCreationHandler handler)
+            throws OWLOntologyCreationException {
+        OWLOntology ont = super.createOWLOntology(m, ontologyID, documentIRI,
+                handler);
         handler.setOntologyFormat(ont, new RDFXMLOntologyFormat());
         return ont;
     }
@@ -82,10 +78,5 @@ public class EmptyInMemOWLOntologyFactory extends AbstractInMemOWLOntologyFactor
     @Override
     public boolean canLoad(OWLOntologyDocumentSource documentSource) {
         return false;
-    }
-
-    @Override
-    public List<OWLParser> getParsers() {
-        return Collections.emptyList();
     }
 }

@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -57,7 +58,10 @@ import org.xml.sax.SAXException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 08-Dec-2006 */
+@HasPriority(value = 0)
 public class RDFXMLParser extends AbstractOWLParser {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public String getName() {
         return "RDFXMLParser";
@@ -67,7 +71,8 @@ public class RDFXMLParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -98,7 +103,8 @@ public class RDFXMLParser extends AbstractOWLParser {
                     return parser.getIRI(s);
                 }
             };
-            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology, configuration);
+            OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
+                    configuration);
             consumer.setIRIProvider(prov);
             consumer.setOntologyFormat(format);
             is = getInputSource(documentSource, configuration);

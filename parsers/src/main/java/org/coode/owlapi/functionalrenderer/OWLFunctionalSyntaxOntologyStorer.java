@@ -44,6 +44,7 @@ import java.util.Map;
 
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -53,7 +54,9 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 25-Jan-2007 */
-public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+@HasPriority(value = 2)
+public class OWLFunctionalSyntaxOntologyStorer extends
+        AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
@@ -69,7 +72,8 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
             if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
                 PrefixManager man = new DefaultPrefixManager();
-                Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
+                Map<String, String> map = prefixFormat
+                        .getPrefixName2PrefixMap();
                 for (Map.Entry<String, String> e : map.entrySet()) {
                     man.setPrefix(e.getKey(), e.getValue());
                 }

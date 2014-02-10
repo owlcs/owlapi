@@ -3,6 +3,7 @@ package org.coode.owlapi.oboformat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
@@ -13,6 +14,7 @@ import org.semanticweb.owlapi.formats.OBOOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -22,7 +24,10 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** oboformat parser */
-public class OBOFormatOWLAPIParser implements OWLParser {
+@HasPriority(value = 5)
+public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
             throws OWLParserException, IOException, OWLOntologyChangeException,
@@ -69,9 +74,9 @@ public class OBOFormatOWLAPIParser implements OWLParser {
         return format;
     }
 
-    private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source, OWLOntology in)
-            throws OBOFormatParserException, MalformedURLException, IOException,
-            OWLOntologyCreationException {
+    private OWLOntology parse(IRI iri, OWLOntologyDocumentSource source,
+            OWLOntology in) throws OBOFormatParserException,
+            MalformedURLException, IOException, OWLOntologyCreationException {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc = null;
         if (iri != null) {
@@ -80,8 +85,8 @@ public class OBOFormatOWLAPIParser implements OWLParser {
             if (source.isReaderAvailable()) {
                 obodoc = p.parse(new BufferedReader(source.getReader()));
             } else if (source.isInputStreamAvailable()) {
-                obodoc = p.parse(new BufferedReader(new InputStreamReader(source
-                        .getInputStream())));
+                obodoc = p.parse(new BufferedReader(new InputStreamReader(
+                        source.getInputStream())));
             } else {
                 return parse(source.getDocumentIRI(), null, in);
             }

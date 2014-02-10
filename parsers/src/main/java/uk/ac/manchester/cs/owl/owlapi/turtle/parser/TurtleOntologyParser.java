@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserIOException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -56,10 +57,13 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** The Class TurtleOntologyParser.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 23-Feb-2008 */
+@HasPriority(value = 3)
 public class TurtleOntologyParser extends AbstractOWLParser {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public String getName() {
         return "TurtleOntologyParser";
@@ -67,9 +71,10 @@ public class TurtleOntologyParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws OWLParserException, UnloadableImportException,
-            IOException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+            OWLOntology ontology) throws OWLParserException,
+            UnloadableImportException, IOException {
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -87,23 +92,24 @@ public class TurtleOntologyParser extends AbstractOWLParser {
                         documentSource.getDocumentIRI().toString());
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
-                parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource
-                        .getDocumentIRI().toString());
+                parser = new TurtleParser(is, new ConsoleTripleHandler(),
+                        documentSource.getDocumentIRI().toString());
             } else {
-                is = new BufferedInputStream(documentSource.getDocumentIRI().toURI()
-                        .toURL().openStream());
-                parser = new TurtleParser(is, new ConsoleTripleHandler(), documentSource
-                        .getDocumentIRI().toString());
+                is = new BufferedInputStream(documentSource.getDocumentIRI()
+                        .toURI().toURL().openStream());
+                parser = new TurtleParser(is, new ConsoleTripleHandler(),
+                        documentSource.getDocumentIRI().toString());
             }
-            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(ontology,
-                    configuration);
+            OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
+                    ontology, configuration);
             TurtleOntologyFormat format = new TurtleOntologyFormat();
             consumer.setOntologyFormat(format);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
             PrefixManager prefixManager = parser.getPrefixManager();
             for (String prefixName : prefixManager.getPrefixNames()) {
-                format.setPrefix(prefixName, prefixManager.getPrefix(prefixName));
+                format.setPrefix(prefixName,
+                        prefixManager.getPrefix(prefixName));
             }
             return format;
         } catch (ParseException e) {

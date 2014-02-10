@@ -41,6 +41,7 @@ package org.coode.owlapi.oboformat;
 import java.io.Writer;
 
 import org.semanticweb.owlapi.formats.OBOOntologyFormat;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -48,6 +49,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
  *         Group, Date: Dec 17, 2008 */
+@HasPriority(value = 5)
 public class OBOFormatStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 

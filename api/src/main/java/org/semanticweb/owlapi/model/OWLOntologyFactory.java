@@ -39,29 +39,21 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 
 /** An ontology factory is responsible from creating new ontologies and creating
  * ontologies from ontology document IRIs.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 25-Oct-2006 */
 public interface OWLOntologyFactory extends Serializable {
-    /** @param owlOntologyManager
-     *            the ontology manager to set. Cannot be null. */
-    void setOWLOntologyManager(@Nonnull OWLOntologyManager owlOntologyManager);
-
-    /** @return the ontology manager */
-    @Nonnull
-    OWLOntologyManager getOWLOntologyManager();
-
     /** Creates an (empty) ontology.
      * 
+     * @param manager
+     *            the ontology manager to set.
      * @param ontologyID
      *            The ID of the ontology to create. This MUST NOT BE
      *            {@code null}.
@@ -74,30 +66,15 @@ public interface OWLOntologyFactory extends Serializable {
      * @throws OWLOntologyCreationException
      *             if the ontology could not be created. */
     @Nonnull
-    OWLOntology createOWLOntology(@Nonnull OWLOntologyID ontologyID,
-            @Nonnull IRI documentIRI, @Nonnull OWLOntologyCreationHandler handler)
-            throws OWLOntologyCreationException;
-
-    /** Creates and loads an {@code OWLOntology}.
-     * 
-     * @param documentSource
-     *            The document source that provides the means of getting a
-     *            representation of a document.
-     * @param handler
-     *            A pointer to an {@code OWLOntologyCreationHandler} which will
-     *            be notified immediately after an empty ontology has been
-     *            created, but before the source data is read and the ontology
-     *            is loaded with axioms.
-     * @return The newly created and loaded ontology
-     * @throws OWLOntologyCreationException
-     *             if the ontology could not be created. */
-    @Nonnull
-    OWLOntology loadOWLOntology(@Nonnull OWLOntologyDocumentSource documentSource,
+    OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntologyID ontologyID, @Nonnull IRI documentIRI,
             @Nonnull OWLOntologyCreationHandler handler)
             throws OWLOntologyCreationException;
 
     /** Creates and loads an {@code OWLOntology}.
      * 
+     * @param manager
+     *            the ontology manager to set.
      * @param documentSource
      *            The document source that provides the means of getting a
      *            representation of a document.
@@ -113,7 +90,8 @@ public interface OWLOntologyFactory extends Serializable {
      * @throws OWLOntologyCreationException
      *             if the ontology could not be created */
     @Nonnull
-    OWLOntology loadOWLOntology(@Nonnull OWLOntologyDocumentSource documentSource,
+    OWLOntology loadOWLOntology(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntologyDocumentSource documentSource,
             @Nonnull OWLOntologyCreationHandler handler,
             @Nonnull OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException;
@@ -136,11 +114,6 @@ public interface OWLOntologyFactory extends Serializable {
      * @return {@code true} if the factory can load from the specified input
      *         source. */
     boolean canLoad(@Nonnull OWLOntologyDocumentSource documentSource);
-
-    /** @return a list of parsers that this factory uses when it tries to create
-     *         an ontology from a concrete representation. */
-    @Nonnull
-    List<OWLParser> getParsers();
 
     /** An {@code OWLOntologyCreationHandler} gets notified when the factory has
      * created an empty ontology (during the loading process). This may be

@@ -47,7 +47,7 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 
 /** An ontology storer stores an ontology in a particular format at a location
  * specified by a particular URI.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 02-Jan-2007 */
 public interface OWLOntologyStorer extends Serializable {
@@ -94,6 +94,7 @@ public interface OWLOntologyStorer extends Serializable {
      * @throws IOException
      *             if there was an IOException when storing the ontology. */
     void storeOntology(@Nonnull OWLOntology ontology,
-            @Nonnull OWLOntologyDocumentTarget target, @Nonnull OWLOntologyFormat format)
+            @Nonnull OWLOntologyDocumentTarget target,
+            @Nonnull OWLOntologyFormat format)
             throws OWLOntologyStorageException, IOException;
 }

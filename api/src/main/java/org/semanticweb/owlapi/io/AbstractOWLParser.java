@@ -41,6 +41,7 @@ package org.semanticweb.owlapi.io;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -65,13 +66,15 @@ import org.xml.sax.InputSource;
 
 /** A convenience base class for parsers, which provides a mechanism to manage
  * the setting and getting of the {@code OWLOntologyManager} that should be
- * associated with the parser.
- *
+ * associated with the parser. Note: all current parser implementations are
+ * stateless.
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 14-Nov-2006 */
-public abstract class AbstractOWLParser implements OWLParser {
-    private static final Logger LOGGER = Logger.getLogger(AbstractOWLParser.class
-            .getName());
+public abstract class AbstractOWLParser implements OWLParser, Serializable {
+    private static final long serialVersionUID = 40000L;
+    private static final Logger LOGGER = Logger
+            .getLogger(AbstractOWLParser.class.getName());
     private static final String ZIP_FILE_EXTENSION = ".zip";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern
@@ -128,14 +131,16 @@ public abstract class AbstractOWLParser implements OWLParser {
                     conn = newURL.openConnection();
                     conn.addRequestProperty("Accept", requestType);
                     if (config.isAcceptingHTTPCompression()) {
-                        conn.setRequestProperty("Accept-Encoding", "gzip, deflate");
+                        conn.setRequestProperty("Accept-Encoding",
+                                "gzip, deflate");
                     }
                     conn.setConnectTimeout(config.getConnectionTimeout());
                 }
             }
         }
         String contentEncoding = conn.getContentEncoding();
-        InputStream is = getInputStreamFromContentEncoding(conn, contentEncoding);
+        InputStream is = getInputStreamFromContentEncoding(conn,
+                contentEncoding);
         if (isZipName(documentIRI, conn)) {
             ZipInputStream zis = new ZipInputStream(is);
             ZipEntry entry = zis.getNextEntry();
@@ -153,20 +158,23 @@ public abstract class AbstractOWLParser implements OWLParser {
     }
 
     private boolean couldBeOntology(@Nonnull ZipEntry zipEntry) {
-        return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName()).matches();
+        return ZIP_ENTRY_ONTOLOGY_NAME_PATTERN.matcher(zipEntry.getName())
+                .matches();
     }
 
     @Nonnull
-    private InputStream getInputStreamFromContentEncoding(@Nonnull URLConnection conn,
-            @Nonnull String contentEncoding) throws IOException {
+    private InputStream getInputStreamFromContentEncoding(
+            @Nonnull URLConnection conn, @Nonnull String contentEncoding)
+            throws IOException {
         InputStream is;
         if ("gzip".equals(contentEncoding)) {
             LOGGER.fine("URL connection input stream is compressed using gzip");
-            is = new BufferedInputStream(new GZIPInputStream(conn.getInputStream()));
+            is = new BufferedInputStream(new GZIPInputStream(
+                    conn.getInputStream()));
         } else if ("deflate".equals(contentEncoding)) {
             LOGGER.fine("URL connection input stream is compressed using deflate");
-            is = new BufferedInputStream(new InflaterInputStream(conn.getInputStream(),
-                    new Inflater(true)));
+            is = new BufferedInputStream(new InflaterInputStream(
+                    conn.getInputStream(), new Inflater(true)));
         } else {
             is = new BufferedInputStream(conn.getInputStream());
         }
@@ -189,17 +197,20 @@ public abstract class AbstractOWLParser implements OWLParser {
             Matcher matcher = CONTENT_DISPOSITION_FILE_NAME_PATTERN
                     .matcher(contentDispositionHeaderValue);
             if (matcher.matches()) {
-                return matcher.group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
+                return matcher
+                        .group(CONTENT_DISPOSITION_FILE_NAME_PATTERN_GROUP);
             }
         }
         return null;
     }
 
     private boolean isZipFileName(String fileName) {
-        return fileName.toLowerCase(Locale.getDefault()).endsWith(ZIP_FILE_EXTENSION);
+        return fileName.toLowerCase(Locale.getDefault()).endsWith(
+                ZIP_FILE_EXTENSION);
     }
 
-    protected InputSource getInputSource(OWLOntologyDocumentSource documentSource,
+    protected InputSource getInputSource(
+            OWLOntologyDocumentSource documentSource,
             OWLOntologyLoaderConfiguration config) throws IOException {
         InputSource is;
         if (documentSource.isReaderAvailable()) {
@@ -207,7 +218,8 @@ public abstract class AbstractOWLParser implements OWLParser {
         } else if (documentSource.isInputStreamAvailable()) {
             is = new InputSource(documentSource.getInputStream());
         } else {
-            is = new InputSource(getInputStream(documentSource.getDocumentIRI(), config));
+            is = new InputSource(getInputStream(
+                    documentSource.getDocumentIRI(), config));
         }
         is.setSystemId(documentSource.getDocumentIRI().toString());
         return is;

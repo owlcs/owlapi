@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -56,7 +57,9 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 13-Aug-2007 */
+@HasPriority(value = 4)
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
+    private static final long serialVersionUID = 40000L;
     private static final String COMMENT_START_CHAR = "#";
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
@@ -78,11 +81,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     br = new BufferedReader(documentSource.getReader());
                 } else if (documentSource.isInputStreamAvailable()) {
                     br = new BufferedReader(new InputStreamReader(
-                            documentSource.getInputStream(), DEFAULT_FILE_ENCODING));
-                } else {
-                    br = new BufferedReader(new InputStreamReader(getInputStream(
-                            documentSource.getDocumentIRI(), configuration),
+                            documentSource.getInputStream(),
                             DEFAULT_FILE_ENCODING));
+                } else {
+                    br = new BufferedReader(new InputStreamReader(
+                            getInputStream(documentSource.getDocumentIRI(),
+                                    configuration), DEFAULT_FILE_ENCODING));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -108,7 +112,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                                 // Non-empty line that is NOT a comment. We
                                 // cannot possibly parse this.
                                 int startCol = line.indexOf(trimmedLine) + 1;
-                                StringBuilder msg = new StringBuilder("Encountered '")
+                                StringBuilder msg = new StringBuilder(
+                                        "Encountered '")
                                         .append(trimmedLine)
                                         .append("' at line ")
                                         .append(lineCount)
@@ -123,7 +128,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     lineCount++;
                 }
                 String s = sb.toString();
-                OWLDataFactory df = ontology.getOWLOntologyManager().getOWLDataFactory();
+                OWLDataFactory df = ontology.getOWLOntologyManager()
+                        .getOWLDataFactory();
                 ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                         configuration, df, s);
                 format = parser.parseOntology(ontology);
@@ -143,7 +149,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     private boolean startsWithMagicNumber(String line) {

@@ -41,6 +41,7 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 import java.io.Writer;
 
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -48,7 +49,9 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 22-May-2007 */
-public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+@HasPriority(value = 3)
+public class ManchesterOWLSyntaxOntologyStorer extends
+        AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 
     @Override
@@ -60,8 +63,8 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                        format));
+                ontology, writer,
+                new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();
     }
 }

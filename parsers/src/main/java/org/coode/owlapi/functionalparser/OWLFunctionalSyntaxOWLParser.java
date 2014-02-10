@@ -45,6 +45,7 @@ import java.io.Reader;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -53,7 +54,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 14-Nov-2006 */
+@HasPriority(value = 2)
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public String getName() {
         return "OWLFunctionalSyntaxOWLParser";
@@ -63,7 +67,8 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -82,14 +87,15 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new OWLFunctionalSyntaxParser(is);
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(), configuration);
+                is = getInputStream(documentSource.getDocumentIRI(),
+                        configuration);
                 parser = new OWLFunctionalSyntaxParser(is);
             }
             parser.setUp(ontology, configuration);
             return parser.parse();
         } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e, e.currentToken.beginLine,
-                    e.currentToken.beginColumn);
+            throw new OWLParserException(e.getMessage(), e,
+                    e.currentToken.beginLine, e.currentToken.beginColumn);
         } finally {
             if (is != null) {
                 is.close();

@@ -41,6 +41,7 @@ package org.coode.owlapi.owlxml.renderer;
 import java.io.Writer;
 
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -48,6 +49,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 07-Jan-2007 */
+@HasPriority(value = 1)
 public class OWLXMLOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 

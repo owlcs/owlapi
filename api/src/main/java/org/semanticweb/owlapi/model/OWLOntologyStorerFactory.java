@@ -36,19 +36,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
+package org.semanticweb.owlapi.model;
 
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import java.io.Serializable;
 
-/** A factory for creating TurtleOntologyParser objects.
- *
- * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Feb-2008 */
-public class TurtleOntologyParserFactory implements OWLParserFactory {
-    @Override
-    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
-        return new TurtleOntologyParser();
-    }
+/** Factory for ontology storers .Provide a priority to allow for sorting of
+ * ontology storers. Default implementations will have priorities starting at 0
+ * and moving up by increments of one. This allows the introduction of more
+ * storers at any position in the list: e.g., to insert a new storer in the
+ * second position, it is sufficient for it to pick a priority value strictly
+ * between 0 and 1. Storers can be provided by adding a Guice module to the
+ * injector used for binding, or set directly on the manager after, or in place
+ * of, injection. */
+// XXX this could be replaced with an annotation for priority and a @Provides
+// method
+public interface OWLOntologyStorerFactory extends Serializable,
+        Comparable<OWLOntologyStorerFactory> {
+    /** Create new storer.
+     * 
+     * @return new storer */
+    OWLOntologyStorer createStorer();
 }

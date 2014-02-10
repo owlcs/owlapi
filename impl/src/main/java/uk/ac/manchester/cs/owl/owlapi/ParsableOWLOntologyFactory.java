@@ -43,11 +43,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -56,8 +54,6 @@ import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -65,7 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** An ontology factory that creates ontologies by parsing documents containing
@@ -74,33 +70,18 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * reading. This factory will not create empty ontologies. Parsers are
  * instantiated by using a list of {@code OWLParserFactory} objects that are
  * obtained from the {@code OWLParserFactoryRegistry}.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 14-Nov-2006 */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger
             .getLogger(ParsableOWLOntologyFactory.class.getName());
-    private final Set<String> parsableSchemes = new HashSet<String>(Arrays.asList("http",
-            "https", "file", "ftp"));
+    private final Set<String> parsableSchemes = new HashSet<String>(
+            Arrays.asList("http", "https", "file", "ftp"));
 
     /** Creates an ontology factory. */
     public ParsableOWLOntologyFactory() {}
-
-    @Override
-    public List<OWLParser> getParsers() {
-        List<OWLParser> parsers = new ArrayList<OWLParser>();
-        List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance()
-                .getParserFactories();
-        for (OWLParserFactory factory : factories) {
-            OWLParser parser = factory.createParser(getOWLOntologyManager());
-            if (parser == null) {
-                throw new OWLRuntimeException();
-            }
-            parsers.add(parser);
-        }
-        return new ArrayList<OWLParser>(parsers);
-    }
 
     /** Overriden - We don't create new empty ontologies - this isn't our
      * responsibility.
@@ -121,14 +102,16 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (documentSource.isInputStreamAvailable()) {
             return true;
         }
-        if (parsableSchemes.contains(documentSource.getDocumentIRI().getScheme())) {
+        if (parsableSchemes.contains(documentSource.getDocumentIRI()
+                .getScheme())) {
             return true;
         }
         // If we can open an input stream then we can attempt to parse the
         // ontology
         // TODO: Take into consideration the request type!
         try {
-            InputStream is = documentSource.getDocumentIRI().toURI().toURL().openStream();
+            InputStream is = documentSource.getDocumentIRI().toURI().toURL()
+                    .openStream();
             is.close();
             return true;
         } catch (UnknownHostException e) {
@@ -144,7 +127,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+    public OWLOntology loadOWLOntology(OWLOntologyManager m,
+            OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler mediator,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
@@ -162,19 +146,19 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // we throw an exception if someone tries to create an ontology directly
         OWLOntology existingOntology = null;
         IRI iri = documentSource.getDocumentIRI();
-        if (getOWLOntologyManager().contains(iri)) {
-            existingOntology = getOWLOntologyManager().getOntology(iri);
+        if (m.contains(iri)) {
+            existingOntology = m.getOntology(iri);
         }
         OWLOntologyID ontologyID = new OWLOntologyID();
-        OWLOntology ont = super.createOWLOntology(ontologyID,
+        OWLOntology ont = super.createOWLOntology(m, ontologyID,
                 documentSource.getDocumentIRI(), mediator);
         // Now parse the input into the empty ontology that we created
-        for (final OWLParser parser : getParsers()) {
+        for (OWLParser parser : m.getOntologyParsers()) {
             try {
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse. We should clear the ont
-                    getOWLOntologyManager().removeOntology(ont);
-                    ont = super.createOWLOntology(ontologyID,
+                    m.removeOntology(ont);
+                    ont = super.createOWLOntology(m, ontologyID,
                             documentSource.getDocumentIRI(), mediator);
                 }
                 OWLOntologyFormat format = parser.parse(documentSource, ont,
@@ -184,23 +168,23 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             } catch (IOException e) {
                 // No hope of any parsers working?
                 // First clean up
-                getOWLOntologyManager().removeOntology(ont);
+                m.removeOntology(ont);
                 throw new OWLOntologyCreationIOException(e);
             } catch (UnloadableImportException e) {
                 // First clean up
-                getOWLOntologyManager().removeOntology(ont);
+                m.removeOntology(ont);
                 throw e;
             } catch (OWLParserException e) {
                 // Record this attempts and continue trying to parse.
                 exceptions.put(parser, e);
             } catch (RuntimeException e) {
                 // Clean up and rethrow
-                getOWLOntologyManager().removeOntology(ont);
+                m.removeOntology(ont);
                 throw e;
             }
         }
         if (existingOntology == null) {
-            getOWLOntologyManager().removeOntology(ont);
+            m.removeOntology(ont);
         }
         // We haven't found a parser that could parse the ontology properly.
         // Throw an
@@ -209,13 +193,5 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // that we have tried.
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(),
                 exceptions, configuration);
-    }
-
-    @Override
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
-            final OWLOntologyCreationHandler mediator)
-            throws OWLOntologyCreationException {
-        return loadOWLOntology(documentSource, mediator,
-                new OWLOntologyLoaderConfiguration());
     }
 }

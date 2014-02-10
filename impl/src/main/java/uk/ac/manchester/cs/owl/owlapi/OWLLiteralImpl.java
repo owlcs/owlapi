@@ -69,7 +69,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 26-Oct-2006 */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
@@ -90,19 +90,25 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
      *            null or it MUST be RDFPlainLiteral */
     public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
             @Nullable OWLDatatype datatype) {
-        this.literal = new LiteralWrapper(checkNotNull(literal, "literal cannot be null"));
+        this.literal = new LiteralWrapper(checkNotNull(literal,
+                "literal cannot be null"));
         if (lang == null || lang.length() == 0) {
             this.lang = "";
+            if (datatype == null) {
+                System.out.println("OWLLiteralImpl.OWLLiteralImpl()");
+            }
             this.datatype = datatype;
         } else {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
-                throw new OWLRuntimeException("Error: cannot build a literal with type: "
-                        + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException(
+                        "Error: cannot build a literal with type: "
+                                + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+            this.datatype = new OWLDatatypeImpl(
+                    OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
         }
         hashcode = getHashCode();
     }
@@ -114,7 +120,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return datatype.getIRI()
+                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override

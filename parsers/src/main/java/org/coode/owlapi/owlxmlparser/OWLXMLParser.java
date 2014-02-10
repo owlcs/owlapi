@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserSAXException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -61,7 +62,10 @@ import org.xml.sax.SAXException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 13-Dec-2006 */
+@HasPriority(value = 1)
 public class OWLXMLParser extends AbstractOWLParser {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public String getName() {
         return "OWLXMLParser";
@@ -71,7 +75,8 @@ public class OWLXMLParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -87,9 +92,11 @@ public class OWLXMLParser extends AbstractOWLParser {
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
             isrc = getInputSource(documentSource, configuration);
-            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
+            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,
+                    configuration);
             parser.parse(isrc, handler);
-            Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
+            Map<String, String> prefix2NamespaceMap = handler
+                    .getPrefixName2PrefixMap();
             for (String prefix : prefix2NamespaceMap.keySet()) {
                 format.setPrefix(prefix, prefix2NamespaceMap.get(prefix));
             }

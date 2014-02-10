@@ -38,15 +38,18 @@
  */
 package org.semanticweb.owlapi.io;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** An object that can create an {@code OWLParser}.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 15-Nov-2006 */
-public interface OWLParserFactory {
+public interface OWLParserFactory extends Serializable,
+        Comparable<OWLParserFactory> {
     /** Creates a parser.
      * 
      * @param owlOntologyManager

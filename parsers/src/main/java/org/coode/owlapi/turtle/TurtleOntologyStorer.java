@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -49,6 +50,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Jan-2008 */
+@HasPriority(value = 4)
 public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 

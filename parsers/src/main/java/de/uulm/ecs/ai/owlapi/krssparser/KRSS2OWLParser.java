@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.formats.KRSS2OntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -251,9 +252,12 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * <td></td>
  * </tr>
  * </table>
- *
+ * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+@HasPriority(value = 6)
 public class KRSS2OWLParser extends AbstractOWLParser {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public String getName() {
         return "KRSS2OWLParser";
@@ -263,7 +267,8 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -283,7 +288,8 @@ public class KRSS2OWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new KRSS2Parser(is);
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(), configuration);
+                is = getInputStream(documentSource.getDocumentIRI(),
+                        configuration);
                 parser = new KRSS2Parser(is);
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager()

@@ -63,10 +63,12 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
-            @Nonnull OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer, @Nonnull OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
+            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer,
+                    format);
             Set<OWLEntity> entities = renderer.getUnserialisableEntities();
             if (!entities.isEmpty()) {
                 StringBuilder sb = new StringBuilder();
