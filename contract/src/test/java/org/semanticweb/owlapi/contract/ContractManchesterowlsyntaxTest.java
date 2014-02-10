@@ -55,7 +55,6 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxFramesParser;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxInlineAxiomParser;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyHeader;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxParserFactory;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.Token;
 import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
@@ -68,7 +67,6 @@ import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -202,13 +200,6 @@ public class ContractManchesterowlsyntaxTest {
                 mock(OWLOntologyDocumentSource.class), Utils.getMockOntology());
         OWLOntologyFormat result2 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
-    }
-
-    @Test
-    public void shouldTestManchesterOWLSyntaxParserFactory()
-            throws OWLException {
-        ManchesterOWLSyntaxParserFactory testSubject0 = new ManchesterOWLSyntaxParserFactory();
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 
     @Test

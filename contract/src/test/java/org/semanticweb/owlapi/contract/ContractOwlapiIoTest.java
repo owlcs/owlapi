@@ -47,7 +47,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,7 +71,6 @@ import org.semanticweb.owlapi.io.OWLOntologyStorageIOException;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserFactory;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.io.OWLRenderer;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.io.OntologyIRIMappingNotFoundException;
@@ -108,6 +106,8 @@ public class ContractOwlapiIoTest {
     public void shouldTestAbstractOWLParser() throws OWLException,
             OWLOntologyChangeException, IOException {
         AbstractOWLParser testSubject0 = new AbstractOWLParser() {
+            private static final long serialVersionUID = 40000L;
+
             @Override
             public String getName() {
                 return "mockparser";
@@ -308,19 +308,6 @@ public class ContractOwlapiIoTest {
     public void shouldTestInterfaceOWLParserFactory() throws OWLException {
         OWLParserFactory testSubject0 = mock(OWLParserFactory.class);
         OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestOWLParserFactoryRegistry() throws OWLException {
-        OWLParserFactoryRegistry testSubject0 = OWLParserFactoryRegistry
-                .getInstance();
-        OWLParserFactoryRegistry result0 = OWLParserFactoryRegistry
-                .getInstance();
-        testSubject0.clearParserFactories();
-        List<OWLParserFactory> result1 = testSubject0.getParserFactories();
-        testSubject0.registerParserFactory(mock(OWLParserFactory.class));
-        testSubject0.unregisterParserFactory(mock(OWLParserFactory.class));
     }
 
     @Test

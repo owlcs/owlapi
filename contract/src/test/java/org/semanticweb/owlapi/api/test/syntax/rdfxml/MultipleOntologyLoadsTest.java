@@ -42,7 +42,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 
-import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -244,8 +244,7 @@ public class MultipleOntologyLoadsTest {
     private void parseOnto(OWLOntologyDocumentSource initialDocumentSource,
             OWLOntology initialOntology) throws OWLParserException,
             IOException, UnloadableImportException {
-        OWLParser initialParser = new RDFXMLParserFactory()
-                .createParser(manager);
+        OWLParser initialParser = new RDFXMLParser();
         initialParser.parse(initialDocumentSource, initialOntology);
     }
 

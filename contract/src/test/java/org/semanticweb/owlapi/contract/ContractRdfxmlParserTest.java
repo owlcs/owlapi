@@ -48,7 +48,6 @@ import org.coode.owlapi.rdfxml.parser.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -680,12 +679,6 @@ public class ContractRdfxmlParserTest {
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
         String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestRDFXMLParserFactory() throws OWLException {
-        RDFXMLParserFactory testSubject0 = new RDFXMLParserFactory();
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 
     public void shouldTestSKOSClassTripleHandler() throws OWLException {

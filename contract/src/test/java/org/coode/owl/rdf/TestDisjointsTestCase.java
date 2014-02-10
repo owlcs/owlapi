@@ -40,15 +40,16 @@ package org.coode.owl.rdf;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -60,6 +61,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -82,11 +84,12 @@ public class TestDisjointsTestCase {
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(
-                new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         man.addOntologyFactory(new ParsableOWLOntologyFactory());
-        man.addOntologyStorer(new RDFXMLOntologyStorer());
+        man.setOntologyStorers(Collections
+                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
+        man.setOntologyParsers(Collections
+                .singleton((OWLParser) new RDFXMLParser()));
     }
 
     @Test

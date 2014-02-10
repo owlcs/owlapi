@@ -1261,15 +1261,11 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestInterfaceOWLOntologyFactory() throws OWLException {
         OWLOntologyFactory testSubject0 = mock(OWLOntologyFactory.class);
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
         OWLOntology result1 = testSubject0.createOWLOntology(
-                new OWLOntologyID(), IRI("urn:aFake"),
-                mock(OWLOntologyCreationHandler.class));
-        OWLOntology result2 = testSubject0.loadOWLOntology(
-                mock(OWLOntologyDocumentSource.class),
-                mock(OWLOntologyCreationHandler.class));
+                mock(OWLOntologyManager.class), new OWLOntologyID(),
+                IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
         OWLOntology result3 = testSubject0.loadOWLOntology(
+                mock(OWLOntologyManager.class),
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),
                 new OWLOntologyLoaderConfiguration());
@@ -1457,8 +1453,6 @@ public class ContractOwlapiModel_3Test {
         testSubject0.removeOntologyFactory(mock(OWLOntologyFactory.class));
         Collection<OWLOntologyFactory> result34 = testSubject0
                 .getOntologyFactories();
-        testSubject0.addOntologyStorer(mock(OWLOntologyStorer.class));
-        testSubject0.removeOntologyStorer(mock(OWLOntologyStorer.class));
         testSubject0
                 .addOntologyChangeListener(mock(OWLOntologyChangeListener.class));
         testSubject0.addOntologyChangeListener(
@@ -1490,16 +1484,6 @@ public class ContractOwlapiModel_3Test {
                 .addOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
         testSubject0
                 .removeOntologyChangeProgessListener(mock(OWLOntologyChangeProgressListener.class));
-    }
-
-    @Test
-    public void shouldTestInterfaceOWLOntologyManagerFactory()
-            throws OWLException {
-        OWLOntologyManagerFactory testSubject0 = mock(OWLOntologyManagerFactory.class);
-        OWLDataFactory result0 = testSubject0.getFactory();
-        OWLOntologyManager result1 = testSubject0.buildOWLOntologyManager();
-        OWLOntologyManager result2 = testSubject0
-                .buildOWLOntologyManager(mock(OWLDataFactory.class));
     }
 
     @Test

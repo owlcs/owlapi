@@ -42,13 +42,14 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
+import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -63,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -78,11 +80,12 @@ public abstract class AbstractRendererAndParserTestCase {
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(
-                new RDFXMLParserFactory());
         man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
         man.addOntologyFactory(new ParsableOWLOntologyFactory());
-        man.addOntologyStorer(new RDFXMLOntologyStorer());
+        man.setOntologyStorers(Collections
+                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
+        man.setOntologyParsers(Collections
+                .singleton((OWLParser) new RDFXMLParser()));
     }
 
     public OWLClass createClass() {
@@ -95,15 +98,18 @@ public abstract class AbstractRendererAndParserTestCase {
     }
 
     public OWLObjectProperty createObjectProperty() {
-        return man.getOWLDataFactory().getOWLObjectProperty(TestUtils.createIRI());
+        return man.getOWLDataFactory().getOWLObjectProperty(
+                TestUtils.createIRI());
     }
 
     public OWLDataProperty createDataProperty() {
-        return man.getOWLDataFactory().getOWLDataProperty(TestUtils.createIRI());
+        return man.getOWLDataFactory()
+                .getOWLDataProperty(TestUtils.createIRI());
     }
 
     public OWLIndividual createIndividual() {
-        return man.getOWLDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
+        return man.getOWLDataFactory().getOWLNamedIndividual(
+                TestUtils.createIRI());
     }
 
     public OWLOntologyManager getManager() {
@@ -117,7 +123,8 @@ public abstract class AbstractRendererAndParserTestCase {
     @Test
     public void testSaveAndReload() throws OWLOntologyCreationException,
             OWLOntologyStorageException, IOException {
-        OWLOntology ontA = man.createOntology(IRI.create("http://rdfxmltests/ontology"));
+        OWLOntology ontA = man.createOntology(IRI
+                .create("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
             man.applyChange(new AddAxiom(ontA, ax));
         }
@@ -128,8 +135,8 @@ public abstract class AbstractRendererAndParserTestCase {
         File tempFile = File.createTempFile("Ontology", ".owlapi");
         man.saveOntology(ontA, IRI.create(tempFile.toURI()));
         man.removeOntology(ontA);
-        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI.create(tempFile
-                .toURI()));
+        OWLOntology ontB = man.loadOntologyFromOntologyDocument(IRI
+                .create(tempFile.toURI()));
         Set<OWLLogicalAxiom> AminusB = ontA.getLogicalAxioms();
         AminusB.removeAll(ontB.getAxioms());
         Set<OWLLogicalAxiom> BminusA = ontB.getLogicalAxioms();
@@ -139,11 +146,13 @@ public abstract class AbstractRendererAndParserTestCase {
             msg.append("Ontology save/load roundtripp OK.\n");
         } else {
             msg.append("Ontology save/load roundtripping error.\n");
-            msg.append("=> " + AminusB.size() + " axioms lost in roundtripping.\n");
+            msg.append("=> " + AminusB.size()
+                    + " axioms lost in roundtripping.\n");
             for (OWLAxiom axiom : AminusB) {
                 msg.append(axiom.toString() + "\n");
             }
-            msg.append("=> " + BminusA.size() + " axioms added after roundtripping.\n");
+            msg.append("=> " + BminusA.size()
+                    + " axioms added after roundtripping.\n");
             for (OWLAxiom axiom : BminusA) {
                 msg.append(axiom.toString() + "\n");
             }

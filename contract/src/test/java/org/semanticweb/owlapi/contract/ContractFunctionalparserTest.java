@@ -51,7 +51,6 @@ import org.coode.owlapi.functionalparser.Node;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParser;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserConstants;
-import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserFactory;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserTokenManager;
 import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxParserTreeConstants;
 import org.coode.owlapi.functionalparser.ParseException;
@@ -59,7 +58,6 @@ import org.coode.owlapi.functionalparser.Token;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -312,12 +310,6 @@ public class ContractFunctionalparserTest {
     @Test
     public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants() {
         OWLFunctionalSyntaxParserConstants testSubject0 = mock(OWLFunctionalSyntaxParserConstants.class);
-    }
-
-    @Test
-    public void shouldTestOWLFunctionalSyntaxParserFactory() {
-        OWLFunctionalSyntaxParserFactory testSubject0 = new OWLFunctionalSyntaxParserFactory();
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 
     @Test

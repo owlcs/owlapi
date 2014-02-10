@@ -41,6 +41,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.semanticweb.owlapi.model.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -49,6 +50,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 24-April-2007 */
+@HasPriority(value = -1)
 public class OWLTutorialSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
 

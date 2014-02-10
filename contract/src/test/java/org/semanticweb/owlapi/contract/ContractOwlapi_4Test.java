@@ -49,7 +49,6 @@ import java.util.Set;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -112,22 +111,17 @@ public class ContractOwlapi_4Test {
     public void shouldTestParsableOWLOntologyFactory() throws OWLException {
         ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
         OWLOntology result1 = testSubject0.loadOWLOntology(
+                mock(OWLOntologyManager.class),
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),
                 new OWLOntologyLoaderConfiguration());
-        OWLOntology result2 = testSubject0.loadOWLOntology(
-                mock(OWLOntologyDocumentSource.class),
-                mock(OWLOntologyCreationHandler.class));
         boolean result3 = testSubject0
                 .canCreateFromDocumentIRI(IRI("urn:aFake"));
         boolean result4 = testSubject0
                 .canLoad(mock(OWLOntologyDocumentSource.class));
-        List<OWLParser> result5 = testSubject0.getParsers();
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result6 = testSubject0.getOWLOntologyManager();
         OWLOntology result7 = testSubject0.createOWLOntology(
-                new OWLOntologyID(), IRI("urn:aFake"),
-                mock(OWLOntologyCreationHandler.class));
+                mock(OWLOntologyManager.class), new OWLOntologyID(),
+                IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
     }
 
     @Test

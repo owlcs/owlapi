@@ -41,14 +41,15 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collections;
 
-import org.coode.owlapi.rdfxml.parser.RDFXMLParserFactory;
+import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
@@ -64,14 +65,15 @@ public class RDFParserTestCase {
     public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        OWLParserFactoryRegistry.getInstance().registerParserFactory(
-                new RDFXMLParserFactory());
+        man.setOntologyStorers(Collections
+                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
         man.addOntologyFactory(factory);
     }
 
     @Test
-    public void testOWLAPI() throws OWLOntologyCreationException, URISyntaxException {
+    public void testOWLAPI() throws OWLOntologyCreationException,
+            URISyntaxException {
         parseFiles("/owlapi/");
     }
 

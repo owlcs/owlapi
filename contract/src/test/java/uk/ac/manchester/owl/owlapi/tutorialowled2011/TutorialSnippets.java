@@ -86,6 +86,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -921,7 +922,9 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Register the ontology storer with the manager
-        m.addOntologyStorer(new OWLTutorialSyntaxOntologyStorer());
+        Set<OWLOntologyStorer> factories = m.getOntologyStorers();
+        factories.add(new OWLTutorialSyntaxOntologyStorer());
+        m.setOntologyStorers(factories);
         // Save using a different format
         StreamDocumentTarget target = new StreamDocumentTarget(
                 new ByteArrayOutputStream());

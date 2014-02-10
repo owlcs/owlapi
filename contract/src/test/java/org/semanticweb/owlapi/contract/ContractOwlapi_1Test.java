@@ -43,12 +43,10 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.DataRangeType;
@@ -125,7 +123,6 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
-import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
@@ -178,15 +175,7 @@ public class ContractOwlapi_1Test {
             private static final long serialVersionUID = 40000L;
 
             @Override
-            public OWLOntology loadOWLOntology(
-                    OWLOntologyDocumentSource documentSource,
-                    OWLOntologyCreationHandler handler)
-                    throws OWLOntologyCreationException {
-                return mock(OWLOntology.class);
-            }
-
-            @Override
-            public OWLOntology loadOWLOntology(
+            public OWLOntology loadOWLOntology(OWLOntologyManager m,
                     OWLOntologyDocumentSource documentSource,
                     OWLOntologyCreationHandler handler,
                     OWLOntologyLoaderConfiguration configuration)
@@ -198,23 +187,11 @@ public class ContractOwlapi_1Test {
             public boolean canLoad(OWLOntologyDocumentSource documentSource) {
                 return false;
             }
-
-            @Override
-            public List<OWLParser> getParsers() {
-                return Collections.emptyList();
-            }
         };
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
-        OWLOntology result1 = testSubject0.createOWLOntology(
-                new OWLOntologyID(), IRI("urn:aFake"),
-                mock(OWLOntologyCreationHandler.class));
         boolean result2 = testSubject0
                 .canCreateFromDocumentIRI(IRI("urn:aFake"));
-        OWLOntology result4 = testSubject0.loadOWLOntology(
-                mock(OWLOntologyDocumentSource.class),
-                mock(OWLOntologyCreationHandler.class));
         OWLOntology result5 = testSubject0.loadOWLOntology(
+                mock(OWLOntologyManager.class),
                 mock(OWLOntologyDocumentSource.class),
                 mock(OWLOntologyCreationHandler.class),
                 new OWLOntologyLoaderConfiguration());
@@ -599,14 +576,8 @@ public class ContractOwlapi_1Test {
     @Test
     public void shouldTestEmptyInMemOWLOntologyFactory() throws OWLException {
         EmptyInMemOWLOntologyFactory testSubject0 = new EmptyInMemOWLOntologyFactory();
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntology result0 = testSubject0.createOWLOntology(
-                new OWLOntologyID(), IRI("urn:aFake"),
-                mock(OWLOntologyCreationHandler.class));
         boolean result3 = testSubject0
                 .canLoad(mock(OWLOntologyDocumentSource.class));
-        testSubject0.setOWLOntologyManager(Utils.getMockManager());
-        OWLOntologyManager result4 = testSubject0.getOWLOntologyManager();
         boolean result5 = testSubject0
                 .canCreateFromDocumentIRI(IRI("urn:aFake"));
     }

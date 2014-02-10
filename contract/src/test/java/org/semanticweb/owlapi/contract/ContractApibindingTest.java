@@ -274,13 +274,7 @@ public class ContractApibindingTest {
     @Test
     public void shouldTestOWLManager() {
         OWLManager testSubject0 = new OWLManager();
-        OWLDataFactory result0 = testSubject0.getFactory();
         OWLDataFactory result1 = OWLManager.getOWLDataFactory();
-        OWLOntologyManager result2 = testSubject0
-                .buildOWLOntologyManager(mock(OWLDataFactory.class));
-        OWLOntologyManager result3 = testSubject0.buildOWLOntologyManager();
         OWLOntologyManager result4 = OWLManager.createOWLOntologyManager();
-        OWLOntologyManager result5 = OWLManager
-                .createOWLOntologyManager(mock(OWLDataFactory.class));
     }
 }

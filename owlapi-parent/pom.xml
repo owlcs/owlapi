@@ -80,6 +80,11 @@
 			<version>4.0-beta</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
+			<version>4.0-beta</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
 			<version>2.0.1</version>
@@ -208,8 +213,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.16</version>
 				<configuration>
-				<printSummary>false</printSummary>
-				<argLine>-Xmx1024M</argLine>
+					<printSummary>false</printSummary>
+					<argLine>-Xmx1024M</argLine>
 				</configuration>
 			</plugin>
 

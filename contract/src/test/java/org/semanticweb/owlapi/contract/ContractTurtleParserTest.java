@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.xml.sax.SAXException;
@@ -52,7 +51,6 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ConsoleTripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.NullTripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.OWLRDFConsumerAdapter;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParserFactory;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractTurtleParserTest {
@@ -126,11 +124,5 @@ public class ContractTurtleParserTest {
         testSubject0.handleBaseDirective("");
         testSubject0.handleComment("");
         testSubject0.handleEnd();
-    }
-
-    @Test
-    public void shouldTestTurtleOntologyParserFactory() throws OWLException {
-        TurtleOntologyParserFactory testSubject0 = new TurtleOntologyParserFactory();
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 }

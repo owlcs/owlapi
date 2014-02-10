@@ -46,7 +46,6 @@ import java.util.Set;
 
 import org.coode.owlapi.owlxmlparser.*;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
@@ -3666,12 +3665,6 @@ public class ContractOwlxmlparserTest {
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
         String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestOWLXMLParserFactory() throws OWLException {
-        OWLXMLParserFactory testSubject0 = new OWLXMLParserFactory();
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 
     @Test

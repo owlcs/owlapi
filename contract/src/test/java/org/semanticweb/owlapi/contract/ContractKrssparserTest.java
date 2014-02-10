@@ -47,7 +47,6 @@ import java.io.Reader;
 import java.util.Set;
 
 import org.coode.owl.krssparser.KRSSOWLParser;
-import org.coode.owl.krssparser.KRSSOWLParserFactory;
 import org.coode.owl.krssparser.KRSSParser;
 import org.coode.owl.krssparser.KRSSParserConstants;
 import org.coode.owl.krssparser.KRSSParserTokenManager;
@@ -60,7 +59,6 @@ import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -98,12 +96,6 @@ public class ContractKrssparserTest {
                 new OWLOntologyLoaderConfiguration());
         OWLOntologyFormat result2 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());
-    }
-
-    @Test
-    public void shouldTestKRSSOWLParserFactory() throws OWLException {
-        KRSSOWLParserFactory testSubject0 = new KRSSOWLParserFactory();
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
     }
 
     public void shouldTestKRSSParser() throws OWLException, ParseException {
