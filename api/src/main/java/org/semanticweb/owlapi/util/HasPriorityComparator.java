@@ -40,7 +40,7 @@ package org.semanticweb.owlapi.util;
 
 import java.util.Comparator;
 
-import org.semanticweb.owlapi.model.HasPriority;
+import org.semanticweb.owlapi.annotations.HasPriority;
 
 /** Comparator for objects with HasPriority annotations. Objects without
  * HasPriority are considered to have lowest priority (Double.MAX_VALUE).

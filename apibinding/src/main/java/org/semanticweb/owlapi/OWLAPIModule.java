@@ -49,6 +49,7 @@ import org.coode.owlapi.owlxmlparser.OWLXMLParser;
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.coode.owlapi.turtle.TurtleOntologyStorer;
+import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
@@ -71,7 +72,9 @@ import com.google.inject.multibindings.Multibinder;
 import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParser;
 import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 
-/** owlapi module */
+/** OWLAPI module. Bindings can be overridden by subclassing this class, to allow
+ * to replace part of the configuration without having to rewrite all of it. */
+@OwlapiModule
 public class OWLAPIModule extends AbstractModule {
     @Provides
     protected OWLDataFactory provideOWLDataFactory() {
@@ -85,19 +88,39 @@ public class OWLAPIModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        multibind(OWLParser.class, OBOFormatOWLAPIParser.class,
-                ManchesterOWLSyntaxOntologyParser.class, KRSS2OWLParser.class,
-                TurtleOntologyParser.class, OWLFunctionalSyntaxOWLParser.class,
-                OWLXMLParser.class, RDFXMLParser.class);
+        configureParsers();
+        configureStorers();
+        configureOntologyFactories();
+        configureIRIMappers();
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void configureStorers() {
         multibind(OWLOntologyStorer.class, RDFXMLOntologyStorer.class,
                 OWLXMLOntologyStorer.class,
                 OWLFunctionalSyntaxOntologyStorer.class,
                 ManchesterOWLSyntaxOntologyStorer.class,
                 KRSS2OWLSyntaxOntologyStorer.class, TurtleOntologyStorer.class,
                 LatexOntologyStorer.class, OBOFormatStorer.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void configureOntologyFactories() {
         multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
                 ParsableOWLOntologyFactory.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void configureIRIMappers() {
         multibind(OWLOntologyIRIMapper.class, NonMappingOntologyIRIMapper.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected void configureParsers() {
+        multibind(OWLParser.class, OBOFormatOWLAPIParser.class,
+                ManchesterOWLSyntaxOntologyParser.class, KRSS2OWLParser.class,
+                TurtleOntologyParser.class, OWLFunctionalSyntaxOWLParser.class,
+                OWLXMLParser.class, RDFXMLParser.class);
     }
 
     private <T> Multibinder<T> multibind(Class<T> type,

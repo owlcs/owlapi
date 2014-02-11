@@ -41,7 +41,7 @@ package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.semanticweb.owlapi.model.HasPriority;
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;

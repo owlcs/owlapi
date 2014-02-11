@@ -39,6 +39,7 @@
 package org.semanticweb.owlapi.apibinding;
 
 import org.semanticweb.owlapi.OWLAPIModule;
+import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
@@ -51,7 +52,8 @@ import com.google.inject.Injector;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 06-Dec-2006 */
 public class OWLManager {
-    private static Injector injector = Guice.createInjector(new OWLAPIModule());
+    private static Injector injector = Guice.createInjector(new OWLAPIModule(),
+            new OWLAPIServiceLoaderModule());
 
     /** Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.

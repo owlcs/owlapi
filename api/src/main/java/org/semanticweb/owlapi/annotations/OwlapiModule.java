@@ -36,37 +36,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.turtle;
+package org.semanticweb.owlapi.annotations;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
-
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
-@HasPriority(value = 4)
-public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
-    private static final long serialVersionUID = 40000L;
-
-    @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
-        try {
-            TurtleRenderer ren = new TurtleRenderer(ontology, writer, format);
-            ren.render();
-        } catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
-        }
-    }
-
-    @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat instanceof TurtleOntologyFormat;
-    }
-}
+/** Annotation for Guice modules providing bindings for the OWLAPI. The bindings
+ * can be for any interface. Modules annotated with {@link OwlapiModule} will be
+ * loaded from the classpath and used to create the main injector. Every module
+ * can create its bindings using a different strategy; e.g., hardcoding the
+ * contributed mappings or using classpath scanning,
+ * {@link java.util.ServiceLoader}, and similar strategies, to determine the
+ * mappings to be used.
+ * 
+ * @author ignazio
+ * @since 4.0.0 */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface OwlapiModule {}

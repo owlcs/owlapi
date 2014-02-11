@@ -36,37 +36,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.coode.owlapi.turtle;
+package org.semanticweb.owlapi;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.util.ServiceConfigurationError;
+import java.util.ServiceLoader;
 
-import org.semanticweb.owlapi.annotations.HasPriority;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
+import org.semanticweb.owlapi.annotations.OwlapiModule;
+import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
-@HasPriority(value = 4)
-public class TurtleOntologyStorer extends AbstractOWLOntologyStorer {
-    private static final long serialVersionUID = 40000L;
+import com.google.inject.AbstractModule;
+import com.google.inject.multibindings.Multibinder;
 
+/** owlapi module for dynamic loading - uses ServiceLoader to add extra bindings
+ * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper */
+@OwlapiModule
+public class OWLAPIServiceLoaderModule extends AbstractModule {
     @Override
-    protected void storeOntology(OWLOntology ontology, Writer writer,
-            OWLOntologyFormat format) throws OWLOntologyStorageException {
-        try {
-            TurtleRenderer ren = new TurtleRenderer(ontology, writer, format);
-            ren.render();
-        } catch (IOException e) {
-            throw new OWLOntologyStorageException(e);
-        }
+    protected void configure() {
+        loadInstancesFromServiceLoader(OWLParser.class);
+        loadInstancesFromServiceLoader(OWLOntologyStorer.class);
+        loadInstancesFromServiceLoader(OWLOntologyFactory.class);
+        loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
     }
 
-    @Override
-    public boolean canStoreOntology(OWLOntologyFormat ontologyFormat) {
-        return ontologyFormat instanceof TurtleOntologyFormat;
+    protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
+        try {
+            Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
+            for (T o : ServiceLoader.load(type)) {
+                binder.addBinding().toInstance(o);
+            }
+        } catch (ServiceConfigurationError e) {
+            e.printStackTrace(System.out);
+            throw new OWLRuntimeException("Injection failed for " + type, e);
+        }
     }
 }
