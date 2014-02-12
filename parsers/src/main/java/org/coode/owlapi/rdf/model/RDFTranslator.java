@@ -77,11 +77,12 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected void addTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI pred,
-            @Nonnull RDFNode object) {
-        graph.addTriple(new RDFTriple(checkNotNull(subject, "subject cannot be null"),
-                checkNotNull(pred, "pred cannot be null"), checkNotNull(object,
-                        "object cannot be null")));
+    protected void addTriple(@Nonnull RDFResource subject,
+            @Nonnull RDFResourceIRI pred, @Nonnull RDFNode object) {
+        graph.addTriple(new RDFTriple(checkNotNull(subject,
+                "subject cannot be null"), checkNotNull(pred,
+                "pred cannot be null"), checkNotNull(object,
+                "object cannot be null")));
     }
 
     @Override
@@ -89,7 +90,8 @@ public class RDFTranslator extends
         checkNotNull(key, "key cannot be null");
         if (key instanceof OWLAnonymousIndividual) {
             RDFResourceBlankNode toReturn = new RDFResourceBlankNode(
-                    ((OWLAnonymousIndividual) key).getID().getID().hashCode());
+                    System.identityHashCode(((OWLAnonymousIndividual) key)
+                            .getID().getID()));
             return toReturn;
         }
         RDFResourceBlankNode toReturn = new RDFResourceBlankNode(
