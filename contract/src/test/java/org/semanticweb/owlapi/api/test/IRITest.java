@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.IRI;
 public class IRITest {
     /** All of the unit tests individually timeout after 60 seconds. */
     @Rule
-    public Timeout timeout = new Timeout(6000);
+    public Timeout timeout = new Timeout(10000);
 
     /** Test method for
      * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
