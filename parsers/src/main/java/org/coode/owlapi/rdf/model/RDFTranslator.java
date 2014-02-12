@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 06-Dec-2006 */
-public class RDFTranslator extends
+public class RDFTranslator
+        extends
         AbstractTranslator<RDFNode, RDFResourceNode, RDFResourceNode, RDFLiteralNode> {
     private RDFGraph graph;
 
@@ -68,21 +69,21 @@ public class RDFTranslator extends
     }
 
     @Override
-    protected void
-            addTriple(RDFResourceNode subject, RDFResourceNode pred, RDFNode object) {
+    protected void addTriple(RDFResourceNode subject, RDFResourceNode pred,
+            RDFNode object) {
         graph.addTriple(new RDFTriple(subject, pred, object));
     }
 
     @Override
     protected RDFResourceNode getAnonymousNode(Object key) {
         if (key instanceof OWLAnonymousIndividual) {
-            RDFResourceNode toReturn = new RDFResourceNode(((OWLAnonymousIndividual) key)
-                    .getID().getID().hashCode());
-            // System.out.println("RDFTranslator.getAnonymousNodeTricked() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
+            String id = ((OWLAnonymousIndividual) key).getID().getID();
+            RDFResourceNode toReturn = new RDFResourceNode(
+                    System.identityHashCode(id));
             return toReturn;
         }
-        RDFResourceNode toReturn = new RDFResourceNode(System.identityHashCode(key));
-        // System.out.println("RDFTranslator.getAnonymousNode() "+key.getClass().getSimpleName()+"\t"+key+"\t"+toReturn);
+        RDFResourceNode toReturn = new RDFResourceNode(
+                System.identityHashCode(key));
         return toReturn;
     }
 
@@ -96,8 +97,8 @@ public class RDFTranslator extends
      * @return translated literal */
     public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
         if (!literal.isRDFPlainLiteral()) {
-            return new RDFLiteralNode(literal.getLiteral(), literal.getDatatype()
-                    .getIRI());
+            return new RDFLiteralNode(literal.getLiteral(), literal
+                    .getDatatype().getIRI());
         } else {
             return new RDFLiteralNode(literal.getLiteral(),
                     literal.hasLang() ? literal.getLang() : null);
