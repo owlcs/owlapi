@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
@@ -67,7 +68,8 @@ public class RDFParserTestCase {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
         man.setOntologyStorers(Collections
                 .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
-        ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory();
+        ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory(
+                new OWLOntologyBuilderImpl());
         man.addOntologyFactory(factory);
     }
 

@@ -121,6 +121,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -171,7 +172,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryInternalsImpl;
 public class ContractOwlapi_1Test {
     @Test
     public void shouldTestAbstractInMemOWLOntologyFactory() throws OWLException {
-        AbstractInMemOWLOntologyFactory testSubject0 = new AbstractInMemOWLOntologyFactory() {
+        AbstractInMemOWLOntologyFactory testSubject0 = new AbstractInMemOWLOntologyFactory(
+                mock(OWLOntologyBuilder.class)) {
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -575,7 +577,8 @@ public class ContractOwlapi_1Test {
 
     @Test
     public void shouldTestEmptyInMemOWLOntologyFactory() throws OWLException {
-        EmptyInMemOWLOntologyFactory testSubject0 = new EmptyInMemOWLOntologyFactory();
+        EmptyInMemOWLOntologyFactory testSubject0 = new EmptyInMemOWLOntologyFactory(
+                mock(OWLOntologyBuilder.class));
         boolean result3 = testSubject0
                 .canLoad(mock(OWLOntologyDocumentSource.class));
         boolean result5 = testSubject0

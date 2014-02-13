@@ -52,6 +52,7 @@ import org.coode.owlapi.turtle.TurtleOntologyStorer;
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -60,6 +61,7 @@ import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
@@ -84,6 +86,11 @@ public class OWLAPIModule extends AbstractModule {
     @Provides
     protected OWLOntologyManager provideOWLOntologyManager(OWLDataFactory df) {
         return new OWLOntologyManagerImpl(df);
+    }
+
+    @Provides
+    protected OWLOntologyBuilder provideOWLOntologyBuilder() {
+        return new OWLOntologyBuilderImpl();
     }
 
     @Override

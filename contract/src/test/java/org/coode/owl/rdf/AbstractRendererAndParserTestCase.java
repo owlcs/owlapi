@@ -68,6 +68,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
@@ -80,8 +81,10 @@ public abstract class AbstractRendererAndParserTestCase {
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
-        man.addOntologyFactory(new ParsableOWLOntologyFactory());
+        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory(
+                new OWLOntologyBuilderImpl()));
+        man.addOntologyFactory(new ParsableOWLOntologyFactory(
+                new OWLOntologyBuilderImpl()));
         man.setOntologyStorers(Collections
                 .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
         man.setOntologyParsers(Collections

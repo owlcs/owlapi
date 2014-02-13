@@ -63,6 +63,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
@@ -86,8 +87,10 @@ public class DisjointsTestCase {
                 .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
         man.setOntologyParsers(Collections
                 .singleton((OWLParser) new RDFXMLParser()));
-        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory());
-        man.addOntologyFactory(new ParsableOWLOntologyFactory());
+        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory(
+                new OWLOntologyBuilderImpl()));
+        man.addOntologyFactory(new ParsableOWLOntologyFactory(
+                new OWLOntologyBuilderImpl()));
     }
 
     @Test

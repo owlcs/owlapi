@@ -38,10 +38,13 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -53,6 +56,13 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 public class EmptyInMemOWLOntologyFactory extends
         AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
+
+    /** @param builder
+     *            injected ontology builder */
+    @Inject
+    public EmptyInMemOWLOntologyFactory(OWLOntologyBuilder builder) {
+        super(builder);
+    }
 
     @Override
     public OWLOntology loadOWLOntology(OWLOntologyManager m,

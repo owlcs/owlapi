@@ -50,6 +50,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
@@ -57,6 +59,7 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
@@ -80,8 +83,12 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     private final Set<String> parsableSchemes = new HashSet<String>(
             Arrays.asList("http", "https", "file", "ftp"));
 
-    /** Creates an ontology factory. */
-    public ParsableOWLOntologyFactory() {}
+    /** @param builder
+     *            injected ontology builder */
+    @Inject
+    public ParsableOWLOntologyFactory(OWLOntologyBuilder builder) {
+        super(builder);
+    }
 
     /** Overriden - We don't create new empty ontologies - this isn't our
      * responsibility.

@@ -36,47 +36,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.manchester.cs.owl.owlapi;
+package org.semanticweb.owlapi.model;
 
-import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
-import javax.inject.Inject;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Nov-2006 */
-public abstract class AbstractInMemOWLOntologyFactory implements
-        OWLOntologyFactory {
-    private static final long serialVersionUID = 40000L;
-    private OWLOntologyBuilder builder;
-
-    /** @param builder
-     *            injected ontology builder */
-    @Inject
-    public AbstractInMemOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
-        this.builder = checkNotNull(builder);
-    }
-
-    @Override
-    public boolean canCreateFromDocumentIRI(IRI documentIRI) {
-        return true;
-    }
-
-    @Override
-    public OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
-            @Nonnull OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler)
-            throws OWLOntologyCreationException {
-        OWLOntology ont = builder.createOWLOntology(manager, ontologyID);
-        handler.ontologyCreated(ont);
-        return ont;
-    }
+/** An ontology builder is responsible for choosing an OWLOntology
+ * implementation. This interface allows for injecting different OWLOntology
+ * implementations without having to rewrite code implemented in
+ * OWLOntologyFactory classes.
+ * 
+ * @author Ignazio
+ * @since 4.0.0 */
+public interface OWLOntologyBuilder extends Serializable {
+    /** @param manager
+     *            manager for the ontology to be created
+     * @param ontologyID
+     *            id for the ontology to be created
+     * @return new ontology instance */
+    @Nonnull
+    OWLOntology createOWLOntology(@Nonnull OWLOntologyManager manager,
+            @Nonnull OWLOntologyID ontologyID);
 }

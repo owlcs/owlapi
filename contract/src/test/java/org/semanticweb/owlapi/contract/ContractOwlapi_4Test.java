@@ -73,6 +73,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -109,7 +110,8 @@ public class ContractOwlapi_4Test {
     @Ignore
     @Test
     public void shouldTestParsableOWLOntologyFactory() throws OWLException {
-        ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory();
+        ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory(
+                mock(OWLOntologyBuilder.class));
         OWLOntology result1 = testSubject0.loadOWLOntology(
                 mock(OWLOntologyManager.class),
                 mock(OWLOntologyDocumentSource.class),
