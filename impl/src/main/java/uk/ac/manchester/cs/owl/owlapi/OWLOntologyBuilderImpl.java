@@ -48,6 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @author ignazio
  * @since 4.0.0 */
 public class OWLOntologyBuilderImpl implements OWLOntologyBuilder {
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public OWLOntology createOWLOntology(OWLOntologyManager manager,
             OWLOntologyID ontologyID) {
