@@ -52,6 +52,7 @@ public class ObjectPropertyRangeAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return ObjectPropertyRange(ObjectProperty(getIRI("p")), Class(getIRI("A")), annos);
+        return ObjectPropertyRange(ObjectProperty(getIRI("p")),
+                Class(getIRI("A")), annos);
     }
 }

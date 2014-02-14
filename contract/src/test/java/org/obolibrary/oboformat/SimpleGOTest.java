@@ -16,7 +16,8 @@ public class SimpleGOTest extends OboFormatTestBasics {
         assertEquals(3, obodoc.getTermFrames().size());
         assertEquals(5, obodoc.getTypedefFrames().size());
         checkFrame(obodoc, "GO:0018901",
-                "2,4-dichlorophenoxyacetic acid metabolic process", "biological_process");
+                "2,4-dichlorophenoxyacetic acid metabolic process",
+                "biological_process");
         checkFrame(obodoc, "GO:0055124", "premature neural plate formation",
                 "biological_process");
         checkFrame(obodoc, "GO:0055125", "Nic96 complex", "cellular_component");
@@ -29,7 +30,8 @@ public class SimpleGOTest extends OboFormatTestBasics {
         checkFrame(obodoc, "regulates", "regulates", "gene_ontology");
     }
 
-    private void checkFrame(OBODoc doc, String id, String name, String namespace) {
+    private void
+            checkFrame(OBODoc doc, String id, String name, String namespace) {
         Frame frame = doc.getTermFrame(id);
         if (frame == null) {
             frame = doc.getTypedefFrame(id);

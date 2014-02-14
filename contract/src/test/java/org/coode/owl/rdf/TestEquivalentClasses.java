@@ -59,16 +59,16 @@ public class TestEquivalentClasses extends AbstractRendererAndParserTestCase {
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = getManager().getOWLDataFactory().getOWLClass(
                 TestUtils.createIRI());
-        OWLObjectProperty prop = getManager().getOWLDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
+        OWLObjectProperty prop = getManager().getOWLDataFactory()
+                .getOWLObjectProperty(TestUtils.createIRI());
         OWLClassExpression descA = getManager().getOWLDataFactory()
                 .getOWLObjectSomeValuesFrom(prop,
                         getManager().getOWLDataFactory().getOWLThing());
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(clsA);
         classExpressions.add(descA);
-        OWLAxiom ax = getManager().getOWLDataFactory().getOWLEquivalentClassesAxiom(
-                classExpressions);
+        OWLAxiom ax = getManager().getOWLDataFactory()
+                .getOWLEquivalentClassesAxiom(classExpressions);
         return Collections.singleton(ax);
     }
 }

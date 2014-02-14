@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 21-Sep-2009 */
-public class StringLiteralWithQuotesTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class StringLiteralWithQuotesTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

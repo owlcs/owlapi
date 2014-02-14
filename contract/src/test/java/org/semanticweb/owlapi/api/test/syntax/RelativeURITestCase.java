@@ -53,9 +53,11 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  *         Group, Date: 08-Jun-2009 */
 public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
-    protected Set<? extends OWLAxiom> createAxioms() throws OWLOntologyCreationException {
+    protected Set<? extends OWLAxiom> createAxioms()
+            throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("Ont");
-        OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI() + "/Office"));
+        OWLClass cls = Class(IRI(ont.getOntologyID().getOntologyIRI()
+                + "/Office"));
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>();
         axs.add(Declaration(cls));
         return axs;

@@ -55,8 +55,8 @@ public class SubObjectPropertyChainOfAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        List<OWLObjectProperty> props = Arrays.asList(ObjectProperty(getIRI("p")),
-                ObjectProperty(getIRI("q")));
+        List<OWLObjectProperty> props = Arrays.asList(
+                ObjectProperty(getIRI("p")), ObjectProperty(getIRI("q")));
         return SubPropertyChainOf(props, ObjectProperty(getIRI("r")), annos);
     }
 }

@@ -60,7 +60,8 @@ public class AnonymousIndividualRoundtripTestCase extends
         OWLAnonymousIndividual ind = AnonymousIndividual();
         OWLClass cls = Class(getIRI("A"));
         OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), ind);
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
+                cls.getIRI(), ind);
         axioms.add(ax);
         axioms.add(Declaration(cls));
         return axioms;

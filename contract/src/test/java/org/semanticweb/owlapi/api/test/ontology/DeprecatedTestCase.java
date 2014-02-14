@@ -55,14 +55,17 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 @SuppressWarnings("javadoc")
 public class DeprecatedTestCase extends AbstractFileTestCase {
     @Test
-    public void testAnnotationAssertionsPresent() throws OWLOntologyCreationException {
+    public void testAnnotationAssertionsPresent()
+            throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(getIRI("http://www.semanticweb.org/owlapi/test#ClsA"));
-        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont).annotations(cls)) {
+        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont)
+                .annotations(cls)) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
         OWLDataProperty prop = DataProperty(getIRI("http://www.semanticweb.org/owlapi/test#prop"));
-        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont).annotations(prop)) {
+        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont)
+                .annotations(prop)) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
     }

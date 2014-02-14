@@ -41,15 +41,14 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 03-Aug-2007 */
 @SuppressWarnings("javadoc")
-public class SWRLTestCase {
+public class SWRLTestCase extends TestBase {
     @Test
     public void testSWRLParser() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n"
@@ -113,9 +112,7 @@ public class SWRLTestCase {
                 + "          </swrl:AtomList>\n" + "        </rdf:rest>\n"
                 + "      </swrl:AtomList>\n" + "    </swrl:body>\n"
                 + "  </swrl:Imp>\n" + "</rdf:RDF>";
-        OWLOntology ont = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(input));
+        OWLOntology ont = loadOntologyFromString(input);
         assertTrue(ont.getIndividualsInSignature().isEmpty());
     }
 }

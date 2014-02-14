@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 30-Jul-2008 */
-public class AnonymousInversesTestCase extends AbstractFileRoundTrippingTestCase {
+public class AnonymousInversesTestCase extends
+        AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {
         return "AnonymousInverses.rdf";

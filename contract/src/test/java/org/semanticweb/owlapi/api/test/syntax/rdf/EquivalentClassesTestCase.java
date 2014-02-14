@@ -60,14 +60,13 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = Class(TestUtils.createIRI());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
-        OWLClassExpression descA = getDataFactory().getOWLObjectSomeValuesFrom(prop,
-                getDataFactory().getOWLThing());
+        OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());
+        OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop,
+                df.getOWLThing());
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(clsA);
         classExpressions.add(descA);
-        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(classExpressions);
+        OWLAxiom ax = df.getOWLEquivalentClassesAxiom(classExpressions);
         return Collections.singleton(ax);
     }
 }

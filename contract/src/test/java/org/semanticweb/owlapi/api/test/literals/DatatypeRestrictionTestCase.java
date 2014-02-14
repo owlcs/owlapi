@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
-public class DatatypeRestrictionTestCase extends AbstractFileRoundTrippingTestCase {
+public class DatatypeRestrictionTestCase extends
+        AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

@@ -73,7 +73,8 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
     @Test
     public void testParsedAxioms() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
         assertEquals(1, axioms.size());
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(SUBCLASS_IRI);

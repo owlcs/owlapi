@@ -98,7 +98,8 @@ public class StructuralReasonerTestCase extends TestBase {
         assertTrue(descOfTop.containsEntity(clsA));
         assertTrue(descOfTop.containsEntity(clsB));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(), false);
+        NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(),
+                false);
         assertTrue(supersOfTop.isEmpty());
         NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(clsA, false);
         assertTrue(supersOfA.isTopSingleton());

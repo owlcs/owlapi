@@ -42,15 +42,14 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
-public class FunctionalSyntaxCommentTestCase {
+public class FunctionalSyntaxCommentTestCase extends TestBase {
     @Test
     public void shouldParseCommentAndSkipIt()
             throws OWLOntologyCreationException {
@@ -62,9 +61,7 @@ public class FunctionalSyntaxCommentTestCase {
                 + "Declaration(DataProperty(<urn:test.owl#city>))\n"
                 + "SubClassOf(<urn:test.owl#ContactInformation> DataMaxCardinality(1 <urn:test.owl#city> xsd:string))\n"
                 + ")";
-        OWLOntology o = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(input));
+        OWLOntology o = loadOntologyFromString(input);
         OWLAxiom ax1 = Declaration(DataProperty(IRI("urn:test.owl#city")));
         OWLAxiom ax2 = SubClassOf(
                 Class(IRI("urn:test.owl#ContactInformation")),

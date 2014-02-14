@@ -45,49 +45,34 @@ import java.util.Collections;
 import java.util.Set;
 
 import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractRendererAndParser {
-    private OWLOntologyManager man;
-
+public abstract class AbstractRendererAndParser extends TestBase {
     @Before
-    public void setUp() {
-        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.setOntologyParsers(Collections
-                .singleton((OWLParser) new RDFXMLParser()));
-        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory(
+    public void setUpManager() {
+        m.addOntologyFactory(new ParsableOWLOntologyFactory(
                 new OWLOntologyBuilderImpl()));
-        man.addOntologyFactory(new ParsableOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        man.setOntologyStorers(Collections
+        m.setOntologyStorers(Collections
                 .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
     }
 
@@ -96,42 +81,29 @@ public abstract class AbstractRendererAndParser {
     }
 
     protected OWLAnnotationProperty createAnnotationProperty() {
-        return getDataFactory().getOWLAnnotationProperty(TestUtils.createIRI());
+        return df.getOWLAnnotationProperty(TestUtils.createIRI());
     }
 
     protected OWLObjectProperty createObjectProperty() {
-        return man.getOWLDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
+        return df.getOWLObjectProperty(TestUtils.createIRI());
     }
 
     protected OWLDataProperty createDataProperty() {
-        return man.getOWLDataFactory()
-                .getOWLDataProperty(TestUtils.createIRI());
+        return df.getOWLDataProperty(TestUtils.createIRI());
     }
 
     protected OWLIndividual createIndividual() {
-        return man.getOWLDataFactory().getOWLNamedIndividual(
-                TestUtils.createIRI());
-    }
-
-    protected OWLDataFactory getDataFactory() {
-        return man.getOWLDataFactory();
+        return df.getOWLNamedIndividual(TestUtils.createIRI());
     }
 
     @Test
     public void testSaveAndReload() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        OWLOntology ontA = man
-                .createOntology(IRI("http://rdfxmltests/ontology"));
+        OWLOntology ontA = m.createOntology(IRI("http://rdfxmltests/ontology"));
         for (OWLAxiom ax : getAxioms()) {
-            man.applyChange(new AddAxiom(ontA, ax));
+            m.applyChange(new AddAxiom(ontA, ax));
         }
-        StringDocumentTarget target = new StringDocumentTarget();
-        man.saveOntology(ontA, target);
-        man.removeOntology(ontA);
-        OWLOntology ontB = man
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target));
+        OWLOntology ontB = roundTrip(ontA);
         Set<OWLLogicalAxiom> AminusB = ontA.getLogicalAxioms();
         AminusB.removeAll(ontB.getAxioms());
         Set<OWLLogicalAxiom> BminusA = ontB.getLogicalAxioms();

@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 14-Jul-2009 */
-public class DisjointDataPropertiesTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class DisjointDataPropertiesTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

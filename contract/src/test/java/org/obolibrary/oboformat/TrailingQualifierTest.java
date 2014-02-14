@@ -86,13 +86,15 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
 
     void hasQualifierClause(Frame frame, OboFormatTag tag) {
         Clause clause = frame.getClause(tag);
-        assertNotNull("Expected a clause " + tag.getTag() + " in frame: " + frame, clause);
+        assertNotNull("Expected a clause " + tag.getTag() + " in frame: "
+                + frame, clause);
         hasQualifier(clause);
     }
 
     void hasQualifierClauses(Frame frame, OboFormatTag tag) {
         Collection<Clause> clauses = frame.getClauses(tag);
-        final String message = "Expected clauses " + tag.getTag() + " in frame: " + frame;
+        final String message = "Expected clauses " + tag.getTag()
+                + " in frame: " + frame;
         assertNotNull(message, clauses);
         assertFalse(message, clauses.isEmpty());
         for (Clause clause : clauses) {
@@ -101,12 +103,15 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
     }
 
     void hasQualifier(Clause clause) {
-        Collection<QualifierValue> qualifierValues = clause.getQualifierValues();
-        assertNotNull("Expected a clause qualifier values in clause: " + clause,
+        Collection<QualifierValue> qualifierValues = clause
+                .getQualifierValues();
+        assertNotNull(
+                "Expected a clause qualifier values in clause: " + clause,
                 qualifierValues);
         assertFalse("Qualifier values should not be empty in clause:" + clause,
                 qualifierValues.isEmpty());
-        assertTrue("Expected two or more qualifier values", qualifierValues.size() >= 2);
+        assertTrue("Expected two or more qualifier values",
+                qualifierValues.size() >= 2);
         boolean foundOne = false;
         boolean foundTwo = false;
         // {val1="one",val2="two"}

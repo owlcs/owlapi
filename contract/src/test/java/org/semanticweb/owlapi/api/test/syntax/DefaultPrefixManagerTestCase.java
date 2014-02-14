@@ -55,7 +55,8 @@ public class DefaultPrefixManagerTestCase {
     public void getPrefixIRIEmpty() {
         DefaultPrefixManager pm = new DefaultPrefixManager();
         pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
-        assertEquals("foaf:", pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/")));
+        assertEquals("foaf:",
+                pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/")));
     }
 
     @Test

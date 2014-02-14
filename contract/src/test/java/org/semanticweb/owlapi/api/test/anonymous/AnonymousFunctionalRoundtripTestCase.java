@@ -47,9 +47,7 @@ import java.util.List;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -57,12 +55,10 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class AnonymousFunctionalRoundtripTestCase extends
-        TestBase {
+public class AnonymousFunctionalRoundtripTestCase extends TestBase {
     private static final String NS = "http://namespace.owl";
     private static String broken = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
@@ -98,8 +94,9 @@ public class AnonymousFunctionalRoundtripTestCase extends
     public void shouldRoundTripBroken() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         OWLOntology o = loadOntologyFromString(broken);
-        String s = saveOntology(o, new OWLFunctionalSyntaxOntologyFormat());
-        OWLOntology o1 = loadOntologyFromString(s);
+        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
+        format.setDefaultPrefix(NS + "#");
+        OWLOntology o1 = roundTrip(o, format);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -118,18 +115,11 @@ public class AnonymousFunctionalRoundtripTestCase extends
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
                 Literal("hello"))));
         m.applyChanges(changes);
-        String saved = saveOntology(ontology, new RDFXMLOntologyFormat());
-        ontology = loadOntologyFromString(saved);
-        saved = saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat());
-        ontology = loadOntologyFromString(saved);
-    }
-
-    String saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format)
-            throws OWLOntologyStorageException {
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
+        RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
         format.setDefaultPrefix(NS + "#");
-        StringDocumentTarget target = new StringDocumentTarget();
-        manager.saveOntology(ontology, format, target);
-        return target.toString();
+        ontology = roundTrip(ontology, format);
+        OWLFunctionalSyntaxOntologyFormat format2 = new OWLFunctionalSyntaxOntologyFormat();
+        format2.setDefaultPrefix(NS + "#");
+        ontology = roundTrip(ontology, format2);
     }
 }

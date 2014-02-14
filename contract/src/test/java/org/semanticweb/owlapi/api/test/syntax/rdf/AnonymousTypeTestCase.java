@@ -53,10 +53,10 @@ public class AnonymousTypeTestCase extends AbstractRendererAndParser {
     @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(
-                Class(TestUtils.createIRI()));
-        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
-        axioms.add(getDataFactory().getOWLClassAssertionAxiom(desc, ind));
+        OWLClassExpression desc = df.getOWLObjectComplementOf(Class(TestUtils
+                .createIRI()));
+        OWLIndividual ind = df.getOWLNamedIndividual(TestUtils.createIRI());
+        axioms.add(df.getOWLClassAssertionAxiom(desc, ind));
         return axioms;
     }
 

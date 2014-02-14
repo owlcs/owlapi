@@ -57,15 +57,16 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public abstract class AbstractRoundTrippingTestCase extends TestBase {
     private OWLOntology ont;
 
-    protected abstract OWLOntology createOntology() throws OWLOntologyCreationException,
-            URISyntaxException;
+    protected abstract OWLOntology createOntology()
+            throws OWLOntologyCreationException, URISyntaxException;
 
     protected OWLOntology getOnt() {
         return ont;
     }
 
     @Before
-    public void setUpOntology() throws OWLOntologyCreationException, URISyntaxException {
+    public void setUpOntology() throws OWLOntologyCreationException,
+            URISyntaxException {
         ont = createOntology();
     }
 

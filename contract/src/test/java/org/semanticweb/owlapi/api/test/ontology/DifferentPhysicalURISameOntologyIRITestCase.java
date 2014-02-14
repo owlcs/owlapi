@@ -52,8 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
-public class DifferentPhysicalURISameOntologyIRITestCase extends
-        TestBase {
+public class DifferentPhysicalURISameOntologyIRITestCase extends TestBase {
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 

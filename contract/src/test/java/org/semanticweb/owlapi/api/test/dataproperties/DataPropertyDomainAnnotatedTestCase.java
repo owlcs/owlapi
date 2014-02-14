@@ -52,6 +52,7 @@ public class DataPropertyDomainAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return DataPropertyDomain(DataProperty(getIRI("p")), Class(getIRI("A")), annos);
+        return DataPropertyDomain(DataProperty(getIRI("p")),
+                Class(getIRI("A")), annos);
     }
 }

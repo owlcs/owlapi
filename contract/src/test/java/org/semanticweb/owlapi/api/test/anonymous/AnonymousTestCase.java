@@ -45,7 +45,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -73,17 +72,7 @@ public class AnonymousTestCase extends TestBase {
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
                 Literal("hello"))));
         m.applyChanges(changes);
-        String saved = saveOntology(ontology);
-        OWLOntology ontologyReloaded = loadOntologyFromString(saved);
-        saved = saveOntology(ontologyReloaded);
+        OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
         equal(ontology, ontologyReloaded);
-        // assertEquals(asString(ontology), asString(ontologyReloaded));
-    }
-
-    String saveOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException {
-        StringDocumentTarget target = new StringDocumentTarget();
-        ontology.getOWLOntologyManager().saveOntology(ontology, target);
-        return target.toString();
     }
 }

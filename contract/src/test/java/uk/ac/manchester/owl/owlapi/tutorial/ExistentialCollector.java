@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * restriction to the collection. <br>
  * The visitor returns a map of properties to collections of fillers using that
  * property.
- *
+ * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 24-April-2007 */
 public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
@@ -76,7 +76,8 @@ public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
 
     @Override
     public void visit(OWLObjectSomeValuesFrom classExpression) {
-        Set<OWLClassExpression> fillers = restrictions.get(classExpression.getProperty());
+        Set<OWLClassExpression> fillers = restrictions.get(classExpression
+                .getProperty());
         if (fillers == null) {
             fillers = new HashSet<OWLClassExpression>();
             restrictions.put(classExpression.getProperty(), fillers);

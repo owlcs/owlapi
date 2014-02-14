@@ -45,7 +45,6 @@ import java.io.ByteArrayOutputStream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -119,10 +118,8 @@ public class TestPlainLiteralTestCase extends TestBase {
                 OWL2Datatype.RDF_PLAIN_LITERAL);
         m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), i
                 .asOWLNamedIndividual().getIRI(), l));
-        StringDocumentTarget out = new StringDocumentTarget();
-        m.saveOntology(o, out);
         String expected = "<rdfs:comment>test</rdfs:comment>";
-        assertTrue(out.toString(), out.toString().contains(expected));
+        assertTrue(saveOntology(o).toString().contains(expected));
     }
 
     @Test

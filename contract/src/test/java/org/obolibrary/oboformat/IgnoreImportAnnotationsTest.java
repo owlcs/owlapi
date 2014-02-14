@@ -20,10 +20,12 @@ public class IgnoreImportAnnotationsTest extends OboFormatTestBasics {
     public void testIgnoreAnnotations() throws Exception {
         OBODoc oboDoc = parseOBOFile("annotated_import.obo");
         Frame headerFrame = oboDoc.getHeaderFrame();
-        Collection<Clause> imports = headerFrame.getClauses(OboFormatTag.TAG_IMPORT);
+        Collection<Clause> imports = headerFrame
+                .getClauses(OboFormatTag.TAG_IMPORT);
         assertEquals(1, imports.size());
         Clause clause = imports.iterator().next();
-        Collection<QualifierValue> qualifierValues = clause.getQualifierValues();
+        Collection<QualifierValue> qualifierValues = clause
+                .getQualifierValues();
         assertTrue(qualifierValues.isEmpty());
     }
 }

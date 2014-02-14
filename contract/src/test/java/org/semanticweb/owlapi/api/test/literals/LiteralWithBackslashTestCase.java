@@ -42,10 +42,11 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractLiteralWithEscapeTest
 
 /** A test case which round trips an ontology that contains an annotation
  * assertion that has a literal containing a backslash.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group, Date: 28/09/2011 */
-public class LiteralWithBackslashTestCase extends AbstractLiteralWithEscapeTestCase {
+public class LiteralWithBackslashTestCase extends
+        AbstractLiteralWithEscapeTestCase {
     @Override
     protected String getEscape() {
         return "\\";

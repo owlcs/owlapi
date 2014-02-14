@@ -48,6 +48,7 @@ public class TestUtils {
 
     public static IRI createIRI() {
         uriCounter++;
-        return IRI.create("http://org.semanticweb.owlapi/tests#", "uri" + uriCounter);
+        return IRI.create("http://org.semanticweb.owlapi/tests#", "uri"
+                + uriCounter);
     }
 }

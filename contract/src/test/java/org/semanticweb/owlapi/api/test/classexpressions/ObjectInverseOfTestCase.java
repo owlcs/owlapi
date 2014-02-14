@@ -51,12 +51,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 21-Sep-2009 */
-public class ObjectInverseOfTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class ObjectInverseOfTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLClass clsA = Class(getIRI("A"));
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
-        OWLClassExpression ce = ObjectSomeValuesFrom(prop.getInverseProperty(), clsA);
+        OWLClassExpression ce = ObjectSomeValuesFrom(prop.getInverseProperty(),
+                clsA);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(SubClassOf(Class(getIRI("B")), ce));
         return axioms;

@@ -49,7 +49,6 @@ import java.util.TreeSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -57,7 +56,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
@@ -103,13 +101,5 @@ public class SWRLAnnotationTestCase extends TestBase {
         changes.add(new AddAxiom(ontology, axiom));
         m.applyChanges(changes);
         return ontology;
-    }
-
-    public StringDocumentTarget saveOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException {
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        StringDocumentTarget target = new StringDocumentTarget();
-        manager.saveOntology(ontology, target);
-        return target;
     }
 }

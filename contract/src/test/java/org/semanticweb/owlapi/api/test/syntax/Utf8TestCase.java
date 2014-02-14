@@ -43,19 +43,46 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class UTF8RoundTripTestCase extends TestBase {
+public class Utf8TestCase extends TestBase {
+    @Test
+    public void testUTF8roundTrip() throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
+        String onto = "Ontology(<http://protege.org/UTF8.owl>"
+                + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
+                + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
+                + "\"Chinese=處方\"^^<http://www.w3.org/2001/XMLSchema#string>))";
+        saveOntology(loadOntologyFromString(onto));
+        // ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
+        // ByteArrayOutputStream out = new ByteArrayOutputStream();
+        // manager.saveOntology(manager.loadOntologyFromOntologyDocument(in),
+        // out);
+    }
+
+    @Test
+    public void testPositiveUTF8roundTrip()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String NS = "http://protege.org/UTF8.owl";
+        OWLOntology ontology = m.createOntology(IRI(NS));
+        OWLClass a = Class(IRI(NS + "#A"));
+        m.addAxiom(ontology, df.getOWLDeclarationAxiom(a));
+        OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
+                df.getOWLLiteral("Chinese=處方"));
+        OWLAxiom axiom = df.getOWLAnnotationAssertionAxiom(a.getIRI(), ann);
+        m.addAxiom(ontology, axiom);
+        ontology = roundTrip(ontology, new OWLFunctionalSyntaxOntologyFormat());
+    }
+
     @Test
     public void testRoundTrip() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
@@ -73,7 +100,8 @@ public class UTF8RoundTripTestCase extends TestBase {
         System.setProperty("file.encoding", "UTF-8");
         OWLOntology ontology = createOriginalOntology(NS, C, CHINESE);
         checkOntology(ontology, C, CHINESE);
-        OWLOntology newOntology = roundTrip(ontology);
+        OWLOntology newOntology = roundTrip(ontology,
+                new RDFXMLOntologyFormat());
         checkOntology(newOntology, C, CHINESE);
     }
 
@@ -94,13 +122,5 @@ public class UTF8RoundTripTestCase extends TestBase {
             return CHINESE.equals(value);
         }
         return false;
-    }
-
-    private OWLOntology roundTrip(OWLOntology ontology)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
-        OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
-        StringDocumentTarget target = new StringDocumentTarget();
-        oldManager.saveOntology(ontology, new RDFXMLOntologyFormat(), target);
-        return loadOntologyFromString(target);
     }
 }

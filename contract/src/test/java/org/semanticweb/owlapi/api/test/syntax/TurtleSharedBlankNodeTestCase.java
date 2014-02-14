@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 19-Aug-2010 */
-public class TurtleSharedBlankNodeTestCase extends AbstractFileRoundTrippingTestCase {
+public class TurtleSharedBlankNodeTestCase extends
+        AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {
         return "annotatedpropertychain.ttl.rdf";

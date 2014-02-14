@@ -23,7 +23,8 @@ public class RoundTripProRelationshipTest extends RoundTripTest {
      * @throws Exception */
     @Ignore("This test fails due to the non-deterministic translation from OWL2OBO")
     @Test
-    public void testRoundTripRelationship() throws Exception {
+    public
+            void testRoundTripRelationship() throws Exception {
         roundTripOBOFile("rel-pv-roundtrip.obo", true);
     }
 }

@@ -40,7 +40,6 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import org.junit.Test;
@@ -50,10 +49,11 @@ import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /** API writers/storers/renderers should not close streams if they didn't open
  * them.
@@ -72,16 +72,23 @@ public class ExistingOutputStreamTestCase extends TestBase {
         saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat());
     }
 
-    private void saveOntology(OWLOntology ontology, OWLOntologyFormat format)
-            throws IOException, OWLOntologyStorageException {
+    // test that the stream is not closed by adding a comment at the end
+    @Override
+    protected StringDocumentTarget saveOntology(OWLOntology o,
+            OWLOntologyFormat format) throws UnknownOWLOntologyException,
+            OWLOntologyStorageException {
         BufferedOutputStream os = new BufferedOutputStream(
                 new ByteArrayOutputStream());
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        manager.saveOntology(ontology, format, os);
-        os.flush();
-        OutputStreamWriter w = new OutputStreamWriter(os);
-        w.write("<!-- Comment -->");
-        w.flush();
-        w.close();
+        o.getOWLOntologyManager().saveOntology(o, format, os);
+        try {
+            os.flush();
+            OutputStreamWriter w = new OutputStreamWriter(os);
+            w.write("<!-- Comment -->");
+            w.flush();
+            w.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return new StringDocumentTarget();
     }
 }

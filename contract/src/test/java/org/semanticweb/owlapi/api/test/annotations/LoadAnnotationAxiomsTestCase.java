@@ -50,8 +50,6 @@ import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -64,7 +62,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
@@ -116,7 +113,6 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
                 withAnnosConfig);
         Set<OWLAxiom> axioms2 = reloadedWithAnnoAxioms.getAxioms();
         assertEquals(axioms, axioms2);
-        //
         OWLOntologyLoaderConfiguration withoutAnnosConfig = new OWLOntologyLoaderConfiguration()
                 .setLoadAnnotationAxioms(false);
         OWLOntology reloadedWithoutAnnoAxioms = reload(ontology, format,
@@ -132,14 +128,11 @@ public class LoadAnnotationAxiomsTestCase extends TestBase {
     private OWLOntology reload(OWLOntology ontology, OWLOntologyFormat format,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
-        OWLOntologyManager man = ontology.getOWLOntologyManager();
-        StringDocumentTarget tempFile = new StringDocumentTarget();
-        man.saveOntology(ontology, format, tempFile);
-        OWLOntology reloaded = m1.loadOntologyFromOntologyDocument(
-                new StringDocumentSource(tempFile), configuration);
-        m1.removeAxioms(
-                reloaded,
-                new HashSet<OWLAxiom>(reloaded.getAxioms(AxiomType.DECLARATION)));
+        OWLOntology reloaded = loadOntologyWithConfig(
+                saveOntology(ontology, format), configuration);
+        HashSet<OWLAxiom> declarations = new HashSet<OWLAxiom>(
+                reloaded.getAxioms(AxiomType.DECLARATION));
+        reloaded.getOWLOntologyManager().removeAxioms(reloaded, declarations);
         return reloaded;
     }
 }

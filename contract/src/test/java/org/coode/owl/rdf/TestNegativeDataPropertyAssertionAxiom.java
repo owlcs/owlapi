@@ -60,8 +60,8 @@ public class TestNegativeDataPropertyAssertionAxiom extends
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();
         OWLLiteral obj = getDataFactory().getOWLLiteral("TestConstant");
-        OWLAxiom ax = getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop,
-                subj, obj);
+        OWLAxiom ax = getDataFactory()
+                .getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj);
         return Collections.singleton(ax);
     }
 }

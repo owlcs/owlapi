@@ -7,12 +7,10 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 import java.net.URL;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -20,7 +18,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
 import org.semanticweb.owlapitools.profiles.OWL2ELProfile;
@@ -33,28 +30,25 @@ import org.semanticweb.owlapitools.profiles.OWLProfileReport;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 18-Aug-2009 */
 @SuppressWarnings("javadoc")
-public class ProfileValidationTestCase {
-    private static final String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
-    private static final IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI(TEST_NAMESPACE
-            + "ProfileIdentificationTest");
-    private static final IRI SPECIES_IRI = IRI(TEST_NAMESPACE + "species");
-    private static final IRI FULL_IRI = IRI(TEST_NAMESPACE + "FULL");
-    private static final IRI DL_IRI = IRI(TEST_NAMESPACE + "DL");
-    private static final IRI EL_IRI = IRI(TEST_NAMESPACE + "EL");
-    private static final IRI QL_IRI = IRI(TEST_NAMESPACE + "QL");
-    private static final IRI RL_IRI = IRI(TEST_NAMESPACE + "RL");
-    private static final IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI(TEST_NAMESPACE
-            + "rdfXmlPremiseOntology");
-
+public class ProfileValidationTestCase extends TestBase {
     @Test
     public void testProfiles() throws OWLOntologyCreationException {
-        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+        String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
+        IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI(TEST_NAMESPACE
+                + "ProfileIdentificationTest");
+        IRI SPECIES_IRI = IRI(TEST_NAMESPACE + "species");
+        IRI FULL_IRI = IRI(TEST_NAMESPACE + "FULL");
+        IRI DL_IRI = IRI(TEST_NAMESPACE + "DL");
+        IRI EL_IRI = IRI(TEST_NAMESPACE + "EL");
+        IRI QL_IRI = IRI(TEST_NAMESPACE + "QL");
+        IRI RL_IRI = IRI(TEST_NAMESPACE + "RL");
+        IRI RDF_XML_PREMISE_ONTOLOGY_IRI = IRI(TEST_NAMESPACE
+                + "rdfXmlPremiseOntology");
         URL resourceURL = ProfileValidationTestCase.class
                 .getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);
-        OWLOntology testCasesOntology = man
+        OWLOntology testCasesOntology = m
                 .loadOntologyFromOntologyDocument(allTestURI);
-        OWLDataFactory df = man.getOWLDataFactory();
         OWLClass profileIdentificationTestClass = Class(PROFILE_IDENTIFICATION_TEST_IRI);
         OWLNamedIndividual EL = df.getOWLNamedIndividual(EL_IRI);
         OWLNamedIndividual QL = df.getOWLNamedIndividual(QL_IRI);
@@ -75,9 +69,7 @@ public class ProfileValidationTestCase {
                 continue;
             }
             String ontologySerialisation = vals.iterator().next().getLiteral();
-            OWLOntology ontology = man
-                    .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                            ontologySerialisation));
+            OWLOntology ontology = loadOntologyFromString(ontologySerialisation);
             // FULL?
             Searcher<OWLIndividual> finder = find(OWLIndividual.class)
                     .values(speciesProperty).individual(ind)
@@ -119,17 +111,13 @@ public class ProfileValidationTestCase {
             if (negativeFinder.contains(RL)) {
                 checkProfile(ontology, new OWL2RLProfile(), false);
             }
-            man.removeOntology(ontology);
+            m.removeOntology(ontology);
         }
     }
 
     private void checkProfile(OWLOntology ontology, OWLProfile profile,
             boolean shouldBeInProfile) {
         OWLProfileReport report = profile.checkOntology(ontology);
-        assertEquals(
-                "FAIL: " + ontology.getOntologyID() + " should "
-                        + (!shouldBeInProfile ? "not " : "") + "be in the "
-                        + profile.getName() + " profile. Report: " + report,
-                shouldBeInProfile, report.isInProfile());
+        assertEquals(shouldBeInProfile, report.isInProfile());
     }
 }

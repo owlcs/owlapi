@@ -52,8 +52,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -89,13 +87,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLOntology ontology = m
                 .createOntology(IRI("http://protege.org/ontologies"));
         m.addAxiom(ontology, Declaration(DataProperty(iri)));
-        StringDocumentTarget target = new StringDocumentTarget();
-        ontology.getOWLOntologyManager().saveOntology(ontology, target);
-        String saved = target.toString();
         // when
-        ontology = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        saved));
+        ontology = roundTrip(ontology);
         // then
         assertTrue(ontology.containsDataPropertyInSignature(iri));
     }
@@ -113,13 +106,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, Declaration(b));
         o.getOWLOntologyManager().addAxiom(o, Declaration(c));
         o.getOWLOntologyManager().addAxiom(o, Declaration(d));
-        StringDocumentTarget target = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o,
-                new ManchesterOWLSyntaxOntologyFormat(), target);
-        String string = target.toString();
-        OWLOntology roundtripped = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        string));
+        OWLOntology roundtripped = roundTrip(o,
+                new ManchesterOWLSyntaxOntologyFormat());
         assertEquals(o.getAxioms(), roundtripped.getAxioms());
     }
 
@@ -148,8 +136,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "<owl:DatatypeProperty rdf:ID=\"yearValue\"><rdfs:domain rdf:resource=\"#VintageYear\" />    <rdfs:range  rdf:resource=\"&xsd;positiveInteger\" />"
                 + "</owl:DatatypeProperty></rdf:RDF>";
         String expression = "yearValue some ";
-        OWLOntology wine = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(onto));
+        OWLOntology wine = loadOntologyFromString(onto);
         Set<OWLOntology> ontologies = m.getOntologies();
         ShortFormProvider sfp = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 wine.getOWLOntologyManager().getOntologyFormat(wine));
@@ -171,33 +158,14 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>\n"
                 + "Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
                 + "Ontology: <http://www.owl-ontologies.com/Ontology1307394066.owl>\n"
-                + "Datatype: xsd:decimal\n"
-                + "Datatype: xsd:int\n"
-                + "Datatype: xsd:dateTime\n"
-                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n"
-                + "    Characteristics: \n"
-                + "        Functional\n"
-                + "    Range: \n"
-                + "        xsd:int\n"
-                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n"
-                + "    Range: \n"
-                + "        xsd:dateTime\n"
+                + "Datatype: xsd:decimal\n Datatype: xsd:int\n Datatype: xsd:dateTime\n"
+                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>\n Characteristics: \n Functional\n Range: \n xsd:int\n"
+                + "DataProperty: <http://www.owl-ontologies.com/Ontology1307394066.owl#hasDate>\n Range: \n xsd:dateTime\n"
                 + "Class: <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-                + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n"
-                + "    Types: \n"
-                + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
-                + "Rule: \n"
-                + "    xsd:decimal(?<urn:swrl#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl#p>, ?<urn:swrl#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl#p>)";
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        inputManSyntax));
-        StringDocumentTarget t = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o,
-                new ManchesterOWLSyntaxOntologyFormat(), t);
-        OWLOntology o1 = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
-        o1.getOWLOntologyManager().saveOntology(o1,
-                new ManchesterOWLSyntaxOntologyFormat(), t);
+                + "Individual: <http://www.owl-ontologies.com/Ontology1307394066.owl#p1>\n Types: \n <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
+                + "Rule: \n xsd:decimal(?<urn:swrl#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl#p>, ?<urn:swrl#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl#p>)";
+        OWLOntology o = loadOntologyFromString(inputManSyntax);
+        OWLOntology o1 = roundTrip(o, new ManchesterOWLSyntaxOntologyFormat());
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -227,16 +195,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
                 + "Rule: \n"
                 + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        inputManSyntax));
-        StringDocumentTarget t = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o,
-                new ManchesterOWLSyntaxOntologyFormat(), t);
-        OWLOntology o1 = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
-        o1.getOWLOntologyManager().saveOntology(o1,
-                new ManchesterOWLSyntaxOntologyFormat(), t);
+        OWLOntology o = loadOntologyFromString(inputManSyntax);
+        OWLOntology o1 = roundTrip(o, new ManchesterOWLSyntaxOntologyFormat());
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -245,14 +205,9 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
             throws OWLOntologyCreationException {
         String input = "Prefix: : <http://example.com/owl/families/>\n"
                 + "Ontology: <http://example.com/owl/families>\n"
-                + "Class: Person\n"
-                + "  Annotations:  rdfs:comment \"Represents the set of all people.\"\n"
-                + "Class: Man\n"
-                + "Annotations: rdfs:comment \"States that every man is a person.\"\n"
-                + "  SubClassOf:  Person";
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        input));
+                + "Class: Person\n Annotations:  rdfs:comment \"Represents the set of all people.\"\n"
+                + "Class: Man\n Annotations: rdfs:comment \"States that every man is a person.\"\n SubClassOf:  Person";
+        OWLOntology o = loadOntologyFromString(input);
         Set<OWLAxiom> axioms = o.getAxioms();
         OWLClass person = Class(IRI("http://example.com/owl/families/Person"));
         OWLClass man = Class(IRI("http://example.com/owl/families/Man"));
@@ -392,11 +347,8 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(df
                 .getOWLDataProperty(IRI.create("urn:a")), df.getOWLDataOneOf(df
                 .getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
-        String input = "Ontology:\n" + "DataProperty: <urn:a>\n"
-                + "Range: {1.2}";
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        input));
+        String input = "Ontology:\n DataProperty: <urn:a>\n Range: {1.2}";
+        OWLOntology o = loadOntologyFromString(input);
         Set<OWLLogicalAxiom> axioms = o.getLogicalAxioms();
         for (OWLLogicalAxiom ax : axioms) {
             assertEquals(expected, ax);
@@ -445,17 +397,12 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
                 + "Declaration(Class(<http://x.org/c>))\n"
                 + "AnnotationAssertion(<http://x.org/p> <http://x.org/c> \"v1\")\n"
                 + "AnnotationAssertion(<http://x.org/p> <http://x.org/c> \"orifice\")\n"
-                + "AnnotationAssertion(Annotation(<http://x.org/p2> \"foo\") <http://x.org/p> <http://x.org/c> \"v1\")\n"
-                + ")";
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(in));
-        StringDocumentTarget target = new StringDocumentTarget();
-        m.saveOntology(o, new ManchesterOWLSyntaxOntologyFormat(), target);
-        OWLOntology result = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target));
+                + "AnnotationAssertion(Annotation(<http://x.org/p2> \"foo\") <http://x.org/p> <http://x.org/c> \"v1\"))";
+        OWLOntology o = loadOntologyFromString(in);
+        OWLOntology result = roundTrip(o,
+                new ManchesterOWLSyntaxOntologyFormat());
         for (OWLAxiom ax : o.getAxioms()) {
-            assertTrue(ax.toString(), result.containsAxiom(ax));
+            assertTrue(result.containsAxiom(ax));
         }
     }
 }

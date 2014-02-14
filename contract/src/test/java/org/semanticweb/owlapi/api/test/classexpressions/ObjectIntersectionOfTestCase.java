@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 02-Feb-2009 */
 @SuppressWarnings("javadoc")
-public class ObjectIntersectionOfTestCase extends AbstractFileRoundTrippingTestCase {
+public class ObjectIntersectionOfTestCase extends
+        AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

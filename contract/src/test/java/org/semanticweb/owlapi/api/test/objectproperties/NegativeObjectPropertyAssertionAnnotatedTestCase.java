@@ -53,6 +53,7 @@ public class NegativeObjectPropertyAssertionAnnotatedTestCase extends
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         return NegativeObjectPropertyAssertion(ObjectProperty(getIRI("p")),
-                NamedIndividual(getIRI("i")), NamedIndividual(getIRI("j")), annos);
+                NamedIndividual(getIRI("i")), NamedIndividual(getIRI("j")),
+                annos);
     }
 }

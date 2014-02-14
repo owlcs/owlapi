@@ -41,71 +41,37 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class AnonymousRoundTripTestCase {
+public class AnonymousRoundTripTestCase extends TestBase {
     @Test
     public void testRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        AnonymousRoundTrip ma = new AnonymousRoundTrip();
-        ma.buildOntology();
-        ma.reload();
-    }
-}
-
-class AnonymousRoundTrip {
-    public static final String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
-    private OWLOntologyManager manager;
-    private OWLOntology ontology;
-    private final OWLClass a;
-    private final OWLAnonymousIndividual h, i;
-    private final OWLAnnotationProperty p;
-    private final OWLObjectProperty q;
-
-    public AnonymousRoundTrip() {
-        a = Class(IRI(NS + "#A"));
-        p = AnnotationProperty(IRI(NS + "#p"));
-        q = ObjectProperty(IRI(NS + "#q"));
-        h = AnonymousIndividual();
-        i = AnonymousIndividual();
-    }
-
-    public void buildOntology() throws OWLOntologyCreationException {
-        manager = OWLManager.createOWLOntologyManager();
-        OWLDataFactory factory = manager.getOWLDataFactory();
-        ontology = manager.createOntology(IRI(NS));
-        OWLAnnotation annotation1 = factory.getOWLAnnotation(p, h);
-        manager.addAxiom(ontology,
-                factory.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
-        manager.addAxiom(ontology, ClassAssertion(a, h));
-        manager.addAxiom(ontology, ObjectPropertyAssertion(q, h, i));
-        OWLAnnotation annotation2 = factory.getOWLAnnotation(
-                factory.getRDFSLabel(), Literal("Second", "en"));
-        manager.addAxiom(ontology,
-                factory.getOWLAnnotationAssertionAxiom(h, annotation2));
-    }
-
-    public void reload() throws OWLOntologyStorageException,
-            OWLOntologyCreationException {
-        StringDocumentTarget out = new StringDocumentTarget();
-        manager.saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat(),
-                out);
-        manager = OWLManager.createOWLOntologyManager();
-        ontology = manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(out));
+        String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
+        OWLClass a = Class(IRI(NS + "#A"));
+        OWLAnonymousIndividual h = AnonymousIndividual();
+        OWLAnonymousIndividual i = AnonymousIndividual();
+        OWLAnnotationProperty p = AnnotationProperty(IRI(NS + "#p"));
+        OWLObjectProperty q = ObjectProperty(IRI(NS + "#q"));
+        OWLOntology ontology = m.createOntology(IRI(NS));
+        OWLAnnotation annotation1 = df.getOWLAnnotation(p, h);
+        m.addAxiom(ontology,
+                df.getOWLAnnotationAssertionAxiom(a.getIRI(), annotation1));
+        m.addAxiom(ontology, ClassAssertion(a, h));
+        m.addAxiom(ontology, ObjectPropertyAssertion(q, h, i));
+        OWLAnnotation annotation2 = df.getOWLAnnotation(df.getRDFSLabel(),
+                Literal("Second", "en"));
+        m.addAxiom(ontology, df.getOWLAnnotationAssertionAxiom(h, annotation2));
+        roundTrip(ontology, new ManchesterOWLSyntaxOntologyFormat());
     }
 }

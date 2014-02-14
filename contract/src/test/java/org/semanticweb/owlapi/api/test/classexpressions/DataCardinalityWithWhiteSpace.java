@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 22/12/2010 */
-public class DataCardinalityWithWhiteSpace extends AbstractFileRoundTrippingTestCase {
+public class DataCardinalityWithWhiteSpace extends
+        AbstractFileRoundTrippingTestCase {
     @Override
     protected String getFileName() {
         return "cardinalitywithwhitespace.owl";

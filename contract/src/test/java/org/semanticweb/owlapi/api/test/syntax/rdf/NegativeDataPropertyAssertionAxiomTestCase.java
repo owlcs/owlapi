@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 09-May-2007 */
-public class NegativeDataPropertyAssertionAxiomTestCase extends AbstractRendererAndParser {
+public class NegativeDataPropertyAssertionAxiomTestCase extends
+        AbstractRendererAndParser {
     @Override
     protected String getClassExpression() {
         return "Negative data property assertion test case";
@@ -58,9 +59,9 @@ public class NegativeDataPropertyAssertionAxiomTestCase extends AbstractRenderer
     protected Set<OWLAxiom> getAxioms() {
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();
-        OWLLiteral obj = getDataFactory().getOWLLiteral("TestConstant");
-        OWLAxiom ax = getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop,
-                subj, obj);
+        OWLLiteral obj = df.getOWLLiteral("TestConstant");
+        OWLAxiom ax = df.getOWLNegativeDataPropertyAssertionAxiom(prop, subj,
+                obj);
         return Collections.singleton(ax);
     }
 }

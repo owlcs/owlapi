@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 23-Apr-2009 */
 @SuppressWarnings("javadoc")
-public class DataAllValuesFromTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataAllValuesFromTestCase extends
+        AbstractFileRoundTrippingTestCase {
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

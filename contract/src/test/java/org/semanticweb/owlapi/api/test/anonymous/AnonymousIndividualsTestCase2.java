@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 22/12/2010 */
-public class AnonymousIndividualsTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
+public class AnonymousIndividualsTestCase2 extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         // Originally submitted by Timothy Redmond

@@ -57,8 +57,10 @@ public class XMLUtilsTestCase {
 
     @Test
     public void testIsNCName() {
-        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc" + CODE_POINT_STRING));
-        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc123" + CODE_POINT_STRING));
+        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc"
+                + CODE_POINT_STRING));
+        assertTrue(XMLUtils.isNCName(CODE_POINT_STRING + "abc123"
+                + CODE_POINT_STRING));
         assertFalse(XMLUtils.isNCName("123" + CODE_POINT_STRING));
         assertFalse(XMLUtils.isNCName(CODE_POINT_STRING + ":a"));
         assertFalse(XMLUtils.isNCName(""));
@@ -67,8 +69,10 @@ public class XMLUtilsTestCase {
 
     @Test
     public void testIsQName() {
-        assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc" + CODE_POINT_STRING));
-        assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc" + CODE_POINT_STRING));
+        assertTrue(XMLUtils.isQName(CODE_POINT_STRING + "p1:abc"
+                + CODE_POINT_STRING));
+        assertFalse(XMLUtils.isQName(CODE_POINT_STRING + "p1:2abc"
+                + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName("11" + CODE_POINT_STRING + ":abc"
                 + CODE_POINT_STRING));
         assertFalse(XMLUtils.isQName("ab:c%20d"));
@@ -81,11 +85,14 @@ public class XMLUtilsTestCase {
         assertTrue(XMLUtils.hasNCNameSuffix("1abc" + CODE_POINT_STRING));
         assertNull(XMLUtils.getNCNameSuffix(CODE_POINT_STRING + "p1:123"));
         assertFalse(XMLUtils.hasNCNameSuffix(CODE_POINT_STRING + "p1:123"));
-        assertEquals("ABC",
+        assertEquals(
+                "ABC",
                 XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology/ABC"));
-        assertEquals("ABC",
+        assertEquals(
+                "ABC",
                 XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology#ABC"));
-        assertEquals("ABC",
+        assertEquals(
+                "ABC",
                 XMLUtils.getNCNameSuffix("http://owlapi.sourceforge.net/ontology:ABC"));
     }
 

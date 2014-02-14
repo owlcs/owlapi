@@ -66,6 +66,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 10-May-2008 */
@@ -312,12 +313,46 @@ public abstract class TestBase {
         return ontology;
     }
 
-    protected OWLOntology loadOntologyStrict(String o)
+    protected OWLOntology loadOntologyStrict(StringDocumentTarget o)
+            throws OWLOntologyCreationException {
+        return loadOntologyWithConfig(o,
+                new OWLOntologyLoaderConfiguration().setStrict(true));
+    }
+
+    protected OWLOntology loadOntologyWithConfig(StringDocumentTarget o,
+            OWLOntologyLoaderConfiguration config)
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
-        config.setStrict(true);
         return manager.loadOntologyFromOntologyDocument(
                 new StringDocumentSource(o), config);
+    }
+
+    protected StringDocumentTarget saveOntology(OWLOntology o)
+            throws UnknownOWLOntologyException, OWLOntologyStorageException {
+        return saveOntology(o, o.getOWLOntologyManager().getOntologyFormat(o));
+    }
+
+    protected StringDocumentTarget saveOntology(OWLOntology o,
+            OWLOntologyFormat format) throws OWLOntologyStorageException {
+        StringDocumentTarget t = new StringDocumentTarget();
+        o.getOWLOntologyManager().saveOntology(o, format, t);
+        return t;
+    }
+
+    protected OWLOntology roundTrip(OWLOntology o, OWLOntologyFormat format)
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        return loadOntologyFromString(saveOntology(o, format));
+    }
+
+    protected OWLOntology roundTrip(OWLOntology o, OWLOntologyFormat format,
+            OWLOntologyLoaderConfiguration config)
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        return loadOntologyWithConfig(saveOntology(o, format), config);
+    }
+
+    protected OWLOntology roundTrip(OWLOntology o)
+            throws UnknownOWLOntologyException, OWLOntologyCreationException,
+            OWLOntologyStorageException {
+        return loadOntologyFromString(saveOntology(o));
     }
 }

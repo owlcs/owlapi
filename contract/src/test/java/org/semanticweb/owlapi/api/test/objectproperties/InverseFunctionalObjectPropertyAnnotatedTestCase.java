@@ -52,6 +52,7 @@ public class InverseFunctionalObjectPropertyAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return InverseFunctionalObjectProperty(ObjectProperty(getIRI("p")), annos);
+        return InverseFunctionalObjectProperty(ObjectProperty(getIRI("p")),
+                annos);
     }
 }

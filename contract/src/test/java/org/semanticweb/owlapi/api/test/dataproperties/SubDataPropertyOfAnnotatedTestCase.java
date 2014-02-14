@@ -52,7 +52,7 @@ public class SubDataPropertyOfAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return SubDataPropertyOf(DataProperty(getIRI("p")), DataProperty(getIRI("q")),
-                annos);
+        return SubDataPropertyOf(DataProperty(getIRI("p")),
+                DataProperty(getIRI("q")), annos);
     }
 }

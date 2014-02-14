@@ -60,7 +60,7 @@ import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
  * definition of the given class. For each of these, if the superclass is a
  * conjunction of existential restrictions, then an additional subclass axiom
  * will be added to the ontology, "closing" the restrictions.
- *
+ * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 24-April-2007 */
 public class ClosureAxiomsExample {
@@ -72,9 +72,10 @@ public class ClosureAxiomsExample {
      *            the class to compute the closure of
      * @throws OWLException
      *             if an exception is raised */
-    public void closure(String inputOntology, String outputOntology, String classToClose)
-            throws OWLException {
-        if (inputOntology == null || outputOntology == null || classToClose == null) {
+    public void closure(String inputOntology, String outputOntology,
+            String classToClose) throws OWLException {
+        if (inputOntology == null || outputOntology == null
+                || classToClose == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
         /* Create and Ontology Manager */
@@ -84,11 +85,13 @@ public class ClosureAxiomsExample {
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology */
         System.out.println("Loading: " + documentIRI);
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
+        OWLOntology ontology = manager
+                .loadOntologyFromOntologyDocument(documentIRI);
         System.out.println("Ontology Loaded...");
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
-        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : "
+                + manager.getOntologyFormat(ontology));
         ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);

@@ -45,8 +45,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
-public class OWLOntologyManagerRemoveAxiomsTestCase extends
-        TestBase {
+public class OWLOntologyManagerRemoveAxiomsTestCase extends TestBase {
     @Test
     public void testRemove() throws OWLOntologyCreationException {
         String premise = "Prefix(:=<http://example.org/>)\n"

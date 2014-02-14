@@ -45,7 +45,6 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
@@ -55,7 +54,6 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
     @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
         OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
         OWLAnnotationProperty propQ = AnnotationProperty(getIRI("propQ"));
         OWLAnnotationProperty propR = AnnotationProperty(getIRI("propR"));
@@ -74,7 +72,6 @@ public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
     @Test
     public void testGetSubProperties() {
         OWLOntology ont = getOWLOntology("OntA");
-        OWLDataFactory df = ont.getOWLOntologyManager().getOWLDataFactory();
         OWLAnnotationProperty propP = AnnotationProperty(getIRI("propP"));
         OWLAnnotationProperty propQ = AnnotationProperty(getIRI("propQ"));
         OWLAnnotationProperty propR = AnnotationProperty(getIRI("propR"));

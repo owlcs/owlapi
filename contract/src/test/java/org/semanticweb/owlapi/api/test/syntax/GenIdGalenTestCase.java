@@ -38,6 +38,5 @@
  */
 package org.semanticweb.owlapi.api.test.syntax;
 
-
 @SuppressWarnings("javadoc")
 public class GenIdGalenTestCase {}

@@ -52,6 +52,7 @@ public class ClassAssertionAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return ClassAssertion(Class(getIRI("A")), NamedIndividual(getIRI("i")), annos);
+        return ClassAssertion(Class(getIRI("A")), NamedIndividual(getIRI("i")),
+                annos);
     }
 }

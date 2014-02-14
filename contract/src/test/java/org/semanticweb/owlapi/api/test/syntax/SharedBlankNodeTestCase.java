@@ -44,10 +44,7 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -59,7 +56,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** test for 3294629 - currently disabled. Not clear whether structure sharing is
@@ -72,8 +68,7 @@ public class SharedBlankNodeTestCase extends TestBase {
             OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         testAnnotation(ontology);
-        String s = saveOntology(ontology);
-        ontology = loadOntologyFromString(s);
+        ontology = roundTrip(ontology, new RDFXMLOntologyFormat());
         testAnnotation(ontology);
     }
 
@@ -98,21 +93,6 @@ public class SharedBlankNodeTestCase extends TestBase {
         m.addAxiom(ontology, ax1);
         m.addAxiom(ontology, ax2);
         return ontology;
-    }
-
-    public static String saveOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException {
-        StringDocumentTarget target = new StringDocumentTarget();
-        ontology.getOWLOntologyManager().saveOntology(ontology,
-                new RDFXMLOntologyFormat(), target);
-        return target.toString();
-    }
-
-    public static void displayOntology(OWLOntology ontology)
-            throws OWLOntologyStorageException {
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        OWLFunctionalSyntaxOntologyFormat format = new OWLFunctionalSyntaxOntologyFormat();
-        manager.saveOntology(ontology, format, new SystemOutDocumentTarget());
     }
 
     public static void testAnnotation(OWLOntology ontology) {

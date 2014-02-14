@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 18-Jan-2010 */
@@ -71,5 +72,19 @@ public class ManualImportsTestCase extends TestBase {
                 m.getImportsClosure(baseOnt));
         assertTrue(postImportsClosureCache.contains(baseOnt));
         assertTrue(postImportsClosureCache.contains(importedOnt));
+    }
+
+    @Test(expected = UnloadableImportException.class)
+    public void shouldThrowExceptionWithDefaultImportsconfig()
+            throws OWLOntologyCreationException {
+        String input = "<?xml version=\"1.0\"?>\n"
+                + "<rdf:RDF xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
+                + "     xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+                + "     xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
+                + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
+                + "    <owl:Ontology rdf:about=\"http://www.semanticweb.org/fake/ontologies/2012/8/1\">\n"
+                + "        <owl:imports rdf:resource=\"http://localhost:1\"/>\n"
+                + "    </owl:Ontology>\n" + "</rdf:RDF>";
+        loadOntologyFromString(input);
     }
 }

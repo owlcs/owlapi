@@ -44,15 +44,17 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
-import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 01-Jul-2010 */
@@ -65,40 +67,36 @@ public class OWLXMLNullPointerTestCase extends TestBase {
     public void testRoundTrip() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         OWLOntology ontology = m.createOntology(IRI(NS));
-        OWLDataFactory factory = m.getOWLDataFactory();
-        OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
-        m.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(
-                factory.getRDFSLabel(), i,
-                factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
-        m.addAxiom(
-                ontology,
-                factory.getOWLClassAssertionAxiom(Class(IRI(NS
-                        + "#CheeseyPizza")), i));
-        OWLIndividual j = factory.getOWLAnonymousIndividual();
-        m.addAxiom(
-                ontology,
-                factory.getOWLClassAssertionAxiom(Class(IRI(NS
-                        + "#CheeseTopping")), j));
-        m.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(
-                factory.getOWLObjectProperty(IRI(NS + "#hasTopping")), i, j));
-        StringDocumentTarget target = new StringDocumentTarget();
-        m.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
-        m1.loadOntologyFromOntologyDocument(new StringDocumentSource(target));
+        OWLClass cheesy = Class(IRI(NS + "#CheeseyPizza"));
+        OWLClass cheese = Class(IRI(NS + "#CheeseTopping"));
+        OWLObjectProperty hasTopping = df.getOWLObjectProperty(IRI(NS
+                + "#hasTopping"));
+        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
+        OWLLiteral lit = df.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION);
+        OWLAxiom annAss = df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(),
+                i, lit);
+        m.addAxiom(ontology, annAss);
+        OWLAxiom classAss = df.getOWLClassAssertionAxiom(cheesy, i);
+        m.addAxiom(ontology, classAss);
+        OWLIndividual j = df.getOWLAnonymousIndividual();
+        OWLAxiom classAssj = df.getOWLClassAssertionAxiom(cheese, j);
+        m.addAxiom(ontology, classAssj);
+        OWLAxiom objAss = df.getOWLObjectPropertyAssertionAxiom(hasTopping, i,
+                j);
+        m.addAxiom(ontology, objAss);
+        roundTrip(ontology, new OWLXMLOntologyFormat());
     }
 
     @Test
     public void shouldParse() throws Exception {
         OWLOntology o = m.createOntology(IRI.create("urn:test"));
-        o.getOWLOntologyManager().addAxiom(
-                o,
-                df.getOWLSubClassOfAxiom(df.getOWLClass(IRI.create("urn:c")),
-                        df.getOWLObjectHasValue(
-                                df.getOWLObjectProperty(IRI.create("urn:p")),
-                                df.getOWLAnonymousIndividual())));
-        StringDocumentTarget target = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o, new OWLXMLOntologyFormat(),
-                target);
-        OWLOntology roundtrip = loadOntologyFromString(target);
+        OWLClass c = df.getOWLClass(IRI.create("urn:c"));
+        OWLObjectProperty p = df.getOWLObjectProperty(IRI.create("urn:p"));
+        OWLAnonymousIndividual i = df.getOWLAnonymousIndividual();
+        OWLSubClassOfAxiom sub = df.getOWLSubClassOfAxiom(c,
+                df.getOWLObjectHasValue(p, i));
+        o.getOWLOntologyManager().addAxiom(o, sub);
+        OWLOntology roundtrip = roundTrip(o, new OWLXMLOntologyFormat());
         assertEquals(o.getAxioms(), roundtrip.getAxioms());
     }
 }

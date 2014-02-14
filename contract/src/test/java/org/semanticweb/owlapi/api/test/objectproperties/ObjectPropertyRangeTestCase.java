@@ -48,11 +48,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 02-Jul-2009 */
-public class ObjectPropertyRangeTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class ObjectPropertyRangeTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ObjectPropertyRange(ObjectProperty(getIRI("p")), Class(getIRI("A"))));
+        axioms.add(ObjectPropertyRange(ObjectProperty(getIRI("p")),
+                Class(getIRI("A"))));
         return axioms;
     }
 }

@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 14-Jul-2009 */
-public class DataQualifiedCardinalityTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class DataQualifiedCardinalityTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

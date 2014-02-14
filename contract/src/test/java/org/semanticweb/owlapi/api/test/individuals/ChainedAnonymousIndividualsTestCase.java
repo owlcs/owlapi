@@ -64,12 +64,12 @@ public class ChainedAnonymousIndividualsTestCase extends
         OWLAnonymousIndividual individual1 = AnonymousIndividual();
         OWLAnonymousIndividual individual2 = AnonymousIndividual();
         OWLAnonymousIndividual individual3 = AnonymousIndividual();
-        OWLAnnotationAssertionAxiom annoAssertion1 = AnnotationAssertion(property,
-                subject, individual1);
-        OWLAnnotationAssertionAxiom annoAssertion2 = AnnotationAssertion(property,
-                individual1, individual2);
-        OWLAnnotationAssertionAxiom annoAssertion3 = AnnotationAssertion(property,
-                individual2, individual3);
+        OWLAnnotationAssertionAxiom annoAssertion1 = AnnotationAssertion(
+                property, subject, individual1);
+        OWLAnnotationAssertionAxiom annoAssertion2 = AnnotationAssertion(
+                property, individual1, individual2);
+        OWLAnnotationAssertionAxiom annoAssertion3 = AnnotationAssertion(
+                property, individual2, individual3);
         axioms.add(annoAssertion1);
         axioms.add(annoAssertion2);
         axioms.add(annoAssertion3);

@@ -45,8 +45,6 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -193,14 +191,10 @@ public class TestCornerCasesTestCase extends TestBase {
                 + "SubClassOf(:A DataAllValuesFrom(:dp owl:real))"
                 + "\nSubClassOf(:A \n"
                 + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
-                + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
+                + "\n)\nClassAssertion(:A :a))";
         OWLOntology o = loadOntologyFromString(input);
-        StringDocumentTarget t = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o, t);
-        assertTrue(t.toString() + " should contain -INF", t.toString()
-                .contains("-INF"));
-        OWLOntology o1 = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
+        assertTrue(saveOntology(o).toString().contains("-INF"));
+        OWLOntology o1 = roundTrip(o);
         assertEquals("Obtologies were supposed to be the same",
                 o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
@@ -219,12 +213,8 @@ public class TestCornerCasesTestCase extends TestBase {
                 + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
                 + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
         OWLOntology o = loadOntologyFromString(input);
-        StringDocumentTarget t = new StringDocumentTarget();
-        o.getOWLOntologyManager().saveOntology(o, t);
-        assertTrue(t.toString() + " should contain -INF", t.toString()
-                .contains("-INF"));
-        OWLOntology o1 = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
+        assertTrue(saveOntology(o).toString().contains("-INF"));
+        OWLOntology o1 = roundTrip(o);
         assertEquals("Obtologies were supposed to be the same",
                 o.getLogicalAxioms(), o1.getLogicalAxioms());
     }

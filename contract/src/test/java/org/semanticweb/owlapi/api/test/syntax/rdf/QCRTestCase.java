@@ -59,14 +59,14 @@ public class QCRTestCase extends AbstractRendererAndParser {
         OWLClass clsA = Class(TestUtils.createIRI());
         OWLClass clsB = Class(TestUtils.createIRI());
         OWLClass clsC = Class(TestUtils.createIRI());
-        OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
-        OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(
-                CollectionFactory.createSet(clsB, clsC));
-        OWLCardinalityRestriction<?> restriction = getDataFactory()
+        OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());
+        OWLClassExpression filler = df
+                .getOWLObjectIntersectionOf(CollectionFactory.createSet(clsB,
+                        clsC));
+        OWLCardinalityRestriction<?> restriction = df
                 .getOWLObjectMinCardinality(3, prop, filler);
         assertTrue(restriction.isQualified());
-        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(clsA, restriction);
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(clsA, restriction);
         return Collections.singleton(ax);
     }
 

@@ -64,9 +64,11 @@ public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
                 Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
         OWLDataRange dr = DatatypeRestriction(
                 Datatype(IRI("http://www.w3.org/2001/XMLSchema#string")), fr);
-        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
+        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr),
+                dt);
         // here I negate dr
-        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
+        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt),
+                dr);
         // here I negate dt
         OWLDataUnionOf union = DataUnionOf(disj1, disj2);
         OWLDataProperty prop = DataProperty(getIRI("prop"));

@@ -45,15 +45,12 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
@@ -72,33 +69,23 @@ public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
         m.addAxiom(ontology, Declaration(b));
         m.addAxiom(ontology,
                 SubClassOf(b, factory.getOWLObjectSomeValuesFrom(p, a)));
-        String rdfxmlSaved = saveOntology(ontology, new RDFXMLOntologyFormat());
-        OWLOntology loadOntology = loadOntologyFromString(rdfxmlSaved);
+        OWLOntology loadOntology = roundTrip(ontology,
+                new RDFXMLOntologyFormat());
         OWLFunctionalSyntaxOntologyFormat functionalFormat = new OWLFunctionalSyntaxOntologyFormat();
         functionalFormat.asPrefixOWLOntologyFormat().setPrefix("example",
                 "http://example.org/");
-        String functionalSaved = saveOntology(ontology, functionalFormat);
-        OWLOntology loadOntology2 = loadOntologyFromString(functionalSaved);
+        OWLOntology loadOntology2 = roundTrip(ontology, functionalFormat);
         // won't reach here if functional syntax fails - comment it out and
         // uncomment this to test Manchester
         ManchesterOWLSyntaxOntologyFormat manchesterFormat = new ManchesterOWLSyntaxOntologyFormat();
         manchesterFormat.asPrefixOWLOntologyFormat().setPrefix("example",
                 "http://example.org/");
-        String manchesterSaved = saveOntology(ontology, manchesterFormat);
-        OWLOntology loadOntology3 = loadOntologyFromString(manchesterSaved);
+        OWLOntology loadOntology3 = roundTrip(ontology, manchesterFormat);
         assertEquals(ontology, loadOntology);
         assertEquals(ontology, loadOntology2);
         assertEquals(ontology, loadOntology3);
         assertEquals(ontology.getAxioms(), loadOntology.getAxioms());
         assertEquals(ontology.getAxioms(), loadOntology2.getAxioms());
         assertEquals(ontology.getAxioms(), loadOntology3.getAxioms());
-    }
-
-    public static String saveOntology(OWLOntology ontology,
-            PrefixOWLOntologyFormat format) throws OWLOntologyStorageException {
-        OWLOntologyManager manager = ontology.getOWLOntologyManager();
-        StringDocumentTarget t = new StringDocumentTarget();
-        manager.saveOntology(ontology, format, t);
-        return t.toString();
     }
 }

@@ -41,7 +41,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
      * shorter strings over longer strings. */
     @Test
     public void testSortTermClausesSynonyms() {
-        List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa", "bbbb");
+        List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa",
+                "bbbb");
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("AAA", clauses.get(0).getValue());
         assertEquals("aaa", clauses.get(1).getValue());
@@ -64,7 +65,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         assertEquals("", writeObsolete(Boolean.FALSE));
         assertEquals("", writeObsolete(Boolean.FALSE.toString()));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE));
-        assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE.toString()));
+        assertEquals("is_obsolete: true",
+                writeObsolete(Boolean.TRUE.toString()));
     }
 
     private String writeObsolete(Object value) throws Exception {
@@ -99,7 +101,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
                 break;
             }
         }
-        assertEquals("GO always had an empty newline at the end.", 2, newLineCount);
+        assertEquals("GO always had an empty newline at the end.", 2,
+                newLineCount);
     }
 
     @Test

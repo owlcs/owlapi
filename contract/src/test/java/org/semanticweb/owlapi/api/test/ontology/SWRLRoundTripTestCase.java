@@ -38,7 +38,6 @@
  */
 package org.semanticweb.owlapi.api.test.ontology;
 
-import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Set;
@@ -48,8 +47,6 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -79,17 +76,9 @@ public class SWRLRoundTripTestCase extends TestBase {
         head.add(df.getSWRLClassAtom(A, X));
         SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
-        StringDocumentTarget t = new StringDocumentTarget();
-        OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
-        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
-        String onto1 = t.toString();
-        ontology = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
-        t = new StringDocumentTarget();
-        format = new OWLXMLOntologyFormat();
-        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
-        String onto2 = t.toString();
-        assertEquals(onto1, onto2);
+        ontology = roundTrip(ontology, new OWLXMLOntologyFormat());
+        OWLOntology onto2 = roundTrip(ontology, new OWLXMLOntologyFormat());
+        equal(ontology, onto2);
     }
 
     @Test
@@ -109,17 +98,9 @@ public class SWRLRoundTripTestCase extends TestBase {
         head.add(df.getSWRLClassAtom(A, X));
         SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
-        StringDocumentTarget t = new StringDocumentTarget();
-        ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
-        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
-        String onto1 = t.toString();
-        ontology = m1
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        onto1));
-        t = new StringDocumentTarget();
-        format = new ManchesterOWLSyntaxOntologyFormat();
-        ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
-        String onto2 = t.toString();
-        assertEquals(onto1, onto2);
+        ontology = roundTrip(ontology, new ManchesterOWLSyntaxOntologyFormat());
+        OWLOntology onto2 = roundTrip(ontology,
+                new ManchesterOWLSyntaxOntologyFormat());
+        equal(ontology, onto2);
     }
 }

@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * each of these, if the superclass is a conjunction of existential
  * restrictions, then an additional subclass axiom will be added to the
  * ontology, "closing" the restrictions.
- *
+ * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 24-April-2007 */
 @SuppressWarnings({ "javadoc" })
@@ -76,7 +76,8 @@ public class ClosureAxioms {
 
     public void addClosureAxioms(OWLClass clazz) {
         /* Get the class axioms */
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
         /* Collect those that assert superclasses of the class */
         SubClassCollector collector = new SubClassCollector(clazz);
         for (OWLClassAxiom axiom : axioms) {
@@ -101,7 +102,8 @@ public class ClosureAxioms {
             /* Create a union of the fillers */
             OWLClassExpression union = factory.getOWLObjectUnionOf(fillers);
             /* Create a universal restriction */
-            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(prop, union);
+            OWLClassExpression universal = factory.getOWLObjectAllValuesFrom(
+                    prop, union);
             /* Create a new axiom */
             OWLAxiom newAxiom = factory.getOWLSubClassOfAxiom(clazz, universal);
             /* Now add the axiom to the ontology */

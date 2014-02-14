@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 09-May-2007 */
-public class TestDifferentIndividualsAxiom extends AbstractRendererAndParserTestCase {
+public class TestDifferentIndividualsAxiom extends
+        AbstractRendererAndParserTestCase {
     @Override
     protected String getClassExpression() {
         return "Different individuals axioms test case";
@@ -59,7 +60,8 @@ public class TestDifferentIndividualsAxiom extends AbstractRendererAndParserTest
         for (int i = 0; i < 5; i++) {
             individuals.add(createIndividual());
         }
-        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(individuals);
+        OWLAxiom ax = getDataFactory().getOWLDifferentIndividualsAxiom(
+                individuals);
         return Collections.singleton(ax);
     }
 }

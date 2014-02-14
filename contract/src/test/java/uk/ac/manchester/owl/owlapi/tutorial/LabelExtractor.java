@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
 /** Simple visitor that grabs any labels on an entity.
- *
+ * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group, Date: 17-03-2007 */
 @SuppressWarnings({ "unused", "javadoc" })

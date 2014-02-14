@@ -10,11 +10,9 @@ import java.util.List;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
@@ -29,9 +27,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
     @Test
     public void shouldFindViolation() throws Exception {
         String input = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" ><owl:Ontology rdf:about=\"\"/>\n<owl:Class rdf:about=\"http://phenomebrowser.net/cellphenotype.owl#C3PO:000000015\"><rdf:Description rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">Any.</rdf:Description></owl:Class></rdf:RDF>";
-        OWLOntology o = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(input));
+        OWLOntology o = loadOntologyFromString(input);
         OWL2DLProfile p = new OWL2DLProfile();
         OWLProfileReport checkOntology = p.checkOntology(o);
         assertEquals(2, checkOntology.getViolations().size());
@@ -58,9 +54,7 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 + "<owl:onProperty rdf:resource=\"http://www.co-ode.org/ontologies/galen#hasQuantity\"/>\n"
                 + "<owl:someValuesFrom><owl:Class rdf:about=\"http://www.co-ode.org/ontologies/galen#anotherTest\"/></owl:someValuesFrom>\n"
                 + "</owl:Restriction></rdfs:subClassOf></owl:Class></rdf:RDF>";
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(test));
+        OWLOntology o = loadOntologyFromString(test);
         OWL2DLProfile profile = new OWL2DLProfile();
         OWLProfileReport report = profile.checkOntology(o);
         assertTrue(report.isInProfile());
@@ -86,13 +80,10 @@ public class ForbiddenVocabularyTestCase extends TestBase {
                 + "<rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#DatatypeProperty\"/>\n"
                 + "<rdfs:subPropertyOf rdf:resource=\"http://ex.com#p1\"/>\n"
                 + "</rdf:Property>\n" + "</rdf:RDF>";
-        OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(onto));
+        OWLOntology o = loadOntologyFromString(onto);
         OWL2RLProfile p = new OWL2RLProfile();
         OWLProfileReport report = p.checkOntology(o);
-        assertTrue("unexpected violations! " + report.getViolations(), report
-                .getViolations().isEmpty());
+        assertTrue(report.getViolations().isEmpty());
     }
 
     @Test

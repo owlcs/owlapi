@@ -54,8 +54,8 @@ public class ObjectPropertyDomainInverseTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ObjectPropertyDomain(ObjectProperty(getIRI("p")).getInverseProperty(),
-                Class(getIRI("A"))));
+        axioms.add(ObjectPropertyDomain(ObjectProperty(getIRI("p"))
+                .getInverseProperty(), Class(getIRI("A"))));
         return axioms;
     }
 

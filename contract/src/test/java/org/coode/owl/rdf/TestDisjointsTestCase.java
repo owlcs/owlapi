@@ -48,10 +48,9 @@ import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParser;
-import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -59,15 +58,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
-
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 /** Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
  * it possible to specify that a set of classes are mutually disjoint.
@@ -79,48 +71,30 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 09-May-2007 */
 @SuppressWarnings("javadoc")
-public class TestDisjointsTestCase {
-    private OWLOntologyManager man;
-
+public class TestDisjointsTestCase extends TestBase {
     @Before
     public void setUp() {
-        man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        man.addOntologyFactory(new ParsableOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        man.setOntologyStorers(Collections
+        m.setOntologyStorers(Collections
                 .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
-        man.setOntologyParsers(Collections
+        m.setOntologyParsers(Collections
                 .singleton((OWLParser) new RDFXMLParser()));
     }
 
     @Test
     public void testAnonDisjoints() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        OWLOntology ontA = man.createOntology(TestUtils.createIRI());
-        OWLClass clsA = man.getOWLDataFactory().getOWLClass(
-                TestUtils.createIRI());
-        OWLClass clsB = man.getOWLDataFactory().getOWLClass(
-                TestUtils.createIRI());
-        OWLObjectProperty prop = man.getOWLDataFactory().getOWLObjectProperty(
-                TestUtils.createIRI());
-        OWLClassExpression descA = man.getOWLDataFactory()
-                .getOWLObjectSomeValuesFrom(prop, clsA);
-        OWLClassExpression descB = man.getOWLDataFactory()
-                .getOWLObjectSomeValuesFrom(prop, clsB);
+        OWLOntology ontA = m.createOntology(TestUtils.createIRI());
+        OWLClass clsA = df.getOWLClass(TestUtils.createIRI());
+        OWLClass clsB = df.getOWLClass(TestUtils.createIRI());
+        OWLObjectProperty prop = df.getOWLObjectProperty(TestUtils.createIRI());
+        OWLClassExpression descA = df.getOWLObjectSomeValuesFrom(prop, clsA);
+        OWLClassExpression descB = df.getOWLObjectSomeValuesFrom(prop, clsB);
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(descA);
         classExpressions.add(descB);
-        OWLAxiom ax = man.getOWLDataFactory().getOWLDisjointClassesAxiom(
-                classExpressions);
-        man.applyChange(new AddAxiom(ontA, ax));
-        StringDocumentTarget target = new StringDocumentTarget();
-        man.saveOntology(ontA, new RDFXMLOntologyFormat(), target);
-        man.removeOntology(ontA);
-        OWLOntology ontB = man
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target));
+        OWLAxiom ax = df.getOWLDisjointClassesAxiom(classExpressions);
+        m.applyChange(new AddAxiom(ontA, ax));
+        OWLOntology ontB = roundTrip(ontA, new RDFXMLOntologyFormat());
         assertTrue(ontB.getAxioms().contains(ax));
     }
 }
