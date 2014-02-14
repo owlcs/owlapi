@@ -40,9 +40,11 @@ package org.semanticweb.owlapi.expression;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.io.OWLParserException;
+
 /** A general purpose interface which provides the ability to parse some
  * expression into some kind of object.
- *
+ * 
  * @param <O>
  *            the kind of parsed expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -55,8 +57,8 @@ public interface OWLExpressionParser<O extends Object> {
     /** @param expression
      *            the expression to parse
      * @return the parsed expression
-     * @throws ParserException
+     * @throws OWLParserException
      *             parse exception */
     @Nonnull
-    O parse(@Nonnull String expression) throws ParserException;
+    O parse(@Nonnull String expression) throws OWLParserException;
 }

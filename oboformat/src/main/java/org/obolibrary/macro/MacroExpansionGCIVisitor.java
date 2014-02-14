@@ -4,8 +4,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -24,6 +22,9 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.util.OntologyAxiomPair;
+
+import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 /** macro expansion gci visitor */
 public class MacroExpansionGCIVisitor {

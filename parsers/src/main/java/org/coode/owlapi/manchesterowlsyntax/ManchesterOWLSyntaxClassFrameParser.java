@@ -43,6 +43,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
 /** An expression parser that parses a Manchester OWL Syntax Class Frame to
  * produce a set of axioms that represent the class frame.

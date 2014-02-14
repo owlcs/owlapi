@@ -41,11 +41,10 @@ package org.semanticweb.owlapi.util.mansyntax;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -56,6 +55,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
 /** Interface for a parser able to parse Manchester OWL Syntax. This covers
  * Protege use of the parser.
@@ -65,22 +65,22 @@ public interface ManchesterOWLSyntaxParser {
     /** Parsing "Inline" Axioms.
      * 
      * @return axiom
-     * @throws ParserException
+     * @throws OWLParserException
      *             parsing error */
-    OWLAxiom parseAxiom() throws ParserException;
+    OWLAxiom parseAxiom() throws OWLParserException;
 
     /** Parses an OWL class expression that is represented in Manchester OWL
      * Syntax.
      * 
      * @return The parsed class expression
-     * @throws ParserException
+     * @throws OWLParserException
      *             If a class expression could not be parsed. */
-    OWLClassExpression parseClassExpression() throws ParserException;
+    OWLClassExpression parseClassExpression() throws OWLParserException;
 
     /** @return class frames
-     * @throws ParserException
+     * @throws OWLParserException
      *             parsing error */
-    Set<OntologyAxiomPair> parseClassFrameEOF() throws ParserException;
+    Set<OntologyAxiomPair> parseClassFrameEOF() throws OWLParserException;
 
     /** @param datatype
      *            datatype to use, if one exists in the context. If null, the
@@ -102,21 +102,21 @@ public interface ManchesterOWLSyntaxParser {
     /** @param ont
      *            ont
      * @return format
-     * @throws ParserException
+     * @throws OWLParserException
      *             parsing error
      * @throws UnloadableImportException
      *             import error */
     ManchesterOWLSyntaxOntologyFormat parseOntology(OWLOntology ont)
-            throws ParserException, UnloadableImportException;
+            throws OWLParserException, UnloadableImportException;
 
     /** @return list of class expressions */
     Set<OWLClassExpression> parseClassExpressionList();
 
     /** @return list of object properties
-     * @throws ParserException
+     * @throws OWLParserException
      *             if a parser exception is raised */
     Set<OWLObjectPropertyExpression> parseObjectPropertyList()
-            throws ParserException;
+            throws OWLParserException;
 
     /** @return data range */
     OWLDataRange parseDataRange();
@@ -128,7 +128,7 @@ public interface ManchesterOWLSyntaxParser {
     List<OntologyAxiomPair> parseRuleFrame();
 
     /** @return IRI for a SWRL variable
-     * @throws ParserException
+     * @throws OWLParserException
      *             if a parser exception is raised */
-    IRI parseVariable() throws ParserException;
+    IRI parseVariable() throws OWLParserException;
 }

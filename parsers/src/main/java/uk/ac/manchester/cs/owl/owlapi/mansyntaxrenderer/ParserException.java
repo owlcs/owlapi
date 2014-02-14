@@ -36,7 +36,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.semanticweb.owlapi.expression;
+package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
