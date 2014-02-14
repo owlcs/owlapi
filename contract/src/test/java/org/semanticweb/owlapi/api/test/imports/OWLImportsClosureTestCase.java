@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Impor
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestUtils;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.RemoveImport;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 31-Jul-2007 */
-public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
+public class OWLImportsClosureTestCase extends TestBase {
     /** Tests to see if the method which obtains the imports closure behaves
      * correctly.
      * 
@@ -60,18 +60,18 @@ public class OWLImportsClosureTestCase extends AbstractOWLAPITestCase {
      *             exception */
     @Test
     public void testImportsClosure() throws OWLOntologyCreationException {
-        OWLOntology ontA = getManager().createOntology(TestUtils.createIRI());
-        OWLOntology ontB = getManager().createOntology(TestUtils.createIRI());
-        assertTrue(getManager().getImportsClosure(ontA).contains(ontA));
+        OWLOntology ontA = m.createOntology(TestUtils.createIRI());
+        OWLOntology ontB = m.createOntology(TestUtils.createIRI());
+        assertTrue(m.getImportsClosure(ontA).contains(ontA));
         OWLImportsDeclaration importsDeclaration = ImportsDeclaration(ontB
                 .getOntologyID().getOntologyIRI());
-        getManager().applyChange(new AddImport(ontA, importsDeclaration));
-        assertTrue(getManager().getImportsClosure(ontA).contains(ontB));
-        getManager().applyChange(new RemoveImport(ontA, importsDeclaration));
-        assertFalse(getManager().getImportsClosure(ontA).contains(ontB));
-        getManager().applyChange(new AddImport(ontA, importsDeclaration));
-        assertTrue(getManager().getImportsClosure(ontA).contains(ontB));
-        getManager().removeOntology(ontB);
-        assertFalse(getManager().getImportsClosure(ontA).contains(ontB));
+        m.applyChange(new AddImport(ontA, importsDeclaration));
+        assertTrue(m.getImportsClosure(ontA).contains(ontB));
+        m.applyChange(new RemoveImport(ontA, importsDeclaration));
+        assertFalse(m.getImportsClosure(ontA).contains(ontB));
+        m.applyChange(new AddImport(ontA, importsDeclaration));
+        assertTrue(m.getImportsClosure(ontA).contains(ontB));
+        m.removeOntology(ontB);
+        assertFalse(m.getImportsClosure(ontA).contains(ontB));
     }
 }

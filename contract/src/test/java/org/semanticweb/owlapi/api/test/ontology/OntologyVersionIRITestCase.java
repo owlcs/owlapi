@@ -49,28 +49,11 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 24-Dec-2009 */
 public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
-    //
-    // @Override
-    // protected String getFileName() {
-    // return "VersionIRITestCase.rdf";
-    // }
-    //
-    // public void testID() {
-    // OWLOntology ontology = createOntology();
-    // OWLOntology ontologyByID =
-    // getManager().getOntology(ontology.getOntologyID());
-    // assertNotNull(ontologyByID);
-    // }
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         IRI ontIRI = IRI("http://www.semanticweb.org/owlapi/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/owlapi/ontology/version");
         OWLOntologyID ontologyID = new OWLOntologyID(ontIRI, versionIRI);
-        return getManager().createOntology(ontologyID);
+        return m.createOntology(ontologyID);
     }
-    // @Override
-    // protected Set<? extends OWLAxiom> createAxioms() {
-    // return
-    // Collections.singleton(getFactory().getOWLDeclarationAxiom(getOWLClass("A")));
-    // }
 }

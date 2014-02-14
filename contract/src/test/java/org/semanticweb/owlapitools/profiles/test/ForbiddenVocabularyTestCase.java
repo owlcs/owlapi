@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -25,7 +25,7 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfReservedVocabularyFo
 import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredAnnotationProperty;
 
 @SuppressWarnings("javadoc")
-public class ForbiddenVocabularyTestCase extends AbstractOWLAPITestCase {
+public class ForbiddenVocabularyTestCase extends TestBase {
     @Test
     public void shouldFindViolation() throws Exception {
         String input = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" ><owl:Ontology rdf:about=\"\"/>\n<owl:Class rdf:about=\"http://phenomebrowser.net/cellphenotype.owl#C3PO:000000015\"><rdf:Description rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">Any.</rdf:Description></owl:Class></rdf:RDF>";

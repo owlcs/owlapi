@@ -70,7 +70,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractOWLAPITestCase {
+public abstract class TestBase {
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
@@ -187,10 +187,6 @@ public abstract class AbstractOWLAPITestCase {
 
     private String uriBase = "http://www.semanticweb.org/owlapi/test";
 
-    public OWLOntologyManager getManager() {
-        return m;
-    }
-
     public OWLOntology getOWLOntology(String name) {
         try {
             IRI iri = IRI(uriBase + "/" + name);
@@ -279,8 +275,7 @@ public abstract class AbstractOWLAPITestCase {
         ax2.add(df.getOWLDataPropertyAssertionAxiom(t,
                 df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
         assertFalse(ax1.equals(ax2));
-        assertTrue(AbstractOWLAPITestCase.verifyErrorIsDueToBlankNodesId(ax1,
-                ax2));
+        assertTrue(TestBase.verifyErrorIsDueToBlankNodesId(ax1, ax2));
     }
 
     @SuppressWarnings("unused")

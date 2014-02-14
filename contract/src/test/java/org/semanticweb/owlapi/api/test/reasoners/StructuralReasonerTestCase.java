@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 07-Jul-2010 */
-public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
+public class StructuralReasonerTestCase extends TestBase {
     @SuppressWarnings("javadoc")
     @Test
     public void testClassHierarchy() {

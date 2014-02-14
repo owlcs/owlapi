@@ -42,14 +42,14 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class DisjointUnionTestCase extends AbstractOWLAPITestCase {
+public class DisjointUnionTestCase extends TestBase {
     public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
     public static final OWLClass A = Class(IRI(NS + "#A"));
     public static final OWLClass B = Class(IRI(NS + "#B"));

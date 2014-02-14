@@ -44,7 +44,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.io.ByteArrayOutputStream;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
-public class TestPlainLiteralTestCase extends AbstractOWLAPITestCase {
+public class TestPlainLiteralTestCase extends TestBase {
     @Test
     public void testPlainLiteral() {
         IRI iri = IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");

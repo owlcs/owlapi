@@ -42,14 +42,14 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 09-Jun-2009 */
 @SuppressWarnings("javadoc")
-public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
+public class BuiltInPropertyTestCase extends TestBase {
     @Test
     public void testTopObjectPropertyPositive() {
         OWLObjectPropertyExpression prop = df.getOWLTopObjectProperty();

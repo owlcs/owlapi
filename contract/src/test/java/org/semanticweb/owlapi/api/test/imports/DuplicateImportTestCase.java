@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class DuplicateImportTestCase extends AbstractOWLAPITestCase {
+public class DuplicateImportTestCase extends TestBase {
     @Test
     public void shouldLoad() throws OWLOntologyStorageException,
             OWLOntologyCreationException, IOException {

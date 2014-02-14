@@ -45,7 +45,7 @@ import java.io.IOException;
 
 import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * 
  * @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
-public class MultipleOntologyLoadsTest extends AbstractOWLAPITestCase {
+public class MultipleOntologyLoadsTest extends TestBase {
     private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1");
     private static final IRI CREATEV2 = IRI("http://test.example.org/ontology/0139/version:2");
     private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139");

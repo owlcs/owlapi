@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -52,14 +52,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
-public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITestCase {
+public class PropertyCharacteristicsAccessorsTestCase extends TestBase {
     @Test
     public void testTransitive() {
         OWLOntology ont = getOWLOntology("Ont");
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isTransitive(prop));
         OWLAxiom ax = TransitiveObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isTransitive(prop));
     }
 
@@ -69,7 +69,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isSymmetric(prop));
         OWLAxiom ax = SymmetricObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isSymmetric(prop));
     }
 
@@ -79,7 +79,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isAsymmetric(prop));
         OWLAxiom ax = AsymmetricObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isAsymmetric(prop));
     }
 
@@ -89,7 +89,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isReflexive(prop));
         OWLAxiom ax = ReflexiveObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isReflexive(prop));
     }
 
@@ -99,7 +99,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isIrreflexive(prop));
         OWLAxiom ax = IrreflexiveObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isIrreflexive(prop));
     }
 
@@ -109,7 +109,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isFunctional(prop));
         OWLAxiom ax = FunctionalObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isFunctional(prop));
     }
 
@@ -119,7 +119,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLObjectProperty prop = ObjectProperty(getIRI("prop"));
         assertFalse(find().in(ont).isInverseFunctional(prop));
         OWLAxiom ax = InverseFunctionalObjectProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isInverseFunctional(prop));
     }
 
@@ -129,7 +129,7 @@ public class PropertyCharacteristicsAccessorsTestCase extends AbstractOWLAPITest
         OWLDataProperty prop = DataProperty(getIRI("prop"));
         assertFalse(find().in(ont).isFunctional(prop));
         OWLAxiom ax = FunctionalDataProperty(prop);
-        getManager().addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
         assertTrue(find().in(ont).isFunctional(prop));
     }
 }

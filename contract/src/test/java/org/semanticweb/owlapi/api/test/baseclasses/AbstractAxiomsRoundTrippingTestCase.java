@@ -61,10 +61,10 @@ public abstract class AbstractAxiomsRoundTrippingTestCase extends
         OWLOntology ont = getOWLOntology("Ont");
         axioms.clear();
         axioms.addAll(createAxioms());
-        getManager().addAxioms(ont, axioms);
+        ont.getOWLOntologyManager().addAxioms(ont, axioms);
         for (OWLEntity entity : ont.getSignature()) {
             if (!entity.isBuiltIn() && !ont.isDeclared(entity, true)) {
-                getManager().addAxiom(ont, Declaration(entity));
+                ont.getOWLOntologyManager().addAxiom(ont, Declaration(entity));
             }
         }
         return ont;

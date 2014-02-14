@@ -64,7 +64,7 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group, Date: 08-Jul-2010 */
 @SuppressWarnings("javadoc")
-public class ReasonerTestCase extends AbstractOWLAPITestCase {
+public class ReasonerTestCase extends TestBase {
     private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     private OWLOntology ont;
     private OWLReasoner reasoner;

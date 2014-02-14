@@ -44,7 +44,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -55,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class TestCornerCasesTestCase extends AbstractOWLAPITestCase {
+public class TestCornerCasesTestCase extends TestBase {
     @Test
     public void testFloatZeros() {
         // +0 and -0 are not equal

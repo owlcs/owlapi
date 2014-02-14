@@ -43,7 +43,7 @@ import static org.junit.Assert.*;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  *         Group, Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
 public class DifferentPhysicalURISameOntologyIRITestCase extends
-        AbstractOWLAPITestCase {
+        TestBase {
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 

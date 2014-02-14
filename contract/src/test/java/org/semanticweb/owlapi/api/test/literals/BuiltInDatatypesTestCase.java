@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.api.test.literals;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -50,7 +50,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010 */
 @SuppressWarnings("javadoc")
-public class BuiltInDatatypesTestCase extends AbstractOWLAPITestCase {
+public class BuiltInDatatypesTestCase extends TestBase {
     @Test
     public void testBuiltInDatatypes() {
         OWL2Datatype dt = OWL2Datatype

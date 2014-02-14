@@ -41,13 +41,13 @@ package org.semanticweb.owlapi.api.test.individuals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
-public class AllDifferentTestCase extends AbstractOWLAPITestCase {
+public class AllDifferentTestCase extends TestBase {
     private final String onto1 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xml:base = \"http://example.org/\" "
             + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "

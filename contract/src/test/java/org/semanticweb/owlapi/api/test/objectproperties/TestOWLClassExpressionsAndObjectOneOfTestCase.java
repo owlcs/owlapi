@@ -41,13 +41,13 @@ package org.semanticweb.owlapi.api.test.objectproperties;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class TestOWLClassExpressionsAndObjectOneOfTestCase extends
-        AbstractOWLAPITestCase {
+        TestBase {
     @Test
     public void testAnonymous() throws OWLOntologyCreationException {
         String text = "Prefix(:=<http://example.org/#>)\n "

@@ -42,7 +42,7 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.util.NNF;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 21-Sep-2009 */
 @SuppressWarnings("javadoc")
-public class NNFTestCase extends AbstractOWLAPITestCase {
+public class NNFTestCase extends TestBase {
     @Test
     public void testPosOWLClass() {
         OWLClass cls = Class(getIRI("A"));

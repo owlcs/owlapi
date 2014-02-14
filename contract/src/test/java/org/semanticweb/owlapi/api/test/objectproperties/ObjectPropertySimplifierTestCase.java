@@ -42,14 +42,14 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 06-Jun-2008 */
 @SuppressWarnings("javadoc")
-public class ObjectPropertySimplifierTestCase extends AbstractOWLAPITestCase {
+public class ObjectPropertySimplifierTestCase extends TestBase {
     @Test
     public void testNamedSimplification() {
         OWLObjectProperty p = ObjectProperty(IRI("p"));

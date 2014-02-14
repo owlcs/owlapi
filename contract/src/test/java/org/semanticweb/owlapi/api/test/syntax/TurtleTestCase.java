@@ -46,7 +46,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -68,7 +68,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
-public class TurtleTestCase extends AbstractOWLAPITestCase {
+public class TurtleTestCase extends TestBase {
     @Test
     public void testLoadingUTF8BOM() throws URISyntaxException,
             OWLOntologyCreationException {

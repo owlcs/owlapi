@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** test for 3178902 adapted from the report Thimoty provided. */
 @SuppressWarnings("javadoc")
-public class ThreeEquivalentsRoundTripTestCase extends AbstractOWLAPITestCase {
+public class ThreeEquivalentsRoundTripTestCase extends TestBase {
     private static final String NS = "http://protege.org/ontologies";
     private OWLClass b;
     private OWLClass c;

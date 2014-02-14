@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -66,7 +66,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * allowed or disallowed. Data is equivalent, ontology annotations are not */
 @SuppressWarnings("javadoc")
 @Ignore
-public class SharedBlankNodeTestCase extends AbstractOWLAPITestCase {
+public class SharedBlankNodeTestCase extends TestBase {
     @Test
     public void shouldSaveOneIndividual() throws OWLOntologyStorageException,
             OWLOntologyCreationException {

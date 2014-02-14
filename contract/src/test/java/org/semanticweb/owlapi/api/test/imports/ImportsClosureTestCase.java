@@ -42,31 +42,27 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 11-Aug-2010 */
 @SuppressWarnings("javadoc")
-public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
+public class ImportsClosureTestCase extends TestBase {
     @Test
     public void testImportsClosureUpdate() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = getManager();
         IRI aIRI = IRI("http://a.com");
-        OWLOntology ontA = manager.createOntology(aIRI);
+        OWLOntology ontA = m.createOntology(aIRI);
         IRI bIRI = IRI("http://b.com");
-        OWLOntology ontB = manager.createOntology(bIRI);
-        OWLDataFactory df = manager.getOWLDataFactory();
-        manager.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
-        assertEquals(2, manager.getImportsClosure(ontA).size());
-        manager.removeOntology(ontB);
-        assertEquals(1, manager.getImportsClosure(ontA).size());
-        manager.createOntology(bIRI);
-        assertEquals(2, manager.getImportsClosure(ontA).size());
+        OWLOntology ontB = m.createOntology(bIRI);
+        m.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
+        assertEquals(2, m.getImportsClosure(ontA).size());
+        m.removeOntology(ontB);
+        assertEquals(1, m.getImportsClosure(ontA).size());
+        m.createOntology(bIRI);
+        assertEquals(2, m.getImportsClosure(ontA).size());
     }
 }

@@ -49,7 +49,7 @@ import java.util.Set;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -80,7 +80,7 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefi
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 @SuppressWarnings("javadoc")
-public class ManchesterOWLSyntaxParserTestCase extends AbstractOWLAPITestCase {
+public class ManchesterOWLSyntaxParserTestCase extends TestBase {
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

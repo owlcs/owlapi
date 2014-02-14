@@ -46,11 +46,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 22-Jul-2008 */
-public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTestCase {
+public class InversePropertiesAxiomTestCase extends
+        AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("ont");
-        getManager().addAxiom(
+        ont.getOWLOntologyManager().addAxiom(
                 ont,
                 InverseObjectProperties(ObjectProperty(getIRI("p")),
                         ObjectProperty(getIRI("q"))));

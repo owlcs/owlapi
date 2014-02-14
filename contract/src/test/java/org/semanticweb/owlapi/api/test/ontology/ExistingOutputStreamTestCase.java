@@ -44,7 +44,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
@@ -61,11 +61,10 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group, Date: 16/02/2011 */
 @SuppressWarnings("javadoc")
-public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
+public class ExistingOutputStreamTestCase extends TestBase {
     @Test
     public void testOutputStreamRemainsOpen() throws Exception {
-        OWLOntologyManager manager = getManager();
-        OWLOntology ontology = manager.createOntology();
+        OWLOntology ontology = m.createOntology();
         saveOntology(ontology, new RDFXMLOntologyFormat());
         saveOntology(ontology, new OWLXMLOntologyFormat());
         saveOntology(ontology, new TurtleOntologyFormat());

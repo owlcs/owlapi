@@ -48,11 +48,11 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 21-Jan-2009 */
-public abstract class AbstractFileTestCase extends AbstractOWLAPITestCase {
+public abstract class AbstractFileTestCase extends TestBase {
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         String fileName = getFileName();
         URL uri = getClass().getResource("/" + fileName);
-        return getManager().loadOntologyFromOntologyDocument(
+        return m.loadOntologyFromOntologyDocument(
                 new IRIDocumentSource(IRI.create(uri)), getConfiguration());
     }
 

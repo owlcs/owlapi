@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 25/02/2011 */
 @SuppressWarnings("javadoc")
-public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCase {
+public class SubClassOfUntypedOWLClassStrictTestCase extends
+        AbstractFileTestCase {
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedOWLClass.rdf";
@@ -65,7 +66,8 @@ public class SubClassOfUntypedOWLClassStrictTestCase extends AbstractFileTestCas
     public void testAxioms() throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         assertTrue(ont.getAxioms(AxiomType.SUBCLASS_OF).isEmpty());
-        OWLOntologyFormat format = getManager().getOntologyFormat(ont);
+        OWLOntologyFormat format = ont.getOWLOntologyManager()
+                .getOntologyFormat(ont);
         assertTrue(format instanceof RDFXMLOntologyFormat);
         RDFXMLOntologyFormat rdfxmlFormat = (RDFXMLOntologyFormat) format;
         Set<RDFTriple> triples = rdfxmlFormat.getOntologyLoaderMetaData()

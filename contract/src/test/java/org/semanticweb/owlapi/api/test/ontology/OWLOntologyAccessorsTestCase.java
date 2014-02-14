@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -87,7 +87,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 18-Jul-2008 */
 @SuppressWarnings("javadoc")
-public class OWLOntologyAccessorsTestCase extends AbstractOWLAPITestCase {
+public class OWLOntologyAccessorsTestCase extends TestBase {
     private void performAxiomTests(OWLOntology ont, OWLAxiom... axioms) {
         assertEquals(ont.getAxiomCount(), axioms.length);
         for (OWLAxiom ax : axioms) {

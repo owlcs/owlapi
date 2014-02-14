@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** Test for 3186250 */
 @SuppressWarnings("javadoc")
-public class MissingDeclarationRoundTripTestCase extends AbstractOWLAPITestCase {
+public class MissingDeclarationRoundTripTestCase extends TestBase {
     private static final String NS = "http://test.org/MissingDeclaration.owl";
     OWLClass a;
     OWLAnnotationProperty p;

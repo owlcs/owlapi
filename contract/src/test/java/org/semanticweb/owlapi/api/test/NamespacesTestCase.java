@@ -43,14 +43,14 @@ import static org.junit.Assert.assertEquals;
 import java.util.EnumSet;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
-public class NamespacesTestCase extends AbstractOWLAPITestCase {
+public class NamespacesTestCase extends TestBase {
     @Test
     public void shouldFindInNamespace() {
         EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL,

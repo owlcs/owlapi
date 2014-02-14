@@ -46,7 +46,7 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -58,7 +58,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 24/10/2012 */
 @SuppressWarnings("javadoc")
-public class OWL2DatatypeImplTestCase extends AbstractOWLAPITestCase {
+public class OWL2DatatypeImplTestCase extends TestBase {
     private OWLDatatype plainLiteral;
 
     @Before

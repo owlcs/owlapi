@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.TestUtils;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -52,23 +52,22 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** A test case which ensures that an ontology contains entity references when
  * that ontology only contains entity declaration axioms. In other words, entity
  * declaration axioms produce the correct entity references.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 01-May-2007 */
 @SuppressWarnings("javadoc")
-public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
+public class DeclarationEntityReferencesTestCase extends TestBase {
     @Test
-    public void testOWLClassDeclarationAxiom() throws OWLOntologyCreationException {
+    public void testOWLClassDeclarationAxiom()
+            throws OWLOntologyCreationException {
         OWLClass cls = Class(TestUtils.createIRI());
         OWLAxiom ax = Declaration(cls);
-        OWLOntologyManager man = getManager();
-        OWLOntology ont = man.createOntology(TestUtils.createIRI());
-        man.applyChange(new AddAxiom(ont, ax));
+        OWLOntology ont = m.createOntology(TestUtils.createIRI());
+        m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getClassesInSignature().contains(cls));
     }
 
@@ -77,29 +76,28 @@ public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase 
             throws OWLOntologyCreationException {
         OWLObjectProperty prop = ObjectProperty(TestUtils.createIRI());
         OWLAxiom ax = Declaration(prop);
-        OWLOntologyManager man = getManager();
-        OWLOntology ont = man.createOntology(TestUtils.createIRI());
-        man.applyChange(new AddAxiom(ont, ax));
+        OWLOntology ont = m.createOntology(TestUtils.createIRI());
+        m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getObjectPropertiesInSignature().contains(prop));
     }
 
     @Test
-    public void testOWLDataPropertyDeclarationAxiom() throws OWLOntologyCreationException {
+    public void testOWLDataPropertyDeclarationAxiom()
+            throws OWLOntologyCreationException {
         OWLDataProperty prop = DataProperty(TestUtils.createIRI());
         OWLAxiom ax = Declaration(prop);
-        OWLOntologyManager man = getManager();
-        OWLOntology ont = man.createOntology(TestUtils.createIRI());
-        man.applyChange(new AddAxiom(ont, ax));
+        OWLOntology ont = m.createOntology(TestUtils.createIRI());
+        m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getDataPropertiesInSignature().contains(prop));
     }
 
     @Test
-    public void testOWLIndividualDeclarationAxiom() throws OWLOntologyCreationException {
+    public void testOWLIndividualDeclarationAxiom()
+            throws OWLOntologyCreationException {
         OWLNamedIndividual ind = NamedIndividual(TestUtils.createIRI());
         OWLAxiom ax = Declaration(ind);
-        OWLOntologyManager man = getManager();
-        OWLOntology ont = man.createOntology(TestUtils.createIRI());
-        man.applyChange(new AddAxiom(ont, ax));
+        OWLOntology ont = m.createOntology(TestUtils.createIRI());
+        m.applyChange(new AddAxiom(ont, ax));
         assertTrue(ont.getIndividualsInSignature().contains(ind));
     }
 }

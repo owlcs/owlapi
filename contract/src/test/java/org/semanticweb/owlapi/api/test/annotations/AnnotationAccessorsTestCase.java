@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -59,7 +59,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
-public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
+public class AnnotationAccessorsTestCase extends TestBase {
     private static final IRI SUBJECT = IRI
             .create("http://owlapi.sourceforge.net/ontologies/test#X");
 
@@ -73,7 +73,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
     public void testClassAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        getManager().addAxiom(ont, ax);
+        ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLClass cls = Class(SUBJECT);
         assertTrue(find().in(ont).annotationAxioms(cls).contains(ax));
@@ -84,7 +84,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
     public void testNamedIndividualAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        getManager().addAxiom(ont, ax);
+        ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLNamedIndividual cls = NamedIndividual(SUBJECT);
         assertTrue(find().in(ont).annotationAxioms(cls).contains(ax));
@@ -95,7 +95,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
     public void testObjectPropertyAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        getManager().addAxiom(ont, ax);
+        ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLObjectProperty cls = ObjectProperty(SUBJECT);
         assertTrue(find().in(ont).annotationAxioms(cls).contains(ax));
@@ -106,7 +106,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
     public void testDataPropertyAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        getManager().addAxiom(ont, ax);
+        ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLDataProperty cls = DataProperty(SUBJECT);
         assertTrue(find().in(ont).annotationAxioms(cls).contains(ax));
@@ -117,11 +117,11 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
     public void testDatatypeAccessor() {
         OWLOntology ont = getOWLOntology("ontology");
         OWLAnnotationAssertionAxiom ax = createAnnotationAssertionAxiom();
-        getManager().addAxiom(ont, ax);
+        ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLDatatype cls = Datatype(SUBJECT);
-        assertTrue(find().in(ont).annotationAxioms(cls).asCollection().toString(), find()
-                .in(ont).annotationAxioms(cls).contains(ax));
+        assertTrue(find().in(ont).annotationAxioms(cls).asCollection()
+                .toString(), find().in(ont).annotationAxioms(cls).contains(ax));
         assertTrue(find().in(ont).annotations(cls).contains(ax.getAnnotation()));
     }
 
@@ -132,7 +132,7 @@ public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
         OWLAnnotationValue value = Literal("value");
         OWLAnonymousIndividual a = AnonymousIndividual();
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, a, value);
-        getManager().addAxiom(ont, ax);
+        ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(a).contains(ax));
     }
 }

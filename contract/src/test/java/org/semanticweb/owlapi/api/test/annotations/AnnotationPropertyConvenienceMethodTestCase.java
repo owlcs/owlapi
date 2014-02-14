@@ -43,7 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Annot
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 05/01/2011 */
 @SuppressWarnings("javadoc")
-public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPITestCase {
+public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
     @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");

@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
-public class LoadAnonymousTestCase extends AbstractOWLAPITestCase {
+public class LoadAnonymousTestCase extends TestBase {
     @Test
     public void shouldLoad() throws OWLOntologyCreationException {
         OWLOntologyManager rootOntologyManager = OWLManager

@@ -64,14 +64,14 @@ public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
         cls123.getIRI().toURI();
         OWLNamedIndividual ind = NamedIndividual("456", pm);
         OWLObjectProperty prop = ObjectProperty("789", pm);
-        OWLOntology ont = getManager().createOntology(IRI("http://www.myont.com/ont"));
+        OWLOntology ont = m.createOntology(IRI("http://www.myont.com/ont"));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(cls123));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(ind));
         ont.getOWLOntologyManager().addAxiom(ont, ClassAssertion(cls123, ind));
         ont.getOWLOntologyManager().addAxiom(ont, ClassAssertion(cls123, ind));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
-        ont.getOWLOntologyManager()
-                .addAxiom(ont, ObjectPropertyAssertion(prop, ind, ind));
+        ont.getOWLOntologyManager().addAxiom(ont,
+                ObjectPropertyAssertion(prop, ind, ind));
         return ont;
     }
 

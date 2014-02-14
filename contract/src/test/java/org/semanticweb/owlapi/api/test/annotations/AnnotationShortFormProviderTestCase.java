@@ -48,7 +48,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
@@ -65,7 +65,7 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 22/12/2010 */
 @SuppressWarnings("javadoc")
-public class AnnotationShortFormProviderTestCase extends AbstractOWLAPITestCase {
+public class AnnotationShortFormProviderTestCase extends TestBase {
     @Test
     public void testLiteralWithoutLanguageValue()
             throws OWLOntologyCreationException {

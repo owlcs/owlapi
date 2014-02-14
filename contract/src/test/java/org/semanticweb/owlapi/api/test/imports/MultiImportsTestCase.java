@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.api.test.imports;
 import java.io.File;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
@@ -49,7 +49,7 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 01-Jul-2010 */
 @SuppressWarnings("javadoc")
-public class MultiImportsTestCase extends AbstractOWLAPITestCase {
+public class MultiImportsTestCase extends TestBase {
     public static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");

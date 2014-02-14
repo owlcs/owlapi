@@ -45,32 +45,30 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 18-Jan-2010 */
 @SuppressWarnings("javadoc")
-public class ManualImportsTestCase extends AbstractOWLAPITestCase {
+public class ManualImportsTestCase extends TestBase {
     @Test
     public void testManualImports() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = getManager();
-        OWLOntology baseOnt = manager
+        OWLOntology baseOnt = m
                 .createOntology(IRI("http://semanticweb.org/ontologies/base"));
         IRI importedIRI = IRI("http://semanticweb.org/ontologies/imported");
-        OWLOntology importedOnt = manager.createOntology(importedIRI);
+        OWLOntology importedOnt = m.createOntology(importedIRI);
         Set<OWLOntology> preImportsClosureCache = new HashSet<OWLOntology>(
-                manager.getImportsClosure(baseOnt));
+                m.getImportsClosure(baseOnt));
         assertTrue(preImportsClosureCache.contains(baseOnt));
         assertFalse(preImportsClosureCache.contains(importedOnt));
-        manager.applyChange(new AddImport(baseOnt, manager.getOWLDataFactory()
+        m.applyChange(new AddImport(baseOnt, m.getOWLDataFactory()
                 .getOWLImportsDeclaration(importedIRI)));
         Set<OWLOntology> postImportsClosureCache = new HashSet<OWLOntology>(
-                manager.getImportsClosure(baseOnt));
+                m.getImportsClosure(baseOnt));
         assertTrue(postImportsClosureCache.contains(baseOnt));
         assertTrue(postImportsClosureCache.contains(importedOnt));
     }

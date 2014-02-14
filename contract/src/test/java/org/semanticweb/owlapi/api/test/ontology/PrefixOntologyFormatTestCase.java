@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntology ont = getManager().createOntology();
+        OWLOntology ont = m.createOntology();
         PrefixOWLOntologyFormat format = (PrefixOWLOntologyFormat) ont
                 .getOWLOntologyManager().getOntologyFormat(ont);
         format.setDefaultPrefix("http://default.com");
@@ -62,11 +62,12 @@ public class PrefixOntologyFormatTestCase extends AbstractRoundTrippingTestCase 
     }
 
     @Override
-    public OWLOntology roundTripOntology(OWLOntology ont, OWLOntologyFormat format)
-            throws OWLOntologyStorageException, OWLOntologyCreationException {
+    public OWLOntology roundTripOntology(OWLOntology ont,
+            OWLOntologyFormat format) throws OWLOntologyStorageException,
+            OWLOntologyCreationException {
         OWLOntology ont2 = super.roundTripOntology(ont, format);
-        OWLOntologyFormat ont2Format = ont2.getOWLOntologyManager().getOntologyFormat(
-                ont2);
+        OWLOntologyFormat ont2Format = ont2.getOWLOntologyManager()
+                .getOntologyFormat(ont2);
         if (format instanceof PrefixOWLOntologyFormat
                 && ont2Format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;

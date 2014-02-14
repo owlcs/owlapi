@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
-public abstract class AbstractRoundTrippingTestCase extends AbstractOWLAPITestCase {
+public abstract class AbstractRoundTrippingTestCase extends TestBase {
     private OWLOntology ont;
 
     protected abstract OWLOntology createOntology() throws OWLOntologyCreationException,

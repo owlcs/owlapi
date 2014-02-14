@@ -39,14 +39,14 @@
 package org.semanticweb.owlapi.api.test.ontology;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerRemoveAxiomsTestCase extends
-        AbstractOWLAPITestCase {
+        TestBase {
     @Test
     public void testRemove() throws OWLOntologyCreationException {
         String premise = "Prefix(:=<http://example.org/>)\n"

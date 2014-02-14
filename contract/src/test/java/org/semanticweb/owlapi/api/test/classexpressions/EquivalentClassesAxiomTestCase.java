@@ -44,7 +44,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 /** @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 12-Oct-2008 */
 @SuppressWarnings("javadoc")
-public class EquivalentClassesAxiomTestCase extends AbstractOWLAPITestCase {
+public class EquivalentClassesAxiomTestCase extends TestBase {
     @Test
     public void testContainsNamedClass() {
         OWLClass clsA = Class(getIRI("A"));

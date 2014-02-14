@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
@@ -54,7 +54,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
-public class OWLOntologyManagerTestCase extends AbstractOWLAPITestCase {
+public class OWLOntologyManagerTestCase extends TestBase {
     @Test
     public void testCreateAnonymousOntology()
             throws OWLOntologyCreationException {

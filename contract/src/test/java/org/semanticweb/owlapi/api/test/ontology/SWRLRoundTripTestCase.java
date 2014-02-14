@@ -45,7 +45,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -61,7 +61,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
-public class SWRLRoundTripTestCase extends AbstractOWLAPITestCase {
+public class SWRLRoundTripTestCase extends TestBase {
     @Test
     public void shouldDoCompleteRoundtrip()
             throws OWLOntologyCreationException, OWLOntologyStorageException {

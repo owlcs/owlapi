@@ -45,7 +45,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -72,7 +72,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 16/12/2010 */
 @SuppressWarnings("javadoc")
-public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
+public class LoadAnnotationAxiomsTestCase extends TestBase {
     @Test
     public void testIgnoreAnnotations() throws OWLOntologyStorageException,
             OWLOntologyCreationException {

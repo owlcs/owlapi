@@ -42,7 +42,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 @SuppressWarnings("javadoc")
-public class ManchesterParseErrorTestCase extends AbstractOWLAPITestCase {
+public class ManchesterParseErrorTestCase extends TestBase {
     @Test(expected = ParserException.class)
     public void shouldNotParse() {
         parse("p some rdfs:Literal");
