@@ -45,11 +45,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -62,7 +61,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class AnonymousFunctionalRoundtripTestCase {
+public class AnonymousFunctionalRoundtripTestCase extends
+        AbstractOWLAPITestCase {
     private static final String NS = "http://namespace.owl";
     private static String broken = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
@@ -91,15 +91,15 @@ public class AnonymousFunctionalRoundtripTestCase {
 
     @Test
     public void shouldRoundTripFixed() throws OWLOntologyCreationException {
-        loadOntology(fixed);
+        loadOntologyFromString(fixed);
     }
 
     @Test
     public void shouldRoundTripBroken() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
-        OWLOntology o = loadOntology(broken);
+        OWLOntology o = loadOntologyFromString(broken);
         String s = saveOntology(o, new OWLFunctionalSyntaxOntologyFormat());
-        OWLOntology o1 = loadOntology(s);
+        OWLOntology o1 = loadOntologyFromString(s);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
     }
 
@@ -111,18 +111,17 @@ public class AnonymousFunctionalRoundtripTestCase {
         OWLObjectProperty P = ObjectProperty(IRI(NS + "#p"));
         OWLDataProperty Q = DataProperty(IRI(NS + "#q"));
         OWLIndividual i = AnonymousIndividual();
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI(NS));
+        OWLOntology ontology = m.createOntology(IRI(NS));
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
         changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
                 Literal("hello"))));
-        manager.applyChanges(changes);
+        m.applyChanges(changes);
         String saved = saveOntology(ontology, new RDFXMLOntologyFormat());
-        ontology = loadOntology(saved);
+        ontology = loadOntologyFromString(saved);
         saved = saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat());
-        ontology = loadOntology(saved);
+        ontology = loadOntologyFromString(saved);
     }
 
     String saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format)
@@ -132,13 +131,5 @@ public class AnonymousFunctionalRoundtripTestCase {
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, format, target);
         return target.toString();
-    }
-
-    OWLOntology loadOntology(String input) throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        input));
-        return ontology;
     }
 }

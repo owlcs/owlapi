@@ -48,15 +48,13 @@ import java.io.OutputStream;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
-public class TestImportByLocationTestCase {
+public class TestImportByLocationTestCase extends AbstractOWLAPITestCase {
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
@@ -64,25 +62,23 @@ public class TestImportByLocationTestCase {
     public void testImportOntologyByLocation() throws Exception {
         File f = folder.newFile("a.owl");
         createOntologyFile(IRI("http://a.com"), f);
-        OWLOntologyManager mngr = Factory.getManager();
-        OWLDataFactory df = mngr.getOWLDataFactory();
         // have to load an ontology for it to get a document IRI
-        OWLOntology a = mngr.loadOntologyFromOntologyDocument(f);
-        IRI locA = mngr.getOntologyDocumentIRI(a);
+        OWLOntology a = m.loadOntologyFromOntologyDocument(f);
+        IRI locA = m.getOntologyDocumentIRI(a);
         IRI bIRI = IRI("http://b.com");
-        OWLOntology b = mngr.createOntology(bIRI);
+        OWLOntology b = m.createOntology(bIRI);
         // import from the document location of a.owl (rather than the
         // ontology IRI)
-        mngr.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
+        m.applyChange(new AddImport(b, df.getOWLImportsDeclaration(locA)));
         assertEquals(1, b.getImportsDeclarations().size());
         assertEquals(1, b.getImports().size());
     }
 
     private OWLOntology createOntologyFile(IRI iri, File f) throws Exception {
-        OWLOntologyManager mngr = Factory.getManager();
-        OWLOntology a = mngr.createOntology(iri);
+        OWLOntology a = m1.createOntology(iri);
         OutputStream out = new FileOutputStream(f);
-        mngr.saveOntology(a, out);
+        m1.saveOntology(a, out);
+        out.close();
         return a;
     }
 }

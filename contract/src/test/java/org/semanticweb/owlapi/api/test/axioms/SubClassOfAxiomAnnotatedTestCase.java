@@ -42,7 +42,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Class
 
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -56,6 +55,6 @@ public class SubClassOfAxiomAnnotatedTestCase extends
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         OWLClass clsA = Class(getIRI("A"));
         OWLClass clsB = Class(getIRI("B"));
-        return Factory.getFactory().getOWLSubClassOfAxiom(clsA, clsB, annos);
+        return df.getOWLSubClassOfAxiom(clsA, clsB, annos);
     }
 }

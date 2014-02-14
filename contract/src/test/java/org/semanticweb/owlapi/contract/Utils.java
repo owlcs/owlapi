@@ -70,7 +70,6 @@ import org.coode.owlapi.owlxmlparser.SWRLVariableElementHandler;
 import org.coode.owlapi.rdfxml.parser.OWLRDFConsumer;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -90,6 +89,7 @@ import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class Utils {
+    private static OWLDataFactory df = OWLManager.getOWLDataFactory();
     static final IRI fakeiri1 = IRI.create("urn:aFake1");
     static final IRI fakeiri2 = IRI.create("urn:aFake2");
     static final IRI fakeiriproperty = IRI.create("urn:aFakeproperty");
@@ -206,8 +206,7 @@ public class Utils {
     public static OWLElementHandler<OWLObject> mockElementHandler()
             throws OWLXMLParserException {
         OWLElementHandler<OWLObject> mock = mock(OWLElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLThing());
+        Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLThing());
         return mock;
     }
 
@@ -215,8 +214,7 @@ public class Utils {
             mockIndividualHandler() throws OWLParserException {
         AbstractOWLIndividualOperandAxiomElementHandler mock = mock(AbstractOWLIndividualOperandAxiomElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
-                        Class(IRI("urn:fake"))));
+                df.getOWLDeclarationAxiom(Class(IRI("urn:fake"))));
         return mock;
     }
 
@@ -224,9 +222,7 @@ public class Utils {
             throws OWLParserException {
         OWLAnnotationElementHandler mock = mock(OWLAnnotationElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLAnnotation(
-                        OWLManager.getOWLDataFactory().getRDFSLabel(),
-                        OWLManager.getOWLDataFactory().getOWLLiteral(0)));
+                df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(0)));
         return mock;
     }
 
@@ -241,15 +237,14 @@ public class Utils {
             mockAnonymousIndividualHandler() throws OWLParserException {
         OWLAnonymousIndividualElementHandler mock = mock(OWLAnonymousIndividualElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLAnonymousIndividual());
+                df.getOWLAnonymousIndividual());
         return mock;
     }
 
     public static OWLLiteralElementHandler mockLiteralHandler()
             throws OWLParserException {
         OWLLiteralElementHandler mock = mock(OWLLiteralElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLLiteral(false));
+        Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLLiteral(false));
         return mock;
     }
 
@@ -257,8 +252,7 @@ public class Utils {
             mockSubAnnotationPropertyOfHandler() throws OWLParserException {
         OWLSubAnnotationPropertyOfElementHandler mock = mock(OWLSubAnnotationPropertyOfElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
-                        OWLManager.getOWLDataFactory().getOWLThing()));
+                df.getOWLDeclarationAxiom(df.getOWLThing()));
         return mock;
     }
 
@@ -266,8 +260,7 @@ public class Utils {
             mockSubObjectPropertyChainHandler() throws OWLParserException {
         OWLSubClassAxiomElementHandler mock = mock(OWLSubClassAxiomElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
-                        OWLManager.getOWLDataFactory().getOWLThing()));
+                df.getOWLDeclarationAxiom(df.getOWLThing()));
         return mock;
     }
 
@@ -275,32 +268,29 @@ public class Utils {
             mockDatatypeFacetRestrictionHandler() throws OWLParserException {
         OWLDatatypeElementHandler mock = mock(OWLDatatypeElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLDatatype(
-                        OWL2Datatype.OWL_REAL.getIRI()));
+                df.getOWLDatatype(OWL2Datatype.OWL_REAL.getIRI()));
         return mock;
     }
 
     public static OWLAnnotationPropertyElementHandler
             mockAnnotationPropertyHandler() throws OWLParserException {
         OWLAnnotationPropertyElementHandler mock = mock(OWLAnnotationPropertyElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getRDFSComment());
+        Mockito.when(mock.getOWLObject()).thenReturn(df.getRDFSComment());
         return mock;
     }
 
     public static AbstractClassExpressionElementHandler mockClassHandler()
             throws OWLParserException {
         AbstractClassExpressionElementHandler mock = mock(AbstractClassExpressionElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLThing());
+        Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLThing());
         return mock;
     }
 
     public static OWLDataPropertyElementHandler mockDataPropertyHandler()
             throws OWLParserException {
         OWLDataPropertyElementHandler mock = mock(OWLDataPropertyElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLTopDataProperty());
+        Mockito.when(mock.getOWLObject())
+                .thenReturn(df.getOWLTopDataProperty());
         return mock;
     }
 
@@ -315,9 +305,7 @@ public class Utils {
             throws OWLParserException {
         AbstractOWLAxiomElementHandler mock = mock(AbstractOWLAxiomElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLDeclarationAxiom(
-                        OWLManager.getOWLDataFactory()
-                                .getOWLTopObjectProperty()));
+                df.getOWLDeclarationAxiom(df.getOWLTopObjectProperty()));
         return mock;
     }
 
@@ -347,7 +335,7 @@ public class Utils {
             throws OWLParserException {
         OWLObjectPropertyElementHandler mock = mock(OWLObjectPropertyElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(
-                OWLManager.getOWLDataFactory().getOWLTopObjectProperty());
+                df.getOWLTopObjectProperty());
         return mock;
     }
 
@@ -1070,8 +1058,7 @@ public class Utils {
 
     public static OWLOntologyManager getRealMockManager() {
         OWLOntologyManager mock = mock(OWLOntologyManager.class);
-        when(mock.getOWLDataFactory()).thenReturn(
-                OWLManager.getOWLDataFactory());
+        when(mock.getOWLDataFactory()).thenReturn(df);
         return mock;
     }
 
@@ -1097,7 +1084,7 @@ public class Utils {
     }
 
     public static OWLRDFConsumer mockOWLRDFConsumer() throws OWLException {
-        OWLOntologyManager man = Factory.getManager();
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLOntology mockOntology = man.createOntology(new OWLOntologyID(IRI
                 .create("urn:test:test"), IRI.create("urn:test:othertest")));
         OWLRDFConsumer c = new OWLRDFConsumer(mockOntology,
@@ -1115,10 +1102,10 @@ public class Utils {
     }
 
     public static OWLObjectPropertyExpression mockObjectProperty() {
-        return OWLManager.getOWLDataFactory().getOWLTopObjectProperty();
+        return df.getOWLTopObjectProperty();
     }
 
     public static OWLLiteral mockLiteral() {
-        return OWLManager.getOWLDataFactory().getOWLLiteral(false);
+        return df.getOWLLiteral(false);
     }
 }

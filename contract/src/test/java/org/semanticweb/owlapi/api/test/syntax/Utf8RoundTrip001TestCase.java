@@ -44,7 +44,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -61,7 +61,7 @@ public class Utf8RoundTrip001TestCase {
     @Test
     public void testUTF8roundTrip() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         String onto = "Ontology(<http://protege.org/UTF8.owl>"
                 + "Declaration(Class(<http://protege.org/UTF8.owl#A>))"
                 + "AnnotationAssertion(<http://www.w3.org/2000/01/rdf-schema#label> <http://protege.org/UTF8.owl#A> "
@@ -75,10 +75,8 @@ public class Utf8RoundTrip001TestCase {
     public void testPositiveUTF8roundTrip()
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "http://protege.org/UTF8.owl";
-        OWLOntologyManager manager;
-        OWLOntology ontology;
-        manager = Factory.getManager();
-        ontology = manager.createOntology(IRI(NS));
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntology ontology = manager.createOntology(IRI(NS));
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLClass a = Class(IRI(NS + "#A"));
         manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(a));
@@ -90,7 +88,7 @@ public class Utf8RoundTrip001TestCase {
         StringDocumentTarget ontFile = new StringDocumentTarget();
         manager.saveOntology(ontology, new OWLFunctionalSyntaxOntologyFormat(),
                 ontFile);
-        manager = Factory.getManager();
+        manager = OWLManager.createOWLOntologyManager();
         ontology = manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
                         ontFile));

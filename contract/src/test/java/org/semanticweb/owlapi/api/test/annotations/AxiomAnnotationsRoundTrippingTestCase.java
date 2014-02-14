@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -56,7 +55,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 10-May-2008 */
-public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
+public class AxiomAnnotationsRoundTrippingTestCase extends
+        AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntA");
@@ -66,13 +66,12 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         for (int i = 0; i < 2; i++) {
             OWLLiteral lit = Literal("Annotation " + (i + 1));
-            annotations.add(Factory.getFactory().getOWLAnnotation(RDFSLabel(), lit));
+            annotations.add(df.getOWLAnnotation(RDFSLabel(), lit));
         }
         OWLEntity entity = NamedIndividual(IRI("http://www.another.com/ont#peter"));
         addAxiom(ont, Declaration(entity));
-        OWLAnnotationAssertionAxiom ax = Factory.getFactory()
-                .getOWLAnnotationAssertionAxiom(prop, entity.getIRI(),
-                        Literal("X", "en"), annotations);
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
+                prop, entity.getIRI(), Literal("X", "en"), annotations);
         addAxiom(ont, ax);
         return ont;
     }

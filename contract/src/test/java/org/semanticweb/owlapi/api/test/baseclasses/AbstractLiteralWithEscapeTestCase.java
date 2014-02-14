@@ -40,7 +40,6 @@ package org.semanticweb.owlapi.api.test.baseclasses;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -60,11 +59,15 @@ public abstract class AbstractLiteralWithEscapeTestCase extends
         OWLLiteral lit2 = Literal("Start" + getEscape());
         OWLLiteral lit3 = Literal(getEscape() + "End");
         OWLLiteral lit4 = Literal("Start" + getEscape() + "End");
-        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop, cls.getIRI(), lit1);
-        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls.getIRI(), lit2);
-        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls.getIRI(), lit3);
-        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls.getIRI(), lit4);
-        return Ontology(Factory.getManager(), ax1, ax2, ax3, ax4, Declaration(cls));
+        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop,
+                cls.getIRI(), lit1);
+        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop,
+                cls.getIRI(), lit2);
+        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop,
+                cls.getIRI(), lit3);
+        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop,
+                cls.getIRI(), lit4);
+        return Ontology(m, ax1, ax2, ax3, ax4, Declaration(cls));
     }
 
     protected abstract String getEscape();

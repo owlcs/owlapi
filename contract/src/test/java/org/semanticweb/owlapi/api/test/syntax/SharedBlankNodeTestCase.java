@@ -43,10 +43,9 @@ import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
@@ -67,40 +66,37 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  * allowed or disallowed. Data is equivalent, ontology annotations are not */
 @SuppressWarnings("javadoc")
 @Ignore
-public class SharedBlankNodeTestCase {
+public class SharedBlankNodeTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldSaveOneIndividual() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         testAnnotation(ontology);
         String s = saveOntology(ontology);
-        ontology = loadOntology(s);
+        ontology = loadOntologyFromString(s);
         testAnnotation(ontology);
     }
 
-    public static OWLOntology createOntology()
-            throws OWLOntologyCreationException {
+    public OWLOntology createOntology() throws OWLOntologyCreationException {
         String NS = "urn:test";
         OWLDataProperty P = DataProperty(IRI(NS + "#p"));
         OWLObjectProperty P1 = ObjectProperty(IRI(NS + "#p1"));
         OWLObjectProperty P2 = ObjectProperty(IRI(NS + "#p2"));
         OWLAnnotationProperty ann = AnnotationProperty(IRI(NS + "#ann"));
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI(NS));
+        OWLOntology ontology = m.createOntology(IRI(NS));
         OWLAnonymousIndividual i = AnonymousIndividual();
-        manager.addAxiom(ontology, Declaration(P));
-        manager.addAxiom(ontology, Declaration(P1));
-        manager.addAxiom(ontology, Declaration(P2));
-        manager.addAxiom(ontology, Declaration(ann));
-        manager.applyChange(new AddOntologyAnnotation(ontology, Annotation(ann,
-                i)));
+        m.addAxiom(ontology, Declaration(P));
+        m.addAxiom(ontology, Declaration(P1));
+        m.addAxiom(ontology, Declaration(P2));
+        m.addAxiom(ontology, Declaration(ann));
+        m.applyChange(new AddOntologyAnnotation(ontology, Annotation(ann, i)));
         OWLAxiom ass = DataPropertyAssertion(P, i, Literal("hello world"));
         OWLNamedIndividual ind = NamedIndividual(IRI(NS + "#test"));
         OWLAxiom ax1 = ObjectPropertyAssertion(P1, ind, i);
         OWLAxiom ax2 = ObjectPropertyAssertion(P2, ind, i);
-        manager.addAxiom(ontology, ass);
-        manager.addAxiom(ontology, ax1);
-        manager.addAxiom(ontology, ax2);
+        m.addAxiom(ontology, ass);
+        m.addAxiom(ontology, ax1);
+        m.addAxiom(ontology, ax2);
         return ontology;
     }
 
@@ -110,12 +106,6 @@ public class SharedBlankNodeTestCase {
         ontology.getOWLOntologyManager().saveOntology(ontology,
                 new RDFXMLOntologyFormat(), target);
         return target.toString();
-    }
-
-    public static OWLOntology loadOntology(String ontology)
-            throws OWLOntologyCreationException {
-        return Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(ontology));
     }
 
     public static void displayOntology(OWLOntology ontology)

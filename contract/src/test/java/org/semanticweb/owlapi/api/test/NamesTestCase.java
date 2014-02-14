@@ -47,6 +47,7 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
 import org.coode.owlapi.owlxmlparser.OWLXMLParser;
 import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Test;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.change.AddAxiomData;
 import org.semanticweb.owlapi.change.AddImportData;
 import org.semanticweb.owlapi.change.AddOntologyAnnotationData;
@@ -163,7 +164,8 @@ public class NamesTestCase {
         assertEquals("RDFXMLParser", new RDFXMLParser().getName());
         assertEquals("TurtleOntologyParser",
                 new TurtleOntologyParser().getName());
-        OWLOntology createOntology = Factory.getManager().createOntology();
+        OWLOntology createOntology = OWLManager.createOWLOntologyManager()
+                .createOntology();
         assertEquals("Average number of named superclasses",
                 new AverageAssertedNamedSuperclassCount(createOntology)
                         .getName());

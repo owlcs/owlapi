@@ -48,8 +48,7 @@ import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -64,7 +63,7 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 @SuppressWarnings("javadoc")
-public class SWRLAnnotationTestCase {
+public class SWRLAnnotationTestCase extends AbstractOWLAPITestCase {
     private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
     OWLClass a;
     OWLClass b;
@@ -72,7 +71,7 @@ public class SWRLAnnotationTestCase {
 
     @Before
     public void setUp() {
-        OWLDataFactory factory = Factory.getFactory();
+        OWLDataFactory factory = df;
         a = Class(IRI(NS + "#A"));
         b = Class(IRI(NS + "#B"));
         SWRLVariable x = factory.getSWRLVariable(IRI(NS + "#x"));
@@ -94,16 +93,15 @@ public class SWRLAnnotationTestCase {
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ontology = createOntology();
         assertTrue(ontology.containsAxiom(axiom));
-        ontology = loadOntology(saveOntology(ontology));
+        ontology = loadOntologyFromString(saveOntology(ontology));
         assertTrue(ontology.containsAxiom(axiom));
     }
 
     public OWLOntology createOntology() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI(NS));
+        OWLOntology ontology = m.createOntology(IRI(NS));
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         changes.add(new AddAxiom(ontology, axiom));
-        manager.applyChanges(changes);
+        m.applyChanges(changes);
         return ontology;
     }
 
@@ -113,13 +111,5 @@ public class SWRLAnnotationTestCase {
         StringDocumentTarget target = new StringDocumentTarget();
         manager.saveOntology(ontology, target);
         return target;
-    }
-
-    public OWLOntology loadOntology(StringDocumentTarget ontology)
-            throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        return manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        ontology));
     }
 }

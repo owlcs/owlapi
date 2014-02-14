@@ -45,13 +45,12 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -62,32 +61,30 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
-public class SWRLRoundTripTestCase {
-    // test for 3562978
+public class SWRLRoundTripTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldDoCompleteRoundtrip()
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "urn:test";
-        OWLDataFactory factory = Factory.getFactory();
         OWLClass A = Class(IRI(NS + "#A"));
-        OWLDataProperty P = factory.getOWLDataProperty(IRI(NS + "#P"));
-        SWRLVariable X = factory.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable Y = factory.getSWRLVariable(IRI(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(IRI(NS));
+        OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
+        OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
-        body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
-        body.add(factory.getSWRLDataRangeAtom(
-                factory.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
+        body.add(df.getSWRLDataPropertyAtom(P, X, Y));
+        body.add(df.getSWRLDataRangeAtom(
+                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
         Set<SWRLAtom> head = new TreeSet<SWRLAtom>();
-        head.add(factory.getSWRLClassAtom(A, X));
-        SWRLRule rule = factory.getSWRLRule(body, head);
+        head.add(df.getSWRLClassAtom(A, X));
+        SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
         StringDocumentTarget t = new StringDocumentTarget();
         OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t));
+        ontology = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
         t = new StringDocumentTarget();
         format = new OWLXMLOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
@@ -99,26 +96,26 @@ public class SWRLRoundTripTestCase {
     public void shouldDoCompleteRoundtripManchesterOWLSyntax()
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "urn:test";
-        OWLDataFactory factory = Factory.getFactory();
         OWLClass A = Class(IRI(NS + "#A"));
-        OWLDataProperty P = factory.getOWLDataProperty(IRI(NS + "#P"));
-        SWRLVariable X = factory.getSWRLVariable(IRI(NS + "#X"));
-        SWRLVariable Y = factory.getSWRLVariable(IRI(NS + "#Y"));
-        OWLOntology ontology = Factory.getManager().createOntology(IRI(NS));
+        OWLDataProperty P = df.getOWLDataProperty(IRI(NS + "#P"));
+        SWRLVariable X = df.getSWRLVariable(IRI(NS + "#X"));
+        SWRLVariable Y = df.getSWRLVariable(IRI(NS + "#Y"));
+        OWLOntology ontology = m.createOntology(IRI(NS));
         Set<SWRLAtom> body = new TreeSet<SWRLAtom>();
-        body.add(factory.getSWRLDataPropertyAtom(P, X, Y));
-        body.add(factory.getSWRLDataRangeAtom(
-                factory.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
+        body.add(df.getSWRLDataPropertyAtom(P, X, Y));
+        body.add(df.getSWRLDataRangeAtom(
+                df.getOWLDatatype(XSDVocabulary.STRING.getIRI()), Y));
         Set<SWRLAtom> head = new TreeSet<SWRLAtom>();
-        head.add(factory.getSWRLClassAtom(A, X));
-        SWRLRule rule = factory.getSWRLRule(body, head);
+        head.add(df.getSWRLClassAtom(A, X));
+        SWRLRule rule = df.getSWRLRule(body, head);
         ontology.getOWLOntologyManager().addAxiom(ontology, rule);
         StringDocumentTarget t = new StringDocumentTarget();
         ManchesterOWLSyntaxOntologyFormat format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
-        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(onto1));
+        ontology = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        onto1));
         t = new StringDocumentTarget();
         format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);

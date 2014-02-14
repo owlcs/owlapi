@@ -47,7 +47,7 @@ import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.metrics.AbstractOWLMetric;
 import org.semanticweb.owlapi.metrics.AverageAssertedNamedSuperclassCount;
 import org.semanticweb.owlapi.metrics.AxiomCount;
@@ -416,7 +416,7 @@ public class ContractMetricsTest {
     @Test
     public void shouldTestObjectCountMetric() throws OWLException {
         ObjectCountMetric<Object> testSubject0 = new ObjectCountMetric<Object>(
-                Factory.getManager().createOntology()) {
+                OWLManager.createOWLOntologyManager().createOntology()) {
             @Override
             protected String getObjectTypeName() {
                 return "";

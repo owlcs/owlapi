@@ -42,9 +42,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -54,8 +53,10 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
+import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
+
 @SuppressWarnings("javadoc")
-public class ManchesterParseErrorTestCase {
+public class ManchesterParseErrorTestCase extends AbstractOWLAPITestCase {
     @Test(expected = ParserException.class)
     public void shouldNotParse() {
         parse("p some rdfs:Literal");
@@ -70,11 +71,10 @@ public class ManchesterParseErrorTestCase {
         parse(text1);
     }
 
-    private static OWLClassExpression parse(String text) {
-        OWLDataFactory factory = Factory.getFactory();
-        StupidEntityChecker checker = new StupidEntityChecker(factory);
+    private OWLClassExpression parse(String text) {
+        StupidEntityChecker checker = new StupidEntityChecker(df);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                factory, text);
+                df, text);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassExpression();
     }

@@ -42,9 +42,7 @@ import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -54,7 +52,6 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
@@ -67,36 +64,31 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRoundTrip() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI(NS));
-        OWLDataFactory factory = manager.getOWLDataFactory();
+        OWLOntology ontology = m.createOntology(IRI(NS));
+        OWLDataFactory factory = m.getOWLDataFactory();
         OWLAnonymousIndividual i = factory.getOWLAnonymousIndividual();
-        manager.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(
+        m.addAxiom(ontology, factory.getOWLAnnotationAssertionAxiom(
                 factory.getRDFSLabel(), i,
                 factory.getOWLLiteral(ANONYMOUS_INDIVIDUAL_ANNOTATION)));
-        manager.addAxiom(
+        m.addAxiom(
                 ontology,
                 factory.getOWLClassAssertionAxiom(Class(IRI(NS
                         + "#CheeseyPizza")), i));
         OWLIndividual j = factory.getOWLAnonymousIndividual();
-        manager.addAxiom(
+        m.addAxiom(
                 ontology,
                 factory.getOWLClassAssertionAxiom(Class(IRI(NS
                         + "#CheeseTopping")), j));
-        manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(
+        m.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(
                 factory.getOWLObjectProperty(IRI(NS + "#hasTopping")), i, j));
         StringDocumentTarget target = new StringDocumentTarget();
-        manager.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
-        OWLOntologyManager manager2 = Factory.getManager();
-        manager2.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target));
+        m.saveOntology(ontology, new OWLXMLOntologyFormat(), target);
+        m1.loadOntologyFromOntologyDocument(new StringDocumentSource(target));
     }
 
     @Test
     public void shouldParse() throws Exception {
-        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology(
-                IRI.create("urn:test"));
-        OWLDataFactory df = o.getOWLOntologyManager().getOWLDataFactory();
+        OWLOntology o = m.createOntology(IRI.create("urn:test"));
         o.getOWLOntologyManager().addAxiom(
                 o,
                 df.getOWLSubClassOfAxiom(df.getOWLClass(IRI.create("urn:c")),
@@ -106,9 +98,7 @@ public class OWLXMLNullPointerTestCase extends AbstractOWLAPITestCase {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, new OWLXMLOntologyFormat(),
                 target);
-        OWLOntology roundtrip = OWLManager.createOWLOntologyManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target));
+        OWLOntology roundtrip = loadOntologyFromString(target);
         assertEquals(o.getAxioms(), roundtrip.getAxioms());
     }
 }

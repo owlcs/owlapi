@@ -48,8 +48,8 @@ import java.util.Collections;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -184,7 +184,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
         getManager().saveOntology(ont2, format, writer2);
-        OWLOntologyManager man = Factory.getManager();
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         OWLOntology ont1L = man
                 .loadOntologyFromOntologyDocument(savedLocation1);
         OWLOntology ont2L = man
@@ -274,7 +274,7 @@ public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
         FileOutputStream out2 = new FileOutputStream(savedLocation2);
         StreamDocumentTarget writer2 = new StreamDocumentTarget(out2);
         getManager().saveOntology(ont2, format, writer2);
-        OWLOntologyManager man = Factory.getManager();
+        OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         @SuppressWarnings("unused")
         OWLOntology ont1L = man
                 .loadOntologyFromOntologyDocument(savedLocation1);

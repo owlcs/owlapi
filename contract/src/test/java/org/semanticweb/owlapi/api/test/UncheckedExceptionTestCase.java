@@ -41,14 +41,16 @@ package org.semanticweb.owlapi.api.test;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class UncheckedExceptionTestCase {
     @Test(expected = OWLOntologyCreationException.class)
     public void testLoad() throws OWLOntologyCreationException {
-        OWLOntologyManager m = Factory.getManager();
-        m.loadOntology(IRI("http://rest.bioontology.org/bioportal/virtual/download/1005"));
+        OWLManager
+                .createOWLOntologyManager()
+                .loadOntology(
+                        IRI("http://rest.bioontology.org/bioportal/virtual/download/1005"));
     }
 }

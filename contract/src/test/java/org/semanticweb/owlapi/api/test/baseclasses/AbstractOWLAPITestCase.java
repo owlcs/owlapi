@@ -45,9 +45,9 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.junit.Test;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -70,6 +71,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Group, Date: 10-May-2008 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
+    protected OWLDataFactory df = OWLManager.getOWLDataFactory();
+    protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+    protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();
+
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same",
@@ -82,7 +87,6 @@ public abstract class AbstractOWLAPITestCase {
         // This isn't great - we normalise axioms by changing the ids of
         // individuals. This relies on the fact that
         // we iterate over objects in the same order for the same set of axioms!
-        OWLDataFactory df = ont1.getOWLOntologyManager().getOWLDataFactory();
         AnonymousIndividualsNormaliser normaliser1 = new AnonymousIndividualsNormaliser(
                 df);
         axioms1 = normaliser1.getNormalisedAxioms(axioms1);
@@ -181,30 +185,19 @@ public abstract class AbstractOWLAPITestCase {
         return false;
     }
 
-    private OWLOntologyManager manager;
-    private String uriBase;
-
-    public AbstractOWLAPITestCase() {
-        manager = Factory.getManager();
-        uriBase = "http://www.semanticweb.org/owlapi/test";
-    }
-
-    @Before
-    public void setUp() {
-        manager = Factory.getManager();
-    }
+    private String uriBase = "http://www.semanticweb.org/owlapi/test";
 
     public OWLOntologyManager getManager() {
-        return manager;
+        return m;
     }
 
     public OWLOntology getOWLOntology(String name) {
         try {
             IRI iri = IRI(uriBase + "/" + name);
-            if (manager.contains(iri)) {
-                return manager.getOntology(iri);
+            if (m.contains(iri)) {
+                return m.getOntology(iri);
             } else {
-                return manager.createOntology(iri);
+                return m.createOntology(iri);
             }
         } catch (OWLOntologyCreationException e) {
             throw new RuntimeException(e);
@@ -214,7 +207,7 @@ public abstract class AbstractOWLAPITestCase {
     public OWLOntology loadOntology(String fileName) {
         try {
             URL url = getClass().getResource("/" + fileName);
-            return manager.loadOntologyFromOntologyDocument(
+            return m.loadOntologyFromOntologyDocument(
                     new IRIDocumentSource(IRI.create(url)),
                     new OWLOntologyLoaderConfiguration()
                             .setReportStackTraces(true));
@@ -229,7 +222,7 @@ public abstract class AbstractOWLAPITestCase {
     }
 
     public void addAxiom(OWLOntology ont, OWLAxiom ax) {
-        manager.addAxiom(ont, ax);
+        m.addAxiom(ont, ax);
     }
 
     public void roundTripOntology(OWLOntology ont)
@@ -251,7 +244,7 @@ public abstract class AbstractOWLAPITestCase {
             OWLOntologyFormat format) throws OWLOntologyStorageException,
             OWLOntologyCreationException {
         StringDocumentTarget target = new StringDocumentTarget();
-        OWLOntologyFormat fromFormat = manager.getOntologyFormat(ont);
+        OWLOntologyFormat fromFormat = m.getOntologyFormat(ont);
         if (fromFormat instanceof PrefixOWLOntologyFormat
                 && format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat fromPrefixFormat = (PrefixOWLOntologyFormat) fromFormat;
@@ -261,15 +254,33 @@ public abstract class AbstractOWLAPITestCase {
         if (format instanceof RDFOntologyFormat) {
             ((RDFOntologyFormat) format).setAddMissingTypes(false);
         }
-        manager.saveOntology(ont, format, target);
+        m.saveOntology(ont, format, target);
         handleSaved(target, format);
-        OWLOntologyManager man = Factory.getManager();
-        OWLOntology ont2 = man
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target), new OWLOntologyLoaderConfiguration()
-                        .setReportStackTraces(true));
+        OWLOntology ont2 = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(target),
+                        new OWLOntologyLoaderConfiguration()
+                                .setReportStackTraces(true));
         equal(ont, ont2);
         return ont2;
+    }
+
+    @Test
+    public void checkVerify() {
+        OWLDataProperty t = df.getOWLDataProperty(IRI.create("urn:test#t"));
+        Set<OWLAxiom> ax1 = new HashSet<OWLAxiom>();
+        ax1.add(df.getOWLDataPropertyAssertionAxiom(t,
+                df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
+        ax1.add(df.getOWLDataPropertyAssertionAxiom(t,
+                df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
+        Set<OWLAxiom> ax2 = new HashSet<OWLAxiom>();
+        ax2.add(df.getOWLDataPropertyAssertionAxiom(t,
+                df.getOWLAnonymousIndividual(), df.getOWLLiteral("test1")));
+        ax2.add(df.getOWLDataPropertyAssertionAxiom(t,
+                df.getOWLAnonymousIndividual(), df.getOWLLiteral("test2")));
+        assertFalse(ax1.equals(ax2));
+        assertTrue(AbstractOWLAPITestCase.verifyErrorIsDueToBlankNodesId(ax1,
+                ax2));
     }
 
     @SuppressWarnings("unused")
@@ -281,5 +292,37 @@ public abstract class AbstractOWLAPITestCase {
     protected void handleSaved(StringDocumentTarget target,
             OWLOntologyFormat format) {
         // System.out.println(target.toString());
+    }
+
+    protected OWLOntology loadOntologyFromString(String input)
+            throws OWLOntologyCreationException {
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
+        return ontology;
+    }
+
+    protected OWLOntology loadOntologyFromString(StringDocumentSource input)
+            throws OWLOntologyCreationException {
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(input);
+        return ontology;
+    }
+
+    protected OWLOntology loadOntologyFromString(StringDocumentTarget input)
+            throws OWLOntologyCreationException {
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input));
+        return ontology;
+    }
+
+    protected OWLOntology loadOntologyStrict(String o)
+            throws OWLOntologyCreationException {
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+        config.setStrict(true);
+        return manager.loadOntologyFromOntologyDocument(
+                new StringDocumentSource(o), config);
     }
 }

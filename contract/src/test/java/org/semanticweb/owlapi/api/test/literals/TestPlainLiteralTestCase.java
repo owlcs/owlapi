@@ -44,48 +44,40 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.io.ByteArrayOutputStream;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 @SuppressWarnings("javadoc")
-public class TestPlainLiteralTestCase {
+public class TestPlainLiteralTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testPlainLiteral() {
         IRI iri = IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
         assertTrue(iri.isPlainLiteral());
-        assertNotNull(Factory.getFactory().getRDFPlainLiteral());
+        assertNotNull(df.getRDFPlainLiteral());
         assertNotNull(OWL2Datatype.getDatatype(iri));
     }
 
     @Test
     public void shouldParsePlainLiteral() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n"
-                + "    <rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "         xml:base=\"http://www.w3.org/2002/07/owl\"\n"
-                + "         xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n"
-                + "         xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
-                + "         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\"\n"
-                + "         xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
-                + "\n"
+                + "    <rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\" xml:base=\"http://www.w3.org/2002/07/owl\"\n"
+                + "         xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n"
+                + "         xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n\n"
                 + "        <rdf:Description rdf:about=\"urn:test#ind\">\n"
                 + "            <rdfs:comment rdf:datatype=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral\">test</rdfs:comment>\n"
                 + "        </rdf:Description>\n" + "    </rdf:RDF>";
-        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology o = loadOntologyFromString(input);
         IRI i = IRI("urn:test#ind");
         assertEquals(
                 o.getAnnotationAssertionAxioms(i).iterator().next(),
@@ -95,23 +87,23 @@ public class TestPlainLiteralTestCase {
 
     @Test
     public void testPlainLiteralFromEvren() {
-        OWLDataFactory factory = Factory.getManager().getOWLDataFactory();
-        OWLDatatype node = factory.getRDFPlainLiteral();
+        OWLDatatype node = df.getRDFPlainLiteral();
         assertTrue(node.isBuiltIn());
         assertNotNull(node.getBuiltInDatatype());
     }
 
     @Test
-    public void testPlainLiteralSerialization() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
-        OWLOntologyManager m = Factory.getManager();
+    public void testPlainLiteralSerialization()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology o = m.createOntology();
-        OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(IRI("urn:test#p"));
-        OWLIndividual i = m.getOWLDataFactory()
-                .getOWLNamedIndividual(IRI("urn:test#ind"));
+        OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(
+                IRI("urn:test#p"));
+        OWLIndividual i = m.getOWLDataFactory().getOWLNamedIndividual(
+                IRI("urn:test#ind"));
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);
-        m.addAxiom(o, m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
+        m.addAxiom(o,
+                m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
         String expected = "<test:p>test</test:p>";
@@ -121,19 +113,13 @@ public class TestPlainLiteralTestCase {
     @Test
     public void testPlainLiteralSerializationComments()
             throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
-        OWLIndividual i = m.getOWLDataFactory()
-                .getOWLNamedIndividual(IRI("urn:test#ind"));
+        OWLIndividual i = df.getOWLNamedIndividual(IRI("urn:test#ind"));
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);
-        m.addAxiom(
-                o,
-                m.getOWLDataFactory().getOWLAnnotationAssertionAxiom(
-                        m.getOWLDataFactory().getOWLAnnotationProperty(
-                                OWLRDFVocabulary.RDFS_COMMENT.getIRI()),
-                        i.asOWLNamedIndividual().getIRI(), l));
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        m.addAxiom(o, df.getOWLAnnotationAssertionAxiom(df.getRDFSComment(), i
+                .asOWLNamedIndividual().getIRI(), l));
+        StringDocumentTarget out = new StringDocumentTarget();
         m.saveOntology(o, out);
         String expected = "<rdfs:comment>test</rdfs:comment>";
         assertTrue(out.toString(), out.toString().contains(expected));
@@ -142,7 +128,6 @@ public class TestPlainLiteralTestCase {
     @Test
     public void testPlainLiteralSerializationComments2()
             throws OWLOntologyCreationException, OWLOntologyStorageException {
-        OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);

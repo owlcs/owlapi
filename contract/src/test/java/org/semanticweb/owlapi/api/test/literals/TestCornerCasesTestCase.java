@@ -44,24 +44,21 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class TestCornerCasesTestCase {
+public class TestCornerCasesTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testFloatZeros() {
         // +0 and -0 are not equal
-        OWLDataFactory df = Factory.getFactory();
         OWLDatatype type = df.getFloatOWLDatatype();
         OWLLiteral lit1 = df.getOWLLiteral("0.0", type);
         OWLLiteral lit2 = df.getOWLLiteral("-0.0", type);
@@ -71,7 +68,6 @@ public class TestCornerCasesTestCase {
     @Test
     public void testIntegerRange2_4() {
         String expected = "2147483648";
-        OWLDataFactory df = Factory.getFactory();
         OWLDatatype type = df.getIntegerOWLDatatype();
         OWLLiteral lit = df.getOWLLiteral(expected, type);
         assertEquals(expected, lit.getLiteral());
@@ -79,14 +75,12 @@ public class TestCornerCasesTestCase {
 
     @Test
     public void testEnumInt_5() {
-        OWLDataFactory df = Factory.getFactory();
         OWLDatatype type = df.getIntegerOWLDatatype();
         df.getOWLLiteral("1000000000000000000000000000000000000000", type);
     }
 
     @Test
     public void testGetDataPropertyValues() {
-        OWLDataFactory df = Factory.getFactory();
         OWLDatatype type = df.getIntegerOWLDatatype();
         OWLLiteral lit1 = df.getOWLLiteral("01", type);
         OWLLiteral lit2 = df.getOWLLiteral("1", type);
@@ -171,9 +165,7 @@ public class TestCornerCasesTestCase {
                 .add("DataPropertyRange(<http://www.w3.org/2002/03owlt/oneOf/premises004#p> DataOneOf(\"4\"^^xsd:integer \"5\"^^xsd:integer \"6\"^^xsd:integer ))");
         expectedResult
                 .add("ClassAssertion(DataMinCardinality(1 <http://www.w3.org/2002/03owlt/oneOf/premises004#p> rdfs:Literal) <http://www.w3.org/2002/03owlt/oneOf/premises004#i>)");
-        OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(s));
+        OWLOntology o = loadOntologyFromString(s);
         Set<String> result = new TreeSet<String>();
         for (OWLAxiom ax : o.getAxioms()) {
             result.add(ax.toString());
@@ -202,11 +194,9 @@ public class TestCornerCasesTestCase {
                 + "\nSubClassOf(:A \n"
                 + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
                 + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
-        StringDocumentSource in = new StringDocumentSource(input);
-        OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m.loadOntologyFromOntologyDocument(in);
+        OWLOntology o = loadOntologyFromString(input);
         StringDocumentTarget t = new StringDocumentTarget();
-        m.saveOntology(o, t);
+        o.getOWLOntologyManager().saveOntology(o, t);
         assertTrue(t.toString() + " should contain -INF", t.toString()
                 .contains("-INF"));
         OWLOntology o1 = m
@@ -228,11 +218,9 @@ public class TestCornerCasesTestCase {
                 + "\nSubClassOf(:A \n"
                 + "DataSomeValuesFrom(:dp DataOneOf(\"-INF\"^^xsd:float \"-0\"^^xsd:integer))"
                 + "\n)" + "\n" + "ClassAssertion(:A :a)" + "\n)";
-        StringDocumentSource in = new StringDocumentSource(input);
-        OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m.loadOntologyFromOntologyDocument(in);
+        OWLOntology o = loadOntologyFromString(input);
         StringDocumentTarget t = new StringDocumentTarget();
-        m.saveOntology(o, t);
+        o.getOWLOntologyManager().saveOntology(o, t);
         assertTrue(t.toString() + " should contain -INF", t.toString()
                 .contains("-INF"));
         OWLOntology o1 = m

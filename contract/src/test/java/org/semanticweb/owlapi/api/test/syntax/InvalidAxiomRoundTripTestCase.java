@@ -43,9 +43,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -57,12 +56,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class InvalidAxiomRoundTripTestCase {
+public class InvalidAxiomRoundTripTestCase extends AbstractOWLAPITestCase {
     private OWLOntology o;
 
     @Before
-    public void setUp() throws OWLOntologyCreationException {
-        o = Factory.getManager().createOntology();
+    public void setUpO() throws OWLOntologyCreationException {
+        o = m.createOntology();
     }
 
     private void assertCorrectResult(OWLAxiom wrongAxiom, OWLAxiom validAxiom,
@@ -84,9 +83,7 @@ public class InvalidAxiomRoundTripTestCase {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology,
                 new OWLFunctionalSyntaxOntologyFormat(), target);
-        OWLOntology reloaded = Factory.getManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target));
+        OWLOntology reloaded = loadOntologyFromString(target);
         return reloaded;
     }
 

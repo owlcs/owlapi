@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -57,7 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class DuplicateImportTestCase {
+public class DuplicateImportTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldLoad() throws OWLOntologyStorageException,
             OWLOntologyCreationException, IOException {
@@ -69,7 +69,7 @@ public class DuplicateImportTestCase {
         ontologyByName = File.createTempFile("temp", "main.owl");
         ontologyByVersion = File.createTempFile("temp", "version.owl");
         ontologyByOtherPath = File.createTempFile("temp", "other.owl");
-        OWLOntologyManager manager = Factory.getManager();
+        OWLOntologyManager manager = m;
         OWLOntology ontology = manager.createOntology(new OWLOntologyID(IRI
                 .create(ontologyByName), IRI.create(ontologyByVersion)));
         manager.saveOntology(ontology, IRI.create(ontologyByName));
@@ -79,7 +79,7 @@ public class DuplicateImportTestCase {
                 "importsNameAndVersion.owl");
         importsBothNameAndOther = File.createTempFile("temp",
                 "importsNameAndOther.owl");
-        manager = Factory.getManager();
+        manager = m1;
         OWLDataFactory factory = manager.getOWLDataFactory();
         OWLOntology ontology1 = manager.createOntology(IRI
                 .create(importsBothNameAndVersion));
@@ -98,12 +98,8 @@ public class DuplicateImportTestCase {
         manager.saveOntology(ontology1, IRI.create(importsBothNameAndVersion));
         manager.saveOntology(ontology2, IRI.create(importsBothNameAndOther));
         // when
-        manager = Factory.getManager();
-        OWLOntology o1 = manager.loadOntology(IRI
-                .create(importsBothNameAndVersion));
-        manager = Factory.getManager();
-        OWLOntology o2 = manager.loadOntology(IRI
-                .create(importsBothNameAndOther));
+        OWLOntology o1 = m.loadOntology(IRI.create(importsBothNameAndVersion));
+        OWLOntology o2 = m1.loadOntology(IRI.create(importsBothNameAndOther));
         // then
         assertNotNull(o1);
         assertNotNull(o2);

@@ -46,7 +46,7 @@ import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -82,7 +82,7 @@ public class MultipleOntologyLoadsTestCase {
                 + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#Ontology\" />\n"
                 + "    <owl:versionIRI rdf:resource=\"http://test.example.org/ontology/0139/version:1\" />\n"
                 + "  </rdf:Description>  \n" + "</rdf:RDF>";
-        manager = Factory.getManager();
+        manager = OWLManager.createOWLOntologyManager();
     }
 
     @Test

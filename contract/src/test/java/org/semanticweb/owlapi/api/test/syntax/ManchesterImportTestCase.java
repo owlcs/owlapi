@@ -44,7 +44,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.io.File;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -81,7 +81,7 @@ public class ManchesterImportTestCase {
     }
 
     private OWLOntologyManager getManager() {
-        OWLOntologyManager manager = Factory.getManager();
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         AutoIRIMapper mapper = new AutoIRIMapper(
                 new File(RESOURCES, "imports"), true);
         manager.addIRIMapper(mapper);

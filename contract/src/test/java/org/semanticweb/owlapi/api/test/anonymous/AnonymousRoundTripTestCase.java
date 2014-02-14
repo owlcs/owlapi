@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.api.test.anonymous;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
@@ -85,7 +85,7 @@ class AnonymousRoundTrip {
     }
 
     public void buildOntology() throws OWLOntologyCreationException {
-        manager = Factory.getManager();
+        manager = OWLManager.createOWLOntologyManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
         ontology = manager.createOntology(IRI(NS));
         OWLAnnotation annotation1 = factory.getOWLAnnotation(p, h);
@@ -104,7 +104,7 @@ class AnonymousRoundTrip {
         StringDocumentTarget out = new StringDocumentTarget();
         manager.saveOntology(ontology, new ManchesterOWLSyntaxOntologyFormat(),
                 out);
-        manager = Factory.getManager();
+        manager = OWLManager.createOWLOntologyManager();
         ontology = manager
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(out));
     }

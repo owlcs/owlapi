@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.Collections;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -55,7 +54,7 @@ public class OWLAnnotationPropertyRangeAxiomTestCase extends
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty prop = RDFSComment();
-        OWLAxiom ax = Factory.getFactory().getOWLAnnotationPropertyRangeAxiom(prop,
+        OWLAxiom ax = df.getOWLAnnotationPropertyRangeAxiom(prop,
                 IRI("http://ont.com#A"));
         return Collections.singleton(ax);
     }

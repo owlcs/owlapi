@@ -48,7 +48,7 @@ import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.DataRangeType;
@@ -64,6 +64,7 @@ import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -160,6 +161,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_2Test {
+    protected OWLDataFactory df = OWLManager.getOWLDataFactory();
+
     @Test
     public void shouldTestInterfaceOWLDataFactoryInternals()
             throws OWLException {
@@ -1863,7 +1866,7 @@ public class ContractOwlapi_2Test {
     @Test
     public void shouldTestOWLLiteralImplBoolean() throws OWLException {
         OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false,
-                Factory.getFactory().getBooleanOWLDatatype());
+                df.getBooleanOWLDatatype());
         boolean result1 = testSubject0.parseBoolean();
         float result2 = testSubject0.parseFloat();
         double result3 = testSubject0.parseDouble();

@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
@@ -22,10 +23,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
-public class LoadAnonymousTestCase {
+public class LoadAnonymousTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldLoad() throws OWLOntologyCreationException {
-        OWLOntologyManager rootOntologyManager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager rootOntologyManager = OWLManager
+                .createOWLOntologyManager();
         String input = "format-version: 1.2\n"
                 + "date: 27:06:2013 17:08\n"
                 + "saved-by: gkoutos\n"
@@ -65,11 +67,13 @@ public class LoadAnonymousTestCase {
                 + "subset: unit_group_slim\n" + "is_a: UO:0000000 ! unit\n"
                 + "relationship: is_unit_of PATO:0001708 ! 1-D extent\n"
                 + "created_by: george gkoutos";
-        StringDocumentSource streamDocumentSource = new StringDocumentSource(input);
+        StringDocumentSource streamDocumentSource = new StringDocumentSource(
+                input);
         OWLOntologyLoaderConfiguration loaderConfig = new OWLOntologyLoaderConfiguration()
                 .setMissingImportHandlingStrategy(MissingImportHandlingStrategy.SILENT);
-        OWLOntology ontology = rootOntologyManager.loadOntologyFromOntologyDocument(
-                streamDocumentSource, loaderConfig);
+        OWLOntology ontology = rootOntologyManager
+                .loadOntologyFromOntologyDocument(streamDocumentSource,
+                        loaderConfig);
         OWLAnnotationProperty date = AnnotationProperty(IRI("http://www.geneontology.org/formats/oboInOwl#date"));
         OWLAnnotationProperty mpath_slim = AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#mpath_slim"));
         OWLAnnotationProperty SubsetProperty = AnnotationProperty(IRI("http://www.geneontology.org/formats/oboInOwl#SubsetProperty"));
@@ -111,19 +115,28 @@ public class LoadAnonymousTestCase {
                         Declaration(UO_1),
                         Declaration(id),
                         SubAnnotationPropertyOf(mpath_slim, SubsetProperty),
-                        AnnotationAssertion(hasOBONamespace,
+                        AnnotationAssertion(
+                                hasOBONamespace,
                                 IRI("http://purl.obolibrary.org/obo/UO_0000001"),
-                                Literal("unit.ontology", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSComment(), attribute_slim.getIRI(),
-                                Literal("Attribute slim", OWL2Datatype.XSD_STRING)),
+                                Literal("unit.ontology",
+                                        OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSComment(),
+                                attribute_slim.getIRI(),
+                                Literal("Attribute slim",
+                                        OWL2Datatype.XSD_STRING)),
                         AnnotationAssertion(RDFSLabel(), IAO_0000115.getIRI(),
                                 Literal("definition", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(hasOBONamespace, UO_0.getIRI(),
-                                Literal("unit.ontology", OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                hasOBONamespace,
+                                UO_0.getIRI(),
+                                Literal("unit.ontology",
+                                        OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(
                                 AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#unit_slim")),
                                 SubsetProperty),
-                        AnnotationAssertion(RDFSComment(),
+                        AnnotationAssertion(
+                                RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#value_slim"),
                                 Literal("Value slim", OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(
@@ -135,9 +148,13 @@ public class LoadAnonymousTestCase {
                         AnnotationAssertion(
                                 RDFSLabel(),
                                 hasOBOFormatVersion.getIRI(),
-                                Literal("has_obo_format_version", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSLabel(), NamespaceIdRule.getIRI(),
-                                Literal("namespace-id-rule", OWL2Datatype.XSD_STRING)),
+                                Literal("has_obo_format_version",
+                                        OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSLabel(),
+                                NamespaceIdRule.getIRI(),
+                                Literal("namespace-id-rule",
+                                        OWL2Datatype.XSD_STRING)),
                         SubClassOf(
                                 UO_1,
                                 ObjectSomeValuesFrom(
@@ -155,17 +172,22 @@ public class LoadAnonymousTestCase {
                                 AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#prefix_slim")),
                                 SubsetProperty),
                         SubAnnotationPropertyOf(scalar_slim, SubsetProperty),
-                        AnnotationAssertion(RDFSComment(), scalar_slim.getIRI(),
+                        AnnotationAssertion(RDFSComment(),
+                                scalar_slim.getIRI(),
                                 Literal("Scalar slim", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSComment(), abnormal_slim.getIRI(),
-                                Literal("Abnormal/normal slim", OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSComment(),
+                                abnormal_slim.getIRI(),
+                                Literal("Abnormal/normal slim",
+                                        OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(attribute_slim, SubsetProperty),
                         AnnotationAssertion(RDFSLabel(), UO_0.getIRI(),
                                 Literal("unit", OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(
                                 AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#disposition_slim")),
                                 SubsetProperty),
-                        AnnotationAssertion(RDFSComment(),
+                        AnnotationAssertion(
+                                RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#unit_slim"),
                                 Literal("unit slim", OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(
@@ -173,72 +195,92 @@ public class LoadAnonymousTestCase {
                                 SubsetProperty),
                         AnnotationAssertion(id, UO_1.getIRI(),
                                 Literal("UO:0000001", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSComment(), mpath_slim.getIRI(),
-                                Literal("Pathology slim", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(created_by, UO_1.getIRI(),
-                                Literal("george gkoutos", OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSComment(),
+                                mpath_slim.getIRI(),
+                                Literal("Pathology slim",
+                                        OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                created_by,
+                                UO_1.getIRI(),
+                                Literal("george gkoutos",
+                                        OWL2Datatype.XSD_STRING)),
                         AnnotationAssertion(
                                 RDFSLabel(),
                                 hasDbXref.getIRI(),
                                 Literal("database_cross_reference",
                                         OWL2Datatype.XSD_STRING)),
                         SubClassOf(UO_1, UO_0),
-                        AnnotationAssertion(RDFSLabel(), hasOBONamespace.getIRI(),
-                                Literal("has_obo_namespace", OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSLabel(),
+                                hasOBONamespace.getIRI(),
+                                Literal("has_obo_namespace",
+                                        OWL2Datatype.XSD_STRING)),
                         AnnotationAssertion(id, UO_0.getIRI(),
                                 Literal("UO:0000000", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(created_by, UO_0.getIRI(),
-                                Literal("george gkoutos", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSComment(),
+                        AnnotationAssertion(
+                                created_by,
+                                UO_0.getIRI(),
+                                Literal("george gkoutos",
+                                        OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#prefix_slim"),
                                 Literal("prefix slim", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSComment(),
+                        AnnotationAssertion(
+                                RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#cell_quality"),
                                 Literal("cell_quality", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSComment(),
+                        AnnotationAssertion(
+                                RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#absent_slim"),
-                                Literal("Absent/present slim", OWL2Datatype.XSD_STRING)),
-                        AnnotationAssertion(RDFSLabel(), SubsetProperty.getIRI(),
-                                Literal("subset_property", OWL2Datatype.XSD_STRING)),
+                                Literal("Absent/present slim",
+                                        OWL2Datatype.XSD_STRING)),
+                        AnnotationAssertion(
+                                RDFSLabel(),
+                                SubsetProperty.getIRI(),
+                                Literal("subset_property",
+                                        OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(
                                 AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#unit_group_slim")),
                                 SubsetProperty),
-                        AnnotationAssertion(RDFSComment(),
+                        AnnotationAssertion(
+                                RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#unit_group_slim"),
-                                Literal("unit group slim", OWL2Datatype.XSD_STRING)),
+                                Literal("unit group slim",
+                                        OWL2Datatype.XSD_STRING)),
                         AnnotationAssertion(
                                 RDFSComment(),
                                 IRI("http://purl.obolibrary.org/obo/uo#disposition_slim"),
-                                Literal("Disposition slim", OWL2Datatype.XSD_STRING)),
+                                Literal("Disposition slim",
+                                        OWL2Datatype.XSD_STRING)),
                         AnnotationAssertion(RDFSLabel(), inSubset.getIRI(),
                                 Literal("in_subset", OWL2Datatype.XSD_STRING)),
                         SubAnnotationPropertyOf(
                                 AnnotationProperty(IRI("http://purl.obolibrary.org/obo/uo#value_slim")),
                                 SubsetProperty),
-                        AnnotationAssertion(inSubset, UO_1.getIRI(),
+                        AnnotationAssertion(
+                                inSubset,
+                                UO_1.getIRI(),
                                 IRI("http://purl.obolibrary.org/obo/uo#unit_group_slim")),
-                        OWLManager
-                                .getOWLDataFactory()
-                                .getOWLAnnotationAssertionAxiom(
-                                        IAO_0000115,
-                                        UO_0.getIRI(),
-                                        Literal("A unit of measurement is a standardized quantity of a physical quality.",
-                                                OWL2Datatype.XSD_STRING),
-                                        Collections.singleton(Annotation(
-                                                hasDbXref,
-                                                Literal("Wikipedia:Wikipedia",
-                                                        OWL2Datatype.XSD_STRING)))),
-                        OWLManager
-                                .getOWLDataFactory()
-                                .getOWLAnnotationAssertionAxiom(
-                                        IAO_0000115,
-                                        UO_1.getIRI(),
-                                        Literal("A unit which is a standard measure of the distance between two points.",
-                                                OWL2Datatype.XSD_STRING),
-                                        Collections.singleton(Annotation(
-                                                hasDbXref,
-                                                Literal("Wikipedia:Wikipedia",
-                                                        OWL2Datatype.XSD_STRING))))));
+                        df.getOWLAnnotationAssertionAxiom(
+                                IAO_0000115,
+                                UO_0.getIRI(),
+                                Literal("A unit of measurement is a standardized quantity of a physical quality.",
+                                        OWL2Datatype.XSD_STRING),
+                                Collections.singleton(Annotation(
+                                        hasDbXref,
+                                        Literal("Wikipedia:Wikipedia",
+                                                OWL2Datatype.XSD_STRING)))),
+                        df.getOWLAnnotationAssertionAxiom(
+                                IAO_0000115,
+                                UO_1.getIRI(),
+                                Literal("A unit which is a standard measure of the distance between two points.",
+                                        OWL2Datatype.XSD_STRING),
+                                Collections.singleton(Annotation(
+                                        hasDbXref,
+                                        Literal("Wikipedia:Wikipedia",
+                                                OWL2Datatype.XSD_STRING))))));
         assertEquals(expected, ontology.getAxioms());
     }
 }

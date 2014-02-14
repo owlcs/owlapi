@@ -45,7 +45,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
@@ -60,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -78,28 +76,26 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testIgnoreAnnotations() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
-        OWLOntologyManager man = Factory.getManager();
-        OWLOntology ont = man.createOntology();
-        OWLDataFactory df = man.getOWLDataFactory();
+        OWLOntology ont = m.createOntology();
         OWLClass clsA = Class(IRI("http://ont.com#A"));
         OWLClass clsB = Class(IRI("http://ont.com#B"));
         OWLSubClassOfAxiom sca = SubClassOf(clsA, clsB);
-        man.addAxiom(ont, sca);
+        m.addAxiom(ont, sca);
         OWLAnnotationProperty rdfsComment = RDFSComment();
         OWLLiteral lit = Literal("Hello world");
         OWLAnnotationAssertionAxiom annoAx1 = AnnotationAssertion(rdfsComment,
                 clsA.getIRI(), lit);
-        man.addAxiom(ont, annoAx1);
+        m.addAxiom(ont, annoAx1);
         OWLAnnotationPropertyDomainAxiom annoAx2 = df
                 .getOWLAnnotationPropertyDomainAxiom(rdfsComment, clsA.getIRI());
-        man.addAxiom(ont, annoAx2);
+        m.addAxiom(ont, annoAx2);
         OWLAnnotationPropertyRangeAxiom annoAx3 = df
                 .getOWLAnnotationPropertyRangeAxiom(rdfsComment, clsB.getIRI());
-        man.addAxiom(ont, annoAx3);
+        m.addAxiom(ont, annoAx3);
         OWLAnnotationProperty myComment = AnnotationProperty(IRI("http://ont.com#myComment"));
         OWLSubAnnotationPropertyOfAxiom annoAx4 = df
                 .getOWLSubAnnotationPropertyOfAxiom(myComment, rdfsComment);
-        man.addAxiom(ont, annoAx4);
+        m.addAxiom(ont, annoAx4);
         reload(ont, new RDFXMLOntologyFormat());
         reload(ont, new OWLXMLOntologyFormat());
         reload(ont, new TurtleOntologyFormat());
@@ -139,10 +135,9 @@ public class LoadAnnotationAxiomsTestCase extends AbstractOWLAPITestCase {
         OWLOntologyManager man = ontology.getOWLOntologyManager();
         StringDocumentTarget tempFile = new StringDocumentTarget();
         man.saveOntology(ontology, format, tempFile);
-        OWLOntologyManager man2 = Factory.getManager();
-        OWLOntology reloaded = man2.loadOntologyFromOntologyDocument(
+        OWLOntology reloaded = m1.loadOntologyFromOntologyDocument(
                 new StringDocumentSource(tempFile), configuration);
-        man2.removeAxioms(
+        m1.removeAxioms(
                 reloaded,
                 new HashSet<OWLAxiom>(reloaded.getAxioms(AxiomType.DECLARATION)));
         return reloaded;

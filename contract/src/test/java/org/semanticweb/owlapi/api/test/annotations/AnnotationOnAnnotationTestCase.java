@@ -44,33 +44,33 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 02-Jul-2009 */
-public class AnnotationOnAnnotationTestCase extends AbstractAxiomsRoundTrippingTestCase {
+public class AnnotationOnAnnotationTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        OWLAnnotation annoOuterOuter1 = Factory.getFactory().getOWLAnnotation(
+        OWLAnnotation annoOuterOuter1 = df.getOWLAnnotation(
                 AnnotationProperty(getIRI("myOuterOuterLabel1")),
                 Literal("Outer Outer label 1"));
-        OWLAnnotation annoOuterOuter2 = Factory.getFactory().getOWLAnnotation(
+        OWLAnnotation annoOuterOuter2 = df.getOWLAnnotation(
                 AnnotationProperty(getIRI("myOuterOuterLabel2")),
                 Literal("Outer Outer label 2"));
         Set<OWLAnnotation> outerOuterAnnos = new HashSet<OWLAnnotation>();
         outerOuterAnnos.add(annoOuterOuter1);
         outerOuterAnnos.add(annoOuterOuter2);
-        OWLAnnotation annoOuter = Factory.getFactory().getOWLAnnotation(
-                AnnotationProperty(getIRI("myOuterLabel")), Literal("Outer label"),
-                outerOuterAnnos);
-        OWLAnnotation annoInner = Factory.getFactory().getOWLAnnotation(
+        OWLAnnotation annoOuter = df.getOWLAnnotation(
+                AnnotationProperty(getIRI("myOuterLabel")),
+                Literal("Outer label"), outerOuterAnnos);
+        OWLAnnotation annoInner = df.getOWLAnnotation(
                 AnnotationProperty(getIRI("myLabel")), Literal("Label"),
                 Collections.singleton(annoOuter));
-        OWLAxiom ax = Factory.getFactory().getOWLSubClassOfAxiom(Class(getIRI("A")),
+        OWLAxiom ax = df.getOWLSubClassOfAxiom(Class(getIRI("A")),
                 Class(getIRI("B")), Collections.singleton(annoInner));
         axioms.add(ax);
         return axioms;

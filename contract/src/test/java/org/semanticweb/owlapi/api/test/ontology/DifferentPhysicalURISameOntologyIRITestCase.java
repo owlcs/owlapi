@@ -43,37 +43,35 @@ import static org.junit.Assert.*;
 import java.net.URISyntaxException;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 22-Dec-2009 */
 @SuppressWarnings("javadoc")
-public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPITestCase {
+public class DifferentPhysicalURISameOntologyIRITestCase extends
+        AbstractOWLAPITestCase {
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
     public void testDifferentPhysicalURISameOntologyIRI()
             throws OWLOntologyCreationException, URISyntaxException {
-        OWLOntologyManager manager = Factory.getManager();
         IRI ontologyADocumentIRI = IRI
-                .create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource(
-                        "/" + ONTOLOGY_A).toURI());
+                .create(DifferentPhysicalURISameOntologyIRITestCase.class
+                        .getResource("/" + ONTOLOGY_A).toURI());
         IRI ontologyADocumentIRIB = IRI
-                .create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource(
-                        "/" + ONTOLOGY_A_EMPTY).toURI());
-        OWLOntology loadOntologyFromOntologyDocument = manager
+                .create(DifferentPhysicalURISameOntologyIRITestCase.class
+                        .getResource("/" + ONTOLOGY_A_EMPTY).toURI());
+        OWLOntology loadOntologyFromOntologyDocument = m
                 .loadOntologyFromOntologyDocument(ontologyADocumentIRI);
         OWLOntology ontologyA = loadOntologyFromOntologyDocument;
         OWLOntology ontologyALoad2 = loadOntologyFromOntologyDocument;
         assertEquals(ontologyA, ontologyALoad2);
-        manager.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
+        m.loadOntologyFromOntologyDocument(ontologyADocumentIRIB);
         fail("Expected an exception to say that the ontology already exists");
     }
 }

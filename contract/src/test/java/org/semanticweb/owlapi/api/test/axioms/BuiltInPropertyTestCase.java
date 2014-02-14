@@ -42,7 +42,6 @@ import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -53,14 +52,13 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testTopObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = Factory.getFactory().getOWLTopObjectProperty();
+        OWLObjectPropertyExpression prop = df.getOWLTopObjectProperty();
         assertTrue(prop.isOWLTopObjectProperty());
     }
 
     @Test
     public void testBottomObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = Factory.getFactory()
-                .getOWLBottomObjectProperty();
+        OWLObjectPropertyExpression prop = df.getOWLBottomObjectProperty();
         assertTrue(prop.isOWLBottomObjectProperty());
     }
 
@@ -78,13 +76,13 @@ public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testTopDataPropertyPositive() {
-        OWLDataPropertyExpression prop = Factory.getFactory().getOWLTopDataProperty();
+        OWLDataPropertyExpression prop = df.getOWLTopDataProperty();
         assertTrue(prop.isOWLTopDataProperty());
     }
 
     @Test
     public void testBottomDataPropertyPositive() {
-        OWLDataPropertyExpression prop = Factory.getFactory().getOWLBottomDataProperty();
+        OWLDataPropertyExpression prop = df.getOWLBottomDataProperty();
         assertTrue(prop.isOWLBottomDataProperty());
     }
 

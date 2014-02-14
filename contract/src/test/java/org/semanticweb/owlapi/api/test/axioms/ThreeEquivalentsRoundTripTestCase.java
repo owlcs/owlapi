@@ -43,8 +43,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -55,7 +54,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** test for 3178902 adapted from the report Thimoty provided. */
 @SuppressWarnings("javadoc")
-public class ThreeEquivalentsRoundTripTestCase {
+public class ThreeEquivalentsRoundTripTestCase extends AbstractOWLAPITestCase {
     private static final String NS = "http://protege.org/ontologies";
     private OWLClass b;
     private OWLClass c;
@@ -77,12 +76,11 @@ public class ThreeEquivalentsRoundTripTestCase {
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         // given
-        OWLOntology ontology = Factory.getManager().createOntology();
+        OWLOntology ontology = m.createOntology();
         ontology.getOWLOntologyManager().addAxiom(ontology, axiomToAdd);
         StringDocumentTarget saved = saveOntology(ontology);
         // when
-        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(saved));
+        ontology = loadOntologyFromString(saved);
         // then
         saved = saveOntology(ontology);
         assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI()));

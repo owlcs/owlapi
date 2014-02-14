@@ -46,11 +46,10 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
@@ -59,13 +58,11 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDatatypeImpl;
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 24/10/2012 */
 @SuppressWarnings("javadoc")
-public class OWL2DatatypeImplTestCase {
+public class OWL2DatatypeImplTestCase extends AbstractOWLAPITestCase {
     private OWLDatatype plainLiteral;
-    private OWLDataFactory df;
 
     @Before
     public void setUp() {
-        df = Factory.getFactory();
         plainLiteral = OWL2Datatype.RDF_PLAIN_LITERAL.getDatatype(df);
     }
 

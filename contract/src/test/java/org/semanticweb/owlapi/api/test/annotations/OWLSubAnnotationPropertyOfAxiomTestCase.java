@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.Collections;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -56,8 +55,7 @@ public class OWLSubAnnotationPropertyOfAxiomTestCase extends
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty subProp = AnnotationProperty(IRI("http://ont.com#myLabel"));
         OWLAnnotationProperty superProp = RDFSLabel();
-        OWLAxiom ax = Factory.getFactory().getOWLSubAnnotationPropertyOfAxiom(subProp,
-                superProp);
+        OWLAxiom ax = df.getOWLSubAnnotationPropertyOfAxiom(subProp, superProp);
         return Collections.singleton(ax);
     }
 }

@@ -49,8 +49,7 @@ import java.util.Set;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.expression.ParserException;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -60,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
@@ -69,7 +67,6 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
@@ -80,31 +77,32 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
+import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 @SuppressWarnings("javadoc")
-public class ManchesterOWLSyntaxParserTestCase {
+public class ManchesterOWLSyntaxParserTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
         // given
         IRI iri = IRI("http://protege.org/ontologies" + "#p");
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager
+        OWLOntology ontology = m
                 .createOntology(IRI("http://protege.org/ontologies"));
-        manager.addAxiom(ontology, Declaration(DataProperty(iri)));
+        m.addAxiom(ontology, Declaration(DataProperty(iri)));
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology, target);
         String saved = target.toString();
         // when
-        ontology = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(saved));
+        ontology = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        saved));
         // then
         assertTrue(ontology.containsDataPropertyInSignature(iri));
     }
 
     @Test
     public void shouldRoundtripDisjointUnion() throws Exception {
-        OWLOntology o = Factory.getManager().createOntology();
+        OWLOntology o = m.createOntology();
         OWLClass a = Class(IRI("http://iri/#a"));
         OWLClass b = Class(IRI("http://iri/#b"));
         OWLClass c = Class(IRI("http://iri/#c"));
@@ -119,9 +117,9 @@ public class ManchesterOWLSyntaxParserTestCase {
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), target);
         String string = target.toString();
-        OWLOntology roundtripped = Factory.getManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(string));
+        OWLOntology roundtripped = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        string));
         assertEquals(o.getAxioms(), roundtripped.getAxioms());
     }
 
@@ -150,16 +148,15 @@ public class ManchesterOWLSyntaxParserTestCase {
                 + "<owl:DatatypeProperty rdf:ID=\"yearValue\"><rdfs:domain rdf:resource=\"#VintageYear\" />    <rdfs:range  rdf:resource=\"&xsd;positiveInteger\" />"
                 + "</owl:DatatypeProperty></rdf:RDF>";
         String expression = "yearValue some ";
-        OWLOntologyManager mngr = Factory.getManager();
-        OWLOntology wine = mngr
+        OWLOntology wine = m
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(onto));
-        Set<OWLOntology> ontologies = mngr.getOntologies();
+        Set<OWLOntology> ontologies = m.getOntologies();
         ShortFormProvider sfp = new ManchesterOWLSyntaxPrefixNameShortFormProvider(
                 wine.getOWLOntologyManager().getOntologyFormat(wine));
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
                 ontologies, sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                mngr.getOWLDataFactory(), expression);
+                m.getOWLDataFactory(), expression);
         parser.setDefaultOntology(wine);
         parser.setOWLEntityChecker(new ShortFormEntityChecker(shortFormProvider));
         parser.parseClassExpression();
@@ -191,13 +188,14 @@ public class ManchesterOWLSyntaxParserTestCase {
                 + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
                 + "Rule: \n"
                 + "    xsd:decimal(?<urn:swrl#x>), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?<urn:swrl#p>, ?<urn:swrl#x>) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?<urn:swrl#p>)";
-        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(inputManSyntax));
+        OWLOntology o = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        inputManSyntax));
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
-        OWLOntology o1 = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t));
+        OWLOntology o1 = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
@@ -229,13 +227,14 @@ public class ManchesterOWLSyntaxParserTestCase {
                 + "        <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>\n"
                 + "Rule: \n"
                 + "    xsd:decimal(?x), <http://www.owl-ontologies.com/Ontology1307394066.owl#hasAge>(?p, ?x) -> <http://www.owl-ontologies.com/Ontology1307394066.owl#Person>(?p)";
-        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(inputManSyntax));
+        OWLOntology o = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        inputManSyntax));
         StringDocumentTarget t = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
-        OWLOntology o1 = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(t));
+        OWLOntology o1 = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(t));
         o1.getOWLOntologyManager().saveOntology(o1,
                 new ManchesterOWLSyntaxOntologyFormat(), t);
         assertEquals(o.getLogicalAxioms(), o1.getLogicalAxioms());
@@ -251,26 +250,25 @@ public class ManchesterOWLSyntaxParserTestCase {
                 + "Class: Man\n"
                 + "Annotations: rdfs:comment \"States that every man is a person.\"\n"
                 + "  SubClassOf:  Person";
-        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology o = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        input));
         Set<OWLAxiom> axioms = o.getAxioms();
         OWLClass person = Class(IRI("http://example.com/owl/families/Person"));
-        OWLClass m = Class(IRI("http://example.com/owl/families/Man"));
+        OWLClass man = Class(IRI("http://example.com/owl/families/Man"));
         assertTrue(axioms.contains(Declaration(person)));
-        assertTrue(axioms.contains(Declaration(m)));
-        assertTrue(axioms.contains(SubClassOf(m, person)));
+        assertTrue(axioms.contains(Declaration(man)));
+        assertTrue(axioms.contains(SubClassOf(man, person)));
     }
 
     public static final String NS = "http://protege.org/ontologies/Test.owl";
     OWLDataProperty p;
     OWLDatatype date_time;
-    OWLDataFactory factory;
 
     @Before
-    public void setUp() {
-        factory = Factory.getFactory();
+    public void setUpPAndDateTime() {
         p = DataProperty(IRI(NS + "#p"));
-        date_time = factory.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
+        date_time = df.getOWLDatatype(XSDVocabulary.DATE_TIME.getIRI());
     }
 
     @Test
@@ -278,32 +276,26 @@ public class ManchesterOWLSyntaxParserTestCase {
         // given
         OWLClass a = Class(IRI(NS + "#A"));
         String text1 = "'GWAS study' and  has_publication_date some dateTime[< \"2009-01-01T00:00:00+00:00\"^^dateTime]";
-        OWLClassExpression expected = factory
-                .getOWLObjectIntersectionOf(a, factory
-                        .getOWLDataSomeValuesFrom(p, factory
-                                .getOWLDatatypeRestriction(date_time,
-                                        OWLFacet.MAX_EXCLUSIVE,
-                                        factory.getOWLLiteral(
-                                                "2009-01-01T00:00:00+00:00",
-                                                date_time))));
+        OWLClassExpression expected = df.getOWLObjectIntersectionOf(a, df
+                .getOWLDataSomeValuesFrom(p, df.getOWLDatatypeRestriction(
+                        date_time, OWLFacet.MAX_EXCLUSIVE, df.getOWLLiteral(
+                                "2009-01-01T00:00:00+00:00", date_time))));
         // ontology creation including labels - this is the input ontology
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology o = manager.createOntology();
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(p));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(date_time));
-        manager.addAxiom(o, annotation(a, "'GWAS study'"));
-        manager.addAxiom(o, annotation(p, "has_publication_date"));
-        manager.addAxiom(o, annotation(date_time, "dateTime"));
+        OWLOntology o = m.createOntology();
+        m.addAxiom(o, df.getOWLDeclarationAxiom(a));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(p));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(date_time));
+        m.addAxiom(o, annotation(a, "'GWAS study'"));
+        m.addAxiom(o, annotation(p, "has_publication_date"));
+        m.addAxiom(o, annotation(date_time, "dateTime"));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
-                Arrays.asList(factory.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-                manager);
+                Arrays.asList(df.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                manager.getOntologies(), sfp);
+                m.getOntologies(), sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                factory, text1);
+                df, text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -316,10 +308,8 @@ public class ManchesterOWLSyntaxParserTestCase {
     }
 
     public OWLAxiom annotation(final OWLEntity e, final String s) {
-        return factory.getOWLAnnotationAssertionAxiom(
-                e.getIRI(),
-                factory.getOWLAnnotation(factory.getRDFSLabel(),
-                        factory.getOWLLiteral(s)));
+        return df.getOWLAnnotationAssertionAxiom(e.getIRI(),
+                df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(s)));
     }
 
     @Test
@@ -331,24 +321,22 @@ public class ManchesterOWLSyntaxParserTestCase {
         OWLClass c = Class(IRI("urn:test#c"));
         OWLClass d = Class(IRI("urn:test#all"));
         String text1 = "(a and b) or c";
-        OWLClassExpression expected = factory.getOWLObjectUnionOf(
-                factory.getOWLObjectIntersectionOf(a, b), c);
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology o = manager.createOntology();
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(b));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
-        manager.addAxiom(o, factory.getOWLSubClassOfAxiom(expected, d));
+        OWLClassExpression expected = df.getOWLObjectUnionOf(
+                df.getOWLObjectIntersectionOf(a, b), c);
+        OWLOntology o = m.createOntology();
+        m.addAxiom(o, df.getOWLDeclarationAxiom(a));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(c));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(d));
+        m.addAxiom(o, df.getOWLSubClassOfAxiom(expected, d));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
-                Arrays.asList(factory.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-                manager);
+                Arrays.asList(df.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                manager.getOntologies(), sfp);
+                m.getOntologies(), sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                factory, text1);
+                df, text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -365,29 +353,27 @@ public class ManchesterOWLSyntaxParserTestCase {
             throws OWLOntologyCreationException {
         // given
         String text1 = "p some decimal[<=2.0, >= 1.0]";
-        OWLDatatype decimal = factory.getOWLDatatype(OWL2Datatype.XSD_DECIMAL
+        OWLDatatype decimal = df.getOWLDatatype(OWL2Datatype.XSD_DECIMAL
                 .getIRI());
-        OWLFacetRestriction max = factory.getOWLFacetRestriction(
-                OWLFacet.MAX_INCLUSIVE, factory.getOWLLiteral("2.0", decimal));
-        OWLFacetRestriction min = factory.getOWLFacetRestriction(
-                OWLFacet.MIN_INCLUSIVE, factory.getOWLLiteral("1.0", decimal));
-        OWLClassExpression expected = factory.getOWLDataSomeValuesFrom(p,
-                factory.getOWLDatatypeRestriction(decimal, max, min));
+        OWLFacetRestriction max = df.getOWLFacetRestriction(
+                OWLFacet.MAX_INCLUSIVE, df.getOWLLiteral("2.0", decimal));
+        OWLFacetRestriction min = df.getOWLFacetRestriction(
+                OWLFacet.MIN_INCLUSIVE, df.getOWLLiteral("1.0", decimal));
+        OWLClassExpression expected = df.getOWLDataSomeValuesFrom(p,
+                df.getOWLDatatypeRestriction(decimal, max, min));
         // ontology creation including labels - this is the input ontology
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology o = manager.createOntology();
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(p));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(decimal));
-        manager.addAxiom(o, annotation(p, "p"));
+        OWLOntology o = m.createOntology();
+        m.addAxiom(o, df.getOWLDeclarationAxiom(p));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(decimal));
+        m.addAxiom(o, annotation(p, "p"));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
-                Arrays.asList(factory.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-                manager);
+                Arrays.asList(df.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                manager.getOntologies(), sfp);
+                m.getOntologies(), sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                factory, text1);
+                df, text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -403,14 +389,14 @@ public class ManchesterOWLSyntaxParserTestCase {
     public void shouldParseCorrectlydecimalNotSpecified()
             throws OWLOntologyCreationException {
         // given
-        OWLAxiom expected = factory.getOWLDataPropertyRangeAxiom(factory
-                .getOWLDataProperty(IRI.create("urn:a")), factory
-                .getOWLDataOneOf(factory.getOWLLiteral("1.2",
-                        OWL2Datatype.XSD_DECIMAL)));
+        OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(df
+                .getOWLDataProperty(IRI.create("urn:a")), df.getOWLDataOneOf(df
+                .getOWLLiteral("1.2", OWL2Datatype.XSD_DECIMAL)));
         String input = "Ontology:\n" + "DataProperty: <urn:a>\n"
                 + "Range: {1.2}";
-        OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(input));
+        OWLOntology o = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        input));
         Set<OWLLogicalAxiom> axioms = o.getLogicalAxioms();
         for (OWLLogicalAxiom ax : axioms) {
             assertEquals(expected, ax);
@@ -426,24 +412,22 @@ public class ManchesterOWLSyntaxParserTestCase {
         OWLClass c = Class(IRI("urn:test#c"));
         OWLClass d = Class(IRI("urn:test#all"));
         String text1 = "a and b or c";
-        OWLClassExpression expected = factory.getOWLObjectUnionOf(
-                factory.getOWLObjectIntersectionOf(a, b), c);
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology o = manager.createOntology();
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(a));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(b));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(c));
-        manager.addAxiom(o, factory.getOWLDeclarationAxiom(d));
-        manager.addAxiom(o, factory.getOWLSubClassOfAxiom(expected, d));
+        OWLClassExpression expected = df.getOWLObjectUnionOf(
+                df.getOWLObjectIntersectionOf(a, b), c);
+        OWLOntology o = m.createOntology();
+        m.addAxiom(o, df.getOWLDeclarationAxiom(a));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(b));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(c));
+        m.addAxiom(o, df.getOWLDeclarationAxiom(d));
+        m.addAxiom(o, df.getOWLSubClassOfAxiom(expected, d));
         // select a short form provider that uses annotations
         ShortFormProvider sfp = new AnnotationValueShortFormProvider(
-                Arrays.asList(factory.getRDFSLabel()),
-                Collections.<OWLAnnotationProperty, List<String>> emptyMap(),
-                manager);
+                Arrays.asList(df.getRDFSLabel()),
+                Collections.<OWLAnnotationProperty, List<String>> emptyMap(), m);
         BidirectionalShortFormProvider shortFormProvider = new BidirectionalShortFormProviderAdapter(
-                manager.getOntologies(), sfp);
+                m.getOntologies(), sfp);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
-                factory, text1);
+                df, text1);
         ShortFormEntityChecker owlEntityChecker = new ShortFormEntityChecker(
                 shortFormProvider);
         parser.setOWLEntityChecker(owlEntityChecker);
@@ -463,14 +447,13 @@ public class ManchesterOWLSyntaxParserTestCase {
                 + "AnnotationAssertion(<http://x.org/p> <http://x.org/c> \"orifice\")\n"
                 + "AnnotationAssertion(Annotation(<http://x.org/p2> \"foo\") <http://x.org/p> <http://x.org/c> \"v1\")\n"
                 + ")";
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology o = manager
+        OWLOntology o = m
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(in));
         StringDocumentTarget target = new StringDocumentTarget();
-        manager.saveOntology(o, new ManchesterOWLSyntaxOntologyFormat(), target);
-        OWLOntology result = Factory.getManager()
-                .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target));
+        m.saveOntology(o, new ManchesterOWLSyntaxOntologyFormat(), target);
+        OWLOntology result = m1
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        target));
         for (OWLAxiom ax : o.getAxioms()) {
             assertTrue(ax.toString(), result.containsAxiom(ax));
         }

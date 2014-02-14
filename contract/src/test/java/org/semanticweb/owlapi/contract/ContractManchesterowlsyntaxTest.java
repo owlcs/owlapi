@@ -57,12 +57,10 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyHeader;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.Token;
-import org.coode.owlapi.manchesterowlsyntax.OntologyAxiomPair;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
-import org.semanticweb.owlapi.expression.ParserException;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
@@ -80,6 +78,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.OntologyAxiomPair;
+
+import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractManchesterowlsyntaxTest {

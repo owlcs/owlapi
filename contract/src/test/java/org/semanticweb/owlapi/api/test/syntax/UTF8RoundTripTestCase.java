@@ -42,9 +42,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -56,7 +55,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
-public class UTF8RoundTripTestCase {
+public class UTF8RoundTripTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testRoundTrip() throws OWLOntologyStorageException,
             OWLOntologyCreationException {
@@ -78,13 +77,12 @@ public class UTF8RoundTripTestCase {
         checkOntology(newOntology, C, CHINESE);
     }
 
-    private static OWLOntology createOriginalOntology(String NS, OWLClass C,
+    private OWLOntology createOriginalOntology(String NS, OWLClass C,
             String CHINESE) throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        OWLOntology ontology = manager.createOntology(IRI(NS));
+        OWLOntology ontology = m.createOntology(IRI(NS));
         OWLAxiom annotationAxiom = AnnotationAssertion(RDFSLabel(), C.getIRI(),
                 Literal(CHINESE));
-        manager.addAxiom(ontology, annotationAxiom);
+        m.addAxiom(ontology, annotationAxiom);
         return ontology;
     }
 
@@ -98,16 +96,11 @@ public class UTF8RoundTripTestCase {
         return false;
     }
 
-    private static OWLOntology roundTrip(OWLOntology ontology)
+    private OWLOntology roundTrip(OWLOntology ontology)
             throws OWLOntologyStorageException, OWLOntologyCreationException {
         OWLOntologyManager oldManager = ontology.getOWLOntologyManager();
         StringDocumentTarget target = new StringDocumentTarget();
         oldManager.saveOntology(ontology, new RDFXMLOntologyFormat(), target);
-        OWLOntologyManager newManager = Factory.getManager();
-        OWLOntology newOntology;
-        newOntology = newManager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        target));
-        return newOntology;
+        return loadOntologyFromString(target);
     }
 }

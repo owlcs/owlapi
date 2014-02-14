@@ -44,7 +44,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -58,9 +57,9 @@ public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
         OWLLiteral lit = Literal("Test", "");
-        OWLAnnotation anno1 = Factory.getFactory().getOWLAnnotation(prop, lit);
+        OWLAnnotation anno1 = df.getOWLAnnotation(prop, lit);
         OWLAnnotationProperty prop2 = AnnotationProperty(getIRI("prop2"));
-        OWLAnnotation anno2 = Factory.getFactory().getOWLAnnotation(prop2, lit);
+        OWLAnnotation anno2 = df.getOWLAnnotation(prop2, lit);
         Set<OWLAnnotation> annos = new HashSet<OWLAnnotation>();
         // Add two annotations per axiom
         annos.add(anno1);

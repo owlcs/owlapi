@@ -41,14 +41,13 @@ package org.semanticweb.owlapi.api.test.individuals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
-public class AllDifferentTestCase {
+public class AllDifferentTestCase extends AbstractOWLAPITestCase {
     private final String onto1 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xml:base = \"http://example.org/\" "
             + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
@@ -71,11 +70,12 @@ public class AllDifferentTestCase {
 
     @Test
     public void testDistinctMembers() throws OWLOntologyCreationException {
-        OWLOntologyManager m = Factory.getManager();
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                onto1));
-        OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                onto2));
+        OWLOntology o1 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        onto1));
+        OWLOntology o2 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        onto2));
         assertEquals(o2.getLogicalAxiomCount(), o1.getLogicalAxiomCount());
     }
 }

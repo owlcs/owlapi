@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -25,7 +25,7 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfReservedVocabularyFo
 import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredAnnotationProperty;
 
 @SuppressWarnings("javadoc")
-public class ForbiddenVocabularyTestCase {
+public class ForbiddenVocabularyTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldFindViolation() throws Exception {
         String input = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" ><owl:Ontology rdf:about=\"\"/>\n<owl:Class rdf:about=\"http://phenomebrowser.net/cellphenotype.owl#C3PO:000000015\"><rdf:Description rdf:datatype=\"http://www.w3.org/2001/XMLSchema#string\">Any.</rdf:Description></owl:Class></rdf:RDF>";
@@ -99,28 +99,28 @@ public class ForbiddenVocabularyTestCase {
     public void shouldCauseViolationsWithUseOfPropertyInChain()
             throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
-        OWLDataFactory f = OWLManager.getOWLDataFactory();
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasFather a:hasBrother )
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
-        OWLObjectProperty father = f
+        OWLObjectProperty father = df
                 .getOWLObjectProperty(IRI("urn:test:hasFather"));
-        OWLObjectProperty brother = f
+        OWLObjectProperty brother = df
                 .getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = f
+        OWLObjectProperty child = df
                 .getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = f
+        OWLObjectProperty uncle = df
                 .getOWLObjectProperty(IRI("urn:test:hasUncle"));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager()
-                .addAxiom(o, f.getOWLDeclarationAxiom(brother));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = f
+                .addAxiom(o, df.getOWLDeclarationAxiom(father));
+        o.getOWLOntologyManager().addAxiom(o,
+                df.getOWLDeclarationAxiom(brother));
+        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
+        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
                         uncle);
-        OWLSubPropertyChainOfAxiom brokenAxiom2 = f
+        OWLSubPropertyChainOfAxiom brokenAxiom2 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
                         brother);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
@@ -144,21 +144,21 @@ public class ForbiddenVocabularyTestCase {
     @Test
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
-        OWLDataFactory f = OWLManager.getOWLDataFactory();
-        OWLObjectProperty father = f
+        OWLObjectProperty father = df
                 .getOWLObjectProperty(IRI("urn:test:hasFather"));
-        OWLObjectProperty brother = f
+        OWLObjectProperty brother = df
                 .getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = f
+        OWLObjectProperty child = df
                 .getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = f
+        OWLObjectProperty uncle = df
                 .getOWLObjectProperty(IRI("urn:test:hasUncle"));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
         o.getOWLOntologyManager()
-                .addAxiom(o, f.getOWLDeclarationAxiom(brother));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = f
+                .addAxiom(o, df.getOWLDeclarationAxiom(father));
+        o.getOWLOntologyManager().addAxiom(o,
+                df.getOWLDeclarationAxiom(brother));
+        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(child));
+        o.getOWLOntologyManager().addAxiom(o, df.getOWLDeclarationAxiom(uncle));
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = df
                 .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
                         uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(

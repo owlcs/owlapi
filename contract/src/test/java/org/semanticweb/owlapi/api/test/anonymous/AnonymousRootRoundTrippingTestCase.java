@@ -43,7 +43,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.Named
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -51,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 10-May-2008 */
-public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
+public class AnonymousRootRoundTrippingTestCase extends
+        AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("OntA");
@@ -59,7 +59,7 @@ public class AnonymousRootRoundTrippingTestCase extends AbstractRoundTrippingTes
         for (int i = 0; i < 10; i++) {
             inds.add(NamedIndividual(getIRI("Ind" + i)));
         }
-        addAxiom(ont, Factory.getFactory().getOWLDifferentIndividualsAxiom(inds));
+        addAxiom(ont, df.getOWLDifferentIndividualsAxiom(inds));
         return ont;
     }
 }

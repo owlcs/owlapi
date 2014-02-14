@@ -43,14 +43,14 @@ import static org.junit.Assert.assertEquals;
 import java.util.EnumSet;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
-public class NamespacesTestCase {
+public class NamespacesTestCase extends AbstractOWLAPITestCase {
     @Test
     public void shouldFindInNamespace() {
         EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL,
@@ -67,7 +67,6 @@ public class NamespacesTestCase {
     @Test
     public void shouldParseXSDSTRING() {
         // given
-        OWLDataFactory df = Factory.getFactory();
         String s = "xsd:string";
         // when
         XSDVocabulary v = XSDVocabulary.parseShortName(s);

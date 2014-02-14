@@ -41,11 +41,9 @@ package org.semanticweb.owlapi.api.test.imports;
 import java.io.File;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
@@ -63,31 +61,31 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
                 RESOURCES = f;
             } else {
                 RESOURCES = null;
-                System.out.println("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                System.out
+                        .println("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
+        m.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
+        m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES,
+        m.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"),
+                true));
+        m.loadOntologyFromOntologyDocument(new File(RESOURCES,
                 "/importscyclic/D.owl"));
     }
 
     @Test
     public void testCyclicImports2() throws OWLOntologyCreationException {
-        OWLOntologyManager manager = Factory.getManager();
-        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
-        manager.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
+        m.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"),
+                true));
+        m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
                 "importscyclic/D.owl")));
     }
 }

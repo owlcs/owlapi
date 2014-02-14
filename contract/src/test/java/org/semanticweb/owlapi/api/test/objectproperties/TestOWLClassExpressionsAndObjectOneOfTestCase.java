@@ -41,23 +41,20 @@ package org.semanticweb.owlapi.api.test.objectproperties;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
-public class TestOWLClassExpressionsAndObjectOneOfTestCase {
+public class TestOWLClassExpressionsAndObjectOneOfTestCase extends
+        AbstractOWLAPITestCase {
     @Test
     public void testAnonymous() throws OWLOntologyCreationException {
         String text = "Prefix(:=<http://example.org/#>)\n "
                 + "Ontology(<http://example.org/>\n "
                 + "SubClassOf(\n:man\n ObjectSomeValuesFrom(\n :like\n "
                 + "ObjectOneOf(\n_:c\n)\n)\n)\n\n ClassAssertion(\n:car\n_:c\n)\n)";
-        StringDocumentSource input = new StringDocumentSource(text);
-        OWLOntologyManager m = Factory.getManager();
-        OWLOntology o = m.loadOntologyFromOntologyDocument(input);
+        OWLOntology o = loadOntologyFromString(text);
         assertNotNull(o);
     }
 }

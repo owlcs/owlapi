@@ -44,7 +44,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.util.Collections;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -59,7 +59,7 @@ public class MapperlessOntologyManagerTestCase {
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
     private OWLOntologyManager createManager() {
-        OWLOntologyManager manager = Factory.getManager();
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         manager.clearIRIMappers();
         return manager;
     }
@@ -73,18 +73,21 @@ public class MapperlessOntologyManagerTestCase {
     }
 
     @Test
-    public void testCreateOntologyWithAxioms() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithAxioms()
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom> emptySet());
+        OWLOntology ontology = manager.createOntology(Collections
+                .<OWLAxiom> emptySet());
         assertNotNull("ontology should not be null",
                 manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
-    public void testCreateOntologyWithAxiomsAndIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithAxiomsAndIRI()
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom> emptySet(),
-                ONTOLOGY_IRI);
+        OWLOntology ontology = manager.createOntology(
+                Collections.<OWLAxiom> emptySet(), ONTOLOGY_IRI);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }
