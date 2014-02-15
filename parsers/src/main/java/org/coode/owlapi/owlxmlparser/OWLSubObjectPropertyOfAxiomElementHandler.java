@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLSubObjectPropertyOfAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLObjectPropertyExpression subProperty;
@@ -66,7 +67,8 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends
             superProperty = handler.getOWLObject();
         } else {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Expected two object property expression elements");
+                    getColumnNumber(),
+                    "Expected two object property expression elements");
         }
     }
 
@@ -78,11 +80,11 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (subProperty != null) {
-            return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(subProperty,
-                    superProperty, getAnnotations());
+            return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(
+                    subProperty, superProperty, getAnnotations());
         } else {
-            return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(propertyList,
-                    superProperty, getAnnotations());
+            return getOWLDataFactory().getOWLSubPropertyChainOfAxiom(
+                    propertyList, superProperty, getAnnotations());
         }
     }
 }

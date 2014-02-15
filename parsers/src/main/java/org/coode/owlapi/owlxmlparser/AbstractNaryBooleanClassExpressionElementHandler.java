@@ -44,14 +44,16 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractNaryBooleanClassExpressionElementHandler extends
         AbstractClassExpressionElementHandler {
     private Set<OWLClassExpression> operands;
 
     /** @param handler
      *            owlxml handler */
-    public AbstractNaryBooleanClassExpressionElementHandler(OWLXMLParserHandler handler) {
+    public AbstractNaryBooleanClassExpressionElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
         operands = new HashSet<OWLClassExpression>();
     }

@@ -47,10 +47,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006
+ *         Group
+ * @since 2.0.0
  * @param <O>
  *            handled type */
-public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<O> {
+public abstract class AbstractOWLElementHandler<O> implements
+        OWLElementHandler<O> {
     private OWLXMLParserHandler handler;
     private OWLElementHandler<?> parentHandler;
     private StringBuilder sb;
@@ -86,19 +88,22 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
             return getIRI(value);
         }
         throw new OWLXMLParserAttributeNotFoundException(getLineNumber(),
-                getColumnNumber(), OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
+                getColumnNumber(),
+                OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
     }
 
-    protected IRI getIRIFromElement(String elementLocalName, String textContent)
-            throws OWLParserException {
-        if (elementLocalName.equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
+    protected IRI
+            getIRIFromElement(String elementLocalName, String textContent)
+                    throws OWLParserException {
+        if (elementLocalName
+                .equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
             return handler.getIRI(textContent.trim());
-        } else if (elementLocalName.equals(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT
-                .getShortName())) {
+        } else if (elementLocalName
+                .equals(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT.getShortName())) {
             return handler.getAbbreviatedIRI(textContent.trim());
         }
-        throw new OWLXMLParserException(elementLocalName + " is not an IRI element",
-                getLineNumber(), getColumnNumber());
+        throw new OWLXMLParserException(elementLocalName
+                + " is not an IRI element", getLineNumber(), getColumnNumber());
     }
 
     protected OWLOntologyManager getOWLOntologyManager() {
@@ -123,13 +128,15 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {}
+    public void attribute(String localName, String value)
+            throws OWLParserException {}
 
     protected IRI getIRI(String iri) throws OWLParserException {
         return handler.getIRI(iri);
     }
 
-    protected IRI getAbbreviatedIRI(String abbreviatedIRI) throws OWLParserException {
+    protected IRI getAbbreviatedIRI(String abbreviatedIRI)
+            throws OWLParserException {
         return handler.getAbbreviatedIRI(abbreviatedIRI);
     }
 
@@ -208,7 +215,8 @@ public abstract class AbstractOWLElementHandler<O> implements OWLElementHandler<
             throws OWLXMLParserException {}
 
     @Override
-    public void handleChild(SWRLAtomElementHandler _handler) throws OWLXMLParserException {}
+    public void handleChild(SWRLAtomElementHandler _handler)
+            throws OWLXMLParserException {}
 
     @Override
     public void handleChild(SWRLAtomListElementHandler _handler)

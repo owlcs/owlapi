@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TypeAxiomHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
@@ -109,10 +110,12 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         // check that other conditions are not invalid
         if (annotatedSource != null && annotatedProperty != null) {
             consumeTriple(subject, predicate, object);
-            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+            Set<OWLAnnotation> annotations = getConsumer()
+                    .translateAnnotations(subject);
             getConsumer().setPendingAnnotations(annotations);
             if (annotatedTarget != null) {
-                getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
+                getConsumer().handle(annotatedSource, annotatedProperty,
+                        annotatedTarget);
             } else if (annotatedTargetLiteral != null) {
                 getConsumer().handle(annotatedSource, annotatedProperty,
                         annotatedTargetLiteral);
@@ -125,8 +128,9 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     }
 
     @SuppressWarnings("unused")
-    protected OWLAxiom handleAxiomTriples(IRI subjectTriple, IRI predicateTriple,
-            IRI objectTriple, Set<OWLAnnotation> annotations) {
+    protected OWLAxiom handleAxiomTriples(IRI subjectTriple,
+            IRI predicateTriple, IRI objectTriple,
+            Set<OWLAnnotation> annotations) {
         // Reconstitute the original triple from the reification triples
         return getConsumer().getLastAddedAxiom();
     }

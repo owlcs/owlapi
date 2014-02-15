@@ -39,5 +39,6 @@
 package org.coode.owlapi.owlxmlparser;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 class OWLXMLParserException2SAXExceptionTranslation {}

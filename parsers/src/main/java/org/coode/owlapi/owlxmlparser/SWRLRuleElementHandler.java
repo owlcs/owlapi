@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Oct-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
     private Set<SWRLAtom> body = null;
     private Set<SWRLAtom> head = null;

@@ -133,7 +133,8 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
  * hasPart)
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Sep-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class ManchesterOWLSyntaxEditorParser implements
         ManchesterOWLSyntaxParser {
     // This parser was built by hand! After struggling with terrible

@@ -41,7 +41,8 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-May-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class ManchesterOWLSyntaxOntologyStorerException extends
         OWLOntologyStorageException {
     private static final long serialVersionUID = 40000L;
@@ -56,7 +57,8 @@ public class ManchesterOWLSyntaxOntologyStorerException extends
      *            the message
      * @param cause
      *            the cause */
-    public ManchesterOWLSyntaxOntologyStorerException(String message, Throwable cause) {
+    public ManchesterOWLSyntaxOntologyStorerException(String message,
+            Throwable cause) {
         super(message, cause);
     }
 

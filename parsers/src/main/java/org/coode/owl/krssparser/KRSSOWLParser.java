@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class KRSSOWLParser extends AbstractOWLParser {
     private static final long serialVersionUID = 40000L;
 

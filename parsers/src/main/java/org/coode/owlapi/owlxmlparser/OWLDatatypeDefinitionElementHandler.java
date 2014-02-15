@@ -43,8 +43,10 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Jun-2009 */
-public class OWLDatatypeDefinitionElementHandler extends AbstractOWLAxiomElementHandler {
+ *         Group
+ * @since 3.0.0 */
+public class OWLDatatypeDefinitionElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLDatatype datatype;
     private OWLDataRange dataRange;
 
@@ -67,7 +69,7 @@ public class OWLDatatypeDefinitionElementHandler extends AbstractOWLAxiomElement
 
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange,
-                getAnnotations());
+        return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(datatype,
+                dataRange, getAnnotations());
     }
 }

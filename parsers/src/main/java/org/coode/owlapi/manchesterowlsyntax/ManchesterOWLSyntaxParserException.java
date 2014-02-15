@@ -41,7 +41,8 @@ package org.coode.owlapi.manchesterowlsyntax;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 19-Nov-2007 */
+ *         Group
+ * @since 2.2.0 */
 public class ManchesterOWLSyntaxParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

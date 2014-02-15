@@ -50,8 +50,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Dec-2006 */
-public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAnnotation> {
+ *         Group
+ * @since 2.0.0 */
+public class OWLAnnotationElementHandler extends
+        AbstractOWLElementHandler<OWLAnnotation> {
     private Set<OWLAnnotation> annotations;
     private OWLAnnotationProperty property;
     private OWLAnnotationValue object;
@@ -68,12 +70,14 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         super.attribute(localName, value);
         // Legacy Handling
         if (localName.equals(OWLXMLVocabulary.ANNOTATION_URI.getShortName())) {
@@ -120,7 +124,8 @@ public class OWLAnnotationElementHandler extends AbstractOWLElementHandler<OWLAn
         if (annotations == null) {
             return getOWLDataFactory().getOWLAnnotation(property, object);
         } else {
-            return getOWLDataFactory().getOWLAnnotation(property, object, annotations);
+            return getOWLDataFactory().getOWLAnnotation(property, object,
+                    annotations);
         }
     }
 

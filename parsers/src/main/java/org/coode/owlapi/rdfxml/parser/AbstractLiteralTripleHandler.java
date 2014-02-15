@@ -42,8 +42,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006 */
-public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler {
+ *         Group
+ * @since 2.0.0 */
+public abstract class AbstractLiteralTripleHandler extends
+        AbstractTripleHandler {
     /** @param consumer
      *            consumer */
     public AbstractLiteralTripleHandler(OWLRDFConsumer consumer) {
@@ -56,7 +58,8 @@ public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler
      *            predicate
      * @param object
      *            object */
-    public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
+    public abstract void handleTriple(IRI subject, IRI predicate,
+            OWLLiteral object);
 
     /** @param subject
      *            subject
@@ -65,7 +68,8 @@ public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler
      * @param object
      *            object
      * @return true if can handle */
-    public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
+    public abstract boolean canHandle(IRI subject, IRI predicate,
+            OWLLiteral object);
 
     /** @param subject
      *            subject

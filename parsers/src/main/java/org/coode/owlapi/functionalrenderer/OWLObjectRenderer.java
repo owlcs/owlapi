@@ -60,7 +60,8 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 /** The Class OWLObjectRenderer.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLObjectRenderer implements OWLObjectVisitor {
     /** The prefix manager. */
     private PrefixManager prefixManager;

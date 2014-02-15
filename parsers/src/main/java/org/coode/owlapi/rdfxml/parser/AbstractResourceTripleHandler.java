@@ -42,8 +42,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Dec-2006 */
-public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
+ *         Group
+ * @since 2.0.0 */
+public abstract class AbstractResourceTripleHandler extends
+        AbstractTripleHandler {
     /** @param consumer
      *            consumer */
     protected AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
@@ -54,17 +56,20 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
         return isAnonymous(subject) || isAnonymous(object);
     }
 
-    protected boolean isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
-            IRI subject, IRI object) {
+    protected boolean
+            isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
+                    IRI subject, IRI object) {
         return isSubjectAndObjectClassExpression(subject, object)
                 || isSubjectAndObjectDataRange(subject, object);
     }
 
     protected boolean isSubjectAndObjectDataRange(IRI subject, IRI object) {
-        return getConsumer().isDataRange(subject) && getConsumer().isDataRange(object);
+        return getConsumer().isDataRange(subject)
+                && getConsumer().isDataRange(object);
     }
 
-    protected boolean isSubjectAndObjectClassExpression(IRI subject, IRI object) {
+    protected boolean
+            isSubjectAndObjectClassExpression(IRI subject, IRI object) {
         return getConsumer().isClassExpression(subject)
                 && getConsumer().isClassExpression(object);
     }
@@ -77,8 +82,9 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
      *            object
      * @throws UnloadableImportException
      *             if an ontology cannot be imported */
-    protected abstract void handleTriple(IRI subject, IRI predicate, IRI object)
-            throws UnloadableImportException;
+    protected abstract void
+            handleTriple(IRI subject, IRI predicate, IRI object)
+                    throws UnloadableImportException;
 
     /** @param subject
      *            subject
@@ -89,8 +95,8 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
      * @return true if can handle streaming
      * @throws UnloadableImportException
      *             if an ontology cannot be imported */
-    protected abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
-            throws UnloadableImportException;
+    protected abstract boolean canHandleStreaming(IRI subject, IRI predicate,
+            IRI object) throws UnloadableImportException;
 
     /** @param subject
      *            subject
@@ -99,7 +105,8 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
      * @param object
      *            object
      * @return true if can handle */
-    protected abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
+    protected abstract boolean
+            canHandle(IRI subject, IRI predicate, IRI object);
 
     /** @param subject
      *            subject

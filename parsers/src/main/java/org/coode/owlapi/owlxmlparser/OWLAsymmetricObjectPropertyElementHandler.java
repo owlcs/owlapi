@@ -41,7 +41,8 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 07-Sep-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class OWLAsymmetricObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler {
     /** @param handler
@@ -52,7 +53,7 @@ public class OWLAsymmetricObjectPropertyElementHandler extends
 
     @Override
     protected OWLAxiom createPropertyCharacteristicAxiom() {
-        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(getProperty(),
-                getAnnotations());
+        return getOWLDataFactory().getOWLAsymmetricObjectPropertyAxiom(
+                getProperty(), getAnnotations());
     }
 }

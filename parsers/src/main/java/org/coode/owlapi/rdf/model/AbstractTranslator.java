@@ -70,7 +70,8 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * @param <LITERAL>
  *            a literal node
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 06-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE>
         implements OWLObjectVisitor, SWRLObjectVisitor {
     private OWLOntologyManager manager;

@@ -57,7 +57,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 @HasPriority(value = 0)
 public class RDFXMLParser extends AbstractOWLParser {
     private static final long serialVersionUID = 40000L;

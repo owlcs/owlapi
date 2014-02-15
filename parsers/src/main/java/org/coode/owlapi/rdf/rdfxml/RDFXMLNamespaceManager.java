@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/09/2011 */
+ *         Group
+ * @since 3.3.0 */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
     /** @param ontology
      *            ontology

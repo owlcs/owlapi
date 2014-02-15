@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         implements OWLObjectVisitor {
     /** @param writer

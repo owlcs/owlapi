@@ -94,7 +94,8 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public abstract class RDFRendererBase {
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
     private static final String DATATYPES_BANNER_TEXT = "Datatypes";

@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Apr-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class DataPropertyListItemTranslator implements
         ListItemTranslator<OWLDataPropertyExpression> {
     private OWLRDFConsumer consumer;

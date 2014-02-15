@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Jan-2007 */
+ *         Group
+ * @since 2.0.0 */
 @HasPriority(value = 2)
 public class OWLFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {

@@ -43,8 +43,10 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
-public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElementHandler {
+ *         Group
+ * @since 2.0.0 */
+public class OWLClassAssertionAxiomElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLIndividual individual;
     private OWLClassExpression classExpression;
 
@@ -80,7 +82,7 @@ public class OWLClassAssertionAxiomElementHandler extends AbstractOWLAxiomElemen
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
                     getColumnNumber(), "classExpression kind element");
         }
-        return getOWLDataFactory().getOWLClassAssertionAxiom(classExpression, individual,
-                getAnnotations());
+        return getOWLDataFactory().getOWLClassAssertionAxiom(classExpression,
+                individual, getAnnotations());
     }
 }

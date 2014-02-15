@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TypeRDFSClassHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
@@ -58,7 +59,8 @@ public class TypeRDFSClassHandler extends BuiltInTypeHandler {
         getConsumer().addClassExpression(subject, false);
         consumeTriple(subject, predicate, object);
         if (!isStrict()) {
-            getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_CLASS.getIRI());
+            getConsumer().handle(subject, predicate,
+                    OWLRDFVocabulary.OWL_CLASS.getIRI());
         }
     }
 }

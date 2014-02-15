@@ -43,7 +43,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectIntersectionOfElementHandler extends
         AbstractNaryBooleanClassExpressionElementHandler {
     /** @param handler
@@ -53,7 +54,8 @@ public class OWLObjectIntersectionOfElementHandler extends
     }
 
     @Override
-    protected OWLClassExpression createClassExpression(Set<OWLClassExpression> operands) {
+    protected OWLClassExpression createClassExpression(
+            Set<OWLClassExpression> operands) {
         return getOWLDataFactory().getOWLObjectIntersectionOf(operands);
     }
 }

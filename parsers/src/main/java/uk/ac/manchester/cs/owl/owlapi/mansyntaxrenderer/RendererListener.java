@@ -45,7 +45,8 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
  * occurs, that object's appropriate method is invoked.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 15-Jul-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface RendererListener {
     /** Frame rendering prepared.
      * 

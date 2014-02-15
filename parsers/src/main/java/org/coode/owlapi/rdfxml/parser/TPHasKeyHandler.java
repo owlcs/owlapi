@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class TPHasKeyHandler extends TriplePredicateHandler {
     private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 
@@ -71,7 +72,8 @@ public class TPHasKeyHandler extends TriplePredicateHandler {
         if (getConsumer().isClassExpression(subject)) {
             consumeTriple(subject, predicate, object);
             OWLClassExpression ce = translateClassExpression(subject);
-            Set<OWLPropertyExpression> props = listTranslator.translateToSet(object);
+            Set<OWLPropertyExpression> props = listTranslator
+                    .translateToSet(object);
             addAxiom(getDataFactory().getOWLHasKeyAxiom(ce, props,
                     getPendingAnnotations()));
         }

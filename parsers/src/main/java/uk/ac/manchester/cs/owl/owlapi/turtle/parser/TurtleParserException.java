@@ -41,9 +41,10 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /** The Class TurtleParserException.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Feb-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class TurtleParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

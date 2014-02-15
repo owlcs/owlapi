@@ -45,9 +45,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
- *
+ * 
  * @author Matthew Horridge, The Univeristy Of Manchester, Medical Informatics
- *         Group, Date: May 30, 2006 */
+ *         Group
+ * @since 2.0.0 */
 public interface XMLWriter {
     /** Sets the encoding for the document that the rdfwriter produces. The
      * default encoding is "UTF-8".
@@ -117,7 +118,8 @@ public interface XMLWriter {
      *            The value of the attribute
      * @throws IOException
      *             if there was an IO problem */
-    void writeAttribute(@Nonnull String attr, @Nonnull String val) throws IOException;
+    void writeAttribute(@Nonnull String attr, @Nonnull String val)
+            throws IOException;
 
     /** Writes an attribute of the last element to be started (that has not been
      * closed).

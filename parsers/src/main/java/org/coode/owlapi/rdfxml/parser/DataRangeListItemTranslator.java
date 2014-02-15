@@ -43,8 +43,10 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
-public class DataRangeListItemTranslator implements ListItemTranslator<OWLDataRange> {
+ *         Group
+ * @since 3.0.0 */
+public class DataRangeListItemTranslator implements
+        ListItemTranslator<OWLDataRange> {
     private OWLRDFConsumer consumer;
 
     /** @param consumer

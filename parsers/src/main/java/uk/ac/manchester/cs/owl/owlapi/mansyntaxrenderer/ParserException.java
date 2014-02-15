@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 /** The Class ParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Sep-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class ParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
     /** The current token. */

@@ -211,13 +211,15 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Searcher<OWLClassExpression> superClasses = find(OWLClassExpression.class)
-                        .sup().classes(eachClass).in(onto);
+                Searcher<OWLClassExpression> superClasses = find(
+                        OWLClassExpression.class).sup().classes(eachClass)
+                        .in(onto);
                 flatten(superClasses);
                 writeCloseBracket(); // ==> end definition of primitive-concept
                 writeln();
-                Searcher<OWLClassExpression> classes = find(OWLClassExpression.class)
-                        .in(onto).equivalent().classes(eachClass);
+                Searcher<OWLClassExpression> classes = find(
+                        OWLClassExpression.class).in(onto).equivalent()
+                        .classes(eachClass);
                 for (OWLClassExpression classExpression : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -231,8 +233,9 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Searcher<OWLClassExpression> classes = find(OWLClassExpression.class)
-                        .in(onto).equivalent().classes(eachClass);
+                Searcher<OWLClassExpression> classes = find(
+                        OWLClassExpression.class).in(onto).equivalent()
+                        .classes(eachClass);
                 if (classes.isEmpty()) {
                     // ?
                     writeCloseBracket();
@@ -261,7 +264,8 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
         for (final OWLClassAxiom axiom : onto.getGeneralClassAxioms()) {
             axiom.accept(this);
         }
-        for (final OWLObjectProperty property : onto.getObjectPropertiesInSignature()) {
+        for (final OWLObjectProperty property : onto
+                .getObjectPropertiesInSignature()) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);
@@ -275,14 +279,14 @@ public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
                 writeSpace();
                 write(TRUE);
             }
-            Searcher<OWLClassExpression> domains = find(OWLClassExpression.class)
-                    .in(onto).domains(property);
+            Searcher<OWLClassExpression> domains = find(
+                    OWLClassExpression.class).in(onto).domains(property);
             if (!domains.isEmpty()) {
                 writeAttribute(DOMAIN);
                 flatten(domains);
             }
-            Searcher<OWLClassExpression> ranges = find(OWLClassExpression.class).in(onto)
-                    .ranges(property);
+            Searcher<OWLClassExpression> ranges = find(OWLClassExpression.class)
+                    .in(onto).ranges(property);
             if (!ranges.isEmpty()) {
                 writeAttribute(RANGE_ATTR);
                 flatten(ranges);

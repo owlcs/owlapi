@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
@@ -60,8 +61,8 @@ public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler {
             throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(
-                    subject);
+            OWLAnnotationProperty property = getDataFactory()
+                    .getOWLAnnotationProperty(subject);
             addAxiom(getDataFactory().getOWLDeclarationAxiom(property, annos));
             consumeTriple(subject, predicate, object);
         }

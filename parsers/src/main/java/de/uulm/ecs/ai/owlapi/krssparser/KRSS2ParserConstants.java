@@ -169,20 +169,22 @@ public interface KRSS2ParserConstants {
     /** Lexical state. */
     int IN_IRI = 2;
     /** Literal token values. */
-    String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\r\"", "\"\\\"\"", "\"|\"",
-            "\"\\\\\"", "\"\\n\"", "\";\"", "\"\\n\"", "<token of kind 10>", "\"<\"",
-            "\">\"", "<token of kind 13>", "<TOP>", "<BOTTOM>", "\"NIL\"", "\"t\"",
-            "\"(\"", "\")\"", "\"end-tbox\"", "\"end-abox\"", "\"compose\"",
-            "\"define-concept\"", "\"define-primitive-concept\"", "\"disjoint\"",
-            "\"equivalent\"", "\"implies\"", "\"AND\"", "\"OR\"", "\"NOT\"", "\"ALL\"",
-            "\"one-of\"", "\"SOME\"", "\"AT-LEAST\"", "\"AT-MOST\"", "\"EXACTLY\"",
-            "\"define-role\"", "\"define-primitive-role\"", "\"disjoint-roles\"",
-            "\":domain\"", "\"implies-role\"", "\"inv\"", "\"inverse\"", "\":inverse\"",
+    String[] tokenImage = { "<EOF>", "\" \"", "\"\\t\"", "\"\\r\"", "\"\\\"\"",
+            "\"|\"", "\"\\\\\"", "\"\\n\"", "\";\"", "\"\\n\"",
+            "<token of kind 10>", "\"<\"", "\">\"", "<token of kind 13>",
+            "<TOP>", "<BOTTOM>", "\"NIL\"", "\"t\"", "\"(\"", "\")\"",
+            "\"end-tbox\"", "\"end-abox\"", "\"compose\"",
+            "\"define-concept\"", "\"define-primitive-concept\"",
+            "\"disjoint\"", "\"equivalent\"", "\"implies\"", "\"AND\"",
+            "\"OR\"", "\"NOT\"", "\"ALL\"", "\"one-of\"", "\"SOME\"",
+            "\"AT-LEAST\"", "\"AT-MOST\"", "\"EXACTLY\"", "\"define-role\"",
+            "\"define-primitive-role\"", "\"disjoint-roles\"", "\":domain\"",
+            "\"implies-role\"", "\"inv\"", "\"inverse\"", "\":inverse\"",
             "\":left-identity\"", "\":parent\"", "\":parents\"", "\"range\"",
             "\":range\"", "\":reflexive\"", "\":right-identity\"",
             "\"roles-equivalent\"", "\"role-inclusion\"", "\"subrole\"",
             "\":symmetric\"", "\"TRANSITIVE\"", "<TRANSITIVE_ATTRIBUTE>",
-            "\"define-individual\"", "\"distinct\"", "\"equal\"", "\"instance\"",
-            "\"related\"", "\":\"", "\"enum\"", "<INT>", "<NAME>", "<NCCHAR_FULL>",
-            "<NCCHAR1>", "<ERROR>", };
+            "\"define-individual\"", "\"distinct\"", "\"equal\"",
+            "\"instance\"", "\"related\"", "\":\"", "\"enum\"", "<INT>",
+            "<NAME>", "<NCCHAR_FULL>", "<NCCHAR1>", "<ERROR>", };
 }

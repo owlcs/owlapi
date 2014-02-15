@@ -145,7 +145,8 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 /** Renders objects in unicode DL syntax.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Feb-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         OWLObjectRenderer, OWLObjectVisitor {
     private ShortFormProvider shortFormProvider;

@@ -41,9 +41,10 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 import org.semanticweb.owlapi.model.IRI;
 
 /** The Interface TripleHandler.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Feb-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public interface TripleHandler {
     /** Handle prefix directive.
      * 

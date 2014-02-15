@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 19/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 public class ObjectQualifiedCardinalityTranslator extends
         AbstractClassExpressionTranslator {
     /** @param consumer
@@ -58,7 +59,8 @@ public class ObjectQualifiedCardinalityTranslator extends
     @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode)
-                && isNonNegativeIntegerStrict(mainNode, OWL_QUALIFIED_CARDINALITY)
+                && isNonNegativeIntegerStrict(mainNode,
+                        OWL_QUALIFIED_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
     }
@@ -73,12 +75,15 @@ public class ObjectQualifiedCardinalityTranslator extends
     @Override
     public OWLObjectExactCardinality translate(IRI mainNode) {
         int cardi = translateInteger(mainNode, OWL_QUALIFIED_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
-        OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
-        return getDataFactory().getOWLObjectExactCardinality(cardi, property, filler);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS,
+                true);
+        OWLClassExpression filler = getConsumer().translateClassExpression(
+                fillerIRI);
+        return getDataFactory().getOWLObjectExactCardinality(cardi, property,
+                filler);
     }
 }

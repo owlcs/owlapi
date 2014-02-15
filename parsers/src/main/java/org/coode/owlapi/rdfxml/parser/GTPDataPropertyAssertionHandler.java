@@ -42,8 +42,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
-public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandler {
+ *         Group
+ * @since 2.0.0 */
+public class GTPDataPropertyAssertionHandler extends
+        AbstractLiteralTripleHandler {
     /** @param consumer
      *            consumer */
     public GTPDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
@@ -62,15 +64,16 @@ public class GTPDataPropertyAssertionHandler extends AbstractLiteralTripleHandle
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate,
+            OWLLiteral object) {
         return false;
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         addAxiom(getDataFactory().getOWLDataPropertyAssertionAxiom(
-                translateDataProperty(predicate), translateIndividual(subject), object,
-                getPendingAnnotations()));
+                translateDataProperty(predicate), translateIndividual(subject),
+                object, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

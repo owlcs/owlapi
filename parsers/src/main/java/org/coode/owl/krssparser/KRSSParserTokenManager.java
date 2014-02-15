@@ -1556,21 +1556,22 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
             "\144\145\146\151\156\145\55\160\162\151\155\151\164\151\166\145\55\143\157\156\143\145\160\164",
             "\144\145\146\151\156\145\55\143\157\156\143\145\160\164",
             "\144\145\146\151\156\145\55\160\162\151\155\151\164\151\166\145\55\162\157\154\145",
-            "\163\165\142\162\157\154\145", "\164\162\141\156\163\151\164\151\166\145",
-            "\145\156\165\155", "\162\141\156\147\145", "\141\156\144", "\157\162",
-            "\156\157\164", "\141\154\154", "\163\157\155\145", "\156\157\156\145",
+            "\163\165\142\162\157\154\145",
+            "\164\162\141\156\163\151\164\151\166\145", "\145\156\165\155",
+            "\162\141\156\147\145", "\141\156\144", "\157\162", "\156\157\164",
+            "\141\154\154", "\163\157\155\145", "\156\157\156\145",
             "\141\164\55\154\145\141\163\164", "\141\164\55\155\157\163\164",
             "\145\170\141\143\164\154\171", "\151\156\163\164\141\156\143\145",
             "\162\145\154\141\164\145\144", "\145\161\165\141\154",
             "\144\151\163\164\151\156\143\164", null, null,
             "\72\162\151\147\150\164\55\151\144\145\156\164\151\164\171", };
     /** Lexer state names. */
-    public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT", "IN_IRI",
-            "IN_STRING_LITERAL", };
+    public static final String[] lexStateNames = { "DEFAULT", "IN_COMMENT",
+            "IN_IRI", "IN_STRING_LITERAL", };
     /** Lex State array. */
-    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, 1, 0, -1, 2, 0, -1,
-            3, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
+    public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, 1, 0, -1,
+            2, 0, -1, 3, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
     /** The Constant jjtoToken. */
     static final long[] jjtoToken = { 0x7ffffffa201L, };
     /** The Constant jjtoSkip. */
@@ -1646,8 +1647,9 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
      *            the lex state */
     public void SwitchTo(int lexState) {
         if (lexState >= 4 || lexState < 0) {
-            throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState
-                    + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
+            throw new TokenMgrError("Error: Ignoring invalid lexical state : "
+                    + lexState + ". State unchanged.",
+                    TokenMgrError.INVALID_LEXICAL_STATE);
         } else {
             curLexState = lexState;
         }
@@ -1709,7 +1711,8 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
                     case 0:
                         try {
                             input_stream.backup(0);
-                            while (curChar <= 32 && (0x100002600L & 1L << curChar) != 0L) {
+                            while (curChar <= 32
+                                    && (0x100002600L & 1L << curChar) != 0L) {
                                 curChar = input_stream.BeginToken();
                             }
                         } catch (java.io.IOException e1) {
@@ -1791,8 +1794,9 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
                     input_stream.backup(1);
                     error_after = curPos <= 1 ? "" : input_stream.GetImage();
                 }
-                throw new TokenMgrError(EOFSeen, curLexState, error_line, error_column,
-                        error_after, curChar, TokenMgrError.LEXICAL_ERROR);
+                throw new TokenMgrError(EOFSeen, curLexState, error_line,
+                        error_column, error_after, curChar,
+                        TokenMgrError.LEXICAL_ERROR);
             }
         }
     }

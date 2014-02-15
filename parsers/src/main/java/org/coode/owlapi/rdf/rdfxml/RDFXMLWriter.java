@@ -51,20 +51,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class RDFXMLWriter {
-    private static final IRI RDF_RDF = IRI.create(Namespaces.RDF.getPrefixIRI(), "RDF");
-    private static final IRI RDF_RESOURCE = IRI.create(Namespaces.RDF.getPrefixIRI(),
-            "resource");
+    private static final IRI RDF_RDF = IRI.create(
+            Namespaces.RDF.getPrefixIRI(), "RDF");
+    private static final IRI RDF_RESOURCE = IRI.create(
+            Namespaces.RDF.getPrefixIRI(), "resource");
     private static final String XML_LANG = "xml:lang";
-    private static final IRI RDF_NODEID = IRI.create(Namespaces.RDF.getPrefixIRI(),
-            "nodeID");
-    private static final IRI RDF_ABOUT = IRI.create(Namespaces.RDF.getPrefixIRI(),
-            "about");
-    private static final IRI RDF_DATATYPE = IRI.create(Namespaces.RDF.getPrefixIRI(),
-            "datatype");
-    private static final IRI PARSETYPE_IRI = IRI.create(Namespaces.RDF.getPrefixIRI(),
-            "parseType");
+    private static final IRI RDF_NODEID = IRI.create(
+            Namespaces.RDF.getPrefixIRI(), "nodeID");
+    private static final IRI RDF_ABOUT = IRI.create(
+            Namespaces.RDF.getPrefixIRI(), "about");
+    private static final IRI RDF_DATATYPE = IRI.create(
+            Namespaces.RDF.getPrefixIRI(), "datatype");
+    private static final IRI PARSETYPE_IRI = IRI.create(
+            Namespaces.RDF.getPrefixIRI(), "parseType");
     private XMLWriter writer;
 
     protected RDFXMLWriter(@Nonnull XMLWriter writer) {
@@ -77,7 +79,8 @@ public class RDFXMLWriter {
      *             io exception */
     public void writeStartElement(@Nonnull IRI elementName) throws IOException {
         // Sort out with namespace
-        writer.writeStartElement(checkNotNull(elementName, "elementName cannot be null"));
+        writer.writeStartElement(checkNotNull(elementName,
+                "elementName cannot be null"));
     }
 
     /** @throws IOException
@@ -90,7 +93,8 @@ public class RDFXMLWriter {
      *            datatypeIRI
      * @throws IOException
      *             io exception */
-    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI) throws IOException {
+    public void writeDatatypeAttribute(@Nonnull IRI datatypeIRI)
+            throws IOException {
         checkNotNull(datatypeIRI, "datatypeIRI cannot be null");
         writer.writeAttribute(RDF_DATATYPE, datatypeIRI.toString());
     }
@@ -129,7 +133,8 @@ public class RDFXMLWriter {
      *            node
      * @throws IOException
      *             io exception */
-    public void writeNodeIDAttribute(@Nonnull RDFResource node) throws IOException {
+    public void writeNodeIDAttribute(@Nonnull RDFResource node)
+            throws IOException {
         writer.writeAttribute(RDF_NODEID, node.toString());
     }
 
@@ -141,8 +146,8 @@ public class RDFXMLWriter {
      *             io exception */
     public void writeAttribute(@Nonnull IRI attributeName, @Nonnull IRI value)
             throws IOException {
-        writer.writeAttribute(attributeName, checkNotNull(value, "value cannot be null")
-                .toString());
+        writer.writeAttribute(attributeName,
+                checkNotNull(value, "value cannot be null").toString());
     }
 
     /** @param owlObject

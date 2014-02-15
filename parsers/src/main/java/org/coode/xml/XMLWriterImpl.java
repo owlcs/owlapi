@@ -61,7 +61,8 @@ import org.semanticweb.owlapi.model.IRI;
 /** Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class XMLWriterImpl implements XMLWriter {
     private Stack<XMLElement> elementStack;
     protected Writer writer;

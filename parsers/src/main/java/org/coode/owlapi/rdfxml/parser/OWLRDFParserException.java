@@ -41,9 +41,10 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /** The Class OWLRDFParserException.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLRDFParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

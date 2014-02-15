@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TPPropertyDomainHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */
@@ -76,28 +77,29 @@ public class TPPropertyDomainHandler extends TriplePredicateHandler {
         }
     }
 
-    private void
-            translateAnnotationPropertyDomain(IRI subject, IRI predicate, IRI object) {
-        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(subject);
-        addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop, object,
-                getPendingAnnotations()));
+    private void translateAnnotationPropertyDomain(IRI subject, IRI predicate,
+            IRI object) {
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(
+                subject);
+        addAxiom(getDataFactory().getOWLAnnotationPropertyDomainAxiom(prop,
+                object, getPendingAnnotations()));
         // TODO: Handle anonymous domain - error?
         consumeTriple(subject, predicate, object);
     }
 
-    private void translateDataPropertyDomain(IRI subject, IRI predicate, IRI object)
-            throws OWLOntologyChangeException {
+    private void translateDataPropertyDomain(IRI subject, IRI predicate,
+            IRI object) throws OWLOntologyChangeException {
         addAxiom(getDataFactory().getOWLDataPropertyDomainAxiom(
-                translateDataProperty(subject), translateClassExpression(object),
-                getPendingAnnotations()));
+                translateDataProperty(subject),
+                translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
-    private void translateObjectPropertyDomain(IRI subject, IRI predicate, IRI object)
-            throws OWLOntologyChangeException {
+    private void translateObjectPropertyDomain(IRI subject, IRI predicate,
+            IRI object) throws OWLOntologyChangeException {
         addAxiom(getDataFactory().getOWLObjectPropertyDomainAxiom(
-                translateObjectProperty(subject), translateClassExpression(object),
-                getPendingAnnotations()));
+                translateObjectProperty(subject),
+                translateClassExpression(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 }

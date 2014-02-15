@@ -141,7 +141,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     private OWLXMLWriter writer;
 

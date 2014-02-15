@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 18/03/2011 */
+ *         Group
+ * @since 3.2.3 */
 public class GTPResourceTripleHandler extends AbstractResourceTripleHandler {
     /** @param consumer
      *            consumer */

@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 17/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 public class TypeOntologyPropertyHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */

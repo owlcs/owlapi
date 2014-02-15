@@ -41,7 +41,8 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectExistsSelfElementHandler extends
         AbstractClassExpressionElementHandler {
     private OWLObjectPropertyExpression property;
@@ -61,7 +62,8 @@ public class OWLObjectExistsSelfElementHandler extends
     protected void endClassExpressionElement() throws OWLXMLParserException {
         if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Was expecting object property expression element");
+                    getColumnNumber(),
+                    "Was expecting object property expression element");
         }
         setClassExpression(getOWLDataFactory().getOWLObjectHasSelf(property));
     }

@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * formatting error you find to the bug tracker or the mailing list.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 15-Jun-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class LatexObjectVisitor implements OWLObjectVisitor {
     //@formatter:off
         /** AND */    private static final String AND = "\\ensuremath{\\sqcap}";

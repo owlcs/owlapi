@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         try {
             KRSSObjectRenderer ren = new KRSSObjectRenderer(ontology, writer);
             ontology.accept(ren);

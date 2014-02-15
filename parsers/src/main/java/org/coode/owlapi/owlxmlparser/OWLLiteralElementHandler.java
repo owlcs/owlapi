@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
-public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiteral> {
+ *         Group
+ * @since 2.0.0 */
+public class OWLLiteralElementHandler extends
+        AbstractOWLElementHandler<OWLLiteral> {
     private OWLLiteral literal;
     private IRI iri;
     private String lang;
@@ -63,7 +65,8 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.DATATYPE_IRI.getShortName())) {
             iri = getIRI(value);
         } else if (localName.equals("lang")) {
@@ -72,7 +75,8 @@ public class OWLLiteralElementHandler extends AbstractOWLElementHandler<OWLLiter
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         if (iri != null && !iri.isPlainLiteral()) {
             literal = getOWLDataFactory().getOWLLiteral(getText(),
                     getOWLDataFactory().getOWLDatatype(iri));

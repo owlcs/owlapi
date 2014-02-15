@@ -45,9 +45,10 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * expression, the {@code ClassExpressionTranslator} consumes the triples that
  * represent the class expression, and translates the triples to the appropriate
  * OWL API {@code OWLClassExpression} object.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface ClassExpressionTranslator {
     /** @param mainNode
      *            mainNode

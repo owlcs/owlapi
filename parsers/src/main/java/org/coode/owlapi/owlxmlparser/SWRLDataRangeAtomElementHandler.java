@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 08-Oct-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
     private OWLDataRange prop;
     private SWRLDArgument arg1 = null;
@@ -70,11 +71,13 @@ public class SWRLDataRangeAtomElementHandler extends SWRLAtomElementHandler {
     @Override
     public void handleChild(OWLLiteralElementHandler handler)
             throws OWLXMLParserException {
-        arg1 = getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject());
+        arg1 = getOWLDataFactory().getSWRLLiteralArgument(
+                handler.getOWLObject());
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDataRangeAtom(prop, arg1));
         getParentHandler().handleChild(this);
     }

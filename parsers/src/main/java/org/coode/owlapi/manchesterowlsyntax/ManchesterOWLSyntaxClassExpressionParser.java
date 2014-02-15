@@ -45,9 +45,10 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** An expression parser that parses class expressions written in the Manchester
  * OWL Syntax.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Sep-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class ManchesterOWLSyntaxClassExpressionParser implements
         OWLExpressionParser<OWLClassExpression> {
     private OWLDataFactory dataFactory;

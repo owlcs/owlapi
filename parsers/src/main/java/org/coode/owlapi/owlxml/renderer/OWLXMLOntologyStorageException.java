@@ -41,9 +41,10 @@ package org.coode.owlapi.owlxml.renderer;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /** The Class OWLXMLOntologyStorageException.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
     private static final long serialVersionUID = 40000L;
 

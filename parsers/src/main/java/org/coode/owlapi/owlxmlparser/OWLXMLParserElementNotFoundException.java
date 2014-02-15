@@ -39,7 +39,8 @@
 package org.coode.owlapi.owlxmlparser;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLXMLParserElementNotFoundException extends OWLXMLParserException {
     private static final long serialVersionUID = 40000L;
 
@@ -49,8 +50,8 @@ public class OWLXMLParserElementNotFoundException extends OWLXMLParserException 
      *            columnNumber
      * @param elementType
      *            elementType */
-    public OWLXMLParserElementNotFoundException(int lineNumber, int columnNumber,
-            String elementType) {
+    public OWLXMLParserElementNotFoundException(int lineNumber,
+            int columnNumber, String elementType) {
         super("Element not found: " + elementType, lineNumber, columnNumber);
     }
 }

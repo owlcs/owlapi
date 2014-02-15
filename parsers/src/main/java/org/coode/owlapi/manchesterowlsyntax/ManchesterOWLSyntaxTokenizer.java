@@ -44,7 +44,8 @@ import java.util.List;
 import java.util.Set;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 19-May-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class ManchesterOWLSyntaxTokenizer {
     /** EOF */
     public static final String EOF = "|EOF|";
@@ -173,7 +174,8 @@ public class ManchesterOWLSyntaxTokenizer {
                 int j = pos + 1;
                 if (j < buffer.length()) {
                     char escapedChar = readChar();
-                    if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
+                    if (escapedChar == '\"' || escapedChar == '\''
+                            || escapedChar == '\\') {
                         sb.append(escapedChar);
                     } else {
                         sb.append(ch);

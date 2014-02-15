@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-May-2007 */
+ *         Group
+ * @since 2.0.0 */
 @HasPriority(value = 3)
 public class ManchesterOWLSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {

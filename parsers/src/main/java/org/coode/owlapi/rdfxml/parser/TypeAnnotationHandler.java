@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 04-Feb-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class TypeAnnotationHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */

@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 23-Apr-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class TPVersionIRIHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */
@@ -58,7 +59,8 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
             throws UnloadableImportException {
         OWLOntology ontology = getConsumer().getOntology();
         // only setup the versionIRI if it is null before this point
-        if (ontology != null && ontology.getOntologyID().getVersionIRI() == null) {
+        if (ontology != null
+                && ontology.getOntologyID().getVersionIRI() == null) {
             IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
             IRI versionIRI = object;
             // If there was no ontologyIRI before this point and the subject of
@@ -68,7 +70,8 @@ public class TPVersionIRIHandler extends TriplePredicateHandler {
             if (ontologyIRI == null && !isAnonymous(subject)) {
                 ontologyIRI = subject;
             }
-            OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI, versionIRI);
+            OWLOntologyID ontologyID = new OWLOntologyID(ontologyIRI,
+                    versionIRI);
             getConsumer().setOntologyID(ontologyID);
         }
         consumeTriple(subject, predicate, object);

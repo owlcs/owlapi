@@ -248,7 +248,7 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * </td>
  * </tr>
  * </table>
- *
+ * 
  * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     private static final String OPEN_BRACKET = "(";
@@ -354,7 +354,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         obj.accept(this);
     }
 
-    protected void flattenProperties(Iterable<OWLObjectPropertyExpression> properties,
+    protected void flattenProperties(
+            Iterable<OWLObjectPropertyExpression> properties,
             KRSSVocabulary junctor) {
         List<OWLObjectPropertyExpression> props = sort(properties);
         final int size = props.size();
@@ -411,14 +412,16 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
         classes.remove(ontology1.getOWLOntologyManager().getOWLDataFactory()
                 .getOWLNothing());
         for (final OWLClass eachClass : sort(classes)) {
-            final boolean primitive = !find().in(ontology1).isDefined(eachClass);
+            final boolean primitive = !find().in(ontology1)
+                    .isDefined(eachClass);
             if (primitive) {
                 writeOpenBracket();
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Iterable<OWLClassExpression> supclasses = find(OWLClassExpression.class)
-                        .in(ontology1).equivalent().classes(eachClass);
+                Iterable<OWLClassExpression> supclasses = find(
+                        OWLClassExpression.class).in(ontology1).equivalent()
+                        .classes(eachClass);
                 flatten(supclasses, KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
@@ -438,8 +441,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 .getObjectPropertiesInSignature())) {
             writeOpenBracket();
             Searcher<OWLObjectPropertyExpression> props = find(
-                    OWLObjectPropertyExpression.class).in(ontology1).equivalent()
-                    .propertiesOf(property);
+                    OWLObjectPropertyExpression.class).in(ontology1)
+                    .equivalent().propertiesOf(property);
             Set<OWLObjectPropertyExpression> properties = new HashSet<OWLObjectPropertyExpression>();
             for (OWLObjectPropertyExpression p : props) {
                 properties.add(p);
@@ -457,8 +460,8 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
                 writeSpace();
-                props = find(OWLObjectPropertyExpression.class).in(ontology1).sup()
-                        .propertiesOf(property);
+                props = find(OWLObjectPropertyExpression.class).in(ontology1)
+                        .sup().propertiesOf(property);
                 properties = new HashSet<OWLObjectPropertyExpression>();
                 for (OWLObjectPropertyExpression p : props) {
                     properties.add(p);

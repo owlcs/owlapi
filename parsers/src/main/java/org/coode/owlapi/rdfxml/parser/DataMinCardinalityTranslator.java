@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class DataMinCardinalityTranslator extends AbstractClassExpressionTranslator {
+ *         Group
+ * @since 2.0.0 */
+public class DataMinCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */
     public DataMinCardinalityTranslator(OWLRDFConsumer consumer) {
@@ -69,19 +71,20 @@ public class DataMinCardinalityTranslator extends AbstractClassExpressionTransla
 
     @Override
     public OWLDataMinCardinality translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_MIN_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLDataPropertyExpression property = getConsumer()
                 .translateDataPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_DATA_RANGE, true);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_DATA_RANGE, true);
         if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
             // Be tolerant
             OWLDataRange filler = getConsumer().translateDataRange(fillerIRI);
-            return getDataFactory().getOWLDataMinCardinality(cardi, property, filler);
+            return getDataFactory().getOWLDataMinCardinality(cardi, property,
+                    filler);
         } else {
             return getDataFactory().getOWLDataMinCardinality(cardi, property);
         }

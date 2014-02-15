@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 20-May-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     private OWLClassExpression ce;
     private Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
@@ -83,6 +84,7 @@ public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
 
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLHasKeyAxiom(ce, props, getAnnotations());
+        return getOWLDataFactory().getOWLHasKeyAxiom(ce, props,
+                getAnnotations());
     }
 }

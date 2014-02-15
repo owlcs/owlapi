@@ -43,24 +43,28 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLObjectPropertyElementHandler extends
         AbstractOWLElementHandler<OWLObjectPropertyExpression> {
     private OWLObjectPropertyExpression property;
 
     /** @param handler
      *            owlxml handler */
-    protected AbstractOWLObjectPropertyElementHandler(OWLXMLParserHandler handler) {
+    protected AbstractOWLObjectPropertyElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         endObjectPropertyElement();
         getParentHandler().handleChild(this);
     }
 
-    protected void setOWLObjectPropertyExpression(OWLObjectPropertyExpression prop) {
+    protected void setOWLObjectPropertyExpression(
+            OWLObjectPropertyExpression prop) {
         property = prop;
     }
 
@@ -69,5 +73,6 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends
         return property;
     }
 
-    protected abstract void endObjectPropertyElement() throws OWLXMLParserException;
+    protected abstract void endObjectPropertyElement()
+            throws OWLXMLParserException;
 }

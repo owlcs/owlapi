@@ -39,9 +39,10 @@
 package org.coode.owlapi.manchesterowlsyntax;
 
 /** The vocabulary that the Manchester OWL Syntax uses.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public enum ManchesterOWLSyntax {
     //@formatter:off
     
@@ -161,8 +162,8 @@ public enum ManchesterOWLSyntax {
             boolean classExpressionQuantifierKeyword,
             boolean classExpressionConnectiveKeyword) {
         this(rendering, frameKeyword, sectionKeyword, axiomKeyword,
-                classExpressionQuantifierKeyword, classExpressionConnectiveKeyword,
-                rendering + ":");
+                classExpressionQuantifierKeyword,
+                classExpressionConnectiveKeyword, rendering + ":");
     }
 
     /** @return frame keyword */
@@ -222,8 +223,8 @@ public enum ManchesterOWLSyntax {
      *            v
      * @return true if matches */
     public boolean matches(String s, String v) {
-        return rendering.length() == s.length() + v.length() && rendering.startsWith(s)
-                && rendering.endsWith(v);
+        return rendering.length() == s.length() + v.length()
+                && rendering.startsWith(s) && rendering.endsWith(v);
     }
 
     /** @param rendering

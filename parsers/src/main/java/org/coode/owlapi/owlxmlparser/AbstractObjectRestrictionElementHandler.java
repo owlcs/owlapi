@@ -42,11 +42,13 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006
+ *         Group
+ * @since 2.0.0
  * @param <F>
  *            filler type */
 public abstract class AbstractObjectRestrictionElementHandler<F extends OWLObject>
-        extends AbstractRestrictionElementHandler<OWLObjectPropertyExpression, F> {
+        extends
+        AbstractRestrictionElementHandler<OWLObjectPropertyExpression, F> {
     /** @param handler
      *            owlxml handler */
     public AbstractObjectRestrictionElementHandler(OWLXMLParserHandler handler) {

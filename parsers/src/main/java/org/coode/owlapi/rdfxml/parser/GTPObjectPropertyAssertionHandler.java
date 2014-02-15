@@ -42,8 +42,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
-public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHandler {
+ *         Group
+ * @since 2.0.0 */
+public class GTPObjectPropertyAssertionHandler extends
+        AbstractResourceTripleHandler {
     /** @param consumer
      *            consumer */
     public GTPObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {
@@ -56,7 +58,8 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
             return isObjectPropertyStrict(predicate);
         } else {
             // Handle annotation assertions as annotation assertions only!
-            return isObjectPropertyLax(predicate) && !isAnnotationPropertyOnly(predicate);
+            return isObjectPropertyLax(predicate)
+                    && !isAnnotationPropertyOnly(predicate);
         }
     }
 
@@ -71,8 +74,9 @@ public class GTPObjectPropertyAssertionHandler extends AbstractResourceTripleHan
         if (getConsumer().isObjectProperty(predicate)) {
             consumeTriple(subject, predicate, object);
             addAxiom(getDataFactory().getOWLObjectPropertyAssertionAxiom(
-                    translateObjectProperty(predicate), translateIndividual(subject),
-                    translateIndividual(object), getPendingAnnotations()));
+                    translateObjectProperty(predicate),
+                    translateIndividual(subject), translateIndividual(object),
+                    getPendingAnnotations()));
         }
     }
 }

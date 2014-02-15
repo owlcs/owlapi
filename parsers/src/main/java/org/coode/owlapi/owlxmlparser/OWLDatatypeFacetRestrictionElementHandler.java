@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLDatatypeFacetRestrictionElementHandler extends
         AbstractOWLElementHandler<OWLFacetRestriction> {
     private OWLFacet facet;
@@ -65,14 +66,16 @@ public class OWLDatatypeFacetRestrictionElementHandler extends
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         if (localName.equals("facet")) {
             facet = OWLFacet.getFacet(IRI.create(value));
         }
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 

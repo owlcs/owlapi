@@ -61,9 +61,10 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 /** The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLOntologyFormat) this manager will create them.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
     private OWLOntology ontology;
     private NamespaceUtil namespaceUtil = new NamespaceUtil();
@@ -94,7 +95,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             Map<String, String> namespacesByPrefix = namespaceFormat
                     .getPrefixName2PrefixMap();
             for (String prefixName : namespacesByPrefix.keySet()) {
-                String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
+                String xmlnsPrefixName = prefixName.substring(0,
+                        prefixName.length() - 1);
                 String xmlnsPrefix = namespacesByPrefix.get(prefixName);
                 namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
             }
@@ -107,9 +109,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         for (OWLEntity ent : entities) {
             processEntity(ent);
         }
-        Map<String, String> ns2prefixMap = namespaceUtil.getNamespace2PrefixMap();
+        Map<String, String> ns2prefixMap = namespaceUtil
+                .getNamespace2PrefixMap();
         for (String ns : ns2prefixMap.keySet()) {
-            if (!Namespaces.OWL11.inNamespace(ns) && !Namespaces.OWL11XML.inNamespace(ns)) {
+            if (!Namespaces.OWL11.inNamespace(ns)
+                    && !Namespaces.OWL11XML.inNamespace(ns)) {
                 setPrefix(ns2prefixMap.get(ns), ns);
             }
         }

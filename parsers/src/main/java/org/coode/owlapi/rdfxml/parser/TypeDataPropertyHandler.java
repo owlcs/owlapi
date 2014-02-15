@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TypeDataPropertyHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
@@ -62,7 +63,8 @@ public class TypeDataPropertyHandler extends BuiltInTypeHandler {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
             OWLDataProperty owlDataProperty = getDataFactory()
                     .getOWLDataProperty(subject);
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(owlDataProperty, annos));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(owlDataProperty,
+                    annos));
         }
         getConsumer().addDataProperty(subject, true);
     }

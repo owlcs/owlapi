@@ -43,9 +43,10 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** Translates and consumes an item in an RDF list.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006
+ *         Informatics Group
+ * @since 2.0.0
  * @param <O>
  *            type */
 public interface ListItemTranslator<O extends OWLObject> {

@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Feb-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class ManchesterOWLSyntaxFramesParser implements
         OWLExpressionParser<Set<OntologyAxiomPair>> {
     private OWLDataFactory dataFactory;

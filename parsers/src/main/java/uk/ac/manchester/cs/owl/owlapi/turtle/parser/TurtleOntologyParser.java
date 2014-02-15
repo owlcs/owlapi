@@ -59,7 +59,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 /** The Class TurtleOntologyParser.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Feb-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 @HasPriority(value = 3)
 public class TurtleOntologyParser extends AbstractOWLParser {
     private static final long serialVersionUID = 40000L;

@@ -43,9 +43,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** owl:inverseOf is used in both property expressions AND axioms.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 09-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class TPInverseOfHandler extends TriplePredicateHandler {
     private boolean axiomParsingMode = false;
 
@@ -87,8 +88,8 @@ public class TPInverseOfHandler extends TriplePredicateHandler {
         if (axiomParsingMode && getConsumer().isObjectProperty(subject)
                 && getConsumer().isObjectProperty(object)) {
             addAxiom(getDataFactory().getOWLInverseObjectPropertiesAxiom(
-                    translateObjectProperty(subject), translateObjectProperty(object),
-                    getPendingAnnotations()));
+                    translateObjectProperty(subject),
+                    translateObjectProperty(object), getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }

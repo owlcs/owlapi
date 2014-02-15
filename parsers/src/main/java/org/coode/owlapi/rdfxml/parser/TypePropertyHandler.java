@@ -46,9 +46,11 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class TypePropertyHandler extends BuiltInTypeHandler {
-    private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class.getName());
+    private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class
+            .getName());
 
     /** @param consumer
      *            consumer */
@@ -62,8 +64,8 @@ public class TypePropertyHandler extends BuiltInTypeHandler {
         // We need to consume this triple
         consumeTriple(subject, predicate, object);
         if (logger.isLoggable(Level.FINE)) {
-            logger.fine("Usage of rdf vocabulary: " + subject + " -> " + predicate
-                    + " -> " + object);
+            logger.fine("Usage of rdf vocabulary: " + subject + " -> "
+                    + predicate + " -> " + object);
         }
     }
 }

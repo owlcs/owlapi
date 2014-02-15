@@ -41,9 +41,10 @@ package org.coode.owlapi.latex;
 import org.semanticweb.owlapi.io.OWLRendererException;
 
 /** The Class LatexRendererException.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Jun-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class LatexRendererException extends OWLRendererException {
     private static final long serialVersionUID = 40000L;
 

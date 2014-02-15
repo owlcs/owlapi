@@ -47,9 +47,10 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /** Translates a set of triples to an {@code OWLUnionOf}.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */
@@ -59,7 +60,8 @@ public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, false);
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF,
+                false);
         return isClassExpressionStrict(mainNode)
                 && isClassExpressionListStrict(listNode, 2);
     }
@@ -71,7 +73,8 @@ public class ObjectUnionOfTranslator extends AbstractClassExpressionTranslator {
 
     @Override
     public OWLObjectUnionOf translate(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF, true);
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_UNION_OF,
+                true);
         Set<OWLClassExpression> classExpressions = getConsumer()
                 .translateToClassExpressionSet(listNode);
         return getDataFactory().getOWLObjectUnionOf(classExpressions);

@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Aug-2007 */
+ *         Group
+ * @since 2.1.1 */
 @HasPriority(value = 4)
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     private static final long serialVersionUID = 40000L;

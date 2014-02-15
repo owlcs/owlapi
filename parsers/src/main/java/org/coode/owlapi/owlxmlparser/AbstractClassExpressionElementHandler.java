@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractClassExpressionElementHandler extends
         AbstractOWLElementHandler<OWLClassExpression> {
     private OWLClassExpression desc;
@@ -55,12 +56,14 @@ public abstract class AbstractClassExpressionElementHandler extends
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         endClassExpressionElement();
         getParentHandler().handleChild(this);
     }
 
-    protected abstract void endClassExpressionElement() throws OWLXMLParserException;
+    protected abstract void endClassExpressionElement()
+            throws OWLXMLParserException;
 
     protected void setClassExpression(OWLClassExpression desc) {
         this.desc = desc;

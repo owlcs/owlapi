@@ -118,7 +118,8 @@ import org.xml.sax.SAXException;
  * triple handlers.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 07-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLRDFConsumer implements RDFConsumer {
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";

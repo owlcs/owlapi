@@ -117,14 +117,15 @@ public interface KRSSParserConstants {
     /** Lexical state. */
     int IN_STRING_LITERAL = 3;
     /** Literal token values. */
-    String[] tokenImage = { "<EOF>", "\" \"", "\"\\n\"", "\"\\t\"", "\"\\r\"", "\";\"",
-            "\"\\n\"", "<token of kind 7>", "\"<\"", "\">\"", "<token of kind 10>",
-            "\"\\\"\"", "\"\\\\\\\"\"", "\"\\\"\"", "<token of kind 14>", "\"(\"",
-            "\")\"", "\"end-tbox\"", "\"end-abox\"", "\"primitive-concept\"",
+    String[] tokenImage = { "<EOF>", "\" \"", "\"\\n\"", "\"\\t\"", "\"\\r\"",
+            "\";\"", "\"\\n\"", "<token of kind 7>", "\"<\"", "\">\"",
+            "<token of kind 10>", "\"\\\"\"", "\"\\\\\\\"\"", "\"\\\"\"",
+            "<token of kind 14>", "\"(\"", "\")\"", "\"end-tbox\"",
+            "\"end-abox\"", "\"primitive-concept\"",
             "\"define-primitive-concept\"", "\"define-concept\"",
-            "\"define-primitive-role\"", "\"subrole\"", "\"transitive\"", "\"enum\"",
-            "\"range\"", "\"and\"", "\"or\"", "\"not\"", "\"all\"", "\"some\"",
-            "\"none\"", "\"at-least\"", "\"at-most\"", "\"exactly\"", "\"instance\"",
-            "\"related\"", "\"equal\"", "\"distinct\"", "<NAME>", "<INT>",
-            "\":right-identity\"", };
+            "\"define-primitive-role\"", "\"subrole\"", "\"transitive\"",
+            "\"enum\"", "\"range\"", "\"and\"", "\"or\"", "\"not\"", "\"all\"",
+            "\"some\"", "\"none\"", "\"at-least\"", "\"at-most\"",
+            "\"exactly\"", "\"instance\"", "\"related\"", "\"equal\"",
+            "\"distinct\"", "<NAME>", "<INT>", "\":right-identity\"", };
 }

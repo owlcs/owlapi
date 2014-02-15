@@ -43,10 +43,12 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** A handler for top level intersection classes.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Dec-2006 */
-public class TPIntersectionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class TPIntersectionOfHandler extends
+        AbstractNamedEquivalentClassAxiomHandler {
     /** @param consumer
      *            consumer */
     public TPIntersectionOfHandler(OWLRDFConsumer consumer) {

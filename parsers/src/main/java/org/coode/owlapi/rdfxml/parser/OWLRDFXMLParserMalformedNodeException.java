@@ -39,10 +39,12 @@
 package org.coode.owlapi.rdfxml.parser;
 
 /** The Class OWLRDFXMLParserMalformedNodeException.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
-public class OWLRDFXMLParserMalformedNodeException extends OWLRDFXMLParserException {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class OWLRDFXMLParserMalformedNodeException extends
+        OWLRDFXMLParserException {
     private static final long serialVersionUID = 40000L;
 
     /** Instantiates a new oWLRDFXML parser malformed node exception.

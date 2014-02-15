@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 13-May-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class ManchesterOWLSyntaxInlineAxiomParser implements
         OWLExpressionParser<OWLAxiom> {
     private OWLDataFactory dataFactory;

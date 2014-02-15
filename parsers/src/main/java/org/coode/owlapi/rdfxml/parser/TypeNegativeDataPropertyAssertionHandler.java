@@ -49,12 +49,15 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
-public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler {
+ *         Group
+ * @since 2.0.0 */
+public class TypeNegativeDataPropertyAssertionHandler extends
+        BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
     public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
-        super(consumer, DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION);
+        super(consumer,
+                DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION);
     }
 
     @Override
@@ -96,12 +99,12 @@ public class TypeNegativeDataPropertyAssertionHandler extends BuiltInTypeHandler
                     DeprecatedVocabulary.RDF_OBJECT, true);
         }
         OWLIndividual sourceInd = getConsumer().getOWLIndividual(source);
-        OWLDataPropertyExpression prop = getConsumer().translateDataPropertyExpression(
-                property);
+        OWLDataPropertyExpression prop = getConsumer()
+                .translateDataPropertyExpression(property);
         consumeTriple(subject, predicate, object);
         getConsumer().translateAnnotations(subject);
         Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop,
-                sourceInd, target, annos));
+        addAxiom(getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(
+                prop, sourceInd, target, annos));
     }
 }

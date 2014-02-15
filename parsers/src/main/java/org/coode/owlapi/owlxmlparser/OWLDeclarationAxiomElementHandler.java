@@ -47,8 +47,10 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
-public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHandler {
+ *         Group
+ * @since 2.0.0 */
+public class OWLDeclarationAxiomElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLEntity entity;
     private Set<OWLAnnotation> entityAnnotations;
 
@@ -104,7 +106,8 @@ public class OWLDeclarationAxiomElementHandler extends AbstractOWLAxiomElementHa
 
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDeclarationAxiom(entity, getAnnotations());
+        return getOWLDataFactory().getOWLDeclarationAxiom(entity,
+                getAnnotations());
     }
 
     @Override

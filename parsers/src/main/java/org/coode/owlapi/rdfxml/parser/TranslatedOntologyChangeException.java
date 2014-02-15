@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.xml.sax.SAXException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class TranslatedOntologyChangeException extends SAXException {
     private static final long serialVersionUID = 40000L;
 

@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 08-Oct-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     private IRI iri;
     private List<SWRLDArgument> args = new ArrayList<SWRLDArgument>();
@@ -59,7 +60,8 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 
@@ -72,11 +74,13 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     @Override
     public void handleChild(OWLLiteralElementHandler handler)
             throws OWLXMLParserException {
-        args.add(getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject()));
+        args.add(getOWLDataFactory().getSWRLLiteralArgument(
+                handler.getOWLObject()));
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLBuiltInAtom(iri, args));
         getParentHandler().handleChild(this);
     }

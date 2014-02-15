@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 01-Jul-2007 */
+ *         Group
+ * @since 2.1.0 */
 public class TPAllValuesFromHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */

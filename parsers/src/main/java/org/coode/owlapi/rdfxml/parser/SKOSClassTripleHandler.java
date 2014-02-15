@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 05-Nov-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class SKOSClassTripleHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer

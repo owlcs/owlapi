@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Apr-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
@@ -66,21 +67,23 @@ public class TypeAllDisjointPropertiesHandler extends BuiltInTypeHandler {
                 OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (getConsumer().isObjectProperty(
                 getConsumer().getFirstResource(listNode, false))) {
-            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+            Set<OWLAnnotation> annotations = getConsumer()
+                    .translateAnnotations(subject);
             List<OWLObjectPropertyExpression> props = getConsumer()
                     .translateToObjectPropertyList(listNode);
-            getConsumer()
-                    .addAxiom(
-                            getDataFactory().getOWLDisjointObjectPropertiesAxiom(
-                                    new HashSet<OWLObjectPropertyExpression>(props),
-                                    annotations));
+            getConsumer().addAxiom(
+                    getDataFactory().getOWLDisjointObjectPropertiesAxiom(
+                            new HashSet<OWLObjectPropertyExpression>(props),
+                            annotations));
         } else {
-            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+            Set<OWLAnnotation> annotations = getConsumer()
+                    .translateAnnotations(subject);
             List<OWLDataPropertyExpression> props = getConsumer()
                     .translateToDataPropertyList(listNode);
             getConsumer().addAxiom(
                     getDataFactory().getOWLDisjointDataPropertiesAxiom(
-                            new HashSet<OWLDataPropertyExpression>(props), annotations));
+                            new HashSet<OWLDataPropertyExpression>(props),
+                            annotations));
         }
     }
 

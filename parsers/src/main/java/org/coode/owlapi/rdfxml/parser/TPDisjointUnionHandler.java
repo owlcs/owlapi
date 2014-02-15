@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TPDisjointUnionHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */
@@ -75,8 +76,8 @@ public class TPDisjointUnionHandler extends TriplePredicateHandler {
             OWLClass cls = (OWLClass) translateClassExpression(subject);
             Set<OWLClassExpression> classExpressions = getConsumer()
                     .translateToClassExpressionSet(object);
-            addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions,
-                    getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLDisjointUnionAxiom(cls,
+                    classExpressions, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }

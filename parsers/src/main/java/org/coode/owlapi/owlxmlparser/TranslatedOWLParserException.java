@@ -43,9 +43,10 @@ import org.xml.sax.SAXException;
 
 /** Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a
  * {@link org.xml.sax.SAXException}.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 07-Dec-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public class TranslatedOWLParserException extends SAXException {
     private static final long serialVersionUID = 40000L;
     private OWLParserException parserException;

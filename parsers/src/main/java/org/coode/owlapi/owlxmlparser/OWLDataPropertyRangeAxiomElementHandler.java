@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLDataPropertyRangeAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLDataPropertyExpression property;
@@ -75,7 +76,7 @@ public class OWLDataPropertyRangeAxiomElementHandler extends
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
                     getColumnNumber(), "data range element");
         }
-        return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property, range,
-                getAnnotations());
+        return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property,
+                range, getAnnotations());
     }
 }

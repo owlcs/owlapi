@@ -41,7 +41,8 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectAllValuesFromElementHandler extends
         AbstractClassExpressionFillerRestriction {
     /** @param handler
@@ -52,6 +53,7 @@ public class OWLObjectAllValuesFromElementHandler extends
 
     @Override
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLObjectAllValuesFrom(getProperty(), getFiller());
+        return getOWLDataFactory().getOWLObjectAllValuesFrom(getProperty(),
+                getFiller());
     }
 }

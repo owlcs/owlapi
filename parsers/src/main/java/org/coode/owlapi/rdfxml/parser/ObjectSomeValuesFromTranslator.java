@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class ObjectSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
+ *         Group
+ * @since 2.0.0 */
+public class ObjectSomeValuesFromTranslator extends
+        AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */
     public ObjectSomeValuesFromTranslator(OWLRDFConsumer consumer) {
@@ -71,16 +73,16 @@ public class ObjectSomeValuesFromTranslator extends AbstractClassExpressionTrans
 
     @Override
     public OWLObjectSomeValuesFrom translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
         IRI fillerMainNode = getConsumer().getResourceObject(mainNode,
                 OWL_SOME_VALUES_FROM, true);
-        OWLClassExpression filler = getConsumer()
-                .translateClassExpression(fillerMainNode);
+        OWLClassExpression filler = getConsumer().translateClassExpression(
+                fillerMainNode);
         return getDataFactory().getOWLObjectSomeValuesFrom(property, filler);
     }
 }

@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 19/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 public interface TriplePatternMatcher {
     /** @param consumer
      *            consumer

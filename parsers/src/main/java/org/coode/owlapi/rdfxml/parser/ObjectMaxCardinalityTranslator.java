@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class ObjectMaxCardinalityTranslator extends AbstractClassExpressionTranslator {
+ *         Group
+ * @since 2.0.0 */
+public class ObjectMaxCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */
     public ObjectMaxCardinalityTranslator(OWLRDFConsumer consumer) {
@@ -69,18 +71,21 @@ public class ObjectMaxCardinalityTranslator extends AbstractClassExpressionTrans
 
     @Override
     public OWLObjectMaxCardinality translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_MAX_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS,
+                true);
         if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
             // Be tolerant
-            OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
-            return getDataFactory().getOWLObjectMaxCardinality(cardi, property, filler);
+            OWLClassExpression filler = getConsumer().translateClassExpression(
+                    fillerIRI);
+            return getDataFactory().getOWLObjectMaxCardinality(cardi, property,
+                    filler);
         } else {
             return getDataFactory().getOWLObjectMaxCardinality(cardi, property);
         }

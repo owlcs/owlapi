@@ -41,8 +41,10 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public abstract class TriplePredicateHandler extends AbstractResourceTripleHandler {
+ *         Group
+ * @since 2.0.0 */
+public abstract class TriplePredicateHandler extends
+        AbstractResourceTripleHandler {
     private IRI predicateIRI;
 
     /** @param consumer

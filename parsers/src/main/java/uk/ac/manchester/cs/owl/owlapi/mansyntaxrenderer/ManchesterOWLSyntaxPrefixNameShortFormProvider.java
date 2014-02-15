@@ -51,10 +51,12 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * short forms. The only difference between this short form provider and a
  * prefix manager is that names with the default prefix do not have a colon with
  * this short form provider.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 28-Jun-2009 */
-public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortFormProvider {
+ *         Management Group
+ * @since 3.0.0 */
+public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements
+        ShortFormProvider {
     private DefaultPrefixManager prefixManager;
 
     /** Constructs a short form provider that reuses any prefix name mappings
@@ -72,12 +74,15 @@ public class ManchesterOWLSyntaxPrefixNameShortFormProvider implements ShortForm
      * 
      * @param format
      *            The format from which prefix name mappings will be reused */
-    public ManchesterOWLSyntaxPrefixNameShortFormProvider(OWLOntologyFormat format) {
+    public ManchesterOWLSyntaxPrefixNameShortFormProvider(
+            OWLOntologyFormat format) {
         prefixManager = new DefaultPrefixManager();
         if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
-            for (String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
-                prefixManager.setPrefix(prefixName, prefixFormat.getPrefix(prefixName));
+            for (String prefixName : prefixFormat.getPrefixName2PrefixMap()
+                    .keySet()) {
+                prefixManager.setPrefix(prefixName,
+                        prefixFormat.getPrefix(prefixName));
             }
         }
     }

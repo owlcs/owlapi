@@ -41,7 +41,8 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 15-Jul-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class RendererEvent {
     private ManchesterOWLSyntaxFrameRenderer frameRenderer;
     private OWLObject frameSubject;

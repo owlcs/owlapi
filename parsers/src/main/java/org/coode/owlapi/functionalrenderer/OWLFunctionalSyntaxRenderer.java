@@ -47,10 +47,12 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLFunctionalSyntaxRenderer extends AbstractOWLRenderer {
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         try {
             OWLObjectRenderer ren = new OWLObjectRenderer(ontology, writer);
             ontology.accept(ren);

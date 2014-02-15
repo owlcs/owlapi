@@ -39,9 +39,10 @@
 package org.coode.xml;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class XMLWriterPreferences {
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;

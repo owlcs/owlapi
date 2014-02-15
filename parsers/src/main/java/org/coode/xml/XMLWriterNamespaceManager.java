@@ -49,9 +49,10 @@ import javax.annotation.Nullable;
 import org.semanticweb.owlapi.model.IRI;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class XMLWriterNamespaceManager {
     private Map<String, String> prefixNamespaceMap = new HashMap<String, String>();
     private Map<String, String> namespacePrefixMap = new HashMap<String, String>();
@@ -69,7 +70,8 @@ public class XMLWriterNamespaceManager {
      *            prefix
      * @param namespace
      *            namespace */
-    public void addWellKnownNamespace(@Nonnull String prefix, @Nonnull String namespace) {
+    public void addWellKnownNamespace(@Nonnull String prefix,
+            @Nonnull String namespace) {
         wellknownNamespaces.put(checkNotNull(prefix, "prefix cannot be null"),
                 checkNotNull(namespace, "namespace cannot be null"));
     }
@@ -90,8 +92,8 @@ public class XMLWriterNamespaceManager {
      * @return prefix for namespace, or null */
     @Nullable
     public String getPrefixForNamespace(@Nonnull String namespace) {
-        return namespacePrefixMap
-                .get(checkNotNull(namespace, "namespace cannot be null"));
+        return namespacePrefixMap.get(checkNotNull(namespace,
+                "namespace cannot be null"));
     }
 
     /** @param namespace
@@ -105,7 +107,8 @@ public class XMLWriterNamespaceManager {
      * @return namespace for prefix or null */
     @Nullable
     public String getNamespaceForPrefix(@Nonnull String prefix) {
-        return prefixNamespaceMap.get(checkNotNull(prefix, "prefix cannot be null"));
+        return prefixNamespaceMap.get(checkNotNull(prefix,
+                "prefix cannot be null"));
     }
 
     /** Gets a QName for a full URI.
@@ -141,7 +144,8 @@ public class XMLWriterNamespaceManager {
         }
         String candidate = namespacePrefixMap.get(name.getNamespace());
         if (candidate != null) {
-            String localName = name.getFragment() == null ? "" : name.getFragment();
+            String localName = name.getFragment() == null ? "" : name
+                    .getFragment();
             return candidate + ":" + localName;
         }
         return name.toString();

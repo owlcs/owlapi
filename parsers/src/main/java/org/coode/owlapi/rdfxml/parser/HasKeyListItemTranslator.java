@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class HasKeyListItemTranslator implements
         ListItemTranslator<OWLPropertyExpression> {
     private OWLRDFConsumer consumer;

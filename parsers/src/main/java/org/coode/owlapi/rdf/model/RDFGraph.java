@@ -61,9 +61,11 @@ import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class RDFGraph {
-    private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
+    private static final Logger logger = Logger.getLogger(RDFGraph.class
+            .getName());
     private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
     private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
     private Set<RDFTriple> triples = new HashSet<RDFTriple>();
@@ -98,7 +100,8 @@ public class RDFGraph {
      * @param sort
      *            sort
      * @return sorted triples */
-    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject, boolean sort) {
+    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject,
+            boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);
         if (set == null) {
             return Collections.emptyList();
@@ -136,7 +139,8 @@ public class RDFGraph {
         rootAnonymousNodes = new HashSet<RDFResourceBlankNode>();
         for (RDFTriple triple : triples) {
             if (triple.getSubject() instanceof RDFResourceBlankNode) {
-                rootAnonymousNodes.add((RDFResourceBlankNode) triple.getSubject());
+                rootAnonymousNodes.add((RDFResourceBlankNode) triple
+                        .getSubject());
             }
         }
         for (RDFTriple triple : triples) {

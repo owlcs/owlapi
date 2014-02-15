@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLAxiomElementHandler extends
         AbstractOWLElementHandler<OWLAxiom> {
     private OWLAxiom axiom;
@@ -88,7 +89,8 @@ public abstract class AbstractOWLAxiomElementHandler extends
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }

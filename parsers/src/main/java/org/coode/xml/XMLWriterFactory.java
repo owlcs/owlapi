@@ -43,9 +43,10 @@ import java.io.Writer;
 import javax.annotation.Nonnull;
 
 /** Developed as part of the CO-ODE project http://www.co-ode.org
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class XMLWriterFactory {
     private static XMLWriterFactory instance = new XMLWriterFactory();
 

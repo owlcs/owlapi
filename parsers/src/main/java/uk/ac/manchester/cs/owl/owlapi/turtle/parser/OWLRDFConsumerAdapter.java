@@ -46,10 +46,12 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.SAXException;
 
 /** The Class OWLRDFConsumerAdapter.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Feb-2008 */
-public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
+ *         Informatics Group
+ * @since 2.2.0 */
+public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
+        TripleHandler {
     /** @param ontology
      *            ontology
      * @param configuration
@@ -74,8 +76,8 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         // XXX inefficient?
         try {
-            statementWithResourceValue(subject.toString(), predicate.toString(),
-                    object.toString());
+            statementWithResourceValue(subject.toString(),
+                    predicate.toString(), object.toString());
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
@@ -84,28 +86,30 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
-                    null, null);
+            statementWithLiteralValue(subject.toString(), predicate.toString(),
+                    object, null, null);
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            String lang) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
-                    lang, null);
+            statementWithLiteralValue(subject.toString(), predicate.toString(),
+                    object, lang, null);
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            IRI datatype) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
-                    null, datatype.toString());
+            statementWithLiteralValue(subject.toString(), predicate.toString(),
+                    object, null, datatype.toString());
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }

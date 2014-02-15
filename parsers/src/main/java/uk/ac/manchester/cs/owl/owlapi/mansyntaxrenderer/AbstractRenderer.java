@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class AbstractRenderer {
     private ShortFormProvider shortFormProvider;
     private int lastNewLinePos = -1;
@@ -64,7 +65,8 @@ public class AbstractRenderer {
      *            writer
      * @param shortFormProvider
      *            shortFormProvider */
-    protected AbstractRenderer(Writer writer, ShortFormProvider shortFormProvider) {
+    protected AbstractRenderer(Writer writer,
+            ShortFormProvider shortFormProvider) {
         this.writer = writer;
         this.shortFormProvider = shortFormProvider;
         pushTab(0);
@@ -192,7 +194,8 @@ public class AbstractRenderer {
         }
     }
 
-    protected void write(String prefix, ManchesterOWLSyntax keyword, String suffix) {
+    protected void write(String prefix, ManchesterOWLSyntax keyword,
+            String suffix) {
         write(prefix);
         write(keyword.toString());
         write(suffix);

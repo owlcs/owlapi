@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-Jun-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class NamedClassTranslator extends AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */

@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class RDFTranslator extends
         AbstractTranslator<RDFNode, RDFResource, RDFResourceIRI, RDFLiteral> {
     private RDFGraph graph = new RDFGraph();

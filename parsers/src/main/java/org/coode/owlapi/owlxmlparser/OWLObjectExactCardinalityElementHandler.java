@@ -41,7 +41,8 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectExactCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
     /** @param handler
@@ -52,7 +53,7 @@ public class OWLObjectExactCardinalityElementHandler extends
 
     @Override
     protected OWLClassExpression createCardinalityRestriction() {
-        return getOWLDataFactory().getOWLObjectExactCardinality(getCardinality(),
-                getProperty(), getFiller());
+        return getOWLDataFactory().getOWLObjectExactCardinality(
+                getCardinality(), getProperty(), getFiller());
     }
 }

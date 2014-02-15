@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 08-Oct-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     private OWLDataPropertyExpression prop;
     private SWRLIArgument arg0 = null;
@@ -76,23 +77,27 @@ public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     @Override
     public void handleChild(OWLLiteralElementHandler handler)
             throws OWLXMLParserException {
-        arg1 = getOWLDataFactory().getSWRLLiteralArgument(handler.getOWLObject());
+        arg1 = getOWLDataFactory().getSWRLLiteralArgument(
+                handler.getOWLObject());
     }
 
     @Override
     public void handleChild(OWLIndividualElementHandler _handler)
             throws OWLXMLParserException {
-        arg0 = getOWLDataFactory().getSWRLIndividualArgument(_handler.getOWLObject());
+        arg0 = getOWLDataFactory().getSWRLIndividualArgument(
+                _handler.getOWLObject());
     }
 
     @Override
     public void handleChild(OWLAnonymousIndividualElementHandler _handler)
             throws OWLXMLParserException {
-        arg0 = getOWLDataFactory().getSWRLIndividualArgument(_handler.getOWLObject());
+        arg0 = getOWLDataFactory().getSWRLIndividualArgument(
+                _handler.getOWLObject());
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDataPropertyAtom(prop, arg0, arg1));
         getParentHandler().handleChild(this);
     }

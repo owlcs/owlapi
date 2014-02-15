@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLInverseObjectPropertyElementHandler extends
         AbstractOWLObjectPropertyElementHandler {
     private OWLObjectPropertyExpression inverse;
@@ -62,8 +63,10 @@ public class OWLInverseObjectPropertyElementHandler extends
     protected void endObjectPropertyElement() throws OWLXMLParserException {
         if (inverse == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), OWLXMLVocabulary.OBJECT_INVERSE_OF.getShortName());
+                    getColumnNumber(),
+                    OWLXMLVocabulary.OBJECT_INVERSE_OF.getShortName());
         }
-        setOWLObjectPropertyExpression(getOWLDataFactory().getOWLObjectInverseOf(inverse));
+        setOWLObjectPropertyExpression(getOWLDataFactory()
+                .getOWLObjectInverseOf(inverse));
     }
 }

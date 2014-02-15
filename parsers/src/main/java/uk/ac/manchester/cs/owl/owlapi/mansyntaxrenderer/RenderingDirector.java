@@ -42,7 +42,8 @@ import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 11-Mar-2010 */
+ *         Group
+ * @since 3.1.0 */
 public interface RenderingDirector {
     /** @param frameSectionKeyword
      *            frameSectionKeyword

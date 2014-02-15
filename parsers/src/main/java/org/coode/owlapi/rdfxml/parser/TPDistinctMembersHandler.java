@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TPDistinctMembersHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */
@@ -63,7 +64,8 @@ public class TPDistinctMembersHandler extends TriplePredicateHandler {
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
-        Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(object);
+        Set<OWLIndividual> inds = getConsumer()
+                .translateToIndividualSet(object);
         addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds,
                 getPendingAnnotations()));
         consumeTriple(subject, predicate, object);

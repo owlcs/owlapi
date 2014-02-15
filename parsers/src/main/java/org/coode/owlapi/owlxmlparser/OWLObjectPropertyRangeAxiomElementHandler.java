@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectPropertyRangeAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLClassExpression range;
@@ -70,13 +71,14 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
         if (property == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
+                    getColumnNumber(),
+                    OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
         }
         if (range == null) {
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
                     getColumnNumber(), "OWL class expression element");
         }
-        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property, range,
-                getAnnotations());
+        return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property,
+                range, getAnnotations());
     }
 }

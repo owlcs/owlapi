@@ -76,7 +76,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class TurtleRenderer extends RDFRendererBase {
     private PrintWriter writer;
     private PrefixManager pm;
@@ -90,7 +91,8 @@ public class TurtleRenderer extends RDFRendererBase {
      *            writer
      * @param format
      *            format */
-    public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
+    public TurtleRenderer(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) {
         super(ontology, format);
         this.format = checkNotNull(format, "format cannot be null");
         this.writer = new PrintWriter(writer);
@@ -203,7 +205,8 @@ public class TurtleRenderer extends RDFRendererBase {
         if (!node.isPlainLiteral()) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLexicalValue());
-            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
+            } else if (node.getDatatype()
+                    .equals(XSDVocabulary.DECIMAL.getIRI())) {
                 write(node.getLexicalValue());
             } else {
                 writeStringLiteral(node.getLexicalValue());
@@ -371,7 +374,8 @@ public class TurtleRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             RDFResource subj = triple.getSubject();
             RDFResourceIRI pred = triple.getPredicate();
-            if (lastSubject != null && (subj.equals(lastSubject) || subj.isAnonymous())) {
+            if (lastSubject != null
+                    && (subj.equals(lastSubject) || subj.isAnonymous())) {
                 if (lastPredicate != null && pred.equals(lastPredicate)) {
                     // Only the object differs from previous triple
                     // Just write the object

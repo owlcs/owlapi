@@ -42,9 +42,10 @@ import java.io.PrintWriter;
 import java.io.Writer;
 
 /** The Class LatexWriter.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 25-Aug-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class LatexWriter {
     /** The writer. */
     private PrintWriter writer;

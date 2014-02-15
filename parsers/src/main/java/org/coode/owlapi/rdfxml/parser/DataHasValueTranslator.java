@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class DataHasValueTranslator extends AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */
@@ -68,11 +69,12 @@ public class DataHasValueTranslator extends AbstractClassExpressionTranslator {
 
     @Override
     public OWLDataHasValue translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
-        OWLLiteral lit = getConsumer().getLiteralObject(mainNode, OWL_HAS_VALUE, true);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
+        OWLLiteral lit = getConsumer().getLiteralObject(mainNode,
+                OWL_HAS_VALUE, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLDataPropertyExpression property = getConsumer()
                 .translateDataPropertyExpression(propertyIRI);
         return getDataFactory().getOWLDataHasValue(property, lit);

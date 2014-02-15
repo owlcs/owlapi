@@ -44,8 +44,10 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-May-2009 */
-public class LegacyEntityAnnotationElementHandler extends AbstractOWLAxiomElementHandler {
+ *         Group
+ * @since 3.0.0 */
+public class LegacyEntityAnnotationElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLEntity entity;
     private OWLAnnotation annotation;
 

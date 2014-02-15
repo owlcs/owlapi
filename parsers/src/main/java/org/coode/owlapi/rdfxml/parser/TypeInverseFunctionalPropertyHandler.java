@@ -44,12 +44,14 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
     public TypeInverseFunctionalPropertyHandler(OWLRDFConsumer consumer) {
-        super(consumer, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
+        super(consumer, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY
+                .getIRI());
     }
 
     @Override
@@ -65,8 +67,9 @@ public class TypeInverseFunctionalPropertyHandler extends BuiltInTypeHandler {
             throws UnloadableImportException {
         if (getConsumer().isObjectProperty(subject)) {
             OWLObjectPropertyExpression property = translateObjectProperty(subject);
-            addAxiom(getDataFactory().getOWLInverseFunctionalObjectPropertyAxiom(
-                    property, getPendingAnnotations()));
+            addAxiom(getDataFactory()
+                    .getOWLInverseFunctionalObjectPropertyAxiom(property,
+                            getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }

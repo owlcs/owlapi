@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Jan-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class ObjectPropertyListItemTranslator implements
         ListItemTranslator<OWLObjectPropertyExpression> {
     private static final Logger logger = Logger

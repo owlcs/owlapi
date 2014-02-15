@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler
         extends
         AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLIndividual> {

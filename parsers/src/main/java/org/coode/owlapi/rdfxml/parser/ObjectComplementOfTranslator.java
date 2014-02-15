@@ -46,10 +46,12 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
 /** Translates a set of triples that represent an {@code OWLComplementOf} class
  * expression.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006 */
-public class ObjectComplementOfTranslator extends AbstractClassExpressionTranslator {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class ObjectComplementOfTranslator extends
+        AbstractClassExpressionTranslator {
     /** @param consumer
      *            consumer */
     public ObjectComplementOfTranslator(OWLRDFConsumer consumer) {

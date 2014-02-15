@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class TPEquivalentClassHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */
@@ -61,8 +62,8 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         inferTypes(subject, object);
         return super.canHandle(subject, predicate, object)
-                && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject,
-                        object);
+                && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
+                        subject, object);
     }
 
     @Override
@@ -70,15 +71,16 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         inferTypes(subject, object);
         return !isStrict()
                 && !isSubjectOrObjectAnonymous(subject, object)
-                && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(subject,
-                        object);
+                && isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
+                        subject, object);
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         if (isStrict()) {
-            if (isClassExpressionStrict(subject) && isClassExpressionStrict(object)) {
+            if (isClassExpressionStrict(subject)
+                    && isClassExpressionStrict(object)) {
                 translateEquivalentClasses(subject, predicate, object);
             } else if (isDataRangeStrict(subject) && isDataRangeStrict(object)) {
                 translateEquivalentDataRanges(subject, predicate, object);
@@ -92,15 +94,17 @@ public class TPEquivalentClassHandler extends TriplePredicateHandler {
         }
     }
 
-    private void translateEquivalentDataRanges(IRI subject, IRI predicate, IRI object) {
+    private void translateEquivalentDataRanges(IRI subject, IRI predicate,
+            IRI object) {
         OWLDatatype datatype = getDataFactory().getOWLDatatype(subject);
         OWLDataRange dataRange = getConsumer().translateDataRange(object);
-        addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype, dataRange,
-                getPendingAnnotations()));
+        addAxiom(getDataFactory().getOWLDatatypeDefinitionAxiom(datatype,
+                dataRange, getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
-    private void translateEquivalentClasses(IRI subject, IRI predicate, IRI object) {
+    private void translateEquivalentClasses(IRI subject, IRI predicate,
+            IRI object) {
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         operands.add(translateClassExpression(subject));
         operands.add(translateClassExpression(object));

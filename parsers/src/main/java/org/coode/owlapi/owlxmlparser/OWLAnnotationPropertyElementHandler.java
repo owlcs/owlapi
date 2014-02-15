@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 23-Apr-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLAnnotationPropertyElementHandler extends
         AbstractOWLElementHandler<OWLAnnotationProperty> {
     private OWLAnnotationProperty prop;
@@ -62,12 +63,14 @@ public class OWLAnnotationPropertyElementHandler extends
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         prop = getOWLDataFactory().getOWLAnnotationProperty(iri);
         getParentHandler().handleChild(this);
     }

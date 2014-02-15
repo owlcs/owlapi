@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 07-Sep-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class TypeAsymmetricPropertyHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */

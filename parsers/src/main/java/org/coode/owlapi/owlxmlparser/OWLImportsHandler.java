@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     /** @param handler
      *            owlxml handler */
@@ -55,9 +56,11 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         IRI ontIRI = getIRI(getText().trim());
-        OWLImportsDeclaration decl = getOWLDataFactory().getOWLImportsDeclaration(ontIRI);
+        OWLImportsDeclaration decl = getOWLDataFactory()
+                .getOWLImportsDeclaration(ontIRI);
         getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
         getOWLOntologyManager().makeLoadImportRequest(decl, getConfiguration());
     }

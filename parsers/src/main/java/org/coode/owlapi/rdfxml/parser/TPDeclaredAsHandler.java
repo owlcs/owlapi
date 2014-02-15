@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 21-Feb-2007 */
+ *         Group
+ * @since 2.0.0 */
 @Deprecated
 public class TPDeclaredAsHandler extends TriplePredicateHandler {
     /** @param consumer
@@ -62,18 +63,20 @@ public class TPDeclaredAsHandler extends TriplePredicateHandler {
             throws UnloadableImportException {
         if (object.equals(OWLRDFVocabulary.OWL_CLASS.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(
-                    getDataFactory().getOWLClass(subject), getPendingAnnotations()));
+                    getDataFactory().getOWLClass(subject),
+                    getPendingAnnotations()));
         } else if (object.equals(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(
                     getDataFactory().getOWLObjectProperty(subject),
                     getPendingAnnotations()));
         } else if (object.equals(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI())) {
-            addAxiom(getDataFactory()
-                    .getOWLDeclarationAxiom(getDataFactory().getOWLDataProperty(subject),
-                            getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(
+                    getDataFactory().getOWLDataProperty(subject),
+                    getPendingAnnotations()));
         } else if (object.equals(OWLRDFVocabulary.OWL_DATATYPE.getIRI())) {
             addAxiom(getDataFactory().getOWLDeclarationAxiom(
-                    getDataFactory().getOWLDatatype(subject), getPendingAnnotations()));
+                    getDataFactory().getOWLDatatype(subject),
+                    getPendingAnnotations()));
         }
     }
 }

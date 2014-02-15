@@ -41,12 +41,14 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLIndividualOperandAxiomElementHandler extends
         AbstractOperandAxiomElementHandler<OWLIndividual> {
     /** @param handler
      *            owlxml handler */
-    public AbstractOWLIndividualOperandAxiomElementHandler(OWLXMLParserHandler handler) {
+    public AbstractOWLIndividualOperandAxiomElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
     }
 

@@ -42,12 +42,15 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
-public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler extends
+ *         Group
+ * @since 2.0.0 */
+public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler
+        extends
         AbstractOWLAssertionAxiomElementHandler<OWLDataPropertyExpression, OWLLiteral> {
     /** @param handler
      *            owlxml handler */
-    public AbstractOWLDataPropertyAssertionAxiomElementHandler(OWLXMLParserHandler handler) {
+    public AbstractOWLDataPropertyAssertionAxiomElementHandler(
+            OWLXMLParserHandler handler) {
         super(handler);
     }
 

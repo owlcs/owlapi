@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-May-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLAnonymousIndividualElementHandler extends
         AbstractOWLElementHandler<OWLAnonymousIndividual> {
     private OWLAnonymousIndividual ind;
@@ -61,7 +62,8 @@ public class OWLAnonymousIndividualElementHandler extends
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         if (localName.equals(OWLXMLVocabulary.NODE_ID.getShortName())) {
             ind = getOWLDataFactory().getOWLAnonymousIndividual(value.trim());
         } else {
@@ -70,7 +72,8 @@ public class OWLAnonymousIndividualElementHandler extends
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 }

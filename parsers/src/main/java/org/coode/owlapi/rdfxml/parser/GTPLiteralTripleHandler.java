@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 18/03/2011 */
+ *         Group
+ * @since 3.2.3 */
 public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
     /** @param consumer
      *            consumer */
@@ -58,7 +59,8 @@ public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate,
+            OWLLiteral object) {
         if (isStrict()) {
             return false;
         }
@@ -67,6 +69,7 @@ public class GTPLiteralTripleHandler extends AbstractLiteralTripleHandler {
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
-        return isAnnotationPropertyStrict(predicate) || isDataPropertyStrict(predicate);
+        return isAnnotationPropertyStrict(predicate)
+                || isDataPropertyStrict(predicate);
     }
 }

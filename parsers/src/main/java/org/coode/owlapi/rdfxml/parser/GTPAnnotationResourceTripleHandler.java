@@ -48,8 +48,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006 */
-public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHandler {
+ *         Group
+ * @since 2.0.0 */
+public class GTPAnnotationResourceTripleHandler extends
+        AbstractResourceTripleHandler {
     /** @param consumer
      *            consumer */
     public GTPAnnotationResourceTripleHandler(OWLRDFConsumer consumer) {
@@ -70,8 +72,10 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         boolean builtInAnnotationProperty = OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
                 .contains(predicate);
-        return !getConsumer().isAxiom(subject) && !getConsumer().isAnnotation(subject)
-                && (builtInAnnotationProperty || !predicate.isReservedVocabulary());
+        return !getConsumer().isAxiom(subject)
+                && !getConsumer().isAnnotation(subject)
+                && (builtInAnnotationProperty || !predicate
+                        .isReservedVocabulary());
     }
 
     @Override
@@ -79,15 +83,18 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
             throws UnloadableImportException {
         OWLAnnotationValue value;
         if (isAnonymous(object)) {
-            value = getDataFactory().getOWLAnonymousIndividual(object.toString());
+            value = getDataFactory().getOWLAnonymousIndividual(
+                    object.toString());
         } else {
             value = object;
         }
-        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(
+                predicate);
         OWLAnnotation anno = getDataFactory().getOWLAnnotation(prop, value);
         OWLAnnotationSubject annoSubject;
         if (isAnonymous(subject)) {
-            annoSubject = getDataFactory().getOWLAnonymousIndividual(subject.toString());
+            annoSubject = getDataFactory().getOWLAnonymousIndividual(
+                    subject.toString());
         } else {
             annoSubject = subject;
         }
@@ -95,8 +102,8 @@ public class GTPAnnotationResourceTripleHandler extends AbstractResourceTripleHa
             // Assume we annotation our ontology?
             getConsumer().addOntologyAnnotation(anno);
         } else {
-            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(annoSubject,
-                    anno, getPendingAnnotations());
+            OWLAxiom decAx = getDataFactory().getOWLAnnotationAssertionAxiom(
+                    annoSubject, anno, getPendingAnnotations());
             addAxiom(decAx);
         }
     }

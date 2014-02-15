@@ -60,7 +60,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Feb-2008 */
+ *         Group
+ * @since 2.2.0 */
 @SuppressWarnings("unused")
 public abstract class DLSyntaxOntologyStorerBase extends
         AbstractOWLOntologyStorer {

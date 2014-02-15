@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Apr-2007 */
-public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
+ *         Group
+ * @since 2.0.0 */
+public class OWLDisjointUnionElementHandler extends
+        AbstractOWLAxiomElementHandler {
     private OWLClass cls;
     private Set<OWLClassExpression> classExpressions;
 
@@ -60,8 +62,8 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
 
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions,
-                getAnnotations());
+        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls,
+                classExpressions, getAnnotations());
     }
 
     @Override

@@ -82,8 +82,8 @@ public class RDFParserException extends SAXException {
      *            columnNumber */
     public RDFParserException(String message, String publicId, String systemId,
             int lineNumber, int columnNumber) {
-        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber + ":"
-                + "column=" + columnNumber + "] " : "")
+        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber
+                + ":" + "column=" + columnNumber + "] " : "")
                 + message);
         this.publicId = publicId;
         this.systemId = systemId;

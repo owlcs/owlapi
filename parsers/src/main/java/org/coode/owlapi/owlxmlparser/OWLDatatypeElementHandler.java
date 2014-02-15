@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
     private IRI iri;
 
@@ -53,7 +54,8 @@ public class OWLDatatypeElementHandler extends AbstractOWLDataRangeHandler {
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 

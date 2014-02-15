@@ -41,7 +41,8 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLXMLParserException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
@@ -51,7 +52,8 @@ public class OWLXMLParserException extends OWLParserException {
      *            lineNumber
      * @param columnNumber
      *            columnNumber */
-    public OWLXMLParserException(String message, int lineNumber, int columnNumber) {
+    public OWLXMLParserException(String message, int lineNumber,
+            int columnNumber) {
         super(message, lineNumber, columnNumber);
     }
 }

@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Apr-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
     /** @param consumer
      *            consumer */
@@ -58,8 +59,8 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return super.canHandle(subject, predicate, object)
-                && getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS,
-                        false) != null;
+                && getConsumer().getResourceObject(subject,
+                        OWLRDFVocabulary.OWL_MEMBERS, false) != null;
     }
 
     @Override
@@ -68,10 +69,12 @@ public class TypeAllDisjointClassesHandler extends BuiltInTypeHandler {
         IRI listNode = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (listNode != null) {
-            Set<OWLClassExpression> desc = getConsumer().translateToClassExpressionSet(
-                    listNode);
-            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
-            addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc, annotations));
+            Set<OWLClassExpression> desc = getConsumer()
+                    .translateToClassExpressionSet(listNode);
+            Set<OWLAnnotation> annotations = getConsumer()
+                    .translateAnnotations(subject);
+            addAxiom(getDataFactory().getOWLDisjointClassesAxiom(desc,
+                    annotations));
             consumeTriple(subject, predicate, object);
         }
     }

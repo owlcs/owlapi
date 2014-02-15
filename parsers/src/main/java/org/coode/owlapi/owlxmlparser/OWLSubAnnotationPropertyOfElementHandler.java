@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 16/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 public class OWLSubAnnotationPropertyOfElementHandler extends
         AbstractOWLAxiomElementHandler {
     OWLAnnotationProperty subProperty = null;
@@ -74,7 +75,7 @@ public class OWLSubAnnotationPropertyOfElementHandler extends
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
                     getColumnNumber(), "AnnotationProperty for super property");
         }
-        return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(subProperty,
-                superProperty, getAnnotations());
+        return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(
+                subProperty, superProperty, getAnnotations());
     }
 }

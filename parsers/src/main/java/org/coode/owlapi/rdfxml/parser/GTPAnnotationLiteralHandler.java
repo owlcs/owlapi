@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     /** @param consumer
      *            consumer */
@@ -54,7 +55,8 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
+    public boolean canHandleStreaming(IRI subject, IRI predicate,
+            OWLLiteral object) {
         return !isAnonymous(subject) && !getConsumer().isAnnotation(subject)
                 && getConsumer().isAnnotationProperty(predicate);
     }
@@ -95,7 +97,8 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
     @Override
     public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
         consumeTriple(subject, predicate, object);
-        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(predicate);
+        OWLAnnotationProperty prop = getDataFactory().getOWLAnnotationProperty(
+                predicate);
         OWLAnnotationSubject annotationSubject;
         if (isAnonymous(subject)) {
             annotationSubject = getDataFactory().getOWLAnonymousIndividual(
@@ -109,8 +112,8 @@ public class GTPAnnotationLiteralHandler extends AbstractLiteralTripleHandler {
                             getPendingAnnotations()));
         } else {
             OWLAnnotationAssertionAxiom ax = getDataFactory()
-                    .getOWLAnnotationAssertionAxiom(prop, annotationSubject, object,
-                            getPendingAnnotations());
+                    .getOWLAnnotationAssertionAxiom(prop, annotationSubject,
+                            object, getPendingAnnotations());
             addAxiom(ax);
         }
     }

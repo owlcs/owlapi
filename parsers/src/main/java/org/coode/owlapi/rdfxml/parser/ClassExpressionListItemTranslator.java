@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class ClassExpressionListItemTranslator implements
         ListItemTranslator<OWLClassExpression> {
     private OWLRDFConsumer consumer;

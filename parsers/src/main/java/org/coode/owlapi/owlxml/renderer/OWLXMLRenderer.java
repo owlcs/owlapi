@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
     /** @param ontology
      *            ontology
@@ -111,7 +112,8 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         render(checkNotNull(ontology, "ontology cannot be null"),
                 checkNotNull(writer, "writer cannot be null"), ontology
                         .getOWLOntologyManager().getOntologyFormat(ontology));

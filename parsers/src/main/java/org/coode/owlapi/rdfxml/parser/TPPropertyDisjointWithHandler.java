@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 09-Jul-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
     /** @param consumer
      *            consumer */
@@ -58,23 +59,28 @@ public class TPPropertyDisjointWithHandler extends TriplePredicateHandler {
         return super.canHandle(subject, predicate, object)
                 && (getConsumer().isObjectProperty(subject)
                         && getConsumer().isObjectProperty(object) || getConsumer()
-                        .isDataProperty(subject) && getConsumer().isDataProperty(object));
+                        .isDataProperty(subject)
+                        && getConsumer().isDataProperty(object));
     }
 
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
-        if (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)) {
+        if (getConsumer().isDataProperty(subject)
+                && getConsumer().isDataProperty(object)) {
             addAxiom(getDataFactory().getOWLDisjointDataPropertiesAxiom(
                     CollectionFactory.createSet(translateDataProperty(subject),
-                            translateDataProperty(object)), getPendingAnnotations()));
+                            translateDataProperty(object)),
+                    getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
         if (getConsumer().isObjectProperty(subject)
                 && getConsumer().isObjectProperty(object)) {
             addAxiom(getDataFactory().getOWLDisjointObjectPropertiesAxiom(
-                    CollectionFactory.createSet(translateObjectProperty(subject),
-                            translateObjectProperty(object)), getPendingAnnotations()));
+                    CollectionFactory.createSet(
+                            translateObjectProperty(subject),
+                            translateObjectProperty(object)),
+                    getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }
