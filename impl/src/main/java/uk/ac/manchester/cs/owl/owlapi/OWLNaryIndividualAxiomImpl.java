@@ -55,9 +55,10 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
-        OWLNaryIndividualAxiom {
+ *         Group
+ * @since 2.0.0 */
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
+        implements OWLNaryIndividualAxiom {
     private static final long serialVersionUID = 40000L;
     private final Set<OWLIndividual> individuals;
 
@@ -65,7 +66,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
      *            individuals
      * @param annotations
      *            annotations on the axiom */
-    public OWLNaryIndividualAxiomImpl(@Nonnull Set<? extends OWLIndividual> individuals,
+    public OWLNaryIndividualAxiomImpl(
+            @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals,
@@ -74,7 +76,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(individuals);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(individuals);
     }
 
     @Override
@@ -88,7 +91,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
             if (!(obj instanceof OWLNaryIndividualAxiom)) {
                 return false;
             }
-            return ((OWLNaryIndividualAxiom) obj).getIndividuals().equals(individuals);
+            return ((OWLNaryIndividualAxiom) obj).getIndividuals().equals(
+                    individuals);
         }
         return false;
     }

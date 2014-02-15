@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationAssertionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -74,8 +75,10 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
      *            annotation value
      * @param annotations
      *            annotations on the axiom */
-    public OWLAnnotationAssertionAxiomImpl(@Nonnull OWLAnnotationSubject subject,
-            @Nonnull OWLAnnotationProperty property, @Nonnull OWLAnnotationValue value,
+    public OWLAnnotationAssertionAxiomImpl(
+            @Nonnull OWLAnnotationSubject subject,
+            @Nonnull OWLAnnotationProperty property,
+            @Nonnull OWLAnnotationValue value,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subject = checkNotNull(subject, "subject cannot be null");
@@ -100,11 +103,13 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
      * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation() */
     @Override
     public boolean isDeprecatedIRIAssertion() {
-        return property.isDeprecated() && getAnnotation().isDeprecatedIRIAnnotation();
+        return property.isDeprecated()
+                && getAnnotation().isDeprecatedIRIAnnotation();
     }
 
     @Override
-    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLAnnotationAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLAnnotationAssertionAxiomImpl(getSubject(), getProperty(),
                 getValue(), mergeAnnos(annotations));
     }

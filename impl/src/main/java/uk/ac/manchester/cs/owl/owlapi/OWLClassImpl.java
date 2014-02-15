@@ -68,7 +68,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         Serializable {
     private static final long serialVersionUID = 40000L;

@@ -76,7 +76,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** An optimised implementation of OWLDatatype for OWL2Datatypes.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 24/10/2012 */
+ *         Research Group
+ * @since 3.2.0 */
 public class OWL2DatatypeImpl implements OWLDatatype {
     private static final long serialVersionUID = 40000L;
 

@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
-public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyExpression> {
+ *         Group
+ * @since 3.0.0 */
+public class OWLObjectPropertyNodeSet extends
+        DefaultNodeSet<OWLObjectPropertyExpression> {
     /** default constructor. */
     public OWLObjectPropertyNodeSet() {}
 
@@ -66,7 +68,8 @@ public class OWLObjectPropertyNodeSet extends DefaultNodeSet<OWLObjectPropertyEx
 
     /** @param nodes
      *            nodes to include */
-    public OWLObjectPropertyNodeSet(@Nonnull Set<Node<OWLObjectPropertyExpression>> nodes) {
+    public OWLObjectPropertyNodeSet(
+            @Nonnull Set<Node<OWLObjectPropertyExpression>> nodes) {
         super(nodes);
     }
 

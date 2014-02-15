@@ -58,8 +58,10 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
-public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
+ *         Group
+ * @since 2.0.0 */
+public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
+        SWRLBuiltInAtom {
     private static final long serialVersionUID = 40000L;
     private final List<SWRLDArgument> args;
 
@@ -67,10 +69,11 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom
      *            predicate
      * @param args
      *            builtin argument */
-    public SWRLBuiltInAtomImpl(@Nonnull IRI predicate, @Nonnull List<SWRLDArgument> args) {
+    public SWRLBuiltInAtomImpl(@Nonnull IRI predicate,
+            @Nonnull List<SWRLDArgument> args) {
         super(predicate);
-        this.args = new ArrayList<SWRLDArgument>(
-                checkNotNull(args, "args cannot be null"));
+        this.args = new ArrayList<SWRLDArgument>(checkNotNull(args,
+                "args cannot be null"));
     }
 
     @Override

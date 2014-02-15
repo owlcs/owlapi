@@ -56,9 +56,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implements
-        OWLDisjointClassesAxiom {
+ *         Group
+ * @since 2.0.0 */
+public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl
+        implements OWLDisjointClassesAxiom {
     private static final long serialVersionUID = 40000L;
 
     /** @param classExpressions
@@ -76,11 +77,13 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointClassesAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDisjointClassesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
                 mergeAnnos(annotations));
     }
@@ -122,8 +125,8 @@ public class OWLDisjointClassesAxiomImpl extends OWLNaryClassAxiomImpl implement
         for (int i = 0; i < list.size() - 1; i++) {
             for (int j = i + 1; j < list.size(); j++) {
                 result.add(new OWLDisjointClassesAxiomImpl(
-                        new HashSet<OWLClassExpression>(Arrays.asList(list.get(i),
-                                list.get(j))), NO_ANNOTATIONS));
+                        new HashSet<OWLClassExpression>(Arrays.asList(
+                                list.get(i), list.get(j))), NO_ANNOTATIONS));
             }
         }
         return result;

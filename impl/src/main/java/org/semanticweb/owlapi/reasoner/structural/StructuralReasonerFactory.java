@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 25-Jan-2010 */
+ *         Group
+ * @since 3.0.0 */
 public class StructuralReasonerFactory implements OWLReasonerFactory {
     @Override
     public String getReasonerName() {
@@ -66,13 +67,16 @@ public class StructuralReasonerFactory implements OWLReasonerFactory {
 
     @Override
     public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) throws IllegalConfigurationException {
-        return new StructuralReasoner(ontology, config, BufferingMode.NON_BUFFERING);
+            OWLReasonerConfiguration config)
+            throws IllegalConfigurationException {
+        return new StructuralReasoner(ontology, config,
+                BufferingMode.NON_BUFFERING);
     }
 
     @Override
     public OWLReasoner createReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) throws IllegalConfigurationException {
+            OWLReasonerConfiguration config)
+            throws IllegalConfigurationException {
         return new StructuralReasoner(ontology, config, BufferingMode.BUFFERING);
     }
 }

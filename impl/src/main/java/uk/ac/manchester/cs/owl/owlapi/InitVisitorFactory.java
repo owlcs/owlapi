@@ -106,7 +106,8 @@ public class InitVisitorFactory {
 
         @Override
         public K visit(OWLSubClassOfAxiom axiom) {
-            OWLClassExpression c = sub ? axiom.getSubClass() : axiom.getSuperClass();
+            OWLClassExpression c = sub ? axiom.getSubClass() : axiom
+                    .getSuperClass();
             if (named && c.isAnonymous()) {
                 return null;
             }
@@ -238,7 +239,8 @@ public class InitVisitorFactory {
      * @param <K>
      *            visitor return type */
     @SuppressWarnings("unchecked")
-    public static class InitIndividualVisitor<K extends OWLObject> extends InitVisitor<K> {
+    public static class InitIndividualVisitor<K extends OWLObject> extends
+            InitVisitor<K> {
         private static final long serialVersionUID = 40000L;
 
         /** @param sub
@@ -341,12 +343,12 @@ public class InitVisitorFactory {
         }
     }
 
-    static final InitVisitor<OWLClass> classsubnamed = new InitVisitor<OWLClass>(true,
-            true);
+    static final InitVisitor<OWLClass> classsubnamed = new InitVisitor<OWLClass>(
+            true, true);
     static final InitVisitor<OWLClassExpression> classexpressions = new InitVisitor<OWLClassExpression>(
             true, true);
-    static final InitVisitor<OWLClass> classsupernamed = new InitVisitor<OWLClass>(false,
-            true);
+    static final InitVisitor<OWLClass> classsupernamed = new InitVisitor<OWLClass>(
+            false, true);
     static final InitCollectionVisitor<OWLClass> classcollections = new InitCollectionVisitor<OWLClass>(
             true);
     static final InitCollectionVisitor<OWLObjectPropertyExpression> opcollections = new InitCollectionVisitor<OWLObjectPropertyExpression>(

@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
-        implements OWLDataMinCardinality {
+ *         Group
+ * @since 2.0.0 */
+public class OWLDataMinCardinalityImpl extends
+        OWLDataCardinalityRestrictionImpl implements OWLDataMinCardinality {
     private static final long serialVersionUID = 40000L;
 
     /** @param property
@@ -61,8 +62,9 @@ public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
      *            cardinality
      * @param filler
      *            filler */
-    public OWLDataMinCardinalityImpl(@Nonnull OWLDataPropertyExpression property,
-            int cardinality, @Nonnull OWLDataRange filler) {
+    public OWLDataMinCardinalityImpl(
+            @Nonnull OWLDataPropertyExpression property, int cardinality,
+            @Nonnull OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 

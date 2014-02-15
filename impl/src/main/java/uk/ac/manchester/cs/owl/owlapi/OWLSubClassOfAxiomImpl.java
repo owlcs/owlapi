@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         OWLSubClassOfAxiom {
     private static final long serialVersionUID = 40000L;
@@ -79,7 +80,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(annotations));
+        return new OWLSubClassOfAxiomImpl(subClass, superClass,
+                mergeAnnos(annotations));
     }
 
     @Override

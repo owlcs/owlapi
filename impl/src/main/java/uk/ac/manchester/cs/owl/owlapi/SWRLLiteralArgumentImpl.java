@@ -51,8 +51,10 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
-public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements SWRLLiteralArgument {
+ *         Group
+ * @since 2.0.0 */
+public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
+        SWRLLiteralArgument {
     private static final long serialVersionUID = 40000L;
     private final OWLLiteral literal;
 

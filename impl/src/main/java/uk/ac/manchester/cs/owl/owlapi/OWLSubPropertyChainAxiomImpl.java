@@ -58,9 +58,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Nov-2006 */
-public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implements
-        OWLSubPropertyChainOfAxiom {
+ *         Group
+ * @since 2.0.0 */
+public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
+        implements OWLSubPropertyChainOfAxiom {
     private static final long serialVersionUID = 40000L;
     private final List<OWLObjectPropertyExpression> propertyChain;
     private final OWLObjectPropertyExpression superProperty;
@@ -76,15 +77,17 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
             @Nonnull OWLObjectPropertyExpression superProperty,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(checkNotNull(
-                propertyChain, "propertyChain cannot be null"));
-        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
+        this.propertyChain = new ArrayList<OWLObjectPropertyExpression>(
+                checkNotNull(propertyChain, "propertyChain cannot be null"));
+        this.superProperty = checkNotNull(superProperty,
+                "superProperty cannot be null");
     }
 
     @Override
-    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(),
-                mergeAnnos(annotations));
+    public OWLSubPropertyChainOfAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
+                getSuperProperty(), mergeAnnos(annotations));
     }
 
     @Override
@@ -92,8 +95,8 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(), getSuperProperty(),
-                NO_ANNOTATIONS);
+        return new OWLSubPropertyChainAxiomImpl(getPropertyChain(),
+                getSuperProperty(), NO_ANNOTATIONS);
     }
 
     @Override
@@ -157,8 +160,10 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl implement
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
         OWLSubPropertyChainOfAxiom other = (OWLSubPropertyChainOfAxiom) object;
-        for (int i = 0; i < propertyChain.size() && i < other.getPropertyChain().size(); i++) {
-            int diff = propertyChain.get(i).compareTo(other.getPropertyChain().get(i));
+        for (int i = 0; i < propertyChain.size()
+                && i < other.getPropertyChain().size(); i++) {
+            int diff = propertyChain.get(i).compareTo(
+                    other.getPropertyChain().get(i));
             if (diff != 0) {
                 return diff;
             }

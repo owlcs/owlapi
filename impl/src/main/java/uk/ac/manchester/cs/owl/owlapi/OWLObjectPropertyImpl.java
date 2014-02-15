@@ -62,9 +62,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl implements
-        OWLObjectProperty {
+ *         Group
+ * @since 2.0.0 */
+public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl
+        implements OWLObjectProperty {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
     private final boolean builtin;
@@ -74,7 +75,8 @@ public class OWLObjectPropertyImpl extends OWLObjectPropertyExpressionImpl imple
     public OWLObjectPropertyImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI());
+                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY
+                        .getIRI());
     }
 
     @Override

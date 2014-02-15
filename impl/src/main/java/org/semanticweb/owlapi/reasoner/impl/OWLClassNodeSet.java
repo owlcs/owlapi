@@ -45,8 +45,11 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 A node set of OWL classes */
+/** A node set of OWL classes
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0 */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
     /** default constructor. */
     public OWLClassNodeSet() {}

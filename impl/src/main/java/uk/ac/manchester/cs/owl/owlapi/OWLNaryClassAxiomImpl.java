@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
     private static final long serialVersionUID = 40000L;
@@ -91,8 +92,10 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... descs) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
+    public Set<OWLClassExpression> getClassExpressionsMinus(
+            OWLClassExpression... descs) {
+        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(
+                classExpressions);
         for (OWLClassExpression desc : descs) {
             result.remove(desc);
         }

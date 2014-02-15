@@ -52,14 +52,16 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectIntersectionOfImpl extends OWLNaryBooleanClassExpressionImpl
-        implements OWLObjectIntersectionOf {
+ *         Group
+ * @since 2.0.0 */
+public class OWLObjectIntersectionOfImpl extends
+        OWLNaryBooleanClassExpressionImpl implements OWLObjectIntersectionOf {
     private static final long serialVersionUID = 40000L;
 
     /** @param operands
      *            operands */
-    public OWLObjectIntersectionOfImpl(@Nonnull Set<? extends OWLClassExpression> operands) {
+    public OWLObjectIntersectionOfImpl(
+            @Nonnull Set<? extends OWLClassExpression> operands) {
         super(operands);
     }
 

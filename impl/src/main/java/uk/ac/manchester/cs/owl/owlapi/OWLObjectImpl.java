@@ -66,7 +66,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
     private static final long serialVersionUID = 40000L;
     /** a convenience reference for an empty annotation set, saves on typing. */
@@ -93,7 +94,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
             signature = new WeakReference<Set<OWLEntity>>(set);
             anons = new WeakReference<Set<OWLAnonymousIndividual>>(anon);
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(set);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(set);
     }
 
     @Override
@@ -106,7 +108,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         if (signature == null || signature.get() == null) {
             getSignature();
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(anons.get());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(anons.get());
     }
 
     @Override

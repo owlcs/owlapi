@@ -53,9 +53,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
-        implements OWLObjectExactCardinality {
+ *         Group
+ * @since 2.0.0 */
+public class OWLObjectExactCardinalityImpl extends
+        OWLObjectCardinalityRestrictionImpl implements
+        OWLObjectExactCardinality {
     private static final long serialVersionUID = 40000L;
 
     /** @param property
@@ -64,8 +66,9 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
      *            cardinality
      * @param filler
      *            filler */
-    public OWLObjectExactCardinalityImpl(@Nonnull OWLObjectPropertyExpression property,
-            int cardinality, @Nonnull OWLClassExpression filler) {
+    public OWLObjectExactCardinalityImpl(
+            @Nonnull OWLObjectPropertyExpression property, int cardinality,
+            @Nonnull OWLClassExpression filler) {
         super(property, cardinality, filler);
     }
 
@@ -86,8 +89,9 @@ public class OWLObjectExactCardinalityImpl extends OWLObjectCardinalityRestricti
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
                 Arrays.asList(new OWLObjectMinCardinalityImpl(getProperty(),
-                        getCardinality(), getFiller()), new OWLObjectMaxCardinalityImpl(
-                        getProperty(), getCardinality(), getFiller()))));
+                        getCardinality(), getFiller()),
+                        new OWLObjectMaxCardinalityImpl(getProperty(),
+                                getCardinality(), getFiller()))));
     }
 
     @Override

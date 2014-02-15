@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
     /** default constructor. */
     public OWLDataPropertyNodeSet() {}
@@ -59,7 +60,8 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
 
     /** @param owlDataPropertyNode
      *            the node to be contained */
-    public OWLDataPropertyNodeSet(@Nonnull Node<OWLDataProperty> owlDataPropertyNode) {
+    public OWLDataPropertyNodeSet(
+            @Nonnull Node<OWLDataProperty> owlDataPropertyNode) {
         super(owlDataPropertyNode);
     }
 
@@ -75,7 +77,8 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
     }
 
     @Override
-    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
+    protected DefaultNode<OWLDataProperty>
+            getNode(Set<OWLDataProperty> entities) {
         return NodeFactory.getOWLDataPropertyNode(entities);
     }
 }

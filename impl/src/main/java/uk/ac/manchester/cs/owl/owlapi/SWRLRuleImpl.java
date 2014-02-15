@@ -76,7 +76,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private static final long serialVersionUID = 40000L;
     private final Set<SWRLAtom> head;
@@ -95,8 +96,10 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             @Nonnull Set<? extends SWRLAtom> head,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.head = new TreeSet<SWRLAtom>(checkNotNull(head, "head cannot be null"));
-        this.body = new TreeSet<SWRLAtom>(checkNotNull(body, "body cannot be null"));
+        this.head = new TreeSet<SWRLAtom>(checkNotNull(head,
+                "head cannot be null"));
+        this.body = new TreeSet<SWRLAtom>(checkNotNull(body,
+                "body cannot be null"));
     }
 
     @Override
@@ -116,7 +119,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
      *            rule body
      * @param head
      *            rule head */
-    public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head) {
+    public SWRLRuleImpl(Set<? extends SWRLAtom> body,
+            Set<? extends SWRLAtom> head) {
         this(body, head, Collections.<OWLAnnotation> emptyList());
     }
 
@@ -145,7 +149,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             if (containsAnonymousClassExpressions == null) {
                 for (SWRLAtom atom : body) {
                     if (atom instanceof SWRLClassAtom
-                            && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
+                            && ((SWRLClassAtom) atom).getPredicate()
+                                    .isAnonymous()) {
                         containsAnonymousClassExpressions = Boolean.TRUE;
                         break;
                     }
@@ -199,12 +204,14 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Set<SWRLAtom> getBody() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(body);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(body);
     }
 
     @Override
     public Set<SWRLAtom> getHead() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(head);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(head);
     }
 
     @Override
@@ -316,7 +323,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         }
 
         @Override
-        public SWRLDifferentIndividualsAtom visit(SWRLDifferentIndividualsAtom node) {
+        public SWRLDifferentIndividualsAtom visit(
+                SWRLDifferentIndividualsAtom node) {
             return node;
         }
     }

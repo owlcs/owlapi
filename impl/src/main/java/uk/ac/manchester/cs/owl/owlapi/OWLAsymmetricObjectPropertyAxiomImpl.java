@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLAsymmetricObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLAsymmetricObjectPropertyAxiom {
@@ -74,7 +75,8 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -86,7 +88,8 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLAsymmetricObjectPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLAsymmetricObjectPropertyAxiom;
     }
 
     @Override

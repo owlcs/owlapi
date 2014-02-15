@@ -50,11 +50,12 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ *         Group
+ * @since 2.0.0
  * @param <P>
  *            property type */
-public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
+public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression>
+        extends OWLPropertyAxiomImpl implements OWLSubPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final P subProperty;
     private final P superProperty;
@@ -65,11 +66,14 @@ public abstract class OWLSubPropertyAxiomImpl<P extends OWLPropertyExpression> e
      *            superProperty
      * @param annotations
      *            annotations */
-    public OWLSubPropertyAxiomImpl(@Nonnull P subProperty, @Nonnull P superProperty,
+    public OWLSubPropertyAxiomImpl(@Nonnull P subProperty,
+            @Nonnull P superProperty,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
-        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
+        this.subProperty = checkNotNull(subProperty,
+                "subProperty cannot be null");
+        this.superProperty = checkNotNull(superProperty,
+                "superProperty cannot be null");
     }
 
     @Override

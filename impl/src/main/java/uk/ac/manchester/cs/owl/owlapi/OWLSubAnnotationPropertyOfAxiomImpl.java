@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 25-Mar-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         OWLSubAnnotationPropertyOfAxiom {
     private static final long serialVersionUID = 40000L;
@@ -74,8 +75,10 @@ public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
             @Nonnull OWLAnnotationProperty superProperty,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.subProperty = checkNotNull(subProperty, "subProperty cannot be null");
-        this.superProperty = checkNotNull(superProperty, "superProperty cannot be null");
+        this.subProperty = checkNotNull(subProperty,
+                "subProperty cannot be null");
+        this.superProperty = checkNotNull(superProperty,
+                "superProperty cannot be null");
     }
 
     @Override

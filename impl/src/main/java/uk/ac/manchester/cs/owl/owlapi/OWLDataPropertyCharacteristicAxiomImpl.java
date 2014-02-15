@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLPropertyAxiomImpl
-        implements OWLDataPropertyCharacteristicAxiom {
+ *         Group
+ * @since 2.0.0 */
+public abstract class OWLDataPropertyCharacteristicAxiomImpl extends
+        OWLPropertyAxiomImpl implements OWLDataPropertyCharacteristicAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLDataPropertyExpression property;
 
@@ -77,8 +78,8 @@ public abstract class OWLDataPropertyCharacteristicAxiomImpl extends OWLProperty
             if (!(obj instanceof OWLDataPropertyCharacteristicAxiom)) {
                 return false;
             }
-            return ((OWLDataPropertyCharacteristicAxiom) obj).getProperty().equals(
-                    property);
+            return ((OWLDataPropertyCharacteristicAxiom) obj).getProperty()
+                    .equals(property);
         }
         return false;
     }

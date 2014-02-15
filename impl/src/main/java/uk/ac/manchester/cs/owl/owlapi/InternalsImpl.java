@@ -108,7 +108,8 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 public class InternalsImpl extends AbstractInternalsImpl {
     private static final long serialVersionUID = 40000L;
 
-    protected class SetPointer<K> implements Internals.SimplePointer<K>, Serializable {
+    protected class SetPointer<K> implements Internals.SimplePointer<K>,
+            Serializable {
         private static final long serialVersionUID = 40000L;
         private final Set<K> set;
 
@@ -121,7 +122,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
 
         public Set<K> copy() {
-            return CollectionFactory.getCopyOnRequestSetFromMutableCollection(set);
+            return CollectionFactory
+                    .getCopyOnRequestSetFromMutableCollection(set);
         }
 
         public boolean add(K k) {
@@ -163,22 +165,24 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     @Override
-    public <K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key) {
+    public <K, V extends OWLAxiom> Set<V>
+            getValues(Pointer<K, V> pointer, K key) {
         final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         mapPointer.init();
         return mapPointer.getValues(key);
     }
 
     @Override
-    public <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer, K key) {
+    public <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer,
+            K key) {
         final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         mapPointer.init();
         return mapPointer.hasValues(key);
     }
 
     @Override
-    public <K, V extends OWLAxiom> boolean remove(Internals.Pointer<K, V> pointer, K k,
-            V v) {
+    public <K, V extends OWLAxiom> boolean remove(
+            Internals.Pointer<K, V> pointer, K k, V v) {
         final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         if (!mapPointer.isInitialized()) {
             return false;
@@ -227,7 +231,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
                 @Override
                 public void visit(OWLAnonymousIndividual individual) {
-                    add(getOwlAnonymousIndividualReferences(), individual, axiom);
+                    add(getOwlAnonymousIndividualReferences(), individual,
+                            axiom);
                 }
             });
             return true;
@@ -263,7 +268,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
                 @Override
                 public void visit(OWLAnnotationProperty property) {
-                    remove(getOwlAnnotationPropertyReferences(), property, axiom);
+                    remove(getOwlAnnotationPropertyReferences(), property,
+                            axiom);
                 }
 
                 @Override
@@ -273,7 +279,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
                 @Override
                 public void visit(OWLAnonymousIndividual individual) {
-                    remove(getOwlAnonymousIndividualReferences(), individual, axiom);
+                    remove(getOwlAnonymousIndividualReferences(), individual,
+                            axiom);
                 }
             };
             axiom.accept(referenceRemover);
@@ -294,8 +301,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends OWLAxiom, K> Set<T> filterAxioms(OWLAxiomSearchFilter<T, K> filter,
-            K key) {
+    public <T extends OWLAxiom, K> Set<T> filterAxioms(
+            OWLAxiomSearchFilter<T, K> filter, K key) {
         Set<T> toReturn = createSet();
         for (T t : (Set<T>) getValues(getAxiomsByType(), filter.getAxiomType())) {
             if (filter.pass(t, key)) {
@@ -311,7 +318,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     @Override
-    public boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
+    public boolean
+            addImportsDeclaration(OWLImportsDeclaration importDeclaration) {
         if (importsDeclarations.contains(importDeclaration)) {
             return false;
         }
@@ -320,7 +328,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     @Override
-    public boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration) {
+    public boolean removeImportsDeclaration(
+            OWLImportsDeclaration importDeclaration) {
         if (!importsDeclarations.contains(importDeclaration)) {
             return false;
         }
@@ -368,7 +377,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         if (!axiomsByType.isInitialized()) {
             return 0;
         }
-        final Collection<OWLAxiom> collection = axiomsByType.getValues(axiomType);
+        final Collection<OWLAxiom> collection = axiomsByType
+                .getValues(axiomType);
         if (collection.isEmpty()) {
             return 0;
         }
@@ -422,12 +432,14 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     @Override
-    public void addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
+    public void
+            addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
         propertyChainSubPropertyAxioms.add(ax);
     }
 
     @Override
-    public void removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax) {
+    public void removePropertyChainSubPropertyAxioms(
+            OWLSubPropertyChainOfAxiom ax) {
         propertyChainSubPropertyAxioms.remove(ax);
     }
 
@@ -437,7 +449,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     @Override
-    public MapPointer<OWLObjectProperty, OWLAxiom> getOwlObjectPropertyReferences() {
+    public MapPointer<OWLObjectProperty, OWLAxiom>
+            getOwlObjectPropertyReferences() {
         return owlObjectPropertyReferences;
     }
 
@@ -447,7 +460,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
     }
 
     @Override
-    public MapPointer<OWLNamedIndividual, OWLAxiom> getOwlIndividualReferences() {
+    public MapPointer<OWLNamedIndividual, OWLAxiom>
+            getOwlIndividualReferences() {
         return owlIndividualReferences;
     }
 
@@ -478,7 +492,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         return axiomsByType;
     }
 
-    class AddAxiomVisitor extends OWLAxiomVisitorAdapter implements Serializable {
+    class AddAxiomVisitor extends OWLAxiomVisitorAdapter implements
+            Serializable {
         private static final long serialVersionUID = 40000L;
 
         @Override
@@ -491,7 +506,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
                 addGeneralClassAxioms(axiom);
             }
             if (!axiom.getSuperClass().isAnonymous()) {
-                add(getSubClassAxiomsByRHS(), (OWLClass) axiom.getSuperClass(), axiom);
+                add(getSubClassAxiomsByRHS(), (OWLClass) axiom.getSuperClass(),
+                        axiom);
             }
         }
 
@@ -503,12 +519,14 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-            add(getAsymmetricPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getAsymmetricPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            add(getReflexivePropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getReflexivePropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
@@ -530,13 +548,15 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            add(getDataPropertyDomainAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getDataPropertyDomainAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             if (axiom.getProperty() instanceof OWLObjectProperty) {
-                add(getObjectPropertyDomainAxiomsByProperty(), axiom.getProperty(), axiom);
+                add(getObjectPropertyDomainAxiomsByProperty(),
+                        axiom.getProperty(), axiom);
             }
         }
 
@@ -549,14 +569,16 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            add(getInversePropertyAxiomsByProperty(), axiom.getFirstProperty(), axiom);
-            add(getInversePropertyAxiomsByProperty(), axiom.getSecondProperty(), axiom);
+            add(getInversePropertyAxiomsByProperty(), axiom.getFirstProperty(),
+                    axiom);
+            add(getInversePropertyAxiomsByProperty(),
+                    axiom.getSecondProperty(), axiom);
         }
 
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-            add(getNegativeDataPropertyAssertionAxiomsByIndividual(), axiom.getSubject(),
-                    axiom);
+            add(getNegativeDataPropertyAssertionAxiomsByIndividual(),
+                    axiom.getSubject(), axiom);
         }
 
         @Override
@@ -582,23 +604,28 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            add(getObjectPropertyRangeAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getObjectPropertyRangeAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-            add(getObjectPropertyAssertionsByIndividual(), axiom.getSubject(), axiom);
+            add(getObjectPropertyAssertionsByIndividual(), axiom.getSubject(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            add(getFunctionalObjectPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getFunctionalObjectPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            add(getObjectSubPropertyAxiomsByLHS(), axiom.getSubProperty(), axiom);
-            add(getObjectSubPropertyAxiomsByRHS(), axiom.getSuperProperty(), axiom);
+            add(getObjectSubPropertyAxiomsByLHS(), axiom.getSubProperty(),
+                    axiom);
+            add(getObjectSubPropertyAxiomsByRHS(), axiom.getSuperProperty(),
+                    axiom);
         }
 
         @Override
@@ -614,30 +641,34 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLAnnotationAssertionAxiom axiom) {
-            add(getAnnotationAssertionAxiomsBySubject(), axiom.getSubject(), axiom);
+            add(getAnnotationAssertionAxiomsBySubject(), axiom.getSubject(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLHasKeyAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
-                add(getHasKeyAxiomsByClass(), axiom.getClassExpression().asOWLClass(),
-                        axiom);
+                add(getHasKeyAxiomsByClass(), axiom.getClassExpression()
+                        .asOWLClass(), axiom);
             }
         }
 
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            add(getSymmetricPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getSymmetricPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
-            add(getDataPropertyRangeAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getDataPropertyRangeAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            add(getFunctionalDataPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getFunctionalDataPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
@@ -649,9 +680,11 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
-            add(getClassAssertionAxiomsByIndividual(), axiom.getIndividual(), axiom);
+            add(getClassAssertionAxiomsByIndividual(), axiom.getIndividual(),
+                    axiom);
             if (!axiom.getClassExpression().isAnonymous()) {
-                add(getClassAssertionAxiomsByClass(), axiom.getClassExpression(), axiom);
+                add(getClassAssertionAxiomsByClass(),
+                        axiom.getClassExpression(), axiom);
             }
         }
 
@@ -660,7 +693,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
             boolean allAnon = true;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
-                    add(getEquivalentClassesAxiomsByClass(), (OWLClass) desc, axiom);
+                    add(getEquivalentClassesAxiomsByClass(), (OWLClass) desc,
+                            axiom);
                     add(getClassAxiomsByClass(), (OWLClass) desc, axiom);
                     allAnon = false;
                 }
@@ -672,29 +706,33 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            add(getDataPropertyAssertionsByIndividual(), axiom.getSubject(), axiom);
+            add(getDataPropertyAssertionsByIndividual(), axiom.getSubject(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            add(getTransitivePropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getTransitivePropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            add(getIrreflexivePropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            add(getIrreflexivePropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
             add(getDataSubPropertyAxiomsByLHS(), axiom.getSubProperty(), axiom);
-            add(getDataSubPropertyAxiomsByRHS(), axiom.getSuperProperty(), axiom);
+            add(getDataSubPropertyAxiomsByRHS(), axiom.getSuperProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            add(getInverseFunctionalPropertyAxiomsByProperty(), axiom.getProperty(),
-                    axiom);
+            add(getInverseFunctionalPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
@@ -710,7 +748,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
         }
     }
 
-    class RemoveAxiomVisitor extends OWLAxiomVisitorAdapter implements Serializable {
+    class RemoveAxiomVisitor extends OWLAxiomVisitorAdapter implements
+            Serializable {
         private static final long serialVersionUID = 40000L;
 
         @Override
@@ -723,8 +762,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
                 removeGeneralClassAxioms(axiom);
             }
             if (!axiom.getSuperClass().isAnonymous()) {
-                remove(getSubClassAxiomsByRHS(), axiom.getSuperClass().asOWLClass(),
-                        axiom);
+                remove(getSubClassAxiomsByRHS(), axiom.getSuperClass()
+                        .asOWLClass(), axiom);
             }
         }
 
@@ -736,12 +775,14 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
-            remove(getAsymmetricPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getAsymmetricPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-            remove(getReflexivePropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getReflexivePropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
@@ -762,28 +803,32 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLDataPropertyDomainAxiom axiom) {
-            remove(getDataPropertyDomainAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getDataPropertyDomainAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
             if (axiom.getProperty() instanceof OWLObjectProperty) {
-                remove(getObjectPropertyDomainAxiomsByProperty(), axiom.getProperty(),
-                        axiom);
+                remove(getObjectPropertyDomainAxiomsByProperty(),
+                        axiom.getProperty(), axiom);
             }
         }
 
         @Override
         public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
             for (OWLObjectPropertyExpression prop : axiom.getProperties()) {
-                remove(getEquivalentObjectPropertyAxiomsByProperty(), prop, axiom);
+                remove(getEquivalentObjectPropertyAxiomsByProperty(), prop,
+                        axiom);
             }
         }
 
         @Override
         public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-            remove(getInversePropertyAxiomsByProperty(), axiom.getFirstProperty(), axiom);
-            remove(getInversePropertyAxiomsByProperty(), axiom.getSecondProperty(), axiom);
+            remove(getInversePropertyAxiomsByProperty(),
+                    axiom.getFirstProperty(), axiom);
+            remove(getInversePropertyAxiomsByProperty(),
+                    axiom.getSecondProperty(), axiom);
         }
 
         @Override
@@ -815,24 +860,28 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLObjectPropertyRangeAxiom axiom) {
-            remove(getObjectPropertyRangeAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getObjectPropertyRangeAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-            remove(getObjectPropertyAssertionsByIndividual(), axiom.getSubject(), axiom);
+            remove(getObjectPropertyAssertionsByIndividual(),
+                    axiom.getSubject(), axiom);
         }
 
         @Override
         public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            remove(getFunctionalObjectPropertyAxiomsByProperty(), axiom.getProperty(),
-                    axiom);
+            remove(getFunctionalObjectPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-            remove(getObjectSubPropertyAxiomsByLHS(), axiom.getSubProperty(), axiom);
-            remove(getObjectSubPropertyAxiomsByRHS(), axiom.getSuperProperty(), axiom);
+            remove(getObjectSubPropertyAxiomsByLHS(), axiom.getSubProperty(),
+                    axiom);
+            remove(getObjectSubPropertyAxiomsByRHS(), axiom.getSuperProperty(),
+                    axiom);
         }
 
         @Override
@@ -848,31 +897,34 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLAnnotationAssertionAxiom axiom) {
-            remove(getAnnotationAssertionAxiomsBySubject(), axiom.getSubject(), axiom);
+            remove(getAnnotationAssertionAxiomsBySubject(), axiom.getSubject(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLHasKeyAxiom axiom) {
             if (!axiom.getClassExpression().isAnonymous()) {
-                remove(getHasKeyAxiomsByClass(), axiom.getClassExpression().asOWLClass(),
-                        axiom);
+                remove(getHasKeyAxiomsByClass(), axiom.getClassExpression()
+                        .asOWLClass(), axiom);
             }
         }
 
         @Override
         public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
-            remove(getSymmetricPropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getSymmetricPropertyAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLDataPropertyRangeAxiom axiom) {
-            remove(getDataPropertyRangeAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getDataPropertyRangeAxiomsByProperty(), axiom.getProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLFunctionalDataPropertyAxiom axiom) {
-            remove(getFunctionalDataPropertyAxiomsByProperty(), axiom.getProperty(),
-                    axiom);
+            remove(getFunctionalDataPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
@@ -884,10 +936,11 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLClassAssertionAxiom axiom) {
-            remove(getClassAssertionAxiomsByIndividual(), axiom.getIndividual(), axiom);
+            remove(getClassAssertionAxiomsByIndividual(),
+                    axiom.getIndividual(), axiom);
             if (!axiom.getClassExpression().isAnonymous()) {
-                remove(getClassAssertionAxiomsByClass(), axiom.getClassExpression(),
-                        axiom);
+                remove(getClassAssertionAxiomsByClass(),
+                        axiom.getClassExpression(), axiom);
             }
         }
 
@@ -896,7 +949,8 @@ public class InternalsImpl extends AbstractInternalsImpl {
             boolean allAnon = true;
             for (OWLClassExpression desc : axiom.getClassExpressions()) {
                 if (!desc.isAnonymous()) {
-                    remove(getEquivalentClassesAxiomsByClass(), (OWLClass) desc, axiom);
+                    remove(getEquivalentClassesAxiomsByClass(),
+                            (OWLClass) desc, axiom);
                     remove(getClassAxiomsByClass(), (OWLClass) desc, axiom);
                     allAnon = false;
                 }
@@ -908,29 +962,34 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
-            remove(getDataPropertyAssertionsByIndividual(), axiom.getSubject(), axiom);
+            remove(getDataPropertyAssertionsByIndividual(), axiom.getSubject(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
-            remove(getTransitivePropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getTransitivePropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
-            remove(getIrreflexivePropertyAxiomsByProperty(), axiom.getProperty(), axiom);
+            remove(getIrreflexivePropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override
         public void visit(OWLSubDataPropertyOfAxiom axiom) {
-            remove(getDataSubPropertyAxiomsByLHS(), axiom.getSubProperty(), axiom);
-            remove(getDataSubPropertyAxiomsByRHS(), axiom.getSuperProperty(), axiom);
+            remove(getDataSubPropertyAxiomsByLHS(), axiom.getSubProperty(),
+                    axiom);
+            remove(getDataSubPropertyAxiomsByRHS(), axiom.getSuperProperty(),
+                    axiom);
         }
 
         @Override
         public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
-            remove(getInverseFunctionalPropertyAxiomsByProperty(), axiom.getProperty(),
-                    axiom);
+            remove(getInverseFunctionalPropertyAxiomsByProperty(),
+                    axiom.getProperty(), axiom);
         }
 
         @Override

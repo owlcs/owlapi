@@ -54,14 +54,16 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLDataIntersectionOfImpl extends OWLNaryDataRangeImpl implements
         OWLDataIntersectionOf {
     private static final long serialVersionUID = 40000L;
 
     /** @param operands
      *            operands */
-    public OWLDataIntersectionOfImpl(@Nonnull Set<? extends OWLDataRange> operands) {
+    public OWLDataIntersectionOfImpl(
+            @Nonnull Set<? extends OWLDataRange> operands) {
         super(operands);
     }
 

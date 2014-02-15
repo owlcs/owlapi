@@ -51,11 +51,13 @@ import org.semanticweb.owlapi.model.OWLPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ *         Group
+ * @since 2.0.0
  * @param <P>
  *            property type */
-public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression> extends
-        OWLUnaryPropertyAxiomImpl<P> implements OWLPropertyDomainAxiom<P> {
+public abstract class OWLPropertyDomainAxiomImpl<P extends OWLPropertyExpression>
+        extends OWLUnaryPropertyAxiomImpl<P> implements
+        OWLPropertyDomainAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression domain;
 

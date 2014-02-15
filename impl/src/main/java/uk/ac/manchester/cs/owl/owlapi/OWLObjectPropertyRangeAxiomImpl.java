@@ -54,8 +54,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectPropertyRangeAxiomImpl extends
+ *         Group
+ * @since 2.0.0 */
+public class OWLObjectPropertyRangeAxiomImpl
+        extends
         OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
         implements OWLObjectPropertyRangeAxiom {
     private static final long serialVersionUID = 40000L;
@@ -66,7 +68,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends
      *            range
      * @param annotations
      *            annotations */
-    public OWLObjectPropertyRangeAxiomImpl(@Nonnull OWLObjectPropertyExpression property,
+    public OWLObjectPropertyRangeAxiomImpl(
+            @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression range,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
@@ -87,7 +90,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends
     }
 
     @Override
-    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }
@@ -119,7 +123,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(), getRange());
+        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(),
+                getRange());
         return new OWLSubClassOfAxiomImpl(OWL_THING, sup, NO_ANNOTATIONS);
     }
 }

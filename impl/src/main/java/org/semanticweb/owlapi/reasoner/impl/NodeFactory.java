@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class NodeFactory {
     /** @return a class node */
     public static DefaultNode<OWLClass> getOWLClassNode() {
@@ -67,7 +68,8 @@ public class NodeFactory {
     /** @param clses
      *            set of classes to be included
      * @return a class node with some elements */
-    public static DefaultNode<OWLClass> getOWLClassNode(@Nonnull Set<OWLClass> clses) {
+    public static DefaultNode<OWLClass> getOWLClassNode(
+            @Nonnull Set<OWLClass> clses) {
         return new OWLClassNode(checkNotNull(clses, "clses cannot be null"));
     }
 
@@ -82,28 +84,31 @@ public class NodeFactory {
     }
 
     /** @return an object property node */
-    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode() {
+    public static DefaultNode<OWLObjectPropertyExpression>
+            getOWLObjectPropertyNode() {
         return new OWLObjectPropertyNode();
     }
 
     /** @param prop
      *            a property to be added
      * @return an object property node with one element */
-    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
-            OWLObjectPropertyExpression prop) {
+    public static DefaultNode<OWLObjectPropertyExpression>
+            getOWLObjectPropertyNode(OWLObjectPropertyExpression prop) {
         return new OWLObjectPropertyNode(prop);
     }
 
     /** @param properties
      *            some properties to be added
      * @return an object property node with some elements */
-    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyNode(
-            Set<OWLObjectPropertyExpression> properties) {
+    public static
+            DefaultNode<OWLObjectPropertyExpression>
+            getOWLObjectPropertyNode(Set<OWLObjectPropertyExpression> properties) {
         return new OWLObjectPropertyNode(properties);
     }
 
     /** @return the top object property node */
-    public static DefaultNode<OWLObjectPropertyExpression> getOWLObjectPropertyTopNode() {
+    public static DefaultNode<OWLObjectPropertyExpression>
+            getOWLObjectPropertyTopNode() {
         return OWLObjectPropertyNode.getTopNode();
     }
 
@@ -121,8 +126,8 @@ public class NodeFactory {
     /** @param prop
      *            a property to be added
      * @return a data property node with one element */
-    public static DefaultNode<OWLDataProperty>
-            getOWLDataPropertyNode(OWLDataProperty prop) {
+    public static DefaultNode<OWLDataProperty> getOWLDataPropertyNode(
+            OWLDataProperty prop) {
         return new OWLDataPropertyNode(prop);
     }
 

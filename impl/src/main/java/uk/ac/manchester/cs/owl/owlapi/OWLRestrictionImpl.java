@@ -41,9 +41,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.OWLRestriction;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLRestrictionImpl extends OWLAnonymousClassExpressionImpl
-        implements OWLRestriction {
+ *         Group
+ * @since 2.0.0 */
+public abstract class OWLRestrictionImpl extends
+        OWLAnonymousClassExpressionImpl implements OWLRestriction {
     private static final long serialVersionUID = 40000L;
 
     @Override

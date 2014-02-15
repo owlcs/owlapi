@@ -54,9 +54,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl
-        implements OWLDataExactCardinality {
+ *         Group
+ * @since 2.0.0 */
+public class OWLDataExactCardinalityImpl extends
+        OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
     private static final long serialVersionUID = 40000L;
 
     /** @param property
@@ -65,8 +66,9 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
      *            cardinality
      * @param filler
      *            filler */
-    public OWLDataExactCardinalityImpl(@Nonnull OWLDataPropertyExpression property,
-            int cardinality, @Nonnull OWLDataRange filler) {
+    public OWLDataExactCardinalityImpl(
+            @Nonnull OWLDataPropertyExpression property, int cardinality,
+            @Nonnull OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
@@ -107,7 +109,8 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
                 Arrays.asList(new OWLDataMinCardinalityImpl(getProperty(),
-                        getCardinality(), getFiller()), new OWLDataMaxCardinalityImpl(
-                        getProperty(), getCardinality(), getFiller()))));
+                        getCardinality(), getFiller()),
+                        new OWLDataMaxCardinalityImpl(getProperty(),
+                                getCardinality(), getFiller()))));
     }
 }

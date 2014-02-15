@@ -57,9 +57,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLFunctionalDataPropertyAxiomImpl extends
-        OWLDataPropertyCharacteristicAxiomImpl implements OWLFunctionalDataPropertyAxiom {
+        OWLDataPropertyCharacteristicAxiomImpl implements
+        OWLFunctionalDataPropertyAxiom {
     private static final long serialVersionUID = 40000L;
 
     /** @param property
@@ -77,19 +79,21 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLFunctionalDataPropertyAxiom
-            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLFunctionalDataPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLFunctionalDataPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLFunctionalDataPropertyAxiom;
     }
 
     @Override
@@ -125,7 +129,8 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(
-                getProperty(), 1, new OWL2DatatypeImpl(RDFS_LITERAL)), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+                new OWLDataMaxCardinalityImpl(getProperty(), 1,
+                        new OWL2DatatypeImpl(RDFS_LITERAL)), NO_ANNOTATIONS);
     }
 }

@@ -54,8 +54,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009 */
-public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
+ *         Group
+ * @since 3.0.0 */
+public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
+        OWLDataUnionOf {
     private static final long serialVersionUID = 40000L;
 
     /** @param operands

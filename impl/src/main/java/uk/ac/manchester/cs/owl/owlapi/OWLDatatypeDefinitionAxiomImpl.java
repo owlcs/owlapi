@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 24-Mar-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         OWLDatatypeDefinitionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -84,14 +85,15 @@ public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
-                NO_ANNOTATIONS);
+        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
+                getDataRange(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(), getDataRange(),
-                mergeAnnos(annotations));
+    public OWLDatatypeDefinitionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLDatatypeDefinitionAxiomImpl(getDatatype(),
+                getDataRange(), mergeAnnos(annotations));
     }
 
     @Override

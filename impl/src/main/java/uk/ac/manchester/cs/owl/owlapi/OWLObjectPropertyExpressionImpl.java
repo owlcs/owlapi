@@ -44,9 +44,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpressionImpl
-        implements OWLObjectPropertyExpression {
+ *         Group
+ * @since 2.0.0 */
+public abstract class OWLObjectPropertyExpressionImpl extends
+        OWLPropertyExpressionImpl implements OWLObjectPropertyExpression {
     private static final long serialVersionUID = 40000L;
     private OWLObjectPropertyExpression simplestForm;
     private OWLObjectPropertyExpression inverse;
@@ -88,7 +89,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends OWLPropertyExpress
     public OWLObjectProperty getNamedProperty() {
         OWLObjectPropertyExpression simp = getSimplified();
         if (simp.isAnonymous()) {
-            return ((OWLObjectInverseOf) simp).getInverse().asOWLObjectProperty();
+            return ((OWLObjectInverseOf) simp).getInverse()
+                    .asOWLObjectProperty();
         } else {
             return simp.asOWLObjectProperty();
         }

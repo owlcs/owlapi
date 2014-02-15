@@ -46,11 +46,12 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ *         Group
+ * @since 2.0.0
  * @param <F>
  *            range type */
-public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> extends
-        OWLRestrictionImpl implements OWLQuantifiedRestriction<F> {
+public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange>
+        extends OWLRestrictionImpl implements OWLQuantifiedRestriction<F> {
     private static final long serialVersionUID = 40000L;
     private final F filler;
 
@@ -69,7 +70,8 @@ public abstract class OWLQuantifiedRestrictionImpl<F extends OWLPropertyRange> e
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLQuantifiedRestriction) {
-                return ((OWLQuantifiedRestriction<?>) obj).getFiller().equals(filler);
+                return ((OWLQuantifiedRestriction<?>) obj).getFiller().equals(
+                        filler);
             }
         }
         return false;

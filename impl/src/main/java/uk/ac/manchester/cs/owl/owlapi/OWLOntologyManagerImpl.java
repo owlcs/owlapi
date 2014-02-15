@@ -123,7 +123,8 @@ import org.semanticweb.owlapi.util.HasPriorityComparator;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
     private static final long serialVersionUID = 40000L;

@@ -60,7 +60,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 14-Jan-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         OWLAnnotationProperty {
     private static final long serialVersionUID = 40000L;
@@ -159,7 +160,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
 
     @Override
     public boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(getIRI());
+        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
+                .contains(getIRI());
     }
 
     @Override

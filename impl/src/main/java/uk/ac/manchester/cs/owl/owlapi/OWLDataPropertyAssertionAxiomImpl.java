@@ -56,8 +56,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDataPropertyAssertionAxiomImpl extends
+ *         Group
+ * @since 2.0.0 */
+public class OWLDataPropertyAssertionAxiomImpl
+        extends
         OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
         implements OWLDataPropertyAssertionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -71,7 +73,8 @@ public class OWLDataPropertyAssertionAxiomImpl extends
      * @param annotations
      *            annotations */
     public OWLDataPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
-            @Nonnull OWLDataPropertyExpression property, @Nonnull OWLLiteral value,
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull OWLLiteral value,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, value, annotations);
     }
@@ -88,20 +91,21 @@ public class OWLDataPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                getObject(), NO_ANNOTATIONS);
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDataPropertyAssertionAxiom
-            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                getObject(), mergeAnnos(annotations));
+    public OWLDataPropertyAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLDataPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), mergeAnnos(annotations));
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDataPropertyAssertionAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLDataPropertyAssertionAxiom;
     }
 
     @Override

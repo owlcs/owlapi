@@ -46,13 +46,16 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 05-Dec-2006 */
-public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements OWLLogicalAxiom {
+ *         Group
+ * @since 2.0.0 */
+public abstract class OWLLogicalAxiomImpl extends OWLAxiomImpl implements
+        OWLLogicalAxiom {
     private static final long serialVersionUID = 40000L;
 
     /** @param annotations
      *            annotations on the axiom */
-    protected OWLLogicalAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
+    protected OWLLogicalAxiomImpl(
+            @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }
 

@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
-public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual> {
+ *         Group
+ * @since 3.0.0 */
+public class OWLNamedIndividualNodeSet extends
+        DefaultNodeSet<OWLNamedIndividual> {
     /** default constructor. */
     public OWLNamedIndividualNodeSet() {}
 
@@ -66,17 +68,20 @@ public class OWLNamedIndividualNodeSet extends DefaultNodeSet<OWLNamedIndividual
 
     /** @param nodes
      *            nodes to include */
-    public OWLNamedIndividualNodeSet(@Nonnull Set<Node<OWLNamedIndividual>> nodes) {
+    public OWLNamedIndividualNodeSet(
+            @Nonnull Set<Node<OWLNamedIndividual>> nodes) {
         super(nodes);
     }
 
     @Override
-    protected DefaultNode<OWLNamedIndividual> getNode(OWLNamedIndividual entity) {
+    protected DefaultNode<OWLNamedIndividual>
+            getNode(OWLNamedIndividual entity) {
         return NodeFactory.getOWLNamedIndividualNode(entity);
     }
 
     @Override
-    protected DefaultNode<OWLNamedIndividual> getNode(Set<OWLNamedIndividual> entities) {
+    protected DefaultNode<OWLNamedIndividual> getNode(
+            Set<OWLNamedIndividual> entities) {
         return NodeFactory.getOWLNamedIndividualNode(entities);
     }
 }

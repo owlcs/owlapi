@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 19-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     private static final long serialVersionUID = 40000L;
     private final OWLAnnotationProperty property;
@@ -97,7 +98,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotationsToAdd) {
+    public OWLAnnotation getAnnotatedAnnotation(
+            Set<OWLAnnotation> annotationsToAdd) {
         if (annotationsToAdd.isEmpty()) {
             return this;
         }
@@ -124,7 +126,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     public boolean equals(Object obj) {
         if (super.equals(obj) && obj instanceof OWLAnnotation) {
             OWLAnnotation other = (OWLAnnotation) obj;
-            return other.getProperty().equals(property) && other.getValue().equals(value)
+            return other.getProperty().equals(property)
+                    && other.getValue().equals(value)
                     && other.getAnnotations().equals(annotations);
         }
         return false;

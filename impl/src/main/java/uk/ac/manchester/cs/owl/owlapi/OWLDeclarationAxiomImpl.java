@@ -56,8 +56,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarationAxiom {
+ *         Group
+ * @since 2.0.0 */
+public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
+        OWLDeclarationAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLEntity entity;
 
@@ -90,7 +92,8 @@ public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements OWLDeclarat
     }
 
     @Override
-    public OWLDeclarationAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDeclarationAxiom
+            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
         return new OWLDeclarationAxiomImpl(getEntity(), mergeAnnos(annotations));
     }
 

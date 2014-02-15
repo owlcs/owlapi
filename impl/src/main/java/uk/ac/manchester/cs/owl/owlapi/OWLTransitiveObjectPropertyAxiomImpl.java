@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLTransitiveObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLTransitiveObjectPropertyAxiom {
@@ -75,7 +76,8 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLTransitiveObjectPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -86,7 +88,8 @@ public class OWLTransitiveObjectPropertyAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLTransitiveObjectPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLTransitiveObjectPropertyAxiom;
     }
 
     @Override

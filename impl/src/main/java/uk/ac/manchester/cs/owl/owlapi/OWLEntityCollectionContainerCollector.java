@@ -57,9 +57,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * etc. For example, if the collector visited the axiom (propP some C)
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLEntityCollectionContainerCollector extends
         AbstractEntityRegistrationManager {
     private Collection<OWLEntity> objects;

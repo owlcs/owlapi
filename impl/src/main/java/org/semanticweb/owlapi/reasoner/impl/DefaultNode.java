@@ -57,16 +57,20 @@ import org.semanticweb.owlapi.reasoner.Node;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009
+ *         Group
+ * @since 3.0.0
  * @param <E>
  *            the type of entities in the node */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
-    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false, false);
+    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false,
+            false);
     protected static final OWLClass TOP_CLASS = DF.getOWLThing();
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
     protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
-    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
+    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(
+            BOTTOM_CLASS);
+    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF
+            .getOWLTopDataProperty();
     protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(
             TOP_DATA_PROPERTY);
     protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF

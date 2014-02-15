@@ -102,8 +102,8 @@ public interface OWLDataFactoryInternals {
      *            datatype for literal
      * @return new literal */
     @Nonnull
-    OWLLiteral
-            getOWLLiteral(@Nonnull String lexicalValue, @Nullable OWLDatatype datatype);
+    OWLLiteral getOWLLiteral(@Nonnull String lexicalValue,
+            @Nullable OWLDatatype datatype);
 
     /** @param value
      *            int value for literal

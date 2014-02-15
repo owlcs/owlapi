@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * @param <O>
  *            the object
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
         extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
     private static final long serialVersionUID = 40000L;

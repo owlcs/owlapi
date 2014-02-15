@@ -55,8 +55,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
+ *         Group
+ * @since 2.0.0 */
+public class OWLNegativeObjectPropertyAssertionAxiomImpl
+        extends
         OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
         implements OWLNegativeObjectPropertyAssertionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -69,8 +71,10 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
      *            object
      * @param annotations
      *            annotations */
-    public OWLNegativeObjectPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual object,
+    public OWLNegativeObjectPropertyAssertionAxiomImpl(
+            @Nonnull OWLIndividual subject,
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLIndividual object,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
@@ -94,8 +98,9 @@ public class OWLNegativeObjectPropertyAssertionAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                Collections.singleton(getSubject())), new OWLObjectComplementOfImpl(
-                new OWLObjectHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+                Collections.singleton(getSubject())),
+                new OWLObjectComplementOfImpl(new OWLObjectHasValueImpl(
+                        getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override

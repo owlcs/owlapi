@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Jan-2010 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
     /** default constructor. */
     public OWLDatatypeNodeSet() {}

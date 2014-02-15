@@ -71,7 +71,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
  * also {@link OWLLiteralImplNoCompression}
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;

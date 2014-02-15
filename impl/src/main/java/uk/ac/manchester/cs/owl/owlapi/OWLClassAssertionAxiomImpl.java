@@ -59,9 +59,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements
-        OWLClassAssertionAxiom {
+ *         Group
+ * @since 2.0.0 */
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
+        implements OWLClassAssertionAxiom {
     private static final long serialVersionUID = 40000L;
     private final OWLIndividual individual;
     private final OWLClassExpression classExpression;
@@ -86,14 +87,15 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
-                NO_ANNOTATIONS);
+        return new OWLClassAssertionAxiomImpl(getIndividual(),
+                getClassExpression(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
-                mergeAnnos(annotations));
+    public OWLClassAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLClassAssertionAxiomImpl(getIndividual(),
+                getClassExpression(), mergeAnnos(annotations));
     }
 
     @Override

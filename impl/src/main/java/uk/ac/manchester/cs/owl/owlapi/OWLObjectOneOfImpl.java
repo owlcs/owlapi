@@ -58,9 +58,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implements
-        OWLObjectOneOf {
+ *         Group
+ * @since 2.0.0 */
+public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl
+        implements OWLObjectOneOf {
     private static final long serialVersionUID = 40000L;
     private final Set<OWLIndividual> values;
 
@@ -78,7 +79,8 @@ public class OWLObjectOneOfImpl extends OWLAnonymousClassExpressionImpl implemen
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(values);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(values);
     }
 
     @Override

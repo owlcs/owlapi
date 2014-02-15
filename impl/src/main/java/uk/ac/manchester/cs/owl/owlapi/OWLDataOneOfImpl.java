@@ -60,7 +60,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
     private static final long serialVersionUID = 40000L;
     private final Set<OWLLiteral> values;
@@ -79,7 +80,8 @@ public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
 
     @Override
     public Set<OWLLiteral> getValues() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(values);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(values);
     }
 
     @Override

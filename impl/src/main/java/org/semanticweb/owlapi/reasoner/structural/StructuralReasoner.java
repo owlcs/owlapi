@@ -115,7 +115,8 @@ import org.semanticweb.owlapi.util.Version;
  * information. It is incomplete.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 04-Dec-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public class StructuralReasoner extends OWLReasonerBase {
     private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
     private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();

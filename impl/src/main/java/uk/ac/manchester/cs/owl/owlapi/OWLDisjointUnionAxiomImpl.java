@@ -62,7 +62,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         OWLDisjointUnionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -95,14 +96,15 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
-                NO_ANNOTATIONS);
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
+                getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
-                mergeAnnos(annotations));
+    public OWLDisjointUnionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
+                getClassExpressions(), mergeAnnos(annotations));
     }
 
     @Override
@@ -152,12 +154,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
         return new OWLEquivalentClassesAxiomImpl(
                 new HashSet<OWLClassExpression>(Arrays.asList(owlClass,
-                        new OWLObjectUnionOfImpl(getClassExpressions()))), NO_ANNOTATIONS);
+                        new OWLObjectUnionOfImpl(getClassExpressions()))),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+                NO_ANNOTATIONS);
     }
 
     @Override

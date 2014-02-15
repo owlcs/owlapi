@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLSubDataPropertyOfAxiomImpl extends
         OWLSubPropertyAxiomImpl<OWLDataPropertyExpression> implements
         OWLSubDataPropertyOfAxiom {
@@ -65,7 +66,8 @@ public class OWLSubDataPropertyOfAxiomImpl extends
      *            superproperty
      * @param annotations
      *            annotations */
-    public OWLSubDataPropertyOfAxiomImpl(@Nonnull OWLDataPropertyExpression subProperty,
+    public OWLSubDataPropertyOfAxiomImpl(
+            @Nonnull OWLDataPropertyExpression subProperty,
             @Nonnull OWLDataPropertyExpression superProperty,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(subProperty, superProperty, annotations);
@@ -76,14 +78,15 @@ public class OWLSubDataPropertyOfAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
-                NO_ANNOTATIONS);
+        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(),
+                getSuperProperty(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLSubDataPropertyOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(), getSuperProperty(),
-                mergeAnnos(annotations));
+    public OWLSubDataPropertyOfAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLSubDataPropertyOfAxiomImpl(getSubProperty(),
+                getSuperProperty(), mergeAnnos(annotations));
     }
 
     @Override

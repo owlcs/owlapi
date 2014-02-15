@@ -48,8 +48,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
+ *         Group
+ * @since 2.0.0 */
+public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
+        Serializable {
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
 

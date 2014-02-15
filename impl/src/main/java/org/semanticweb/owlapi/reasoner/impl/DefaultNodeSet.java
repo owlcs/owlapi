@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009
+ *         Group
+ * @since 3.0.0
  * @param <E>
  *            the type of owl objects in the node */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
@@ -82,7 +83,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
 
     @Override
     public Set<Node<E>> getNodes() {
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(nodes);
+        return CollectionFactory
+                .getCopyOnRequestSetFromMutableCollection(nodes);
     }
 
     /** Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.

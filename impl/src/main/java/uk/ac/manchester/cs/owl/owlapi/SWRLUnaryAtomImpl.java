@@ -50,11 +50,12 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLUnaryAtom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007
+ *         Group
+ * @since 2.0.0
  * @param <A>
  *            atom type */
-public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends SWRLAtomImpl
-        implements SWRLUnaryAtom<A> {
+public abstract class SWRLUnaryAtomImpl<A extends SWRLArgument> extends
+        SWRLAtomImpl implements SWRLUnaryAtom<A> {
     private static final long serialVersionUID = 40000L;
     private final A arg;
 

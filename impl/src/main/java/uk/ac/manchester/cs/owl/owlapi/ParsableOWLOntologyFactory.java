@@ -75,7 +75,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * obtained from the {@code OWLParserFactoryRegistry}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger

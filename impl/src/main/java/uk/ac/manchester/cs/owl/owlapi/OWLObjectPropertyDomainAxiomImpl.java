@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectPropertyDomainAxiomImpl extends
         OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression> implements
         OWLObjectPropertyDomainAxiom {
@@ -83,7 +84,8 @@ public class OWLObjectPropertyDomainAxiomImpl extends
     }
 
     @Override
-    public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLObjectPropertyDomainAxiomImpl(getProperty(), getDomain(),
                 mergeAnnos(annotations));
     }
@@ -120,7 +122,8 @@ public class OWLObjectPropertyDomainAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sub = new OWLObjectSomeValuesFromImpl(getProperty(), OWL_THING);
+        OWLClassExpression sub = new OWLObjectSomeValuesFromImpl(getProperty(),
+                OWL_THING);
         return new OWLSubClassOfAxiomImpl(sub, getDomain(), NO_ANNOTATIONS);
     }
 }

@@ -53,11 +53,12 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ *         Group
+ * @since 2.0.0
  * @param <P>
  *            the property expression */
-public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
+        extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final Set<P> properties;
 
@@ -74,7 +75,8 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
 
     @Override
     public Set<P> getProperties() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(properties);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(properties);
     }
 
     @Override
@@ -90,13 +92,15 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression> 
             if (!(obj instanceof OWLNaryPropertyAxiom)) {
                 return false;
             }
-            return ((OWLNaryPropertyAxiom<?>) obj).getProperties().equals(properties);
+            return ((OWLNaryPropertyAxiom<?>) obj).getProperties().equals(
+                    properties);
         }
         return false;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return compareSets(properties, ((OWLNaryPropertyAxiom<?>) object).getProperties());
+        return compareSets(properties,
+                ((OWLNaryPropertyAxiom<?>) object).getProperties());
     }
 }

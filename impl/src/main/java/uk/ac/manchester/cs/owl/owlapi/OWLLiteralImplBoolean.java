@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private final boolean literal;
@@ -105,7 +106,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public int parseInteger() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not an integer but a boolean");
+        throw new NumberFormatException(
+                "this literal is not an integer but a boolean");
     }
 
     @Override
@@ -125,7 +127,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public double parseDouble() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not a double but a boolean");
+        throw new NumberFormatException(
+                "this literal is not a double but a boolean");
     }
 
     @Override
@@ -135,7 +138,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public float parseFloat() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not a float but a boolean");
+        throw new NumberFormatException(
+                "this literal is not a float but a boolean");
     }
 
     @Override
@@ -158,7 +162,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplBoolean) {
                 OWLLiteralImplBoolean other = (OWLLiteralImplBoolean) obj;
-                return literal == other.literal && datatype.equals(other.getDatatype());
+                return literal == other.literal
+                        && datatype.equals(other.getDatatype());
             }
             if (obj instanceof OWLLiteral) {
                 return datatype.equals(((OWLLiteral) obj).getDatatype())

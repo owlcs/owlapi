@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
     private static final long serialVersionUID = 40000L;
@@ -88,7 +89,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         if (annotations.isEmpty()) {
             return Collections.emptySet();
         }
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(annotations);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(annotations);
     }
 
     @Override
@@ -100,7 +102,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     }
 
     @Override
-    public Set<OWLAnnotation> getAnnotations(OWLAnnotationProperty annotationProperty) {
+    public Set<OWLAnnotation> getAnnotations(
+            OWLAnnotationProperty annotationProperty) {
         if (annotations.isEmpty()) {
             return Collections.emptySet();
         } else {
@@ -116,7 +119,8 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     @Override
     public boolean equalsIgnoreAnnotations(OWLAxiom axiom) {
-        return getAxiomWithoutAnnotations().equals(axiom.getAxiomWithoutAnnotations());
+        return getAxiomWithoutAnnotations().equals(
+                axiom.getAxiomWithoutAnnotations());
     }
 
     @Override

@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLSymmetricObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLSymmetricObjectPropertyAxiom {
@@ -75,10 +76,12 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
     public Set<OWLSubObjectPropertyOfAxiom> asSubPropertyAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> result = new HashSet<OWLSubObjectPropertyOfAxiom>(
                 5);
-        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(), getProperty()
-                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
-        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty().getInverseProperty()
-                .getSimplified(), getProperty(), NO_ANNOTATIONS));
+        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty(),
+                getProperty().getInverseProperty().getSimplified(),
+                NO_ANNOTATIONS));
+        result.add(new OWLSubObjectPropertyOfAxiomImpl(getProperty()
+                .getInverseProperty().getSimplified(), getProperty(),
+                NO_ANNOTATIONS));
         return result;
     }
 
@@ -94,12 +97,14 @@ public class OWLSymmetricObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLSymmetricObjectPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLSymmetricObjectPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLSymmetricObjectPropertyAxiom;
     }
 
     @Override

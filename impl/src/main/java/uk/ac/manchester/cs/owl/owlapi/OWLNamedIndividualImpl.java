@@ -62,7 +62,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 15-Jan-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
         OWLNamedIndividual {
     private static final long serialVersionUID = 40000L;

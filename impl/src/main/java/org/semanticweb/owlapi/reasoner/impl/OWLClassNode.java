@@ -45,7 +45,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLClass;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLClassNode extends DefaultNode<OWLClass> {
     /** @param entity
      *            the class to be contained */

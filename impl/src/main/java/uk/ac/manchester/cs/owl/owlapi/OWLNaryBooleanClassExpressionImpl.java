@@ -53,9 +53,11 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class OWLNaryBooleanClassExpressionImpl extends
-        OWLAnonymousClassExpressionImpl implements OWLNaryBooleanClassExpression {
+        OWLAnonymousClassExpressionImpl implements
+        OWLNaryBooleanClassExpression {
     private static final long serialVersionUID = 40000L;
     private final Set<OWLClassExpression> operands;
 
@@ -74,7 +76,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     @Override
     public Set<OWLClassExpression> getOperands() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
     @Override
@@ -88,7 +91,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
             if (!(obj instanceof OWLNaryBooleanClassExpression)) {
                 return false;
             }
-            return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(operands);
+            return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(
+                    operands);
         }
         return false;
     }

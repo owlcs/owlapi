@@ -63,7 +63,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 01-Aug-2009 */
+ *         Group
+ * @since 3.0.0 */
 public abstract class OWLReasonerBase implements OWLReasoner {
     private final OWLOntologyManager manager;
     private final OWLOntology rootOntology;

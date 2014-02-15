@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 /** @param <V>
  *            the value
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
         OWLRestrictionImpl implements OWLHasValueRestriction<V> {
     private static final long serialVersionUID = 40000L;

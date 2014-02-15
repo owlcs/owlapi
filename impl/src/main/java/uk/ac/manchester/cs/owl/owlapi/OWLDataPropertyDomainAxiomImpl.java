@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLDataPropertyDomainAxiomImpl extends
         OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements
         OWLDataPropertyDomainAxiom {
@@ -69,7 +70,8 @@ public class OWLDataPropertyDomainAxiomImpl extends
      *            domain
      * @param annotations
      *            annotations */
-    public OWLDataPropertyDomainAxiomImpl(@Nonnull OWLDataPropertyExpression property,
+    public OWLDataPropertyDomainAxiomImpl(
+            @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLClassExpression domain,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(property, domain, annotations);

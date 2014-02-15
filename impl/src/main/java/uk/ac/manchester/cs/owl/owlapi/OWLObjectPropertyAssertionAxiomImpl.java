@@ -56,8 +56,10 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectPropertyAssertionAxiomImpl extends
+ *         Group
+ * @since 2.0.0 */
+public class OWLObjectPropertyAssertionAxiomImpl
+        extends
         OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
         implements OWLObjectPropertyAssertionAxiom {
     private static final long serialVersionUID = 40000L;
@@ -71,7 +73,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
      * @param annotations
      *            annotations */
     public OWLObjectPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull OWLIndividual object,
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull OWLIndividual object,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(subject, property, object, annotations);
     }
@@ -81,27 +84,29 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                getObject(), NO_ANNOTATIONS);
+        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                Collections.singleton(getSubject())), new OWLObjectHasValueImpl(
-                getProperty(), getObject()), NO_ANNOTATIONS);
+                Collections.singleton(getSubject())),
+                new OWLObjectHasValueImpl(getProperty(), getObject()),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLObjectPropertyAssertionAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                getObject(), mergeAnnos(annotations));
+        return new OWLObjectPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), mergeAnnos(annotations));
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLObjectPropertyAssertionAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLObjectPropertyAssertionAxiom;
     }
 
     @Override
@@ -111,8 +116,8 @@ public class OWLObjectPropertyAssertionAxiomImpl extends
         } else {
             OWLObjectInverseOf property = (OWLObjectInverseOf) getProperty();
             OWLObjectPropertyExpression invProp = property.getInverse();
-            return new OWLObjectPropertyAssertionAxiomImpl(getSubject(), invProp,
-                    getObject(), NO_ANNOTATIONS);
+            return new OWLObjectPropertyAssertionAxiomImpl(getSubject(),
+                    invProp, getObject(), NO_ANNOTATIONS);
         }
     }
 

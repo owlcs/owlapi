@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class EmptyInMemOWLOntologyFactory extends
         AbstractInMemOWLOntologyFactory {
     private static final long serialVersionUID = 40000L;

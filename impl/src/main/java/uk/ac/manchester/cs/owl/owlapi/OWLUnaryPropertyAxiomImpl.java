@@ -49,11 +49,12 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLUnaryPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ *         Group
+ * @since 2.0.0
  * @param <P>
  *            property type */
-public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
+public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
+        extends OWLPropertyAxiomImpl implements OWLUnaryPropertyAxiom<P> {
     private static final long serialVersionUID = 40000L;
     private final P property;
 
@@ -78,7 +79,8 @@ public abstract class OWLUnaryPropertyAxiomImpl<P extends OWLPropertyExpression>
             if (!(obj instanceof OWLUnaryPropertyAxiom)) {
                 return false;
             }
-            return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(property);
+            return ((OWLUnaryPropertyAxiom<?>) obj).getProperty().equals(
+                    property);
         }
         return false;
     }

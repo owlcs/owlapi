@@ -46,9 +46,10 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 05-Dec-2006 */
-public abstract class OWLPropertyAxiomImpl extends OWLLogicalAxiomImpl implements
-        OWLPropertyAxiom {
+ *         Group
+ * @since 2.0.0 */
+public abstract class OWLPropertyAxiomImpl extends OWLLogicalAxiomImpl
+        implements OWLPropertyAxiom {
     private static final long serialVersionUID = 40000L;
 
     /** @param annotations

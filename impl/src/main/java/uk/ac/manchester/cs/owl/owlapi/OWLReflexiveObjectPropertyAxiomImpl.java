@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLReflexiveObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLReflexiveObjectPropertyAxiom {
@@ -75,7 +76,8 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLReflexiveObjectPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -93,7 +95,8 @@ public class OWLReflexiveObjectPropertyAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLReflexiveObjectPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLReflexiveObjectPropertyAxiom;
     }
 
     @Override

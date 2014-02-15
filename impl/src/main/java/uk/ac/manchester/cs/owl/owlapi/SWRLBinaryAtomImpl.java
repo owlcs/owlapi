@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007
+ *         Group
+ * @since 2.0.0
  * @param <A>
  *            atom type
  * @param <B>
@@ -63,8 +64,8 @@ public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLA
     private final A arg0;
     private final B arg1;
 
-    protected SWRLBinaryAtomImpl(@Nonnull SWRLPredicate predicate, @Nonnull A arg0,
-            @Nonnull B arg1) {
+    protected SWRLBinaryAtomImpl(@Nonnull SWRLPredicate predicate,
+            @Nonnull A arg0, @Nonnull B arg1) {
         super(predicate);
         this.arg0 = checkNotNull(arg0, "arg0 cannot be null");
         this.arg1 = checkNotNull(arg1, "arg1 cannot be null");

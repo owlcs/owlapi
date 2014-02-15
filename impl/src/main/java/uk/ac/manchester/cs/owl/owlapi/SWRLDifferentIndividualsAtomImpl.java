@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class SWRLDifferentIndividualsAtomImpl extends
         SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
         SWRLDifferentIndividualsAtom {
@@ -63,10 +64,12 @@ public class SWRLDifferentIndividualsAtomImpl extends
      *            first individual
      * @param arg1
      *            second individual */
-    public SWRLDifferentIndividualsAtomImpl(@Nonnull OWLObjectProperty property,
-            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1) {
-        super(checkNotNull(property, "property cannot be null"), checkNotNull(arg0,
-                "arg0 cannot be null"), checkNotNull(arg1, "arg1 cannot be null"));
+    public SWRLDifferentIndividualsAtomImpl(
+            @Nonnull OWLObjectProperty property, @Nonnull SWRLIArgument arg0,
+            @Nonnull SWRLIArgument arg1) {
+        super(checkNotNull(property, "property cannot be null"), checkNotNull(
+                arg0, "arg0 cannot be null"), checkNotNull(arg1,
+                "arg1 cannot be null"));
     }
 
     @Override
