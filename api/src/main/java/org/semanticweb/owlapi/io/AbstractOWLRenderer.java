@@ -49,14 +49,17 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
     protected AbstractOWLRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
+    public void render(OWLOntology ontology, OutputStream os)
+            throws OWLRendererException {
         try {
-            Writer writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            Writer writer = new BufferedWriter(new OutputStreamWriter(os,
+                    "UTF-8"));
             render(ontology, writer);
             writer.flush();
         } catch (IOException e) {
@@ -75,6 +78,6 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
      *            abstract implementation.
      * @throws OWLRendererException
      *             if exceptions arise */
-    public abstract void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer)
-            throws OWLRendererException;
+    public abstract void render(@Nonnull OWLOntology ontology,
+            @Nonnull Writer writer) throws OWLRendererException;
 }

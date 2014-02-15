@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 23-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public interface OWLAxiomFilter {
     /** @param axiom
      *            axiom to filter

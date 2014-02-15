@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.io.OWLParserException;
  * @param <O>
  *            the kind of parsed expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Sep-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public interface OWLExpressionParser<O extends Object> {
     /** @param entityChecker
      *            the entity checker to use */

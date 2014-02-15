@@ -70,7 +70,8 @@ import org.xml.sax.InputSource;
  * stateless.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLParser implements OWLParser, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger

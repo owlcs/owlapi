@@ -40,10 +40,12 @@ package org.semanticweb.owlapi.model;
 
 /** An exception to describe a situation where there was an attempt to apply a
  * change to an immutable ontology.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
-public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class ImmutableOWLOntologyChangeException extends
+        OWLOntologyChangeException {
     private static final long serialVersionUID = 40000L;
 
     /** Constructs an exception which describes the attempted change.

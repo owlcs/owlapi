@@ -42,9 +42,10 @@ import javax.annotation.Nonnull;
 
 /** A marker interface for annotation subjects, which can either be IRIs or
  * anonymous individuals, with visitor methods.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationSubject extends OWLAnnotationObject {
     /** @param visitor
      *            visitor to accept */

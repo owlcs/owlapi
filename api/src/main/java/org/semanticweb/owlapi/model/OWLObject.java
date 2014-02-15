@@ -44,11 +44,13 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 24-Oct-2006 */
-public interface OWLObject extends Comparable<OWLObject>, Serializable, HasSignature,
-        HasContainsEntityInSignature, HasAnonymousIndividuals, HasClassesInSignature,
-        HasObjectPropertiesInSignature, HasDataPropertiesInSignature,
-        HasIndividualsInSignature, HasDatatypesInSignature {
+ *         Group
+ * @since 2.0.0 */
+public interface OWLObject extends Comparable<OWLObject>, Serializable,
+        HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
+        HasClassesInSignature, HasObjectPropertiesInSignature,
+        HasDataPropertiesInSignature, HasIndividualsInSignature,
+        HasDatatypesInSignature {
     /** Gets the signature of this object
      * 
      * @return A set of entities that correspond to the signature of this

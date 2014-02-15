@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
  * rendering of OWL API objects. The idea is that this is pluggable. TODO this
  * does not allow for independent rendering; in a multithreaded situation, the
  * rendere may change mid execution because of the static singleton instance
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Jan-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class ToStringRenderer {
     private static ToStringRenderer instance = new ToStringRenderer();
     private OWLObjectRenderer renderer;
@@ -68,7 +69,8 @@ public class ToStringRenderer {
 
     /** @param provider
      *            the new short form provider */
-    public synchronized void setShortFormProvider(@Nonnull ShortFormProvider provider) {
+    public synchronized void setShortFormProvider(
+            @Nonnull ShortFormProvider provider) {
         renderer.setShortFormProvider(provider);
     }
 

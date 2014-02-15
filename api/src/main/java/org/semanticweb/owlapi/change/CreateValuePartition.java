@@ -83,9 +83,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * functional and its range as Size. Size will be covered by SmallSize,
  * MediumSize and LargeSize and these classes which represent the values will be
  * made disjoint with eachother.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Jul-2007 */
+ *         Informatics Group
+ * @since 2.1.0 */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
     /** Creates a composite change that will create a value partition.
      * 
@@ -111,8 +112,10 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         super(dataFactory);
         generateChanges(
                 checkNotNull(targetOntology, "targetOntology cannot be null"),
-                checkNotNull(valuePartionClasses, "valuePartionClasses cannot be null"),
-                checkNotNull(valuePartitionClass, "valuePartitionClass cannot be null"),
+                checkNotNull(valuePartionClasses,
+                        "valuePartionClasses cannot be null"),
+                checkNotNull(valuePartitionClass,
+                        "valuePartitionClass cannot be null"),
                 checkNotNull(valuePartitionProperty,
                         "valuePartitionProperty cannot be null"));
     }
@@ -136,7 +139,8 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // value partition class
         for (OWLClassExpression valuePartitionValue : valuePartionClasses) {
             addChange(new AddAxiom(targetOntology, getDataFactory()
-                    .getOWLSubClassOfAxiom(valuePartitionValue, valuePartitionClass)));
+                    .getOWLSubClassOfAxiom(valuePartitionValue,
+                            valuePartitionClass)));
         }
         // 2) Make the values disjoint
         addChange(new AddAxiom(targetOntology, getDataFactory()
@@ -144,8 +148,8 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // 3) Add a covering axiom to the value partition
         OWLClassExpression union = getDataFactory().getOWLObjectUnionOf(
                 valuePartionClasses);
-        addChange(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(
-                valuePartitionClass, union)));
+        addChange(new AddAxiom(targetOntology, getDataFactory()
+                .getOWLSubClassOfAxiom(valuePartitionClass, union)));
         // 4) Make the property functional
         addChange(new AddAxiom(targetOntology, getDataFactory()
                 .getOWLFunctionalObjectPropertyAxiom(valuePartitionProperty)));

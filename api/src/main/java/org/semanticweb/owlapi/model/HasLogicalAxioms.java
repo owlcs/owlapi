@@ -45,7 +45,8 @@ import javax.annotation.Nonnull;
 /** An interface to an object that contains a set of logical axioms.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasLogicalAxioms {
     /** Gets the set of {@link OWLLogicalAxiom}s contained within this object.
      * 

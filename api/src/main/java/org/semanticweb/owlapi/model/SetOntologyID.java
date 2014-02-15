@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 01-Apr-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
     private final OWLOntologyID ontologyID;
     private final OWLOntologyID newOntologyID;
@@ -61,9 +62,11 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
      *            The ontology whose id is to be changed
      * @param ontologyID
      *            The ontology ID */
-    public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull OWLOntologyID ontologyID) {
+    public SetOntologyID(@Nonnull OWLOntology ont,
+            @Nonnull OWLOntologyID ontologyID) {
         super(ont);
-        this.ontologyID = checkNotNull(ont.getOntologyID(), "ontology id cannot be null");
+        this.ontologyID = checkNotNull(ont.getOntologyID(),
+                "ontology id cannot be null");
         newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
     }
 
@@ -85,8 +88,9 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLEntity> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLEntity> emptySet());
     }
 
     @Override

@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  * see {@code OWLOntologyChangeFilter} for more details.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class FilteringOWLOntologyChangeListener extends OWLOntologyChangeFilter
         implements OWLOntologyChangeListener {
     @Override

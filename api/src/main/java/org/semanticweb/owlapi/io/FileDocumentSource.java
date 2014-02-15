@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /** A convenience class which will prepare an input source from a file.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Nov-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
     private final File file;
     private OWLOntologyFormat format;

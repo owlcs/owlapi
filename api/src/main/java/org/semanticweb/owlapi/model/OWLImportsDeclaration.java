@@ -41,10 +41,12 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** Represents an import statement in an ontology.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 25-Oct-2006 */
-public interface OWLImportsDeclaration extends Comparable<OWLImportsDeclaration>, HasIRI {
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
+public interface OWLImportsDeclaration extends
+        Comparable<OWLImportsDeclaration>, HasIRI {
     /** Gets the import IRI
      * 
      * @return The import IRI that points to the ontology to be imported. The

@@ -45,7 +45,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Mar-2009 */
+ *         Group
+ * @since 3.0.0 */
 public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> {
     private final OWLAnnotation annotation;
 
@@ -53,7 +54,8 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
      *            the ontology to which the change is to be applied
      * @param annotation
      *            the annotation */
-    public AnnotationChange(@Nonnull OWLOntology ont, @Nonnull OWLAnnotation annotation) {
+    public AnnotationChange(@Nonnull OWLOntology ont,
+            @Nonnull OWLAnnotation annotation) {
         super(ont);
         this.annotation = checkNotNull(annotation, "annotation cannot be null");
     }

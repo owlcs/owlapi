@@ -51,9 +51,10 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 /** Instances of this class represent {@link OWLOntologyChangeData} for changes
  * that that are specific to the addition or removal of import statements
  * to/from an ontology.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012 */
+ *         Research Group
+ * @since 3.3 */
 public abstract class ImportChangeData extends
         OWLOntologyChangeData<OWLImportsDeclaration> {
     private static final long serialVersionUID = 40000L;
@@ -68,7 +69,8 @@ public abstract class ImportChangeData extends
      *            The {@link OWLImportsDeclaration} that is the focus of some
      *            change. */
     protected ImportChangeData(@Nonnull OWLImportsDeclaration declaration) {
-        this.declaration = checkNotNull(declaration, "declaration must not be null");
+        this.declaration = checkNotNull(declaration,
+                "declaration must not be null");
     }
 
     /** Gets the {@link OWLImportsDeclaration} that this change data describes.

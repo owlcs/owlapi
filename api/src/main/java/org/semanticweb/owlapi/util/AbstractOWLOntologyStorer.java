@@ -65,7 +65,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
  * stateless.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 04-Dec-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
     private static final long serialVersionUID = 40000L;
     private static final String UTF_8 = "UTF-8";

@@ -60,9 +60,12 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Nov-2006 */
-public class OWLClassExpressionVisitorAdapter implements OWLClassExpressionVisitor {
-    protected void handleDefault(@SuppressWarnings("unused") OWLClassExpression c) {}
+ *         Group
+ * @since 2.0.0 */
+public class OWLClassExpressionVisitorAdapter implements
+        OWLClassExpressionVisitor {
+    protected void handleDefault(
+            @SuppressWarnings("unused") OWLClassExpression c) {}
 
     @Override
     public void visit(OWLClass desc) {

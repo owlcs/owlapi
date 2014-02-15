@@ -49,9 +49,10 @@ package org.semanticweb.owlapi.reasoner;
  * {@link #reasonerTaskBusy()} or {@link #reasonerTaskProgressChanged(int, int)}
  * any number of times and finally call {@link #reasonerTaskStopped()} when the
  * task ends or has been interupted. This cycle may then be repeated.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 29-Nov-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface ReasonerProgressMonitor {
     /** A standard name for the task of loading a reasoner with axioms. Note that
      * there is no guarantee that the reasoner will use this name for loading. */

@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.IRI;
 /** Represents the facets that can be used for restricting a datatype.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006
+ *         Informatics Group
+ * @since 2.0.0
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
 public enum OWLFacet implements HasIRI {

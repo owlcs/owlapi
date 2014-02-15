@@ -39,9 +39,9 @@
 package org.semanticweb.owlapi.model;
 
 /** Specifies how missing imports should be treated during loading.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 04/01/2012
+ *         Research Group
  * @since 3.3 */
 public enum MissingImportHandlingStrategy {
     /** Specifies that an {@link UnloadableImportException} will NOT be thrown

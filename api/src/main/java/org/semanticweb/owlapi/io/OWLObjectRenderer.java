@@ -47,9 +47,10 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
  * OWL objects (e.g. class expressions, axioms etc.) for presentation in user
  * interfaces, colsole writing etc. etc. Many ontology renderers may also choose
  * to implement this interface.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Oct-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public interface OWLObjectRenderer {
     /** Sets the short form provider, which determines the short form that should
      * be used for entities.

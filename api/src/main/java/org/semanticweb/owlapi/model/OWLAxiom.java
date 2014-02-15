@@ -46,9 +46,10 @@ import javax.annotation.Nonnull;
  * the OWL 2 Specification.<br>
  * An OWL ontology contains a set of axioms. These axioms can be annotation
  * axioms, declaration axioms, imports axioms or logical axioms
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLAxiom extends OWLObject, HasAnnotations {
     /** @param visitor
      *            visitor to accept */
@@ -77,7 +78,8 @@ public interface OWLAxiom extends OWLObject, HasAnnotations {
      * @return A set of annotations that annotate this axiom, each of whose
      *         annotation properties is equals to {@code annotationProperty}. */
     @Nonnull
-    Set<OWLAnnotation> getAnnotations(@Nonnull OWLAnnotationProperty annotationProperty);
+    Set<OWLAnnotation> getAnnotations(
+            @Nonnull OWLAnnotationProperty annotationProperty);
 
     /** Gets an axiom that is structurally equivalent to this axiom without
      * annotations. This essentially returns a version of this axiom stripped of

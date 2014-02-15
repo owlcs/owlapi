@@ -43,9 +43,10 @@ import javax.annotation.Nonnull;
 /** Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties"
  * >SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
     /** Gets the subproperty of this axiom.
      * 

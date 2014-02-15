@@ -127,7 +127,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Jun-2010 */
+ *         Group
+ * @since 3.1.0 */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     private static final Integer _1 = Integer.valueOf(1);
     private static final Integer _0 = Integer.valueOf(0);
@@ -205,8 +206,10 @@ public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
     @Override
     public Integer visit(OWLSubClassOfAxiom axiom) {
         int subClassModalDepth = axiom.getSubClass().accept(this).intValue();
-        int superClassModalDepth = axiom.getSuperClass().accept(this).intValue();
-        return Integer.valueOf(Math.max(subClassModalDepth, superClassModalDepth));
+        int superClassModalDepth = axiom.getSuperClass().accept(this)
+                .intValue();
+        return Integer.valueOf(Math.max(subClassModalDepth,
+                superClassModalDepth));
     }
 
     @Override

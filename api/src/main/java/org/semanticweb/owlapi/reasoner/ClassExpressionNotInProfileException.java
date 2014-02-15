@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.reasoner;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 22-Nov-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class ClassExpressionNotInProfileException extends
         OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;

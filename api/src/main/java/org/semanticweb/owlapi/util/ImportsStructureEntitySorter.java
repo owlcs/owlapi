@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 30-May-2008 */
-public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<OWLEntity> {
+ *         Group
+ * @since 2.2.0 */
+public class ImportsStructureEntitySorter extends
+        ImportsStructureObjectSorter<OWLEntity> {
     /** @param ontology
      *            the ontology */
     public ImportsStructureEntitySorter(@Nonnull OWLOntology ontology) {
@@ -55,7 +57,8 @@ public class ImportsStructureEntitySorter extends ImportsStructureObjectSorter<O
     }
 
     /** Selector of referenced entities. */
-    public static class ReferencedEntitySelector implements ObjectSelector<OWLEntity> {
+    public static class ReferencedEntitySelector implements
+            ObjectSelector<OWLEntity> {
         @Override
         public Set<OWLEntity> getObjects(OWLOntology ontology) {
             return ontology.getSignature();

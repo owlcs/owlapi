@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLEntityVisitorAdapter implements OWLEntityVisitor {
     /** override this method to change the default behaviour.
      * 

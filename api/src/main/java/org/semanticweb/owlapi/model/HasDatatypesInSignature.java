@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.util.Set;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasDatatypesInSignature {
     /** A convenience method that obtains the datatypes that are in the signature
      * of this object

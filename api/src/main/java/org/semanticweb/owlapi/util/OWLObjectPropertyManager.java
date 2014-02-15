@@ -68,7 +68,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Feb-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class OWLObjectPropertyManager {
     static final class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
@@ -154,8 +155,10 @@ public class OWLObjectPropertyManager {
     public Set<OWLObjectPropertyExpression> getCompositeProperties() {
         if (compositeDirty) {
             compositeProperties.clear();
-            compositeProperties.add(man.getOWLDataFactory().getOWLTopObjectProperty());
-            compositeProperties.add(man.getOWLDataFactory().getOWLBottomObjectProperty());
+            compositeProperties.add(man.getOWLDataFactory()
+                    .getOWLTopObjectProperty());
+            compositeProperties.add(man.getOWLDataFactory()
+                    .getOWLBottomObjectProperty());
             // We only depend on:
             // 1) Property chain axioms
             // 2) Transitive property axioms
@@ -164,8 +167,8 @@ public class OWLObjectPropertyManager {
                         .getAxioms(AxiomType.TRANSITIVE_OBJECT_PROPERTY)) {
                     markComposite(ax.getProperty());
                     for (OWLObjectPropertyExpression namedInv : find(
-                            OWLObjectPropertyExpression.class).inverse(ax.getProperty())
-                            .in(ontology)) {
+                            OWLObjectPropertyExpression.class).inverse(
+                            ax.getProperty()).in(ontology)) {
                         markComposite(namedInv);
                     }
                 }
@@ -216,49 +219,63 @@ public class OWLObjectPropertyManager {
                         .getAxioms(AxiomType.SUB_OBJECT_PROPERTY)) {
                     getKeyValue(ax.getSubProperty().getSimplified(), map).add(
                             ax.getSuperProperty().getSimplified());
-                    getKeyValue(ax.getSubProperty().getInverseProperty().getSimplified(),
-                            map).add(
-                            ax.getSuperProperty().getInverseProperty().getSimplified());
+                    getKeyValue(
+                            ax.getSubProperty().getInverseProperty()
+                                    .getSimplified(), map).add(
+                            ax.getSuperProperty().getInverseProperty()
+                                    .getSimplified());
                 }
                 for (OWLEquivalentObjectPropertiesAxiom ax : ont
                         .getAxioms(AxiomType.EQUIVALENT_OBJECT_PROPERTIES)) {
                     // Do pairwise
                     for (OWLObjectPropertyExpression propA : ax.getProperties()) {
-                        for (OWLObjectPropertyExpression propB : ax.getProperties()) {
+                        for (OWLObjectPropertyExpression propB : ax
+                                .getProperties()) {
                             if (!propA.equals(propB)) {
                                 getKeyValue(propA.getSimplified(), map).add(
                                         propB.getSimplified());
                                 getKeyValue(propB.getSimplified(), map).add(
                                         propA.getSimplified());
-                                getKeyValue(propA.getInverseProperty().getSimplified(),
-                                        map).add(
-                                        propB.getInverseProperty().getSimplified());
-                                getKeyValue(propB.getInverseProperty().getSimplified(),
-                                        map).add(
-                                        propA.getInverseProperty().getSimplified());
+                                getKeyValue(
+                                        propA.getInverseProperty()
+                                                .getSimplified(), map).add(
+                                        propB.getInverseProperty()
+                                                .getSimplified());
+                                getKeyValue(
+                                        propB.getInverseProperty()
+                                                .getSimplified(), map).add(
+                                        propA.getInverseProperty()
+                                                .getSimplified());
                             }
                         }
                     }
                 }
                 for (OWLInverseObjectPropertiesAxiom ax : ont
                         .getAxioms(AxiomType.INVERSE_OBJECT_PROPERTIES)) {
-                    getKeyValue(ax.getFirstProperty().getSimplified(), map).add(
-                            ax.getSecondProperty().getInverseProperty().getSimplified());
+                    getKeyValue(ax.getFirstProperty().getSimplified(), map)
+                            .add(ax.getSecondProperty().getInverseProperty()
+                                    .getSimplified());
                     getKeyValue(
-                            ax.getSecondProperty().getInverseProperty().getSimplified(),
-                            map).add(ax.getFirstProperty().getSimplified());
+                            ax.getSecondProperty().getInverseProperty()
+                                    .getSimplified(), map).add(
+                            ax.getFirstProperty().getSimplified());
                     getKeyValue(
-                            ax.getFirstProperty().getInverseProperty().getSimplified(),
-                            map).add(ax.getSecondProperty().getSimplified());
-                    getKeyValue(ax.getSecondProperty().getSimplified(), map).add(
-                            ax.getFirstProperty().getInverseProperty().getSimplified());
+                            ax.getFirstProperty().getInverseProperty()
+                                    .getSimplified(), map).add(
+                            ax.getSecondProperty().getSimplified());
+                    getKeyValue(ax.getSecondProperty().getSimplified(), map)
+                            .add(ax.getFirstProperty().getInverseProperty()
+                                    .getSimplified());
                 }
                 for (OWLSymmetricObjectPropertyAxiom ax : ont
                         .getAxioms(AxiomType.SYMMETRIC_OBJECT_PROPERTY)) {
                     getKeyValue(ax.getProperty().getSimplified(), map).add(
-                            ax.getProperty().getInverseProperty().getSimplified());
-                    getKeyValue(ax.getProperty().getInverseProperty().getSimplified(),
-                            map).add(ax.getProperty().getSimplified());
+                            ax.getProperty().getInverseProperty()
+                                    .getSimplified());
+                    getKeyValue(
+                            ax.getProperty().getInverseProperty()
+                                    .getSimplified(), map).add(
+                            ax.getProperty().getSimplified());
                 }
             }
             hierarchy.clear();
@@ -279,7 +296,8 @@ public class OWLObjectPropertyManager {
             for (OWLObjectPropertyExpression prop : getReferencedProperties()) {
                 Set<OWLObjectPropertyExpression> processed = new HashSet<OWLObjectPropertyExpression>();
                 Set<OWLObjectPropertyExpression> rtc = new HashSet<OWLObjectPropertyExpression>();
-                getReflexiveTransitiveClosure(prop, propertyHierarchy, rtc, processed);
+                getReflexiveTransitiveClosure(prop, propertyHierarchy, rtc,
+                        processed);
                 rtcMap.put(prop, rtc);
             }
             reflexiveTransitiveClosure.clear();
@@ -344,7 +362,8 @@ public class OWLObjectPropertyManager {
             }
             for (OWLObjectPropertyExpression prop : new ArrayList<OWLObjectPropertyExpression>(
                     nonSimpleProperties)) {
-                nonSimpleProperties.add(prop.getInverseProperty().getSimplified());
+                nonSimpleProperties.add(prop.getInverseProperty()
+                        .getSimplified());
             }
             simpleDirty = false;
         }
@@ -362,7 +381,8 @@ public class OWLObjectPropertyManager {
             for (OWLOntology ont : getOntologies()) {
                 for (OWLSubPropertyChainOfAxiom ax : ont
                         .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
-                    for (OWLObjectPropertyExpression prop : ax.getPropertyChain()) {
+                    for (OWLObjectPropertyExpression prop : ax
+                            .getPropertyChain()) {
                         Set<OWLObjectPropertyExpression> sups = map.get(prop
                                 .getSimplified());
                         if (sups == null) {
@@ -374,7 +394,8 @@ public class OWLObjectPropertyManager {
                                 .getInverseProperty().getSimplified());
                         if (supsInv == null) {
                             supsInv = new HashSet<OWLObjectPropertyExpression>();
-                            map.put(prop.getInverseProperty().getSimplified(), supsInv);
+                            map.put(prop.getInverseProperty().getSimplified(),
+                                    supsInv);
                         }
                         supsInv.add(ax.getSuperProperty().getInverseProperty()
                                 .getSimplified());
@@ -403,8 +424,8 @@ public class OWLObjectPropertyManager {
             @Nonnull OWLObjectPropertyExpression propB) {
         checkNotNull(propA, "propA cannot be null");
         checkNotNull(propB, "propB cannot be null");
-        Set<OWLObjectPropertyExpression> props = getPropertyPartialOrdering().get(
-                propA.getSimplified());
+        Set<OWLObjectPropertyExpression> props = getPropertyPartialOrdering()
+                .get(propA.getSimplified());
         if (props == null) {
             return false;
         } else {
@@ -416,7 +437,8 @@ public class OWLObjectPropertyManager {
     private Set<OWLObjectPropertyExpression> getReferencedProperties() {
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         for (OWLOntology ont : getOntologies()) {
-            for (OWLObjectPropertyExpression prop : ont.getObjectPropertiesInSignature()) {
+            for (OWLObjectPropertyExpression prop : ont
+                    .getObjectPropertiesInSignature()) {
                 props.add(prop.getSimplified());
             }
         }
@@ -440,10 +462,12 @@ public class OWLObjectPropertyManager {
             if (processed.contains(prop)) {
                 continue;
             }
-            tarjan(ontologies, prop, 0, new Stack<OWLObjectPropertyExpression>(),
+            tarjan(ontologies, prop, 0,
+                    new Stack<OWLObjectPropertyExpression>(),
                     new HashMap<OWLObjectPropertyExpression, Integer>(),
-                    new HashMap<OWLObjectPropertyExpression, Integer>(), result,
-                    processed, new HashSet<OWLObjectPropertyExpression>());
+                    new HashMap<OWLObjectPropertyExpression, Integer>(),
+                    result, processed,
+                    new HashSet<OWLObjectPropertyExpression>());
         }
         // Get maximal
         List<Set<OWLObjectPropertyExpression>> equivs = new ArrayList<Set<OWLObjectPropertyExpression>>(
@@ -464,7 +488,8 @@ public class OWLObjectPropertyManager {
 
     /** @return sets of equivalent properties */
     @Nonnull
-    public Collection<Set<OWLObjectPropertyExpression>> getEquivalentObjectProperties() {
+    public Collection<Set<OWLObjectPropertyExpression>>
+            getEquivalentObjectProperties() {
         return getEquivalentObjectProperties(getOntologies());
     }
 
@@ -516,11 +541,15 @@ public class OWLObjectPropertyManager {
                     if (!indexMap.containsKey(supProp)) {
                         tarjan(ontologies, supProp, index + 1, stack, indexMap,
                                 lowlinkMap, result, processed, stackProps);
-                        lowlinkMap.put(prop,
-                                Math.min(lowlinkMap.get(prop), lowlinkMap.get(supProp)));
+                        lowlinkMap.put(
+                                prop,
+                                Math.min(lowlinkMap.get(prop),
+                                        lowlinkMap.get(supProp)));
                     } else if (stackProps.contains(supProp)) {
-                        lowlinkMap.put(prop,
-                                Math.min(lowlinkMap.get(prop), indexMap.get(supProp)));
+                        lowlinkMap.put(
+                                prop,
+                                Math.min(lowlinkMap.get(prop),
+                                        indexMap.get(supProp)));
                     }
                 }
             }

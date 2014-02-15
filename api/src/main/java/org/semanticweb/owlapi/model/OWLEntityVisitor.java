@@ -42,10 +42,10 @@ import javax.annotation.Nonnull;
 
 /** An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLEntity}s.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Nov-2006 */
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLEntityVisitor {
     /** visit OWLClass type
      * 

@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public interface OWLRenderer {
     /** Renders the specified ontology to a concrete representation which should
      * be written to the specified output stream.

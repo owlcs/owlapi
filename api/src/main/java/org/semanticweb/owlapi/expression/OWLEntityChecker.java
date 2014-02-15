@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** Maps strings to OWL objects.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Sep-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public interface OWLEntityChecker {
     /** @param name
      *            name to resolve

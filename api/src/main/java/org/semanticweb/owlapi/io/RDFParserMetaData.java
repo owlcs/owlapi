@@ -49,9 +49,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ *         Group
  * @since 3.2 */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
+        Serializable {
     private static final long serialVersionUID = 40000L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
@@ -66,7 +67,8 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializabl
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
-        this.headerStatus = checkNotNull(headerStatus, "headerStatus cannot be null");
+        this.headerStatus = checkNotNull(headerStatus,
+                "headerStatus cannot be null");
         this.unparsedTriples.addAll(checkNotNull(unparsedTriples,
                 "unparsedTriples cannot be null"));
     }

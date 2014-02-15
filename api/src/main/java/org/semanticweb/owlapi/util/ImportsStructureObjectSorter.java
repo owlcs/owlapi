@@ -60,9 +60,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * closure. An example of the use of this class is to obtain a map of ontologies
  * to sets of entities where each set of entities contains entities that are
  * first mentioned in the ontology that maps to them.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 30-May-2008
+ *         Informatics Group
+ * @since 2.2.0
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
  * @param <O>
  *            the type */

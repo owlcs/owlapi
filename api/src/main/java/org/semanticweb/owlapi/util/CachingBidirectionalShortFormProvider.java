@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /** A bidirectional short form provider that caches entity short forms. The
  * provider has various methods to add, remove, update entities in the cache and
  * also to rebuild the cache from scratch.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class CachingBidirectionalShortFormProvider implements
         BidirectionalShortFormProvider {
     private final Map<String, Set<OWLEntity>> shortForm2EntityMap = new HashMap<String, Set<OWLEntity>>();
@@ -73,7 +74,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
     @Override
     public Set<String> getShortForms() {
         return CollectionFactory
-                .getCopyOnRequestSetFromMutableCollection(shortForm2EntityMap.keySet());
+                .getCopyOnRequestSetFromMutableCollection(shortForm2EntityMap
+                        .keySet());
     }
 
     /** Rebuilds the cache using entities obtained from the specified entity set
@@ -122,7 +124,8 @@ public abstract class CachingBidirectionalShortFormProvider implements
     public Set<OWLEntity> getEntities(String shortForm) {
         Set<OWLEntity> entities = shortForm2EntityMap.get(shortForm);
         if (entities != null) {
-            return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(entities);
+            return CollectionFactory
+                    .getCopyOnRequestSetFromImmutableCollection(entities);
         } else {
             return Collections.emptySet();
         }

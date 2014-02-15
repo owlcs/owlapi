@@ -47,9 +47,10 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /** A class that describes how ontology parsing failed. This class collects parse
  * errors and the parsers that generated the errors.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Apr-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 40000L;
     private boolean includeStackTraceInMessage = true;
@@ -111,7 +112,8 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
                         msg.append(element.toString());
                         msg.append("\n");
                     }
-                    if (current.getCause() != null && current.getCause() != current) {
+                    if (current.getCause() != null
+                            && current.getCause() != current) {
                         current = current.getCause();
                     } else {
                         moreStackTraces = false;

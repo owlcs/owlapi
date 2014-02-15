@@ -66,9 +66,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * design pattern, entities that need to be removed from an ontology should
  * accept visits from the entity remover. Changes are accumulated as the entity
  * remover visits various entities.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLEntityRemover implements OWLEntityVisitor {
     private final List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>();
     private final Collection<OWLOntology> ontologies;
@@ -103,8 +104,8 @@ public class OWLEntityRemover implements OWLEntityVisitor {
             for (OWLAxiom ax : ont.getReferencingAxioms(entity)) {
                 changes.add(new RemoveAxiom(ont, ax));
             }
-            for (OWLAnnotationAssertionAxiom ax : ont.getAnnotationAssertionAxioms(entity
-                    .getIRI())) {
+            for (OWLAnnotationAssertionAxiom ax : ont
+                    .getAnnotationAssertionAxioms(entity.getIRI())) {
                 changes.add(new RemoveAxiom(ont, ax));
             }
         }

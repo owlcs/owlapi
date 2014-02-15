@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.IRI;
 /** A vocabulary for XML Schema Data Types (XSD).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 25-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public enum XSDVocabulary implements HasIRI {
     // @formatter:off
     /** ANY_TYPE */             ANY_TYPE        ("anyType"),

@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006
+ *         Group
+ * @since 2.0.0
  * @param <F>
  *            value */
 public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends

@@ -45,9 +45,10 @@ import javax.annotation.Nonnull;
 /** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions"
  * >DatatypeRestriction</a> data range in the OWL 2 Specification.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLDatatypeRestriction extends OWLDataRange {
     /** Gets the data range that this data range restricts.
      * 

@@ -39,9 +39,10 @@
 package org.semanticweb.owlapi.util;
 
 /** A place holder for the current release number.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 16-Jun-2008 */
+ *         Management Group
+ * @since 2.2.0 */
 public class VersionInfo {
     private static final VersionInfo INSTANCE = new VersionInfo();
     private final String version;

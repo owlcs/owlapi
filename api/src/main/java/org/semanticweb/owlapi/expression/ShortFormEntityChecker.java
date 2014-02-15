@@ -53,9 +53,10 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 
 /** An entity checker that maps from string to entities using a bidirectional
  * short form provider.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 28-Nov-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class ShortFormEntityChecker implements OWLEntityChecker {
     private final BidirectionalShortFormProvider shortFormProvider;
 

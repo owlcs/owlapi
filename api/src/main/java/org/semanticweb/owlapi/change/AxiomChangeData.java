@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012 */
+ *         Research Group
+ * @since 3.3 */
 public abstract class AxiomChangeData extends OWLOntologyChangeData<OWLAxiom> {
     private static final long serialVersionUID = 40000L;
     private final OWLAxiom axiom;

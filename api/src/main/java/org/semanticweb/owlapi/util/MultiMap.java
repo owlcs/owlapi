@@ -277,7 +277,8 @@ public class MultiMap<Key, Value> implements Serializable {
         if (map.size() < 2) {
             return true;
         }
-        List<Collection<Value>> list = new ArrayList<Collection<Value>>(map.values());
+        List<Collection<Value>> list = new ArrayList<Collection<Value>>(
+                map.values());
         for (int i = 1; i < list.size(); i++) {
             if (!list.get(0).equals(list.get(i))) {
                 return false;

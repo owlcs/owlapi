@@ -62,7 +62,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  * multiple attempts at loading an ontology.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLOntologyDocumentSource {
     /** Determines if a reader is available which an ontology document can be
      * parsed from.

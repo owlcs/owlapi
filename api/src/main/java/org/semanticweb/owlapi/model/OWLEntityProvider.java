@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.model;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 07/08/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface OWLEntityProvider extends OWLClassProvider,
         OWLObjectPropertyProvider, OWLDataPropertyProvider,
         OWLNamedIndividualProvider, OWLDatatypeProvider,

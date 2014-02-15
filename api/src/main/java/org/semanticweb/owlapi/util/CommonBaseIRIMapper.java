@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
 /** An ontology IRI mapper that can be used to map ontology IRIs to ontology
  * document IRIs which share the same base.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 07-Feb-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
     private final IRI base;
     private final Map<IRI, IRI> iriMap = new HashMap<IRI, IRI>();

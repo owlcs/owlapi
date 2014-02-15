@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 /** Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
  * methods that need specific client implementation need be overridden. The
  * adapter can be set up to return a default value.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 29-Jul-2008
+ *         Management Group
+ * @since 2.2.0
  * @param <O>
  *            visitor return type */
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {

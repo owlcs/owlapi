@@ -47,9 +47,10 @@ package org.semanticweb.owlapi.reasoner;
  * Clients should dispose of the reasoner when an internal reasoner exception is
  * thrown because the error is unrecoverable and the internal state of the
  * reasoner may be corrupt.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 05-Jul-2010 */
+ *         Informatics Group
+ * @since 3.1.0 */
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;
 

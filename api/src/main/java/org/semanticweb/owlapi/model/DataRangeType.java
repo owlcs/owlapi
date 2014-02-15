@@ -41,7 +41,7 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 
 /** Represents the different types of OWL 2 data ranges.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group */
 public enum DataRangeType implements Serializable {

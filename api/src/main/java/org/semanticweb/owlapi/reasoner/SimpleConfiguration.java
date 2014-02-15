@@ -39,9 +39,10 @@
 package org.semanticweb.owlapi.reasoner;
 
 /** A simple configuration with the general options.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 18-Mar-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
     private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
     private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
@@ -61,7 +62,8 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
      *            the progress monitor to use
      * @param timeOut
      *            the timeout in milliseconds */
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor,
+            long timeOut) {
         this.progressMonitor = progressMonitor;
         this.timeOut = timeOut;
     }

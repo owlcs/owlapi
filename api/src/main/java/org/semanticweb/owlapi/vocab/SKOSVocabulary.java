@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 03-Oct-2007 */
+ *         Group
+ * @since 2.2.0 */
 public enum SKOSVocabulary implements HasIRI {
 //@formatter:off
     /** BROADMATCH        */  BROADMATCH          ("broadMatch",          OBJECT_PROPERTY), 
@@ -154,7 +155,8 @@ public enum SKOSVocabulary implements HasIRI {
     /** @param dataFactory
      *            data factory to use
      * @return set of SKOS object properties */
-    public static Set<OWLObjectProperty> getObjectProperties(OWLDataFactory dataFactory) {
+    public static Set<OWLObjectProperty> getObjectProperties(
+            OWLDataFactory dataFactory) {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.OBJECT_PROPERTY)) {
@@ -167,7 +169,8 @@ public enum SKOSVocabulary implements HasIRI {
     /** @param dataFactory
      *            data factory to use
      * @return set of SKOS data properties */
-    public static Set<OWLDataProperty> getDataProperties(OWLDataFactory dataFactory) {
+    public static Set<OWLDataProperty> getDataProperties(
+            OWLDataFactory dataFactory) {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
         for (SKOSVocabulary v : values()) {
             if (v.entityType.equals(EntityType.DATA_PROPERTY)) {

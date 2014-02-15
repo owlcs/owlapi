@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Apr-2008 */
+ *         Group
+ * @since 2.2.0 */
 // XXX refactor or remove
 public class OWLOntologyManagerProperties implements Serializable {
     private static final long serialVersionUID = 40000L;

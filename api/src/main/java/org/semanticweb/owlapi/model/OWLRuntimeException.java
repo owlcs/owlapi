@@ -39,9 +39,10 @@
 package org.semanticweb.owlapi.model;
 
 /** The root of runtime exceptions in the OWL API.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLRuntimeException extends RuntimeException {
     private static final long serialVersionUID = 40000L;
 

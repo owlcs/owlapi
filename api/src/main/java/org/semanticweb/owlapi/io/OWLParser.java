@@ -62,7 +62,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * a different document.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLParser {
     /** Parses the ontology with a concrete representation available at
      * {@code documentIRI} and adds its axioms to {@code ontology}. Implementors

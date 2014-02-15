@@ -40,16 +40,19 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 <br>
- *         Represents a <a
- *         href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in
- *         the OWL 2 Specification.<br>
- *         A high level interface which represents a data range. Example of data
- *         ranges are datatypes (e.g. int, float, double, string, ...),
- *         complements of data ranges (e.g. not(int)), data enumerations (data
- *         oneOfs), datatype restrictions (e.g. int &gt; 3). */
-public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
+/** Represents a <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the OWL
+ * 2 Specification.<br>
+ * A high level interface which represents a data range. Example of data ranges
+ * are datatypes (e.g. int, float, double, string, ...), complements of data
+ * ranges (e.g. not(int)), data enumerations (data oneOfs), datatype
+ * restrictions (e.g. int &gt; 3).
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
+public interface OWLDataRange extends OWLObject, OWLPropertyRange,
+        SWRLPredicate {
     /** Determines if this data range is a datatype (int, float, ...)
      * 
      * @return {@code true} if this datarange is a datatype, or {@code false} if

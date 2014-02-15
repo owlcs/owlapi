@@ -43,9 +43,10 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.HasIRI;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ *         Group
  * @since 3.2 */
-public abstract class RDFNode implements Serializable, Comparable<RDFNode>, HasIRI {
+public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
+        HasIRI {
     private static final long serialVersionUID = 40000L;
 
     /** Determines if this node is a literal node.

@@ -42,9 +42,10 @@ import javax.annotation.Nonnull;
 
 /** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
  * ObjectPropertyRange</a> axioms in the OWL 2 specification.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006
+ *         Informatics Group
+ * @since 2.0.0
  * @param <R>
  *            range
  * @param <P>

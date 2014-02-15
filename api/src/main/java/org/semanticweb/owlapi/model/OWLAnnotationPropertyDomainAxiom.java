@@ -43,9 +43,10 @@ import javax.annotation.Nonnull;
 /** Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain"
  * >AnnotationPropertyDomain</a> axiom in the OWL 2 specification.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
     /** Gets the annotation property that this axiom specifies a domain for.
      * 

@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
     private final IRI ontologyIRI;
     private final IRI documentIRI;
@@ -56,8 +57,10 @@ public class SimpleIRIMapper implements OWLOntologyIRIMapper {
      * @param documentIRI
      *            document IRI */
     public SimpleIRIMapper(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
-        this.ontologyIRI = checkNotNull(ontologyIRI, "ontologyIRI cannot be null");
-        this.documentIRI = checkNotNull(documentIRI, "documentIRI cannot be null");
+        this.ontologyIRI = checkNotNull(ontologyIRI,
+                "ontologyIRI cannot be null");
+        this.documentIRI = checkNotNull(documentIRI,
+                "documentIRI cannot be null");
     }
 
     @Override

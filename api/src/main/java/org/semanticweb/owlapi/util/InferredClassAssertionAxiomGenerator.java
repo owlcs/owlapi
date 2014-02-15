@@ -47,9 +47,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** Generates {@code OWLClassAssertionsAxiom}s for inferred individual types.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Jul-2007 */
+ *         Informatics Group
+ * @since 2.1.0 */
 public class InferredClassAssertionAxiomGenerator extends
         InferredIndividualAxiomGenerator<OWLClassAssertionAxiom> {
     @Override

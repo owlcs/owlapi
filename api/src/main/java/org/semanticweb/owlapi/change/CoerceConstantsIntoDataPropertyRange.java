@@ -73,7 +73,8 @@ import org.semanticweb.owlapi.util.OWLObjectDuplicator;
  * would be typed with the range of p.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Aug-2007 */
+ *         Informatics Group
+ * @since 2.1.1 */
 public class CoerceConstantsIntoDataPropertyRange extends
         AbstractCompositeOntologyChange {
     /** Instantiates a new coerce constants into data property range.

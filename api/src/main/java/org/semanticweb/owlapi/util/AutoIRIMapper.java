@@ -72,11 +72,12 @@ import org.xml.sax.helpers.DefaultHandler;
 /** A mapper which given a root folder attempts to automatically discover and map
  * files to ontologies. The mapper is only capable of mapping ontologies in
  * RDF/XML and OWL/XML (other serialisations are not supported).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Apr-2007 */
-public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMapper,
-        Serializable {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class AutoIRIMapper extends DefaultHandler implements
+        OWLOntologyIRIMapper, Serializable {
     private static final long serialVersionUID = 40000L;
     private final Set<String> fileExtensions = new HashSet<String>();
     private boolean mapped;
@@ -106,7 +107,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         fileExtensions.add("rdf");
         fileExtensions.add("omn");
         mapped = false;
-        handlerMap.put(Namespaces.RDF + "RDF", new RDFXMLOntologyRootElementHandler());
+        handlerMap.put(Namespaces.RDF + "RDF",
+                new RDFXMLOntologyRootElementHandler());
         handlerMap.put(OWLXMLVocabulary.ONTOLOGY.toString(),
                 new OWLXMLOntologyRootElementHandler());
     }
@@ -253,18 +255,21 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         BufferedReader br = null;
         try {
             // Ontology: <URI>
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(file),
-                    "UTF-8"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(
+                    file), "UTF-8"));
             String line = br.readLine();
             IRI ontologyIRI = null;
             while (line != null) {
-                StringTokenizer tokenizer = new StringTokenizer(line, " \r\n", false);
+                StringTokenizer tokenizer = new StringTokenizer(line, " \r\n",
+                        false);
                 line = br.readLine();
                 while (tokenizer.hasMoreTokens()) {
                     String tok = tokenizer.nextToken();
                     if (tok.startsWith("<") && tok.endsWith(">")) {
-                        ontologyIRI = IRI.create(tok.substring(1, tok.length() - 1));
-                        ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(file));
+                        ontologyIRI = IRI.create(tok.substring(1,
+                                tok.length() - 1));
+                        ontologyIRI2PhysicalURIMap.put(ontologyIRI,
+                                IRI.create(file));
                         break;
                     }
                 }
@@ -291,7 +296,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
         if (handler != null) {
             IRI ontologyIRI = handler.handle(attributes);
             if (ontologyIRI != null) {
-                ontologyIRI2PhysicalURIMap.put(ontologyIRI, IRI.create(getCurrentFile()));
+                ontologyIRI2PhysicalURIMap.put(ontologyIRI,
+                        IRI.create(getCurrentFile()));
             }
             throw new SAXException();
         }
@@ -336,7 +342,8 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
         @Override
         public IRI handle(Attributes attributes) {
-            String baseValue = attributes.getValue(Namespaces.XML.toString(), "base");
+            String baseValue = attributes.getValue(Namespaces.XML.toString(),
+                    "base");
             if (baseValue == null) {
                 return null;
             }
@@ -353,9 +360,11 @@ public class AutoIRIMapper extends DefaultHandler implements OWLOntologyIRIMappe
 
         @Override
         public IRI handle(Attributes attributes) {
-            String ontURI = attributes.getValue(Namespaces.OWL.toString(), "ontologyIRI");
+            String ontURI = attributes.getValue(Namespaces.OWL.toString(),
+                    "ontologyIRI");
             if (ontURI == null) {
-                ontURI = attributes.getValue(Namespaces.OWL.toString(), "ontologyIRI");
+                ontURI = attributes.getValue(Namespaces.OWL.toString(),
+                        "ontologyIRI");
             }
             if (ontURI == null) {
                 return null;

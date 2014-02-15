@@ -43,7 +43,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 15-Jan-2009 */
+ *         Group
+ * @since 3.0.0 */
 public interface OWLNaryDataRange extends OWLDataRange {
     /** @return the data ranges */
     @Nonnull

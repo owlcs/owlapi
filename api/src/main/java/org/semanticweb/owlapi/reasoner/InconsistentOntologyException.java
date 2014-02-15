@@ -43,9 +43,10 @@ package org.semanticweb.owlapi.reasoner;
  * imports closure of the root ontology (returned by
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is
  * inconsistent.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 21-Jan-2009 **/
+ *         Management Group
+ * @since 3.0.0 */
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
     private static final long serialVersionUID = 40000L;
 

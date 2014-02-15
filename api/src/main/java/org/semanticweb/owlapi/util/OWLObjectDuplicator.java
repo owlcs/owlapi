@@ -52,7 +52,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.*;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
     private final OWLDataFactory dataFactory;
     private Object obj;

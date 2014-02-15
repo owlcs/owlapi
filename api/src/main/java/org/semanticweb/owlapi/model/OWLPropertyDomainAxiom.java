@@ -43,13 +43,14 @@ import javax.annotation.Nonnull;
 /** Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006
+ *         Informatics Group
+ * @since 2.0.0
  * @param <P>
  *            property expression */
-public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression> extends
-        OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
+public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
+        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
     /** Gets the domain specified by this property axiom.
      * 
      * @return The class expression that represents the domain specified by this

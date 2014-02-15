@@ -58,9 +58,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * axiom. For example, given A subClassOf B, A subClassOf C, this change will
  * remove these two axioms and replace them by adding one subclass axiom, A
  * subClassOf (B and C).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Aug-2007 */
+ *         Informatics Group
+ * @since 2.1.1 */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     /** Instantiates a new amalgamate sub class axioms.
      * 
@@ -71,9 +72,11 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
     public AmalgamateSubClassAxioms(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);
-        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
+        for (OWLOntology ont : checkNotNull(ontologies,
+                "ontologies cannot be null")) {
             for (OWLClass cls : ont.getClassesInSignature()) {
-                Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForSubClass(cls);
+                Set<OWLSubClassOfAxiom> axioms = ont
+                        .getSubClassAxiomsForSubClass(cls);
                 if (axioms.size() > 1) {
                     Set<OWLClassExpression> superClasses = new HashSet<OWLClassExpression>();
                     for (OWLSubClassOfAxiom ax : axioms) {
@@ -82,8 +85,8 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
                     }
                     OWLClassExpression combinedSuperClass = getDataFactory()
                             .getOWLObjectIntersectionOf(superClasses);
-                    addChange(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(
-                            cls, combinedSuperClass)));
+                    addChange(new AddAxiom(ont, getDataFactory()
+                            .getOWLSubClassOfAxiom(cls, combinedSuperClass)));
                 }
             }
         }

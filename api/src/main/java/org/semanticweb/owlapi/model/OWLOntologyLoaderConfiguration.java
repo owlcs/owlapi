@@ -47,18 +47,18 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * OWLOntologies. Every {@code OWLOntologyLoaderConfiguration} is immutable.
  * Changing a setting results in the creation of a new
  * {@code OWLOntologyLoaderConfiguration} with that setting. For example,
- *
+ * 
  * <pre>
  * OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
  * config = config.setLoadAnnotationAxioms(false);
  * </pre>
- *
+ * 
  * creates an {@code OWLOntologyLoaderConfiguration} object with the load
  * annotation axioms set to {@code false}.
- *
- * @author Matthew Horridge, The University of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 15/12/2010 */
+ * 
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 3.2.0 */
 public final class OWLOntologyLoaderConfiguration {
     /** strategies to cope with missing headers */
     public enum MissingOntologyHeaderStrategy {
@@ -155,7 +155,8 @@ public final class OWLOntologyLoaderConfiguration {
      *            true if HTTP compression should be accepted
      * @return a copy of this configuration with accepting HTTP compression set
      *         to the new value */
-    public OWLOntologyLoaderConfiguration setAcceptingHTTPCompression(boolean b) {
+    public OWLOntologyLoaderConfiguration
+            setAcceptingHTTPCompression(boolean b) {
         // do not make copies if setting the same value
         if (acceptHTTPCompression == b) {
             return this;
@@ -232,7 +233,8 @@ public final class OWLOntologyLoaderConfiguration {
      *            iri to check
      * @return true if iri should be ignored */
     public boolean isIgnoredImport(IRI iri) {
-        return Namespaces.isDefaultIgnoredImport(iri) || ignoredImports.contains(iri);
+        return Namespaces.isDefaultIgnoredImport(iri)
+                || ignoredImports.contains(iri);
     }
 
     /** Adds an ontology document IRI to the list of ontology imports that will
@@ -243,7 +245,8 @@ public final class OWLOntologyLoaderConfiguration {
      *            encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI set. */
-    public OWLOntologyLoaderConfiguration addIgnoredImport(IRI ontologyDocumentIRI) {
+    public OWLOntologyLoaderConfiguration addIgnoredImport(
+            IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.ignoredImports.add(ontologyDocumentIRI);
         return configuration;
@@ -257,7 +260,8 @@ public final class OWLOntologyLoaderConfiguration {
      *            encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
      *         ontology document IRI removed. */
-    public OWLOntologyLoaderConfiguration removeIgnoredImport(IRI ontologyDocumentIRI) {
+    public OWLOntologyLoaderConfiguration removeIgnoredImport(
+            IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.ignoredImports.remove(ontologyDocumentIRI);
         return configuration;

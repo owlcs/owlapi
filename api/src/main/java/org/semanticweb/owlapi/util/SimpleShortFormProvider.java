@@ -49,9 +49,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * then the last segment of the URI path is used e.g. http://an.other.com/A/B
  * would have a short form of "B". 3) If the entity URI does not have a path
  * then the full URI is returned as a string.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class SimpleShortFormProvider implements ShortFormProvider, Serializable {
     private static final long serialVersionUID = 40000L;
     private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();

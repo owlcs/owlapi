@@ -38,9 +38,9 @@
  */
 package org.semanticweb.owlapi.formats;
 
-
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class TurtleOntologyFormat extends RDFOntologyFormat {
     private static final long serialVersionUID = 40000L;
 

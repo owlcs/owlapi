@@ -48,9 +48,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** A short form provider which creates QNames for entities.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class QNameShortFormProvider implements ShortFormProvider {
     private final NamespaceUtil namespaceUtil = new NamespaceUtil();
 
@@ -67,7 +68,8 @@ public class QNameShortFormProvider implements ShortFormProvider {
      *            The map which contains a prefix to namespace mapping. The
      *            prefix must not have a trailing ":"; if one is there, it will
      *            be removed */
-    public QNameShortFormProvider(@Nonnull Map<String, String> prefix2NamespaceMap) {
+    public QNameShortFormProvider(
+            @Nonnull Map<String, String> prefix2NamespaceMap) {
         checkNotNull(prefix2NamespaceMap, "prefix2NamespaceMap cannot be null");
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {
             String key = e.getKey();

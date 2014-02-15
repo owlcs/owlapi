@@ -57,9 +57,10 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 
 /** Changes the URI of an ontology and ensures that ontologies which import the
  * ontology have their imports statements updated
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-May-2007 **/
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLOntologyIRIChanger {
     private final OWLOntologyManager owlOntologyManager;
 
@@ -83,14 +84,16 @@ public class OWLOntologyIRIChanger {
     public List<OWLOntologyChange<?>> getChanges(@Nonnull OWLOntology ontology,
             @Nonnull IRI newIRI) {
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
-        changes.add(new SetOntologyID(ontology, new OWLOntologyID(newIRI, ontology
-                .getOntologyID().getVersionIRI())));
+        changes.add(new SetOntologyID(ontology, new OWLOntologyID(newIRI,
+                ontology.getOntologyID().getVersionIRI())));
         for (OWLOntology ont : owlOntologyManager.getOntologies()) {
             for (OWLImportsDeclaration decl : ont.getImportsDeclarations()) {
-                if (decl.getIRI().equals(ontology.getOntologyID().getOntologyIRI())) {
+                if (decl.getIRI().equals(
+                        ontology.getOntologyID().getOntologyIRI())) {
                     changes.add(new RemoveImport(ont, decl));
-                    changes.add(new AddImport(ont, owlOntologyManager.getOWLDataFactory()
-                            .getOWLImportsDeclaration(newIRI)));
+                    changes.add(new AddImport(ont, owlOntologyManager
+                            .getOWLDataFactory().getOWLImportsDeclaration(
+                                    newIRI)));
                 }
             }
         }

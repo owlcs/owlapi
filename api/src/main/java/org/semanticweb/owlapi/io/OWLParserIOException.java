@@ -43,7 +43,8 @@ import java.io.IOException;
 /** Describes a parse exception which was caused by an {@code IOException}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLParserIOException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 

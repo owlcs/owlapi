@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.model;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class UnloadableImportException extends OWLOntologyCreationException {
     private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration importsDeclaration;

@@ -68,9 +68,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * supplied with a set of ontologies and a conversion strategy. All of the
  * entities that are referenced in the specified ontologies will have their URIs
  * converted according the specified conversion strategy.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Nov-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class OWLEntityURIConverter {
     private final OWLOntologyManager manager;
     // The ontologies that reference the

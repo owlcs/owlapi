@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * allowed in the documentation.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 <br> */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
         OWLEntityByTypeProvider, OWLAnonymousIndividualProvider,
         OWLAnonymousIndividualByIdProvider {

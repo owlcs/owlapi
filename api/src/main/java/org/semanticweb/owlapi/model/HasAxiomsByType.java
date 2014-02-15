@@ -44,7 +44,8 @@ import java.util.Set;
  * these axioms by the type of axiom.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasAxiomsByType {
     /** Gets the axioms which are of the specified type.
      * 

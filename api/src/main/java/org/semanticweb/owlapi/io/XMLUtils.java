@@ -42,9 +42,9 @@ package org.semanticweb.owlapi.io;
  * implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C
  * namespaces in XML specification</a>.
  * 
- * @since 3.3.0
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 22/09/2011 */
+ *         Informatics Group
+ * @since 3.3.0 */
 public class XMLUtils {
     /** &amp;lt; shortcut */
     public static final String LT = "&lt;";

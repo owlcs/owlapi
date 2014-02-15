@@ -135,9 +135,10 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
  * the collector could be used to obtain ObjectUnionOf(D C), D, C,
  * ObjectSomeValuesFrom(R F), F
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Jun-2010 */
+ *         Informatics Group
+ * @since 3.1.0 */
 public class OWLClassExpressionCollector implements
         OWLObjectVisitorEx<Set<OWLClassExpression>> {
     @Override
@@ -273,7 +274,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public Set<OWLClassExpression> visit(
+            OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -303,7 +305,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLAsymmetricObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -387,7 +390,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+    public Set<OWLClassExpression> visit(
+            OWLEquivalentObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -405,7 +409,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public Set<OWLClassExpression> visit(
+            OWLNegativeDataPropertyAssertionAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -440,7 +445,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLDisjointObjectPropertiesAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLDisjointObjectPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -470,7 +476,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLFunctionalObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -515,7 +522,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLEquivalentDataPropertiesAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLEquivalentDataPropertiesAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -539,12 +547,14 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLTransitiveObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLTransitiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -554,7 +564,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public Set<OWLClassExpression> visit(
+            OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return Collections.emptySet();
     }
 
@@ -601,7 +612,8 @@ public class OWLClassExpressionCollector implements
     }
 
     @Override
-    public Set<OWLClassExpression> visit(OWLAnnotationPropertyDomainAxiom axiom) {
+    public Set<OWLClassExpression>
+            visit(OWLAnnotationPropertyDomainAxiom axiom) {
         return Collections.emptySet();
     }
 

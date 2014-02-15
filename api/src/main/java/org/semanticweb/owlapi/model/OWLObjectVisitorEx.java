@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.model;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Apr-2008
+ *         Group
+ * @since 2.2.0
  * @param <O>
  *            visitor type */
 public interface OWLObjectVisitorEx<O> extends OWLAxiomVisitorEx<O>,

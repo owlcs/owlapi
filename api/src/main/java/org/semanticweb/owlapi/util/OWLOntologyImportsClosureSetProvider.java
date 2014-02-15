@@ -51,10 +51,12 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 /** An {@code OWLOntologySetProvider} which provides a set of ontologies which
  * correspond to the imports closure of a given ontology. Note that the set of
  * provided ontologies will be updated if the imports closure gets updated.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Apr-2007 */
-public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvider {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class OWLOntologyImportsClosureSetProvider implements
+        OWLOntologySetProvider {
     private final OWLOntologyManager manager;
     private final OWLOntology rootOntology;
 
@@ -66,10 +68,12 @@ public class OWLOntologyImportsClosureSetProvider implements OWLOntologySetProvi
      *            closure.
      * @param rootOntology
      *            The ontology which is the "root" of the imports closure. */
-    public OWLOntologyImportsClosureSetProvider(@Nonnull OWLOntologyManager manager,
+    public OWLOntologyImportsClosureSetProvider(
+            @Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology rootOntology) {
         this.manager = checkNotNull(manager, "manager cannot be null");
-        this.rootOntology = checkNotNull(rootOntology, "rootOntology cannot be null");
+        this.rootOntology = checkNotNull(rootOntology,
+                "rootOntology cannot be null");
     }
 
     @Override

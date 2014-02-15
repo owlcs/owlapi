@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ *         Research Group
+ * @since 3.3 */
 public class AddAxiomData extends AxiomChangeData {
     private static final long serialVersionUID = 40000L;
 

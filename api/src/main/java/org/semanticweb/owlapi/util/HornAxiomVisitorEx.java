@@ -95,7 +95,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     @Override
     public Boolean visit(OWLSubClassOfAxiom axiom) {
-        return Boolean.valueOf(axiom.getSubClass().accept(negative).booleanValue()
+        return Boolean.valueOf(axiom.getSubClass().accept(negative)
+                .booleanValue()
                 && axiom.getSuperClass().accept(positive).booleanValue());
     }
 
@@ -137,11 +138,13 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     @Override
     public Boolean visit(OWLDisjointUnionAxiom axiom) {
         OWLClassExpression c1 = axiom.getOWLClass();
-        if (!c1.accept(positive).booleanValue() || !c1.accept(negative).booleanValue()) {
+        if (!c1.accept(positive).booleanValue()
+                || !c1.accept(negative).booleanValue()) {
             return Boolean.FALSE;
         }
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(positive).booleanValue() || !c.accept(negative).booleanValue()) {
+            if (!c.accept(positive).booleanValue()
+                    || !c.accept(negative).booleanValue()) {
                 return Boolean.FALSE;
             }
         }
@@ -166,7 +169,8 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(positive).booleanValue() || !c.accept(negative).booleanValue()) {
+            if (!c.accept(positive).booleanValue()
+                    || !c.accept(negative).booleanValue()) {
                 return Boolean.FALSE;
             }
         }

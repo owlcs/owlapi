@@ -42,11 +42,13 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
- *         Represents <a
- *         href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals"
- *         >DataOneOf</a> in the OWL 2 Specification. */
+/** Represents <a
+ * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals"
+ * >DataOneOf</a> in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLDataOneOf extends OWLDataRange {
     /** Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 

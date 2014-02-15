@@ -56,10 +56,12 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * mutually disjoint. The composite change offers the option of using one
  * disjoint classes axiom to do this or using multiple disjoint classes axioms
  * to make them pairwise disjoint (for backwards compatibility with OWL 1.0).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Jul-2007 */
-public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange {
+ *         Informatics Group
+ * @since 2.1.0 */
+public class MakeClassesMutuallyDisjoint extends
+        AbstractCompositeOntologyChange {
     /** Creates a composite change which makes a set of classes mutually
      * disjoint.
      * 
@@ -78,10 +80,12 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
      *            method). */
     public MakeClassesMutuallyDisjoint(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
-            boolean usePairwiseDisjointAxioms, @Nonnull OWLOntology targetOntology) {
+            boolean usePairwiseDisjointAxioms,
+            @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
         generateChanges(
-                checkNotNull(classExpressions, "classExpressions cannot be null"),
+                checkNotNull(classExpressions,
+                        "classExpressions cannot be null"),
                 usePairwiseDisjointAxioms,
                 checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
@@ -94,7 +98,8 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
      *            the use pairwise disjoint axioms
      * @param targetOntology
      *            the target ontology */
-    private void generateChanges(Set<? extends OWLClassExpression> classExpressions,
+    private void generateChanges(
+            Set<? extends OWLClassExpression> classExpressions,
             boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {
         if (usePairwiseDisjointAxioms) {
             List<OWLClassExpression> descList = new ArrayList<OWLClassExpression>(
@@ -103,8 +108,8 @@ public class MakeClassesMutuallyDisjoint extends AbstractCompositeOntologyChange
                 for (int j = i + 1; j < descList.size(); j++) {
                     addChange(new AddAxiom(targetOntology, getDataFactory()
                             .getOWLDisjointClassesAxiom(
-                                    CollectionFactory.createSet(descList.get(i),
-                                            descList.get(j)))));
+                                    CollectionFactory.createSet(
+                                            descList.get(i), descList.get(j)))));
                 }
             }
         } else {

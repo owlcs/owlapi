@@ -41,10 +41,10 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** Represents a named or anonymous individual.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 25-Oct-2006 */
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
     /** Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this

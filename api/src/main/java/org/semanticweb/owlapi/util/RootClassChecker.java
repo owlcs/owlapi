@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLClass;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Jan-2007 */
+ *         Group
+ * @since 2.0.0 */
 public interface RootClassChecker {
     /** Determines if the specified class is a direct syntactic subclass of
      * owl:Thing.

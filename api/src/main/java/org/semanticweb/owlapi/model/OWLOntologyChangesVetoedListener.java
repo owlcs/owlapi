@@ -43,7 +43,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 04-Jul-2010 */
+ *         Group
+ * @since 3.1.0 */
 public interface OWLOntologyChangesVetoedListener {
     /** Called when a list of ontology changes has been vetoed for some reason.
      * 
@@ -51,6 +52,7 @@ public interface OWLOntologyChangesVetoedListener {
      *            The changes that were vetoed.
      * @param veto
      *            The cause of the veto. */
-    void ontologyChangesVetoed(@Nonnull List<? extends OWLOntologyChange<?>> changes,
+    void ontologyChangesVetoed(
+            @Nonnull List<? extends OWLOntologyChange<?>> changes,
             @Nonnull OWLOntologyChangeVetoException veto);
 }

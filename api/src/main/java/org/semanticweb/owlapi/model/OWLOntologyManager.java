@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.io.OWLParser;
  * its ontology document.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** Gets a data factory which can be used to create OWL API objects such as
      * classes, properties, individuals, axioms etc.

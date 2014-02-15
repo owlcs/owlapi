@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 23-Jul-2007 */
+ *         Group
+ * @since 2.1.0 */
 public abstract class AbstractCompositeOntologyChange implements
         OWLCompositeOntologyChange {
     /** The data factory. */
@@ -62,8 +63,10 @@ public abstract class AbstractCompositeOntologyChange implements
      * 
      * @param dataFactory
      *            the data factory */
-    protected AbstractCompositeOntologyChange(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
+    protected AbstractCompositeOntologyChange(
+            @Nonnull OWLDataFactory dataFactory) {
+        this.dataFactory = checkNotNull(dataFactory,
+                "dataFactory cannot be null");
     }
 
     /** Gets the data factory.

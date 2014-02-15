@@ -58,12 +58,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * their type (in the following order: Class, Object property, Data property,
  * Individual, Datatype) then by their short form (using the specified short
  * form provider).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Jun-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 @SuppressWarnings("unused")
-public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor,
-        Serializable {
+public class OWLEntityComparator implements Comparator<OWLEntity>,
+        OWLEntityVisitor, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final int OWL_CLASS_INDEX = 0;
     private static final int OWL_OBJECT_PROPERTY_INDEX = 1;

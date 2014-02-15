@@ -44,9 +44,10 @@ import javax.annotation.Nonnull;
 
 /** Represent a rule. A rule consists of a head and a body. Both the head and the
  * body consist of a conjunction of atoms.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group
+ * @since 2.0.0 */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
     /** Gets the atoms in the body of the rule.
      * 

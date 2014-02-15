@@ -43,9 +43,10 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLObject;
 
 /** A set of {@link Node}s.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 01-Aug-2009
+ *         Management Group
+ * @since 3.0.0
  * @param <E>
  *            the type of elements in the node set */
 public interface NodeSet<E extends OWLObject> extends Iterable<Node<E>> {

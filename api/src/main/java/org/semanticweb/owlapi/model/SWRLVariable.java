@@ -42,9 +42,10 @@ import javax.annotation.Nonnull;
 
 /** Represents a variable that can appear in an atom. Variable can either be
  * place holders for individuals or literals. Variables are named with IRIs.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group
+ * @since 2.0.0 */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI {
     /** Gets the variable IRI that names the variable.
      * 

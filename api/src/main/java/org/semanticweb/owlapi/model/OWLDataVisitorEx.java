@@ -40,9 +40,9 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group
+ * @since 3.0.0
  * @param <O>
  *            return type */
 public interface OWLDataVisitorEx<O> {

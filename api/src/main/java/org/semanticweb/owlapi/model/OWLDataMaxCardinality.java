@@ -38,9 +38,10 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
- *         Represents <a
- *         href="http://www.w3.org/TR/owl2-syntax/#Maximum_Cardinality_2">
- *         DataMaxCardinality</a> retrictions in the OWL 2 Specification. */
+/** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Maximum_Cardinality_2">
+ * DataMaxCardinality</a> retrictions in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLDataMaxCardinality extends OWLDataCardinalityRestriction {}

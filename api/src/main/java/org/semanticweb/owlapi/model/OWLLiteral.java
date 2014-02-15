@@ -55,11 +55,12 @@ import javax.annotation.Nonnull;
  * "abc@langTag"^^rdf:PlainLiteral where "langTag" is not empty are abbreviated
  * in functional-style syntax documents (and other concrete syntaxes) to
  * "abc"@langTag whenever possible.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLLiteral extends OWLObject, OWLAnnotationObject, OWLAnnotationValue,
-        OWLPropertyAssertionObject, OWLPrimitive {
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
+public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
+        OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive {
     /** Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
      * Note that literals that are abbreviated in the functional syntax (and
      * other concrete syntaxes) and are of the form {@code "abc"} or

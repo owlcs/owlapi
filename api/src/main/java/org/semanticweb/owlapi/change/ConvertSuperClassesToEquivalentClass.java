@@ -87,10 +87,12 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * This composite change supports the pattern of working where a primitive class
  * is converted to a defined class - functionality which is usually found in
  * editors.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Jul-2007 */
-public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
+ *         Informatics Group
+ * @since 2.1.0 */
+public class ConvertSuperClassesToEquivalentClass extends
+        AbstractCompositeOntologyChange {
     /** Instantiates a new convert super classes to equivalent class.
      * 
      * @param dataFactory
@@ -104,11 +106,13 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
      * @param targetOntology
      *            The targetOntology which the equivalent classes axiom should
      *            be added to */
-    public ConvertSuperClassesToEquivalentClass(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
+    public ConvertSuperClassesToEquivalentClass(
+            @Nonnull OWLDataFactory dataFactory, @Nonnull OWLClass cls,
+            @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology) {
         super(dataFactory);
-        generateChanges(checkNotNull(targetOntology, "targetOntology cannot be null"),
+        generateChanges(
+                checkNotNull(targetOntology, "targetOntology cannot be null"),
                 checkNotNull(cls, "cls cannot be null"),
                 checkNotNull(ontologies, "ontologies cannot be null"));
     }
@@ -132,8 +136,8 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
                 descs.add(ax.getSuperClass());
             }
         }
-        OWLClassExpression equivalentClass = getDataFactory().getOWLObjectIntersectionOf(
-                descs);
+        OWLClassExpression equivalentClass = getDataFactory()
+                .getOWLObjectIntersectionOf(descs);
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);

@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public interface OWLNamedObjectVisitor {
     /** visit OWLClass type
      * 

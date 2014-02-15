@@ -44,9 +44,10 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** An interface to a factory that can create SWRL objects.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group
+ * @since 2.0.0 */
 public interface SWRLDataFactory {
     /** Gets an anonymous SWRL Rule.
      * 
@@ -69,10 +70,9 @@ public interface SWRLDataFactory {
      *            The annotations for the rule (may be an empty set)
      * @return An anonymous rule with the specified body and head */
     @Nonnull
-    SWRLRule
-            getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
-                    @Nonnull Set<? extends SWRLAtom> head,
-                    @Nonnull Set<OWLAnnotation> annotations);
+    SWRLRule getSWRLRule(@Nonnull Set<? extends SWRLAtom> body,
+            @Nonnull Set<? extends SWRLAtom> head,
+            @Nonnull Set<OWLAnnotation> annotations);
 
     /** Gets a SWRL atom where the predicate is a class expression i.e. C(x)
      * where C is a class expression and x is either an individual or a variable
@@ -115,8 +115,8 @@ public interface SWRLDataFactory {
      *         specified arguments */
     @Nonnull
     SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(
-            @Nonnull OWLObjectPropertyExpression property, @Nonnull SWRLIArgument arg0,
-            @Nonnull SWRLIArgument arg1);
+            @Nonnull OWLObjectPropertyExpression property,
+            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1);
 
     /** Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
      * property (expression) and x and y are are either literals or variables
@@ -132,8 +132,8 @@ public interface SWRLDataFactory {
      *         specified arguments */
     @Nonnull
     SWRLDataPropertyAtom getSWRLDataPropertyAtom(
-            @Nonnull OWLDataPropertyExpression property, @Nonnull SWRLIArgument arg0,
-            @Nonnull SWRLDArgument arg1);
+            @Nonnull OWLDataPropertyExpression property,
+            @Nonnull SWRLIArgument arg0, @Nonnull SWRLDArgument arg1);
 
     /** Creates a SWRL Built-In atom. Builtins have predicates that are
      * identified by IRIs. SWRL provides a core set of builtins, which are
@@ -167,7 +167,8 @@ public interface SWRLDataFactory {
      *            The individual that is the object argument
      * @return A SWRLIndividualArgument that wraps the specified individual */
     @Nonnull
-    SWRLIndividualArgument getSWRLIndividualArgument(@Nonnull OWLIndividual individual);
+    SWRLIndividualArgument getSWRLIndividualArgument(
+            @Nonnull OWLIndividual individual);
 
     /** Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
      * provide an argument for an atom.
@@ -184,8 +185,8 @@ public interface SWRLDataFactory {
      *            second individual
      * @return a sameindividual atom */
     @Nonnull
-    SWRLSameIndividualAtom getSWRLSameIndividualAtom(@Nonnull SWRLIArgument arg0,
-            @Nonnull SWRLIArgument arg1);
+    SWRLSameIndividualAtom getSWRLSameIndividualAtom(
+            @Nonnull SWRLIArgument arg0, @Nonnull SWRLIArgument arg1);
 
     /** @param arg0
      *            first individual

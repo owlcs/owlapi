@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 07/08/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface OWLEntityByTypeProvider {
     /** Gets an entity that has the specified IRI and is of the specified type.
      * 

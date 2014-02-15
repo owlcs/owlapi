@@ -48,7 +48,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ *         Group
  * @since 3.2 */
 public class RDFLiteral extends RDFNode {
     private static final long serialVersionUID = 40000L;
@@ -75,7 +75,8 @@ public class RDFLiteral extends RDFNode {
     /** @param literal
      *            the wrapped literal */
     public RDFLiteral(@Nonnull OWLLiteral literal) {
-        this(literal.getLiteral(), literal.getLang(), literal.getDatatype().getIRI());
+        this(literal.getLiteral(), literal.getLang(), literal.getDatatype()
+                .getIRI());
     }
 
     @Override

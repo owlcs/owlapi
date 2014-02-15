@@ -52,7 +52,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** An ontology document target which can write to a GZIP File. Notice that this
  * works best when the output stream is closed explicitly in the client code.
- *
+ * 
  * @author ignazio
  * @since 3.4.8 */
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {

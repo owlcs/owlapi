@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006
+ *         Group
+ * @since 2.0.0
  * @param <O>
  *            return type */
 public class OWLOntologyChangeVisitorExAdapter<O> implements
@@ -74,7 +75,8 @@ public class OWLOntologyChangeVisitorExAdapter<O> implements
      * @param change
      *            visited change
      * @return default return value; */
-    protected O doDefault(@SuppressWarnings("unused") OWLOntologyChange<?> change) {
+    protected O doDefault(
+            @SuppressWarnings("unused") OWLOntologyChange<?> change) {
         return object;
     }
 

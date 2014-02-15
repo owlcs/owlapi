@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 23-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     /** @param ont
      *            ontology to use
@@ -80,8 +81,8 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
                 }
             }
             if (lastPathComponent.endsWith(".owl")) {
-                shortForm = lastPathComponent
-                        .substring(0, lastPathComponent.length() - 4);
+                shortForm = lastPathComponent.substring(0,
+                        lastPathComponent.length() - 4);
             } else {
                 shortForm = lastPathComponent;
             }

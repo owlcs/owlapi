@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 /** An object that can create an {@code OWLParser}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLParserFactory extends Serializable,
         Comparable<OWLParserFactory> {
     /** Creates a parser.

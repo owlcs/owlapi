@@ -43,10 +43,10 @@ import javax.annotation.Nonnull;
 /** An interface to objects that can visit
  * {@link org.semanticweb.owlapi.model.OWLClassExpression}s. (See the <a
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 13-Nov-2006 */
+ * 
+ * @author Matthew Horridge, The University Of Manchester Bio-Health Informatics
+ *         Group
+ * @since 2.0.0 */
 public interface OWLClassExpressionVisitor {
     /** visit OWLClass type
      * 

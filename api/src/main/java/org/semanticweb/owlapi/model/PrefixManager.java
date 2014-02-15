@@ -46,9 +46,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** A prefix manager than can provide prefixes for prefix names.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 10-Sep-2008 */
+ *         Management Group
+ * @since 2.2.0 */
 public interface PrefixManager extends Serializable {
     /** Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"

@@ -50,14 +50,15 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
  * this class for each concrete class of {@link OWLOntologyChange}. <br>
  * Instances of this class are immutable.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012
+ *         Research Group
+ * @since 3.3
  * @param <T>
  *            change type
- * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
- * @since 3.5 */
-public abstract class OWLOntologyChangeData<T> implements HasSignature, Serializable {
+ * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData() */
+public abstract class OWLOntologyChangeData<T> implements HasSignature,
+        Serializable {
     private static final long serialVersionUID = 40000L;
 
     /** Default constructor for serialization purposes. */

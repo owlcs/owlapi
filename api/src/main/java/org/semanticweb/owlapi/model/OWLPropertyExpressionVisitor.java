@@ -42,9 +42,10 @@ import javax.annotation.Nonnull;
 
 /** An interface to object that can visit the different types of property
  * expressions.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLPropertyExpressionVisitor {
     /** visit OWLObjectProperty type
      * 

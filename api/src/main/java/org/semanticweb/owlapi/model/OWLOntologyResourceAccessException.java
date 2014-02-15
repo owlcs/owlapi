@@ -48,9 +48,10 @@ package org.semanticweb.owlapi.model;
  * exceptions - this is because they represent potentially nasty situations
  * where client code calling methods such as getAxioms() probably doesn't know
  * (or care) how to handle situations where network/database connections fail.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
 

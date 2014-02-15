@@ -53,9 +53,10 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
  * simplest form. Let P be an object property name and PE a property expression,
  * then the simplification is inductively defined as: simp(P) = P simp(inv(P)) =
  * inv(P) simp(inv(inv(PE)) = simp(PE)
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 06-Jun-2008 */
+ *         Management Group
+ * @since 2.2.0 */
 public class ObjectPropertySimplifier {
     private final OWLDataFactory dataFactory;
     private final Simplifier simplifier = new Simplifier();
@@ -63,7 +64,8 @@ public class ObjectPropertySimplifier {
     /** @param dataFactory
      *            datafactory to use */
     public ObjectPropertySimplifier(@Nonnull OWLDataFactory dataFactory) {
-        this.dataFactory = checkNotNull(dataFactory, "dataFactory cannot be null");
+        this.dataFactory = checkNotNull(dataFactory,
+                "dataFactory cannot be null");
     }
 
     /** Gets an object property expression in its simplest form.

@@ -44,7 +44,8 @@ import java.util.Set;
  * properties that are contained in its signature.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasObjectPropertiesInSignature {
     /** A convenience method that obtains the object properties that are in the
      * signature of this object

@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
  * specified by a particular URI.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 02-Jan-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLOntologyStorer extends Serializable {
     /** Determines if this storer can store an ontology in the specified ontology
      * format.

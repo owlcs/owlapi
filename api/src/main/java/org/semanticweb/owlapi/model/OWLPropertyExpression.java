@@ -41,9 +41,10 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** Represents a property or possibly the inverse of a property.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLPropertyExpression extends OWLObject {
     /** Determines if this property expression is anonymous.
      * 

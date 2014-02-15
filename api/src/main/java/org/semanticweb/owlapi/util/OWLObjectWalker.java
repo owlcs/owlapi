@@ -145,7 +145,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 29-Jul-2008
+ *         Group
+ * @since 2.2.0
  * @param <O>
  *            the returned type */
 public class OWLObjectWalker<O extends OWLObject> {

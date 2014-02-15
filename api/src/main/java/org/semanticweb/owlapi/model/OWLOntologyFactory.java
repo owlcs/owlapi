@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
  * ontologies from ontology document IRIs.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 25-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLOntologyFactory extends Serializable {
     /** Creates an (empty) ontology.
      * 

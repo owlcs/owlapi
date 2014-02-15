@@ -48,9 +48,10 @@ import javax.annotation.Nonnull;
  * subproperty is a chain of properties. Note that this axiom type is not
  * explicit in the OWL 2 specification, but it is included in the OWL API as a
  * convenience to the programmer.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 22-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
     /** Gets the chain of properties that represents the subproperty in this
      * axiom.

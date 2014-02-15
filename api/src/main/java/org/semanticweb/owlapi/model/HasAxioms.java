@@ -45,7 +45,8 @@ import javax.annotation.Nonnull;
 /** An interface to an object that contains axioms.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasAxioms {
     /** Gets the {@link OWLAxiom}s contained in this object.
      * 

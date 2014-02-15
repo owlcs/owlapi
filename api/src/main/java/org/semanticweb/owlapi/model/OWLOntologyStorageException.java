@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.model;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLOntologyStorageException extends OWLException {
     private static final long serialVersionUID = 40000L;
 

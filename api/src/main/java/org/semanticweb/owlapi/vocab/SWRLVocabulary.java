@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group
+ * @since 2.0.0 */
 public enum SWRLVocabulary implements HasIRI {
 //@formatter:off
     /** IMP */                          IMP                     ("Imp"), 

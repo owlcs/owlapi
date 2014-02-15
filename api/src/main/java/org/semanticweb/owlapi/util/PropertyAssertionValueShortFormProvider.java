@@ -63,10 +63,12 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * provider is used. (As a side note, the use case for this particular short
  * form provider came from the SKOS community, which have individuals that have
  * preferredLabel property assertions).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Jun-2007 */
-public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
+ *         Informatics Group
+ * @since 2.0.0 */
+public class PropertyAssertionValueShortFormProvider implements
+        ShortFormProvider {
     private final List<OWLPropertyExpression> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
     private final OWLOntologySetProvider ontologySetProvider;
@@ -126,7 +128,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                 "preferredLanguageMap cannot be null");
         this.ontologySetProvider = checkNotNull(ontologySetProvider,
                 "ontologySetProvider cannot be null");
-        this.alternateShortFormProvider = checkNotNull(alternateShortFormProvider,
+        this.alternateShortFormProvider = checkNotNull(
+                alternateShortFormProvider,
                 "alternateShortFormProvider cannot be null");
     }
 
@@ -165,15 +168,16 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                     // and see if we take priority over the previous one
                     OWLObject obj = ax.getObject();
                     if (obj instanceof OWLLiteral) {
-                        List<String> langList = preferredLanguageMap
-                                .get(ax.getProperty());
+                        List<String> langList = preferredLanguageMap.get(ax
+                                .getProperty());
                         if (langList != null) {
                             // There is no need to check if lang is null. It may
                             // well be that no
                             // lang is preferred over any other lang.
                             OWLLiteral lit = (OWLLiteral) obj;
                             int langIndex = langList.indexOf(lit.getLang());
-                            if (langIndex != -1 && langIndex < lastLangMatchIndex) {
+                            if (langIndex != -1
+                                    && langIndex < lastLangMatchIndex) {
                                 lastLangMatchIndex = langIndex;
                                 candidateValue = ax.getObject();
                             }
@@ -217,7 +221,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
     /** @return the language map */
-    public Map<OWLDataPropertyExpression, List<String>> getPreferredLanguageMap() {
+    public Map<OWLDataPropertyExpression, List<String>>
+            getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
 

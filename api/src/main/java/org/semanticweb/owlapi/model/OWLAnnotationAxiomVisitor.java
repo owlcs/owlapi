@@ -41,9 +41,10 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** A visitor which visits the different kinds of annotation axioms.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 17-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationAxiomVisitor {
     /** visit OWLAnnotationAssertionAxiom type
      * 

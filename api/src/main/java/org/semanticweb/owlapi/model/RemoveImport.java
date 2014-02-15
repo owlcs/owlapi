@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Mar-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class RemoveImport extends ImportChange {
     /** @param ont
      *            the ontology to which the change is to be applied
@@ -65,13 +66,15 @@ public class RemoveImport extends ImportChange {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLEntity> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLEntity> emptySet());
     }
 
     @Override
     public int hashCode() {
-        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode() + 3;
+        return getOntology().hashCode() * 37
+                + getImportDeclaration().hashCode() + 3;
     }
 
     @Override

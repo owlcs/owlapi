@@ -150,7 +150,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * D.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLEntityCollector implements
         OWLObjectVisitorEx<Collection<OWLEntity>>,
         SWRLObjectVisitorEx<Collection<OWLEntity>> {

@@ -63,9 +63,10 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** An enumeration of the datatypes in the OWL 2 specification. These are the
  * datatypes in the OWL 2 datatype map.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 11-Nov-2008 */
+ *         Management Group
+ * @since 2.2.0 */
 public enum OWL2Datatype implements HasIRI {
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
@@ -173,7 +174,8 @@ public enum OWL2Datatype implements HasIRI {
         }
     }
 
-    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite, String regEx) {
+    OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
+            String regEx) {
         iri = xsd.getIRI();
         shortName = xsd.getShortName();
         this.category = category;
@@ -297,7 +299,8 @@ public enum OWL2Datatype implements HasIRI {
                 case REPLACE:
                     return s.replaceAll("\\t|\\n|\\r", " ");
                 case COLLAPSE:
-                    return REPLACE.getNormalisedString(s).replaceAll("\\s+", " ").trim();
+                    return REPLACE.getNormalisedString(s)
+                            .replaceAll("\\s+", " ").trim();
                 case PRESERVE:
                 default:
                     return s;

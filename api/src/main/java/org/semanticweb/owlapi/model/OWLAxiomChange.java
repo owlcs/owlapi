@@ -45,7 +45,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
     private final OWLAxiom axiom;
 

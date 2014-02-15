@@ -51,10 +51,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 /** Represents the specific non-ontology data required by an
  * {@link AddOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ *         Research Group
+ * @since 3.3 */
 public abstract class OntologyAnnotationChangeData extends
         OWLOntologyChangeData<OWLAnnotation> {
     private static final long serialVersionUID = 40000L;
@@ -67,7 +67,8 @@ public abstract class OntologyAnnotationChangeData extends
      * @param annotation
      *            The {@link OWLAnnotation} that is the focus of some change. */
     public OntologyAnnotationChangeData(@Nonnull OWLAnnotation annotation) {
-        this.annotation = checkNotNull(annotation, "annotation must not be null");
+        this.annotation = checkNotNull(annotation,
+                "annotation must not be null");
     }
 
     /** Gets the {@link OWLAnnotation} that is the focus of some

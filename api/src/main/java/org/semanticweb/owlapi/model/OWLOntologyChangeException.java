@@ -40,9 +40,10 @@ package org.semanticweb.owlapi.model;
 
 /** A high level exception interface that describes errors that occurred when
  * applying changes to ontologies.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyChange<?> change;
@@ -51,7 +52,8 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      *            change causing the error
      * @param message
      *            message */
-    public OWLOntologyChangeException(OWLOntologyChange<?> change, String message) {
+    public OWLOntologyChangeException(OWLOntologyChange<?> change,
+            String message) {
         super(message);
         this.change = change;
     }
@@ -62,8 +64,8 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      *            message
      * @param cause
      *            cause */
-    public OWLOntologyChangeException(OWLOntologyChange<?> change, String message,
-            Throwable cause) {
+    public OWLOntologyChangeException(OWLOntologyChange<?> change,
+            String message, Throwable cause) {
         super(message, cause);
         this.change = change;
     }
@@ -72,7 +74,8 @@ public abstract class OWLOntologyChangeException extends OWLRuntimeException {
      *            change causing the error
      * @param cause
      *            cause */
-    public OWLOntologyChangeException(OWLOntologyChange<?> change, Throwable cause) {
+    public OWLOntologyChangeException(OWLOntologyChange<?> change,
+            Throwable cause) {
         super(cause);
         this.change = change;
     }

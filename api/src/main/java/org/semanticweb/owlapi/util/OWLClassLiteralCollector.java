@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 23-Jul-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
     // XXX stateful visitor...
     protected final Set<OWLClass> pos = new HashSet<OWLClass>();

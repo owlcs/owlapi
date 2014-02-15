@@ -53,9 +53,10 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** A utility class which can generate namespaces, local names and namespace
  * prefixes in accordance with the XML spec.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 04-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class NamespaceUtil {
     private final Map<String, String> namespace2PrefixMap = new HashMap<String, String>();
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<String, String>();
@@ -63,7 +64,8 @@ public class NamespaceUtil {
 
     /** default constructor */
     public NamespaceUtil() {
-        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
+        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE,
+                "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
         namespace2PrefixMap.put(Namespaces.OWL.toString(), "owl");
         namespace2PrefixMap.put(Namespaces.RDFS.toString(), "rdfs");
@@ -162,7 +164,8 @@ public class NamespaceUtil {
         String candidatePrefix = computedPrefix;
         int index = 2;
         while (namespace2PrefixMap.containsValue(candidatePrefix)
-                || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
+                || standardNamespacePrefixMappings
+                        .containsValue(candidatePrefix)) {
             candidatePrefix = computedPrefix + index;
             index++;
         }

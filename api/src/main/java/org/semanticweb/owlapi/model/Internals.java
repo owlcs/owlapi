@@ -80,8 +80,8 @@ public interface Internals {
      * @param value
      *            the value
      * @return true, if successful */
-    <K, V extends OWLAxiom> boolean add(@Nonnull Pointer<K, V> pointer, @Nonnull K key,
-            @Nonnull V value);
+    <K, V extends OWLAxiom> boolean add(@Nonnull Pointer<K, V> pointer,
+            @Nonnull K key, @Nonnull V value);
 
     /** Adds the general class axioms.
      * 
@@ -95,7 +95,8 @@ public interface Internals {
      *            declaration to be added
      * @return true if the import declaration was not already present, false
      *         otherwise */
-    boolean addImportsDeclaration(@Nonnull OWLImportsDeclaration importDeclaration);
+    boolean addImportsDeclaration(
+            @Nonnull OWLImportsDeclaration importDeclaration);
 
     /** Adds the ontology annotation.
      * 
@@ -108,7 +109,8 @@ public interface Internals {
      * 
      * @param ax
      *            the ax */
-    void addPropertyChainSubPropertyAxioms(@Nonnull OWLSubPropertyChainOfAxiom ax);
+    void addPropertyChainSubPropertyAxioms(
+            @Nonnull OWLSubPropertyChainOfAxiom ax);
 
     /** Contains.
      * 
@@ -121,8 +123,8 @@ public interface Internals {
      * @param k
      *            the k
      * @return true, if successful */
-    <K, V extends OWLAxiom> boolean
-            contains(@Nonnull Pointer<K, V> pointer, @Nonnull K k);
+    <K, V extends OWLAxiom> boolean contains(@Nonnull Pointer<K, V> pointer,
+            @Nonnull K k);
 
     /** Contains.
      * 
@@ -178,13 +180,15 @@ public interface Internals {
      * 
      * @return the class assertion axioms by class */
     @Nonnull
-    Pointer<OWLClassExpression, OWLClassAssertionAxiom> getClassAssertionAxiomsByClass();
+    Pointer<OWLClassExpression, OWLClassAssertionAxiom>
+            getClassAssertionAxiomsByClass();
 
     /** Gets the class assertion axioms by individual.
      * 
      * @return the class assertion axioms by individual */
     @Nonnull
-    Pointer<OWLIndividual, OWLClassAssertionAxiom> getClassAssertionAxiomsByIndividual();
+    Pointer<OWLIndividual, OWLClassAssertionAxiom>
+            getClassAssertionAxiomsByIndividual();
 
     /** Gets the class axioms by class.
      * 
@@ -244,7 +248,8 @@ public interface Internals {
      * 
      * @return the disjoint classes axioms by class */
     @Nonnull
-    Pointer<OWLClass, OWLDisjointClassesAxiom> getDisjointClassesAxiomsByClass();
+    Pointer<OWLClass, OWLDisjointClassesAxiom>
+            getDisjointClassesAxiomsByClass();
 
     /** Gets the disjoint data property axioms by property.
      * 
@@ -270,7 +275,8 @@ public interface Internals {
      * 
      * @return the equivalent classes axioms by class */
     @Nonnull
-    Pointer<OWLClass, OWLEquivalentClassesAxiom> getEquivalentClassesAxiomsByClass();
+    Pointer<OWLClass, OWLEquivalentClassesAxiom>
+            getEquivalentClassesAxiomsByClass();
 
     /** Gets the equivalent data property axioms by property.
      * 
@@ -322,7 +328,7 @@ public interface Internals {
      * 
      * @return the inverse functional property axioms by property */
     @Nonnull
-    Pointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom>
+            Pointer<OWLObjectPropertyExpression, OWLInverseFunctionalObjectPropertyAxiom>
             getInverseFunctionalPropertyAxiomsByProperty();
 
     /** Gets the inverse property axioms by property.
@@ -409,13 +415,15 @@ public interface Internals {
      * 
      * @return the owl annotation property references */
     @Nonnull
-    Pointer<OWLAnnotationProperty, OWLAxiom> getOwlAnnotationPropertyReferences();
+    Pointer<OWLAnnotationProperty, OWLAxiom>
+            getOwlAnnotationPropertyReferences();
 
     /** Gets the owl anonymous individual references.
      * 
      * @return the owl anonymous individual references */
     @Nonnull
-    Pointer<OWLAnonymousIndividual, OWLAxiom> getOwlAnonymousIndividualReferences();
+    Pointer<OWLAnonymousIndividual, OWLAxiom>
+            getOwlAnonymousIndividualReferences();
 
     /** Gets the owl class references.
      * 
@@ -458,7 +466,8 @@ public interface Internals {
      * 
      * @return the same individuals axioms by individual */
     @Nonnull
-    Pointer<OWLIndividual, OWLSameIndividualAxiom> getSameIndividualsAxiomsByIndividual();
+    Pointer<OWLIndividual, OWLSameIndividualAxiom>
+            getSameIndividualsAxiomsByIndividual();
 
     /** Gets the sub class axioms by lhs.
      * 
@@ -580,7 +589,8 @@ public interface Internals {
      * @param importDeclaration
      *            declaration to be added
      * @return true if the import declaration was present, false otherwise */
-    boolean removeImportsDeclaration(@Nonnull OWLImportsDeclaration importDeclaration);
+    boolean removeImportsDeclaration(
+            @Nonnull OWLImportsDeclaration importDeclaration);
 
     /** Removes the ontology annotation.
      * 
@@ -603,12 +613,13 @@ public interface Internals {
      *            the v
      * @return true, if successful */
     @Nonnull
-    <K, V extends OWLAxiom> boolean remove(@Nonnull Pointer<K, V> pointer, @Nonnull K k,
-            @Nonnull V v);
+    <K, V extends OWLAxiom> boolean remove(@Nonnull Pointer<K, V> pointer,
+            @Nonnull K k, @Nonnull V v);
 
     /** Removes the property chain sub property axioms.
      * 
      * @param ax
      *            the ax */
-    void removePropertyChainSubPropertyAxioms(@Nonnull OWLSubPropertyChainOfAxiom ax);
+    void removePropertyChainSubPropertyAxioms(
+            @Nonnull OWLSubPropertyChainOfAxiom ax);
 }

@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Mar-2007 */
+ *         Group
+ * @since 2.0.0 */
 public enum DublinCoreVocabulary implements HasIRI {
 //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),

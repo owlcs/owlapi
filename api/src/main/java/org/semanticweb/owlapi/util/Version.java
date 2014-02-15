@@ -42,9 +42,10 @@ package org.semanticweb.owlapi.util;
  * reasoner version. <br>
  * A version number is assumed to be the following format:
  * <b>major.minor.patch.build</b>.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 09-Dec-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public class Version {
     private final int major;
     private final int minor;

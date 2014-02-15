@@ -73,9 +73,10 @@ import org.semanticweb.owlapi.model.OWLObject;
  * unsatisfiable, so it is equivalent to {@code owl:Nothing} and therefore
  * appears in the bottom node containing {@code owl:Nothing}. <br>
  * <img src="../../../../doc-files/hierarchy.png" alt="hierarchy">
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 03-Jul-2009
+ *         Management Group
+ * @since 3.0.0
  * @param <E>
  *            the type of elements represented in the Node */
 public interface Node<E extends OWLObject> extends Iterable<E> {

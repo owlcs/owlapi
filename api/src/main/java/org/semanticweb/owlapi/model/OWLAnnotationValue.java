@@ -42,12 +42,13 @@ import javax.annotation.Nonnull;
 
 /** A marker interface for annotation values, which can either be an IRI (URI),
  * Literal or Anonymous Individual, with visitor methods.
- *
+ * 
  * @see org.semanticweb.owlapi.model.IRI
  * @see org.semanticweb.owlapi.model.OWLLiteral
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationValue extends OWLAnnotationObject {
     /** @param visitor
      *            visitor to accept */

@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 /** An ontology document source which can read from a stream.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Nov-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class StreamDocumentSource extends StreamDocumentSourceBase {
     /** Constructs an input source which will read an ontology from a
      * representation from the specified stream.

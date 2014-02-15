@@ -44,9 +44,10 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** An interface for customisation of entity URI conversions.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Nov-2007 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public interface OWLEntityURIConverterStrategy {
     /** @param entity
      *            the entity to convert

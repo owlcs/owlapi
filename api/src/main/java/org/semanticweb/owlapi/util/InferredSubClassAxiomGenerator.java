@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+ *         Group
+ * @since 2.1.0 */
 public class InferredSubClassAxiomGenerator extends
         InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
     @Override
@@ -59,7 +60,8 @@ public class InferredSubClassAxiomGenerator extends
         checkNotNull(result, "result cannot be null");
         checkNotNull(entity, "entity cannot be null");
         if (reasoner.isSatisfiable(entity)) {
-            for (OWLClass sup : reasoner.getSuperClasses(entity, true).getFlattened()) {
+            for (OWLClass sup : reasoner.getSuperClasses(entity, true)
+                    .getFlattened()) {
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
             }
         } else {

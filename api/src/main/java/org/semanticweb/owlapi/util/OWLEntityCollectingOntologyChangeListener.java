@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
  * entities which are referenced in a set of ontology changes.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Feb-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
         OWLOntologyChangeListener {
     private final Set<OWLEntity> entities = new HashSet<OWLEntity>();

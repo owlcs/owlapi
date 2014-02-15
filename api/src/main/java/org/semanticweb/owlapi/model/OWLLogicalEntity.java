@@ -40,7 +40,8 @@ package org.semanticweb.owlapi.model;
 
 /** An {@code OWLLogicalEntity} is an {@code OWLEntity} that is not an
  * {@code OWLAnnotationProperty}.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 25-Nov-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLLogicalEntity extends OWLEntity {}

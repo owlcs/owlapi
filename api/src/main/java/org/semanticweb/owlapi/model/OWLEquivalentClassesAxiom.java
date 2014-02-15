@@ -42,11 +42,12 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006<br>
- *         Represents an <a href=
- *         "http://www.w3.org/TR/owl2-syntax/#Equivalent_Classes"
- *         >EquivalentClasses</a> axiom in the OWL 2 Specification. */
+/** Represents an <a href= "http://www.w3.org/TR/owl2-syntax/#Equivalent_Classes"
+ * >EquivalentClasses</a> axiom in the OWL 2 Specification.
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLEquivalentClassesAxiom extends OWLNaryClassAxiom {
     /** Determines if this equivalent classes axiom contains at least one named
      * class (excluding owl:Thing or owl:Nothing).

@@ -44,7 +44,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 24-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom,
         OWLSubClassOfAxiomSetShortCut {
     /** Gets all of the top level class expressions that appear in this axiom.
@@ -79,5 +80,6 @@ public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom,
      *         class expressions returned by getClassExpressions()) minus the
      *         specified list of class expressions */
     @Nonnull
-    Set<OWLClassExpression> getClassExpressionsMinus(@Nonnull OWLClassExpression... desc);
+    Set<OWLClassExpression> getClassExpressionsMinus(
+            @Nonnull OWLClassExpression... desc);
 }

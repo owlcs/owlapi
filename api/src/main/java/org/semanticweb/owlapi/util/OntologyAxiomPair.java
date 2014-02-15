@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Feb-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OntologyAxiomPair {
     private OWLOntology ontology;
     private OWLAxiom axiom;
@@ -97,6 +98,7 @@ public class OntologyAxiomPair {
 
     @Override
     public String toString() {
-        return axiom.toString() + " in " + (ontology != null ? ontology.toString() : "");
+        return axiom.toString() + " in "
+                + (ontology != null ? ontology.toString() : "");
     }
 }

@@ -55,7 +55,8 @@ import javax.annotation.Nonnull;
  * must be applied via its {@code OWLOntologyManager}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
         HasAxiomsByType, HasContainsAxiom, HasAnnotations {
     /** interim method to access ontology internals for searching purposes

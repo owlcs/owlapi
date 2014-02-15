@@ -44,7 +44,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
     /** Broadcasts the list of changes to the specified listeners.
      * 
@@ -55,5 +56,6 @@ public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
      * @throws OWLException
      *             for any exception raised */
     void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) throws OWLException;
+            @Nonnull List<? extends OWLOntologyChange<?>> changes)
+            throws OWLException;
 }

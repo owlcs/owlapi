@@ -57,9 +57,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * by a reasoner. The generator can be configured with
  * {@code InferredAxiomGenerator}s which generate specific kinds of axioms e.g.
  * subclass axioms.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Jul-2007 */
+ *         Informatics Group
+ * @since 2.1.0 */
 public class InferredOntologyGenerator {
     // The reasoner which is used to compute the inferred axioms
     private final OWLReasoner reasoner;
@@ -69,7 +70,8 @@ public class InferredOntologyGenerator {
      *            the reasoner to use
      * @param axiomGenerators
      *            the axiom generators to use */
-    public InferredOntologyGenerator(@Nonnull OWLReasoner reasoner,
+    public InferredOntologyGenerator(
+            @Nonnull OWLReasoner reasoner,
             @Nonnull List<InferredAxiomGenerator<? extends OWLAxiom>> axiomGenerators) {
         this.reasoner = checkNotNull(reasoner, "reasoner cannot be null");
         this.axiomGenerators = new ArrayList<InferredAxiomGenerator<? extends OWLAxiom>>(
@@ -83,7 +85,8 @@ public class InferredOntologyGenerator {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<InferredAxiomGenerator<? extends OWLAxiom>> generators() {
+    private static List<InferredAxiomGenerator<? extends OWLAxiom>>
+            generators() {
         return Arrays.<InferredAxiomGenerator<? extends OWLAxiom>> asList(
                 new InferredClassAssertionAxiomGenerator(),
                 new InferredDataPropertyCharacteristicAxiomGenerator(),
@@ -134,8 +137,8 @@ public class InferredOntologyGenerator {
      * @throws OWLOntologyChangeException
      *             If there was a problem adding the inferred axioms to the
      *             specified ontology. */
-    public void fillOntology(@Nonnull OWLDataFactory df, @Nonnull OWLOntology ontology)
-            throws OWLOntologyChangeException {
+    public void fillOntology(@Nonnull OWLDataFactory df,
+            @Nonnull OWLOntology ontology) throws OWLOntologyChangeException {
         checkNotNull(df, "df cannot be null");
         checkNotNull(ontology, "ontology cannot be null");
         List<AddAxiom> changes = new ArrayList<AddAxiom>();

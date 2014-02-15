@@ -131,7 +131,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 03-Jan-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
     private int hashCode;
     private static final int MULT = 37;

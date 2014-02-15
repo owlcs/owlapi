@@ -73,12 +73,12 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * ontology) is known via some other mechanism.</li>
  * </ol>
  * {@code OWLOntologyChangeRecord} objects are immutable.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 03/05/2012
+ *         Research Group
+ * @since 3.3
  * @param <T>
- *            change type
- * @since 3.4.3 */
+ *            change type */
 public class OWLOntologyChangeRecord<T> implements Serializable {
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyID ontologyID;
@@ -104,7 +104,8 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *            particular details of the change. */
     public OWLOntologyChangeRecord(@Nonnull OWLOntologyID ontologyID,
             @Nonnull OWLOntologyChangeData<T> data) {
-        this.ontologyID = checkNotNull(ontologyID, "ontologyID must not be null");
+        this.ontologyID = checkNotNull(ontologyID,
+                "ontologyID must not be null");
         this.data = checkNotNull(data, "data must not be null");
     }
 
@@ -168,8 +169,9 @@ public class OWLOntologyChangeRecord<T> implements Serializable {
      *             has an {@link OWLOntologyID} equal to the
      *             {@link OWLOntologyID} associated with this
      *             {@link OWLOntologyChangeRecord}. */
-    public OWLOntologyChange<T> createOntologyChange(OWLOntologyManager manager)
-            throws UnknownOWLOntologyException {
+    public OWLOntologyChange<T>
+            createOntologyChange(OWLOntologyManager manager)
+                    throws UnknownOWLOntologyException {
         OWLOntology ontology = checkNotNull(manager, "manager cannot be null")
                 .getOntology(ontologyID);
         if (ontology == null) {

@@ -89,9 +89,10 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * SubClassOf(A, D) will be added to the target ontology T.<br>
  * This change supports a common pattern of working, where a class is converted
  * from a defined class to a primitive class.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Jul-2007 */
+ *         Informatics Group
+ * @since 2.1.0 */
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
     /** The target ontology. */
@@ -115,8 +116,9 @@ public class ConvertEquivalentClassesToSuperClasses extends
      *            the target ontology
      * @param splitIntersections
      *            whether or not intersections should be split */
-    public ConvertEquivalentClassesToSuperClasses(@Nonnull OWLDataFactory dataFactory,
-            @Nonnull OWLClass cls, @Nonnull Set<OWLOntology> ontologies,
+    public ConvertEquivalentClassesToSuperClasses(
+            @Nonnull OWLDataFactory dataFactory, @Nonnull OWLClass cls,
+            @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLOntology targetOntology, boolean splitIntersections) {
         super(dataFactory);
         this.targetOntology = checkNotNull(targetOntology,
@@ -131,7 +133,8 @@ public class ConvertEquivalentClassesToSuperClasses extends
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<OWLClassExpression>();
         for (OWLOntology o : ontologies) {
-            for (OWLEquivalentClassesAxiom ax : o.getEquivalentClassesAxioms(cls)) {
+            for (OWLEquivalentClassesAxiom ax : o
+                    .getEquivalentClassesAxioms(cls)) {
                 addChange(new RemoveAxiom(o, ax));
                 for (OWLClassExpression equivCls : ax.getClassExpressions()) {
                     supers.addAll(getClassExpressions(equivCls));
@@ -151,7 +154,8 @@ public class ConvertEquivalentClassesToSuperClasses extends
      *            the desc
      * @return the class expressions */
     @Nonnull
-    private Set<OWLClassExpression> getClassExpressions(@Nonnull OWLClassExpression desc) {
+    private Set<OWLClassExpression> getClassExpressions(
+            @Nonnull OWLClassExpression desc) {
         final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         if (splitIntersections) {
             desc.accept(new OWLClassExpressionVisitorAdapter() {

@@ -131,7 +131,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Feb-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     private static final int ENTITY_TYPE_INDEX_BASE = 1000;
     private static final int IRI = 0;

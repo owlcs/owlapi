@@ -46,8 +46,10 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Mar-2009 */
-public abstract class ImportChange extends OWLOntologyChange<OWLImportsDeclaration> {
+ *         Group
+ * @since 3.0.0 */
+public abstract class ImportChange extends
+        OWLOntologyChange<OWLImportsDeclaration> {
     private final OWLImportsDeclaration declaration;
 
     /** @param ont
@@ -57,7 +59,8 @@ public abstract class ImportChange extends OWLOntologyChange<OWLImportsDeclarati
     public ImportChange(@Nonnull OWLOntology ont,
             @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont);
-        declaration = checkNotNull(importDeclaration, "importDeclaration cannot be null");
+        declaration = checkNotNull(importDeclaration,
+                "importDeclaration cannot be null");
     }
 
     /** Gets the import declaration that the change pertains to.

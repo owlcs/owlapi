@@ -46,9 +46,10 @@ package org.semanticweb.owlapi.reasoner;
  * defined by this configuration object. <br>
  * Note that once a reasoner has been created, changing fields (via setter
  * methods or directly) on the configuration object will have no effect.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 21-Jan-2009
+ *         Management Group
+ * @since 3.0.0
  * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
  * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
 public interface OWLReasonerConfiguration {

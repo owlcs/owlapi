@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group
+ * @since 2.0.0 */
 public interface SWRLObjectPropertyAtom extends
         SWRLBinaryAtom<SWRLIArgument, SWRLIArgument> {
     @Override

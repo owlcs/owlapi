@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.model;
 
 /** A marker interface for the values (objects) of annotations.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 15-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationObject extends OWLObject {}

@@ -44,9 +44,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} objects. A reasoner
  * reasons over a set of ontologies that is defined by an ontology and its
  * imports closure.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 21-Jan-2009
+ *         Management Group
+ * @since 3.0.0
  * @see org.semanticweb.owlapi.reasoner.OWLReasoner */
 public interface OWLReasonerFactory {
     /** Gets the name of the reasoner created by this factory.
@@ -119,7 +120,8 @@ public interface OWLReasonerFactory {
      *             if any of {@code manager}, {@code ontology} or {@code config}
      *             are {@code null}. */
     OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
-            OWLReasonerConfiguration config) throws IllegalConfigurationException;
+            OWLReasonerConfiguration config)
+            throws IllegalConfigurationException;
 
     /** Creates a buffering reasoner that reasons over the imports closure of the
      * specified ontology. The reasoner will obtain the imports closure from the
@@ -146,6 +148,7 @@ public interface OWLReasonerFactory {
      * @throws NullPointerException
      *             if any of {@code manager}, {@code ontology} or {@code config}
      *             are {@code null}. */
-    OWLReasoner createReasoner(OWLOntology ontology, OWLReasonerConfiguration config)
+    OWLReasoner createReasoner(OWLOntology ontology,
+            OWLReasonerConfiguration config)
             throws IllegalConfigurationException;
 }

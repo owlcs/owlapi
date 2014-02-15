@@ -41,7 +41,8 @@ package org.semanticweb.owlapi.model;
 /** An interface to an object that has a signature.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasContainsEntityInSignature {
     /** Determines if the signature of this object contains the specified entity.
      * 

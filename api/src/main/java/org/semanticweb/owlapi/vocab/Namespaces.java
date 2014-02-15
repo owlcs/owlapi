@@ -46,7 +46,8 @@ import java.util.EnumSet;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
@@ -119,7 +120,8 @@ public enum Namespaces {
     }
 
     Namespaces(String prefix, String ns, Status status) {
-        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN : BUILT_IN);
+        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN
+                : BUILT_IN);
     }
 
     Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
@@ -165,8 +167,8 @@ public enum Namespaces {
     }
 
     /** ignored imports */
-    public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL, RDF, RDFS,
-            SWRL, SWRLB, XML, XSD);
+    public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL,
+            RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
     /** @param i
      *            the iri to check

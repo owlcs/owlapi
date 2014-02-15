@@ -38,13 +38,13 @@
  */
 package org.semanticweb.owlapi.model;
 
-
 /** Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
  * >AnnotationProperty</a> in the OWL 2 specification.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationProperty extends OWLEntity {
     /** Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:comment}.

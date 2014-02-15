@@ -91,7 +91,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLObjectVisitorAdapter extends OWLAxiomVisitorAdapter implements
         OWLObjectVisitor {
     @Override

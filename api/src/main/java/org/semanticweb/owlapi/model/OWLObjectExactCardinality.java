@@ -40,10 +40,12 @@ package org.semanticweb.owlapi.model;
 
 /** Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality">
  * ObjectExactCardinality</a> restriction in the OWL 2 Specification.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLObjectExactCardinality extends OWLObjectCardinalityRestriction {
+ *         Informatics Group
+ * @since 2.0.0 */
+public interface OWLObjectExactCardinality extends
+        OWLObjectCardinalityRestriction {
     /** Obtains an equivalent form that is a conjunction of a min cardinality and
      * max cardinality restriction.
      * 

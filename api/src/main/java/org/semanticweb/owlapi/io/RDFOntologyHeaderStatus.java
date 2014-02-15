@@ -39,7 +39,7 @@
 package org.semanticweb.owlapi.io;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ *         Group
  * @since 3.2 */
 public enum RDFOntologyHeaderStatus {
     /** Specifies that during parsing, the ontology document did not contain any

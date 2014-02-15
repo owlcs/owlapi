@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010
+ *         Group
  * @since 3.2 */
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     private static final long serialVersionUID = 40000L;
@@ -65,8 +65,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            the predicate
      * @param object
      *            the object */
-    public RDFTriple(@Nonnull RDFResource subject, @Nonnull RDFResourceIRI predicate,
-            @Nonnull RDFNode object) {
+    public RDFTriple(@Nonnull RDFResource subject,
+            @Nonnull RDFResourceIRI predicate, @Nonnull RDFNode object) {
         this.subject = checkNotNull(subject, "subject cannot be null");
         this.predicate = checkNotNull(predicate, "predicate cannot be null");
         this.object = checkNotNull(object, "object cannot be null");
@@ -82,8 +82,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            the object
      * @param objectAnon
      *            whether the object is anonymous */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate,
-            @Nonnull IRI object, boolean objectAnon) {
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
+            @Nonnull IRI predicate, @Nonnull IRI object, boolean objectAnon) {
         this(getResource(subject, subjectAnon),
         // Predicate is not allowed to be anonymous
                 new RDFResourceIRI(predicate), getResource(object, objectAnon));
@@ -104,8 +104,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
      *            the predicate
      * @param object
      *            the object */
-    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon, @Nonnull IRI predicate,
-            @Nonnull OWLLiteral object) {
+    public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
+            @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
         this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate),
                 new RDFLiteral(object));
     }
@@ -127,7 +127,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
 
     @Override
     public int hashCode() {
-        return subject.hashCode() * 37 + predicate.hashCode() * 17 + object.hashCode();
+        return subject.hashCode() * 37 + predicate.hashCode() * 17
+                + object.hashCode();
     }
 
     @Override
@@ -139,7 +140,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
             return false;
         }
         RDFTriple other = (RDFTriple) o;
-        return subject.equals(other.subject) && predicate.equals(other.predicate)
+        return subject.equals(other.subject)
+                && predicate.equals(other.predicate)
                 && object.equals(other.object);
     }
 
@@ -155,10 +157,11 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return sb.toString();
     }
 
-    private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
-            RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
-            RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
-            OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+    private static final List<IRI> orderedURIs = Arrays.asList(
+            RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(),
+            OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(),
+            OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
+            OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
     private int getIndex(IRI iri) {
         int index = orderedURIs.indexOf(iri);
@@ -171,7 +174,8 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
     @Override
     public int compareTo(RDFTriple b) {
         // compare by predicate, then subject, then object
-        int diff = getIndex(predicate.getIRI()) - getIndex(b.predicate.getIRI());
+        int diff = getIndex(predicate.getIRI())
+                - getIndex(b.predicate.getIRI());
         if (diff == 0) {
             diff = subject.compareTo(b.subject);
         }

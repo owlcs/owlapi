@@ -45,16 +45,18 @@ import javax.annotation.Nonnull;
 
 /** A change broadcast strategy that simple broadcasts all changes made to all
  * ontologies.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 20-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class DefaultChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy, Serializable {
     private static final long serialVersionUID = 40000L;
 
     @Override
     public void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
-            @Nonnull List<? extends OWLOntologyChange<?>> changes) throws OWLException {
+            @Nonnull List<? extends OWLOntologyChange<?>> changes)
+            throws OWLException {
         // Just broadcast all changes
         listener.ontologiesChanged(changes);
     }

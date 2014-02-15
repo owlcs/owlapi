@@ -143,7 +143,8 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * implementation of the toString method for different implementations.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     private StringBuilder sb;
     private ShortFormProvider shortFormProvider;

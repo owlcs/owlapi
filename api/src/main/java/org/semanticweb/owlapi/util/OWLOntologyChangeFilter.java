@@ -90,7 +90,8 @@ import org.semanticweb.owlapi.model.SetOntologyID;
  * </pre>
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
         OWLAxiomVisitor, OWLOntologyChangeVisitor {
     protected boolean add;

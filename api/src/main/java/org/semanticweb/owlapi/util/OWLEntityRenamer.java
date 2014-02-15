@@ -61,9 +61,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 /** Renames entities that have a particular IRI. Entities with the specified IRI
  * are renamed regardless of whether they are classes, object properties, data
  * properties, individuals or data types.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLEntityRenamer {
     private final OWLOntologyManager owlOntologyManager;
     private final Set<OWLOntology> ontologies;
@@ -89,7 +90,8 @@ public class OWLEntityRenamer {
      * @return A list of ontology changes that should be applied to change the
      *         specified IRI. */
     @Nonnull
-    public List<OWLOntologyChange<?>> changeIRI(@Nonnull IRI iri, @Nonnull IRI newIRI) {
+    public List<OWLOntologyChange<?>> changeIRI(@Nonnull IRI iri,
+            @Nonnull IRI newIRI) {
         checkNotNull(iri, "iri cannot be null");
         checkNotNull(newIRI, "newIRI cannot be null");
         Map<IRI, IRI> uriMap = new HashMap<IRI, IRI>();
@@ -118,7 +120,8 @@ public class OWLEntityRenamer {
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(iriMap,
                 owlOntologyManager.getOWLDataFactory());
         for (OWLOntology ont : ontologies) {
-            fillListWithTransformChanges(changes, getAxioms(ont, entity), ont, duplicator);
+            fillListWithTransformChanges(changes, getAxioms(ont, entity), ont,
+                    duplicator);
         }
         return changes;
     }
@@ -126,7 +129,8 @@ public class OWLEntityRenamer {
     /** @param entity2IRIMap
      *            map of IRIs to rename
      * @return list of changes */
-    public List<OWLOntologyChange<?>> changeIRI(Map<OWLEntity, IRI> entity2IRIMap) {
+    public List<OWLOntologyChange<?>> changeIRI(
+            Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
         OWLObjectDuplicator duplicator = new OWLObjectDuplicator(entity2IRIMap,
                 owlOntologyManager.getOWLDataFactory());
@@ -148,18 +152,18 @@ public class OWLEntityRenamer {
 
     private Set<OWLAxiom> getAxioms(OWLOntology ont, IRI iri) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory()
-                .getOWLClass(iri)));
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory()
-                .getOWLObjectProperty(iri)));
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory()
-                .getOWLDataProperty(iri)));
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory()
-                .getOWLNamedIndividual(iri)));
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory()
-                .getOWLDatatype(iri)));
-        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager.getOWLDataFactory()
-                .getOWLAnnotationProperty(iri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
+                .getOWLDataFactory().getOWLClass(iri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
+                .getOWLDataFactory().getOWLObjectProperty(iri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
+                .getOWLDataFactory().getOWLDataProperty(iri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
+                .getOWLDataFactory().getOWLNamedIndividual(iri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
+                .getOWLDataFactory().getOWLDatatype(iri)));
+        axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
+                .getOWLDataFactory().getOWLAnnotationProperty(iri)));
         axioms.addAll(ont.getAnnotationAssertionAxioms(iri));
         return axioms;
     }
@@ -177,8 +181,9 @@ public class OWLEntityRenamer {
      *            The ontology to which the changed should be applied
      * @param duplicator
      *            The duplicator that will do the duplicating */
-    private static void fillListWithTransformChanges(List<OWLOntologyChange<?>> changes,
-            Set<OWLAxiom> axioms, OWLOntology ont, OWLObjectDuplicator duplicator) {
+    private static void fillListWithTransformChanges(
+            List<OWLOntologyChange<?>> changes, Set<OWLAxiom> axioms,
+            OWLOntology ont, OWLObjectDuplicator duplicator) {
         for (OWLAxiom ax : axioms) {
             changes.add(new RemoveAxiom(ont, ax));
             OWLAxiom dupAx = duplicator.duplicateObject(ax);

@@ -43,7 +43,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 29/07/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface HasAnonymousIndividuals {
     /** Gets the anonymous individuals occurring in this object. The set is a
      * copy, changes are not reflected back.

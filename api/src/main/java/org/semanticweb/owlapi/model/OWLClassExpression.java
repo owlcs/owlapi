@@ -46,11 +46,12 @@ import javax.annotation.Nonnull;
  * href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">Class
  * Expressions</a> in the OWL 2 specification. This interface covers named and
  * anonymous classes.
- *
- * @author Matthew Horridge<br>
- *         The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate {
+ * 
+ * @author Matthew Horridge The University Of Manchester Bio-Health Informatics
+ *         Group
+ * @since 2.0.0 */
+public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
+        SWRLPredicate {
     /** Gets the class expression type for this class expression
      * 
      * @return The class expression type */

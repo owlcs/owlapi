@@ -38,8 +38,9 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006
+/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group
+ * @since 2.0.0
  * @param <F>
  *            value */
 public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends

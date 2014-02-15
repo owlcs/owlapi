@@ -42,9 +42,10 @@ import javax.annotation.Nonnull;
 
 /** A visitor that visits values of {@link OWLAnnotation}s and
  * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 17-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLAnnotationValueVisitor {
     /** visit IRI type
      * 

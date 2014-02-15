@@ -48,9 +48,10 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 /** Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
  * identity).
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 02-Jan-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class OWLOntologyFormat implements Serializable {
     private static final long serialVersionUID = 40000L;
     /** if set to "true", an intermediate file will be used for output, even for
@@ -130,13 +131,15 @@ public abstract class OWLOntologyFormat implements Serializable {
      *            The metadata. Must not be {@code null}.
      * @throws NullPointerException
      *             if the {@code loaderMetaData} is {@code null}. */
-    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
+    public void setOntologyLoaderMetaData(
+            OWLOntologyLoaderMetaData loaderMetaData) {
         this.loaderMetaData = loaderMetaData;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && (obj == this || obj.getClass().equals(getClass()));
+        return obj != null
+                && (obj == this || obj.getClass().equals(getClass()));
     }
 
     @Override
@@ -144,8 +147,8 @@ public abstract class OWLOntologyFormat implements Serializable {
         return getClass().hashCode();
     }
 
-    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData,
-            Serializable {
+    private static class NullLoaderMetaData implements
+            OWLOntologyLoaderMetaData, Serializable {
         private static final long serialVersionUID = 40000L;
 
         public NullLoaderMetaData() {}

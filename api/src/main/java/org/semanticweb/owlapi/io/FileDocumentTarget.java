@@ -55,10 +55,10 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** An {@code OWLOntologyDocumentTarget} that supports writing out to a
  * {@code File}.
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 16/12/2010
- * @since 3.2 */
+ *         Informatics Group
+ * @since 3.2.0 */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
     private final File file;
 

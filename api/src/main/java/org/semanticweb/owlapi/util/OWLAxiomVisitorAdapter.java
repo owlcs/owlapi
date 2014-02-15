@@ -81,7 +81,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 17-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLAxiomVisitorAdapter implements OWLAxiomVisitor {
     /** override to change default behaviour.
      * 

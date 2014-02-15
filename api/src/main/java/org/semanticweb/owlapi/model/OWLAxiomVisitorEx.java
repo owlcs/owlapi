@@ -42,10 +42,10 @@ import javax.annotation.Nonnull;
 
 /** An interface for objects that can accept visits from axioms. (See the <a
  * href="http://en.wikipedia.org/wiki/Visitor_pattern">Visitor Patterns</a>)
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group<br>
- *         Date: 16-Apr-2008
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.2.0
  * @param <O>
  *            visitor return type */
 public interface OWLAxiomVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,

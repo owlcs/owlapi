@@ -47,9 +47,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /** A short form provider which is capable of translating back and forth between
  * entities and their short forms.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public interface BidirectionalShortFormProvider extends ShortFormProvider {
     /** For a given short form this method obtains the entities which have this
      * short form.

@@ -42,11 +42,10 @@ import javax.annotation.Nonnull;
 
 /** An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
- *
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 17-Jan-2009 */
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLDataRangeVisitor {
     /** visit OWLDatatype type
      * 

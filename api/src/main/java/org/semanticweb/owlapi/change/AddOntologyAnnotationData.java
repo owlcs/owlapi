@@ -47,10 +47,10 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** Represents the specific non-ontology data required by an
  * {@link AddOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ *         Research Group
+ * @since 3.3 */
 public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 40000L;
 
@@ -70,8 +70,8 @@ public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
-            throws E {
+    public <O, E extends Exception> O accept(
+            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

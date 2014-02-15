@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+ *         Group
+ * @since 2.0.0 */
 public enum OWLRDFVocabulary implements HasIRI {
     //@formatter:off
     // OWL Vocab
@@ -222,7 +223,8 @@ public enum OWLRDFVocabulary implements HasIRI {
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_LABEL.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_COMMENT.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_VERSION_INFO.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_BACKWARD_COMPATIBLE_WITH.getIRI());
+        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_BACKWARD_COMPATIBLE_WITH
+                .getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_PRIOR_VERSION.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_SEE_ALSO.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_IS_DEFINED_BY.getIRI());

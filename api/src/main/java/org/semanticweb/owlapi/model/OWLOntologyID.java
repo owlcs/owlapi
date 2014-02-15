@@ -46,9 +46,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * optionally also have a version IRI. Instances of this OWLOntologyID class
  * bundle identifying information of an ontology together. If an ontology
  * doesn't have an ontology IRI then we say that it is "anonymous".
- *
+ * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 18-Jan-2009 */
+ *         Management Group
+ * @since 3.0.0 */
 public class OWLOntologyID implements Comparable<OWLOntologyID>, Serializable {
     private static final long serialVersionUID = 40000L;
     private static final AtomicInteger COUNTER = new AtomicInteger();

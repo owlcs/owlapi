@@ -41,9 +41,8 @@ package org.semanticweb.owlapi.model;
 /** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Union_of_Data_Ranges">DataUnionOf</a>
  * data range in the OWL 2 Specification.
- *
- * @author Matthew Horridge<br>
- *         The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 15-Jan-2009 */
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0 */
 public interface OWLDataUnionOf extends OWLNaryDataRange {}

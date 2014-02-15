@@ -45,10 +45,12 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 /** Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Datatypes">Datatype</a> (named data
  * range) in the OWL 2 Specification.
- *
- * @author Matthew Horridge, The University Of Manchester<br>
- *         Bio-Health Informatics Group Date: 24-Oct-2006 */
-public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity, OWLNamedObject {
+ * 
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0 */
+public interface OWLDatatype extends OWLDataRange, OWLLogicalEntity,
+        OWLNamedObject {
     /** Gets the built in datatype information if this datatype is a built in
      * datatype. This method should only be called if the isBuiltIn() method
      * returns {@code true}

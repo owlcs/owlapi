@@ -50,9 +50,10 @@ import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
 /** An ontology set provider which provides a singleton set - i.e. a set
  * containing just one ontology.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
     private final Set<OWLOntology> ontologySingletonSet;
 

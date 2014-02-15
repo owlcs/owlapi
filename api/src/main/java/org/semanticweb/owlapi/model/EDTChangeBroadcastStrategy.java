@@ -44,16 +44,18 @@ import javax.swing.SwingUtilities;
 
 /** A change broadcast strategy which broadcasts all ontology changes in the
  * Swing Even Dispatch Thread (EDT).
- *
- * @author Matthew Horridge, The University of Manchester<br>
- *         Information Management Group<br>
- *         Date: 14-Mar-2009 */
-public class EDTChangeBroadcastStrategy implements OWLOntologyChangeBroadcastStrategy {
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0 */
+public class EDTChangeBroadcastStrategy implements
+        OWLOntologyChangeBroadcastStrategy {
     private static final long serialVersionUID = 40000L;
 
     @Override
     public void broadcastChanges(final OWLOntologyChangeListener listener,
-            final List<? extends OWLOntologyChange<?>> changes) throws OWLException {
+            final List<? extends OWLOntologyChange<?>> changes)
+            throws OWLException {
         if (SwingUtilities.isEventDispatchThread()) {
             listener.ontologiesChanged(changes);
         } else {

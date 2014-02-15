@@ -41,9 +41,10 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Indicates that a parse error happened when trying to parse an ontology.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLParserException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
     private final int lineNumber;

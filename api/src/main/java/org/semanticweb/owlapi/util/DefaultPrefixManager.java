@@ -61,14 +61,15 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 10-Sep-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
     private static final long serialVersionUID = 40000L;
 
     /** String comparator that takes length into account before natural ordering. */
-    private static final class StringLengthComparator implements Comparator<String>,
-            Serializable {
+    private static final class StringLengthComparator implements
+            Comparator<String>, Serializable {
         private static final long serialVersionUID = 40000L;
 
         public StringLengthComparator() {}
@@ -114,7 +115,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *            the prefix manager to copy
      * @param c
      *            comparator to sort prefixes */
-    public DefaultPrefixManager(@Nonnull PrefixManager pm, @Nonnull Comparator<String> c) {
+    public DefaultPrefixManager(@Nonnull PrefixManager pm,
+            @Nonnull Comparator<String> c) {
         this(c);
         copyPrefixesFrom(pm);
     }
@@ -215,8 +217,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         } else {
             String prefixName = curie.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new OWLRuntimeException("Prefix not registered for prefix name: "
-                        + prefixName);
+                throw new OWLRuntimeException(
+                        "Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
             String localName = curie.substring(sep + 1);
@@ -239,7 +241,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         checkNotNull(prefixName, "prefixName cannot be null");
         checkNotNull(prefix, "prefix cannot be null");
         if (!prefixName.endsWith(":")) {
-            throw new IllegalArgumentException("Prefix names must end with a colon (:)");
+            throw new IllegalArgumentException(
+                    "Prefix names must end with a colon (:)");
         }
         prefix2NamespaceMap.put(prefixName, prefix);
         reverseprefix2NamespaceMap.put(prefix, prefixName);

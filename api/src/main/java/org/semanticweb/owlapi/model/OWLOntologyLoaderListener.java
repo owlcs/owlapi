@@ -42,9 +42,10 @@ import javax.annotation.Nonnull;
 
 /** Receives notification of ontology loading starting and finishing from a
  * manager.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Apr-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public interface OWLOntologyLoaderListener {
     /** Called when the process of attempting to load an ontology starts.
      * 
@@ -69,7 +70,8 @@ public interface OWLOntologyLoaderListener {
         private final IRI documentIRI;
         private final boolean imported;
 
-        public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI, boolean imported) {
+        public LoadingEvent(OWLOntologyID ontologyID, IRI documentIRI,
+                boolean imported) {
             this.ontologyID = ontologyID;
             this.documentIRI = documentIRI;
             this.imported = imported;

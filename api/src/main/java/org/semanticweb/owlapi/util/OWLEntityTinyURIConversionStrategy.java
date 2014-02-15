@@ -65,10 +65,12 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  * <li>For data properties: A = "dp"</li>
  * <li>For individuals: A = "i"</li>
  * </ul>
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Nov-2007 */
-public class OWLEntityTinyURIConversionStrategy implements OWLEntityURIConverterStrategy {
+ *         Informatics Group
+ * @since 2.2.0 */
+public class OWLEntityTinyURIConversionStrategy implements
+        OWLEntityURIConverterStrategy {
     /** default base. */
     public static final String DEFAULT_BASE = "http://tinyname.org#";
     private final String base;

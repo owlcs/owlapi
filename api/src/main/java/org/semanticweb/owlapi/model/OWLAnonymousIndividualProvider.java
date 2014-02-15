@@ -46,7 +46,7 @@ import javax.annotation.Nonnull;
  * {@link OWLAnonymousIndividual}.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 07/08/2013
+ *         Research Group
  * @since 4.0.0
  * @see OWLDataFactory */
 public interface OWLAnonymousIndividualProvider extends Serializable {

@@ -45,7 +45,8 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+ *         Group
+ * @since 2.0.0 */
 public enum OWLXMLVocabulary implements HasIRI {
 //@formatter:off
     /** CLASS                               */  CLASS                               ("Class"),

@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group
+ * @since 2.0.0 */
 public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasIRI {
 //@formatter:off
     /** EQUAL */                    EQUAL("equal", 2),

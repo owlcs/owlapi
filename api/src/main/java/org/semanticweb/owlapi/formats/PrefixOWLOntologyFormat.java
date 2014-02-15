@@ -51,8 +51,10 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-Feb-2007 */
-public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
+ *         Group
+ * @since 2.0.0 */
+public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements
+        PrefixManager {
     private static final long serialVersionUID = 40000L;
     private PrefixManager nsm;
 

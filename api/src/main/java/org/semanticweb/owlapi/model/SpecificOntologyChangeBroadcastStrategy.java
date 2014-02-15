@@ -47,9 +47,10 @@ import javax.annotation.Nonnull;
 
 /** A change broadcast strategy that broadcasts changes that have been applied to
  * a specific ontology.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 20-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
     private static final long serialVersionUID = 40000L;

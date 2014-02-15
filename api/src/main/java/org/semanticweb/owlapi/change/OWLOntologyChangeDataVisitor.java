@@ -39,7 +39,8 @@
 package org.semanticweb.owlapi.change;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 08/05/2012
+ *         Research Group
+ * @since 3.3
  * @param <R>
  *            return type
  * @param <E>

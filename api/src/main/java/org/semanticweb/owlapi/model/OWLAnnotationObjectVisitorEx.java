@@ -41,11 +41,12 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009
+ *         Group
+ * @since 3.0.0
  * @param <O>
  *            visitor type */
-public interface OWLAnnotationObjectVisitorEx<O> extends OWLAnnotationAxiomVisitorEx<O>,
-        OWLAnnotationValueVisitorEx<O> {
+public interface OWLAnnotationObjectVisitorEx<O> extends
+        OWLAnnotationAxiomVisitorEx<O>, OWLAnnotationValueVisitorEx<O> {
     /** visit OWLAnnotation type
      * 
      * @param node

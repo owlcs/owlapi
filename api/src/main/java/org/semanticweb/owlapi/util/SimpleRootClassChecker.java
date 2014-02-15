@@ -68,9 +68,10 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * not all "orphan" classes are asserted to be subclasses of owl:Thing. For
  * example, if the only referencing axiom of class A was ObjectDomain(propP A)
  * then A is a syntactic subclass of owl:Thing.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 16-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class SimpleRootClassChecker implements RootClassChecker {
     private final Set<OWLOntology> ontologies;
 
@@ -115,7 +116,8 @@ public class SimpleRootClassChecker implements RootClassChecker {
         return true;
     }
 
-    private static class NamedSuperChecker extends OWLClassExpressionVisitorAdapter {
+    private static class NamedSuperChecker extends
+            OWLClassExpressionVisitorAdapter {
         protected boolean namedSuper;
 
         public NamedSuperChecker() {}

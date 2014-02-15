@@ -60,9 +60,11 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 14-Jan-2009 Represents International Resource
- *         Identifiers */
+/** Represents International Resource Identifiers
+ * 
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
+ * @since 3.0.0 */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
         SWRLPredicate, CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,

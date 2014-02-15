@@ -47,10 +47,10 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 /** Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.RemoveOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
- *
+ * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ *         Research Group
+ * @since 3.3 */
 public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
     private static final long serialVersionUID = 40000L;
 
@@ -65,13 +65,14 @@ public class RemoveOntologyAnnotationData extends OntologyAnnotationChangeData {
     }
 
     @Override
-    public RemoveOntologyAnnotation createOntologyChange(@Nonnull OWLOntology ontology) {
+    public RemoveOntologyAnnotation createOntologyChange(
+            @Nonnull OWLOntology ontology) {
         return new RemoveOntologyAnnotation(ontology, getAnnotation());
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
-            throws E {
+    public <O, E extends Exception> O accept(
+            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

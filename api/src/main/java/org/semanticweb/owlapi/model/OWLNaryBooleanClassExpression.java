@@ -44,8 +44,10 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 24-Oct-2006 */
-public interface OWLNaryBooleanClassExpression extends OWLBooleanClassExpression {
+ *         Group
+ * @since 2.0.0 */
+public interface OWLNaryBooleanClassExpression extends
+        OWLBooleanClassExpression {
     /** @return the class expressions */
     @Nonnull
     Set<OWLClassExpression> getOperands();

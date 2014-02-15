@@ -43,7 +43,8 @@ import java.io.Serializable;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 07/08/2013 */
+ *         Research Group
+ * @since 3.4.6 */
 public interface OWLNamedIndividualProvider extends Serializable {
     /** Gets an instance of {@link OWLNamedIndividual} that has the specified
      * {@code IRI}.

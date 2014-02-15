@@ -43,7 +43,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 04-Jul-2010 */
+ *         Group
+ * @since 3.1.0 */
 public interface ImpendingOWLOntologyChangeListener {
     /** Called when a list of ontology changes is about to be applied. Note that
      * not all of the changes in the list may be applied. This is due to the
