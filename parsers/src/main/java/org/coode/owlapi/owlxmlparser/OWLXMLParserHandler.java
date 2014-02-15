@@ -38,7 +38,7 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+import static org.coode.owlapi.owlxmlparser.PARSER_OWLXMLVocabulary.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -75,7 +75,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
     private List<OWLElementHandler<?>> handlerStack;
-    private Map<String, OWLElementHandlerFactory> handlerMap;
+    private Map<String, PARSER_OWLXMLVocabulary> handlerMap = new HashMap<String, PARSER_OWLXMLVocabulary>();
     private Map<String, String> prefixName2PrefixMap = new HashMap<String, String>();
     private Locator locator;
     private Stack<URI> bases;
@@ -145,651 +145,98 @@ public class OWLXMLParserHandler extends DefaultHandler {
         if (topHandler != null) {
             handlerStack.add(0, topHandler);
         }
-        handlerMap = new HashMap<String, OWLElementHandlerFactory>();
-        addFactory(new AbstractElementHandlerFactory(ONTOLOGY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLOntologyHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ANNOTATION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAnnotationElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(LITERAL) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLLiteralElementHandler(handler);
-            }
-        }, "Constant");
-        addFactory(new AbstractElementHandlerFactory(IMPORT) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLImportsHandler(handler);
-            }
-        }, "Imports");
-        addFactory(new AbstractElementHandlerFactory(CLASS) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLClassElementHandler(handler);
-            }
-        }, "OWLClass");
-        addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAnnotationPropertyElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY_DOMAIN) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAnnotationPropertyDomainElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ANNOTATION_PROPERTY_RANGE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAnnotationPropertyRangeElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(SUB_ANNOTATION_PROPERTY_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSubAnnotationPropertyOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectPropertyElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_INVERSE_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLInverseObjectPropertyElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataPropertyElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(NAMED_INDIVIDUAL) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLIndividualElementHandler(handler);
-            }
-        }, "Individual");
-        addFactory(new AbstractElementHandlerFactory(DATA_COMPLEMENT_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataComplementOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_ONE_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataOneOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATATYPE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDatatypeElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATATYPE_RESTRICTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDatatypeRestrictionElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_INTERSECTION_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataIntersectionOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_UNION_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataUnionOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(FACET_RESTRICTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDatatypeFacetRestrictionElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_INTERSECTION_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectIntersectionOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_UNION_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectUnionOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_COMPLEMENT_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectComplementOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_ONE_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectOneOfElementHandler(handler);
-            }
-        });
+        addFactory(PARSER_ONTOLOGY);
+        addFactory(PARSER_ANNOTATION);
+        addFactory(PARSER_LITERAL, "Constant");
+        addFactory(PARSER_IMPORT, "Imports");
+        addFactory(PARSER_CLASS, "OWLClass");
+        addFactory(PARSER_ANNOTATION_PROPERTY);
+        addFactory(PARSER_ANNOTATION_PROPERTY_DOMAIN);
+        addFactory(PARSER_ANNOTATION_PROPERTY_RANGE);
+        addFactory(PARSER_SUB_ANNOTATION_PROPERTY_OF);
+        addFactory(PARSER_OBJECT_PROPERTY);
+        addFactory(PARSER_OBJECT_INVERSE_OF);
+        addFactory(PARSER_DATA_PROPERTY);
+        addFactory(PARSER_NAMED_INDIVIDUAL, "Individual");
+        addFactory(PARSER_DATA_COMPLEMENT_OF);
+        addFactory(PARSER_DATA_ONE_OF);
+        addFactory(PARSER_DATATYPE);
+        addFactory(PARSER_DATATYPE_RESTRICTION);
+        addFactory(PARSER_DATA_INTERSECTION_OF);
+        addFactory(PARSER_DATA_UNION_OF);
+        addFactory(PARSER_FACET_RESTRICTION);
+        addFactory(PARSER_OBJECT_INTERSECTION_OF);
+        addFactory(PARSER_OBJECT_UNION_OF);
+        addFactory(PARSER_OBJECT_COMPLEMENT_OF);
+        addFactory(PARSER_OBJECT_ONE_OF);
         // Object Restrictions
-        addFactory(new AbstractElementHandlerFactory(OBJECT_SOME_VALUES_FROM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectSomeValuesFromElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_ALL_VALUES_FROM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectAllValuesFromElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_HAS_SELF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectExistsSelfElementHandler(handler);
-            }
-        }, "ObjectExistsSelf");
-        addFactory(new AbstractElementHandlerFactory(OBJECT_HAS_VALUE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectHasValueElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_MIN_CARDINALITY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectMinCardinalityElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_EXACT_CARDINALITY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectExactCardinalityElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_MAX_CARDINALITY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectMaxCardinalityElementHandler(handler);
-            }
-        });
+        addFactory(PARSER_OBJECT_SOME_VALUES_FROM);
+        addFactory(PARSER_OBJECT_ALL_VALUES_FROM);
+        addFactory(PARSER_OBJECT_HAS_SELF, "ObjectExistsSelf");
+        addFactory(PARSER_OBJECT_HAS_VALUE);
+        addFactory(PARSER_OBJECT_MIN_CARDINALITY);
+        addFactory(PARSER_OBJECT_EXACT_CARDINALITY);
+        addFactory(PARSER_OBJECT_MAX_CARDINALITY);
         // Data Restrictions
-        addFactory(new AbstractElementHandlerFactory(DATA_SOME_VALUES_FROM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataSomeValuesFromElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_ALL_VALUES_FROM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataAllValuesFromElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_HAS_VALUE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataHasValueElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_MIN_CARDINALITY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataMinCardinalityElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_EXACT_CARDINALITY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataExactCardinalityElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_MAX_CARDINALITY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataMaxCardinalityElementHandler(handler);
-            }
-        });
+        addFactory(PARSER_DATA_SOME_VALUES_FROM);
+        addFactory(PARSER_DATA_ALL_VALUES_FROM);
+        addFactory(PARSER_DATA_HAS_VALUE);
+        addFactory(PARSER_DATA_MIN_CARDINALITY);
+        addFactory(PARSER_DATA_EXACT_CARDINALITY);
+        addFactory(PARSER_DATA_MAX_CARDINALITY);
         // Axioms
-        addFactory(new AbstractElementHandlerFactory(SUB_CLASS_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSubClassAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(EQUIVALENT_CLASSES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLEquivalentClassesAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DISJOINT_CLASSES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDisjointClassesAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DISJOINT_UNION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDisjointUnionElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(UNION_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLUnionOfElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(SUB_OBJECT_PROPERTY_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSubObjectPropertyOfAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_CHAIN) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSubObjectPropertyChainElementHandler(handler);
-            }
-        }, "SubObjectPropertyChain");
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_CHAIN) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSubObjectPropertyChainElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(
-                EQUIVALENT_OBJECT_PROPERTIES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLEquivalentObjectPropertiesAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DISJOINT_OBJECT_PROPERTIES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDisjointObjectPropertiesAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_DOMAIN) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectPropertyDomainElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_RANGE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectPropertyRangeAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(INVERSE_OBJECT_PROPERTIES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLInverseObjectPropertiesAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(FUNCTIONAL_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLFunctionalObjectPropertyAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(
-                INVERSE_FUNCTIONAL_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLInverseFunctionalObjectPropertyAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(SYMMETRIC_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSymmetricObjectPropertyAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ASYMMETRIC_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAsymmetricObjectPropertyElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(REFLEXIVE_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLReflexiveObjectPropertyAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(
-                IRREFLEXIVE_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLIrreflexiveObjectPropertyAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(TRANSITIVE_OBJECT_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLTransitiveObjectPropertyAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(SUB_DATA_PROPERTY_OF) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSubDataPropertyOfAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(EQUIVALENT_DATA_PROPERTIES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLEquivalentDataPropertiesAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DISJOINT_DATA_PROPERTIES) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDisjointDataPropertiesAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_PROPERTY_DOMAIN) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataPropertyDomainAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_PROPERTY_RANGE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataPropertyRangeAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(FUNCTIONAL_DATA_PROPERTY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLFunctionalDataPropertyAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(SAME_INDIVIDUAL) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLSameIndividualsAxiomElementHandler(handler);
-            }
-        }, "SameIndividuals");
-        addFactory(new AbstractElementHandlerFactory(DIFFERENT_INDIVIDUALS) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDifferentIndividualsAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(CLASS_ASSERTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLClassAssertionAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_ASSERTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLObjectPropertyAssertionAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(
-                NEGATIVE_OBJECT_PROPERTY_ASSERTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLNegativeObjectPropertyAssertionAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(
-                NEGATIVE_DATA_PROPERTY_ASSERTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLNegativeDataPropertyAssertionAxiomElementHandler(
-                        handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_PROPERTY_ASSERTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDataPropertyAssertionAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ANNOTATION_ASSERTION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAnnotationAssertionElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory("EntityAnnotation") {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new LegacyEntityAnnotationElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DECLARATION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDeclarationAxiomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(IRI_ELEMENT) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new IRIElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ABBREVIATED_IRI_ELEMENT) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new AbbreviatedIRIElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(ANONYMOUS_INDIVIDUAL) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLAnonymousIndividualElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(HAS_KEY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLHasKeyElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATATYPE_DEFINITION) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new OWLDatatypeDefinitionElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DL_SAFE_RULE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLRuleElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(BODY) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLAtomListElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(HEAD) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLAtomListElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(VARIABLE) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLVariableElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(CLASS_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLClassAtomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(OBJECT_PROPERTY_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLObjectPropertyAtomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_PROPERTY_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLDataPropertyAtomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DATA_RANGE_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLDataRangeAtomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(BUILT_IN_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLBuiltInAtomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(DIFFERENT_INDIVIDUALS_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLDifferentIndividualsAtomElementHandler(handler);
-            }
-        });
-        addFactory(new AbstractElementHandlerFactory(SAME_INDIVIDUAL_ATOM) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return new SWRLSameIndividualAtomElementHandler(handler);
-            }
-        });
+        addFactory(PARSER_SUB_CLASS_OF);
+        addFactory(PARSER_EQUIVALENT_CLASSES);
+        addFactory(PARSER_DISJOINT_CLASSES);
+        addFactory(PARSER_DISJOINT_UNION);
+        addFactory(PARSER_UNION_OF);
+        addFactory(PARSER_SUB_OBJECT_PROPERTY_OF);
+        addFactory(PARSER_OBJECT_PROPERTY_CHAIN, "SubObjectPropertyChain");
+        addFactory(PARSER_OBJECT_PROPERTY_CHAIN);
+        addFactory(PARSER_EQUIVALENT_OBJECT_PROPERTIES);
+        addFactory(PARSER_DISJOINT_OBJECT_PROPERTIES);
+        addFactory(PARSER_OBJECT_PROPERTY_DOMAIN);
+        addFactory(PARSER_OBJECT_PROPERTY_RANGE);
+        addFactory(PARSER_INVERSE_OBJECT_PROPERTIES);
+        addFactory(PARSER_FUNCTIONAL_OBJECT_PROPERTY);
+        addFactory(PARSER_INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
+        addFactory(PARSER_SYMMETRIC_OBJECT_PROPERTY);
+        addFactory(PARSER_ASYMMETRIC_OBJECT_PROPERTY);
+        addFactory(PARSER_REFLEXIVE_OBJECT_PROPERTY);
+        addFactory(PARSER_IRREFLEXIVE_OBJECT_PROPERTY);
+        addFactory(PARSER_TRANSITIVE_OBJECT_PROPERTY);
+        addFactory(PARSER_SUB_DATA_PROPERTY_OF);
+        addFactory(PARSER_EQUIVALENT_DATA_PROPERTIES);
+        addFactory(PARSER_DISJOINT_DATA_PROPERTIES);
+        addFactory(PARSER_DATA_PROPERTY_DOMAIN);
+        addFactory(PARSER_DATA_PROPERTY_RANGE);
+        addFactory(PARSER_FUNCTIONAL_DATA_PROPERTY);
+        addFactory(PARSER_SAME_INDIVIDUAL, "SameIndividuals");
+        addFactory(PARSER_DIFFERENT_INDIVIDUALS);
+        addFactory(PARSER_CLASS_ASSERTION);
+        addFactory(PARSER_OBJECT_PROPERTY_ASSERTION);
+        addFactory(PARSER_NEGATIVE_OBJECT_PROPERTY_ASSERTION);
+        addFactory(PARSER_NEGATIVE_DATA_PROPERTY_ASSERTION);
+        addFactory(PARSER_DATA_PROPERTY_ASSERTION);
+        addFactory(PARSER_ANNOTATION_ASSERTION);
+        addFactory(PARSER_ENTITY_ANNOTATION);
+        addFactory(PARSER_DECLARATION);
+        addFactory(PARSER_IRI_ELEMENT);
+        addFactory(PARSER_ABBREVIATED_IRI_ELEMENT);
+        addFactory(PARSER_ANONYMOUS_INDIVIDUAL);
+        addFactory(PARSER_HAS_KEY);
+        addFactory(PARSER_DATATYPE_DEFINITION);
+        addFactory(PARSER_DL_SAFE_RULE);
+        addFactory(PARSER_BODY);
+        addFactory(PARSER_HEAD);
+        addFactory(PARSER_VARIABLE);
+        addFactory(PARSER_CLASS_ATOM);
+        addFactory(PARSER_OBJECT_PROPERTY_ATOM);
+        addFactory(PARSER_DATA_PROPERTY_ATOM);
+        addFactory(PARSER_DATA_RANGE_ATOM);
+        addFactory(PARSER_BUILT_IN_ATOM);
+        addFactory(PARSER_DIFFERENT_INDIVIDUALS_ATOM);
+        addFactory(PARSER_SAME_INDIVIDUAL_ATOM);
     }
 
     /** @return config */
@@ -885,9 +332,9 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return prefixName2PrefixMap;
     }
 
-    private void addFactory(OWLElementHandlerFactory factory,
+    private void addFactory(PARSER_OWLXMLVocabulary factory,
             String... legacyElementNames) {
-        handlerMap.put(factory.getElementName(), factory);
+        handlerMap.put(factory.getShortName(), factory);
         for (String elementName : legacyElementNames) {
             handlerMap.put(elementName, factory);
         }
@@ -944,13 +391,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 }
                 return;
             }
-            OWLElementHandlerFactory handlerFactory = handlerMap.get(localName);
+            PARSER_OWLXMLVocabulary handlerFactory = handlerMap.get(localName);
             if (handlerFactory != null) {
                 OWLElementHandler<?> handler = handlerFactory
                         .createHandler(this);
                 if (!handlerStack.isEmpty()) {
-                    OWLElementHandler<?> topElement = handlerStack.get(0);
-                    handler.setParentHandler(topElement);
+                    handler.setParentHandler(handlerStack.get(0));
                 }
                 handlerStack.add(0, handler);
                 for (int i = 0; i < attributes.getLength(); i++) {

@@ -50,7 +50,7 @@ public class SWRLVariableElementHandler extends
         AbstractOWLElementHandler<SWRLVariable> {
     /** @param handler
      *            owlxml handler */
-    protected SWRLVariableElementHandler(OWLXMLParserHandler handler) {
+    public SWRLVariableElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 

@@ -69,7 +69,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {
@@ -330,21 +329,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-    }
-
-    @Test
-    public void shouldTestAbstractElementHandlerFactory() throws OWLException {
-        AbstractElementHandlerFactory testSubject0 = new AbstractElementHandlerFactory(
-                OWLXMLVocabulary.COMMENT) {
-            @Override
-            public OWLElementHandler<?> createHandler(
-                    OWLXMLParserHandler handler) {
-                return null;
-            }
-        };
-        String result0 = testSubject0.getElementName();
-        OWLElementHandler<?> result2 = testSubject0.createHandler(Utils
-                .mockHandler());
     }
 
     @Test
@@ -2277,15 +2261,6 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
         testSubject0.handleChars(new char[5], 0, 0);
-    }
-
-    @Test
-    public void shouldTestInterfaceOWLElementHandlerFactory()
-            throws OWLException {
-        OWLElementHandlerFactory testSubject0 = mock(OWLElementHandlerFactory.class);
-        String result0 = testSubject0.getElementName();
-        OWLElementHandler<?> result1 = testSubject0.createHandler(Utils
-                .mockHandler());
     }
 
     @Test

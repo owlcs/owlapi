@@ -53,6 +53,7 @@ public enum OWLXMLVocabulary implements HasIRI {
     /** DATA_PROPERTY                       */  DATA_PROPERTY                       ("DataProperty"),
     /** OBJECT_PROPERTY                     */  OBJECT_PROPERTY                     ("ObjectProperty"),
     /** NAMED_INDIVIDUAL                    */  NAMED_INDIVIDUAL                    ("NamedIndividual"),
+    /** ENTITY_ANNOTATION                   */  ENTITY_ANNOTATION                   ("EntityAnnotation"),
     /** ANNOTATION_PROPERTY                 */  ANNOTATION_PROPERTY                 ("AnnotationProperty"),
     /** DATATYPE                            */  DATATYPE                            ("Datatype"),
     /** ANNOTATION                          */  ANNOTATION                          ("Annotation"),

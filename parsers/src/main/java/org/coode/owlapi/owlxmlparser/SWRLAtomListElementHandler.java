@@ -54,7 +54,7 @@ public class SWRLAtomListElementHandler extends
 
     /** @param handler
      *            owlxml handler */
-    protected SWRLAtomListElementHandler(OWLXMLParserHandler handler) {
+    public SWRLAtomListElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
 
