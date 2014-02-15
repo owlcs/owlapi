@@ -48,25 +48,23 @@ import org.semanticweb.owlapi.model.OWLIndividual;
  * @since 2.0.0 */
 public class OWLObjectOneOfElementHandler extends
         AbstractClassExpressionElementHandler {
-    private Set<OWLIndividual> individuals;
+    private Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
 
     /** @param handler
      *            owlxml handler */
     public OWLObjectOneOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        individuals = new HashSet<OWLIndividual>();
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler) {
-        individuals.add(handler.getOWLObject());
+    public void handleChild(OWLIndividualElementHandler h) {
+        individuals.add(h.getOWLObject());
     }
 
     @Override
-    protected void endClassExpressionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() {
         if (individuals.size() < 1) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(),
+            ensureNotNull(null,
                     "Expected at least one individual in object oneOf");
         }
         setClassExpression(getOWLDataFactory().getOWLObjectOneOf(individuals));

@@ -57,11 +57,10 @@ public class OWLInverseObjectPropertiesAxiomElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         Set<OWLObjectPropertyExpression> props = getOperands();
         if (props.size() > 2 || props.size() < 1) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(),
+            ensureNotNull(null,
                     "Expected 2 object property expression elements");
         }
         Iterator<OWLObjectPropertyExpression> it = props.iterator();

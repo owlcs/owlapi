@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLIArgument;
@@ -59,45 +58,38 @@ public class SWRLDataPropertyAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        prop = handler.getOWLObject();
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        prop = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(SWRLVariableElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(SWRLVariableElementHandler h) {
         if (arg0 == null) {
-            arg0 = handler.getOWLObject();
+            arg0 = h.getOWLObject();
         } else if (arg1 == null) {
-            arg1 = handler.getOWLObject();
+            arg1 = h.getOWLObject();
         }
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException {
-        arg1 = getOWLDataFactory().getSWRLLiteralArgument(
-                handler.getOWLObject());
+    public void handleChild(OWLLiteralElementHandler h) {
+        arg1 = getOWLDataFactory().getSWRLLiteralArgument(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler _handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLIndividualElementHandler _handler) {
         arg0 = getOWLDataFactory().getSWRLIndividualArgument(
                 _handler.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler _handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLAnonymousIndividualElementHandler _handler) {
         arg0 = getOWLDataFactory().getSWRLIndividualArgument(
                 _handler.getOWLObject());
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDataPropertyAtom(prop, arg0, arg1));
         getParentHandler().handleChild(this);
     }

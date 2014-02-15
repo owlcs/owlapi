@@ -44,7 +44,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
@@ -70,8 +69,7 @@ public class RDFXMLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws OWLParserException, IOException,
-            UnloadableImportException {
+            OWLOntology ontology) throws IOException, UnloadableImportException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }
@@ -79,7 +77,7 @@ public class RDFXMLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
+            throws IOException, OWLOntologyChangeException,
             UnloadableImportException {
         InputSource is = null;
         try {

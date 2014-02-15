@@ -41,7 +41,6 @@ package org.coode.owlapi.owlxmlparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -59,19 +58,17 @@ public class SWRLAtomListElementHandler extends
     }
 
     @Override
-    public void handleChild(SWRLAtomElementHandler handler)
-            throws OWLXMLParserException {
-        atoms.add(handler.getOWLObject());
+    public void handleChild(SWRLAtomElementHandler h) {
+        atoms.add(h.getOWLObject());
     }
 
     @Override
-    public List<SWRLAtom> getOWLObject() throws OWLXMLParserException {
+    public List<SWRLAtom> getOWLObject() {
         return atoms;
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 }

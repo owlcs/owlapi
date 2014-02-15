@@ -66,8 +66,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws OWLParserException, IOException,
-            UnloadableImportException {
+            OWLOntology ontology) throws IOException, UnloadableImportException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }
@@ -75,7 +74,7 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
+            throws IOException, OWLOntologyChangeException,
             UnloadableImportException {
         Reader reader = null;
         InputStream is = null;

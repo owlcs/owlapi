@@ -39,6 +39,7 @@
 package org.coode.owlapi.owlxmlparser;
 
 import static org.coode.owlapi.owlxmlparser.PARSER_OWLXMLVocabulary.*;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -59,7 +60,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
@@ -269,10 +269,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     /** @param iriStr
      *            iri
-     * @return parsed, absolute iri
-     * @throws OWLParserException
-     *             if an error is raised */
-    public IRI getIRI(String iriStr) throws OWLParserException {
+     * @return parsed, absolute iri */
+    public IRI getIRI(String iriStr) {
         try {
             IRI iri = iriMap.get(iriStr);
             if (iri == null) {
@@ -280,9 +278,8 @@ public class OWLXMLParserHandler extends DefaultHandler {
                 if (!uri.isAbsolute()) {
                     URI base = getBase();
                     if (base == null) {
-                        throw new OWLXMLParserException(
-                                "Unable to resolve relative URI",
-                                getLineNumber(), getColumnNumber());
+                        throw new OWLXMLParserException(this,
+                                "Unable to resolve relative URI");
                     }
                     iri = IRI.create(base + iriStr);
                 } else {
@@ -307,19 +304,16 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     /** @param abbreviatedIRI
      *            short iri
-     * @return extended iri
-     * @throws OWLParserException
-     *             if an error is raised */
-    public IRI getAbbreviatedIRI(String abbreviatedIRI)
-            throws OWLParserException {
+     * @return extended iri */
+    public IRI getAbbreviatedIRI(String abbreviatedIRI) {
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
         String prefixName = normalisedAbbreviatedIRI.substring(0, sepIndex + 1);
         String localName = normalisedAbbreviatedIRI.substring(sepIndex + 1);
         String base = prefixName2PrefixMap.get(prefixName);
         if (base == null) {
-            throw new OWLXMLParserException("Prefix name not defined: "
-                    + prefixName, getLineNumber(), getColumnNumber());
+            throw new OWLXMLParserException(this, "Prefix name not defined: "
+                    + prefixName);
         }
         StringBuilder sb = new StringBuilder();
         sb.append(base);
@@ -376,12 +370,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             Attributes attributes) throws SAXException {
         try {
             processXMLBase(attributes);
-            if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
+            if (localName.equals(PREFIX.getShortName())) {
                 String name = attributes
-                        .getValue(OWLXMLVocabulary.NAME_ATTRIBUTE
-                                .getShortName());
-                String iriString = attributes
-                        .getValue(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
+                        .getValue(NAME_ATTRIBUTE.getShortName());
+                String iriString = attributes.getValue(IRI_ATTRIBUTE
+                        .getShortName());
                 if (name != null && iriString != null) {
                     if (name.endsWith(":")) {
                         prefixName2PrefixMap.put(name, iriString);
@@ -431,7 +424,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
         try {
-            if (localName.equals(OWLXMLVocabulary.PREFIX.getShortName())) {
+            if (localName.equals(PREFIX.getShortName())) {
                 return;
             }
             if (!handlerStack.isEmpty()) {

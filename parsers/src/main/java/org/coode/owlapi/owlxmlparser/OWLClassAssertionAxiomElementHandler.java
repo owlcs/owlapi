@@ -57,31 +57,24 @@ public class OWLClassAssertionAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        classExpression = handler.getOWLObject();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        classExpression = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler) {
-        individual = handler.getOWLObject();
+    public void handleChild(OWLIndividualElementHandler h) {
+        individual = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler handler)
-            throws OWLXMLParserException {
-        individual = handler.getOWLObject();
+    public void handleChild(OWLAnonymousIndividualElementHandler h) {
+        individual = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (individual == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "individual element");
-        }
-        if (classExpression == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "classExpression kind element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(individual, "individual element");
+        ensureNotNull(classExpression, "classExpression kind element");
         return getOWLDataFactory().getOWLClassAssertionAxiom(classExpression,
                 individual, getAnnotations());
     }

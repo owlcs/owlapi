@@ -54,16 +54,13 @@ public class OWLObjectComplementOfElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        operand = handler.getOWLObject();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        operand = h.getOWLObject();
     }
 
     @Override
-    protected void endClassExpressionElement() throws OWLXMLParserException {
-        if (operand == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "class expression element");
-        }
+    protected void endClassExpressionElement() {
+        ensureNotNull(operand, "class expression element");
         setClassExpression(getOWLDataFactory()
                 .getOWLObjectComplementOf(operand));
     }

@@ -53,7 +53,7 @@ public class OWLDisjointDataPropertiesAxiomElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLDisjointDataPropertiesAxiom(
                 getOperands(), getAnnotations());
     }

@@ -68,14 +68,10 @@ public abstract class AbstractOWLPropertyCharacteristicAxiomElementHandler<P ext
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "property element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(property, "property element");
         return createPropertyCharacteristicAxiom();
     }
 
-    protected abstract OWLAxiom createPropertyCharacteristicAxiom()
-            throws OWLXMLParserException;
+    protected abstract OWLAxiom createPropertyCharacteristicAxiom();
 }

@@ -59,26 +59,24 @@ public class OWLSubObjectPropertyOfAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
         if (subProperty == null && propertyList == null) {
-            subProperty = handler.getOWLObject();
+            subProperty = h.getOWLObject();
         } else if (superProperty == null) {
-            superProperty = handler.getOWLObject();
+            superProperty = h.getOWLObject();
         } else {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(),
+            ensureNotNull(null,
                     "Expected two object property expression elements");
         }
     }
 
     @Override
-    public void handleChild(OWLSubObjectPropertyChainElementHandler handler) {
-        propertyList = handler.getOWLObject();
+    public void handleChild(OWLSubObjectPropertyChainElementHandler h) {
+        propertyList = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         if (subProperty != null) {
             return getOWLDataFactory().getOWLSubObjectPropertyOfAxiom(
                     subProperty, superProperty, getAnnotations());

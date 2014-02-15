@@ -58,17 +58,16 @@ public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getSWRLRule(body, head, getAnnotations());
     }
 
     @Override
-    public void handleChild(SWRLAtomListElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(SWRLAtomListElementHandler h) {
         if (body == null) {
-            body = new HashSet<SWRLAtom>(handler.getOWLObject());
+            body = new HashSet<SWRLAtom>(h.getOWLObject());
         } else if (head == null) {
-            head = new HashSet<SWRLAtom>(handler.getOWLObject());
+            head = new HashSet<SWRLAtom>(h.getOWLObject());
         }
     }
 }

@@ -46,7 +46,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.KRSS2OntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -265,8 +264,7 @@ public class KRSS2OWLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws OWLParserException, IOException,
-            UnloadableImportException {
+            OWLOntology ontology) throws IOException, UnloadableImportException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
     }
@@ -274,7 +272,7 @@ public class KRSS2OWLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
+            throws IOException, OWLOntologyChangeException,
             UnloadableImportException {
         Reader reader = null;
         InputStream is = null;

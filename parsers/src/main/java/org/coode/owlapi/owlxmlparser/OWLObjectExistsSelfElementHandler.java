@@ -54,17 +54,14 @@ public class OWLObjectExistsSelfElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
-        property = handler.getOWLObject();
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    protected void endClassExpressionElement() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(),
-                    "Was expecting object property expression element");
-        }
+    protected void endClassExpressionElement() {
+        ensureNotNull(property,
+                "Was expecting object property expression element");
         setClassExpression(getOWLDataFactory().getOWLObjectHasSelf(property));
     }
 }

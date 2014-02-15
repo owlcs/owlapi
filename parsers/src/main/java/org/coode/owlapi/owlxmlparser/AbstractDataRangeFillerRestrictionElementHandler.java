@@ -53,7 +53,7 @@ public abstract class AbstractDataRangeFillerRestrictionElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler) {
-        setFiller(handler.getOWLObject());
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        setFiller(h.getOWLObject());
     }
 }

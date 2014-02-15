@@ -57,9 +57,8 @@ public class OWLDatatypeDefinitionElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler)
-            throws OWLXMLParserException {
-        OWLDataRange handledDataRange = handler.getOWLObject();
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        OWLDataRange handledDataRange = h.getOWLObject();
         if (handledDataRange.isDatatype() && datatype == null) {
             datatype = handledDataRange.asOWLDatatype();
         } else {
@@ -68,7 +67,7 @@ public class OWLDatatypeDefinitionElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLDatatypeDefinitionAxiom(datatype,
                 dataRange, getAnnotations());
     }

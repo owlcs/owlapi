@@ -52,7 +52,7 @@ public abstract class AbstractClassExpressionFillerRestriction extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        setFiller(handler.getOWLObject());
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        setFiller(h.getOWLObject());
     }
 }

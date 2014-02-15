@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -60,15 +59,14 @@ public class IRIElementHandler extends AbstractIRIElementHandler {
     }
 
     @Override
-    public IRI getOWLObject() throws OWLXMLParserException {
+    public IRI getOWLObject() {
         return iri;
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         String iriText = getText().trim();
-        iri = getIRI(iriText);
+        iri = handler.getIRI(iriText);
         getParentHandler().handleChild(this);
     }
 }

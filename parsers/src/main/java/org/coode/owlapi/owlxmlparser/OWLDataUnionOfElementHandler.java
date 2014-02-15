@@ -56,13 +56,12 @@ public class OWLDataUnionOfElementHandler extends AbstractOWLDataRangeHandler {
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler)
-            throws OWLXMLParserException {
-        dataRanges.add(handler.getOWLObject());
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        dataRanges.add(h.getOWLObject());
     }
 
     @Override
-    protected void endDataRangeElement() throws OWLXMLParserException {
+    protected void endDataRangeElement() {
         setDataRange(getOWLDataFactory().getOWLDataUnionOf(dataRanges));
     }
 }

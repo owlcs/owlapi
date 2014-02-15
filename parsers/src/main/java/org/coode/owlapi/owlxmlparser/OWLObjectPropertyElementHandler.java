@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
@@ -55,8 +54,7 @@ public class OWLObjectPropertyElementHandler extends
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 

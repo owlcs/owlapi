@@ -53,7 +53,7 @@ public abstract class AbstractClassExpressionOperandAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        addOperand(handler.getOWLObject());
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        addOperand(h.getOWLObject());
     }
 }

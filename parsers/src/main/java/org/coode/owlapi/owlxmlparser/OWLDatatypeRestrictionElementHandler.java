@@ -67,15 +67,15 @@ public class OWLDatatypeRestrictionElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler) {
-        OWLDataRange dr = handler.getOWLObject();
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        OWLDataRange dr = h.getOWLObject();
         if (dr.isDatatype()) {
             restrictedDataRange = dr.asOWLDatatype();
         }
     }
 
     @Override
-    public void handleChild(OWLDatatypeFacetRestrictionElementHandler handler) {
-        facetRestrictions.add(handler.getOWLObject());
+    public void handleChild(OWLDatatypeFacetRestrictionElementHandler h) {
+        facetRestrictions.add(h.getOWLObject());
     }
 }

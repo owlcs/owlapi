@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -58,30 +57,27 @@ public class SWRLDifferentIndividualsAtomElementHandler extends
     }
 
     @Override
-    public void handleChild(SWRLVariableElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(SWRLVariableElementHandler h) {
         if (arg0 == null) {
-            arg0 = handler.getOWLObject();
+            arg0 = h.getOWLObject();
         } else if (arg1 == null) {
-            arg1 = handler.getOWLObject();
+            arg1 = h.getOWLObject();
         }
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLIndividualElementHandler h) {
         if (arg0 == null) {
             arg0 = getOWLDataFactory().getSWRLIndividualArgument(
-                    handler.getOWLObject());
+                    h.getOWLObject());
         } else if (arg1 == null) {
             arg1 = getOWLDataFactory().getSWRLIndividualArgument(
-                    handler.getOWLObject());
+                    h.getOWLObject());
         }
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLDifferentIndividualsAtom(arg0, arg1));
         getParentHandler().handleChild(this);
     }

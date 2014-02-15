@@ -55,7 +55,7 @@ public abstract class AbstractDataRestrictionElementHandler<F extends OWLObject>
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler) {
-        setProperty(handler.getOWLObject());
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        setProperty(h.getOWLObject());
     }
 }

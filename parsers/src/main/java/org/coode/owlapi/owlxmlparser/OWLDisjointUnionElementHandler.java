@@ -51,29 +51,27 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 public class OWLDisjointUnionElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLClass cls;
-    private Set<OWLClassExpression> classExpressions;
+    private Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
 
     /** @param handler
      *            owlxml handler */
     public OWLDisjointUnionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
-        classExpressions = new HashSet<OWLClassExpression>();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLDisjointUnionAxiom(cls,
                 classExpressions, getAnnotations());
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler h) {
         if (cls == null) {
-            OWLClassExpression desc = handler.getOWLObject();
+            OWLClassExpression desc = h.getOWLObject();
             cls = (OWLClass) desc;
         } else {
-            classExpressions.add(handler.getOWLObject());
+            classExpressions.add(h.getOWLObject());
         }
     }
 }

@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
@@ -55,15 +54,14 @@ public abstract class AbstractDataCardinalityRestrictionElementHandler extends
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
         setFiller(getOWLDataFactory().getTopDatatype());
     }

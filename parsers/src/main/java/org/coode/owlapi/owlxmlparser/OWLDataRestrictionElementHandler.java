@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -61,35 +60,27 @@ public class OWLDataRestrictionElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler) {
-        dataRange = handler.getOWLObject();
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        dataRange = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException {
-        constant = handler.getOWLObject();
+    public void handleChild(OWLLiteralElementHandler h) {
+        constant = h.getOWLObject();
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         super.attribute(localName, value);
         if (localName.equals("facet")) {
-            facetIRI = getIRI(value);
+            facetIRI = handler.getIRI(value);
         }
     }
 
     @Override
-    protected void endDataRangeElement() throws OWLXMLParserException {
-        if (dataRange == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "data range element");
-        }
-        if (constant == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "typed constant element");
-        }
+    protected void endDataRangeElement() {
+        ensureNotNull(dataRange, "data range element");
+        ensureNotNull(constant, "typed constant element");
         setDataRange(getOWLDataFactory().getOWLDatatypeRestriction(
                 (OWLDatatype) dataRange, OWLFacet.getFacet(facetIRI), constant));
     }

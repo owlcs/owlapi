@@ -58,7 +58,7 @@ public class LegacyEntityAnnotationElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         OWLAnnotationAssertionAxiom toReturn = getOWLDataFactory()
                 .getOWLAnnotationAssertionAxiom(annotation.getProperty(),
                         entity.getIRI(), annotation.getValue());
@@ -68,36 +68,31 @@ public class LegacyEntityAnnotationElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {
-        entity = handler.getOWLObject().asOWLClass();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        entity = h.getOWLObject().asOWLClass();
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        entity = handler.getOWLObject().asOWLDataProperty();
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        entity = h.getOWLObject().asOWLDataProperty();
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler)
-            throws OWLXMLParserException {
-        entity = handler.getOWLObject();
+    public void handleChild(OWLIndividualElementHandler h) {
+        entity = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        entity = handler.getOWLObject().asOWLObjectProperty();
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        entity = h.getOWLObject().asOWLObjectProperty();
     }
 
     @Override
-    public void handleChild(OWLAnnotationElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLAnnotationElementHandler h) {
         if (entity == null) {
-            super.handleChild(handler);
+            super.handleChild(h);
         } else {
-            annotation = handler.getOWLObject();
+            annotation = h.getOWLObject();
         }
     }
 }

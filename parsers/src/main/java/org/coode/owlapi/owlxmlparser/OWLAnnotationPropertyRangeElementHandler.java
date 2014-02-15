@@ -57,27 +57,19 @@ public class OWLAnnotationPropertyRangeElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractIRIElementHandler handler)
-            throws OWLXMLParserException {
-        range = handler.getOWLObject();
+    public void handleChild(AbstractIRIElementHandler h) {
+        range = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLAnnotationPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        property = handler.getOWLObject();
+    public void handleChild(OWLAnnotationPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Expected annotation property element");
-        }
-        if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Expected IRI element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(property, "Expected annotation property element");
+        ensureNotNull(range, "Expected IRI element");
         return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(property,
                 range, getAnnotations());
     }

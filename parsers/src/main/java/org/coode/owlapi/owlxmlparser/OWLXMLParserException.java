@@ -48,12 +48,9 @@ public class OWLXMLParserException extends OWLParserException {
 
     /** @param message
      *            message
-     * @param lineNumber
-     *            lineNumber
-     * @param columnNumber
-     *            columnNumber */
-    public OWLXMLParserException(String message, int lineNumber,
-            int columnNumber) {
-        super(message, lineNumber, columnNumber);
+     * @param h
+     *            handler */
+    public OWLXMLParserException(OWLXMLParserHandler h, String message) {
+        super(message, h.getLineNumber(), h.getColumnNumber());
     }
 }

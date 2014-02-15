@@ -53,7 +53,7 @@ public class OWLNegativeObjectPropertyAssertionAxiomElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLNegativeObjectPropertyAssertionAxiom(
                 getProperty(), getSubject(), getObject(), getAnnotations());
     }

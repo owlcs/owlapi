@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 public class OWLDeclarationAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
     private OWLEntity entity;
-    private Set<OWLAnnotation> entityAnnotations;
+    // XXX this set seems unused
+    private Set<OWLAnnotation> entityAnnotations = new HashSet<OWLAnnotation>();
 
     /** @param handler
      *            owlxml handler */
@@ -61,65 +62,54 @@ public class OWLDeclarationAxiomElementHandler extends
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
         entity = null;
-        if (entityAnnotations != null) {
-            entityAnnotations.clear();
-        }
+        entityAnnotations.clear();
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {
-        entity = (OWLClass) handler.getOWLObject();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        entity = (OWLClass) h.getOWLObject();
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        entity = (OWLEntity) handler.getOWLObject();
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        entity = (OWLEntity) h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        entity = (OWLEntity) handler.getOWLObject();
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        entity = (OWLEntity) h.getOWLObject();
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler)
-            throws OWLXMLParserException {
-        entity = (OWLEntity) handler.getOWLObject();
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        entity = (OWLEntity) h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLAnnotationPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        entity = handler.getOWLObject();
+    public void handleChild(OWLAnnotationPropertyElementHandler h) {
+        entity = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler) {
-        entity = handler.getOWLObject();
+    public void handleChild(OWLIndividualElementHandler h) {
+        entity = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLDeclarationAxiom(entity,
                 getAnnotations());
     }
 
     @Override
-    public void handleChild(OWLAnnotationElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLAnnotationElementHandler h) {
         if (entity == null) {
-            super.handleChild(handler);
+            super.handleChild(h);
         } else {
-            if (entityAnnotations == null) {
-                entityAnnotations = new HashSet<OWLAnnotation>();
-            }
-            entityAnnotations.add(handler.getOWLObject());
+            entityAnnotations.add(h.getOWLObject());
         }
     }
 }

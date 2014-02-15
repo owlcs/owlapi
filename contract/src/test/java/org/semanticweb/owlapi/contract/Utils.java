@@ -62,7 +62,6 @@ import org.coode.owlapi.owlxmlparser.OWLLiteralElementHandler;
 import org.coode.owlapi.owlxmlparser.OWLObjectPropertyElementHandler;
 import org.coode.owlapi.owlxmlparser.OWLSubAnnotationPropertyOfElementHandler;
 import org.coode.owlapi.owlxmlparser.OWLSubClassAxiomElementHandler;
-import org.coode.owlapi.owlxmlparser.OWLXMLParserException;
 import org.coode.owlapi.owlxmlparser.OWLXMLParserHandler;
 import org.coode.owlapi.owlxmlparser.SWRLAtomElementHandler;
 import org.coode.owlapi.owlxmlparser.SWRLAtomListElementHandler;
@@ -203,8 +202,7 @@ public class Utils {
         return mock;
     }
 
-    public static OWLElementHandler<OWLObject> mockElementHandler()
-            throws OWLXMLParserException {
+    public static OWLElementHandler<OWLObject> mockElementHandler() {
         OWLElementHandler<OWLObject> mock = mock(OWLElementHandler.class);
         Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLThing());
         return mock;

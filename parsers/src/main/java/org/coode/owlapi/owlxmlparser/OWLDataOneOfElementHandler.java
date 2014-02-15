@@ -57,15 +57,14 @@ public class OWLDataOneOfElementHandler extends AbstractOWLDataRangeHandler {
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler) {
-        constants.add(handler.getOWLObject());
+    public void handleChild(OWLLiteralElementHandler h) {
+        constants.add(h.getOWLObject());
     }
 
     @Override
-    protected void endDataRangeElement() throws OWLXMLParserException {
+    protected void endDataRangeElement() {
         if (constants.isEmpty()) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "data oneOf element");
+            ensureNotNull(null, "data oneOf element");
         }
         setDataRange(getOWLDataFactory().getOWLDataOneOf(constants));
     }

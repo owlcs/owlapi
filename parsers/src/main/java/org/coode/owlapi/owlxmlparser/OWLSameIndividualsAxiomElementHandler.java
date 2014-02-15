@@ -52,7 +52,7 @@ public class OWLSameIndividualsAxiomElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLSameIndividualAxiom(getOperands(),
                 getAnnotations());
     }

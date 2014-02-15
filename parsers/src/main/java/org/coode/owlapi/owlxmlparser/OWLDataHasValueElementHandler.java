@@ -53,9 +53,8 @@ public class OWLDataHasValueElementHandler extends
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException {
-        setFiller(handler.getOWLObject());
+    public void handleChild(OWLLiteralElementHandler h) {
+        setFiller(h.getOWLObject());
     }
 
     @Override

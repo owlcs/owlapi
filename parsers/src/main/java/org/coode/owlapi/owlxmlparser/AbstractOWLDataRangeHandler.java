@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -67,11 +66,10 @@ public abstract class AbstractOWLDataRangeHandler extends
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         endDataRangeElement();
         getParentHandler().handleChild(this);
     }
 
-    protected abstract void endDataRangeElement() throws OWLXMLParserException;
+    protected abstract void endDataRangeElement();
 }

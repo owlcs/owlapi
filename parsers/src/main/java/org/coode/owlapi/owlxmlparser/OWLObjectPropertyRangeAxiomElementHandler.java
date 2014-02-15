@@ -38,10 +38,11 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.OBJECT_PROPERTY;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
@@ -58,26 +59,19 @@ public class OWLObjectPropertyRangeAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        range = handler.getOWLObject();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        range = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
-        property = handler.getOWLObject();
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(),
-                    OWLXMLVocabulary.OBJECT_PROPERTY.getShortName());
-        }
-        if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "OWL class expression element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(property, OBJECT_PROPERTY.getShortName());
+        ensureNotNull(range, "OWL class expression element");
         return getOWLDataFactory().getOWLObjectPropertyRangeAxiom(property,
                 range, getAnnotations());
     }

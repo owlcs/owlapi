@@ -59,39 +59,35 @@ public class OWLAnnotationAssertionElementHandler extends
     private OWLAnnotationProperty property = null;
 
     @Override
-    public void handleChild(AbstractIRIElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(AbstractIRIElementHandler h) {
         if (subject == null) {
-            subject = handler.getOWLObject();
+            subject = h.getOWLObject();
         } else {
-            object = handler.getOWLObject();
+            object = h.getOWLObject();
         }
     }
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLAnonymousIndividualElementHandler h) {
         if (subject == null) {
-            subject = handler.getOWLObject();
+            subject = h.getOWLObject();
         } else {
-            object = handler.getOWLObject();
+            object = h.getOWLObject();
         }
     }
 
     @Override
-    public void handleChild(OWLAnnotationPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        property = handler.getOWLObject();
+    public void handleChild(OWLAnnotationPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException {
-        object = handler.getOWLObject();
+    public void handleChild(OWLLiteralElementHandler h) {
+        object = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLAnnotationAssertionAxiom(property,
                 subject, object, getAnnotations());
     }

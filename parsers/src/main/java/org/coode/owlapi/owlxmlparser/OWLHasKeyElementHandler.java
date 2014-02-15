@@ -59,31 +59,28 @@ public class OWLHasKeyElementHandler extends AbstractOWLAxiomElementHandler {
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
         props.clear();
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {
-        ce = handler.getOWLObject();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        ce = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        props.add(handler.getOWLObject());
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        props.add(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        props.add(handler.getOWLObject());
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        props.add(h.getOWLObject());
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLHasKeyAxiom(ce, props,
                 getAnnotations());
     }

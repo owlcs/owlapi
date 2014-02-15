@@ -57,25 +57,19 @@ public class OWLDataPropertyRangeAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler) {
-        range = handler.getOWLObject();
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        range = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler) {
-        property = handler.getOWLObject();
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "data property element");
-        }
-        if (range == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "data range element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(property, "data property element");
+        ensureNotNull(range, "data range element");
         return getOWLDataFactory().getOWLDataPropertyRangeAxiom(property,
                 range, getAnnotations());
     }

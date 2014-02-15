@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -56,13 +55,13 @@ public class OWLImportsHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
-        IRI ontIRI = getIRI(getText().trim());
+    public void endElement() throws UnloadableImportException {
+        IRI ontIRI = handler.getIRI(getText().trim());
         OWLImportsDeclaration decl = getOWLDataFactory()
                 .getOWLImportsDeclaration(ontIRI);
         getOWLOntologyManager().applyChange(new AddImport(getOntology(), decl));
-        getOWLOntologyManager().makeLoadImportRequest(decl, getConfiguration());
+        getOWLOntologyManager().makeLoadImportRequest(decl,
+                handler.getConfiguration());
     }
 
     @Override

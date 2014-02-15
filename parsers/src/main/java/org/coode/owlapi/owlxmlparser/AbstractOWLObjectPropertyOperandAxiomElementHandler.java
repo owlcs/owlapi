@@ -53,7 +53,7 @@ public abstract class AbstractOWLObjectPropertyOperandAxiomElementHandler
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
-        addOperand(handler.getOWLObject());
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        addOperand(h.getOWLObject());
     }
 }

@@ -57,27 +57,19 @@ public class OWLAnnotationPropertyDomainElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractIRIElementHandler handler)
-            throws OWLXMLParserException {
-        domain = handler.getOWLObject();
+    public void handleChild(AbstractIRIElementHandler h) {
+        domain = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLAnnotationPropertyElementHandler handler)
-            throws OWLXMLParserException {
-        property = handler.getOWLObject();
+    public void handleChild(OWLAnnotationPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Expected annotation property element");
-        }
-        if (domain == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Expected iri element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(property, "Expected annotation property element");
+        ensureNotNull(domain, "Expected iri element");
         return getOWLDataFactory().getOWLAnnotationPropertyDomainAxiom(
                 property, domain, getAnnotations());
     }

@@ -56,25 +56,20 @@ public class OWLSubAnnotationPropertyOfElementHandler extends
     }
 
     @Override
-    public void handleChild(OWLAnnotationPropertyElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(OWLAnnotationPropertyElementHandler h) {
         if (subProperty == null) {
-            subProperty = handler.getOWLObject();
+            subProperty = h.getOWLObject();
         } else if (superProperty == null) {
-            superProperty = handler.getOWLObject();
+            superProperty = h.getOWLObject();
+        } else {
+            ensureNotNull(null, "two annotation properties elements");
         }
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (subProperty == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "AnnotationProperty for sub property");
-        }
-        if (superProperty == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "AnnotationProperty for super property");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(subProperty, "AnnotationProperty for sub property");
+        ensureNotNull(superProperty, "AnnotationProperty for super property");
         return getOWLDataFactory().getOWLSubAnnotationPropertyOfAxiom(
                 subProperty, superProperty, getAnnotations());
     }

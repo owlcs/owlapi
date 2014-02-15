@@ -38,11 +38,11 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.DATATYPE_IRI;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
@@ -60,23 +60,21 @@ public class OWLLiteralElementHandler extends
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
-        if (localName.equals(OWLXMLVocabulary.DATATYPE_IRI.getShortName())) {
-            iri = getIRI(value);
+    public void attribute(String localName, String value) {
+        if (localName.equals(DATATYPE_IRI.getShortName())) {
+            iri = handler.getIRI(value);
         } else if (localName.equals("lang")) {
             lang = value;
         }
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         if (iri != null && !iri.isPlainLiteral()) {
             literal = getOWLDataFactory().getOWLLiteral(getText(),
                     getOWLDataFactory().getOWLDatatype(iri));

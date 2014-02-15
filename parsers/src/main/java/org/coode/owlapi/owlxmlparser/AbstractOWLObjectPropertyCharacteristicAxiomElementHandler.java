@@ -54,7 +54,7 @@ public abstract class AbstractOWLObjectPropertyCharacteristicAxiomElementHandler
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
-        setProperty(handler.getOWLObject());
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        setProperty(h.getOWLObject());
     }
 }

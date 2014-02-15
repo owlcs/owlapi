@@ -57,13 +57,12 @@ public class OWLDataIntersectionOfElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler)
-            throws OWLXMLParserException {
-        dataRanges.add(handler.getOWLObject());
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        dataRanges.add(h.getOWLObject());
     }
 
     @Override
-    protected void endDataRangeElement() throws OWLXMLParserException {
+    protected void endDataRangeElement() {
         setDataRange(getOWLDataFactory().getOWLDataIntersectionOf(dataRanges));
     }
 }

@@ -56,7 +56,7 @@ public abstract class AbstractObjectRestrictionElementHandler<F extends OWLObjec
     }
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler handler) {
-        setProperty(handler.getOWLObject());
+    public void handleChild(AbstractOWLObjectPropertyElementHandler h) {
+        setProperty(h.getOWLObject());
     }
 }

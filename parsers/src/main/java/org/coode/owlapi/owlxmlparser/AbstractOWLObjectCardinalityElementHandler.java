@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
@@ -56,14 +55,13 @@ public abstract class AbstractOWLObjectCardinalityElementHandler extends
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
         setFiller(getOWLDataFactory().getOWLThing());
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         if (localName.equals("cardinality")) {
             cardinality = Integer.parseInt(value);
         }

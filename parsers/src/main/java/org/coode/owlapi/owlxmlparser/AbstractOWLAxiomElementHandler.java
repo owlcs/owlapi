@@ -38,11 +38,9 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -53,7 +51,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 public abstract class AbstractOWLAxiomElementHandler extends
         AbstractOWLElementHandler<OWLAxiom> {
     private OWLAxiom axiom;
-    private Set<OWLAnnotation> annotations;
+    private Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
 
     /** @param handler
      *            owlxml handler */
@@ -73,36 +71,25 @@ public abstract class AbstractOWLAxiomElementHandler extends
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
-        if (annotations != null) {
-            annotations.clear();
-        }
+    public void startElement(String name) {
+        annotations.clear();
     }
 
     @Override
-    public void handleChild(OWLAnnotationElementHandler handler)
-            throws OWLXMLParserException {
-        if (annotations == null) {
-            annotations = new HashSet<OWLAnnotation>();
-        }
-        annotations.add(handler.getOWLObject());
+    public void handleChild(OWLAnnotationElementHandler h) {
+        annotations.add(h.getOWLObject());
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }
 
     /** @return annotations */
     protected Set<OWLAnnotation> getAnnotations() {
-        if (annotations == null) {
-            return Collections.emptySet();
-        } else {
-            return annotations;
-        }
+        return annotations;
     }
 
-    protected abstract OWLAxiom createAxiom() throws OWLXMLParserException;
+    protected abstract OWLAxiom createAxiom();
 }

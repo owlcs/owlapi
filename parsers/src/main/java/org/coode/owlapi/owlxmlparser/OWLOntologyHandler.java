@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.IRI;
@@ -59,10 +58,10 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {}
+    public void startElement(String name) {}
 
     @Override
-    public void attribute(String name, String value) throws OWLParserException {
+    public void attribute(String name, String value) {
         if (name.equals("ontologyIRI")) {
             OWLOntologyID newID = new OWLOntologyID(IRI.create(value),
                     getOntology().getOntologyID().getVersionIRI());
@@ -78,36 +77,29 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     }
 
     @Override
-    public void handleChild(AbstractOWLAxiomElementHandler handler)
-            throws OWLXMLParserException {
-        OWLAxiom axiom = handler.getOWLObject();
+    public void handleChild(AbstractOWLAxiomElementHandler h) {
+        OWLAxiom axiom = h.getOWLObject();
         if (!axiom.isAnnotationAxiom()
-                || getConfiguration().isLoadAnnotationAxioms()) {
+                || handler.getConfiguration().isLoadAnnotationAxioms()) {
             getOWLOntologyManager().applyChange(
                     new AddAxiom(getOntology(), axiom));
         }
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractOWLDataRangeHandler h) {}
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractClassExpressionElementHandler h) {}
 
     @Override
-    public void handleChild(OWLAnnotationElementHandler handler)
-            throws OWLXMLParserException {
-        getOWLOntologyManager()
-                .applyChange(
-                        new AddOntologyAnnotation(getOntology(), handler
-                                .getOWLObject()));
+    public void handleChild(OWLAnnotationElementHandler h) {
+        getOWLOntologyManager().applyChange(
+                new AddOntologyAnnotation(getOntology(), h.getOWLObject()));
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {}
+    public void endElement() throws UnloadableImportException {}
 
     @Override
     public OWLOntology getOWLObject() {

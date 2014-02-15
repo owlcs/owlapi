@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
@@ -57,8 +56,7 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         endObjectPropertyElement();
         getParentHandler().handleChild(this);
     }
@@ -73,6 +71,5 @@ public abstract class AbstractOWLObjectPropertyElementHandler extends
         return property;
     }
 
-    protected abstract void endObjectPropertyElement()
-            throws OWLXMLParserException;
+    protected abstract void endObjectPropertyElement();
 }

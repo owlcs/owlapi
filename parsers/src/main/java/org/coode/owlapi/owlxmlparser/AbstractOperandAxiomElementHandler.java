@@ -59,7 +59,7 @@ public abstract class AbstractOperandAxiomElementHandler<O extends OWLObject>
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
         operands.clear();
     }

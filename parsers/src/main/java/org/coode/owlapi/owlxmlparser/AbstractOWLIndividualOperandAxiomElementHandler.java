@@ -53,13 +53,12 @@ public abstract class AbstractOWLIndividualOperandAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler) {
-        addOperand(handler.getOWLObject());
+    public void handleChild(OWLIndividualElementHandler h) {
+        addOperand(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler handler)
-            throws OWLXMLParserException {
-        addOperand(handler.getOWLObject());
+    public void handleChild(OWLAnonymousIndividualElementHandler h) {
+        addOperand(h.getOWLObject());
     }
 }

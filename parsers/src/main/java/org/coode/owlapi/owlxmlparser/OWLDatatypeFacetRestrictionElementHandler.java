@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -60,22 +59,19 @@ public class OWLDatatypeFacetRestrictionElementHandler extends
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException {
-        constant = handler.getOWLObject();
+    public void handleChild(OWLLiteralElementHandler h) {
+        constant = h.getOWLObject();
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         if (localName.equals("facet")) {
             facet = OWLFacet.getFacet(IRI.create(value));
         }
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 

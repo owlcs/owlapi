@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -55,15 +54,13 @@ public class OWLUnionOfElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler h) {
         // We simply pass on to our parent, which MUST be an OWLDisjointUnionOf
-        getParentHandler().handleChild(handler);
+        getParentHandler().handleChild(h);
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {}
+    public void endElement() throws UnloadableImportException {}
 
     @Override
     public OWLClassExpression getOWLObject() {

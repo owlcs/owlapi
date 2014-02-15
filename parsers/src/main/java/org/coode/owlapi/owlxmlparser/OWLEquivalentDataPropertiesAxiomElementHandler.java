@@ -53,7 +53,7 @@ public class OWLEquivalentDataPropertiesAxiomElementHandler extends
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLEquivalentDataPropertiesAxiom(
                 getOperands(), getAnnotations());
     }

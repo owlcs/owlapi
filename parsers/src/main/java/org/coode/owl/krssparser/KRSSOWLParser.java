@@ -43,7 +43,6 @@ import java.io.IOException;
 import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -63,7 +62,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
 
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
-            OWLOntology ontology) throws OWLParserException, IOException,
+            OWLOntology ontology) throws IOException,
             OWLOntologyChangeException, UnloadableImportException {
         return parse(documentSource, ontology,
                 new OWLOntologyLoaderConfiguration());
@@ -72,7 +71,7 @@ public class KRSSOWLParser extends AbstractOWLParser {
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology, OWLOntologyLoaderConfiguration configuration)
-            throws OWLParserException, IOException, OWLOntologyChangeException,
+            throws IOException, OWLOntologyChangeException,
             UnloadableImportException {
         try {
             KRSSOntologyFormat format = new KRSSOntologyFormat();

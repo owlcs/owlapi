@@ -56,24 +56,23 @@ public class OWLSubClassAxiomElementHandler extends
     }
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         super.startElement(name);
         subClass = null;
         supClass = null;
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler)
-            throws OWLXMLParserException {
+    public void handleChild(AbstractClassExpressionElementHandler h) {
         if (subClass == null) {
-            subClass = handler.getOWLObject();
+            subClass = h.getOWLObject();
         } else if (supClass == null) {
-            supClass = handler.getOWLObject();
+            supClass = h.getOWLObject();
         }
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
+    protected OWLAxiom createAxiom() {
         return getOWLDataFactory().getOWLSubClassOfAxiom(subClass, supClass,
                 getAnnotations());
     }

@@ -54,16 +54,13 @@ public class OWLDataComplementOfElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler handler) {
-        operand = handler.getOWLObject();
+    public void handleChild(AbstractOWLDataRangeHandler h) {
+        operand = h.getOWLObject();
     }
 
     @Override
-    protected void endDataRangeElement() throws OWLXMLParserException {
-        if (operand == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "data range element");
-        }
+    protected void endDataRangeElement() {
+        ensureNotNull(operand, "data range element");
         setDataRange(getOWLDataFactory().getOWLDataComplementOf(operand));
     }
 }

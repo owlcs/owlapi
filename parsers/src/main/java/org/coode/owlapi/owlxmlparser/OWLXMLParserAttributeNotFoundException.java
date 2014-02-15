@@ -45,14 +45,12 @@ public class OWLXMLParserAttributeNotFoundException extends
         OWLXMLParserException {
     private static final long serialVersionUID = 40000L;
 
-    /** @param lineNumber
-     *            lineNumber
-     * @param columnNumber
-     *            columnNumber
+    /** @param h
+     *            handler
      * @param attributeName
      *            attributeName */
-    public OWLXMLParserAttributeNotFoundException(int lineNumber,
-            int columnNumber, String attributeName) {
-        super("Attribute not found: " + attributeName, lineNumber, columnNumber);
+    public OWLXMLParserAttributeNotFoundException(OWLXMLParserHandler h,
+            String attributeName) {
+        super(h, "Attribute not found: " + attributeName);
     }
 }

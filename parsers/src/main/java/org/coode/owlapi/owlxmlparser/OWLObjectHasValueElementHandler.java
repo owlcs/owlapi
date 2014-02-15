@@ -53,13 +53,13 @@ public class OWLObjectHasValueElementHandler extends
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler) {
-        setFiller(handler.getOWLObject());
+    public void handleChild(OWLIndividualElementHandler h) {
+        setFiller(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler handler) {
-        setFiller(handler.getOWLObject());
+    public void handleChild(OWLAnonymousIndividualElementHandler h) {
+        setFiller(h.getOWLObject());
     }
 
     @Override

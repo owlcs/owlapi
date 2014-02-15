@@ -57,25 +57,19 @@ public class OWLDataPropertyDomainAxiomElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        domain = handler.getOWLObject();
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        domain = h.getOWLObject();
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler) {
-        property = handler.getOWLObject();
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        property = h.getOWLObject();
     }
 
     @Override
-    protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        if (property == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "data property element");
-        }
-        if (domain == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "class expression element");
-        }
+    protected OWLAxiom createAxiom() {
+        ensureNotNull(property, "data property element");
+        ensureNotNull(domain, "class expression element");
         return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property,
                 domain, getAnnotations());
     }

@@ -59,24 +59,20 @@ public abstract class AbstractNaryBooleanClassExpressionElementHandler extends
     }
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler handler) {
-        operands.add(handler.getOWLObject());
+    public void handleChild(AbstractClassExpressionElementHandler h) {
+        operands.add(h.getOWLObject());
     }
 
     @Override
-    protected void endClassExpressionElement() throws OWLXMLParserException {
+    protected void endClassExpressionElement() {
         if (operands.size() >= 2) {
             setClassExpression(createClassExpression(operands));
         } else if (operands.size() == 1) {
             setClassExpression(operands.iterator().next());
         } else {
-            throw new OWLXMLParserElementNotFoundException(
-                    getLineNumber(),
-                    getColumnNumber(),
-                    "Found zero child elements of an "
-                            + getElementName()
-                            + " element. At least 2 class expression elements are required as child elements of "
-                            + getElementName() + " elements");
+            String template = "Found zero child elements of an %s element. At least 2 class expression elements are required as child elements of %s elements";
+            ensureNotNull(null,
+                    String.format(template, getElementName(), getElementName()));
         }
     }
 

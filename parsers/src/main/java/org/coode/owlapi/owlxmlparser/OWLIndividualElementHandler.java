@@ -38,7 +38,6 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -63,14 +62,12 @@ public class OWLIndividualElementHandler extends
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         name = getIRIFromAttribute(localName, value);
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         // URI uri = getNameAttribute();
         individual = getOWLDataFactory().getOWLNamedIndividual(name);
         getParentHandler().handleChild(this);

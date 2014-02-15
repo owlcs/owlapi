@@ -38,13 +38,12 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import org.semanticweb.owlapi.io.OWLParserException;
+import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
@@ -53,7 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  *            handled type */
 public abstract class AbstractOWLElementHandler<O> implements
         OWLElementHandler<O> {
-    private OWLXMLParserHandler handler;
+    protected OWLXMLParserHandler handler;
     private OWLElementHandler<?> parentHandler;
     private StringBuilder sb;
     private String elementName;
@@ -64,46 +63,34 @@ public abstract class AbstractOWLElementHandler<O> implements
         this.handler = handler;
     }
 
-    /** @return loader config */
-    protected OWLOntologyLoaderConfiguration getConfiguration() {
-        return handler.getConfiguration();
-    }
-
     /** @param localName
      *            localName
      * @param value
      *            value
-     * @return iri
-     * @throws OWLParserException
-     *             if an error is raised */
-    protected IRI getIRIFromAttribute(String localName, String value)
-            throws OWLParserException {
-        if (localName.equals(OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName())) {
-            return getIRI(value);
-        } else if (localName.equals(OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE
-                .getShortName())) {
-            return getAbbreviatedIRI(value);
+     * @return iri */
+    protected IRI getIRIFromAttribute(String localName, String value) {
+        if (localName.equals(IRI_ATTRIBUTE.getShortName())) {
+            return handler.getIRI(value);
+        } else if (localName.equals(ABBREVIATED_IRI_ATTRIBUTE.getShortName())) {
+            return handler.getAbbreviatedIRI(value);
         } else if (localName.equals("URI")) {
             // Legacy
-            return getIRI(value);
+            return handler.getIRI(value);
         }
-        throw new OWLXMLParserAttributeNotFoundException(getLineNumber(),
-                getColumnNumber(),
-                OWLXMLVocabulary.IRI_ATTRIBUTE.getShortName());
+        ensureAttributeNotNull(null, IRI_ATTRIBUTE.getShortName());
+        return null;
     }
 
     protected IRI
-            getIRIFromElement(String elementLocalName, String textContent)
-                    throws OWLParserException {
-        if (elementLocalName
-                .equals(OWLXMLVocabulary.IRI_ELEMENT.getShortName())) {
+            getIRIFromElement(String elementLocalName, String textContent) {
+        if (elementLocalName.equals(IRI_ELEMENT.getShortName())) {
             return handler.getIRI(textContent.trim());
-        } else if (elementLocalName
-                .equals(OWLXMLVocabulary.ABBREVIATED_IRI_ELEMENT.getShortName())) {
+        } else if (elementLocalName.equals(ABBREVIATED_IRI_ELEMENT
+                .getShortName())) {
             return handler.getAbbreviatedIRI(textContent.trim());
         }
-        throw new OWLXMLParserException(elementLocalName
-                + " is not an IRI element", getLineNumber(), getColumnNumber());
+        throw new OWLXMLParserException(handler, elementLocalName
+                + " is not an IRI element");
     }
 
     protected OWLOntologyManager getOWLOntologyManager() {
@@ -128,28 +115,10 @@ public abstract class AbstractOWLElementHandler<O> implements
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {}
-
-    protected IRI getIRI(String iri) throws OWLParserException {
-        return handler.getIRI(iri);
-    }
-
-    protected IRI getAbbreviatedIRI(String abbreviatedIRI)
-            throws OWLParserException {
-        return handler.getAbbreviatedIRI(abbreviatedIRI);
-    }
-
-    protected int getLineNumber() {
-        return handler.getLineNumber();
-    }
-
-    protected int getColumnNumber() {
-        return handler.getColumnNumber();
-    }
+    public void attribute(String localName, String value) {}
 
     @Override
-    public void startElement(String name) throws OWLXMLParserException {
+    public void startElement(String name) {
         sb = null;
         elementName = name;
     }
@@ -159,68 +128,64 @@ public abstract class AbstractOWLElementHandler<O> implements
     }
 
     @Override
-    public void handleChild(AbstractOWLAxiomElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractOWLAxiomElementHandler _handler) {}
 
     @Override
-    public void handleChild(AbstractClassExpressionElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractClassExpressionElementHandler _handler) {}
 
     @Override
-    public void handleChild(AbstractOWLDataRangeHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractOWLDataRangeHandler _handler) {}
 
     @Override
-    public void handleChild(AbstractOWLObjectPropertyElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractOWLObjectPropertyElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLDataPropertyElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLIndividualElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLIndividualElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLLiteralElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLLiteralElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLAnnotationElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLAnnotationElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLSubObjectPropertyChainElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLSubObjectPropertyChainElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLDatatypeFacetRestrictionElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLDatatypeFacetRestrictionElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLAnnotationPropertyElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLAnnotationPropertyElementHandler _handler) {}
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(OWLAnonymousIndividualElementHandler _handler) {}
 
     @Override
-    public void handleChild(AbstractIRIElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(AbstractIRIElementHandler _handler) {}
 
     @Override
-    public void handleChild(SWRLVariableElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(SWRLVariableElementHandler _handler) {}
 
     @Override
-    public void handleChild(SWRLAtomElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(SWRLAtomElementHandler _handler) {}
 
     @Override
-    public void handleChild(SWRLAtomListElementHandler _handler)
-            throws OWLXMLParserException {}
+    public void handleChild(SWRLAtomListElementHandler _handler) {}
+
+    protected void ensureNotNull(Object element, String message) {
+        if (element == null) {
+            throw new OWLXMLParserElementNotFoundException(handler, message);
+        }
+    }
+
+    protected void ensureAttributeNotNull(Object element, String message) {
+        if (element == null) {
+            throw new OWLXMLParserAttributeNotFoundException(handler, message);
+        }
+    }
 
     @Override
     public void handleChars(char[] chars, int start, int length) {

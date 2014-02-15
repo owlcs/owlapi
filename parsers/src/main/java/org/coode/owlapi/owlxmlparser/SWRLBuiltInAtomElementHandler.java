@@ -41,7 +41,6 @@ package org.coode.owlapi.owlxmlparser;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.UnloadableImportException;
@@ -60,27 +59,22 @@ public class SWRLBuiltInAtomElementHandler extends SWRLAtomElementHandler {
     }
 
     @Override
-    public void attribute(String localName, String value)
-            throws OWLParserException {
+    public void attribute(String localName, String value) {
         iri = getIRIFromAttribute(localName, value);
     }
 
     @Override
-    public void handleChild(SWRLVariableElementHandler handler)
-            throws OWLXMLParserException {
-        args.add(handler.getOWLObject());
+    public void handleChild(SWRLVariableElementHandler h) {
+        args.add(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler)
-            throws OWLXMLParserException {
-        args.add(getOWLDataFactory().getSWRLLiteralArgument(
-                handler.getOWLObject()));
+    public void handleChild(OWLLiteralElementHandler h) {
+        args.add(getOWLDataFactory().getSWRLLiteralArgument(h.getOWLObject()));
     }
 
     @Override
-    public void endElement() throws OWLParserException,
-            UnloadableImportException {
+    public void endElement() throws UnloadableImportException {
         setAtom(getOWLDataFactory().getSWRLBuiltInAtom(iri, args));
         getParentHandler().handleChild(this);
     }

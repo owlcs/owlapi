@@ -55,23 +55,22 @@ public abstract class AbstractOWLDataPropertyAssertionAxiomElementHandler
     }
 
     @Override
-    public void handleChild(OWLAnonymousIndividualElementHandler handler)
-            throws OWLXMLParserException {
-        setSubject(handler.getOWLObject());
+    public void handleChild(OWLAnonymousIndividualElementHandler h) {
+        setSubject(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLIndividualElementHandler handler) {
-        setSubject(handler.getOWLObject());
+    public void handleChild(OWLIndividualElementHandler h) {
+        setSubject(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler) {
-        setProperty(handler.getOWLObject());
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        setProperty(h.getOWLObject());
     }
 
     @Override
-    public void handleChild(OWLLiteralElementHandler handler) {
-        setObject(handler.getOWLObject());
+    public void handleChild(OWLLiteralElementHandler h) {
+        setObject(h.getOWLObject());
     }
 }

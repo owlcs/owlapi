@@ -55,17 +55,13 @@ public class OWLFunctionalDataPropertyAxiomElementHandler
     }
 
     @Override
-    public void handleChild(OWLDataPropertyElementHandler handler) {
-        setProperty(handler.getOWLObject());
+    public void handleChild(OWLDataPropertyElementHandler h) {
+        setProperty(h.getOWLObject());
     }
 
     @Override
-    protected OWLAxiom createPropertyCharacteristicAxiom()
-            throws OWLXMLParserException {
-        if (getProperty() == null) {
-            throw new OWLXMLParserElementNotFoundException(getLineNumber(),
-                    getColumnNumber(), "Expected data property element");
-        }
+    protected OWLAxiom createPropertyCharacteristicAxiom() {
+        ensureNotNull(getProperty(), "Expected data property element");
         return getOWLDataFactory().getOWLFunctionalDataPropertyAxiom(
                 getProperty(), getAnnotations());
     }
