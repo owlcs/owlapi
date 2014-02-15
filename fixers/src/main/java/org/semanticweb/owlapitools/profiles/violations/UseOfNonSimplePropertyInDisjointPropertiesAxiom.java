@@ -55,8 +55,9 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends
      *            axiom
      * @param prop
      *            prop */
-    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(OWLOntology ontology,
-            OWLDisjointObjectPropertiesAxiom axiom, OWLObjectPropertyExpression prop) {
+    public UseOfNonSimplePropertyInDisjointPropertiesAxiom(
+            OWLOntology ontology, OWLDisjointObjectPropertiesAxiom axiom,
+            OWLObjectPropertyExpression prop) {
         super(ontology, axiom, prop);
     }
 
@@ -72,6 +73,7 @@ public class UseOfNonSimplePropertyInDisjointPropertiesAxiom extends
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in an axiom %s", getExpression());
+        return toString("Use of non-simple property in an axiom %s",
+                getExpression());
     }
 }

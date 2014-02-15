@@ -46,7 +46,8 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group */
-public class UseOfBuiltInDatatypeInDatatypeDefinition extends OWLProfileViolation<Object> {
+public class UseOfBuiltInDatatypeInDatatypeDefinition extends
+        OWLProfileViolation<Object> {
     /** @param ontology
      *            ontology
      * @param axiom

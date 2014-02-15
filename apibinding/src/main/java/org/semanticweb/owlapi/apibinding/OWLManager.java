@@ -50,7 +50,8 @@ import com.google.inject.Injector;
  * with commonly required features (such as an RDF parser for example).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 06-Dec-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public class OWLManager {
     private static Injector injector = Guice.createInjector(new OWLAPIModule(),
             new OWLAPIServiceLoaderModule());

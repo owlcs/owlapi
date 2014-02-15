@@ -53,8 +53,8 @@ public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
      *            axiom
      * @param dataOneOf
      *            dataOneOf */
-    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology, OWLAxiom axiom,
-            OWLDataOneOf dataOneOf) {
+    public UseOfDataOneOfWithMultipleLiterals(OWLOntology ontology,
+            OWLAxiom axiom, OWLDataOneOf dataOneOf) {
         super(ontology, axiom, dataOneOf);
     }
 
@@ -70,6 +70,7 @@ public class UseOfDataOneOfWithMultipleLiterals extends UseOfIllegalDataRange {
 
     @Override
     public String toString() {
-        return toString("Use of DataOneOf with multiple literals %s", getExpression());
+        return toString("Use of DataOneOf with multiple literals %s",
+                getExpression());
     }
 }

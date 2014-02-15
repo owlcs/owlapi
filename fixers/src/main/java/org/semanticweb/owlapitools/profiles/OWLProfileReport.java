@@ -52,7 +52,8 @@ public class OWLProfileReport {
      *            the profile used
      * @param violations
      *            the set of violations */
-    public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation<?>> violations) {
+    public OWLProfileReport(OWLProfile profile,
+            Set<OWLProfileViolation<?>> violations) {
         this.profile = profile;
         this.violations = new ArrayList<OWLProfileViolation<?>>(violations);
     }

@@ -8,7 +8,8 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author ignazio */
-public class InsufficientPropertyExpressions extends OWLProfileViolation<OWLObject> {
+public class InsufficientPropertyExpressions extends
+        OWLProfileViolation<OWLObject> {
     /** @param ontology
      *            ontology
      * @param axiom

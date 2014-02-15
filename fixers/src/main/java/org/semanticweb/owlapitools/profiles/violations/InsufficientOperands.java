@@ -15,7 +15,8 @@ public class InsufficientOperands extends OWLProfileViolation<OWLObject> {
      *            node
      * @param c
      *            c */
-    public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node, OWLObject c) {
+    public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node,
+            OWLObject c) {
         super(currentOntology, node, c);
     }
 
@@ -26,7 +27,8 @@ public class InsufficientOperands extends OWLProfileViolation<OWLObject> {
 
     @Override
     public String toString() {
-        return toString("Not enough operands; at least two needed: %s", expression);
+        return toString("Not enough operands; at least two needed: %s",
+                expression);
     }
 
     @Override

@@ -56,8 +56,8 @@ public class UseOfNonSimplePropertyInObjectHasSelf extends
      *            axiom
      * @param hasSelf
      *            hasSelf */
-    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom,
-            OWLObjectHasSelf hasSelf) {
+    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology,
+            OWLAxiom axiom, OWLObjectHasSelf hasSelf) {
         super(ontology, axiom, hasSelf);
     }
 

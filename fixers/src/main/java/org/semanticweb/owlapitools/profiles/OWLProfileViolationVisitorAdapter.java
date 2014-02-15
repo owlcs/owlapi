@@ -48,12 +48,14 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredObjectProp
 import org.semanticweb.owlapitools.profiles.violations.UseOfUnknownDatatype;
 
 /** @author ignazio */
-public class OWLProfileViolationVisitorAdapter implements OWLProfileViolationVisitor {
+public class OWLProfileViolationVisitorAdapter implements
+        OWLProfileViolationVisitor {
     /** override this method in subclasses to change default behaviour
      * 
      * @param v
      *            violation */
-    protected void doDefault(@SuppressWarnings("unused") OWLProfileViolation<?> v) {}
+    protected void doDefault(
+            @SuppressWarnings("unused") OWLProfileViolation<?> v) {}
 
     @Override
     public void visit(IllegalPunning v) {
@@ -96,7 +98,8 @@ public class OWLProfileViolationVisitorAdapter implements OWLProfileViolationVis
     }
 
     @Override
-    public void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
+    public void visit(
+            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
         doDefault(v);
     }
 

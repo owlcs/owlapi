@@ -49,7 +49,8 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group */
-public class UseOfIllegalClassExpression extends OWLProfileViolation<OWLClassExpression> {
+public class UseOfIllegalClassExpression extends
+        OWLProfileViolation<OWLClassExpression> {
     /** @param ontology
      *            ontology
      * @param axiom
@@ -73,7 +74,7 @@ public class UseOfIllegalClassExpression extends OWLProfileViolation<OWLClassExp
 
     @Override
     public String toString() {
-        return toString("Class expressions not allowed in profile: %s", getExpression()
-                .getClassExpressionType().getName());
+        return toString("Class expressions not allowed in profile: %s",
+                getExpression().getClassExpressionType().getName());
     }
 }

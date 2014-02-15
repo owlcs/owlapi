@@ -38,11 +38,11 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 /** wrapper for parsing Manchester Syntax.
- *
+ * 
  * @author heiko */
 public class ManchesterSyntaxTool {
-    private static final Logger log = Logger.getLogger(ManchesterSyntaxTool.class
-            .getName());
+    private static final Logger log = Logger
+            .getLogger(ManchesterSyntaxTool.class.getName());
     protected IRIShortFormProvider iriShortFormProvider;
     private OWLDataFactory dataFactory;
     private OWLEntityChecker entityChecker;
@@ -116,8 +116,8 @@ public class ManchesterSyntaxTool {
         final ShortFormEntityChecker defaultInstance = new ShortFormEntityChecker(
                 bidirectionalShortFormProvider);
         if (resolveEntities) {
-            entityChecker = new AdvancedEntityChecker(defaultInstance, ontologies,
-                    inputOntology.getOWLOntologyManager());
+            entityChecker = new AdvancedEntityChecker(defaultInstance,
+                    ontologies, inputOntology.getOWLOntologyManager());
         } else {
             entityChecker = defaultInstance;
         }
@@ -130,8 +130,8 @@ public class ManchesterSyntaxTool {
      * @return set of {@link OntologyAxiomPair}
      * @throws ParserException
      *             parser exception */
-    public Set<OntologyAxiomPair> parseManchesterExpressionFrames(String expression)
-            throws ParserException {
+    public Set<OntologyAxiomPair> parseManchesterExpressionFrames(
+            String expression) throws ParserException {
         ManchesterOWLSyntaxEditorParser parser = createParser(expression);
         Set<OntologyAxiomPair> set = parser.parseFrames();
         return set;
@@ -258,7 +258,8 @@ public class ManchesterSyntaxTool {
 
         @Override
         public OWLNamedIndividual getOWLIndividual(String name) {
-            OWLNamedIndividual owlIndividual = defaultInstance.getOWLIndividual(name);
+            OWLNamedIndividual owlIndividual = defaultInstance
+                    .getOWLIndividual(name);
             if (owlIndividual == null) {
                 IRI iri = getIRI(name);
                 if (iri != null) {
@@ -344,8 +345,8 @@ public class ManchesterSyntaxTool {
                 if (o.getDeclarationAxioms(c).size() > 0) {
                     return c;
                 }
-                if (o.getOWLOntologyManager().getOWLDataFactory().getOWLNothing()
-                        .equals(c)) {
+                if (o.getOWLOntologyManager().getOWLDataFactory()
+                        .getOWLNothing().equals(c)) {
                     return c;
                 }
             }

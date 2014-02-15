@@ -116,7 +116,8 @@ public class OWLProfileViolationVisitorExAdapter<O> implements
     }
 
     @Override
-    public O visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
+    public O visit(
+            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v) {
         return doDefault(v);
     }
 

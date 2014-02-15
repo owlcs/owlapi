@@ -52,8 +52,8 @@ public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
      *            ontology
      * @param axiom
      *            axiom */
-    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology,
-            OWLSubDataPropertyOfAxiom axiom) {
+    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(
+            OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom, axiom);
     }
 

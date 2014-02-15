@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * part of the axiom that violates the profile rather than the complete axiom.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 03-Aug-2009
+ *         Management Group
+ * @since 4.0.0
  * @param <T>
  *            violation type */
 public abstract class OWLProfileViolation<T> {

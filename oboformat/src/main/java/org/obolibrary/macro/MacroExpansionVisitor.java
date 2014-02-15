@@ -111,7 +111,8 @@ public class MacroExpansionVisitor {
             }
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
-            expandTo = expandTo.replaceAll("\\?Y", manchesterSyntaxTool.getId(axValIRI));
+            expandTo = expandTo.replaceAll("\\?Y",
+                    manchesterSyntaxTool.getId(axValIRI));
             if (log.isLoggable(Level.WARNING)) {
                 log.log(Level.WARNING, "Expanding " + expandTo);
             }
@@ -135,8 +136,8 @@ public class MacroExpansionVisitor {
         }
 
         @Override
-        protected OWLClassExpression expandOWLObjSomeVal(OWLClassExpression filler,
-                OWLObjectPropertyExpression p) {
+        protected OWLClassExpression expandOWLObjSomeVal(
+                OWLClassExpression filler, OWLObjectPropertyExpression p) {
             return expandObject(filler, p);
         }
 
@@ -145,19 +146,21 @@ public class MacroExpansionVisitor {
                 OWLIndividual filler, OWLObjectPropertyExpression p) {
             OWLClassExpression result = expandObject(filler, p);
             if (result != null) {
-                result = dataFactory.getOWLObjectSomeValuesFrom(desc.getProperty(),
-                        result);
+                result = dataFactory.getOWLObjectSomeValuesFrom(
+                        desc.getProperty(), result);
             }
             return result;
         }
 
-        OWLClassExpression expandObject(Object filler, OWLObjectPropertyExpression p) {
+        OWLClassExpression expandObject(Object filler,
+                OWLObjectPropertyExpression p) {
             OWLClassExpression result = null;
             IRI iri = ((OWLObjectProperty) p).getIRI();
             IRI templateVal = null;
             if (expandExpressionMap.containsKey(iri)) {
                 if (filler instanceof OWLObjectOneOf) {
-                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler).getIndividuals();
+                    Set<OWLIndividual> inds = ((OWLObjectOneOf) filler)
+                            .getIndividuals();
                     if (inds.size() == 1) {
                         OWLIndividual ind = inds.iterator().next();
                         if (ind instanceof OWLNamedIndividual) {
@@ -173,7 +176,8 @@ public class MacroExpansionVisitor {
                     String exStr = tStr.replaceAll("\\?Y",
                             manchesterSyntaxTool.getId(templateVal));
                     try {
-                        result = manchesterSyntaxTool.parseManchesterExpression(exStr);
+                        result = manchesterSyntaxTool
+                                .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
                         log.log(Level.SEVERE, e.getMessage(), e);
                     }

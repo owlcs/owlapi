@@ -62,7 +62,8 @@ public class OWL2ProfileReport extends OWLProfileReport {
             Set<OWLObjectPropertyExpression> nonSimpleRoles,
             Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
-        this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(nonSimpleRoles);
+        this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(
+                nonSimpleRoles);
         this.simpleRoles = new TreeSet<OWLObjectPropertyExpression>(simpleRoles);
     }
 

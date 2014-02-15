@@ -71,6 +71,7 @@ public class LexicalNotInLexicalSpace extends OWLProfileViolation<OWLLiteral> {
 
     @Override
     public String toString() {
-        return toString("Literal lexical value not in lexical space: %s", getExpression());
+        return toString("Literal lexical value not in lexical space: %s",
+                getExpression());
     }
 }

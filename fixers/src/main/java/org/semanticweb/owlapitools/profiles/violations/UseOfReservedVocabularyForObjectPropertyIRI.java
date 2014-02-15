@@ -72,7 +72,8 @@ public class UseOfReservedVocabularyForObjectPropertyIRI extends
 
     @Override
     public String toString() {
-        return toString("Use of reserved vocabulary for object property IRI: %s",
+        return toString(
+                "Use of reserved vocabulary for object property IRI: %s",
                 getExpression());
     }
 }

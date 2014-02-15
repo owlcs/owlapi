@@ -8,7 +8,7 @@ import org.semanticweb.owlapi.model.IRI;
 /** This class will eventually replace the id to uri translation in Owl2Obo and
  * OboO2Owl <br>
  * It is currently in-progress.
- *
+ * 
  * @author cjm */
 public class IdTranslator {
     String OBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
@@ -33,7 +33,8 @@ public class IdTranslator {
             int p = id.lastIndexOf(":");
             String prefix = id.substring(0, p);
             String localId = id.substring(p + 1);
-            if (localId.length() > 0 && localId.replaceAll("[0-9]", "").length() == 0) {
+            if (localId.length() > 0
+                    && localId.replaceAll("[0-9]", "").length() == 0) {
                 // CANONICAL
                 return expandPrefix(prefix) + localId;
             }
@@ -48,7 +49,8 @@ public class IdTranslator {
      *            id
      * @return boolean */
     public boolean isURI(String id) {
-        if (id.startsWith("http:") || id.startsWith("ftp:") || id.startsWith("https:")) {
+        if (id.startsWith("http:") || id.startsWith("ftp:")
+                || id.startsWith("https:")) {
             return true;
         }
         return false;

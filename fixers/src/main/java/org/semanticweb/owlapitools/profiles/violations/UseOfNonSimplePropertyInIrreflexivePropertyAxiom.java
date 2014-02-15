@@ -53,8 +53,8 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends
      *            ontology
      * @param axiom
      *            axiom */
-    public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(OWLOntology ontology,
-            OWLIrreflexiveObjectPropertyAxiom axiom) {
+    public UseOfNonSimplePropertyInIrreflexivePropertyAxiom(
+            OWLOntology ontology, OWLIrreflexiveObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());
     }
 
@@ -70,7 +70,8 @@ public class UseOfNonSimplePropertyInIrreflexivePropertyAxiom extends
 
     @Override
     public String toString() {
-        return toString("Use of non-simple property in irreflexive property axiom %s",
+        return toString(
+                "Use of non-simple property in irreflexive property axiom %s",
                 getExpression());
     }
 }

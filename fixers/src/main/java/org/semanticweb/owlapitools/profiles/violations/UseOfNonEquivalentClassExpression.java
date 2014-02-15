@@ -55,8 +55,8 @@ public class UseOfNonEquivalentClassExpression extends
      *            axiom
      * @param classExpression
      *            classExpression */
-    public UseOfNonEquivalentClassExpression(OWLOntology ontology, OWLAxiom axiom,
-            OWLClassExpression classExpression) {
+    public UseOfNonEquivalentClassExpression(OWLOntology ontology,
+            OWLAxiom axiom, OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);
     }
 

@@ -47,7 +47,8 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group */
-public class UseOfAnonymousIndividual extends OWLProfileViolation<OWLAnonymousIndividual> {
+public class UseOfAnonymousIndividual extends
+        OWLProfileViolation<OWLAnonymousIndividual> {
     /** @param ontology
      *            ontology
      * @param axiom

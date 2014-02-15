@@ -72,6 +72,7 @@ public class UseOfNonAtomicClassExpression extends
 
     @Override
     public String toString() {
-        return toString("Use of non-atomic class expression: %s", getExpression());
+        return toString("Use of non-atomic class expression: %s",
+                getExpression());
     }
 }

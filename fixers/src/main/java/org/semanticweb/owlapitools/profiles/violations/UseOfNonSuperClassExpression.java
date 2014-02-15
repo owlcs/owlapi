@@ -47,7 +47,8 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group */
-public class UseOfNonSuperClassExpression extends OWLProfileViolation<OWLClassExpression> {
+public class UseOfNonSuperClassExpression extends
+        OWLProfileViolation<OWLClassExpression> {
     /** @param ontology
      *            ontology
      * @param axiom

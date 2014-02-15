@@ -56,7 +56,8 @@ public class UseOfPropertyInChainCausesCycle extends
      * @param property
      *            property */
     public UseOfPropertyInChainCausesCycle(OWLOntology ontology,
-            OWLSubPropertyChainOfAxiom axiom, OWLObjectPropertyExpression property) {
+            OWLSubPropertyChainOfAxiom axiom,
+            OWLObjectPropertyExpression property) {
         super(ontology, axiom, property);
     }
 
@@ -72,6 +73,7 @@ public class UseOfPropertyInChainCausesCycle extends
 
     @Override
     public String toString() {
-        return toString("Use of property in chain causes cycle: %s", getExpression());
+        return toString("Use of property in chain causes cycle: %s",
+                getExpression());
     }
 }

@@ -55,8 +55,8 @@ public class UseOfReservedVocabularyForIndividualIRI extends
      *            axiom
      * @param ind
      *            ind */
-    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, OWLAxiom axiom,
-            OWLNamedIndividual ind) {
+    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology,
+            OWLAxiom axiom, OWLNamedIndividual ind) {
         super(ontology, axiom, ind);
     }
 

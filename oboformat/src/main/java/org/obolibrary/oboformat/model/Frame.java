@@ -286,12 +286,14 @@ public class Frame {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY,
                     OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                    OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY,
+                    OboFormatTag.TAG_DEFAULT_NAMESPACE,
+                    OboFormatTag.TAG_SAVED_BY,
                     OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE,
-                    OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN,
+                    OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
+                    OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             if (getClauses(OboFormatTag.TAG_ID).size() != 1) {
@@ -299,7 +301,8 @@ public class Frame {
                         "cardinality of id field must be 1");
             }
             if (this.getClause(OboFormatTag.TAG_ID).getValue() == null) {
-                throw new FrameStructureException(this, "id field must not be null");
+                throw new FrameStructureException(this,
+                        "id field must not be null");
             }
             if (getId() == null) {
                 throw new FrameStructureException(this, "id field must be set");
@@ -318,8 +321,9 @@ public class Frame {
                 OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
                 OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
                 OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, OboFormatTag.TAG_IS_OBSELETE,
-                OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
+                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
+                OboFormatTag.TAG_CREATION_DATE);
     }
 
     /** Check max one cardinality.
@@ -332,8 +336,8 @@ public class Frame {
             throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
-                throw new FrameStructureException(this, "multiple " + tag.getTag()
-                        + " tags not allowed.");
+                throw new FrameStructureException(this, "multiple "
+                        + tag.getTag() + " tags not allowed.");
             }
         }
     }

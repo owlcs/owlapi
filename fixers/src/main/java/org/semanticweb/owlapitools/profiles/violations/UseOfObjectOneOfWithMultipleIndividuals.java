@@ -46,15 +46,16 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group */
-public class UseOfObjectOneOfWithMultipleIndividuals extends UseOfIllegalClassExpression {
+public class UseOfObjectOneOfWithMultipleIndividuals extends
+        UseOfIllegalClassExpression {
     /** @param ontology
      *            ontology
      * @param axiom
      *            axiom
      * @param oneOf
      *            oneOf */
-    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology, OWLAxiom axiom,
-            OWLObjectOneOf oneOf) {
+    public UseOfObjectOneOfWithMultipleIndividuals(OWLOntology ontology,
+            OWLAxiom axiom, OWLObjectOneOf oneOf) {
         super(ontology, axiom, oneOf);
     }
 

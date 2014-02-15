@@ -45,7 +45,8 @@ public class QualifierValue {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (qualifier == null ? 0 : qualifier.hashCode());
+        result = prime * result
+                + (qualifier == null ? 0 : qualifier.hashCode());
         result = prime * result + (value == null ? 0 : value.hashCode());
         return result;
     }

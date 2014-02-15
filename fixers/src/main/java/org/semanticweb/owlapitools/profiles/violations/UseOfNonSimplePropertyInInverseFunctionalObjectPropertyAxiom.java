@@ -47,8 +47,8 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group */
-public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom extends
-        OWLProfileViolation<OWLObjectPropertyExpression> {
+public class UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
+        extends OWLProfileViolation<OWLObjectPropertyExpression> {
     /** @param ontology
      *            ontology
      * @param axiom
