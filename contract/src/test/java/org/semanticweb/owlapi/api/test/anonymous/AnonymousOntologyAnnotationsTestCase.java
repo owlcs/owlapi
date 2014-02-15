@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 14/01/2011 */
+ *         Group
+ * @since 3.2.0 */
 public class AnonymousOntologyAnnotationsTestCase extends
         AbstractRoundTrippingTestCase {
     @Override

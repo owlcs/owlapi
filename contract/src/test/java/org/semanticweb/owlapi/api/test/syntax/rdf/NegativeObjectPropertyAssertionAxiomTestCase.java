@@ -44,7 +44,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-May-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class NegativeObjectPropertyAssertionAxiomTestCase extends
         AbstractRendererAndParser {
     @Override

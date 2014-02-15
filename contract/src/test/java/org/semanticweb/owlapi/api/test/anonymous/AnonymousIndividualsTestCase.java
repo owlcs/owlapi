@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 30-Jun-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class AnonymousIndividualsTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

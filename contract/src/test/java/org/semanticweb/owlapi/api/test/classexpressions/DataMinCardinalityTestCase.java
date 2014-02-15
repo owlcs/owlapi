@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 23-Apr-2009 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class DataMinCardinalityTestCase extends
         AbstractFileRoundTrippingTestCase {

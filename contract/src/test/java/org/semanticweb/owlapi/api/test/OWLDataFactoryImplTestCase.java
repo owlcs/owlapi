@@ -59,7 +59,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
  * rdfs:Literal etc.)
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 24/10/2012 */
+ *         Research Group
+ * @since 3.2.0 */
 @RunWith(value = Parameterized.class)
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryImplTestCase {

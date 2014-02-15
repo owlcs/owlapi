@@ -65,7 +65,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-May-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParser extends TestBase {
     @Before

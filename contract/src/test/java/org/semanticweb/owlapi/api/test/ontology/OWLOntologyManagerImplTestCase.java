@@ -57,7 +57,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerImplTestCase {
     private OWLOntologyManager manager;

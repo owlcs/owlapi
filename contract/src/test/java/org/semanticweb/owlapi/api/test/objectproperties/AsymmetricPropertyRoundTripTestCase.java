@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 07-Sep-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class AsymmetricPropertyRoundTripTestCase extends
         AbstractRoundTrippingTestCase {
     @Override

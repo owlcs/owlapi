@@ -66,7 +66,8 @@ import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
  * ensure that these axioms are serialsed correctly.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 09-May-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class DisjointsTestCase extends TestBase {
     @Before

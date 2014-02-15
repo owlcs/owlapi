@@ -46,10 +46,12 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
                     ontology, writer);

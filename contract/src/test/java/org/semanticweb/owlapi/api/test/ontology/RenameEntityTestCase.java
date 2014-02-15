@@ -64,7 +64,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.util.OWLEntityRenamer;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 29-Nov-2009 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class RenameEntityTestCase extends TestBase {
     @Test

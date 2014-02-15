@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractLiteralWithEscapeTest
  * assertion that has a literal containing a backslash.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 28/09/2011 */
+ *         Informatics Group
+ * @since 3.3.0 */
 public class LiteralWithBackslashTestCase extends
         AbstractLiteralWithEscapeTestCase {
     @Override

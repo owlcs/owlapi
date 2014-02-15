@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 09-Jul-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class DisjointObjectPropertiesTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

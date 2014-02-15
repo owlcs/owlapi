@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 16-Oct-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class AnnotationAssertionWithIRITestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

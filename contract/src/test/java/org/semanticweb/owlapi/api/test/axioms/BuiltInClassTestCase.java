@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** Tests that the isOWLThing and isOWLNothing methods return correct values.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 29-Apr-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class BuiltInClassTestCase {
     @Test

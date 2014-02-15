@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * property.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;

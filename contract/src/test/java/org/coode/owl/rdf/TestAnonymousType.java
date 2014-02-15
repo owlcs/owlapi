@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Jul-2007 */
+ *         Group
+ * @since 2.1.0 */
 public class TestAnonymousType extends AbstractRendererAndParserTestCase {
     @Override
     protected Set<OWLAxiom> getAxioms() {

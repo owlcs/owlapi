@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-Jan-2009 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
     @Test

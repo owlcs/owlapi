@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 25-Nov-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class DisjointClassesAxiomAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
     @Override

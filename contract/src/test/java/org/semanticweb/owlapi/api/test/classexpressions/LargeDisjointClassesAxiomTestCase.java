@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-Sep-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class LargeDisjointClassesAxiomTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

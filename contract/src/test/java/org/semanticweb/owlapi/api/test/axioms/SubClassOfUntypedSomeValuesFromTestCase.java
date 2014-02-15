@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 11/03/2011 */
+ *         Group
+ * @since 3.2.3 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedSomeValuesFromTestCase extends
         AbstractFileTestCase {

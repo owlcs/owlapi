@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 12-Oct-2008 */
+ *         Group
+ * @since 2.2.0 */
 @SuppressWarnings("javadoc")
 public class SubClassAxiomTestCase extends AbstractFileRoundTrippingTestCase {
     @Override

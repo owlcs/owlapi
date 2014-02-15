@@ -55,7 +55,8 @@ import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplNoCompression;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 26/11/2012 */
+ *         Research Group
+ * @since 3.2.0 */
 @SuppressWarnings("javadoc")
 public class HashCodeTestCase {
     @Test

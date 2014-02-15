@@ -69,7 +69,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2008 */
+ *         Group
+ * @since 2.2.0 */
 @SuppressWarnings("javadoc")
 public abstract class TestBase {
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();

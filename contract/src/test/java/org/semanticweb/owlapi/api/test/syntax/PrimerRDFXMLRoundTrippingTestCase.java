@@ -42,7 +42,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 08-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class PrimerRDFXMLRoundTrippingTestCase extends
         AbstractFileRoundTrippingTestCase {
     @Override

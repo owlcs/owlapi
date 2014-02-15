@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 25/02/2011 */
+ *         Group
+ * @since 3.2.3 */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
     public static final IRI SUBCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#A");

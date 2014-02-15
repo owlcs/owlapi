@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+ *         Research Group
+ * @since 3.2.0 */
 @SuppressWarnings("javadoc")
 public class RemoveImportDataTestCase {
     private OWLImportsDeclaration mockDeclaration;

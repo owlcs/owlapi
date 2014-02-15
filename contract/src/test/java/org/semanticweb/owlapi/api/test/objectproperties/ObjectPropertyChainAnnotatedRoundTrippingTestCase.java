@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 01-Jun-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

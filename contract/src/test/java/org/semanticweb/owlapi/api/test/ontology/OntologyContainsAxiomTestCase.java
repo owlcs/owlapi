@@ -68,7 +68,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends TestBase {
     @Rule

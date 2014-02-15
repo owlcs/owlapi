@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 05/01/2011 */
+ *         Group
+ * @since 3.2.0 */
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
     @Test

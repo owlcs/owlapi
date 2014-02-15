@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-May-2009 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyReferencesTestCase extends TestBase {
     @Test

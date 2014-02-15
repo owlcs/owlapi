@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
  * declaration axioms produce the correct entity references.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 01-May-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends TestBase {
     @Test

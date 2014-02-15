@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class ObjectPropertyChainRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     @Override

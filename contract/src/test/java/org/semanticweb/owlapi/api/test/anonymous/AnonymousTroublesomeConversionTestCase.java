@@ -42,7 +42,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 30-Jul-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class AnonymousTroublesomeConversionTestCase extends
         AbstractFileRoundTrippingTestCase {
     @Override

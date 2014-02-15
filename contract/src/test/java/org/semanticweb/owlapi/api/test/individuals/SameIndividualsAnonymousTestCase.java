@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Jul-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class SameIndividualsAnonymousTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

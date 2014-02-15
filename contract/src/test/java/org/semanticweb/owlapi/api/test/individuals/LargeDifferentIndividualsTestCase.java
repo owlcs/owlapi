@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-Sep-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class LargeDifferentIndividualsTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

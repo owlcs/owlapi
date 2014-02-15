@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Jun-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class DatatypeDefinitionTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

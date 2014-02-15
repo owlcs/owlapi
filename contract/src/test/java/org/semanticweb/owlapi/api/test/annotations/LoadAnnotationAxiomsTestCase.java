@@ -67,7 +67,8 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 16/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 @SuppressWarnings("javadoc")
 public class LoadAnnotationAxiomsTestCase extends TestBase {
     @Test

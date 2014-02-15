@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 22-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerTestCase extends TestBase {
     @Test

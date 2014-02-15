@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-May-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class TestDifferentIndividualsAxiom extends
         AbstractRendererAndParserTestCase {
     @Override

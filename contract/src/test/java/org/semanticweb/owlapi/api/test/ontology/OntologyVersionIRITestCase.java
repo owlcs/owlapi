@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 24-Dec-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {

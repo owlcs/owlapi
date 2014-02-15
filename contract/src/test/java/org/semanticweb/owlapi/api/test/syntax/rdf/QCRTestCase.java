@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Aug-2007 */
+ *         Group
+ * @since 2.1.1 */
 public class QCRTestCase extends AbstractRendererAndParser {
     @Override
     protected Set<OWLAxiom> getAxioms() {

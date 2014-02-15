@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-Jun-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class DataUnionOfTestCase2 extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {

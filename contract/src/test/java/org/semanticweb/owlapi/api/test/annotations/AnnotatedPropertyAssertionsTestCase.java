@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 30-Jun-2010 */
+ *         Group
+ * @since 3.1.0 */
 @SuppressWarnings("javadoc")
 public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
     @Override

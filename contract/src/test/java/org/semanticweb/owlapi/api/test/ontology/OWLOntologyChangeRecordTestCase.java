@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+ *         Research Group
+ * @since 3.2.0 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTestCase {
     private OWLOntologyID mockOntologyID;

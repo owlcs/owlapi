@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 22/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 public class AnonymousIndividualsTestCase2 extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

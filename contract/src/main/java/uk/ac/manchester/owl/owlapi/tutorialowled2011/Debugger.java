@@ -63,9 +63,10 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * For each inconsistent class, the debugger will be used to determine the set
  * of support for the inconsistency. A report will then be written to the outpur
  * file.
- *
+ * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings({ "javadoc" })
 public class Debugger {
     private final OWLOntology ontology;
@@ -111,7 +112,8 @@ public class Debugger {
                  * Find the set of support for the inconsistency. This will
                  * return us a collection of axioms
                  */
-                Set<OWLAxiom> sos = debugger.getSOSForIncosistentClass(unsatisfiable);
+                Set<OWLAxiom> sos = debugger
+                        .getSOSForIncosistentClass(unsatisfiable);
                 /* Print the axioms. */
                 for (OWLAxiom axiom : sos) {
                     writer.println("<li>");

@@ -69,7 +69,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
  * ensure that these axioms are serialsed correctly.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 09-May-2007 */
+ *         Informatics Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class TestDisjointsTestCase extends TestBase {
     @Before

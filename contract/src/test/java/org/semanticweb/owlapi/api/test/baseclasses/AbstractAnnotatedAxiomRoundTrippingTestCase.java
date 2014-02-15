@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-May-2009 */
+ *         Group
+ * @since 3.0.0 */
 public abstract class AbstractAnnotatedAxiomRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
     @Override

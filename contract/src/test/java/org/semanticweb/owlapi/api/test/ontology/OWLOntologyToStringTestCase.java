@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 01/02/2012 */
+ *         Research Group
+ * @since 3.3 */
 @SuppressWarnings("javadoc")
 public class OWLOntologyToStringTestCase {
     @Test

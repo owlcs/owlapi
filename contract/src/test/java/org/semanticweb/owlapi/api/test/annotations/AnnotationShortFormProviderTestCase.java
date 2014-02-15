@@ -63,7 +63,8 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 22/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 @SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends TestBase {
     @Test

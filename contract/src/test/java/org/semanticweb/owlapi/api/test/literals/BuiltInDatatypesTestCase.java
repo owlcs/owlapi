@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010 */
+ *         Group
+ * @since 3.1.0 */
 @SuppressWarnings("javadoc")
 public class BuiltInDatatypesTestCase extends TestBase {
     @Test

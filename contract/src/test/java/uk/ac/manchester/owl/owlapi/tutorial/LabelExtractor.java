@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 /** Simple visitor that grabs any labels on an entity.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 17-03-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings({ "unused", "javadoc" })
 public class LabelExtractor implements OWLAnnotationObjectVisitor {
     String result = null;

@@ -122,7 +122,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 /** A renderer that provides an HTML version of the ontology.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings({ "unused", "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
     private final OWLOntology ontology;

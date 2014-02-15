@@ -62,7 +62,8 @@ import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
  * results in the form required by the OWL API reasoner interface.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Jul-2010 */
+ *         Informatics Group
+ * @since 3.1.0 */
 @SuppressWarnings("javadoc")
 public class ReasonerTestCase extends TestBase {
     private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();

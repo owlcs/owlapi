@@ -62,7 +62,8 @@ import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
  * will be added to the ontology, "closing" the restrictions.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class ClosureAxiomsExample {
     /** @param inputOntology
      *            input ontology IRI

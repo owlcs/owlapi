@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-May-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class ChangeOntologyURITestCase extends TestBase {
     @Test

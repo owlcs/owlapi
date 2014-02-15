@@ -54,7 +54,8 @@ import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologySt
 /** Simple Rendering Example. Reads an ontology and then renders it.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class RenderingExample {
     /** @param inputOntology
      *            input ontology IRI

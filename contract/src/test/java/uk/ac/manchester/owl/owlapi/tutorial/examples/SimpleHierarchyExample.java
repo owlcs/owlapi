@@ -58,7 +58,8 @@ import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
  * reasoner to calculate the hierarchy.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 17-03-2007 */
+ *         Group
+ * @since 2.0.0 */
 @SuppressWarnings("javadoc")
 public class SimpleHierarchyExample {
     private static final int INDENT = 4;

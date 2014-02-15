@@ -45,7 +45,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 09/11/2011 */
+ *         Research Group
+ * @since 3.3.0 */
 @SuppressWarnings("javadoc")
 public class IRICharSequenceTestCase {
     @Test

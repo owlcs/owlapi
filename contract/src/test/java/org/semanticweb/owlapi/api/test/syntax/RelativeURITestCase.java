@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 08-Jun-2009 */
+ *         Group
+ * @since 3.0.0 */
 public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Override
     protected Set<? extends OWLAxiom> createAxioms()

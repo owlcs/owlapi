@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Jan-2010 */
+ *         Group
+ * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class ManualImportsTestCase extends TestBase {
     @Test

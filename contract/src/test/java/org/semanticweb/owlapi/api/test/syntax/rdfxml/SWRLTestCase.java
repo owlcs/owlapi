@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 03-Aug-2007 */
+ *         Group
+ * @since 2.1.1 */
 @SuppressWarnings("javadoc")
 public class SWRLTestCase extends TestBase {
     @Test

@@ -59,7 +59,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * them.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 16/02/2011 */
+ *         Informatics Group
+ * @since 3.2.3 */
 @SuppressWarnings("javadoc")
 public class ExistingOutputStreamTestCase extends TestBase {
     @Test

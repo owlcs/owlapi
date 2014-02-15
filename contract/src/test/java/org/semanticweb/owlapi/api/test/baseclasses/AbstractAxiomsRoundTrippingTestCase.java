@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-May-2009 */
+ *         Group
+ * @since 3.0.0 */
 public abstract class AbstractAxiomsRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

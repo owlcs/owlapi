@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.RemoveImport;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 31-Jul-2007 */
+ *         Group
+ * @since 2.1.0 */
 public class OWLImportsClosureTestCase extends TestBase {
     /** Tests to see if the method which obtains the imports closure behaves
      * correctly.

@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 20/09/2011 */
+ *         Group
+ * @since 3.3.0 */
 @Ignore
 public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
     private static final String DEFAULT_PREFIX = "http://owlapi.sourceforge.net/ontology/";
