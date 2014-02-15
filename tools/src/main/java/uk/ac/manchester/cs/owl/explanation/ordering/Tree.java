@@ -46,7 +46,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Jan-2008
+ *         Group
+ * @since 2.2.0
  * @param <N>
  *            the kind of elements in the tree */
 public interface Tree<N> {

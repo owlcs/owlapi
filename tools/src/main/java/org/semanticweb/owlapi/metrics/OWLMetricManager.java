@@ -48,7 +48,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+ *         Group
+ * @since 2.1.0 */
 public class OWLMetricManager {
     /** The metrics. */
     private final List<OWLMetric<?>> metrics;

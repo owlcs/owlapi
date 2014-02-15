@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 17-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class ImportClosureSize extends IntegerValuedMetric {
     /** Instantiates a new import closure size.
      * 

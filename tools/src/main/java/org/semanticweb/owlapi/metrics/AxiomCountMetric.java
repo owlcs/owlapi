@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-Dec-2007 */
+ *         Group
+ * @since 2.2.0 */
 public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
     /** Instantiates a new axiom count metric.
      * 

@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 24-Nov-2006 */
+ *         Group
+ * @since 2.0.0 */
 public interface OWLDebugger {
     /** Gets the oWL ontology.
      * 
@@ -79,8 +80,8 @@ public interface OWLDebugger {
      * @throws OWLException
      *             if there is any problem */
     @Nonnull
-    Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(@Nonnull OWLClassExpression cls)
-            throws OWLException;
+    Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(
+            @Nonnull OWLClassExpression cls) throws OWLException;
 
     /** dispose of resources locked such as reasoners. */
     void dispose();

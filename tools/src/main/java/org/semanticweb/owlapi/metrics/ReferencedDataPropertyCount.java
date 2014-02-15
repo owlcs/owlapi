@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
-public class ReferencedDataPropertyCount extends ObjectCountMetric<OWLDataProperty> {
+ *         Group
+ * @since 2.1.0 */
+public class ReferencedDataPropertyCount extends
+        ObjectCountMetric<OWLDataProperty> {
     /** Instantiates a new referenced data property count.
      * 
      * @param o

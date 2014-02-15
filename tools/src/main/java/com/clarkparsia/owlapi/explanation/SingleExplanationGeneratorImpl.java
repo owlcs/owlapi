@@ -75,7 +75,8 @@ public abstract class SingleExplanationGeneratorImpl implements
      * @param reasoner
      *            the reasoner */
     public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology,
-            @Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLReasoner reasoner) {
+            @Nonnull OWLReasonerFactory reasonerFactory,
+            @Nonnull OWLReasoner reasoner) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         this.reasonerFactory = checkNotNull(reasonerFactory,
                 "reasonerFactory cannot be null");

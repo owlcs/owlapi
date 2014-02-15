@@ -46,8 +46,10 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
-public class ReferencedIndividualCount extends ObjectCountMetric<OWLNamedIndividual> {
+ *         Group
+ * @since 2.1.0 */
+public class ReferencedIndividualCount extends
+        ObjectCountMetric<OWLNamedIndividual> {
     /** Instantiates a new referenced individual count.
      * 
      * @param o

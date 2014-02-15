@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class EntailedAxiomTree extends ExplanationTree {
     /** Instantiates a new entailed axiom tree.
      * 

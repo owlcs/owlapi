@@ -104,7 +104,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             @Nonnull OWLReasonerFactory reasonerFactory) {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
         try {
-            reasoner = checkNotNull(reasonerFactory, "reasonerFactory cannot be null")
+            reasoner = checkNotNull(reasonerFactory,
+                    "reasonerFactory cannot be null")
                     .createNonBufferingReasoner(man.createOntology());
         } catch (Exception e) {
             throw new OWLRuntimeException(e);
@@ -219,11 +220,13 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
          *            the desc
          * @return the oWL class expression */
         @Nonnull
-        public OWLClassExpression replaceBottom(@Nonnull OWLClassExpression desc) {
+        public OWLClassExpression
+                replaceBottom(@Nonnull OWLClassExpression desc) {
             newClassExpression = null;
             checkNotNull(desc, "desc cannot be null").accept(this);
             if (newClassExpression == null) {
-                throw new OWLRuntimeException("Unsupported class expression " + desc);
+                throw new OWLRuntimeException("Unsupported class expression "
+                        + desc);
             }
             return newClassExpression;
         }
@@ -321,15 +324,16 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom ax) {
-            Set<OWLClassExpression> eqclasses = replaceBottom(ax.getClassExpressions());
+            Set<OWLClassExpression> eqclasses = replaceBottom(ax
+                    .getClassExpressions());
             newAxiom = df.getOWLEquivalentClassesAxiom(eqclasses);
         }
 
         @Override
         public void visit(OWLObjectAllValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectAllValuesFrom(desc.getProperty(),
-                        replaceBottom(desc.getFiller()));
+                newClassExpression = df.getOWLObjectAllValuesFrom(
+                        desc.getProperty(), replaceBottom(desc.getFiller()));
             } else {
                 newClassExpression = df.getOWLThing();
             }
@@ -353,7 +357,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectIntersectionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
-            newClassExpression = df.getOWLObjectIntersectionOf(replaceBottom(operands));
+            newClassExpression = df
+                    .getOWLObjectIntersectionOf(replaceBottom(operands));
         }
 
         @Override
@@ -387,8 +392,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectSomeValuesFrom desc) {
             if (signature.contains(desc.getProperty().getNamedProperty())) {
-                newClassExpression = df.getOWLObjectSomeValuesFrom(desc.getProperty(),
-                        replaceBottom(desc.getFiller()));
+                newClassExpression = df.getOWLObjectSomeValuesFrom(
+                        desc.getProperty(), replaceBottom(desc.getFiller()));
             } else {
                 newClassExpression = df.getOWLNothing();
             }
@@ -397,7 +402,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
         @Override
         public void visit(OWLObjectUnionOf desc) {
             Set<OWLClassExpression> operands = desc.getOperands();
-            newClassExpression = df.getOWLObjectUnionOf(replaceBottom(operands));
+            newClassExpression = df
+                    .getOWLObjectUnionOf(replaceBottom(operands));
         }
 
         @Override
@@ -423,7 +429,8 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
                 checkNotNull(axiom, "axiom cannot be null"),
                 checkNotNull(signature, "signature cannot be null"));
         if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine("DONE Replacing axiom by Bottom. Success: " + (newAxiom != null));
+            LOGGER.fine("DONE Replacing axiom by Bottom. Success: "
+                    + (newAxiom != null));
         }
         return newAxiom != null && axiomVisitor.isLocal(newAxiom);
     }

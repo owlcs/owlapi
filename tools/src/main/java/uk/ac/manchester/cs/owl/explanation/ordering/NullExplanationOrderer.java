@@ -44,13 +44,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** An implementation of an explanation order, which doesn't really do any
  * ordering!.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 22-Jan-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class NullExplanationOrderer implements ExplanationOrderer {
     @Override
-    public ExplanationTree
-            getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
+            Set<OWLAxiom> axioms) {
         ExplanationTree root = new ExplanationTree(entailment);
         for (OWLAxiom ax : axioms) {
             root.addChild(new ExplanationTree(ax));

@@ -93,7 +93,8 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 30-Apr-2007 */
+ *         Group
+ * @since 2.0.0 */
 public class JustificationMap {
     /** The axioms. */
     private final Set<OWLAxiom> axioms;

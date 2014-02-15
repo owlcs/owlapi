@@ -57,7 +57,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * in a "hidden" GCI.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Aug-2007 */
+ *         Informatics Group
+ * @since 2.1.1 */
 public class HiddenGCICount extends IntegerValuedMetric {
     /** Instantiates a new hidden gci count.
      * 

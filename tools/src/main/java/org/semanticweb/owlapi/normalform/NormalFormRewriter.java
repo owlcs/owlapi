@@ -43,7 +43,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 24-Sep-2007 */
+ *         Group
+ * @since 2.2.0 */
 public interface NormalFormRewriter {
     /** Checks if is in normal form.
      * 
@@ -58,5 +59,6 @@ public interface NormalFormRewriter {
      *            the expression to convert
      * @return the converted expression */
     @Nonnull
-    OWLClassExpression convertToNormalForm(@Nonnull OWLClassExpression classExpression);
+    OWLClassExpression convertToNormalForm(
+            @Nonnull OWLClassExpression classExpression);
 }

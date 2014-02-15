@@ -52,9 +52,10 @@ import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** Orders an explanation in a flat list, sorting axioms alphabetically.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 22-Jan-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class AlphaExplanationOrderer implements ExplanationOrderer {
     /** The renderer. */
     protected final OWLObjectRenderer renderer;
@@ -68,8 +69,8 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
     }
 
     @Override
-    public ExplanationTree
-            getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
+            Set<OWLAxiom> axioms) {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {

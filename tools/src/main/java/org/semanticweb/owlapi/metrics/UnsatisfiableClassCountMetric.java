@@ -48,7 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 17-Jan-2008 */
+ *         Group
+ * @since 2.2.0 */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
     /** The reasoner. */
     private final OWLReasoner reasoner;

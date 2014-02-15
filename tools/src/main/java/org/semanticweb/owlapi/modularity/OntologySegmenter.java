@@ -51,7 +51,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 /** An interface for any class implementing ontology segmentation or
  * modularisation.
- *
+ * 
  * @author Thomas Schneider
  * @author School of Computer Science
  * @author University of Manchester */
@@ -92,8 +92,9 @@ public interface OntologySegmenter {
      *         and indirect super-/subclasses of any class in the signature are
      *         added. */
     @Nonnull
-    Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature, int superClassLevel,
-            int subClassLevel, @Nonnull OWLReasoner reasoner);
+    Set<OWLAxiom> extract(@Nonnull Set<OWLEntity> signature,
+            int superClassLevel, int subClassLevel,
+            @Nonnull OWLReasoner reasoner);
 
     /** Returns an ontology that is a segment of the ontology associated with
      * this segmenter.
@@ -106,8 +107,8 @@ public interface OntologySegmenter {
      * @throws OWLOntologyCreationException
      *             if the module cannot be created */
     @Nonnull
-    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri)
-            throws OWLOntologyCreationException;
+    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
+            @Nonnull IRI iri) throws OWLOntologyCreationException;
 
     /** Returns an ontology that is a segment of the ontology associated with
      * this segmenter. This segment is determined by a seed signature (set of
@@ -139,7 +140,7 @@ public interface OntologySegmenter {
      *             then all direct and indirect super-/subclasses of any class
      *             in the signature are added. */
     @Nonnull
-    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature, @Nonnull IRI iri,
-            int superClassLevel, int subClassLevel, @Nonnull OWLReasoner reasoner)
-            throws OWLOntologyCreationException;
+    OWLOntology extractAsOntology(@Nonnull Set<OWLEntity> signature,
+            @Nonnull IRI iri, int superClassLevel, int subClassLevel,
+            @Nonnull OWLReasoner reasoner) throws OWLOntologyCreationException;
 }

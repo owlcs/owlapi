@@ -61,7 +61,8 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
     @Override
     public void startRendering(Writer w) {
         checkNotNull(w, "w cannot be null");
-        writer = w instanceof PrintWriter ? (PrintWriter) w : new PrintWriter(w);
+        writer = w instanceof PrintWriter ? (PrintWriter) w
+                : new PrintWriter(w);
     }
 
     @Override

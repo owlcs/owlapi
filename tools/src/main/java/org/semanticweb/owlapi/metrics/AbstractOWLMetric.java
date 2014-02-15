@@ -53,7 +53,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007
+ *         Group
+ * @since 2.1.0
  * @param <M>
  *            the metric type */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,

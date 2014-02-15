@@ -53,7 +53,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Jan-2008
+ *         Group
+ * @since 2.2.0
  * @param <N>
  *            type of elements */
 public class MutableTree<N> implements Tree<N> {
@@ -184,7 +185,8 @@ public class MutableTree<N> implements Tree<N> {
      *            the tree
      * @param bin
      *            the bin */
-    private void getUserObjectClosure(@Nonnull Tree<N> tree, @Nonnull Set<N> bin) {
+    private void
+            getUserObjectClosure(@Nonnull Tree<N> tree, @Nonnull Set<N> bin) {
         bin.add(tree.getUserObject());
         for (Tree<N> child : tree.getChildren()) {
             getUserObjectClosure(child, bin);

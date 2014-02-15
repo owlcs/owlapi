@@ -106,7 +106,8 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  * heuristics.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Jan-2008 */
+ *         Informatics Group
+ * @since 2.2.0 */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The current explanation. */
     private Set<OWLAxiom> currentExplanation;

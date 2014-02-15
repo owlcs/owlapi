@@ -64,9 +64,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * multiple justification. This functionality relies on a concrete
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Nov-2006 */
+ *         Informatics Group
+ * @since 2.0.0 */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
     /** The owl ontology manager. */
     protected final OWLOntologyManager owlOntologyManager;
@@ -79,7 +80,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      *            the owl ontology manager
      * @param ontology
      *            the ontology */
-    protected AbstractOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
+    protected AbstractOWLDebugger(
+            @Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology) {
         this.owlOntologyManager = checkNotNull(owlOntologyManager,
                 "owlOntologyManager cannot be null");
@@ -92,12 +94,14 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         OWLOntology originalOntology = ontology;
         try {
             ontology = owlOntologyManager.createOntology(IRI.create(
-                    "http://debugger.semanticweb.org/", "ontolog" + System.nanoTime()));
+                    "http://debugger.semanticweb.org/",
+                    "ontolog" + System.nanoTime()));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
-        for (OWLOntology ont : owlOntologyManager.getImportsClosure(originalOntology)) {
+        for (OWLOntology ont : owlOntologyManager
+                .getImportsClosure(originalOntology)) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 changes.add(new AddAxiom(ontology, ax));
             }
@@ -119,8 +123,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
     @Override
-    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls)
-            throws OWLException {
+    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(
+            OWLClassExpression cls) throws OWLException {
         Set<OWLAxiom> firstMups = getSOSForIncosistentClass(cls);
         if (firstMups.isEmpty()) {
             return Collections.emptySet();
@@ -129,7 +133,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         allMups.add(firstMups);
         Set<Set<OWLAxiom>> satPaths = new HashSet<Set<OWLAxiom>>();
         Set<OWLAxiom> currentPathContents = new HashSet<OWLAxiom>();
-        constructHittingSetTree(firstMups, allMups, satPaths, currentPathContents);
+        constructHittingSetTree(firstMups, allMups, satPaths,
+                currentPathContents);
         return allMups;
     }
 
@@ -156,14 +161,15 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      * @throws OWLException
      *             if there is any problem */
     public void constructHittingSetTree(@Nonnull Set<OWLAxiom> mups,
-            @Nonnull Set<Set<OWLAxiom>> allMups, @Nonnull Set<Set<OWLAxiom>> satPaths,
+            @Nonnull Set<Set<OWLAxiom>> allMups,
+            @Nonnull Set<Set<OWLAxiom>> satPaths,
             @Nonnull Set<OWLAxiom> currentPathContents) throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
             // Remove the current axiom from the ontology
-            owlOntologyManager.applyChanges(Arrays
-                    .asList(new RemoveAxiom(ontology, axiom)));
+            owlOntologyManager.applyChanges(Arrays.asList(new RemoveAxiom(
+                    ontology, axiom)));
             currentPathContents.add(axiom);
             boolean earlyTermination = false;
             // Early path termination. If our path contents are the superset of
@@ -194,7 +200,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
             // Done with the axiom that was removed. Add it back in
-            owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(ontology, axiom)));
+            owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(
+                    ontology, axiom)));
         }
     }
     // /////////////////////////////////////////////////////////////////////////////////////////////////////

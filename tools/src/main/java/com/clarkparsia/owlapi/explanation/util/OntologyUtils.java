@@ -68,10 +68,11 @@ public class OntologyUtils {
      *         ontology that contains entailments which are being explained,
      *         otherwise {@code false} */
     @Nonnull
-    public static boolean containsUnreferencedEntity(@Nonnull OWLOntology ontology,
-            @Nonnull OWLClassExpression desc) {
+    public static boolean containsUnreferencedEntity(
+            @Nonnull OWLOntology ontology, @Nonnull OWLClassExpression desc) {
         checkNotNull(ontology, "ontology cannot be null");
-        for (OWLEntity entity : checkNotNull(desc, "desc cannot be null").getSignature()) {
+        for (OWLEntity entity : checkNotNull(desc, "desc cannot be null")
+                .getSignature()) {
             if (!ontology.containsEntityInSignature(entity)) {
                 if (entity instanceof OWLClass
                         && (((OWLClass) entity).isOWLThing() || ((OWLClass) entity)
@@ -96,11 +97,13 @@ public class OntologyUtils {
      * @return set of ontologies that have been affected */
     @Nonnull
     public static Set<OWLOntology> removeAxiom(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
+            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
         checkNotNull(axiom, "axiom cannot be null");
         checkNotNull(manager, "manager cannot be null");
-        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
+        for (OWLOntology ont : checkNotNull(ontologies,
+                "ontologies cannot be null")) {
             if (ont.getAxioms().contains(axiom)) {
                 modifiedOnts.add(ont);
                 manager.applyChange(new RemoveAxiom(ont, axiom));
@@ -119,10 +122,13 @@ public class OntologyUtils {
      *            the manager for the application */
     @Nonnull
     public static void addAxiom(@Nonnull OWLAxiom axiom,
-            @Nonnull Set<OWLOntology> ontologies, @Nonnull OWLOntologyManager manager) {
-        for (OWLOntology ont : checkNotNull(ontologies, "ontologies cannot be null")) {
+            @Nonnull Set<OWLOntology> ontologies,
+            @Nonnull OWLOntologyManager manager) {
+        for (OWLOntology ont : checkNotNull(ontologies,
+                "ontologies cannot be null")) {
             checkNotNull(manager, "manager cannot be null").applyChange(
-                    new AddAxiom(ont, checkNotNull(axiom, "axiom cannot be null")));
+                    new AddAxiom(ont, checkNotNull(axiom,
+                            "axiom cannot be null")));
         }
     }
 }

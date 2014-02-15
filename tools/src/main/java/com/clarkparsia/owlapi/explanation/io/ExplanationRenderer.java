@@ -57,7 +57,8 @@ public interface ExplanationRenderer {
      *             OWL troubles
      * @throws IOException
      *             IO troubles */
-    void startRendering(@Nonnull Writer writer) throws OWLException, IOException;
+    void startRendering(@Nonnull Writer writer) throws OWLException,
+            IOException;
 
     /** Render.
      * 
@@ -69,8 +70,9 @@ public interface ExplanationRenderer {
      *             OWL troubles
      * @throws IOException
      *             IO troubles */
-    void render(@Nonnull OWLAxiom axiom, @Nonnull Set<Set<OWLAxiom>> explanations)
-            throws OWLException, IOException;
+    void render(@Nonnull OWLAxiom axiom,
+            @Nonnull Set<Set<OWLAxiom>> explanations) throws OWLException,
+            IOException;
 
     /** end of rendering.
      * 

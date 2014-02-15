@@ -76,11 +76,11 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 
 /** A black box explanation. */
-public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implements
-        SingleExplanationGenerator {
+public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
+        implements SingleExplanationGenerator {
     /** The Constant LOGGER. */
-    private static final Logger LOGGER = Logger.getLogger(BlackBoxExplanation.class
-            .getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
     private OWLOntology debuggingOntology;
     /** The debugging axioms. */
@@ -121,7 +121,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
      * @param reasoner
      *            the reasoner */
     public BlackBoxExplanation(@Nonnull OWLOntology ontology,
-            @Nonnull OWLReasonerFactory reasonerFactory, @Nonnull OWLReasoner reasoner) {
+            @Nonnull OWLReasonerFactory reasonerFactory,
+            @Nonnull OWLReasoner reasoner) {
         super(ontology, reasonerFactory, reasoner);
         owlOntologyManager = ontology.getOWLOntologyManager();
     }
@@ -221,7 +222,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             // Keep track of the number of axioms that have been added
             for (OWLEntity curObj : ax.getSignature()) {
                 if (!objectsExpandedWithReferencingAxioms.contains(curObj)) {
-                    int added = expandWithReferencingAxioms(curObj, expansionLimit);
+                    int added = expandWithReferencingAxioms(curObj,
+                            expansionLimit);
                     axiomsAdded += added;
                     remainingSpace -= added;
                     if (remainingSpace == 0) {
@@ -249,7 +251,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         for (OWLOntology ont : getOntology().getImportsClosure()) {
             boolean referenceFound = false;
             if (obj instanceof OWLClass) {
-                referenceFound = expansionAxioms.addAll(ont.getAxioms((OWLClass) obj));
+                referenceFound = expansionAxioms.addAll(ont
+                        .getAxioms((OWLClass) obj));
             } else if (obj instanceof OWLObjectProperty) {
                 referenceFound = expansionAxioms.addAll(ont
                         .getAxioms((OWLObjectProperty) obj));
@@ -350,7 +353,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         }
         // Add any left over axioms
         axiomWindow.clear();
-        int remainingAxiomsCount = debuggingAxioms.size() % fastPruningWindowSize;
+        int remainingAxiomsCount = debuggingAxioms.size()
+                % fastPruningWindowSize;
         if (remainingAxiomsCount > 0) {
             int fragmentIndex = windowCount * fastPruningWindowSize;
             while (fragmentIndex < axioms.length) {
@@ -408,7 +412,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         createDebuggingOntology();
         OWLReasoner reasoner = getReasonerFactory().createNonBufferingReasoner(
                 debuggingOntology);
-        if (OntologyUtils.containsUnreferencedEntity(debuggingOntology, unsatClass)) {
+        if (OntologyUtils.containsUnreferencedEntity(debuggingOntology,
+                unsatClass)) {
             reasoner.dispose();
             return true;
         }
@@ -445,8 +450,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
      *            the unsat class
      * @throws OWLException
      *             the oWL exception */
-    private void expandUntilUnsatisfiable(@Nonnull OWLClassExpression unsatClass)
-            throws OWLException {
+    private void
+            expandUntilUnsatisfiable(@Nonnull OWLClassExpression unsatClass)
+                    throws OWLException {
         // Perform the initial expansion - this will cause
         // the debugging axioms set to be expanded to the
         // defining axioms for the class being debugged
@@ -454,7 +460,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
         if (!unsatClass.isAnonymous()) {
             expandWithDefiningAxioms((OWLClass) unsatClass, expansionLimit);
         } else {
-            OWLClass owlThing = owlOntologyManager.getOWLDataFactory().getOWLThing();
+            OWLClass owlThing = owlOntologyManager.getOWLDataFactory()
+                    .getOWLThing();
             OWLSubClassOfAxiom axiom = owlOntologyManager.getOWLDataFactory()
                     .getOWLSubClassOfAxiom(unsatClass, owlThing);
             debuggingAxioms.add(axiom);
@@ -497,7 +504,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
             if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
                 fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             }
-            log("    Initial fast pruning window size: %s", fastPruningWindowSize);
+            log("    Initial fast pruning window size: %s",
+                    fastPruningWindowSize);
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {
                 log("    Round: %s (axioms to prune: %s)", fastPruningCounter,
@@ -509,20 +517,25 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl implemen
                     fastPruningWindowSize = 1;
                 }
             }
-            log("... end of fast pruning. Axioms remaining: %s", debuggingAxioms.size());
-            log("Performed %s satisfiability tests during fast pruning", satTestCount);
+            log("... end of fast pruning. Axioms remaining: %s",
+                    debuggingAxioms.size());
+            log("Performed %s satisfiability tests during fast pruning",
+                    satTestCount);
         } else {
             fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             performFastPruning(unsatClass);
-            log("... end of fast pruning. Axioms remaining: %s", debuggingAxioms.size());
-            log("Performed %s satisfiability tests during fast pruning", satTestCount);
+            log("... end of fast pruning. Axioms remaining: %s",
+                    debuggingAxioms.size());
+            log("Performed %s satisfiability tests during fast pruning",
+                    satTestCount);
         }
         int totalSatTests = satTestCount;
         resetSatisfiabilityTestCounter();
         log("Slow pruning...");
         performSlowPruning(unsatClass);
         log("... end of slow pruning");
-        log("Performed %s satisfiability tests during slow pruning", satTestCount);
+        log("Performed %s satisfiability tests during slow pruning",
+                satTestCount);
         totalSatTests += satTestCount;
         log("Total number of satisfiability tests performed: %s", totalSatTests);
     }

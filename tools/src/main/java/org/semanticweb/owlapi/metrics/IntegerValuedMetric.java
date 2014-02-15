@@ -43,9 +43,10 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** An {@code OWLMetric} that returns an integer value.
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Jul-2007 */
+ *         Informatics Group
+ * @since 2.1.0 */
 public abstract class IntegerValuedMetric extends AbstractOWLMetric<Integer> {
     /** Instantiates a new integer valued metric.
      * 

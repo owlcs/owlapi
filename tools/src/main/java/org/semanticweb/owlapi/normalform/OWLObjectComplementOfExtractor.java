@@ -56,10 +56,12 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
 /** Extracts the parts of a class expression which are negated. For example, A
  * and not (B or C or not D) would extract {(B or C or notD), D}
- *
+ * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Oct-2007 */
-public class OWLObjectComplementOfExtractor extends OWLClassExpressionVisitorAdapter {
+ *         Informatics Group
+ * @since 2.2.0 */
+public class OWLObjectComplementOfExtractor extends
+        OWLClassExpressionVisitorAdapter {
     /** The result. */
     private final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
@@ -69,8 +71,8 @@ public class OWLObjectComplementOfExtractor extends OWLClassExpressionVisitorAda
      *            the class to look for
      * @return the complemented expressions */
     @Nonnull
-    public Set<OWLClassExpression>
-            getComplementedClassExpressions(OWLClassExpression desc) {
+    public Set<OWLClassExpression> getComplementedClassExpressions(
+            OWLClassExpression desc) {
         // XXX a stateless visitor would not need copies
         reset();
         desc.accept(this);

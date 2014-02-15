@@ -46,9 +46,10 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 /** A progress monitor for an explanation generator. The progress monitor should
  * be used with an {@code MultipleExpalanationGenerator}
- *
+ * 
  * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
- *         Group, Date: 26-Nov-2007 */
+ *         Group
+ * @since 2.2.0 */
 public interface ExplanationProgressMonitor {
     /** Determines if the process of generating explanations has been cancelled.
      * 
