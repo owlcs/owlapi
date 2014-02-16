@@ -17,12 +17,12 @@ import static org.mockito.Mockito.mock;
 import java.io.OutputStream;
 import java.io.Writer;
 
-import org.coode.owlapi.owlxml.renderer.OWLXMLObjectRenderer;
-import org.coode.owlapi.owlxml.renderer.OWLXMLRenderer;
-import org.coode.owlapi.owlxml.renderer.OWLXMLWriter;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLObjectRenderer;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLRenderer;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLWriter;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlRendererTest {

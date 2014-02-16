@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.Collections;
 import java.util.Set;
 
-import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -34,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;

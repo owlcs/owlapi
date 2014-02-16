@@ -20,12 +20,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
+import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -47,9 +49,6 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
-
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {

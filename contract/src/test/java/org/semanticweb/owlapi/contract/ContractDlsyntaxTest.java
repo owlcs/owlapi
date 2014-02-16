@@ -16,6 +16,10 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxHTMLOntologyStorer;
+import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxObjectRenderer;
+import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxOntologyStorer;
+import org.semanticweb.owlapi.dlsyntax.renderer.DLSyntaxOntologyStorerBase;
 import org.semanticweb.owlapi.formats.DLSyntaxHTMLOntologyFormat;
 import org.semanticweb.owlapi.formats.DLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
@@ -25,11 +29,6 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.ShortFormProvider;
-
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxHTMLOntologyStorer;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxObjectRenderer;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorer;
-import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorerBase;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {

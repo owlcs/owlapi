@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.coode.xml.IllegalElementNameException;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -26,6 +25,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group

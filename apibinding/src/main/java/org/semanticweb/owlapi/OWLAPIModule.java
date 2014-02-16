@@ -12,25 +12,29 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi;
 
-import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
-import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
-import org.coode.owlapi.latex.LatexOntologyStorer;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
-import org.coode.owlapi.oboformat.OBOFormatOWLAPIParser;
-import org.coode.owlapi.oboformat.OBOFormatStorer;
-import org.coode.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
-import org.coode.owlapi.owlxmlparser.OWLXMLParser;
-import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
-import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
-import org.coode.owlapi.turtle.TurtleOntologyStorer;
 import org.semanticweb.owlapi.annotations.OwlapiModule;
+import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
+import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxOntologyStorer;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
+import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxOntologyStorer;
+import org.semanticweb.owlapi.latex.renderer.LatexOntologyStorer;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxOntologyStorer;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
+import org.semanticweb.owlapi.oboformat.OBOFormatStorer;
+import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
+import org.semanticweb.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
+import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
+import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleOntologyStorer;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
@@ -38,15 +42,10 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParser;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
-
-import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParser;
-import de.uulm.ecs.ai.owlapi.krssrenderer.KRSS2OWLSyntaxOntologyStorer;
 
 /** OWLAPI module. Bindings can be overridden by subclassing this class, to allow
  * to replace part of the configuration without having to rewrite all of it. */

@@ -17,7 +17,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 
-import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -31,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /** @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")

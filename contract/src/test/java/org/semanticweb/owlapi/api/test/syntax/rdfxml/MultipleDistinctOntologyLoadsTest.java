@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.io.IOException;
 
-import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /** Tests the loading of a single ontology multiple times, using a different
  * ontologyIRI in the OWLOntologyID as that used in the actual ontology that is

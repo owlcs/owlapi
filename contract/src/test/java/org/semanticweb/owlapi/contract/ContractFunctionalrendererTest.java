@@ -19,10 +19,10 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Set;
 
-import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxOntologyStorer;
-import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
-import org.coode.owlapi.functionalrenderer.OWLObjectRenderer;
 import org.junit.Test;
+import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxOntologyStorer;
+import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
+import org.semanticweb.owlapi.functional.renderer.OWLObjectRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLAnnotation;

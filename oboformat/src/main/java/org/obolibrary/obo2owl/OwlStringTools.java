@@ -5,8 +5,8 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Set;
 
-import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
-import org.coode.owlapi.functionalrenderer.OWLFunctionalSyntaxRenderer;
+import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
+import org.semanticweb.owlapi.functional.renderer.OWLFunctionalSyntaxRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLRendererException;

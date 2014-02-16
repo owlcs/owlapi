@@ -65,8 +65,6 @@
 						<Bundle-SymbolicName>org.semanticweb.owl.owlapi</Bundle-SymbolicName>
 						<Export-Package>
 							com.clarkparsia.*,
-							de.uulm.*,
-							org.coode.*,
 							org.semanticweb.owlapi.*;-split-package:=merge-first,
 							org.semanticweb.owlapitools.*;-split-package:=merge-first,
 							uk.ac.manchester.*;-split-package:=merge-first,

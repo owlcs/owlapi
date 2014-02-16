@@ -19,9 +19,18 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Set;
 
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxFrameRenderer;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxObjectRenderer;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxOntologyStorer;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
+import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxRenderer;
+import org.semanticweb.owlapi.mansyntax.renderer.RendererEvent;
+import org.semanticweb.owlapi.mansyntax.renderer.RendererListener;
+import org.semanticweb.owlapi.mansyntax.renderer.RenderingDirector;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -39,16 +48,6 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
-
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxFrameRenderer;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOWLObjectRendererImpl;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxObjectRenderer;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxOntologyStorer;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxRenderer;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RendererEvent;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RendererListener;
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.RenderingDirector;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractMansyntaxrendererTest {

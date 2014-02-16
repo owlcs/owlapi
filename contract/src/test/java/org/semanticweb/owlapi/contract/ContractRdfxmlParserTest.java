@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.rdfxml.parser.*;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
@@ -51,6 +50,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.*;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 import org.xml.sax.SAXException;
 

@@ -21,16 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxClassExpressionParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxClassFrameParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxFramesParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxInlineAxiomParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyHeader;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer.Token;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
@@ -39,6 +29,17 @@ import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxClassExpressionParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxClassFrameParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxFramesParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxInlineAxiomParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxTokenizer.Token;
+import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -53,8 +54,6 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
-
-import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ParserException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractManchesterowlsyntaxTest {

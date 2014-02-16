@@ -19,12 +19,11 @@ import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.rdf.turtle.parser.ConsoleTripleHandler;
+import org.semanticweb.owlapi.rdf.turtle.parser.NullTripleHandler;
+import org.semanticweb.owlapi.rdf.turtle.parser.OWLRDFConsumerAdapter;
+import org.semanticweb.owlapi.rdf.turtle.parser.TripleHandler;
 import org.xml.sax.SAXException;
-
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ConsoleTripleHandler;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.NullTripleHandler;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.OWLRDFConsumerAdapter;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractTurtleParserTest {

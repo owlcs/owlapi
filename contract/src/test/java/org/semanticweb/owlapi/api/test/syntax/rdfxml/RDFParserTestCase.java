@@ -17,13 +17,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collections;
 
-import org.coode.owlapi.rdf.rdfxml.RDFXMLOntologyStorer;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;

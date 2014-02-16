@@ -18,10 +18,9 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Test;
-
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.ParseException;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
+import org.semanticweb.owlapi.rdf.turtle.parser.ParseException;
+import org.semanticweb.owlapi.rdf.turtle.parser.TripleHandler;
+import org.semanticweb.owlapi.rdf.turtle.parser.TurtleParser;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group

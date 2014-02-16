@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import org.coode.owlapi.owlxmlparser.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
@@ -43,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.owlxml.parser.*;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {

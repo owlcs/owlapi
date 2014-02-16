@@ -15,11 +15,6 @@ package org.semanticweb.owlapi.api.test;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-import org.coode.owl.krssparser.KRSSOWLParser;
-import org.coode.owlapi.functionalparser.OWLFunctionalSyntaxOWLParser;
-import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxOntologyParser;
-import org.coode.owlapi.owlxmlparser.OWLXMLParser;
-import org.coode.owlapi.rdfxml.parser.RDFXMLParser;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.change.AddAxiomData;
@@ -31,6 +26,10 @@ import org.semanticweb.owlapi.change.RemoveAxiomData;
 import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
+import org.semanticweb.owlapi.functional.parser.OWLFunctionalSyntaxOWLParser;
+import org.semanticweb.owlapi.krss1.parser.KRSSOWLParser;
+import org.semanticweb.owlapi.krss2.parser.KRSS2OWLParser;
+import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
 import org.semanticweb.owlapi.metrics.AverageAssertedNamedSuperclassCount;
 import org.semanticweb.owlapi.metrics.AxiomCount;
 import org.semanticweb.owlapi.metrics.HiddenGCICount;
@@ -45,10 +44,10 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
+import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
-
-import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleOntologyParser;
-import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OWLParser;
 
 @SuppressWarnings("javadoc")
 public class NamesTestCase {

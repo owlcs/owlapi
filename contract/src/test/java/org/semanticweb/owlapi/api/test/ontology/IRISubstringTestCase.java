@@ -17,12 +17,12 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.coode.xml.XMLWriterPreferences;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
