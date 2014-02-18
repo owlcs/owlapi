@@ -86,12 +86,9 @@ public class CoerceConstantsIntoDataPropertyRange extends
 
     /** The Class OWLConstantReplacer. */
     private class OWLConstantReplacer extends OWLObjectDuplicator {
-        /** The map. */
-        final Map<OWLDataPropertyExpression, OWLDatatype> map;
+        private final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
-        /** Instantiates a new oWL constant replacer.
-         * 
-         * @param dataFactory
+        /** @param dataFactory
          *            the data factory
          * @param m
          *            the m */
@@ -101,13 +98,6 @@ public class CoerceConstantsIntoDataPropertyRange extends
             map = m;
         }
 
-        /** Process.
-         * 
-         * @param prop
-         *            the prop
-         * @param oneOf
-         *            the one of
-         * @return the oWL data one of */
         private OWLDataOneOf process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLDataOneOf oneOf) {
             Set<OWLLiteral> vals = new HashSet<OWLLiteral>();
@@ -117,13 +107,6 @@ public class CoerceConstantsIntoDataPropertyRange extends
             return getDataFactory().getOWLDataOneOf(vals);
         }
 
-        /** Process.
-         * 
-         * @param prop
-         *            the prop
-         * @param con
-         *            the con
-         * @return the oWL literal */
         private OWLLiteral process(@Nonnull OWLDataPropertyExpression prop,
                 @Nonnull OWLLiteral con) {
             OWLDatatype dt = map.get(prop);

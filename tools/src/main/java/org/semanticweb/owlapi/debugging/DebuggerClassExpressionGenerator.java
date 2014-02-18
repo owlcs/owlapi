@@ -41,9 +41,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  *         Group
  * @since 2.0.0 */
 public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
-    /** The data factory. */
     private final OWLDataFactory dataFactory;
-    /** The desc. */
     private OWLClassExpression desc;
 
     /** Instantiates a new debugger class expression generator.

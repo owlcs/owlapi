@@ -33,9 +33,7 @@ import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
  *         Group
  * @since 2.2.0 */
 public class DefaultExplanationGenerator implements ExplanationGenerator {
-    /** The data factory. */
     private final OWLDataFactory dataFactory;
-    /** The gen. */
     private final MultipleExplanationGenerator gen;
 
     /** Instantiates a new default explanation generator.

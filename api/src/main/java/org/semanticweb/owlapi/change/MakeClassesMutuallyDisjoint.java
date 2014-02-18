@@ -64,14 +64,6 @@ public class MakeClassesMutuallyDisjoint extends
                 checkNotNull(targetOntology, "targetOntology cannot be null"));
     }
 
-    /** Generate changes.
-     * 
-     * @param classExpressions
-     *            the class expressions
-     * @param usePairwiseDisjointAxioms
-     *            the use pairwise disjoint axioms
-     * @param targetOntology
-     *            the target ontology */
     private void generateChanges(
             Set<? extends OWLClassExpression> classExpressions,
             boolean usePairwiseDisjointAxioms, OWLOntology targetOntology) {

@@ -293,15 +293,15 @@ public class AutoIRIMapper extends DefaultHandler implements
         return sb.toString();
     }
 
-    /** A simple interface which extracts an ontology URI from a set of element
+    /** A simple interface which extracts an ontology IRI from a set of element
      * attributes. */
     private interface OntologyRootElementHandler {
-        /** Gets the ontology URI.
+        /** Gets the ontology IRI.
          * 
          * @param attributes
          *            The attributes which will be examined for the ontology
-         *            URI.
-         * @return The ontology URI or {@code null} if no ontology URI could be
+         *            IRI.
+         * @return The ontology IRI or {@code null} if no ontology IRI could be
          *         found. */
         IRI handle(Attributes attributes);
     }

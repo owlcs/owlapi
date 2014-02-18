@@ -52,7 +52,6 @@ import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 /** A black box explanation. */
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         implements SingleExplanationGenerator {
-    /** The Constant LOGGER. */
     private static final Logger LOGGER = Logger
             .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
@@ -107,7 +106,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         getReasoner().dispose();
     }
 
-    /** Reset. */
     private void reset() {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
@@ -147,9 +145,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     // Expansion
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** Expand axioms.
-     * 
-     * @return the int */
     private int expandAxioms() {
         /*
          * We expand the axiom set using axioms that define entities that are
@@ -299,12 +294,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     // performed.
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** Perform fast pruning.
-     * 
-     * @param unsatClass
-     *            the unsat class
-     * @throws OWLException
-     *             the oWL exception */
     private void performFastPruning(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
@@ -344,12 +333,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         log("    - End of fast pruning");
     }
 
-    /** Perform slow pruning.
-     * 
-     * @param unsatClass
-     *            the unsat class
-     * @throws OWLException
-     *             the oWL exception */
     private void performSlowPruning(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
         // Simply remove axioms one at a time. If the class
@@ -370,7 +353,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     // Creation of debugging ontology and satisfiability testing
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** The sat test count. */
     private int satTestCount = 0;
 
     /** Tests the satisfiability of the test class. The ontology is recreated
@@ -397,10 +379,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         return sat;
     }
 
-    /** Creates the debugging ontology.
-     * 
-     * @throws OWLException
-     *             the oWL exception */
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
@@ -413,17 +391,10 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         owlOntologyManager.applyChanges(changes);
     }
 
-    /** Reset satisfiability test counter. */
     private void resetSatisfiabilityTestCounter() {
         satTestCount = 0;
     }
 
-    /** Expand until unsatisfiable.
-     * 
-     * @param unsatClass
-     *            the unsat class
-     * @throws OWLException
-     *             the oWL exception */
     private void
             expandUntilUnsatisfiable(@Nonnull OWLClassExpression unsatClass)
                     throws OWLException {
@@ -514,7 +485,6 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         log("Total number of satisfiability tests performed: %s", totalSatTests);
     }
 
-    /** Removes the declarations. */
     private void removeDeclarations() {
         OWLAxiomVisitor declarationRemover = new OWLAxiomVisitorAdapter() {
             @Override
@@ -534,38 +504,18 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         return "BlackBox";
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param objects
-     *            the objects */
     private static void log(String template, Object... objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param objects
-     *            the objects */
     private static void log(String template, int objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param object1
-     *            the object1
-     * @param object2
-     *            the object2 */
     private static void log(String template, int object1, int object2) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, object1, object2));

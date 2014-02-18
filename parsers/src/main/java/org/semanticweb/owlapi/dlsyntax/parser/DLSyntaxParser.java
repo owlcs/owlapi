@@ -2125,7 +2125,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     private DLSyntaxParserTokenManager token_source;
     private JavaCharStream jj_input_stream;
-    /** Current token. */
     private Token token;
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
@@ -2270,11 +2269,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_consume_token.
-     * 
-     * @param kind
-     *            the kind
-     * @return the token */
     private Token jj_consume_token(int kind) {
         Token oldToken;
         if ((oldToken = token).next != null) {
@@ -2313,11 +2307,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     /** The jj_ls. */
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
 
-    /** Jj_scan_token.
-     * 
-     * @param kind
-     *            the kind
-     * @return true, if successful */
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -2380,23 +2369,12 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return t;
     }
 
-    /** The jj_expentries. */
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    /** The jj_expentry. */
     private int[] jj_expentry;
-    /** The jj_kind. */
     private int jj_kind = -1;
-    /** The jj_lasttokens. */
     private int[] jj_lasttokens = new int[100];
-    /** The jj_endpos. */
     private int jj_endpos;
 
-    /** Jj_add_error_token.
-     * 
-     * @param kind
-     *            the kind
-     * @param pos
-     *            the pos */
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
             return;
@@ -2469,7 +2447,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     /** Disable tracing. */
     public void disable_tracing() {}
 
-    /** Jj_rescan_token. */
     private void jj_rescan_token() {
         jj_rescan = true;
         for (int i = 0; i < 50; i++) {
@@ -2639,12 +2616,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         jj_rescan = false;
     }
 
-    /** Jj_save.
-     * 
-     * @param index
-     *            the index
-     * @param xla
-     *            the xla */
     private void jj_save(int index, int xla) {
         JJCalls p = jj_2_rtns[index];
         while (p.gen > jj_gen) {
@@ -2661,13 +2632,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     /** The Class JJCalls. */
     static final class JJCalls {
-        /** The gen. */
         int gen;
-        /** The first. */
         Token first;
-        /** The arg. */
         int arg;
-        /** The next. */
         JJCalls next;
     }
 }

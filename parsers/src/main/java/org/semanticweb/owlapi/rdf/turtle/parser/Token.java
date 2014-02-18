@@ -16,8 +16,6 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 /* JavaCCOptions:TOKEN_EXTENDS=,KEEP_LINE_COL=null,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 /** Describes the input token stream. */
 public class Token implements java.io.Serializable {
-    /** The version identifier for this Serializable class. Increment only if the
-     * <i>serialized</i> form of the class changes. */
     private static final long serialVersionUID = 40000L;
     /** An integer that describes the kind of this token. This numbering system
      * is determined by JavaCCParser, and a table of these numbers is stored in

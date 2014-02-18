@@ -323,57 +323,36 @@ public class ManchesterOWLSyntaxEditorParser implements
         this.owlOntologyChecker = owlOntologyChecker;
     }
 
-    /** @param name
-     *            name
-     * @return true if object property */
     private boolean isObjectPropertyName(String name) {
         return objectPropertyNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLObjectProperty(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if annotation property */
     private boolean isAnnotationPropertyName(String name) {
         return annotationPropertyNames.contains(name)
                 || owlEntityChecker != null
                 && owlEntityChecker.getOWLAnnotationProperty(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if data property */
     private boolean isDataPropertyName(String name) {
         return dataPropertyNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLDataProperty(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if individual */
     private boolean isIndividualName(String name) {
         return individualNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLIndividual(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if datatype */
     private boolean isDatatypeName(String name) {
         return dataTypeNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLDatatype(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if SWRL builtin */
     private boolean isSWRLBuiltin(String name) {
         return ruleBuiltIns.containsKey(name);
     }
 
-    /** @param name
-     *            name
-     * @return class for name */
     private OWLClass getOWLClass(String name) {
         OWLClass cls = owlEntityChecker.getOWLClass(name);
         if (cls == null && classNames.contains(name)) {
@@ -382,9 +361,6 @@ public class ManchesterOWLSyntaxEditorParser implements
         return cls;
     }
 
-    /** @param name
-     *            name
-     * @return object property for name */
     private OWLObjectProperty getOWLObjectProperty(String name) {
         OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
@@ -445,9 +421,6 @@ public class ManchesterOWLSyntaxEditorParser implements
         return getToken().getToken();
     }
 
-    /** Tokenizer.
-     * 
-     * @return token */
     private String consumeToken() {
         String token = getToken().getToken();
         if (tokenIndex < tokens.size() - 1) {

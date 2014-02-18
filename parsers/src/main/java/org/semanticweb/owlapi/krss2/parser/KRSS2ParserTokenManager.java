@@ -2040,7 +2040,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         ReInitRounds();
     }
 
-    /** Re init rounds. */
     private void ReInitRounds() {
         int i;
         jjround = 0x80000001;

@@ -94,16 +94,6 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
                         "valuePartitionProperty cannot be null"));
     }
 
-    /** Generate changes.
-     * 
-     * @param targetOntology
-     *            the target ontology
-     * @param valuePartionClasses
-     *            the value partion classes
-     * @param valuePartitionClass
-     *            the value partition class
-     * @param valuePartitionProperty
-     *            the value partition property */
     private void generateChanges(OWLOntology targetOntology,
             Set<OWLClass> valuePartionClasses, OWLClass valuePartitionClass,
             OWLObjectProperty valuePartitionProperty) {

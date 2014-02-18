@@ -83,23 +83,14 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  *         Informatics Group
  * @since 2.2.0 */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
-    /** The current explanation. */
     private Set<OWLAxiom> currentExplanation;
-    /** The lhs2 axiom map. */
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
-    /** The entities by axiom rhs. */
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
-    /** The seed extractor. */
     private final SeedExtractor seedExtractor = new SeedExtractor();
-    /** The man. */
     private final OWLOntologyManager man;
-    /** The ont. */
     private OWLOntology ont;
-    /** The mapped axioms. */
     private final Map<OWLObject, Set<OWLAxiom>> mappedAxioms = new HashMap<OWLObject, Set<OWLAxiom>>();
-    /** The consumed axioms. */
     private final Set<OWLAxiom> consumedAxioms = new HashSet<OWLAxiom>();
-    /** The pass types. */
     private final Set<AxiomType<?>> passTypes = new HashSet<AxiomType<?>>();
 
     /** Instantiates a new explanation orderer impl.
@@ -114,7 +105,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         passTypes.add(AxiomType.DISJOINT_CLASSES);
     }
 
-    /** Reset. */
     private void reset() {
         lhs2AxiomMap.clear();
         entitiesByAxiomRHS.clear();
@@ -170,25 +160,14 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return targetAxioms;
     }
 
-    /** Gets the rHS entities sorted.
-     * 
-     * @param ax
-     *            the ax
-     * @return the rHS entities sorted */
-    private @Nonnull
-    List<OWLEntity> getRHSEntitiesSorted(@Nonnull OWLAxiom ax) {
+    @Nonnull
+    private List<OWLEntity> getRHSEntitiesSorted(@Nonnull OWLAxiom ax) {
         Collection<OWLEntity> entities = getRHSEntities(ax);
         List<OWLEntity> sortedEntities = new ArrayList<OWLEntity>(entities);
         Collections.sort(sortedEntities, propertiesFirstComparator);
         return sortedEntities;
     }
 
-    /** Insert children.
-     * 
-     * @param entity
-     *            the entity
-     * @param tree
-     *            the tree */
     private void insertChildren(@Nonnull OWLEntity entity,
             @Nonnull ExplanationTree tree) {
         Set<OWLAxiom> currentPath = new HashSet<OWLAxiom>(
@@ -226,19 +205,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The comparator. */
     private static Comparator<Tree<OWLAxiom>> comparator = new OWLAxiomTreeComparator();
 
-    /** Sort children axioms.
-     * 
-     * @param tree
-     *            the tree */
     private void sortChildrenAxioms(@Nonnull ExplanationTree tree) {
         tree.sortChildren(comparator);
     }
 
-    /** The randomstart. */
     private static AtomicLong randomstart = new AtomicLong(
             System.currentTimeMillis());
 
-    /** Builds the indices. */
     private void buildIndices() {
         reset();
         AxiomMapBuilder builder = new AxiomMapBuilder();
@@ -326,7 +299,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The Class TargetAxiomsComparator. */
     private static class TargetAxiomsComparator implements Comparator<OWLAxiom> {
-        /** The target axioms. */
         private final Set<OWLAxiom> targetAxioms;
 
         /** Instantiates a new target axioms comparator.
@@ -353,7 +325,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The Class PropertiesFirstComparator. */
     private static final class PropertiesFirstComparator implements
             Comparator<OWLObject> {
-        /** Instantiates a new properties first comparator. */
         public PropertiesFirstComparator() {}
 
         @Override
@@ -379,7 +350,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             Comparator<Tree<OWLAxiom>>, Serializable {
         private static final long serialVersionUID = 40000L;
 
-        /** Instantiates a new oWL axiom tree comparator. */
         public OWLAxiomTreeComparator() {}
 
         @Override
@@ -409,13 +379,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             return 1;
         }
 
-        /** Child diff.
-         * 
-         * @param o1
-         *            the o1
-         * @param o2
-         *            the o2
-         * @return the int */
         private int childDiff(Tree<OWLAxiom> o1, Tree<OWLAxiom> o2) {
             int childCount1 = o1.getChildCount();
             childCount1 = childCount1 > 0 ? 0 : 1;
@@ -428,17 +391,12 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The Class SeedExtractor. */
     private static class SeedExtractor extends OWLAxiomVisitorAdapter {
-        /** The source. */
         private OWLEntity source;
-        /** The target. */
         private OWLEntity target;
 
-        /** Instantiates a new seed extractor. */
         public SeedExtractor() {}
 
-        /** Gets the source.
-         * 
-         * @param axiom
+        /** @param axiom
          *            the axiom
          * @return the source */
         public OWLEntity getSource(@Nonnull OWLAxiom axiom) {
@@ -446,9 +404,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
             return source;
         }
 
-        /** Gets the target.
-         * 
-         * @param axiom
+        /** @param axiom
          *            the axiom
          * @return the target */
         public OWLEntity getTarget(@Nonnull OWLAxiom axiom) {
@@ -523,7 +479,6 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** A visitor that indexes axioms by their left and right hand sides. */
     private class AxiomMapBuilder extends OWLAxiomVisitorAdapter {
-        /** Instantiates a new axiom map builder. */
         public AxiomMapBuilder() {}
 
         @Override

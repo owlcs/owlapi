@@ -5798,16 +5798,12 @@ public class OWLFunctionalSyntaxParser implements
         throw generateParseException();
     }
 
-    /** The Class LookaheadSuccess. */
     static private final class LookaheadSuccess extends RuntimeException {
-        /** The Constant serialVersionUID. */
         private static final long serialVersionUID = 1L;
 
-        /** Instantiates a new lookahead success. */
         public LookaheadSuccess() {}
     }
 
-    /** The jj_ls. */
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
 
     private boolean jj_scan_token(int kind) {

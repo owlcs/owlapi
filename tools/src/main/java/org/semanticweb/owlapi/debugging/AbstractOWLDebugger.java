@@ -43,9 +43,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  *         Informatics Group
  * @since 2.0.0 */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
-    /** The owl ontology manager. */
     protected final OWLOntologyManager owlOntologyManager;
-    /** The ontology. */
     private OWLOntology ontology;
 
     /** Instantiates a new abstract owl debugger.
@@ -63,7 +61,6 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         mergeImportsClosure();
     }
 
-    /** Merge imports closure. */
     private void mergeImportsClosure() {
         OWLOntology originalOntology = ontology;
         try {
@@ -87,7 +84,7 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
      * 
      * @return the current class
      * @throws OWLException
-     *             the oWL exception */
+     *             the OWL exception */
     @Nonnull
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 

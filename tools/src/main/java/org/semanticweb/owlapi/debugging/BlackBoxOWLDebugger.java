@@ -55,42 +55,24 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  *         Informatics Group
  * @since 2.0.0 */
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
-    /** The Constant LOGGER. */
     private static final Logger LOGGER = Logger
             .getLogger(BlackBoxOWLDebugger.class.getName());
-    /** The current class. */
     private OWLClass currentClass;
-    /** The debugging ontology. */
     private OWLOntology debuggingOntology;
-    /** The debugging axioms. */
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
-    /** The objects expanded with defining axioms. */
     private final Set<OWLEntity> objectsExpandedWithDefiningAxioms = new HashSet<OWLEntity>();
-    /** The objects expanded with referencing axioms. */
     private final Set<OWLEntity> objectsExpandedWithReferencingAxioms = new HashSet<OWLEntity>();
-    /** The expanded with defining axioms. */
     private final Set<OWLAxiom> expandedWithDefiningAxioms = new HashSet<OWLAxiom>();
-    /** The expanded with referencing axioms. */
     private final Set<OWLAxiom> expandedWithReferencingAxioms = new HashSet<OWLAxiom>();
-    /** The reasoner factory. */
     private final OWLReasonerFactory reasonerFactory;
-    /** The temporary axioms. */
     private final Set<OWLAxiom> temporaryAxioms = new HashSet<OWLAxiom>();
-    /** The expanded axiom map. */
     private final Map<OWLAxiom, OWLAxiom> expandedAxiomMap = new HashMap<OWLAxiom, OWLAxiom>();
-    /** default expansion limit. */
-    public static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
-    /** The initial expansion limit. */
+    private static final int DEFAULT_INITIAL_EXPANSION_LIMIT = 50;
     private int initialExpansionLimit = DEFAULT_INITIAL_EXPANSION_LIMIT;
-    /** The expansion limit. */
     private int expansionLimit = initialExpansionLimit;
-    /** The expansion factor. */
     private double expansionFactor = 1.25;
-    /** The Constant DEFAULT_FAST_PRUNING_WINDOW_SIZE. */
     private static final int DEFAULT_FAST_PRUNING_WINDOW_SIZE = 10;
-    /** The fast pruning window size. */
     private int fastPruningWindowSize = 0;
-    /** The perform repeated fast pruning. */
     private boolean performRepeatedFastPruning = false;
 
     /** Instantiates a new black box owl debugger.
@@ -114,7 +96,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         reset();
     }
 
-    /** Reset. */
     private void reset() {
         currentClass = null;
         debuggingOntology = null;
@@ -181,11 +162,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // Expansion
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** Expand axioms.
-     * 
-     * @return the int
-     * @throws OWLException
-     *             the oWL exception */
     private int expandAxioms() throws OWLException {
         // We expand the axiom set using axioms that define entities that are
         // already
@@ -334,10 +310,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // performed.
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** Perform fast pruning.
-     * 
-     * @throws OWLException
-     *             the oWL exception */
     private void performFastPruning() throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
         Object[] axioms = debuggingAxioms.toArray();
@@ -376,10 +348,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         log("    - End of fast pruning");
     }
 
-    /** Perform slow pruning.
-     * 
-     * @throws OWLException
-     *             the oWL exception */
     private void performSlowPruning() throws OWLException {
         // Simply remove axioms one at a time. If the class
         // being debugged turns satisfiable then we know we have
@@ -399,7 +367,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // Creation of debugging ontology and satisfiability testing
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** The sat test count. */
     private int satTestCount = 0;
 
     /** Tests the satisfiability of the test class. The ontology is recreated
@@ -418,10 +385,6 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return sat;
     }
 
-    /** Creates the debugging ontology.
-     * 
-     * @throws OWLException
-     *             the oWL exception */
     private void createDebuggingOntology() throws OWLException {
         if (debuggingOntology != null) {
             owlOntologyManager.removeOntology(debuggingOntology);
@@ -447,53 +410,28 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         owlOntologyManager.applyChanges(changes);
     }
 
-    /** Reset satisfiability test counter. */
     private void resetSatisfiabilityTestCounter() {
         satTestCount = 0;
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param objects
-     *            the objects */
     private static void log(String template, Object... objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param objects
-     *            the objects */
     private static void log(String template, int objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param object1
-     *            the object1
-     * @param object2
-     *            the object2 */
     private static void log(String template, int object1, int object2) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, object1, object2));
         }
     }
 
-    /** Generate sos axioms.
-     * 
-     * @throws OWLException
-     *             the oWL exception */
     private void generateSOSAxioms() throws OWLException {
         // Perform the initial expansion - this will cause
         // the debugging axioms set to be expanded to the
@@ -561,12 +499,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         log("Total number of satisfiability tests performed: %s", totalSatTests);
     }
 
-    /** The Constant counter. */
     private static final AtomicLong counter = new AtomicLong(System.nanoTime());
 
-    /** Creates the iri.
-     * 
-     * @return the iri */
     private static IRI createIRI() {
         return IRI.create("http://debugging.blackbox#",
                 "A" + counter.incrementAndGet());

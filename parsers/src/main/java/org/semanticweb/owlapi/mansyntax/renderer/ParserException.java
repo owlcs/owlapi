@@ -306,10 +306,6 @@ public class ParserException extends OWLParserException {
         return lineNumber;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.io.OWLParserException#getColumnNumber()
-     */
     @Override
     public int getColumnNumber() {
         return columnNumber;
@@ -322,10 +318,6 @@ public class ParserException extends OWLParserException {
         return integerExpected;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see org.semanticweb.owlapi.io.OWLParserException#getMessage()
-     */
     @Override
     public String getMessage() {
         StringBuilder sb = new StringBuilder();

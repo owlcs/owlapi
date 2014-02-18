@@ -25,10 +25,9 @@ import org.semanticweb.owlapi.model.OWLOntology;
  *         Group
  * @since 2.1.0 */
 public class OWLMetricManager {
-    /** The metrics. */
     private final List<OWLMetric<?>> metrics;
 
-    /** Instantiates a new oWL metric manager.
+    /** Instantiates a new OWL metric manager.
      * 
      * @param metrics
      *            the metrics to use */
@@ -37,9 +36,7 @@ public class OWLMetricManager {
                 "metrics cannot be null"));
     }
 
-    /** Sets the ontology.
-     * 
-     * @param ontology
+    /** @param ontology
      *            the ontology to measure */
     public void setOntology(@Nonnull OWLOntology ontology) {
         for (OWLMetric<?> metric : metrics) {
@@ -47,9 +44,7 @@ public class OWLMetricManager {
         }
     }
 
-    /** Gets the metrics.
-     * 
-     * @return the metrics */
+    /** @return the metrics */
     @Nonnull
     public List<OWLMetric<?>> getMetrics() {
         return new ArrayList<OWLMetric<?>>(metrics);

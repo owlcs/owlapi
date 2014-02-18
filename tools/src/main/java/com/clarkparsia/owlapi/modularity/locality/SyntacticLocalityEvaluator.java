@@ -91,11 +91,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /** Syntactic locality evaluator. */
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
-    /** The locality cls. */
     protected final LocalityClass localityCls;
-    /** The axiom visitor. */
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
-    /** The Constant SUPPORTED_LOCALITY_CLASSES. */
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet
             .of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM,
                     LocalityClass.TOP_TOP);
@@ -160,15 +157,10 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
     }
 
     // TODO (TS): only visit logical axioms if possible
-    /** The Class AxiomLocalityVisitor. */
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
-        /** The bottom evaluator. */
         private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
-        /** The is local. */
         private boolean isLocal;
-        /** The signature. */
         private Collection<? extends OWLEntity> signature;
-        /** The top evaluator. */
         private final TopEquivalenceEvaluator topEvaluator = new TopEquivalenceEvaluator();
 
         /** Instantiates a new axiom locality visitor. */
@@ -843,13 +835,9 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * the provided locality class. */
     private static class BottomEquivalenceEvaluator implements
             OWLClassExpressionVisitor {
-        /** The is bottom equivalent. */
         private boolean isBottomEquivalent;
-        /** The locality cls. */
         private LocalityClass localityCls;
-        /** The signature. */
         private Collection<? extends OWLEntity> signature;
-        /** The top evaluator. */
         private TopEquivalenceEvaluator topEvaluator;
 
         /** Instantiates a new bottom equivalence evaluator. */
@@ -1212,23 +1200,14 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
      * provided locality class. */
     private static class TopEquivalenceEvaluator implements
             OWLClassExpressionVisitor {
-        /** The bottom evaluator. */
         private BottomEquivalenceEvaluator bottomEvaluator;
-        /** The is top equivalent. */
         private boolean isTopEquivalent;
-        /** The locality cls. */
         private LocalityClass localityCls;
-        /** The signature. */
         private Collection<? extends OWLEntity> signature;
 
         /** Instantiates a new top equivalence evaluator. */
         public TopEquivalenceEvaluator() {}
 
-        /** Checks if is top equivalent.
-         * 
-         * @param desc
-         *            the desc
-         * @return true, if is top equivalent */
         private boolean isTopEquivalent(@Nonnull OWLClassExpression desc) {
             checkNotNull(desc, "desc cannot be null").accept(this);
             return isTopEquivalent;

@@ -71,11 +71,11 @@ public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
     /** The target ontology. */
     private final OWLOntology targetOntology;
-    /** The cls. */
+    /** The OWL class. */
     private final OWLClass cls;
     /** The ontologies. */
     private final Set<OWLOntology> ontologies;
-    /** The split intersections. */
+    /** true if intersections should be split. */
     private final boolean splitIntersections;
 
     /** Instantiates a new convert equivalent classes to super classes.
@@ -103,7 +103,6 @@ public class ConvertEquivalentClassesToSuperClasses extends
         generateChanges();
     }
 
-    /** Generate changes. */
     private void generateChanges() {
         Set<OWLClassExpression> supers = new HashSet<OWLClassExpression>();
         for (OWLOntology o : ontologies) {
@@ -122,11 +121,6 @@ public class ConvertEquivalentClassesToSuperClasses extends
         }
     }
 
-    /** Gets the class expressions.
-     * 
-     * @param desc
-     *            the desc
-     * @return the class expressions */
     @Nonnull
     private Set<OWLClassExpression> getClassExpressions(
             @Nonnull OWLClassExpression desc) {

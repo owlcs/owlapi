@@ -22,9 +22,7 @@ import org.semanticweb.owlapi.util.NNF;
  *         Group
  * @since 2.2.0 */
 public class NegationalNormalFormConverter implements NormalFormRewriter {
-    /** The nnf. */
     private final NNF nnf;
-    /** The extractor. */
     private final OWLObjectComplementOfExtractor extractor = new OWLObjectComplementOfExtractor();
 
     /** Instantiates a new negational normal form converter.

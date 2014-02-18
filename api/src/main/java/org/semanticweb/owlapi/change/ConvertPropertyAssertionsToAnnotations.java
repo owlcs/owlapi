@@ -71,7 +71,6 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * @since 2.1.0 */
 public class ConvertPropertyAssertionsToAnnotations extends
         AbstractCompositeOntologyChange {
-    /** The ontologies. */
     private final Set<OWLOntology> ontologies;
 
     /** Instantiates a new convert property assertions to annotations.
@@ -107,7 +106,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
         return punned;
     }
 
-    /** Generate changes. */
     private void generateChanges() {
         Collection<OWLNamedIndividual> individuals = getPunnedIndividuals(collectIndividuals());
         Set<OWLDataProperty> convertedDataProperties = new HashSet<OWLDataProperty>();
@@ -120,10 +118,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /** Removes the declarations and axioms.
-     * 
-     * @param prop
-     *            the prop */
     private void removeDeclarationsAndAxioms(@Nonnull OWLDataProperty prop) {
         for (OWLOntology ont : ontologies) {
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
@@ -135,10 +129,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /** Removes the declarations and class assertions.
-     * 
-     * @param ind
-     *            the ind */
     private void removeDeclarationsAndClassAssertions(
             @Nonnull OWLNamedIndividual ind) {
         for (OWLOntology ont : ontologies) {
@@ -151,12 +141,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /** Convert data assertions to annotations.
-     * 
-     * @param convertedDataProperties
-     *            the converted data properties
-     * @param ind
-     *            the ind */
     private void
             convertDataAssertionsToAnnotations(
                     Set<OWLDataProperty> convertedDataProperties,
@@ -174,13 +158,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
         }
     }
 
-    /** Convert to annotation.
-     * 
-     * @param ind
-     *            the ind
-     * @param ax
-     *            the ax
-     * @return the oWL annotation assertion axiom */
     @Nonnull
     private OWLAnnotationAssertionAxiom convertToAnnotation(
             @Nonnull OWLNamedIndividual ind,
@@ -194,9 +171,6 @@ public class ConvertPropertyAssertionsToAnnotations extends
         return annoAx;
     }
 
-    /** Collect individuals.
-     * 
-     * @return the sets the */
     @Nonnull
     private Set<OWLNamedIndividual> collectIndividuals() {
         Set<OWLNamedIndividual> individuals = new HashSet<OWLNamedIndividual>();

@@ -239,11 +239,6 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         this(man, ont, asAxiomSet(ont), moduleType);
     }
 
-    /** As axiom set.
-     * 
-     * @param ont
-     *            the ont
-     * @return the sets the */
     private static Set<OWLAxiom> asAxiomSet(OWLOntology ont) {
         Set<OWLAxiom> axs = new HashSet<OWLAxiom>(ont.getAxioms());
         for (OWLOntology importedOnt : ont.getImportsClosure()) {

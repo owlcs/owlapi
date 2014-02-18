@@ -282,7 +282,7 @@ public class XMLUtils {
      * @return {@code true} if the character sequence is {@code null},
      *         {@code true} if the character sequence is empty, otherwise
      *         {@code false}. */
-    private static boolean isNullOrEmpty(CharSequence s) {
+    public static boolean isNullOrEmpty(CharSequence s) {
         return s == null || s.length() == 0;
     }
 }

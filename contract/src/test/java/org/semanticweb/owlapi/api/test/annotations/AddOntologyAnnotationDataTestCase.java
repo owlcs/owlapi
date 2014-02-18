@@ -30,10 +30,6 @@ public class AddOntologyAnnotationDataTestCase {
     private OWLAnnotation mockAnnotation;
     private OWLOntology mockOntology;
 
-    /** Creates AddOntologyAnnotationData with the value of the
-     * {@code mockAnnotation} field as a parameter.
-     * 
-     * @return The freshly created AddOntologyAnnotationData */
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);
     }

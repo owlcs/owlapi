@@ -34,7 +34,7 @@ public class ParseException extends OWLParserException {
      * @param expectedTokenSequencesVal
      *            expected token sequences
      * @param tokenImageVal
-     *             token image val */
+     *            token image val */
     public ParseException(Token currentTokenVal,
             int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,
@@ -75,18 +75,6 @@ public class ParseException extends OWLParserException {
      * generated ...Constants interface. */
     public String[] tokenImage;
 
-    /** It uses "currentToken" and "expectedTokenSequences" to generate a parse
-     * error message and returns it. If this object has been created due to a
-     * parse error, and you do not catch it (it gets thrown from the parser) the
-     * correct error message gets displayed.
-     * 
-     * @param currentToken
-     *            the current token
-     * @param expectedTokenSequences
-     *            expected token sequences
-     * @param tokenImage
-     *            token image
-     * @return error message */
     private static String initialise(Token currentToken,
             int[][] expectedTokenSequences, String[] tokenImage) {
         String eol = System.getProperty("line.separator", "\n");

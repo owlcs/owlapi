@@ -60,10 +60,6 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         writer.println();
     }
 
-    /** Render multiple explanations.
-     * 
-     * @param explanations
-     *            the explanations */
     private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
         int count = 1;
         for (Set<OWLAxiom> exp : explanations) {
@@ -72,12 +68,6 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
-    /** Render single explanation.
-     * 
-     * @param header
-     *            the header
-     * @param axioms
-     *            the axioms */
     private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) {
         boolean first = true;
         for (OWLAxiom axiom : axioms) {

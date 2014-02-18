@@ -84,18 +84,6 @@ public class ShortForm2AnnotationGenerator extends
                 null);
     }
 
-    /** Generate changes.
-     * 
-     * @param ontologyManager
-     *            the ontology manager
-     * @param ontology
-     *            the ontology
-     * @param shortFormProvider
-     *            the short form provider
-     * @param annotationIRI
-     *            the annotation iri
-     * @param languageTag
-     *            the language tag */
     private void generateChanges(OWLOntologyManager ontologyManager,
             OWLOntology ontology, ShortFormProvider shortFormProvider,
             IRI annotationIRI, String languageTag) {

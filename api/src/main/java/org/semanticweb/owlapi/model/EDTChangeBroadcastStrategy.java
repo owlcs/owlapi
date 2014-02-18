@@ -51,8 +51,8 @@ public class EDTChangeBroadcastStrategy implements
         }
     }
 
-    /** bit of a roundabout way to wrap an exception as a runtime exception, for
-     * unwrapping later on */
+    /** XXX bit of a roundabout way to wrap an exception as a runtime exception,
+     * for unwrapping later on */
     private static class BroadcastException extends RuntimeException {
         private static final long serialVersionUID = 40000L;
 

@@ -44,12 +44,9 @@ import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 
 /** HST explanation generator. */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
-    /** The Constant LOGGER. */
     private static final Logger LOGGER = Logger
             .getLogger(HSTExplanationGenerator.class.getName());
-    /** The single explanation generator. */
     private final TransactionAwareSingleExpGen singleExplanationGenerator;
-    /** The progress monitor. */
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
     /** Instantiates a new hST explanation generator.
@@ -206,24 +203,12 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return toReturn;
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param objects
-     *            the objects */
     private static void log(String template, Object... objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
         }
     }
 
-    /** Log.
-     * 
-     * @param template
-     *            the template
-     * @param objects
-     *            the objects */
     private static void log(String template, int objects) {
         if (LOGGER.isLoggable(Level.FINE)) {
             LOGGER.fine(String.format(template, objects));
@@ -372,16 +357,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return orderedMups;
     }
 
-    /** Backtrack.
-     * 
-     * @param currentPathContents
-     *            the current path contents
-     * @param axiom
-     *            the axiom
-     * @param temporaryDeclarations
-     *            the temporary declarations
-     * @param ontologies
-     *            the ontologies */
     private void backtrack(@Nonnull Set<OWLAxiom> currentPathContents,
             @Nonnull OWLAxiom axiom,
             @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations,
@@ -450,12 +425,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return ontologies;
     }
 
-    /** Collect temporary declarations.
-     * 
-     * @param axiom
-     *            the axiom
-     * @param temporaryDeclarations
-     *            the temporary declarations */
     private void collectTemporaryDeclarations(@Nonnull OWLAxiom axiom,
             @Nonnull List<OWLDeclarationAxiom> temporaryDeclarations) {
         for (OWLEntity e : getSignature(axiom)) {

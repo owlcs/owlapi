@@ -30,10 +30,6 @@ public class RemoveOntologyAnnotationDataTestCase {
     private OWLAnnotation mockAnnotation;
     private OWLOntology mockOntology;
 
-    /** Creates RemoveOntologyAnnotationData with the value of the
-     * {@code mockAnnotation} field as a parameter.
-     * 
-     * @return The freshly created RemoveOntologyAnnotationData */
     private RemoveOntologyAnnotationData createData() {
         return new RemoveOntologyAnnotationData(mockAnnotation);
     }

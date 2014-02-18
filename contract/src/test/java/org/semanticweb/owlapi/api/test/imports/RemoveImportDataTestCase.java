@@ -30,10 +30,6 @@ public class RemoveImportDataTestCase {
     private OWLImportsDeclaration mockDeclaration;
     private OWLOntology mockOntology;
 
-    /** Creates RemoveImportData with the value of the {@code mockDeclaration}
-     * field as a parameter.
-     * 
-     * @return The freshly created RemoveImportData */
     private RemoveImportData createData() {
         return new RemoveImportData(mockDeclaration);
     }

@@ -45,23 +45,23 @@ public class ManchesterParseErrorTestCase extends TestBase {
     }
 
     private OWLClassExpression parse(String text) {
-        StupidEntityChecker checker = new StupidEntityChecker(df);
+        MockEntityChecker checker = new MockEntityChecker(df);
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 df, text);
         parser.setOWLEntityChecker(checker);
         return parser.parseClassExpression();
     }
 
-    /** A very stupid entity checker that only understands that "p" is a property
+    /** A very simple entity checker that only understands that "p" is a property
      * and rdfs:Literal is a datatype. He is an extreme simplification of the
      * entity checker that runs when Protege is set to render entities as
      * qnames.
      * 
      * @author tredmond */
-    private static class StupidEntityChecker implements OWLEntityChecker {
+    private static class MockEntityChecker implements OWLEntityChecker {
         private final OWLDataFactory factory;
 
-        public StupidEntityChecker(OWLDataFactory factory) {
+        public MockEntityChecker(OWLDataFactory factory) {
             this.factory = factory;
         }
 

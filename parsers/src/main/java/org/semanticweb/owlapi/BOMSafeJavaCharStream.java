@@ -366,16 +366,6 @@ public class BOMSafeJavaCharStream {
         this(dstream, startline, startcolumn, 4096);
     }
 
-    /** Reinitialise.
-     * 
-     * @param dstream
-     *            stream
-     * @param startline
-     *            start line
-     * @param startcolumn
-     *            start column
-     * @param buffersize
-     *            buffer size */
     private void ReInit(Reader dstream, int startline, int startcolumn,
             int buffersize) {
         inputStream = dstream;
@@ -440,20 +430,6 @@ public class BOMSafeJavaCharStream {
         this(dstream, encoding, startline, startcolumn, 4096);
     }
 
-    /** Reinitialise.
-     * 
-     * @param dstream
-     *            stream
-     * @param encoding
-     *            encoding
-     * @param startline
-     *            start line
-     * @param startcolumn
-     *            start column
-     * @param buffersize
-     *            buffer size
-     * @throws UnsupportedEncodingException
-     *             if encoding unsupported */
     private void ReInit(InputStream dstream, String encoding, int startline,
             int startcolumn, int buffersize)
             throws UnsupportedEncodingException {

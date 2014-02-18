@@ -40,10 +40,6 @@ public class SetOntologyIDDataTestCase {
         mockOntologyID = new OWLOntologyID();
     }
 
-    /** Creates SetOntologyIDData with the value of the {@code mockDeclaration}
-     * field as a parameter.
-     * 
-     * @return The freshly created SetOntologyIDData */
     private SetOntologyIDData createData() {
         return new SetOntologyIDData(mockOntologyID);
     }

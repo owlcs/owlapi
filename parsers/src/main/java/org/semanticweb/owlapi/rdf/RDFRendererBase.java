@@ -206,10 +206,6 @@ public abstract class RDFRendererBase {
         endDocument();
     }
 
-    /** Rendering implementation
-     * 
-     * @throws IOException
-     *             io exception */
     private void renderOntologyComponents() throws IOException {
         renderInOntologySignatureEntities();
         renderAnonymousIndividuals();

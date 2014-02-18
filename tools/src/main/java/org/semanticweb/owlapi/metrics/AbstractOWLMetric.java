@@ -33,13 +33,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *            the metric type */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         OWLOntologyChangeListener {
-    /** The ontology. */
     private OWLOntology ontology;
-    /** The dirty. */
     private boolean dirty;
-    /** The imports closure used. */
     private boolean importsClosureUsed;
-    /** The value. */
     private M value;
 
     /** Instantiates a new abstract owl metric.
@@ -80,10 +76,6 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         return value;
     }
 
-    /** Sets the dirty.
-     * 
-     * @param dirty
-     *            the new dirty */
     private void setDirty(boolean dirty) {
         this.dirty = dirty;
     }

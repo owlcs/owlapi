@@ -36,7 +36,6 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * @since 2.2.0 */
 public class OWLObjectComplementOfExtractor extends
         OWLClassExpressionVisitorAdapter {
-    /** The result. */
     private final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 
     /** Gets the complemented class expressions.

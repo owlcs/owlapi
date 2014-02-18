@@ -49,7 +49,6 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     private NameResolverStrategy nameResolution;
     // all fields for the adaptive strategy
     private int adaptiveMaxRuns = 10;
-    /** The always ir is. */
     private boolean alwaysIRIs = false;
     private boolean alwaysNames = false;
 

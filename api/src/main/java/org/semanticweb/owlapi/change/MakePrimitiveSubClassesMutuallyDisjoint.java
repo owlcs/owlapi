@@ -76,14 +76,6 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
                 usePairwiseDisjointAxioms);
     }
 
-    /** Generate changes.
-     * 
-     * @param cls
-     *            the cls
-     * @param targetOntology
-     *            the target ontology
-     * @param usePairwiseDisjointAxioms
-     *            the use pairwise disjoint axioms */
     private void generateChanges(OWLClass cls, OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         Set<OWLClass> subclasses = new HashSet<OWLClass>();

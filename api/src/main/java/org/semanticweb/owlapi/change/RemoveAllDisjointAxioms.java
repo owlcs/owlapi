@@ -43,10 +43,6 @@ public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
         generateChanges(checkNotNull(ontologies, "ontologies cannot be null"));
     }
 
-    /** Generate changes.
-     * 
-     * @param ontologies
-     *            the ontologies */
     private void generateChanges(Set<OWLOntology> ontologies) {
         for (OWLOntology ont : ontologies) {
             for (OWLClassAxiom ax : ont.getAxioms(AxiomType.DISJOINT_CLASSES)) {
