@@ -18,7 +18,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -69,15 +68,9 @@ public class RDFXMLParser extends AbstractOWLParser {
                     super.startElement(namespaceIRI, localName, qName, atts);
                 }
             };
-            IRIProvider prov = new IRIProvider() {
-                @Override
-                public IRI getIRI(String s) {
-                    return parser.getIRI(s);
-                }
-            };
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
                     configuration);
-            consumer.setIRIProvider(prov);
+            consumer.setIRIProvider(parser);
             consumer.setOntologyFormat(format);
             is = getInputSource(documentSource, configuration);
             parser.parse(is, consumer);
