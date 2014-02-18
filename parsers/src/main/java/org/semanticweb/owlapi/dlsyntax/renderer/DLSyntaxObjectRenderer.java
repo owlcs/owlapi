@@ -315,7 +315,6 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
                 }
             }
         }
-        // write(axiom.getClassExpressions(), DISJOINT_WITH, true);
     }
 
     private void writeDomainAxiom(@Nonnull OWLPropertyDomainAxiom<?> axiom) {
@@ -603,10 +602,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(restriction.getCardinality());
         writeSpace();
         restriction.getProperty().accept(this);
-        // if (restriction.isQualified()) {
         writeRestrictionSeparator();
         writeNested(restriction.getFiller());
-        // }
     }
 
     private void writeCardinalityRestriction(
@@ -616,10 +613,8 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         write(restriction.getCardinality());
         writeSpace();
         restriction.getProperty().accept(this);
-        // if (restriction.isQualified()) {
         writeRestrictionSeparator();
         writeNested(restriction.getFiller());
-        // }
     }
 
     private void writeQuantifiedRestriction(

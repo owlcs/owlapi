@@ -22,30 +22,18 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
-     * 
-     * @param ds
-     *            the new debug stream */
+    /** @param ds
+     *            debug stream */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
-    /** Jj stop at pos.
-     * 
-     * @param pos
-     *            the pos
-     * @param kind
-     *            the kind
-     * @return the int */
     private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
 
-    /** Jj move string literal dfa0_0.
-     * 
-     * @return the int */
     private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 9:
@@ -131,13 +119,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Jj move string literal dfa1_0.
-     * 
-     * @param active0
-     *            the active0
-     * @param active1
-     *            the active1
-     * @return the int */
     private int jjMoveStringLiteralDfa1_0(long active0, long active1) {
         try {
             curChar = input_stream.readChar();
@@ -1930,9 +1911,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         return toRet;
     }
 
-    /** Jj move string literal dfa0_2.
-     * 
-     * @return the int */
     private int jjMoveStringLiteralDfa0_2() {
         switch (curChar) {
             case 62:
@@ -1942,9 +1920,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Jj move string literal dfa0_1.
-     * 
-     * @return the int */
     private int jjMoveStringLiteralDfa0_1() {
         switch (curChar) {
             case 10:
@@ -1954,22 +1929,8 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** The Constant jjnextStates. */
     static final int[] jjnextStates = { 36, 43, 49, 21, 31, };
 
-    /** Jj can move_0.
-     * 
-     * @param hiByte
-     *            the hi byte
-     * @param i1
-     *            the i1
-     * @param i2
-     *            the i2
-     * @param l1
-     *            the l1
-     * @param l2
-     *            the l2
-     * @return true, if successful */
     private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
             long l1, long l2) {
         switch (hiByte) {
@@ -1993,19 +1954,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Jj can move_1.
-     * 
-     * @param hiByte
-     *            the hi byte
-     * @param i1
-     *            the i1
-     * @param i2
-     *            the i2
-     * @param l1
-     *            the l1
-     * @param l2
-     *            the l2
-     * @return true, if successful */
     private static final boolean jjCanMove_1(int hiByte, int i1, int i2,
             long l1, long l2) {
         switch (hiByte) {
@@ -2053,24 +2001,16 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, };
-    /** The Constant jjtoToken. */
     static final long[] jjtoToken = { 0xffffffffffffd001L, 0x3fL, };
-    /** The Constant jjtoSkip. */
     static final long[] jjtoSkip = { 0x2feL, 0x0L, };
-    /** The Constant jjtoMore. */
     static final long[] jjtoMore = { 0x2d00L, 0x0L, };
     /** The input_stream. */
     protected BOMSafeJavaCharStream input_stream;
-    /** The jjrounds. */
     private final int[] jjrounds = new int[51];
-    /** The jjstate set. */
     private final int[] jjstateSet = new int[102];
-    /** The cur char. */
     protected char curChar;
 
-    /** Constructor.
-     * 
-     * @param stream
+    /** @param stream
      *            the stream */
     public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
@@ -2080,9 +2020,7 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         input_stream = stream;
     }
 
-    /** Constructor.
-     * 
-     * @param stream
+    /** @param stream
      *            the stream
      * @param lexState
      *            the lex state */
@@ -2136,9 +2074,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Jj fill token.
-     * 
-     * @return the token */
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -2164,13 +2099,9 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     int curLexState = 0;
     /** The default lex state. */
     int defaultLexState = 0;
-    /** The jjnew state cnt. */
     int jjnewStateCnt;
-    /** The jjround. */
     int jjround;
-    /** The jjmatched pos. */
     int jjmatchedPos;
-    /** The jjmatched kind. */
     int jjmatchedKind;
 
     /** Get the next Token.
@@ -2270,10 +2201,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Jj check n add.
-     * 
-     * @param state
-     *            the state */
     private void jjCheckNAdd(int state) {
         if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
@@ -2288,12 +2215,6 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         } while (start++ != end);
     }
 
-    /** Jj check n add two states.
-     * 
-     * @param state1
-     *            the state1
-     * @param state2
-     *            the state2 */
     private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);

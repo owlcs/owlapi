@@ -25,7 +25,7 @@ public enum KRSS2Vocabulary {
     /** DEFINE_CONCEPT */       DEFINE_CONCEPT("define-concept"),
     /** DEFINE_INDIVIDUAL */        DEFINE_INDIVIDUAL("define-individual"),
     /** DEFINE_PRIMITIVE_CONCEPT */ DEFINE_PRIMITIVE_CONCEPT("define-primitive-concept"),
-    /** DEFINE_PRIMITIVE_ROLE */DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
+    /** DEFINE_PRIMITIVE_ROLE */    DEFINE_PRIMITIVE_ROLE("define-primitive-role"),
     /** DEFINE_ROLE */          DEFINE_ROLE("define-role"),
     /** DISJOINT */             DISJOINT("disjoint"),
     /** DISJOINT_ROLES */       DISJOINT_ROLES("disjoint-roles"),

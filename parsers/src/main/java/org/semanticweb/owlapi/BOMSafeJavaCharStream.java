@@ -336,9 +336,7 @@ public class BOMSafeJavaCharStream {
         }
     }
 
-    /** Constructor.
-     * 
-     * @param dstream
+    /** @param dstream
      *            stream
      * @param startline
      *            start line
@@ -358,9 +356,7 @@ public class BOMSafeJavaCharStream {
         nextCharBuf = new char[4096];
     }
 
-    /** Constructor.
-     * 
-     * @param dstream
+    /** @param dstream
      *            stream
      * @param startline
      *            start line
@@ -409,9 +405,7 @@ public class BOMSafeJavaCharStream {
         ReInit(dstream, startline, startcolumn, 4096);
     }
 
-    /** Constructor.
-     * 
-     * @param dstream
+    /** @param dstream
      *            stream
      * @param encoding
      *            encoding
@@ -431,9 +425,7 @@ public class BOMSafeJavaCharStream {
                 startcolumn, buffersize);
     }
 
-    /** Constructor.
-     * 
-     * @param dstream
+    /** @param dstream
      *            stream
      * @param encoding
      *            encoding

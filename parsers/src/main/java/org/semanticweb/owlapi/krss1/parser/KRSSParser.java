@@ -32,13 +32,9 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 
 /** The Class KRSSParser. */
 public class KRSSParser implements KRSSParserConstants {
-    /** The ontology. */
     private OWLOntology ontology;
-    /** The data factory. */
     private OWLDataFactory dataFactory;
-    /** The string2 iri. */
     private Map<String, IRI> string2IRI;
-    /** The base. */
     private String base;
 
     /** Sets the ontology.
@@ -58,13 +54,9 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Adds the axiom.
-     * 
-     * @param ax
-     *            the ax
-     * @throws KRSSOWLParserException
-     *             the kRSSOWL parser exception */
-    protected void addAxiom(OWLAxiom ax) throws KRSSOWLParserException {
+    /** @param ax
+     *            the ax */
+    protected void addAxiom(OWLAxiom ax) {
         try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology,
                     ax));
@@ -75,11 +67,11 @@ public class KRSSParser implements KRSSParserConstants {
 
     /** Gets the iri.
      * 
-     * @param s
-     *            the s
+     * @param _s
+     *            the string
      * @return the iri */
-    public IRI getIRI(String s) {
-        s = base + s;
+    public IRI getIRI(String _s) {
+        String s = base + _s;
         IRI iri = string2IRI.get(s);
         if (iri == null) {
             iri = IRI.create(s);
@@ -88,13 +80,8 @@ public class KRSSParser implements KRSSParserConstants {
         return iri;
     }
 
-    /** Parse.
-     * 
-     * @throws ParseException
-     *             the parse exception
-     * @throws KRSSOWLParserException
-     *             the kRSSOWL parser exception */
-    public void parse() throws ParseException, KRSSOWLParserException {
+    /** parse */
+    public void parse() {
         OWLAxiom ax;
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
@@ -120,12 +107,7 @@ public class KRSSParser implements KRSSParserConstants {
         jj_consume_token(0);
     }
 
-    /** T box statement.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom TBoxStatement() throws ParseException {
+    private OWLAxiom TBoxStatement() {
         OWLAxiom ax;
         if (jj_2_5(2)) {
             ax = DefinePrimitiveConcept();
@@ -144,12 +126,7 @@ public class KRSSParser implements KRSSParserConstants {
         return ax;
     }
 
-    /** Define primitive concept.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom DefinePrimitiveConcept() throws ParseException {
+    private OWLAxiom DefinePrimitiveConcept() {
         OWLClassExpression subClass;
         OWLClassExpression superClass;
         jj_consume_token(OPENPAR);
@@ -160,12 +137,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLSubClassOfAxiom(subClass, superClass);
     }
 
-    /** Define concept.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom DefineConcept() throws ParseException {
+    private OWLAxiom DefineConcept() {
         OWLClassExpression clsA;
         OWLClassExpression clsB;
         jj_consume_token(OPENPAR);
@@ -179,12 +151,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLEquivalentClassesAxiom(ops);
     }
 
-    /** Define primitive role.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom DefinePrimitiveRole() throws ParseException {
+    private OWLAxiom DefinePrimitiveRole() {
         OWLObjectProperty subProp;
         OWLObjectProperty superProp;
         jj_consume_token(OPENPAR);
@@ -199,12 +166,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLSubObjectPropertyOfAxiom(subProp, superProp);
     }
 
-    /** Transitive.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Transitive() throws ParseException {
+    private OWLAxiom Transitive() {
         OWLObjectProperty prop;
         jj_consume_token(OPENPAR);
         jj_consume_token(TRANSITIVE);
@@ -213,12 +175,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLTransitiveObjectPropertyAxiom(prop);
     }
 
-    /** Range.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Range() throws ParseException {
+    private OWLAxiom Range() {
         OWLObjectProperty prop;
         OWLClassExpression rng;
         jj_consume_token(OPENPAR);
@@ -229,12 +186,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectPropertyRangeAxiom(prop, rng);
     }
 
-    /** Concept expression.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ConceptExpression() throws ParseException {
+    private OWLClassExpression ConceptExpression() {
         OWLClassExpression desc;
         if (jj_2_11(2)) {
             desc = ConceptName();
@@ -261,23 +213,13 @@ public class KRSSParser implements KRSSParserConstants {
         return desc;
     }
 
-    /** Concept name.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ConceptName() throws ParseException {
+    private OWLClassExpression ConceptName() {
         IRI iri;
         iri = Name();
         return dataFactory.getOWLClass(iri);
     }
 
-    /** Concept set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLClassExpression> ConceptSet() throws ParseException {
+    private Set<OWLClassExpression> ConceptSet() {
         Set<OWLClassExpression> descs = new HashSet<OWLClassExpression>();
         OWLClassExpression desc;
         label_3: while (true) {
@@ -290,12 +232,7 @@ public class KRSSParser implements KRSSParserConstants {
         return descs;
     }
 
-    /** And.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression And() throws ParseException {
+    private OWLClassExpression And() {
         Set<OWLClassExpression> operands;
         jj_consume_token(OPENPAR);
         jj_consume_token(AND);
@@ -304,12 +241,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectIntersectionOf(operands);
     }
 
-    /** Or.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression Or() throws ParseException {
+    private OWLClassExpression Or() {
         Set<OWLClassExpression> operands;
         jj_consume_token(OPENPAR);
         jj_consume_token(OR);
@@ -318,12 +250,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectUnionOf(operands);
     }
 
-    /** Not.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression Not() throws ParseException {
+    private OWLClassExpression Not() {
         OWLClassExpression operand;
         jj_consume_token(OPENPAR);
         jj_consume_token(NOT);
@@ -332,12 +259,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectComplementOf(operand);
     }
 
-    /** All.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression All() throws ParseException {
+    private OWLClassExpression All() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
         jj_consume_token(OPENPAR);
@@ -348,12 +270,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
-    /** Some.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression Some() throws ParseException {
+    private OWLClassExpression Some() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
         jj_consume_token(OPENPAR);
@@ -364,12 +281,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
-    /** At least.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression AtLeast() throws ParseException {
+    private OWLClassExpression AtLeast() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
         int card;
@@ -382,12 +294,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectMinCardinality(card, prop, filler);
     }
 
-    /** At most.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression AtMost() throws ParseException {
+    private OWLClassExpression AtMost() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
         int card;
@@ -400,12 +307,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectMaxCardinality(card, prop, filler);
     }
 
-    /** Exactly.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression Exactly() throws ParseException {
+    private OWLClassExpression Exactly() {
         OWLObjectProperty prop;
         OWLClassExpression filler;
         int card;
@@ -418,23 +320,13 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectExactCardinality(card, prop, filler);
     }
 
-    /** Role name.
-     * 
-     * @return the oWL object property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLObjectProperty RoleName() throws ParseException {
+    private OWLObjectProperty RoleName() {
         IRI iri;
         iri = Name();
         return dataFactory.getOWLObjectProperty(iri);
     }
 
-    /** A box statement.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom ABoxStatement() throws ParseException {
+    private OWLAxiom ABoxStatement() {
         OWLAxiom ax;
         if (jj_2_21(2)) {
             ax = Instance();
@@ -451,12 +343,7 @@ public class KRSSParser implements KRSSParserConstants {
         return ax;
     }
 
-    /** Instance.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Instance() throws ParseException {
+    private OWLAxiom Instance() {
         OWLIndividual ind;
         OWLClassExpression type;
         jj_consume_token(OPENPAR);
@@ -467,12 +354,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLClassAssertionAxiom(type, ind);
     }
 
-    /** Related.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Related() throws ParseException {
+    private OWLAxiom Related() {
         OWLIndividual subj;
         OWLObjectProperty prop;
         OWLIndividual obj;
@@ -485,12 +367,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
     }
 
-    /** Equal.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Equal() throws ParseException {
+    private OWLAxiom Equal() {
         OWLIndividual indA, indB;
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         jj_consume_token(OPENPAR);
@@ -503,12 +380,7 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLSameIndividualAxiom(inds);
     }
 
-    /** Distinct.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Distinct() throws ParseException {
+    private OWLAxiom Distinct() {
         OWLIndividual indA, indB;
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         jj_consume_token(OPENPAR);
@@ -521,44 +393,24 @@ public class KRSSParser implements KRSSParserConstants {
         return dataFactory.getOWLDifferentIndividualsAxiom(inds);
     }
 
-    /** Individual name.
-     * 
-     * @return the oWL individual
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividual IndividualName() throws ParseException {
+    private OWLIndividual IndividualName() {
         IRI name;
         name = Name();
         return dataFactory.getOWLNamedIndividual(name);
     }
 
-    /** Name.
-     * 
-     * @return the iri
-     * @throws ParseException
-     *             the parse exception */
-    public IRI Name() throws ParseException {
+    private IRI Name() {
         Token t;
         t = jj_consume_token(NAME);
         return getIRI(t.image);
     }
 
-    /** Integer.
-     * 
-     * @return the int
-     * @throws ParseException
-     *             the parse exception */
-    public int Integer() throws ParseException {
+    private int Integer() {
         Token t;
         t = jj_consume_token(INT);
         return Integer.parseInt(t.image);
     }
 
-    /** Jj_2_1.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_1(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -571,11 +423,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_2.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_2(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -588,11 +435,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_3.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_3(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -605,11 +447,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_4.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_4(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -622,11 +459,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_5.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_5(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -639,11 +471,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_6.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_6(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -656,11 +483,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_7.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_7(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -673,11 +495,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_8.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_8(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -690,11 +507,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_9.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_9(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -707,11 +519,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_10.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_10(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -724,11 +531,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_11.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_11(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -741,11 +543,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_12.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_12(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -758,11 +555,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_13.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_13(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -775,11 +567,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_14.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_14(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -792,11 +579,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_15.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_15(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -809,11 +591,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_16.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_16(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -826,11 +603,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_17.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_17(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -843,11 +615,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_18.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_18(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -860,11 +627,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_19.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_19(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -877,11 +639,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_20.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_20(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -894,11 +651,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_21.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_21(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -911,11 +663,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_22.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_22(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -928,11 +675,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_23.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_23(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -945,11 +687,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_2_24.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_24(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -962,9 +699,6 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_3_24.
-     * 
-     * @return true, if successful */
     private boolean jj_3_24() {
         if (jj_3R_25()) {
             return true;
@@ -972,9 +706,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_7.
-     * 
-     * @return true, if successful */
     private boolean jj_3_7() {
         if (jj_3R_8()) {
             return true;
@@ -982,9 +713,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_17.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_17() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -995,9 +723,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_9.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_9() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1008,9 +733,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_16.
-     * 
-     * @return true, if successful */
     private boolean jj_3_16() {
         if (jj_3R_17()) {
             return true;
@@ -1018,9 +740,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_24.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_24() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1031,9 +750,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_23.
-     * 
-     * @return true, if successful */
     private boolean jj_3_23() {
         if (jj_3R_24()) {
             return true;
@@ -1041,9 +757,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_16.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_16() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1054,9 +767,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_8.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_8() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1067,9 +777,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_15.
-     * 
-     * @return true, if successful */
     private boolean jj_3_15() {
         if (jj_3R_16()) {
             return true;
@@ -1077,9 +784,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_23.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_23() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1090,9 +794,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_6.
-     * 
-     * @return true, if successful */
     private boolean jj_3_6() {
         if (jj_3R_7()) {
             return true;
@@ -1100,9 +801,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_15.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_15() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1113,9 +811,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_22.
-     * 
-     * @return true, if successful */
     private boolean jj_3_22() {
         if (jj_3R_23()) {
             return true;
@@ -1123,9 +818,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_4.
-     * 
-     * @return true, if successful */
     private boolean jj_3_4() {
         if (jj_scan_token(ENDABOX)) {
             return true;
@@ -1133,9 +825,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_14.
-     * 
-     * @return true, if successful */
     private boolean jj_3_14() {
         if (jj_3R_15()) {
             return true;
@@ -1143,9 +832,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_22.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_22() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1156,9 +842,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_7.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_7() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1169,9 +852,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_14.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_14() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1182,9 +862,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_10.
-     * 
-     * @return true, if successful */
     private boolean jj_3_10() {
         if (jj_scan_token(42)) {
             return true;
@@ -1195,9 +872,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_21.
-     * 
-     * @return true, if successful */
     private boolean jj_3_21() {
         if (jj_3R_22()) {
             return true;
@@ -1205,9 +879,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_6.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_6() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1218,9 +889,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_13.
-     * 
-     * @return true, if successful */
     private boolean jj_3_13() {
         if (jj_3R_14()) {
             return true;
@@ -1228,9 +896,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_5.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_5() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1249,9 +914,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_3.
-     * 
-     * @return true, if successful */
     private boolean jj_3_3() {
         if (jj_3R_5()) {
             return true;
@@ -1259,9 +921,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_13.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_13() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1272,9 +931,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_9.
-     * 
-     * @return true, if successful */
     private boolean jj_3_9() {
         if (jj_3R_10()) {
             return true;
@@ -1282,9 +938,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_19.
-     * 
-     * @return true, if successful */
     private boolean jj_3_19() {
         if (jj_3R_20()) {
             return true;
@@ -1292,9 +945,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_11.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_11() {
         if (jj_3R_26()) {
             return true;
@@ -1302,9 +952,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_5.
-     * 
-     * @return true, if successful */
     private boolean jj_3_5() {
         if (jj_3R_6()) {
             return true;
@@ -1312,9 +959,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_20.
-     * 
-     * @return true, if successful */
     private boolean jj_3_20() {
         if (jj_3R_21()) {
             return true;
@@ -1322,9 +966,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_4.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_4() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1346,9 +987,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_12.
-     * 
-     * @return true, if successful */
     private boolean jj_3_12() {
         if (jj_3R_13()) {
             return true;
@@ -1356,9 +994,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_2.
-     * 
-     * @return true, if successful */
     private boolean jj_3_2() {
         if (jj_scan_token(ENDTBOX)) {
             return true;
@@ -1366,9 +1001,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_20.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_20() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1379,9 +1011,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_1.
-     * 
-     * @return true, if successful */
     private boolean jj_3_1() {
         if (jj_3R_4()) {
             return true;
@@ -1389,9 +1018,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_26.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_26() {
         if (jj_scan_token(NAME)) {
             return true;
@@ -1399,9 +1025,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_12.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_12() {
         if (jj_3R_26()) {
             return true;
@@ -1409,9 +1032,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_18.
-     * 
-     * @return true, if successful */
     private boolean jj_3_18() {
         if (jj_3R_19()) {
             return true;
@@ -1419,9 +1039,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_8.
-     * 
-     * @return true, if successful */
     private boolean jj_3_8() {
         if (jj_3R_9()) {
             return true;
@@ -1429,9 +1046,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_19.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_19() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1442,9 +1056,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_11.
-     * 
-     * @return true, if successful */
     private boolean jj_3_11() {
         if (jj_3R_12()) {
             return true;
@@ -1452,9 +1063,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_21.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_21() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1488,9 +1096,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3_17.
-     * 
-     * @return true, if successful */
     private boolean jj_3_17() {
         if (jj_3R_18()) {
             return true;
@@ -1498,9 +1103,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_18.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_18() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1511,9 +1113,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_10.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_10() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1524,9 +1123,6 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Jj_3 r_25.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_25() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1537,46 +1133,30 @@ public class KRSSParser implements KRSSParserConstants {
         return false;
     }
 
-    /** Generated Token Manager. */
-    public KRSSParserTokenManager token_source;
-    /** The jj_input_stream. */
-    JavaCharStream jj_input_stream;
-    /** Current token. */
-    public Token token;
-    /** Next token. */
-    public Token jj_nt;
-    /** The jj_lastpos. */
+    private KRSSParserTokenManager token_source;
+    private JavaCharStream jj_input_stream;
+    private Token token;
     private Token jj_scanpos, jj_lastpos;
-    /** The jj_la. */
     private int jj_la;
-    /** The jj_gen. */
     private int jj_gen;
-    /** The jj_la1. */
     final private int[] jj_la1 = new int[0];
-    /** The jj_la1_0. */
     static private int[] jj_la1_0;
-    /** The jj_la1_1. */
     static private int[] jj_la1_1;
     static {
         jj_la1_init_0();
         jj_la1_init_1();
     }
 
-    /** Jj_la1_init_0. */
     private static void jj_la1_init_0() {
         jj_la1_0 = new int[] {};
     }
 
-    /** Jj_la1_init_1. */
     private static void jj_la1_init_1() {
         jj_la1_1 = new int[] {};
     }
 
-    /** The jj_2_rtns. */
     final private JJCalls[] jj_2_rtns = new JJCalls[24];
-    /** The jj_rescan. */
     private boolean jj_rescan = false;
-    /** The jj_gc. */
     private int jj_gc = 0;
 
     /** Constructor with InputStream.
@@ -1707,14 +1287,7 @@ public class KRSSParser implements KRSSParserConstants {
         }
     }
 
-    /** Jj_consume_token.
-     * 
-     * @param kind
-     *            the kind
-     * @return the token
-     * @throws ParseException
-     *             the parse exception */
-    private Token jj_consume_token(int kind) throws ParseException {
+    private Token jj_consume_token(int kind) {
         Token oldToken;
         if ((oldToken = token).next != null) {
             token = token.next;
@@ -1742,22 +1315,14 @@ public class KRSSParser implements KRSSParserConstants {
         throw generateParseException();
     }
 
-    /** The Class LookaheadSuccess. */
     static private final class LookaheadSuccess extends RuntimeException {
         private static final long serialVersionUID = 40000L;
 
-        /** Instantiates a new lookahead success. */
         public LookaheadSuccess() {}
     }
 
-    /** The jj_ls. */
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
 
-    /** Jj_scan_token.
-     * 
-     * @param kind
-     *            the kind
-     * @return true, if successful */
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -1820,23 +1385,12 @@ public class KRSSParser implements KRSSParserConstants {
         return t;
     }
 
-    /** The jj_expentries. */
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    /** The jj_expentry. */
     private int[] jj_expentry;
-    /** The jj_kind. */
     private int jj_kind = -1;
-    /** The jj_lasttokens. */
     private int[] jj_lasttokens = new int[100];
-    /** The jj_endpos. */
     private int jj_endpos;
 
-    /** Jj_add_error_token.
-     * 
-     * @param kind
-     *            the kind
-     * @param pos
-     *            the pos */
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
             return;
@@ -1906,13 +1460,7 @@ public class KRSSParser implements KRSSParserConstants {
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    /** Enable tracing. */
-    public void enable_tracing() {}
-
-    /** Disable tracing. */
-    public void disable_tracing() {}
-
-    /** Jj_rescan_token. */
+    @SuppressWarnings("incomplete-switch")
     private void jj_rescan_token() {
         jj_rescan = true;
         for (int i = 0; i < 24; i++) {
@@ -2004,12 +1552,6 @@ public class KRSSParser implements KRSSParserConstants {
         jj_rescan = false;
     }
 
-    /** Jj_save.
-     * 
-     * @param index
-     *            the index
-     * @param xla
-     *            the xla */
     private void jj_save(int index, int xla) {
         JJCalls p = jj_2_rtns[index];
         while (p.gen > jj_gen) {
@@ -2024,7 +1566,6 @@ public class KRSSParser implements KRSSParserConstants {
         p.arg = xla;
     }
 
-    /** The Class JJCalls. */
     static final class JJCalls {
         /** The gen. */
         int gen;

@@ -73,7 +73,8 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
         } finally {
             if (is != null) {
                 is.close();
-            } else if (reader != null) {
+            }
+            if (reader != null) {
                 reader.close();
             }
         }

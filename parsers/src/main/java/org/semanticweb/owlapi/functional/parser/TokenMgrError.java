@@ -87,26 +87,21 @@ public class TokenMgrError extends OWLRuntimeException {
     }
 
     /** Returns a detailed message for the Error when it is thrown by the token
-     * manager to indicate a lexical error. Parameters : EOFSeen : indicates if
-     * EOF caused the lexical error curLexState : lexical state in which this
-     * error occurred errorLine : line number when the error occurred
-     * errorColumn : column number when the error occurred errorAfter : prefix
-     * that was seen before this error occurred curchar : the offending
-     * character Note: You can customize the lexical error message by modifying
-     * this method.
+     * manager to indicate a lexical error. Note: You can customize the lexical
+     * error message by modifying this method.
      * 
      * @param EOFSeen
-     *            EOFSeen
+     *            indicates if EOF caused the lexical error
      * @param lexState
-     *            lexState
+     *            lexical state in which this error occurred
      * @param errorLine
-     *            errorLine
+     *            line number when the error occurred
      * @param errorColumn
-     *            errorColumn
+     *            column number when the error occurred
      * @param errorAfter
-     *            errorAfter
+     *            prefix that was seen before this error occurred
      * @param curChar
-     *            curChar
+     *            the offending character
      * @return error */
     protected static String LexicalError(boolean EOFSeen,
             @SuppressWarnings("unused") int lexState, int errorLine,
@@ -122,25 +117,15 @@ public class TokenMgrError extends OWLRuntimeException {
                 + addEscapes(errorAfter) + "\"";
     }
 
-    /** You can also modify the body of this method to customize your error
-     * messages. For example, cases like LOOP_DETECTED and INVALID_LEXICAL_STATE
-     * are not of end-users concern, so you can return something like :
-     * "Internal Error : Please file a bug report .... " from this method for
-     * such cases in the release version of your parser. */
     @Override
     public String getMessage() {
         return super.getMessage();
     }
 
-    /*
-     * Constructors of various flavors follow.
-     */
     /** No arg constructor. */
     public TokenMgrError() {}
 
-    /** Constructor with message and reason.
-     * 
-     * @param message
+    /** @param message
      *            the message
      * @param reason
      *            the reason */
@@ -149,9 +134,7 @@ public class TokenMgrError extends OWLRuntimeException {
         errorCode = reason;
     }
 
-    /** Full Constructor.
-     * 
-     * @param EOFSeen
+    /** @param EOFSeen
      *            EOFSeen
      * @param lexState
      *            lexState

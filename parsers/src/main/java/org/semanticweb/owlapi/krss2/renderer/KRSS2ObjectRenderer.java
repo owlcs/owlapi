@@ -343,10 +343,6 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
         }
-        /*
-         * for (final OWLClassAxiom axiom : ontology.getGeneralClassAxioms()) {
-         * axiom.accept(this); }
-         */
         for (final OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             if (ignoreDeclarations) {

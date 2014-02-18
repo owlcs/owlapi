@@ -33,8 +33,7 @@ public class LatexOntologyStorer extends AbstractOWLOntologyStorer {
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            LatexRenderer ren = new LatexRenderer();
-            ren.render(ontology, writer);
+            new LatexRenderer().render(ontology, writer);
             writer.flush();
         } catch (IOException e) {
             throw new LatexRendererIOException(e);

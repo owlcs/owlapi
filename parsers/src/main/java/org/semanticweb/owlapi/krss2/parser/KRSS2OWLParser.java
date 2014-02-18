@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** The KRSS2OWLParser differs from the
- * {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser KRSSOWLParser} that it supports
- * an extended KRSS vocabulary available in many reasoning systems. For
- * instance, CGIs can be added with help of (implies subclass superclass),
+ * {@link org.semanticweb.owlapi.krss1.parser.KRSSOWLParser KRSSOWLParser} that
+ * it supports an extended KRSS vocabulary available in many reasoning systems.
+ * For instance, CGIs can be added with help of (implies subclass superclass),
  * range, domain, inverse, functinal attribute can be provided for roles. Note
  * that DatatypeProperties are not supported within KRSS2. <br>
  * <b>Abbreviations</b>
@@ -273,7 +273,8 @@ public class KRSS2OWLParser extends AbstractOWLParser {
         } finally {
             if (is != null) {
                 is.close();
-            } else if (reader != null) {
+            }
+            if (reader != null) {
                 reader.close();
             }
         }

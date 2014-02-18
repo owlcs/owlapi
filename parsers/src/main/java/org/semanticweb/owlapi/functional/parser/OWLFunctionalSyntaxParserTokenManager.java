@@ -21,9 +21,7 @@ public class OWLFunctionalSyntaxParserTokenManager implements
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
-     * 
-     * @param ds
+    /** @param ds
      *            debug stream */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
@@ -3667,6 +3665,7 @@ public class OWLFunctionalSyntaxParserTokenManager implements
     int jjmatchedKind;
 
     /** @return the next Token. */
+    @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

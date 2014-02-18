@@ -16,17 +16,10 @@ package org.semanticweb.owlapi.krss1.parser;
 
 import java.io.UnsupportedEncodingException;
 
-/** Wrapper for the common JavaCharStream for all parsers. This is needed because
- * we have a request to support UTF-8 files that have an initial BOM. UTF-8 does
- * not need BOMs but some tools insist adding them. Java on the other hand won't
- * support it, and JavaCC does not have an override for this. The result is that
- * the support must be added by hand, and it's easier to have it in one place.
- * This stops JavaCC from rebuilding the wrong files and minimizes duplicated
- * code. */
-public class JavaCharStream extends org.semanticweb.owlapi.BOMSafeJavaCharStream {
-    /** Constructor.
-     * 
-     * @param dstream
+/** JavaCharStream for this parser */
+public class JavaCharStream extends
+        org.semanticweb.owlapi.BOMSafeJavaCharStream {
+    /** @param dstream
      *            stream
      * @param startline
      *            start line
@@ -36,9 +29,7 @@ public class JavaCharStream extends org.semanticweb.owlapi.BOMSafeJavaCharStream
         super(dstream, startline, startcolumn, 4096);
     }
 
-    /** Constructor.
-     * 
-     * @param dstream
+    /** @param dstream
      *            stream
      * @param encoding
      *            encoding

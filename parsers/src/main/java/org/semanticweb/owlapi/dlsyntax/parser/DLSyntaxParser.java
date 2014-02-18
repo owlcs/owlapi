@@ -42,48 +42,37 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** The Class DLSyntaxParser. */
 public class DLSyntaxParser implements DLSyntaxParserConstants {
-    /** The default namespace. */
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology"
             + System.nanoTime();
-    /** The namespace map. */
     private Map<String, String> namespaceMap = new HashMap<String, String>();
-    /** The factory. */
     private OWLDataFactory factory;
-    /** The iri map. */
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
-    /** The qname iri map. */
     private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
 
-    /** Sets the oWL data factory.
-     * 
-     * @param factory
-     *            the new oWL data factory */
+    /** @param factory
+     *            data factory */
     public void setOWLDataFactory(OWLDataFactory factory) {
         this.factory = factory;
     }
 
-    /** Sets the prefix mapping.
+    /** Map a prefix to a nalespace.
      * 
      * @param prefix
-     *            the prefix
+     *            prefix
      * @param namespace
-     *            the namespace */
+     *            namespace */
     public void setPrefixMapping(String prefix, String namespace) {
         namespaceMap.put(prefix, namespace);
     }
 
-    /** Sets the default namespace.
-     * 
-     * @param ns
+    /** @param ns
      *            the new default namespace */
     public void setDefaultNamespace(String ns) {
         defaultNamespace = ns;
     }
 
-    /** Gets the iri.
-     * 
-     * @param val
-     *            the val
+    /** @param val
+     *            value
      * @return the iri */
     public IRI getIRI(String val) {
         IRI iri = iriMap.get(val);
@@ -94,11 +83,9 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return iri;
     }
 
-    /** Gets the iRI from id.
-     * 
-     * @param qname
-     *            the qname
-     * @return the iRI from id */
+    /** @param qname
+     *            qname
+     * @return IRI from id */
     public IRI getIRIFromId(String qname) {
         if (qname.equals("top") || qname.equals("\u22a4")) {
             return OWLRDFVocabulary.OWL_THING.getIRI();
@@ -114,24 +101,14 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return iri;
     }
 
-    /** Parses the description.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseDescription() throws ParseException {
-        OWLClassExpression desc;
-        desc = parseClassDescription();
+    private OWLClassExpression parseDescription() {
+        OWLClassExpression desc = parseClassDescription();
         jj_consume_token(0);
         return desc;
     }
 
-    /** Parses the axioms.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLAxiom> parseAxioms() throws ParseException {
+    /** @return set of axioms parsed from the stream */
+    public Set<OWLAxiom> parseAxioms() {
         OWLAxiom ax;
         Set<OWLAxiom> axioms = new LinkedHashSet<OWLAxiom>();
         ax = parseAxiom();
@@ -155,12 +132,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return axioms;
     }
 
-    /** Parses the axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseAxiom() throws ParseException {
+    private OWLAxiom parseAxiom() {
         OWLAxiom ax;
         if (jj_2_4(5)) {
             jj_consume_token(COLON);
@@ -186,12 +158,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
-    /** Parses the individual axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseIndividualAxiom() throws ParseException {
+    private OWLAxiom parseIndividualAxiom() {
         OWLAxiom ax;
         if (jj_2_10(5)) {
             ax = parseClassAssertion();
@@ -204,12 +171,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return ax;
     }
 
-    /** Parses the different individuals axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseDifferentIndividualsAxiom() throws ParseException {
+    private OWLAxiom parseDifferentIndividualsAxiom() {
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         OWLIndividual ind;
         ind = parseIndividualId();
@@ -228,12 +190,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDifferentIndividualsAxiom(inds);
     }
 
-    /** Parses the object property assertion.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseObjectPropertyAssertion() throws ParseException {
+    private OWLAxiom parseObjectPropertyAssertion() {
         OWLIndividual subj, obj;
         OWLObjectPropertyExpression prop;
         prop = parseObjectPropertyId();
@@ -245,12 +202,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj);
     }
 
-    /** Parses the data property assertion.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseDataPropertyAssertion() throws ParseException {
+    private OWLAxiom parseDataPropertyAssertion() {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
         OWLLiteral obj;
@@ -263,12 +215,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDataPropertyAssertionAxiom(prop, subj, obj);
     }
 
-    /** Parses the same individual.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseSameIndividual() throws ParseException {
+    private OWLAxiom parseSameIndividual() {
         OWLIndividual indA;
         OWLIndividual indB;
         indA = parseIndividualId();
@@ -278,12 +225,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
                 indA, indB));
     }
 
-    /** Parses the class assertion.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseClassAssertion() throws ParseException {
+    private OWLAxiom parseClassAssertion() {
         OWLIndividual ind;
         OWLClassExpression desc;
         if (jj_2_15(5)) {
@@ -310,12 +252,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
-    /** Parses the class axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parseClassAxiom() throws ParseException {
+    private OWLAxiom parseClassAxiom() {
         OWLClassExpression lhs;
         OWLClassExpression rhs;
         lhs = parseClassDescription();
@@ -359,12 +296,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
-    /** Parses the property chain.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parsePropertyChain() throws ParseException {
+    private OWLAxiom parsePropertyChain() {
         OWLObjectPropertyExpression prop;
         OWLObjectPropertyExpression supProp;
         List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>();
@@ -386,12 +318,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLSubPropertyChainOfAxiom(props, supProp);
     }
 
-    /** Parses the property axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom parsePropertyAxiom() throws ParseException {
+    private OWLAxiom parsePropertyAxiom() {
         OWLObjectPropertyExpression lhs;
         OWLObjectPropertyExpression rhs;
         OWLAxiom ax;
@@ -428,23 +355,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
-    /** Parses the class description.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseClassDescription() throws ParseException {
+    private OWLClassExpression parseClassDescription() {
         OWLClassExpression desc;
         desc = Or();
         return desc;
     }
 
-    /** Or.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression Or() throws ParseException {
+    private OWLClassExpression Or() {
         OWLClassExpression desc;
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         desc = And();
@@ -464,12 +381,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** And.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression And() throws ParseException {
+    private OWLClassExpression And() {
         OWLClassExpression desc;
         Set<OWLClassExpression> operands = new HashSet<OWLClassExpression>();
         desc = NonNaryBooleanDescription();
@@ -488,12 +400,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectIntersectionOf(operands);
     }
 
-    /** Non nary boolean description.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression NonNaryBooleanDescription() throws ParseException {
+    private OWLClassExpression NonNaryBooleanDescription() {
         OWLClassExpression desc;
         if (jj_2_27(5)) {
             desc = parseRestriction();
@@ -508,13 +415,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
-    /** Parses the object property id.
-     * 
-     * @return the oWL object property expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLObjectPropertyExpression parseObjectPropertyId()
-            throws ParseException {
+    private OWLObjectPropertyExpression parseObjectPropertyId() {
         IRI iri;
         boolean inverse = false;
         iri = parseId();
@@ -530,24 +431,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Parses the data property id.
-     * 
-     * @return the oWL data property expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataPropertyExpression parseDataPropertyId()
-            throws ParseException {
+    private OWLDataPropertyExpression parseDataPropertyId() {
         IRI iri;
         iri = parseId();
         return factory.getOWLDataProperty(iri);
     }
 
-    /** Parses the restriction.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseRestriction() throws ParseException {
+    private OWLClassExpression parseRestriction() {
         OWLClassExpression desc;
         if (jj_2_31(5)) {
             desc = parseSomeRestriction();
@@ -564,12 +454,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
-    /** Parses the some restriction.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseSomeRestriction() throws ParseException {
+    private OWLClassExpression parseSomeRestriction() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
         jj_consume_token(SOME);
@@ -581,12 +466,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
-    /** Parses the data some restriction.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseDataSomeRestriction() throws ParseException {
+    private OWLClassExpression parseDataSomeRestriction() {
         OWLDataPropertyExpression prop;
         OWLDataRange filler;
         jj_consume_token(SOME);
@@ -598,12 +478,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDataSomeValuesFrom(prop, filler);
     }
 
-    /** Parses the all restriction.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseAllRestriction() throws ParseException {
+    private OWLClassExpression parseAllRestriction() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
         jj_consume_token(ALL);
@@ -615,13 +490,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectAllValuesFrom(prop, filler);
     }
 
-    /** Parses the cardinality restriction.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseCardinalityRestriction()
-            throws ParseException {
+    private OWLClassExpression parseCardinalityRestriction() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler = null;
         boolean min = false;
@@ -659,35 +528,20 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectMaxCardinality(card, prop, filler);
     }
 
-    /** Parses the individual id.
-     * 
-     * @return the oWL individual
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividual parseIndividualId() throws ParseException {
+    private OWLIndividual parseIndividualId() {
         IRI iri;
         iri = parseId();
         return factory.getOWLNamedIndividual(iri);
     }
 
-    /** Parses the object complement of.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseObjectComplementOf() throws ParseException {
+    private OWLClassExpression parseObjectComplementOf() {
         OWLClassExpression op;
         jj_consume_token(NOT);
         op = NamedClassOrNestedDescription();
         return factory.getOWLObjectComplementOf(op);
     }
 
-    /** Parses the object one of.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression parseObjectOneOf() throws ParseException {
+    private OWLClassExpression parseObjectOneOf() {
         OWLIndividual ind;
         Set<OWLIndividual> inds = new HashSet<OWLIndividual>();
         jj_consume_token(OPENBRACE);
@@ -704,12 +558,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLObjectOneOf(inds);
     }
 
-    /** Parses the data one of.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange parseDataOneOf() throws ParseException {
+    private OWLDataRange parseDataOneOf() {
         OWLLiteral val;
         Set<OWLLiteral> values = new HashSet<OWLLiteral>();
         jj_consume_token(OPENBRACE);
@@ -726,13 +575,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return factory.getOWLDataOneOf(values);
     }
 
-    /** Named class or nested description.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression NamedClassOrNestedDescription()
-            throws ParseException {
+    private OWLClassExpression NamedClassOrNestedDescription() {
         OWLClassExpression desc;
         if (jj_2_45(5)) {
             desc = parseClassId();
@@ -745,23 +588,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return desc;
     }
 
-    /** Parses the class id.
-     * 
-     * @return the oWL class
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClass parseClassId() throws ParseException {
+    private OWLClass parseClassId() {
         IRI iri;
         iri = parseId();
         return factory.getOWLClass(iri);
     }
 
-    /** Nested class description.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression NestedClassDescription() throws ParseException {
+    private OWLClassExpression NestedClassDescription() {
         OWLClassExpression desc;
         if (jj_2_47(5)) {
             jj_consume_token(OPENPAR);
@@ -776,12 +609,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
-    /** Parses the literal.
-     * 
-     * @return the oWL literal
-     * @throws ParseException
-     *             the parse exception */
-    public OWLLiteral parseLiteral() throws ParseException {
+    private OWLLiteral parseLiteral() {
         Token t;
         if (jj_2_49(5)) {
             t = jj_consume_token(INT);
@@ -794,23 +622,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         throw new ParseException();
     }
 
-    /** Parses the id.
-     * 
-     * @return the iri
-     * @throws ParseException
-     *             the parse exception */
-    public IRI parseId() throws ParseException {
+    private IRI parseId() {
         Token t;
         t = jj_consume_token(ID);
         String name = t.image;
         return getIRIFromId(name);
     }
 
-    /** Jj_2_1.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_1(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -823,11 +641,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_2.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_2(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -840,11 +653,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_3.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_3(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -857,11 +665,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_4.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_4(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -874,11 +677,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_5.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_5(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -891,11 +689,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_6.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_6(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -908,11 +701,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_7.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_7(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -925,11 +713,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_8.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_8(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -942,11 +725,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_9.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_9(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -959,11 +737,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_10.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_10(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -976,11 +749,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_11.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_11(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -993,11 +761,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_12.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_12(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1010,11 +773,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_13.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_13(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1027,11 +785,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_14.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_14(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1044,11 +797,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_15.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_15(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1061,11 +809,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_16.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_16(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1078,11 +821,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_17.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_17(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1095,11 +833,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_18.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_18(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1112,11 +845,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_19.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_19(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1129,11 +857,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_20.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_20(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1146,11 +869,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_21.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_21(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1163,11 +881,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_22.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_22(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1180,11 +893,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_23.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_23(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1197,11 +905,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_24.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_24(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1214,11 +917,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_25.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_25(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1231,11 +929,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_26.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_26(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1248,11 +941,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_27.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_27(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1265,11 +953,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_28.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_28(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1282,11 +965,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_29.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_29(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1299,11 +977,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_30.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_30(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1316,11 +989,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_31.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_31(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1333,11 +1001,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_32.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_32(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1350,11 +1013,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_33.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_33(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1367,11 +1025,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_34.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_34(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1384,11 +1037,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_35.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_35(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1401,11 +1049,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_36.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_36(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1418,11 +1061,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_37.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_37(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1435,11 +1073,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_38.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_38(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1452,11 +1085,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_39.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_39(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1469,11 +1097,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_40.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_40(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1486,11 +1109,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_41.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_41(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1503,11 +1121,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_42.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_42(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1520,11 +1133,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_43.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_43(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1537,11 +1145,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_44.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_44(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1554,11 +1157,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_45.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_45(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1571,11 +1169,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_46.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_46(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1588,11 +1181,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_47.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_47(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1605,11 +1193,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_48.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_48(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1622,11 +1205,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_49.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_49(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1639,11 +1217,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_2_50.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_50(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1656,9 +1229,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj_3 r_16.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_16() {
         if (jj_3R_17()) {
             return true;
@@ -1672,9 +1242,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_20.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_20() {
         if (jj_3R_37()) {
             return true;
@@ -1687,9 +1254,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_19.
-     * 
-     * @return true, if successful */
     private boolean jj_3_19() {
         if (jj_scan_token(COMPOSE)) {
             return true;
@@ -1700,9 +1264,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_41.
-     * 
-     * @return true, if successful */
     private boolean jj_3_41() {
         if (jj_scan_token(DOT)) {
             return true;
@@ -1710,9 +1271,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_44.
-     * 
-     * @return true, if successful */
     private boolean jj_3_44() {
         if (jj_3R_31()) {
             return true;
@@ -1720,9 +1278,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_42.
-     * 
-     * @return true, if successful */
     private boolean jj_3_42() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1735,9 +1290,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_37.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_37() {
         if (jj_scan_token(ID)) {
             return true;
@@ -1745,9 +1297,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_3.
-     * 
-     * @return true, if successful */
     private boolean jj_3_3() {
         if (jj_scan_token(30)) {
             return true;
@@ -1755,9 +1304,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_29.
-     * 
-     * @return true, if successful */
     private boolean jj_3_29() {
         if (jj_3R_26()) {
             return true;
@@ -1765,9 +1311,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_43.
-     * 
-     * @return true, if successful */
     private boolean jj_3_43() {
         if (jj_3R_17()) {
             return true;
@@ -1775,9 +1318,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_28.
-     * 
-     * @return true, if successful */
     private boolean jj_3_28() {
         if (jj_3R_25()) {
             return true;
@@ -1785,9 +1325,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_25.
-     * 
-     * @return true, if successful */
     private boolean jj_3_25() {
         if (jj_scan_token(OR)) {
             return true;
@@ -1798,9 +1335,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_27.
-     * 
-     * @return true, if successful */
     private boolean jj_3_27() {
         if (jj_3R_24()) {
             return true;
@@ -1808,9 +1342,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_50.
-     * 
-     * @return true, if successful */
     private boolean jj_3_50() {
         if (jj_scan_token(DOUBLE)) {
             return true;
@@ -1818,9 +1349,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_23.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_23() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1836,9 +1364,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_31.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_31() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1851,9 +1376,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_13.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_13() {
         if (jj_3R_36()) {
             return true;
@@ -1873,9 +1395,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_49.
-     * 
-     * @return true, if successful */
     private boolean jj_3_49() {
         if (jj_scan_token(INT)) {
             return true;
@@ -1883,9 +1402,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_46.
-     * 
-     * @return true, if successful */
     private boolean jj_3_46() {
         if (jj_3R_33()) {
             return true;
@@ -1893,9 +1409,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_33.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_33() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1908,9 +1421,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_47.
-     * 
-     * @return true, if successful */
     private boolean jj_3_47() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -1924,9 +1434,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_22.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_22() {
         if (jj_3R_23()) {
             return true;
@@ -1942,9 +1449,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_12.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_12() {
         if (jj_3R_20()) {
             return true;
@@ -1964,9 +1468,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_32.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_32() {
         if (jj_3R_37()) {
             return true;
@@ -1974,9 +1475,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_45.
-     * 
-     * @return true, if successful */
     private boolean jj_3_45() {
         if (jj_3R_32()) {
             return true;
@@ -1984,9 +1482,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_14.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_14() {
         if (jj_3R_17()) {
             return true;
@@ -2008,9 +1503,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_26.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_26() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2023,9 +1515,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_34.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_34() {
         if (jj_3R_22()) {
             return true;
@@ -2041,9 +1530,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_2.
-     * 
-     * @return true, if successful */
     private boolean jj_3_2() {
         if (jj_scan_token(30)) {
             return true;
@@ -2054,9 +1540,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_1.
-     * 
-     * @return true, if successful */
     private boolean jj_3_1() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2069,9 +1552,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_38.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_38() {
         if (jj_scan_token(OPENBRACE)) {
             return true;
@@ -2093,9 +1573,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_11.
-     * 
-     * @return true, if successful */
     private boolean jj_3_11() {
         if (jj_3R_16()) {
             return true;
@@ -2103,9 +1580,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_10.
-     * 
-     * @return true, if successful */
     private boolean jj_3_10() {
         if (jj_3R_15()) {
             return true;
@@ -2113,9 +1587,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_11.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_11() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2128,9 +1599,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_19.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_19() {
         if (jj_3R_34()) {
             return true;
@@ -2138,9 +1606,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_40.
-     * 
-     * @return true, if successful */
     private boolean jj_3_40() {
         if (jj_scan_token(MAX)) {
             return true;
@@ -2148,9 +1613,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_35.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_35() {
         if (jj_scan_token(OPENBRACE)) {
             return true;
@@ -2172,9 +1634,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_9.
-     * 
-     * @return true, if successful */
     private boolean jj_3_9() {
         if (jj_3R_14()) {
             return true;
@@ -2182,9 +1641,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_8.
-     * 
-     * @return true, if successful */
     private boolean jj_3_8() {
         if (jj_3R_13()) {
             return true;
@@ -2192,9 +1648,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_7.
-     * 
-     * @return true, if successful */
     private boolean jj_3_7() {
         if (jj_3R_12()) {
             return true;
@@ -2202,9 +1655,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_6.
-     * 
-     * @return true, if successful */
     private boolean jj_3_6() {
         if (jj_3R_11()) {
             return true;
@@ -2212,9 +1662,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_24.
-     * 
-     * @return true, if successful */
     private boolean jj_3_24() {
         if (jj_3R_21()) {
             return true;
@@ -2222,9 +1669,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_5.
-     * 
-     * @return true, if successful */
     private boolean jj_3_5() {
         if (jj_3R_10()) {
             return true;
@@ -2232,9 +1676,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_22.
-     * 
-     * @return true, if successful */
     private boolean jj_3_22() {
         if (jj_scan_token(IN)) {
             return true;
@@ -2245,9 +1686,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_4.
-     * 
-     * @return true, if successful */
     private boolean jj_3_4() {
         if (jj_scan_token(COLON)) {
             return true;
@@ -2258,9 +1696,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_8.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_8() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2285,9 +1720,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_25.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_25() {
         if (jj_scan_token(NOT)) {
             return true;
@@ -2298,9 +1730,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_21.
-     * 
-     * @return true, if successful */
     private boolean jj_3_21() {
         if (jj_scan_token(EQUIVALENTTO)) {
             return true;
@@ -2311,9 +1740,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_37.
-     * 
-     * @return true, if successful */
     private boolean jj_3_37() {
         if (jj_scan_token(DOT)) {
             return true;
@@ -2321,9 +1747,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_17.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_17() {
         if (jj_3R_37()) {
             return true;
@@ -2331,9 +1754,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_20.
-     * 
-     * @return true, if successful */
     private boolean jj_3_20() {
         if (jj_scan_token(SUBCLASSOF)) {
             return true;
@@ -2344,9 +1764,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_39.
-     * 
-     * @return true, if successful */
     private boolean jj_3_39() {
         if (jj_scan_token(EXACT)) {
             return true;
@@ -2354,9 +1771,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_23.
-     * 
-     * @return true, if successful */
     private boolean jj_3_23() {
         if (jj_3R_20()) {
             return true;
@@ -2375,9 +1789,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_9.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_9() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2390,9 +1801,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_36.
-     * 
-     * @return true, if successful */
     private boolean jj_3_36() {
         if (jj_scan_token(DOT)) {
             return true;
@@ -2400,9 +1808,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_18.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_18() {
         if (jj_3R_19()) {
             return true;
@@ -2413,9 +1818,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_21.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_21() {
         if (jj_3R_20()) {
             return true;
@@ -2443,9 +1845,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_35.
-     * 
-     * @return true, if successful */
     private boolean jj_3_35() {
         if (jj_scan_token(DOT)) {
             return true;
@@ -2453,9 +1852,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_38.
-     * 
-     * @return true, if successful */
     private boolean jj_3_38() {
         if (jj_scan_token(MIN)) {
             return true;
@@ -2463,9 +1859,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_30.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_30() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2491,9 +1884,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_14.
-     * 
-     * @return true, if successful */
     private boolean jj_3_14() {
         if (jj_scan_token(0)) {
             return true;
@@ -2501,9 +1891,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_18.
-     * 
-     * @return true, if successful */
     private boolean jj_3_18() {
         if (jj_scan_token(EQUIVALENTTO)) {
             return true;
@@ -2514,9 +1901,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_29.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_29() {
         if (jj_scan_token(ALL)) {
             return true;
@@ -2535,9 +1919,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_28.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_28() {
         if (jj_scan_token(SOME)) {
             return true;
@@ -2556,9 +1937,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_27.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_27() {
         if (jj_scan_token(SOME)) {
             return true;
@@ -2577,9 +1955,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_12.
-     * 
-     * @return true, if successful */
     private boolean jj_3_12() {
         if (jj_scan_token(NEQ)) {
             return true;
@@ -2590,9 +1965,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_17.
-     * 
-     * @return true, if successful */
     private boolean jj_3_17() {
         if (jj_scan_token(SUBCLASSOF)) {
             return true;
@@ -2603,9 +1975,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_10.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_10() {
         if (jj_3R_19()) {
             return true;
@@ -2621,9 +1990,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_13.
-     * 
-     * @return true, if successful */
     private boolean jj_3_13() {
         if (jj_scan_token(30)) {
             return true;
@@ -2631,9 +1997,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_34.
-     * 
-     * @return true, if successful */
     private boolean jj_3_34() {
         if (jj_3R_30()) {
             return true;
@@ -2641,9 +2004,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_33.
-     * 
-     * @return true, if successful */
     private boolean jj_3_33() {
         if (jj_3R_29()) {
             return true;
@@ -2651,9 +2011,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_32.
-     * 
-     * @return true, if successful */
     private boolean jj_3_32() {
         if (jj_3R_28()) {
             return true;
@@ -2661,9 +2018,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_31.
-     * 
-     * @return true, if successful */
     private boolean jj_3_31() {
         if (jj_3R_27()) {
             return true;
@@ -2671,9 +2025,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_24.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_24() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2692,9 +2043,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_26.
-     * 
-     * @return true, if successful */
     private boolean jj_3_26() {
         if (jj_scan_token(AND)) {
             return true;
@@ -2705,9 +2053,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_16.
-     * 
-     * @return true, if successful */
     private boolean jj_3_16() {
         if (jj_3R_19()) {
             return true;
@@ -2732,9 +2077,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_48.
-     * 
-     * @return true, if successful */
     private boolean jj_3_48() {
         if (jj_3R_35()) {
             return true;
@@ -2742,9 +2084,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_36.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_36() {
         if (jj_3R_37()) {
             return true;
@@ -2752,9 +2091,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_15.
-     * 
-     * @return true, if successful */
     private boolean jj_3_15() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -2768,9 +2104,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3 r_15.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_15() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2783,9 +2116,6 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Jj_3_30.
-     * 
-     * @return true, if successful */
     private boolean jj_3_30() {
         if (jj_scan_token(INVERSE)) {
             return true;
@@ -2793,38 +2123,25 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Generated Token Manager. */
-    public DLSyntaxParserTokenManager token_source;
-    /** The jj_input_stream. */
-    JavaCharStream jj_input_stream;
+    private DLSyntaxParserTokenManager token_source;
+    private JavaCharStream jj_input_stream;
     /** Current token. */
-    public Token token;
-    /** Next token. */
-    public Token jj_nt;
-    /** The jj_lastpos. */
+    private Token token;
     private Token jj_scanpos, jj_lastpos;
-    /** The jj_la. */
     private int jj_la;
-    /** The jj_gen. */
     private int jj_gen;
-    /** The jj_la1. */
     final private int[] jj_la1 = new int[0];
-    /** The jj_la1_0. */
     static private int[] jj_la1_0;
     static {
         jj_la1_init_0();
     }
 
-    /** Jj_la1_init_0. */
     private static void jj_la1_init_0() {
         jj_la1_0 = new int[] {};
     }
 
-    /** The jj_2_rtns. */
     final private JJCalls[] jj_2_rtns = new JJCalls[50];
-    /** The jj_rescan. */
     private boolean jj_rescan = false;
-    /** The jj_gc. */
     private int jj_gc = 0;
 
     /** Constructor with InputStream.
@@ -2889,9 +2206,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Constructor.
-     * 
-     * @param stream
+    /** @param stream
      *            the stream */
     public DLSyntaxParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
@@ -2959,10 +2274,8 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
      * 
      * @param kind
      *            the kind
-     * @return the token
-     * @throws ParseException
-     *             the parse exception */
-    private Token jj_consume_token(int kind) throws ParseException {
+     * @return the token */
+    private Token jj_consume_token(int kind) {
         Token oldToken;
         if ((oldToken = token).next != null) {
             token = token.next;

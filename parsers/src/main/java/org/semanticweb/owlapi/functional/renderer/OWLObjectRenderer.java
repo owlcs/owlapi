@@ -37,27 +37,19 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
  *         Informatics Group
  * @since 2.0.0 */
 public class OWLObjectRenderer implements OWLObjectVisitor {
-    /** The prefix manager. */
     private PrefixManager prefixManager;
-    /** The ontology. */
     protected OWLOntology ontology;
-    /** The writer. */
     private Writer writer;
-    /** The write enities as ur is. */
-    private boolean writeEnitiesAsURIs;
-    /** The focused object. */
+    private boolean writeEntitiesAsURIs = true;
     private OWLObject focusedObject;
 
-    /** Instantiates a new oWL object renderer.
-     * 
-     * @param ontology
+    /** @param ontology
      *            the ontology
      * @param writer
      *            the writer */
     public OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
-        writeEnitiesAsURIs = true;
         prefixManager = new DefaultPrefixManager();
         OWLOntologyFormat ontologyFormat = ontology.getOWLOntologyManager()
                 .getOntologyFormat(ontology);
@@ -76,25 +68,19 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                 .getOWLThing();
     }
 
-    /** Sets the prefix manager.
-     * 
-     * @param prefixManager
+    /** @param prefixManager
      *            the new prefix manager */
     public void setPrefixManager(PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
     }
 
-    /** Sets the focused object.
-     * 
-     * @param focusedObject
+    /** @param focusedObject
      *            the new focused object */
     public void setFocusedObject(OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
-    /** Write prefix.
-     * 
-     * @param prefix
+    /** @param prefix
      *            the prefix
      * @param namespace
      *            the namespace */
@@ -534,9 +520,9 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLDeclarationAxiom axiom) {
         writeAxiomStart(DECLARATION, axiom);
-        writeEnitiesAsURIs = false;
+        writeEntitiesAsURIs = false;
         axiom.getEntity().accept(this);
-        writeEnitiesAsURIs = true;
+        writeEntitiesAsURIs = true;
         writeAxiomEnd();
     }
 
@@ -796,12 +782,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLClass desc) {
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             write(CLASS);
             writeOpenBracket();
         }
         desc.getIRI().accept(this);
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             writeCloseBracket();
         }
     }
@@ -980,12 +966,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDatatype node) {
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             write(DATATYPE);
             writeOpenBracket();
         }
         node.getIRI().accept(this);
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             writeCloseBracket();
         }
     }
@@ -1025,24 +1011,24 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataProperty property) {
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             write(DATA_PROPERTY);
             writeOpenBracket();
         }
         property.getIRI().accept(this);
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             writeCloseBracket();
         }
     }
 
     @Override
     public void visit(OWLObjectProperty property) {
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             write(OBJECT_PROPERTY);
             writeOpenBracket();
         }
         property.getIRI().accept(this);
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             writeCloseBracket();
         }
     }
@@ -1057,12 +1043,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLNamedIndividual individual) {
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             write(NAMED_INDIVIDUAL);
             writeOpenBracket();
         }
         individual.getIRI().accept(this);
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             writeCloseBracket();
         }
     }
@@ -1139,12 +1125,12 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLAnnotationProperty property) {
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             write(ANNOTATION_PROPERTY);
             writeOpenBracket();
         }
         property.getIRI().accept(this);
-        if (!writeEnitiesAsURIs) {
+        if (!writeEntitiesAsURIs) {
             writeCloseBracket();
         }
     }

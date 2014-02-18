@@ -24,35 +24,25 @@ public interface Node {
     /** This method is called after all the child nodes have been added. */
     void jjtClose();
 
-    /** This pair of methods are used to inform the node of its parent.
-     * 
-     * @param n
-     *            node */
+    /** @param n
+     *            parent */
     void jjtSetParent(Node n);
 
     /** @return parent */
     Node jjtGetParent();
 
-    /** This method tells the node to add its argument to the node's list of
-     * children.
-     * 
-     * @param n
+    /** @param n
      *            node
      * @param i
      *            position */
     void jjtAddChild(Node n, int i);
 
-    /** This method returns a child node. The children are numbered from zero,
-     * left to right.
-     * 
-     * @param i
+    /** @param i
      *            position
      * @return node */
     Node jjtGetChild(int i);
 
-    /** Return the number of children the node has.
-     * 
-     * @return number */
+    /** @return number of children */
     int jjtGetNumChildren();
 }
 /*

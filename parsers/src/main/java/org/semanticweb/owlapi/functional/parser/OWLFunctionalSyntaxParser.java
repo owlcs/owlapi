@@ -59,7 +59,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -85,37 +84,23 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** The Class OWLFunctionalSyntaxParser. */
 public class OWLFunctionalSyntaxParser implements
         OWLFunctionalSyntaxParserConstants {
-    /** The man. */
-    private OWLOntologyManager man;
-    /** The configuration. */
     private OWLOntologyLoaderConfiguration configuration;
-    /** The ontology. */
     private OWLOntology ontology;
-    /** The data factory. */
-    private OWLDataFactory dataFactory;
-    /** The string2 iri. */
     private Map<String, IRI> string2IRI;
-    /** The prefix map. */
     private Map<String, String> prefixMap;
-    /** The ontology iri. */
     private IRI ontologyIRI;
-    /** The ignore annotations and declarations. */
     private boolean ignoreAnnotationsAndDeclarations = false;
-    /** The current annotations. */
     private Set<OWLAnnotation> currentAnnotations;
+    private OWLDataFactory df;
 
-    /** Sets the up.
-     * 
-     * @param ontology
+    /** @param ontology
      *            the ontology
      * @param configuration
      *            the configuration */
     public void setUp(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
-        man = ontology.getOWLOntologyManager();
         this.ontology = ontology;
         this.configuration = configuration;
-        dataFactory = man.getOWLDataFactory();
         currentAnnotations = new HashSet<OWLAnnotation>();
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -125,13 +110,12 @@ public class OWLFunctionalSyntaxParser implements
             prefixMap.put("xml:", Namespaces.XML.toString());
             prefixMap.put("xsd:", Namespaces.XSD.toString());
         }
+        df = ontology.getOWLOntologyManager().getOWLDataFactory();
         string2IRI = new HashMap<String, IRI>();
     }
 
-    /** Gets the iri.
-     * 
-     * @param s
-     *            the s
+    /** @param s
+     *            the string
      * @return the iri */
     public IRI getIRI(String s) {
         IRI iri = string2IRI.get(s);
@@ -154,9 +138,7 @@ public class OWLFunctionalSyntaxParser implements
         return iri;
     }
 
-    /** Sets the ignore annotations and declarations.
-     * 
-     * @param b
+    /** @param b
      *            the new ignore annotations and declarations */
     public void setIgnoreAnnotationsAndDeclarations(boolean b) {
         ignoreAnnotationsAndDeclarations = b;
@@ -167,7 +149,7 @@ public class OWLFunctionalSyntaxParser implements
      * @param chg
      *            the chg */
     protected void applyChange(OWLOntologyChange<?> chg) {
-        man.applyChange(chg);
+        chg.getOntology().getOWLOntologyManager().applyChange(chg);
     }
 
     /** Adds the axiom.
@@ -193,15 +175,11 @@ public class OWLFunctionalSyntaxParser implements
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    /** Parses the.
-     * 
-     * @return the oWL functional syntax ontology format
-     * @throws ParseException
-     *             the parse exception
+    /** @return the oWL functional syntax ontology format
      * @throws UnloadableImportException
      *             the unloadable import exception */
-    public OWLFunctionalSyntaxOntologyFormat parse() throws ParseException,
-            UnloadableImportException {
+    public OWLFunctionalSyntaxOntologyFormat parse()
+            throws UnloadableImportException {
         label_1: while (true) {
             if (jj_2_1(2)) {} else {
                 break label_1;
@@ -217,13 +195,7 @@ public class OWLFunctionalSyntaxParser implements
         return format;
     }
 
-    /** Ontology.
-     * 
-     * @throws ParseException
-     *             the parse exception
-     * @throws UnloadableImportException
-     *             the unloadable import exception */
-    public void Ontology() throws ParseException, UnloadableImportException {
+    private void Ontology() throws UnloadableImportException {
         OWLAnnotation anno;
         OWLAxiom ax;
         OWLImportsDeclaration decl;
@@ -245,7 +217,8 @@ public class OWLFunctionalSyntaxParser implements
             if (jj_2_5(2)) {
                 decl = ImportsDeclaration();
                 applyChange(new AddImport(ontology, decl));
-                man.makeLoadImportRequest(decl, configuration);
+                ontology.getOWLOntologyManager().makeLoadImportRequest(decl,
+                        configuration);
             } else if (jj_2_6(2)) {
                 anno = Annotation();
                 applyChange(new AddOntologyAnnotation(ontology, anno));
@@ -266,11 +239,7 @@ public class OWLFunctionalSyntaxParser implements
         jj_consume_token(CLOSEPAR);
     }
 
-    /** Prefix.
-     * 
-     * @throws ParseException
-     *             the parse exception */
-    public void Prefix() throws ParseException {
+    private void Prefix() {
         String prefixName = "";
         IRI iri;
         jj_consume_token(PREFIX);
@@ -282,12 +251,7 @@ public class OWLFunctionalSyntaxParser implements
         prefixMap.put(prefixName, iri.toString());
     }
 
-    /** Iri.
-     * 
-     * @return the iri
-     * @throws ParseException
-     *             the parse exception */
-    public IRI IRI() throws ParseException {
+    private IRI IRI() {
         IRI iri;
         if (jj_2_8(2)) {
             iri = FullIRI();
@@ -300,34 +264,19 @@ public class OWLFunctionalSyntaxParser implements
         return iri;
     }
 
-    /** Full iri.
-     * 
-     * @return the iri
-     * @throws ParseException
-     *             the parse exception */
-    public IRI FullIRI() throws ParseException {
+    private IRI FullIRI() {
         Token t;
         t = jj_consume_token(FULLIRI);
         return getIRI(t.image);
     }
 
-    /** Abbreviated iri.
-     * 
-     * @return the iri
-     * @throws ParseException
-     *             the parse exception */
-    public IRI AbbreviatedIRI() throws ParseException {
+    private IRI AbbreviatedIRI() {
         Token t;
         t = jj_consume_token(PNAME_LN);
         return getIRI(t.image);
     }
 
-    /** Prefix name.
-     * 
-     * @return the string
-     * @throws ParseException
-     *             the parse exception */
-    public String PrefixName() throws ParseException {
+    private String PrefixName() {
         Token t;
         t = jj_consume_token(PNAME_NS);
         return t.image;
@@ -338,12 +287,7 @@ public class OWLFunctionalSyntaxParser implements
     // Class Descriptions
     //
     // ///////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Class expression.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ClassExpression() throws ParseException {
+    private OWLClassExpression ClassExpression() {
         OWLClassExpression desc;
         if (jj_2_10(2)) {
             desc = ClassIRI();
@@ -388,23 +332,11 @@ public class OWLFunctionalSyntaxParser implements
         return desc;
     }
 
-    /** Class iri.
-     * 
-     * @return the oWL class
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClass ClassIRI() throws ParseException {
-        IRI iri;
-        iri = IRI();
-        return dataFactory.getOWLClass(iri);
+    private OWLClass ClassIRI() {
+        return df.getOWLClass(IRI());
     }
 
-    /** Class expression set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLClassExpression> ClassExpressionSet() throws ParseException {
+    private Set<OWLClassExpression> ClassExpressionSet() {
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         OWLClassExpression desc;
         desc = ClassExpression();
@@ -421,12 +353,7 @@ public class OWLFunctionalSyntaxParser implements
         return classExpressions;
     }
 
-    /** Individual min one set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLIndividual> IndividualMinOneSet() throws ParseException {
+    private Set<OWLIndividual> IndividualMinOneSet() {
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
         OWLIndividual ind;
         ind = Individual();
@@ -441,68 +368,43 @@ public class OWLFunctionalSyntaxParser implements
         return individuals;
     }
 
-    /** Object union of.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectUnionOf() throws ParseException {
+    private OWLClassExpression ObjectUnionOf() {
         Set<OWLClassExpression> classExpressions;
         jj_consume_token(OBJECTUNIONOF);
         jj_consume_token(OPENPAR);
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectUnionOf(classExpressions);
+        return df.getOWLObjectUnionOf(classExpressions);
     }
 
-    /** Object intersection of.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectIntersectionOf() throws ParseException {
+    private OWLClassExpression ObjectIntersectionOf() {
         Set<OWLClassExpression> classExpressions;
         jj_consume_token(OBJECTINTERSECTIONOF);
         jj_consume_token(OPENPAR);
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectIntersectionOf(classExpressions);
+        return df.getOWLObjectIntersectionOf(classExpressions);
     }
 
-    /** Object complement of.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectComplementOf() throws ParseException {
+    private OWLClassExpression ObjectComplementOf() {
         OWLClassExpression operand;
         jj_consume_token(OBJECTCOMPLEMENTOF);
         jj_consume_token(OPENPAR);
         operand = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectComplementOf(operand);
+        return df.getOWLObjectComplementOf(operand);
     }
 
-    /** Object one of.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectOneOf() throws ParseException {
+    private OWLClassExpression ObjectOneOf() {
         Set<OWLIndividual> individuals;
         jj_consume_token(OBJECTONEOF);
         jj_consume_token(OPENPAR);
         individuals = IndividualMinOneSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectOneOf(individuals);
+        return df.getOWLObjectOneOf(individuals);
     }
 
-    /** Object all values from.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectAllValuesFrom() throws ParseException {
+    private OWLClassExpression ObjectAllValuesFrom() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
         jj_consume_token(OBJECTALLVALUESFROM);
@@ -510,15 +412,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = ObjectPropertyExpression();
         filler = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectAllValuesFrom(prop, filler);
+        return df.getOWLObjectAllValuesFrom(prop, filler);
     }
 
-    /** Object some values from.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectSomeValuesFrom() throws ParseException {
+    private OWLClassExpression ObjectSomeValuesFrom() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression filler;
         jj_consume_token(OBJECTSOMEVALUESFROM);
@@ -526,15 +423,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = ObjectPropertyExpression();
         filler = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectSomeValuesFrom(prop, filler);
+        return df.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
-    /** Object has value.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectHasValue() throws ParseException {
+    private OWLClassExpression ObjectHasValue() {
         OWLObjectPropertyExpression prop;
         OWLIndividual ind;
         jj_consume_token(OBJECTHASVALUE);
@@ -542,29 +434,19 @@ public class OWLFunctionalSyntaxParser implements
         prop = ObjectPropertyExpression();
         ind = Individual();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectHasValue(prop, ind);
+        return df.getOWLObjectHasValue(prop, ind);
     }
 
-    /** Object self.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectSelf() throws ParseException {
+    private OWLClassExpression ObjectSelf() {
         OWLObjectPropertyExpression prop;
         jj_consume_token(OBJECTHASSELF);
         jj_consume_token(OPENPAR);
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectHasSelf(prop);
+        return df.getOWLObjectHasSelf(prop);
     }
 
-    /** Object min cardinality.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectMinCardinality() throws ParseException {
+    private OWLClassExpression ObjectMinCardinality() {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
         OWLClassExpression filler = null;
@@ -577,19 +459,13 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
-            return dataFactory.getOWLObjectMinCardinality(cardinality, prop);
+            return df.getOWLObjectMinCardinality(cardinality, prop);
         } else {
-            return dataFactory.getOWLObjectMinCardinality(cardinality, prop,
-                    filler);
+            return df.getOWLObjectMinCardinality(cardinality, prop, filler);
         }
     }
 
-    /** Object exact cardinality.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectExactCardinality() throws ParseException {
+    private OWLClassExpression ObjectExactCardinality() {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
         OWLClassExpression filler = null;
@@ -602,18 +478,12 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
-            return dataFactory.getOWLObjectExactCardinality(cardinality, prop);
+            return df.getOWLObjectExactCardinality(cardinality, prop);
         }
-        return dataFactory.getOWLObjectExactCardinality(cardinality, prop,
-                filler);
+        return df.getOWLObjectExactCardinality(cardinality, prop, filler);
     }
 
-    /** Object max cardinality.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression ObjectMaxCardinality() throws ParseException {
+    private OWLClassExpression ObjectMaxCardinality() {
         int cardinality = 0;
         OWLObjectPropertyExpression prop = null;
         OWLClassExpression filler = null;
@@ -626,18 +496,12 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         if (filler == null) {
-            return dataFactory.getOWLObjectMaxCardinality(cardinality, prop);
+            return df.getOWLObjectMaxCardinality(cardinality, prop);
         }
-        return dataFactory
-                .getOWLObjectMaxCardinality(cardinality, prop, filler);
+        return df.getOWLObjectMaxCardinality(cardinality, prop, filler);
     }
 
-    /** Data all values from.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression DataAllValuesFrom() throws ParseException {
+    private OWLClassExpression DataAllValuesFrom() {
         OWLDataPropertyExpression prop = null;
         OWLDataRange dataRange = null;
         jj_consume_token(DATAALLVALUESFROM);
@@ -645,15 +509,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = DataPropertyExpression();
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataAllValuesFrom(prop, dataRange);
+        return df.getOWLDataAllValuesFrom(prop, dataRange);
     }
 
-    /** Data some values from.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression DataSomeValuesFrom() throws ParseException {
+    private OWLClassExpression DataSomeValuesFrom() {
         OWLDataPropertyExpression prop = null;
         OWLDataRange dataRange = null;
         jj_consume_token(DATASOMEVALUESFROM);
@@ -661,15 +520,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = DataPropertyExpression();
         dataRange = DataRange();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataSomeValuesFrom(prop, dataRange);
+        return df.getOWLDataSomeValuesFrom(prop, dataRange);
     }
 
-    /** Data has value.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression DataHasValue() throws ParseException {
+    private OWLClassExpression DataHasValue() {
         OWLDataPropertyExpression prop = null;
         OWLLiteral literal = null;
         jj_consume_token(DATAHASVALUE);
@@ -677,15 +531,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = DataPropertyExpression();
         literal = Literal();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataHasValue(prop, literal);
+        return df.getOWLDataHasValue(prop, literal);
     }
 
-    /** Data min cardinality.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression DataMinCardinality() throws ParseException {
+    private OWLClassExpression DataMinCardinality() {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
         OWLDataRange rng = null;
@@ -698,17 +547,12 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
-            return dataFactory.getOWLDataMinCardinality(cardinality, prop);
+            return df.getOWLDataMinCardinality(cardinality, prop);
         }
-        return dataFactory.getOWLDataMinCardinality(cardinality, prop, rng);
+        return df.getOWLDataMinCardinality(cardinality, prop, rng);
     }
 
-    /** Data exact cardinality.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression DataExactCardinality() throws ParseException {
+    private OWLClassExpression DataExactCardinality() {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
         OWLDataRange rng = null;
@@ -721,17 +565,12 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
-            return dataFactory.getOWLDataExactCardinality(cardinality, prop);
+            return df.getOWLDataExactCardinality(cardinality, prop);
         }
-        return dataFactory.getOWLDataExactCardinality(cardinality, prop, rng);
+        return df.getOWLDataExactCardinality(cardinality, prop, rng);
     }
 
-    /** Data max cardinality.
-     * 
-     * @return the oWL class expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassExpression DataMaxCardinality() throws ParseException {
+    private OWLClassExpression DataMaxCardinality() {
         int cardinality = 0;
         OWLDataPropertyExpression prop = null;
         OWLDataRange rng = null;
@@ -744,17 +583,12 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         if (rng == null) {
-            return dataFactory.getOWLDataMaxCardinality(cardinality, prop);
+            return df.getOWLDataMaxCardinality(cardinality, prop);
         }
-        return dataFactory.getOWLDataMaxCardinality(cardinality, prop, rng);
+        return df.getOWLDataMaxCardinality(cardinality, prop, rng);
     }
 
-    /** Class.
-     * 
-     * @return the oWL class
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClass Class() throws ParseException {
+    private OWLClass Class() {
         OWLClass cls;
         jj_consume_token(CLASS);
         jj_consume_token(OPENPAR);
@@ -763,13 +597,7 @@ public class OWLFunctionalSyntaxParser implements
         return cls;
     }
 
-    /** Object property expression.
-     * 
-     * @return the oWL object property expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLObjectPropertyExpression ObjectPropertyExpression()
-            throws ParseException {
+    private OWLObjectPropertyExpression ObjectPropertyExpression() {
         OWLObjectPropertyExpression prop;
         if (jj_2_36(2)) {
             prop = InverseObjectProperty();
@@ -782,27 +610,16 @@ public class OWLFunctionalSyntaxParser implements
         return prop;
     }
 
-    /** Inverse object property.
-     * 
-     * @return the oWL object property expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLObjectPropertyExpression InverseObjectProperty()
-            throws ParseException {
+    private OWLObjectPropertyExpression InverseObjectProperty() {
         OWLObjectPropertyExpression prop;
         jj_consume_token(OBJECTINVERSEOF);
         jj_consume_token(OPENPAR);
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectInverseOf(prop);
+        return df.getOWLObjectInverseOf(prop);
     }
 
-    /** Object property.
-     * 
-     * @return the oWL object property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLObjectProperty ObjectProperty() throws ParseException {
+    private OWLObjectProperty ObjectProperty() {
         OWLObjectProperty prop;
         jj_consume_token(OBJECTPROP);
         jj_consume_token(OPENPAR);
@@ -811,35 +628,19 @@ public class OWLFunctionalSyntaxParser implements
         return prop;
     }
 
-    /** Data property expression.
-     * 
-     * @return the oWL data property expression
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataPropertyExpression DataPropertyExpression()
-            throws ParseException {
+    private OWLDataPropertyExpression DataPropertyExpression() {
         OWLDataPropertyExpression prop;
         prop = DataPropertyIRI();
         return prop;
     }
 
-    /** Data property iri.
-     * 
-     * @return the oWL data property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataProperty DataPropertyIRI() throws ParseException {
+    private OWLDataProperty DataPropertyIRI() {
         IRI iri;
         iri = IRI();
-        return dataFactory.getOWLDataProperty(iri);
+        return df.getOWLDataProperty(iri);
     }
 
-    /** Data property.
-     * 
-     * @return the oWL data property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataProperty DataProperty() throws ParseException {
+    private OWLDataProperty DataProperty() {
         OWLDataProperty prop;
         jj_consume_token(DATAPROP);
         jj_consume_token(OPENPAR);
@@ -848,12 +649,7 @@ public class OWLFunctionalSyntaxParser implements
         return prop;
     }
 
-    /** Annotation property.
-     * 
-     * @return the oWL annotation property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationProperty AnnotationProperty() throws ParseException {
+    private OWLAnnotationProperty AnnotationProperty() {
         OWLAnnotationProperty prop;
         jj_consume_token(ANNOTATIONPROPERTY);
         jj_consume_token(OPENPAR);
@@ -862,23 +658,13 @@ public class OWLFunctionalSyntaxParser implements
         return prop;
     }
 
-    /** Annotation property iri.
-     * 
-     * @return the oWL annotation property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationProperty AnnotationPropertyIRI() throws ParseException {
+    private OWLAnnotationProperty AnnotationPropertyIRI() {
         IRI iri;
         iri = IRI();
-        return dataFactory.getOWLAnnotationProperty(iri);
+        return df.getOWLAnnotationProperty(iri);
     }
 
-    /** Named individual.
-     * 
-     * @return the oWL named individual
-     * @throws ParseException
-     *             the parse exception */
-    public OWLNamedIndividual NamedIndividual() throws ParseException {
+    private OWLNamedIndividual NamedIndividual() {
         OWLNamedIndividual ind;
         jj_consume_token(NAMEDINDIVIDUAL);
         jj_consume_token(OPENPAR);
@@ -887,24 +673,14 @@ public class OWLFunctionalSyntaxParser implements
         return ind;
     }
 
-    /** Anonymous individual.
-     * 
-     * @return the oWL anonymous individual
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnonymousIndividual AnonymousIndividual() throws ParseException {
+    private OWLAnonymousIndividual AnonymousIndividual() {
         Token t;
         t = jj_consume_token(NODEID);
         String id = t.image.substring(2, t.image.length());
-        return dataFactory.getOWLAnonymousIndividual(id);
+        return df.getOWLAnonymousIndividual(id);
     }
 
-    /** Datatype.
-     * 
-     * @return the oWL datatype
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDatatype Datatype() throws ParseException {
+    private OWLDatatype Datatype() {
         OWLDatatype dt;
         jj_consume_token(DATATYPE);
         jj_consume_token(OPENPAR);
@@ -913,47 +689,26 @@ public class OWLFunctionalSyntaxParser implements
         return dt;
     }
 
-    /** Datatype iri.
-     * 
-     * @return the oWL datatype
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDatatype DatatypeIRI() throws ParseException {
+    private OWLDatatype DatatypeIRI() {
         IRI iri;
         iri = IRI();
-        return dataFactory.getOWLDatatype(iri);
+        return df.getOWLDatatype(iri);
     }
 
-    /** Cardinality.
-     * 
-     * @return the int
-     * @throws ParseException
-     *             the parse exception */
-    public int Cardinality() throws ParseException {
+    private int Cardinality() {
         int card = 0;
         card = Integer();
         return card;
     }
 
-    /** Integer.
-     * 
-     * @return the int
-     * @throws ParseException
-     *             the parse exception */
-    public int Integer() throws ParseException {
+    private int Integer() {
         Token t;
         t = jj_consume_token(INT);
         int i = Integer.parseInt(t.image);
         return i;
     }
 
-    /** Datatype definition axiom.
-     * 
-     * @return the oWL datatype definition axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom()
-            throws ParseException {
+    private OWLDatatypeDefinitionAxiom DatatypeDefinitionAxiom() {
         OWLDatatype datatype;
         OWLDataRange dr;
         Set<OWLAnnotation> axAnnos;
@@ -963,15 +718,10 @@ public class OWLFunctionalSyntaxParser implements
         datatype = DatatypeIRI();
         dr = DataRange();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
+        return df.getOWLDatatypeDefinitionAxiom(datatype, dr, axAnnos);
     }
 
-    /** Data range.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange DataRange() throws ParseException {
+    private OWLDataRange DataRange() {
         OWLDataRange rng;
         if (jj_2_38(2)) {
             rng = DatatypeIRI();
@@ -992,26 +742,16 @@ public class OWLFunctionalSyntaxParser implements
         return rng;
     }
 
-    /** Data complement of.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange DataComplementOf() throws ParseException {
+    private OWLDataRange DataComplementOf() {
         OWLDataRange rng;
         jj_consume_token(DATACOMPLEMENTOF);
         jj_consume_token(OPENPAR);
         rng = DataRange();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataComplementOf(rng);
+        return df.getOWLDataComplementOf(rng);
     }
 
-    /** Data one of.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange DataOneOf() throws ParseException {
+    private OWLDataRange DataOneOf() {
         Set<OWLLiteral> values = new HashSet<OWLLiteral>();
         OWLLiteral con = null;
         jj_consume_token(DATAONEOF);
@@ -1024,15 +764,10 @@ public class OWLFunctionalSyntaxParser implements
             }
         }
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataOneOf(values);
+        return df.getOWLDataOneOf(values);
     }
 
-    /** Data union of.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange DataUnionOf() throws ParseException {
+    private OWLDataRange DataUnionOf() {
         OWLDataRange dataRange;
         Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
         jj_consume_token(DATAUNIONOF);
@@ -1045,15 +780,10 @@ public class OWLFunctionalSyntaxParser implements
             }
         }
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataUnionOf(ranges);
+        return df.getOWLDataUnionOf(ranges);
     }
 
-    /** Data intersection of.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange DataIntersectionOf() throws ParseException {
+    private OWLDataRange DataIntersectionOf() {
         OWLDataRange dataRange;
         Set<OWLDataRange> ranges = new HashSet<OWLDataRange>();
         jj_consume_token(DATAINTERSECTIONOF);
@@ -1066,15 +796,10 @@ public class OWLFunctionalSyntaxParser implements
             }
         }
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataIntersectionOf(ranges);
+        return df.getOWLDataIntersectionOf(ranges);
     }
 
-    /** Data range restriction.
-     * 
-     * @return the oWL data range
-     * @throws ParseException
-     *             the parse exception */
-    public OWLDataRange DataRangeRestriction() throws ParseException {
+    private OWLDataRange DataRangeRestriction() {
         OWLDatatype rng;
         OWLFacetRestriction facetRestriction;
         Set<OWLFacetRestriction> facetRestrictions = new HashSet<OWLFacetRestriction>();
@@ -1089,22 +814,16 @@ public class OWLFunctionalSyntaxParser implements
             }
         }
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDatatypeRestriction(rng, facetRestrictions);
+        return df.getOWLDatatypeRestriction(rng, facetRestrictions);
     }
 
-    /** Data range facet restriction.
-     * 
-     * @return the oWL facet restriction
-     * @throws ParseException
-     *             the parse exception */
-    public OWLFacetRestriction DataRangeFacetRestriction()
-            throws ParseException {
+    private OWLFacetRestriction DataRangeFacetRestriction() {
         IRI iri;
         OWLLiteral con;
         iri = IRI();
         con = Literal();
         OWLFacet v = OWLFacet.getFacetByShortName(iri.getFragment());
-        return dataFactory.getOWLFacetRestriction(v, con);
+        return df.getOWLFacetRestriction(v, con);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1112,12 +831,7 @@ public class OWLFunctionalSyntaxParser implements
     // Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Axiom() throws ParseException {
+    private OWLAxiom Axiom() {
         OWLAxiom ax = null;
         if (jj_2_48(2)) {
             ax = ClassAxiom();
@@ -1149,12 +863,7 @@ public class OWLFunctionalSyntaxParser implements
     // Class Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Class axiom.
-     * 
-     * @return the oWL class axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassAxiom ClassAxiom() throws ParseException {
+    private OWLClassAxiom ClassAxiom() {
         OWLClassAxiom ax;
         if (jj_2_57(2)) {
             ax = SubClassOf();
@@ -1171,12 +880,7 @@ public class OWLFunctionalSyntaxParser implements
         return ax;
     }
 
-    /** Sub class of.
-     * 
-     * @return the oWL class axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassAxiom SubClassOf() throws ParseException {
+    private OWLClassAxiom SubClassOf() {
         OWLClassExpression subClass;
         OWLClassExpression superClass;
         Set<OWLAnnotation> axiomAnnos;
@@ -1186,16 +890,10 @@ public class OWLFunctionalSyntaxParser implements
         subClass = ClassExpression();
         superClass = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLSubClassOfAxiom(subClass, superClass,
-                axiomAnnos);
+        return df.getOWLSubClassOfAxiom(subClass, superClass, axiomAnnos);
     }
 
-    /** Equivalent classes.
-     * 
-     * @return the oWL class axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassAxiom EquivalentClasses() throws ParseException {
+    private OWLClassAxiom EquivalentClasses() {
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(EQUIVALENTCLASSES);
@@ -1203,16 +901,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLEquivalentClassesAxiom(classExpressions,
-                axiomAnnos);
+        return df.getOWLEquivalentClassesAxiom(classExpressions, axiomAnnos);
     }
 
-    /** Disjoint classes.
-     * 
-     * @return the oWL class axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassAxiom DisjointClasses() throws ParseException {
+    private OWLClassAxiom DisjointClasses() {
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DISJOINTCLASSES);
@@ -1220,16 +912,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDisjointClassesAxiom(classExpressions,
-                axiomAnnos);
+        return df.getOWLDisjointClassesAxiom(classExpressions, axiomAnnos);
     }
 
-    /** Disjoint union.
-     * 
-     * @return the oWL class axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLClassAxiom DisjointUnion() throws ParseException {
+    private OWLClassAxiom DisjointUnion() {
         OWLClass cls;
         Set<OWLClassExpression> classExpressions;
         Set<OWLAnnotation> axiomAnnos;
@@ -1239,8 +925,7 @@ public class OWLFunctionalSyntaxParser implements
         cls = ClassIRI();
         classExpressions = ClassExpressionSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDisjointUnionAxiom(cls, classExpressions,
-                axiomAnnos);
+        return df.getOWLDisjointUnionAxiom(cls, classExpressions, axiomAnnos);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1248,12 +933,7 @@ public class OWLFunctionalSyntaxParser implements
     // Object Property Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Object property axiom.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom ObjectPropertyAxiom() throws ParseException {
+    private OWLPropertyAxiom ObjectPropertyAxiom() {
         OWLPropertyAxiom ax;
         if (jj_2_61(2)) {
             ax = SubObjectPropertyOf();
@@ -1288,13 +968,7 @@ public class OWLFunctionalSyntaxParser implements
         return ax;
     }
 
-    /** Sub object property chain.
-     * 
-     * @return the list
-     * @throws ParseException
-     *             the parse exception */
-    public List<OWLObjectPropertyExpression> SubObjectPropertyChain()
-            throws ParseException {
+    private List<OWLObjectPropertyExpression> SubObjectPropertyChain() {
         OWLObjectPropertyExpression prop;
         List<OWLObjectPropertyExpression> props = new ArrayList<OWLObjectPropertyExpression>();
         jj_consume_token(SUBOBJECTPROPERTYCHAIN);
@@ -1312,12 +986,7 @@ public class OWLFunctionalSyntaxParser implements
         return props;
     }
 
-    /** Sub object property of.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom SubObjectPropertyOf() throws ParseException {
+    private OWLPropertyAxiom SubObjectPropertyOf() {
         OWLObjectPropertyExpression subProperty = null;
         List<OWLObjectPropertyExpression> chain = null;
         OWLObjectPropertyExpression superProperty = null;
@@ -1336,21 +1005,16 @@ public class OWLFunctionalSyntaxParser implements
         superProperty = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
         if (subProperty != null) {
-            return dataFactory.getOWLSubObjectPropertyOfAxiom(subProperty,
+            return df.getOWLSubObjectPropertyOfAxiom(subProperty,
                     superProperty, axiomAnnos);
         } else if (chain != null) {
-            return dataFactory.getOWLSubPropertyChainOfAxiom(chain,
-                    superProperty, axiomAnnos);
+            return df.getOWLSubPropertyChainOfAxiom(chain, superProperty,
+                    axiomAnnos);
         }
         return null;
     }
 
-    /** Equivalent object properties.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom EquivalentObjectProperties() throws ParseException {
+    private OWLPropertyAxiom EquivalentObjectProperties() {
         Set<OWLObjectPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(EQUIVALENTOBJECTPROPERTIES);
@@ -1358,16 +1022,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         props = ObjectPropertySet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLEquivalentObjectPropertiesAxiom(props,
-                axiomAnnos);
+        return df.getOWLEquivalentObjectPropertiesAxiom(props, axiomAnnos);
     }
 
-    /** Disjoint object properties.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom DisjointObjectProperties() throws ParseException {
+    private OWLPropertyAxiom DisjointObjectProperties() {
         Set<OWLObjectPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DISJOINTOBJECTPROPERTIES);
@@ -1375,17 +1033,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         props = ObjectPropertySet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDisjointObjectPropertiesAxiom(props,
-                axiomAnnos);
+        return df.getOWLDisjointObjectPropertiesAxiom(props, axiomAnnos);
     }
 
-    /** Object property set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLObjectPropertyExpression> ObjectPropertySet()
-            throws ParseException {
+    private Set<OWLObjectPropertyExpression> ObjectPropertySet() {
         OWLObjectPropertyExpression prop;
         Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
         prop = ObjectPropertyExpression();
@@ -1402,12 +1053,7 @@ public class OWLFunctionalSyntaxParser implements
         return props;
     }
 
-    /** Object property range.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom ObjectPropertyRange() throws ParseException {
+    private OWLPropertyAxiom ObjectPropertyRange() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression range;
         Set<OWLAnnotation> axiomAnnos;
@@ -1417,16 +1063,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = ObjectPropertyExpression();
         range = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectPropertyRangeAxiom(prop, range,
-                axiomAnnos);
+        return df.getOWLObjectPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
-    /** Object property domain.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom ObjectPropertyDomain() throws ParseException {
+    private OWLPropertyAxiom ObjectPropertyDomain() {
         OWLObjectPropertyExpression prop;
         OWLClassExpression desc;
         Set<OWLAnnotation> axiomAnnos;
@@ -1436,16 +1076,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = ObjectPropertyExpression();
         desc = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectPropertyDomainAxiom(prop, desc,
-                axiomAnnos);
+        return df.getOWLObjectPropertyDomainAxiom(prop, desc, axiomAnnos);
     }
 
-    /** Functional object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom FunctionalObjectProperty() throws ParseException {
+    private OWLPropertyAxiom FunctionalObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos = Collections.emptySet();
         jj_consume_token(FUNCTIONALOBJECTPROPERTY);
@@ -1453,16 +1087,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory
-                .getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
+        return df.getOWLFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    /** Inverse object properties.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom InverseObjectProperties() throws ParseException {
+    private OWLPropertyAxiom InverseObjectProperties() {
         OWLObjectPropertyExpression propA;
         OWLObjectPropertyExpression propB;
         Set<OWLAnnotation> axiomAnnos;
@@ -1472,17 +1100,10 @@ public class OWLFunctionalSyntaxParser implements
         propA = ObjectPropertyExpression();
         propB = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLInverseObjectPropertiesAxiom(propA, propB,
-                axiomAnnos);
+        return df.getOWLInverseObjectPropertiesAxiom(propA, propB, axiomAnnos);
     }
 
-    /** Inverse functional object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom InverseFunctionalObjectProperty()
-            throws ParseException {
+    private OWLPropertyAxiom InverseFunctionalObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(INVERSEFUNCTIONALOBJECTPROPERTY);
@@ -1490,16 +1111,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLInverseFunctionalObjectPropertyAxiom(prop,
-                axiomAnnos);
+        return df.getOWLInverseFunctionalObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    /** Symmetric object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom SymmetricObjectProperty() throws ParseException {
+    private OWLPropertyAxiom SymmetricObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(SYMMETRICOBJECTPROPERTY);
@@ -1507,15 +1122,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
+        return df.getOWLSymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    /** Asymmetric object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom AsymmetricObjectProperty() throws ParseException {
+    private OWLPropertyAxiom AsymmetricObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(ASYMMETRICOBJECTPROPERTY);
@@ -1523,16 +1133,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory
-                .getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
+        return df.getOWLAsymmetricObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    /** Reflexive object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom ReflexiveObjectProperty() throws ParseException {
+    private OWLPropertyAxiom ReflexiveObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(REFLEXIVEOBJECTPROPERTY);
@@ -1540,15 +1144,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
+        return df.getOWLReflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    /** Irreflexive object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom IrreflexiveObjectProperty() throws ParseException {
+    private OWLPropertyAxiom IrreflexiveObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(IRREFLEXIVEOBJECTPROPERTY);
@@ -1556,16 +1155,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLIrreflexiveObjectPropertyAxiom(prop,
-                axiomAnnos);
+        return df.getOWLIrreflexiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
-    /** Transitive object property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom TransitiveObjectProperty() throws ParseException {
+    private OWLPropertyAxiom TransitiveObjectProperty() {
         OWLObjectPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(TRANSITIVEOBJECTPROPERTY);
@@ -1573,8 +1166,7 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = ObjectPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory
-                .getOWLTransitiveObjectPropertyAxiom(prop, axiomAnnos);
+        return df.getOWLTransitiveObjectPropertyAxiom(prop, axiomAnnos);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1582,12 +1174,7 @@ public class OWLFunctionalSyntaxParser implements
     // Data Property Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Data property axiom.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom DataPropertyAxiom() throws ParseException {
+    private OWLPropertyAxiom DataPropertyAxiom() {
         OWLPropertyAxiom ax;
         if (jj_2_78(2)) {
             ax = SubDataPropertyOf();
@@ -1608,12 +1195,7 @@ public class OWLFunctionalSyntaxParser implements
         return ax;
     }
 
-    /** Sub data property of.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom SubDataPropertyOf() throws ParseException {
+    private OWLPropertyAxiom SubDataPropertyOf() {
         OWLDataPropertyExpression subProperty;
         OWLDataPropertyExpression superProperty;
         Set<OWLAnnotation> axiomAnnos;
@@ -1623,16 +1205,11 @@ public class OWLFunctionalSyntaxParser implements
         subProperty = DataPropertyExpression();
         superProperty = DataPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLSubDataPropertyOfAxiom(subProperty,
-                superProperty, axiomAnnos);
+        return df.getOWLSubDataPropertyOfAxiom(subProperty, superProperty,
+                axiomAnnos);
     }
 
-    /** Equivalent data properties.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom EquivalentDataProperties() throws ParseException {
+    private OWLPropertyAxiom EquivalentDataProperties() {
         Set<OWLDataPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(EQUIVALENTDATAPROPERTIES);
@@ -1640,16 +1217,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         props = DataPropertySet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLEquivalentDataPropertiesAxiom(props,
-                axiomAnnos);
+        return df.getOWLEquivalentDataPropertiesAxiom(props, axiomAnnos);
     }
 
-    /** Disjoint data properties.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom DisjointDataProperties() throws ParseException {
+    private OWLPropertyAxiom DisjointDataProperties() {
         Set<OWLDataPropertyExpression> props;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DISJOINTDATAPROPERTIES);
@@ -1657,16 +1228,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         props = DataPropertySet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
+        return df.getOWLDisjointDataPropertiesAxiom(props, axiomAnnos);
     }
 
-    /** Data property set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLDataPropertyExpression> DataPropertySet()
-            throws ParseException {
+    private Set<OWLDataPropertyExpression> DataPropertySet() {
         OWLDataPropertyExpression prop;
         Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
         prop = DataPropertyExpression();
@@ -1683,12 +1248,7 @@ public class OWLFunctionalSyntaxParser implements
         return props;
     }
 
-    /** Data property domain.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom DataPropertyDomain() throws ParseException {
+    private OWLPropertyAxiom DataPropertyDomain() {
         OWLDataPropertyExpression prop;
         OWLClassExpression domain;
         Set<OWLAnnotation> axiomAnnos;
@@ -1698,16 +1258,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = DataPropertyExpression();
         domain = ClassExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataPropertyDomainAxiom(prop, domain,
-                axiomAnnos);
+        return df.getOWLDataPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
-    /** Data property range.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom DataPropertyRange() throws ParseException {
+    private OWLPropertyAxiom DataPropertyRange() {
         OWLDataPropertyExpression prop;
         OWLDataRange rng;
         Set<OWLAnnotation> axiomAnnos;
@@ -1717,15 +1271,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = DataPropertyExpression();
         rng = DataRange();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
+        return df.getOWLDataPropertyRangeAxiom(prop, rng, axiomAnnos);
     }
 
-    /** Functional data property.
-     * 
-     * @return the oWL property axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLPropertyAxiom FunctionalDataProperty() throws ParseException {
+    private OWLPropertyAxiom FunctionalDataProperty() {
         OWLDataPropertyExpression prop;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(FUNCTIONALDATAPROPERTY);
@@ -1733,7 +1282,7 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         prop = DataPropertyExpression();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLFunctionalDataPropertyAxiom(prop, axiomAnnos);
+        return df.getOWLFunctionalDataPropertyAxiom(prop, axiomAnnos);
     }
 
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1741,12 +1290,7 @@ public class OWLFunctionalSyntaxParser implements
     // Individual Axioms
     //
     // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Individual axiom.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom IndividualAxiom() throws ParseException {
+    private OWLIndividualAxiom IndividualAxiom() {
         OWLIndividualAxiom ax;
         if (jj_2_85(2)) {
             ax = SameIndividuals();
@@ -1769,12 +1313,7 @@ public class OWLFunctionalSyntaxParser implements
         return ax;
     }
 
-    /** Individual set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLIndividual> IndividualSet() throws ParseException {
+    private Set<OWLIndividual> IndividualSet() {
         OWLIndividual ind;
         Set<OWLIndividual> individuals = new HashSet<OWLIndividual>();
         ind = Individual();
@@ -1791,12 +1330,7 @@ public class OWLFunctionalSyntaxParser implements
         return individuals;
     }
 
-    /** Same individuals.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom SameIndividuals() throws ParseException {
+    private OWLIndividualAxiom SameIndividuals() {
         Set<OWLIndividual> individuals;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(SAMEINDIVIDUAL);
@@ -1804,15 +1338,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         individuals = IndividualSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLSameIndividualAxiom(individuals, axiomAnnos);
+        return df.getOWLSameIndividualAxiom(individuals, axiomAnnos);
     }
 
-    /** Different individuals.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom DifferentIndividuals() throws ParseException {
+    private OWLIndividualAxiom DifferentIndividuals() {
         Set<OWLIndividual> individuals;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DIFFERENTINDIVIDUALS);
@@ -1820,16 +1349,10 @@ public class OWLFunctionalSyntaxParser implements
         axiomAnnos = AxiomAnnotationSet();
         individuals = IndividualSet();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDifferentIndividualsAxiom(individuals,
-                axiomAnnos);
+        return df.getOWLDifferentIndividualsAxiom(individuals, axiomAnnos);
     }
 
-    /** Class assertion.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom ClassAssertion() throws ParseException {
+    private OWLIndividualAxiom ClassAssertion() {
         OWLIndividual ind;
         OWLClassExpression desc;
         Set<OWLAnnotation> axiomAnnos;
@@ -1839,15 +1362,10 @@ public class OWLFunctionalSyntaxParser implements
         desc = ClassExpression();
         ind = Individual();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
+        return df.getOWLClassAssertionAxiom(desc, ind, axiomAnnos);
     }
 
-    /** Object property assertion.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom ObjectPropertyAssertion() throws ParseException {
+    private OWLIndividualAxiom ObjectPropertyAssertion() {
         OWLIndividual subj;
         OWLObjectPropertyExpression prop;
         OWLIndividual obj;
@@ -1859,17 +1377,11 @@ public class OWLFunctionalSyntaxParser implements
         subj = Individual();
         obj = Individual();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLObjectPropertyAssertionAxiom(prop, subj, obj,
+        return df.getOWLObjectPropertyAssertionAxiom(prop, subj, obj,
                 axiomAnnos);
     }
 
-    /** Negative object property assertion.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom NegativeObjectPropertyAssertion()
-            throws ParseException {
+    private OWLIndividualAxiom NegativeObjectPropertyAssertion() {
         OWLIndividual subj;
         OWLObjectPropertyExpression prop;
         OWLIndividual obj;
@@ -1881,16 +1393,11 @@ public class OWLFunctionalSyntaxParser implements
         subj = Individual();
         obj = Individual();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLNegativeObjectPropertyAssertionAxiom(prop,
-                subj, obj, axiomAnnos);
+        return df.getOWLNegativeObjectPropertyAssertionAxiom(prop, subj, obj,
+                axiomAnnos);
     }
 
-    /** Data property assertion.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom DataPropertyAssertion() throws ParseException {
+    private OWLIndividualAxiom DataPropertyAssertion() {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
         OWLLiteral obj;
@@ -1902,17 +1409,10 @@ public class OWLFunctionalSyntaxParser implements
         subj = Individual();
         obj = Literal();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLDataPropertyAssertionAxiom(prop, subj, obj,
-                axiomAnnos);
+        return df.getOWLDataPropertyAssertionAxiom(prop, subj, obj, axiomAnnos);
     }
 
-    /** Negative data property assertion.
-     * 
-     * @return the oWL individual axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividualAxiom NegativeDataPropertyAssertion()
-            throws ParseException {
+    private OWLIndividualAxiom NegativeDataPropertyAssertion() {
         OWLIndividual subj;
         OWLDataPropertyExpression prop;
         OWLLiteral obj;
@@ -1924,27 +1424,17 @@ public class OWLFunctionalSyntaxParser implements
         subj = Individual();
         obj = Literal();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLNegativeDataPropertyAssertionAxiom(prop, subj,
-                obj, axiomAnnos);
+        return df.getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj,
+                axiomAnnos);
     }
 
-    /** Individual iri.
-     * 
-     * @return the oWL named individual
-     * @throws ParseException
-     *             the parse exception */
-    public OWLNamedIndividual IndividualIRI() throws ParseException {
+    private OWLNamedIndividual IndividualIRI() {
         IRI iri;
         iri = IRI();
-        return dataFactory.getOWLNamedIndividual(iri);
+        return df.getOWLNamedIndividual(iri);
     }
 
-    /** Individual.
-     * 
-     * @return the oWL individual
-     * @throws ParseException
-     *             the parse exception */
-    public OWLIndividual Individual() throws ParseException {
+    private OWLIndividual Individual() {
         OWLIndividual ind;
         if (jj_2_93(2)) {
             ind = IndividualIRI();
@@ -1957,15 +1447,10 @@ public class OWLFunctionalSyntaxParser implements
         return ind;
     }
 
-    /** Object property iri.
-     * 
-     * @return the oWL object property
-     * @throws ParseException
-     *             the parse exception */
-    public OWLObjectProperty ObjectPropertyIRI() throws ParseException {
+    private OWLObjectProperty ObjectPropertyIRI() {
         IRI iri;
         iri = IRI();
-        return dataFactory.getOWLObjectProperty(iri);
+        return df.getOWLObjectProperty(iri);
     }
 
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1973,12 +1458,7 @@ public class OWLFunctionalSyntaxParser implements
     // Annotation Stuff
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Annotation axiom.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom AnnotationAxiom() throws ParseException {
+    private OWLAxiom AnnotationAxiom() {
         OWLAxiom axiom;
         if (jj_2_95(2)) {
             axiom = AnnotationAssertion();
@@ -1995,12 +1475,7 @@ public class OWLFunctionalSyntaxParser implements
         return axiom;
     }
 
-    /** Annotation.
-     * 
-     * @return the oWL annotation
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotation Annotation() throws ParseException {
+    private OWLAnnotation Annotation() {
         OWLAnnotationProperty prop;
         OWLAnnotationValue val;
         Set<OWLAnnotation> annos = null;
@@ -2018,15 +1493,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = AnnotationPropertyIRI();
         val = AnnotationValue();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLAnnotation(prop, val, annos);
+        return df.getOWLAnnotation(prop, val, annos);
     }
 
-    /** Annotation subject.
-     * 
-     * @return the oWL annotation subject
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationSubject AnnotationSubject() throws ParseException {
+    private OWLAnnotationSubject AnnotationSubject() {
         OWLAnnotationSubject subj;
         if (jj_2_100(2)) {
             subj = IRI();
@@ -2039,12 +1509,7 @@ public class OWLFunctionalSyntaxParser implements
         return subj;
     }
 
-    /** Annotation value.
-     * 
-     * @return the oWL annotation value
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationValue AnnotationValue() throws ParseException {
+    private OWLAnnotationValue AnnotationValue() {
         OWLAnnotationValue value;
         if (jj_2_102(2)) {
             value = IRI();
@@ -2059,12 +1524,7 @@ public class OWLFunctionalSyntaxParser implements
         return value;
     }
 
-    /** Axiom annotation set.
-     * 
-     * @return the sets the
-     * @throws ParseException
-     *             the parse exception */
-    public Set<OWLAnnotation> AxiomAnnotationSet() throws ParseException {
+    private Set<OWLAnnotation> AxiomAnnotationSet() {
         Set<OWLAnnotation> annos = null;
         OWLAnnotation anno;
         label_15: while (true) {
@@ -2083,29 +1543,18 @@ public class OWLFunctionalSyntaxParser implements
         return annos;
     }
 
-    /** Imports declaration.
-     * 
-     * @return the oWL imports declaration
-     * @throws ParseException
-     *             the parse exception */
-    public OWLImportsDeclaration ImportsDeclaration() throws ParseException {
+    private OWLImportsDeclaration ImportsDeclaration() {
         IRI iri;
         jj_consume_token(IMPORT);
         jj_consume_token(OPENPAR);
         iri = IRI();
         jj_consume_token(CLOSEPAR);
-        OWLImportsDeclaration importsDeclaration = dataFactory
+        OWLImportsDeclaration importsDeclaration = df
                 .getOWLImportsDeclaration(iri);
         return importsDeclaration;
     }
 
-    /** Annotation assertion.
-     * 
-     * @return the oWL annotation assertion axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationAssertionAxiom AnnotationAssertion()
-            throws ParseException {
+    private OWLAnnotationAssertionAxiom AnnotationAssertion() {
         OWLAnnotationProperty prop;
         OWLAnnotationSubject subj;
         OWLAnnotationValue val;
@@ -2117,17 +1566,10 @@ public class OWLFunctionalSyntaxParser implements
         subj = AnnotationSubject();
         val = AnnotationValue();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLAnnotationAssertionAxiom(prop, subj, val,
-                axiomAnnos);
+        return df.getOWLAnnotationAssertionAxiom(prop, subj, val, axiomAnnos);
     }
 
-    /** Sub annotation property of.
-     * 
-     * @return the oWL sub annotation property of axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf()
-            throws ParseException {
+    private OWLSubAnnotationPropertyOfAxiom SubAnnotationPropertyOf() {
         OWLAnnotationProperty subProp;
         OWLAnnotationProperty superProperty;
         Set<OWLAnnotation> axiomAnnos;
@@ -2137,17 +1579,11 @@ public class OWLFunctionalSyntaxParser implements
         subProp = AnnotationPropertyIRI();
         superProperty = AnnotationPropertyIRI();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLSubAnnotationPropertyOfAxiom(subProp,
-                superProperty, axiomAnnos);
+        return df.getOWLSubAnnotationPropertyOfAxiom(subProp, superProperty,
+                axiomAnnos);
     }
 
-    /** Annotation property domain.
-     * 
-     * @return the oWL annotation property domain axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain()
-            throws ParseException {
+    private OWLAnnotationPropertyDomainAxiom AnnotationPropertyDomain() {
         IRI domain;
         OWLAnnotationProperty prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -2157,17 +1593,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = AnnotationPropertyIRI();
         domain = IRI();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLAnnotationPropertyDomainAxiom(prop, domain,
-                axiomAnnos);
+        return df.getOWLAnnotationPropertyDomainAxiom(prop, domain, axiomAnnos);
     }
 
-    /** Annotation property range.
-     * 
-     * @return the oWL annotation property range axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange()
-            throws ParseException {
+    private OWLAnnotationPropertyRangeAxiom AnnotationPropertyRange() {
         IRI range;
         OWLAnnotationProperty prop;
         Set<OWLAnnotation> axiomAnnos;
@@ -2177,16 +1606,10 @@ public class OWLFunctionalSyntaxParser implements
         prop = AnnotationPropertyIRI();
         range = IRI();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLAnnotationPropertyRangeAxiom(prop, range,
-                axiomAnnos);
+        return df.getOWLAnnotationPropertyRangeAxiom(prop, range, axiomAnnos);
     }
 
-    /** Checks for key.
-     * 
-     * @return the oWL has key axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLHasKeyAxiom HasKey() throws ParseException {
+    private OWLHasKeyAxiom HasKey() {
         OWLClassExpression ce;
         OWLPropertyExpression prop;
         Set<OWLPropertyExpression> props = new HashSet<OWLPropertyExpression>();
@@ -2214,15 +1637,10 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getOWLHasKeyAxiom(ce, props, axiomAnnos);
+        return df.getOWLHasKeyAxiom(ce, props, axiomAnnos);
     }
 
-    /** Declaration.
-     * 
-     * @return the oWL axiom
-     * @throws ParseException
-     *             the parse exception */
-    public OWLAxiom Declaration() throws ParseException {
+    private OWLAxiom Declaration() {
         OWLEntity entity = null;
         Set<OWLAnnotation> axiomAnnos;
         jj_consume_token(DECLARATION);
@@ -2233,15 +1651,10 @@ public class OWLFunctionalSyntaxParser implements
         if (ignoreAnnotationsAndDeclarations) {
             return null;
         }
-        return dataFactory.getOWLDeclarationAxiom(entity, axiomAnnos);
+        return df.getOWLDeclarationAxiom(entity, axiomAnnos);
     }
 
-    /** Entity.
-     * 
-     * @return the oWL entity
-     * @throws ParseException
-     *             the parse exception */
-    public OWLEntity Entity() throws ParseException {
+    private OWLEntity Entity() {
         OWLEntity entity;
         if (jj_2_108(2)) {
             entity = Class();
@@ -2267,12 +1680,7 @@ public class OWLFunctionalSyntaxParser implements
     // Data Stuff
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Literal.
-     * 
-     * @return the oWL literal
-     * @throws ParseException
-     *             the parse exception */
-    public OWLLiteral Literal() throws ParseException {
+    private OWLLiteral Literal() {
         boolean plain = true;
         String literal;
         OWLDatatype datatype = null;
@@ -2292,7 +1700,7 @@ public class OWLFunctionalSyntaxParser implements
             }
         }
         if (plain) {
-            return dataFactory.getOWLLiteral(literal, lang);
+            return df.getOWLLiteral(literal, lang);
         }
         // a float value in this syntax has an extra 'f' or 'F' character
         // that must be removed to make a valid OWL literal
@@ -2301,27 +1709,17 @@ public class OWLFunctionalSyntaxParser implements
                 && !(literal.endsWith("inf") || literal.endsWith("INF"))) {
             literal = literal.substring(0, literal.length() - 1);
         }
-        return dataFactory.getOWLLiteral(literal, datatype);
+        return df.getOWLLiteral(literal, datatype);
     }
 
-    /** Quoted string.
-     * 
-     * @return the string
-     * @throws ParseException
-     *             the parse exception */
-    public String QuotedString() throws ParseException {
+    private String QuotedString() {
         Token t;
         t = jj_consume_token(STRINGLITERAL);
         String raw = t.image.substring(1, t.image.length() - 1);
         return EscapeUtils.unescapeString(raw);
     }
 
-    /** Lang tag.
-     * 
-     * @return the string
-     * @throws ParseException
-     *             the parse exception */
-    public String LangTag() throws ParseException {
+    private String LangTag() {
         String lang = "";
         Token t;
         t = jj_consume_token(PN_LOCAL);
@@ -2334,12 +1732,7 @@ public class OWLFunctionalSyntaxParser implements
     // Rules
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** DL safe rule.
-     * 
-     * @return the sWRL rule
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLRule DLSafeRule() throws ParseException {
+    private SWRLRule DLSafeRule() {
         Set<OWLAnnotation> annos;
         SWRLAtom atom;
         Set<SWRLAtom> body;
@@ -2370,15 +1763,10 @@ public class OWLFunctionalSyntaxParser implements
         }
         jj_consume_token(CLOSEPAR);
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLRule(body, head, annos);
+        return df.getSWRLRule(body, head, annos);
     }
 
-    /** Atom.
-     * 
-     * @return the sWRL atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLAtom Atom() throws ParseException {
+    private SWRLAtom Atom() {
         SWRLAtom atom;
         if (jj_2_119(2)) {
             atom = ClassAtom();
@@ -2401,12 +1789,7 @@ public class OWLFunctionalSyntaxParser implements
         return atom;
     }
 
-    /** Class atom.
-     * 
-     * @return the sWRL class atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLClassAtom ClassAtom() throws ParseException {
+    private SWRLClassAtom ClassAtom() {
         OWLClassExpression ce;
         SWRLIArgument arg0;
         jj_consume_token(CLASSATOM);
@@ -2414,15 +1797,10 @@ public class OWLFunctionalSyntaxParser implements
         ce = ClassExpression();
         arg0 = IArg();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLClassAtom(ce, arg0);
+        return df.getSWRLClassAtom(ce, arg0);
     }
 
-    /** Data range atom.
-     * 
-     * @return the sWRL data range atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLDataRangeAtom DataRangeAtom() throws ParseException {
+    private SWRLDataRangeAtom DataRangeAtom() {
         OWLDataRange rng;
         SWRLDArgument arg0;
         jj_consume_token(DATARANGEATOM);
@@ -2430,15 +1808,10 @@ public class OWLFunctionalSyntaxParser implements
         rng = DataRange();
         arg0 = DArg();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLDataRangeAtom(rng, arg0);
+        return df.getSWRLDataRangeAtom(rng, arg0);
     }
 
-    /** Object property atom.
-     * 
-     * @return the sWRL object property atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLObjectPropertyAtom ObjectPropertyAtom() throws ParseException {
+    private SWRLObjectPropertyAtom ObjectPropertyAtom() {
         OWLObjectPropertyExpression prop;
         SWRLIArgument arg0;
         SWRLIArgument arg1;
@@ -2448,15 +1821,10 @@ public class OWLFunctionalSyntaxParser implements
         arg0 = IArg();
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLObjectPropertyAtom(prop, arg0, arg1);
+        return df.getSWRLObjectPropertyAtom(prop, arg0, arg1);
     }
 
-    /** Data property atom.
-     * 
-     * @return the sWRL data property atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLDataPropertyAtom DataPropertyAtom() throws ParseException {
+    private SWRLDataPropertyAtom DataPropertyAtom() {
         OWLDataProperty prop;
         SWRLIArgument arg0;
         SWRLDArgument arg1;
@@ -2466,15 +1834,10 @@ public class OWLFunctionalSyntaxParser implements
         arg0 = IArg();
         arg1 = DArg();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLDataPropertyAtom(prop, arg0, arg1);
+        return df.getSWRLDataPropertyAtom(prop, arg0, arg1);
     }
 
-    /** Built in atom.
-     * 
-     * @return the sWRL built in atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLBuiltInAtom BuiltInAtom() throws ParseException {
+    private SWRLBuiltInAtom BuiltInAtom() {
         IRI iri;
         List<SWRLDArgument> args;
         SWRLDArgument arg;
@@ -2492,15 +1855,10 @@ public class OWLFunctionalSyntaxParser implements
             args.add(arg);
         }
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLBuiltInAtom(iri, args);
+        return df.getSWRLBuiltInAtom(iri, args);
     }
 
-    /** Same individual atom.
-     * 
-     * @return the sWRL same individual atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLSameIndividualAtom SameIndividualAtom() throws ParseException {
+    private SWRLSameIndividualAtom SameIndividualAtom() {
         SWRLIArgument arg0;
         SWRLIArgument arg1;
         jj_consume_token(SAMEINDIVIDUALATOM);
@@ -2508,16 +1866,10 @@ public class OWLFunctionalSyntaxParser implements
         arg0 = IArg();
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLSameIndividualAtom(arg0, arg1);
+        return df.getSWRLSameIndividualAtom(arg0, arg1);
     }
 
-    /** Different individuals atom.
-     * 
-     * @return the sWRL different individuals atom
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLDifferentIndividualsAtom DifferentIndividualsAtom()
-            throws ParseException {
+    private SWRLDifferentIndividualsAtom DifferentIndividualsAtom() {
         SWRLIArgument arg0;
         SWRLIArgument arg1;
         jj_consume_token(DIFFERENTINDIVIDUALSATOM);
@@ -2525,15 +1877,10 @@ public class OWLFunctionalSyntaxParser implements
         arg0 = IArg();
         arg1 = IArg();
         jj_consume_token(CLOSEPAR);
-        return dataFactory.getSWRLDifferentIndividualsAtom(arg0, arg1);
+        return df.getSWRLDifferentIndividualsAtom(arg0, arg1);
     }
 
-    /** I arg.
-     * 
-     * @return the sWRLI argument
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLIArgument IArg() throws ParseException {
+    private SWRLIArgument IArg() {
         OWLNamedIndividual ind;
         IRI iri;
         if (jj_2_127(2)) {
@@ -2541,21 +1888,16 @@ public class OWLFunctionalSyntaxParser implements
             jj_consume_token(OPENPAR);
             iri = IRI();
             jj_consume_token(CLOSEPAR);
-            return dataFactory.getSWRLVariable(iri);
+            return df.getSWRLVariable(iri);
         } else if (jj_2_128(2)) {
             ind = IndividualIRI();
-            return dataFactory.getSWRLIndividualArgument(ind);
+            return df.getSWRLIndividualArgument(ind);
         }
         jj_consume_token(-1);
         throw new ParseException();
     }
 
-    /** D arg.
-     * 
-     * @return the sWRLD argument
-     * @throws ParseException
-     *             the parse exception */
-    public SWRLDArgument DArg() throws ParseException {
+    private SWRLDArgument DArg() {
         OWLLiteral literal;
         IRI iri;
         if (jj_2_129(2)) {
@@ -2563,20 +1905,15 @@ public class OWLFunctionalSyntaxParser implements
             jj_consume_token(OPENPAR);
             iri = IRI();
             jj_consume_token(CLOSEPAR);
-            return dataFactory.getSWRLVariable(iri);
+            return df.getSWRLVariable(iri);
         } else if (jj_2_130(2)) {
             literal = Literal();
-            return dataFactory.getSWRLLiteralArgument(literal);
+            return df.getSWRLLiteralArgument(literal);
         }
         jj_consume_token(-1);
         throw new ParseException();
     }
 
-    /** Jj_2_1.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_1(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2589,11 +1926,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_2.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_2(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2606,11 +1938,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_3.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_3(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2623,11 +1950,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_4.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_4(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2640,11 +1962,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_5.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_5(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2657,11 +1974,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_6.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_6(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2674,11 +1986,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_7.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_7(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2691,11 +1998,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_8.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_8(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2708,11 +2010,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_9.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_9(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2725,11 +2022,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_10.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_10(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2742,11 +2034,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_11.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_11(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2759,11 +2046,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_12.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_12(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2776,11 +2058,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_13.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_13(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2793,11 +2070,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_14.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_14(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2810,11 +2082,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_15.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_15(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2827,11 +2094,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_16.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_16(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2844,11 +2106,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_17.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_17(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2861,11 +2118,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_18.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_18(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2878,11 +2130,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_19.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_19(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2895,11 +2142,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_20.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_20(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2912,11 +2154,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_21.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_21(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2929,11 +2166,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_22.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_22(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2946,11 +2178,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_23.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_23(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2963,11 +2190,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_24.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_24(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2980,11 +2202,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_25.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_25(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -2997,11 +2214,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_26.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_26(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3014,11 +2226,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_27.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_27(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3031,11 +2238,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_28.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_28(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3048,11 +2250,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_29.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_29(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3065,11 +2262,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_30.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_30(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3082,11 +2274,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_31.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_31(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3099,11 +2286,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_32.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_32(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3116,11 +2298,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_33.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_33(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3133,11 +2310,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_34.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_34(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3150,11 +2322,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_35.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_35(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3167,11 +2334,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_36.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_36(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3184,11 +2346,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_37.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_37(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3201,11 +2358,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_38.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_38(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3218,11 +2370,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_39.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_39(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3235,11 +2382,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_40.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_40(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3252,11 +2394,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_41.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_41(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3269,11 +2406,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_42.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_42(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3286,11 +2418,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_43.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_43(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3303,11 +2430,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_44.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_44(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3320,11 +2442,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_45.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_45(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3337,11 +2454,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_46.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_46(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3354,11 +2466,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_47.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_47(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3371,11 +2478,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_48.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_48(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3388,11 +2490,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_49.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_49(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3405,11 +2502,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_50.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_50(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3422,11 +2514,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_51.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_51(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3439,11 +2526,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_52.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_52(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3456,11 +2538,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_53.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_53(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3473,11 +2550,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_54.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_54(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3490,11 +2562,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_55.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_55(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3507,11 +2574,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_56.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_56(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3524,11 +2586,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_57.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_57(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3541,11 +2598,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_58.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_58(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3558,11 +2610,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_59.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_59(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3575,11 +2622,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_60.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_60(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3592,11 +2634,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_61.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_61(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3609,11 +2646,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_62.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_62(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3626,11 +2658,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_63.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_63(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3643,11 +2670,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_64.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_64(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3660,11 +2682,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_65.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_65(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3677,11 +2694,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_66.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_66(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3694,11 +2706,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_67.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_67(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3711,11 +2718,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_68.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_68(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3728,11 +2730,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_69.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_69(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3745,11 +2742,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_70.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_70(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3762,11 +2754,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_71.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_71(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3779,11 +2766,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_72.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_72(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3796,11 +2778,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_73.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_73(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3813,11 +2790,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_74.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_74(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3830,11 +2802,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_75.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_75(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3847,11 +2814,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_76.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_76(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3864,11 +2826,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_77.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_77(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3881,11 +2838,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_78.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_78(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3898,11 +2850,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_79.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_79(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3915,11 +2862,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_80.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_80(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3932,11 +2874,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_81.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_81(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3949,11 +2886,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_82.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_82(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3966,11 +2898,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_83.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_83(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -3983,11 +2910,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_84.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_84(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4000,11 +2922,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_85.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_85(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4017,11 +2934,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_86.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_86(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4034,11 +2946,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_87.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_87(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4051,11 +2958,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_88.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_88(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4068,11 +2970,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_89.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_89(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4085,11 +2982,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_90.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_90(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4102,11 +2994,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_91.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_91(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4119,11 +3006,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_92.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_92(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4136,11 +3018,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_93.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_93(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4153,11 +3030,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_94.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_94(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4170,11 +3042,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_95.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_95(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4187,11 +3054,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_96.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_96(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4204,11 +3066,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_97.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_97(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4221,11 +3078,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_98.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_98(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4238,11 +3090,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_99.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_99(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4255,11 +3102,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_100.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_100(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4272,11 +3114,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_101.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_101(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4289,11 +3126,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_102.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_102(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4306,11 +3138,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_103.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_103(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4323,11 +3150,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_104.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_104(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4340,11 +3162,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_105.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_105(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4357,11 +3174,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_106.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_106(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4374,11 +3186,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_107.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_107(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4391,11 +3198,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_108.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_108(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4408,11 +3210,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_109.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_109(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4425,11 +3222,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_110.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_110(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4442,11 +3234,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_111.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_111(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4459,11 +3246,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_112.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_112(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4476,11 +3258,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_113.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_113(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4493,11 +3270,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_114.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_114(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4510,11 +3282,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_115.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_115(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4527,11 +3294,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_116.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_116(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4544,11 +3306,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_117.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_117(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4561,11 +3318,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_118.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_118(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4578,11 +3330,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_119.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_119(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4595,11 +3342,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_120.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_120(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4612,11 +3354,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_121.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_121(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4629,11 +3366,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_122.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_122(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4646,11 +3378,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_123.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_123(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4663,11 +3390,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_124.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_124(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4680,11 +3402,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_125.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_125(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4697,11 +3414,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_126.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_126(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4714,11 +3426,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_127.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_127(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4731,11 +3438,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_128.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_128(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4748,11 +3450,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_129.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_129(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4765,11 +3462,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_2_130.
-     * 
-     * @param xla
-     *            the xla
-     * @return true, if successful */
     private boolean jj_2_130(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -4782,9 +3474,6 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_3 r_96.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_96() {
         if (jj_scan_token(CLASSASSERTION)) {
             return true;
@@ -4795,9 +3484,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_69.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_69() {
         if (jj_scan_token(EQUIVALENTCLASSES)) {
             return true;
@@ -4808,9 +3494,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_84.
-     * 
-     * @return true, if successful */
     private boolean jj_3_84() {
         if (jj_3R_93()) {
             return true;
@@ -4818,9 +3501,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_116.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_116() {
         if (jj_scan_token(DATARANGEATOM)) {
             return true;
@@ -4831,9 +3511,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_58.
-     * 
-     * @return true, if successful */
     private boolean jj_3_58() {
         if (jj_3R_69()) {
             return true;
@@ -4841,9 +3518,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_41.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_41() {
         if (jj_scan_token(DATAALLVALUESFROM)) {
             return true;
@@ -4854,9 +3528,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_113.
-     * 
-     * @return true, if successful */
     private boolean jj_3_113() {
         if (jj_3R_112()) {
             return true;
@@ -4864,9 +3535,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_68.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_68() {
         if (jj_scan_token(SUBCLASSOF)) {
             return true;
@@ -4877,9 +3545,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_95.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_95() {
         if (jj_scan_token(DIFFERENTINDIVIDUALS)) {
             return true;
@@ -4890,9 +3555,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_115.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_115() {
         if (jj_scan_token(CLASSATOM)) {
             return true;
@@ -4903,9 +3565,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_90.
-     * 
-     * @return true, if successful */
     private boolean jj_3_90() {
         if (jj_3R_99()) {
             return true;
@@ -4913,9 +3572,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_43.
-     * 
-     * @return true, if successful */
     private boolean jj_3_43() {
         if (jj_3R_56()) {
             return true;
@@ -4923,9 +3579,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_39.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_39() {
         if (jj_scan_token(OBJECTMAXCARDINALITY)) {
             return true;
@@ -4936,9 +3589,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_57.
-     * 
-     * @return true, if successful */
     private boolean jj_3_57() {
         if (jj_3R_68()) {
             return true;
@@ -4946,9 +3596,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_86.
-     * 
-     * @return true, if successful */
     private boolean jj_3_86() {
         if (jj_3R_95()) {
             return true;
@@ -4956,9 +3603,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_125.
-     * 
-     * @return true, if successful */
     private boolean jj_3_125() {
         if (jj_3R_121()) {
             return true;
@@ -4966,9 +3610,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_94.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_94() {
         if (jj_scan_token(SAMEINDIVIDUAL)) {
             return true;
@@ -4979,9 +3620,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_59.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_59() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5000,9 +3638,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_124.
-     * 
-     * @return true, if successful */
     private boolean jj_3_124() {
         if (jj_3R_120()) {
             return true;
@@ -5010,9 +3645,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_123.
-     * 
-     * @return true, if successful */
     private boolean jj_3_123() {
         if (jj_3R_119()) {
             return true;
@@ -5020,9 +3652,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_112.
-     * 
-     * @return true, if successful */
     private boolean jj_3_112() {
         if (jj_3R_111()) {
             return true;
@@ -5030,9 +3659,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_122.
-     * 
-     * @return true, if successful */
     private boolean jj_3_122() {
         if (jj_3R_118()) {
             return true;
@@ -5040,9 +3666,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_121.
-     * 
-     * @return true, if successful */
     private boolean jj_3_121() {
         if (jj_3R_117()) {
             return true;
@@ -5050,9 +3673,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_120.
-     * 
-     * @return true, if successful */
     private boolean jj_3_120() {
         if (jj_3R_116()) {
             return true;
@@ -5060,9 +3680,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_119.
-     * 
-     * @return true, if successful */
     private boolean jj_3_119() {
         if (jj_3R_115()) {
             return true;
@@ -5070,9 +3687,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_114.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_114() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5100,9 +3714,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_47.
-     * 
-     * @return true, if successful */
     private boolean jj_3_47() {
         if (jj_3R_58()) {
             return true;
@@ -5110,9 +3721,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_56.
-     * 
-     * @return true, if successful */
     private boolean jj_3_56() {
         if (jj_3R_67()) {
             return true;
@@ -5120,9 +3728,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_38.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_38() {
         if (jj_scan_token(OBJECTEXACTCARDINALITY)) {
             return true;
@@ -5133,9 +3738,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_55.
-     * 
-     * @return true, if successful */
     private boolean jj_3_55() {
         if (jj_3R_66()) {
             return true;
@@ -5143,9 +3745,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_54.
-     * 
-     * @return true, if successful */
     private boolean jj_3_54() {
         if (jj_3R_65()) {
             return true;
@@ -5153,9 +3752,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_67.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_67() {
         if (jj_scan_token(DLSAFERULE)) {
             return true;
@@ -5166,9 +3762,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_53.
-     * 
-     * @return true, if successful */
     private boolean jj_3_53() {
         if (jj_3R_64()) {
             return true;
@@ -5176,9 +3769,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_52.
-     * 
-     * @return true, if successful */
     private boolean jj_3_52() {
         if (jj_3R_63()) {
             return true;
@@ -5186,9 +3776,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_51.
-     * 
-     * @return true, if successful */
     private boolean jj_3_51() {
         if (jj_3R_62()) {
             return true;
@@ -5196,9 +3783,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_50.
-     * 
-     * @return true, if successful */
     private boolean jj_3_50() {
         if (jj_3R_61()) {
             return true;
@@ -5206,9 +3790,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_49.
-     * 
-     * @return true, if successful */
     private boolean jj_3_49() {
         if (jj_3R_60()) {
             return true;
@@ -5216,9 +3797,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_42.
-     * 
-     * @return true, if successful */
     private boolean jj_3_42() {
         if (jj_3R_55()) {
             return true;
@@ -5226,9 +3804,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_85.
-     * 
-     * @return true, if successful */
     private boolean jj_3_85() {
         if (jj_3R_94()) {
             return true;
@@ -5236,9 +3811,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_89.
-     * 
-     * @return true, if successful */
     private boolean jj_3_89() {
         if (jj_3R_98()) {
             return true;
@@ -5246,9 +3818,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_62.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_62() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5276,9 +3845,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_48.
-     * 
-     * @return true, if successful */
     private boolean jj_3_48() {
         if (jj_3R_59()) {
             return true;
@@ -5286,9 +3852,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_25.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_25() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5322,9 +3885,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_111.
-     * 
-     * @return true, if successful */
     private boolean jj_3_111() {
         if (jj_3R_110()) {
             return true;
@@ -5332,9 +3892,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_37.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_37() {
         if (jj_scan_token(OBJECTMINCARDINALITY)) {
             return true;
@@ -5345,9 +3902,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_113.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_113() {
         if (jj_scan_token(PN_LOCAL)) {
             return true;
@@ -5355,9 +3909,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_92.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_92() {
         if (jj_scan_token(FUNCTIONALDATAPROPERTY)) {
             return true;
@@ -5368,9 +3919,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_46.
-     * 
-     * @return true, if successful */
     private boolean jj_3_46() {
         if (jj_3R_48()) {
             return true;
@@ -5378,9 +3926,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_36.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_36() {
         if (jj_scan_token(OBJECTHASSELF)) {
             return true;
@@ -5391,9 +3936,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_58.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_58() {
         if (jj_3R_22()) {
             return true;
@@ -5404,9 +3946,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_123.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_123() {
         if (jj_scan_token(STRINGLITERAL)) {
             return true;
@@ -5414,9 +3953,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_90.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_90() {
         if (jj_scan_token(DATAPROPERTYRANGE)) {
             return true;
@@ -5427,9 +3963,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_41.
-     * 
-     * @return true, if successful */
     private boolean jj_3_41() {
         if (jj_3R_54()) {
             return true;
@@ -5437,9 +3970,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_110.
-     * 
-     * @return true, if successful */
     private boolean jj_3_110() {
         if (jj_3R_109()) {
             return true;
@@ -5447,9 +3977,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_35.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_35() {
         if (jj_scan_token(OBJECTHASVALUE)) {
             return true;
@@ -5460,9 +3987,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_54.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_54() {
         if (jj_scan_token(DATATYPERESTRICTION)) {
             return true;
@@ -5473,9 +3997,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_45.
-     * 
-     * @return true, if successful */
     private boolean jj_3_45() {
         if (jj_3R_48()) {
             return true;
@@ -5483,9 +4004,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_91.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_91() {
         if (jj_scan_token(DATAPROPERTYDOMAIN)) {
             return true;
@@ -5496,9 +4014,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_80.
-     * 
-     * @return true, if successful */
     private boolean jj_3_80() {
         if (jj_3R_89()) {
             return true;
@@ -5506,9 +4021,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_115.
-     * 
-     * @return true, if successful */
     private boolean jj_3_115() {
         if (jj_scan_token(LANGIDENTIFIER)) {
             return true;
@@ -5519,9 +4031,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_33.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_33() {
         if (jj_scan_token(OBJECTSOMEVALUESFROM)) {
             return true;
@@ -5532,9 +4041,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_114.
-     * 
-     * @return true, if successful */
     private boolean jj_3_114() {
         if (jj_scan_token(DATATYPEIDENTIFIER)) {
             return true;
@@ -5545,9 +4051,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_116.
-     * 
-     * @return true, if successful */
     private boolean jj_3_116() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5560,9 +4063,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_14.
-     * 
-     * @return true, if successful */
     private boolean jj_3_14() {
         if (jj_3R_32()) {
             return true;
@@ -5570,9 +4070,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_44.
-     * 
-     * @return true, if successful */
     private boolean jj_3_44() {
         if (jj_3R_57()) {
             return true;
@@ -5580,9 +4077,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_83.
-     * 
-     * @return true, if successful */
     private boolean jj_3_83() {
         if (jj_3R_92()) {
             return true;
@@ -5590,9 +4084,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_55.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_55() {
         if (jj_scan_token(DATAINTERSECTIONOF)) {
             return true;
@@ -5603,9 +4094,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_57.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_57() {
         if (jj_3R_123()) {
             return true;
@@ -5618,9 +4106,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_34.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_34() {
         if (jj_scan_token(OBJECTALLVALUESFROM)) {
             return true;
@@ -5631,9 +4116,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_40.
-     * 
-     * @return true, if successful */
     private boolean jj_3_40() {
         if (jj_3R_53()) {
             return true;
@@ -5641,9 +4123,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_109.
-     * 
-     * @return true, if successful */
     private boolean jj_3_109() {
         if (jj_3R_108()) {
             return true;
@@ -5651,9 +4130,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_56.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_56() {
         if (jj_scan_token(DATAUNIONOF)) {
             return true;
@@ -5664,9 +4140,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_18.
-     * 
-     * @return true, if successful */
     private boolean jj_3_18() {
         if (jj_3R_36()) {
             return true;
@@ -5674,9 +4147,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_89.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_89() {
         if (jj_scan_token(DISJOINTDATAPROPERTIES)) {
             return true;
@@ -5687,9 +4157,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_25.
-     * 
-     * @return true, if successful */
     private boolean jj_3_25() {
         if (jj_3R_43()) {
             return true;
@@ -5697,9 +4164,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_32.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_32() {
         if (jj_scan_token(OBJECTONEOF)) {
             return true;
@@ -5710,9 +4174,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_52.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_52() {
         if (jj_scan_token(DATAONEOF)) {
             return true;
@@ -5723,9 +4184,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_39.
-     * 
-     * @return true, if successful */
     private boolean jj_3_39() {
         if (jj_3R_52()) {
             return true;
@@ -5733,9 +4191,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_13.
-     * 
-     * @return true, if successful */
     private boolean jj_3_13() {
         if (jj_3R_31()) {
             return true;
@@ -5743,9 +4198,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_79.
-     * 
-     * @return true, if successful */
     private boolean jj_3_79() {
         if (jj_3R_88()) {
             return true;
@@ -5753,9 +4205,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_82.
-     * 
-     * @return true, if successful */
     private boolean jj_3_82() {
         if (jj_3R_91()) {
             return true;
@@ -5763,9 +4212,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_108.
-     * 
-     * @return true, if successful */
     private boolean jj_3_108() {
         if (jj_3R_107()) {
             return true;
@@ -5773,9 +4219,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_31.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_31() {
         if (jj_scan_token(OBJECTCOMPLEMENTOF)) {
             return true;
@@ -5786,9 +4229,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_88.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_88() {
         if (jj_scan_token(EQUIVALENTDATAPROPERTIES)) {
             return true;
@@ -5799,9 +4239,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_21.
-     * 
-     * @return true, if successful */
     private boolean jj_3_21() {
         if (jj_3R_39()) {
             return true;
@@ -5809,9 +4246,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_53.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_53() {
         if (jj_scan_token(DATACOMPLEMENTOF)) {
             return true;
@@ -5822,9 +4256,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_17.
-     * 
-     * @return true, if successful */
     private boolean jj_3_17() {
         if (jj_3R_35()) {
             return true;
@@ -5832,9 +4263,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_30.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_30() {
         if (jj_scan_token(OBJECTINTERSECTIONOF)) {
             return true;
@@ -5845,9 +4273,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_87.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_87() {
         if (jj_scan_token(SUBDATAPROPERTYOF)) {
             return true;
@@ -5858,9 +4283,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_24.
-     * 
-     * @return true, if successful */
     private boolean jj_3_24() {
         if (jj_3R_42()) {
             return true;
@@ -5868,9 +4290,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_63.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_63() {
         if (jj_scan_token(DECLARATION)) {
             return true;
@@ -5881,9 +4300,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_38.
-     * 
-     * @return true, if successful */
     private boolean jj_3_38() {
         if (jj_3R_51()) {
             return true;
@@ -5891,9 +4307,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_48.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_48() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5918,9 +4331,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_107.
-     * 
-     * @return true, if successful */
     private boolean jj_3_107() {
         if (jj_3R_93()) {
             return true;
@@ -5928,9 +4338,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_29.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_29() {
         if (jj_scan_token(OBJECTUNIONOF)) {
             return true;
@@ -5941,9 +4348,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_106.
-     * 
-     * @return true, if successful */
     private boolean jj_3_106() {
         if (jj_3R_85()) {
             return true;
@@ -5951,9 +4355,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_78.
-     * 
-     * @return true, if successful */
     private boolean jj_3_78() {
         if (jj_3R_87()) {
             return true;
@@ -5961,9 +4362,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_81.
-     * 
-     * @return true, if successful */
     private boolean jj_3_81() {
         if (jj_3R_90()) {
             return true;
@@ -5971,9 +4369,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_61.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_61() {
         Token xsp;
         xsp = jj_scanpos;
@@ -5998,9 +4393,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_65.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_65() {
         if (jj_scan_token(DATATYPEDEFINITION)) {
             return true;
@@ -6011,9 +4403,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_12.
-     * 
-     * @return true, if successful */
     private boolean jj_3_12() {
         if (jj_3R_30()) {
             return true;
@@ -6021,9 +4410,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_29.
-     * 
-     * @return true, if successful */
     private boolean jj_3_29() {
         if (jj_3R_47()) {
             return true;
@@ -6031,9 +4417,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_64.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_64() {
         if (jj_scan_token(HASKEY)) {
             return true;
@@ -6044,9 +4427,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_27.
-     * 
-     * @return true, if successful */
     private boolean jj_3_27() {
         if (jj_3R_45()) {
             return true;
@@ -6054,9 +4434,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_20.
-     * 
-     * @return true, if successful */
     private boolean jj_3_20() {
         if (jj_3R_38()) {
             return true;
@@ -6064,9 +4441,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_16.
-     * 
-     * @return true, if successful */
     private boolean jj_3_16() {
         if (jj_3R_34()) {
             return true;
@@ -6074,9 +4448,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_23.
-     * 
-     * @return true, if successful */
     private boolean jj_3_23() {
         if (jj_3R_41()) {
             return true;
@@ -6084,9 +4455,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_83.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_83() {
         if (jj_scan_token(TRANSITIVEOBJECTPROPERTY)) {
             return true;
@@ -6097,9 +4465,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_28.
-     * 
-     * @return true, if successful */
     private boolean jj_3_28() {
         if (jj_3R_46()) {
             return true;
@@ -6107,9 +4472,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_105.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_105() {
         if (jj_scan_token(ANNOTATIONPROPERTYRANGE)) {
             return true;
@@ -6120,9 +4482,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_11.
-     * 
-     * @return true, if successful */
     private boolean jj_3_11() {
         if (jj_3R_29()) {
             return true;
@@ -6130,9 +4489,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_82.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_82() {
         if (jj_scan_token(IRREFLEXIVEOBJECTPROPERTY)) {
             return true;
@@ -6143,9 +4499,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_77.
-     * 
-     * @return true, if successful */
     private boolean jj_3_77() {
         if (jj_3R_85()) {
             return true;
@@ -6153,9 +4506,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_28.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_28() {
         if (jj_3R_22()) {
             return true;
@@ -6163,9 +4513,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_104.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_104() {
         if (jj_scan_token(ANNOTATIONPROPERTYDOMAIN)) {
             return true;
@@ -6176,9 +4523,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_81.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_81() {
         if (jj_scan_token(REFLEXIVEOBJECTPROPERTY)) {
             return true;
@@ -6189,9 +4533,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_51.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_51() {
         if (jj_3R_22()) {
             return true;
@@ -6199,9 +4540,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_26.
-     * 
-     * @return true, if successful */
     private boolean jj_3_26() {
         if (jj_3R_44()) {
             return true;
@@ -6209,9 +4547,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_22.
-     * 
-     * @return true, if successful */
     private boolean jj_3_22() {
         if (jj_3R_40()) {
             return true;
@@ -6219,9 +4554,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_19.
-     * 
-     * @return true, if successful */
     private boolean jj_3_19() {
         if (jj_3R_37()) {
             return true;
@@ -6229,9 +4561,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_15.
-     * 
-     * @return true, if successful */
     private boolean jj_3_15() {
         if (jj_3R_33()) {
             return true;
@@ -6239,9 +4568,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_10.
-     * 
-     * @return true, if successful */
     private boolean jj_3_10() {
         if (jj_3R_28()) {
             return true;
@@ -6249,9 +4575,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_46.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_46() {
         Token xsp;
         xsp = jj_scanpos;
@@ -6312,9 +4635,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_106.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_106() {
         if (jj_scan_token(SUBANNOTATIONPROPERTYOF)) {
             return true;
@@ -6325,9 +4645,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_111.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_111() {
         if (jj_scan_token(DATATYPE)) {
             return true;
@@ -6338,9 +4655,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_80.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_80() {
         if (jj_scan_token(ASYMMETRICOBJECTPROPERTY)) {
             return true;
@@ -6351,9 +4665,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_104.
-     * 
-     * @return true, if successful */
     private boolean jj_3_104() {
         if (jj_3R_57()) {
             return true;
@@ -6361,9 +4672,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_103.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_103() {
         if (jj_scan_token(ANNOTATIONASSERTION)) {
             return true;
@@ -6374,9 +4682,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_102.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_102() {
         if (jj_scan_token(NODEID)) {
             return true;
@@ -6384,9 +4689,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_79.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_79() {
         if (jj_scan_token(SYMMETRICOBJECTPROPERTY)) {
             return true;
@@ -6397,9 +4699,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_99.
-     * 
-     * @return true, if successful */
     private boolean jj_3_99() {
         if (jj_3R_24()) {
             return true;
@@ -6407,9 +4706,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_76.
-     * 
-     * @return true, if successful */
     private boolean jj_3_76() {
         if (jj_3R_86()) {
             return true;
@@ -6417,9 +4713,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_110.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_110() {
         if (jj_scan_token(NAMEDINDIVIDUAL)) {
             return true;
@@ -6430,9 +4723,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_78.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_78() {
         if (jj_scan_token(INVERSEFUNCTIONALOBJECTPROPERTY)) {
             return true;
@@ -6443,9 +4733,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_27.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_27() {
         if (jj_scan_token(PNAME_LN)) {
             return true;
@@ -6453,9 +4740,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_23.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_23() {
         if (jj_scan_token(IMPORT)) {
             return true;
@@ -6466,9 +4750,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_9.
-     * 
-     * @return true, if successful */
     private boolean jj_3_9() {
         if (jj_3R_27()) {
             return true;
@@ -6476,9 +4757,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_84.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_84() {
         if (jj_scan_token(INVERSEOBJECTPROPERTIES)) {
             return true;
@@ -6489,9 +4767,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_26.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_26() {
         if (jj_scan_token(FULLIRI)) {
             return true;
@@ -6499,9 +4774,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_118.
-     * 
-     * @return true, if successful */
     private boolean jj_3_118() {
         if (jj_3R_114()) {
             return true;
@@ -6509,9 +4781,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_103.
-     * 
-     * @return true, if successful */
     private boolean jj_3_103() {
         if (jj_3R_102()) {
             return true;
@@ -6519,9 +4788,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_35.
-     * 
-     * @return true, if successful */
     private boolean jj_3_35() {
         if (jj_3R_48()) {
             return true;
@@ -6529,9 +4795,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_112.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_112() {
         if (jj_scan_token(ANNOTATIONPROPERTY)) {
             return true;
@@ -6542,9 +4805,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_8.
-     * 
-     * @return true, if successful */
     private boolean jj_3_8() {
         if (jj_3R_26()) {
             return true;
@@ -6552,9 +4812,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_105.
-     * 
-     * @return true, if successful */
     private boolean jj_3_105() {
         if (jj_3R_24()) {
             return true;
@@ -6562,9 +4819,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_22.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_22() {
         Token xsp;
         xsp = jj_scanpos;
@@ -6577,9 +4831,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_77.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_77() {
         if (jj_scan_token(FUNCTIONALOBJECTPROPERTY)) {
             return true;
@@ -6590,9 +4841,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_74.
-     * 
-     * @return true, if successful */
     private boolean jj_3_74() {
         if (jj_3R_85()) {
             return true;
@@ -6600,9 +4848,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_101.
-     * 
-     * @return true, if successful */
     private boolean jj_3_101() {
         if (jj_3R_102()) {
             return true;
@@ -6610,9 +4855,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_73.
-     * 
-     * @return true, if successful */
     private boolean jj_3_73() {
         if (jj_3R_84()) {
             return true;
@@ -6620,9 +4862,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_2.
-     * 
-     * @return true, if successful */
     private boolean jj_3_2() {
         if (jj_3R_22()) {
             return true;
@@ -6630,9 +4869,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_109.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_109() {
         if (jj_scan_token(DATAPROP)) {
             return true;
@@ -6643,9 +4879,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_102.
-     * 
-     * @return true, if successful */
     private boolean jj_3_102() {
         if (jj_3R_22()) {
             return true;
@@ -6653,9 +4886,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_76.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_76() {
         if (jj_scan_token(OBJECTPROPERTYDOMAIN)) {
             return true;
@@ -6666,9 +4896,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_34.
-     * 
-     * @return true, if successful */
     private boolean jj_3_34() {
         if (jj_3R_48()) {
             return true;
@@ -6676,9 +4903,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_75.
-     * 
-     * @return true, if successful */
     private boolean jj_3_75() {
         if (jj_3R_85()) {
             return true;
@@ -6686,9 +4910,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_21.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_21() {
         if (jj_scan_token(PREFIX)) {
             return true;
@@ -6699,9 +4920,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_126.
-     * 
-     * @return true, if successful */
     private boolean jj_3_126() {
         if (jj_3R_122()) {
             return true;
@@ -6709,9 +4927,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_124.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_124() {
         if (jj_3R_22()) {
             return true;
@@ -6719,9 +4934,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_100.
-     * 
-     * @return true, if successful */
     private boolean jj_3_100() {
         if (jj_3R_22()) {
             return true;
@@ -6729,9 +4941,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_75.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_75() {
         if (jj_scan_token(OBJECTPROPERTYRANGE)) {
             return true;
@@ -6742,9 +4951,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_37.
-     * 
-     * @return true, if successful */
     private boolean jj_3_37() {
         if (jj_3R_50()) {
             return true;
@@ -6752,9 +4958,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_3.
-     * 
-     * @return true, if successful */
     private boolean jj_3_3() {
         if (jj_3R_22()) {
             return true;
@@ -6767,9 +4970,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_7.
-     * 
-     * @return true, if successful */
     private boolean jj_3_7() {
         if (jj_3R_25()) {
             return true;
@@ -6777,9 +4977,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_93.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_93() {
         if (jj_3R_124()) {
             return true;
@@ -6787,9 +4984,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_33.
-     * 
-     * @return true, if successful */
     private boolean jj_3_33() {
         if (jj_3R_48()) {
             return true;
@@ -6797,9 +4991,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_24.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_24() {
         if (jj_scan_token(ANNOTATION)) {
             return true;
@@ -6810,9 +5001,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_69.
-     * 
-     * @return true, if successful */
     private boolean jj_3_69() {
         if (jj_3R_80()) {
             return true;
@@ -6820,9 +5008,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_6.
-     * 
-     * @return true, if successful */
     private boolean jj_3_6() {
         if (jj_3R_24()) {
             return true;
@@ -6830,9 +5015,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_108.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_108() {
         if (jj_scan_token(OBJECTPROP)) {
             return true;
@@ -6843,9 +5025,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_72.
-     * 
-     * @return true, if successful */
     private boolean jj_3_72() {
         if (jj_3R_83()) {
             return true;
@@ -6853,9 +5032,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_4.
-     * 
-     * @return true, if successful */
     private boolean jj_3_4() {
         Token xsp;
         xsp = jj_scanpos;
@@ -6868,9 +5044,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_5.
-     * 
-     * @return true, if successful */
     private boolean jj_3_5() {
         if (jj_3R_23()) {
             return true;
@@ -6878,9 +5051,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_63.
-     * 
-     * @return true, if successful */
     private boolean jj_3_63() {
         if (jj_3R_74()) {
             return true;
@@ -6888,9 +5058,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_98.
-     * 
-     * @return true, if successful */
     private boolean jj_3_98() {
         if (jj_3R_106()) {
             return true;
@@ -6898,9 +5065,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_97.
-     * 
-     * @return true, if successful */
     private boolean jj_3_97() {
         if (jj_3R_105()) {
             return true;
@@ -6908,9 +5072,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_96.
-     * 
-     * @return true, if successful */
     private boolean jj_3_96() {
         if (jj_3R_104()) {
             return true;
@@ -6918,9 +5079,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_95.
-     * 
-     * @return true, if successful */
     private boolean jj_3_95() {
         if (jj_3R_103()) {
             return true;
@@ -6928,9 +5086,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_74.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_74() {
         if (jj_scan_token(DISJOINTOBJECTPROPERTIES)) {
             return true;
@@ -6941,9 +5096,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_66.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_66() {
         Token xsp;
         xsp = jj_scanpos;
@@ -6962,9 +5114,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_49.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_49() {
         if (jj_scan_token(OBJECTINVERSEOF)) {
             return true;
@@ -6975,9 +5124,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_66.
-     * 
-     * @return true, if successful */
     private boolean jj_3_66() {
         if (jj_3R_77()) {
             return true;
@@ -6985,9 +5131,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_94.
-     * 
-     * @return true, if successful */
     private boolean jj_3_94() {
         if (jj_3R_102()) {
             return true;
@@ -6995,9 +5138,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_36.
-     * 
-     * @return true, if successful */
     private boolean jj_3_36() {
         if (jj_3R_49()) {
             return true;
@@ -7005,9 +5145,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_85.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_85() {
         Token xsp;
         xsp = jj_scanpos;
@@ -7020,9 +5157,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_73.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_73() {
         if (jj_scan_token(EQUIVALENTOBJECTPROPERTIES)) {
             return true;
@@ -7033,9 +5167,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_50.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_50() {
         if (jj_3R_22()) {
             return true;
@@ -7043,9 +5174,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_1.
-     * 
-     * @return true, if successful */
     private boolean jj_3_1() {
         if (jj_3R_21()) {
             return true;
@@ -7053,9 +5181,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_68.
-     * 
-     * @return true, if successful */
     private boolean jj_3_68() {
         if (jj_3R_79()) {
             return true;
@@ -7063,9 +5188,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_107.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_107() {
         if (jj_scan_token(CLASS)) {
             return true;
@@ -7076,9 +5198,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_71.
-     * 
-     * @return true, if successful */
     private boolean jj_3_71() {
         if (jj_3R_82()) {
             return true;
@@ -7086,9 +5205,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_93.
-     * 
-     * @return true, if successful */
     private boolean jj_3_93() {
         if (jj_3R_101()) {
             return true;
@@ -7096,9 +5212,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_47.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_47() {
         Token xsp;
         xsp = jj_scanpos;
@@ -7111,9 +5224,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_130.
-     * 
-     * @return true, if successful */
     private boolean jj_3_130() {
         if (jj_3R_57()) {
             return true;
@@ -7121,9 +5231,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_122.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_122() {
         Token xsp;
         xsp = jj_scanpos;
@@ -7136,9 +5243,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_129.
-     * 
-     * @return true, if successful */
     private boolean jj_3_129() {
         if (jj_scan_token(VARIABLE)) {
             return true;
@@ -7149,9 +5253,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_72.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_72() {
         if (jj_scan_token(SUBOBJECTPROPERTYOF)) {
             return true;
@@ -7162,9 +5263,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_32.
-     * 
-     * @return true, if successful */
     private boolean jj_3_32() {
         if (jj_3R_46()) {
             return true;
@@ -7172,9 +5270,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_65.
-     * 
-     * @return true, if successful */
     private boolean jj_3_65() {
         if (jj_3R_76()) {
             return true;
@@ -7182,9 +5277,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_62.
-     * 
-     * @return true, if successful */
     private boolean jj_3_62() {
         if (jj_3R_73()) {
             return true;
@@ -7192,9 +5284,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_101.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_101() {
         if (jj_3R_22()) {
             return true;
@@ -7202,9 +5291,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_45.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_45() {
         if (jj_scan_token(DATAMAXCARDINALITY)) {
             return true;
@@ -7215,9 +5301,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_117.
-     * 
-     * @return true, if successful */
     private boolean jj_3_117() {
         if (jj_3R_114()) {
             return true;
@@ -7225,9 +5308,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_128.
-     * 
-     * @return true, if successful */
     private boolean jj_3_128() {
         if (jj_3R_101()) {
             return true;
@@ -7235,9 +5315,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_127.
-     * 
-     * @return true, if successful */
     private boolean jj_3_127() {
         if (jj_scan_token(VARIABLE)) {
             return true;
@@ -7248,9 +5325,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_86.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_86() {
         if (jj_scan_token(SUBOBJECTPROPERTYCHAIN)) {
             return true;
@@ -7261,9 +5335,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_31.
-     * 
-     * @return true, if successful */
     private boolean jj_3_31() {
         if (jj_3R_46()) {
             return true;
@@ -7271,9 +5342,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_100.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_100() {
         if (jj_scan_token(NEGATIVEDATAPROPERTYASSERTION)) {
             return true;
@@ -7284,9 +5352,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_92.
-     * 
-     * @return true, if successful */
     private boolean jj_3_92() {
         if (jj_3R_47()) {
             return true;
@@ -7294,9 +5359,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_121.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_121() {
         if (jj_scan_token(DIFFERENTINDIVIDUALSATOM)) {
             return true;
@@ -7307,9 +5369,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_44.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_44() {
         if (jj_scan_token(DATAEXACTCARDINALITY)) {
             return true;
@@ -7320,9 +5379,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_60.
-     * 
-     * @return true, if successful */
     private boolean jj_3_60() {
         if (jj_3R_71()) {
             return true;
@@ -7330,9 +5386,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_70.
-     * 
-     * @return true, if successful */
     private boolean jj_3_70() {
         if (jj_3R_81()) {
             return true;
@@ -7340,9 +5393,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_67.
-     * 
-     * @return true, if successful */
     private boolean jj_3_67() {
         if (jj_3R_78()) {
             return true;
@@ -7350,9 +5400,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_64.
-     * 
-     * @return true, if successful */
     private boolean jj_3_64() {
         if (jj_3R_75()) {
             return true;
@@ -7360,9 +5407,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_61.
-     * 
-     * @return true, if successful */
     private boolean jj_3_61() {
         if (jj_3R_72()) {
             return true;
@@ -7370,9 +5414,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_60.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_60() {
         Token xsp;
         xsp = jj_scanpos;
@@ -7418,9 +5459,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_98.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_98() {
         if (jj_scan_token(DATAPROPERTYASSERTION)) {
             return true;
@@ -7431,9 +5469,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_120.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_120() {
         if (jj_scan_token(SAMEINDIVIDUALATOM)) {
             return true;
@@ -7444,9 +5479,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_30.
-     * 
-     * @return true, if successful */
     private boolean jj_3_30() {
         if (jj_3R_46()) {
             return true;
@@ -7454,9 +5486,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_43.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_43() {
         if (jj_scan_token(DATAMINCARDINALITY)) {
             return true;
@@ -7467,9 +5496,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_88.
-     * 
-     * @return true, if successful */
     private boolean jj_3_88() {
         if (jj_3R_97()) {
             return true;
@@ -7477,9 +5503,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_119.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_119() {
         if (jj_scan_token(BUILTINATOM)) {
             return true;
@@ -7490,9 +5513,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_99.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_99() {
         if (jj_scan_token(NEGATIVEOBJECTPROPERTYASSERTION)) {
             return true;
@@ -7503,9 +5523,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_71.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_71() {
         if (jj_scan_token(DISJOINTUNION)) {
             return true;
@@ -7516,9 +5533,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_91.
-     * 
-     * @return true, if successful */
     private boolean jj_3_91() {
         if (jj_3R_100()) {
             return true;
@@ -7526,9 +5540,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_59.
-     * 
-     * @return true, if successful */
     private boolean jj_3_59() {
         if (jj_3R_70()) {
             return true;
@@ -7536,9 +5547,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_42.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_42() {
         if (jj_scan_token(DATAHASVALUE)) {
             return true;
@@ -7549,9 +5557,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_118.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_118() {
         if (jj_scan_token(DATAPROPERTYATOM)) {
             return true;
@@ -7562,9 +5567,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_97.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_97() {
         if (jj_scan_token(OBJECTPROPERTYASSERTION)) {
             return true;
@@ -7575,9 +5577,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_70.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_70() {
         if (jj_scan_token(DISJOINTCLASSES)) {
             return true;
@@ -7588,9 +5587,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_117.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_117() {
         if (jj_scan_token(OBJECTPROPERTYATOM)) {
             return true;
@@ -7601,9 +5597,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3 r_40.
-     * 
-     * @return true, if successful */
     private boolean jj_3R_40() {
         if (jj_scan_token(DATASOMEVALUESFROM)) {
             return true;
@@ -7614,9 +5607,6 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Jj_3_87.
-     * 
-     * @return true, if successful */
     private boolean jj_3_87() {
         if (jj_3R_96()) {
             return true;
@@ -7624,31 +5614,17 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Generated Token Manager. */
-    public OWLFunctionalSyntaxParserTokenManager token_source;
-    /** The jj_input_stream. */
-    JavaCharStream jj_input_stream;
-    /** Current token. */
-    public Token token;
-    /** Next token. */
-    public Token jj_nt;
-    /** The jj_lastpos. */
+    private OWLFunctionalSyntaxParserTokenManager token_source;
+    private JavaCharStream jj_input_stream;
+    private Token token;
     private Token jj_scanpos, jj_lastpos;
-    /** The jj_la. */
     private int jj_la;
-    /** The jj_gen. */
     private int jj_gen;
-    /** The jj_la1. */
     final private int[] jj_la1 = new int[0];
-    /** The jj_la1_0. */
     static private int[] jj_la1_0;
-    /** The jj_la1_1. */
     static private int[] jj_la1_1;
-    /** The jj_la1_2. */
     static private int[] jj_la1_2;
-    /** The jj_la1_3. */
     static private int[] jj_la1_3;
-    /** The jj_la1_4. */
     static private int[] jj_la1_4;
     static {
         jj_la1_init_0();
@@ -7658,36 +5634,29 @@ public class OWLFunctionalSyntaxParser implements
         jj_la1_init_4();
     }
 
-    /** Jj_la1_init_0. */
     private static void jj_la1_init_0() {
         jj_la1_0 = new int[] {};
     }
 
-    /** Jj_la1_init_1. */
     private static void jj_la1_init_1() {
         jj_la1_1 = new int[] {};
     }
 
-    /** Jj_la1_init_2. */
     private static void jj_la1_init_2() {
         jj_la1_2 = new int[] {};
     }
 
-    /** Jj_la1_init_3. */
     private static void jj_la1_init_3() {
         jj_la1_3 = new int[] {};
     }
 
-    /** Jj_la1_init_4. */
     private static void jj_la1_init_4() {
         jj_la1_4 = new int[] {};
     }
 
     /** The jj_2_rtns. */
     final private JJCalls[] jj_2_rtns = new JJCalls[130];
-    /** The jj_rescan. */
     private boolean jj_rescan = false;
-    /** The jj_gc. */
     private int jj_gc = 0;
 
     /** Constructor with InputStream.
@@ -7753,31 +5722,12 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Constructor.
-     * 
-     * @param stream
+    /** @param stream
      *            the stream */
     public OWLFunctionalSyntaxParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new OWLFunctionalSyntaxParserTokenManager(
                 jj_input_stream);
-        token = new Token();
-        jj_gen = 0;
-        for (int i = 0; i < 0; i++) {
-            jj_la1[i] = -1;
-        }
-        for (int i = 0; i < jj_2_rtns.length; i++) {
-            jj_2_rtns[i] = new JJCalls();
-        }
-    }
-
-    /** Reinitialise.
-     * 
-     * @param stream
-     *            the stream */
-    public void ReInit(java.io.Reader stream) {
-        jj_input_stream.ReInit(stream, 1, 1);
-        token_source.ReInit(jj_input_stream);
         token = new Token();
         jj_gen = 0;
         for (int i = 0; i < 0; i++) {
@@ -7820,14 +5770,7 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Jj_consume_token.
-     * 
-     * @param kind
-     *            the kind
-     * @return the token
-     * @throws ParseException
-     *             the parse exception */
-    private Token jj_consume_token(int kind) throws ParseException {
+    private Token jj_consume_token(int kind) {
         Token oldToken;
         if ((oldToken = token).next != null) {
             token = token.next;
@@ -7867,11 +5810,6 @@ public class OWLFunctionalSyntaxParser implements
     /** The jj_ls. */
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
 
-    /** Jj_scan_token.
-     * 
-     * @param kind
-     *            the kind
-     * @return true, if successful */
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -7934,23 +5872,12 @@ public class OWLFunctionalSyntaxParser implements
         return t;
     }
 
-    /** The jj_expentries. */
     private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-    /** The jj_expentry. */
     private int[] jj_expentry;
-    /** The jj_kind. */
     private int jj_kind = -1;
-    /** The jj_lasttokens. */
     private int[] jj_lasttokens = new int[100];
-    /** The jj_endpos. */
     private int jj_endpos;
 
-    /** Jj_add_error_token.
-     * 
-     * @param kind
-     *            the kind
-     * @param pos
-     *            the pos */
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
             return;
@@ -7981,10 +5908,7 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Generate ParseException.
-     * 
-     * @return the parses the exception */
-    public ParseException generateParseException() {
+    private ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[130];
         if (jj_kind >= 0) {
@@ -8029,13 +5953,7 @@ public class OWLFunctionalSyntaxParser implements
         return new ParseException(token, exptokseq, tokenImage);
     }
 
-    /** Enable tracing. */
-    public void enable_tracing() {}
-
-    /** Disable tracing. */
-    public void disable_tracing() {}
-
-    /** Jj_rescan_token. */
+    @SuppressWarnings("incomplete-switch")
     private void jj_rescan_token() {
         jj_rescan = true;
         for (int i = 0; i < 130; i++) {
@@ -8445,12 +6363,6 @@ public class OWLFunctionalSyntaxParser implements
         jj_rescan = false;
     }
 
-    /** Jj_save.
-     * 
-     * @param index
-     *            the index
-     * @param xla
-     *            the xla */
     private void jj_save(int index, int xla) {
         JJCalls p = jj_2_rtns[index];
         while (p.gen > jj_gen) {

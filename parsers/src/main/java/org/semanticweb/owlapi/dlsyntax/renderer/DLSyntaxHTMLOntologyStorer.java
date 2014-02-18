@@ -72,10 +72,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     protected void
             beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("<html>");
-        writer.println("<body>");
-        writer.print("<h1>");
-        writer.print("Ontology: ");
+        checkNotNull(writer, "writer cannot be null").println(
+                "<html>\n<body>\n<h1>Ontology: ");
         writer.print(ontology.getOntologyID().toString());
         writer.println("</h1>");
     }
@@ -87,8 +85,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     @Override
     protected void endWritingOntology(OWLOntology ontology, PrintWriter writer) {
         checkNotNull(ontology, "ontology cannot be null");
-        checkNotNull(writer, "writer cannot be null").println("</body>");
-        writer.println("</html>");
+        checkNotNull(writer, "writer cannot be null").println(
+                "</body>\n</html>");
     }
 
     @Override
@@ -113,8 +111,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");
         writer.print(subject.getIRI().toString());
-        writer.println("</a></h2>");
-        writer.println("<div class=\"entitybox\">");
+        writer.println("</a></h2>\n<div class=\"entitybox\">");
     }
 
     @Override
@@ -141,10 +138,9 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
             Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         checkNotNull(subject, "subject cannot be null");
         checkNotNull(axioms, "axioms cannot be null");
-        checkNotNull(writer, "writer cannot be null")
-                .println(
-                        "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
-        writer.print("<h3>Usages (" + axioms.size() + ")</h3>");
+        checkNotNull(writer, "writer cannot be null").println(
+                "<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">\n<h3>Usages ("
+                        + axioms.size() + ")</h3>");
     }
 
     @Override

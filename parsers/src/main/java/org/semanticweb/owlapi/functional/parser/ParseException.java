@@ -14,12 +14,14 @@
 /* JavaCCOptions:KEEP_LINE_COL=null */
 package org.semanticweb.owlapi.functional.parser;
 
+import org.semanticweb.owlapi.io.OWLParserException;
+
 /** This exception is thrown when parse errors are encountered. You can
  * explicitly create objects of this exception type by calling the method
  * generateParseException in the generated parser. You can modify this class to
  * customize your error reporting mechanisms so long as you retain the public
  * fields. */
-public class ParseException extends Exception {
+public class ParseException extends OWLParserException {
     private static final long serialVersionUID = 40000L;
 
     /** This constructor is used by the method "generateParseException" in the
@@ -30,9 +32,9 @@ public class ParseException extends Exception {
      * @param currentTokenVal
      *            current token
      * @param expectedTokenSequencesVal
-     *            expected tokensa
+     *            expected token sequences
      * @param tokenImageVal
-     *            token */
+     *             token image val */
     public ParseException(Token currentTokenVal,
             int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,
@@ -79,9 +81,9 @@ public class ParseException extends Exception {
      * correct error message gets displayed.
      * 
      * @param currentToken
-     *            token
+     *            the current token
      * @param expectedTokenSequences
-     *            expected tokens
+     *            expected token sequences
      * @param tokenImage
      *            token image
      * @return error message */
