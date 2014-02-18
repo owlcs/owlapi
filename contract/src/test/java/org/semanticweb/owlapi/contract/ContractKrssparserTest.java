@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
@@ -34,12 +33,8 @@ import org.semanticweb.owlapi.krss1.parser.ParseException;
 import org.semanticweb.owlapi.krss1.parser.Token;
 import org.semanticweb.owlapi.krss1.parser.TokenMgrError;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLException;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
@@ -79,9 +74,6 @@ public class ContractKrssparserTest {
         new KRSSParser(mock(InputStream.class), "");
         new KRSSParser(mock(InputStream.class));
         testSubject0.parse();
-        IRI result0 = testSubject0.Name();
-        OWLAxiom result1 = testSubject0.Instance();
-        OWLClassExpression result2 = testSubject0.All();
         IRI result3 = testSubject0.getIRI("");
         testSubject0.setOntology(Utils.getMockOntology(),
                 mock(OWLDataFactory.class));
@@ -89,34 +81,9 @@ public class ContractKrssparserTest {
         testSubject0.ReInit(mock(InputStream.class));
         testSubject0.ReInit(mock(InputStream.class), "");
         testSubject0.ReInit(mock(KRSSParserTokenManager.class));
-        OWLAxiom result4 = testSubject0.TBoxStatement();
-        OWLAxiom result5 = testSubject0.ABoxStatement();
-        OWLAxiom result6 = testSubject0.DefinePrimitiveConcept();
-        OWLAxiom result7 = testSubject0.DefineConcept();
-        OWLAxiom result8 = testSubject0.DefinePrimitiveRole();
-        OWLAxiom result9 = testSubject0.Range();
-        OWLAxiom result10 = testSubject0.Transitive();
-        OWLClassExpression result11 = testSubject0.ConceptName();
-        OWLClassExpression result12 = testSubject0.ConceptExpression();
-        OWLObjectProperty result13 = testSubject0.RoleName();
-        OWLClassExpression result14 = testSubject0.And();
-        OWLClassExpression result15 = testSubject0.Or();
-        OWLClassExpression result16 = testSubject0.Not();
-        OWLClassExpression result17 = testSubject0.Some();
-        OWLClassExpression result18 = testSubject0.AtLeast();
-        OWLClassExpression result19 = testSubject0.AtMost();
-        OWLClassExpression result20 = testSubject0.Exactly();
-        Set<OWLClassExpression> result21 = testSubject0.ConceptSet();
-        int result22 = testSubject0.Integer();
-        OWLAxiom result23 = testSubject0.Related();
-        OWLAxiom result24 = testSubject0.Equal();
-        OWLAxiom result25 = testSubject0.Distinct();
-        OWLIndividual result26 = testSubject0.IndividualName();
         Token result27 = testSubject0.getNextToken();
         ParseException result28 = testSubject0.generateParseException();
         Token result29 = testSubject0.getToken(0);
-        testSubject0.enable_tracing();
-        testSubject0.disable_tracing();
     }
 
     @Test

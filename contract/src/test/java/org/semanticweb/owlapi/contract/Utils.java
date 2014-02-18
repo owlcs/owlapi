@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.contract;
 
 import static org.mockito.Mockito.*;
-import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,25 +27,7 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.*;
-import org.semanticweb.owlapi.owlxml.parser.AbstractClassExpressionElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.AbstractIRIElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.AbstractOWLAxiomElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.AbstractOWLDataRangeHandler;
-import org.semanticweb.owlapi.owlxml.parser.AbstractOWLIndividualOperandAxiomElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLAnnotationElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLAnnotationPropertyElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLAnonymousIndividualElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLDataPropertyElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLDatatypeElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLLiteralElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLObjectPropertyElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLSubAnnotationPropertyOfElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.OWLSubClassAxiomElementHandler;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler;
-import org.semanticweb.owlapi.owlxml.parser.SWRLAtomElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.SWRLAtomListElementHandler;
-import org.semanticweb.owlapi.owlxml.parser.SWRLVariableElementHandler;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
 import org.semanticweb.owlapi.reasoner.Node;
@@ -55,7 +37,6 @@ import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorExAdapter;
 import org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainer;
 import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
@@ -173,141 +154,6 @@ public class Utils {
         Mockito.when(mock.getOWLOntologyManager()).thenReturn(
                 Utils.getMockManager());
         Mockito.when(mock.getOntology()).thenReturn(getMockOntology());
-        return mock;
-    }
-
-    public static OWLElementHandler<OWLObject> mockElementHandler() {
-        OWLElementHandler<OWLObject> mock = mock(OWLElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLThing());
-        return mock;
-    }
-
-    public static AbstractOWLIndividualOperandAxiomElementHandler
-            mockIndividualHandler() throws OWLParserException {
-        AbstractOWLIndividualOperandAxiomElementHandler mock = mock(AbstractOWLIndividualOperandAxiomElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLDeclarationAxiom(Class(IRI("urn:fake"))));
-        return mock;
-    }
-
-    public static OWLAnnotationElementHandler mockAnnotationHandler()
-            throws OWLParserException {
-        OWLAnnotationElementHandler mock = mock(OWLAnnotationElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(0)));
-        return mock;
-    }
-
-    public static AbstractOWLDataRangeHandler mockDataRangeHandler()
-            throws OWLParserException {
-        AbstractOWLDataRangeHandler mock = mock(AbstractOWLDataRangeHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(mock(OWLDatatype.class));
-        return mock;
-    }
-
-    public static OWLAnonymousIndividualElementHandler
-            mockAnonymousIndividualHandler() throws OWLParserException {
-        OWLAnonymousIndividualElementHandler mock = mock(OWLAnonymousIndividualElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLAnonymousIndividual());
-        return mock;
-    }
-
-    public static OWLLiteralElementHandler mockLiteralHandler()
-            throws OWLParserException {
-        OWLLiteralElementHandler mock = mock(OWLLiteralElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLLiteral(false));
-        return mock;
-    }
-
-    public static OWLSubAnnotationPropertyOfElementHandler
-            mockSubAnnotationPropertyOfHandler() throws OWLParserException {
-        OWLSubAnnotationPropertyOfElementHandler mock = mock(OWLSubAnnotationPropertyOfElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLDeclarationAxiom(df.getOWLThing()));
-        return mock;
-    }
-
-    public static OWLSubClassAxiomElementHandler
-            mockSubObjectPropertyChainHandler() throws OWLParserException {
-        OWLSubClassAxiomElementHandler mock = mock(OWLSubClassAxiomElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLDeclarationAxiom(df.getOWLThing()));
-        return mock;
-    }
-
-    public static OWLDatatypeElementHandler
-            mockDatatypeFacetRestrictionHandler() throws OWLParserException {
-        OWLDatatypeElementHandler mock = mock(OWLDatatypeElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLDatatype(OWL2Datatype.OWL_REAL.getIRI()));
-        return mock;
-    }
-
-    public static OWLAnnotationPropertyElementHandler
-            mockAnnotationPropertyHandler() throws OWLParserException {
-        OWLAnnotationPropertyElementHandler mock = mock(OWLAnnotationPropertyElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(df.getRDFSComment());
-        return mock;
-    }
-
-    public static AbstractClassExpressionElementHandler mockClassHandler()
-            throws OWLParserException {
-        AbstractClassExpressionElementHandler mock = mock(AbstractClassExpressionElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(df.getOWLThing());
-        return mock;
-    }
-
-    public static OWLDataPropertyElementHandler mockDataPropertyHandler()
-            throws OWLParserException {
-        OWLDataPropertyElementHandler mock = mock(OWLDataPropertyElementHandler.class);
-        Mockito.when(mock.getOWLObject())
-                .thenReturn(df.getOWLTopDataProperty());
-        return mock;
-    }
-
-    public static AbstractIRIElementHandler mockAbstractIRIHandler()
-            throws OWLParserException {
-        AbstractIRIElementHandler mock = mock(AbstractIRIElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(IRI(""));
-        return mock;
-    }
-
-    public static AbstractOWLAxiomElementHandler mockAxiomHandler()
-            throws OWLParserException {
-        AbstractOWLAxiomElementHandler mock = mock(AbstractOWLAxiomElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLDeclarationAxiom(df.getOWLTopObjectProperty()));
-        return mock;
-    }
-
-    public static SWRLAtomElementHandler mockSWRLAtomHandler()
-            throws OWLParserException {
-        SWRLAtomElementHandler mock = mock(SWRLAtomElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(mock(SWRLAtom.class));
-        return mock;
-    }
-
-    public static SWRLVariableElementHandler mockSWRLVariableHandler()
-            throws OWLParserException {
-        SWRLVariableElementHandler mock = mock(SWRLVariableElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(mock(SWRLVariable.class));
-        return mock;
-    }
-
-    public static SWRLAtomListElementHandler mockSWRLAtomListHandler()
-            throws OWLParserException {
-        SWRLAtomListElementHandler mock = mock(SWRLAtomListElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                mockList(mock(SWRLAtom.class)));
-        return mock;
-    }
-
-    public static OWLObjectPropertyElementHandler mockObjectPropertyHandler()
-            throws OWLParserException {
-        OWLObjectPropertyElementHandler mock = mock(OWLObjectPropertyElementHandler.class);
-        Mockito.when(mock.getOWLObject()).thenReturn(
-                df.getOWLTopObjectProperty());
         return mock;
     }
 
