@@ -1619,8 +1619,7 @@ public class TurtleParser implements TurtleParserConstants {
 
     private TurtleParserTokenManager token_source;
     private JavaCharStream jj_input_stream;
-    public Token token;
-    public Token jj_nt;
+    private Token token;
     private Token jj_scanpos, jj_lastpos;
     private int jj_la;
     private int jj_gen;
@@ -1943,6 +1942,7 @@ public class TurtleParser implements TurtleParserConstants {
         return new ParseException(token, exptokseq, tokenImage);
     }
 
+    @SuppressWarnings("incomplete-switch")
     private void jj_rescan_token() {
         jj_rescan = true;
         for (int i = 0; i < 41; i++) {

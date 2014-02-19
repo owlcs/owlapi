@@ -1584,6 +1584,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     /** Get the next Token.
      * 
      * @return the next token */
+    @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
