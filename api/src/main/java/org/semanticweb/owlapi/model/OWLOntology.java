@@ -60,6 +60,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, Has
         HasDirectImports,
         HasImportsClosure,
         HasContainsEntityInSignature,
+        HasGetEntitiesInSignature,
         HasOntologyID {
     // XXX when the interfce changes, uncomment this
     // void accept(OWLNamedObjectVisitor visitor);
@@ -941,35 +942,36 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, Has
             boolean
             containsDatatypeInSignature(IRI owlDatatypeIRI, boolean includeImportsClosure);
 
-    /** Gets the entities in the signature of this ontology that have the
+    /**
+     * Gets the entities in the signature of this ontology that have the
      * specified IRI.
-     * 
-     * @param iri
-     *            The IRI of the entities to be retrieved.
+     *
+     * @param iri The IRI of the entities to be retrieved.
      * @return A set of entities that are in the signature of this ontology that
-     *         have the specified IRI. The set will be empty if there are no
-     *         entities in the signature of this ontology with the specified
-     *         IRI. */
+     * have the specified IRI. The set will be empty if there are no
+     * entities in the signature of this ontology with the specified
+     * IRI.
+     */
+    @Override
     Set<OWLEntity> getEntitiesInSignature(IRI iri);
 
-    /** Gets the entities in the signature of this ontology, and possibly the
+    /**
+     * Gets the entities in the signature of this ontology, and possibly the
      * signature of the imports closure of this ontology, that have the
      * specified IRI.
-     * 
-     * @param iri
-     *            The IRI of the entitied to be retrieved.
-     * @param includeImportsClosure
-     *            Specifies if the signatures of the ontologies in the imports
-     *            closure of this ontology should also be taken into account
+     *
+     * @param iri                   The IRI of the entitied to be retrieved.
+     * @param includeImportsClosure Specifies if the signatures of the ontologies in the imports
+     *                              closure of this ontology should also be taken into account
      * @return If {@code includeImportsClosure=true} then returns a set of
-     *         entities that are in the signature of this ontology or the
-     *         signature of an ontology in the imports closure of this ontology
-     *         that have {@code iri} as their IRI. If
-     *         {@code includeImportsClosure=false} then returns the entities in
-     *         the signature of just this ontology that have {@code iri} as
-     *         their IRI. */
+     * entities that are in the signature of this ontology or the
+     * signature of an ontology in the imports closure of this ontology
+     * that have {@code iri} as their IRI. If
+     * {@code includeImportsClosure=false} then returns the entities in
+     * the signature of just this ontology that have {@code iri} as
+     * their IRI.
+     */
     Set<OWLEntity> getEntitiesInSignature(IRI iri, boolean includeImportsClosure);
-
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Axioms that form part of a description of a named entity
