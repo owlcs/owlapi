@@ -44,17 +44,11 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.EntityType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.*;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 03-Oct-2007 */
-public enum SKOSVocabulary {
+public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     /** BROADMATCH        */  BROADMATCH          ("broadMatch",          OBJECT_PROPERTY), 
     /** BROADER           */  BROADER             ("broader",             OBJECT_PROPERTY), 
@@ -115,9 +109,11 @@ public enum SKOSVocabulary {
     private final String localName;
     private final IRI iri;
     private final EntityType<?> entityType;
+    private final String prefixedName;
 
     SKOSVocabulary(String localname, EntityType<?> entityType) {
         localName = localname;
+        this.prefixedName = Namespaces.SKOS.getPrefixName() + ":" + localname;
         this.entityType = entityType;
         iri = IRI.create(Namespaces.SKOS.toString(), localname);
     }
@@ -127,15 +123,19 @@ public enum SKOSVocabulary {
         return entityType;
     }
 
-    /** @return local name */
+    /**
+     * @return local name
+     */
     public String getLocalName() {
         return localName;
     }
 
     /** @return iri */
+    @Override
     public IRI getIRI() {
         return iri;
     }
+
 
     /** @return uri
      * @deprecated use getIRI() */
@@ -195,5 +195,20 @@ public enum SKOSVocabulary {
             }
         }
         return result;
+    }
+
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "broader" for {@link #BROADER} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
+        return localName;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

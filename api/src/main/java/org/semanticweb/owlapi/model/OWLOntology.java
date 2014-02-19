@@ -54,7 +54,13 @@ import java.util.Set;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, HasAxiomsByType, HasContainsAxiom, HasAnnotations {
+public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, HasAxiomsByType,
+        HasContainsAxiom,
+        HasAnnotations,
+        HasDirectImports,
+        HasImportsClosure,
+        HasContainsEntityInSignature,
+        HasOntologyID {
     // XXX when the interfce changes, uncomment this
     // void accept(OWLNamedObjectVisitor visitor);
     /** Gets the manager that created this ontology. The manager is used by
@@ -66,7 +72,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, Has
     /** Gets the identity of this ontology (i.e. ontology IRI + version IRI).
      * 
      * @return The ID of this ontology. */
-    OWLOntologyID getOntologyID();
+     @Override
+     OWLOntologyID getOntologyID();
 
     /** Determines whether or not this ontology is anonymous. An ontology is
      * anonymous if it does not have an ontology IRI.
@@ -115,7 +122,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, Has
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
-    Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException;
+     @Override
+     Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException;
 
     /** Gets the set of <em>loaded</em> ontologies that this ontology is related
      * to via the <em>transitive closure</em> of the <a
@@ -148,7 +156,9 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, Has
      *         directlyImports relation.
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
-     *             it was removed from the manager. */
+     *             it was removed from the manager.
+     */
+    @Override
     Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException;
 
     /** Gets the set of imports declarations for this ontology. The set returned
@@ -661,6 +671,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms, Has
      *            The entity
      * @return {@code true} if the signature of this ontology contains
      *         {@code owlEntity}, otherwise {@code false}. */
+    @Override
     boolean containsEntityInSignature(OWLEntity owlEntity);
 
     /** Determines if the signature of this ontology, and possibly the signature

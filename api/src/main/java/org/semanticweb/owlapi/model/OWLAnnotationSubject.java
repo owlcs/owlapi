@@ -43,7 +43,7 @@ package org.semanticweb.owlapi.model;
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 13-Jan-2009 */
-public interface OWLAnnotationSubject extends OWLAnnotationObject {
+public interface OWLAnnotationSubject extends OWLAnnotationObject, OWLPrimitive {
     /** @param visitor
      *            visitor to accept */
     void accept(OWLAnnotationSubjectVisitor visitor);

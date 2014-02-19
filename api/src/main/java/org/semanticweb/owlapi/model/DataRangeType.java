@@ -38,13 +38,15 @@
  */
 package org.semanticweb.owlapi.model;
 
+import org.semanticweb.owlapi.vocab.Namespaces;
+
 import java.io.Serializable;
 
 /** Represents the different types of OWL 2 data ranges.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group */
-public enum DataRangeType implements Serializable {
+public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
     /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype} */
     DATATYPE("Datatype"),
     /** Represents {@link OWLDataOneOf} */
@@ -57,14 +59,34 @@ public enum DataRangeType implements Serializable {
     DATA_UNION_OF("DataUnionOf"),
     /** Represents {@link OWLDataIntersectionOf} */
     DATA_INTERSECTION_OF("DataIntersectionOf");
+
     private final String name;
+    private final String prefixedName;
+    private final IRI iri;
 
     DataRangeType(String name) {
         this.name = name;
+        this.prefixedName = Namespaces.OWL.getPrefixName() + ":" + name;
+        this.iri = IRI.create(Namespaces.OWL.getPrefixIRI(), name);
     }
 
     /** @return the name */
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getShortForm() {
+        return name;
+    }
+
+    @Override
+    public IRI getIRI() {
+        return iri;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

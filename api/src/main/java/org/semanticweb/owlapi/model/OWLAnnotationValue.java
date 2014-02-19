@@ -46,7 +46,7 @@ package org.semanticweb.owlapi.model;
  * @see org.semanticweb.owlapi.model.OWLAnonymousIndividual
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 13-Jan-2009 */
-public interface OWLAnnotationValue extends OWLAnnotationObject {
+public interface OWLAnnotationValue extends OWLAnnotationObject, OWLPrimitive {
     /** @param visitor
      *            visitor to accept */
     void accept(OWLAnnotationValueVisitor visitor);

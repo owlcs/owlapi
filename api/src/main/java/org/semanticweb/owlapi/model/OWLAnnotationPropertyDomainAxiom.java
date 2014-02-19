@@ -38,21 +38,29 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Domain"
  * >AnnotationPropertyDomain</a> axiom in the OWL 2 specification.
- * 
+ *
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
-public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
-    /** Gets the annotation property that this axiom specifies a domain for.
-     * 
-     * @return The annotation property. */
+ *         Management Group, Date: 13-Jan-2009
+ */
+public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom, HasProperty<OWLAnnotationProperty>,
+        HasDomain<IRI> {
+
+    /**
+     * Gets the annotation property that this axiom specifies a domain for.
+     * @return The annotation property.
+     */
+    @Override
     OWLAnnotationProperty getProperty();
 
-    /** Gets the IRI that represents the domain.
-     * 
-     * @return The IRI that represents the domain */
+    /**
+     * Gets the IRI that represents the domain.
+     * @return The IRI that represents the domain
+     */
+    @Override
     IRI getDomain();
 
     @Override

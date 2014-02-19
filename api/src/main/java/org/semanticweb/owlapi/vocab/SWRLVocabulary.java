@@ -40,11 +40,14 @@ package org.semanticweb.owlapi.vocab;
 
 import java.net.URI;
 
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group, Date: Jan 15, 2007 */
-public enum SWRLVocabulary {
+public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     /** IMP */                          IMP                     ("Imp"), 
     /** INDIVIDUAL_PROPERTY_ATOM */     INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"), 
@@ -69,18 +72,25 @@ public enum SWRLVocabulary {
     //@formatter:on
     private final String shortName;
     private final IRI iri;
+    private final String prefixedName;
 
     SWRLVocabulary(String name) {
         shortName = name;
+        this.prefixedName = Namespaces.SWRL.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRL.toString(), name);
     }
 
-    /** @return local name */
+    /**
+     * @return local name
+     * @deprecated Use {@link #getShortForm()}
+     */
+    @Deprecated
     public String getShortName() {
         return shortName;
     }
 
     /** @return iri */
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -90,5 +100,20 @@ public enum SWRLVocabulary {
     @Deprecated
     public URI getURI() {
         return iri.toURI();
+    }
+
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "ClassAtom" for {@link #CLASS_ATOM} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
+        return shortName;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

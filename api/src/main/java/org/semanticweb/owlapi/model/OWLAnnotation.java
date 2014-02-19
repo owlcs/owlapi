@@ -47,11 +47,13 @@ import java.util.Set;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 18-Dec-2006 */
-public interface OWLAnnotation extends OWLObject, HasAnnotations {
+public interface OWLAnnotation extends OWLObject, HasAnnotations, HasProperty<OWLAnnotationProperty> {
     /** Gets the property that this annotation acts along
      * 
-     * @return The annotation property */
-    OWLAnnotationProperty getProperty();
+     * @return The annotation property
+     */
+    @Override
+     OWLAnnotationProperty getProperty();
 
     /** Gets the annotation value. The type of value will depend upon the type of
      * the annotation e.g. whether the annotation is an

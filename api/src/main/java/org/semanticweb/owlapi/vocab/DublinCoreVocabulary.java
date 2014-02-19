@@ -42,11 +42,14 @@ import java.net.URI;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 09-Mar-2007 */
-public enum DublinCoreVocabulary {
+public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),
     /** http://purl.org/dc/elements/1.1/coverage */    COVERAGE   ("coverage"   ),
@@ -67,21 +70,45 @@ public enum DublinCoreVocabulary {
     private final String shortName;
     private final String qname;
     private final IRI iri;
-    /** Dublin Core name space */
+    /**
+     * Dublin Core name space
+     * @deprecated Use {@link org.semanticweb.owlapi.vocab.Namespaces#DC}
+     */
+    @Deprecated
     public static final String NAME_SPACE = "http://purl.org/dc/elements/1.1/";
 
     DublinCoreVocabulary(String name) {
         shortName = name;
-        qname = "dc:" + name;
+        qname = Namespaces.DC.getPrefixName() + ":" + name;
         iri = IRI.create(NAME_SPACE, name);
     }
 
-    /** @return IRI fragment */
+    /**
+     * @return IRI fragment
+     * @deprecated Use {@link #getShortForm()}
+     */
+    @Deprecated
     public String getShortName() {
         return shortName;
     }
 
-    /** @return qname */
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "contributor" for {@link #CONTRIBUTOR} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+     public String getShortForm() {
+        return shortName;
+    }
+
+
+
+    /**
+     * @return qname
+     * @deprecated Use {@link #getPrefixedName()}.
+     */
+    @Deprecated
     public String getQName() {
         return qname;
     }
@@ -94,6 +121,7 @@ public enum DublinCoreVocabulary {
     }
 
     /** @return the iri for the entity */
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -110,5 +138,10 @@ public enum DublinCoreVocabulary {
     @Override
     public String toString() {
         return iri.toString();
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return qname;
     }
 }

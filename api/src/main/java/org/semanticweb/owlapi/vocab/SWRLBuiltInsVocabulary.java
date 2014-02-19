@@ -40,12 +40,11 @@ package org.semanticweb.owlapi.vocab;
 
 import java.net.URI;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.SWRLPredicate;
+import org.semanticweb.owlapi.model.*;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group, Date: Jan 15, 2007 */
-public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
+public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     /** EQUAL */                    EQUAL("equal", 2),
     /** NOT_EQUAL */                NOT_EQUAL("notEqual", 2),
@@ -118,6 +117,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
     /** SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION */   SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION("subtractDateTimesYieldingDayTimeDuration", 3);
     //@formatter:on
     private final String shortName;
+    private final String prefixedName;
     private final IRI iri;
     // Arity of the predicate (-1 if infinite)
     private final int minArity;
@@ -129,17 +129,33 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
 
     SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
         shortName = name;
+        this.prefixedName = Namespaces.SWRLB.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRLB.toString(), name);
         this.minArity = minArity;
         this.maxArity = maxArity;
     }
 
-    /** @return local name */
+    /**
+     * @return local name
+     * @deprecated Use {@link #getShortForm()}
+     */
+    @Deprecated
     public String getShortName() {
         return shortName;
     }
 
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "equal" for {@link #EQUAL} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
+        return shortName;
+    }
+
     /** @return iri */
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -202,5 +218,10 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate {
             }
         }
         return null;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

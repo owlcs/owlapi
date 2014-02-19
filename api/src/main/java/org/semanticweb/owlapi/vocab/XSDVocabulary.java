@@ -38,11 +38,14 @@
  */
 package org.semanticweb.owlapi.vocab;
 
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group Date: 25-Oct-2006 A vocabulary for XML Schema Data Types (XSD) */
-public enum XSDVocabulary {
+public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // @formatter:off
     /** ANY_TYPE */             ANY_TYPE        ("anyType"),
     /** ANY_SIMPLE_TYPE */      ANY_SIMPLE_TYPE ("anySimpleType"),
@@ -93,18 +96,37 @@ public enum XSDVocabulary {
     // @formatter:on
     private final String shortName;
     private final IRI iri;
+    private final String prefixedName;
 
     XSDVocabulary(String name) {
         shortName = name;
+        prefixedName = Namespaces.XSD.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.XSD.toString(), name);
     }
 
-    /** @return local name */
+    /**
+     * @return local name
+     * @deprecated Use {@link #getShortForm()}
+     */
+    @Deprecated
     public String getShortName() {
         return shortName;
     }
 
-    /** @return iri */
+    /**
+     * Gets the short form for this vocabulary element.  This is the local name, for example, "integer" for
+     * {@link #INTEGER}.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
+        return shortName;
+    }
+
+    /**
+     * @return iri
+     */
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -136,5 +158,10 @@ public enum XSDVocabulary {
         }
         throw new IllegalArgumentException(
                 "the input value does not match any of the known xsd types: " + s);
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

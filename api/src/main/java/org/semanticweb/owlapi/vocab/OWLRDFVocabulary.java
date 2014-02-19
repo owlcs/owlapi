@@ -43,11 +43,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006 */
-public enum OWLRDFVocabulary {
+public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // //////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // OWL Vocab
@@ -337,10 +340,12 @@ public enum OWLRDFVocabulary {
     final IRI iri;
     final Namespaces namespace;
     final String shortName;
+    private final String prefixedName;
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
+        this.prefixedName = namespace.getPrefixName() + ":" + shortName;
         iri = IRI.create(namespace.toString(), shortName);
     }
 
@@ -352,6 +357,7 @@ public enum OWLRDFVocabulary {
     }
 
     /** @return the entry IRI */
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -361,8 +367,24 @@ public enum OWLRDFVocabulary {
         return namespace;
     }
 
-    /** @return the IRI fragment */
+    /**
+     * @return the IRI fragment
+     * @deprecated Use {@link #getShortForm()}.
+     */
     public String getShortName() {
+        return shortName;
+    }
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
+    }
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "Thing" for {@link #OWL_THING} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
         return shortName;
     }
 
@@ -395,4 +417,6 @@ public enum OWLRDFVocabulary {
     public String toString() {
         return iri.toString();
     }
+
+
 }

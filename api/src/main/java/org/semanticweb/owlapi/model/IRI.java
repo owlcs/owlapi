@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 14-Jan-2009 Represents International Resource
  *         Identifiers */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate,
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, OWLPrimitive,
         CharSequence {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.

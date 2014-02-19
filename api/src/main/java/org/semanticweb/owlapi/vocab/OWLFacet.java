@@ -42,6 +42,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** Represents the facets that can be used for restricting a datatype.
@@ -50,7 +53,7 @@ import org.semanticweb.owlapi.model.IRI;
  *         Informatics Group Date: 24-Oct-2006
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
-public enum OWLFacet {
+public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     /** LENGTH */           LENGTH          (Namespaces.XSD, "length",          "length"), 
     /** MIN_LENGTH */       MIN_LENGTH      (Namespaces.XSD, "minLength",       "minLength"), 
@@ -74,21 +77,39 @@ public enum OWLFacet {
         FACET_IRIS = Collections.unmodifiableSet(iris);
     }
     private final IRI iri;
-    private final String shortName;
+    private final String shortForm;
     private final String symbolicForm;
+    private final String prefixedName;
 
-    OWLFacet(Namespaces ns, String shortName, String symbolicForm) {
-        iri = IRI.create(ns.toString(), shortName);
-        this.shortName = shortName;
+    OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
+        iri = IRI.create(ns.toString(), shortForm);
+        this.shortForm = shortForm;
         this.symbolicForm = symbolicForm;
+        this.prefixedName = ns.getPrefixName() + ":" + shortForm;
     }
 
-    /** @return local name */
+    /**
+     * @return local name
+     * @deprecated Use {@link #getShortForm()}.
+     */
+    @Deprecated
     public String getShortName() {
-        return shortName;
+        return getShortForm();
     }
+
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "length" for {@link #LENGTH} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
+        return shortForm;
+    }
+
 
     /** @return iri */
+    @Override
     public IRI getIRI() {
         return iri;
     }
@@ -100,7 +121,7 @@ public enum OWLFacet {
 
     @Override
     public String toString() {
-        return shortName;
+        return shortForm;
     }
 
     /** @return all facet iris */
@@ -154,5 +175,10 @@ public enum OWLFacet {
             result.add(v.getSymbolicForm());
         }
         return result;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

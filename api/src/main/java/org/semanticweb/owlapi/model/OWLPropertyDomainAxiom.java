@@ -38,19 +38,23 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
- * 
+ *
+ * @param <P> property expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006
- * @param <P>
- *            property expression */
-public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression<?, ?>> extends
-        OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
-    /** Gets the domain specified by this property axiom.
-     * 
+ */
+public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression<?, ?>> extends OWLUnaryPropertyAxiom<P>,
+        OWLSubClassOfAxiomShortCut, HasDomain<OWLClassExpression> {
+
+    /**
+     * Gets the domain specified by this property axiom.
      * @return The class expression that represents the domain specified by this
-     *         axiom. */
+     * axiom.
+     */
+    @Override
     OWLClassExpression getDomain();
 }

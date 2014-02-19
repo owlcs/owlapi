@@ -51,18 +51,14 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-import org.semanticweb.owlapi.model.HasIRI;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.model.*;
 
 /** An enumeration of the datatypes in the OWL 2 specification. These are the
  * datatypes in the OWL 2 datatype map.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group, Date: 11-Nov-2008 */
-public enum OWL2Datatype implements HasIRI {
+public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
     //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -155,16 +151,18 @@ public enum OWL2Datatype implements HasIRI {
         throw new OWLRuntimeException(datatype + " is not a built in datatype!");
     }
 
-    private final String shortName;
+    private final String shortForm;
     private final IRI iri;
     private final Category category;
     private final boolean finite;
     private Pattern pattern;
+    private final String prefixedName;
 
-    OWL2Datatype(Namespaces namespace, String shortName, Category category,
+    OWL2Datatype(Namespaces namespace, String shortForm, Category category,
             boolean finite, String regEx) {
-        iri = IRI.create(namespace.toString(), shortName);
-        this.shortName = shortName;
+        iri = IRI.create(namespace.toString(), shortForm);
+        this.shortForm = shortForm;
+        this.prefixedName = namespace + ":" + shortForm;
         this.category = category;
         this.finite = finite;
         if (regEx != null) {
@@ -175,7 +173,8 @@ public enum OWL2Datatype implements HasIRI {
     OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
             String regEx) {
         iri = xsd.getIRI();
-        shortName = xsd.getShortName();
+        shortForm = xsd.getShortForm();
+        this.prefixedName = xsd.getPrefixedName();
         this.category = category;
         this.finite = finite;
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
@@ -183,15 +182,30 @@ public enum OWL2Datatype implements HasIRI {
 
     /** Gets the short human readable name for this datatype.
      * 
-     * @return The short human readable name */
-    public String getShortName() {
-        return shortName;
+     * @return The short human readable name.  This is the local name, and not a prefix name.
+     * @deprecated Use {@link #getShortForm()}
+     */
+    @Deprecated
+     public String getShortName() {
+        return getShortForm();
     }
+
+    /**
+     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
+     * "string" for {@link #XSD_STRING} etc.
+     * @return The short form.  Not {@code null}.
+     */
+    @Override
+    public String getShortForm() {
+        return shortForm;
+    }
+
 
     /** Gets the IRI of this datatype.
      * 
      * @return The IRI of this datatype */
-    public IRI getIRI() {
+     @Override
+     public IRI getIRI() {
         return iri;
     }
 
@@ -251,6 +265,11 @@ public enum OWL2Datatype implements HasIRI {
      *         {@code false} */
     public boolean isInLexicalSpace(String s) {
         return pattern.matcher(s).matches();
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 
     /** Category enum. */

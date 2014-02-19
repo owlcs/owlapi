@@ -38,35 +38,42 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @param <R> range
+ * @param <P> property expression
+ * @param <F> range
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group Date: 24-Oct-2006 Represents a restriction (<a
  *         href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Restrictions"
  *         >Object Property Restriction</a> or <a
  *         href="http://www.w3.org/TR/owl2-syntax/#Data_Property_Restrictions"
  *         >Data Property Restriction</a>) in the OWL 2 specification.
- * @param <R>
- *            range
- * @param <P>
- *            property expression
- * @param <F>
- *            range */
-public interface OWLRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F>
-        extends OWLAnonymousClassExpression {
-    /** Gets the property/properties that the restriction acts along depending on
+ */
+public interface OWLRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>,
+        F> extends OWLAnonymousClassExpression, HasProperty<P> {
+
+    /**
+     * Gets the property/properties that the restriction acts along depending on
      * R being a scalar or collection type.
-     * 
-     * @return The property */
+     *
+     * @return The property
+     */
+    @Override
     P getProperty();
 
-    /** Determines if this is an object restriction.
-     * 
+    /**
+     * Determines if this is an object restriction.
+     *
      * @return {@code true} if this is an object restriction, otherwise
-     *         {@code false} */
+     * {@code false}
+     */
     boolean isObjectRestriction();
 
-    /** Determines if this is a data restriction.
-     * 
+    /**
+     * Determines if this is a data restriction.
+     *
      * @return {@code true} if this is a data restriction, otherwise
-     *         {@code false} */
+     * {@code false}
+     */
     boolean isDataRestriction();
 }

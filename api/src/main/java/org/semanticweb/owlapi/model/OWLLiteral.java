@@ -54,7 +54,7 @@ package org.semanticweb.owlapi.model;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
 public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
-        OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive {
+        OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
     /** Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
      * Note that literals that are abbreviated in the functional syntax (and
      * other concrete syntaxes) and are of the form {@code "abc"} or
@@ -92,13 +92,16 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         otherwise {@code false} */
     boolean hasLang();
 
-    /** Gets the language tag of this literal.
-     * 
+    /**
+     * Gets the language tag of this literal.
+     *
      * @return The language tag of this literal. If the literal does not have a
-     *         language tag, because it is not of the type
-     *         {@code rdf:PlainLiteral}, or because its language tag is empty,
-     *         then the empty string will be returned. (The {@code null} value
-     *         is never returned). */
+     * language tag, because it is not of the type
+     * {@code rdf:PlainLiteral}, or because its language tag is empty,
+     * then the empty string will be returned. (The {@code null} value
+     * is never returned).
+     */
+    @Override
     String getLang();
 
     /** Determines if this {@code OWLLiteral} has a particular language tag.
