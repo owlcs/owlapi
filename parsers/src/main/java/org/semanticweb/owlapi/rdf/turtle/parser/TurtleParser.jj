@@ -19,44 +19,69 @@ import java.io.InputStream;
 import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.semanticweb.owlapi.util.EscapeUtils;
 
-@SuppressWarnings("javadoc")
+/** The Class TurtleParser. */
 public class TurtleParser {
 
     private Map<String, IRI> string2IRI;
 
-    private String base;
+    private IRI base;
 
     private TripleHandler handler;
 
     private PrefixManager pm = new DefaultPrefixManager();
 
-
-    public TurtleParser(Reader reader, TripleHandler handler, String base) {
+    /** Instantiates a new turtle parser.
+     * 
+     * @param reader
+     *            the reader
+     * @param handler
+     *            the handler
+     * @param base
+     *            the base */
+    public TurtleParser(Reader reader, TripleHandler handler, IRI base) {
         this(reader);
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    public TurtleParser(InputStream is, TripleHandler handler, String base) {
+    /** Instantiates a new turtle parser.
+     * 
+     * @param is
+     *            the is
+     * @param handler
+     *            the handler
+     * @param base
+     *            the base */
+    public TurtleParser(InputStream is, TripleHandler handler, IRI base) {
         this(is);
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
+    /** Gets the prefix manager.
+     * 
+     * @return the prefix manager */
     public PrefixManager getPrefixManager() {
         return pm;
     }
 
+    /** Sets the triple handler.
+     * 
+     * @param handler
+     *            the new triple handler */
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
     }
 
+    /** Gets the next blank node.
+     * 
+     * @param id
+     *            the id
+     * @return the next blank node */
     protected IRI getNextBlankNode(String id) {
         String string;
         if (id == null) {
@@ -76,6 +101,13 @@ public class TurtleParser {
         return iri;
     }
 
+    /** Gets the iRI from q name.
+     * 
+     * @param qname
+     *            the qname
+     * @return the iRI from q name
+     * @throws ParseException
+     *             the parse exception */
     protected IRI getIRIFromQName(String qname) throws ParseException  {
         int colonIndex = qname.indexOf(':');
         if(colonIndex == -1) {
@@ -91,6 +123,11 @@ public class TurtleParser {
         return pm.getIRI(qname);
     }
 
+    /** Gets the iri.
+     * 
+     * @param s
+     *            the s
+     * @return the iri */
     public IRI getIRI(String s) {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
@@ -99,7 +136,7 @@ public class TurtleParser {
         if(iri == null) {
             iri = IRI.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base.substring(0, base.lastIndexOf('/') + 1) + s);
+                iri = IRI.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
             }
             string2IRI.put(s, iri);
         }
