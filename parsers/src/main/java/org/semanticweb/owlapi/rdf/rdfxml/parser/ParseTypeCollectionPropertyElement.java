@@ -58,7 +58,7 @@ public class ParseTypeCollectionPropertyElement implements State {
         }
     }
 
-    protected String listCell(String valueIRI) throws SAXException {
+    protected String listCell(String valueIRI) {
         String listCellIRI = NodeID.nextAnonymousIRI();
         parser.statementWithResourceValue(listCellIRI, RDFConstants.RDF_FIRST,
                 valueIRI, null);

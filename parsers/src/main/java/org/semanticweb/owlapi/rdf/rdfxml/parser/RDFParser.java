@@ -29,7 +29,6 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
@@ -48,13 +47,16 @@ import org.xml.sax.helpers.LocatorImpl;
  * >http://www.w3.org/TR/rdf-syntax-grammar/</a>. */
 public class RDFParser extends DefaultHandler implements IRIProvider {
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory s_parserFactory = SAXParserFactory
-            .newInstance();
+    protected static final SAXParserFactory s_parserFactory = initFactory();
     private Map<String, String> resolvedIRIs = new HashMap<String, String>();
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
-    static {
-        s_parserFactory.setNamespaceAware(true);
+
+    static SAXParserFactory initFactory() {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setNamespaceAware(true);
+        return factory;
     }
+
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler;
     /** Stack of base IRIs. */
@@ -75,9 +77,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Document locator. */
     protected Locator m_documentLocator;
 
-    /** Creates a RDF parser. */
-    public RDFParser() {}
-
     /** Parses RDF from given input source.
      * 
      * @param source
@@ -91,9 +90,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     public void
             parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
                     throws SAXException, IOException {
-        String systemID = checkNotNull(source, "source cannot be null")
-                .getSystemId();
+        InputSource s = checkNotNull(source, "source cannot be null");
         checkNotNull(consumer, "consumer cannot be null");
+        String systemID = s.getSystemId();
         try {
             m_documentLocator = s_nullDocumentLocator;
             if (systemID != null) {
@@ -103,9 +102,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                         "Supplied InputSource object myst have systemId property set, which is needed for IRI resolution.");
             }
             m_consumer = consumer;
-            m_consumer.startModel(m_baseIRI.toString());
-            SAXParser parser = s_parserFactory.newSAXParser();
-            parser.parse(source, this);
+            m_consumer.startModel(m_baseIRI);
+            s_parserFactory.newSAXParser().parse(source, this);
             m_consumer.endModel();
         } catch (ParserConfigurationException e) {
             throw new SAXException("Parser coniguration exception", e);
@@ -497,12 +495,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *            IRI of the object resource
      * @param reificationID
      *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement
-     * @throws SAXException
-     *             SAXException */
+     *            wold the reified statement */
     protected void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
-            @Nullable String reificationID) throws SAXException {
+            @Nullable String reificationID) {
         m_consumer.statementWithResourceValue(subject, predicate, object);
         if (reificationID != null) {
             m_consumer.statementWithResourceValue(reificationID, RDF_TYPE,
@@ -528,13 +524,10 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *            the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
      *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement
-     * @throws SAXException
-     *             SAXException */
+     *            wold the reified statement */
     protected void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
-            @Nullable String dataType, @Nullable String reificationID)
-            throws SAXException {
+            @Nullable String dataType, @Nullable String reificationID) {
         m_consumer.statementWithLiteralValue(subject, predicate, object,
                 m_language, dataType);
         if (reificationID != null) {
@@ -693,6 +686,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** @param s
      *            string
      * @return iri */
+    @Override
     @Nonnull
     public IRI getIRI(@Nonnull String s) {
         return uriCache.get(checkNotNull(s, "s cannot be null"));
@@ -712,7 +706,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         protected String m_uri;
         protected int m_elements;
 
-        public ReifiedStatementBag(String uri) throws SAXException {
+        public ReifiedStatementBag(String uri) {
             m_uri = uri;
             m_elements = 0;
             statementWithResourceValue(m_uri, RDF_TYPE, RDF_BAG, null);

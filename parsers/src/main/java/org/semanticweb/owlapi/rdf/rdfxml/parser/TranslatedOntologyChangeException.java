@@ -13,12 +13,12 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
-import org.xml.sax.SAXException;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
  * @since 3.0.0 */
-public class TranslatedOntologyChangeException extends SAXException {
+public class TranslatedOntologyChangeException extends OWLRuntimeException {
     private static final long serialVersionUID = 40000L;
 
     /** @param e
@@ -28,7 +28,7 @@ public class TranslatedOntologyChangeException extends SAXException {
     }
 
     @Override
-    public OWLOntologyChangeException getCause() {
+    public synchronized OWLOntologyChangeException getCause() {
         return (OWLOntologyChangeException) super.getCause();
     }
 }

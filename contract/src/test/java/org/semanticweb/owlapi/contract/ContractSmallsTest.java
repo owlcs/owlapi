@@ -409,11 +409,11 @@ public class ContractSmallsTest {
     public void shouldTestInterfaceRDFConsumer() throws OWLException,
             SAXException {
         RDFConsumer testSubject0 = mock(RDFConsumer.class);
-        testSubject0.startModel("");
+        testSubject0.startModel(IRI.create(""));
         testSubject0.endModel();
         testSubject0.addModelAttribte("", "");
         testSubject0.includeModel("", "");
-        testSubject0.logicalURI("");
+        testSubject0.logicalURI(IRI.create(""));
         testSubject0.statementWithLiteralValue("", "", "", "", "");
         testSubject0.statementWithResourceValue("", "", "");
     }

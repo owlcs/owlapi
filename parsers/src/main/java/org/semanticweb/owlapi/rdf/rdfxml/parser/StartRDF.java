@@ -35,7 +35,7 @@ public class StartRDF implements State {
         }
         // the logical IRI is the current IRI that we have as the base IRI
         // at this point
-        parser.m_consumer.logicalURI(parser.m_baseIRI.toString());
+        parser.m_consumer.logicalURI(parser.m_baseIRI);
         parser.pushState(new NodeElementList(parser));
     }
 

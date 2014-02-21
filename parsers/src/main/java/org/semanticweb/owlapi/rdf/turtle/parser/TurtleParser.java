@@ -29,7 +29,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 /** The Class TurtleParser. */
 public class TurtleParser implements TurtleParserConstants {
     private Map<String, IRI> string2IRI;
-    private String base;
+    private IRI base;
     private TripleHandler handler;
     private PrefixManager pm = new DefaultPrefixManager();
 
@@ -41,7 +41,7 @@ public class TurtleParser implements TurtleParserConstants {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(Reader reader, TripleHandler handler, String base) {
+    public TurtleParser(Reader reader, TripleHandler handler, IRI base) {
         this(reader);
         this.handler = handler;
         this.base = base;
@@ -57,7 +57,7 @@ public class TurtleParser implements TurtleParserConstants {
      *            the handler
      * @param base
      *            the base */
-    public TurtleParser(InputStream is, TripleHandler handler, String base) {
+    public TurtleParser(InputStream is, TripleHandler handler, IRI base) {
         this(is);
         this.handler = handler;
         this.base = base;
@@ -139,8 +139,7 @@ public class TurtleParser implements TurtleParserConstants {
         if (iri == null) {
             iri = IRI.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base.substring(0, base.lastIndexOf('/') + 1)
-                        + s);
+                iri = IRI.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
             }
             string2IRI.put(s, iri);
         }
@@ -203,7 +202,7 @@ public class TurtleParser implements TurtleParserConstants {
         Token t;
         jj_consume_token(BASE);
         t = jj_consume_token(FULLIRI);
-        base = t.image.substring(1, t.image.length() - 1);
+        base = IRI.create(t.image.substring(1, t.image.length() - 1));
         handler.handleBaseDirective(base);
     }
 

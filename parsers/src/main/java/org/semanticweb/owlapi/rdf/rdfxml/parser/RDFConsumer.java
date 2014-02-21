@@ -15,7 +15,8 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.xml.sax.SAXException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Receives notifications about triples generated during the parsing process. */
 public interface RDFConsumer {
@@ -23,15 +24,15 @@ public interface RDFConsumer {
      * 
      * @param physicalURI
      *            physical URI of the model
-     * @throws SAXException
-     *             SAXException */
-    void startModel(@Nonnull String physicalURI) throws SAXException;
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
+    void startModel(@Nonnull IRI physicalURI) throws OWLRuntimeException;
 
     /** Called when model parsing is finished.
      * 
-     * @throws SAXException
-     *             sax exception */
-    void endModel() throws SAXException;
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
+    void endModel() throws OWLRuntimeException;
 
     /** Called when a statement with resource value is added to the model.
      * 
@@ -41,11 +42,11 @@ public interface RDFConsumer {
      *            URI of the predicate resource
      * @param object
      *            URI of the object resource
-     * @throws SAXException
-     *             SAXException */
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
     void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object)
-            throws SAXException;
+            throws OWLRuntimeException;
 
     /** Called when a statement with literal value is added to the model.
      * 
@@ -59,20 +60,20 @@ public interface RDFConsumer {
      *            the language
      * @param datatype
      *            the URI of the literal's datatype (may be {@code null})
-     * @throws SAXException
-     *             SAXException */
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
     void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String language, @Nullable String datatype)
-            throws SAXException;
+            throws OWLRuntimeException;
 
     /** Receives the logical URI of the model.
      * 
      * @param logicalURI
      *            logical URI of the model
-     * @throws SAXException
-     *             SAXException */
-    void logicalURI(@Nonnull String logicalURI) throws SAXException;
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
+    void logicalURI(@Nonnull IRI logicalURI) throws OWLRuntimeException;
 
     /** Receives the notification that the model being parsed includes another
      * model with supplied URIs.
@@ -81,11 +82,11 @@ public interface RDFConsumer {
      *            logical URI of the model
      * @param physicalURI
      *            physical URI of the model
-     * @throws SAXException
-     *             SAXException */
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
     void
             includeModel(@Nullable String logicalURI,
-                    @Nullable String physicalURI) throws SAXException;
+                    @Nullable String physicalURI) throws OWLRuntimeException;
 
     /** Receives the notification that the attribute and its value has been
      * parsed.
@@ -94,8 +95,8 @@ public interface RDFConsumer {
      *            the key of the attribute
      * @param value
      *            the value of the attribute
-     * @throws SAXException
-     *             SAXException */
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
     void addModelAttribte(@Nonnull String key, @Nonnull String value)
-            throws SAXException;
+            throws OWLRuntimeException;
 }

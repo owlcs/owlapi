@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.rdf.turtle.parser.ConsoleTripleHandler;
@@ -38,7 +39,7 @@ public class ContractTurtleParserTest {
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE), "",
                 IRI(URN_A_FAKE));
         testSubject0.handlePrefixDirective("", "");
-        testSubject0.handleBaseDirective("");
+        testSubject0.handleBaseDirective(IRI.create(""));
         testSubject0.handleComment("");
         testSubject0.handleEnd();
     }
@@ -53,7 +54,7 @@ public class ContractTurtleParserTest {
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE), "",
                 IRI(URN_A_FAKE));
         testSubject0.handlePrefixDirective("", "");
-        testSubject0.handleBaseDirective("");
+        testSubject0.handleBaseDirective(IRI.create(""));
         testSubject0.handleComment("");
         testSubject0.handleEnd();
     }
@@ -65,6 +66,7 @@ public class ContractTurtleParserTest {
                 Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
         new OWLRDFConsumerAdapter(Utils.getMockOntology(),
                 new OWLOntologyLoaderConfiguration());
+        testSubject0.startModel(IRI.create(""));
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE),
                 IRI(URN_A_FAKE));
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE), "");
@@ -72,14 +74,13 @@ public class ContractTurtleParserTest {
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE), "",
                 IRI(URN_A_FAKE));
         testSubject0.handlePrefixDirective("", "");
-        testSubject0.handleBaseDirective("");
+        testSubject0.handleBaseDirective(IRI.create(""));
         testSubject0.handleComment("");
         testSubject0.handleEnd();
         testSubject0.setOntologyFormat(mock(RDFOntologyFormat.class));
-        testSubject0.startModel("");
         testSubject0.addModelAttribte("", "");
         testSubject0.includeModel("", "");
-        testSubject0.logicalURI("");
+        testSubject0.logicalURI(IRI.create(""));
         testSubject0.statementWithLiteralValue("", "", "", "", "");
         testSubject0.statementWithResourceValue("", "", "");
     }
@@ -94,7 +95,7 @@ public class ContractTurtleParserTest {
         testSubject0.handleTriple(IRI(URN_A_FAKE), IRI(URN_A_FAKE),
                 IRI(URN_A_FAKE));
         testSubject0.handlePrefixDirective("", "");
-        testSubject0.handleBaseDirective("");
+        testSubject0.handleBaseDirective(IRI.create(""));
         testSubject0.handleComment("");
         testSubject0.handleEnd();
     }

@@ -62,21 +62,22 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
                 parser = new TurtleParser(reader, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI().toString());
+                        documentSource.getDocumentIRI());
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI().toString());
+                        documentSource.getDocumentIRI());
             } else {
                 is = new BufferedInputStream(documentSource.getDocumentIRI()
                         .toURI().toURL().openStream());
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI().toString());
+                        documentSource.getDocumentIRI());
             }
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
                     ontology, configuration);
             TurtleOntologyFormat format = new TurtleOntologyFormat();
             consumer.setOntologyFormat(format);
+            consumer.startModel(documentSource.getDocumentIRI());
             parser.setTripleHandler(consumer);
             parser.parseDocument();
             PrefixManager prefixManager = parser.getPrefixManager();

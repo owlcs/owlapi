@@ -38,6 +38,7 @@ public class OWLOntologyChangeRecordTestCase {
     private OWLOntologyChangeData<OWLAxiom> mockChangeData;
     private OWLAxiom mockAxiom;
 
+    @SuppressWarnings("unchecked")
     @Before
     public void setUp() {
         mockOntologyID = new OWLOntologyID();

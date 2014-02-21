@@ -50,7 +50,7 @@ public class ConsoleTripleHandler implements TripleHandler {
     }
 
     @Override
-    public void handleBaseDirective(String base) {
+    public void handleBaseDirective(IRI base) {
         System.out.println("BASE: " + base);
     }
 

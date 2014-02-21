@@ -18,6 +18,7 @@ import java.io.Reader;
 import java.io.StringReader;
 
 import org.junit.Test;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.rdf.turtle.parser.ParseException;
 import org.semanticweb.owlapi.rdf.turtle.parser.TripleHandler;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleParser;
@@ -31,7 +32,7 @@ public class BlankNodeTestCase {
     public void testBlankNodes() throws ParseException {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
         TripleHandler handler = mock(TripleHandler.class);
-        TurtleParser parser = new TurtleParser(input, handler, "");
+        TurtleParser parser = new TurtleParser(input, handler, IRI.create(""));
         parser.parseDocument();
     }
 }

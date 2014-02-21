@@ -1150,6 +1150,7 @@ public class ContractOwlapiModel_3Test {
                 return Collections.emptySet();
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             public OWLOntologyChangeData<OWLAxiom> getChangeData() {
                 return mock(OWLOntologyChangeData.class);

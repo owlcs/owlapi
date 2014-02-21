@@ -32,7 +32,7 @@ public interface TripleHandler {
      * 
      * @param base
      *            the base */
-    void handleBaseDirective(String base);
+    void handleBaseDirective(IRI base);
 
     /** Handle comment.
      * 

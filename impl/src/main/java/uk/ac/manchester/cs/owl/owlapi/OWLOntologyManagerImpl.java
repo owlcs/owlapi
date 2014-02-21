@@ -804,6 +804,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     }
                 }
             }
+        } catch (OWLRuntimeException e) {
+            if (e.getCause() instanceof OWLOntologyCreationException) {
+                ex = (OWLOntologyCreationException) e.getCause();
+                throw ex;
+            }
+            throw e;
         } catch (OWLOntologyCreationException e) {
             ex = e;
             throw e;
