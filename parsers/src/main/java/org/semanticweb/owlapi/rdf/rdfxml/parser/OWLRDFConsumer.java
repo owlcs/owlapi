@@ -512,6 +512,9 @@ public class OWLRDFConsumer implements RDFConsumer {
     }
 
     private IRI getIRI(String s) {
+        if (s == null) {
+            return null;
+        }
         IRI iri = null;
         if (iriProvider != null) {
             iri = iriProvider.getIRI(s);
@@ -1433,6 +1436,14 @@ public class OWLRDFConsumer implements RDFConsumer {
         IRI predicateIRI = getIRI(predicate);
         predicateIRI = getSynonym(predicateIRI);
         handlerAccessor.handleStreaming(subjectIRI, predicateIRI, object,
+                getIRI(datatype), lang);
+    }
+
+    @Override
+    public void statementWithLiteralValue(IRI subject, IRI predicate,
+            String object, String lang, IRI datatype) {
+        tripleLogger.incrementTripleCount();
+        handlerAccessor.handleStreaming(subject, getSynonym(predicate), object,
                 datatype, lang);
     }
 
@@ -1447,6 +1458,14 @@ public class OWLRDFConsumer implements RDFConsumer {
         handlerAccessor.handleStreaming(subjectIRI, predicateIRI, objectIRI);
     }
 
+    @Override
+    public void statementWithResourceValue(IRI subject, IRI predicate,
+            IRI object) {
+        tripleLogger.incrementTripleCount();
+        handlerAccessor.handleStreaming(subject, getSynonym(predicate),
+                getSynonym(object));
+    }
+
     /** A convenience method to obtain an {@code OWLLiteral}.
      * 
      * @param literal
@@ -1457,11 +1476,11 @@ public class OWLRDFConsumer implements RDFConsumer {
      *            The lang
      * @return The {@code OWLLiteral} (either typed or untyped depending on the
      *         params) */
-    OWLLiteral getOWLLiteral(@Nonnull String literal,
-            @Nullable String datatype, @Nullable String lang) {
+    OWLLiteral getOWLLiteral(@Nonnull String literal, @Nullable IRI datatype,
+            @Nullable String lang) {
         if (datatype != null) {
             return dataFactory.getOWLLiteral(literal,
-                    dataFactory.getOWLDatatype(getIRI(datatype)));
+                    dataFactory.getOWLDatatype(datatype));
         } else {
             return dataFactory.getOWLLiteral(literal, lang);
         }

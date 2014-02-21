@@ -48,6 +48,18 @@ public interface RDFConsumer {
             @Nonnull String predicate, @Nonnull String object)
             throws OWLRuntimeException;
 
+    /** Called when a statement with resource value is added to the model.
+     * 
+     * @param subject
+     *            URI of the subject resource
+     * @param predicate
+     *            URI of the predicate resource
+     * @param object
+     *            URI of the object resource
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
+    void statementWithResourceValue(IRI subject, IRI predicate, IRI object);
+
     /** Called when a statement with literal value is added to the model.
      * 
      * @param subject
@@ -66,6 +78,23 @@ public interface RDFConsumer {
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String language, @Nullable String datatype)
             throws OWLRuntimeException;
+
+    /** Called when a statement with literal value is added to the model.
+     * 
+     * @param subject
+     *            URI of the subject resource
+     * @param predicate
+     *            URI of the predicate resource
+     * @param object
+     *            literal object value
+     * @param language
+     *            the language
+     * @param datatype
+     *            the URI of the literal's datatype (may be {@code null})
+     * @throws OWLRuntimeException
+     *             OWLRuntimeException */
+    void statementWithLiteralValue(IRI subject, IRI predicate, String object,
+            String language, IRI datatype) throws OWLRuntimeException;
 
     /** Receives the logical URI of the model.
      * 

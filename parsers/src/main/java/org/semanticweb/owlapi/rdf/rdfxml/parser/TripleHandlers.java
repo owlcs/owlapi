@@ -226,7 +226,7 @@ public class TripleHandlers {
         }
 
         public void handleStreaming(IRI subject, IRI predicate, String literal,
-                String datatype, String lang) {
+                IRI datatype, String lang) {
             // Convert all literals to OWLConstants
             OWLLiteral con = consumer.getOWLLiteral(literal, datatype, lang);
             handleStreaming(subject, predicate, con);
