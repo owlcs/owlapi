@@ -34,7 +34,17 @@ public class RDFParserException extends SAXException {
      * @param locator
      *            locator */
     public RDFParserException(String message, Locator locator) {
-        this(message, locator.getPublicId(), locator.getSystemId(), locator
+        this(null, message, locator);
+    }
+
+    /** @param e
+     *            cause
+     * @param message
+     *            message
+     * @param locator
+     *            locator */
+    public RDFParserException(Exception e, String message, Locator locator) {
+        this(e, message, locator.getPublicId(), locator.getSystemId(), locator
                 .getLineNumber(), locator.getColumnNumber());
     }
 
@@ -50,9 +60,26 @@ public class RDFParserException extends SAXException {
      *            columnNumber */
     public RDFParserException(String message, String publicId, String systemId,
             int lineNumber, int columnNumber) {
+        this(null, message, publicId, systemId, lineNumber, columnNumber);
+    }
+
+    /** @param cause
+     *            cause
+     * @param message
+     *            message
+     * @param publicId
+     *            publicId
+     * @param systemId
+     *            systemId
+     * @param lineNumber
+     *            lineNumber
+     * @param columnNumber
+     *            columnNumber */
+    public RDFParserException(Exception cause, String message, String publicId,
+            String systemId, int lineNumber, int columnNumber) {
         super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber
                 + ":" + "column=" + columnNumber + "] " : "")
-                + message);
+                + message, cause);
         this.publicId = publicId;
         this.systemId = systemId;
         this.lineNumber = lineNumber;

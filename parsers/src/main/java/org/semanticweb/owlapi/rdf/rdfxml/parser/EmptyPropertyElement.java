@@ -65,7 +65,7 @@ public class EmptyPropertyElement implements State {
     @Override
     public void characters(char[] data, int start, int length)
             throws SAXException {
-        throw new RDFParserException("Characters were not excepted.",
+        throw new RDFParserException("Characters were not expected.",
                 parser.m_documentLocator);
     }
 }

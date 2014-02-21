@@ -131,7 +131,7 @@ public class NodeElement implements State {
             throws SAXException {
         if (!parser.isWhitespaceOnly(data, start, length)) {
             throw new RDFParserException(
-                    "Cannot answer characters when node is excepted.",
+                    "Cannot answer characters when node is expected.",
                     parser.m_documentLocator);
         }
     }

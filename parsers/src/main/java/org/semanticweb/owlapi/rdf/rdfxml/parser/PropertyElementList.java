@@ -72,7 +72,7 @@ public class PropertyElementList implements State {
             throws SAXException {
         if (!parser.isWhitespaceOnly(data, start, length)) {
             throw new RDFParserException(
-                    "Cannot answer characters when object properties are excepted.",
+                    "Cannot answer characters when object properties are expected.",
                     parser.m_documentLocator);
         }
     }

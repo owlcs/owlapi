@@ -58,7 +58,18 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     }
 
     /** Registered error handler. */
-    protected ErrorHandler m_errorHandler;
+    protected ErrorHandler m_errorHandler = new ErrorHandler() {
+        @Override
+        public void warning(SAXParseException exception) throws SAXException {}
+
+        @Override
+        public void fatalError(SAXParseException exception) throws SAXException {
+            throw exception;
+        }
+
+        @Override
+        public void error(SAXParseException exception) throws SAXException {}
+    };
     /** Stack of base IRIs. */
     protected LinkedList<IRI> m_baseIRIs = new LinkedList<IRI>();
     private Map<IRI, URI> m_baseURICache = new HashMap<IRI, URI>();
@@ -106,7 +117,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             s_parserFactory.newSAXParser().parse(source, this);
             m_consumer.endModel();
         } catch (ParserConfigurationException e) {
-            throw new SAXException("Parser coniguration exception", e);
+            throw new SAXException("Parser configuration exception", e);
         } catch (URISyntaxException e) {
             throw new SAXException("Invalid SystemID '" + systemID
                     + "'of the supplied input source.");
@@ -134,29 +145,17 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void warning(SAXParseException e) throws SAXException {
-        if (m_errorHandler == null) {
-            super.warning(e);
-        } else {
-            m_errorHandler.warning(e);
-        }
+        m_errorHandler.warning(e);
     }
 
     @Override
     public void error(SAXParseException e) throws SAXException {
-        if (m_errorHandler == null) {
-            super.error(e);
-        } else {
-            m_errorHandler.error(e);
-        }
+        m_errorHandler.error(e);
     }
 
     @Override
     public void fatalError(SAXParseException e) throws SAXException {
-        if (m_errorHandler == null) {
-            super.fatalError(e);
-        } else {
-            m_errorHandler.fatalError(e);
-        }
+        m_errorHandler.fatalError(e);
     }
 
     @Override
@@ -315,13 +314,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 m_baseIRI = resolveFromDelegate(m_baseIRI, value);
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
-                RDFParserException exception = new RDFParserException(
-                        "New base IRI '"
-                                + value
-                                + "' cannot be resolved against curent base IRI "
-                                + m_baseIRI.toString(), m_documentLocator);
-                exception.initCause(e);
-                throw exception;
+                throw new RDFParserException(e, "New base IRI '" + value
+                        + "' cannot be resolved against curent base IRI "
+                        + m_baseIRI, m_documentLocator);
             }
         }
     }
@@ -373,11 +368,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                     return u;
                 }
             } catch (IllegalArgumentException e) {
-                RDFParserException exception = new RDFParserException("IRI '"
-                        + uri + "' cannot be resolved against curent base IRI "
+                throw new RDFParserException(e, "IRI '" + uri
+                        + "' cannot be resolved against curent base IRI "
                         + m_baseIRI.toString(), m_documentLocator);
-                exception.initCause(e);
-                throw exception;
             }
         }
     }
@@ -676,10 +669,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             }
             return result;
         } catch (IOException e) {
-            RDFParserException exception = new RDFParserException("I/O error",
-                    m_documentLocator);
-            exception.initCause(e);
-            throw exception;
+            throw new RDFParserException(e, "I/O error", m_documentLocator);
         }
     }
 
