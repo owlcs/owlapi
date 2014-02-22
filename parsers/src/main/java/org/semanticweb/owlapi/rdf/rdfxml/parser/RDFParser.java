@@ -333,7 +333,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, "IRI '" + uri
                         + "' cannot be resolved against current base IRI "
-                        + m_baseIRI, m_documentLocator);
+                        + m_baseIRI + " reason is: " + e.getMessage(),
+                        m_documentLocator);
             }
         }
     }

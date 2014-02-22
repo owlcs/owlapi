@@ -19,7 +19,10 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
@@ -47,6 +50,10 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * @since 2.2.0 */
 @SuppressWarnings("javadoc")
 public abstract class TestBase {
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();

@@ -19,9 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -29,9 +27,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase extends TestBase {
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-
     @Test
     public void testImportOntologyByLocation() throws Exception {
         File f = folder.newFile("a.owl");

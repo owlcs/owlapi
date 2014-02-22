@@ -19,9 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Collections;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
@@ -46,9 +44,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  * @since 3.0.0 */
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends TestBase {
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
-
     @Test
     public void testOntologyContainsPlainAxiom() {
         OWLAxiom axiom = SubClassOf(Class(getIRI("A")), Class(getIRI("B")));
