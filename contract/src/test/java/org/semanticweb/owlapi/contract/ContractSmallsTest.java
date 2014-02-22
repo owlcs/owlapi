@@ -420,9 +420,8 @@ public class ContractSmallsTest {
 
     @Test
     public void shouldTestRDFParserException() throws OWLException {
-        RDFParserException testSubject0 = new RDFParserException("");
-        new RDFParserException("", mock(Locator.class));
-        new RDFParserException("", "", "", 0, 0);
+        RDFParserException testSubject0 = new RDFParserException("",
+                mock(Locator.class));
         int result0 = testSubject0.getLineNumber();
         int result1 = testSubject0.getColumnNumber();
         String result2 = testSubject0.getPublicId();

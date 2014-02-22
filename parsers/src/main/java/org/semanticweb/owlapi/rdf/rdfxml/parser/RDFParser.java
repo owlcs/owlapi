@@ -166,10 +166,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     @Override
     public void endDocument() throws SAXException {
-        if (state != null) {
-            throw new RDFParserException("RDF content not finished.",
-                    m_documentLocator);
-        }
+        verify(state != null, "RDF content not finished.");
     }
 
     @Override
@@ -199,11 +196,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             throws SAXException {
         if ("include-rdf".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
-            if (arguments.size() > 2) {
-                throw new RDFParserException(
-                        "Incorrect number of arguments for 'include-rdf' processing instruction.",
-                        m_documentLocator);
-            }
+            verify(arguments.size() > 2,
+                    "Incorrect number of arguments for 'include-rdf' processing instruction.");
             String logicalIRI = arguments.get("logicalIRI");
             String physicalIRI = arguments.get("physicalIRI");
             if (physicalIRI != null) {
@@ -212,23 +206,14 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             m_consumer.includeModel(logicalIRI, physicalIRI);
         } else if ("model-attribute".equals(target)) {
             Map<String, String> arguments = parseStringArguments(data);
-            if (arguments.size() != 2) {
-                throw new RDFParserException(
-                        "Incorrect number of arguments for 'model-attribute' processing instruction.",
-                        m_documentLocator);
-            }
+            verify(arguments.size() != 2,
+                    "Incorrect number of arguments for 'model-attribute' processing instruction.");
             String key = arguments.get("key");
-            if (key == null) {
-                throw new RDFParserException(
-                        "Mising the 'key' argument for 'model-attribute' processing instruction.",
-                        m_documentLocator);
-            }
+            verify(key == null,
+                    "Mising the 'key' argument for 'model-attribute' processing instruction.");
             String value = arguments.get("value");
-            if (value == null) {
-                throw new RDFParserException(
-                        "Mising the 'value' argument for 'model-attribute' processing instruction.",
-                        m_documentLocator);
-            }
+            verify(value == null,
+                    "Mising the 'value' argument for 'model-attribute' processing instruction.");
             m_consumer.addModelAttribte(key, value);
         }
     }
@@ -237,7 +222,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * 
      * @param s
      *            new state */
-    protected void pushState(State s) {
+    public void pushState(State s) {
         m_states.add(s);
         state = s;
     }
@@ -246,40 +231,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * 
      * @throws SAXException
      *             SAXException */
-    protected void popState() throws SAXException {
+    public void popState() throws SAXException {
         int size = m_states.size();
-        if (size == 0) {
-            throw new RDFParserException(
-                    "Internal exception: state stack is empty.",
-                    m_documentLocator);
-        }
+        verify(size == 0, "Internal exception: state stack is empty.");
         if (size == 1) {
             state = null;
         } else {
             state = m_states.get(size - 2);
         }
         m_states.remove(size - 1);
-    }
-
-    /** Checks if attribute list contains some of the unsupported attributes.
-     * 
-     * @param atts
-     *            the attributes
-     * @throws SAXException
-     *             SAXException */
-    protected void checkUnsupportedAttributes(@Nonnull Attributes atts)
-            throws SAXException {
-        checkNotNull(atts, "atts cannot be null");
-        if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1) {
-            throw new RDFParserException(
-                    "rdf:aboutEach attribute is not supported.",
-                    m_documentLocator);
-        }
-        if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH_PREFIX) != -1) {
-            throw new RDFParserException(
-                    "rdf:aboutEachPrefix attribute is not supported.",
-                    m_documentLocator);
-        }
     }
 
     @Nonnull
@@ -305,7 +265,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      *            the attributes potentially containing xml:base declaration
      * @throws SAXException
      *             SAXException */
-    protected void processXMLBase(@Nonnull Attributes atts) throws SAXException {
+    private void processXMLBase(@Nonnull Attributes atts) throws SAXException {
         checkNotNull(atts, "atts cannot be null");
         m_baseIRIs.add(0, m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
@@ -325,7 +285,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * 
      * @param atts
      *            the attributes potentially containing xml:language declaration */
-    protected void processXMLLanguage(@Nonnull Attributes atts) {
+    private void processXMLLanguage(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
         m_languages.add(0, m_language);
         String value = atts.getValue(XMLLANG);
@@ -342,12 +302,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @throws SAXException
      *             SAXException */
     @Nonnull
-    protected String resolveIRI(@Nonnull String uri) throws SAXException {
+    public String resolveIRI(@Nonnull String uri) throws SAXException {
         checkNotNull(uri, "uri cannot be null");
         if (uri.length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
             // IRIs.
-            // XXX namespace?
+            String namespace = m_baseIRI.getNamespace();
+            if (namespace.charAt(namespace.length() - 1) == '#') {
+                return namespace.substring(0, namespace.length() - 1);
+            }
             String base = m_baseIRI.toString();
             int hashIndex = base.indexOf("#");
             if (hashIndex != -1) {
@@ -369,111 +332,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 }
             } catch (IllegalArgumentException e) {
                 throw new RDFParserException(e, "IRI '" + uri
-                        + "' cannot be resolved against curent base IRI "
-                        + m_baseIRI.toString(), m_documentLocator);
-            }
-        }
-    }
-
-    /** Returns an absolute IRI from an ID.
-     * 
-     * @param id
-     *            id
-     * @return string for IRI
-     * @throws SAXException
-     *             SAXException */
-    @Nonnull
-    protected String getIRIFromID(@Nonnull String id) throws SAXException {
-        return resolveIRI("#" + id);
-    }
-
-    /** Returns an absolute IRI from an about attribute.
-     * 
-     * @param about
-     *            about
-     * @return string for IRI
-     * @throws SAXException
-     *             SAXException */
-    @Nonnull
-    protected String getIRIFromAbout(@Nonnull String about) throws SAXException {
-        return resolveIRI(about);
-    }
-
-    /** Returns an absolute IRI from a resource attribute.
-     * 
-     * @param resource
-     *            resource
-     * @return string for IRI
-     * @throws SAXException
-     *             SAXException */
-    @Nonnull
-    protected String getIRIFromResource(@Nonnull String resource)
-            throws SAXException {
-        return resolveIRI(resource);
-    }
-
-    /** Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
-     * attribute. If no attribute is found, an IRI is generated.
-     * 
-     * @param atts
-     *            atts
-     * @return string for IRI
-     * @throws SAXException
-     *             SAXException */
-    @Nonnull
-    protected String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts)
-            throws SAXException {
-        checkNotNull(atts, "atts cannot be null");
-        String result = null;
-        String value = atts.getValue(RDFNS, ATTR_ID);
-        if (value != null) {
-            result = getIRIFromID(value);
-        }
-        value = atts.getValue(RDFNS, ATTR_ABOUT);
-        if (value != null) {
-            if (result != null) {
-                throw new RDFParserException(
-                        "Element cannot specify both rdf:ID and rdf:about attributes.",
-                        m_documentLocator);
-            }
-            result = getIRIFromAbout(value);
-        }
-        value = atts.getValue(RDFNS, ATTR_NODE_ID);
-        if (value != null) {
-            if (result != null) {
-                throw new RDFParserException(
-                        "Element cannot specify both rdf:nodeID and rdf:ID or rdf:about attributes.",
-                        m_documentLocator);
-            }
-            result = NodeID.getIRIFromNodeID(value);
-        }
-        if (result == null) {
-            result = NodeID.nextAnonymousIRI();
-        }
-        return result;
-    }
-
-    /** Extracts the IRI of the resource from rdf:resource or rdf:nodeID
-     * attribute. If no attribute is found, {@code null} is returned.
-     * 
-     * @param atts
-     *            the attributes
-     * @return the IRI of the resource or {@code null}
-     * @throws SAXException
-     *             SAXException */
-    @Nullable
-    protected String getNodeIDResourceResourceIRI(@Nonnull Attributes atts)
-            throws SAXException {
-        checkNotNull(atts, "atts cannot be null");
-        String value = atts.getValue(RDFNS, ATTR_RESOURCE);
-        if (value != null) {
-            return getIRIFromResource(value);
-        } else {
-            value = atts.getValue(RDFNS, ATTR_NODE_ID);
-            if (value != null) {
-                return NodeID.getIRIFromNodeID(value);
-            } else {
-                return null;
+                        + "' cannot be resolved against current base IRI "
+                        + m_baseIRI, m_documentLocator);
             }
         }
     }
@@ -489,7 +349,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param reificationID
      *            if not {@code null}, contains IRI of the resource that will
      *            wold the reified statement */
-    protected void statementWithResourceValue(@Nonnull String subject,
+    public void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String reificationID) {
         m_consumer.statementWithResourceValue(subject, predicate, object);
@@ -518,7 +378,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param reificationID
      *            if not {@code null}, contains IRI of the resource that will
      *            wold the reified statement */
-    protected void statementWithLiteralValue(@Nonnull String subject,
+    public void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String dataType, @Nullable String reificationID) {
         m_consumer.statementWithLiteralValue(subject, predicate, object,
@@ -535,102 +395,6 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** Parses the propertyAttributes production.
-     * 
-     * @param subjectIRI
-     *            IRI of the resource whose properties are being parsed
-     * @param atts
-     *            attributes
-     * @param reificationManager
-     *            the reification manager
-     * @throws SAXException
-     *             SAXException */
-    protected void propertyAttributes(@Nonnull String subjectIRI,
-            @Nonnull Attributes atts,
-            @Nonnull ReificationManager reificationManager) throws SAXException {
-        int length = atts.getLength();
-        for (int i = 0; i < length; i++) {
-            String nsIRI = atts.getURI(i);
-            String localName = atts.getLocalName(i);
-            if (!XMLNS.equals(nsIRI)
-                    && !XMLLANG.equals(localName)
-                    && !(RDFNS.equals(nsIRI) && (ATTR_ID.equals(localName)
-                            || ATTR_NODE_ID.equals(localName)
-                            || ATTR_ABOUT.equals(localName)
-                            || ELT_TYPE.equals(localName)
-                            || ATTR_RESOURCE.equals(localName)
-                            || ATTR_PARSE_TYPE.equals(localName)
-                            || ATTR_ABOUT_EACH.equals(localName)
-                            || ATTR_ABOUT_EACH_PREFIX.equals(localName) || ATTR_BAG_ID
-                                .equals(localName)))) {
-                String value = atts.getValue(i);
-                String reificationID = reificationManager
-                        .getReificationID(null);
-                statementWithLiteralValue(subjectIRI, nsIRI + localName, value,
-                        null, reificationID);
-            } else if (RDFNS.equals(nsIRI) && ELT_TYPE.equals(localName)) {
-                String value = resolveIRI(atts.getValue(i));
-                String reificationID = reificationManager
-                        .getReificationID(null);
-                statementWithResourceValue(subjectIRI, nsIRI + localName,
-                        value, reificationID);
-            }
-        }
-    }
-
-    /** Checks whether given characters contain only whitespace.
-     * 
-     * @param data
-     *            the data being checked
-     * @param start
-     *            the start index (inclusive)
-     * @param length
-     *            the end index (non-inclusive)
-     * @return {@code true} if characters contain whitespace */
-    protected boolean isWhitespaceOnly(char[] data, int start, int length) {
-        int end = start + length;
-        for (int i = start; i < end; i++) {
-            char c = data[i];
-            if (c != '\n' && c != '\r' && c != '\t' && c != ' ') {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /** Checks whether given characters contain only whitespace.
-     * 
-     * @param buffer
-     *            the data being checked
-     * @return {@code true} if characters contain whitespace */
-    protected boolean isWhitespaceOnly(StringBuilder buffer) {
-        for (int i = 0; i < buffer.length(); i++) {
-            char c = buffer.charAt(i);
-            if (c != '\n' && c != '\r' && c != '\t' && c != ' ') {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /** Returns the reification manager for given attributes.
-     * 
-     * @param atts
-     *            the attributes
-     * @return the reification manager
-     * @throws SAXException
-     *             SAXException */
-    protected ReificationManager getReificationManager(Attributes atts)
-            throws SAXException {
-        String bagIDAttr = atts.getValue(RDFNS, ATTR_BAG_ID);
-        if (bagIDAttr == null) {
-            return ReificationManager.INSTANCE;
-        } else {
-            String bagID = getIRIFromID(bagIDAttr);
-            return new ReifiedStatementBag(bagID);
-        }
-    }
-
     /** Parses the string into a map of name-value pairs.
      * 
      * @param string
@@ -639,7 +403,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @throws SAXException
      *             if there was an IOException this will be wrapped in a parse
      *             exception */
-    protected Map<String, String> parseStringArguments(String string)
+    private Map<String, String> parseStringArguments(String string)
             throws SAXException {
         try {
             StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(
@@ -647,22 +411,13 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             Map<String, String> result = new HashMap<String, String>();
             tokenizer.nextToken();
             while (tokenizer.ttype != StreamTokenizer.TT_EOF) {
-                if (tokenizer.ttype != StreamTokenizer.TT_WORD) {
-                    throw new RDFParserException(
-                            "Invalid processing instruction argument.",
-                            m_documentLocator);
-                }
+                verify(tokenizer.ttype != StreamTokenizer.TT_WORD,
+                        "Invalid processing instruction argument.");
                 String name = tokenizer.sval;
-                if ('=' != tokenizer.nextToken()) {
-                    throw new RDFParserException("Expecting token =",
-                            m_documentLocator);
-                }
+                verify('=' != tokenizer.nextToken(), "Expecting token '='");
                 tokenizer.nextToken();
-                if (tokenizer.ttype != '\"' && tokenizer.ttype != '\'') {
-                    throw new RDFParserException(
-                            "Invalid processing instruction argument.",
-                            m_documentLocator);
-                }
+                verify(tokenizer.ttype != '\"' && tokenizer.ttype != '\'',
+                        "Invalid processing instruction argument.");
                 String value = tokenizer.sval;
                 result.put(name, value);
                 tokenizer.nextToken();
@@ -673,47 +428,23 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** @param s
-     *            string
-     * @return iri */
     @Override
     @Nonnull
     public IRI getIRI(@Nonnull String s) {
         return uriCache.get(checkNotNull(s, "s cannot be null"));
     }
 
-    protected static class ReificationManager {
-        public static final ReificationManager INSTANCE = new ReificationManager();
-
-        @SuppressWarnings("unused")
-        public String getReificationID(String reificationID)
-                throws SAXException {
-            return reificationID;
-        }
-    }
-
-    protected class ReifiedStatementBag extends ReificationManager {
-        protected String m_uri;
-        protected int m_elements;
-
-        public ReifiedStatementBag(String uri) {
-            m_uri = uri;
-            m_elements = 0;
-            statementWithResourceValue(m_uri, RDF_TYPE, RDF_BAG, null);
-        }
-
-        @Override
-        public String getReificationID(String reificationID)
-                throws SAXException {
-            String resultIRI;
-            if (reificationID == null) {
-                resultIRI = NodeID.nextAnonymousIRI();
-            } else {
-                resultIRI = reificationID;
-            }
-            statementWithResourceValue(m_uri, RDFNS + "_" + ++m_elements,
-                    resultIRI, null);
-            return resultIRI;
+    /** If conditon b is true, throw an exception with provided message
+     * 
+     * @param b
+     *            condition to verify
+     * @param message
+     *            message for the exception
+     * @throws RDFParserException
+     *             exception thrown */
+    public void verify(boolean b, String message) throws RDFParserException {
+        if (b) {
+            throw new RDFParserException(message, m_documentLocator);
         }
     }
 }

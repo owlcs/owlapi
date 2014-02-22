@@ -24,12 +24,6 @@ public class RDFParserException extends SAXException {
     protected final int columnNumber;
 
     /** @param message
-     *            message */
-    public RDFParserException(String message) {
-        this(message, null, null, -1, -1);
-    }
-
-    /** @param message
      *            message
      * @param locator
      *            locator */
@@ -44,46 +38,21 @@ public class RDFParserException extends SAXException {
      * @param locator
      *            locator */
     public RDFParserException(Exception e, String message, Locator locator) {
-        this(e, message, locator.getPublicId(), locator.getSystemId(), locator
-                .getLineNumber(), locator.getColumnNumber());
+        super(message(locator, message), e);
+        publicId = locator.getPublicId();
+        systemId = locator.getSystemId();
+        lineNumber = locator.getLineNumber();
+        columnNumber = locator.getColumnNumber();
     }
 
-    /** @param message
-     *            message
-     * @param publicId
-     *            publicId
-     * @param systemId
-     *            systemId
-     * @param lineNumber
-     *            lineNumber
-     * @param columnNumber
-     *            columnNumber */
-    public RDFParserException(String message, String publicId, String systemId,
-            int lineNumber, int columnNumber) {
-        this(null, message, publicId, systemId, lineNumber, columnNumber);
-    }
-
-    /** @param cause
-     *            cause
-     * @param message
-     *            message
-     * @param publicId
-     *            publicId
-     * @param systemId
-     *            systemId
-     * @param lineNumber
-     *            lineNumber
-     * @param columnNumber
-     *            columnNumber */
-    public RDFParserException(Exception cause, String message, String publicId,
-            String systemId, int lineNumber, int columnNumber) {
-        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber
-                + ":" + "column=" + columnNumber + "] " : "")
-                + message, cause);
-        this.publicId = publicId;
-        this.systemId = systemId;
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
+    private static String message(Locator locator, String message) {
+        int lineNumber = locator.getLineNumber();
+        int columnNumber = locator.getColumnNumber();
+        if (lineNumber == -1 && columnNumber == -1) {
+            return message;
+        }
+        return "[line=" + lineNumber + ":" + "column=" + columnNumber + "] "
+                + message;
     }
 
     /** @return public id */
