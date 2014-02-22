@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0 */
-public interface OWLAnnotationSubject extends OWLAnnotationObject {
+public interface OWLAnnotationSubject extends OWLAnnotationObject, OWLPrimitive {
     /** @param visitor
      *            visitor to accept */
     void accept(@Nonnull OWLAnnotationSubjectVisitor visitor);

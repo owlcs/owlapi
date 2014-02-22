@@ -28,7 +28,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
  * @since 3.0.0
  * @param <E>
  *            entity type */
-public final class EntityType<E extends OWLEntity> implements Serializable {
+public final class EntityType<E extends OWLEntity> implements Serializable,
+        HasShortForm, HasPrefixedName, HasIRI {
     private static final long serialVersionUID = 40000L;
     /** class entity */
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>(
@@ -98,5 +99,20 @@ public final class EntityType<E extends OWLEntity> implements Serializable {
     /** @return plural printable name */
     public String getPluralPrintName() {
         return pluralPrintName;
+    }
+
+    @Override
+    public String getShortForm() {
+        return name;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return vocabulary.getPrefixedName();
+    }
+
+    @Override
+    public IRI getIRI() {
+        return vocabulary.getIRI();
     }
 }

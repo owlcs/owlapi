@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0 */
 public interface OWLAnonymousIndividual extends OWLIndividual,
-        OWLAnnotationValue, OWLAnnotationSubject {
+        OWLAnnotationValue, OWLAnnotationSubject, OWLPrimitive {
     /** Gets the ID of this individual.
      * 
      * @return The node ID of this individual. */

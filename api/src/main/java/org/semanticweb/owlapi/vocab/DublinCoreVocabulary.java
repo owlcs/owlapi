@@ -16,12 +16,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0 */
-public enum DublinCoreVocabulary implements HasIRI {
+public enum DublinCoreVocabulary implements HasShortForm, HasIRI,
+        HasPrefixedName {
 //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),
     /** http://purl.org/dc/elements/1.1/coverage */    COVERAGE   ("coverage"   ),
@@ -47,17 +50,17 @@ public enum DublinCoreVocabulary implements HasIRI {
 
     DublinCoreVocabulary(String name) {
         shortName = name;
-        qname = "dc:" + name;
+        qname = Namespaces.DC.getPrefixName() + ":" + name;
         iri = IRI.create(NAME_SPACE, name);
     }
 
-    /** @return IRI fragment */
-    public String getShortName() {
+    @Override
+    public String getShortForm() {
         return shortName;
     }
 
-    /** @return qname */
-    public String getQName() {
+    @Override
+    public String getPrefixedName() {
         return qname;
     }
 

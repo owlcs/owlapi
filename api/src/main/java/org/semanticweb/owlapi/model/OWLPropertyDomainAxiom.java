@@ -24,11 +24,13 @@ import javax.annotation.Nonnull;
  * @param <P>
  *            property expression */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
-        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
+        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
+        HasDomain<OWLClassExpression> {
     /** Gets the domain specified by this property axiom.
      * 
      * @return The class expression that represents the domain specified by this
      *         axiom. */
+    @Override
     @Nonnull
     OWLClassExpression getDomain();
 }

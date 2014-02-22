@@ -16,12 +16,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0 */
-public enum OWLXMLVocabulary implements HasIRI {
+public enum OWLXMLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** CLASS                               */  CLASS                               ("Class"),
     /** DATA_PROPERTY                       */  DATA_PROPERTY                       ("DataProperty"),
@@ -130,20 +132,17 @@ public enum OWLXMLVocabulary implements HasIRI {
 //@formatter:on
     private final IRI iri;
     private final String shortName;
+    private final String prefixedName;
 
     OWLXMLVocabulary(String name) {
         iri = IRI.create(Namespaces.OWL.toString(), name);
         shortName = name;
+        prefixedName = Namespaces.OWL.getPrefixName() + ":" + name;
     }
 
     @Override
     public IRI getIRI() {
         return iri;
-    }
-
-    /** @return short name */
-    public String getShortName() {
-        return shortName;
     }
 
     @Override
@@ -157,5 +156,15 @@ public enum OWLXMLVocabulary implements HasIRI {
         for (OWLRDFVocabulary v : OWLRDFVocabulary.values()) {
             BUILT_IN_IRIS.add(v.getIRI());
         }
+    }
+
+    @Override
+    public String getShortForm() {
+        return shortName;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

@@ -23,11 +23,13 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0 */
-public interface OWLDataRestriction extends OWLRestriction {
+public interface OWLDataRestriction extends OWLRestriction,
+        HasProperty<OWLDataPropertyExpression> {
     /** Gets the property/properties that the restriction acts along depending on
      * R being a scalar or collection type.
      * 
      * @return The property */
+    @Override
     @Nonnull
     OWLDataPropertyExpression getProperty();
 }

@@ -17,12 +17,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0 */
-public enum OWLRDFVocabulary implements HasIRI {
+public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     // OWL Vocab
     /** http://www.w3.org/2002/07/owl#Thing                 **/    OWL_THING(Namespaces.OWL, "Thing"),
@@ -158,10 +160,12 @@ public enum OWLRDFVocabulary implements HasIRI {
     final IRI iri;
     final Namespaces namespace;
     final String shortName;
+    private final String prefixedName;
 
     OWLRDFVocabulary(Namespaces namespace, String shortName) {
         this.namespace = namespace;
         this.shortName = shortName;
+        this.prefixedName = namespace.getPrefixName() + ":" + shortName;
         iri = IRI.create(namespace.toString(), shortName);
     }
 
@@ -175,8 +179,13 @@ public enum OWLRDFVocabulary implements HasIRI {
         return namespace;
     }
 
-    /** @return the IRI fragment */
-    public String getShortName() {
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
+    }
+
+    @Override
+    public String getShortForm() {
         return shortName;
     }
 

@@ -191,7 +191,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
-            ruleBuiltIns.put(v.getShortName(), v);
+            ruleBuiltIns.put(v.getShortForm(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
     }

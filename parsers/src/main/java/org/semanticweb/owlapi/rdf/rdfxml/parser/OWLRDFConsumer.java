@@ -357,18 +357,18 @@ public class OWLRDFConsumer implements RDFConsumer {
         }
         for (OWLFacet v : OWLFacet.values()) {
             synonymMap.put(
-                    IRI.create(Namespaces.OWL.toString(), v.getShortName()),
+                    IRI.create(Namespaces.OWL.toString(), v.getShortForm()),
                     v.getIRI());
             synonymMap.put(
-                    IRI.create(Namespaces.OWL11.toString(), v.getShortName()),
+                    IRI.create(Namespaces.OWL11.toString(), v.getShortForm()),
                     v.getIRI());
             synonymMap.put(
-                    IRI.create(Namespaces.OWL2.toString(), v.getShortName()),
+                    IRI.create(Namespaces.OWL2.toString(), v.getShortForm()),
                     v.getIRI());
         }
         for (OWLFacet v : OWLFacet.values()) {
             synonymMap.put(
-                    IRI.create(Namespaces.OWL2.toString(), v.getShortName()),
+                    IRI.create(Namespaces.OWL2.toString(), v.getShortForm()),
                     v.getIRI());
         }
         synonymMap.put(
@@ -434,10 +434,10 @@ public class OWLRDFConsumer implements RDFConsumer {
         // Map OWL11 to OWL
         // Map OWL2 to OWL
         synonymMap.put(
-                IRI.create(Namespaces.OWL2.toString(), v.getShortName()),
+                IRI.create(Namespaces.OWL2.toString(), v.getShortForm()),
                 v.getIRI());
         synonymMap.put(
-                IRI.create(Namespaces.OWL11.toString(), v.getShortName()),
+                IRI.create(Namespaces.OWL11.toString(), v.getShortForm()),
                 v.getIRI());
     }
 

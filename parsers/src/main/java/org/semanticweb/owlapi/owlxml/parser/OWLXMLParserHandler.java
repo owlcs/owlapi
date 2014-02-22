@@ -344,11 +344,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
             Attributes attributes) throws SAXException {
         try {
             processXMLBase(attributes);
-            if (localName.equals(PREFIX.getShortName())) {
+            if (localName.equals(PREFIX.getShortForm())) {
                 String name = attributes
-                        .getValue(NAME_ATTRIBUTE.getShortName());
+                        .getValue(NAME_ATTRIBUTE.getShortForm());
                 String iriString = attributes.getValue(IRI_ATTRIBUTE
-                        .getShortName());
+                        .getShortForm());
                 if (name != null && iriString != null) {
                     if (name.endsWith(":")) {
                         prefixName2PrefixMap.put(name, iriString);
@@ -398,7 +398,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
         try {
-            if (localName.equals(PREFIX.getShortName())) {
+            if (localName.equals(PREFIX.getShortForm())) {
                 return;
             }
             if (!handlerStack.isEmpty()) {

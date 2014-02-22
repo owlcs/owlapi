@@ -20,7 +20,8 @@ public class KRSS2OWLParserException extends KRSSOWLParserException {
 
     /** @param e
      *            cause */
-    public KRSS2OWLParserException(org.semanticweb.owlapi.krss1.parser.ParseException e) {
+    public KRSS2OWLParserException(
+            org.semanticweb.owlapi.krss1.parser.ParseException e) {
         super(e);
     }
 

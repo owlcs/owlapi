@@ -34,7 +34,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0 */
 public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
-        OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive {
+        OWLAnnotationValue, OWLPropertyAssertionObject, OWLPrimitive, HasLang {
     /** Determines if the datatype of this literal is {@code rdf:PlainLiteral}.
      * Note that literals that are abbreviated in the functional syntax (and
      * other concrete syntaxes) and are of the form {@code "abc"} or
@@ -81,6 +81,7 @@ public interface OWLLiteral extends OWLObject, OWLAnnotationObject,
      *         {@code rdf:PlainLiteral}, or because its language tag is empty,
      *         then the empty string will be returned. (The {@code null} value
      *         is never returned). */
+    @Override
     @Nonnull
     String getLang();
 

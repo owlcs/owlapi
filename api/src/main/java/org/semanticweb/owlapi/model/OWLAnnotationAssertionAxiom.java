@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0 */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
-        HasSubject<OWLAnnotationSubject> {
+        HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
     /** Gets the subject of the annotation assertion. This is either an
      * {@link org.semanticweb.owlapi.model.IRI} or an
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
@@ -34,6 +34,7 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
     /** Gets the annotation property.
      * 
      * @return The annotation property. */
+    @Override
     @Nonnull
     OWLAnnotationProperty getProperty();
 

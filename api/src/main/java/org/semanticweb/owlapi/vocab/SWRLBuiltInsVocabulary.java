@@ -13,13 +13,16 @@
 package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
  * @since 2.0.0 */
-public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasIRI {
+public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm,
+        HasIRI, HasPrefixedName {
 //@formatter:off
     /** EQUAL */                    EQUAL("equal", 2),
     /** NOT_EQUAL */                NOT_EQUAL("notEqual", 2),
@@ -92,6 +95,7 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasIRI {
     /** SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION */   SUBTRACT_DATE_TIMES_YIELDING_DAY_TIME_DURATION("subtractDateTimesYieldingDayTimeDuration", 3);
 //@formatter:on
     private final String shortName;
+    private final String prefixedName;
     private final IRI iri;
     // Arity of the predicate (-1 if infinite)
     private final int minArity;
@@ -103,13 +107,14 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasIRI {
 
     SWRLBuiltInsVocabulary(String name, int minArity, int maxArity) {
         shortName = name;
+        this.prefixedName = Namespaces.SWRLB.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRLB.toString(), name);
         this.minArity = minArity;
         this.maxArity = maxArity;
     }
 
-    /** @return local name */
-    public String getShortName() {
+    @Override
+    public String getShortForm() {
         return shortName;
     }
 
@@ -145,5 +150,10 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasIRI {
             }
         }
         return null;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

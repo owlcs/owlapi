@@ -139,7 +139,9 @@ public class TurtleParser implements TurtleParserConstants {
         if (iri == null) {
             iri = IRI.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
+                iri = IRI.create(
+                        base.getNamespace().substring(0,
+                                base.getNamespace().lastIndexOf('/') + 1), s);
             }
             string2IRI.put(s, iri);
         }

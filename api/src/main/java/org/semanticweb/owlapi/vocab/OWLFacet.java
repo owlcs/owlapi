@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** Represents the facets that can be used for restricting a datatype.
@@ -26,7 +28,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @since 2.0.0
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
  * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
-public enum OWLFacet implements HasIRI {
+public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** LENGTH */           LENGTH          (Namespaces.XSD, "length",          "length"), 
     /** MIN_LENGTH */       MIN_LENGTH      (Namespaces.XSD, "minLength",       "minLength"), 
@@ -50,18 +52,20 @@ public enum OWLFacet implements HasIRI {
         FACET_IRIS = Collections.unmodifiableSet(iris);
     }
     private final IRI iri;
-    private final String shortName;
+    private final String shortForm;
     private final String symbolicForm;
+    private final String prefixedName;
 
-    OWLFacet(Namespaces ns, String shortName, String symbolicForm) {
-        iri = IRI.create(ns.toString(), shortName);
-        this.shortName = shortName;
+    OWLFacet(Namespaces ns, String shortForm, String symbolicForm) {
+        iri = IRI.create(ns.toString(), shortForm);
+        this.shortForm = shortForm;
         this.symbolicForm = symbolicForm;
+        prefixedName = ns.getPrefixName() + ":" + shortForm;
     }
 
-    /** @return local name */
-    public String getShortName() {
-        return shortName;
+    @Override
+    public String getShortForm() {
+        return shortForm;
     }
 
     @Override
@@ -76,7 +80,7 @@ public enum OWLFacet implements HasIRI {
 
     @Override
     public String toString() {
-        return shortName;
+        return getShortForm();
     }
 
     /** @return all facet iris */
@@ -104,7 +108,7 @@ public enum OWLFacet implements HasIRI {
      *         exists. */
     public static OWLFacet getFacetByShortName(String shortName) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
-            if (vocabulary.getShortName().equals(shortName)) {
+            if (vocabulary.getShortForm().equals(shortName)) {
                 return vocabulary;
             }
         }
@@ -130,5 +134,10 @@ public enum OWLFacet implements HasIRI {
             result.add(v.getSymbolicForm());
         }
         return result;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

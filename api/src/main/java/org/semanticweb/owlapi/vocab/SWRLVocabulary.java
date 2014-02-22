@@ -13,12 +13,14 @@
 package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
  * @since 2.0.0 */
-public enum SWRLVocabulary implements HasIRI {
+public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** IMP */                          IMP                     ("Imp"), 
     /** INDIVIDUAL_PROPERTY_ATOM */     INDIVIDUAL_PROPERTY_ATOM("IndividualPropertyAtom"), 
@@ -43,19 +45,26 @@ public enum SWRLVocabulary implements HasIRI {
 //@formatter:on
     private final String shortName;
     private final IRI iri;
+    private final String prefixedName;
 
     SWRLVocabulary(String name) {
         shortName = name;
+        this.prefixedName = Namespaces.SWRL.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.SWRL.toString(), name);
-    }
-
-    /** @return local name */
-    public String getShortName() {
-        return shortName;
     }
 
     @Override
     public IRI getIRI() {
         return iri;
+    }
+
+    @Override
+    public String getShortForm() {
+        return shortName;
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }

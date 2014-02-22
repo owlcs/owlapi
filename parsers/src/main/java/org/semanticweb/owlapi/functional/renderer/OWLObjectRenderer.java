@@ -104,7 +104,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
     }
 
     private void write(OWLXMLVocabulary v) {
-        write(v.getShortName());
+        write(v.getShortForm());
     }
 
     private void write(String s) {

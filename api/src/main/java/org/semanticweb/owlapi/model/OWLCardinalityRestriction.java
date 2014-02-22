@@ -18,10 +18,11 @@ package org.semanticweb.owlapi.model;
  * @param <F>
  *            value */
 public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
-        OWLQuantifiedRestriction<F> {
+        OWLQuantifiedRestriction<F>, HasCardinality {
     /** Gets the cardinality of this restriction
      * 
      * @return The cardinality of this restriction */
+    @Override
     int getCardinality();
 
     /** Determines if this restriction is qualified. Qualified cardinality

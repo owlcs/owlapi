@@ -24,10 +24,12 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0 */
-public interface OWLAnnotation extends OWLObject, HasAnnotations {
+public interface OWLAnnotation extends OWLObject, HasAnnotations,
+        HasProperty<OWLAnnotationProperty> {
     /** Gets the property that this annotation acts along
      * 
      * @return The annotation property */
+    @Override
     @Nonnull
     OWLAnnotationProperty getProperty();
 

@@ -60,8 +60,7 @@ public class ContractOwlapiVocabTest {
         DublinCoreVocabulary testSubject0 = DublinCoreVocabulary.CONTRIBUTOR;
         DublinCoreVocabulary[] result1 = DublinCoreVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        String result5 = testSubject0.getShortName();
-        String result6 = testSubject0.getQName();
+        String result5 = testSubject0.getShortForm();
         String result7 = testSubject0.name();
         int result12 = testSubject0.ordinal();
     }
@@ -84,7 +83,7 @@ public class ContractOwlapiVocabTest {
         if (result4) {
             OWL2Datatype result5 = OWL2Datatype.getDatatype(IRI("urn:aFake"));
         }
-        String result7 = testSubject0.getShortName();
+        String result7 = testSubject0.getShortForm();
         Set<IRI> result8 = OWL2Datatype.getDatatypeIRIs();
         Pattern result9 = testSubject0.getPattern();
         Category result10 = testSubject0.getCategory();
@@ -100,7 +99,7 @@ public class ContractOwlapiVocabTest {
         OWLFacet testSubject0 = OWLFacet.FRACTION_DIGITS;
         OWLFacet[] result1 = OWLFacet.values();
         IRI result3 = testSubject0.getIRI();
-        String result4 = testSubject0.getShortName();
+        String result4 = testSubject0.getShortForm();
         Set<String> result5 = OWLFacet.getFacets();
         OWLFacet result6 = OWLFacet.getFacet(IRI("urn:aFake"));
         String result7 = testSubject0.getSymbolicForm();
@@ -117,7 +116,7 @@ public class ContractOwlapiVocabTest {
         OWLRDFVocabulary[] result1 = OWLRDFVocabulary.values();
         IRI result3 = testSubject0.getIRI();
         Namespaces result5 = testSubject0.getNamespace();
-        String result6 = testSubject0.getShortName();
+        String result6 = testSubject0.getShortForm();
         String result7 = testSubject0.name();
         int result12 = testSubject0.ordinal();
     }
@@ -127,7 +126,7 @@ public class ContractOwlapiVocabTest {
         OWLXMLVocabulary testSubject0 = OWLXMLVocabulary.ABBREVIATED_IRI_ATTRIBUTE;
         OWLXMLVocabulary[] result1 = OWLXMLVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        String result5 = testSubject0.getShortName();
+        String result5 = testSubject0.getShortForm();
         String result6 = testSubject0.name();
         int result11 = testSubject0.ordinal();
     }
@@ -183,7 +182,7 @@ public class ContractOwlapiVocabTest {
         SWRLBuiltInsVocabulary testSubject0 = SWRLBuiltInsVocabulary.ABS;
         SWRLBuiltInsVocabulary[] result0 = SWRLBuiltInsVocabulary.values();
         IRI result2 = testSubject0.getIRI();
-        String result4 = testSubject0.getShortName();
+        String result4 = testSubject0.getShortForm();
         int result5 = testSubject0.getMinArity();
         int result6 = testSubject0.getMaxArity();
         SWRLBuiltInsVocabulary result8 = SWRLBuiltInsVocabulary
@@ -197,7 +196,7 @@ public class ContractOwlapiVocabTest {
         SWRLVocabulary testSubject0 = SWRLVocabulary.ARGUMENT_1;
         SWRLVocabulary[] result0 = SWRLVocabulary.values();
         IRI result2 = testSubject0.getIRI();
-        String result4 = testSubject0.getShortName();
+        String result4 = testSubject0.getShortForm();
         String result5 = testSubject0.name();
         int result11 = testSubject0.ordinal();
     }
@@ -207,7 +206,7 @@ public class ContractOwlapiVocabTest {
         XSDVocabulary testSubject0 = XSDVocabulary.ANY_SIMPLE_TYPE;
         XSDVocabulary[] result1 = XSDVocabulary.values();
         IRI result3 = testSubject0.getIRI();
-        String result4 = testSubject0.getShortName();
+        String result4 = testSubject0.getShortForm();
         String result5 = testSubject0.name();
         int result10 = testSubject0.ordinal();
     }

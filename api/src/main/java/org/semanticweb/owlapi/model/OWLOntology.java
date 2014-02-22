@@ -32,7 +32,9 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0 */
 public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
-        HasAxiomsByType, HasContainsAxiom, HasAnnotations {
+        HasAxiomsByType, HasContainsAxiom, HasAnnotations, HasDirectImports,
+        HasImportsClosure, HasContainsEntityInSignature, HasOntologyID,
+        HasGetEntitiesInSignature {
     /** interim method to access ontology internals for searching purposes
      * 
      * @return internals for this ontology */
@@ -55,6 +57,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     /** Gets the identity of this ontology (i.e. ontology IRI + version IRI).
      * 
      * @return The ID of this ontology. */
+    @Override
     @Nonnull
     OWLOntologyID getOntologyID();
 
@@ -107,6 +110,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
+    @Override
     @Nonnull
     Set<OWLOntology> getDirectImports() throws UnknownOWLOntologyException;
 
@@ -143,6 +147,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      * @throws UnknownOWLOntologyException
      *             If this ontology is no longer managed by its manager because
      *             it was removed from the manager. */
+    @Override
     @Nonnull
     Set<OWLOntology> getImportsClosure() throws UnknownOWLOntologyException;
 
@@ -977,6 +982,7 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
      *         have the specified IRI. The set will be empty if there are no
      *         entities in the signature of this ontology with the specified
      *         IRI. */
+    @Override
     Set<OWLEntity> getEntitiesInSignature(@Nonnull IRI iri);
 
     /** Gets the entities in the signature of this ontology, and possibly the

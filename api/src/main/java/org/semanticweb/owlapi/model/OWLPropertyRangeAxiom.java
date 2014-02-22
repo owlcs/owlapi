@@ -25,8 +25,10 @@ import javax.annotation.Nonnull;
  * @param <P>
  *            property expression */
 public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression, R extends OWLPropertyRange>
-        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut {
+        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
+        HasRange<R> {
     /** @return The range specified by this axiom. */
+    @Override
     @Nonnull
     R getRange();
 }

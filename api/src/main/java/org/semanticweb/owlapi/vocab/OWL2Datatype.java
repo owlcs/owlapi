@@ -30,6 +30,8 @@ import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -41,7 +43,7 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
  * @since 2.2.0 */
-public enum OWL2Datatype implements HasIRI {
+public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -123,6 +125,10 @@ public enum OWL2Datatype implements HasIRI {
      * @throws OWLRuntimeException
      *             if the specified IRI is not a built in datatype IRI. */
     public static OWL2Datatype getDatatype(IRI datatype) {
+        if (!isBuiltIn(datatype)) {
+            throw new OWLRuntimeException(datatype
+                    + " is not a built in datatype!");
+        }
         for (OWL2Datatype v : values()) {
             if (v.iri.equals(datatype)) {
                 return v;
@@ -136,11 +142,13 @@ public enum OWL2Datatype implements HasIRI {
     private final Category category;
     private final boolean finite;
     private Pattern pattern;
+    private final String prefixedName;
 
     OWL2Datatype(Namespaces namespace, String shortName, Category category,
             boolean finite, String regEx) {
         iri = IRI.create(namespace.toString(), shortName);
         this.shortName = shortName;
+        prefixedName = namespace + ":" + shortName;
         this.category = category;
         this.finite = finite;
         if (regEx != null) {
@@ -151,16 +159,15 @@ public enum OWL2Datatype implements HasIRI {
     OWL2Datatype(XSDVocabulary xsd, Category category, boolean finite,
             String regEx) {
         iri = xsd.getIRI();
-        shortName = xsd.getShortName();
+        shortName = xsd.getShortForm();
+        prefixedName = xsd.getPrefixedName();
         this.category = category;
         this.finite = finite;
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    /** Gets the short human readable name for this datatype.
-     * 
-     * @return The short human readable name */
-    public String getShortName() {
+    @Override
+    public String getShortForm() {
         return shortName;
     }
 
@@ -217,6 +224,11 @@ public enum OWL2Datatype implements HasIRI {
      *         {@code false} */
     public boolean isInLexicalSpace(String s) {
         return pattern.matcher(s).matches();
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 
     /** Category enum. */

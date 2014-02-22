@@ -40,7 +40,7 @@ import com.google.common.cache.LoadingCache;
  *         Management Group
  * @since 3.0.0 */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
-        SWRLPredicate, CharSequence {
+        SWRLPredicate, CharSequence, OWLPrimitive {
     /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
      * 

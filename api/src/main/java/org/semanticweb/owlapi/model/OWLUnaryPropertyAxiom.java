@@ -20,8 +20,9 @@ import javax.annotation.Nonnull;
  * @param <P>
  *            property expression */
 public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiom {
+        OWLPropertyAxiom, HasProperty<P> {
     /** @return the property expression that this axiom describes. */
+    @Override
     @Nonnull
     P getProperty();
 }

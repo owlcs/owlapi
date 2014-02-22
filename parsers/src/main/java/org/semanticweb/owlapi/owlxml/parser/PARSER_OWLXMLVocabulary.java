@@ -174,8 +174,8 @@ public enum PARSER_OWLXMLVocabulary implements HasIRI {
     private final String shortName;
 
     PARSER_OWLXMLVocabulary(OWLXMLVocabulary name) {
-        iri = IRI.create(Namespaces.OWL.toString(), name.getShortName());
-        shortName = name.getShortName();
+        iri = IRI.create(Namespaces.OWL.toString(), name.getShortForm());
+        shortName = name.getShortForm();
     }
 
     @Override
@@ -218,23 +218,23 @@ abstract class OWLElementHandler<O> {
     }
 
     IRI getIRIFromAttribute(String localName, String value) {
-        if (localName.equals(IRI_ATTRIBUTE.getShortName())) {
+        if (localName.equals(IRI_ATTRIBUTE.getShortForm())) {
             return handler.getIRI(value);
-        } else if (localName.equals(ABBREVIATED_IRI_ATTRIBUTE.getShortName())) {
+        } else if (localName.equals(ABBREVIATED_IRI_ATTRIBUTE.getShortForm())) {
             return handler.getAbbreviatedIRI(value);
         } else if (localName.equals("URI")) {
             // Legacy
             return handler.getIRI(value);
         }
-        ensureAttributeNotNull(null, IRI_ATTRIBUTE.getShortName());
+        ensureAttributeNotNull(null, IRI_ATTRIBUTE.getShortForm());
         return null;
     }
 
     IRI getIRIFromElement(String elementLocalName, String textContent) {
-        if (elementLocalName.equals(IRI_ELEMENT.getShortName())) {
+        if (elementLocalName.equals(IRI_ELEMENT.getShortForm())) {
             return handler.getIRI(textContent.trim());
         } else if (elementLocalName.equals(ABBREVIATED_IRI_ELEMENT
-                .getShortName())) {
+                .getShortForm())) {
             return handler.getAbbreviatedIRI(textContent.trim());
         }
         throw new OWLXMLParserException(handler, elementLocalName
@@ -1074,7 +1074,7 @@ class OWLAnnotationElementHandler extends OWLElementHandler<OWLAnnotation> {
     void attribute(String localName, String value) {
         super.attribute(localName, value);
         // Legacy Handling
-        if (localName.equals(ANNOTATION_URI.getShortName())) {
+        if (localName.equals(ANNOTATION_URI.getShortForm())) {
             IRI iri = handler.getIRI(value);
             property = df.getOWLAnnotationProperty(iri);
         }
@@ -1213,7 +1213,7 @@ class OWLAnonymousIndividualElementHandler extends
 
     @Override
     void attribute(String localName, String value) {
-        if (localName.equals(NODE_ID.getShortName())) {
+        if (localName.equals(NODE_ID.getShortForm())) {
             ind = df.getOWLAnonymousIndividual(value.trim());
         } else {
             super.attribute(localName, value);
@@ -2021,7 +2021,7 @@ class OWLInverseObjectPropertyElementHandler extends
 
     @Override
     void endObjectPropertyElement() {
-        ensureNotNull(inverse, OBJECT_INVERSE_OF.getShortName());
+        ensureNotNull(inverse, OBJECT_INVERSE_OF.getShortForm());
         setOWLObjectPropertyExpression(df.getOWLObjectInverseOf(inverse));
     }
 }
@@ -2055,7 +2055,7 @@ class OWLLiteralElementHandler extends OWLElementHandler<OWLLiteral> {
 
     @Override
     void attribute(String localName, String value) {
-        if (localName.equals(DATATYPE_IRI.getShortName())) {
+        if (localName.equals(DATATYPE_IRI.getShortForm())) {
             iri = handler.getIRI(value);
         } else if (localName.equals("lang")) {
             lang = value;
@@ -2343,7 +2343,7 @@ class OWLObjectPropertyRangeAxiomElementHandler extends
 
     @Override
     OWLAxiom createAxiom() {
-        ensureNotNull(property, OBJECT_PROPERTY.getShortName());
+        ensureNotNull(property, OBJECT_PROPERTY.getShortForm());
         ensureNotNull(range, "OWL class expression element");
         return df.getOWLObjectPropertyRangeAxiom(property, range,
                 getAnnotations());

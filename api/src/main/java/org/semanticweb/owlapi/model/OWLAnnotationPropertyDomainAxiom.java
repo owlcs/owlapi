@@ -21,16 +21,19 @@ import javax.annotation.Nonnull;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0 */
-public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom {
+public interface OWLAnnotationPropertyDomainAxiom extends OWLAnnotationAxiom,
+        HasProperty<OWLAnnotationProperty>, HasDomain<IRI> {
     /** Gets the annotation property that this axiom specifies a domain for.
      * 
      * @return The annotation property. */
+    @Override
     @Nonnull
     OWLAnnotationProperty getProperty();
 
     /** Gets the IRI that represents the domain.
      * 
      * @return The IRI that represents the domain */
+    @Override
     @Nonnull
     IRI getDomain();
 

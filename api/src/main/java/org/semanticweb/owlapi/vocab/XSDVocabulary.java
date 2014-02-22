@@ -13,6 +13,8 @@
 package org.semanticweb.owlapi.vocab;
 
 import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.HasPrefixedName;
+import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /** A vocabulary for XML Schema Data Types (XSD).
@@ -20,7 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0 */
-public enum XSDVocabulary implements HasIRI {
+public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // @formatter:off
     /** ANY_TYPE */             ANY_TYPE        ("anyType"),
     /** ANY_SIMPLE_TYPE */      ANY_SIMPLE_TYPE ("anySimpleType"),
@@ -71,14 +73,16 @@ public enum XSDVocabulary implements HasIRI {
     // @formatter:on
     private final String shortName;
     private final IRI iri;
+    private final String prefixedName;
 
     XSDVocabulary(String name) {
         shortName = name;
+        prefixedName = Namespaces.XSD.getPrefixName() + ":" + name;
         iri = IRI.create(Namespaces.XSD.toString(), name);
     }
 
-    /** @return local name */
-    public String getShortName() {
+    @Override
+    public String getShortForm() {
         return shortName;
     }
 
@@ -116,5 +120,10 @@ public enum XSDVocabulary implements HasIRI {
         throw new IllegalArgumentException(
                 "the input value does not match any of the known xsd types: "
                         + s);
+    }
+
+    @Override
+    public String getPrefixedName() {
+        return prefixedName;
     }
 }
