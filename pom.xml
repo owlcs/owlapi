@@ -214,7 +214,7 @@
 				<version>2.16</version>
 				<configuration>
 					<printSummary>false</printSummary>
-					<argLine>-Xmx1024M</argLine>
+					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
 
