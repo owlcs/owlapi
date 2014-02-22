@@ -46,6 +46,7 @@ import org.xml.sax.helpers.LocatorImpl;
  * href="http://www.w3.org/TR/rdf-syntax-grammar/"
  * >http://www.w3.org/TR/rdf-syntax-grammar/</a>. */
 public class RDFParser extends DefaultHandler implements IRIProvider {
+    private static final String wrongResolve = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = initFactory();
     private Map<String, String> resolvedIRIs = new HashMap<String, String>();
@@ -274,9 +275,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                 m_baseIRI = resolveFromDelegate(m_baseIRI, value);
                 resolvedIRIs.clear();
             } catch (IllegalArgumentException e) {
-                throw new RDFParserException(e, "New base IRI '" + value
-                        + "' cannot be resolved against curent base IRI "
-                        + m_baseIRI, m_documentLocator);
+                throw new RDFParserException(e, String.format(wrongResolve,
+                        value, m_baseIRI, e.getMessage()), m_documentLocator);
             }
         }
     }
@@ -331,10 +331,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
                     return u;
                 }
             } catch (IllegalArgumentException e) {
-                throw new RDFParserException(e, "IRI '" + uri
-                        + "' cannot be resolved against current base IRI "
-                        + m_baseIRI + " reason is: " + e.getMessage(),
-                        m_documentLocator);
+                throw new RDFParserException(e, String.format(wrongResolve,
+                        uri, m_baseIRI, e.getMessage()), m_documentLocator);
             }
         }
     }

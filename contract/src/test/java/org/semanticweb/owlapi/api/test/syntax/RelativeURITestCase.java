@@ -51,7 +51,9 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
             throws OWLOntologyCreationException, IOException {
         expectedException.expect(OWLRDFXMLParserSAXException.class);
         expectedException
-                .expectMessage("[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI inputstream:ontology1 reason is: Illegal character in fragment at index 21: http://example.com/#1#2");
+                .expectMessage("[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");
+        expectedException
+                .expectMessage(" reason is: Illegal character in fragment at index 21: http://example.com/#1#2");
         String RDFCONTENT = ""
                 + "<rdf:RDF"
                 + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
