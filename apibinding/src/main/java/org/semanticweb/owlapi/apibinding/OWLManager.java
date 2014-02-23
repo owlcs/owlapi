@@ -12,28 +12,37 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.apibinding;
 
-import org.semanticweb.owlapi.OWLAPIModule;
+import org.semanticweb.owlapi.OWLAPIParsersModule;
 import org.semanticweb.owlapi.OWLAPIServiceLoaderModule;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.oboformat.OWLAPIOBOModule;
+
+import uk.ac.manchester.cs.owl.owlapi.OWLAPIImplModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-/** Provides a point of convenience for creating an {@code OWLOntologyManager}
+/**
+ * Provides a point of convenience for creating an {@code OWLOntologyManager}
  * with commonly required features (such as an RDF parser for example).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLManager {
-    private static Injector injector = Guice.createInjector(new OWLAPIModule(),
-            new OWLAPIServiceLoaderModule());
 
-    /** Creates an OWL ontology manager that is configured with standard parsers,
+    private static Injector injector = Guice.createInjector(
+            new OWLAPIImplModule(), new OWLAPIParsersModule(),
+            new OWLAPIOBOModule(), new OWLAPIServiceLoaderModule());
+
+    /**
+     * Creates an OWL ontology manager that is configured with standard parsers,
      * storeres etc.
      * 
-     * @return The new manager. */
+     * @return The new manager.
+     */
     public static OWLOntologyManager createOWLOntologyManager() {
         OWLOntologyManager instance = injector
                 .getInstance(OWLOntologyManager.class);
@@ -41,9 +50,11 @@ public class OWLManager {
         return instance;
     }
 
-    /** Gets a global data factory that can be used to create OWL API objects.
+    /**
+     * Gets a global data factory that can be used to create OWL API objects.
      * 
-     * @return An OWLDataFactory that can be used for creating OWL API objects. */
+     * @return An OWLDataFactory that can be used for creating OWL API objects.
+     */
     public static OWLDataFactory getOWLDataFactory() {
         return injector.getInstance(OWLDataFactory.class);
     }

@@ -21,57 +21,28 @@ import org.semanticweb.owlapi.krss2.renderer.KRSS2OWLSyntaxOntologyStorer;
 import org.semanticweb.owlapi.latex.renderer.LatexOntologyStorer;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyParser;
 import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxOntologyStorer;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyFactory;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
-import org.semanticweb.owlapi.oboformat.OBOFormatOWLAPIParser;
-import org.semanticweb.owlapi.oboformat.OBOFormatStorer;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleOntologyStorer;
-import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
-
-import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
-import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
 
-/** OWLAPI module. Bindings can be overridden by subclassing this class, to allow
- * to replace part of the configuration without having to rewrite all of it. */
+/**
+ * OWLAPI module. Bindings can be overridden by subclassing this class, to allow
+ * to replace part of the configuration without having to rewrite all of it.
+ */
 @OwlapiModule
-public class OWLAPIModule extends AbstractModule {
-    @Provides
-    protected OWLDataFactory provideOWLDataFactory() {
-        return new OWLDataFactoryImpl(true, false);
-    }
-
-    @Provides
-    protected OWLOntologyManager provideOWLOntologyManager(OWLDataFactory df) {
-        return new OWLOntologyManagerImpl(df);
-    }
-
-    @Provides
-    protected OWLOntologyBuilder provideOWLOntologyBuilder() {
-        return new OWLOntologyBuilderImpl();
-    }
+public class OWLAPIParsersModule extends AbstractModule {
 
     @Override
     protected void configure() {
         configureParsers();
         configureStorers();
-        configureOntologyFactories();
-        configureIRIMappers();
     }
 
     @SuppressWarnings("unchecked")
@@ -81,26 +52,15 @@ public class OWLAPIModule extends AbstractModule {
                 OWLFunctionalSyntaxOntologyStorer.class,
                 ManchesterOWLSyntaxOntologyStorer.class,
                 KRSS2OWLSyntaxOntologyStorer.class, TurtleOntologyStorer.class,
-                LatexOntologyStorer.class, OBOFormatStorer.class);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected void configureOntologyFactories() {
-        multibind(OWLOntologyFactory.class, EmptyInMemOWLOntologyFactory.class,
-                ParsableOWLOntologyFactory.class);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected void configureIRIMappers() {
-        multibind(OWLOntologyIRIMapper.class, NonMappingOntologyIRIMapper.class);
+                LatexOntologyStorer.class);
     }
 
     @SuppressWarnings("unchecked")
     protected void configureParsers() {
-        multibind(OWLParser.class, OBOFormatOWLAPIParser.class,
-                ManchesterOWLSyntaxOntologyParser.class, KRSS2OWLParser.class,
-                TurtleOntologyParser.class, OWLFunctionalSyntaxOWLParser.class,
-                OWLXMLParser.class, RDFXMLParser.class);
+        multibind(OWLParser.class, ManchesterOWLSyntaxOntologyParser.class,
+                KRSS2OWLParser.class, TurtleOntologyParser.class,
+                OWLFunctionalSyntaxOWLParser.class, OWLXMLParser.class,
+                RDFXMLParser.class);
     }
 
     private <T> Multibinder<T> multibind(Class<T> type,
