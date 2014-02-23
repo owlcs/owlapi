@@ -34,28 +34,35 @@ import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
- * @since 2.0.0 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0
+ */
 public class RDFGraph {
+
     private static final Logger logger = Logger.getLogger(RDFGraph.class
             .getName());
     private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
     private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
     private Set<RDFTriple> triples = new HashSet<RDFTriple>();
 
-    /** Determines if this graph is empty (i.e. whether or not it contains any
+    /**
+     * Determines if this graph is empty (i.e. whether or not it contains any
      * triples).
      * 
      * @return {@code true} if the graph contains triples, otherwise
      *         {@code false}
-     * @since 3.5 */
+     * @since 3.5
+     */
     public boolean isEmpty() {
         return triples.isEmpty();
     }
 
-    /** @param triple
-     *            triple to add */
+    /**
+     * @param triple
+     *        triple to add
+     */
     public void addTriple(@Nonnull RDFTriple triple) {
         checkNotNull(triple, "triple cannot be null");
         // Reset the computation of root anon nodes
@@ -69,11 +76,13 @@ public class RDFGraph {
         tripleSet.add(triple);
     }
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param sort
-     *            sort
-     * @return sorted triples */
+     *        sort
+     * @return sorted triples
+     */
     public Collection<RDFTriple> getTriplesForSubject(RDFNode subject,
             boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);
@@ -127,10 +136,12 @@ public class RDFGraph {
         }
     }
 
-    /** @param w
-     *            writer to write to
+    /**
+     * @param w
+     *        writer to write to
      * @throws IOException
-     *             if exceptions happen */
+     *         if exceptions happen
+     */
     public void dumpTriples(@Nonnull Writer w) throws IOException {
         checkNotNull(w, "w cannot be null");
         for (Set<RDFTriple> set : triplesBySubject.values()) {
@@ -140,5 +151,10 @@ public class RDFGraph {
             }
         }
         w.flush();
+    }
+
+    /** @return all triples in an unmodifiable set */
+    public Set<RDFTriple> getAllTriples() {
+        return Collections.unmodifiableSet(triples);
     }
 }
