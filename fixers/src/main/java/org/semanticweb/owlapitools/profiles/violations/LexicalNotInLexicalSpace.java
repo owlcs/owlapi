@@ -19,15 +19,20 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class LexicalNotInLexicalSpace extends OWLProfileViolation<OWLLiteral> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param literal
-     *            literal */
+     *        literal
+     */
     public LexicalNotInLexicalSpace(OWLOntology ontology, OWLAxiom axiom,
             OWLLiteral literal) {
         super(ontology, axiom, literal);

@@ -68,9 +68,12 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapitools.profiles.violations.UseOfObjectOneOfWithMultipleIndividuals;
 import org.semanticweb.owlapitools.profiles.violations.UseOfObjectPropertyInverse;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class OWL2ELProfile implements OWLProfile {
+
     protected final static Set<IRI> allowedDatatypes = new HashSet<IRI>(
             Arrays.asList(RDF_PLAIN_LITERAL.getIRI(), RDF_XML_LITERAL.getIRI(),
                     RDFS_LITERAL.getIRI(), OWL_RATIONAL.getIRI(),
@@ -105,6 +108,7 @@ public class OWL2ELProfile implements OWLProfile {
 
     protected class OWL2ELProfileObjectVisitor extends
             OWLOntologyWalkerVisitorEx<Object> {
+
         private final OWLOntologyManager man;
         private OWLObjectPropertyManager propertyManager;
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();

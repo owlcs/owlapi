@@ -18,14 +18,19 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfBuiltInDatatypeInDatatypeDefinition extends
         OWLProfileViolation<Object> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom */
+     *        axiom
+     */
     public UseOfBuiltInDatatypeInDatatypeDefinition(OWLOntology ontology,
             OWLDatatypeDefinitionAxiom axiom) {
         super(ontology, axiom, null);

@@ -19,14 +19,19 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfNonSimplePropertyInFunctionalPropertyAxiom extends
         OWLProfileViolation<OWLObjectPropertyExpression> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom */
+     *        axiom
+     */
     public UseOfNonSimplePropertyInFunctionalPropertyAxiom(
             OWLOntology ontology, OWLFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom, axiom.getProperty());

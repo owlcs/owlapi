@@ -16,49 +16,63 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** abstract builder for entities
+/**
+ * abstract builder for entities
  * 
  * @author ignazio
  * @param <T>
- *            type built
+ *        type built
  * @param <Type>
- *            builder type
+ *        builder type
  * @param <Item>
- *            contained items type */
+ *        contained items type
+ */
 public abstract class BaseSetBuilder<T extends OWLObject, Type, Item> extends
         BaseBuilder<T, Type> {
+
     protected Set<Item> items = new HashSet<Item>();
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BaseSetBuilder(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            item to add
-     * @return builder */
+    /**
+     * @param arg
+     *        item to add
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withItem(Item arg) {
         items.add(arg);
         return (Type) this;
     }
 
-    /** @param arg
-     *            items to add
-     * @return builder */
+    /**
+     * @param arg
+     *        items to add
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withItems(Collection<? extends Item> arg) {
         items.addAll(arg);
         return (Type) this;
     }
 
-    /** @param arg
-     *            items to add
-     * @return builder */
+    /**
+     * @param arg
+     *        items to add
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withItems(Item... arg) {
         for (Item i : arg) {

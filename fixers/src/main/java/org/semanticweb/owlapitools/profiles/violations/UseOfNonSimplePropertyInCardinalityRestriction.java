@@ -19,16 +19,21 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfNonSimplePropertyInCardinalityRestriction extends
         OWLProfileViolation<OWLObjectCardinalityRestriction> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param restriction
-     *            restriction */
+     *        restriction
+     */
     public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology,
             OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom, restriction);

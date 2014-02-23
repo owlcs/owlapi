@@ -24,26 +24,31 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
+/**
+ * Describes a violation of an OWLProfile by an axiom. Ultimately, there may be
  * part of the axiom that violates the profile rather than the complete axiom.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 4.0.0
  * @param <T>
- *            violation type */
+ *        violation type
+ */
 public abstract class OWLProfileViolation<T> {
+
     protected final OWLOntology ontology;
     protected final OWLDataFactory df;
     protected final OWLAxiom axiom;
     protected final T expression;
 
-    /** @param ontology
-     *            the ontology with the violation
+    /**
+     * @param ontology
+     *        the ontology with the violation
      * @param axiom
-     *            the axiom with the violation
+     *        the axiom with the violation
      * @param o
-     *            violation expression */
+     *        violation expression
+     */
     public OWLProfileViolation(OWLOntology ontology, OWLAxiom axiom, T o) {
         this.axiom = axiom;
         this.ontology = ontology;
@@ -71,8 +76,10 @@ public abstract class OWLProfileViolation<T> {
         return axiom;
     }
 
-    /** @return a set of changes to fix the violation - it might be just an axiom
-     *         removal, or a rewrite, or addition of other needed axioms. */
+    /**
+     * @return a set of changes to fix the violation - it might be just an axiom
+     *         removal, or a rewrite, or addition of other needed axioms.
+     */
     // public abstract Collection<OWLOntologyChange> repair();
     public List<OWLOntologyChange<?>> repair() {
         // default fix is to drop the axiom
@@ -83,17 +90,21 @@ public abstract class OWLProfileViolation<T> {
         return new AddAxiom(ontology, df.getOWLDeclarationAxiom(e));
     }
 
-    /** visitor accept method
+    /**
+     * visitor accept method
      * 
      * @param visitor
-     *            visitor */
+     *        visitor
+     */
     public abstract void accept(OWLProfileViolationVisitor visitor);
 
-    /** @param visitor
-     *            visitor
+    /**
+     * @param visitor
+     *        visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor return value */
+     *        visitor return type
+     * @return visitor return value
+     */
     public abstract <O> O accept(OWLProfileViolationVisitorEx<O> visitor);
 
     protected String toString(String template) {

@@ -19,15 +19,20 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfIllegalDataRange extends OWLProfileViolation<OWLDataRange> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param dataRange
-     *            dataRange */
+     *        dataRange
+     */
     public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom,
             OWLDataRange dataRange) {
         super(ontology, axiom, dataRange);

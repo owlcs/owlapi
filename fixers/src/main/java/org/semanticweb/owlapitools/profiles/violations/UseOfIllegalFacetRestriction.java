@@ -20,19 +20,24 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> {
+
     private final OWLDatatypeRestriction datatypeRestriction;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param dtr
-     *            dtr
+     *        dtr
      * @param facet
-     *            facet */
+     *        facet
+     */
     public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
             OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom, facet);

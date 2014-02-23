@@ -12,25 +12,33 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 
 /** Builder class for OWLObjectInverseOf */
 public class BuilderObjectInverseOf extends
         BaseObjectPropertyBuilder<OWLObjectInverseOf, BuilderObjectInverseOf> {
-    /** builder initialized from an existing object
+
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderObjectInverseOf(OWLObjectInverseOf expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getInverse());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderObjectInverseOf(OWLDataFactory df) {
         super(df);
     }

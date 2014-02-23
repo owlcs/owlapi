@@ -19,16 +19,21 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfReservedVocabularyForClassIRI extends
         OWLProfileViolation<OWLClass> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param cls
-     *            cls */
+     *        cls
+     */
     public UseOfReservedVocabularyForClassIRI(OWLOntology ontology,
             OWLAxiom axiom, OWLClass cls) {
         super(ontology, axiom, cls);

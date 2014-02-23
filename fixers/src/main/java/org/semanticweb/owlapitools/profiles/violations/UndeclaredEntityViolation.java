@@ -15,10 +15,13 @@ package org.semanticweb.owlapitools.profiles.violations;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Entity not declared
+/**
+ * Entity not declared
  * 
- * @author ignazio */
+ * @author ignazio
+ */
 public interface UndeclaredEntityViolation {
+
     /** @return entity not declared */
     OWLEntity getEntity();
 

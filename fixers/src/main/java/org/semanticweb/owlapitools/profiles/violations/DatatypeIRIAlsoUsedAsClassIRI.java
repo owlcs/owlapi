@@ -23,18 +23,23 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** Specifies that an IRI that is used for a datatype is also used for a class
+/**
+ * Specifies that an IRI that is used for a datatype is also used for a class
  * IRI
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group */
+ *         Management Group
+ */
 public class DatatypeIRIAlsoUsedAsClassIRI extends OWLProfileViolation<IRI> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param iri
-     *            iri */
+     *        iri
+     */
     public DatatypeIRIAlsoUsedAsClassIRI(OWLOntology ontology, OWLAxiom axiom,
             IRI iri) {
         super(ontology, axiom, iri);

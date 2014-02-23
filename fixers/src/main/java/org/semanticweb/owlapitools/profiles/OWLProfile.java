@@ -14,20 +14,27 @@ package org.semanticweb.owlapitools.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public interface OWLProfile {
-    /** Gets the name of the profile.
+
+    /**
+     * Gets the name of the profile.
      * 
-     * @return A string that represents the name of the profile */
+     * @return A string that represents the name of the profile
+     */
     String getName();
 
-    /** Checks an ontology and its import closure to see if it is within this
+    /**
+     * Checks an ontology and its import closure to see if it is within this
      * profile.
      * 
      * @param ontology
-     *            The ontology to be checked.
+     *        The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the
-     *         ontology is within this profile. */
+     *         ontology is within this profile.
+     */
     OWLProfileReport checkOntology(OWLOntology ontology);
 }

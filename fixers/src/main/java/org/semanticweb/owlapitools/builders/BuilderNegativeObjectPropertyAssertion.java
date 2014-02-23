@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
@@ -20,15 +22,18 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 public class BuilderNegativeObjectPropertyAssertion
         extends
         BaseObjectPropertyBuilder<OWLNegativeObjectPropertyAssertionAxiom, BuilderNegativeObjectPropertyAssertion> {
+
     private OWLIndividual subject = null;
     private OWLIndividual value = null;
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderNegativeObjectPropertyAssertion(
             OWLNegativeObjectPropertyAssertionAxiom expected, OWLDataFactory df) {
         this(df);
@@ -37,23 +42,30 @@ public class BuilderNegativeObjectPropertyAssertion
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderNegativeObjectPropertyAssertion(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            value
-     * @return builder */
+    /**
+     * @param arg
+     *        value
+     * @return builder
+     */
     public BuilderNegativeObjectPropertyAssertion withValue(OWLIndividual arg) {
         value = arg;
         return this;
     }
 
-    /** @param arg
-     *            subject
-     * @return builder */
+    /**
+     * @param arg
+     *        subject
+     * @return builder
+     */
     public BuilderNegativeObjectPropertyAssertion
             withSubject(OWLIndividual arg) {
         subject = arg;

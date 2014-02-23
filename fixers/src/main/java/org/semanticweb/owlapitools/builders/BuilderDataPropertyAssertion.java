@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
@@ -21,21 +23,27 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 public class BuilderDataPropertyAssertion
         extends
         BaseDataPropertyBuilder<OWLDataPropertyAssertionAxiom, BuilderDataPropertyAssertion> {
+
     private OWLIndividual subject = null;
     private OWLLiteral object = null;
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderDataPropertyAssertion(OWLDataFactory df) {
         super(df);
     }
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderDataPropertyAssertion(OWLDataPropertyAssertionAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -44,17 +52,21 @@ public class BuilderDataPropertyAssertion
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** @param arg
-     *            value
-     * @return builder */
+    /**
+     * @param arg
+     *        value
+     * @return builder
+     */
     public BuilderDataPropertyAssertion withValue(OWLLiteral arg) {
         object = arg;
         return this;
     }
 
-    /** @param arg
-     *            individual
-     * @return builder */
+    /**
+     * @param arg
+     *        individual
+     * @return builder
+     */
     public BuilderDataPropertyAssertion withSubject(OWLIndividual arg) {
         subject = arg;
         return this;

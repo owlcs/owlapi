@@ -23,22 +23,27 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfUndeclaredDataProperty extends
         OWLProfileViolation<OWLDataProperty> implements
         UndeclaredEntityViolation {
+
     @Override
     public OWLEntity getEntity() {
         return getExpression();
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param prop
-     *            prop */
+     *        prop
+     */
     public UseOfUndeclaredDataProperty(OWLOntology ontology, OWLAxiom axiom,
             OWLDataProperty prop) {
         super(ontology, axiom, prop);

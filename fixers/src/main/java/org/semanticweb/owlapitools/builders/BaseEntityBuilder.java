@@ -12,51 +12,65 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.PrefixManager;
 
-/** abstract builder for entities
+/**
+ * abstract builder for entities
  * 
  * @author ignazio
  * @param <T>
- *            OWL type
+ *        OWL type
  * @param <Type>
- *            buolder type */
+ *        buolder type
+ */
 public abstract class BaseEntityBuilder<T extends OWLEntity, Type> extends
         BaseBuilder<T, Type> {
+
     protected IRI iri = null;
     protected String string = null;
     protected PrefixManager pm = null;
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BaseEntityBuilder(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            property iri
-     * @return builder */
+    /**
+     * @param arg
+     *        property iri
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withIRI(IRI arg) {
         iri = arg;
         return (Type) this;
     }
 
-    /** @param arg
-     *            prefix manager
-     * @return builder */
+    /**
+     * @param arg
+     *        prefix manager
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withPrefixManager(PrefixManager arg) {
         pm = arg;
         return (Type) this;
     }
 
-    /** @param arg
-     *            prefixed iri
-     * @return builder */
+    /**
+     * @param arg
+     *        prefixed iri
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withPrefixedIRI(String arg) {
         string = arg;

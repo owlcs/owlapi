@@ -62,10 +62,13 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfUnknownDatatype;
 /** @author ignazio */
 public class OWLProfileViolationVisitorAdapter implements
         OWLProfileViolationVisitor {
-    /** override this method in subclasses to change default behaviour
+
+    /**
+     * override this method in subclasses to change default behaviour
      * 
      * @param v
-     *            violation */
+     *        violation
+     */
     protected void doDefault(
             @SuppressWarnings("unused") OWLProfileViolation<?> v) {}
 

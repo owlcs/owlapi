@@ -19,16 +19,21 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfObjectPropertyInverse extends
         OWLProfileViolation<OWLObjectPropertyExpression> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param propertyExpression
-     *            propertyExpression */
+     *        propertyExpression
+     */
     public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom,
             OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom, propertyExpression);

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -20,38 +22,48 @@ import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 /** Builder class for SWRLDataRangeAtom */
 public class BuilderSWRLDataRangeAtom extends
         BaseBuilder<SWRLDataRangeAtom, BuilderSWRLDataRangeAtom> {
+
     private SWRLDArgument argument;
     private OWLDataRange predicate;
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderSWRLDataRangeAtom(SWRLDataRangeAtom expected,
             OWLDataFactory df) {
         this(df);
         with(expected.getArgument()).with(expected.getPredicate());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderSWRLDataRangeAtom(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            argument
-     * @return builder */
+    /**
+     * @param arg
+     *        argument
+     * @return builder
+     */
     public BuilderSWRLDataRangeAtom with(SWRLDArgument arg) {
         argument = arg;
         return this;
     }
 
-    /** @param arg
-     *            predicate
-     * @return builder */
+    /**
+     * @param arg
+     *        predicate
+     * @return builder
+     */
     public BuilderSWRLDataRangeAtom with(OWLDataRange arg) {
         predicate = arg;
         return this;

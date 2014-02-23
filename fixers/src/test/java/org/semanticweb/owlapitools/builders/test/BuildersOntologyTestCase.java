@@ -1,14 +1,26 @@
+/* This file is part of the OWL API.
+ * The contents of this file are subject to the LGPL License, Version 3.0.
+ * Copyright 2014, The University of Manchester
+ * 
+ * This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with this program.  If not, see http://www.gnu.org/licenses/.
+ *
+ * Alternatively, the contents of this file may be used under the terms of the Apache License, Version 2.0 in which case, the provisions of the Apache License Version 2.0 are applicable instead of those above.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders.test;
 
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -24,6 +36,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -67,11 +80,15 @@ import org.semanticweb.owlapitools.builders.BuilderSubObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderSymmetricObjectProperty;
 import org.semanticweb.owlapitools.builders.BuilderTransitiveObjectProperty;
 
+import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
+import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
 @SuppressWarnings("javadoc")
 public class BuildersOntologyTestCase {
-    private OWLDataFactory df = new OWLDataFactoryImpl();
+
+    private OWLDataFactory df = new OWLDataFactoryImpl(true, false);
     private OWLAnnotationProperty ap = df.getOWLAnnotationProperty(IRI
             .create("urn:test#ann"));
     private OWLObjectProperty op = df.getOWLObjectProperty(IRI
@@ -106,7 +123,16 @@ public class BuildersOntologyTestCase {
                     df.getSWRLVariable(IRI.create("var6"))));
     private Set<SWRLAtom> body = new HashSet<SWRLAtom>(Arrays.asList(v1));
     private Set<SWRLAtom> head = new HashSet<SWRLAtom>(Arrays.asList(v2));
-    private OWLOntologyManager m = OWLManager.createOWLOntologyManager();
+    private OWLOntologyManager m = getManager();
+
+    // no parsers and storers injected
+    private OWLOntologyManager getManager() {
+        OWLOntologyManager instance = new OWLOntologyManagerImpl(df);
+        instance.setOntologyFactories(Collections
+                .singleton((OWLOntologyFactory) new EmptyInMemOWLOntologyFactory(
+                        new OWLOntologyBuilderImpl())));
+        return instance;
+    }
 
     @Test
     public void shouldBuildAnnotationAssertion()
@@ -119,7 +145,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -135,7 +161,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -151,7 +177,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -166,7 +192,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -179,7 +205,7 @@ public class BuildersOntologyTestCase {
         OWLAxiom expected = df.getOWLClassAssertionAxiom(ce, i, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -195,7 +221,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -210,7 +236,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -224,7 +250,7 @@ public class BuildersOntologyTestCase {
         OWLAxiom expected = df.getOWLDataPropertyRangeAxiom(dp, d, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -240,7 +266,7 @@ public class BuildersOntologyTestCase {
                 df.getDoubleOWLDatatype(), annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -253,7 +279,7 @@ public class BuildersOntologyTestCase {
         OWLAxiom expected = df.getOWLDeclarationAxiom(ce, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -268,7 +294,7 @@ public class BuildersOntologyTestCase {
                 df.getOWLNamedIndividual(iri));
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -283,7 +309,7 @@ public class BuildersOntologyTestCase {
                 df.getOWLClass(iri));
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -298,7 +324,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -313,7 +339,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -327,7 +353,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -342,7 +368,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -357,7 +383,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -372,7 +398,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -387,7 +413,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -402,7 +428,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -415,7 +441,7 @@ public class BuildersOntologyTestCase {
         OWLAxiom expected = df.getOWLHasKeyAxiom(ce, ops, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -430,7 +456,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -446,7 +472,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -461,7 +487,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -477,7 +503,7 @@ public class BuildersOntologyTestCase {
                 lit, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -493,7 +519,7 @@ public class BuildersOntologyTestCase {
                 i, i, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -509,7 +535,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -525,7 +551,7 @@ public class BuildersOntologyTestCase {
         builder.withDomain(ce).withProperty(op).withAnnotations(annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -540,7 +566,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -559,7 +585,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -574,7 +600,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -587,7 +613,7 @@ public class BuildersOntologyTestCase {
         OWLAxiom expected = df.getOWLSameIndividualAxiom(inds, annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -603,7 +629,7 @@ public class BuildersOntologyTestCase {
                 df.getRDFSLabel(), annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -618,7 +644,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -633,7 +659,7 @@ public class BuildersOntologyTestCase {
                 df.getOWLTopDataProperty());
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -649,7 +675,7 @@ public class BuildersOntologyTestCase {
                 df.getOWLTopObjectProperty(), annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -662,7 +688,7 @@ public class BuildersOntologyTestCase {
         OWLAxiom expected = df.getSWRLRule(body, head);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -677,7 +703,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }
@@ -692,7 +718,7 @@ public class BuildersOntologyTestCase {
                 annotations);
         OWLOntology o = m.createOntology();
         // when
-        builder.buildChanges(o);
+        builder.applyChanges(o);
         // then
         assertTrue(o.containsAxiom(expected));
     }

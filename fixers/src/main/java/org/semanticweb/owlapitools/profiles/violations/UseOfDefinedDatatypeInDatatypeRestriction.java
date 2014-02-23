@@ -19,16 +19,21 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfDefinedDatatypeInDatatypeRestriction extends
         OWLProfileViolation<OWLDatatypeRestriction> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param restriction
-     *            restriction */
+     *        restriction
+     */
     public UseOfDefinedDatatypeInDatatypeRestriction(OWLOntology ontology,
             OWLAxiom axiom, OWLDatatypeRestriction restriction) {
         super(ontology, axiom, restriction);

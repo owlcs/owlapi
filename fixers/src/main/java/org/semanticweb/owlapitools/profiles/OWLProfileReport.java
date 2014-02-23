@@ -16,16 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class OWLProfileReport {
+
     private final OWLProfile profile;
     private final List<OWLProfileViolation<?>> violations;
 
-    /** @param profile
-     *            the profile used
+    /**
+     * @param profile
+     *        the profile used
      * @param violations
-     *            the set of violations */
+     *        the set of violations
+     */
     public OWLProfileReport(OWLProfile profile,
             Set<OWLProfileViolation<?>> violations) {
         this.profile = profile;

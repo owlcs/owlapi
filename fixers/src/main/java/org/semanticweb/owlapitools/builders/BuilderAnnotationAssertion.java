@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
@@ -21,21 +23,27 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 public class BuilderAnnotationAssertion
         extends
         BaseAnnotationtPropertyBuilder<OWLAnnotationAssertionAxiom, BuilderAnnotationAssertion> {
+
     private OWLAnnotationSubject subject = null;
     private OWLAnnotationValue value;
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderAnnotationAssertion(OWLDataFactory df) {
         super(df);
     }
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderAnnotationAssertion(OWLAnnotationAssertionAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -45,17 +53,21 @@ public class BuilderAnnotationAssertion
                 .withValue(expected.getValue());
     }
 
-    /** @param arg
-     *            subject
-     * @return builder */
+    /**
+     * @param arg
+     *        subject
+     * @return builder
+     */
     public BuilderAnnotationAssertion withSubject(OWLAnnotationSubject arg) {
         subject = arg;
         return this;
     }
 
-    /** @param arg
-     *            value
-     * @return builder */
+    /**
+     * @param arg
+     *        value
+     * @return builder
+     */
     public BuilderAnnotationAssertion withValue(OWLAnnotationValue arg) {
         value = arg;
         return this;

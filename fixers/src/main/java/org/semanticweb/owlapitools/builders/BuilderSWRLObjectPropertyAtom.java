@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
@@ -20,15 +22,18 @@ import org.semanticweb.owlapi.model.SWRLObjectPropertyAtom;
 public class BuilderSWRLObjectPropertyAtom
         extends
         BaseObjectPropertyBuilder<SWRLObjectPropertyAtom, BuilderSWRLObjectPropertyAtom> {
+
     private SWRLIArgument arg1;
     private SWRLIArgument arg0;
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderSWRLObjectPropertyAtom(SWRLObjectPropertyAtom expected,
             OWLDataFactory df) {
         this(df);
@@ -37,23 +42,30 @@ public class BuilderSWRLObjectPropertyAtom
                 expected.getPredicate());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderSWRLObjectPropertyAtom(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            individual
-     * @return builder */
+    /**
+     * @param arg
+     *        individual
+     * @return builder
+     */
     public BuilderSWRLObjectPropertyAtom withArg0(SWRLIArgument arg) {
         arg0 = arg;
         return this;
     }
 
-    /** @param arg
-     *            individual
-     * @return builder */
+    /**
+     * @param arg
+     *        individual
+     * @return builder
+     */
     public BuilderSWRLObjectPropertyAtom withArg1(SWRLIArgument arg) {
         arg1 = arg;
         return this;

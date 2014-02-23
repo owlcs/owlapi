@@ -59,17 +59,22 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapitools.profiles.violations.UseOfUnknownDatatype;
 
-/** adapter class
+/**
+ * adapter class
  * 
  * @param <O>
- *            return type */
+ *        return type
+ */
 public class OWLProfileViolationVisitorExAdapter<O> implements
         OWLProfileViolationVisitorEx<O> {
-    /** override this method in subclasses to change default behaviour
+
+    /**
+     * override this method in subclasses to change default behaviour
      * 
      * @param v
-     *            violation
-     * @return default return value */
+     *        violation
+     * @return default return value
+     */
     protected O doDefault(@SuppressWarnings("unused") OWLProfileViolation<?> v) {
         return defaultValue;
     }
@@ -81,8 +86,10 @@ public class OWLProfileViolationVisitorExAdapter<O> implements
         this(null);
     }
 
-    /** @param o
-     *            default return value */
+    /**
+     * @param o
+     *        default return value
+     */
     public OWLProfileViolationVisitorExAdapter(O o) {
         defaultValue = o;
     }

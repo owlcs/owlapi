@@ -19,13 +19,18 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class UseOfIllegalAxiom extends OWLProfileViolation<AxiomType<?>> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom */
+     *        axiom
+     */
     public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom, axiom.getAxiomType());
     }

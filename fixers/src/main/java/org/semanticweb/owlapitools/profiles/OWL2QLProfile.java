@@ -74,9 +74,12 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfNonAtomicClassExpres
 import org.semanticweb.owlapitools.profiles.violations.UseOfNonSubClassExpression;
 import org.semanticweb.owlapitools.profiles.violations.UseOfNonSuperClassExpression;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public class OWL2QLProfile implements OWLProfile {
+
     protected final static Set<IRI> allowedDatatypes = new HashSet<IRI>(
             Arrays.asList(
             //@formatter:off
@@ -102,21 +105,25 @@ public class OWL2QLProfile implements OWLProfile {
             //@formatter:on
             ));
 
-    /** Gets the name of the profile.
+    /**
+     * Gets the name of the profile.
      * 
-     * @return A string that represents the name of the profile */
+     * @return A string that represents the name of the profile
+     */
     @Override
     public String getName() {
         return "OWL 2 QL";
     }
 
-    /** Checks an ontology and its import closure to see if it is within this
+    /**
+     * Checks an ontology and its import closure to see if it is within this
      * profile.
      * 
      * @param ontology
-     *            The ontology to be checked.
+     *        The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the
-     *         ontology is within this profile. */
+     *         ontology is within this profile.
+     */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWL2DLProfile profile = new OWL2DLProfile();
@@ -133,6 +140,7 @@ public class OWL2QLProfile implements OWLProfile {
 
     private class OWL2QLObjectVisitor extends
             OWLOntologyWalkerVisitorEx<Object> {
+
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 
         OWL2QLObjectVisitor(OWLOntologyWalker walker) {
@@ -347,6 +355,7 @@ public class OWL2QLProfile implements OWLProfile {
 
     private static class OWL2QLSubClassExpressionChecker implements
             OWLClassExpressionVisitorEx<Boolean> {
+
         public OWL2QLSubClassExpressionChecker() {}
 
         @Override
@@ -448,6 +457,7 @@ public class OWL2QLProfile implements OWLProfile {
 
     private class OWL2QLSuperClassExpressionChecker implements
             OWLClassExpressionVisitorEx<Boolean> {
+
         public OWL2QLSuperClassExpressionChecker() {}
 
         @Override
@@ -549,9 +559,11 @@ public class OWL2QLProfile implements OWLProfile {
 
     private final OWL2QLSuperClassExpressionChecker superClassExpressionChecker = new OWL2QLSuperClassExpressionChecker();
 
-    /** @param ce
-     *            ce
-     * @return true if class expression */
+    /**
+     * @param ce
+     *        ce
+     * @return true if class expression
+     */
     public boolean isOWL2QLSuperClassExpression(OWLClassExpression ce) {
         return ce.accept(superClassExpressionChecker).booleanValue();
     }

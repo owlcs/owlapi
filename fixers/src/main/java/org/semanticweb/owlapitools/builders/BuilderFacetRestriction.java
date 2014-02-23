@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -20,62 +22,78 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** Builder class for OWLFacetRestriction */
 public class BuilderFacetRestriction extends
         BaseBuilder<OWLFacetRestriction, BuilderFacetRestriction> {
+
     private OWLLiteral literal = null;
     private OWLFacet facet = null;
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderFacetRestriction(OWLFacetRestriction expected,
             OWLDataFactory df) {
         this(df);
         withFacet(expected.getFacet()).withLiteral(expected.getFacetValue());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderFacetRestriction(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            int value
-     * @return builder */
+    /**
+     * @param arg
+     *        int value
+     * @return builder
+     */
     public BuilderFacetRestriction withLiteral(int arg) {
         literal = df.getOWLLiteral(arg);
         return this;
     }
 
-    /** @param arg
-     *            literal value
-     * @return builder */
+    /**
+     * @param arg
+     *        literal value
+     * @return builder
+     */
     public BuilderFacetRestriction withLiteral(OWLLiteral arg) {
         literal = arg;
         return this;
     }
 
-    /** @param arg
-     *            double value
-     * @return builder */
+    /**
+     * @param arg
+     *        double value
+     * @return builder
+     */
     public BuilderFacetRestriction withLiteral(double arg) {
         literal = df.getOWLLiteral(arg);
         return this;
     }
 
-    /** @param arg
-     *            float value
-     * @return builder */
+    /**
+     * @param arg
+     *        float value
+     * @return builder
+     */
     public BuilderFacetRestriction withLiteral(float arg) {
         literal = df.getOWLLiteral(arg);
         return this;
     }
 
-    /** @param arg
-     *            facet
-     * @return builder */
+    /**
+     * @param arg
+     *        facet
+     * @return builder
+     */
     public BuilderFacetRestriction withFacet(OWLFacet arg) {
         facet = arg;
         return this;

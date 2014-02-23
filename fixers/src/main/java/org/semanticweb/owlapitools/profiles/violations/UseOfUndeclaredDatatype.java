@@ -23,23 +23,28 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** Specifies that a datatype is not declared
+/**
+ * Specifies that a datatype is not declared
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group */
+ *         Management Group
+ */
 public class UseOfUndeclaredDatatype extends OWLProfileViolation<OWLDatatype>
         implements UndeclaredEntityViolation {
+
     @Override
     public OWLEntity getEntity() {
         return getExpression();
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param datatype
-     *            datatype */
+     *        datatype
+     */
     public UseOfUndeclaredDatatype(OWLOntology ontology, OWLAxiom axiom,
             OWLDatatype datatype) {
         super(ontology, axiom, datatype);

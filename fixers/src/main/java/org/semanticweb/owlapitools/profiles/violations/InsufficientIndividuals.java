@@ -20,10 +20,13 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author ignazio */
 public class InsufficientIndividuals extends OWLProfileViolation<Object> {
-    /** @param currentOntology
-     *            currentOntology
+
+    /**
+     * @param currentOntology
+     *        currentOntology
      * @param node
-     *            node */
+     *        node
+     */
     public InsufficientIndividuals(OWLOntology currentOntology, OWLAxiom node) {
         super(currentOntology, node, null);
     }

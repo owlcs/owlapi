@@ -19,18 +19,23 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** Indicates that a class expression in an axiom is not in the profile
+/**
+ * Indicates that a class expression in an axiom is not in the profile
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group */
+ *         Management Group
+ */
 public class UseOfIllegalClassExpression extends
         OWLProfileViolation<OWLClassExpression> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param classExpression
-     *            classExpression */
+     *        classExpression
+     */
     public UseOfIllegalClassExpression(OWLOntology ontology, OWLAxiom axiom,
             OWLClassExpression classExpression) {
         super(ontology, axiom, classExpression);

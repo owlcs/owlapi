@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -19,6 +21,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** Builder class for OWLLiteral */
 public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
+
     private String lang = null;
     private String literalForm = null;
     private Integer intValue = null;
@@ -27,12 +30,14 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
     private Boolean booleanValue = null;
     private OWLDatatype datatype;
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderLiteral(OWLLiteral expected, OWLDataFactory df) {
         this(df);
         withDatatype(expected.getDatatype()).withLanguage(expected.getLang());
@@ -49,8 +54,11 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
         }
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderLiteral(OWLDataFactory df) {
         super(df);
     }
@@ -63,70 +71,86 @@ public class BuilderLiteral extends BaseBuilder<OWLLiteral, BuilderLiteral> {
         booleanValue = null;
     }
 
-    /** @param arg
-     *            int value
-     * @return builder */
+    /**
+     * @param arg
+     *        int value
+     * @return builder
+     */
     public BuilderLiteral withValue(int arg) {
         clear();
         intValue = arg;
         return this;
     }
 
-    /** @param arg
-     *            datatype
-     * @return builder */
+    /**
+     * @param arg
+     *        datatype
+     * @return builder
+     */
     public BuilderLiteral withDatatype(OWL2Datatype arg) {
         return withDatatype(df.getOWLDatatype(arg.getIRI()));
     }
 
-    /** @param arg
-     *            datatype
-     * @return builder */
+    /**
+     * @param arg
+     *        datatype
+     * @return builder
+     */
     public BuilderLiteral withDatatype(OWLDatatype arg) {
         lang = null;
         datatype = arg;
         return this;
     }
 
-    /** @param arg
-     *            boolean value
-     * @return builder */
+    /**
+     * @param arg
+     *        boolean value
+     * @return builder
+     */
     public BuilderLiteral withValue(boolean arg) {
         clear();
         booleanValue = arg;
         return this;
     }
 
-    /** @param arg
-     *            double value
-     * @return builder */
+    /**
+     * @param arg
+     *        double value
+     * @return builder
+     */
     public BuilderLiteral withValue(double arg) {
         clear();
         doubleValue = arg;
         return this;
     }
 
-    /** @param arg
-     *            float value
-     * @return builder */
+    /**
+     * @param arg
+     *        float value
+     * @return builder
+     */
     public BuilderLiteral withValue(float arg) {
         clear();
         floatValue = arg;
         return this;
     }
 
-    /** @param arg
-     *            literal form
-     * @return builder */
+    /**
+     * @param arg
+     *        literal form
+     * @return builder
+     */
     public BuilderLiteral withLiteralForm(String arg) {
         clear();
         literalForm = arg;
         return this;
     }
 
-    /** @param arg
-     *            language
-     * @return builder */
+    /**
+     * @param arg
+     *        language
+     * @return builder
+     */
     public BuilderLiteral withLanguage(String arg) {
         datatype = null;
         lang = arg;

@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -19,28 +21,36 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 /** Builder class for OWLDataHasValue */
 public class BuilderDataHasValue extends
         BaseDataPropertyBuilder<OWLDataHasValue, BuilderDataHasValue> {
+
     private OWLLiteral literal = null;
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderDataHasValue(OWLDataFactory df) {
         super(df);
     }
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderDataHasValue(OWLDataHasValue expected, OWLDataFactory df) {
         this(df);
         withProperty(expected.getProperty()).withLiteral(expected.getFiller());
     }
 
-    /** @param arg
-     *            literal
-     * @return builder */
+    /**
+     * @param arg
+     *        literal
+     * @return builder
+     */
     public BuilderDataHasValue withLiteral(OWLLiteral arg) {
         literal = arg;
         return this;

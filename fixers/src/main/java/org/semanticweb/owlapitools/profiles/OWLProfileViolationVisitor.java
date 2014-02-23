@@ -59,191 +59,286 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapitools.profiles.violations.UseOfUnknownDatatype;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group
+ */
 public interface OWLProfileViolationVisitor {
-    /** @param v
-     *            IllegalPunning to visit */
+
+    /**
+     * @param v
+     *        IllegalPunning to visit
+     */
     void visit(IllegalPunning v);
 
-    /** @param v
-     *            CycleInDatatypeDefinition to visit */
+    /**
+     * @param v
+     *        CycleInDatatypeDefinition to visit
+     */
     void visit(CycleInDatatypeDefinition v);
 
-    /** @param v
-     *            UseOfBuiltInDatatypeInDatatypeDefinition to visit */
+    /**
+     * @param v
+     *        UseOfBuiltInDatatypeInDatatypeDefinition to visit
+     */
     void visit(UseOfBuiltInDatatypeInDatatypeDefinition v);
 
-    /** @param v
-     *            DatatypeIRIAlsoUsedAsClassIRI to visit */
+    /**
+     * @param v
+     *        DatatypeIRIAlsoUsedAsClassIRI to visit
+     */
     void visit(DatatypeIRIAlsoUsedAsClassIRI v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom to visit
+     */
     void visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInCardinalityRestriction to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInCardinalityRestriction to visit
+     */
     void visit(UseOfNonSimplePropertyInCardinalityRestriction v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInDisjointPropertiesAxiom to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInDisjointPropertiesAxiom to visit
+     */
     void visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInFunctionalPropertyAxiom to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInFunctionalPropertyAxiom to visit
+     */
     void visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom
-     *            to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom to
+     *        visit
+     */
     void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInIrreflexivePropertyAxiom to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInIrreflexivePropertyAxiom to visit
+     */
     void visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom v);
 
-    /** @param v
-     *            UseOfNonSimplePropertyInObjectHasSelf to visit */
+    /**
+     * @param v
+     *        UseOfNonSimplePropertyInObjectHasSelf to visit
+     */
     void visit(UseOfNonSimplePropertyInObjectHasSelf v);
 
-    /** @param v
-     *            UseOfPropertyInChainCausesCycle to visit */
+    /**
+     * @param v
+     *        UseOfPropertyInChainCausesCycle to visit
+     */
     void visit(UseOfPropertyInChainCausesCycle v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForAnnotationPropertyIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForAnnotationPropertyIRI to visit
+     */
     void visit(UseOfReservedVocabularyForAnnotationPropertyIRI v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForClassIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForClassIRI to visit
+     */
     void visit(UseOfReservedVocabularyForClassIRI v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForDataPropertyIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForDataPropertyIRI to visit
+     */
     void visit(UseOfReservedVocabularyForDataPropertyIRI v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForIndividualIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForIndividualIRI to visit
+     */
     void visit(UseOfReservedVocabularyForIndividualIRI v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForObjectPropertyIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForObjectPropertyIRI to visit
+     */
     void visit(UseOfReservedVocabularyForObjectPropertyIRI v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForOntologyIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForOntologyIRI to visit
+     */
     void visit(UseOfReservedVocabularyForOntologyIRI v);
 
-    /** @param v
-     *            UseOfReservedVocabularyForVersionIRI to visit */
+    /**
+     * @param v
+     *        UseOfReservedVocabularyForVersionIRI to visit
+     */
     void visit(UseOfReservedVocabularyForVersionIRI v);
 
-    /** @param v
-     *            UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom to visit */
+    /**
+     * @param v
+     *        UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom to visit
+     */
     void visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom v);
 
-    /** @param v
-     *            UseOfUndeclaredAnnotationProperty to visit */
+    /**
+     * @param v
+     *        UseOfUndeclaredAnnotationProperty to visit
+     */
     void visit(UseOfUndeclaredAnnotationProperty v);
 
-    /** @param v
-     *            UseOfUndeclaredClass to visit */
+    /**
+     * @param v
+     *        UseOfUndeclaredClass to visit
+     */
     void visit(UseOfUndeclaredClass v);
 
-    /** @param v
-     *            UseOfUndeclaredDataProperty to visit */
+    /**
+     * @param v
+     *        UseOfUndeclaredDataProperty to visit
+     */
     void visit(UseOfUndeclaredDataProperty v);
 
-    /** @param v
-     *            UseOfUndeclaredDatatype to visit */
+    /**
+     * @param v
+     *        UseOfUndeclaredDatatype to visit
+     */
     void visit(UseOfUndeclaredDatatype v);
 
-    /** @param v
-     *            UseOfUndeclaredObjectProperty to visit */
+    /**
+     * @param v
+     *        UseOfUndeclaredObjectProperty to visit
+     */
     void visit(UseOfUndeclaredObjectProperty v);
 
-    /** @param v
-     *            InsufficientPropertyExpressions to visit */
+    /**
+     * @param v
+     *        InsufficientPropertyExpressions to visit
+     */
     void visit(InsufficientPropertyExpressions v);
 
-    /** @param v
-     *            InsufficientIndividuals to visit */
+    /**
+     * @param v
+     *        InsufficientIndividuals to visit
+     */
     void visit(InsufficientIndividuals v);
 
-    /** @param v
-     *            InsufficientOperands to visit */
+    /**
+     * @param v
+     *        InsufficientOperands to visit
+     */
     void visit(InsufficientOperands v);
 
-    /** @param v
-     *            EmptyOneOfAxiom to visit */
+    /**
+     * @param v
+     *        EmptyOneOfAxiom to visit
+     */
     void visit(EmptyOneOfAxiom v);
 
-    /** @param v
-     *            LastPropertyInChainNotInImposedRange to visit */
+    /**
+     * @param v
+     *        LastPropertyInChainNotInImposedRange to visit
+     */
     void visit(LastPropertyInChainNotInImposedRange v);
 
-    /** @param v
-     *            OntologyIRINotAbsolute to visit */
+    /**
+     * @param v
+     *        OntologyIRINotAbsolute to visit
+     */
     void visit(OntologyIRINotAbsolute v);
 
-    /** @param v
-     *            UseOfDefinedDatatypeInDatatypeRestriction to visit */
+    /**
+     * @param v
+     *        UseOfDefinedDatatypeInDatatypeRestriction to visit
+     */
     void visit(UseOfDefinedDatatypeInDatatypeRestriction v);
 
-    /** @param v
-     *            UseOfIllegalClassExpression to visit */
+    /**
+     * @param v
+     *        UseOfIllegalClassExpression to visit
+     */
     void visit(UseOfIllegalClassExpression v);
 
-    /** @param v
-     *            UseOfIllegalDataRange to visit */
+    /**
+     * @param v
+     *        UseOfIllegalDataRange to visit
+     */
     void visit(UseOfIllegalDataRange v);
 
-    /** @param v
-     *            UseOfUnknownDatatype to visit */
+    /**
+     * @param v
+     *        UseOfUnknownDatatype to visit
+     */
     void visit(UseOfUnknownDatatype v);
 
-    /** @param v
-     *            UseOfObjectPropertyInverse to visit */
+    /**
+     * @param v
+     *        UseOfObjectPropertyInverse to visit
+     */
     void visit(UseOfObjectPropertyInverse v);
 
-    /** @param v
-     *            UseOfNonSuperClassExpression to visit */
+    /**
+     * @param v
+     *        UseOfNonSuperClassExpression to visit
+     */
     void visit(UseOfNonSuperClassExpression v);
 
-    /** @param v
-     *            UseOfNonSubClassExpression to visit */
+    /**
+     * @param v
+     *        UseOfNonSubClassExpression to visit
+     */
     void visit(UseOfNonSubClassExpression v);
 
-    /** @param v
-     *            UseOfNonEquivalentClassExpression to visit */
+    /**
+     * @param v
+     *        UseOfNonEquivalentClassExpression to visit
+     */
     void visit(UseOfNonEquivalentClassExpression v);
 
-    /** @param v
-     *            UseOfNonAtomicClassExpression to visit */
+    /**
+     * @param v
+     *        UseOfNonAtomicClassExpression to visit
+     */
     void visit(UseOfNonAtomicClassExpression v);
 
-    /** @param v
-     *            LexicalNotInLexicalSpace to visit */
+    /**
+     * @param v
+     *        LexicalNotInLexicalSpace to visit
+     */
     void visit(LexicalNotInLexicalSpace v);
 
-    /** @param v
-     *            OntologyVersionIRINotAbsolute to visit */
+    /**
+     * @param v
+     *        OntologyVersionIRINotAbsolute to visit
+     */
     void visit(OntologyVersionIRINotAbsolute v);
 
-    /** @param v
-     *            UseOfAnonymousIndividual to visit */
+    /**
+     * @param v
+     *        UseOfAnonymousIndividual to visit
+     */
     void visit(UseOfAnonymousIndividual v);
 
-    /** @param v
-     *            UseOfIllegalAxiom to visit */
+    /**
+     * @param v
+     *        UseOfIllegalAxiom to visit
+     */
     void visit(UseOfIllegalAxiom v);
 
-    /** @param v
-     *            UseOfIllegalFacetRestriction to visit */
+    /**
+     * @param v
+     *        UseOfIllegalFacetRestriction to visit
+     */
     void visit(UseOfIllegalFacetRestriction v);
 
-    /** @param v
-     *            UseOfNonAbsoluteIRI to visit */
+    /**
+     * @param v
+     *        UseOfNonAbsoluteIRI to visit
+     */
     void visit(UseOfNonAbsoluteIRI v);
 }

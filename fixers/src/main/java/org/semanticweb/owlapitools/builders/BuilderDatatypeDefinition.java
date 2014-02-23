@@ -12,6 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
@@ -20,15 +22,18 @@ import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 /** Builder class for OWLDatatypeDefinitionAxiom */
 public class BuilderDatatypeDefinition extends
         BaseBuilder<OWLDatatypeDefinitionAxiom, BuilderDatatypeDefinition> {
+
     private OWLDataRange range = null;
     private OWLDatatype type = null;
 
-    /** builder initialized from an existing object
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderDatatypeDefinition(OWLDatatypeDefinitionAxiom expected,
             OWLDataFactory df) {
         this(df);
@@ -36,23 +41,30 @@ public class BuilderDatatypeDefinition extends
                 .withAnnotations(expected.getAnnotations());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderDatatypeDefinition(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            range
-     * @return builder */
+    /**
+     * @param arg
+     *        range
+     * @return builder
+     */
     public BuilderDatatypeDefinition withType(OWLDataRange arg) {
         range = arg;
         return this;
     }
 
-    /** @param arg
-     *            type
-     * @return builder */
+    /**
+     * @param arg
+     *        type
+     * @return builder
+     */
     public BuilderDatatypeDefinition with(OWLDatatype arg) {
         type = arg;
         return this;

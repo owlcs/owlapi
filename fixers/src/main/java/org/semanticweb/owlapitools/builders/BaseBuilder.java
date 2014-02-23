@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -33,37 +35,47 @@ import org.semanticweb.owlapitools.profiles.OWLProfile;
 import org.semanticweb.owlapitools.profiles.OWLProfileReport;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 
-/** Base builder class, providing annotations storage
+/**
+ * Base builder class, providing annotations storage
  * 
  * @author ignazio
  * @param <T>
- *            built type
+ *        built type
  * @param <Type>
- *            builder type */
+ *        builder type
+ */
 public abstract class BaseBuilder<T extends OWLObject, Type> implements
         Builder<T> {
+
     protected final OWLDataFactory df;
     protected Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
     private OWLProfile profile = new OWL2DLProfile();
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     protected BaseBuilder(OWLDataFactory df) {
         this.df = checkNotNull(df);
     }
 
-    /** @param arg
-     *            annotation
-     * @return builder */
+    /**
+     * @param arg
+     *        annotation
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withAnnotation(OWLAnnotation arg) {
         annotations.add(arg);
         return (Type) this;
     }
 
-    /** @param arg
-     *            annotation
-     * @return builder */
+    /**
+     * @param arg
+     *        annotation
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withAnnotations(Collection<OWLAnnotation> arg) {
         annotations.addAll(arg);
@@ -74,7 +86,7 @@ public abstract class BaseBuilder<T extends OWLObject, Type> implements
     public abstract T buildObject();
 
     @Override
-    public final List<OWLOntologyChange<?>> buildChanges(OWLOntology o) {
+    public final List<OWLOntologyChange<?>> applyChanges(OWLOntology o) {
         T object = buildObject();
         if (!(object instanceof OWLAxiom)) {
             return Collections.emptyList();

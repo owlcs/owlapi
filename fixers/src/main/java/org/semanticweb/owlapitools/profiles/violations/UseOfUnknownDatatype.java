@@ -19,19 +19,24 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitor;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
-/** Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
+/**
+ * Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
  * map, the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't
  * rdfs:Literal, and the datatype isn't defined with a DatatypeDefinition axiom.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group */
+ *         Management Group
+ */
 public class UseOfUnknownDatatype extends OWLProfileViolation<OWLDatatype> {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *            axiom
+     *        axiom
      * @param datatype
-     *            datatype */
+     *        datatype
+     */
     public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom,
             OWLDatatype datatype) {
         super(ontology, axiom, datatype);

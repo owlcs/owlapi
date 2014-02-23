@@ -21,12 +21,15 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author ignazio */
 public class InsufficientOperands extends OWLProfileViolation<OWLObject> {
-    /** @param currentOntology
-     *            currentOntology
+
+    /**
+     * @param currentOntology
+     *        currentOntology
      * @param node
-     *            node
+     *        node
      * @param c
-     *            c */
+     *        c
+     */
     public InsufficientOperands(OWLOntology currentOntology, OWLAxiom node,
             OWLObject c) {
         super(currentOntology, node, c);

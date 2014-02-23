@@ -12,25 +12,33 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
 /** Builder class for OWLNamedIndividual */
 public class BuilderNamedIndividual extends
         BaseEntityBuilder<OWLNamedIndividual, BuilderNamedIndividual> {
-    /** builder initialized from an existing object
+
+    /**
+     * builder initialized from an existing object
      * 
      * @param expected
-     *            the existing object
+     *        the existing object
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public BuilderNamedIndividual(OWLNamedIndividual expected, OWLDataFactory df) {
         this(df);
         withIRI(expected.getIRI());
     }
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BuilderNamedIndividual(OWLDataFactory df) {
         super(df);
     }

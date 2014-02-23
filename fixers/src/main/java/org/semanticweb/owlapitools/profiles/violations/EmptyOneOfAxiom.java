@@ -20,10 +20,13 @@ import org.semanticweb.owlapitools.profiles.OWLProfileViolationVisitorEx;
 
 /** @author ignazio */
 public class EmptyOneOfAxiom extends OWLProfileViolation<Object> {
-    /** @param ontology
-     *            the ontology with the violation
+
+    /**
+     * @param ontology
+     *        the ontology with the violation
      * @param axiom
-     *            the axiom with the violation */
+     *        the axiom with the violation
+     */
     public EmptyOneOfAxiom(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom, null);
     }

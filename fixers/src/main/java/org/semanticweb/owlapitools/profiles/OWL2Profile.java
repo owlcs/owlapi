@@ -35,25 +35,30 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfIllegalFacetRestrict
 import org.semanticweb.owlapitools.profiles.violations.UseOfNonAbsoluteIRI;
 import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredDatatype;
 
-/** Checks to see if an ontology and its imports closure fall into the OWL 2 DL
+/**
+ * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
  * profile. An ontology is OWL Full if any of the global structural restrictions
  * are violated, if there is punning between object and data properties
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group */
+ *         Management Group
+ */
 public class OWL2Profile implements OWLProfile {
+
     @Override
     public String getName() {
         return "OWL 2";
     }
 
-    /** Checks an ontology and its import closure to see if it is within this
+    /**
+     * Checks an ontology and its import closure to see if it is within this
      * profile.
      * 
      * @param ontology
-     *            The ontology to be checked.
+     *        The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the
-     *         ontology is within this profile. */
+     *         ontology is within this profile.
+     */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
         OWLOntologyWalker walker = new OWLOntologyWalker(
@@ -67,6 +72,7 @@ public class OWL2Profile implements OWLProfile {
 
     private static class OWL2ProfileObjectWalker extends
             OWLOntologyWalkerVisitorEx<Object> {
+
         private final OWLOntologyManager man;
         private final Set<OWLProfileViolation<?>> profileViolations = new HashSet<OWLProfileViolation<?>>();
 

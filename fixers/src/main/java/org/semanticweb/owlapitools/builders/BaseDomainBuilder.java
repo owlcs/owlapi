@@ -12,41 +12,53 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.builders;
 
+import javax.inject.Inject;
+
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Builder class for OWLDataPropertyDomainAxiom
+/**
+ * Builder class for OWLDataPropertyDomainAxiom
  * 
  * @param <T>
- *            type built
+ *        type built
  * @param <Type>
- *            builder type
+ *        builder type
  * @param <Property>
- *            contained items type */
+ *        contained items type
+ */
 public abstract class BaseDomainBuilder<T extends OWLObject, Type, Property>
         extends BaseBuilder<T, Type> {
+
     protected Property property = null;
     protected OWLClassExpression domain = null;
 
-    /** @param df
-     *            data factory */
+    /**
+     * @param df
+     *        data factory
+     */
+    @Inject
     public BaseDomainBuilder(OWLDataFactory df) {
         super(df);
     }
 
-    /** @param arg
-     *            domain
-     * @return builder */
+    /**
+     * @param arg
+     *        domain
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withDomain(OWLClassExpression arg) {
         domain = arg;
         return (Type) this;
     }
 
-    /** @param arg
-     *            property
-     * @return builder */
+    /**
+     * @param arg
+     *        property
+     * @return builder
+     */
     @SuppressWarnings("unchecked")
     public Type withProperty(Property arg) {
         property = arg;
