@@ -96,11 +96,14 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.HasPriorityComparator;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
+
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger
             .getLogger(OWLOntologyManagerImpl.class.getName());
@@ -126,8 +129,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected OWLOntologyChangeBroadcastStrategy defaultChangeBroadcastStrategy = new DefaultChangeBroadcastStrategy();
     protected ImpendingOWLOntologyChangeBroadcastStrategy defaultImpendingChangeBroadcastStrategy = new DefaultImpendingChangeBroadcastStrategy();
 
-    /** @param dataFactory
-     *            data factory */
+    /**
+     * @param dataFactory
+     *        data factory
+     */
     public OWLOntologyManagerImpl(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory,
                 "dataFactory cannot be null");
@@ -325,13 +330,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return result;
     }
 
-    /** A method that gets the imports of a given ontology.
+    /**
+     * A method that gets the imports of a given ontology.
      * 
      * @param ont
-     *            The ontology whose (transitive) imports are to be retrieved.
+     *        The ontology whose (transitive) imports are to be retrieved.
      * @param result
-     *            A place to store the result - the transitive closure of the
-     *            imports will be stored in this result set. */
+     *        A place to store the result - the transitive closure of the
+     *        imports will be stored in this result set.
+     */
     private void getImports(OWLOntology ont, Set<OWLOntology> result) {
         for (OWLOntology directImport : getDirectImports(ont)) {
             if (result.add(directImport)) {
@@ -356,14 +363,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 .getCopyOnRequestSetFromMutableCollection(ontologies);
     }
 
-    /** A recursive method that gets the reflexive transitive closure of the
+    /**
+     * A recursive method that gets the reflexive transitive closure of the
      * ontologies that are imported by this ontology.
      * 
      * @param ontology
-     *            The ontology whose reflexive transitive closure is to be
-     *            retrieved
+     *        The ontology whose reflexive transitive closure is to be retrieved
      * @param ontologies
-     *            a place to store the result */
+     *        a place to store the result
+     */
     private void getImportsClosure(OWLOntology ontology,
             Set<OWLOntology> ontologies) {
         ontologies.add(ontology);
@@ -380,13 +388,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return new ArrayList<OWLOntology>(ontology.getImportsClosure());
     }
 
-    /** Determines if a change is applicable. A change may not be applicable for
+    /**
+     * Determines if a change is applicable. A change may not be applicable for
      * a number of reasons.
      * 
      * @param change
-     *            The change to be tested.
+     *        The change to be tested.
      * @return {@code true} if the change is applicable, otherwise,
-     *         {@code false}. */
+     *         {@code false}.
+     */
     private boolean isChangeApplicable(OWLOntologyChange<?> change) {
         if (!properties.isLoadAnnotationAxioms() && change.isAddAxiom()
                 && change.getAxiom() instanceof OWLAnnotationAxiom) {
@@ -395,12 +405,14 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return true;
     }
 
-    /** Applies a change to an ontology and performs the necessary housekeeping
+    /**
+     * Applies a change to an ontology and performs the necessary housekeeping
      * tasks.
      * 
      * @param change
-     *            The change to be applied.
-     * @return A list of changes that were actually applied. */
+     *        The change to be applied.
+     * @return A list of changes that were actually applied.
+     */
     private <T> List<OWLOntologyChange<T>> enactChangeApplication(
             OWLOntologyChange<T> change) {
         if (!isChangeApplicable(change)) {
@@ -526,6 +538,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     && !change.getOntology().equals(existingOntology)) {
                 if (!change.getOntology().getAxioms()
                         .equals(existingOntology.getAxioms())) {
+                    LOGGER.severe("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:\n"
+                            + existingOntology);
+                    LOGGER.severe("OWLOntologyManagerImpl.checkForOntologyIDChange() new:\n"
+                            + change.getOntology());
                     throw new OWLOntologyRenameException(change,
                             ((SetOntologyID) change).getNewOntologyID());
                 }
@@ -754,19 +770,21 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 inputStream));
     }
 
-    /** This is the method that all the other load method delegate to.
+    /**
+     * This is the method that all the other load method delegate to.
      * 
      * @param ontologyIRI
-     *            The URI of the ontology to be loaded. This is only used to
-     *            report to listeners and may be {@code null}
+     *        The URI of the ontology to be loaded. This is only used to report
+     *        to listeners and may be {@code null}
      * @param documentSource
-     *            The input source that specifies where the ontology should be
-     *            loaded from.
+     *        The input source that specifies where the ontology should be
+     *        loaded from.
      * @param configuration
-     *            load configuration
+     *        load configuration
      * @return The ontology that was loaded.
      * @throws OWLOntologyCreationException
-     *             If the ontology could not be loaded. */
+     *         If the ontology could not be loaded.
+     */
     protected OWLOntology loadOntology(IRI ontologyIRI,
             OWLOntologyDocumentSource documentSource,
             OWLOntologyLoaderConfiguration configuration)
@@ -862,13 +880,15 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         documentIRIsByID.put(ontology.getOntologyID(), documentIRI);
     }
 
-    /** Handles a rename of an ontology. This method should only be called
+    /**
+     * Handles a rename of an ontology. This method should only be called
      * *after* the change has been applied
      * 
      * @param oldID
-     *            The original ID of the ontology
+     *        The original ID of the ontology
      * @param newID
-     *            The new ID of the ontology */
+     *        The new ID of the ontology
+     */
     private void renameOntology(OWLOntologyID oldID, OWLOntologyID newID) {
         OWLOntology ont = ontologiesByID.get(oldID);
         if (ont == null) {
@@ -1060,19 +1080,21 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         return new ArrayList<OWLOntologyFactory>(ontologyFactories);
     }
 
-    /** Uses the mapper mechanism to obtain an ontology document IRI from an
+    /**
+     * Uses the mapper mechanism to obtain an ontology document IRI from an
      * ontology IRI.
      * 
      * @param ontologyID
-     *            The ontology ID for which a document IRI is to be retrieved
+     *        The ontology ID for which a document IRI is to be retrieved
      * @param quiet
-     *            If set to {@code true} and a mapping can't be found then a
-     *            value of {@code null} is returned. If set to {@code false} and
-     *            a mapping can't be found then an exception
-     *            {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
-     *            is thrown.
+     *        If set to {@code true} and a mapping can't be found then a value
+     *        of {@code null} is returned. If set to {@code false} and a mapping
+     *        can't be found then an exception
+     *        {@link org.semanticweb.owlapi.model.OWLOntologyIRIMappingNotFoundException}
+     *        is thrown.
      * @return The document IRI that corresponds to the ontology IRI, or
-     *         {@code null} if no physical URI can be found. */
+     *         {@code null} if no physical URI can be found.
+     */
     private IRI getDocumentIRIFromMappers(OWLOntologyID ontologyID,
             boolean quiet) {
         IRI defIRI = ontologyID.getDefaultDocumentIRI();
@@ -1118,11 +1140,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         listenerMap.put(listener, defaultChangeBroadcastStrategy);
     }
 
-    /** Broadcasts to attached listeners, using the various broadcasting
+    /**
+     * Broadcasts to attached listeners, using the various broadcasting
      * strategies that were specified for each listener.
      * 
      * @param changes
-     *            The ontology changes to broadcast */
+     *        The ontology changes to broadcast
+     */
     protected void
             broadcastChanges(List<? extends OWLOntologyChange<?>> changes) {
         if (!broadcastChanges) {
