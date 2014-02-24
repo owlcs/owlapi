@@ -38,14 +38,13 @@
  */
 package org.semanticweb.owlapi.model;
 
-import java.util.Set;
-
-/** Inputs to algorithms etc. can require a set of ontologies. This interface
+/**
+ * Inputs to algorithms etc. can require a set of ontologies. This interface
  * provides a convenient lightweight access point for such a set.
- * 
+ *
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
-public interface OWLOntologySetProvider {
-    /** @return the set of ontologies held by the implementor */
-    Set<OWLOntology> getOntologies();
+ *         Informatics Group, Date: 18-Apr-2007
+ */
+public interface OWLOntologySetProvider extends HasGetOntologies {
+
 }

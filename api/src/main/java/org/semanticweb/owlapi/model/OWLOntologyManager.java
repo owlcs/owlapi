@@ -55,7 +55,8 @@ import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLOntologyManager extends OWLOntologySetProvider {
+public interface OWLOntologyManager extends OWLOntologySetProvider,
+        HasDataFactory, HasGetOntologyById, HasApplyChanges, HasAddAxioms, HasContainsOntology {
     /** Gets a data factory which can be used to create OWL API objects such as
      * classes, properties, individuals, axioms etc.
      * 
@@ -85,24 +86,28 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     /** @param ontology
      * @return true if the ontology is contained */
     // boolean contains(OWLOntology ontology);
-    /** Determines if there is an ontology with the specified IRI, and no version
+
+    /**
+     * Determines if there is an ontology with the specified IRI, and no version
      * IRI, that is managed by this manager
-     * 
-     * @param ontologyIRI
-     *            The IRI of the ontology to test for (the version IRI is
-     *            assumed to be {@code null})
+     *
+     * @param ontologyIRI The IRI of the ontology to test for (the version IRI is
+     *                    assumed to be {@code null})
      * @return {@code true} if there is an ontology with the specified IRI, and
-     *         no version IRI, that is managed by this manager, otherwise
-     *         {@code false}. */
+     * no version IRI, that is managed by this manager, otherwise
+     * {@code false}.
+     */
     boolean contains(IRI ontologyIRI);
 
-    /** Determines if there is an ontology with the specified id that is managed
+    /**
+     * Determines if there is an ontology with the specified id that is managed
      * by this manager
-     * 
-     * @param id
-     *            The id of the ontology to test for
+     *
+     * @param id The id of the ontology to test for
      * @return {@code true} if there is an ontology with the specified id that
-     *         is managed by this manager, otherwise {@code false}. */
+     * is managed by this manager, otherwise {@code false}.
+     */
+    @Override
     boolean contains(OWLOntologyID id);
 
     /** Determines if there is an ontology with the specified version IRI, that
@@ -134,14 +139,16 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
      *         specified IRI and no version IRI. */
     OWLOntology getOntology(IRI ontologyIRI);
 
-    /** Gets a previously loaded/created ontology that has the specified ontology
+    /**
+     * Gets a previously loaded/created ontology that has the specified ontology
      * ID
-     * 
-     * @param ontologyID
-     *            The ID of the ontology to retrieve
+     *
+     * @param ontologyID The ID of the ontology to retrieve
      * @return The ontology that has the specified ID, or {@code null} if this
-     *         manager does not manage an ontology with the specified ontology
-     *         ID. */
+     * manager does not manage an ontology with the specified ontology
+     * ID.
+     */
+    @Override
     OWLOntology getOntology(OWLOntologyID ontologyID);
 
     /** Given an imports declaration, obtains the ontology that this import has
@@ -211,36 +218,36 @@ public interface OWLOntologyManager extends OWLOntologySetProvider {
     // //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Applies a list of changes to some or all of the ontologies that are
+
+    /**
+     * Applies a list of changes to some or all of the ontologies that are
      * managed by this manager. The changes will be applied to the appropriate
      * ontologies.
-     * 
-     * @param changes
-     *            The changes to be applied.
+     *
+     * @param changes The changes to be applied.
      * @return The changes that were actually applied.
-     * @throws OWLOntologyChangeException
-     *             If one or more of the changes could not be applied. See
-     *             subclasses of ontology change exception for more specific
-     *             details.
-     * @throws OWLOntologyRenameException
-     *             If one or more of the changes is an instance of
-     *             {@link org.semanticweb.owlapi.model.SetOntologyID} where the
-     *             new {@link org.semanticweb.owlapi.model.OWLOntologyID}
-     *             already belongs to an ontology managed by this manager. */
-    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes)
-            throws OWLOntologyRenameException;
+     * @throws OWLOntologyChangeException If one or more of the changes could not be applied. See
+     *                                    subclasses of ontology change exception for more specific
+     *                                    details.
+     * @throws OWLOntologyRenameException If one or more of the changes is an instance of
+     *                                    {@link org.semanticweb.owlapi.model.SetOntologyID} where the
+     *                                    new {@link org.semanticweb.owlapi.model.OWLOntologyID}
+     *                                    already belongs to an ontology managed by this manager.
+     */
+    @Override
+    List<OWLOntologyChange> applyChanges(List<? extends OWLOntologyChange> changes) throws OWLOntologyRenameException;
 
-    /** A convenience method that adds a set of axioms to an ontology. The
+    /**
+     * A convenience method that adds a set of axioms to an ontology. The
      * appropriate AddAxiom change objects are automatically generated.
-     * 
-     * @param ont
-     *            The ontology to which the axioms should be added.
-     * @param axioms
-     *            The axioms to be added.
+     *
+     * @param ont    The ontology to which the axioms should be added.
+     * @param axioms The axioms to be added.
      * @return A list of ontology changes that represent the changes which took
-     *         place in order to add the axioms.
-     * @throws OWLOntologyChangeException
-     *             if there was a problem adding the axioms */
+     * place in order to add the axioms.
+     * @throws OWLOntologyChangeException if there was a problem adding the axioms
+     */
+    @Override
     List<OWLOntologyChange> addAxioms(OWLOntology ont, Set<? extends OWLAxiom> axioms);
 
     /** A convenience method that adds a single axiom to an ontology. The
