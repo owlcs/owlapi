@@ -12,7 +12,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator;
 
-/** Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
+/**
+ * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
  * type of list (i.e. the type of objects in the list) are determined by a
  * {@code ListItemTranslator}. The translator consumes all triples which are used
  * in the translation.
@@ -21,17 +22,21 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator;
  *         Informatics Group
  * @since 2.0.0
  * @param <O>
- *            type */
+ *        type
+ */
 class OptimisedListTranslator<O extends OWLObject> {
+
     private static final Logger logger = Logger
             .getLogger(OptimisedListTranslator.class.getName());
     private OWLRDFConsumer consumer;
     private ListItemTranslator<O> translator;
 
-    /** @param consumer
-     *            consumer
+    /**
+     * @param consumer
+     *        consumer
      * @param translator
-     *            translator */
+     *        translator
+     */
     protected OptimisedListTranslator(OWLRDFConsumer consumer,
             ListItemTranslator<O> translator) {
         this.consumer = consumer;
@@ -66,12 +71,14 @@ class OptimisedListTranslator<O extends OWLObject> {
         }
     }
 
-    /** @param mainNode
-     *            mainNode
-     * @return translated list */
+    /**
+     * @param mainNode
+     *        mainNode
+     * @return translated list
+     */
     @SuppressWarnings("unchecked")
     public List<O> translateList(IRI mainNode) {
-        boolean shared = consumer.isSharedAnonymousNode(mainNode);
+        boolean shared = consumer.isAnonymousSharedNode(mainNode.toString());
         List<O> list;
         if (shared) {
             Object o = consumer.getSharedAnonymousNode(mainNode);
@@ -89,9 +96,11 @@ class OptimisedListTranslator<O extends OWLObject> {
         return list;
     }
 
-    /** @param mainNode
-     *            mainNode
-     * @return translated list */
+    /**
+     * @param mainNode
+     *        mainNode
+     * @return translated list
+     */
     public Set<O> translateToSet(IRI mainNode) {
         return new HashSet<O>(translateList(mainNode));
     }
