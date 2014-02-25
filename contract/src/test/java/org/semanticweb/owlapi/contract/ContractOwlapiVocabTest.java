@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiVocabTest {
+
     @Test
     public void shouldTestBuiltInVocabulary() throws OWLException {
         BuiltInVocabulary testSubject0 = BuiltInVocabulary.DUBLIN_CORE;
@@ -133,7 +134,7 @@ public class ContractOwlapiVocabTest {
 
     @Test
     public void shouldTestPrefixOWLOntologyFormat() throws OWLException {
-        PrefixOWLOntologyFormat testSubject0 = new PrefixOWLOntologyFormat();
+        PrefixOWLOntologyFormat testSubject0 = mock(PrefixOWLOntologyFormat.class);
         String result0 = testSubject0.getPrefix("");
         IRI result1 = testSubject0.getIRI("");
         testSubject0.setPrefix("", "");

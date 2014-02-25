@@ -10,26 +10,45 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.formats;
+package org.semanticweb.owlapi.util;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
-import org.semanticweb.owlapi.annotations.IsBinaryFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 
 /**
- * Format for serializing an OWL ontology in a functional syntax format and
- * labels instead of identifiers. WARNING: This will produce a file, which
- * cannot be read with the OWL-API. This is only intended to be used as basis
- * for human readable version version control diffs.
+ * A generic factory class for OWLOntologyStorers. This class can act as a
+ * factory for any OWLOntologyStorer type that has a no argument constructor
+ * (the default type of OWLOntologyStorer).
+ * 
+ * @author ignazio
+ * @param <T>
+ *        built type
  */
-@HasIdentifierKey("Label functional Syntax")
-@IsBinaryFormat(false)
-public class LabelFunctionalFormat extends OWLOntologyFormat {
+public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
+        implements OWLOntologyStorerFactory {
 
-    private static final long serialVersionUID = 40000L;
+    private Class<T> type;
+
+    public OWLOntologyStorerFactoryImpl(Class<T> type) {
+        this.type = type;
+    }
 
     @Override
-    public String getKey() {
-        return "Label functional Syntax";
+    public int compareTo(OWLOntologyStorerFactory o) {
+        // XXX to implement
+        return 0;
+    }
+
+    @Override
+    public OWLOntologyStorer createStorer() {
+        try {
+            return type.newInstance();
+        } catch (InstantiationException e) {
+            throw new RuntimeException(
+                    "Cannot instantiate an OWLOntologyStorer of type " + type);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(
+                    "Cannot instantiate an OWLOntologyStorer of type " + type);
+        }
     }
 }

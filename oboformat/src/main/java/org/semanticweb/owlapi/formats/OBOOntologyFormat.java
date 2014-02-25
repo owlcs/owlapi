@@ -17,19 +17,18 @@ import org.semanticweb.owlapi.annotations.IsBinaryFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * Format for serializing an OWL ontology in a functional syntax format and
- * labels instead of identifiers. WARNING: This will produce a file, which
- * cannot be read with the OWL-API. This is only intended to be used as basis
- * for human readable version version control diffs.
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0
  */
-@HasIdentifierKey("Label functional Syntax")
+@HasIdentifierKey("OBO Format")
 @IsBinaryFormat(false)
-public class LabelFunctionalFormat extends OWLOntologyFormat {
+public class OBOOntologyFormat extends OWLOntologyFormat {
 
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String getKey() {
-        return "Label functional Syntax";
+        return "OBO Format";
     }
 }

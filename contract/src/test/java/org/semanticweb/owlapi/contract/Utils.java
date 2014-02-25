@@ -43,6 +43,7 @@ import uk.ac.manchester.cs.owl.owlapi.CollectionContainerVisitor;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class Utils {
+
     private static OWLDataFactory df = OWLManager.getOWLDataFactory();
     static final IRI fakeiri1 = IRI.create("urn:aFake1");
     static final IRI fakeiri2 = IRI.create("urn:aFake2");
@@ -78,6 +79,7 @@ public class Utils {
 
     public static SWRLObjectVisitorEx<OWLObject> mockSWRLObject() {
         return new SWRLObjectVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(SWRLRule node) {
                 return null;
@@ -137,6 +139,7 @@ public class Utils {
 
     public static <T> CollectionContainerVisitor<T> mockCollContainer() {
         return new CollectionContainerVisitor<T>() {
+
             @Override
             public void visitItem(T c) {}
 
@@ -159,6 +162,7 @@ public class Utils {
 
     public static OWLAnnotationAxiomVisitorEx<OWLObject> mockAnnotationAxiom() {
         return new OWLAnnotationAxiomVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLAnnotationAssertionAxiom axiom) {
                 return null;
@@ -192,6 +196,7 @@ public class Utils {
     public static OWLAnnotationObjectVisitorEx<OWLObject>
             mockAnnotationObject() {
         return new OWLAnnotationObjectVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLAnnotationAssertionAxiom axiom) {
                 return null;
@@ -237,6 +242,7 @@ public class Utils {
     public static OWLAnnotationSubjectVisitorEx<OWLObject>
             mockAnnotationSubject() {
         return new OWLAnnotationSubjectVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(IRI iri) {
                 return null;
@@ -251,6 +257,7 @@ public class Utils {
 
     public static OWLAnnotationValueVisitorEx<OWLObject> mockAnnotationValue() {
         return new OWLAnnotationValueVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(IRI iri) {
                 return null;
@@ -270,6 +277,7 @@ public class Utils {
 
     public static OWLDataRangeVisitorEx<OWLObject> mockDataRange() {
         return new OWLDataRangeVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLDatatype node) {
                 return null;
@@ -305,6 +313,7 @@ public class Utils {
     public static OWLPropertyExpressionVisitorEx<OWLObject>
             mockPropertyExpression() {
         return new OWLPropertyExpressionVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLObjectProperty property) {
                 return null;
@@ -324,6 +333,7 @@ public class Utils {
 
     public static OWLLogicalAxiomVisitorEx<OWLObject> mockLogicalAxiom() {
         return new OWLLogicalAxiomVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLSubClassOfAxiom axiom) {
                 return null;
@@ -495,6 +505,7 @@ public class Utils {
 
     public static OWLNamedObjectVisitorEx<OWLObject> mockNamedObject() {
         return new OWLNamedObjectVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLClass owlClass) {
                 return null;
@@ -540,6 +551,7 @@ public class Utils {
 
     public static OWLEntityVisitorEx<OWLObject> mockEntity() {
         return new OWLEntityVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLClass cls) {
                 return null;
@@ -574,6 +586,7 @@ public class Utils {
 
     public static OWLIndividualVisitorEx<OWLObject> mockIndividual() {
         return new OWLIndividualVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLNamedIndividual individual) {
                 return null;
@@ -588,6 +601,7 @@ public class Utils {
 
     public static OWLOntologyChangeVisitorEx<OWLObject> mockOntologyChange() {
         return new OWLOntologyChangeVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(AddAxiom change) {
                 return null;
@@ -627,6 +641,7 @@ public class Utils {
 
     public static OWLAxiomVisitorEx<OWLObject> mockAxiom() {
         return new OWLAxiomVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLSubAnnotationPropertyOfAxiom axiom) {
                 return null;
@@ -828,6 +843,7 @@ public class Utils {
 
     public static OWLDataVisitorEx<OWLObject> mockData() {
         return new OWLDataVisitorEx<OWLObject>() {
+
             @Override
             public OWLObject visit(OWLDatatype node) {
                 return null;
@@ -908,7 +924,13 @@ public class Utils {
         OWLRDFConsumer c = new OWLRDFConsumer(mockOntology,
                 new OWLOntologyLoaderConfiguration());
         c.setOntologyFormat(new RDFOntologyFormat() {
+
             private static final long serialVersionUID = 40000L;
+
+            @Override
+            public String getKey() {
+                return "mock";
+            }
         });
         return c;
     }

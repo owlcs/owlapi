@@ -10,26 +10,31 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.formats;
+package org.semanticweb.owlapi.annotations;
 
-import org.semanticweb.owlapi.annotations.HasIdentifierKey;
-import org.semanticweb.owlapi.annotations.IsBinaryFormat;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
- * Format for serializing an OWL ontology in a functional syntax format and
- * labels instead of identifiers. WARNING: This will produce a file, which
- * cannot be read with the OWL-API. This is only intended to be used as basis
- * for human readable version version control diffs.
+ * MIME types (default and supported ones). This annotation is meant for
+ * OWLOntologyFormats, but is not limited to them.
+ * 
+ * @author ignazio
+ * @since 4.0.0
  */
-@HasIdentifierKey("Label functional Syntax")
-@IsBinaryFormat(false)
-public class LabelFunctionalFormat extends OWLOntologyFormat {
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface SupportsMIMEType {
 
-    private static final long serialVersionUID = 40000L;
+    /**
+     * Default MIME type. This attribute is necessary; if it is missing, the
+     * annotation should be removed.
+     * 
+     * @return the default MIME type
+     */
+    String defaultMIMEType();
 
-    @Override
-    public String getKey() {
-        return "Label functional Syntax";
-    }
+    /** @return list of supported MIME types. Can be empty. */
+    String[] supportedMIMEtypes() default {};
 }

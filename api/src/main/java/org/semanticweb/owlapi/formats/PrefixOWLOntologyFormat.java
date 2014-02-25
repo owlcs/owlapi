@@ -24,11 +24,14 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
-public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements
-        PrefixManager {
+ * @since 2.0.0
+ */
+public abstract class PrefixOWLOntologyFormat extends OWLOntologyFormat
+        implements PrefixManager {
+
     private static final long serialVersionUID = 40000L;
     private PrefixManager nsm;
 
@@ -37,15 +40,19 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements
         this(new DefaultPrefixManager());
     }
 
-    /** @param manager
-     *            prefix manager to use */
+    /**
+     * @param manager
+     *        prefix manager to use
+     */
     public PrefixOWLOntologyFormat(@Nonnull PrefixManager manager) {
         nsm = checkNotNull(manager, "manager cannot be null");
         nsm.clear();
     }
 
-    /** @param m
-     *            prefix manager to use */
+    /**
+     * @param m
+     *        prefix manager to use
+     */
     public void setPrefixManager(@Nonnull PrefixManager m) {
         nsm = checkNotNull(m, "m cannot be null");
         nsm.clear();

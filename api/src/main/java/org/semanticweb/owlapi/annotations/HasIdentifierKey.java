@@ -10,18 +10,24 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.formats;
+package org.semanticweb.owlapi.annotations;
 
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
- * @since 2.0.0 */
-public class OBOOntologyFormat extends OWLOntologyFormat {
-    private static final long serialVersionUID = 40000L;
+/**
+ * Annotation for objects that have an identifier string associated with the
+ * type, not the specific instance. For example, all OWLOntologyFormats have a
+ * key like "RDF/XML Format".
+ * 
+ * @author ignazio
+ * @since 4.0.0
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface HasIdentifierKey {
 
-    @Override
-    public String toString() {
-        return "OBO Format";
-    }
+    /** @return identifier for this type */
+    String value();
 }

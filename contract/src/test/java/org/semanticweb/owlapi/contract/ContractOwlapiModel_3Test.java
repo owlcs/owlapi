@@ -37,6 +37,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration.MissingOntolo
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiModel_3Test {
+
     @Test
     public void shouldTestInterfaceOWLNegativeObjectPropertyAssertionAxiom()
             throws OWLException {
@@ -1140,6 +1141,7 @@ public class ContractOwlapiModel_3Test {
     public void shouldTestOWLOntologyChange() throws OWLException {
         OWLOntologyChange<OWLAxiom> testSubject0 = new OWLOntologyChange<OWLAxiom>(
                 Utils.getMockOntology()) {
+
             @Override
             public boolean isAxiomChange() {
                 return false;
@@ -1264,7 +1266,13 @@ public class ContractOwlapiModel_3Test {
     @Test
     public void shouldTestOWLOntologyFormat() throws OWLException {
         OWLOntologyFormat testSubject0 = new OWLOntologyFormat() {
+
             private static final long serialVersionUID = 1L;
+
+            @Override
+            public String getKey() {
+                return "mock";
+            }
         };
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
         Object result0 = testSubject0.getParameter(mock(Object.class),

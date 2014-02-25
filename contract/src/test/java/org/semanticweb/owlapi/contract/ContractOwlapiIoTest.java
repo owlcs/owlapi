@@ -76,10 +76,12 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 @SuppressWarnings({ "unused", "javadoc", "resource" })
 public class ContractOwlapiIoTest {
+
     @Test
     public void shouldTestAbstractOWLParser() throws OWLException,
             OWLOntologyChangeException, IOException {
         AbstractOWLParser testSubject0 = new AbstractOWLParser() {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -118,6 +120,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestAbstractOWLRenderer() throws OWLException {
         AbstractOWLRenderer testSubject0 = new AbstractOWLRenderer() {
+
             @Override
             public void render(OWLOntology ontology, Writer writer)
                     throws OWLRendererException {}
@@ -321,7 +324,13 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestRDFOntologyFormat() throws OWLException {
         RDFOntologyFormat testSubject0 = new RDFOntologyFormat() {
+
             private static final long serialVersionUID = 40000L;
+
+            @Override
+            public String getKey() {
+                return "mock";
+            }
         };
         RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
         OWLOntologyLoaderMetaData result1 = testSubject0
