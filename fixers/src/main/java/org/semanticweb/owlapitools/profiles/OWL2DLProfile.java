@@ -94,8 +94,8 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredObjectProp
 import org.semanticweb.owlapitools.profiles.violations.UseOfUnknownDatatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class OWL2DLProfile implements OWLProfile {
 
@@ -107,6 +107,11 @@ public class OWL2DLProfile implements OWLProfile {
     @Override
     public String getName() {
         return "OWL 2 DL";
+    }
+
+    @Override
+    public IRI getIRI() {
+        return Profiles.OWL2_DL.getIRI();
     }
 
     /**

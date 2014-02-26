@@ -19,7 +19,9 @@ import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Collections;
 import java.util.Locale;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,19 +36,24 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 import org.xml.sax.InputSource;
 
-/** A convenience base class for parsers, which provides a mechanism to manage
+/**
+ * A convenience base class for parsers, which provides a mechanism to manage
  * the setting and getting of the {@code OWLOntologyManager} that should be
  * associated with the parser. Note: all current parser implementations are
  * stateless.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class AbstractOWLParser implements OWLParser, Serializable {
+
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger
             .getLogger(AbstractOWLParser.class.getName());
@@ -60,22 +67,26 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     protected AbstractOWLParser() {}
 
+    protected abstract Class<? extends OWLOntologyFormat> getFormatClass();
+
     protected String getRequestTypes() {
         return "application/rdf+xml, application/xml; q=0.5, text/xml; q=0.3, */*; q=0.2";
     }
 
-    /** A convenience method that obtains an input stream from a URI. This method
+    /**
+     * A convenience method that obtains an input stream from a URI. This method
      * sets up the correct request type and wraps the input stream within a
      * buffered input stream.
      * 
      * @param documentIRI
-     *            The URI from which the input stream should be returned
+     *        The URI from which the input stream should be returned
      * @param config
-     *            the load configuration
+     *        the load configuration
      * @return The input stream obtained from the URI
      * @throws IOException
-     *             if there was an {@code IOException} in obtaining the input
-     *             stream from the URI. */
+     *         if there was an {@code IOException} in obtaining the input stream
+     *         from the URI.
+     */
     @Nonnull
     protected InputStream getInputStream(@Nonnull IRI documentIRI,
             @Nonnull OWLOntologyLoaderConfiguration config) throws IOException {
@@ -204,5 +215,17 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
             throws OWLParserException, IOException, UnloadableImportException {
         return parse(new IRIDocumentSource(documentIRI), ontology);
+    }
+
+    @Override
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections
+                .singleton((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<OWLOntologyFormat>(
+                        (Class<OWLOntologyFormat>) getFormatClass()));
     }
 }

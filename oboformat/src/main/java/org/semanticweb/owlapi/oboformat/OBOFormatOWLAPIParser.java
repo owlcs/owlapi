@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
+import java.util.Collections;
+import java.util.Set;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -32,12 +34,15 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 
 /** oboformat parser */
 @HasPriority(value = 5)
 public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
+
     private static final long serialVersionUID = 40000L;
 
     @Override
@@ -115,5 +120,12 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     @Override
     public String getName() {
         return "OWLoboformatParser";
+    }
+
+    @Override
+    public Set<OWLOntologyFormatFactory> getSupportedFormats() {
+        return Collections
+                .singleton((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<OBOOntologyFormat>(
+                        OBOOntologyFormat.class));
     }
 }

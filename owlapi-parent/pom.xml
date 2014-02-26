@@ -29,6 +29,7 @@
 		<module>parsers</module>
 		<module>oboformat</module>
 		<module>fixers</module>
+		<module>rio</module>
 		<module>apibinding</module>
 		<module>contract</module>
 		<!-- The distribution module is a single-jar build of the whole OWL API. -->
@@ -214,7 +215,7 @@
 				<version>2.16</version>
 				<configuration>
 					<printSummary>false</printSummary>
-					<argLine>-Xmx1024M</argLine>
+					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
 

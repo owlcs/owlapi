@@ -28,34 +28,41 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** Base class for common utilities among stream, reader and file input sources.
+/**
+ * Base class for common utilities among stream, reader and file input sources.
  * 
  * @since 4.0.0 TODO both stream and reader sources copy the input in memory in
  *        case reloading is needed. This can be bad for memory. Remote loading
  *        will download the ontologies multiple times too, until parsing fails.
- *        Both issues could be addressed with a local file copy. */
+ *        Both issues could be addressed with a local file copy.
+ */
 public abstract class StreamDocumentSourceBase implements
         OWLOntologyDocumentSource {
+
     private static final AtomicLong COUNTER = new AtomicLong();
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
     protected char[] charBuffer;
     private OWLOntologyFormat format;
 
-    /** @param prefix
-     *            prefix for result
-     * @return a fresh IRI */
+    /**
+     * @param prefix
+     *        prefix for result
+     * @return a fresh IRI
+     */
     protected static IRI getNextDocumentIRI(String prefix) {
         return IRI.create(prefix + COUNTER.incrementAndGet());
     }
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
      * @param stream
-     *            The stream that the ontology representation will be read from.
+     *        The stream that the ontology representation will be read from.
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
             @Nonnull IRI documentIRI) {
         this.documentIRI = checkNotNull(documentIRI,
@@ -63,13 +70,15 @@ public abstract class StreamDocumentSourceBase implements
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
     }
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
      * @param stream
-     *            The stream that the ontology representation will be read from.
+     *        The stream that the ontology representation will be read from.
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
             @Nonnull IRI documentIRI) {
         this.documentIRI = checkNotNull(documentIRI,
@@ -82,18 +91,27 @@ public abstract class StreamDocumentSourceBase implements
         return format;
     }
 
-    /** @param f
-     *            format for this source */
+    @Override
+    public boolean isFormatKnown() {
+        return format != null;
+    }
+
+    /**
+     * @param f
+     *        format for this source
+     */
     protected void setFormat(OWLOntologyFormat f) {
         format = f;
     }
 
-    /** Reads all the bytes from the specified stream into a temporary buffer,
+    /**
+     * Reads all the bytes from the specified stream into a temporary buffer,
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
      * 
      * @param reader
-     *            The stream to be "cached" */
+     *        The stream to be "cached"
+     */
     private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();

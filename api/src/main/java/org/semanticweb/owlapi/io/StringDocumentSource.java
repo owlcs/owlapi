@@ -25,25 +25,32 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology input source that wraps a string.
+/**
+ * An ontology input source that wraps a string.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
+
     private static AtomicLong counter = new AtomicLong();
     private final IRI documentIRI;
     private final String string;
     private OWLOntologyFormat format;
 
-    /** @param string
-     *            the source string */
+    /**
+     * @param string
+     *        the source string
+     */
     public StringDocumentSource(@Nonnull String string) {
         this(string, getNextDocumentIRI());
     }
 
-    /** @param target
-     *            a document target */
+    /**
+     * @param target
+     *        a document target
+     */
     public StringDocumentSource(@Nonnull StringDocumentTarget target) {
         this(target.toString());
     }
@@ -53,24 +60,28 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
         return IRI.create("string:ontology" + counter.incrementAndGet());
     }
 
-    /** Specifies a string as an ontology document.
+    /**
+     * Specifies a string as an ontology document.
      * 
      * @param string
-     *            The string
+     *        The string
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public StringDocumentSource(@Nonnull String string, @Nonnull IRI documentIRI) {
         this(string, documentIRI, null);
     }
 
-    /** Specifies a string as an ontology document.
+    /**
+     * Specifies a string as an ontology document.
      * 
      * @param string
-     *            The string
+     *        The string
      * @param documentIRI
-     *            The document IRI
+     *        The document IRI
      * @param f
-     *            ontology format */
+     *        ontology format
+     */
     public StringDocumentSource(@Nonnull String string,
             @Nonnull IRI documentIRI, OWLOntologyFormat f) {
         this.string = checkNotNull(string, "string cannot be null");
@@ -108,5 +119,10 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public OWLOntologyFormat getFormat() {
         return format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return format != null;
     }
 }

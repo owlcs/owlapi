@@ -46,12 +46,6 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
     }
 
     @Override
-    public int compareTo(OWLOntologyFormatFactory o) {
-        // XXX to implement
-        return 0;
-    }
-
-    @Override
     public OWLOntologyFormat createFormat() {
         try {
             return type.newInstance();

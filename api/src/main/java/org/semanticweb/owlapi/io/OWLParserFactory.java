@@ -13,24 +13,32 @@
 package org.semanticweb.owlapi.io;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** An object that can create an {@code OWLParser}.
+/**
+ * An object that can create an {@code OWLParser}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
-public interface OWLParserFactory extends Serializable,
-        Comparable<OWLParserFactory> {
-    /** Creates a parser.
+ * @since 2.0.0
+ */
+public interface OWLParserFactory extends Serializable {
+
+    /**
+     * Creates a parser.
      * 
      * @param owlOntologyManager
-     *            This parameter is here for legacy reasons. Parser factories
-     *            should not use it.
-     * @return The parser created by this parser factory. */
+     *        This parameter is here for legacy reasons. Parser factories should
+     *        not use it.
+     * @return The parser created by this parser factory.
+     */
     @Nonnull
     OWLParser createParser(@Nonnull OWLOntologyManager owlOntologyManager);
+
+    Set<OWLOntologyFormatFactory> getSupportedFormats();
 }

@@ -33,16 +33,24 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @HasPriority(value = 1)
 public class OWLXMLParser extends AbstractOWLParser {
+
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String getName() {
         return "OWLXMLParser";
+    }
+
+    @Override
+    protected Class<? extends OWLOntologyFormat> getFormatClass() {
+        return OWLXMLOntologyFormat.class;
     }
 
     @Override

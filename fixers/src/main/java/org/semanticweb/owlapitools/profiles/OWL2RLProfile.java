@@ -68,8 +68,8 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfNonSubClassExpressio
 import org.semanticweb.owlapitools.profiles.violations.UseOfNonSuperClassExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class OWL2RLProfile implements OWLProfile {
 
@@ -99,6 +99,11 @@ public class OWL2RLProfile implements OWLProfile {
     @Override
     public String getName() {
         return "OWL 2 RL";
+    }
+
+    @Override
+    public IRI getIRI() {
+        return Profiles.OWL2_RL.getIRI();
     }
 
     /**

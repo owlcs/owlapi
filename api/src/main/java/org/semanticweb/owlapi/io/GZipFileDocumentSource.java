@@ -26,21 +26,26 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document source which can read from a GZIP File.
+/**
+ * An ontology document source which can read from a GZIP File.
  * 
  * @author ignazio
- * @since 3.4.8 */
+ * @since 3.4.8
+ */
 public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
+
     private static int counter = 0;
     private final IRI documentIRI;
     private final File file;
     private OWLOntologyFormat format;
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      * 
      * @param is
-     *            The file that the ontology representation will be read from. */
+     *        The file that the ontology representation will be read from.
+     */
     public GZipFileDocumentSource(File is) {
         this(is, getNextDocumentIRI());
     }
@@ -51,26 +56,30 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
         return IRI.create("file:ontology" + counter);
     }
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      * 
      * @param stream
-     *            The file that the ontology representation will be read from.
+     *        The file that the ontology representation will be read from.
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public GZipFileDocumentSource(File stream, IRI documentIRI) {
         this(stream, documentIRI, null);
     }
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      * 
      * @param stream
-     *            The file that the ontology representation will be read from.
+     *        The file that the ontology representation will be read from.
      * @param documentIRI
-     *            The document IRI
+     *        The document IRI
      * @param format
-     *            ontology format. Can be null. */
+     *        ontology format. Can be null.
+     */
     public GZipFileDocumentSource(File stream, IRI documentIRI,
             OWLOntologyFormat format) {
         this.documentIRI = documentIRI;
@@ -118,5 +127,10 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public OWLOntologyFormat getFormat() {
         return format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return format != null;
     }
 }

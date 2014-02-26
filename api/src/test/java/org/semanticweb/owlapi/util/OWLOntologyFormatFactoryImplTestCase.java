@@ -23,7 +23,6 @@ import org.semanticweb.owlapi.formats.KRSSOntologyFormat;
 import org.semanticweb.owlapi.formats.LabelFunctionalFormat;
 import org.semanticweb.owlapi.formats.LatexAxiomsListOntologyFormat;
 import org.semanticweb.owlapi.formats.LatexOntologyFormat;
-import org.semanticweb.owlapi.formats.OBOOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -118,18 +117,6 @@ public class OWLOntologyFormatFactoryImplTestCase {
         assertEquals("LaTeX Syntax",
                 format.getAnnotation(HasIdentifierKey.class).value());
         assertEquals("LaTeX Syntax", f.getKey());
-        assertEquals(0, f.getMIMETypes().size());
-        assertNull(f.getDefaultMIMEType());
-    }
-
-    @Test
-    public void testOBOOntologyFormat() {
-        Class<OBOOntologyFormat> format = OBOOntologyFormat.class;
-        OWLOntologyFormatFactory f = new OWLOntologyFormatFactoryImpl<OBOOntologyFormat>(
-                format);
-        assertEquals("OBO Format", format.getAnnotation(HasIdentifierKey.class)
-                .value());
-        assertEquals("OBO Format", f.getKey());
         assertEquals(0, f.getMIMETypes().size());
         assertNull(f.getDefaultMIMEType());
     }

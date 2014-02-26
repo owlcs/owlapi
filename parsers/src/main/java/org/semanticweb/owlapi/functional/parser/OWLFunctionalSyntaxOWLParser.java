@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.Reader;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
+import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
@@ -26,16 +27,24 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @HasPriority(value = 2)
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
+
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String getName() {
         return "OWLFunctionalSyntaxOWLParser";
+    }
+
+    @Override
+    protected Class<? extends OWLOntologyFormat> getFormatClass() {
+        return OWLFunctionalSyntaxOntologyFormat.class;
     }
 
     @Override

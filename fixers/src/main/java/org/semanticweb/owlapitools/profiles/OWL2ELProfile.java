@@ -69,8 +69,8 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfObjectOneOfWithMulti
 import org.semanticweb.owlapitools.profiles.violations.UseOfObjectPropertyInverse;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class OWL2ELProfile implements OWLProfile {
 
@@ -89,6 +89,11 @@ public class OWL2ELProfile implements OWLProfile {
     @Override
     public String getName() {
         return "OWL 2 EL";
+    }
+
+    @Override
+    public IRI getIRI() {
+        return Profiles.OWL2_EL.getIRI();
     }
 
     @Override

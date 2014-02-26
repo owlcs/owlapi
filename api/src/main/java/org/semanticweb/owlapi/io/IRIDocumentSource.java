@@ -23,23 +23,30 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class IRIDocumentSource implements OWLOntologyDocumentSource {
+
     private final IRI documentIRI;
     private OWLOntologyFormat format;
 
-    /** @param documentIRI
-     *            the source document IRI */
+    /**
+     * @param documentIRI
+     *        the source document IRI
+     */
     public IRIDocumentSource(@Nonnull IRI documentIRI) {
         this(documentIRI, null);
     }
 
-    /** @param documentIRI
-     *            the source document IRI
+    /**
+     * @param documentIRI
+     *        the source document IRI
      * @param format
-     *            ontology format */
+     *        ontology format
+     */
     public IRIDocumentSource(@Nonnull IRI documentIRI, OWLOntologyFormat format) {
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
@@ -81,5 +88,10 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public OWLOntologyFormat getFormat() {
         return format;
+    }
+
+    @Override
+    public boolean isFormatKnown() {
+        return format != null;
     }
 }

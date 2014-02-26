@@ -28,11 +28,14 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.1 */
+ * @since 2.1.1
+ */
 @HasPriority(value = 4)
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
+
     private static final long serialVersionUID = 40000L;
     private static final String COMMENT_START_CHAR = "#";
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
@@ -40,6 +43,11 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     @Override
     public String getName() {
         return "ManchesterOWLSyntaxOntologyParser";
+    }
+
+    @Override
+    protected Class<? extends OWLOntologyFormat> getFormatClass() {
+        return ManchesterOWLSyntaxOntologyFormat.class;
     }
 
     @Override

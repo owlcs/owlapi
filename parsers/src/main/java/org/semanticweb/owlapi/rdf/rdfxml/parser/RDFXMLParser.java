@@ -27,16 +27,24 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @HasPriority(value = 0)
 public class RDFXMLParser extends AbstractOWLParser {
+
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String getName() {
         return "RDFXMLParser";
+    }
+
+    @Override
+    protected Class<? extends OWLOntologyFormat> getFormatClass() {
+        return RDFXMLOntologyFormat.class;
     }
 
     @Override
@@ -55,6 +63,7 @@ public class RDFXMLParser extends AbstractOWLParser {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             final RDFParser parser = new RDFParser() {
+
                 @Override
                 public void startPrefixMapping(String prefix, String IRI)
                         throws SAXException {

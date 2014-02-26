@@ -20,8 +20,7 @@ import java.util.List;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public interface OWLOntologyFormatFactory extends Serializable,
-        Comparable<OWLOntologyFormatFactory> {
+public interface OWLOntologyFormatFactory extends Serializable {
 
     /**
      * Create a new format. Note that ontology formats currently carry prefix

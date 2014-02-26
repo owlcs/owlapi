@@ -12,6 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 
@@ -34,12 +35,6 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
     }
 
     @Override
-    public int compareTo(OWLOntologyStorerFactory o) {
-        // XXX to implement
-        return 0;
-    }
-
-    @Override
     public OWLOntologyStorer createStorer() {
         try {
             return type.newInstance();
@@ -50,5 +45,10 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
             throw new RuntimeException(
                     "Cannot instantiate an OWLOntologyStorer of type " + type);
         }
+    }
+
+    @Override
+    public OWLOntologyFormatFactory getFormatFactory() {
+        return null;
     }
 }

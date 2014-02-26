@@ -50,6 +50,11 @@ public class OWL2Profile implements OWLProfile {
         return "OWL 2";
     }
 
+    @Override
+    public IRI getIRI() {
+        return Profiles.OWL2_FULL.getIRI();
+    }
+
     /**
      * Checks an ontology and its import closure to see if it is within this
      * profile.

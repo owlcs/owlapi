@@ -107,6 +107,12 @@ public class ContractOwlapiIoTest {
                     OWLOntologyChangeException, UnloadableImportException {
                 return mock(OWLOntologyFormat.class);
             }
+
+            @Override
+            protected Class<? extends OWLOntologyFormat> getFormatClass() {
+                // TODO Auto-generated method stub
+                return null;
+            }
         };
         OWLOntologyFormat result0 = testSubject0.parse(IRI("urn:aFake"),
                 Utils.getMockOntology());

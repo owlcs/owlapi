@@ -23,15 +23,23 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class KRSSOWLParser extends AbstractOWLParser {
+
     private static final long serialVersionUID = 40000L;
 
     @Override
     public String getName() {
         return "KRSSOWLParser";
+    }
+
+    @Override
+    protected Class<? extends OWLOntologyFormat> getFormatClass() {
+        return KRSSOntologyFormat.class;
     }
 
     @Override

@@ -35,13 +35,16 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
-/** Base class for ontology storers. Note that all current implementations are
+/**
+ * Base class for ontology storers. Note that all current implementations are
  * stateless.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
+
     private static final long serialVersionUID = 40000L;
     private static final String UTF_8 = "UTF-8";
     protected static final Logger LOGGER = Logger
@@ -190,6 +193,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         }
     }
 
+    // XXX check if Writer is the best interface here
     protected abstract void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException;
 }
