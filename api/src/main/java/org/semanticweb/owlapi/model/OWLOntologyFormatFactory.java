@@ -15,12 +15,15 @@ package org.semanticweb.owlapi.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Provider;
+
 /**
  * Factory for ontology formats.
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public interface OWLOntologyFormatFactory extends Serializable {
+public interface OWLOntologyFormatFactory extends Serializable,
+        Provider<OWLOntologyFormat> {
 
     /**
      * Create a new format. Note that ontology formats currently carry prefix

@@ -61,4 +61,9 @@ public class RioTurtleOntologyStorerFactory implements
         return new OWLOntologyFormatFactoryImpl<TurtleOntologyFormat>(
                 TurtleOntologyFormat.class);
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

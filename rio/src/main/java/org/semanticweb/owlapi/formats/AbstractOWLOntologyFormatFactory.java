@@ -2,6 +2,7 @@ package org.semanticweb.owlapi.formats;
 
 import java.util.List;
 
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
 /**
@@ -15,7 +16,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
 
     @Override
     public int hashCode() {
-        return this.getKey().hashCode();
+        return getKey().hashCode();
     }
 
     @Override
@@ -30,7 +31,7 @@ public abstract class AbstractOWLOntologyFormatFactory implements
             return false;
         }
         OWLOntologyFormatFactory otherFactory = (OWLOntologyFormatFactory) other;
-        return this.getKey().equals(otherFactory.getKey());
+        return getKey().equals(otherFactory.getKey());
     }
 
     @Override
@@ -73,5 +74,10 @@ public abstract class AbstractOWLOntologyFormatFactory implements
     @Override
     public boolean isTextual() {
         return true;
+    }
+
+    @Override
+    public OWLOntologyFormat get() {
+        return createFormat();
     }
 }

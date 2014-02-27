@@ -58,4 +58,9 @@ public class RioRDFXMLOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new RDFXMLOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

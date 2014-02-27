@@ -1,0 +1,9 @@
+org.semanticweb.owlapi.rio.RioBinaryRdfOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioJsonOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioN3OntologyStorerFactory
+org.semanticweb.owlapi.rio.RioNQuadsOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioTrigOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioTrixOntologyStorerFactory
+org.semanticweb.owlapi.rio.RioTurtleOntologyStorerFactory

@@ -107,4 +107,9 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
         }
         return !binary.value();
     }
+
+    @Override
+    public OWLOntologyFormat get() {
+        return createFormat();
+    }
 }

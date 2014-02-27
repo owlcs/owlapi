@@ -58,4 +58,9 @@ public class RioTrigOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new TrigOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

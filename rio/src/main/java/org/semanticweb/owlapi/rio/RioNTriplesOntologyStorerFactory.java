@@ -58,4 +58,9 @@ public class RioNTriplesOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new NTriplesOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

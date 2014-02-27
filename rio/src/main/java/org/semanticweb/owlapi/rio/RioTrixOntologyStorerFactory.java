@@ -58,4 +58,9 @@ public class RioTrixOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new TrixOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

@@ -14,6 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
+import javax.inject.Provider;
+
 /**
  * Factory for ontology storers. Provide a priority to allow for sorting of
  * ontology storers. Default implementations will have priorities starting at 0
@@ -26,7 +28,8 @@ import java.io.Serializable;
  */
 // XXX this could be replaced with an annotation for priority and a @Provides
 // method
-public interface OWLOntologyStorerFactory extends Serializable {
+public interface OWLOntologyStorerFactory extends Serializable,
+        Provider<OWLOntologyStorer> {
 
     /**
      * Create new storer.

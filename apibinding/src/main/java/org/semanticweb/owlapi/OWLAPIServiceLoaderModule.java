@@ -15,26 +15,40 @@ package org.semanticweb.owlapi;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
+import javax.inject.Provider;
+
 import org.semanticweb.owlapi.annotations.OwlapiModule;
 import org.semanticweb.owlapi.io.OWLParser;
+import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFactory;
+import org.semanticweb.owlapi.model.OWLOntologyFormat;
+import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
-/** owlapi module for dynamic loading - uses ServiceLoader to add extra bindings
- * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper */
+/**
+ * owlapi module for dynamic loading - uses ServiceLoader to add extra bindings
+ * for OWLParser, OWLOntologyStorer, OWLOntologyFactory, OWLOntologyIRIMapper
+ */
 @OwlapiModule
 public class OWLAPIServiceLoaderModule extends AbstractModule {
+
     @Override
     protected void configure() {
         loadInstancesFromServiceLoader(OWLParser.class);
         loadInstancesFromServiceLoader(OWLOntologyStorer.class);
         loadInstancesFromServiceLoader(OWLOntologyFactory.class);
         loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
+        loadInstancesFromFactory(OWLOntologyFormatFactory.class,
+                OWLOntologyFormat.class);
+        loadInstancesFromFactory(OWLParserFactory.class, OWLParser.class);
+        loadInstancesFromFactory(OWLOntologyStorerFactory.class,
+                OWLOntologyStorer.class);
     }
 
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
@@ -42,6 +56,19 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
             for (T o : ServiceLoader.load(type)) {
                 binder.addBinding().toInstance(o);
+            }
+        } catch (ServiceConfigurationError e) {
+            e.printStackTrace(System.out);
+            throw new OWLRuntimeException("Injection failed for " + type, e);
+        }
+    }
+
+    protected <T> void loadInstancesFromFactory(
+            Class<? extends Provider<T>> type, Class<T> product) {
+        try {
+            Multibinder<T> binder = Multibinder.newSetBinder(binder(), product);
+            for (Provider<T> o : ServiceLoader.load(type)) {
+                binder.addBinding().toInstance(o.get());
             }
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);

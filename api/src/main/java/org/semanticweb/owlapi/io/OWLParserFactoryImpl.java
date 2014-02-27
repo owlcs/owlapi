@@ -30,4 +30,9 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return createParser(null).getSupportedFormats();
     }
+
+    @Override
+    public OWLParser get() {
+        return createParser(null);
+    }
 }

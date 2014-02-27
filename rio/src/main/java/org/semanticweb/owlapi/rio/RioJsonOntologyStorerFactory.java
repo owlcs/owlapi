@@ -58,4 +58,9 @@ public class RioJsonOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new RdfJsonOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

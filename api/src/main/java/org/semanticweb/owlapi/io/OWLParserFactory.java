@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.inject.Provider;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -27,7 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLParserFactory extends Serializable {
+public interface OWLParserFactory extends Serializable, Provider<OWLParser> {
 
     /**
      * Creates a parser.
@@ -37,6 +38,7 @@ public interface OWLParserFactory extends Serializable {
      *        not use it.
      * @return The parser created by this parser factory.
      */
+    @Deprecated
     @Nonnull
     OWLParser createParser(@Nonnull OWLOntologyManager owlOntologyManager);
 

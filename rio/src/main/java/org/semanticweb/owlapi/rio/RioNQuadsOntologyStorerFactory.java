@@ -58,4 +58,9 @@ public class RioNQuadsOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new NQuadsOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

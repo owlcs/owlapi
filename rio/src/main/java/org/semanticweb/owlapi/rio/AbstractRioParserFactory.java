@@ -61,4 +61,9 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
     }
 
     public abstract RioRDFOntologyFormatFactory getRioFormatFactory();
+
+    @Override
+    public OWLParser get() {
+        return createParser(null);
+    }
 }

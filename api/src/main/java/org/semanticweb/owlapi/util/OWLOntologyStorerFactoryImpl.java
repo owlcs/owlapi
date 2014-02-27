@@ -51,4 +51,9 @@ public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
     public OWLOntologyFormatFactory getFormatFactory() {
         return null;
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

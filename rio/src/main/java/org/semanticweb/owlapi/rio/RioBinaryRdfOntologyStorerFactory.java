@@ -58,4 +58,9 @@ public class RioBinaryRdfOntologyStorerFactory implements
     public OWLOntologyFormatFactory getFormatFactory() {
         return new BinaryRdfOntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }

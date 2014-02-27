@@ -57,6 +57,7 @@ import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.Rio;
 import org.openrdf.rio.UnsupportedRDFormatException;
 import org.openrdf.rio.helpers.StatementCollector;
+import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormat;
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
@@ -82,6 +83,7 @@ import org.xml.sax.InputSource;
  * Date: 08-Dec-2006<br>
  * <br>
  */
+@HasPriority(value = 7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());

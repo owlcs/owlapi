@@ -57,4 +57,9 @@ public class RioN3OntologyStorerFactory implements RioRDFOntologyStorerFactory {
     public OWLOntologyFormatFactory getFormatFactory() {
         return new N3OntologyFormatFactory();
     }
+
+    @Override
+    public OWLOntologyStorer get() {
+        return createStorer();
+    }
 }
