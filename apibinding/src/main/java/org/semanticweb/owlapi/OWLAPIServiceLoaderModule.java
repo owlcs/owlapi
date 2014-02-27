@@ -63,16 +63,26 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         }
     }
 
-    protected <T> void loadInstancesFromFactory(
-            Class<? extends Provider<T>> type, Class<T> product) {
+    protected <T, F extends Provider<T>> void loadInstancesFromFactory(
+            Class<F> type, Class<T> product) {
         try {
+            Multibinder.newSetBinder(binder(), type).addBinding()
+                    .toInstance(type.newInstance());
             Multibinder<T> binder = Multibinder.newSetBinder(binder(), product);
             for (Provider<T> o : ServiceLoader.load(type)) {
                 binder.addBinding().toInstance(o.get());
             }
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);
-            throw new OWLRuntimeException("Injection failed for " + type, e);
+            throw new OWLRuntimeException("Injection failed for " + product, e);
+        } catch (InstantiationException e) {
+            e.printStackTrace(System.out);
+            throw new OWLRuntimeException("Injection failed for factory "
+                    + type, e);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace(System.out);
+            throw new OWLRuntimeException("Injection failed for factory "
+                    + type, e);
         }
     }
 }

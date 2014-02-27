@@ -19,7 +19,6 @@ import javax.annotation.Nonnull;
 import javax.inject.Provider;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
  * An object that can create an {@code OWLParser}.
@@ -33,14 +32,10 @@ public interface OWLParserFactory extends Serializable, Provider<OWLParser> {
     /**
      * Creates a parser.
      * 
-     * @param owlOntologyManager
-     *        This parameter is here for legacy reasons. Parser factories should
-     *        not use it.
      * @return The parser created by this parser factory.
      */
-    @Deprecated
     @Nonnull
-    OWLParser createParser(@Nonnull OWLOntologyManager owlOntologyManager);
+    OWLParser createParser();
 
     Set<OWLOntologyFormatFactory> getSupportedFormats();
 }

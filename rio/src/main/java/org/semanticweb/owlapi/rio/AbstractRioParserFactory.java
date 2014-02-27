@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 public abstract class AbstractRioParserFactory implements OWLParserFactory {
 
@@ -51,7 +50,7 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
     }
 
     @Override
-    public OWLParser createParser(final OWLOntologyManager owlOntologyManager) {
+    public OWLParser createParser() {
         return new RioParserImpl(getRioFormatFactory());
     }
 
@@ -64,6 +63,6 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
 
     @Override
     public OWLParser get() {
-        return createParser(null);
+        return createParser();
     }
 }

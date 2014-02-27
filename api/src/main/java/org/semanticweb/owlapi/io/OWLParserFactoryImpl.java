@@ -3,7 +3,6 @@ package org.semanticweb.owlapi.io;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 public class OWLParserFactoryImpl<T extends OWLParser> implements
@@ -16,7 +15,7 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
     }
 
     @Override
-    public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
+    public OWLParser createParser() {
         try {
             return type.newInstance();
         } catch (InstantiationException e) {
@@ -28,11 +27,11 @@ public class OWLParserFactoryImpl<T extends OWLParser> implements
 
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
-        return createParser(null).getSupportedFormats();
+        return createParser().getSupportedFormats();
     }
 
     @Override
     public OWLParser get() {
-        return createParser(null);
+        return createParser();
     }
 }

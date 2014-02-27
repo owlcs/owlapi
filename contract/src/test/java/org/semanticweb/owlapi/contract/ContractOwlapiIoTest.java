@@ -290,7 +290,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestInterfaceOWLParserFactory() throws OWLException {
         OWLParserFactory testSubject0 = mock(OWLParserFactory.class);
-        OWLParser result0 = testSubject0.createParser(Utils.getMockManager());
+        OWLParser result0 = testSubject0.createParser();
     }
 
     @Test
