@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +33,7 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy;
+import org.semanticweb.owlapi.util.PriorityCollection;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiModel_3Test {
@@ -1429,12 +1429,9 @@ public class ContractOwlapiModel_3Test {
         testSubject0.saveOntology(Utils.getMockOntology(),
                 mock(OWLOntologyFormat.class),
                 mock(OWLOntologyDocumentTarget.class));
-        testSubject0.addIRIMapper(mock(OWLOntologyIRIMapper.class));
-        testSubject0.removeIRIMapper(mock(OWLOntologyIRIMapper.class));
-        testSubject0.clearIRIMappers();
-        testSubject0.addOntologyFactory(mock(OWLOntologyFactory.class));
-        testSubject0.removeOntologyFactory(mock(OWLOntologyFactory.class));
-        Collection<OWLOntologyFactory> result34 = testSubject0
+        testSubject0.getIRIMappers().add(mock(OWLOntologyIRIMapper.class));
+        testSubject0.getOntologyFactories().add(mock(OWLOntologyFactory.class));
+        PriorityCollection<OWLOntologyFactory> result34 = testSubject0
                 .getOntologyFactories();
         testSubject0
                 .addOntologyChangeListener(mock(OWLOntologyChangeListener.class));

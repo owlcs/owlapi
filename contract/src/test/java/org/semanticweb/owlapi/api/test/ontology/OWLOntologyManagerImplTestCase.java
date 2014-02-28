@@ -30,19 +30,23 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
- * @since 2.0.0 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerImplTestCase {
+
     private OWLOntologyManager manager;
 
     @Before
     public void setUp() {
         manager = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        manager.addOntologyFactory(new EmptyInMemOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        manager.addIRIMapper(new NonMappingOntologyIRIMapper());
+        OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
+        manager.getOntologyFactories().add(
+                new EmptyInMemOWLOntologyFactory(builder));
+        manager.getIRIMappers().add(new NonMappingOntologyIRIMapper());
     }
 
     @Test

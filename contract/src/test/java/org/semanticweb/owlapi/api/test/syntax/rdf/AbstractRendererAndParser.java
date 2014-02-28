@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.api.test.syntax.rdf;
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.util.Collections;
 import java.util.Set;
 
 import org.junit.Before;
@@ -32,23 +31,24 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParser extends TestBase {
+
     @Before
     public void setUpManager() {
-        m.addOntologyFactory(new ParsableOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        m.setOntologyStorers(Collections
-                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
+        m.getOntologyFactories().add(
+                new ParsableOWLOntologyFactory(new OWLOntologyBuilderImpl()));
+        m.getOntologyStorers().add(new RDFXMLOntologyStorer());
     }
 
     protected OWLClass createClass() {

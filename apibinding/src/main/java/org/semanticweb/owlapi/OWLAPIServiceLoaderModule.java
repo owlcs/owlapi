@@ -44,11 +44,9 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         loadInstancesFromServiceLoader(OWLOntologyStorer.class);
         loadInstancesFromServiceLoader(OWLOntologyFactory.class);
         loadInstancesFromServiceLoader(OWLOntologyIRIMapper.class);
-        loadInstancesFromFactory(OWLOntologyFormatFactory.class,
-                OWLOntologyFormat.class);
-        loadInstancesFromFactory(OWLParserFactory.class, OWLParser.class);
-        loadInstancesFromFactory(OWLOntologyStorerFactory.class,
-                OWLOntologyStorer.class);
+        loadFactories(OWLOntologyFormatFactory.class, OWLOntologyFormat.class);
+        loadFactories(OWLParserFactory.class, OWLParser.class);
+        loadFactories(OWLOntologyStorerFactory.class, OWLOntologyStorer.class);
     }
 
     protected <T> void loadInstancesFromServiceLoader(Class<T> type) {
@@ -63,26 +61,20 @@ public class OWLAPIServiceLoaderModule extends AbstractModule {
         }
     }
 
-    protected <T, F extends Provider<T>> void loadInstancesFromFactory(
-            Class<F> type, Class<T> product) {
+    protected <T, F extends Provider<T>> void loadFactories(Class<F> factory,
+            Class<T> type) {
         try {
-            Multibinder.newSetBinder(binder(), type).addBinding()
-                    .toInstance(type.newInstance());
-            Multibinder<T> binder = Multibinder.newSetBinder(binder(), product);
-            for (Provider<T> o : ServiceLoader.load(type)) {
+            Multibinder<F> factoryBinder = Multibinder.newSetBinder(binder(),
+                    factory);
+            Multibinder<T> binder = Multibinder.newSetBinder(binder(), type);
+            for (F o : ServiceLoader.load(factory)) {
+                factoryBinder.addBinding().toInstance(o);
                 binder.addBinding().toInstance(o.get());
             }
         } catch (ServiceConfigurationError e) {
             e.printStackTrace(System.out);
-            throw new OWLRuntimeException("Injection failed for " + product, e);
-        } catch (InstantiationException e) {
-            e.printStackTrace(System.out);
-            throw new OWLRuntimeException("Injection failed for factory "
-                    + type, e);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace(System.out);
-            throw new OWLRuntimeException("Injection failed for factory "
-                    + type, e);
+            throw new OWLRuntimeException("Injection failed for factory: "
+                    + factory + " type: " + type, e);
         }
     }
 }

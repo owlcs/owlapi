@@ -26,16 +26,19 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2.3 */
+ * @since 3.2.3
+ */
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase {
+
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
     private OWLOntologyManager createManager() {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-        manager.clearIRIMappers();
+        manager.getIRIMappers().clear();
         return manager;
     }
 

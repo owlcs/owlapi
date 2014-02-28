@@ -15,14 +15,12 @@ package org.semanticweb.owlapi.api.test.syntax.rdfxml;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Collections;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
@@ -30,22 +28,24 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class RDFParserTestCase {
+
     private OWLOntologyManager man;
 
     @Before
     public void setUp() {
         // Use the reference implementation
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.setOntologyStorers(Collections
-                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
+        man.getOntologyStorers().add(new RDFXMLOntologyStorer());
         ParsableOWLOntologyFactory factory = new ParsableOWLOntologyFactory(
                 new OWLOntologyBuilderImpl());
-        man.addOntologyFactory(factory);
+        man.getOntologyFactories().add(factory);
     }
 
     @Test

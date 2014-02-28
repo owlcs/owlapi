@@ -115,17 +115,22 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
- * @since 2.0.0 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
+ * @since 2.0.0
+ */
 @Ignore
 public class Examples {
+
     private static final String PIZZA_IRI = "http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl";
 
-    /** The examples here show how to load ontologies.
+    /**
+     * The examples here show how to load ontologies.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     public void shouldLoad() throws Exception {
         // Get hold of an ontology manager
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -158,7 +163,7 @@ public class Examples {
         // http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl to
         // our local copy
         // above.
-        manager.addIRIMapper(new SimpleIRIMapper(iri, IRI.create(file)));
+        manager.getIRIMappers().add(new SimpleIRIMapper(iri, IRI.create(file)));
         // Load the ontology as if we were loading it from the web (from its
         // ontology IRI)
         IRI pizzaOntologyIRI = IRI
@@ -171,11 +176,13 @@ public class Examples {
         // searched for mappings
     }
 
-    /** This example shows how an ontology can be saved in various formats to
+    /**
+     * This example shows how an ontology can be saved in various formats to
      * various locations and streams.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldSaveOntologies() throws Exception {
         // Get hold of an ontology manager
@@ -224,10 +231,12 @@ public class Examples {
         file.delete();
     }
 
-    /** This example shows how to get access to objects that represent entities.
+    /**
+     * This example shows how to get access to objects that represent entities.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldAccessEntities() throws Exception {
         // In order to get access to objects that represent entities we need a
@@ -279,10 +288,12 @@ public class Examples {
         // saved version of the ontology.
     }
 
-    /** This example shows how to create dataranges.
+    /**
+     * This example shows how to create dataranges.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @SuppressWarnings("unused")
     @Test
     public void shouldBuildDataRanges() throws Exception {
@@ -361,13 +372,15 @@ public class Examples {
                 new ByteArrayOutputStream()));
     }
 
-    /** This example shows how to work with dataranges. OWL 1.1 allows data
+    /**
+     * This example shows how to work with dataranges. OWL 1.1 allows data
      * ranges to be created by taking a base datatype e.g. int, string etc. and
      * then by applying facets to restrict the datarange. For example, int
      * greater than 18
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldUseDataranges() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -438,8 +451,10 @@ public class Examples {
         OWLLiteral literal6 = factory.getOWLLiteral(true);
     }
 
-    /** @throws Exception
-     *             exception */
+    /**
+     * @throws Exception
+     *         exception
+     */
     @Test
     public void shouldLoadAndSave() throws Exception {
         // A simple example of how to load and save an ontology We first need to
@@ -470,8 +485,10 @@ public class Examples {
         f.delete();
     }
 
-    /** @throws Exception
-     *             exception */
+    /**
+     * @throws Exception
+     *         exception
+     */
     @Test
     public void shouldAddAxiom() throws Exception {
         // Create the manager that we will use to load ontologies.
@@ -495,7 +512,7 @@ public class Examples {
         IRI documentIRI = IRI.create("file:/tmp/MyOnt.owl");
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
-        manager.addIRIMapper(mapper);
+        manager.getIRIMappers().add(mapper);
         // Now create the ontology - we use the ontology IRI (not the physical
         // URI)
         OWLOntology ontology = manager.createOntology(ontologyIRI);
@@ -537,10 +554,12 @@ public class Examples {
         manager.saveOntology(ontology);
     }
 
-    /** These examples show how to create new ontologies.
+    /**
+     * These examples show how to create new ontologies.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldCreateOntology() throws Exception {
         // We first need to create an OWLOntologyManager, which will provide a
@@ -609,11 +628,13 @@ public class Examples {
         System.out.println("Anonymous: " + anonOntology.isAnonymous());
     }
 
-    /** This example shows how to specify various property assertions for
+    /**
+     * This example shows how to specify various property assertions for
      * individuals.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldCreatePropertyAssertions() throws Exception {
         // We can specify the properties of an individual using property
@@ -660,8 +681,10 @@ public class Examples {
                 new ByteArrayOutputStream()));
     }
 
-    /** @throws Exception
-     *             exception */
+    /**
+     * @throws Exception
+     *         exception
+     */
     @Test
     public void shouldAddClassAssertion() throws Exception {
         // For more information on classes and instances see the OWL 2 Primer
@@ -697,8 +720,10 @@ public class Examples {
                 new ByteArrayOutputStream()));
     }
 
-    /** @throws Exception
-     *             exception */
+    /**
+     * @throws Exception
+     *         exception
+     */
     @Test
     public void shouldCreateAndSaveOntology() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
@@ -714,7 +739,7 @@ public class Examples {
         IRI documentIRI = IRI.create("file:/tmp/SWRLTest.owl");
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
-        manager.addIRIMapper(mapper);
+        manager.getIRIMappers().add(mapper);
         // Now create the ontology - we use the ontology IRI (not the physical
         // IRI)
         OWLOntology ontology = manager.createOntology(ontologyIRI);
@@ -749,11 +774,13 @@ public class Examples {
         manager.saveOntology(ontology);
     }
 
-    /** This example shows how add an object property assertion (triple) of the
+    /**
+     * This example shows how add an object property assertion (triple) of the
      * form prop(subject, object) for example hasPart(a, b).
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldAddObjectPropertyAssertions() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -797,11 +824,13 @@ public class Examples {
         man.saveOntology(ont, IRI.create("file:/tmp/example.owl"));
     }
 
-    /** An example which shows how to "delete" entities, in this case
+    /**
+     * An example which shows how to "delete" entities, in this case
      * individuals, from and ontology.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldDeleteIndividuals() throws Exception {
         // The pizza ontology contains several individuals that represent
@@ -851,11 +880,13 @@ public class Examples {
         remover.reset();
     }
 
-    /** An example which shows how to create restrictions and add them as
+    /**
+     * An example which shows how to create restrictions and add them as
      * superclasses of a class (i.e. "adding restrictions to classes")
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldCreateRestrictions() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -893,12 +924,14 @@ public class Examples {
         man.applyChange(addAx);
     }
 
-    /** An example which shows how to interact with a reasoner. In this example
+    /**
+     * An example which shows how to interact with a reasoner. In this example
      * Pellet is used as the reasoner. You must get hold of the pellet libraries
      * from pellet.owldl.com.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldUseReasoner() throws Exception {
         String DOCUMENT_IRI = "http://owl.cs.manchester.ac.uk/repository/download?ontology=file:/Users/seanb/Desktop/Cercedilla2005/hands-on/people.owl&format=RDF/XML";
@@ -1101,10 +1134,12 @@ public class Examples {
         System.out.println("}");
     }
 
-    /** This example shows how to examine the restrictions on a class.
+    /**
+     * This example shows how to examine the restrictions on a class.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldLookAtRestrictions() throws Exception {
         // Create our manager
@@ -1152,10 +1187,13 @@ public class Examples {
         }
     }
 
-    /** Visits existential restrictions and collects the properties which are
-     * restricted. */
+    /**
+     * Visits existential restrictions and collects the properties which are
+     * restricted.
+     */
     private static class RestrictionVisitor extends
             OWLClassExpressionVisitorAdapter {
+
         private final Set<OWLClass> processedClasses;
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
@@ -1195,10 +1233,12 @@ public class Examples {
         }
     }
 
-    /** This example shows how to create and read annotations.
+    /**
+     * This example shows how to create and read annotations.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldCreateAndReadAnnotations() throws Exception {
         // Create our manager
@@ -1268,11 +1308,13 @@ public class Examples {
         }
     }
 
-    /** This example shows how to generate an ontology containing some inferred
+    /**
+     * This example shows how to generate an ontology containing some inferred
      * information.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldCreateInferredAxioms() throws Exception {
         // Create a reasoner factory. In this case, we will use pellet, but we
@@ -1312,11 +1354,13 @@ public class Examples {
         man.saveOntology(infOnt, new StringDocumentTarget());
     }
 
-    /** This example shows how to merge to ontologies (by simply combining axioms
+    /**
+     * This example shows how to merge to ontologies (by simply combining axioms
      * from one ontology into another ontology).
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldMergeOntologies() throws Exception {
         // Just load two arbitrary ontologies for the purposes of this example
@@ -1342,8 +1386,10 @@ public class Examples {
                 IRI.create("file:/tmp/mergedont.owlapi"));
     }
 
-    /** @throws Exception
-     *             exception */
+    /**
+     * @throws Exception
+     *         exception
+     */
     @Test
     public void shouldWalkOntology() throws Exception {
         // This example shows how to use an ontology walker to walk the asserted
@@ -1368,6 +1414,7 @@ public class Examples {
         // some values from restrictions.
         OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
                 walker) {
+
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
@@ -1384,8 +1431,10 @@ public class Examples {
         walker.walkStructure(visitor);
     }
 
-    /** @throws Exception
-     *             exception */
+    /**
+     * @throws Exception
+     *         exception
+     */
     @Test
     public void shouldQueryWithReasoner() throws Exception {
         // We will load the pizza ontology and query it using a reasoner
@@ -1424,16 +1473,18 @@ public class Examples {
         }
     }
 
-    /** Prints out the properties that instances of a class expression must have.
+    /**
+     * Prints out the properties that instances of a class expression must have.
      * 
      * @param man
-     *            The manager
+     *        The manager
      * @param ont
-     *            The ontology
+     *        The ontology
      * @param reasoner
-     *            The reasoner
+     *        The reasoner
      * @param cls
-     *            The class expression */
+     *        The class expression
+     */
     private static void printProperties(OWLOntologyManager man,
             OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
         if (!ont.containsClassInSignature(cls.getIRI())) {
@@ -1475,11 +1526,13 @@ public class Examples {
         return !reasoner.isSatisfiable(intersection);
     }
 
-    /** This example shows how to use IRI mappers to redirect imports and
+    /**
+     * This example shows how to use IRI mappers to redirect imports and
      * loading.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldUseIRIMappers() throws Exception {
         IRI MGED_ONTOLOGY_IRI = IRI
@@ -1515,7 +1568,7 @@ public class Examples {
         // Create a new manager that we will use to load the MGED ontology
         OWLOntologyManager manager2 = OWLManager.createOWLOntologyManager();
         // Register our mapper with the manager
-        manager2.addIRIMapper(iriMapper);
+        manager2.getIRIMappers().add(iriMapper);
         // Now load our MGED ontology
         OWLOntology ontology2 = manager2.loadOntology(MGED_ONTOLOGY_IRI);
         // Print out the details
@@ -1532,7 +1585,7 @@ public class Examples {
         // be searched recursively.
         OWLOntologyIRIMapper autoIRIMapper = new AutoIRIMapper(file, false);
         // We can now use this mapper in the usual way, i.e.
-        manager2.addIRIMapper(autoIRIMapper);
+        manager2.getIRIMappers().add(autoIRIMapper);
         // Of course, applications (such as Protege) usually implement their own
         // mappers to deal with specific application requirements.
     }
@@ -1550,12 +1603,14 @@ public class Examples {
         }
     }
 
-    /** Prints the IRI of an ontology and its document IRI.
+    /**
+     * Prints the IRI of an ontology and its document IRI.
      * 
      * @param manager
-     *            The manager that manages the ontology
+     *        The manager that manages the ontology
      * @param ontology
-     *            The ontology */
+     *        The ontology
+     */
     private static void printOntology(OWLOntologyManager manager,
             OWLOntology ontology) {
         IRI ontologyIRI = ontology.getOntologyID().getOntologyIRI();
@@ -1565,7 +1620,8 @@ public class Examples {
         System.out.println("    from " + documentIRI.toQuotedString());
     }
 
-    /** Convenience method that obtains the document IRI of an ontology contained
+    /**
+     * Convenience method that obtains the document IRI of an ontology contained
      * in the TONES ontology repository given the ontology IRI. The TONES
      * repository contains various ontologies of interest to reasoner developers
      * and tools developers. Ontologies in the repository may be accessed in a
@@ -1575,10 +1631,11 @@ public class Examples {
      * after as its value.
      * 
      * @param ontologyIRI
-     *            The IRI of the ontology.
+     *        The IRI of the ontology.
      * @param Tones
-     *            tones iri
-     * @return The document IRI of the ontology in the TONES repository. */
+     *        tones iri
+     * @return The document IRI of the ontology in the TONES repository.
+     */
     private static IRI
             getTONESRepositoryDocumentIRI(IRI ontologyIRI, IRI Tones) {
         StringBuilder sb = new StringBuilder();
@@ -1588,10 +1645,12 @@ public class Examples {
         return IRI.create(sb.toString());
     }
 
-    /** This example shows how to extract modules.
+    /**
+     * This example shows how to extract modules.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void shouldExtractModules() throws Exception {
         String DOCUMENT_IRI = "http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl";
@@ -1668,7 +1727,8 @@ public class Examples {
         man.saveOntology(mod);
     }
 
-    /** The following example uses entities and axioms that are used in the OWL
+    /**
+     * The following example uses entities and axioms that are used in the OWL
      * Primer. The purpose of this example is to illustrate some of the methods
      * of creating class expressions and various types of axioms. Typically, an
      * ontology wouldn't be constructed programmatically in a long drawn out
@@ -1678,7 +1738,8 @@ public class Examples {
      * reasoner such as FaCT++ or Pellet used to query the inferred ontology.
      * 
      * @throws Exception
-     *             exception */
+     *         exception
+     */
     @Test
     public void owlPrimer() throws Exception {
         // The OWLOntologyManager is at the heart of the OWL API, we can create

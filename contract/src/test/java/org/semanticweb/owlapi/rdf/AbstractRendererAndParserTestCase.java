@@ -16,12 +16,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
@@ -36,7 +34,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
@@ -46,24 +43,25 @@ import uk.ac.manchester.cs.owl.owlapi.OWLOntologyBuilderImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public abstract class AbstractRendererAndParserTestCase {
+
     private OWLOntologyManager man;
 
     @Before
     public void setUp() {
         man = new OWLOntologyManagerImpl(new OWLDataFactoryImpl());
-        man.addOntologyFactory(new EmptyInMemOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        man.addOntologyFactory(new ParsableOWLOntologyFactory(
-                new OWLOntologyBuilderImpl()));
-        man.setOntologyStorers(Collections
-                .singleton((OWLOntologyStorer) new RDFXMLOntologyStorer()));
-        man.setOntologyParsers(Collections
-                .singleton((OWLParser) new RDFXMLParser()));
+        OWLOntologyBuilderImpl builder = new OWLOntologyBuilderImpl();
+        man.getOntologyFactories().add(
+                new EmptyInMemOWLOntologyFactory(builder),
+                new ParsableOWLOntologyFactory(builder));
+        man.getOntologyStorers().add(new RDFXMLOntologyStorer());
+        man.getOntologyParsers().add(new RDFXMLParser());
     }
 
     public OWLClass createClass() {

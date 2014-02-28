@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings("javadoc")
 public class SerializationTest {
+
     private static final OWLDataFactory f = OWLManager.getOWLDataFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     OWLDataPropertyExpression dp = f.getOWLDataProperty(IRI.create("urn:dp"));
@@ -87,7 +88,7 @@ public class SerializationTest {
     @Test
     public void testrun() throws Exception {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        m.addIRIMapper(new AutoIRIMapper(new File("."), false));
+        m.getIRIMappers().add(new AutoIRIMapper(new File("."), false));
         OWLOntology o = m.loadOntologyFromOntologyDocument(getClass()
                 .getResourceAsStream("/pizza.owl"));
         m.addAxiom(o, f.getOWLDeclarationAxiom(f.getOWLClass(iri)));

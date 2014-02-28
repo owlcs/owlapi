@@ -93,12 +93,12 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
-import org.semanticweb.owlapi.util.HasPriorityComparator;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
+import org.semanticweb.owlapi.util.PriorityCollection;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
@@ -111,10 +111,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected Map<OWLOntologyID, IRI> documentIRIsByID = new HashMap<OWLOntologyID, IRI>();
     protected Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology = new HashMap<OWLOntologyID, OWLOntologyFormat>();
     protected Map<OWLImportsDeclaration, OWLOntologyID> ontologyIDsByImportsDeclaration = new HashMap<OWLImportsDeclaration, OWLOntologyID>();
-    protected List<OWLOntologyIRIMapper> documentMappers = new ArrayList<OWLOntologyIRIMapper>();
-    protected List<OWLOntologyFactory> ontologyFactories = new ArrayList<OWLOntologyFactory>();
-    protected List<OWLParser> parserFactories = new ArrayList<OWLParser>();
-    protected List<OWLOntologyStorer> ontologyStorers = new ArrayList<OWLOntologyStorer>();
+    protected PriorityCollection<OWLOntologyIRIMapper> documentMappers = new PriorityCollection<OWLOntologyIRIMapper>();
+    protected PriorityCollection<OWLOntologyFactory> ontologyFactories = new PriorityCollection<OWLOntologyFactory>();
+    protected PriorityCollection<OWLParser> parserFactories = new PriorityCollection<OWLParser>();
+    protected PriorityCollection<OWLOntologyStorer> ontologyStorers = new PriorityCollection<OWLOntologyStorer>();
     private boolean broadcastChanges = true;
     protected int loadCount = 0;
     protected int importsLoadCount = 0;
@@ -996,88 +996,48 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         }
     }
 
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Methods to add/remove ontology storers
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     @Inject
     public void setOntologyStorers(Set<OWLOntologyStorer> storers) {
-        List<OWLOntologyStorer> storerList = new ArrayList<OWLOntologyStorer>(
-                storers);
-        Collections.sort(storerList,
-                new HasPriorityComparator<OWLOntologyStorer>());
-        ontologyStorers.clear();
-        ontologyStorers.addAll(storerList);
+        ontologyStorers.set(storers);
     }
 
     @Override
-    public Set<OWLOntologyStorer> getOntologyStorers() {
-        return new HashSet<OWLOntologyStorer>(ontologyStorers);
-    }
-
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Methods to add/remove mappers etc.
-    //
-    // /////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public void addIRIMapper(OWLOntologyIRIMapper mapper) {
-        documentMappers.add(0, mapper);
+    public PriorityCollection<OWLOntologyStorer> getOntologyStorers() {
+        return ontologyStorers;
     }
 
     @Override
     @Inject
     public void setIRIMappers(Set<OWLOntologyIRIMapper> mappers) {
-        documentMappers.clear();
-        documentMappers.addAll(mappers);
+        documentMappers.set(mappers);
     }
 
     @Override
-    public void clearIRIMappers() {
-        documentMappers.clear();
-    }
-
-    @Override
-    public void removeIRIMapper(OWLOntologyIRIMapper mapper) {
-        documentMappers.remove(mapper);
+    public PriorityCollection<OWLOntologyIRIMapper> getIRIMappers() {
+        return documentMappers;
     }
 
     @Override
     @Inject
     public void setOntologyFactories(Set<OWLOntologyFactory> factories) {
-        ontologyFactories.clear();
-        ontologyFactories.addAll(factories);
+        ontologyFactories.set(factories);
     }
 
     @Override
     @Inject
     public void setOntologyParsers(Set<OWLParser> parsers) {
-        List<OWLParser> factoryList = new ArrayList<OWLParser>(parsers);
-        Collections.sort(factoryList, new HasPriorityComparator<OWLParser>());
-        parserFactories.clear();
-        parserFactories.addAll(factoryList);
+        parserFactories.set(parsers);
     }
 
     @Override
-    public Set<OWLParser> getOntologyParsers() {
-        return new LinkedHashSet<OWLParser>(parserFactories);
+    public PriorityCollection<OWLParser> getOntologyParsers() {
+        return parserFactories;
     }
 
     @Override
-    public void addOntologyFactory(OWLOntologyFactory factory) {
-        ontologyFactories.add(0, factory);
-    }
-
-    @Override
-    public void removeOntologyFactory(OWLOntologyFactory factory) {
-        ontologyFactories.remove(factory);
-    }
-
-    @Override
-    public Collection<OWLOntologyFactory> getOntologyFactories() {
-        return new ArrayList<OWLOntologyFactory>(ontologyFactories);
+    public PriorityCollection<OWLOntologyFactory> getOntologyFactories() {
+        return ontologyFactories;
     }
 
     /**
@@ -1118,7 +1078,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     protected void installDefaultURIMappers() {
         // By defaut install the default mapper that simply maps
         // ontology URIs to themselves.
-        addIRIMapper(new NonMappingOntologyIRIMapper());
+        documentMappers.add(new NonMappingOntologyIRIMapper());
     }
 
     protected void installDefaultOntologyFactories() {

@@ -25,11 +25,14 @@ import org.semanticweb.owlapi.model.OWLOntologyDocumentAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerTestCase extends TestBase {
+
     @Test
     public void testCreateAnonymousOntology()
             throws OWLOntologyCreationException {
@@ -81,7 +84,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
         IRI documentIRI = IRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(ontologyIRI, documentIRI);
-        m.addIRIMapper(mapper);
+        m.getIRIMappers().add(mapper);
         OWLOntology ontology = m.createOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
         assertNotNull("ontology id should not be null",
@@ -100,7 +103,7 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology/version");
         IRI documentIRI = IRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
-        m.addIRIMapper(mapper);
+        m.getIRIMappers().add(mapper);
         OWLOntology ontology = m.createOntology(new OWLOntologyID(ontologyIRI,
                 versionIRI));
         assertNotNull("ontology should not be null", ontology);
@@ -136,8 +139,8 @@ public class OWLOntologyManagerTestCase extends TestBase {
         IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
         IRI ontologyIRI2 = IRI("http://www.semanticweb.org/ontologies/ontology2");
         IRI documentIRI = IRI("file:documentIRI");
-        m.addIRIMapper(new SimpleIRIMapper(ontologyIRI, documentIRI));
-        m.addIRIMapper(new SimpleIRIMapper(ontologyIRI2, documentIRI));
+        m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI, documentIRI));
+        m.getIRIMappers().add(new SimpleIRIMapper(ontologyIRI2, documentIRI));
         m.createOntology(new OWLOntologyID(ontologyIRI));
         m.createOntology(new OWLOntologyID(ontologyIRI2));
     }

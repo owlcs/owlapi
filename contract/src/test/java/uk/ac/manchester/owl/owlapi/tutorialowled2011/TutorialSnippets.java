@@ -60,7 +60,6 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
@@ -101,6 +100,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @Ignore
 @SuppressWarnings("javadoc")
 public class TutorialSnippets {
+
     public static final IRI pizza_iri = IRI
             .create("http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl");
     public static final IRI example_iri = IRI
@@ -112,8 +112,8 @@ public class TutorialSnippets {
 
     public OWLOntologyManager create() {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        m.addIRIMapper(new AutoIRIMapper(new File("materializedOntologies"),
-                true));
+        m.getIRIMappers().add(
+                new AutoIRIMapper(new File("materializedOntologies"), true));
         return m;
     }
 
@@ -186,12 +186,12 @@ public class TutorialSnippets {
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(example_save_iri,
                 documentIRI);
-        m.addIRIMapper(mapper);
+        m.getIRIMappers().add(mapper);
         // set up a mapper to read local copies of ontologies
         File localFolder = new File("materializedOntologies");
         // the manager will look up an ontology IRI by checking
         // localFolder first for a local copy, checking its subfolders as well
-        m.addIRIMapper(new AutoIRIMapper(localFolder, true));
+        m.getIRIMappers().add(new AutoIRIMapper(localFolder, true));
         // Create the ontology - we use the ontology IRI (not the physical URI)
         OWLOntology o = m.createOntology(example_save_iri);
         // save the ontology to its physical location - documentIRI
@@ -481,10 +481,13 @@ public class TutorialSnippets {
         }
     }
 
-    /** Visits existential restrictions and collects the properties which are
-     * restricted */
+    /**
+     * Visits existential restrictions and collects the properties which are
+     * restricted
+     */
     private static class RestrictionVisitor extends
             OWLClassExpressionVisitorAdapter {
+
         private final Set<OWLClass> processedClasses;
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
@@ -624,6 +627,7 @@ public class TutorialSnippets {
         // Now ask our walker to walk over the ontology
         OWLOntologyWalkerVisitorEx<Object> visitor = new OWLOntologyWalkerVisitorEx<Object>(
                 walker) {
+
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
@@ -656,14 +660,16 @@ public class TutorialSnippets {
         printProperties(o, reasoner, margherita);
     }
 
-    /** Prints out the properties that instances of a class expression must have
+    /**
+     * Prints out the properties that instances of a class expression must have
      * 
      * @param o
-     *            The ontology
+     *        The ontology
      * @param reasoner
-     *            The reasoner
+     *        The reasoner
      * @param cls
-     *            The class expression */
+     *        The class expression
+     */
     private void printProperties(OWLOntology o, OWLReasoner reasoner,
             OWLClass cls) {
         // System.out.println("Properties of " + cls);
@@ -815,9 +821,11 @@ public class TutorialSnippets {
         m.addAxiom(o, dataPropertyAssertion);
     }
 
-    /** Print the class hierarchy for the given ontology from this class down,
+    /**
+     * Print the class hierarchy for the given ontology from this class down,
      * assuming this class is at the given level. Makes no attempt to deal
-     * sensibly with multiple inheritance. */
+     * sensibly with multiple inheritance.
+     */
     public void printHierarchy(OWLOntology o, OWLClass clazz)
             throws OWLException {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
@@ -833,6 +841,7 @@ public class TutorialSnippets {
 
     class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
             OWLAnnotationObjectVisitorEx<String> {
+
         @Override
         public String visit(OWLAnnotation annotation) {
             /*
@@ -896,9 +905,7 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Register the ontology storer with the manager
-        Set<OWLOntologyStorer> factories = m.getOntologyStorers();
-        factories.add(new OWLTutorialSyntaxOntologyStorer());
-        m.setOntologyStorers(factories);
+        m.getOntologyStorers().add(new OWLTutorialSyntaxOntologyStorer());
         // Save using a different format
         StreamDocumentTarget target = new StreamDocumentTarget(
                 new ByteArrayOutputStream());

@@ -47,14 +47,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-/** This is an implementation of a blackbox debugger. The implementation is based
+/**
+ * This is an implementation of a blackbox debugger. The implementation is based
  * on the description of a black box debugger as described in Aditya Kalyanpur's
  * PhD Thesis : "Debugging and Repair of OWL Ontologies".
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
+
     private static final Logger LOGGER = Logger
             .getLogger(BlackBoxOWLDebugger.class.getName());
     private OWLClass currentClass;
@@ -75,14 +78,16 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int fastPruningWindowSize = 0;
     private boolean performRepeatedFastPruning = false;
 
-    /** Instantiates a new black box owl debugger.
+    /**
+     * Instantiates a new black box owl debugger.
      * 
      * @param owlOntologyManager
-     *            manager to use
+     *        manager to use
      * @param ontology
-     *            ontology to debug
+     *        ontology to debug
      * @param reasonerFactory
-     *            factory to use */
+     *        factory to use
+     */
     public BlackBoxOWLDebugger(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology,
             @Nonnull OWLReasonerFactory reasonerFactory) {
@@ -114,13 +119,15 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return currentClass;
     }
 
-    /** Setup debugging class.
+    /**
+     * Setup debugging class.
      * 
      * @param cls
-     *            the cls
+     *        the cls
      * @return the oWL class
      * @throws OWLException
-     *             the oWL exception */
+     *         the oWL exception
+     */
     @Nonnull
     private OWLClass setupDebuggingClass(@Nonnull OWLClassExpression cls)
             throws OWLException {
@@ -225,16 +232,18 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return axiomsAdded;
     }
 
-    /** Creates a set of axioms to expands the debugging axiom set by adding the
+    /**
+     * Creates a set of axioms to expands the debugging axiom set by adding the
      * defining axioms for the specified entity.
      * 
      * @param obj
-     *            the obj
+     *        the obj
      * @param limit
-     *            the limit
+     *        the limit
      * @return the int
      * @throws OWLException
-     *             the oWL exception */
+     *         the oWL exception
+     */
     private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit)
             throws OWLException {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
@@ -254,16 +263,18 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
 
-    /** Expands the axiom set by adding the referencing axioms for the specified
+    /**
+     * Expands the axiom set by adding the referencing axioms for the specified
      * entity.
      * 
      * @param obj
-     *            the obj
+     *        the obj
      * @param limit
-     *            the limit
+     *        the limit
      * @return the int
      * @throws OWLException
-     *             the oWL exception */
+     *         the oWL exception
+     */
     private int expandWithReferencingAxioms(@Nonnull OWLEntity obj, int limit)
             throws OWLException {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
@@ -277,19 +288,21 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }
 
-    /** A utility method. Adds axioms from one set to another set upto a
+    /**
+     * A utility method. Adds axioms from one set to another set upto a
      * specified limit. Annotation axioms are stripped out
      * 
      * @param <N>
-     *            the number type
+     *        the number type
      * @param source
-     *            The source set. Objects from this set will be added to the
-     *            destination set
+     *        The source set. Objects from this set will be added to the
+     *        destination set
      * @param dest
-     *            The destination set. Objects will be added to this set
+     *        The destination set. Objects will be added to this set
      * @param limit
-     *            The maximum number of objects to be added.
-     * @return The number of objects that were actuall added. */
+     *        The maximum number of objects to be added.
+     * @return The number of objects that were actuall added.
+     */
     private static <N extends OWLAxiom> int addMax(@Nonnull Set<N> source,
             @Nonnull Set<N> dest, int limit) {
         int count = 0;
@@ -369,12 +382,14 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     // /////////////////////////////////////////////////////////////////////////////////////////
     private int satTestCount = 0;
 
-    /** Tests the satisfiability of the test class. The ontology is recreated
+    /**
+     * Tests the satisfiability of the test class. The ontology is recreated
      * before the test is performed.
      * 
      * @return true, if is satisfiable
      * @throws OWLException
-     *             the oWL exception */
+     *         the oWL exception
+     */
     private boolean isSatisfiable() throws OWLException {
         createDebuggingOntology();
         OWLReasoner reasoner = reasonerFactory
@@ -391,9 +406,9 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         }
         IRI iri = createIRI();
         SimpleIRIMapper mapper = new SimpleIRIMapper(iri, iri);
-        owlOntologyManager.addIRIMapper(mapper);
+        owlOntologyManager.getIRIMappers().add(mapper);
         debuggingOntology = owlOntologyManager.createOntology(iri);
-        owlOntologyManager.removeIRIMapper(mapper);
+        owlOntologyManager.getIRIMappers().remove(mapper);
         List<AddAxiom> changes = new ArrayList<AddAxiom>();
         for (OWLAxiom ax : debuggingAxioms) {
             changes.add(new AddAxiom(debuggingOntology, ax));

@@ -12,33 +12,35 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.owl.owlapi.tutorial.examples;
 
-import java.util.Set;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLOntologyStorer;
 
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyFormat;
 import uk.ac.manchester.owl.owlapi.tutorialowled2011.OWLTutorialSyntaxOntologyStorer;
 
-/** Simple Rendering Example. Reads an ontology and then renders it.
+/**
+ * Simple Rendering Example. Reads an ontology and then renders it.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class RenderingExample {
-    /** @param inputOntology
-     *            input ontology IRI
+
+    /**
+     * @param inputOntology
+     *        input ontology IRI
      * @param outputOntology
-     *            output ontology IRI
+     *        output ontology IRI
      * @throws OWLOntologyCreationException
-     *             OWLOntologyCreationException
+     *         OWLOntologyCreationException
      * @throws OWLOntologyStorageException
-     *             OWLOntologyStorageException */
+     *         OWLOntologyStorageException
+     */
     public void render(String inputOntology, String outputOntology)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         if (inputOntology == null || outputOntology == null) {
@@ -59,9 +61,7 @@ public class RenderingExample {
         System.out.println("Format      : "
                 + manager.getOntologyFormat(ontology));
         /* Register the ontology storer with the manager */
-        Set<OWLOntologyStorer> factories = manager.getOntologyStorers();
-        factories.add(new OWLTutorialSyntaxOntologyStorer());
-        manager.setOntologyStorers(factories);
+        manager.getOntologyStorers().add(new OWLTutorialSyntaxOntologyStorer());
         /* Save using a different format */
         System.out.println("Storing     : " + outputDocumentIRI);
         manager.saveOntology(ontology, new OWLTutorialSyntaxOntologyFormat(),

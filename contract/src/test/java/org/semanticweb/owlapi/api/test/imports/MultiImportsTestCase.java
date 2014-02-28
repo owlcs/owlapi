@@ -20,11 +20,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 @SuppressWarnings("javadoc")
 public class MultiImportsTestCase extends TestBase {
+
     public static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");
@@ -44,22 +47,23 @@ public class MultiImportsTestCase extends TestBase {
 
     @Test
     public void testImports() throws OWLOntologyCreationException {
-        m.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
+        m.getIRIMappers().add(
+                new AutoIRIMapper(new File(RESOURCES, "imports"), true));
         m.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws OWLOntologyCreationException {
-        m.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"),
-                true));
+        m.getIRIMappers().add(
+                new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
         m.loadOntologyFromOntologyDocument(new File(RESOURCES,
                 "/importscyclic/D.owl"));
     }
 
     @Test
     public void testCyclicImports2() throws OWLOntologyCreationException {
-        m.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"),
-                true));
+        m.getIRIMappers().add(
+                new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
         m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
                 "importscyclic/D.owl")));
     }
