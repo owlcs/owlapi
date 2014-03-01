@@ -28,8 +28,13 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 public class OWLOntologyStorerFactoryImpl<T extends OWLOntologyStorer>
         implements OWLOntologyStorerFactory {
 
+    private static final long serialVersionUID = 40000L;
     private Class<T> type;
 
+    /**
+     * @param type
+     *        type to be built
+     */
     public OWLOntologyStorerFactoryImpl(Class<T> type) {
         this.type = type;
     }

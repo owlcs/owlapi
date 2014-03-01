@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 public class RdfJsonOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements OWLOntologyFormatFactory {
 
-    public RdfJsonOntologyFormatFactory() {}
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public RioRDFOntologyFormat createFormat() {

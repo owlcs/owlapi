@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -36,16 +35,14 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
+@SuppressWarnings("javadoc")
 public class RioParserTest {
 
     private final Logger logger = LoggerFactory.getLogger(RioParserTest.class);
     private OWLOntologyManager testManager;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         // Use non-Rio storers
         // limit to Rio parsers for RioParserImpl Test
         // testManager = OWLOntologyManagerFactoryRegistry
@@ -59,20 +56,9 @@ public class RioParserTest {
         // testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {}
-
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
-     * .
-     * 
-     * @throws IOException
-     * @throws OWLParserException
-     * @throws OWLOntologyCreationException
      */
     @Test
     public void testParse() throws OWLParserException, IOException,
@@ -119,14 +105,9 @@ public class RioParserTest {
         assertEquals(70, ontology.getAxiomCount());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
-     * .
-     * 
-     * @throws IOException
-     * @throws OWLParserException
-     * @throws OWLOntologyCreationException
      */
     @Test
     public void testParsePrimer() throws OWLParserException, IOException,
@@ -179,14 +160,9 @@ public class RioParserTest {
         assertEquals(93, rioOntologyPrimer.getAxiomCount());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
-     * .
-     * 
-     * @throws IOException
-     * @throws OWLParserException
-     * @throws OWLOntologyCreationException
      */
     @Ignore
     @Test
@@ -258,14 +234,9 @@ public class RioParserTest {
                 missingAxioms.isEmpty());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
-     * .
-     * 
-     * @throws IOException
-     * @throws OWLParserException
-     * @throws OWLOntologyCreationException
      */
     @Test
     public void testParsePrimerMinimalSubset() throws OWLParserException,

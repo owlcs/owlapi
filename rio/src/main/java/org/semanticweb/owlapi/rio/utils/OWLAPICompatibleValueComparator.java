@@ -52,156 +52,123 @@ import org.openrdf.model.Value;
  * 
  * @author Peter Ansell p_ansell@yahoo.com
  */
-public class OWLAPICompatibleValueComparator implements Comparator<Value>
-{
-    public final static int BEFORE = -1;
-    public final static int EQUALS = 0;
-    public final static int AFTER = 1;
-    
+public class OWLAPICompatibleValueComparator implements Comparator<Value> {
+
+    private final static int BEFORE = -1;
+    private final static int EQUALS = 0;
+    private final static int AFTER = 1;
+
     /**
      * Sorts in the order nulls&gt;URIs&gt;Literals&gt;BNodes
      * <p>
-     * This is due to the fact that nulls are only applicable to contexts, and according to the
-     * OpenRDF documentation, the type of the null cannot be sufficiently distinguished from any
-     * other Value to make an intelligent comparison to other Values,
+     * This is due to the fact that nulls are only applicable to contexts, and
+     * according to the OpenRDF documentation, the type of the null cannot be
+     * sufficiently distinguished from any other Value to make an intelligent
+     * comparison to other Values,
      * {@link OpenRDFUtil#verifyContextNotNull(org.openrdf.model.Resource...)}
      * <p>
-     * BNodes are sorted according to the lexical compare of their identifiers, which provides a way
-     * to sort statements with the same BNodes in the same positions, near each other
+     * BNodes are sorted according to the lexical compare of their identifiers,
+     * which provides a way to sort statements with the same BNodes in the same
+     * positions, near each other
      * <p>
      * BNode sorting is not specified across sessions
      * 
      * @param first
-     *            The value to compare against the second.
+     *        The value to compare against the second.
      * @param second
-     *            The value to compare against the first
-     * @return {@link #BEFORE} if the first param is to be ordered before the second param,
-     *         {@link #EQUALS} if the two params should be considered equal, and {@link #AFTER} if
-     *         the first param should be ordered after the second param.
+     *        The value to compare against the first
+     * @return {@link #BEFORE} if the first param is to be ordered before the
+     *         second param, {@link #EQUALS} if the two params should be
+     *         considered equal, and {@link #AFTER} if the first param should be
+     *         ordered after the second param.
      */
     @Override
-    public int compare(final Value first, final Value second)
-    {
-        if(first == null)
-        {
-            if(second == null)
-            {
+    public int compare(final Value first, final Value second) {
+        if (first == null) {
+            if (second == null) {
                 return OWLAPICompatibleValueComparator.EQUALS;
-            }
-            else
-            {
+            } else {
                 return OWLAPICompatibleValueComparator.BEFORE;
             }
-        }
-        else if(second == null)
-        {
-            // always sort null Values before others, so if the second is null, but the first
+        } else if (second == null) {
+            // always sort null Values before others, so if the second is null,
+            // but the first
             // wasn't, sort the first after the second
             return OWLAPICompatibleValueComparator.AFTER;
         }
-        
-        if(first == second || first.equals(second))
-        {
+        if (first == second || first.equals(second)) {
             return OWLAPICompatibleValueComparator.EQUALS;
         }
-        
-        if(first instanceof URI)
-        {
-            if(second instanceof URI)
-            {
-                return ((URI)first).stringValue().compareTo(((URI)second).stringValue());
-            }
-            else
-            {
+        if (first instanceof URI) {
+            if (second instanceof URI) {
+                return ((URI) first).stringValue().compareTo(
+                        ((URI) second).stringValue());
+            } else {
                 return OWLAPICompatibleValueComparator.BEFORE;
             }
-        }
-        else if(second instanceof URI)
-        {
+        } else if (second instanceof URI) {
             // sort URIs before Literals and BNodes
             return OWLAPICompatibleValueComparator.AFTER;
         }
-        // they must both be Literal's, so sort based on the lexical value of the Literal
-        else if(first instanceof Literal)
-        {
-            if(second instanceof Literal)
-            {
-                final int stringValueCompare = first.stringValue().compareTo(second.stringValue());
-                
-                if(stringValueCompare == OWLAPICompatibleValueComparator.EQUALS)
-                {
-                    final URI firstType = ((Literal)first).getDatatype();
-                    final URI secondType = ((Literal)second).getDatatype();
-                    if(firstType == null)
-                    {
-                        if(secondType == null)
-                        {
-                            final String firstLang = ((Literal)first).getLanguage();
-                            final String secondLang = ((Literal)second).getLanguage();
-                            
-                            if(firstLang == null)
-                            {
-                                if(null == secondLang)
-                                {
+        // they must both be Literal's, so sort based on the lexical value of
+        // the Literal
+        else if (first instanceof Literal) {
+            if (second instanceof Literal) {
+                final int stringValueCompare = first.stringValue().compareTo(
+                        second.stringValue());
+                if (stringValueCompare == OWLAPICompatibleValueComparator.EQUALS) {
+                    final URI firstType = ((Literal) first).getDatatype();
+                    final URI secondType = ((Literal) second).getDatatype();
+                    if (firstType == null) {
+                        if (secondType == null) {
+                            final String firstLang = ((Literal) first)
+                                    .getLanguage();
+                            final String secondLang = ((Literal) second)
+                                    .getLanguage();
+                            if (firstLang == null) {
+                                if (null == secondLang) {
                                     return OWLAPICompatibleValueComparator.EQUALS;
-                                }
-                                else
-                                {
+                                } else {
                                     return OWLAPICompatibleValueComparator.BEFORE;
                                 }
-                            }
-                            else if(secondLang == null)
-                            {
+                            } else if (secondLang == null) {
                                 return OWLAPICompatibleValueComparator.AFTER;
-                            }
-                            else
-                            {
+                            } else {
                                 return firstLang.compareTo(secondLang);
                             }
-                        }
-                        else
-                        {
+                        } else {
                             return OWLAPICompatibleValueComparator.BEFORE;
                         }
-                    }
-                    else
-                    {
-                        if(null == secondType)
-                        {
+                    } else {
+                        if (null == secondType) {
                             return OWLAPICompatibleValueComparator.AFTER;
-                        }
-                        else
-                        {
-                            return firstType.stringValue().compareTo(secondType.stringValue());
+                        } else {
+                            return firstType.stringValue().compareTo(
+                                    secondType.stringValue());
                         }
                     }
-                }
-                else
-                {
+                } else {
                     return stringValueCompare;
                 }
-            }
-            else
-            {
+            } else {
                 // first is literal so sort it before
                 return OWLAPICompatibleValueComparator.BEFORE;
             }
-        }
-        else if(second instanceof Literal)
-        {
+        } else if (second instanceof Literal) {
             // sort all literal before BNodes
             return OWLAPICompatibleValueComparator.BEFORE;
-        }
-        else
+        } else
         // if(first instanceof BNode)
         {
             // if(second instanceof BNode)
             // {
-            // if both are BNodes, sort based on the lexical value of the internal ID
-            // Although this sorting is not guaranteed to be consistent across sessions,
+            // if both are BNodes, sort based on the lexical value of the
+            // internal ID
+            // Although this sorting is not guaranteed to be consistent across
+            // sessions,
             // it provides a consistent sorting of statements in every case
             // so that statements with the same BNode are sorted near each other
-            return ((BNode)first).getID().compareTo(((BNode)second).getID());
+            return ((BNode) first).getID().compareTo(((BNode) second).getID());
             // }
             // else
             // {

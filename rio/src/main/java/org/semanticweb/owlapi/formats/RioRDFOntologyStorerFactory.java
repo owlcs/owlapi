@@ -11,5 +11,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
  */
 public interface RioRDFOntologyStorerFactory extends OWLOntologyStorerFactory {
 
+    @Override
     OWLOntologyFormatFactory getFormatFactory();
 }

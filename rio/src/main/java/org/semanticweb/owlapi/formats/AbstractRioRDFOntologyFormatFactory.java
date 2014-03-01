@@ -13,9 +13,7 @@ import org.openrdf.rio.RDFFormat;
 public abstract class AbstractRioRDFOntologyFormatFactory extends
         AbstractOWLOntologyFormatFactory implements RioRDFOntologyFormatFactory {
 
-    public AbstractRioRDFOntologyFormatFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public String getKey() {

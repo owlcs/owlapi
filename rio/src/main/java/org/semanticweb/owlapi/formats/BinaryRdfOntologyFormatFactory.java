@@ -14,9 +14,7 @@ public class BinaryRdfOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
-    public BinaryRdfOntologyFormatFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public RioRDFOntologyFormat createFormat() {

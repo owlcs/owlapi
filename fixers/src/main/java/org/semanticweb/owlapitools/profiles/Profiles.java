@@ -123,6 +123,11 @@ public enum Profiles implements HasIRI {
         }
     }
 
+    /**
+     * @param i
+     *        IRI to match
+     * @return Profiles with matching IRI, or null if none is found
+     */
     public static Profiles valueForIRI(IRI i) {
         for (Profiles p : values()) {
             if (p.iri.equals(i)) {

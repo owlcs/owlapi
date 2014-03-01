@@ -14,9 +14,7 @@ public class N3OntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
-    public N3OntologyFormatFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public RioRDFOntologyFormat createFormat() {

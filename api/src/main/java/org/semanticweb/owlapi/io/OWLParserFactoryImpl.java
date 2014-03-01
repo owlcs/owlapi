@@ -9,11 +9,23 @@ import org.semanticweb.owlapi.annotations.SupportsMIMEType;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
+/**
+ * Generic parser factory.
+ * 
+ * @author ignazio
+ * @param <T>
+ *        type to build
+ */
 public class OWLParserFactoryImpl<T extends OWLParser> implements
         OWLParserFactory {
 
+    private static final long serialVersionUID = 40000L;
     private Class<T> type;
 
+    /**
+     * @param type
+     *        type to build
+     */
     public OWLParserFactoryImpl(Class<T> type) {
         this.type = type;
     }

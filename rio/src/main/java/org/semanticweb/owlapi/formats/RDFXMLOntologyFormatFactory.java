@@ -14,9 +14,7 @@ public class RDFXMLOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
-    public RDFXMLOntologyFormatFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public RioRDFXMLOntologyFormat createFormat() {

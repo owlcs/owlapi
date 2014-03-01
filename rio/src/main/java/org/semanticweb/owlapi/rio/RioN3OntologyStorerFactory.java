@@ -48,6 +48,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 @MetaInfServices(OWLOntologyStorerFactory.class)
 public class RioN3OntologyStorerFactory implements RioRDFOntologyStorerFactory {
 
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public OWLOntologyStorer createStorer() {
         return new RioOntologyStorer(new N3OntologyFormatFactory());

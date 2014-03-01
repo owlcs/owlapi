@@ -11,5 +11,8 @@ import org.semanticweb.owlapi.io.OWLParser;
  */
 public interface RioParser extends OWLParser {
 
+    /**
+     * @return format for this parser
+     */
     RioRDFOntologyFormat getParserFormat();
 }

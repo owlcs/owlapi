@@ -10,7 +10,6 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openrdf.model.Statement;
@@ -40,6 +39,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
+@SuppressWarnings("javadoc")
 public class RioRendererTest {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -58,9 +58,6 @@ public class RioRendererTest {
     private StringWriter testNTriplesStringWriter;
     private RDFWriter testNTriplesRioWriter;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
     public void setUp() throws Exception {
         vf = new ValueFactoryImpl();
@@ -100,18 +97,9 @@ public class RioRendererTest {
                 testNTriplesStringWriter);
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {}
-
-    /**
+    /* 
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
      */
     @Test
     public void testRenderEmptyStatementCollector() throws IOException {
@@ -127,12 +115,9 @@ public class RioRendererTest {
                 .getStatements().iterator().next());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
      */
     @Test
     public void testRenderEmptyRdfXmlWriter() throws IOException {
@@ -146,12 +131,9 @@ public class RioRendererTest {
         assertTrue("Result was larger than expected", result.length() < 590);
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
      */
     @Test
     public void testRenderEmptyTurtleWriter() throws IOException {
@@ -165,12 +147,9 @@ public class RioRendererTest {
         assertTrue("Result was larger than expected", result.length() < 450);
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
      */
     @Test
     public void testRenderEmptyNTriplesWriter() throws IOException {
@@ -184,12 +163,9 @@ public class RioRendererTest {
         assertTrue("Result was larger than expected", result.length() < 220);
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
      */
     @Test
     public void testRenderKoalaStatementCollector() throws IOException {
@@ -205,14 +181,9 @@ public class RioRendererTest {
                 resultStatements.size());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
-     * @throws RDFHandlerException
-     * @throws RDFParseException
      */
     @Test
     public void testRenderKoalaRdfXmlWriter() throws IOException,
@@ -248,14 +219,9 @@ public class RioRendererTest {
                 resultStatements.size());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
-     * @throws RDFHandlerException
-     * @throws RDFParseException
      */
     @Test
     public void testRenderKoalaTurtleWriter() throws IOException,
@@ -285,14 +251,9 @@ public class RioRendererTest {
                 resultStatements.size());
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioRenderer#render(org.semanticweb.owlapi.io.RDFResource)}
-     * .
-     * 
-     * @throws IOException
-     * @throws RDFHandlerException
-     * @throws RDFParseException
      */
     @Test
     public void testRenderKoalaNTriplesWriter() throws IOException,

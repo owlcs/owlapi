@@ -2,7 +2,7 @@ package org.semanticweb.owlapi.rio.model.test;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
+import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.util.PriorityCollection;
@@ -10,13 +10,14 @@ import org.semanticweb.owlapi.util.PriorityCollection;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyStorerFactoryRegistryTest {
 
     // XXX originally it was 19 storers, I cannot find which ones are missing.
-    public static final int EXPECTED_STORERS = 17;
+    private static final int EXPECTED_STORERS = 17;
 
-    @Before
-    public void setUp() throws Exception {
+    @Test
+    public void setUp() {
         // XXX refactor this to be able to check what ontology storers would be
         // injected before creating an OWLOntologyManager
         PriorityCollection<OWLOntologyStorer> ontologyStorers = OWLManager

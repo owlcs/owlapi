@@ -86,12 +86,17 @@ import org.xml.sax.InputSource;
 @HasPriority(value = 7)
 public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final long serialVersionUID = 40000L;
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
     private RioOWLRDFConsumerAdapter consumer;
     private RioRDFOntologyFormatFactory owlFormatFactory;
     private Set<OWLOntologyFormatFactory> supportedFormats;
 
-    public RioParserImpl(final RioRDFOntologyFormatFactory nextFormat) {
+    /**
+     * @param nextFormat
+     *        format factory
+     */
+    public RioParserImpl(RioRDFOntologyFormatFactory nextFormat) {
         owlFormatFactory = nextFormat;
         supportedFormats = Collections
                 .singleton((OWLOntologyFormatFactory) owlFormatFactory);
@@ -108,6 +113,7 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
         return owlFormatFactory.createFormat();
     }
 
+    @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return supportedFormats;
     }

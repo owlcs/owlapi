@@ -11,7 +11,11 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
  */
 public interface RioRDFOntologyFormatFactory extends OWLOntologyFormatFactory {
 
+    @Override
     RioRDFOntologyFormat createFormat();
 
+    /**
+     * @return RDFFormat for this format
+     */
     RDFFormat getRioFormat();
 }

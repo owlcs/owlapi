@@ -14,9 +14,7 @@ public class NTriplesOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
-    public NTriplesOntologyFormatFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public RioRDFOntologyFormat createFormat() {

@@ -49,6 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorerFactory;
 public class RioNTriplesOntologyStorerFactory implements
         RioRDFOntologyStorerFactory {
 
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public OWLOntologyStorer createStorer() {
         return new RioOntologyStorer(new NTriplesOntologyFormatFactory());

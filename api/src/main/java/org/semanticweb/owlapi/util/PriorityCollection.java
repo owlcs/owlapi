@@ -29,6 +29,9 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
     private static final long serialVersionUID = 40000L;
     private List<T> delegate = new ArrayList<T>();
 
+    /**
+     * @return size of the collection
+     */
     public int size() {
         return delegate.size();
     }
@@ -44,6 +47,13 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
         sort();
     }
 
+    /**
+     * Remove all elements, replace with the arguments and sort according to
+     * priority
+     * 
+     * @param c
+     *        list of elements to set
+     */
     public void set(T... c) {
         clear();
         for (T t : c) {
@@ -56,6 +66,12 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
         Collections.sort(delegate, new HasPriorityComparator<T>());
     }
 
+    /**
+     * add the arguments and sort according to priority
+     * 
+     * @param c
+     *        list of elements to add
+     */
     public void add(T... c) {
         for (T t : c) {
             delegate.add(0, t);
@@ -63,6 +79,12 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
         sort();
     }
 
+    /**
+     * add the arguments and sort according to priority
+     * 
+     * @param c
+     *        list of elements to add
+     */
     public void add(Collection<T> c) {
         for (T t : c) {
             delegate.add(t);
@@ -70,12 +92,21 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
         sort();
     }
 
+    /**
+     * remove the arguments
+     * 
+     * @param c
+     *        list of elements to remove
+     */
     public void remove(T... c) {
         for (T t : c) {
             delegate.remove(t);
         }
     }
 
+    /**
+     * remove all elements from the collection
+     */
     public void clear() {
         delegate.clear();
     }

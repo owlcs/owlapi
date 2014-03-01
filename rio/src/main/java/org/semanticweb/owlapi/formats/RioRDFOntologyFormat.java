@@ -38,6 +38,9 @@ public class RioRDFOntologyFormat extends
         return getRioFormat().toString();
     }
 
+    /**
+     * @return Rio format for this format
+     */
     public RDFFormat getRioFormat() {
         return format;
     }

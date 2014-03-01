@@ -46,6 +46,8 @@ import org.semanticweb.owlapi.io.OWLParserFactory;
 public class RioBinaryRdfParserFactory extends AbstractRioParserFactory
         implements OWLParserFactory {
 
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public RioRDFOntologyFormatFactory getRioFormatFactory() {
         return new BinaryRdfOntologyFormatFactory();

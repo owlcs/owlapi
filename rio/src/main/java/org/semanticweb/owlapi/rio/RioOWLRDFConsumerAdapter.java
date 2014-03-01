@@ -61,6 +61,14 @@ public class RioOWLRDFConsumerAdapter extends OWLRDFConsumer implements
             .getLogger(RioOWLRDFConsumerAdapter.class);
     private AtomicInteger statementCount = new AtomicInteger(0);
 
+    /**
+     * @param ontology
+     *        ontology to update
+     * @param checker
+     *        node checker
+     * @param configuration
+     *        loading configuration
+     */
     public RioOWLRDFConsumerAdapter(OWLOntology ontology,
             AnonymousNodeChecker checker,
             OWLOntologyLoaderConfiguration configuration) {

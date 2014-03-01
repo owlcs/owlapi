@@ -39,5 +39,8 @@ public interface OWLParserFactory extends Serializable, Provider<OWLParser>,
     @Nonnull
     OWLParser createParser();
 
+    /**
+     * @return set of factories for supported formats
+     */
     Set<OWLOntologyFormatFactory> getSupportedFormats();
 }

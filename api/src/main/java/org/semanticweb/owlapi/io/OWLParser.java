@@ -33,10 +33,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * OWLOntologyManagers} to populate empty {@link OWLOntology OWLOntologies}, but
  * can be used to add axioms to an {@code OWLOntology} that already contains
  * axioms.<br>
- * One such case is parsing {@code owl:imports} which point to documents that are
- * not ontologies. In this case, any axioms parsed from the imported document
- * are added to the existing ontology, which already contains axioms parsed from
- * a different document.
+ * One such case is parsing {@code owl:imports} which point to documents that
+ * are not ontologies. In this case, any axioms parsed from the imported
+ * document are added to the existing ontology, which already contains axioms
+ * parsed from a different document.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -136,5 +136,8 @@ public interface OWLParser {
     @Nonnull
     String getName();
 
+    /**
+     * @return set of supported format factories
+     */
     Set<OWLOntologyFormatFactory> getSupportedFormats();
 }

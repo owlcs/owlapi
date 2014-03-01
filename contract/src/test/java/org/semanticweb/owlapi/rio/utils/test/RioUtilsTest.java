@@ -3,7 +3,6 @@
  */
 package org.semanticweb.owlapi.rio.utils.test;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +22,7 @@ import org.semanticweb.owlapi.rio.utils.RioUtils;
 /**
  * @author Peter Ansell p_ansell@yahoo.com
  */
+@SuppressWarnings("javadoc")
 public class RioUtilsTest {
 
     private static ValueFactory vf = ValueFactoryImpl.getInstance();
@@ -57,11 +57,8 @@ public class RioUtilsTest {
     private Statement testSesameTripleObjectBNode;
     private Statement testSesameTripleSubjectObjectBNode;
 
-    /**
-     * @throws java.lang.Exception
-     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         testOwlApiSubjectUri1 = new RDFResourceIRI(
                 IRI.create("urn:test:subject:uri:1"));
         testOwlApiPredicateUri1 = new RDFResourceIRI(
@@ -130,16 +127,9 @@ public class RioUtilsTest {
                 testSesameObjectBNode1);
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {}
-
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
-     * .
      */
     @Test
     public void testTripleAllIRI() {
@@ -170,10 +160,9 @@ public class RioUtilsTest {
                 tripleAsStatement);
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
-     * .
      */
     @Test
     public void testTripleLangLiteral() {
@@ -182,10 +171,9 @@ public class RioUtilsTest {
         Assert.assertEquals(testSesameTripleLangLiteral, tripleAsStatement);
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
-     * .
      */
     @Test
     public void testTriplePlainLiteral() {
@@ -194,10 +182,9 @@ public class RioUtilsTest {
         Assert.assertEquals(testSesameTriplePlainLiteral, tripleAsStatement);
     }
 
-    /**
+    /*
      * Test method for
      * {@link org.semanticweb.owlapi.rio.utils.RioUtils#tripleAsStatement(org.semanticweb.owlapi.io.RDFTriple)}
-     * .
      */
     @Test
     public void testTripleTypedLiteral() {

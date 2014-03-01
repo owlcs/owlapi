@@ -62,22 +62,36 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
     private RioRDFOntologyFormatFactory ontologyFormat;
     private Resource[] contexts;
 
-    public RioOntologyStorer(final RioRDFOntologyFormatFactory ontologyFormat,
-            final RDFHandler rioHandler, final Resource... contexts) {
+    /**
+     * @param ontologyFormat
+     *        format
+     * @param rioHandler
+     *        rdf handler
+     * @param contexts
+     *        contexts
+     */
+    public RioOntologyStorer(RioRDFOntologyFormatFactory ontologyFormat,
+            RDFHandler rioHandler, Resource... contexts) {
         this(ontologyFormat, contexts);
         this.rioHandler = rioHandler;
     }
 
-    public RioOntologyStorer(final RioRDFOntologyFormatFactory ontologyFormat,
-            final Resource... contexts) {
+    /**
+     * @param ontologyFormat
+     *        format
+     * @param contexts
+     *        contexts
+     */
+    public RioOntologyStorer(RioRDFOntologyFormatFactory ontologyFormat,
+            Resource... contexts) {
         OpenRDFUtil.verifyContextNotNull(contexts);
         this.ontologyFormat = ontologyFormat;
         this.contexts = contexts;
     }
 
     @Override
-    public boolean canStoreOntology(final OWLOntologyFormat ontologyFormat) {
-        return this.ontologyFormat.createFormat().equals(ontologyFormat);
+    public boolean canStoreOntology(OWLOntologyFormat format) {
+        return ontologyFormat.createFormat().equals(format);
     }
 
     /**
@@ -160,7 +174,6 @@ public class RioOntologyStorer extends AbstractOWLOntologyStorer {
         // if it does not render to a writer. For example, it could store the
         // triples in memory
         // without serialising them to any particular format.
-        RDFHandler rioHandler = getRioHandler();
         if (rioHandler == null) {
             final RioRDFOntologyFormat rioFormat = (RioRDFOntologyFormat) format;
             if (format.isTextual()) {

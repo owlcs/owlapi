@@ -44,22 +44,27 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
+/**
+ * @author Peter Ansell p_ansell@yahoo.com
+ */
 public abstract class AbstractRioParserFactory implements OWLParserFactory {
 
-    public AbstractRioParserFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public OWLParser createParser() {
         return new RioParserImpl(getRioFormatFactory());
     }
 
+    @Override
     public final Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections
                 .<OWLOntologyFormatFactory> singleton(getRioFormatFactory());
     }
 
+    /**
+     * @return Rio format factory
+     */
     public abstract RioRDFOntologyFormatFactory getRioFormatFactory();
 
     @Override

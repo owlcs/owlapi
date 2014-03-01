@@ -247,24 +247,44 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
         return null;
     }
 
+    /**
+     * @return namespace map
+     */
     public Map<String, String> getNamespaces() {
         return namespaces;
     }
 
+    /**
+     * @return statements
+     */
     public Iterator<Statement> getStatementIterator() {
         return statementIterator;
     }
 
+    /**
+     * @param nextNamespaces
+     *        set of namespaces to set
+     */
     public void setNamespaces(Set<Namespace> nextNamespaces) {
         namespaces.clear();
         namespaces.putAll(Namespaces.asMap(nextNamespaces));
     }
 
+    /**
+     * @param nextNamespaces
+     *        map of namespaces to set
+     */
     public void setNamespaces(Map<String, String> nextNamespaces) {
         namespaces.clear();
         namespaces.putAll(nextNamespaces);
     }
 
+    /**
+     * @param namespaces
+     *        repository result to use to set the namespaces
+     * @throws RepositoryException
+     *         if an exception is raised setting the namespaces
+     */
     public void setNamespaces(RepositoryResult<Namespace> namespaces)
             throws RepositoryException {
         setNamespaces(Namespaces.asMap(Iterations.asSet(namespaces)));

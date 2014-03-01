@@ -57,7 +57,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.rio.utils.RioUtils;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
@@ -78,12 +77,6 @@ public class RioRenderer extends RDFRendererBase {
     private AtomicInteger renderedTriples;
     private Set<Statement> renderedStatements;
     private Resource[] contexts;
-
-    public RioRenderer(final OWLOntology ontology,
-            final OWLOntologyManager manager, final RDFHandler writer,
-            final OWLOntologyFormat format, final Resource... contexts) {
-        this(ontology, writer, format, contexts);
-    }
 
     public RioRenderer(final OWLOntology ontology, final RDFHandler writer,
             final OWLOntologyFormat format, final Resource... contexts) {

@@ -41,17 +41,16 @@ import org.semanticweb.owlapi.formats.TrigOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 
 /**
- * 
  * @author Peter Ansell p_ansell@yahoo.com
- * 
  */
 @MetaInfServices(OWLParserFactory.class)
-public class RioTrigParserFactory extends AbstractRioParserFactory implements OWLParserFactory
-{
-    
+public class RioTrigParserFactory extends AbstractRioParserFactory implements
+        OWLParserFactory {
+
+    private static final long serialVersionUID = 40000L;
+
     @Override
-    public RioRDFOntologyFormatFactory getRioFormatFactory()
-    {
+    public RioRDFOntologyFormatFactory getRioFormatFactory() {
         return new TrigOntologyFormatFactory();
     }
 }

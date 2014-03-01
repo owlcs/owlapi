@@ -4,6 +4,9 @@ import org.kohsuke.MetaInfServices;
 import org.openrdf.rio.RDFFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
+/**
+ * @author Peter Ansell p_ansell@yahoo.com
+ */
 @MetaInfServices(OWLOntologyFormat.class)
 public class RioTurtleOntologyFormat extends
         org.semanticweb.owlapi.formats.RioRDFOntologyFormat {

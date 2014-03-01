@@ -14,9 +14,7 @@ public class NQuadsOntologyFormatFactory extends
         AbstractRioRDFOntologyFormatFactory implements
         RioRDFOntologyFormatFactory {
 
-    public NQuadsOntologyFormatFactory() {
-        super();
-    }
+    private static final long serialVersionUID = 40000L;
 
     @Override
     public RioRDFOntologyFormat createFormat() {

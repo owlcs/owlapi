@@ -14,6 +14,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 public abstract class AbstractOWLOntologyFormatFactory implements
         OWLOntologyFormatFactory {
 
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public int hashCode() {
         return getKey().hashCode();

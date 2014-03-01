@@ -38,5 +38,8 @@ public interface OWLOntologyStorerFactory extends Serializable,
      */
     OWLOntologyStorer createStorer();
 
+    /**
+     * @return format factory for the format parsed by this storer
+     */
     OWLOntologyFormatFactory getFormatFactory();
 }

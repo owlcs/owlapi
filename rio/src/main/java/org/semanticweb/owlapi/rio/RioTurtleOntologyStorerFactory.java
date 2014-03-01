@@ -51,6 +51,8 @@ import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
 public class RioTurtleOntologyStorerFactory implements
         RioRDFOntologyStorerFactory {
 
+    private static final long serialVersionUID = 40000L;
+
     @Override
     public OWLOntologyStorer createStorer() {
         return new RioOntologyStorer(new TurtleOntologyFormatFactory());
