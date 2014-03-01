@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- The MAVEN pom file for the OWL API. -->
@@ -193,9 +192,8 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.16</version>
 				<configuration>
-					<!-- useFile>false</useFile>
-					<printSummary>false</printSummary> -->
-					<argLine>-Xmx1024M</argLine>
+					<printSummary>false</printSummary>
+					<argLine>-Xmx1024M -Djava.awt.headless=true</argLine>
 				</configuration>
 			</plugin>
 
@@ -213,4 +211,5 @@
 		<developerConnection>scm:git:git@github.com:owlcs/owlapi.git</developerConnection>
 		<url>https://github.com/owlcs/owlapi</url>
 	</scm>
+
 </project>
