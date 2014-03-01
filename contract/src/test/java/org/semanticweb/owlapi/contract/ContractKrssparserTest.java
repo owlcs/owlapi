@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractKrssparserTest {
+
     public void shouldTestKRSSOntologyFormat() throws OWLException {
         KRSSOntologyFormat testSubject0 = new KRSSOntologyFormat();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -102,8 +103,6 @@ public class ContractKrssparserTest {
     public void shouldTestParseException() throws OWLException {
         ParseException testSubject0 = new ParseException(mock(Token.class),
                 mock(int[][].class), new String[0]);
-        new ParseException();
-        new ParseException("");
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
@@ -121,8 +120,6 @@ public class ContractKrssparserTest {
 
     public void shouldTestTokenMgrError() throws OWLException {
         TokenMgrError testSubject0 = new TokenMgrError();
-        new TokenMgrError("", 0);
-        new TokenMgrError(false, 0, 0, 0, "", mock(char.class), 0);
         String result0 = testSubject0.getMessage();
         Throwable result2 = testSubject0.getCause();
         String result5 = testSubject0.getLocalizedMessage();

@@ -27,7 +27,6 @@ import org.openrdf.rio.helpers.StatementCollector;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory;
@@ -45,7 +44,6 @@ public class RioRendererTest {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private ValueFactory vf;
     private OWLOntologyManager testManager;
-    private OWLOntologyFormat testFormatNull;
     private OWLOntology testOntologyEmpty;
     private OWLOntology testOntologyKoala;
     private Statement testOntologyEmptyStatement;
@@ -82,7 +80,6 @@ public class RioRendererTest {
                 .getClass().getResourceAsStream("/koala.owl"));
         assertEquals(70, testOntologyKoala.getAxiomCount());
         testHandlerStatementCollector = new StatementCollector();
-        testFormatNull = null;
         testOntologyEmptyStatement = vf
                 .createStatement(vf.createURI("urn:test:ontology:uri:1"),
                         RDF.TYPE, OWL.ONTOLOGY);
@@ -104,7 +101,7 @@ public class RioRendererTest {
     @Test
     public void testRenderEmptyStatementCollector() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testHandlerStatementCollector, testFormatNull);
+                testHandlerStatementCollector, null);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(1, testHandlerStatementCollector.getStatements().size());
@@ -122,7 +119,7 @@ public class RioRendererTest {
     @Test
     public void testRenderEmptyRdfXmlWriter() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testRdfXmlRioWriter, testFormatNull);
+                testRdfXmlRioWriter, null);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -138,7 +135,7 @@ public class RioRendererTest {
     @Test
     public void testRenderEmptyTurtleWriter() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testTurtleRioWriter, testFormatNull);
+                testTurtleRioWriter, null);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -154,7 +151,7 @@ public class RioRendererTest {
     @Test
     public void testRenderEmptyNTriplesWriter() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyEmpty,
-                testNTriplesRioWriter, testFormatNull);
+                testNTriplesRioWriter, null);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
@@ -170,7 +167,7 @@ public class RioRendererTest {
     @Test
     public void testRenderKoalaStatementCollector() throws IOException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testHandlerStatementCollector, testFormatNull);
+                testHandlerStatementCollector, null);
         testRenderer.render();
         assertEquals(6, testHandlerStatementCollector.getNamespaces().size());
         assertEquals(171, testHandlerStatementCollector.getStatements().size());
@@ -189,7 +186,7 @@ public class RioRendererTest {
     public void testRenderKoalaRdfXmlWriter() throws IOException,
             RDFParseException, RDFHandlerException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testRdfXmlRioWriter, testFormatNull);
+                testRdfXmlRioWriter, null);
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
@@ -227,7 +224,7 @@ public class RioRendererTest {
     public void testRenderKoalaTurtleWriter() throws IOException,
             RDFParseException, RDFHandlerException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testTurtleRioWriter, testFormatNull);
+                testTurtleRioWriter, null);
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
@@ -259,7 +256,7 @@ public class RioRendererTest {
     public void testRenderKoalaNTriplesWriter() throws IOException,
             RDFParseException, RDFHandlerException {
         RioRenderer testRenderer = new RioRenderer(testOntologyKoala,
-                testNTriplesRioWriter, testFormatNull);
+                testNTriplesRioWriter, null);
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();

@@ -102,6 +102,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractApibindingTest {
+
     public void shouldTestOWLFunctionalSyntaxFactory()
             throws OWLOntologyCreationException {
         OWLDeclarationAxiom result0 = Declaration(Utils.mockOWLEntity());
@@ -247,7 +248,6 @@ public class ContractApibindingTest {
 
     @Test
     public void shouldTestOWLManager() {
-        OWLManager testSubject0 = new OWLManager();
         OWLDataFactory result1 = OWLManager.getOWLDataFactory();
         OWLOntologyManager result4 = OWLManager.createOWLOntologyManager();
     }

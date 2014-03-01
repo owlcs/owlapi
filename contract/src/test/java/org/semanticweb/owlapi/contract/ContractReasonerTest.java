@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractReasonerTest {
+
     @Test
     public void shouldTestBufferingMode() throws OWLException {
         BufferingMode testSubject0 = BufferingMode.BUFFERING;
@@ -67,7 +68,6 @@ public class ContractReasonerTest {
     public void shouldTestFreshEntitiesException() throws OWLException {
         FreshEntitiesException testSubject0 = new FreshEntitiesException(
                 Utils.mockSet(Utils.mockOWLEntity()));
-        new FreshEntitiesException(Utils.mockOWLEntity());
         String result0 = testSubject0.getMessage();
         Collection<OWLEntity> result1 = testSubject0.getEntities();
         Throwable result3 = testSubject0.getCause();
@@ -86,11 +86,6 @@ public class ContractReasonerTest {
     public void shouldTestIllegalConfigurationException() throws OWLException {
         IllegalConfigurationException testSubject0 = new IllegalConfigurationException(
                 new RuntimeException(), mock(OWLReasonerConfiguration.class));
-        new IllegalConfigurationException("",
-                mock(OWLReasonerConfiguration.class));
-        new IllegalConfigurationException("", new RuntimeException(),
-                mock(OWLReasonerConfiguration.class));
-        OWLReasonerConfiguration result0 = testSubject0.getConfiguration();
         Throwable result2 = testSubject0.getCause();
         String result5 = testSubject0.getMessage();
         String result6 = testSubject0.getLocalizedMessage();
@@ -187,18 +182,9 @@ public class ContractReasonerTest {
     @Test
     public void shouldTestOWLReasonerRuntimeException() throws OWLException {
         OWLReasonerRuntimeException testSubject0 = new OWLReasonerRuntimeException() {
+
             private static final long serialVersionUID = 40000L;
         };
-        new OWLReasonerRuntimeException(new RuntimeException()) {
-            private static final long serialVersionUID = 40000L;
-        };
-        new OWLReasonerRuntimeException("") {
-            private static final long serialVersionUID = 40000L;
-        };
-        new OWLReasonerRuntimeException("", new RuntimeException()) {
-            private static final long serialVersionUID = 40000L;
-        };
-        Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -207,9 +193,6 @@ public class ContractReasonerTest {
     public void shouldTestReasonerInternalException() throws OWLException {
         ReasonerInternalException testSubject0 = new ReasonerInternalException(
                 new RuntimeException());
-        new ReasonerInternalException("");
-        new ReasonerInternalException("", new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -217,10 +200,6 @@ public class ContractReasonerTest {
     @Test
     public void shouldTestReasonerInterruptedException() throws OWLException {
         ReasonerInterruptedException testSubject0 = new ReasonerInterruptedException();
-        new ReasonerInterruptedException("");
-        new ReasonerInterruptedException("", new RuntimeException());
-        new ReasonerInterruptedException(new RuntimeException());
-        Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();
     }
@@ -246,8 +225,6 @@ public class ContractReasonerTest {
     @Test
     public void shouldTestTimeOutException() throws OWLException {
         TimeOutException testSubject0 = new TimeOutException();
-        new TimeOutException("");
-        new TimeOutException("", new RuntimeException());
         Throwable result1 = testSubject0.getCause();
         String result4 = testSubject0.getMessage();
         String result5 = testSubject0.getLocalizedMessage();

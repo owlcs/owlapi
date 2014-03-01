@@ -366,7 +366,7 @@ public class TutorialSnippets {
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
         // OWLReasoner reasoner = reasonerFactory.createReasoner(o, config);
-        OWLReasoner reasoner = reasonerFactory.createReasoner(o);
+        OWLReasoner reasoner = reasonerFactory.createReasoner(o, config);
         // Ask the reasoner to precompute some inferences
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // We can determine if the ontology is actually consistent (in this
@@ -397,7 +397,7 @@ public class TutorialSnippets {
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
         // OWLReasoner reasoner = reasonerFactory.createReasoner(o, config);
-        OWLReasoner reasoner = reasonerFactory.createReasoner(o);
+        OWLReasoner reasoner = reasonerFactory.createReasoner(o, config);
         // Ask the reasoner to precompute some inferences
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // Look up and print all direct subclasses for all classes
@@ -427,7 +427,7 @@ public class TutorialSnippets {
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
         // OWLReasoner reasoner = reasonerFactory.createReasoner(o, config);
-        OWLReasoner reasoner = reasonerFactory.createReasoner(o);
+        OWLReasoner reasoner = reasonerFactory.createReasoner(o, config);
         // Ask the reasoner to precompute some inferences
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY);
         // for each class, look up the instances

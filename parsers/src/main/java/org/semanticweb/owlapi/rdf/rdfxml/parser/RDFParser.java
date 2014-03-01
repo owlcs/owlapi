@@ -42,10 +42,13 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
 
-/** This class parses the RDF according to the syntax specified in <a
+/**
+ * This class parses the RDF according to the syntax specified in <a
  * href="http://www.w3.org/TR/rdf-syntax-grammar/"
- * >http://www.w3.org/TR/rdf-syntax-grammar/</a>. */
+ * >http://www.w3.org/TR/rdf-syntax-grammar/</a>.
+ */
 public class RDFParser extends DefaultHandler implements IRIProvider {
+
     private static final String wrongResolve = "IRI '%s' cannot be resolved against current base IRI %s reason is: %s";
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = initFactory();
@@ -60,6 +63,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler = new ErrorHandler() {
+
         @Override
         public void warning(SAXParseException exception) throws SAXException {}
 
@@ -89,16 +93,18 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     /** Document locator. */
     protected Locator m_documentLocator;
 
-    /** Parses RDF from given input source.
+    /**
+     * Parses RDF from given input source.
      * 
      * @param source
-     *            specifies where RDF comes from
+     *        specifies where RDF comes from
      * @param consumer
-     *            receives notifications about RDF parsing events
+     *        receives notifications about RDF parsing events
      * @throws SAXException
-     *             SAXException
+     *         SAXException
      * @throws IOException
-     *             IOException */
+     *         IOException
+     */
     public void
             parse(@Nonnull InputSource source, @Nonnull RDFConsumer consumer)
                     throws SAXException, IOException {
@@ -135,10 +141,12 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         m_documentLocator = locator;
     }
 
-    /** Sets the error handler.
+    /**
+     * Sets the error handler.
      * 
      * @param errorHandler
-     *            the error handler */
+     *        the error handler
+     */
     public void setErrorHandler(@Nonnull ErrorHandler errorHandler) {
         m_errorHandler = checkNotNull(errorHandler,
                 "errorHandler cannot be null");
@@ -210,28 +218,37 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
             verify(arguments.size() != 2,
                     "Incorrect number of arguments for 'model-attribute' processing instruction.");
             String key = arguments.get("key");
-            verify(key == null,
-                    "Mising the 'key' argument for 'model-attribute' processing instruction.");
             String value = arguments.get("value");
+            verify(key == null,
+                    "Missing the 'key' argument for 'model-attribute' processing instruction.");
             verify(value == null,
-                    "Mising the 'value' argument for 'model-attribute' processing instruction.");
-            m_consumer.addModelAttribte(key, value);
+                    "Missing the 'value' argument for 'model-attribute' processing instruction.");
+            // not really necessary but FindBugs does not know that if either is
+            // null
+            // an exception will have been thrown in the above verify() calls
+            if (key != null && value != null) {
+                m_consumer.addModelAttribte(key, value);
+            }
         }
     }
 
-    /** Pushes a new state on the state stack.
+    /**
+     * Pushes a new state on the state stack.
      * 
      * @param s
-     *            new state */
+     *        new state
+     */
     public void pushState(State s) {
         m_states.add(s);
         state = s;
     }
 
-    /** Pops a state from the stack.
+    /**
+     * Pops a state from the stack.
      * 
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     public void popState() throws SAXException {
         int size = m_states.size();
         verify(size == 0, "Internal exception: state stack is empty.");
@@ -260,12 +277,14 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         return IRI.create(delegateURI.resolve(value));
     }
 
-    /** Processes xml:base reference if there is one.
+    /**
+     * Processes xml:base reference if there is one.
      * 
      * @param atts
-     *            the attributes potentially containing xml:base declaration
+     *        the attributes potentially containing xml:base declaration
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     private void processXMLBase(@Nonnull Attributes atts) throws SAXException {
         checkNotNull(atts, "atts cannot be null");
         m_baseIRIs.add(0, m_baseIRI);
@@ -281,10 +300,12 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** Processes xml:language reference is there is one.
+    /**
+     * Processes xml:language reference is there is one.
      * 
      * @param atts
-     *            the attributes potentially containing xml:language declaration */
+     *        the attributes potentially containing xml:language declaration
+     */
     private void processXMLLanguage(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
         m_languages.add(0, m_language);
@@ -294,13 +315,15 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** Resolves an IRI with the current base.
+    /**
+     * Resolves an IRI with the current base.
      * 
      * @param uri
-     *            the IRI being resolved
+     *        the IRI being resolved
      * @return the resolved IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     @Nonnull
     public String resolveIRI(@Nonnull String uri) throws SAXException {
         checkNotNull(uri, "uri cannot be null");
@@ -337,17 +360,19 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** Called when a statement with resource value is added to the model.
+    /**
+     * Called when a statement with resource value is added to the model.
      * 
      * @param subject
-     *            IRI of the subject resource
+     *        IRI of the subject resource
      * @param predicate
-     *            IRI of the predicate resource
+     *        IRI of the predicate resource
      * @param object
-     *            IRI of the object resource
+     *        IRI of the object resource
      * @param reificationID
-     *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement */
+     *        if not {@code null}, contains IRI of the resource that will wold
+     *        the reified statement
+     */
     public void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String reificationID) {
@@ -364,19 +389,21 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** Called when a statement with literal value is added to the model.
+    /**
+     * Called when a statement with literal value is added to the model.
      * 
      * @param subject
-     *            IRI of the subject resource
+     *        IRI of the subject resource
      * @param predicate
-     *            IRI of the predicate resource
+     *        IRI of the predicate resource
      * @param object
-     *            literal object value
+     *        literal object value
      * @param dataType
-     *            the IRI of the literal's datatype (may be {@code null})
+     *        the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
-     *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement */
+     *        if not {@code null}, contains IRI of the resource that will wold
+     *        the reified statement
+     */
     public void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String dataType, @Nullable String reificationID) {
@@ -394,14 +421,16 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         }
     }
 
-    /** Parses the string into a map of name-value pairs.
+    /**
+     * Parses the string into a map of name-value pairs.
      * 
      * @param string
-     *            string to be parsed
+     *        string to be parsed
      * @return map of name-value pairs
      * @throws SAXException
-     *             if there was an IOException this will be wrapped in a parse
-     *             exception */
+     *         if there was an IOException this will be wrapped in a parse
+     *         exception
+     */
     private Map<String, String> parseStringArguments(String string)
             throws SAXException {
         try {
@@ -433,14 +462,16 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
         return uriCache.get(checkNotNull(s, "s cannot be null"));
     }
 
-    /** If conditon b is true, throw an exception with provided message
+    /**
+     * If conditon b is true, throw an exception with provided message
      * 
      * @param b
-     *            condition to verify
+     *        condition to verify
      * @param message
-     *            message for the exception
+     *        message for the exception
      * @throws RDFParserException
-     *             exception thrown */
+     *         exception thrown
+     */
     public void verify(boolean b, String message) throws RDFParserException {
         if (b) {
             throw new RDFParserException(message, m_documentLocator);

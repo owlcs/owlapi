@@ -219,7 +219,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     @Override
     public Reader getReader() {
-        return null;
+        throw new UnsupportedOperationException(
+                "No reader available for RioMemoryTripleSource, use isReaderAvailable() to check");
     }
 
     @Override
@@ -229,7 +230,8 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
 
     @Override
     public InputStream getInputStream() {
-        return null;
+        throw new UnsupportedOperationException(
+                "No input stream available for RioMemoryTripleSource, use isReaderAvailable() to check");
     }
 
     @Override
