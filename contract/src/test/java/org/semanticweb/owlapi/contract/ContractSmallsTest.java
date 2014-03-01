@@ -19,35 +19,22 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.net.URI;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.debugging.AbstractOWLDebugger;
-import org.semanticweb.owlapi.debugging.BlackBoxOWLDebugger;
 import org.semanticweb.owlapi.debugging.DebuggerClassExpressionGenerator;
 import org.semanticweb.owlapi.debugging.JustificationMap;
 import org.semanticweb.owlapi.debugging.OWLDebugger;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
-import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
-import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
-import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
-import org.semanticweb.owlapi.io.RDFParserMetaData;
-import org.semanticweb.owlapi.io.RDFResourceParseError;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -57,30 +44,21 @@ import org.semanticweb.owlapi.normalform.NegationalNormalFormConverter;
 import org.semanticweb.owlapi.normalform.NormalFormRewriter;
 import org.semanticweb.owlapi.normalform.OWLObjectComplementOfExtractor;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLObjectRenderer;
-import org.semanticweb.owlapi.owlxml.renderer.OWLXMLOntologyStorer;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLRenderer;
 import org.semanticweb.owlapi.owlxml.renderer.OWLXMLWriter;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFConsumer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFParserException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLNamespaceManager;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager;
-import org.semanticweb.owlapi.rdf.turtle.renderer.TurtleOntologyStorer;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
-import org.semanticweb.owlapi.vocab.OWLFacet;
-import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-import uk.ac.manchester.cs.owl.explanation.ordering.MutableTree;
 import uk.ac.manchester.cs.owl.explanation.ordering.NodeRenderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 import uk.ac.manchester.cs.owlapi.modularity.ModuleType;
 import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 
-import com.clarkparsia.owlapi.explanation.io.ConciseExplanationRenderer;
 import com.clarkparsia.owlapi.explanation.io.ExplanationRenderer;
 import com.clarkparsia.owlapi.explanation.io.SilentExplanationRenderer;
 import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
@@ -94,6 +72,7 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractSmallsTest {
+
     @Test
     public void shouldTestEscapeUtils() throws OWLException {
         new EscapeUtils();
@@ -114,16 +93,6 @@ public class ContractSmallsTest {
         OWLOntology result3 = testSubject0.extractAsOntology(
                 Utils.mockSet(Utils.mockOWLEntity()), IRI("urn:aFake"), 0, 0,
                 Utils.structReasoner());
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestConciseExplanationRenderer() throws OWLException,
-            IOException {
-        ConciseExplanationRenderer testSubject0 = new ConciseExplanationRenderer();
-        testSubject0.render(mock(OWLAxiom.class), Utils.mockSetSetAxiom());
-        testSubject0.startRendering(mock(Writer.class));
-        testSubject0.endRendering();
     }
 
     @Test
@@ -268,44 +237,6 @@ public class ContractSmallsTest {
         testSubject0.createPrefixForNamespace("");
     }
 
-    @Ignore
-    @Test
-    public void shouldTestRDFXMLOntologyStorer() throws OWLException {
-        RDFXMLOntologyStorer testSubject0 = new RDFXMLOntologyStorer();
-        boolean result0 = testSubject0
-                .canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
-                mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class),
-                mock(OWLOntologyFormat.class));
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestMutableTree() throws OWLException {
-        MutableTree<Object> testSubject0 = new MutableTree<Object>(
-                mock(Object.class));
-        Tree<Object> result1 = testSubject0.getParent();
-        Tree<Object> result3 = testSubject0.getRoot();
-        boolean result4 = testSubject0.isRoot();
-        List<Tree<Object>> result5 = testSubject0.getChildren();
-        Object result6 = testSubject0.getUserObject();
-        testSubject0.addChild(mock(MutableTree.class));
-        testSubject0.removeChild(mock(MutableTree.class));
-        Object result7 = testSubject0.getEdge(mock(Tree.class));
-        testSubject0.sortChildren(mock(Comparator.class));
-        int result8 = testSubject0.getChildCount();
-        boolean result9 = testSubject0.isLeaf();
-        List<Tree<Object>> result10 = testSubject0.getPathToRoot();
-        List<Object> result11 = testSubject0.getUserObjectPathToRoot();
-        Set<Object> result12 = testSubject0.getUserObjectClosure();
-        testSubject0.dump(mock(PrintWriter.class), 0);
-        testSubject0.dump(mock(PrintWriter.class));
-        testSubject0.setNodeRenderer(mock(NodeRenderer.class));
-        List<Object> result13 = testSubject0.fillDepthFirst();
-    }
-
     @Test
     public void shouldTestInterfaceNodeRenderer() throws OWLException {
         NodeRenderer<Object> testSubject0 = mock(NodeRenderer.class);
@@ -358,53 +289,6 @@ public class ContractSmallsTest {
                 .getComplementedClassExpressions(Utils.mockAnonClass());
     }
 
-    @Ignore
-    @Test
-    public void shouldTestTurtleOntologyFormat() throws OWLException {
-        TurtleOntologyFormat testSubject0 = new TurtleOntologyFormat();
-        RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result2 = testSubject0
-                .getOntologyLoaderMetaData();
-        boolean result3 = testSubject0.isAddMissingTypes();
-        boolean result4 = RDFOntologyFormat.isMissingType(
-                Utils.mockOWLEntity(), Utils.getMockOntology());
-        testSubject0.setAddMissingTypes(false);
-        testSubject0.addError(mock(RDFResourceParseError.class));
-        String result5 = testSubject0.getPrefix("");
-        IRI result6 = testSubject0.getIRI("");
-        testSubject0.setPrefix("", "");
-        testSubject0.clear();
-        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
-        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
-        Map<String, String> result7 = testSubject0.getPrefixName2PrefixMap();
-        Set<String> result8 = testSubject0.getPrefixNames();
-        testSubject0.setDefaultPrefix("");
-        boolean result9 = testSubject0.containsPrefixMapping("");
-        String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
-        testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result12 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
-        boolean result13 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result14 = testSubject0
-                .asPrefixOWLOntologyFormat();
-        testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestTurtleOntologyStorer() throws OWLException {
-        TurtleOntologyStorer testSubject0 = new TurtleOntologyStorer();
-        boolean result0 = testSubject0
-                .canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
-                mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class),
-                mock(OWLOntologyFormat.class));
-    }
-
     @Test
     public void shouldTestInterfaceRDFConsumer() throws OWLException,
             SAXException {
@@ -437,19 +321,6 @@ public class ContractSmallsTest {
         new OWLXMLObjectRenderer(mock(OWLXMLWriter.class));
     }
 
-    @Ignore
-    @Test
-    public void shouldTestOWLXMLOntologyStorer() throws OWLException {
-        OWLXMLOntologyStorer testSubject0 = new OWLXMLOntologyStorer();
-        boolean result0 = testSubject0
-                .canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(), IRI("urn:aFake"),
-                mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class),
-                mock(OWLOntologyFormat.class));
-    }
-
     @Test
     public void shouldTestOWLXMLRenderer() throws OWLException {
         OWLXMLRenderer testSubject0 = new OWLXMLRenderer();
@@ -459,33 +330,11 @@ public class ContractSmallsTest {
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
     }
 
-    @Ignore
-    @Test
-    public void shouldTestOWLXMLWriter() throws OWLException, IOException {
-        OWLXMLWriter testSubject0 = new OWLXMLWriter(mock(Writer.class),
-                Utils.getMockOntology());
-        testSubject0.startDocument(Utils.getMockOntology());
-        testSubject0.endDocument();
-        testSubject0.writeStartElement(OWLXMLVocabulary.COMMENT);
-        testSubject0.writeEndElement();
-        testSubject0.writeTextContent("");
-        testSubject0.writePrefix("", "");
-        testSubject0.writeIRIElement(IRI("urn:aFake"));
-        testSubject0.writeNodeIDAttribute(mock(NodeID.class));
-        testSubject0.writeIRIAttribute(IRI("urn:aFake"));
-        testSubject0.writeCardinalityAttribute(0);
-        testSubject0.writeFacetAttribute(OWLFacet.MAX_INCLUSIVE);
-        testSubject0.writeLangAttribute("");
-        testSubject0.writeDatatypeAttribute(mock(OWLDatatype.class));
-        Map<String, String> result0 = testSubject0.getIRIPrefixMap();
-        XMLWriterNamespaceManager result1 = testSubject0.getNamespaceManager();
-        testSubject0.writeAnnotationURIAttribute(mock(URI.class));
-    }
-
     @Test
     public void shouldTestAbstractOWLDebugger() throws OWLException {
         AbstractOWLDebugger testSubject0 = new AbstractOWLDebugger(
                 Utils.getRealMockManager(), Utils.getMockOntology()) {
+
             @Override
             public Set<OWLAxiom> getSOSForIncosistentClass(
                     OWLClassExpression cls) throws OWLException {
@@ -509,23 +358,6 @@ public class ContractSmallsTest {
         testSubject0.dispose();
         Set<OWLAxiom> result4 = testSubject0.getSOSForIncosistentClass(Utils
                 .mockAnonClass());
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestBlackBoxOWLDebugger() throws OWLException {
-        BlackBoxOWLDebugger testSubject0 = new BlackBoxOWLDebugger(
-                Utils.getRealMockManager(), Utils.getMockOntology(),
-                mock(OWLReasonerFactory.class));
-        testSubject0.dispose();
-        Set<OWLAxiom> result0 = testSubject0.getSOSForIncosistentClass(Utils
-                .mockAnonClass());
-        OWLOntology result2 = testSubject0.getOWLOntology();
-        Set<Set<OWLAxiom>> result3 = testSubject0
-                .getAllSOSForIncosistentClass(Utils.mockAnonClass());
-        testSubject0.constructHittingSetTree(
-                Utils.mockSet(mock(OWLAxiom.class)), Utils.mockSetSetAxiom(),
-                Utils.mockSetSetAxiom(), Utils.mockSet(mock(OWLAxiom.class)));
     }
 
     @Test

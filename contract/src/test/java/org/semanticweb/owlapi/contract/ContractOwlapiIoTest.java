@@ -15,7 +15,6 @@ package org.semanticweb.owlapi.contract;
 import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,17 +23,12 @@ import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFOntologyFormat;
-import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.AbstractOWLRenderer;
-import org.semanticweb.owlapi.io.FileDocumentSource;
-import org.semanticweb.owlapi.io.FileDocumentTarget;
 import org.semanticweb.owlapi.io.IRIDocumentSource;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.io.OWLOntologyCreationIOException;
@@ -58,10 +52,8 @@ import org.semanticweb.owlapi.io.StreamDocumentTarget;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
-import org.semanticweb.owlapi.io.ToStringRenderer;
 import org.semanticweb.owlapi.io.WriterDocumentTarget;
 import org.semanticweb.owlapi.io.XMLUtils;
-import org.semanticweb.owlapi.io.ZipDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
@@ -133,37 +125,6 @@ public class ContractOwlapiIoTest {
         };
         testSubject0.render(Utils.getMockOntology(), mock(OutputStream.class));
         testSubject0.render(Utils.getMockOntology(), mock(Writer.class));
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestFileDocumentSource() throws OWLException {
-        FileDocumentSource testSubject0 = new FileDocumentSource(new File("."));
-        InputStream result0 = testSubject0.getInputStream();
-        boolean result1 = testSubject0.isReaderAvailable();
-        if (result1) {
-            Reader result2 = testSubject0.getReader();
-        }
-        boolean result3 = testSubject0.isInputStreamAvailable();
-        IRI result4 = testSubject0.getDocumentIRI();
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestFileDocumentTarget() throws OWLException, IOException {
-        FileDocumentTarget testSubject0 = new FileDocumentTarget(new File("."));
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        if (result4) {
-            OutputStream result0 = testSubject0.getOutputStream();
-        }
-        boolean result2 = testSubject0.isWriterAvailable();
-        if (result2) {
-            Writer result3 = testSubject0.getWriter();
-        }
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        if (result5) {
-            IRI result1 = testSubject0.getDocumentIRI();
-        }
     }
 
     @Test
@@ -326,48 +287,6 @@ public class ContractOwlapiIoTest {
                 .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
-    @Ignore
-    @Test
-    public void shouldTestRDFOntologyFormat() throws OWLException {
-        RDFOntologyFormat testSubject0 = new RDFOntologyFormat() {
-
-            private static final long serialVersionUID = 40000L;
-
-            @Override
-            public String getKey() {
-                return "mock";
-            }
-        };
-        RDFParserMetaData result0 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result1 = testSubject0
-                .getOntologyLoaderMetaData();
-        boolean result2 = testSubject0.isAddMissingTypes();
-        boolean result3 = RDFOntologyFormat.isMissingType(
-                Utils.mockOWLEntity(), Utils.getMockOntology());
-        testSubject0.setAddMissingTypes(false);
-        testSubject0.addError(mock(RDFResourceParseError.class));
-        String result4 = testSubject0.getPrefix("");
-        IRI result5 = testSubject0.getIRI("");
-        testSubject0.setPrefix("", "");
-        testSubject0.clear();
-        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
-        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
-        Map<String, String> result6 = testSubject0.getPrefixName2PrefixMap();
-        Set<String> result7 = testSubject0.getPrefixNames();
-        testSubject0.setDefaultPrefix("");
-        boolean result8 = testSubject0.containsPrefixMapping("");
-        String result9 = testSubject0.getDefaultPrefix();
-        String result10 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
-        testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result11 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
-        boolean result12 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result13 = testSubject0
-                .asPrefixOWLOntologyFormat();
-        testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
-    }
-
     @Test
     public void shouldTestRDFOntologyHeaderStatus() throws OWLException {
         RDFOntologyHeaderStatus testSubject0 = RDFOntologyHeaderStatus.PARSED_MULTIPLE_HEADERS;
@@ -394,40 +313,6 @@ public class ContractOwlapiIoTest {
         OWLEntity result0 = testSubject0.getParserGeneratedErrorEntity();
         RDFNode result1 = testSubject0.getMainNode();
         Set<RDFTriple> result2 = testSubject0.getMainNodeTriples();
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestRDFXMLOntologyFormat() throws OWLException {
-        RDFXMLOntologyFormat testSubject0 = new RDFXMLOntologyFormat();
-        RDFParserMetaData result1 = testSubject0.getOntologyLoaderMetaData();
-        OWLOntologyLoaderMetaData result2 = testSubject0
-                .getOntologyLoaderMetaData();
-        boolean result3 = testSubject0.isAddMissingTypes();
-        boolean result4 = RDFOntologyFormat.isMissingType(
-                Utils.mockOWLEntity(), Utils.getMockOntology());
-        testSubject0.setAddMissingTypes(false);
-        testSubject0.addError(mock(RDFResourceParseError.class));
-        String result5 = testSubject0.getPrefix("");
-        IRI result6 = testSubject0.getIRI("");
-        testSubject0.setPrefix("", "");
-        testSubject0.clear();
-        testSubject0.copyPrefixesFrom(new DefaultPrefixManager());
-        testSubject0.copyPrefixesFrom(mock(PrefixOWLOntologyFormat.class));
-        Map<String, String> result7 = testSubject0.getPrefixName2PrefixMap();
-        Set<String> result8 = testSubject0.getPrefixNames();
-        testSubject0.setDefaultPrefix("");
-        boolean result9 = testSubject0.containsPrefixMapping("");
-        String result10 = testSubject0.getDefaultPrefix();
-        String result11 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
-        testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result12 = testSubject0.getParameter(mock(Object.class),
-                mock(Object.class));
-        boolean result13 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result14 = testSubject0
-                .asPrefixOWLOntologyFormat();
-        testSubject0
-                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     @Test
@@ -512,16 +397,6 @@ public class ContractOwlapiIoTest {
         }
     }
 
-    @Ignore
-    @Test
-    public void shouldTestToStringRenderer() throws OWLException {
-        ToStringRenderer testSubject0 = ToStringRenderer.getInstance();
-        ToStringRenderer result0 = ToStringRenderer.getInstance();
-        testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
-        testSubject0.setRenderer(mock(OWLObjectRenderer.class));
-        String result2 = testSubject0.getRendering(mock(OWLObject.class));
-    }
-
     @Test
     public void shouldTestWriterDocumentTarget() throws OWLException {
         WriterDocumentTarget testSubject0 = new WriterDocumentTarget(
@@ -554,23 +429,5 @@ public class ContractOwlapiIoTest {
         String result8 = XMLUtils.getNCNameSuffix(mock(CharSequence.class));
         String result9 = XMLUtils.getNCNamePrefix(mock(CharSequence.class));
         String result10 = XMLUtils.escapeXML(mock(CharSequence.class));
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestZipDocumentTarget() throws OWLException, IOException {
-        ZipDocumentTarget testSubject0 = new ZipDocumentTarget(mock(File.class));
-        boolean result2 = testSubject0.isWriterAvailable();
-        if (result2) {
-            Writer result3 = testSubject0.getWriter();
-        }
-        boolean result4 = testSubject0.isOutputStreamAvailable();
-        if (result4) {
-            OutputStream result0 = testSubject0.getOutputStream();
-        }
-        boolean result5 = testSubject0.isDocumentIRIAvailable();
-        if (result5) {
-            IRI result1 = testSubject0.getDocumentIRI();
-        }
     }
 }

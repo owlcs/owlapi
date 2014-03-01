@@ -16,21 +16,14 @@ import static org.mockito.Mockito.mock;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.io.Reader;
-import java.io.Writer;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParser;
 import org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserConstants;
-import org.semanticweb.owlapi.dlsyntax.parser.DLSyntaxParserTokenManager;
-import org.semanticweb.owlapi.dlsyntax.parser.ParseException;
 import org.semanticweb.owlapi.expression.OWLClassExpressionParser;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLExpressionParser;
@@ -62,8 +55,6 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.IllegalElementNameException;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.OWLOntologyXMLNamespaceManager;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriter;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterFactory;
-import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterImpl;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterNamespaceManager;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.XMLWriterPreferences;
 import org.semanticweb.owlapi.reasoner.BufferingMode;
@@ -92,6 +83,7 @@ import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked", "rawtypes" })
 public class ContractMediumTest {
+
     @Test
     public void shouldTestInterfaceOWLClassExpressionParser()
             throws OWLException, ParserException {
@@ -354,35 +346,6 @@ public class ContractMediumTest {
         testSubject0.writeComment("");
     }
 
-    @Ignore
-    @Test
-    public void shouldTestXMLWriterFactory() throws OWLException {
-        XMLWriterFactory testSubject0 = XMLWriterFactory.getInstance();
-        XMLWriterFactory result0 = XMLWriterFactory.getInstance();
-        XMLWriter result1 = testSubject0.createXMLWriter(mock(Writer.class),
-                mock(XMLWriterNamespaceManager.class), "");
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestXMLWriterImpl() throws OWLException, IOException {
-        XMLWriterImpl testSubject0 = new XMLWriterImpl(mock(Writer.class),
-                mock(XMLWriterNamespaceManager.class), "");
-        IRI i = IRI.create("iri");
-        testSubject0.setEncoding("");
-        testSubject0.startDocument(i);
-        testSubject0.endDocument();
-        String result0 = testSubject0.getDefaultNamespace();
-        XMLWriterNamespaceManager result1 = testSubject0.getNamespacePrefixes();
-        String result2 = testSubject0.getXMLBase();
-        testSubject0.setWrapAttributes(false);
-        testSubject0.writeStartElement(i);
-        testSubject0.writeEndElement();
-        testSubject0.writeAttribute("", "");
-        testSubject0.writeTextContent("");
-        testSubject0.writeComment("");
-    }
-
     @Test
     public void shouldTestXMLWriterNamespaceManager() throws OWLException {
         XMLWriterNamespaceManager testSubject0 = new XMLWriterNamespaceManager(
@@ -515,27 +478,6 @@ public class ContractMediumTest {
                 .getMockOntology());
         OWLReasoner result4 = testSubject0.createReasoner(
                 Utils.getMockOntology(), mock(OWLReasonerConfiguration.class));
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestDLSyntaxParser() throws OWLException, ParseException {
-        DLSyntaxParser testSubject0 = new DLSyntaxParser(
-                mock(InputStream.class));
-        new DLSyntaxParser(mock(DLSyntaxParserTokenManager.class));
-        new DLSyntaxParser(mock(Reader.class));
-        new DLSyntaxParser(mock(InputStream.class), "UTF-8");
-        IRI result0 = testSubject0.getIRI("");
-        testSubject0.setDefaultNamespace("");
-        testSubject0.ReInit(mock(InputStream.class), "UTF-8");
-        testSubject0.ReInit(mock(Reader.class));
-        testSubject0.ReInit(mock(InputStream.class));
-        testSubject0.ReInit(mock(DLSyntaxParserTokenManager.class));
-        testSubject0.enable_tracing();
-        testSubject0.disable_tracing();
-        testSubject0.setOWLDataFactory(mock(OWLDataFactory.class));
-        testSubject0.setPrefixMapping("", "");
-        IRI result13 = testSubject0.getIRIFromId("");
     }
 
     @Test

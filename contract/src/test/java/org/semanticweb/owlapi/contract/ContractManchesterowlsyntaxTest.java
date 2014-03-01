@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.OWLOntologyChecker;
@@ -32,7 +31,6 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxClassExpressionParser;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxClassFrameParser;
-import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxFramesParser;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxInlineAxiomParser;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxOntologyHeader;
@@ -43,7 +41,6 @@ import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
@@ -57,6 +54,7 @@ import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractManchesterowlsyntaxTest {
+
     @Test
     public void shouldTestManchesterOWLSyntax() throws OWLException {
         ManchesterOWLSyntax testSubject0 = ManchesterOWLSyntax.AND;
@@ -82,25 +80,6 @@ public class ContractManchesterowlsyntaxTest {
             throws OWLException {
         new ManchesterOWLSyntaxClassFrameParser(mock(OWLDataFactory.class),
                 mock(OWLEntityChecker.class));
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestManchesterOWLSyntaxEditorParser()
-            throws OWLException, ParserException {
-        ManchesterOWLSyntaxEditorParser testSubject0 = new ManchesterOWLSyntaxEditorParser(
-                new OWLOntologyLoaderConfiguration(),
-                mock(OWLDataFactory.class), "");
-        new ManchesterOWLSyntaxEditorParser(mock(OWLDataFactory.class), "");
-        testSubject0.setOWLEntityChecker(mock(OWLEntityChecker.class));
-        OWLClassExpression result12 = testSubject0.parseClassExpression();
-        Set<OntologyAxiomPair> result13 = testSubject0.parseClassFrameEOF();
-        testSubject0.setOWLOntologyChecker(mock(OWLOntologyChecker.class));
-        Set<OntologyAxiomPair> result52 = testSubject0.parseFrames();
-        testSubject0.setDefaultOntology(Utils.getMockOntology());
-        Set<OWLOntology> mock = Utils.mockSet(Utils.getMockOntology());
-        ManchesterOWLSyntaxOntologyFormat result105 = testSubject0
-                .parseOntology(Utils.getMockOntology());
     }
 
     @Test

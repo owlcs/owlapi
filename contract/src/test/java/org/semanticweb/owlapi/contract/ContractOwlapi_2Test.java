@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
@@ -30,7 +29,6 @@ import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValueVisitor;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
@@ -125,8 +123,6 @@ import uk.ac.manchester.cs.owl.owlapi.OWLIndividualRelationshipAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLInverseFunctionalObjectPropertyAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLInverseObjectPropertiesAxiomImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLIrreflexiveObjectPropertyAxiomImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImpl;
-import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplBoolean;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplDouble;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplFloat;
 import uk.ac.manchester.cs.owl.owlapi.OWLLiteralImplInteger;
@@ -135,6 +131,7 @@ import uk.ac.manchester.cs.owl.owlapi.OWLNamedIndividualImpl;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_2Test {
+
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
 
     @Test
@@ -438,6 +435,7 @@ public class ContractOwlapi_2Test {
         OWLDataPropertyCharacteristicAxiomImpl testSubject0 = new OWLDataPropertyCharacteristicAxiomImpl(
                 mock(OWLDataPropertyExpression.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1456,6 +1454,7 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLIndividualAxiomImpl() throws OWLException {
         OWLIndividualAxiomImpl testSubject0 = new OWLIndividualAxiomImpl(
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1529,6 +1528,7 @@ public class ContractOwlapi_2Test {
     @Test
     public void shouldTestOWLIndividualImpl() throws OWLException {
         OWLIndividualImpl testSubject0 = new OWLIndividualImpl() {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1614,6 +1614,7 @@ public class ContractOwlapi_2Test {
                 mock(OWLIndividual.class), Utils.mockObjectProperty(),
                 mock(OWLPropertyAssertionObject.class),
                 Utils.mockCollection(mock(OWLAnnotation.class))) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -1796,86 +1797,6 @@ public class ContractOwlapi_2Test {
         boolean result31 = testSubject0.isBottomEntity();
     }
 
-    @Ignore
-    @Test
-    public void shouldTestOWLLiteralImpl() throws OWLException {
-        OWLLiteralImpl testSubject0 = new OWLLiteralImpl("", "",
-                mock(OWLDatatype.class));
-        boolean result0 = testSubject0.parseBoolean();
-        float result1 = testSubject0.parseFloat();
-        double result2 = testSubject0.parseDouble();
-        Object result3 = testSubject0.accept(Utils.mockObject());
-        testSubject0.accept(mock(OWLDataVisitor.class));
-        Object result4 = testSubject0.accept(Utils.mockData());
-        testSubject0.accept(mock(OWLAnnotationValueVisitor.class));
-        Object result5 = testSubject0.accept(Utils.mockAnnotationValue());
-        testSubject0.accept(mock(OWLObjectVisitor.class));
-        String result6 = testSubject0.getLiteral();
-        boolean result7 = testSubject0.isRDFPlainLiteral();
-        OWLDatatype result8 = testSubject0.getDatatype();
-        boolean result9 = testSubject0.hasLang("");
-        boolean result10 = testSubject0.hasLang();
-        String result11 = testSubject0.getLang();
-        boolean result12 = testSubject0.isInteger();
-        int result13 = testSubject0.parseInteger();
-        boolean result14 = testSubject0.isBoolean();
-        boolean result15 = testSubject0.isDouble();
-        boolean result16 = testSubject0.isFloat();
-        Set<OWLEntity> result50 = testSubject0.getSignature();
-        Set<OWLAnonymousIndividual> result51 = testSubject0
-                .getAnonymousIndividuals();
-        Set<OWLClass> result52 = testSubject0.getClassesInSignature();
-        Set<OWLDataProperty> result53 = testSubject0
-                .getDataPropertiesInSignature();
-        Set<OWLObjectProperty> result54 = testSubject0
-                .getObjectPropertiesInSignature();
-        Set<OWLNamedIndividual> result55 = testSubject0
-                .getIndividualsInSignature();
-        Set<OWLDatatype> result56 = testSubject0.getDatatypesInSignature();
-        boolean result28 = testSubject0.isTopEntity();
-        boolean result29 = testSubject0.isBottomEntity();
-    }
-
-    @Ignore
-    @Test
-    public void shouldTestOWLLiteralImplBoolean() throws OWLException {
-        OWLLiteralImplBoolean testSubject0 = new OWLLiteralImplBoolean(false,
-                df.getBooleanOWLDatatype());
-        boolean result1 = testSubject0.parseBoolean();
-        float result2 = testSubject0.parseFloat();
-        double result3 = testSubject0.parseDouble();
-        Object result4 = testSubject0.accept(Utils.mockObject());
-        testSubject0.accept(mock(OWLDataVisitor.class));
-        Object result5 = testSubject0.accept(Utils.mockData());
-        testSubject0.accept(mock(OWLAnnotationValueVisitor.class));
-        Object result6 = testSubject0.accept(Utils.mockAnnotationValue());
-        testSubject0.accept(mock(OWLObjectVisitor.class));
-        String result7 = testSubject0.getLiteral();
-        boolean result8 = testSubject0.isRDFPlainLiteral();
-        OWLDatatype result9 = testSubject0.getDatatype();
-        boolean result10 = testSubject0.hasLang();
-        boolean result11 = testSubject0.hasLang("");
-        String result12 = testSubject0.getLang();
-        boolean result13 = testSubject0.isInteger();
-        int result14 = testSubject0.parseInteger();
-        boolean result15 = testSubject0.isBoolean();
-        boolean result16 = testSubject0.isDouble();
-        boolean result17 = testSubject0.isFloat();
-        Set<OWLEntity> result50 = testSubject0.getSignature();
-        Set<OWLAnonymousIndividual> result51 = testSubject0
-                .getAnonymousIndividuals();
-        Set<OWLClass> result52 = testSubject0.getClassesInSignature();
-        Set<OWLDataProperty> result53 = testSubject0
-                .getDataPropertiesInSignature();
-        Set<OWLObjectProperty> result54 = testSubject0
-                .getObjectPropertiesInSignature();
-        Set<OWLNamedIndividual> result55 = testSubject0
-                .getIndividualsInSignature();
-        Set<OWLDatatype> result56 = testSubject0.getDatatypesInSignature();
-        boolean result29 = testSubject0.isTopEntity();
-        boolean result30 = testSubject0.isBottomEntity();
-    }
-
     @Test
     public void shouldTestOWLLiteralImplDouble() throws OWLException {
         new OWLLiteralImplDouble(0D, mock(OWLDatatype.class));
@@ -1899,6 +1820,7 @@ public class ContractOwlapi_2Test {
     public void shouldTestOWLLogicalAxiomImpl() throws OWLException {
         OWLLogicalAxiomImpl testSubject0 = new OWLLogicalAxiomImpl(
                 new ArrayList<OWLAnnotation>()) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override

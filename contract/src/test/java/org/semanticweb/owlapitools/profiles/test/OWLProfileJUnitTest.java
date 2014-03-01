@@ -23,7 +23,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
@@ -1847,7 +1846,6 @@ public class OWLProfileJUnitTest {
         runAssert(o, profile, expected, expectedViolations);
     }
 
-    @Ignore
     @Test
     @Tests(method = "public Object visit(OWLFunctionalDataPropertyAxiom axiom)")
     public
@@ -1860,7 +1858,7 @@ public class OWLProfileJUnitTest {
         m.addAxiom(o, FunctionalDataProperty(datap));
         OWL2RLProfile profile = new OWL2RLProfile();
         int expected = 1;
-        Class[] expectedViolations = new Class[] { Object.class };
+        Class[] expectedViolations = new Class[] { UseOfIllegalAxiom.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1947,15 +1945,17 @@ public class OWLProfileJUnitTest {
         runAssert(o, profile, expected, expectedViolations);
     }
 
-    @Ignore
     @Test
     @Tests(method = "public Object visit(OWLDataComplementOf node)")
     public void shouldCreateViolationForOWLDataComplementOfInOWL2RLProfile()
             throws Exception {
         OWLOntology o = createOnto();
+        OWLOntologyManager m = o.getOWLOntologyManager();
+        declare(o, datap);
+        m.addAxiom(o, DataPropertyRange(datap, DataComplementOf(Integer())));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 2;
-        Class[] expectedViolations = new Class[] { Object.class };
+        int expected = 1;
+        Class[] expectedViolations = new Class[] { UseOfIllegalDataRange.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 

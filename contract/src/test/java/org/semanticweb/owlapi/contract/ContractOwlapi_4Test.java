@@ -20,9 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -46,12 +44,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyBuilder;
-import org.semanticweb.owlapi.model.OWLOntologyFactory.OWLOntologyCreationHandler;
-import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
@@ -63,7 +55,6 @@ import org.semanticweb.owlapi.model.SWRLPredicate;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.SWRLAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLBinaryAtomImpl;
 import uk.ac.manchester.cs.owl.owlapi.SWRLBuiltInAtomImpl;
@@ -81,28 +72,11 @@ import uk.ac.manchester.cs.owl.owlapi.SWRLVariableImpl;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapi_4Test {
-    @Ignore
-    @Test
-    public void shouldTestParsableOWLOntologyFactory() throws OWLException {
-        ParsableOWLOntologyFactory testSubject0 = new ParsableOWLOntologyFactory(
-                mock(OWLOntologyBuilder.class));
-        OWLOntology result1 = testSubject0.loadOWLOntology(
-                mock(OWLOntologyManager.class),
-                mock(OWLOntologyDocumentSource.class),
-                mock(OWLOntologyCreationHandler.class),
-                new OWLOntologyLoaderConfiguration());
-        boolean result3 = testSubject0
-                .canCreateFromDocumentIRI(IRI("urn:aFake"));
-        boolean result4 = testSubject0
-                .canLoad(mock(OWLOntologyDocumentSource.class));
-        OWLOntology result7 = testSubject0.createOWLOntology(
-                mock(OWLOntologyManager.class), new OWLOntologyID(),
-                IRI("urn:aFake"), mock(OWLOntologyCreationHandler.class));
-    }
 
     @Test
     public void shouldTestSWRLAtomImpl() throws OWLException {
         SWRLAtomImpl testSubject0 = new SWRLAtomImpl(mock(SWRLPredicate.class)) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -157,6 +131,7 @@ public class ContractOwlapi_4Test {
         SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument> testSubject0 = new SWRLBinaryAtomImpl<SWRLArgument, SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class),
                 mock(SWRLArgument.class)) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -498,6 +473,7 @@ public class ContractOwlapi_4Test {
     public void shouldTestSWRLUnaryAtomImpl() throws OWLException {
         SWRLUnaryAtomImpl<SWRLArgument> testSubject0 = new SWRLUnaryAtomImpl<SWRLArgument>(
                 mock(SWRLPredicate.class), mock(SWRLArgument.class)) {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -546,6 +522,7 @@ public class ContractOwlapi_4Test {
     @Test
     public void shouldTestSWRLVariableImpl() throws OWLException {
         SWRLVariableImpl testSubject0 = new SWRLVariableImpl(IRI("urn:aFake")) {
+
             private static final long serialVersionUID = 40000L;
         };
         testSubject0.accept(mock(OWLObjectVisitor.class));
