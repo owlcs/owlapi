@@ -39,11 +39,13 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @param <P> property expression
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006
+ * @param <P>
+ *        property expression
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 25-Oct-2006
  */
-public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression<?, ?>> extends OWLPropertyAxiom, HasProperty<P>{
+public interface OWLUnaryPropertyAxiom<P extends OWLPropertyExpression<?, ?>>
+        extends OWLPropertyAxiom, HasProperty<P> {
 
     /**
      * @return the property expression that this axiom describes.

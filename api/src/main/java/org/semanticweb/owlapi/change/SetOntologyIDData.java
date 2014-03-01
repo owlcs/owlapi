@@ -46,26 +46,31 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** Represents the specific non-ontology data required by a
+/**
+ * Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.SetOntologyID} change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ * @since 3.5
+ */
 public final class SetOntologyIDData extends OWLOntologyChangeData {
+
     private static final long serialVersionUID = 30406L;
     private final OWLOntologyID newId;
 
-    /** Constructs a {@link SetOntologyIDData} object that describes an
+    /**
+     * Constructs a {@link SetOntologyIDData} object that describes an
      * {@link SetOntologyID} change for the {@link OWLOntologyID} object
      * specified by the {@code newId} parameter.
      * 
      * @param newId
-     *            The {@link OWLOntologyID} that is the focus of some change.
-     *            Not {@code null}.
+     *        The {@link OWLOntologyID} that is the focus of some change. Not
+     *        {@code null}.
      * @throws NullPointerException
-     *             if {@code ontologyId} is {@code null}. */
+     *         if {@code ontologyId} is {@code null}.
+     */
     public SetOntologyIDData(OWLOntologyID newId) {
         if (newId == null) {
             throw new NullPointerException("newId must not be null");
@@ -73,28 +78,32 @@ public final class SetOntologyIDData extends OWLOntologyChangeData {
         this.newId = newId;
     }
 
-    /** Gets the {@link OWLOntologyID} that is associated with some
+    /**
+     * Gets the {@link OWLOntologyID} that is associated with some
      * {@link SetOntologyID} change.
      * 
-     * @return The {@link OWLOntologyID}. Not {@code null}. */
+     * @return The {@link OWLOntologyID}. Not {@code null}.
+     */
     public OWLOntologyID getNewId() {
         return newId;
     }
 
-    /** Creates the {@link org.semanticweb.owlapi.model.SetOntologyID} change
+    /**
+     * Creates the {@link org.semanticweb.owlapi.model.SetOntologyID} change
      * that describes setting an
      * {@link org.semanticweb.owlapi.model.OWLOntologyID} for an
      * {@link OWLOntology} specified by the {@code ontology} parameter.
      * 
      * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
+     *        The {@link OWLOntology} that the change should apply to. Not
+     *        {@code null}.
      * @return The {@link org.semanticweb.owlapi.model.SetOntologyID} change for
      *         the {@link OWLOntology} specified by {@code ontology} and the
      *         {@link org.semanticweb.owlapi.model.OWLOntologyID} associated
      *         with this {@link SetOntologyIDData} object.
      * @throws NullPointerException
-     *             if {@code ontology} is {@code null}. */
+     *         if {@code ontology} is {@code null}.
+     */
     @Override
     public SetOntologyID createOntologyChange(OWLOntology ontology) {
         if (ontology == null) {

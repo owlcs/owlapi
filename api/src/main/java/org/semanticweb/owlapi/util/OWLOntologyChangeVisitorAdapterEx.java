@@ -48,16 +48,21 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 12-Dec-2006
  * @param <O>
- *            returned type */
+ *        returned type
+ */
 public class OWLOntologyChangeVisitorAdapterEx<O> implements
         OWLOntologyChangeVisitorEx<O> {
+
     private O defaultValue;
 
-    /** @param c
-     *            default value */
+    /**
+     * @param c
+     *        default value
+     */
     public OWLOntologyChangeVisitorAdapterEx(O c) {
         this.defaultValue = c;
     }

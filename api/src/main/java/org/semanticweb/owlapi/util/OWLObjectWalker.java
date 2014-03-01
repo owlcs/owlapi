@@ -140,11 +140,14 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 29-Jul-2008
  * @param <O>
- *            the returned type */
+ *        the returned type
+ */
 public class OWLObjectWalker<O extends OWLObject> {
+
     protected OWLOntology ontology;
     private final Collection<O> objects;
     protected OWLObjectVisitorEx<?> visitor;
@@ -154,23 +157,29 @@ public class OWLObjectWalker<O extends OWLObject> {
     private final List<OWLClassExpression> classExpressionPath = new ArrayList<OWLClassExpression>();
     private final List<OWLDataRange> dataRangePath = new ArrayList<OWLDataRange>();
 
-    /** @param objects
-     *            the set of objects to visit */
+    /**
+     * @param objects
+     *        the set of objects to visit
+     */
     public OWLObjectWalker(Set<O> objects) {
         this(objects, true);
     }
 
-    /** @param visitDuplicates
-     *            true if duplicates should be visited
+    /**
+     * @param visitDuplicates
+     *        true if duplicates should be visited
      * @param objects
-     *            the set of objects to visit */
+     *        the set of objects to visit
+     */
     public OWLObjectWalker(Set<O> objects, boolean visitDuplicates) {
         this.objects = new ArrayList<O>(objects);
         this.visitDuplicates = visitDuplicates;
     }
 
-    /** @param v
-     *            visitor to use over the objects */
+    /**
+     * @param v
+     *        visitor to use over the objects
+     */
     public void walkStructure(OWLObjectVisitorEx<?> v) {
         this.visitor = v;
         StructureWalker walker = new StructureWalker();
@@ -179,29 +188,36 @@ public class OWLObjectWalker<O extends OWLObject> {
         }
     }
 
-    /** Gets the last ontology to be visited.
+    /**
+     * Gets the last ontology to be visited.
      * 
-     * @return The last ontology to be visited */
+     * @return The last ontology to be visited
+     */
     public OWLOntology getOntology() {
         return ontology;
     }
 
-    /** Gets the last axiom to be visited.
+    /**
+     * Gets the last axiom to be visited.
      * 
      * @return The last axiom to be visited, or {@code null} if an axiom has not
-     *         be visited */
+     *         be visited
+     */
     public OWLAxiom getAxiom() {
         return ax;
     }
 
-    /** Gets the last annotation to be visited.
+    /**
+     * Gets the last annotation to be visited.
      * 
-     * @return The last annotation to be visited (may be {@code null}) */
+     * @return The last annotation to be visited (may be {@code null})
+     */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }
 
-    /** Gets the current class expression path. The current class expression path
+    /**
+     * Gets the current class expression path. The current class expression path
      * is a list of class expressions that represents the containing expressions
      * for the current class expressions. The first item in the path (list) is
      * the root class expression that was visited. For i between 0 and
@@ -211,41 +227,50 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @return A list of class expressions that represents the path of class
      *         expressions, with the root of the class expression being the
-     *         first element in the list. */
+     *         first element in the list.
+     */
     public List<OWLClassExpression> getClassExpressionPath() {
         return new ArrayList<OWLClassExpression>(classExpressionPath);
     }
 
-    /** Determines if a particular class expression is the first (or root) class
+    /**
+     * Determines if a particular class expression is the first (or root) class
      * expression in the current class expression path.
      * 
      * @param classExpression
-     *            The class expression
+     *        The class expression
      * @return {@code true} if the specified class expression is the first class
      *         expression in the current class expression path, otherwise
-     *         {@code false} ({@code false} if the path is empty) */
-    public boolean isFirstClassExpressionInPath(OWLClassExpression classExpression) {
+     *         {@code false} ({@code false} if the path is empty)
+     */
+    public boolean isFirstClassExpressionInPath(
+            OWLClassExpression classExpression) {
         return !classExpressionPath.isEmpty()
                 && classExpressionPath.get(0).equals(classExpression);
     }
 
-    /** Pushes a class expression onto the class expression path.
+    /**
+     * Pushes a class expression onto the class expression path.
      * 
      * @param ce
-     *            The class expression to be pushed onto the path */
+     *        The class expression to be pushed onto the path
+     */
     protected void pushClassExpression(OWLClassExpression ce) {
         classExpressionPath.add(ce);
     }
 
-    /** Pops a class expression from the class expression path. If the path is
-     * empty then this method has no effect. */
+    /**
+     * Pops a class expression from the class expression path. If the path is
+     * empty then this method has no effect.
+     */
     protected void popClassExpression() {
         if (!classExpressionPath.isEmpty()) {
             classExpressionPath.remove(classExpressionPath.size() - 1);
         }
     }
 
-    /** Gets the current data range path. The current data range path is a list
+    /**
+     * Gets the current data range path. The current data range path is a list
      * of data ranges that represents the containing expressions for the current
      * data ranges. The first item in the path (list) is the root data range
      * that was visited. For i between 0 and pathLength, the item at index i+1
@@ -254,21 +279,26 @@ public class OWLObjectWalker<O extends OWLObject> {
      * 
      * @return A list of data ranges that represents the path of data ranges,
      *         with the root of the data range being the first element in the
-     *         list. */
+     *         list.
+     */
     public List<OWLDataRange> getDataRangePath() {
         return new ArrayList<OWLDataRange>(dataRangePath);
     }
 
-    /** Pushes a data range on to the data range path.
+    /**
+     * Pushes a data range on to the data range path.
      * 
      * @param dr
-     *            The data range to be pushed onto the path */
+     *        The data range to be pushed onto the path
+     */
     protected void pushDataRange(OWLDataRange dr) {
         dataRangePath.add(dr);
     }
 
-    /** Pops a data range from the data range expression path. If the path is
-     * empty then this method has no effect. */
+    /**
+     * Pops a data range from the data range expression path. If the path is
+     * empty then this method has no effect.
+     */
     protected void popDataRange() {
         if (!dataRangePath.isEmpty()) {
             dataRangePath.remove(dataRangePath.size() - 1);
@@ -276,6 +306,7 @@ public class OWLObjectWalker<O extends OWLObject> {
     }
 
     private class StructureWalker implements OWLObjectVisitor {
+
         private final Set<OWLObject> visited = new HashSet<OWLObject>();
 
         public StructureWalker() {}
@@ -631,10 +662,12 @@ public class OWLObjectWalker<O extends OWLObject> {
             process(axiom);
             OWLObjectWalker.this.ax = axiom;
             axiom.getClassExpression().accept(this);
-            for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
+            for (OWLObjectPropertyExpression prop : axiom
+                    .getObjectPropertyExpressions()) {
                 prop.accept(this);
             }
-            for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+            for (OWLDataPropertyExpression prop : axiom
+                    .getDataPropertyExpressions()) {
                 prop.accept(this);
             }
         }

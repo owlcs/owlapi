@@ -48,47 +48,59 @@ import org.semanticweb.owlapi.reasoner.Node;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 05-Dec-2009
  * @param <E>
- *            the type of owl objects in the node */
+ *        the type of owl objects in the node
+ */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
+
     private final Set<Node<E>> nodes = new HashSet<Node<E>>();
 
     /** constructor for an empty node set. */
     public DefaultNodeSet() {}
 
-    /** @param entity
-     *            the entity to be contained */
+    /**
+     * @param entity
+     *        the entity to be contained
+     */
     public DefaultNodeSet(E entity) {
         nodes.add(getNode(entity));
     }
 
-    /** @param node
-     *            the node to be contained */
+    /**
+     * @param node
+     *        the node to be contained
+     */
     public DefaultNodeSet(Node<E> node) {
         nodes.add(node);
     }
 
-    /** @param nodes
-     *            a set of nodes to be contained */
+    /**
+     * @param nodes
+     *        a set of nodes to be contained
+     */
     public DefaultNodeSet(Set<Node<E>> nodes) {
         this.nodes.addAll(nodes);
     }
 
     @Override
     public Set<Node<E>> getNodes() {
-        return CollectionFactory.getCopyOnRequestSetFromMutableCollection(nodes);
+        return CollectionFactory
+                .getCopyOnRequestSetFromMutableCollection(nodes);
     }
 
-    /** Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
+    /**
+     * Adds an entity to this {@code NodeSet} by wrapping it in a {@code Node}.
      * 
      * @param entity
-     *            The entity to be added. The entity will be wrapped in the
-     *            {@code Node} and the {@code Node} added to this set. Must not
-     *            be {@code null}.
+     *        The entity to be added. The entity will be wrapped in the
+     *        {@code Node} and the {@code Node} added to this set. Must not be
+     *        {@code null}.
      * @throws NullPointerException
-     *             if {@code entity} is {@code null}. */
+     *         if {@code entity} is {@code null}.
+     */
     // XXX not in the interface
     public void addEntity(E entity) {
         if (entity == null) {
@@ -97,12 +109,14 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         addNode(getNode(entity));
     }
 
-    /** Adds a {@code Node} to this set.
+    /**
+     * Adds a {@code Node} to this set.
      * 
      * @param node
-     *            The {@code Node} to be added.
+     *        The {@code Node} to be added.
      * @throws NullPointerException
-     *             if {@code entity} is {@code null}. */
+     *         if {@code entity} is {@code null}.
+     */
     // XXX not in the interface
     public void addNode(Node<E> node) {
         if (node == null) {
@@ -111,11 +125,13 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         nodes.add(node);
     }
 
-    /** Adds a collection of {@code Node}s to this set.
+    /**
+     * Adds a collection of {@code Node}s to this set.
      * 
      * @param nodeset
-     *            The {@code Node}s to be added. Note that if the collection is
-     *            not a set then duplicate {@code Node}s will be filtered out. */
+     *        The {@code Node}s to be added. Note that if the collection is not
+     *        a set then duplicate {@code Node}s will be filtered out.
+     */
     // XXX not in the interface
     public void addAllNodes(Collection<Node<E>> nodeset) {
         for (Node<E> node : nodeset) {
@@ -125,21 +141,25 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
         }
     }
 
-    /** Adds the set of entities as a {@code Node} to this set.
+    /**
+     * Adds the set of entities as a {@code Node} to this set.
      * 
      * @param entities
-     *            The set of entities to be added. The entities will be wrapped
-     *            in a {@code Node} which will be added to this {@code NodeSet}. */
+     *        The set of entities to be added. The entities will be wrapped in a
+     *        {@code Node} which will be added to this {@code NodeSet}.
+     */
     // XXX not in the interface
     public void addSameEntities(Set<E> entities) {
         nodes.add(getNode(entities));
     }
 
-    /** Adds the specified entities as {@code Node}s to this set.
+    /**
+     * Adds the specified entities as {@code Node}s to this set.
      * 
      * @param entities
-     *            The entities to be added. Each entity will be wrapped in a
-     *            {@code Node} which will then be added to this {@code NodeSet}. */
+     *        The entities to be added. Each entity will be wrapped in a
+     *        {@code Node} which will then be added to this {@code NodeSet}.
+     */
     // XXX not in the interface
     public void addDifferentEntities(Set<E> entities) {
         for (E e : entities) {

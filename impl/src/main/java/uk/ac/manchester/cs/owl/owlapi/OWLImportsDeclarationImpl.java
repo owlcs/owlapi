@@ -44,14 +44,20 @@ import java.net.URI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLImportsDeclarationImpl implements OWLImportsDeclaration, Serializable {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLImportsDeclarationImpl implements OWLImportsDeclaration,
+        Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final IRI iri;
 
-    /** @param iri
-     *            iri to import */
+    /**
+     * @param iri
+     *        iri to import
+     */
     public OWLImportsDeclarationImpl(IRI iri) {
         this.iri = iri;
     }

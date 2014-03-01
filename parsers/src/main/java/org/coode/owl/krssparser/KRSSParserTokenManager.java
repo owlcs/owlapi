@@ -46,24 +46,29 @@ import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 /** Token Manager. */
 @SuppressWarnings("unused")
 public class KRSSParserTokenManager implements KRSSParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
+    /**
+     * Set debug output.
      * 
      * @param ds
-     *            the new debug stream */
+     *        the new debug stream
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
-    /** Jj stop string literal dfa_0.
+    /**
+     * Jj stop string literal dfa_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
             case 0:
@@ -434,33 +439,39 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Jj start nfa_0.
+    /**
+     * Jj start nfa_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private final int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
 
-    /** Jj stop at pos.
+    /**
+     * Jj stop at pos.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param kind
-     *            the kind
-     * @return the int */
+     *        the kind
+     * @return the int
+     */
     private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
 
-    /** Jj move string literal dfa0_0.
+    /**
+     * Jj move string literal dfa0_0.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 34:
@@ -500,11 +511,13 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Jj move string literal dfa1_0.
+    /**
+     * Jj move string literal dfa1_0.
      * 
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa1_0(long active0) {
         try {
             curChar = input_stream.readChar();
@@ -1198,15 +1211,17 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         return jjStartNfa_0(22, active0);
     }
 
-    /** Jj start nfa with states_0.
+    /**
+     * Jj start nfa with states_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param kind
-     *            the kind
+     *        the kind
      * @param state
-     *            the state
-     * @return the int */
+     *        the state
+     * @return the int
+     */
     private int jjStartNfaWithStates_0(int pos, int kind, int state) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
@@ -1315,9 +1330,11 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Jj move string literal dfa0_3.
+    /**
+     * Jj move string literal dfa0_3.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_3() {
         switch (curChar) {
             case 34:
@@ -1348,9 +1365,11 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         return 2;
     }
 
-    /** Jj move string literal dfa0_2.
+    /**
+     * Jj move string literal dfa0_2.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_2() {
         switch (curChar) {
             case 62:
@@ -1360,9 +1379,11 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Jj move string literal dfa0_1.
+    /**
+     * Jj move string literal dfa0_1.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_1() {
         switch (curChar) {
             case 10:
@@ -1430,10 +1451,12 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
     /** The cur char. */
     protected char curChar;
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public KRSSParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
@@ -1442,21 +1465,25 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         input_stream = stream;
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public KRSSParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(BOMSafeJavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -1473,21 +1500,25 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 4 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -1498,9 +1529,11 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Jj fill token.
+    /**
+     * Jj fill token.
      * 
-     * @return the token */
+     * @return the token
+     */
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1535,9 +1568,11 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
     /** The jjmatched kind. */
     int jjmatchedKind;
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
@@ -1646,10 +1681,12 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         }
     }
 
-    /** Jj check n add.
+    /**
+     * Jj check n add.
      * 
      * @param state
-     *            the state */
+     *        the state
+     */
     private void jjCheckNAdd(int state) {
         if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
@@ -1664,12 +1701,14 @@ public class KRSSParserTokenManager implements KRSSParserConstants {
         } while (start++ != end);
     }
 
-    /** Jj check n add two states.
+    /**
+     * Jj check n add two states.
      * 
      * @param state1
-     *            the state1
+     *        the state1
      * @param state2
-     *            the state2 */
+     *        the state2
+     */
     private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);

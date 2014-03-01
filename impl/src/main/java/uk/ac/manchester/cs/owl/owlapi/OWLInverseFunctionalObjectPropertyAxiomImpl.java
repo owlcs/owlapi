@@ -51,17 +51,22 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLInverseFunctionalObjectPropertyAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLInverseFunctionalObjectPropertyAxiomImpl(
             OWLObjectPropertyExpression property,
             Collection<? extends OWLAnnotation> annotations) {
@@ -117,7 +122,9 @@ public class OWLInverseFunctionalObjectPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLObjectMaxCardinalityImpl(
-                getProperty().getInverseProperty().getSimplified(), 1), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+                new OWLObjectMaxCardinalityImpl(getProperty()
+                        .getInverseProperty().getSimplified(), 1),
+                NO_ANNOTATIONS);
     }
 }

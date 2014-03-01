@@ -42,10 +42,13 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-May-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-May-2007
+ */
 @SuppressWarnings("javadoc")
 public class TestUtils {
+
     private static int uriCounter = 0;
 
     public static IRI createIRI() {

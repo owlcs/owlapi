@@ -13,10 +13,13 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Tests for the handling of axioms, which cannot be translated to OBO. Such
- * axioms will be added in a tag in the ontology header. */
+/**
+ * Tests for the handling of axioms, which cannot be translated to OBO. Such
+ * axioms will be added in a tag in the ontology header.
+ */
 @SuppressWarnings("javadoc")
 public class UntranslatableAxiomsInHeaderTest extends OboFormatTestBasics {
+
     @Test
     public void testUntranslatableAxioms() throws Exception {
         final OWLOntology original = parseOWLFile("untranslatable_axioms.owl");

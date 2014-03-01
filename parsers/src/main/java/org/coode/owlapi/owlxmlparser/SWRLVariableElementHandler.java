@@ -43,11 +43,17 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Oct-2009 */
-public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVariable> {
-    /** @param handler
-     *            owlxml handler */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Oct-2009
+ */
+public class SWRLVariableElementHandler extends
+        AbstractOWLElementHandler<SWRLVariable> {
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     protected SWRLVariableElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -55,12 +61,14 @@ public class SWRLVariableElementHandler extends AbstractOWLElementHandler<SWRLVa
     private IRI iri;
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         getParentHandler().handleChild(this);
     }
 
     @Override
-    public void attribute(String localName, String value) throws OWLParserException {
+    public void attribute(String localName, String value)
+            throws OWLParserException {
         iri = getIRIFromAttribute(localName, value);
     }
 

@@ -52,10 +52,13 @@ import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 import uk.ac.manchester.cs.owl.owlapi.ParsableOWLOntologyFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 03-Aug-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 03-Aug-2007
+ */
 @SuppressWarnings("javadoc")
 public class SWRLTestCase {
+
     private OWLOntologyManager man;
 
     @Before
@@ -70,8 +73,9 @@ public class SWRLTestCase {
 
     @Test
     public void testSWRLParser() throws Exception {
-        OWLOntology ont = man.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                input));
+        OWLOntology ont = man
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        input));
         assertTrue(ont.getIndividualsInSignature().isEmpty());
     }
 
@@ -134,6 +138,6 @@ public class SWRLTestCase {
             + "            </rdf:first>\n"
             + "            <rdf:rest rdf:resource=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#nil\"/>\n"
             + "          </swrl:AtomList>\n" + "        </rdf:rest>\n"
-            + "      </swrl:AtomList>\n" + "    </swrl:body>\n" + "  </swrl:Imp>\n"
-            + "</rdf:RDF>";
+            + "      </swrl:AtomList>\n" + "    </swrl:body>\n"
+            + "  </swrl:Imp>\n" + "</rdf:RDF>";
 }

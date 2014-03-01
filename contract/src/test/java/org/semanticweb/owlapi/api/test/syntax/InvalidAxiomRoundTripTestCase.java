@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class InvalidAxiomRoundTripTestCase {
+
     private OWLOntology o;
 
     @Before
@@ -46,8 +47,9 @@ public class InvalidAxiomRoundTripTestCase {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o,
                 new OWLFunctionalSyntaxOntologyFormat(), target);
-        OWLOntology reloaded = Factory.getManager().loadOntologyFromOntologyDocument(
-                new StringDocumentSource(target.toString()));
+        OWLOntology reloaded = Factory.getManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(target.toString()));
         return reloaded;
     }
 

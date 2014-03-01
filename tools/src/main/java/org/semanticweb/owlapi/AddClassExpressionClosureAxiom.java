@@ -56,7 +56,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
-/** This composite change adds a 'closure' axiom to an ontology for a given class
+/**
+ * This composite change adds a 'closure' axiom to an ontology for a given class
  * and object property. In this case, a closure axiom is defined for a given
  * class, A, and object property, P, to be a subclass axiom, whose subclass is
  * class A, and whose superclass is a universal restriction along the property,
@@ -67,31 +68,36 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * tutorial module).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Jul-2007 */
-public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyChange {
+ *         Informatics Group, Date: 24-Jul-2007
+ */
+public class AddClassExpressionClosureAxiom extends
+        AbstractCompositeOntologyChange {
+
     private final OWLClass cls;
     protected final OWLObjectPropertyExpression property;
     private final Set<OWLOntology> ontologies;
     private final OWLOntology targetOntology;
     private final List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
 
-    /** Creates a composite change that will add a closure axiom for a given
+    /**
+     * Creates a composite change that will add a closure axiom for a given
      * class along a specified property.
      * 
      * @param dataFactory
-     *            The data factory that should be used to create the necessary
-     *            objects
+     *        The data factory that should be used to create the necessary
+     *        objects
      * @param cls
-     *            The class for which the closure axiom will be generated
+     *        The class for which the closure axiom will be generated
      * @param property
-     *            The property that the closure axiom will act along
+     *        The property that the closure axiom will act along
      * @param ontologies
-     *            The ontologies that will be examined for subclass axioms
+     *        The ontologies that will be examined for subclass axioms
      * @param targetOntology
-     *            The target ontology that changes will be applied to. */
-    public AddClassExpressionClosureAxiom(OWLDataFactory dataFactory, OWLClass cls,
-            OWLObjectPropertyExpression property, Set<OWLOntology> ontologies,
-            OWLOntology targetOntology) {
+     *        The target ontology that changes will be applied to.
+     */
+    public AddClassExpressionClosureAxiom(OWLDataFactory dataFactory,
+            OWLClass cls, OWLObjectPropertyExpression property,
+            Set<OWLOntology> ontologies, OWLOntology targetOntology) {
         super(dataFactory);
         this.cls = cls;
         this.property = property;
@@ -115,12 +121,12 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
         if (fillers.isEmpty()) {
             return;
         }
-        OWLClassExpression closureAxiomFiller = getDataFactory().getOWLObjectUnionOf(
-                fillers);
-        OWLClassExpression closureAxiomDesc = getDataFactory().getOWLObjectAllValuesFrom(
-                property, closureAxiomFiller);
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(
-                cls, closureAxiomDesc)));
+        OWLClassExpression closureAxiomFiller = getDataFactory()
+                .getOWLObjectUnionOf(fillers);
+        OWLClassExpression closureAxiomDesc = getDataFactory()
+                .getOWLObjectAllValuesFrom(property, closureAxiomFiller);
+        changes.add(new AddAxiom(targetOntology, getDataFactory()
+                .getOWLSubClassOfAxiom(cls, closureAxiomDesc)));
     }
 
     @Override
@@ -129,6 +135,7 @@ public class AddClassExpressionClosureAxiom extends AbstractCompositeOntologyCha
     }
 
     private class FillerCollector extends OWLClassExpressionVisitorAdapter {
+
         private Set<OWLClassExpression> fillers;
 
         public FillerCollector() {

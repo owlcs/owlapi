@@ -38,8 +38,10 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 18/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012
+ */
 public enum OBOPrefix {
     /** obo prefix */
     OBO("http://purl.obolibrary.org/obo/"),
@@ -47,6 +49,7 @@ public enum OBOPrefix {
     IAO(OBOPrefix.OBO + "IAO_"),
     /** obo owl prefix */
     OBO_IN_OWL("http://www.geneontology.org/formats/oboInOWL#");
+
     private String prefix;
 
     private OBOPrefix(String prefix) {

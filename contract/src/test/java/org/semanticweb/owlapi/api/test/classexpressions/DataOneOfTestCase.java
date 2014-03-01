@@ -51,10 +51,13 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009
+ */
 @SuppressWarnings("javadoc")
 public class DataOneOfTestCase extends AbstractFileRoundTrippingTestCase {
+
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

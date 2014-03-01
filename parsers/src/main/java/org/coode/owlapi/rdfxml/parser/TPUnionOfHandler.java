@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006
+ */
 public class TPUnionOfHandler extends AbstractNamedEquivalentClassAxiomHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPUnionOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_UNION_OF.getIRI());
     }

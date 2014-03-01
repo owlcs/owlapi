@@ -48,10 +48,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 22-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Dec-2009
+ */
 @SuppressWarnings("javadoc")
-public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPITestCase {
+public class DifferentPhysicalURISameOntologyIRITestCase extends
+        AbstractOWLAPITestCase {
+
     private static final String ONTOLOGY_A = "ImportsTestOntologyA.owl";
     private static final String ONTOLOGY_A_EMPTY = "ImportsTestOntologyAEmpty.owl";
 
@@ -59,11 +63,11 @@ public class DifferentPhysicalURISameOntologyIRITestCase extends AbstractOWLAPIT
     public void testDifferentPhysicalURISameOntologyIRI() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
         IRI ontologyADocumentIRI = IRI
-                .create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource(
-                        "/" + ONTOLOGY_A).toURI());
+                .create(DifferentPhysicalURISameOntologyIRITestCase.class
+                        .getResource("/" + ONTOLOGY_A).toURI());
         IRI ontologyADocumentIRIB = IRI
-                .create(DifferentPhysicalURISameOntologyIRITestCase.class.getResource(
-                        "/" + ONTOLOGY_A_EMPTY).toURI());
+                .create(DifferentPhysicalURISameOntologyIRITestCase.class
+                        .getResource("/" + ONTOLOGY_A_EMPTY).toURI());
         OWLOntology ontologyA = manager
                 .loadOntologyFromOntologyDocument(ontologyADocumentIRI);
         OWLOntology ontologyALoad2 = manager

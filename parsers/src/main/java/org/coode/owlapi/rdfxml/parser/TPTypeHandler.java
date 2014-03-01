@@ -44,13 +44,19 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class TPTypeHandler extends TriplePredicateHandler {
-    private static final Logger logger = Logger.getLogger(TPTypeHandler.class.getName());
 
-    /** @param consumer
-     *            consumer */
+    private static final Logger logger = Logger.getLogger(TPTypeHandler.class
+            .getName());
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPTypeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDF_TYPE.getIRI());
     }

@@ -51,21 +51,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLObjectPropertyDomainAxiomImpl extends
         OWLPropertyDomainAxiomImpl<OWLObjectPropertyExpression> implements
         OWLObjectPropertyDomainAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param domain
-     *            domain
+     *        domain
      * @param annotations
-     *            annotations */
-    public OWLObjectPropertyDomainAxiomImpl(OWLObjectPropertyExpression property,
-            OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
+     *        annotations
+     */
+    public OWLObjectPropertyDomainAxiomImpl(
+            OWLObjectPropertyExpression property, OWLClassExpression domain,
+            Set<? extends OWLAnnotation> annotations) {
         super(property, domain, annotations);
     }
 
@@ -79,7 +85,8 @@ public class OWLObjectPropertyDomainAxiomImpl extends
     }
 
     @Override
-    public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyDomainAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLObjectPropertyDomainAxiomImpl(getProperty(), getDomain(),
                 mergeAnnos(annotations));
     }
@@ -116,7 +123,8 @@ public class OWLObjectPropertyDomainAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sub = new OWLObjectSomeValuesFromImpl(getProperty(), OWL_THING);
+        OWLClassExpression sub = new OWLObjectSomeValuesFromImpl(getProperty(),
+                OWL_THING);
         return new OWLSubClassOfAxiomImpl(sub, getDomain(), NO_ANNOTATIONS);
     }
 }

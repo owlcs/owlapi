@@ -44,21 +44,26 @@ import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 03/02/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 03/02/2011
+ */
 public class Modifiers {
+
     private Map<String, Set<String>> modifierNameValuesMap = new LinkedHashMap<String, Set<String>>();
 
     /** default constructor */
     public Modifiers() {}
 
-    /** Parses a list of modifiers.
+    /**
+     * Parses a list of modifiers.
      * 
      * @param modifiersList
-     *            The string representation of a list of modifiers. The
-     *            representation may or may not include the surrounding braces
-     *            (braces will be ignored).
-     * @return A list of modifiers */
+     *        The string representation of a list of modifiers. The
+     *        representation may or may not include the surrounding braces
+     *        (braces will be ignored).
+     * @return A list of modifiers
+     */
     public static Modifiers parseModifiers(String modifiersList) {
         Modifiers modifiers = new Modifiers();
         StringTokenizer tokenizer = new StringTokenizer(modifiersList, ",");
@@ -72,12 +77,14 @@ public class Modifiers {
         return modifiers;
     }
 
-    /** Adds a modifier.
+    /**
+     * Adds a modifier.
      * 
      * @param name
-     *            The modifier name
+     *        The modifier name
      * @param value
-     *            The modifier value */
+     *        The modifier value
+     */
     public void addModifier(String name, String value) {
         Set<String> values = modifierNameValuesMap.get(name);
         if (values == null) {
@@ -87,16 +94,20 @@ public class Modifiers {
         values.add(value);
     }
 
-    /** Returns the names of modifiers stored in this modifier object.
+    /**
+     * Returns the names of modifiers stored in this modifier object.
      * 
-     * @return The names of modifiers (may be empty) */
+     * @return The names of modifiers (may be empty)
+     */
     public Set<String> getModifierNames() {
         return modifierNameValuesMap.keySet();
     }
 
-    /** @param modifierName
-     *            modifierName
-     * @return modifier values */
+    /**
+     * @param modifierName
+     *        modifierName
+     * @return modifier values
+     */
     public Set<String> getModifierValues(String modifierName) {
         Set<String> valuesToReturn = new HashSet<String>();
         Set<String> values = modifierNameValuesMap.get(modifierName);

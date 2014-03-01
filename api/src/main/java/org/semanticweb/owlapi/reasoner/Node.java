@@ -42,7 +42,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Represents a node (set) of entities. The entities in a node are equivalent to
+/**
+ * Represents a node (set) of entities. The entities in a node are equivalent to
  * each other. <br>
  * <h3>Nodes in hierarchies</h3> In the OWL API, a reasoner treats a class
  * hierarchy, an object property hierarchy or a data property hierarchy as a
@@ -77,9 +78,12 @@ import org.semanticweb.owlapi.model.OWLObject;
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 03-Jul-2009
  * @param <E>
- *            the type of elements represented in the Node */
+ *        the type of elements represented in the Node
+ */
 public interface Node<E extends OWLObject> extends Iterable<E> {
-    /** Determines if this node represents the top node (in a hierarchy). For a
+
+    /**
+     * Determines if this node represents the top node (in a hierarchy). For a
      * named class node, the top node is the node that contains
      * {@code owl:Thing}. For an object property node, the top node is the node
      * that contains {@code owl:topObjectProperty}. For a data property node, the
@@ -91,10 +95,12 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         and it contains {@code owl:topObjectProperty}. <br>
      *         {@code true} if this node is an {@code OWLDataProperty} node and
      *         it contains {@code owl:topDataProperty}. <br>
-     *         {@code false} if none of the above. */
+     *         {@code false} if none of the above.
+     */
     boolean isTopNode();
 
-    /** Determines if this node represents the bottom node (in a hierarchy). For
+    /**
+     * Determines if this node represents the bottom node (in a hierarchy). For
      * a named class node, the bottom node is the node that contains
      * {@code owl:Nothing}. For an object property node, the bottom node is the
      * node that contains {@code owl:bottomObjectProperty}. For a data property
@@ -107,42 +113,52 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      *         and it contains {@code owl:bottomObjectProperty}. <br>
      *         {@code true} if this node is an {@code OWLDataProperty} node and
      *         it contains {@code owl:bottomDataProperty}. <br>
-     *         {@code false} if none of the above. */
+     *         {@code false} if none of the above.
+     */
     boolean isBottomNode();
 
-    /** Gets the entities contained in this node. The entities are equivalent to
+    /**
+     * Gets the entities contained in this node. The entities are equivalent to
      * each other.
      * 
-     * @return The set of entities contained in this {@code Node}. */
+     * @return The set of entities contained in this {@code Node}.
+     */
     Set<E> getEntities();
 
-    /** Gets the number of entities contained in this {@code Node}.
+    /**
+     * Gets the number of entities contained in this {@code Node}.
      * 
-     * @return The number of entities contained in this node. */
+     * @return The number of entities contained in this node.
+     */
     int getSize();
 
-    /** Determines if this node contains the specified entity.
+    /**
+     * Determines if this node contains the specified entity.
      * 
      * @param entity
-     *            The entity to check for
+     *        The entity to check for
      * @return {@code true} if this node contains {@code entity}, or
-     *         {@code false} if this node does not contain {@code entity} */
+     *         {@code false} if this node does not contain {@code entity}
+     */
     boolean contains(E entity);
 
-    /** Gets the entities contained in this node minus the specified entitie
+    /**
+     * Gets the entities contained in this node minus the specified entitie
      * {@code e}. This essentially returns the entities that are returned by
      * {@link #getEntities()} minus the specified entity {@code e}
      * 
      * @param e
-     *            The entity that, is contained within this node, but should not
-     *            be included in the return set.
+     *        The entity that, is contained within this node, but should not be
+     *        included in the return set.
      * @return The set of entities that are contained in this node minus the
      *         specified entity, {@code e}. If {@code e} is not contained within
      *         this node then the full set of entities returned is the same as
-     *         that returned by {@link #getEntities()} */
+     *         that returned by {@link #getEntities()}
+     */
     Set<E> getEntitiesMinus(E e);
 
-    /** Gets the entities contained in this node minus the top entity. For a node
+    /**
+     * Gets the entities contained in this node minus the top entity. For a node
      * of named classes the top entity is {@code owl:Thing}. For a node of object
      * properties the top entity is {@code owl:topObjectProperty}. For a node of
      * data properties the top entity is {@code owl:topDataProperty}
@@ -150,10 +166,12 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @return The set of entities contained within this node minus the top
      *         entity. If this node does not contain the top entity then the set
      *         of entities returned is the same as that returned by
-     *         {@link #getEntities()}. */
+     *         {@link #getEntities()}.
+     */
     Set<E> getEntitiesMinusTop();
 
-    /** Gets the entities contained in this node minus the bottom entity. For a
+    /**
+     * Gets the entities contained in this node minus the bottom entity. For a
      * node of named classes the bottom entity is {@code owl:Nothing}. For a node
      * of object properties the bottom entity is
      * {@code owl:bottomObjectProperty}. For a node of data properties the bottom
@@ -162,20 +180,25 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * @return The set of entities contained within this node minus the bottom
      *         entity. If this node does not contain the bottom entity then the
      *         set of entities returned is the same as that returned by
-     *         {@link #getEntities()}. */
+     *         {@link #getEntities()}.
+     */
     Set<E> getEntitiesMinusBottom();
 
-    /** Determines if this {@code Node} contains just one entity.
+    /**
+     * Determines if this {@code Node} contains just one entity.
      * 
      * @return {@code true} if this {@code Node} contains just one entity,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isSingleton();
 
-    /** Gets one of the entities contained in this entity set. If this is a
+    /**
+     * Gets one of the entities contained in this entity set. If this is a
      * singleton set it will be the one and only entity.
      * 
      * @return An entity from the set of entities contained within this node
      * @throws RuntimeException
-     *             if this node is empty (it does not contain any entities). */
+     *         if this node is empty (it does not contain any entities).
+     */
     E getRepresentativeElement();
 }

@@ -54,16 +54,22 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 10-Sep-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 10-Sep-2008
+ */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
+
     private static final long serialVersionUID = 30406L;
 
-    /** String comparator that takes length into account before natural ordering.
-     * XXX stateless, might be used through a singleton */
-    private static final class StringLengthComparator implements Comparator<String>,
-            Serializable {
+    /**
+     * String comparator that takes length into account before natural ordering.
+     * XXX stateless, might be used through a singleton
+     */
+    private static final class StringLengthComparator implements
+            Comparator<String>, Serializable {
+
         private static final long serialVersionUID = 30406L;
 
         public StringLengthComparator() {}
@@ -87,26 +93,32 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         this(STRING_LENGTH_COMPARATOR);
     }
 
-    /** Creates a namespace manager that does not have a default namespace.
+    /**
+     * Creates a namespace manager that does not have a default namespace.
      * 
      * @param c
-     *            comparator to sort prefixes */
+     *        comparator to sort prefixes
+     */
     public DefaultPrefixManager(Comparator<String> c) {
         prefix2NamespaceMap = new TreeMap<String, String>(c);
         reverseprefix2NamespaceMap = new HashMap<String, String>();
         setupDefaultPrefixes();
     }
 
-    /** @param pm
-     *            the prefix manager to copy */
+    /**
+     * @param pm
+     *        the prefix manager to copy
+     */
     public DefaultPrefixManager(PrefixManager pm) {
         this();
         addPrefixes(pm);
     }
 
     // XXX this method will be added to the PrefixManager interface
-    /** @param pm
-     *            prefix manager whose prefixes will be added to this manager */
+    /**
+     * @param pm
+     *        prefix manager whose prefixes will be added to this manager
+     */
     public void addPrefixes(PrefixManager pm) {
         for (String prefixName : pm.getPrefixNames()) {
             String prefix = pm.getPrefix(prefixName);
@@ -117,10 +129,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
-    /** @param pm
-     *            the prefix manager to copy
+    /**
+     * @param pm
+     *        the prefix manager to copy
      * @param c
-     *            comparator to sort prefixes */
+     *        comparator to sort prefixes
+     */
     public DefaultPrefixManager(PrefixManager pm, Comparator<String> c) {
         this(c);
         addPrefixes(pm);
@@ -139,10 +153,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         return new HashSet<String>(prefix2NamespaceMap.keySet());
     }
 
-    /** Creates a namespace manager that has the specified default namespace.
+    /**
+     * Creates a namespace manager that has the specified default namespace.
      * 
      * @param defaultPrefix
-     *            The namespace to be used as the default namespace. */
+     *        The namespace to be used as the default namespace.
+     */
     public DefaultPrefixManager(String defaultPrefix) {
         this();
         if (defaultPrefix != null) {
@@ -150,12 +166,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
-    /** Creates a namespace manager that has the specified default namespace.
+    /**
+     * Creates a namespace manager that has the specified default namespace.
      * 
      * @param defaultPrefix
-     *            The namespace to be used as the default namespace.
+     *        The namespace to be used as the default namespace.
      * @param c
-     *            comparator to sort prefixes */
+     *        comparator to sort prefixes
+     */
     public DefaultPrefixManager(String defaultPrefix, Comparator<String> c) {
         this(c);
         if (defaultPrefix != null) {
@@ -171,13 +189,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         setPrefix("xml:", Namespaces.XML.toString());
     }
 
-    /** Sets the default namespace. This will also bind the prefix name ":" to
+    /**
+     * Sets the default namespace. This will also bind the prefix name ":" to
      * this prefix
      * 
      * @param defaultPrefix
-     *            The namespace to be used as the default namespace. Note that
-     *            the value may be {@code null} in order to clear the default
-     *            namespace. */
+     *        The namespace to be used as the default namespace. Note that the
+     *        value may be {@code null} in order to clear the default namespace.
+     */
     // XXX not in the interface
     public void setDefaultPrefix(String defaultPrefix) {
         setPrefix(":", defaultPrefix);
@@ -221,8 +240,8 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         } else {
             String prefixName = curie.substring(0, sep + 1);
             if (!containsPrefixMapping(prefixName)) {
-                throw new RuntimeException("Prefix not registered for prefix name: "
-                        + prefixName);
+                throw new RuntimeException(
+                        "Prefix not registered for prefix name: " + prefixName);
             }
             String prefix = getPrefix(prefixName);
             String localName = curie.substring(sep + 1);
@@ -240,15 +259,17 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         return prefix2NamespaceMap.get(prefixName);
     }
 
-    /** Adds a prefix name to prefix mapping.
+    /**
+     * Adds a prefix name to prefix mapping.
      * 
      * @param prefixName
-     *            name The prefix name (must not be null)
+     *        name The prefix name (must not be null)
      * @param prefix
-     *            The prefix. Cannot be null.
+     *        The prefix. Cannot be null.
      * @throws IllegalArgumentException
-     *             if some parameter is null or the prefix name does not end
-     *             with a colon. */
+     *         if some parameter is null or the prefix name does not end with a
+     *         colon.
+     */
     // XXX not in the interface
     public void setPrefix(String prefixName, String prefix) {
         if (prefix == null) {
@@ -258,16 +279,19 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
             throw new IllegalArgumentException("prefixName cannot be null");
         }
         if (!prefixName.endsWith(":")) {
-            throw new IllegalArgumentException("Prefix names must end with a colon (:)");
+            throw new IllegalArgumentException(
+                    "Prefix names must end with a colon (:)");
         }
         prefix2NamespaceMap.put(prefixName, prefix);
         reverseprefix2NamespaceMap.put(prefix, prefixName);
     }
 
-    /** Removes a previously registerd prefix namespace mapping.
+    /**
+     * Removes a previously registerd prefix namespace mapping.
      * 
      * @param namespace
-     *            The namespace to be removed. */
+     *        The namespace to be removed.
+     */
     // XXX not in the interface
     public void unregisterNamespace(String namespace) {
         List<String> toRemove = new ArrayList<String>();

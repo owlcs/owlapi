@@ -45,24 +45,31 @@ import java.io.StringReader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology input source that wraps a string.
+/**
+ * An ontology input source that wraps a string.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Apr-2007 */
+ *         Informatics Group, Date: 24-Apr-2007
+ */
 public class StringDocumentSource implements OWLOntologyDocumentSource {
+
     private static int counter = 0;
     private final IRI documentIRI;
     private final String string;
 
-    /** @param string
-     *            the source string */
+    /**
+     * @param string
+     *        the source string
+     */
     public StringDocumentSource(String string) {
         this.string = string;
         documentIRI = getNextDocumentIRI();
     }
 
-    /** @param target
-     *            a document target */
+    /**
+     * @param target
+     *        a document target
+     */
     public StringDocumentSource(StringDocumentTarget target) {
         this(target.toString());
     }
@@ -73,12 +80,14 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
         return IRI.create("string:ontology" + counter);
     }
 
-    /** Specifies a string as an ontology document.
+    /**
+     * Specifies a string as an ontology document.
      * 
      * @param string
-     *            The string
+     *        The string
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public StringDocumentSource(String string, IRI documentIRI) {
         this.string = string;
         this.documentIRI = documentIRI;

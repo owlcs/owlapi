@@ -42,17 +42,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Apr-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008
+ */
 public class OWLProfileReport {
+
     private final OWLProfile profile;
     private final List<OWLProfileViolation> violations;
 
-    /** @param profile
-     *            the profile used
+    /**
+     * @param profile
+     *        the profile used
      * @param violations
-     *            the set of violations */
-    public OWLProfileReport(OWLProfile profile, Set<OWLProfileViolation> violations) {
+     *        the set of violations
+     */
+    public OWLProfileReport(OWLProfile profile,
+            Set<OWLProfileViolation> violations) {
         this.profile = profile;
         this.violations = new ArrayList<OWLProfileViolation>(violations);
     }

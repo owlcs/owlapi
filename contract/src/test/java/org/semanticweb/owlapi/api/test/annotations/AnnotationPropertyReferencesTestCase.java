@@ -56,10 +56,14 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-May-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 28-May-2009
+ */
 @SuppressWarnings("javadoc")
-public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase {
+public class AnnotationPropertyReferencesTestCase extends
+        AbstractOWLAPITestCase {
+
     @Test
     public void testContainsReferenceForAnnotationAssertion() {
         OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));
@@ -82,8 +86,10 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
                 Class(getIRI("A")), Class(getIRI("B")), annos);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(anno.getProperty()));
+        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
+                .getIRI()));
+        assertTrue(ont.getAnnotationPropertiesInSignature().contains(
+                anno.getProperty()));
     }
 
     @Test
@@ -93,7 +99,9 @@ public class AnnotationPropertyReferencesTestCase extends AbstractOWLAPITestCase
         OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(ap, val);
         OWLOntology ont = getOWLOntology("Ont");
         getManager().applyChange(new AddOntologyAnnotation(ont, anno));
-        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty().getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(anno.getProperty()));
+        assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
+                .getIRI()));
+        assertTrue(ont.getAnnotationPropertiesInSignature().contains(
+                anno.getProperty()));
     }
 }

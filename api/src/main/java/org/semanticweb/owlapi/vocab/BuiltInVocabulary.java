@@ -38,8 +38,10 @@
  */
 package org.semanticweb.owlapi.vocab;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 15/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 15/12/2010
+ */
 public enum BuiltInVocabulary {
     /** Dublin core */
     DUBLIN_CORE,

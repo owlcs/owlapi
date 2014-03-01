@@ -41,13 +41,18 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ */
 public abstract class AbstractOWLObjectPropertyAssertionAxiomElementHandler
         extends
         AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLIndividual> {
-    /** @param handler
-     *            owlxml handler */
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public AbstractOWLObjectPropertyAssertionAxiomElementHandler(
             OWLXMLParserHandler handler) {
         super(handler);

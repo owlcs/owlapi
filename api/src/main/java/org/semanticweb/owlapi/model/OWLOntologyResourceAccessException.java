@@ -38,7 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An exception to describe a problem in accessing an ontology. Since there
+/**
+ * An exception to describe a problem in accessing an ontology. Since there
  * could be any kind of implementation of {@code OWLOntology} (and other model
  * interfaces), some of which may use secondary storage, such as a database
  * backend, there could be problems with accessing ontology objects such as
@@ -50,26 +51,34 @@ package org.semanticweb.owlapi.model;
  * (or care) how to handle situations where network/database connections fail.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group, Date: 13-Apr-2007
+ */
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param message
-     *            message */
+    /**
+     * @param message
+     *        message
+     */
     public OWLOntologyResourceAccessException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyResourceAccessException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public OWLOntologyResourceAccessException(Throwable cause) {
         super(cause);
     }

@@ -43,11 +43,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 03/02/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 03/02/2011
+ */
 public class XRefTagHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public XRefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.XREF.getName(), consumer);
     }
@@ -60,10 +65,12 @@ public class XRefTagHandler extends AbstractTagValueHandler {
         }
         OWLAnnotation xrefAnnotation = getConsumer().parseXRef(value);
         IRI subject = getIRIFromOBOId(currentId);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
-                xrefAnnotation.getProperty(), subject, xrefAnnotation.getValue());
+        OWLAnnotationAssertionAxiom ax = getDataFactory()
+                .getOWLAnnotationAssertionAxiom(xrefAnnotation.getProperty(),
+                        subject, xrefAnnotation.getValue());
         applyChange(new AddAxiom(getOntology(), ax));
-        if (getConsumer().isTypedef() && xrefAnnotation.getValue() instanceof IRI) {
+        if (getConsumer().isTypedef()
+                && xrefAnnotation.getValue() instanceof IRI) {
             IRI xrefIRI = (IRI) xrefAnnotation.getValue();
             String typedefId = getConsumer().getCurrentId();
             getConsumer().addSymbolicIdMapping(typedefId, xrefIRI);

@@ -16,6 +16,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class PropertyValueTest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OBODoc obodoc = parseOBOFile("property_value_test.obo");

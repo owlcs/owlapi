@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** macro expansion gci visitor */
 public class MacroExpansionGCIVisitor {
+
     protected static final Logger log = Logger
             .getLogger(MacroExpansionGCIVisitor.class.getName());
     private OWLOntology inputOntology;
@@ -35,10 +36,12 @@ public class MacroExpansionGCIVisitor {
     protected ManchesterSyntaxTool manchesterSyntaxTool;
     private GCIVisitor visitor;
 
-    /** @param inputOntology
-     *            inputOntology
+    /**
+     * @param inputOntology
+     *        inputOntology
      * @param outputManager
-     *            outputManager */
+     *        outputManager
+     */
     public MacroExpansionGCIVisitor(OWLOntology inputOntology,
             OWLOntologyManager outputManager) {
         super();
@@ -111,6 +114,7 @@ public class MacroExpansionGCIVisitor {
     }
 
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
+
         GCIVisitor(OWLOntology inputOntology) {
             super(inputOntology, MacroExpansionGCIVisitor.log);
         }

@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007
+ */
 public class TypeSWRLBuiltInHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeSWRLBuiltInHandler(OWLRDFConsumer consumer) {
         super(consumer, SWRLVocabulary.BUILT_IN_CLASS.getIRI());
     }

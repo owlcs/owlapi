@@ -47,14 +47,17 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/12/2010
+ */
 @SuppressWarnings("javadoc")
 public class BuiltInDatatypesTestCase {
+
     @Test
     public void testBuiltInDatatypes() {
-        OWL2Datatype dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL
-                .getIRI());
+        OWL2Datatype dt = OWL2Datatype
+                .getDatatype(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
         assertNotNull("object should not be null", dt);
         dt = OWL2Datatype.getDatatype(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
         assertNotNull("object should not be null", dt);

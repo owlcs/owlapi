@@ -38,20 +38,27 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** A marker interface for annotation subjects, which can either be IRIs or
+/**
+ * A marker interface for annotation subjects, which can either be IRIs or
  * anonymous individuals, with visitor methods.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group, Date: 13-Jan-2009
+ */
 public interface OWLAnnotationSubject extends OWLAnnotationObject, OWLPrimitive {
-    /** @param visitor
-     *            visitor to accept */
+
+    /**
+     * @param visitor
+     *        visitor to accept
+     */
     void accept(OWLAnnotationSubjectVisitor visitor);
 
-    /** @param visitor
-     *            visitor to accept
+    /**
+     * @param visitor
+     *        visitor to accept
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLAnnotationSubjectVisitorEx<O> visitor);
 }

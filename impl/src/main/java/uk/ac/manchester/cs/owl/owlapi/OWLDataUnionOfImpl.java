@@ -51,13 +51,19 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009 */
-public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements OWLDataUnionOf {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009
+ */
+public class OWLDataUnionOfImpl extends OWLNaryDataRangeImpl implements
+        OWLDataUnionOf {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param operands
-     *            operands */
+    /**
+     * @param operands
+     *        operands
+     */
     public OWLDataUnionOfImpl(Set<? extends OWLDataRange> operands) {
         super(operands);
     }

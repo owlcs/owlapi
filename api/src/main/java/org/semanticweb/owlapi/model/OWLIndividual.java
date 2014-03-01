@@ -41,223 +41,269 @@ package org.semanticweb.owlapi.model;
 import java.util.Map;
 import java.util.Set;
 
-/** Represents a named or anonymous individual.
+/**
+ * Represents a named or anonymous individual.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Oct-2006 */
+ *         Informatics Group, Date: 25-Oct-2006
+ */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
-    /** Determines if this individual is an instance of
+
+    /**
+     * Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this
      * method is the dual of {@link #isAnonymous()}.
      * 
      * @return {@code true} if this individual is an instance of
      *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because
-     *         it is a named individuals, otherwise {@code false} */
+     *         it is a named individuals, otherwise {@code false}
+     */
     boolean isNamed();
 
-    /** Determines if this object is an instance of
+    /**
+     * Determines if this object is an instance of
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} Note that
      * this method is the dual of {@link #isNamed()}.
      * 
      * @return {@code true} if this object represents an anonymous individual (
      *         {@code OWLAnonymousIndividual)} or {@code false} if this object
-     *         represents a named individual ( {@code OWLIndividual}) */
+     *         represents a named individual ( {@code OWLIndividual})
+     */
     boolean isAnonymous();
 
-    /** Obtains this individual as a named individual if it is indeed named.
+    /**
+     * Obtains this individual as a named individual if it is indeed named.
      * 
      * @return The individual as a named individual
      * @throws OWLRuntimeException
-     *             if this individual is anonymous */
+     *         if this individual is anonymous
+     */
     OWLNamedIndividual asOWLNamedIndividual();
 
-    /** Obtains this individual an anonymous individual if it is indeed anonymous
+    /**
+     * Obtains this individual an anonymous individual if it is indeed anonymous
      * 
      * @return The individual as an anonymous individual
      * @throws OWLRuntimeException
-     *             if this individual is named */
+     *         if this individual is named
+     */
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
-    /** A convenience method, which gets the types of this individual, that
+    /**
+     * A convenience method, which gets the types of this individual, that
      * correspond to the types asserted with axioms in the specified ontology.
      * 
      * @param ontology
-     *            The ontology that should be examined for class assertion
-     *            axioms in order to get the types for this individual.
+     *        The ontology that should be examined for class assertion axioms in
+     *        order to get the types for this individual.
      * @return A set of class expressions that correspond the asserted types of
-     *         this individual in the specified ontology. */
+     *         this individual in the specified ontology.
+     */
     Set<OWLClassExpression> getTypes(OWLOntology ontology);
 
-    /** A convenience method that gets the types of this individual by examining
+    /**
+     * A convenience method that gets the types of this individual by examining
      * the specified ontologies.
      * 
      * @param ontologies
-     *            The ontologies to be examined for class assertions
+     *        The ontologies to be examined for class assertions
      * @return A set of class expressions that represent the types of this
-     *         individual as asserted in the specified ontologies. */
+     *         individual as asserted in the specified ontologies.
+     */
     Set<OWLClassExpression> getTypes(Set<OWLOntology> ontologies);
 
-    /** Gets the object property values for this individual.
+    /**
+     * Gets the object property values for this individual.
      * 
      * @param ontology
-     *            The ontology to search for the property values.
-     * @return A map, which maps object properties to sets of individuals. */
-    Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(
-            OWLOntology ontology);
+     *        The ontology to search for the property values.
+     * @return A map, which maps object properties to sets of individuals.
+     */
+    Map<OWLObjectPropertyExpression, Set<OWLIndividual>>
+            getObjectPropertyValues(OWLOntology ontology);
 
-    /** Gets the asserted object property values for this individual and the
+    /**
+     * Gets the asserted object property values for this individual and the
      * specified property.
      * 
      * @param ontology
-     *            The ontology to be examined for axioms that assert property
-     *            values for this individual
+     *        The ontology to be examined for axioms that assert property values
+     *        for this individual
      * @param property
-     *            The property for which values will be returned.
+     *        The property for which values will be returned.
      * @return The set of individuals that are the values of this property. More
      *         precisely, the set of individuals such that for each individual i
      *         in the set, is in a property assertion axiom property(this, i) is
-     *         in the specified ontology. */
-    Set<OWLIndividual> getObjectPropertyValues(OWLObjectPropertyExpression property,
-            OWLOntology ontology);
+     *         in the specified ontology.
+     */
+    Set<OWLIndividual> getObjectPropertyValues(
+            OWLObjectPropertyExpression property, OWLOntology ontology);
 
-    /** Test whether a specific value for a specific object property on this
+    /**
+     * Test whether a specific value for a specific object property on this
      * individual has been asserted.
      * 
      * @param property
-     *            The property whose values will be examined
+     *        The property whose values will be examined
      * @param individual
-     *            The individual value of the property that will be tested for
+     *        The individual value of the property that will be tested for
      * @param ontology
-     *            The ontology to search for the property value
+     *        The ontology to search for the property value
      * @return {@code true} if the individual has the specified property value,
      *         that is, {@code true} if the specified ontology contains an
      *         object property assertion ObjectPropertyAssertion(property, this,
-     *         individual), otherwise {@code false} */
+     *         individual), otherwise {@code false}
+     */
     boolean hasObjectPropertyValue(OWLObjectPropertyExpression property,
             OWLIndividual individual, OWLOntology ontology);
 
-    /** Test whether a specific value for a specific data property on this
+    /**
+     * Test whether a specific value for a specific data property on this
      * individual has been asserted.
      * 
      * @param property
-     *            The property whose values will be examined
+     *        The property whose values will be examined
      * @param value
-     *            The value value of the property that will be tested for
+     *        The value value of the property that will be tested for
      * @param ontology
-     *            The ontology to search for the property value
+     *        The ontology to search for the property value
      * @return {@code true} if the individual has the specified property value,
      *         that is, {@code true} if the specified ontology contains a data
      *         property assertion DataPropertyAssertion(property, this, value),
-     *         otherwise {@code false} */
-    boolean hasDataPropertyValue(OWLDataPropertyExpression property, OWLLiteral value,
-            OWLOntology ontology);
+     *         otherwise {@code false}
+     */
+    boolean hasDataPropertyValue(OWLDataPropertyExpression property,
+            OWLLiteral value, OWLOntology ontology);
 
-    /** Test whether a specific value for a specific object property has been
+    /**
+     * Test whether a specific value for a specific object property has been
      * asserted not to hold for this individual.
      * 
      * @param property
-     *            The property to test for
+     *        The property to test for
      * @param individual
-     *            The value to test for
+     *        The value to test for
      * @param ontology
-     *            The ontology to search for the assertion
+     *        The ontology to search for the assertion
      * @return {@code true} if the specified property value has explicitly been
      *         asserted not to hold, that is, {@code true} if the specified
      *         ontology contains a negative object property assertion
      *         NegativeObjectPropertyAssertion(property, this, individual),
-     *         otherwise {@code false} */
-    boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression property,
-            OWLIndividual individual, OWLOntology ontology);
+     *         otherwise {@code false}
+     */
+    boolean hasNegativeObjectPropertyValue(
+            OWLObjectPropertyExpression property, OWLIndividual individual,
+            OWLOntology ontology);
 
-    /** Gets the object property values that are explicitly asserted NOT to hold
+    /**
+     * Gets the object property values that are explicitly asserted NOT to hold
      * for this individual
      * 
      * @param ontology
-     *            The ontology that should be examined for axioms
-     * @return A map containing the negative object property values */
-    Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getNegativeObjectPropertyValues(
-            OWLOntology ontology);
+     *        The ontology that should be examined for axioms
+     * @return A map containing the negative object property values
+     */
+    Map<OWLObjectPropertyExpression, Set<OWLIndividual>>
+            getNegativeObjectPropertyValues(OWLOntology ontology);
 
-    /** Gets the data property values for this individual
+    /**
+     * Gets the data property values for this individual
      * 
      * @param ontology
-     *            the ontology to check
-     * @return a map between property and set of values */
+     *        the ontology to check
+     * @return a map between property and set of values
+     */
     Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(
             OWLOntology ontology);
 
-    /** Gets the values that this individual has for a specific data property
+    /**
+     * Gets the values that this individual has for a specific data property
      * 
      * @param ontology
-     *            The ontology to examine for property assertions
+     *        The ontology to examine for property assertions
      * @param property
-     *            the property
+     *        the property
      * @return The values that this individual has for the specified property in
      *         the specified ontology. This is the set of values such that each
      *         value LV in the set is in an axiom of the form
      *         DataPropertyAssertion(property, thisIndividual, LV) in the
-     *         ontology specified by the ontology parameter. */
+     *         ontology specified by the ontology parameter.
+     */
     Set<OWLLiteral> getDataPropertyValues(OWLDataPropertyExpression property,
             OWLOntology ontology);
 
-    /** Gets the data property values that are explicitly asserted NOT to hold
+    /**
+     * Gets the data property values that are explicitly asserted NOT to hold
      * for this individual
      * 
      * @param ontology
-     *            The ontology that should be examined for axioms
-     * @return A map containing the negative data property values */
-    Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(
-            OWLOntology ontology);
+     *        The ontology that should be examined for axioms
+     * @return A map containing the negative data property values
+     */
+    Map<OWLDataPropertyExpression, Set<OWLLiteral>>
+            getNegativeDataPropertyValues(OWLOntology ontology);
 
-    /** Test whether a specific value for a specific data property has been
+    /**
+     * Test whether a specific value for a specific data property has been
      * asserted not to hold for this individual.
      * 
      * @param property
-     *            The property to test for
+     *        The property to test for
      * @param literal
-     *            The value to test for
+     *        The value to test for
      * @param ontology
-     *            The ontology to search for the assertion
+     *        The ontology to search for the assertion
      * @return {@code true} if the specified property value has explicitly been
      *         asserted not to hold, that is, {@code true} if the specified
      *         ontology contains a negative data property assertion
      *         NegativeDataPropertyAssertion(property, this, literal), otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property,
             OWLLiteral literal, OWLOntology ontology);
 
-    /** @param ontology
-     *            the ontology to use A convenience method that examines axioms
-     *            in ontology to determine the individuals that are asserted to
-     *            be the same as this individual.
+    /**
+     * @param ontology
+     *        the ontology to use A convenience method that examines axioms in
+     *        ontology to determine the individuals that are asserted to be the
+     *        same as this individual.
      * @return Individuals that have been asserted to be the same as this
-     *         individual. */
+     *         individual.
+     */
     Set<OWLIndividual> getSameIndividuals(OWLOntology ontology);
 
-    /** A convenience method that examines axioms in the specified ontology to
+    /**
+     * A convenience method that examines axioms in the specified ontology to
      * determine the individuals that are asserted to be different to this
      * individual.
      * 
      * @param ontology
-     *            the ontology
-     * @return the set of different individuals */
+     *        the ontology
+     * @return the set of different individuals
+     */
     Set<OWLIndividual> getDifferentIndividuals(OWLOntology ontology);
 
-    /** Returns a string representation that can be used as the ID of this
+    /**
+     * Returns a string representation that can be used as the ID of this
      * individual. This is the toString representation of the node ID of this
      * individual
      * 
-     * @return A string representing the toString of the node ID of this entity. */
+     * @return A string representing the toString of the node ID of this entity.
+     */
     String toStringID();
 
-    /** @param visitor
-     *            visitor to accept */
+    /**
+     * @param visitor
+     *        visitor to accept
+     */
     void accept(OWLIndividualVisitor visitor);
 
-    /** @param visitor
-     *            visitor to accept
+    /**
+     * @param visitor
+     *        visitor to accept
      * @return visitor ex type
      * @param <O>
-     *            return type */
+     *        return type
+     */
     <O> O accept(OWLIndividualVisitorEx<O> visitor);
 }

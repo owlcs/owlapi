@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Feb-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Feb-2007
+ */
 public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_SELF_RESTRICTION.getIRI());
     }
@@ -57,7 +62,8 @@ public class TypeSelfRestrictionHandler extends BuiltInTypeHandler {
         consumeTriple(subject, predicate, object);
         getConsumer().addOWLRestriction(subject, false);
         // Patch to new OWL syntax
-        getConsumer().addTriple(subject, OWLRDFVocabulary.OWL_HAS_SELF.getIRI(),
+        getConsumer().addTriple(subject,
+                OWLRDFVocabulary.OWL_HAS_SELF.getIRI(),
                 getDataFactory().getOWLLiteral(true));
     }
 }

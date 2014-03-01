@@ -40,19 +40,26 @@ package org.coode.owlapi.obo.renderer;
 
 import java.util.List;
 
-/** The Interface OBOExceptionHandler.
+/**
+ * The Interface OBOExceptionHandler.
  * 
  * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group, Date: Dec 19, 2008 */
+ *         Group, Date: Dec 19, 2008
+ */
 public interface OBOExceptionHandler {
-    /** Adds the exception.
+
+    /**
+     * Adds the exception.
      * 
      * @param exception
-     *            the exception */
+     *        the exception
+     */
     void addException(OBOStorageException exception);
 
-    /** Gets the exceptions.
+    /**
+     * Gets the exceptions.
      * 
-     * @return the exceptions */
+     * @return the exceptions
+     */
     List<OBOStorageException> getExceptions();
 }

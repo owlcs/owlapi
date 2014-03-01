@@ -40,14 +40,17 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** This class contains various methods for checking QNames, NCNames etc. The
+/**
+ * This class contains various methods for checking QNames, NCNames etc. The
  * implementation is based on the <a href="http://www.w3.org/TR/xml-names/">W3C
  * namespaces in XML specification</a>.
  * 
  * @since 3.3.0
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 22/09/2011 */
+ *         Informatics Group, Date: 22/09/2011
+ */
 public class XMLUtils {
+
     /** &amp;lt; shortcut */
     public static final String LT = "&lt;";
     /** &amp;gt; shortcut */
@@ -62,74 +65,88 @@ public class XMLUtils {
     /** owl processing instruction */
     public static final String OWL_PROCESSING_INSTRUCTION_NAME = "owl";
 
-    /** Determines if a character is an XML name start character.
+    /**
+     * Determines if a character is an XML name start character.
      * 
      * @param codePoint
-     *            The code point of the character to be tested. For UTF-16
-     *            characters the code point corresponds to the value of the char
-     *            that represents the character.
+     *        The code point of the character to be tested. For UTF-16
+     *        characters the code point corresponds to the value of the char
+     *        that represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     public static boolean isXMLNameStartCharacter(int codePoint) {
         return codePoint == ':' || codePoint >= 'A' && codePoint <= 'Z'
                 || codePoint == '_' || codePoint >= 'a' && codePoint <= 'z'
                 || codePoint >= 0xC0 && codePoint <= 0xD6 || codePoint >= 0xD8
                 && codePoint <= 0xF6 || codePoint >= 0xF8 && codePoint <= 0x2FF
-                || codePoint >= 0x370 && codePoint <= 0x37D || codePoint >= 0x37F
-                && codePoint <= 0x1FFF || codePoint >= 0x200C && codePoint <= 0x200D
-                || codePoint >= 0x2070 && codePoint <= 0x218F || codePoint >= 0x2C00
-                && codePoint <= 0x2FEF || codePoint >= 0x3001 && codePoint <= 0xD7FF
-                || codePoint >= 0xF900 && codePoint <= 0xFDCF || codePoint >= 0xFDF0
-                && codePoint <= 0xFFFD || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
+                || codePoint >= 0x370 && codePoint <= 0x37D
+                || codePoint >= 0x37F && codePoint <= 0x1FFF
+                || codePoint >= 0x200C && codePoint <= 0x200D
+                || codePoint >= 0x2070 && codePoint <= 0x218F
+                || codePoint >= 0x2C00 && codePoint <= 0x2FEF
+                || codePoint >= 0x3001 && codePoint <= 0xD7FF
+                || codePoint >= 0xF900 && codePoint <= 0xFDCF
+                || codePoint >= 0xFDF0 && codePoint <= 0xFFFD
+                || codePoint >= 0x10000 && codePoint <= 0xEFFFF;
     }
 
-    /** Determines if a character is an XML name character.
+    /**
+     * Determines if a character is an XML name character.
      * 
      * @param codePoint
-     *            The code point of the character to be tested. For UTF-8 and
-     *            UTF-16 characters the code point corresponds to the value of
-     *            the char that represents the character.
+     *        The code point of the character to be tested. For UTF-8 and UTF-16
+     *        characters the code point corresponds to the value of the char
+     *        that represents the character.
      * @return {@code true} if {@code codePoint} is an XML name start character,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     public static boolean isXMLNameChar(int codePoint) {
-        return isXMLNameStartCharacter(codePoint) || codePoint == '-' || codePoint == '.'
-                || codePoint >= '0' && codePoint <= '9' || codePoint == 0xB7
-                || codePoint >= 0x0300 && codePoint <= 0x036F || codePoint >= 0x203F
+        return isXMLNameStartCharacter(codePoint) || codePoint == '-'
+                || codePoint == '.' || codePoint >= '0' && codePoint <= '9'
+                || codePoint == 0xB7 || codePoint >= 0x0300
+                && codePoint <= 0x036F || codePoint >= 0x203F
                 && codePoint <= 0x2040;
     }
 
-    /** Deterimines if a character is an NCName (Non-Colonised Name) start
+    /**
+     * Deterimines if a character is an NCName (Non-Colonised Name) start
      * character.
      * 
      * @param codePoint
-     *            The code point of the character to be tested. For UTF-8 and
-     *            UTF-16 characters the code point corresponds to the value of
-     *            the char that represents the character.
+     *        The code point of the character to be tested. For UTF-8 and UTF-16
+     *        characters the code point corresponds to the value of the char
+     *        that represents the character.
      * @return {@code true} if {@code codePoint} is a NCName start character,
-     *         otherwise {@code false}. */
+     *         otherwise {@code false}.
+     */
     public static boolean isNCNameStartChar(int codePoint) {
         return codePoint != ':' && isXMLNameStartCharacter(codePoint);
     }
 
-    /** Deterimines if a character is an NCName (Non-Colonised Name) character.
+    /**
+     * Deterimines if a character is an NCName (Non-Colonised Name) character.
      * 
      * @param codePoint
-     *            The code point of the character to be tested. For UTF-8 and
-     *            UTF-16 characters the code point corresponds to the value of
-     *            the char that represents the character.
+     *        The code point of the character to be tested. For UTF-8 and UTF-16
+     *        characters the code point corresponds to the value of the char
+     *        that represents the character.
      * @return {@code true} if {@code codePoint} is a NCName character,
-     *         otherwise {@code false}. */
+     *         otherwise {@code false}.
+     */
     public static boolean isNCNameChar(int codePoint) {
         return codePoint != ':' && isXMLNameChar(codePoint);
     }
 
-    /** Determines if a character sequence is an NCName (Non-Colonised Name). An
+    /**
+     * Determines if a character sequence is an NCName (Non-Colonised Name). An
      * NCName is a string which starts with an NCName start character and is
      * followed by zero or more NCName characters.
      * 
      * @param s
-     *            The character sequence to be tested.
-     * @return {@code true} if {@code s} is an NCName, otherwise {@code false}. */
+     *        The character sequence to be tested.
+     * @return {@code true} if {@code s} is an NCName, otherwise {@code false}.
+     */
     public static boolean isNCName(CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
@@ -148,15 +165,17 @@ public class XMLUtils {
         return true;
     }
 
-    /** Determines if a character sequence is a QName. A QName is either an
+    /**
+     * Determines if a character sequence is a QName. A QName is either an
      * NCName (LocalName), or an NCName followed by a colon followed by another
      * NCName (where the first NCName is referred to as the 'Prefix Name' and
      * the second NCName is referred to as the 'Local Name' - i.e.
      * PrefixName:LocalName).
      * 
      * @param s
-     *            The character sequence to be tested.
-     * @return {@code true} if {@code s} is a QName, otherwise {@code false}. */
+     *        The character sequence to be tested.
+     * @return {@code true} if {@code s} is a QName, otherwise {@code false}.
+     */
     public static boolean isQName(CharSequence s) {
         if (isNullOrEmpty(s)) {
             return false;
@@ -191,24 +210,28 @@ public class XMLUtils {
         return true;
     }
 
-    /** Determines if a character sequence has a suffix that is an NCName.
+    /**
+     * Determines if a character sequence has a suffix that is an NCName.
      * 
      * @param s
-     *            The character sequence.
+     *        The character sequence.
      * @return {@code true} if the character sequence {@code s} has a suffix
-     *         that is an NCName. */
+     *         that is an NCName.
+     */
     public static boolean hasNCNameSuffix(CharSequence s) {
         return getNCNameSuffixIndex(s) != -1;
     }
 
-    /** Gets the index of the longest NCName that is the suffix of a character
+    /**
+     * Gets the index of the longest NCName that is the suffix of a character
      * sequence.
      * 
      * @param s
-     *            The character sequence.
+     *        The character sequence.
      * @return The index of the longest suffix of the specified character
      *         sequence {@code s} that is an NCName, or -1 if the character
-     *         sequence {@code s} does not have a suffix that is an NCName. */
+     *         sequence {@code s} does not have a suffix that is an NCName.
+     */
     public static int getNCNameSuffixIndex(CharSequence s) {
         // identify bnode labels and do not try to split them
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
@@ -229,13 +252,15 @@ public class XMLUtils {
         return index;
     }
 
-    /** Get the longest NCName that is a suffix of a character sequence.
+    /**
+     * Get the longest NCName that is a suffix of a character sequence.
      * 
      * @param s
-     *            The character sequence.
+     *        The character sequence.
      * @return The String which is the longest suffix of the character sequence
      *         {@code s} that is an NCName, or {@code null} if the character
-     *         sequence {@code s} does not have a suffix that is an NCName. */
+     *         sequence {@code s} does not have a suffix that is an NCName.
+     */
     public static String getNCNameSuffix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return null;
@@ -248,13 +273,15 @@ public class XMLUtils {
         }
     }
 
-    /** utility to get the part of a charsequence that is not the NCName
+    /**
+     * utility to get the part of a charsequence that is not the NCName
      * fragment.
      * 
      * @param s
-     *            the charsequence to split
+     *        the charsequence to split
      * @return the prefix split at the last non-ncname character, or the whole
-     *         input if no ncname is found */
+     *         input if no ncname is found
+     */
     public static String getNCNamePrefix(CharSequence s) {
         if (s.length() > 1 && s.charAt(0) == '_' && s.charAt(1) == ':') {
             return s.toString();
@@ -267,11 +294,13 @@ public class XMLUtils {
         }
     }
 
-    /** Escapes a character sequence so that it is valid XML.
+    /**
+     * Escapes a character sequence so that it is valid XML.
      * 
      * @param s
-     *            The character sequence.
-     * @return The escaped version of the character sequence. */
+     *        The character sequence.
+     * @return The escaped version of the character sequence.
+     */
     public static String escapeXML(CharSequence s) {
         // double quote -- quot
         // ampersand -- amp
@@ -299,13 +328,15 @@ public class XMLUtils {
         return sb.toString();
     }
 
-    /** Determines if a character sequence is {@code null} or empty.
+    /**
+     * Determines if a character sequence is {@code null} or empty.
      * 
      * @param s
-     *            The character sequence.
+     *        The character sequence.
      * @return {@code true} if the character sequence is {@code null},
      *         {@code true} if the character sequence is empty, otherwise
-     *         {@code false}. */
+     *         {@code false}.
+     */
     private static boolean isNullOrEmpty(CharSequence s) {
         return s == null || s.length() == 0;
     }

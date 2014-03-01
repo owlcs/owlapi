@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 @SuppressWarnings("javadoc")
 public class TripleComparatorTestCase {
+
     String ns = "urn:";
     RDFResourceNode g = r(Class(IRI(ns + "g")));
     RDFResourceNode d = r(ObjectProperty(IRI("urn:d")));

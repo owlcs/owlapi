@@ -38,17 +38,23 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Used to indicate the buffering mode of a reasoner. See
+/**
+ * Used to indicate the buffering mode of a reasoner. See
  * {@link OWLReasoner#getBufferingMode()}.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 04-Dec-2009 */
+ *         Management Group, Date: 04-Dec-2009
+ */
 public enum BufferingMode {
-    /** Represents a mode where ontology changes are buffered inside an
+    /**
+     * Represents a mode where ontology changes are buffered inside an
      * OWLReasoner. The reasoner only considers the changes when the buffer is
-     * flushed with the {@link OWLReasoner#flush()} method. */
+     * flushed with the {@link OWLReasoner#flush()} method.
+     */
     BUFFERING,
-    /** Represents a mode where ontology changes are not buffered inside an
-     * OWLReasoner. The reasoner considers all changes immediately. */
+    /**
+     * Represents a mode where ontology changes are not buffered inside an
+     * OWLReasoner. The reasoner considers all changes immediately.
+     */
     NON_BUFFERING
 }

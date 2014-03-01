@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Mar-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007
+ */
 public class DisjointFromHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DisjointFromHandler(OBOConsumer consumer) {
         super("disjoint_from", consumer);
     }
@@ -55,7 +60,8 @@ public class DisjointFromHandler extends AbstractTagValueHandler {
     public void handle(String currentId, String value, String qualifierBlock,
             String comment) {
         OWLAxiom ax = getDataFactory().getOWLDisjointClassesAxiom(
-                CollectionFactory.createSet(getCurrentClass(), getOWLClass(value)));
+                CollectionFactory.createSet(getCurrentClass(),
+                        getOWLClass(value)));
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

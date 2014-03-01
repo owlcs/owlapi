@@ -38,11 +38,16 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Mar-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007
+ */
 public class UnionOfHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public UnionOfHandler(OBOConsumer consumer) {
         super("union_of", consumer);
     }

@@ -43,14 +43,20 @@ import java.util.logging.Logger;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006 */
-public class TypedConstantListItemTranslator implements ListItemTranslator<OWLLiteral> {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006
+ */
+public class TypedConstantListItemTranslator implements
+        ListItemTranslator<OWLLiteral> {
+
     private static final Logger logger = Logger
             .getLogger(TypedConstantListItemTranslator.class.getName());
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     @SuppressWarnings("unused")
     public TypedConstantListItemTranslator(OWLRDFConsumer consumer) {}
 

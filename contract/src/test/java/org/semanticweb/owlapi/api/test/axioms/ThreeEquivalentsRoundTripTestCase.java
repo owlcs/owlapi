@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /** test for 3178902 adapted from the report Thimoty provided. */
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase {
+
     private static final String NS = "http://protege.org/ontologies";
     private OWLClass A;
     private OWLClass B;
@@ -55,7 +56,8 @@ public class ThreeEquivalentsRoundTripTestCase {
         assertTrue(ontology.containsClassInSignature(C.getIRI()));
     }
 
-    private String saveOntology(OWLOntology o) throws OWLOntologyStorageException {
+    private String saveOntology(OWLOntology o)
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         o.getOWLOntologyManager().saveOntology(o, target);
         return target.toString();

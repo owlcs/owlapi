@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase {
+
     String NS;
     OWLClass A;
     OWLAnnotationProperty P;
@@ -52,7 +53,8 @@ public class MissingDeclarationRoundTripTestCase {
         return ontology;
     }
 
-    public String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    public String saveOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
@@ -61,11 +63,12 @@ public class MissingDeclarationRoundTripTestCase {
         return target.toString();
     }
 
-    public OWLOntology loadOntology(String o) throws OWLOntologyCreationException {
+    public OWLOntology loadOntology(String o)
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
         config.setStrict(true);
-        return manager.loadOntologyFromOntologyDocument(new StringDocumentSource(o),
-                config);
+        return manager.loadOntologyFromOntologyDocument(
+                new StringDocumentSource(o), config);
     }
 }

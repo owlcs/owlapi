@@ -43,19 +43,26 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
 public class OWLMetricManager {
+
     private final List<OWLMetric<?>> metrics;
 
-    /** @param metrics
-     *            the metrics to use */
+    /**
+     * @param metrics
+     *        the metrics to use
+     */
     public OWLMetricManager(List<OWLMetric<?>> metrics) {
         this.metrics = new ArrayList<OWLMetric<?>>(metrics);
     }
 
-    /** @param ontology
-     *            the ontology to measure */
+    /**
+     * @param ontology
+     *        the ontology to measure
+     */
     public void setOntology(OWLOntology ontology) {
         for (OWLMetric<?> metric : metrics) {
             metric.setOntology(ontology);

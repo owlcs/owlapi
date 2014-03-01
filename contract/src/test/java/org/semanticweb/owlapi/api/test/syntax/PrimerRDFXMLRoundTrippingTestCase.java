@@ -41,9 +41,13 @@ package org.semanticweb.owlapi.api.test.syntax;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 08-Dec-2009 */
-public class PrimerRDFXMLRoundTrippingTestCase extends AbstractFileRoundTrippingTestCase {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 08-Dec-2009
+ */
+public class PrimerRDFXMLRoundTrippingTestCase extends
+        AbstractFileRoundTrippingTestCase {
+
     @Override
     protected String getFileName() {
         return "primer.rdfxml.xml";

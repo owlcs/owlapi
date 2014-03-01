@@ -38,18 +38,24 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An exception to describe a situation where there was an attempt to apply a
+/**
+ * An exception to describe a situation where there was an attempt to apply a
  * change to an immutable ontology.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
-public class ImmutableOWLOntologyChangeException extends OWLOntologyChangeException {
+ *         Informatics Group, Date: 13-Apr-2007
+ */
+public class ImmutableOWLOntologyChangeException extends
+        OWLOntologyChangeException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** Constructs an exception which describes the attempted change.
+    /**
+     * Constructs an exception which describes the attempted change.
      * 
      * @param change
-     *            The change. */
+     *        The change.
+     */
     public ImmutableOWLOntologyChangeException(OWLOntologyChange change) {
         super(change, "Cannot apply changes to immutable ontology: "
                 + change.getOntology());

@@ -51,14 +51,18 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Nov-2006
+ */
 public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -77,14 +81,15 @@ public class OWLFunctionalSyntaxOWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new OWLFunctionalSyntaxParser(is);
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(), configuration);
+                is = getInputStream(documentSource.getDocumentIRI(),
+                        configuration);
                 parser = new OWLFunctionalSyntaxParser(is);
             }
             parser.setUp(ontology, configuration);
             return parser.parse();
         } catch (ParseException e) {
-            throw new OWLParserException(e.getMessage(), e, e.currentToken.beginLine,
-                    e.currentToken.beginColumn);
+            throw new OWLParserException(e.getMessage(), e,
+                    e.currentToken.beginLine, e.currentToken.beginColumn);
         } finally {
             if (is != null) {
                 is.close();

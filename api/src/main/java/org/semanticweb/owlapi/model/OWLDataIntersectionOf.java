@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Intersection_of_Data_Ranges"
  * >DataIntersectionOf</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 15-Jan-2009 */
+ *         Management Group, Date: 15-Jan-2009
+ */
 public interface OWLDataIntersectionOf extends OWLNaryDataRange {}

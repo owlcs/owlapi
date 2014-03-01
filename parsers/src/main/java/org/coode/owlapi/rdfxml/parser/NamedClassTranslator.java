@@ -41,11 +41,16 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 28-Jun-2009
+ */
 public class NamedClassTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public NamedClassTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -60,13 +65,15 @@ public class NamedClassTranslator extends AbstractClassExpressionTranslator {
         return !isAnonymous(mainNode);
     }
 
-    /** Translates the specified main node into an {@code OWLClassExpression}.
+    /**
+     * Translates the specified main node into an {@code OWLClassExpression}.
      * All triples used in the translation are consumed.
      * 
      * @param mainNode
-     *            The main node of the set of triples that represent the class
-     *            expression.
-     * @return The class expression that represents the translation. */
+     *        The main node of the set of triples that represent the class
+     *        expression.
+     * @return The class expression that represents the translation.
+     */
     @Override
     public OWLClass translate(IRI mainNode) {
         return getConsumer().getOWLClass(mainNode);

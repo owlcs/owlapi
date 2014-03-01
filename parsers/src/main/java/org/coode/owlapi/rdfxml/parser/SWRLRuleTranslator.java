@@ -50,22 +50,29 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007
+ */
 public class SWRLRuleTranslator {
+
     private OWLRDFConsumer consumer;
     private OptimisedListTranslator<SWRLAtom> listTranslator;
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public SWRLRuleTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
         listTranslator = new OptimisedListTranslator<SWRLAtom>(consumer,
                 new SWRLAtomListItemTranslator(consumer));
     }
 
-    /** @param mainNode
-     *            rule to translate */
+    /**
+     * @param mainNode
+     *        rule to translate
+     */
     public void translateRule(IRI mainNode) {
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         Set<IRI> predicates = consumer.getPredicatesBySubject(mainNode);
@@ -73,10 +80,11 @@ public class SWRLRuleTranslator {
             if (consumer.isAnnotationProperty(i)) {
                 OWLAnnotationProperty p = consumer.getDataFactory()
                         .getOWLAnnotationProperty(i);
-                OWLLiteral literal = consumer.getLiteralObject(mainNode, i, true);
+                OWLLiteral literal = consumer.getLiteralObject(mainNode, i,
+                        true);
                 while (literal != null) {
-                    annotations.add(consumer.getDataFactory()
-                            .getOWLAnnotation(p, literal));
+                    annotations.add(consumer.getDataFactory().getOWLAnnotation(
+                            p, literal));
                     literal = consumer.getLiteralObject(mainNode, i, true);
                 }
             }
@@ -96,11 +104,11 @@ public class SWRLRuleTranslator {
         }
         SWRLRule rule = null;
         if (!consumer.isAnonymousNode(mainNode)) {
-            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent,
-                    annotations);
+            rule = consumer.getDataFactory().getSWRLRule(antecedent,
+                    consequent, annotations);
         } else {
-            rule = consumer.getDataFactory().getSWRLRule(antecedent, consequent,
-                    annotations);
+            rule = consumer.getDataFactory().getSWRLRule(antecedent,
+                    consequent, annotations);
         }
         consumer.addAxiom(rule);
     }

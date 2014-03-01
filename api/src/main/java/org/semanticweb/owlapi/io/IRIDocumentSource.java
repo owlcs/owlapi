@@ -44,13 +44,18 @@ import java.io.Reader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 24-Apr-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 24-Apr-2007
+ */
 public class IRIDocumentSource implements OWLOntologyDocumentSource {
+
     private final IRI documentIRI;
 
-    /** @param documentIRI
-     *            the source document IRI */
+    /**
+     * @param documentIRI
+     *        the source document IRI
+     */
     public IRIDocumentSource(IRI documentIRI) {
         this.documentIRI = documentIRI;
     }

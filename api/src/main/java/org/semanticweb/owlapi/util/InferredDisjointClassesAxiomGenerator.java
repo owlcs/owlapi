@@ -45,22 +45,26 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Generates inferred disjoint axioms - note that this currently uses a very
+/**
+ * Generates inferred disjoint axioms - note that this currently uses a very
  * simple inefficient algorithm.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Jul-2007 */
+ *         Informatics Group, Date: 27-Jul-2007
+ */
 public class InferredDisjointClassesAxiomGenerator extends
         InferredClassAxiomGenerator<OWLDisjointClassesAxiom> {
+
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLDisjointClassesAxiom> result) {
         for (OWLClass cls : getAllEntities(reasoner)) {
             if (!cls.equals(entity)) {
                 if (!reasoner.isSatisfiable(dataFactory
-                        .getOWLObjectIntersectionOf(CollectionFactory.createSet(entity,
-                                cls)))) {
-                    result.add(dataFactory.getOWLDisjointClassesAxiom(entity, cls));
+                        .getOWLObjectIntersectionOf(CollectionFactory
+                                .createSet(entity, cls)))) {
+                    result.add(dataFactory.getOWLDisjointClassesAxiom(entity,
+                            cls));
                 }
             }
         }

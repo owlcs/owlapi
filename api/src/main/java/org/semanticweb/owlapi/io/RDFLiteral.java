@@ -42,15 +42,20 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFLiteral extends RDFNode implements Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final OWLLiteral literal;
 
-    /** @param literal
-     *            the wrapped literal */
+    /**
+     * @param literal
+     *        the wrapped literal
+     */
     public RDFLiteral(OWLLiteral literal) {
         this.literal = literal;
     }

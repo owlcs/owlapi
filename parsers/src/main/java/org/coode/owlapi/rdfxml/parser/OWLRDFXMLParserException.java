@@ -40,36 +40,45 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** The Class OWLRDFXMLParserException.
+/**
+ * The Class OWLRDFXMLParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group, Date: 13-Apr-2007
+ */
 public class OWLRDFXMLParserException extends OWLParserException {
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 30406L;
 
-    /** Instantiates a new oWLRDFXML parser exception.
+    /**
+     * Instantiates a new oWLRDFXML parser exception.
      * 
      * @param message
-     *            the message */
+     *        the message
+     */
     public OWLRDFXMLParserException(String message) {
         super(message);
     }
 
-    /** Instantiates a new oWLRDFXML parser exception.
+    /**
+     * Instantiates a new oWLRDFXML parser exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** Instantiates a new oWLRDFXML parser exception.
+    /**
+     * Instantiates a new oWLRDFXML parser exception.
      * 
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserException(Throwable cause) {
         super(cause);
     }

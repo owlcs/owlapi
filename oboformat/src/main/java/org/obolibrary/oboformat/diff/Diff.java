@@ -5,6 +5,7 @@ import org.obolibrary.oboformat.model.Frame;
 
 /** Diff */
 public class Diff {
+
     String type;
     String frameType;
     Frame frame1;
@@ -13,30 +14,34 @@ public class Diff {
     Clause clause2;
     int frameNum;
 
-    /** @param ftype
-     *            ftype
+    /**
+     * @param ftype
+     *        ftype
      * @param type
-     *            type
+     *        type
      * @param f1
-     *            f1
+     *        f1
      * @param n
-     *            n */
+     *        n
+     */
     public Diff(String ftype, String type, Frame f1, int n) {
         this(ftype, type, f1, null, null, n);
     }
 
-    /** @param ftype
-     *            ftype
+    /**
+     * @param ftype
+     *        ftype
      * @param type
-     *            type
+     *        type
      * @param f1
-     *            f1
+     *        f1
      * @param f2
-     *            f2
+     *        f2
      * @param c
-     *            c
+     *        c
      * @param n
-     *            n */
+     *        n
+     */
     public Diff(String ftype, String type, Frame f1, Frame f2, Clause c, int n) {
         this.type = type;
         frame1 = f1;
@@ -51,8 +56,10 @@ public class Diff {
         return type;
     }
 
-    /** @param type
-     *            type */
+    /**
+     * @param type
+     *        type
+     */
     public void setType(String type) {
         this.type = type;
     }
@@ -62,8 +69,10 @@ public class Diff {
         return frame1;
     }
 
-    /** @param frame1
-     *            frame1 */
+    /**
+     * @param frame1
+     *        frame1
+     */
     public void setFrame1(Frame frame1) {
         this.frame1 = frame1;
     }
@@ -73,8 +82,10 @@ public class Diff {
         return frame2;
     }
 
-    /** @param frame2
-     *            frame2 */
+    /**
+     * @param frame2
+     *        frame2
+     */
     public void setFrame2(Frame frame2) {
         this.frame2 = frame2;
     }
@@ -84,8 +95,10 @@ public class Diff {
         return clause1;
     }
 
-    /** @param clause1
-     *            clause1 */
+    /**
+     * @param clause1
+     *        clause1
+     */
     public void setClause1(Clause clause1) {
         this.clause1 = clause1;
     }
@@ -95,8 +108,10 @@ public class Diff {
         return clause2;
     }
 
-    /** @param clause2
-     *            clause2 */
+    /**
+     * @param clause2
+     *        clause2
+     */
     public void setClause2(Clause clause2) {
         this.clause2 = clause2;
     }

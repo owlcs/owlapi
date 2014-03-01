@@ -47,12 +47,15 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Tests that the isOWLThing and isOWLNothing methods return correct values.
+/**
+ * Tests that the isOWLThing and isOWLNothing methods return correct values.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 29-Apr-2007 */
+ *         Informatics Group, Date: 29-Apr-2007
+ */
 @SuppressWarnings("javadoc")
 public class BuiltInClassTestCase {
+
     @Test
     public void testOWLThing() {
         OWLClass thing = OWLThing();
@@ -83,7 +86,8 @@ public class BuiltInClassTestCase {
 
     @Test
     public void testAnonymousClass() {
-        OWLClassExpression desc = ObjectHasSelf(ObjectProperty(TestUtils.createIRI()));
+        OWLClassExpression desc = ObjectHasSelf(ObjectProperty(TestUtils
+                .createIRI()));
         assertFalse(desc.isOWLThing());
         assertFalse(desc.isOWLNothing());
     }

@@ -38,7 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the OWL
  * 2 Specification.<br>
  * A high level interface which represents a data range. Example of data ranges
@@ -47,60 +48,79 @@ package org.semanticweb.owlapi.model;
  * restrictions (e.g. int &gt; 3).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLDataRange extends OWLObject, OWLPropertyRange, SWRLPredicate {
-    /** Determines if this data range is a datatype (int, float, ...)
+ *         Informatics Group Date: 24-Oct-2006
+ */
+public interface OWLDataRange extends OWLObject, OWLPropertyRange,
+        SWRLPredicate {
+
+    /**
+     * Determines if this data range is a datatype (int, float, ...)
      * 
      * @return {@code true} if this datarange is a datatype, or {@code false} if
      *         it is not a datatype and is some other data range such as a data
-     *         range restriction, data oneOf or data complementOf. */
+     *         range restriction, data oneOf or data complementOf.
+     */
     boolean isDatatype();
 
-    /** Determines if this data range is the top data type.
+    /**
+     * Determines if this data range is the top data type.
      * 
      * @return {@code true} if this data range is the top datatype otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isTopDatatype();
 
-    /** If this data range is a datatype then this method may be used to obtain
+    /**
+     * If this data range is a datatype then this method may be used to obtain
      * it as a datatype (rather than using an explicit cast).
      * 
      * @return This data range as an
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} */
+     *         {@link org.semanticweb.owlapi.model.OWLDatatype}
+     */
     OWLDatatype asOWLDatatype();
 
-    /** Gets the type of this data range
+    /**
+     * Gets the type of this data range
      * 
-     * @return The data range type */
+     * @return The data range type
+     */
     DataRangeType getDataRangeType();
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(OWLDataVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(OWLDataRangeVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLDataRangeVisitorEx<O> visitor);
 }

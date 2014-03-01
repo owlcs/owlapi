@@ -46,19 +46,24 @@ import org.semanticweb.owlapi.expression.OWLOntologyChecker;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Feb-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Feb-2009
+ */
 public class ManchesterOWLSyntaxFramesParser implements
         OWLExpressionParser<Set<OntologyAxiomPair>> {
+
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
     private OWLOntologyChecker ontologyChecker;
     private OWLOntology defaultOntology;
 
-    /** @param dataFactory
-     *            the data factory
+    /**
+     * @param dataFactory
+     *        the data factory
      * @param checker
-     *            the entity checker */
+     *        the entity checker
+     */
     public ManchesterOWLSyntaxFramesParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;
@@ -70,14 +75,18 @@ public class ManchesterOWLSyntaxFramesParser implements
         checker = entityChecker;
     }
 
-    /** @param ontologyChecker
-     *            the ontology checker */
+    /**
+     * @param ontologyChecker
+     *        the ontology checker
+     */
     public void setOWLOntologyChecker(OWLOntologyChecker ontologyChecker) {
         this.ontologyChecker = ontologyChecker;
     }
 
-    /** @param ontology
-     *            the ontology to use */
+    /**
+     * @param ontology
+     *        the ontology to use
+     */
     public void setDefaultOntology(OWLOntology ontology) {
         defaultOntology = ontology;
     }

@@ -41,17 +41,22 @@ package org.semanticweb.owlapi.util;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Jan-2007
+ */
 public interface RootClassChecker {
-    /** Determines if the specified class is a direct syntactic subclass of
+
+    /**
+     * Determines if the specified class is a direct syntactic subclass of
      * owl:Thing.
      * 
      * @param cls
-     *            The class to be checked.
+     *        The class to be checked.
      * @return {@code true} if the class is a direct syntactic root class of
      *         owl:Thing, otherwise {@code false}.
      * @throws OWLException
-     *             exception */
+     *         exception
+     */
     boolean isRootClass(OWLClass cls) throws OWLException;
 }

@@ -44,11 +44,16 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
 public class LogicalAxiomCount extends AxiomCountMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public LogicalAxiomCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

@@ -40,36 +40,45 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** The Class TurtleParserException.
+/**
+ * The Class TurtleParserException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Feb-2008 */
+ *         Informatics Group, Date: 23-Feb-2008
+ */
 public class TurtleParserException extends OWLParserException {
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 30406L;
 
-    /** Instantiates a new turtle parser exception.
+    /**
+     * Instantiates a new turtle parser exception.
      * 
      * @param message
-     *            the message */
+     *        the message
+     */
     public TurtleParserException(String message) {
         super(message);
     }
 
-    /** Instantiates a new turtle parser exception.
+    /**
+     * Instantiates a new turtle parser exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public TurtleParserException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** Instantiates a new turtle parser exception.
+    /**
+     * Instantiates a new turtle parser exception.
      * 
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public TurtleParserException(Throwable cause) {
         super(cause);
     }

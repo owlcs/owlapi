@@ -70,56 +70,71 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006
+ */
 public class RDFXMLRenderer extends RDFRendererBase {
+
     private RDFXMLWriter writer;
     private Set<RDFResourceNode> pending = new HashSet<RDFResourceNode>();
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
-    /** @param manager
-     *            manager
+    /**
+     * @param manager
+     *        manager
      * @param ontology
-     *            ontology
+     *        ontology
      * @param w
-     *            writer */
+     *        writer
+     */
     @SuppressWarnings("unused")
     @Deprecated
-    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w) {
-        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology,
+            Writer w) {
+        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(
+                ontology));
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param w
-     *            writer */
+     *        writer
+     */
     public RDFXMLRenderer(OWLOntology ontology, Writer w) {
-        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+        this(ontology, w, ontology.getOWLOntologyManager().getOntologyFormat(
+                ontology));
     }
 
-    /** @param manager
-     *            manager
+    /**
+     * @param manager
+     *        manager
      * @param ontology
-     *            ontology
+     *        ontology
      * @param w
-     *            writer
+     *        writer
      * @param format
-     *            format */
+     *        format
+     */
     @SuppressWarnings("unused")
     @Deprecated
-    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology, Writer w,
-            OWLOntologyFormat format) {
+    public RDFXMLRenderer(OWLOntologyManager manager, OWLOntology ontology,
+            Writer w, OWLOntologyFormat format) {
         this(ontology, w, format);
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param w
-     *            writer
+     *        writer
      * @param format
-     *            format */
-    public RDFXMLRenderer(OWLOntology ontology, Writer w, OWLOntologyFormat format) {
+     *        format
+     */
+    public RDFXMLRenderer(OWLOntology ontology, Writer w,
+            OWLOntologyFormat format) {
         super(ontology, format);
         this.format = format;
         qnameManager = new RDFXMLNamespaceManager(ontology, format);
@@ -130,18 +145,20 @@ public class RDFXMLRenderer extends RDFRendererBase {
         } else {
             base = defaultNamespace;
         }
-        writer = new RDFXMLWriter(XMLWriterFactory.getInstance().createXMLWriter(w,
-                qnameManager, base));
+        writer = new RDFXMLWriter(XMLWriterFactory.getInstance()
+                .createXMLWriter(w, qnameManager, base));
         prettyPrintedTypes = new HashSet<IRI>();
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_CLASS.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY
+                .getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_RESTRICTION.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_THING.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NOTHING.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ONTOLOGY.getIRI());
-        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
+        prettyPrintedTypes.add(OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY
+                .getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.RDFS_DATATYPE.getIRI());
         prettyPrintedTypes.add(OWLRDFVocabulary.OWL_AXIOM.getIRI());
@@ -161,7 +178,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     @Override
     protected void endDocument() throws IOException {
         writer.endDocument();
-        writer.writeComment(VersionInfo.getVersionInfo().getGeneratedByMessage());
+        writer.writeComment(VersionInfo.getVersionInfo()
+                .getGeneratedByMessage());
         if (format instanceof RDFOntologyFormat
                 && !((RDFOntologyFormat) format).isAddMissingTypes()) {
             // missing type declarations could have been omitted, adding a
@@ -171,7 +189,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeIndividualComments(OWLNamedIndividual ind) throws IOException {
+    protected void writeIndividualComments(OWLNamedIndividual ind)
+            throws IOException {
         writer.writeComment(XMLUtils.escapeXML(ind.getIRI().toString()));
     }
 
@@ -181,12 +200,14 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeDataPropertyComment(OWLDataProperty prop) throws IOException {
+    protected void writeDataPropertyComment(OWLDataProperty prop)
+            throws IOException {
         writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
 
     @Override
-    protected void writeObjectPropertyComment(OWLObjectProperty prop) throws IOException {
+    protected void writeObjectPropertyComment(OWLObjectProperty prop)
+            throws IOException {
         writer.writeComment(XMLUtils.escapeXML(prop.getIRI().toString()));
     }
 
@@ -197,7 +218,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
     }
 
     @Override
-    protected void writeDatatypeComment(OWLDatatype datatype) throws IOException {
+    protected void writeDatatypeComment(OWLDatatype datatype)
+            throws IOException {
         writer.writeComment(XMLUtils.escapeXML(datatype.getIRI().toString()));
     }
 
@@ -219,14 +241,16 @@ public class RDFXMLRenderer extends RDFRendererBase {
         }
         pending.add(node);
         RDFTriple candidatePrettyPrintTypeTriple = null;
-        Collection<RDFTriple> triples = getGraph().getTriplesForSubject(node, true);
+        Collection<RDFTriple> triples = getGraph().getTriplesForSubject(node,
+                true);
         for (RDFTriple triple : triples) {
             IRI propertyIRI = triple.getProperty().getIRI();
             if (propertyIRI.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())
                     && !triple.getObject().isAnonymous()) {
-                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple.getObject()
-                        .getIRI())) {
-                    if (prettyPrintedTypes.contains(triple.getObject().getIRI())) {
+                if (OWLRDFVocabulary.BUILT_IN_VOCABULARY_IRIS.contains(triple
+                        .getObject().getIRI())) {
+                    if (prettyPrintedTypes
+                            .contains(triple.getObject().getIRI())) {
                         candidatePrettyPrintTypeTriple = triple;
                     }
                 }
@@ -235,7 +259,8 @@ public class RDFXMLRenderer extends RDFRendererBase {
         if (candidatePrettyPrintTypeTriple == null) {
             writer.writeStartElement(RDF_DESCRIPTION.getIRI());
         } else {
-            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject().getIRI());
+            writer.writeStartElement(candidatePrettyPrintTypeTriple.getObject()
+                    .getIRI());
         }
         if (!node.isAnonymous()) {
             writer.writeAboutAttribute(node.getIRI());
@@ -272,12 +297,15 @@ public class RDFXMLRenderer extends RDFRendererBase {
                                         writer.writeDatatypeAttribute(litNode
                                                 .getDatatype());
                                     } else if (litNode.getLang() != null) {
-                                        writer.writeLangAttribute(litNode.getLang());
+                                        writer.writeLangAttribute(litNode
+                                                .getLang());
                                     }
-                                    writer.writeTextContent(litNode.getLiteral());
+                                    writer.writeTextContent(litNode
+                                            .getLiteral());
                                     writer.writeEndElement();
                                 } else {
-                                    writer.writeStartElement(RDF_DESCRIPTION.getIRI());
+                                    writer.writeStartElement(RDF_DESCRIPTION
+                                            .getIRI());
                                     writer.writeAboutAttribute(n.getIRI());
                                     writer.writeEndElement();
                                 }

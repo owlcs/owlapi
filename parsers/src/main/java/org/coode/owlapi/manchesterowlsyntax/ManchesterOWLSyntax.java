@@ -38,11 +38,14 @@
  */
 package org.coode.owlapi.manchesterowlsyntax;
 
-/** The vocabulary that the Manchester OWL Syntax uses.
+/**
+ * The vocabulary that the Manchester OWL Syntax uses.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Apr-2007 */
+ *         Informatics Group, Date: 25-Apr-2007
+ */
 public enum ManchesterOWLSyntax {
+
     //@formatter:off
     
 //    public static final String VALUE_PARTITION = "ValuePartition:";
@@ -161,8 +164,8 @@ public enum ManchesterOWLSyntax {
             boolean classExpressionQuantifierKeyword,
             boolean classExpressionConnectiveKeyword) {
         this(rendering, frameKeyword, sectionKeyword, axiomKeyword,
-                classExpressionQuantifierKeyword, classExpressionConnectiveKeyword,
-                rendering + ":");
+                classExpressionQuantifierKeyword,
+                classExpressionConnectiveKeyword, rendering + ":");
     }
 
     /** @return frame keyword */
@@ -200,35 +203,43 @@ public enum ManchesterOWLSyntax {
         return keyword;
     }
 
-    /** @param s
-     *            s
-     * @return true if matches keyword */
+    /**
+     * @param s
+     *        s
+     * @return true if matches keyword
+     */
     public boolean matches(String s) {
         return keyword.equalsIgnoreCase(s);
     }
 
-    /** @param s
-     *            s
-     * @return true if either form matches */
+    /**
+     * @param s
+     *        s
+     * @return true if either form matches
+     */
     public boolean matchesEitherForm(String s) {
         return keyword.equalsIgnoreCase(s) || rendering.equalsIgnoreCase(s);
     }
 
-    /** for keywords which match two tokens.
+    /**
+     * for keywords which match two tokens.
      * 
      * @param s
-     *            s
+     *        s
      * @param v
-     *            v
-     * @return true if matches */
+     *        v
+     * @return true if matches
+     */
     public boolean matches(String s, String v) {
-        return rendering.length() == s.length() + v.length() && rendering.startsWith(s)
-                && rendering.endsWith(v);
+        return rendering.length() == s.length() + v.length()
+                && rendering.startsWith(s) && rendering.endsWith(v);
     }
 
-    /** @param rendering
-     *            rendering
-     * @return manchester owl syntax object */
+    /**
+     * @param rendering
+     *        rendering
+     * @return manchester owl syntax object
+     */
     public static ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {

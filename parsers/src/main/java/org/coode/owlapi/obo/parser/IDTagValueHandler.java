@@ -41,11 +41,16 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class IDTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public IDTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID.getName(), consumer);
     }

@@ -49,14 +49,17 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 25-Nov-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 25-Nov-2009
+ */
 public class SubObjectPropertyChainOfAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
+
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        List<OWLObjectProperty> props = Arrays.asList(ObjectProperty(getIRI("p")),
-                ObjectProperty(getIRI("q")));
+        List<OWLObjectProperty> props = Arrays.asList(
+                ObjectProperty(getIRI("p")), ObjectProperty(getIRI("q")));
         return SubPropertyChainOf(props, ObjectProperty(getIRI("r")), annos);
     }
 }

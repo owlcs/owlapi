@@ -47,21 +47,27 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 
-/** An entity checker that maps from string to entities using a bidirectional
+/**
+ * An entity checker that maps from string to entities using a bidirectional
  * short form provider.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 28-Nov-2007 */
+ *         Informatics Group, Date: 28-Nov-2007
+ */
 public class ShortFormEntityChecker implements OWLEntityChecker {
+
     private final BidirectionalShortFormProvider shortFormProvider;
 
-    /** Creates a short form entity checker, which uses the specified
+    /**
+     * Creates a short form entity checker, which uses the specified
      * bidirectional short form provider to map entity name strings to entities.
      * 
      * @param shortFormProvider
-     *            The BidirectionalShortFormProvider that should be used to
-     *            perform the required mapping. */
-    public ShortFormEntityChecker(BidirectionalShortFormProvider shortFormProvider) {
+     *        The BidirectionalShortFormProvider that should be used to perform
+     *        the required mapping.
+     */
+    public ShortFormEntityChecker(
+            BidirectionalShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
 

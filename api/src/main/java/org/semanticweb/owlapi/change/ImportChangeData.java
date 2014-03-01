@@ -44,26 +44,31 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-/** Instances of this class represent {@link OWLOntologyChangeData} for changes
+/**
+ * Instances of this class represent {@link OWLOntologyChangeData} for changes
  * that that are specific to the addition or removal of import statements
  * to/from an ontology.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012 */
+ *         Research Group, Date: 27/04/2012
+ */
 public abstract class ImportChangeData extends OWLOntologyChangeData {
+
     private static final long serialVersionUID = 30406L;
     private final OWLImportsDeclaration declaration;
 
-    /** Constructs an {@link ImportChangeData} object that describes an
+    /**
+     * Constructs an {@link ImportChangeData} object that describes an
      * {@link org.semanticweb.owlapi.model.ImportChange} based on the
      * {@link OWLImportsDeclaration} specified by the {@code declaration}
      * parameter.
      * 
      * @param declaration
-     *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. Not {@code null}.
+     *        The {@link OWLImportsDeclaration} that is the focus of some
+     *        change. Not {@code null}.
      * @throws NullPointerException
-     *             if {@code declaration} is {@code null}. */
+     *         if {@code declaration} is {@code null}.
+     */
     protected ImportChangeData(OWLImportsDeclaration declaration) {
         if (declaration == null) {
             throw new NullPointerException("declaration must not be null");
@@ -71,9 +76,11 @@ public abstract class ImportChangeData extends OWLOntologyChangeData {
         this.declaration = declaration;
     }
 
-    /** Gets the {@link OWLImportsDeclaration} that this change data describes.
+    /**
+     * Gets the {@link OWLImportsDeclaration} that this change data describes.
      * 
-     * @return The {@link OWLImportsDeclaration}. Not {@code null}. */
+     * @return The {@link OWLImportsDeclaration}. Not {@code null}.
+     */
     public OWLImportsDeclaration getDeclaration() {
         return declaration;
     }

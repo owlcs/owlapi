@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
+
     @Test
     public void testMultiLineDefinitions() throws Exception {
         // create minimal ontology
@@ -37,7 +38,8 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
                         "Sequential hermaphroditic organism that produces\ngametes first of the male sex, and then later of the\nfemale sex."));
         oboDocSource.addTermFrame(sourceFrame);
         // convert to OWL and retrieve def
-        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        OWLAPIObo2Owl bridge = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = bridge.convert(oboDocSource);
         final OWLDataFactory factory = owlOntology.getOWLOntologyManager()
                 .getOWLDataFactory();
@@ -46,8 +48,10 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         OWLClass c = factory.getOWLClass(iri);
         // Def
         OWLAnnotationProperty defProperty = factory
-                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115.getIRI());
-        Set<OWLAnnotation> annotations = c.getAnnotations(owlOntology, defProperty);
+                .getOWLAnnotationProperty(Obo2OWLVocabulary.IRI_IAO_0000115
+                        .getIRI());
+        Set<OWLAnnotation> annotations = c.getAnnotations(owlOntology,
+                defProperty);
         assertEquals(1, annotations.size());
         OWLAnnotation annotation = annotations.iterator().next();
         assertTrue(annotation.getValue() instanceof OWLLiteral);
@@ -55,7 +59,8 @@ public class RoundTripMultiLineDefTest extends OboFormatTestBasics {
         // check that owl def also contains at least one new line
         assertTrue(owlDef.indexOf('\n') > 0);
         // convert back to OBO
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc convertedOboDoc = owl2Obo.convert(owlOntology);
         Frame convertedFrame = convertedOboDoc.getTermFrame("CARO:0000049");
         String convertedDef = convertedFrame.getTagValue(OboFormatTag.TAG_DEF,

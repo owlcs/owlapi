@@ -47,7 +47,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Sorts objects into sets based on where they appear in the imports closure of
+/**
+ * Sorts objects into sets based on where they appear in the imports closure of
  * an ontology. Consider ontology B that imports ontology A. A map will be
  * generated that maps each ontology, A, B, to a set of objects that are
  * associated with the ontology. If an object is associated with ontology A and
@@ -61,35 +62,41 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
  *         Informatics Group, Date: 30-May-2008
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
  * @param <O>
- *            the type */
+ *        the type
+ */
 public class ImportsStructureObjectSorter<O> {
+
     private final OWLOntology ontology;
     private final OWLOntologyManager manager;
     private final ObjectSelector<O> objectSelector;
 
-    /** Creates a sorter for the specified ontology, whose imports closure is
+    /**
+     * Creates a sorter for the specified ontology, whose imports closure is
      * obtained with the specified manager, and for each ontology whose objects
      * are selected using the specified object selector.
      * 
      * @param ontology
-     *            The ontology
+     *        The ontology
      * @param manager
-     *            The manager that will be used to obtain the imports closure
+     *        The manager that will be used to obtain the imports closure
      * @param objectSelector
-     *            The selector that will be used to select objects that are
-     *            associated with each ontology. */
-    public ImportsStructureObjectSorter(OWLOntology ontology, OWLOntologyManager manager,
-            ObjectSelector<O> objectSelector) {
+     *        The selector that will be used to select objects that are
+     *        associated with each ontology.
+     */
+    public ImportsStructureObjectSorter(OWLOntology ontology,
+            OWLOntologyManager manager, ObjectSelector<O> objectSelector) {
         this.ontology = ontology;
         this.manager = manager;
         this.objectSelector = objectSelector;
     }
 
-    /** Gets a map that maps ontologies to sets of associated objects. The
+    /**
+     * Gets a map that maps ontologies to sets of associated objects. The
      * ontologies will be the ontologies that are contained in the imports
      * closure of the original specified ontology.
      * 
-     * @return The map. */
+     * @return The map.
+     */
     public Map<OWLOntology, Set<O>> getObjects() {
         List<OWLOntology> imports = manager.getSortedImportsClosure(ontology);
         Map<OWLOntology, Set<O>> ontology2EntityMap = new HashMap<OWLOntology, Set<O>>();
@@ -108,12 +115,17 @@ public class ImportsStructureObjectSorter<O> {
         return ontology2EntityMap;
     }
 
-    /** @param <O>
-     *            type of selected objects */
+    /**
+     * @param <O>
+     *        type of selected objects
+     */
     public interface ObjectSelector<O> {
-        /** @param ontology
-         *            the ontology to explore
-         * @return set of objects selected */
+
+        /**
+         * @param ontology
+         *        the ontology to explore
+         * @return set of objects selected
+         */
         Set<O> getObjects(OWLOntology ontology);
     }
 }

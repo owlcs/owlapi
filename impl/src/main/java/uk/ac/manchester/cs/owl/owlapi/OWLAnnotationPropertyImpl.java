@@ -66,15 +66,20 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 14-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 14-Jan-2009
+ */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         OWLAnnotationProperty {
+
     private static final long serialVersionUID = 30406L;
     private final IRI iri;
 
-    /** @param i
-     *            iri for property */
+    /**
+     * @param i
+     *        iri for property
+     */
     public OWLAnnotationPropertyImpl(IRI i) {
         super();
         iri = i;
@@ -173,7 +178,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
+        return ImplUtils.getAnnotationAxioms(this,
+                Collections.singleton(ontology));
     }
 
     @Override
@@ -190,7 +196,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
 
     @Override
     public boolean isBuiltIn() {
-        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS.contains(getIRI());
+        return OWLRDFVocabulary.BUILT_IN_ANNOTATION_PROPERTY_IRIS
+                .contains(getIRI());
     }
 
     @Override
@@ -239,8 +246,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology,
+            boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
@@ -260,7 +267,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology> ontologies) {
+    public Set<OWLAnnotationProperty> getSubProperties(
+            Set<OWLOntology> ontologies) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubAnnotationPropertyOfAxiom ax : ont
@@ -289,7 +297,8 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology> ontologies) {
+    public Set<OWLAnnotationProperty> getSuperProperties(
+            Set<OWLOntology> ontologies) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
         for (OWLOntology ont : ontologies) {
             for (OWLSubAnnotationPropertyOfAxiom ax : ont

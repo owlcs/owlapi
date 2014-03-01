@@ -43,11 +43,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 10/05/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 10/05/2012
+ */
 public class AltIdTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public AltIdTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ALT_ID.getName(), consumer);
     }
@@ -57,11 +62,11 @@ public class AltIdTagValueHandler extends AbstractTagValueHandler {
             String comment) {
         IRI subject = getConsumer().getCurrentEntity().getIRI();
         IRI annotationPropertyIRI = OBOVocabulary.ALT_ID.getIRI();
-        OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(
-                annotationPropertyIRI);
+        OWLAnnotationProperty property = getDataFactory()
+                .getOWLAnnotationProperty(annotationPropertyIRI);
         IRI object = getIRIFromOBOId(value);
-        OWLAnnotationAssertionAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
-                property, subject, object);
+        OWLAnnotationAssertionAxiom ax = getDataFactory()
+                .getOWLAnnotationAssertionAxiom(property, subject, object);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

@@ -38,7 +38,8 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties"
  * >ObjectInverseOf</a> Represents the inverse of a property expression. This
  * can be used to refer to the inverse of a property, without actually naming
@@ -48,11 +49,15 @@ package org.semanticweb.owlapi.model;
  * some Car refers to the set of things that are part of at least one car.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
-    /** Gets the property expression that this is the inverse of.
+
+    /**
+     * Gets the property expression that this is the inverse of.
      * 
      * @return The object property expression such that this object property
-     *         expression is an inverse of it. */
+     *         expression is an inverse of it.
+     */
     OWLObjectPropertyExpression getInverse();
 }

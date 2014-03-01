@@ -84,16 +84,21 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Provides the object that is the subject of an axiom.
+/**
+ * Provides the object that is the subject of an axiom.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Feb-2008 */
+ *         Informatics Group, Date: 10-Feb-2008
+ */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
+
     private OWLObject subject;
 
-    /** @param axiom
-     *            the axiom to visit
-     * @return the subject */
+    /**
+     * @param axiom
+     *        the axiom to visit
+     * @return the subject
+     */
     public OWLObject getSubject(OWLAxiom axiom) {
         axiom.accept(this);
         return subject;
@@ -119,7 +124,8 @@ public class AxiomSubjectProvider implements OWLAxiomVisitor {
         subject = axiom.getProperty();
     }
 
-    private OWLClassExpression selectClassExpression(Set<OWLClassExpression> descs) {
+    private OWLClassExpression selectClassExpression(
+            Set<OWLClassExpression> descs) {
         for (OWLClassExpression desc : descs) {
             if (!desc.isAnonymous()) {
                 return desc;

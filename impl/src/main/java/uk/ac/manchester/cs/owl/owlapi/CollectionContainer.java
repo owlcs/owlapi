@@ -1,10 +1,15 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
-/** @author ignazio
+/**
+ * @author ignazio
  * @param <T>
- *            collection type */
+ *        collection type
+ */
 public interface CollectionContainer<T> {
-    /** @param t
-     *            visitor to accept */
+
+    /**
+     * @param t
+     *        visitor to accept
+     */
     void accept(CollectionContainerVisitor<T> t);
 }

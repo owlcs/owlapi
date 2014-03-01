@@ -42,23 +42,30 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** Translates and consumes an item in an RDF list.
+/**
+ * Translates and consumes an item in an RDF list.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 08-Dec-2006
  * @param <O>
- *            type */
+ *        type
+ */
 public interface ListItemTranslator<O extends OWLObject> {
-    /** The rdf:first triple that represents the item to be translated. This
+
+    /**
+     * The rdf:first triple that represents the item to be translated. This
      * triple will point to something like a class expression, individual.
      * 
      * @param firstObject
-     *            The rdf:first triple that points to the item to be translated.
-     * @return The translated item. */
+     *        The rdf:first triple that points to the item to be translated.
+     * @return The translated item.
+     */
     O translate(IRI firstObject);
 
-    /** @param firstObject
-     *            firstObject
-     * @return translated item */
+    /**
+     * @param firstObject
+     *        firstObject
+     * @return translated item
+     */
     O translate(OWLLiteral firstObject);
 }

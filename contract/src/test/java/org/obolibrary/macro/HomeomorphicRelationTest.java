@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class HomeomorphicRelationTest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OWLOntology owlOnt = convertOBOFile("homrel.obo");

@@ -51,9 +51,12 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Aug-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Aug-2007
+ */
 public class QCRTestCase extends AbstractRendererAndParser {
+
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = Class(TestUtils.createIRI());
@@ -61,8 +64,9 @@ public class QCRTestCase extends AbstractRendererAndParser {
         OWLClass clsC = Class(TestUtils.createIRI());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
-        OWLClassExpression filler = getDataFactory().getOWLObjectIntersectionOf(
-                CollectionFactory.createSet(clsB, clsC));
+        OWLClassExpression filler = getDataFactory()
+                .getOWLObjectIntersectionOf(
+                        CollectionFactory.createSet(clsB, clsC));
         OWLCardinalityRestriction<?, ?, ?> restriction = getDataFactory()
                 .getOWLObjectMinCardinality(3, prop, filler);
         assertTrue(restriction.isQualified());

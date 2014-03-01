@@ -40,11 +40,16 @@ package org.semanticweb.owlapi.util;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 23-Apr-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 23-Apr-2007
+ */
 public interface OWLAxiomFilter {
-    /** @param axiom
-     *            axiom to filter
-     * @return true if check passed */
+
+    /**
+     * @param axiom
+     *        axiom to filter
+     * @return true if check passed
+     */
     boolean passes(OWLAxiom axiom);
 }

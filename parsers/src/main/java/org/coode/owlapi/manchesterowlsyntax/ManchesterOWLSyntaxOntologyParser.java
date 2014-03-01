@@ -53,9 +53,12 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Aug-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Aug-2007
+ */
 public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
+
     private static final String COMMENT_START_CHAR = "#";
     private static final String DEFAULT_FILE_ENCODING = "UTF-8";
 
@@ -72,11 +75,12 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     br = new BufferedReader(documentSource.getReader());
                 } else if (documentSource.isInputStreamAvailable()) {
                     br = new BufferedReader(new InputStreamReader(
-                            documentSource.getInputStream(), DEFAULT_FILE_ENCODING));
-                } else {
-                    br = new BufferedReader(new InputStreamReader(getInputStream(
-                            documentSource.getDocumentIRI(), configuration),
+                            documentSource.getInputStream(),
                             DEFAULT_FILE_ENCODING));
+                } else {
+                    br = new BufferedReader(new InputStreamReader(
+                            getInputStream(documentSource.getDocumentIRI(),
+                                    configuration), DEFAULT_FILE_ENCODING));
                 }
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -119,7 +123,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
                     lineCount++;
                 }
                 String s = sb.toString();
-                OWLDataFactory df = ontology.getOWLOntologyManager().getOWLDataFactory();
+                OWLDataFactory df = ontology.getOWLOntologyManager()
+                        .getOWLDataFactory();
                 ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                         configuration, df, s);
                 format = parser.parseOntology(ontology);
@@ -139,7 +144,8 @@ public class ManchesterOWLSyntaxOntologyParser extends AbstractOWLParser {
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     private boolean startsWithMagicNumber(String line) {

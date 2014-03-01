@@ -53,14 +53,18 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class OWLOBOParser extends AbstractOWLParser {
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -97,9 +101,11 @@ public class OWLOBOParser extends AbstractOWLParser {
                     && e.getCause() instanceof OWLOntologyAlreadyExistsException) {
                 OWLOntologyAlreadyExistsException ex = (OWLOntologyAlreadyExistsException) e
                         .getCause();
-                throw new UnloadableImportException(ex, ontology.getOWLOntologyManager()
+                throw new UnloadableImportException(ex, ontology
+                        .getOWLOntologyManager()
                         .getOWLDataFactory()
-                        .getOWLImportsDeclaration(ex.getOntologyID().getOntologyIRI()));
+                        .getOWLImportsDeclaration(
+                                ex.getOntologyID().getOntologyIRI()));
             }
             Token currentToken = e.currentToken;
             if (currentToken != null) {
@@ -123,13 +129,15 @@ public class OWLOBOParser extends AbstractOWLParser {
         return format;
     }
 
-    private void parseFrames(RawFrameHandler rawFrameHandler, OBOConsumer oboConsumer) {
+    private void parseFrames(RawFrameHandler rawFrameHandler,
+            OBOConsumer oboConsumer) {
         parseHeaderFrame(rawFrameHandler, oboConsumer);
         parseFrames(oboConsumer, rawFrameHandler.getTypeDefFrames());
         parseFrames(oboConsumer, rawFrameHandler.getNonTypeDefFrames());
     }
 
-    private void parseHeaderFrame(RawFrameHandler rawFrameHandler, OBOConsumer consumer) {
+    private void parseHeaderFrame(RawFrameHandler rawFrameHandler,
+            OBOConsumer consumer) {
         consumer.startHeader();
         parseFrameTagValuePairs(consumer, rawFrameHandler.getHeaderFrame());
         consumer.endHeader();
@@ -147,7 +155,8 @@ public class OWLOBOParser extends AbstractOWLParser {
         oboConsumer.endFrame();
     }
 
-    private void parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
+    private void
+            parseFrameTagValuePairs(OBOConsumer oboConsumer, OBOFrame frame) {
         for (OBOTagValuePair tagValuePair : frame.getTagValuePairs()) {
             oboConsumer.handleTagValue(tagValuePair.getTagName(),
                     tagValuePair.getValue(), tagValuePair.getQualifier(),

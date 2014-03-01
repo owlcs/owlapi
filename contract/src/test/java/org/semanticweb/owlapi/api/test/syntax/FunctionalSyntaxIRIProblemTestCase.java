@@ -21,11 +21,13 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase {
+
     @Test
     public void testmain() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
         OWLDataFactory factory = manager.getOWLDataFactory();
-        OWLOntology ontology = manager.createOntology(IRI("urn:testontology:o1"));
+        OWLOntology ontology = manager
+                .createOntology(IRI("urn:testontology:o1"));
         OWLObjectProperty p = factory
                 .getOWLObjectProperty(IRI("http://example.org/A_#part_of"));
         OWLClass a = Class(IRI("http://example.org/A_A"));
@@ -57,9 +59,8 @@ public class FunctionalSyntaxIRIProblemTestCase {
         assertEquals(ontology.getAxioms(), loadOntology3.getAxioms());
     }
 
-    public static String
-            saveOntology(OWLOntology ontology, PrefixOWLOntologyFormat format)
-                    throws OWLOntologyStorageException {
+    public static String saveOntology(OWLOntology ontology,
+            PrefixOWLOntologyFormat format) throws OWLOntologyStorageException {
         OWLOntologyManager manager = ontology.getOWLOntologyManager();
         StringDocumentTarget t = new StringDocumentTarget();
         manager.saveOntology(ontology, format, t);

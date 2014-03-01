@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 10-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 10-Dec-2009
+ */
 public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DEPRECATED_PROPERTY.getIRI());
     }
@@ -55,6 +60,7 @@ public class TypeDeprecatedPropertyHandler extends BuiltInTypeHandler {
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         consumeTriple(subject, predicate, object);
-        addAxiom(getDataFactory().getDeprecatedOWLAnnotationAssertionAxiom(subject));
+        addAxiom(getDataFactory().getDeprecatedOWLAnnotationAssertionAxiom(
+                subject));
     }
 }

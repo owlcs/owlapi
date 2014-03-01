@@ -51,7 +51,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** The KRSS2OWLParser differs from the
+/**
+ * The KRSS2OWLParser differs from the
  * {@link org.coode.owl.krssparser.KRSSOWLParser KRSSOWLParser} that it supports
  * an extended KRSS vocabulary available in many reasoning systems. For
  * instance, CGIs can be added with help of (implies subclass superclass),
@@ -251,13 +252,16 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public class KRSS2OWLParser extends AbstractOWLParser {
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -277,7 +281,8 @@ public class KRSS2OWLParser extends AbstractOWLParser {
                 is = documentSource.getInputStream();
                 parser = new KRSS2Parser(is);
             } else {
-                is = getInputStream(documentSource.getDocumentIRI(), configuration);
+                is = getInputStream(documentSource.getDocumentIRI(),
+                        configuration);
                 parser = new KRSS2Parser(is);
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager()

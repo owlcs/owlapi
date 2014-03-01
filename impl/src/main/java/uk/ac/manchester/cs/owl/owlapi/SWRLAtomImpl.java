@@ -41,9 +41,12 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007
+ */
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
+
     private static final long serialVersionUID = 30406L;
     final SWRLPredicate predicate;
 

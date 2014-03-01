@@ -47,11 +47,14 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSSObjectRenderer
+/**
+ * See {@link de.uulm.ecs.ai.owlapi.krssrenderer.KRSSObjectRenderer
  * KRSSObjectRenderer} for definition/explanation of the syntax.
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 30406L;
 
     @Override
@@ -60,8 +63,9 @@ public class KRSSSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager,
+            OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 

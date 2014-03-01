@@ -88,9 +88,12 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 30-Apr-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 30-Apr-2007
+ */
 public class JustificationMap {
+
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms;
     private final Set<OWLAxiom> usedAxioms;
@@ -99,10 +102,12 @@ public class JustificationMap {
     private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS;
     private final OWLClassExpression desc;
 
-    /** @param desc
-     *            the class expression
+    /**
+     * @param desc
+     *        the class expression
      * @param axioms
-     *            the axioms */
+     *        the axioms
+     */
     public JustificationMap(OWLClassExpression desc, Set<OWLAxiom> axioms) {
         this.axioms = axioms;
         this.desc = desc;
@@ -119,7 +124,8 @@ public class JustificationMap {
             OWLAxiomPartExtractor extractor = new OWLAxiomPartExtractor();
             ax.accept(extractor);
             Set<OWLEntity> rhscollected = new HashSet<OWLEntity>();
-            OWLEntityCollector rhsCollector = new OWLEntityCollector(rhscollected);
+            OWLEntityCollector rhsCollector = new OWLEntityCollector(
+                    rhscollected);
             for (OWLObject rhsObject : extractor.getRHS()) {
                 rhsObject.accept(rhsCollector);
             }
@@ -127,7 +133,8 @@ public class JustificationMap {
                 index(rhsEntity, axiomsByRHS, ax);
             }
             Set<OWLEntity> lhscollected = new HashSet<OWLEntity>();
-            OWLEntityCollector lhsCollector = new OWLEntityCollector(lhscollected);
+            OWLEntityCollector lhsCollector = new OWLEntityCollector(
+                    lhscollected);
             for (OWLObject lhsObject : extractor.getLHS()) {
                 lhsObject.accept(lhsCollector);
             }
@@ -210,9 +217,11 @@ public class JustificationMap {
         return rootAxioms;
     }
 
-    /** @param ax
-     *            the axiom whose children are to be retrieved
-     * @return children of ax */
+    /**
+     * @param ax
+     *        the axiom whose children are to be retrieved
+     * @return children of ax
+     */
     public Set<OWLAxiom> getChildAxioms(OWLAxiom ax) {
         Set<OWLAxiom> result = map.get(ax);
         if (result != null) {
@@ -223,6 +232,7 @@ public class JustificationMap {
     }
 
     private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
+
         private Set<OWLObject> rhs;
         private Set<OWLObject> lhs;
 
@@ -425,8 +435,9 @@ public class JustificationMap {
         public void visit(SWRLRule rule) {}
     }
 
-    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter implements
-            Comparator<OWLAxiom>, Serializable {
+    private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter
+            implements Comparator<OWLAxiom>, Serializable {
+
         private static final long serialVersionUID = 30406L;
 
         public OWLAxiomComparator() {}

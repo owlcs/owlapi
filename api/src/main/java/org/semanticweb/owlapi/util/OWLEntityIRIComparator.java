@@ -6,7 +6,9 @@ import java.util.Comparator;
 import org.semanticweb.owlapi.model.OWLEntity;
 
 /** Comparator that uses IRI ordering to order entities. */
-public class OWLEntityIRIComparator implements Comparator<OWLEntity>, Serializable {
+public class OWLEntityIRIComparator implements Comparator<OWLEntity>,
+        Serializable {
+
     private static final long serialVersionUID = 30406L;
 
     @Override

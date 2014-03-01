@@ -38,48 +38,65 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006
+ */
 public interface OWLOntologyChangeVisitor {
-    /** visit AddAxiom type
+
+    /**
+     * visit AddAxiom type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(AddAxiom change);
 
-    /** visit RemoveAxiom type
+    /**
+     * visit RemoveAxiom type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(RemoveAxiom change);
 
-    /** visit SetOntologyID type
+    /**
+     * visit SetOntologyID type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SetOntologyID change);
 
-    /** visit AddImport type
+    /**
+     * visit AddImport type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(AddImport change);
 
-    /** visit RemoveImport type
+    /**
+     * visit RemoveImport type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(RemoveImport change);
 
-    /** visit AddOntologyAnnotation type
+    /**
+     * visit AddOntologyAnnotation type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(AddOntologyAnnotation change);
 
-    /** visit RemoveOntologyAnnotation type
+    /**
+     * visit RemoveOntologyAnnotation type
      * 
      * @param change
-     *            object to visit */
+     *        object to visit
+     */
     void visit(RemoveOntologyAnnotation change);
 }

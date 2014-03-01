@@ -45,11 +45,17 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class DataSomeValuesFromTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
+public class DataSomeValuesFromTranslator extends
+        AbstractClassExpressionTranslator {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DataSomeValuesFromTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -71,10 +77,10 @@ public class DataSomeValuesFromTranslator extends AbstractClassExpressionTransla
 
     @Override
     public OWLDataSomeValuesFrom translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLDataPropertyExpression property = getConsumer()
                 .translateDataPropertyExpression(propertyIRI);
         IRI fillerMainNode = getConsumer().getResourceObject(mainNode,

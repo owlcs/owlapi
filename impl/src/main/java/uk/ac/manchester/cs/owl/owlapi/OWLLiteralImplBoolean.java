@@ -49,15 +49,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
+
     private static final long serialVersionUID = 30406L;
     private final boolean literal;
     private final OWLDatatype datatype;
 
-    /** @param literal
-     *            literal value */
+    /**
+     * @param literal
+     *        literal value
+     */
     public OWLLiteralImplBoolean(boolean literal) {
         super();
         datatype = OWL2DatatypeImpl.getDatatype(OWL2Datatype.XSD_BOOLEAN);
@@ -101,7 +106,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public int parseInteger() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not an integer but a boolean");
+        throw new NumberFormatException(
+                "this literal is not an integer but a boolean");
     }
 
     @Override
@@ -121,7 +127,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public double parseDouble() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not a double but a boolean");
+        throw new NumberFormatException(
+                "this literal is not a double but a boolean");
     }
 
     @Override
@@ -131,7 +138,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public float parseFloat() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not a float but a boolean");
+        throw new NumberFormatException(
+                "this literal is not a float but a boolean");
     }
 
     @Override
@@ -154,7 +162,8 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplBoolean) {
                 OWLLiteralImplBoolean other = (OWLLiteralImplBoolean) obj;
-                return literal == other.literal && datatype.equals(other.getDatatype());
+                return literal == other.literal
+                        && datatype.equals(other.getDatatype());
             }
             if (obj instanceof OWLLiteral) {
                 return datatype.equals(((OWLLiteral) obj).getDatatype())

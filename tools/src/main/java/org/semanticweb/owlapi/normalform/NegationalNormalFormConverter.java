@@ -42,14 +42,19 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.NNF;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 24-Sep-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 24-Sep-2007
+ */
 public class NegationalNormalFormConverter implements NormalFormRewriter {
+
     private final NNF nnf;
     private final OWLObjectComplementOfExtractor extractor;
 
-    /** @param dataFactory
-     *            the factory */
+    /**
+     * @param dataFactory
+     *        the factory
+     */
     public NegationalNormalFormConverter(OWLDataFactory dataFactory) {
         nnf = new NNF(dataFactory);
         extractor = new OWLObjectComplementOfExtractor();
@@ -70,7 +75,8 @@ public class NegationalNormalFormConverter implements NormalFormRewriter {
     }
 
     @Override
-    public OWLClassExpression convertToNormalForm(OWLClassExpression classExpression) {
+    public OWLClassExpression convertToNormalForm(
+            OWLClassExpression classExpression) {
         nnf.reset();
         return classExpression.accept(nnf);
     }

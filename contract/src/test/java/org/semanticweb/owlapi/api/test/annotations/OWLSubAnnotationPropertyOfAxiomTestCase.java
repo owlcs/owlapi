@@ -48,16 +48,19 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 16/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 16/12/2010
+ */
 public class OWLSubAnnotationPropertyOfAxiomTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLAnnotationProperty subProp = AnnotationProperty(IRI("http://ont.com#myLabel"));
         OWLAnnotationProperty superProp = RDFSLabel();
-        OWLAxiom ax = Factory.getFactory().getOWLSubAnnotationPropertyOfAxiom(subProp,
-                superProp);
+        OWLAxiom ax = Factory.getFactory().getOWLSubAnnotationPropertyOfAxiom(
+                subProp, superProp);
         return Collections.singleton(ax);
     }
 }

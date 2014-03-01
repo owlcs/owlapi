@@ -46,11 +46,16 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Dec-2006
+ */
 public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeAnnotationPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI());
     }
@@ -60,8 +65,8 @@ public class TypeAnnotationPropertyHandler extends BuiltInTypeHandler {
             throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-            OWLAnnotationProperty property = getDataFactory().getOWLAnnotationProperty(
-                    subject);
+            OWLAnnotationProperty property = getDataFactory()
+                    .getOWLAnnotationProperty(subject);
             addAxiom(getDataFactory().getOWLDeclarationAxiom(property, annos));
             consumeTriple(subject, predicate, object);
         }

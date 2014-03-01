@@ -45,18 +45,23 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** A base handler for equivalent class axioms where the axiom is stated in a
+/**
+ * A base handler for equivalent class axioms where the axiom is stated in a
  * direct way without an equivalent class triple. For example A intersectionOf
  * (C or C)
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Dec-2006 */
+ *         Informatics Group, Date: 11-Dec-2006
+ */
 public abstract class AbstractNamedEquivalentClassAxiomHandler extends
         TriplePredicateHandler {
-    /** @param consumer
-     *            consumer
+
+    /**
+     * @param consumer
+     *        consumer
      * @param predicateIRI
-     *            predicateIRI */
+     *        predicateIRI
+     */
     public AbstractNamedEquivalentClassAxiomHandler(OWLRDFConsumer consumer,
             IRI predicateIRI) {
         super(consumer, predicateIRI);
@@ -69,7 +74,8 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
-        return super.canHandle(subject, predicate, object) && !isAnonymous(subject);
+        return super.canHandle(subject, predicate, object)
+                && !isAnonymous(subject);
     }
 
     @Override
@@ -82,5 +88,6 @@ public abstract class AbstractNamedEquivalentClassAxiomHandler extends
         addAxiom(getDataFactory().getOWLEquivalentClassesAxiom(operands));
     }
 
-    protected abstract OWLClassExpression translateEquivalentClass(IRI mainNode);
+    protected abstract OWLClassExpression
+            translateEquivalentClass(IRI mainNode);
 }

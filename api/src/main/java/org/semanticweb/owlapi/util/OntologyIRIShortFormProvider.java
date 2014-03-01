@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 23-Jan-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 23-Jan-2008
  */
 public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
@@ -58,29 +58,21 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
      *  IMPLEMENTATION NOTE.  I've avoided using Pattern (regexps) here so that this code can be compiled
      *  with the GWT compiler.
      */
-
-
     private static final String OWL_EXTENSION = ".owl";
-
     private static final String RDF_EXTENSION = ".rdf";
-
     private static final String XML_EXTENSION = ".xml";
-
     private static final String OBO_EXTENSION = ".obo";
-
-    private static final String [] EXTENSIONS = {OWL_EXTENSION, RDF_EXTENSION, XML_EXTENSION, OBO_EXTENSION};
-
+    private static final String[] EXTENSIONS = { OWL_EXTENSION, RDF_EXTENSION,
+            XML_EXTENSION, OBO_EXTENSION };
     private static final Map<IRI, String> wellKnownShortForms;
-
     static {
         Map<IRI, String> map = new HashMap<IRI, String>();
-        for(Namespaces ns : Namespaces.values()) {
+        for (Namespaces ns : Namespaces.values()) {
             final String iriPrefix = ns.getPrefixIRI();
             final String iri;
-            if(iriPrefix.endsWith("#") || iriPrefix.endsWith("/")) {
+            if (iriPrefix.endsWith("#") || iriPrefix.endsWith("/")) {
                 iri = iriPrefix.substring(0, iriPrefix.length() - 1);
-            }
-            else {
+            } else {
                 iri = iriPrefix;
             }
             map.put(IRI.create(iri), ns.getPrefixName().toLowerCase());
@@ -89,16 +81,15 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         wellKnownShortForms = Collections.unmodifiableMap(map);
     }
 
-
     /**
-     * @param ont ontology to use
+     * @param ont
+     *        ontology to use
      * @return short form of the ontology IRI
      */
     public String getShortForm(OWLOntology ont) {
         if (!ont.isAnonymous()) {
             return getShortForm(ont.getOntologyID().getOntologyIRI());
-        }
-        else {
+        } else {
             return ont.getOntologyID().toString();
         }
     }
@@ -106,7 +97,7 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     @Override
     public String getShortForm(IRI iri) {
         String wellKnownShortForm = getWellKnownShortForm(iri);
-        if(wellKnownShortForm != null) {
+        if (wellKnownShortForm != null) {
             return wellKnownShortForm;
         }
         URI uri = iri.toURI();
@@ -122,11 +113,9 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
                 }
             }
             shortForm = candidatePathElement;
-        }
-        else if (uri.getHost() != null) {
+        } else if (uri.getHost() != null) {
             shortForm = iri.toString();
-        }
-        else {
+        } else {
             shortForm = iri.toString();
         }
         return shortForm;
@@ -134,21 +123,24 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     private String getWellKnownShortForm(IRI iri) {
         String wellKnownShortForm = wellKnownShortForms.get(iri);
-        if(wellKnownShortForm != null) {
+        if (wellKnownShortForm != null) {
             return wellKnownShortForm;
         }
         return null;
     }
 
     /**
-     * Removes commonly used file name extensions to make the resulting short form look nicer.
-     * @param shortForm The short form.
-     * @return The short form with the extension removed if it was present, or the original short form if no
-     * extension was present.
+     * Removes commonly used file name extensions to make the resulting short
+     * form look nicer.
+     * 
+     * @param shortForm
+     *        The short form.
+     * @return The short form with the extension removed if it was present, or
+     *         the original short form if no extension was present.
      */
     private static String stripExtensionIfPresent(String shortForm) {
         String lowerCaseShortForm = shortForm.toLowerCase();
-        for(String extension : EXTENSIONS) {
+        for (String extension : EXTENSIONS) {
             if (lowerCaseShortForm.endsWith(extension)) {
                 return shortForm.substring(0, extension.length() - 1);
             }
@@ -156,23 +148,26 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
         return shortForm;
     }
 
-
     /**
      * Determines if the specified path element is a candidate short form.
-     *
-     * @param pathElement The path element to test.  Not {@code null}.
-     * @return {@code true} if the specified path element is a candidate short form, otherwise {@code false}.
+     * 
+     * @param pathElement
+     *        The path element to test. Not {@code null}.
+     * @return {@code true} if the specified path element is a candidate short
+     *         form, otherwise {@code false}.
      */
     private static boolean isCandidatePathElement(String pathElement) {
         return !pathElement.isEmpty() && !isVersionString(pathElement);
     }
 
     /**
-     * Determines if the specified string is a version number string.  A version string is a sequence of
-     * digits and periods.
-     *
-     * @param s The string to test for.
-     * @return {@code true} if the string is a version string, otherwise {@code false}.
+     * Determines if the specified string is a version number string. A version
+     * string is a sequence of digits and periods.
+     * 
+     * @param s
+     *        The string to test for.
+     * @return {@code true} if the string is a version string, otherwise
+     *         {@code false}.
      */
     private static boolean isVersionString(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -185,10 +180,13 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
     }
 
     /**
-     * Determines if the specified character is a version string character (either a digit or a period).
-     *
-     * @param ch The character to test for.
-     * @return {@code true} of the specified char is a version string char, otherwise {@code false}.
+     * Determines if the specified character is a version string character
+     * (either a digit or a period).
+     * 
+     * @param ch
+     *        The character to test for.
+     * @return {@code true} of the specified char is a version string char,
+     *         otherwise {@code false}.
      */
     private static boolean isVersionStringChar(char ch) {
         return isDigit(ch) || ch == '.' || ch == 'v';
@@ -196,9 +194,11 @@ public class OntologyIRIShortFormProvider implements IRIShortFormProvider {
 
     /**
      * Determines if the specified char is a digit.
-     *
-     * @param ch The char to test for.
-     * @return {@code true} if the specified char is a digit, otherwise {@code false}.
+     * 
+     * @param ch
+     *        The char to test for.
+     * @return {@code true} if the specified char is a digit, otherwise
+     *         {@code false}.
      */
     private static boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9';

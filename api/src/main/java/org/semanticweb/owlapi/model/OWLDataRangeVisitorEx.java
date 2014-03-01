@@ -38,50 +38,65 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 17-Jan-2009
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLDataRangeVisitorEx<O> {
-    /** visit OWLDatatype type
+
+    /**
+     * visit OWLDatatype type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDatatype node);
 
-    /** visit OWLDataOneOf type
+    /**
+     * visit OWLDataOneOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataOneOf node);
 
-    /** visit OWLDataComplementOf type
+    /**
+     * visit OWLDataComplementOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataComplementOf node);
 
-    /** visit OWLDataIntersectionOf type
+    /**
+     * visit OWLDataIntersectionOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataIntersectionOf node);
 
-    /** visit OWLDataUnionOf type
+    /**
+     * visit OWLDataUnionOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataUnionOf node);
 
-    /** visit OWLDatatypeRestriction type
+    /**
+     * visit OWLDatatypeRestriction type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDatatypeRestriction node);
 }

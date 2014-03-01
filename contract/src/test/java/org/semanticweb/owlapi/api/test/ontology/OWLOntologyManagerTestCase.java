@@ -51,20 +51,25 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 22-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Dec-2009
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerTestCase {
+
     @Test
     public void testCreateAnonymousOntology() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager.createOntology();
         assertNotNull("ontology should not be null", ontology);
-        assertNotNull("ontology id should not be null", ontology.getOntologyID());
+        assertNotNull("ontology id should not be null",
+                ontology.getOntologyID());
         assertNull(ontology.getOntologyID().getDefaultDocumentIRI());
         assertNull(ontology.getOntologyID().getOntologyIRI());
         assertNull(ontology.getOntologyID().getVersionIRI());
-        assertNotNull("iri should not be null", manager.getOntologyDocumentIRI(ontology));
+        assertNotNull("iri should not be null",
+                manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
@@ -73,8 +78,10 @@ public class OWLOntologyManagerTestCase {
         IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
         OWLOntology ontology = manager.createOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
-        assertNotNull("ontology id should not be null", ontology.getOntologyID());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getDefaultDocumentIRI());
+        assertNotNull("ontology id should not be null",
+                ontology.getOntologyID());
+        assertEquals(ontologyIRI, ontology.getOntologyID()
+                .getDefaultDocumentIRI());
         assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
         assertNull(ontology.getOntologyID().getVersionIRI());
         assertEquals(ontologyIRI, manager.getOntologyDocumentIRI(ontology));
@@ -85,11 +92,13 @@ public class OWLOntologyManagerTestCase {
         OWLOntologyManager manager = Factory.getManager();
         IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology/version");
-        OWLOntology ontology = manager.createOntology(new OWLOntologyID(ontologyIRI,
-                versionIRI));
+        OWLOntology ontology = manager.createOntology(new OWLOntologyID(
+                ontologyIRI, versionIRI));
         assertNotNull("ontology should not be null", ontology);
-        assertNotNull("ontology id should not be null", ontology.getOntologyID());
-        assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI());
+        assertNotNull("ontology id should not be null",
+                ontology.getOntologyID());
+        assertEquals(versionIRI, ontology.getOntologyID()
+                .getDefaultDocumentIRI());
         assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
         assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI());
         assertEquals(versionIRI, manager.getOntologyDocumentIRI(ontology));
@@ -104,26 +113,31 @@ public class OWLOntologyManagerTestCase {
         manager.addIRIMapper(mapper);
         OWLOntology ontology = manager.createOntology(ontologyIRI);
         assertNotNull("ontology should not be null", ontology);
-        assertNotNull("ontology id should not be null", ontology.getOntologyID());
-        assertEquals(ontologyIRI, ontology.getOntologyID().getDefaultDocumentIRI());
+        assertNotNull("ontology id should not be null",
+                ontology.getOntologyID());
+        assertEquals(ontologyIRI, ontology.getOntologyID()
+                .getDefaultDocumentIRI());
         assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
         assertNull(ontology.getOntologyID().getVersionIRI());
         assertEquals(documentIRI, manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
-    public void testCreateOntologyWithIRIAndVersionIRIWithMapper() throws Exception {
+    public void testCreateOntologyWithIRIAndVersionIRIWithMapper()
+            throws Exception {
         OWLOntologyManager manager = Factory.getManager();
         IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology/version");
         IRI documentIRI = IRI("file:documentIRI");
         SimpleIRIMapper mapper = new SimpleIRIMapper(versionIRI, documentIRI);
         manager.addIRIMapper(mapper);
-        OWLOntology ontology = manager.createOntology(new OWLOntologyID(ontologyIRI,
-                versionIRI));
+        OWLOntology ontology = manager.createOntology(new OWLOntologyID(
+                ontologyIRI, versionIRI));
         assertNotNull("ontology should not be null", ontology);
-        assertNotNull("ontology id should not be null", ontology.getOntologyID());
-        assertEquals(versionIRI, ontology.getOntologyID().getDefaultDocumentIRI());
+        assertNotNull("ontology id should not be null",
+                ontology.getOntologyID());
+        assertEquals(versionIRI, ontology.getOntologyID()
+                .getDefaultDocumentIRI());
         assertEquals(ontologyIRI, ontology.getOntologyID().getOntologyIRI());
         assertEquals(versionIRI, ontology.getOntologyID().getVersionIRI());
         assertEquals(documentIRI, manager.getOntologyDocumentIRI(ontology));
@@ -138,7 +152,8 @@ public class OWLOntologyManagerTestCase {
     }
 
     @Test(expected = OWLOntologyAlreadyExistsException.class)
-    public void testCreateDuplicateOntologyWithIRIAndVersionIRI() throws Exception {
+    public void testCreateDuplicateOntologyWithIRIAndVersionIRI()
+            throws Exception {
         OWLOntologyManager manager = Factory.getManager();
         IRI ontologyIRI = IRI("http://www.semanticweb.org/ontologies/ontology");
         IRI versionIRI = IRI("http://www.semanticweb.org/ontologies/ontology");

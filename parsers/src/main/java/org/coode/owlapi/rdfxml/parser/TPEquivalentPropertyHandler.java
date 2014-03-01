@@ -48,11 +48,16 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPEquivalentPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_EQUIVALENT_PROPERTY.getIRI());
     }
@@ -71,16 +76,17 @@ public class TPEquivalentPropertyHandler extends TriplePredicateHandler {
             Set<OWLObjectPropertyExpression> props = new HashSet<OWLObjectPropertyExpression>();
             props.add(translateObjectProperty(subject));
             props.add(translateObjectProperty(object));
-            addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(props,
-                    pendingAnnotations));
+            addAxiom(getDataFactory().getOWLEquivalentObjectPropertiesAxiom(
+                    props, pendingAnnotations));
             consumeTriple(subject, predicate, object);
         }
-        if (getConsumer().isDataProperty(subject) && getConsumer().isDataProperty(object)) {
+        if (getConsumer().isDataProperty(subject)
+                && getConsumer().isDataProperty(object)) {
             Set<OWLDataPropertyExpression> props = new HashSet<OWLDataPropertyExpression>();
             props.add(translateDataProperty(subject));
             props.add(translateDataProperty(object));
-            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(props,
-                    pendingAnnotations));
+            addAxiom(getDataFactory().getOWLEquivalentDataPropertiesAxiom(
+                    props, pendingAnnotations));
             consumeTriple(subject, predicate, object);
         }
         // TODO: LOG ERROR

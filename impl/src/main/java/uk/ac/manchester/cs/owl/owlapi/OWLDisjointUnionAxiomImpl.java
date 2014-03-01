@@ -57,26 +57,32 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         OWLDisjointUnionAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLClass owlClass;
     private final Set<OWLClassExpression> classExpressions;
 
-    /** @param owlClass
-     *            union
+    /**
+     * @param owlClass
+     *        union
      * @param classExpressions
-     *            disjoint classes
+     *        disjoint classes
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDisjointUnionAxiomImpl(OWLClass owlClass,
             Set<? extends OWLClassExpression> classExpressions,
             Set<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.owlClass = owlClass;
-        this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
+        this.classExpressions = new TreeSet<OWLClassExpression>(
+                classExpressions);
     }
 
     @Override
@@ -90,14 +96,15 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
-                NO_ANNOTATIONS);
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
+                getClassExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointUnionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLDisjointUnionAxiomImpl(getOWLClass(), getClassExpressions(),
-                mergeAnnos(annotations));
+    public OWLDisjointUnionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLDisjointUnionAxiomImpl(getOWLClass(),
+                getClassExpressions(), mergeAnnos(annotations));
     }
 
     @Override
@@ -147,12 +154,14 @@ public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
     public OWLEquivalentClassesAxiom getOWLEquivalentClassesAxiom() {
         return new OWLEquivalentClassesAxiomImpl(
                 new HashSet<OWLClassExpression>(Arrays.asList(owlClass,
-                        new OWLObjectUnionOfImpl(getClassExpressions()))), NO_ANNOTATIONS);
+                        new OWLObjectUnionOfImpl(getClassExpressions()))),
+                NO_ANNOTATIONS);
     }
 
     @Override
     public OWLDisjointClassesAxiom getOWLDisjointClassesAxiom() {
-        return new OWLDisjointClassesAxiomImpl(getClassExpressions(), NO_ANNOTATIONS);
+        return new OWLDisjointClassesAxiomImpl(getClassExpressions(),
+                NO_ANNOTATIONS);
     }
 
     @Override

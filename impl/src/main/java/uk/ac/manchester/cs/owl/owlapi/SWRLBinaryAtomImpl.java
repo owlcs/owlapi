@@ -47,14 +47,17 @@ import org.semanticweb.owlapi.model.SWRLArgument;
 import org.semanticweb.owlapi.model.SWRLBinaryAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 15-Jan-2007
  * @param <A>
- *            atom type
+ *        atom type
  * @param <B>
- *            atom type */
+ *        atom type
+ */
 public abstract class SWRLBinaryAtomImpl<A extends SWRLArgument, B extends SWRLArgument>
         extends SWRLAtomImpl implements SWRLBinaryAtom<A, B> {
+
     private static final long serialVersionUID = 30406L;
     private final A arg0;
     private final B arg1;

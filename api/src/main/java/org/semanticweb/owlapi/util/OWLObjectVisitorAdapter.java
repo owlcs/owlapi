@@ -125,9 +125,12 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Nov-2006
+ */
 public class OWLObjectVisitorAdapter implements OWLObjectVisitor {
+
     @SuppressWarnings("unused")
     protected void handleDefault(OWLObject owlObject) {}
 

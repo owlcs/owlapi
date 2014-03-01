@@ -48,16 +48,23 @@ import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public abstract class OWLNaryBooleanClassExpressionImpl extends
-        OWLAnonymousClassExpressionImpl implements OWLNaryBooleanClassExpression {
+        OWLAnonymousClassExpressionImpl implements
+        OWLNaryBooleanClassExpression {
+
     private static final long serialVersionUID = 30406L;
     private final Set<OWLClassExpression> operands;
 
-    /** @param operands
-     *            operands */
-    public OWLNaryBooleanClassExpressionImpl(Set<? extends OWLClassExpression> operands) {
+    /**
+     * @param operands
+     *        operands
+     */
+    public OWLNaryBooleanClassExpressionImpl(
+            Set<? extends OWLClassExpression> operands) {
         super();
         this.operands = new TreeSet<OWLClassExpression>(operands);
     }
@@ -69,7 +76,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
 
     @Override
     public Set<OWLClassExpression> getOperands() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
     @Override
@@ -83,7 +91,8 @@ public abstract class OWLNaryBooleanClassExpressionImpl extends
             if (!(obj instanceof OWLNaryBooleanClassExpression)) {
                 return false;
             }
-            return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(operands);
+            return ((OWLNaryBooleanClassExpression) obj).getOperands().equals(
+                    operands);
         }
         return false;
     }

@@ -41,21 +41,26 @@ package org.semanticweb.owlapi.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/** A change broadcast strategy that broadcasts changes that have been applied to
+/**
+ * A change broadcast strategy that broadcasts changes that have been applied to
  * a specific ontology.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 20-Nov-2006 */
+ *         Informatics Group, Date: 20-Nov-2006
+ */
 public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
+
     private static final long serialVersionUID = 30406L;
     private final OWLOntology ontology;
 
-    /** Constructs a change broadcast strategy which only causes changes that
+    /**
+     * Constructs a change broadcast strategy which only causes changes that
      * have been applied to the specific ontology to be broadcast.
      * 
      * @param ontology
-     *            The ontology. */
+     *        The ontology.
+     */
     public SpecificOntologyChangeBroadcastStrategy(OWLOntology ontology) {
         this.ontology = ontology;
     }

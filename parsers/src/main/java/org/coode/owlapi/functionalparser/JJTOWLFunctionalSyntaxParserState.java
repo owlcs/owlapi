@@ -41,6 +41,7 @@ package org.coode.owlapi.functionalparser;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class JJTOWLFunctionalSyntaxParserState {
+
     private java.util.List<Node> nodes;
     private java.util.List<Integer> marks;
     private int sp;        // number of nodes on stack

@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 20/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 20/12/2010
+ */
 public class TPOnDataRangeHandler extends TriplePredicateHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPOnDataRangeHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ON_DATA_RANGE.getIRI());
     }

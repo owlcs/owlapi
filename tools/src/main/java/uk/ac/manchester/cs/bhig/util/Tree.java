@@ -43,60 +43,81 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 22-Jan-2008
  * @param <N>
- *            the kind of elements in the tree */
+ *        the kind of elements in the tree
+ */
 public interface Tree<N> {
-    /** Gets the "content" of this tree node.
+
+    /**
+     * Gets the "content" of this tree node.
      * 
-     * @return The user content of this node. */
+     * @return The user content of this node.
+     */
     N getUserObject();
 
-    /** Gets the parent of this tree node.
+    /**
+     * Gets the parent of this tree node.
      * 
      * @return The parent tree node, or {@code null} if this node doesn't have a
-     *         parent. */
+     *         parent.
+     */
     Tree<N> getParent();
 
-    /** Gets the children of this tree node.
+    /**
+     * Gets the children of this tree node.
      * 
      * @return A list of children. If this tree node doesn't have any children
-     *         then the list will be empty. */
+     *         then the list will be empty.
+     */
     List<Tree<N>> getChildren();
 
-    /** @param child
-     *            the child to use
-     * @return the object stored as edge */
+    /**
+     * @param child
+     *        the child to use
+     * @return the object stored as edge
+     */
     Object getEdge(Tree<N> child);
 
-    /** Sorts the children using the specified comparator.
+    /**
+     * Sorts the children using the specified comparator.
      * 
      * @param comparator
-     *            The comparator to be used for the sorting. */
+     *        The comparator to be used for the sorting.
+     */
     void sortChildren(Comparator<Tree<N>> comparator);
 
-    /** A convenience method that gets the number of child nodes that this node
+    /**
+     * A convenience method that gets the number of child nodes that this node
      * has.
      * 
-     * @return The count of the number of children of this node. */
+     * @return The count of the number of children of this node.
+     */
     int getChildCount();
 
-    /** A convenience method that determines if this is a root node (because it
+    /**
+     * A convenience method that determines if this is a root node (because it
      * has no parent node).
      * 
-     * @return {@code true} if this is a root node, otherwise {@code false}. */
+     * @return {@code true} if this is a root node, otherwise {@code false}.
+     */
     boolean isRoot();
 
-    /** A convenience method that determines if this node is a leaf node (because
+    /**
+     * A convenience method that determines if this node is a leaf node (because
      * it has no children).
      * 
-     * @return {@code true} if this node is a leaf node otherwise {@code false}. */
+     * @return {@code true} if this node is a leaf node otherwise {@code false}.
+     */
     boolean isLeaf();
 
-    /** A convenience method that gets the root of this tree.
+    /**
+     * A convenience method that gets the root of this tree.
      * 
-     * @return The root node, which could be this node. */
+     * @return The root node, which could be this node.
+     */
     Tree<N> getRoot();
 
     /** @return the path to the root */
@@ -105,18 +126,24 @@ public interface Tree<N> {
     /** @return the elements in the path to root */
     List<N> getUserObjectPathToRoot();
 
-    /** @param writer
-     *            the writer to print to */
+    /**
+     * @param writer
+     *        the writer to print to
+     */
     void dump(PrintWriter writer);
 
-    /** @param writer
-     *            the writer to print to
+    /**
+     * @param writer
+     *        the writer to print to
      * @param indent
-     *            how much to indent */
+     *        how much to indent
+     */
     void dump(PrintWriter writer, int indent);
 
-    /** @param renderer
-     *            the renderer to use */
+    /**
+     * @param renderer
+     *        the renderer to use
+     */
     void setNodeRenderer(NodeRenderer<N> renderer);
 
     /** @return the set of user objects */

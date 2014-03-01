@@ -53,9 +53,13 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2008 */
-public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTrippingTestCase {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2008
+ */
+public class AxiomAnnotationsRoundTrippingTestCase extends
+        AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");
@@ -65,7 +69,8 @@ public class AxiomAnnotationsRoundTrippingTestCase extends AbstractRoundTripping
         Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
         for (int i = 0; i < 2; i++) {
             OWLLiteral lit = Literal("Annotation " + (i + 1));
-            annotations.add(Factory.getFactory().getOWLAnnotation(RDFSLabel(), lit));
+            annotations.add(Factory.getFactory().getOWLAnnotation(RDFSLabel(),
+                    lit));
         }
         OWLEntity entity = NamedIndividual(IRI("http://www.another.com/ont#peter"));
         addAxiom(ont, Declaration(entity));

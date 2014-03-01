@@ -19,18 +19,21 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class ExpandExpressionGCITest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));
-        OWLDataFactory df = ontology.getOWLOntologyManager().getOWLDataFactory();
+        OWLDataFactory df = ontology.getOWLOntologyManager()
+                .getOWLDataFactory();
         MacroExpansionGCIVisitor mev = new MacroExpansionGCIVisitor(ontology,
                 OWLManager.createOWLOntologyManager());
         OWLOntology gciOntology = mev.createGCIOntology();
         int axiomCount = gciOntology.getAxiomCount();
         assertTrue(axiomCount > 0);
-        OWLClass cls = df
-                .getOWLClass(IRI.create("http://purl.obolibrary.org/obo/TEST_2"));
-        Set<OWLDisjointClassesAxiom> dcas = gciOntology.getDisjointClassesAxioms(cls);
+        OWLClass cls = df.getOWLClass(IRI
+                .create("http://purl.obolibrary.org/obo/TEST_2"));
+        Set<OWLDisjointClassesAxiom> dcas = gciOntology
+                .getDisjointClassesAxioms(cls);
         assertTrue(dcas.size() == 1);
         Set<OWLEquivalentClassesAxiom> equivalentClassesAxioms = gciOntology
                 .getAxioms(AxiomType.EQUIVALENT_CLASSES);

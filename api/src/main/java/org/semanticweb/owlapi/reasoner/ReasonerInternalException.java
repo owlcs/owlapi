@@ -38,7 +38,8 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** Specifies that a some internal error occurred during reasoning. Each reasoner
+/**
+ * Specifies that a some internal error occurred during reasoning. Each reasoner
  * implementation will specify the cause of the error in the message. <br>
  * This exception is only thrown when an internal error (due to errors in the
  * reasoner code) has occurred and the reasoner cannot recover silently from the
@@ -49,26 +50,34 @@ package org.semanticweb.owlapi.reasoner;
  * reasoner may be corrupt.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 05-Jul-2010 */
+ *         Informatics Group, Date: 05-Jul-2010
+ */
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param cause
-     *            error cause */
+    /**
+     * @param cause
+     *        error cause
+     */
     public ReasonerInternalException(Throwable cause) {
         super(cause);
     }
 
-    /** @param message
-     *            error message */
+    /**
+     * @param message
+     *        error message
+     */
     public ReasonerInternalException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            error message
+    /**
+     * @param message
+     *        error message
      * @param cause
-     *            error cause */
+     *        error cause
+     */
     public ReasonerInternalException(String message, Throwable cause) {
         super(message, cause);
     }

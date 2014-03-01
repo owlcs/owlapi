@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "javadoc", "deprecation" })
 public class NullCheckTestCase {
+
     private static final OWLDataFactory f = Factory.getFactory();
     OWL2Datatype owl2datatype = OWL2Datatype.XSD_INT;
     OWLDataPropertyExpression owldpe = f.getOWLDataProperty(IRI("urn:dp"));
@@ -316,7 +317,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDatatypeRestriction1_2() {
-        f.getOWLDatatypeRestriction(owldatatype, (Set<OWLFacetRestriction>) null);
+        f.getOWLDatatypeRestriction(owldatatype,
+                (Set<OWLFacetRestriction>) null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -836,7 +838,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDisjointUnionAxiom1_3_1() {
-        f.getOWLDisjointUnionAxiom(owlclass, nullsetowlclassexpression, setowlann);
+        f.getOWLDisjointUnionAxiom(owlclass, nullsetowlclassexpression,
+                setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1548,7 +1551,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDatatypeDefinitionAxiom2_3_1() {
-        f.getOWLDatatypeDefinitionAxiom(owldatatype, owldatarange, nullsetowlann);
+        f.getOWLDatatypeDefinitionAxiom(owldatatype, owldatarange,
+                nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1703,7 +1707,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLNegativeObjectPropertyAssertionAxiom3_4_1() {
-        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, ind, nullsetowlann);
+        f.getOWLNegativeObjectPropertyAssertionAxiom(ope, ind, ind,
+                nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1853,7 +1858,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLNegativeDataPropertyAssertionAxiom3_4_1() {
-        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, lit, nullsetowlann);
+        f.getOWLNegativeDataPropertyAssertionAxiom(owldpe, ind, lit,
+                nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1913,7 +1919,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLAnnotationAssertionAxiom0_4() {
-        f.getOWLAnnotationAssertionAxiom(null, owlannsubj, owlannvalue, setowlann);
+        f.getOWLAnnotationAssertionAxiom(null, owlannsubj, owlannvalue,
+                setowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1933,7 +1940,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLAnnotationAssertionAxiom3_4_1() {
-        f.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, owlannvalue, nullsetowlann);
+        f.getOWLAnnotationAssertionAxiom(owlap, owlannsubj, owlannvalue,
+                nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1953,7 +1961,8 @@ public class NullCheckTestCase {
 
     @Test(expected = IllegalArgumentException.class)
     public void testgetOWLAnnotationAssertionAxiom2_3_1_1() {
-        f.getOWLAnnotationAssertionAxiom(owlannsubj, owlannotation, nullsetowlann);
+        f.getOWLAnnotationAssertionAxiom(owlannsubj, owlannotation,
+                nullsetowlann);
     }
 
     @Test(expected = IllegalArgumentException.class)

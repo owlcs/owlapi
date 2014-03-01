@@ -50,10 +50,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 22-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Dec-2009
+ */
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
+
     @Test(expected = OWLOntologyRenameException.class)
     public void testRenameToExistingOntology() throws Exception {
         OWLOntologyManager manager = getManager();
@@ -64,6 +67,7 @@ public class RenameToExistingOntologyTestCase extends AbstractOWLAPITestCase {
                 df.getOWLDeclarationAxiom(Class(IRI("urn:test:testclass"))));
         IRI ontologyBIRI = IRI("http://www.semanticweb.org/ontologies/ontologyB");
         OWLOntology ontologyB = manager.createOntology(ontologyBIRI);
-        manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(ontologyAIRI)));
+        manager.applyChange(new SetOntologyID(ontologyB, new OWLOntologyID(
+                ontologyAIRI)));
     }
 }

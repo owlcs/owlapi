@@ -40,16 +40,21 @@ package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 15-Jul-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Jul-2009
+ */
 public class RendererEvent {
+
     private ManchesterOWLSyntaxFrameRenderer frameRenderer;
     private OWLObject frameSubject;
 
-    /** @param frameRenderer
-     *            the frame renderer
+    /**
+     * @param frameRenderer
+     *        the frame renderer
      * @param frameSubject
-     *            the subject */
+     *        the subject
+     */
     public RendererEvent(ManchesterOWLSyntaxFrameRenderer frameRenderer,
             OWLObject frameSubject) {
         this.frameSubject = frameSubject;
@@ -61,14 +66,18 @@ public class RendererEvent {
         return frameRenderer;
     }
 
-    /** @param comment
-     *            comment */
+    /**
+     * @param comment
+     *        comment
+     */
     public void writeComment(String comment) {
         frameRenderer.writeComment(comment, false);
     }
 
-    /** @param comment
-     *            comment */
+    /**
+     * @param comment
+     *        comment
+     */
     public void writeCommentOnNewLine(String comment) {
         frameRenderer.writeComment(comment, true);
     }

@@ -42,11 +42,18 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 
 import java.io.Serializable;
 
-/** Represents the different types of OWL 2 class expressions.
+/**
+ * Represents the different types of OWL 2 class expressions.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 08-Sep-2008 */
-public enum ClassExpressionType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+ *         Management Group, Date: 08-Sep-2008
+ */
+public enum ClassExpressionType
+        implements
+        Serializable,
+        HasShortForm,
+        HasPrefixedName,
+        HasIRI {
     /** Represents {@link OWLClass} */
     OWL_CLASS("Class"),
     /** Represents {@link OWLObjectSomeValuesFrom} */
@@ -83,6 +90,7 @@ public enum ClassExpressionType implements Serializable, HasShortForm, HasPrefix
     OBJECT_COMPLEMENT_OF("ObjectComplementOf"),
     /** Represents {@link OWLObjectComplementOf} */
     OBJECT_ONE_OF("ObjectOneOf");
+
     private final String name;
     private final String prefixedName;
     private final IRI iri;

@@ -67,10 +67,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009
+ */
 @SuppressWarnings("javadoc")
 public class OntologyContainsAxiomTestCase extends AbstractOWLAPITestCase {
+
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 

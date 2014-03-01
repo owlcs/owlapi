@@ -41,23 +41,28 @@ package uk.ac.manchester.cs.owl.owlapi;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007
+ */
 public class SWRLSameIndividualAtomImpl extends
         SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
         SWRLSameIndividualAtom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param dataFactory
-     *            data factory
+    /**
+     * @param dataFactory
+     *        data factory
      * @param arg0
-     *            first individual
+     *        first individual
      * @param arg1
-     *            second individual */
-    public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory, SWRLIArgument arg0,
-            SWRLIArgument arg1) {
-        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS.getIRI()),
-                arg0, arg1);
+     *        second individual
+     */
+    public SWRLSameIndividualAtomImpl(OWLDataFactory dataFactory,
+            SWRLIArgument arg0, SWRLIArgument arg1) {
+        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_SAME_AS
+                .getIRI()), arg0, arg1);
     }
 
     @Override

@@ -49,16 +49,21 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 18/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012
+ */
 public class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
+
     private static final Pattern PATTERN = Pattern
             .compile("([^\\s]*)\\s+\"([^\"]*)\"(\\s*([^\\s]*)\\s*)?");
     private static final int ID_GROUP = 1;
     private static final int NAME_GROUP = 2;
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public SynonymTypeDefTagHandler(OBOConsumer consumer) {
         super(OBOVocabulary.SYNONYM_TYPE_DEF.getName(), consumer);
     }
@@ -83,8 +88,9 @@ public class SynonymTypeDefTagHandler extends AbstractTagValueHandler {
                     df.getOWLSubAnnotationPropertyOfAxiom(annotationProperty,
                             subsetdefAnnotationProperty)));
             OWLLiteral nameLiteral = df.getOWLLiteral(name);
-            applyChange(new AddAxiom(getOntology(), df.getOWLAnnotationAssertionAxiom(
-                    df.getRDFSLabel(), annotationPropertyIRI, nameLiteral)));
+            applyChange(new AddAxiom(getOntology(),
+                    df.getOWLAnnotationAssertionAxiom(df.getRDFSLabel(),
+                            annotationPropertyIRI, nameLiteral)));
         } else {
             OWLAnnotation annotation = getAnnotationForTagValuePair(
                     OBOVocabulary.SYNONYM_TYPE_DEF.getName(), value);

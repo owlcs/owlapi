@@ -41,11 +41,17 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Dec-2006 */
-public abstract class AbstractResourceTripleHandler extends AbstractTripleHandler {
-    /** @param consumer
-     *            consumer */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Dec-2006
+ */
+public abstract class AbstractResourceTripleHandler extends
+        AbstractTripleHandler {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -54,57 +60,68 @@ public abstract class AbstractResourceTripleHandler extends AbstractTripleHandle
         return isAnonymous(subject) || isAnonymous(object);
     }
 
-    protected boolean isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
-            IRI subject, IRI object) {
+    protected boolean
+            isSubjectAndObjectMatchingClassExpressionOrMatchingDataRange(
+                    IRI subject, IRI object) {
         return isSubjectAndObjectClassExpression(subject, object)
                 || isSubjectAndObjectDataRange(subject, object);
     }
 
     protected boolean isSubjectAndObjectDataRange(IRI subject, IRI object) {
-        return getConsumer().isDataRange(subject) && getConsumer().isDataRange(object);
+        return getConsumer().isDataRange(subject)
+                && getConsumer().isDataRange(object);
     }
 
-    protected boolean isSubjectAndObjectClassExpression(IRI subject, IRI object) {
+    protected boolean
+            isSubjectAndObjectClassExpression(IRI subject, IRI object) {
         return getConsumer().isClassExpression(subject)
                 && getConsumer().isClassExpression(object);
     }
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param predicate
-     *            predicate
+     *        predicate
      * @param object
-     *            object
+     *        object
      * @throws UnloadableImportException
-     *             if an ontology cannot be imported */
+     *         if an ontology cannot be imported
+     */
     public abstract void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException;
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param predicate
-     *            predicate
+     *        predicate
      * @param object
-     *            object
+     *        object
      * @return true if can handle streaming
      * @throws UnloadableImportException
-     *             if an ontology cannot be imported */
-    public abstract boolean canHandleStreaming(IRI subject, IRI predicate, IRI object)
-            throws UnloadableImportException;
+     *         if an ontology cannot be imported
+     */
+    public abstract boolean canHandleStreaming(IRI subject, IRI predicate,
+            IRI object) throws UnloadableImportException;
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param predicate
-     *            predicate
+     *        predicate
      * @param object
-     *            object
-     * @return true if can handle */
+     *        object
+     * @return true if can handle
+     */
     public abstract boolean canHandle(IRI subject, IRI predicate, IRI object);
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param object
-     *            object */
+     *        object
+     */
     public void inferTypes(IRI subject, IRI object) {
         if (getConsumer().isClassExpression(object)) {
             getConsumer().addClassExpression(subject, false);

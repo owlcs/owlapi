@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {
@@ -39,7 +40,8 @@ public class AnonymousTestCase extends AbstractOWLAPITestCase {
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
         changes.add(new AddAxiom(ontology, SubClassOf(C, ObjectHasValue(P, i))));
         changes.add(new AddAxiom(ontology, ClassAssertion(D, i)));
-        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i, Literal("hello"))));
+        changes.add(new AddAxiom(ontology, DataPropertyAssertion(Q, i,
+                Literal("hello"))));
         manager.applyChanges(changes);
         String saved = saveOntology(ontology);
         OWLOntology ontologyReloaded = loadOntologyFromString(saved);
@@ -56,7 +58,8 @@ public class AnonymousTestCase extends AbstractOWLAPITestCase {
         return set;
     }
 
-    String saveOntology(OWLOntology ontology) throws OWLOntologyStorageException {
+    String saveOntology(OWLOntology ontology)
+            throws OWLOntologyStorageException {
         StringDocumentTarget target = new StringDocumentTarget();
         ontology.getOWLOntologyManager().saveOntology(ontology, target);
         return target.toString();
@@ -66,7 +69,8 @@ public class AnonymousTestCase extends AbstractOWLAPITestCase {
             throws OWLOntologyCreationException {
         OWLOntologyManager manager = Factory.getManager();
         OWLOntology ontology = manager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(ontologyFile));
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        ontologyFile));
         return ontology;
     }
 }

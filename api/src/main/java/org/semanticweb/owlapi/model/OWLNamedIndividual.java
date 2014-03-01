@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Named_Individuals">Named
  * Individual</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 15-Jan-2009 */
+ *         Management Group, Date: 15-Jan-2009
+ */
 public interface OWLNamedIndividual extends OWLIndividual, OWLLogicalEntity {}

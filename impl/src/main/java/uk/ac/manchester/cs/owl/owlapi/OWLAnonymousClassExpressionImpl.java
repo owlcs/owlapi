@@ -47,10 +47,13 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.NNF;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLAnonymousClassExpressionImpl extends OWLClassExpressionImpl
-        implements OWLAnonymousClassExpression {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public abstract class OWLAnonymousClassExpressionImpl extends
+        OWLClassExpressionImpl implements OWLAnonymousClassExpression {
+
     private static final long serialVersionUID = 30406L;
 
     /** default constructor */

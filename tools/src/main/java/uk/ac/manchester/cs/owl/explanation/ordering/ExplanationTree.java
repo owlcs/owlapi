@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 import uk.ac.manchester.cs.bhig.util.MutableTree;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-Jan-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-Jan-2008
+ */
 public class ExplanationTree extends MutableTree<OWLAxiom> {
-    /** @param userObject
-     *            the axiom to wrap */
+
+    /**
+     * @param userObject
+     *        the axiom to wrap
+     */
     public ExplanationTree(OWLAxiom userObject) {
         super(userObject);
     }

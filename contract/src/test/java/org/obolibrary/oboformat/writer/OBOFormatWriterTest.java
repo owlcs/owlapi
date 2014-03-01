@@ -19,11 +19,14 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 /** Tests for {@link OBOFormatWriter}. */
 @SuppressWarnings("javadoc")
 public class OBOFormatWriterTest extends OboFormatTestBasics {
-    /** Test a special case of the specification. For intersections put the genus
+
+    /**
+     * Test a special case of the specification. For intersections put the genus
      * before the differentia, instead of the default case-insensitive
      * alphabetical ordering.
      * 
-     * @throws Exception */
+     * @throws Exception
+     */
     @Test
     public void testSortTermClausesIntersection_of() throws Exception {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
@@ -36,12 +39,15 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         assertEquals("Z:1", clauses.get(1).getValue2());
     }
 
-    /** Test for sorting clauses according to alphabetical case-insensitive
+    /**
+     * Test for sorting clauses according to alphabetical case-insensitive
      * order. Prefer upper-case over lower case for equal strings. Prefer
-     * shorter strings over longer strings. */
+     * shorter strings over longer strings.
+     */
     @Test
     public void testSortTermClausesSynonyms() {
-        List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa", "bbbb");
+        List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa",
+                "bbbb");
         OBOFormatWriter.sortTermClauses(clauses);
         assertEquals("AAA", clauses.get(0).getValue());
         assertEquals("aaa", clauses.get(1).getValue());
@@ -64,7 +70,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         assertEquals("", writeObsolete(Boolean.FALSE));
         assertEquals("", writeObsolete(Boolean.FALSE.toString()));
         assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE));
-        assertEquals("is_obsolete: true", writeObsolete(Boolean.TRUE.toString()));
+        assertEquals("is_obsolete: true",
+                writeObsolete(Boolean.TRUE.toString()));
     }
 
     private String writeObsolete(Object value) throws Exception {
@@ -78,10 +85,12 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         return out.toString().trim();
     }
 
-    /** Test that the OBO format writer only writes one new-line at the end of
+    /**
+     * Test that the OBO format writer only writes one new-line at the end of
      * the file.
      * 
-     * @throws Exception */
+     * @throws Exception
+     */
     @Test
     public void testWriteEndOfFile() throws Exception {
         OBODoc oboDoc = parseOBOFile("caro.obo");
@@ -99,7 +108,8 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
                 break;
             }
         }
-        assertEquals("GO always had an empty newline at the end.", 2, newLineCount);
+        assertEquals("GO always had an empty newline at the end.", 2,
+                newLineCount);
     }
 
     @Test

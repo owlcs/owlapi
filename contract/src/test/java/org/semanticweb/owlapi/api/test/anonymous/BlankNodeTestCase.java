@@ -47,14 +47,18 @@ import org.semanticweb.owlapi.model.IRI;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Jan-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Jan-2010
+ */
 @SuppressWarnings("javadoc")
 public class BlankNodeTestCase {
+
     @Test
     public void testBlankNodes() throws Exception {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");
         TripleHandler handler = new TripleHandler() {
+
             @Override
             public void handleTriple(IRI s, IRI p, String o, IRI d) {}
 

@@ -96,69 +96,84 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /** Satisfiability converter. */
 public class SatisfiabilityConverter {
+
     // XXX this class could be rewitten as a simpler stateless OWLAxiomVisitorEx
     /** The Class AxiomConverter. */
     private class AxiomConverter implements OWLAxiomVisitor {
+
         /** The result. */
         private OWLClassExpression result;
 
         /** Instantiates a new axiom converter. */
         public AxiomConverter() {}
 
-        /** And.
+        /**
+         * And.
          * 
          * @param desc1
-         *            the desc1
+         *        the desc1
          * @param desc2
-         *            the desc2
-         * @return the oWL object intersection of */
+         *        the desc2
+         * @return the oWL object intersection of
+         */
         private OWLObjectIntersectionOf and(OWLClassExpression desc1,
                 OWLClassExpression desc2) {
             return factory.getOWLObjectIntersectionOf(set(desc1, desc2));
         }
 
-        /** And.
+        /**
+         * And.
          * 
          * @param set
-         *            the set
-         * @return the oWL object intersection of */
+         *        the set
+         * @return the oWL object intersection of
+         */
         private OWLObjectIntersectionOf and(Set<OWLClassExpression> set) {
             return factory.getOWLObjectIntersectionOf(set);
         }
 
-        /** Gets the result.
+        /**
+         * Gets the result.
          * 
-         * @return the result */
+         * @return the result
+         */
         OWLClassExpression getResult() {
             return result;
         }
 
-        /** Not.
+        /**
+         * Not.
          * 
          * @param desc
-         *            the desc
-         * @return the oWL object complement of */
+         *        the desc
+         * @return the oWL object complement of
+         */
         private OWLObjectComplementOf not(OWLClassExpression desc) {
             return factory.getOWLObjectComplementOf(desc);
         }
 
-        /** One of.
+        /**
+         * One of.
          * 
          * @param ind
-         *            the ind
-         * @return the oWL object one of */
+         *        the ind
+         * @return the oWL object one of
+         */
         private OWLObjectOneOf oneOf(OWLIndividual ind) {
             return factory.getOWLObjectOneOf(Collections.singleton(ind));
         }
 
-        /** Or.
+        /**
+         * Or.
          * 
          * @param desc1
-         *            the desc1
+         *        the desc1
          * @param desc2
-         *            the desc2
-         * @return the oWL object union of */
-        private OWLObjectUnionOf or(OWLClassExpression desc1, OWLClassExpression desc2) {
+         *        the desc2
+         * @return the oWL object union of
+         */
+        private OWLObjectUnionOf or(OWLClassExpression desc1,
+                OWLClassExpression desc2) {
             return factory.getOWLObjectUnionOf(set(desc1, desc2));
         }
 
@@ -167,15 +182,17 @@ public class SatisfiabilityConverter {
             result = null;
         }
 
-        /** Sets the.
+        /**
+         * Sets the.
          * 
          * @param <T>
-         *            the generic type
+         *        the generic type
          * @param desc1
-         *            the desc1
+         *        the desc1
          * @param desc2
-         *            the desc2
-         * @return the sets the */
+         *        the desc2
+         * @return the sets the
+         */
         private <T> Set<T> set(T desc1, T desc2) {
             Set<T> set = new HashSet<T>();
             set.add(desc1);
@@ -199,8 +216,8 @@ public class SatisfiabilityConverter {
         @Override
         public void visit(OWLDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLDataHasValue(
+                    axiom.getProperty(), axiom.getObject());
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
             ax.accept(this);
         }
@@ -270,7 +287,8 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLEquivalentClassesAxiom axiom) {
-            Iterator<OWLClassExpression> classes = axiom.getClassExpressions().iterator();
+            Iterator<OWLClassExpression> classes = axiom.getClassExpressions()
+                    .iterator();
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
             if (classes.hasNext()) {
@@ -336,24 +354,24 @@ public class SatisfiabilityConverter {
         @Override
         public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLDataHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLDataHasValue(
+                    axiom.getProperty(), axiom.getObject());
             factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
         @Override
         public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLObjectHasValue(
+                    axiom.getProperty(), axiom.getObject());
             factory.getOWLSubClassOfAxiom(sub, not(sup)).accept(this);
         }
 
         @Override
         public void visit(OWLObjectPropertyAssertionAxiom axiom) {
             OWLClassExpression sub = oneOf(axiom.getSubject());
-            OWLClassExpression sup = factory.getOWLObjectHasValue(axiom.getProperty(),
-                    axiom.getObject());
+            OWLClassExpression sup = factory.getOWLObjectHasValue(
+                    axiom.getProperty(), axiom.getObject());
             OWLSubClassOfAxiom ax = factory.getOWLSubClassOfAxiom(sub, sup);
             ax.accept(this);
         }
@@ -366,9 +384,9 @@ public class SatisfiabilityConverter {
 
         @Override
         public void visit(OWLObjectPropertyDomainAxiom axiom) {
-            result = and(
-                    factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
-                            factory.getOWLThing()), not(axiom.getDomain()));
+            result = and(factory.getOWLObjectSomeValuesFrom(
+                    axiom.getProperty(), factory.getOWLThing()),
+                    not(axiom.getDomain()));
         }
 
         @Override
@@ -461,27 +479,31 @@ public class SatisfiabilityConverter {
     }
 
     /** The Constant logger. */
-    protected static final Logger logger = Logger.getLogger(SatisfiabilityConverter.class
-            .getName());
+    protected static final Logger logger = Logger
+            .getLogger(SatisfiabilityConverter.class.getName());
     /** The converter. */
     private final AxiomConverter converter;
     /** The factory. */
     protected final OWLDataFactory factory;
 
-    /** Instantiates a new satisfiability converter.
+    /**
+     * Instantiates a new satisfiability converter.
      * 
      * @param factory
-     *            the factory to use */
+     *        the factory to use
+     */
     public SatisfiabilityConverter(OWLDataFactory factory) {
         this.factory = factory;
         converter = new AxiomConverter();
     }
 
-    /** Convert.
+    /**
+     * Convert.
      * 
      * @param axiom
-     *            axiom to convert
-     * @return converted class expression */
+     *        axiom to convert
+     * @return converted class expression
+     */
     public OWLClassExpression convert(OWLAxiom axiom) {
         converter.reset();
         axiom.accept(converter);

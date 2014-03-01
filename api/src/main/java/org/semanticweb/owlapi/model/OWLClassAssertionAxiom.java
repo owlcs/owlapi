@@ -38,24 +38,31 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Class_Assertions">ClassAssertion</a>
  * axioms in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Oct-2006 */
+ *         Informatics Group, Date: 24-Oct-2006
+ */
 public interface OWLClassAssertionAxiom extends OWLIndividualAxiom,
         OWLSubClassOfAxiomShortCut {
-    /** Gets the individual that is asserted to be an instance of a class
+
+    /**
+     * Gets the individual that is asserted to be an instance of a class
      * expression by this axiom.
      * 
-     * @return The individual */
+     * @return The individual
+     */
     OWLIndividual getIndividual();
 
-    /** Gets the class expression that is asserted to be a type for an individual
+    /**
+     * Gets the class expression that is asserted to be a type for an individual
      * by this axiom.
      * 
-     * @return The class expression */
+     * @return The class expression
+     */
     OWLClassExpression getClassExpression();
 
     @Override

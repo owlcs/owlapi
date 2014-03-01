@@ -40,11 +40,16 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class IsATagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public IsATagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_A.getName(), consumer);
     }
@@ -60,7 +65,8 @@ public class IsATagValueHandler extends AbstractTagValueHandler {
         } else if (getConsumer().isTypedef()) {
             // We simply add a sub property axiom
             applyChange(new AddAxiom(getOntology(), getDataFactory()
-                    .getOWLSubObjectPropertyOfAxiom(getOWLObjectProperty(currentId),
+                    .getOWLSubObjectPropertyOfAxiom(
+                            getOWLObjectProperty(currentId),
                             getOWLObjectProperty(value))));
         }
     }

@@ -49,10 +49,14 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 05/01/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 05/01/2011
+ */
 @SuppressWarnings("javadoc")
-public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPITestCase {
+public class AnnotationPropertyConvenienceMethodTestCase extends
+        AbstractOWLAPITestCase {
+
     @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");
@@ -65,11 +69,13 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         assertTrue(propP.getSuperProperties(ont).contains(propQ));
-        assertTrue(propP.getSuperProperties(Collections.singleton(ont)).contains(propQ));
+        assertTrue(propP.getSuperProperties(Collections.singleton(ont))
+                .contains(propQ));
         assertTrue(propP.getSuperProperties(ont, true).contains(propQ));
         assertTrue(propP.getSuperProperties(ont, false).contains(propQ));
         assertTrue(propP.getSuperProperties(ont).contains(propR));
-        assertTrue(propP.getSuperProperties(Collections.singleton(ont)).contains(propR));
+        assertTrue(propP.getSuperProperties(Collections.singleton(ont))
+                .contains(propR));
         assertTrue(propP.getSuperProperties(ont, true).contains(propR));
         assertTrue(propP.getSuperProperties(ont, false).contains(propR));
     }
@@ -86,11 +92,13 @@ public class AnnotationPropertyConvenienceMethodTestCase extends AbstractOWLAPIT
         ont.getOWLOntologyManager().addAxiom(ont,
                 df.getOWLSubAnnotationPropertyOfAxiom(propP, propR));
         assertTrue(propQ.getSubProperties(ont).contains(propP));
-        assertTrue(propQ.getSubProperties(Collections.singleton(ont)).contains(propP));
+        assertTrue(propQ.getSubProperties(Collections.singleton(ont)).contains(
+                propP));
         assertTrue(propQ.getSubProperties(ont, true).contains(propP));
         assertTrue(propQ.getSubProperties(ont, false).contains(propP));
         assertTrue(propR.getSubProperties(ont).contains(propP));
-        assertTrue(propR.getSubProperties(Collections.singleton(ont)).contains(propP));
+        assertTrue(propR.getSubProperties(Collections.singleton(ont)).contains(
+                propP));
         assertTrue(propR.getSubProperties(ont, true).contains(propP));
         assertTrue(propR.getSubProperties(ont, false).contains(propP));
     }

@@ -38,84 +38,113 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public interface OWL2ELProfileViolationVisitor {
-    /** visit LastPropertyInChainNotInImposedRange type
+
+    /**
+     * visit LastPropertyInChainNotInImposedRange type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(LastPropertyInChainNotInImposedRange violation);
 
-    /** visit UseOfAnonymousIndividual type
+    /**
+     * visit UseOfAnonymousIndividual type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfAnonymousIndividual violation);
 
-    /** visit UseOfDataOneOfWithMultipleLiterals type
+    /**
+     * visit UseOfDataOneOfWithMultipleLiterals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfDataOneOfWithMultipleLiterals violation);
 
-    /** visit UseOfIllegalAxiom type
+    /**
+     * visit UseOfIllegalAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalAxiom violation);
 
-    /** visit UseOfIllegalClassExpression type
+    /**
+     * visit UseOfIllegalClassExpression type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalClassExpression violation);
 
-    /** visit UseOfIllegalDataRange type
+    /**
+     * visit UseOfIllegalDataRange type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalDataRange violation);
 
-    /** visit IllegalPunning type
+    /**
+     * visit IllegalPunning type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(IllegalPunning violation);
 
-    /** visit UseOfObjectPropertyInverse type
+    /**
+     * visit UseOfObjectPropertyInverse type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfObjectPropertyInverse violation);
 
-    /** visit UseOfObjectOneOfWithMultipleIndividuals type
+    /**
+     * visit UseOfObjectOneOfWithMultipleIndividuals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfObjectOneOfWithMultipleIndividuals violation);
 
-    /** visit InsufficientPropertyExpressions type
+    /**
+     * visit InsufficientPropertyExpressions type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientPropertyExpressions violation);
 
-    /** visit InsufficientIndividuals type
+    /**
+     * visit InsufficientIndividuals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientIndividuals violation);
 
-    /** visit InsufficientOperands type
+    /**
+     * visit InsufficientOperands type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientOperands violation);
 
-    /** visit EmptyOneOfAxiom type
+    /**
+     * visit EmptyOneOfAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(EmptyOneOfAxiom violation);
 }

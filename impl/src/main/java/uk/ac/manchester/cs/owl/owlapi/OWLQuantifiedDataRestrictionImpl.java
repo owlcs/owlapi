@@ -47,12 +47,15 @@ import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 public abstract class OWLQuantifiedDataRestrictionImpl
         extends
         OWLQuantifiedRestrictionImpl<OWLDataRange, OWLDataPropertyExpression, OWLDataRange> {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OWLQuantifiedDataRestrictionImpl(OWLDataPropertyExpression property,
             OWLDataRange filler) {
         super(property, filler);

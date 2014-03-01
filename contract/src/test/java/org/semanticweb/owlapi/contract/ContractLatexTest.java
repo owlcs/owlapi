@@ -28,27 +28,32 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractLatexTest {
+
     public void shouldTestLatexAxiomsListOntologyFormat() throws Exception {
         LatexAxiomsListOntologyFormat testSubject0 = new LatexAxiomsListOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result1 = testSubject0
-                .getParameter(mock(Object.class), mock(Object.class));
+        Object result1 = testSubject0.getParameter(mock(Object.class),
+                mock(Object.class));
         boolean result2 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result3 = testSubject0.asPrefixOWLOntologyFormat();
-        OWLOntologyLoaderMetaData result4 = testSubject0.getOntologyLoaderMetaData();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+        PrefixOWLOntologyFormat result3 = testSubject0
+                .asPrefixOWLOntologyFormat();
+        OWLOntologyLoaderMetaData result4 = testSubject0
+                .getOntologyLoaderMetaData();
+        testSubject0
+                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     @Test
     public void shouldTestLatexBracketChecker() throws Exception {
-        boolean result0 = LatexBracketChecker.requiresBracket(Utils.mockAnonClass());
+        boolean result0 = LatexBracketChecker.requiresBracket(Utils
+                .mockAnonClass());
     }
 
     @Test
     public void shouldTestLatexObjectVisitor() throws Exception {
-        LatexObjectVisitor testSubject0 = new LatexObjectVisitor(mock(LatexWriter.class),
-                mock(OWLDataFactory.class));
+        LatexObjectVisitor testSubject0 = new LatexObjectVisitor(
+                mock(LatexWriter.class), mock(OWLDataFactory.class));
         testSubject0.setSubject(mock(OWLObject.class));
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
         boolean result0 = testSubject0.isPrettyPrint();
@@ -60,21 +65,27 @@ public class ContractLatexTest {
         LatexOntologyFormat testSubject0 = new LatexOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result1 = testSubject0
-                .getParameter(mock(Object.class), mock(Object.class));
+        Object result1 = testSubject0.getParameter(mock(Object.class),
+                mock(Object.class));
         boolean result2 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result3 = testSubject0.asPrefixOWLOntologyFormat();
-        OWLOntologyLoaderMetaData result4 = testSubject0.getOntologyLoaderMetaData();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+        PrefixOWLOntologyFormat result3 = testSubject0
+                .asPrefixOWLOntologyFormat();
+        OWLOntologyLoaderMetaData result4 = testSubject0
+                .getOntologyLoaderMetaData();
+        testSubject0
+                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     public void shouldTestLatexOntologyStorer() throws Exception {
         LatexOntologyStorer testSubject0 = new LatexOntologyStorer();
-        boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
+        boolean result0 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), mock(OWLOntologyDocumentTarget.class),
+                mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
 
@@ -99,12 +110,14 @@ public class ContractLatexTest {
     public void shouldTestLatexRendererException() throws Exception {
         LatexRendererException testSubject0 = new LatexRendererException(
                 new RuntimeException()) {
+
             /**
              * 
              */
             private static final long serialVersionUID = 30406L;
         };
         LatexRendererException testSubject1 = new LatexRendererException("") {
+
             /**
              * 
              */
@@ -112,6 +125,7 @@ public class ContractLatexTest {
         };
         LatexRendererException testSubject2 = new LatexRendererException("",
                 new RuntimeException()) {
+
             /**
              * 
              */

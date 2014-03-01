@@ -43,16 +43,22 @@ import java.util.List;
 
 import org.semanticweb.owlapi.io.OWLRendererException;
 
-/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group, Date: Apr 9, 2009 */
+/**
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Apr 9, 2009
+ */
 public class OBOStorageIncompleteException extends OWLRendererException {
+
     private static final long serialVersionUID = 30406L;
     private List<OBOStorageException> exceptions;
 
-    /** @param exceptions
-     *            exceptions */
+    /**
+     * @param exceptions
+     *        exceptions
+     */
     public OBOStorageIncompleteException(List<OBOStorageException> exceptions) {
-        super("Warning: OBO storage incomplete (" + exceptions.size() + " errors)");
+        super("Warning: OBO storage incomplete (" + exceptions.size()
+                + " errors)");
         this.exceptions = exceptions;
     }
 

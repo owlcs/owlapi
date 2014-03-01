@@ -50,10 +50,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 21/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 21/12/2010
+ */
 public class ChainedAnonymousIndividualsTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -64,12 +67,12 @@ public class ChainedAnonymousIndividualsTestCase extends
         OWLAnonymousIndividual individual1 = AnonymousIndividual();
         OWLAnonymousIndividual individual2 = AnonymousIndividual();
         OWLAnonymousIndividual individual3 = AnonymousIndividual();
-        OWLAnnotationAssertionAxiom annoAssertion1 = AnnotationAssertion(property,
-                subject, individual1);
-        OWLAnnotationAssertionAxiom annoAssertion2 = AnnotationAssertion(property,
-                individual1, individual2);
-        OWLAnnotationAssertionAxiom annoAssertion3 = AnnotationAssertion(property,
-                individual2, individual3);
+        OWLAnnotationAssertionAxiom annoAssertion1 = AnnotationAssertion(
+                property, subject, individual1);
+        OWLAnnotationAssertionAxiom annoAssertion2 = AnnotationAssertion(
+                property, individual1, individual2);
+        OWLAnnotationAssertionAxiom annoAssertion3 = AnnotationAssertion(
+                property, individual2, individual3);
         axioms.add(annoAssertion1);
         axioms.add(annoAssertion2);
         axioms.add(annoAssertion3);

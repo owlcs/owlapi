@@ -46,22 +46,28 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
-/** A class expression translator which produces an {@code OWLIntersectionOf}.
+/**
+ * A class expression translator which produces an {@code OWLIntersectionOf}.
  * This relies on the main node having an intersectionOf triple.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006 */
-public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+ *         Informatics Group, Date: 08-Dec-2006
+ */
+public class ObjectIntersectionOfTranslator extends
+        AbstractClassExpressionTranslator {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF,
-                false);
+        IRI listNode = getConsumer().getResourceObject(mainNode,
+                OWL_INTERSECTION_OF, false);
         return isClassExpressionStrict(mainNode)
                 && isClassExpressionListStrict(listNode, 2);
     }
@@ -73,8 +79,8 @@ public class ObjectIntersectionOfTranslator extends AbstractClassExpressionTrans
 
     @Override
     public OWLObjectIntersectionOf translate(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_INTERSECTION_OF,
-                true);
+        IRI listNode = getConsumer().getResourceObject(mainNode,
+                OWL_INTERSECTION_OF, true);
         Set<OWLClassExpression> classExpressions = getConsumer()
                 .translateToClassExpressionSet(listNode);
         return getDataFactory().getOWLObjectIntersectionOf(classExpressions);

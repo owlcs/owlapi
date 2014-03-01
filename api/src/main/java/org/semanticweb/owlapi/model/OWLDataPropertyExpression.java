@@ -38,13 +38,18 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** A high level interface to describe different types of data properties.
+/**
+ * A high level interface to describe different types of data properties.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLDataPropertyExpression extends
-        OWLPropertyExpression<OWLDataRange, OWLDataPropertyExpression>, SWRLPredicate {
-    /** If the property is a named data property then this method will obtain the
+        OWLPropertyExpression<OWLDataRange, OWLDataPropertyExpression>,
+        SWRLPredicate {
+
+    /**
+     * If the property is a named data property then this method will obtain the
      * property as such. The general pattern of use is that the
      * {@code isAnonymous} method should first be used to determine if the
      * property is named (i.e. not an object property expression such as
@@ -53,6 +58,7 @@ public interface OWLDataPropertyExpression extends
      * 
      * @return The property as an {@code OWLDataProperty} if possible.
      * @throws OWLRuntimeException
-     *             if the property is not a named property. */
+     *         if the property is not a named property.
+     */
     OWLDataProperty asOWLDataProperty();
 }

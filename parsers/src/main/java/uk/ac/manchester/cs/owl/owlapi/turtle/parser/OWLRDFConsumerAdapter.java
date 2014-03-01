@@ -47,21 +47,27 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.SAXException;
 
-/** The Class OWLRDFConsumerAdapter.
+/**
+ * The Class OWLRDFConsumerAdapter.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Feb-2008 */
-public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandler {
-    /** Instantiates a new oWLRDF consumer adapter.
+ *         Informatics Group, Date: 24-Feb-2008
+ */
+public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
+        TripleHandler {
+
+    /**
+     * Instantiates a new oWLRDF consumer adapter.
      * 
      * @param owlOntologyManager
-     *            the owl ontology manager
+     *        the owl ontology manager
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param checker
-     *            the checker
+     *        the checker
      * @param configuration
-     *            the configuration */
+     *        the configuration
+     */
     @SuppressWarnings("unused")
     @Deprecated
     public OWLRDFConsumerAdapter(OWLOntologyManager owlOntologyManager,
@@ -70,15 +76,18 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
         this(ontology, checker, configuration);
     }
 
-    /** Instantiates a new oWLRDF consumer adapter.
+    /**
+     * Instantiates a new oWLRDF consumer adapter.
      * 
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param checker
-     *            the checker
+     *        the checker
      * @param configuration
-     *            the configuration */
-    public OWLRDFConsumerAdapter(OWLOntology ontology, AnonymousNodeChecker checker,
+     *        the configuration
+     */
+    public OWLRDFConsumerAdapter(OWLOntology ontology,
+            AnonymousNodeChecker checker,
             OWLOntologyLoaderConfiguration configuration) {
         super(ontology, checker, configuration);
     }
@@ -98,8 +107,8 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         try {
             // XXX inefficient?
-            statementWithResourceValue(subject.toString(), predicate.toString(),
-                    object.toString());
+            statementWithResourceValue(subject.toString(),
+                    predicate.toString(), object.toString());
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
@@ -108,28 +117,30 @@ public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements TripleHandl
     @Override
     public void handleTriple(IRI subject, IRI predicate, String object) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
-                    null, null);
+            statementWithLiteralValue(subject.toString(), predicate.toString(),
+                    object, null, null);
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            String lang) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
-                    lang, null);
+            statementWithLiteralValue(subject.toString(), predicate.toString(),
+                    object, lang, null);
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            IRI datatype) {
         try {
-            statementWithLiteralValue(subject.toString(), predicate.toString(), object,
-                    null, datatype.toString());
+            statementWithLiteralValue(subject.toString(), predicate.toString(),
+                    object, null, datatype.toString());
         } catch (SAXException e) {
             throw new OWLRuntimeException(e);
         }

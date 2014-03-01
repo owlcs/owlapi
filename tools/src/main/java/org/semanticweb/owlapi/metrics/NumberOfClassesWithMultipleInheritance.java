@@ -50,12 +50,18 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.NamedConjunctChecker;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
 public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public NumberOfClassesWithMultipleInheritance(OWLOntologyManager owlOntologyManager) {
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
+    public NumberOfClassesWithMultipleInheritance(
+            OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 
@@ -76,7 +82,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
                 }
                 processed.add(cls);
                 int count = 0;
-                for (OWLClassExpression sup : cls.getSubClasses(getOntologies())) {
+                for (OWLClassExpression sup : cls
+                        .getSubClasses(getOntologies())) {
                     if (checker.hasNamedConjunct(sup)) {
                         count++;
                     }
@@ -91,7 +98,8 @@ public class NumberOfClassesWithMultipleInheritance extends IntegerValuedMetric 
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange()) {
                 if (change.getAxiom() instanceof OWLSubClassOfAxiom) {

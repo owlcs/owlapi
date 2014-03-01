@@ -45,15 +45,19 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
 public class InferredSubClassAxiomGenerator extends
         InferredClassAxiomGenerator<OWLSubClassOfAxiom> {
+
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLSubClassOfAxiom> result) {
         if (reasoner.isSatisfiable(entity)) {
-            for (OWLClass sup : reasoner.getSuperClasses(entity, true).getFlattened()) {
+            for (OWLClass sup : reasoner.getSuperClasses(entity, true)
+                    .getFlattened()) {
                 result.add(dataFactory.getOWLSubClassOfAxiom(entity, sup));
             }
         } else {

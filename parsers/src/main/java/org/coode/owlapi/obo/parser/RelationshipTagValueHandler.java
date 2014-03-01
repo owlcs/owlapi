@@ -47,14 +47,19 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Mar-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007
+ */
 public class RelationshipTagValueHandler extends AbstractTagValueHandler {
+
     private Pattern tagValuePattern = Pattern
             .compile("([^\\s]*)\\s*([^\\s]*)\\s*(\\{([^\\}]*)\\})?");
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public RelationshipTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }
@@ -67,11 +72,13 @@ public class RelationshipTagValueHandler extends AbstractTagValueHandler {
             IRI propIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(
                     matcher.group(1));
             IRI fillerIRI = getIRIFromOBOId(matcher.group(2));
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propIRI);
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
+                    propIRI);
             OWLClass filler = getDataFactory().getOWLClass(fillerIRI);
-            OWLClassExpression restriction = getDataFactory().getOWLObjectSomeValuesFrom(
-                    prop, filler);
-            OWLClass subCls = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
+            OWLClassExpression restriction = getDataFactory()
+                    .getOWLObjectSomeValuesFrom(prop, filler);
+            OWLClass subCls = getDataFactory().getOWLClass(
+                    getIRIFromOBOId(currentId));
             applyChange(new AddAxiom(getOntology(), getDataFactory()
                     .getOWLSubClassOfAxiom(subCls, restriction)));
             applyChange(new AddAxiom(getOntology(), getDataFactory()

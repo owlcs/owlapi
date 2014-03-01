@@ -41,166 +41,203 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 import java.util.Set;
 
-/** An interface to a factory that can create SWRL objects.
+/**
+ * An interface to a factory that can create SWRL objects.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLDataFactory {
-    /** @deprecated Use either
+
+    /**
+     * @deprecated Use either
      *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
      *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
      *             instead.
      * @param iri
-     *            The iri of the rule - NOTE THAT THIS PARAMETER WILL BE IGNORED
+     *        The iri of the rule - NOTE THAT THIS PARAMETER WILL BE IGNORED
      * @param body
-     *            The atoms that make up the body of the rule
+     *        The atoms that make up the body of the rule
      * @param head
-     *            The atoms that make up the head of the rule
-     * @return A rule with the specified body and head */
+     *        The atoms that make up the head of the rule
+     * @return A rule with the specified body and head
+     */
     @Deprecated
     SWRLRule getSWRLRule(IRI iri, Set<? extends SWRLAtom> body,
             Set<? extends SWRLAtom> head);
 
-    /** @deprecated Use either
+    /**
+     * @deprecated Use either
      *             {@link #getSWRLRule(java.util.Set, java.util.Set, java.util.Set)}
      *             or {@link #getSWRLRule(java.util.Set, java.util.Set)}
      *             instead.
      * @param nodeID
-     *            The node ID - NOTE THAT THIS PARAMETER WILL BE IGNORED
+     *        The node ID - NOTE THAT THIS PARAMETER WILL BE IGNORED
      * @param body
-     *            The atoms that make up the body of the rule
+     *        The atoms that make up the body of the rule
      * @param head
-     *            The atoms that make up the head of the rule
-     * @return A rule with the specified body and heat */
+     *        The atoms that make up the head of the rule
+     * @return A rule with the specified body and heat
+     */
     @Deprecated
     SWRLRule getSWRLRule(NodeID nodeID, Set<? extends SWRLAtom> body,
             Set<? extends SWRLAtom> head);
 
-    /** Gets an anonymous SWRL Rule.
+    /**
+     * Gets an anonymous SWRL Rule.
      * 
      * @param body
-     *            The atoms that make up the body
+     *        The atoms that make up the body
      * @param head
-     *            The atoms that make up the head
-     * @return An anonymous rule with the specified body and head */
-    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head);
+     *        The atoms that make up the head
+     * @return An anonymous rule with the specified body and head
+     */
+    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body,
+            Set<? extends SWRLAtom> head);
 
-    /** Gets an anonymous SWRL Rule.
+    /**
+     * Gets an anonymous SWRL Rule.
      * 
      * @param body
-     *            The atoms that make up the body
+     *        The atoms that make up the body
      * @param head
-     *            The atoms that make up the head
+     *        The atoms that make up the head
      * @param annotations
-     *            The annotations for the rule (may be an empty set)
-     * @return An anonymous rule with the specified body and head */
-    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head,
-            Set<OWLAnnotation> annotations);
+     *        The annotations for the rule (may be an empty set)
+     * @return An anonymous rule with the specified body and head
+     */
+    SWRLRule getSWRLRule(Set<? extends SWRLAtom> body,
+            Set<? extends SWRLAtom> head, Set<OWLAnnotation> annotations);
 
-    /** Gets a SWRL atom where the predicate is a class expression i.e. C(x)
+    /**
+     * Gets a SWRL atom where the predicate is a class expression i.e. C(x)
      * where C is a class expression and x is either an individual or a variable
      * for an individual
      * 
      * @param predicate
-     *            The class expression that represents the predicate of the atom
+     *        The class expression that represents the predicate of the atom
      * @param arg
-     *            The argument (x)
+     *        The argument (x)
      * @return The class atom with the specified class expression predicate and
-     *         the specified argument. */
-    SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate, SWRLIArgument arg);
+     *         the specified argument.
+     */
+    SWRLClassAtom getSWRLClassAtom(OWLClassExpression predicate,
+            SWRLIArgument arg);
 
-    /** Gets a SWRL atom where the predicate is a data range, i.e. D(x) where D
+    /**
+     * Gets a SWRL atom where the predicate is a data range, i.e. D(x) where D
      * is an OWL data range and x is either a literal or variable for a literal
      * 
      * @param predicate
-     *            The data range that represents the predicate of the atom
+     *        The data range that represents the predicate of the atom
      * @param arg
-     *            The argument (x)
+     *        The argument (x)
      * @return An atom with the specified data range predicate and the specified
-     *         argument */
-    SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate, SWRLDArgument arg);
+     *         argument
+     */
+    SWRLDataRangeAtom getSWRLDataRangeAtom(OWLDataRange predicate,
+            SWRLDArgument arg);
 
-    /** Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
+    /**
+     * Gets a SWRL object property atom, i.e. P(x, y) where P is an OWL object
      * property (expression) and x and y are are either individuals or variables
      * for individuals.
      * 
      * @param property
-     *            The property (P) representing the atom predicate
+     *        The property (P) representing the atom predicate
      * @param arg0
-     *            The first argument (x)
+     *        The first argument (x)
      * @param arg1
-     *            The second argument (y)
+     *        The second argument (y)
      * @return A SWRLObjectPropertyAtom that has the specified predicate and the
-     *         specified arguments */
+     *         specified arguments
+     */
     SWRLObjectPropertyAtom getSWRLObjectPropertyAtom(
-            OWLObjectPropertyExpression property, SWRLIArgument arg0, SWRLIArgument arg1);
+            OWLObjectPropertyExpression property, SWRLIArgument arg0,
+            SWRLIArgument arg1);
 
-    /** Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
+    /**
+     * Gets a SWRL data property atom, i.e. R(x, y) where R is an OWL data
      * property (expression) and x and y are are either literals or variables
      * for literals
      * 
      * @param property
-     *            The property (P) that represents the atom predicate
+     *        The property (P) that represents the atom predicate
      * @param arg0
-     *            The first argument (x)
+     *        The first argument (x)
      * @param arg1
-     *            The second argument (y)
+     *        The second argument (y)
      * @return A SWRLDataPropertyAtom that has the specified predicate and the
-     *         specified arguments */
-    SWRLDataPropertyAtom getSWRLDataPropertyAtom(OWLDataPropertyExpression property,
-            SWRLIArgument arg0, SWRLDArgument arg1);
+     *         specified arguments
+     */
+    SWRLDataPropertyAtom getSWRLDataPropertyAtom(
+            OWLDataPropertyExpression property, SWRLIArgument arg0,
+            SWRLDArgument arg1);
 
-    /** Creates a SWRL Built-In atom. Builtins have predicates that are
+    /**
+     * Creates a SWRL Built-In atom. Builtins have predicates that are
      * identified by IRIs. SWRL provides a core set of builtins, which are
      * described in the OWL API by the
      * {@link org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary}.
      * 
      * @param builtInIRI
-     *            The builtin predicate IRI
+     *        The builtin predicate IRI
      * @param args
-     *            A non-empty set of SWRL Arguments.
+     *        A non-empty set of SWRL Arguments.
      * @throws IllegalArgumentException
-     *             if the list of arguments is empty
+     *         if the list of arguments is empty
      * @return A SWRLBuiltInAtom whose predicate is identified by the specified
-     *         builtInIRI and that has the specified arguments */
-    SWRLBuiltInAtom getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args);
+     *         builtInIRI and that has the specified arguments
+     */
+    SWRLBuiltInAtom
+            getSWRLBuiltInAtom(IRI builtInIRI, List<SWRLDArgument> args);
 
-    /** Gets a SWRLVariable.
+    /**
+     * Gets a SWRLVariable.
      * 
      * @param var
-     *            The id (IRI) of the variable
-     * @return A SWRLVariable that has the name specified by the IRI */
+     *        The id (IRI) of the variable
+     * @return A SWRLVariable that has the name specified by the IRI
+     */
     SWRLVariable getSWRLVariable(IRI var);
 
-    /** Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as
+    /**
+     * Gets a SWRLIndividualArgument, which is used to wrap and OWLIndividual as
      * an argument for an atom.
      * 
      * @param individual
-     *            The individual that is the object argument
-     * @return A SWRLIndividualArgument that wraps the specified individual */
+     *        The individual that is the object argument
+     * @return A SWRLIndividualArgument that wraps the specified individual
+     */
     SWRLIndividualArgument getSWRLIndividualArgument(OWLIndividual individual);
 
-    /** Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
+    /**
+     * Gets a SWRLLiteralArgument, which is used to wrap an OWLLiteral to
      * provide an argument for an atom.
      * 
      * @param literal
-     *            The constant that is the object argument
-     * @return A SWRLLiteralArgument that wraps the specified literal */
+     *        The constant that is the object argument
+     * @return A SWRLLiteralArgument that wraps the specified literal
+     */
     SWRLLiteralArgument getSWRLLiteralArgument(OWLLiteral literal);
 
-    /** @param arg0
-     *            first individual
+    /**
+     * @param arg0
+     *        first individual
      * @param arg1
-     *            second individual
-     * @return a sameindividual atom */
+     *        second individual
+     * @return a sameindividual atom
+     */
     SWRLSameIndividualAtom getSWRLSameIndividualAtom(SWRLIArgument arg0,
             SWRLIArgument arg1);
 
-    /** @param arg0
-     *            first individual
+    /**
+     * @param arg0
+     *        first individual
      * @param arg1
-     *            second individual
-     * @return a differentindividual atom */
-    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(SWRLIArgument arg0,
-            SWRLIArgument arg1);
+     *        second individual
+     * @return a differentindividual atom
+     */
+    SWRLDifferentIndividualsAtom getSWRLDifferentIndividualsAtom(
+            SWRLIArgument arg0, SWRLIArgument arg1);
 }

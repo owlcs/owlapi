@@ -47,34 +47,41 @@ import org.semanticweb.owlapi.model.OWLException;
 
 /** Renderer for explanations. */
 public interface ExplanationRenderer {
-    /** Start rendering.
+
+    /**
+     * Start rendering.
      * 
      * @param writer
-     *            the writer to use
+     *        the writer to use
      * @throws OWLException
-     *             OWL troubles
+     *         OWL troubles
      * @throws IOException
-     *             IO troubles */
+     *         IO troubles
+     */
     void startRendering(Writer writer) throws OWLException, IOException;
 
-    /** Render.
+    /**
+     * Render.
      * 
      * @param axiom
-     *            the axiom to render
+     *        the axiom to render
      * @param explanations
-     *            the explanations to render
+     *        the explanations to render
      * @throws OWLException
-     *             OWL troubles
+     *         OWL troubles
      * @throws IOException
-     *             IO troubles */
-    void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations) throws OWLException,
-            IOException;
+     *         IO troubles
+     */
+    void render(OWLAxiom axiom, Set<Set<OWLAxiom>> explanations)
+            throws OWLException, IOException;
 
-    /** end of rendering.
+    /**
+     * end of rendering.
      * 
      * @throws OWLException
-     *             OWL troubles
+     *         OWL troubles
      * @throws IOException
-     *             IO troubles */
+     *         IO troubles
+     */
     void endRendering() throws OWLException, IOException;
 }

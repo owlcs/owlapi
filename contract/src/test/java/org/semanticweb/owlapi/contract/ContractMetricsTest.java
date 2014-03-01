@@ -37,10 +37,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMetricsTest {
+
     @Test
     public void shouldTestAbstractOWLMetric() throws Exception {
         AbstractOWLMetric<Object> testSubject0 = new AbstractOWLMetric<Object>(
                 Utils.getMockManager()) {
+
             @Override
             public String getName() {
                 return null;
@@ -65,7 +67,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result2 = testSubject0.getOntologies();
         OWLOntology result3 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result4 = testSubject0.getManager();
         boolean result5 = testSubject0.isImportsClosureUsed();
@@ -73,7 +76,8 @@ public class ContractMetricsTest {
         String result6 = testSubject0.getName();
     }
 
-    public void shouldTestAverageAssertedNamedSuperclassCount() throws Exception {
+    public void shouldTestAverageAssertedNamedSuperclassCount()
+            throws Exception {
         AverageAssertedNamedSuperclassCount testSubject0 = new AverageAssertedNamedSuperclassCount(
                 Utils.getMockManager());
         String result0 = testSubject0.getName();
@@ -84,7 +88,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -99,7 +104,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result3 = testSubject0.getOntologies();
         OWLOntology result4 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result5 = testSubject0.getManager();
         boolean result6 = testSubject0.isImportsClosureUsed();
@@ -107,7 +113,9 @@ public class ContractMetricsTest {
     }
 
     public void shouldTestAxiomCountMetric() throws Exception {
-        AxiomCountMetric testSubject0 = new AxiomCountMetric(Utils.getMockManager()) {
+        AxiomCountMetric testSubject0 = new AxiomCountMetric(
+                Utils.getMockManager()) {
+
             @Override
             protected String getObjectTypeName() {
                 return null;
@@ -127,7 +135,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
         OWLOntology result7 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result8 = testSubject0.getManager();
         boolean result9 = testSubject0.isImportsClosureUsed();
@@ -137,14 +146,14 @@ public class ContractMetricsTest {
     @Test
     public void shouldTestAxiomTypeCountMetricFactory() throws Exception {
         AxiomTypeCountMetricFactory testSubject0 = new AxiomTypeCountMetricFactory();
-        Set<OWLMetric<?>> result0 = AxiomTypeCountMetricFactory.createMetrics(Utils
-                .getMockManager());
+        Set<OWLMetric<?>> result0 = AxiomTypeCountMetricFactory
+                .createMetrics(Utils.getMockManager());
         String result1 = testSubject0.toString();
     }
 
     public void shouldTestAxiomTypeMetric() throws Exception {
-        AxiomTypeMetric testSubject0 = new AxiomTypeMetric(Utils.getMockManager(),
-                mock(AxiomType.class));
+        AxiomTypeMetric testSubject0 = new AxiomTypeMetric(
+                Utils.getMockManager(), mock(AxiomType.class));
         AxiomType<?> result0 = testSubject0.getAxiomType();
         Set<? extends OWLAxiom> result1 = testSubject0.getAxioms();
         String result2 = testSubject0.getName();
@@ -155,7 +164,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result7 = testSubject0.getOntologies();
         OWLOntology result8 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result9 = testSubject0.getManager();
         boolean result10 = testSubject0.isImportsClosureUsed();
@@ -172,7 +182,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -181,7 +192,9 @@ public class ContractMetricsTest {
 
     @Test
     public void shouldTestDoubleValuedMetric() throws Exception {
-        DoubleValuedMetric testSubject0 = new DoubleValuedMetric(Utils.getMockManager()) {
+        DoubleValuedMetric testSubject0 = new DoubleValuedMetric(
+                Utils.getMockManager()) {
+
             @Override
             public String getName() {
                 return null;
@@ -206,7 +219,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result2 = testSubject0.getOntologies();
         OWLOntology result3 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result4 = testSubject0.getManager();
         boolean result5 = testSubject0.isImportsClosureUsed();
@@ -225,7 +239,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
         OWLOntology result7 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result8 = testSubject0.getManager();
         boolean result9 = testSubject0.isImportsClosureUsed();
@@ -240,7 +255,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result3 = testSubject0.getOntologies();
         OWLOntology result4 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result5 = testSubject0.getManager();
         boolean result6 = testSubject0.isImportsClosureUsed();
@@ -248,14 +264,16 @@ public class ContractMetricsTest {
     }
 
     public void shouldTestImportClosureSize() throws Exception {
-        ImportClosureSize testSubject0 = new ImportClosureSize(Utils.getMockManager());
+        ImportClosureSize testSubject0 = new ImportClosureSize(
+                Utils.getMockManager());
         String result0 = testSubject0.getName();
         String result1 = testSubject0.toString();
         Object result2 = testSubject0.getValue();
         testSubject0.dispose();
         Set<OWLOntology> result3 = testSubject0.getOntologies();
         OWLOntology result4 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result5 = testSubject0.getManager();
         boolean result6 = testSubject0.isImportsClosureUsed();
@@ -264,7 +282,9 @@ public class ContractMetricsTest {
 
     @Test
     public void shouldTestIntegerValuedMetric() throws Exception {
-        IntegerValuedMetric testSubject0 = new IntegerValuedMetric(Utils.getMockManager()) {
+        IntegerValuedMetric testSubject0 = new IntegerValuedMetric(
+                Utils.getMockManager()) {
+
             @Override
             public String getName() {
                 return null;
@@ -289,7 +309,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result2 = testSubject0.getOntologies();
         OWLOntology result3 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result4 = testSubject0.getManager();
         boolean result5 = testSubject0.isImportsClosureUsed();
@@ -298,7 +319,8 @@ public class ContractMetricsTest {
     }
 
     public void shouldTestLogicalAxiomCount() throws Exception {
-        LogicalAxiomCount testSubject0 = new LogicalAxiomCount(Utils.getMockManager());
+        LogicalAxiomCount testSubject0 = new LogicalAxiomCount(
+                Utils.getMockManager());
         Set<? extends OWLAxiom> result0 = testSubject0.getAxioms();
         String result1 = testSubject0.getName();
         Object result2 = testSubject0.recomputeMetric();
@@ -308,7 +330,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result6 = testSubject0.getOntologies();
         OWLOntology result7 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result8 = testSubject0.getManager();
         boolean result9 = testSubject0.isImportsClosureUsed();
@@ -326,14 +349,16 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
         testSubject0.setImportsClosureUsed(false);
     }
 
-    public void shouldTestNumberOfClassesWithMultipleInheritance() throws Exception {
+    public void shouldTestNumberOfClassesWithMultipleInheritance()
+            throws Exception {
         NumberOfClassesWithMultipleInheritance testSubject0 = new NumberOfClassesWithMultipleInheritance(
                 Utils.getMockManager());
         String result0 = testSubject0.getName();
@@ -344,7 +369,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -354,6 +380,7 @@ public class ContractMetricsTest {
     public void shouldTestObjectCountMetric() throws Exception {
         ObjectCountMetric<Object> testSubject0 = new ObjectCountMetric<Object>(
                 Utils.getMockManager()) {
+
             @Override
             protected String getObjectTypeName() {
                 return null;
@@ -372,7 +399,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -412,7 +440,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -430,7 +459,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -448,7 +478,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();
@@ -466,7 +497,8 @@ public class ContractMetricsTest {
         testSubject0.dispose();
         Set<OWLOntology> result5 = testSubject0.getOntologies();
         OWLOntology result6 = testSubject0.getOntology();
-        testSubject0.ontologiesChanged(Utils.mockList(mock(OWLOntologyChange.class)));
+        testSubject0.ontologiesChanged(Utils
+                .mockList(mock(OWLOntologyChange.class)));
         testSubject0.setOntology(Utils.getMockOntology());
         OWLOntologyManager result7 = testSubject0.getManager();
         boolean result8 = testSubject0.isImportsClosureUsed();

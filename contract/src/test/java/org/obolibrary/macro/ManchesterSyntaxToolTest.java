@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** Tests for {@link ManchesterSyntaxTool}. */
 @SuppressWarnings("javadoc")
 public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
+
     private OWLOntology owlOntology = null;
     private ManchesterSyntaxTool parser = null;
 
@@ -51,8 +52,8 @@ public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
         OWLClassExpression rhs = list.get(1);
         OWLClass cls2 = rhs.getClassesInSignature().iterator().next();
         assertEquals(differentia, OWLAPIOwl2Obo.getIdentifier(cls2.getIRI()));
-        OWLObjectProperty property = rhs.getObjectPropertiesInSignature().iterator()
-                .next();
+        OWLObjectProperty property = rhs.getObjectPropertiesInSignature()
+                .iterator().next();
         assertEquals(relId, OWLAPIOwl2Obo.getIdentifier(property.getIRI()));
     }
 }

@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
-/** This class demonstrates some aspects of the OWL API. It expects three
+/**
+ * This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
  * <ol>
  * <li>The URI of an ontology</li>
@@ -62,19 +63,24 @@ import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
  * will be added to the ontology, "closing" the restrictions.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group, Date: 24-April-2007
+ */
 public class ClosureAxiomsExample {
-    /** @param inputOntology
-     *            input ontology IRI
+
+    /**
+     * @param inputOntology
+     *        input ontology IRI
      * @param outputOntology
-     *            output ontology IRI
+     *        output ontology IRI
      * @param classToClose
-     *            the class to compute the closure of
+     *        the class to compute the closure of
      * @throws OWLException
-     *             if an exception is raised */
-    public void closure(String inputOntology, String outputOntology, String classToClose)
-            throws OWLException {
-        if (inputOntology == null || outputOntology == null || classToClose == null) {
+     *         if an exception is raised
+     */
+    public void closure(String inputOntology, String outputOntology,
+            String classToClose) throws OWLException {
+        if (inputOntology == null || outputOntology == null
+                || classToClose == null) {
             throw new IllegalArgumentException("arguments cannot be null");
         }
         /* Create and Ontology Manager */
@@ -84,11 +90,13 @@ public class ClosureAxiomsExample {
         IRI outputDocumentIRI = IRI.create(outputOntology);
         /* Load an ontology */
         System.out.println("Loading: " + documentIRI);
-        OWLOntology ontology = manager.loadOntologyFromOntologyDocument(documentIRI);
+        OWLOntology ontology = manager
+                .loadOntologyFromOntologyDocument(documentIRI);
         System.out.println("Ontology Loaded...");
         System.out.println("Logical URI : " + documentIRI);
         System.out.println("Document IRI: " + ontology.getOntologyID());
-        System.out.println("Format      : " + manager.getOntologyFormat(ontology));
+        System.out.println("Format      : "
+                + manager.getOntologyFormat(ontology));
         ClosureAxioms closureAxioms = new ClosureAxioms(manager, ontology);
         OWLClass clazz = Class(classIRI);
         System.out.println("Class URI   : " + classIRI);

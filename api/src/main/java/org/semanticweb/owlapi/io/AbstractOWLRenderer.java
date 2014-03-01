@@ -47,9 +47,12 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Nov-2006
+ */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
+
     // XXX this should not be a field but accessed through the rendered ontology
     private OWLOntologyManager owlOntologyManager;
 
@@ -73,9 +76,11 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, OutputStream os) throws OWLRendererException {
+    public void render(OWLOntology ontology, OutputStream os)
+            throws OWLRendererException {
         try {
-            Writer writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            Writer writer = new BufferedWriter(new OutputStreamWriter(os,
+                    "UTF-8"));
             render(ontology, writer);
             writer.flush();
         } catch (IOException e) {
@@ -83,17 +88,18 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
         }
     }
 
-    /** Renders the specified ontology using the specified writer.
+    /**
+     * Renders the specified ontology using the specified writer.
      * 
      * @param ontology
-     *            the ontology to render
+     *        the ontology to render
      * @param writer
-     *            The writer that should be used to write the ontology. Note
-     *            that this writer need not be wrapped with a
-     *            {@code BufferedWriter} because this is taken care of by this
-     *            abstract implementation.
+     *        The writer that should be used to write the ontology. Note that
+     *        this writer need not be wrapped with a {@code BufferedWriter}
+     *        because this is taken care of by this abstract implementation.
      * @throws OWLRendererException
-     *             if exceptions arise */
+     *         if exceptions arise
+     */
     public abstract void render(OWLOntology ontology, Writer writer)
             throws OWLRendererException;
 }

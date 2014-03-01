@@ -52,22 +52,27 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009
+ */
 public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationPropertyRangeAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLAnnotationProperty property;
     protected final IRI range;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param range
-     *            range
+     *        range
      * @param annotations
-     *            annotations on the axiom */
-    public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property, IRI range,
-            Collection<? extends OWLAnnotation> annotations) {
+     *        annotations on the axiom
+     */
+    public OWLAnnotationPropertyRangeAxiomImpl(OWLAnnotationProperty property,
+            IRI range, Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.property = property;
         this.range = range;
@@ -78,15 +83,15 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
-                NO_ANNOTATIONS);
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
+                getRange(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLAnnotationPropertyRangeAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(), getRange(),
-                mergeAnnos(annotations));
+        return new OWLAnnotationPropertyRangeAxiomImpl(getProperty(),
+                getRange(), mergeAnnos(annotations));
     }
 
     @Override
@@ -153,7 +158,8 @@ public class OWLAnnotationPropertyRangeAxiomImpl extends OWLAxiomImpl implements
                 return false;
             }
             OWLAnnotationPropertyRangeAxiom other = (OWLAnnotationPropertyRangeAxiom) obj;
-            return property.equals(other.getProperty()) && range.equals(other.getRange());
+            return property.equals(other.getProperty())
+                    && range.equals(other.getRange());
         }
         return false;
     }

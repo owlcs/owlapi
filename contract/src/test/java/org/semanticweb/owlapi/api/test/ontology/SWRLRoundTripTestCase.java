@@ -26,10 +26,11 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase {
+
     // test for 3562978
     @Test
-    public void shouldDoCompleteRoundtrip() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldDoCompleteRoundtrip()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
         String NS = "urn:test";
         OWLDataFactory factory = Factory.getFactory();
         OWLClass A = Class(IRI(NS + "#A"));
@@ -82,8 +83,9 @@ public class SWRLRoundTripTestCase {
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);
         String onto1 = t.toString();
         manager = Factory.getManager();
-        ontology = manager.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                onto1));
+        ontology = manager
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        onto1));
         t = new StringDocumentTarget();
         format = new ManchesterOWLSyntaxOntologyFormat();
         ontology.getOWLOntologyManager().saveOntology(ontology, format, t);

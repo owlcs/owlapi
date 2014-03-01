@@ -55,30 +55,39 @@ import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
+/**
+ * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLOntologyFormat) this manager will create them.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group, Date: 30-May-2006
+ */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
+
     private OWLOntology ontology;
     private NamespaceUtil namespaceUtil;
     private OWLOntologyFormat ontologyFormat;
 
-    /** @param man
-     *            man
+    /**
+     * @param man
+     *        man
      * @param ontology
-     *            ontology */
-    public OWLOntologyXMLNamespaceManager(OWLOntologyManager man, OWLOntology ontology) {
+     *        ontology
+     */
+    public OWLOntologyXMLNamespaceManager(OWLOntologyManager man,
+            OWLOntology ontology) {
         this(ontology, man.getOntologyFormat(ontology));
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param format
-     *            format */
-    public OWLOntologyXMLNamespaceManager(OWLOntology ontology, OWLOntologyFormat format) {
+     *        format
+     */
+    public OWLOntologyXMLNamespaceManager(OWLOntology ontology,
+            OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
         this.ontology = ontology;
         namespaceUtil = new NamespaceUtil();
@@ -99,7 +108,8 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
             Map<String, String> namespacesByPrefix = namespaceFormat
                     .getPrefixName2PrefixMap();
             for (String prefixName : namespacesByPrefix.keySet()) {
-                String xmlnsPrefixName = prefixName.substring(0, prefixName.length() - 1);
+                String xmlnsPrefixName = prefixName.substring(0,
+                        prefixName.length() - 1);
                 String xmlnsPrefix = namespacesByPrefix.get(prefixName);
                 namespaceUtil.setPrefix(xmlnsPrefix, xmlnsPrefixName);
             }
@@ -112,9 +122,11 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         for (OWLEntity ent : entities) {
             processEntity(ent);
         }
-        Map<String, String> ns2prefixMap = namespaceUtil.getNamespace2PrefixMap();
+        Map<String, String> ns2prefixMap = namespaceUtil
+                .getNamespace2PrefixMap();
         for (String ns : ns2prefixMap.keySet()) {
-            if (!Namespaces.OWL11.inNamespace(ns) && !Namespaces.OWL11XML.inNamespace(ns)) {
+            if (!Namespaces.OWL11.inNamespace(ns)
+                    && !Namespaces.OWL11XML.inNamespace(ns)) {
                 setPrefix(ns2prefixMap.get(ns), ns);
             }
         }
@@ -142,16 +154,18 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
     }
 
-    /** Gets a suggested default namespace bases on the ID of an ontology. If the
+    /**
+     * Gets a suggested default namespace bases on the ID of an ontology. If the
      * ontology has an IRI then this IRI will be used to suggest a default
      * namespace, otherwise, the OWL namespace will be returned as the default
      * namespace
      * 
      * @param ontology
-     *            The ontology
+     *        The ontology
      * @param format
-     *            format
-     * @return A suggested default namespace */
+     *        format
+     * @return A suggested default namespace
+     */
     private static String getDefaultNamespace(OWLOntology ontology,
             OWLOntologyFormat format) {
         if (format instanceof PrefixOWLOntologyFormat) {

@@ -41,14 +41,19 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public class UseOfIllegalAxiom extends OWLProfileViolation implements
         OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
-    /** @param ontology
-     *            wrong ontology
+
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom */
+     *        wrong axiom
+     */
     public UseOfIllegalAxiom(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom);
     }

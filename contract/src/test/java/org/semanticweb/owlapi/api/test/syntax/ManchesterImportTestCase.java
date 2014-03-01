@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.util.AutoIRIMapper;
 
 @SuppressWarnings("javadoc")
 public class ManchesterImportTestCase {
+
     private static final String str = "http://owlapitestontologies.com/thesuperont";
     private static final String superpath = "/imports/thesuperont.omn";
     private static final String subpath = "/imports/thesubont.omn";
@@ -44,7 +45,8 @@ public class ManchesterImportTestCase {
 
     private OWLOntologyManager getManager() {
         OWLOntologyManager manager = Factory.getManager();
-        AutoIRIMapper mapper = new AutoIRIMapper(new File(RESOURCES, "imports"), true);
+        AutoIRIMapper mapper = new AutoIRIMapper(
+                new File(RESOURCES, "imports"), true);
         manager.addIRIMapper(mapper);
         return manager;
     }

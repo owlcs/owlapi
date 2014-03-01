@@ -38,64 +38,83 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 16-Apr-2008
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLDataVisitorEx<O> {
-    /** visit OWLDatatype type
+
+    /**
+     * visit OWLDatatype type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDatatype node);
 
-    /** visit OWLDataComplementOf type
+    /**
+     * visit OWLDataComplementOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataComplementOf node);
 
-    /** visit OWLDataOneOf type
+    /**
+     * visit OWLDataOneOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataOneOf node);
 
-    /** visit OWLDataIntersectionOf type
+    /**
+     * visit OWLDataIntersectionOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataIntersectionOf node);
 
-    /** visit OWLDataUnionOf type
+    /**
+     * visit OWLDataUnionOf type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataUnionOf node);
 
-    /** visit OWLDatatypeRestriction type
+    /**
+     * visit OWLDatatypeRestriction type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDatatypeRestriction node);
 
-    /** visit OWLLiteral type
+    /**
+     * visit OWLLiteral type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLLiteral node);
 
-    /** visit OWLFacetRestriction type
+    /**
+     * visit OWLFacetRestriction type
      * 
      * @param node
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLFacetRestriction node);
 }

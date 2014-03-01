@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
 
 /** Explanation renderer in concise form. */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
+
     /** The Constant INDENT. */
     private static final String INDENT = "   ";
     /** The renderer. */
@@ -82,10 +83,12 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         writer.println();
     }
 
-    /** Render multiple explanations.
+    /**
+     * Render multiple explanations.
      * 
      * @param explanations
-     *            the explanations */
+     *        the explanations
+     */
     private void renderMultipleExplanations(Set<Set<OWLAxiom>> explanations) {
         int count = 1;
         for (Set<OWLAxiom> exp : explanations) {
@@ -94,12 +97,14 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
-    /** Render single explanation.
+    /**
+     * Render single explanation.
      * 
      * @param _header
-     *            the header
+     *        the header
      * @param axioms
-     *            the axioms */
+     *        the axioms
+     */
     private void renderSingleExplanation(String _header, Set<OWLAxiom> axioms) {
         String header = _header;
         boolean first = true;

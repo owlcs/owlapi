@@ -53,12 +53,15 @@ import java.util.regex.Pattern;
 
 import org.semanticweb.owlapi.model.*;
 
-/** An enumeration of the datatypes in the OWL 2 specification. These are the
+/**
+ * An enumeration of the datatypes in the OWL 2 specification. These are the
  * datatypes in the OWL 2 datatype map.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 11-Nov-2008 */
+ *         Management Group, Date: 11-Nov-2008
+ */
 public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
+
     //@formatter:off
     /** RDF_XML_LITERAL */          RDF_XML_LITERAL          (RDF,  "XMLLiteral",   Category.CAT_STRING_WITHOUT_LANGUAGE_TAG, false, ".*"), 
     /** RDFS_LITERAL */             RDFS_LITERAL             (RDFS, "Literal",      Category.CAT_UNIVERSAL,                   false, ".*"),
@@ -104,40 +107,48 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         ALL_IRIS = Collections.unmodifiableSet(new TreeSet<IRI>(uris));
     }
 
-    /** Gets all of the built in datatype IRIs.
+    /**
+     * Gets all of the built in datatype IRIs.
      * 
      * @return A set of IRIs corresponding to the set of IRIs of all built in
-     *         {@link OWL2Datatype}s. Not {@code null}. */
+     *         {@link OWL2Datatype}s. Not {@code null}.
+     */
     public static Set<IRI> getDatatypeIRIs() {
         return ALL_IRIS;
     }
 
-    /** Gets the Pattern that specifies the regular expression for the allowed
+    /**
+     * Gets the Pattern that specifies the regular expression for the allowed
      * lexical values of a datatype.
      * 
-     * @return The Pattern. Not {@code null}. */
+     * @return The Pattern. Not {@code null}.
+     */
     public Pattern getPattern() {
         return pattern;
     }
 
-    /** Determines if the specified IRI identifies a built in datatype.
+    /**
+     * Determines if the specified IRI identifies a built in datatype.
      * 
      * @param datatypeIRI
-     *            The datatype IRI
+     *        The datatype IRI
      * @return {@code true} if the IRI identifies a built in datatype, or
-     *         {@code false} if the IRI does not identify a built in datatype. */
+     *         {@code false} if the IRI does not identify a built in datatype.
+     */
     public static boolean isBuiltIn(IRI datatypeIRI) {
         return ALL_IRIS.contains(datatypeIRI);
     }
 
-    /** Given an IRI that identifies an {@link OWLDatatype}, this method obtains
+    /**
+     * Given an IRI that identifies an {@link OWLDatatype}, this method obtains
      * the corresponding {@link OWL2Datatype}.
      * 
      * @param datatype
-     *            The datatype IRI. Not {@code null}.
+     *        The datatype IRI. Not {@code null}.
      * @return The {@link OWL2Datatype} that has the specified {@link IRI}.
      * @throws OWLRuntimeException
-     *             if the specified IRI is not a built in datatype IRI. */
+     *         if the specified IRI is not a built in datatype IRI.
+     */
     public static OWL2Datatype getDatatype(IRI datatype) {
         if (!isBuiltIn(datatype)) {
             throw new OWLRuntimeException(datatype
@@ -180,89 +191,107 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
         pattern = Pattern.compile(regEx, Pattern.DOTALL);
     }
 
-    /** Gets the short human readable name for this datatype.
+    /**
+     * Gets the short human readable name for this datatype.
      * 
-     * @return The short human readable name.  This is the local name, and not a prefix name.
+     * @return The short human readable name. This is the local name, and not a
+     *         prefix name.
      * @deprecated Use {@link #getShortForm()}
      */
     @Deprecated
-     public String getShortName() {
+    public String getShortName() {
         return getShortForm();
     }
 
     /**
-     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
-     * "string" for {@link #XSD_STRING} etc.
-     * @return The short form.  Not {@code null}.
+     * Gets the short form for this vocabulary element. Short forms are the
+     * local name e.g. "string" for {@link #XSD_STRING} etc.
+     * 
+     * @return The short form. Not {@code null}.
      */
     @Override
     public String getShortForm() {
         return shortForm;
     }
 
-
-    /** Gets the IRI of this datatype.
+    /**
+     * Gets the IRI of this datatype.
      * 
-     * @return The IRI of this datatype */
-     @Override
-     public IRI getIRI() {
+     * @return The IRI of this datatype
+     */
+    @Override
+    public IRI getIRI() {
         return iri;
     }
 
-    /** Gets the URI of this datatype.
+    /**
+     * Gets the URI of this datatype.
      * 
      * @return The URI that identifies the datatype
-     * @deprecated Use {@link #getIRI()}. */
+     * @deprecated Use {@link #getIRI()}.
+     */
     @Deprecated
     public URI getURI() {
         return iri.toURI();
     }
 
-    /** Gets the category for this datatype.
+    /**
+     * Gets the category for this datatype.
      * 
-     * @return The category */
+     * @return The category
+     */
     public Category getCategory() {
         return category;
     }
 
-    /** Determines if this datatype is a numeric datatype.
+    /**
+     * Determines if this datatype is a numeric datatype.
      * 
-     * @return {@code true} if this datatype is a numeric datatype */
+     * @return {@code true} if this datatype is a numeric datatype
+     */
     public boolean isNumeric() {
         return category.equals(Category.CAT_NUMBER);
     }
 
-    /** Determines whether or not this datatype is finite.
+    /**
+     * Determines whether or not this datatype is finite.
      * 
      * @return {@code true} if this datatype is finite, or {@code false} if this
-     *         datatype is infinite. */
+     *         datatype is infinite.
+     */
     public boolean isFinite() {
         return finite;
     }
 
-    /** Gets the facets that are allowed for facet restrictions of this datatype.
+    /**
+     * Gets the facets that are allowed for facet restrictions of this datatype.
      * 
-     * @return The allowed facets */
+     * @return The allowed facets
+     */
     public Collection<OWLFacet> getFacets() {
         return category.getFacets();
     }
 
-    /** Gets the equivalent OWLDatatype from the given factory.
+    /**
+     * Gets the equivalent OWLDatatype from the given factory.
      * 
      * @param factory
-     *            the OWLDataFactory. Not {@code null}.
+     *        the OWLDataFactory. Not {@code null}.
      * @return An {@link OWLDatatype} that has the same IRI as this
-     *         {@link OWL2Datatype}. Not {@code null}. */
+     *         {@link OWL2Datatype}. Not {@code null}.
+     */
     public OWLDatatype getDatatype(OWLDataFactory factory) {
         return factory.getOWLDatatype(getIRI());
     }
 
-    /** Determines if the specified string is the lexical space of this datatype.
+    /**
+     * Determines if the specified string is the lexical space of this datatype.
      * 
      * @param s
-     *            The string to test
+     *        The string to test
      * @return {@code true} if the string is in the lexical space, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     public boolean isInLexicalSpace(String s) {
         return pattern.matcher(s).matches();
     }
@@ -306,21 +335,30 @@ public enum OWL2Datatype implements HasIRI, HasShortForm, HasPrefixedName {
 
     /** Normalization enum. */
     public enum WhiteSpaceNormalisation {
-        /** No normalization is done, the value is not changed (this is the
-         * behavior required by [XML] for element content). */
+        /**
+         * No normalization is done, the value is not changed (this is the
+         * behavior required by [XML] for element content).
+         */
         PRESERVE,
-        /** All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage
-         * return) are replaced with #x20 (space). */
+        /**
+         * All occurrences of #x9 (tab), #xA (line feed) and #xD (carriage
+         * return) are replaced with #x20 (space).
+         */
         REPLACE,
-        /** After the processing implied by replace, contiguous sequences of
+        /**
+         * After the processing implied by replace, contiguous sequences of
          * #x20's are collapsed to a single #x20, and any #x20 at the start or
-         * end of the string is then removed. */
+         * end of the string is then removed.
+         */
         COLLAPSE;
-        /** Gets the normalised version of a string.
+
+        /**
+         * Gets the normalised version of a string.
          * 
          * @param s
-         *            The string to normalise
-         * @return The normalised string */
+         *        The string to normalise
+         * @return The normalised string
+         */
         public String getNormalisedString(String s) {
             switch (this) {
                 case REPLACE:

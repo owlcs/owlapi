@@ -11,6 +11,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /** The Class Frame. */
 public class Frame {
+
     /** The Enum FrameType. */
     public enum FrameType {
         /** HEADER. */
@@ -38,10 +39,12 @@ public class Frame {
         init();
     }
 
-    /** Instantiates a new frame.
+    /**
+     * Instantiates a new frame.
      * 
      * @param type
-     *            the type */
+     *        the type
+     */
     public Frame(FrameType type) {
         super();
         init();
@@ -58,8 +61,10 @@ public class Frame {
         return type;
     }
 
-    /** @param type
-     *            the new type */
+    /**
+     * @param type
+     *        the new type
+     */
     public void setType(FrameType type) {
         this.type = type;
     }
@@ -69,8 +74,10 @@ public class Frame {
         return id;
     }
 
-    /** @param id
-     *            the new id */
+    /**
+     * @param id
+     *        the new id
+     */
     public void setId(String id) {
         this.id = id;
     }
@@ -80,9 +87,11 @@ public class Frame {
         return clauses;
     }
 
-    /** @param tag
-     *            the tag
-     * @return the clauses for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the clauses for tag
+     */
     public Collection<Clause> getClauses(String tag) {
         Collection<Clause> cls = new ArrayList<Clause>();
         for (Clause cl : clauses) {
@@ -93,16 +102,20 @@ public class Frame {
         return cls;
     }
 
-    /** @param tag
-     *            the tag
-     * @return the clauses for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the clauses for tag
+     */
     public Collection<Clause> getClauses(OboFormatTag tag) {
         return getClauses(tag.getTag());
     }
 
-    /** @param tag
-     *            the tag
-     * @return null if no value set, otherwise first value */
+    /**
+     * @param tag
+     *        the tag
+     * @return null if no value set, otherwise first value
+     */
     public Clause getClause(String tag) {
         for (Clause cl : clauses) {
             if (cl.getTag().equals(tag)) {
@@ -113,21 +126,27 @@ public class Frame {
         return null;
     }
 
-    /** @param tag
-     *            the tag
-     * @return the clause for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the clause for tag
+     */
     public Clause getClause(OboFormatTag tag) {
         return getClause(tag.getTag());
     }
 
-    /** @param clauses
-     *            the new clauses */
+    /**
+     * @param clauses
+     *        the new clauses
+     */
     public void setClauses(Collection<Clause> clauses) {
         this.clauses = clauses;
     }
 
-    /** @param cl
-     *            the clause */
+    /**
+     * @param cl
+     *        the clause
+     */
     public void addClause(Clause cl) {
         clauses.add(cl);
     }
@@ -145,9 +164,11 @@ public class Frame {
         return sb.toString();
     }
 
-    /** @param tag
-     *            the tag
-     * @return the tag value for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the tag value for tag
+     */
     public Object getTagValue(String tag) {
         if (getClause(tag) == null) {
             return null;
@@ -155,20 +176,24 @@ public class Frame {
         return getClause(tag).getValue();
     }
 
-    /** @param tag
-     *            the tag
-     * @return the tag value for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the tag value for tag
+     */
     public Object getTagValue(OboFormatTag tag) {
         return getTagValue(tag.getTag());
     }
 
-    /** @param <T>
-     *            the generic type
+    /**
+     * @param <T>
+     *        the generic type
      * @param tag
-     *            the tag
+     *        the tag
      * @param cls
-     *            the cls
-     * @return the tag value for tag and class */
+     *        the cls
+     * @return the tag value for tag and class
+     */
     public <T> T getTagValue(String tag, Class<T> cls) {
         if (getClause(tag) == null) {
             return null;
@@ -180,27 +205,33 @@ public class Frame {
         return null;
     }
 
-    /** @param <T>
-     *            the generic type
+    /**
+     * @param <T>
+     *        the generic type
      * @param tag
-     *            the tag
+     *        the tag
      * @param cls
-     *            the cls
-     * @return the tag value for tag and class */
+     *        the cls
+     * @return the tag value for tag and class
+     */
     public <T> T getTagValue(OboFormatTag tag, Class<T> cls) {
         return getTagValue(tag.getTag(), cls);
     }
 
-    /** @param tag
-     *            the tag
-     * @return the tag values for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the tag values for tag
+     */
     public Collection<Object> getTagValues(OboFormatTag tag) {
         return getTagValues(tag.getTag());
     }
 
-    /** @param tag
-     *            the tag
-     * @return the tag values for tag */
+    /**
+     * @param tag
+     *        the tag
+     * @return the tag values for tag
+     */
     public Collection<Object> getTagValues(String tag) {
         Collection<Object> vals = new Vector<Object>();
         for (Clause c : getClauses(tag)) {
@@ -209,24 +240,28 @@ public class Frame {
         return vals;
     }
 
-    /** @param <T>
-     *            the generic type
+    /**
+     * @param <T>
+     *        the generic type
      * @param tag
-     *            the tag
+     *        the tag
      * @param cls
-     *            the cls
-     * @return the tag values for tag and class */
+     *        the cls
+     * @return the tag values for tag and class
+     */
     public <T> Collection<T> getTagValues(OboFormatTag tag, Class<T> cls) {
         return getTagValues(tag.getTag(), cls);
     }
 
-    /** @param <T>
-     *            the generic type
+    /**
+     * @param <T>
+     *        the generic type
      * @param tag
-     *            the tag
+     *        the tag
      * @param cls
-     *            the cls
-     * @return the tag values for tag and class */
+     *        the cls
+     * @return the tag values for tag and class
+     */
     public <T> Collection<T> getTagValues(String tag, Class<T> cls) {
         Collection<T> vals = new Vector<T>();
         for (Clause c : getClauses(tag)) {
@@ -235,9 +270,11 @@ public class Frame {
         return vals;
     }
 
-    /** @param tag
-     *            the tag
-     * @return the tag xrefs for tg */
+    /**
+     * @param tag
+     *        the tag
+     * @return the tag xrefs for tg
+     */
     public Collection<Xref> getTagXrefs(String tag) {
         Collection<Xref> xrefs = new Vector<Xref>();
         for (Object ob : getClause(tag).getValues()) {
@@ -257,10 +294,12 @@ public class Frame {
         return tags;
     }
 
-    /** @param extFrame
-     *            the external frame
+    /**
+     * @param extFrame
+     *        the external frame
      * @throws FrameMergeException
-     *             the frame merge exception */
+     *         the frame merge exception
+     */
     public void merge(Frame extFrame) throws FrameMergeException {
         if (this == extFrame) {
             return;
@@ -277,21 +316,25 @@ public class Frame {
         // note we do not perform a document structure check at this point
     }
 
-    /** Check this frame for violations, i.e. cardinality constraint violations.
+    /**
+     * Check this frame for violations, i.e. cardinality constraint violations.
      * 
      * @throws FrameStructureException
-     *             the frame structure exception
-     * @see OboInOwlCardinalityTools for equivalent checks in OWL */
+     *         the frame structure exception
+     * @see OboInOwlCardinalityTools for equivalent checks in OWL
+     */
     public void check() throws FrameStructureException {
         if (FrameType.HEADER.equals(type)) {
             checkMaxOneCardinality(OboFormatTag.TAG_ONTOLOGY,
                     OboFormatTag.TAG_FORMAT_VERSION, OboFormatTag.TAG_DATE,
-                    OboFormatTag.TAG_DEFAULT_NAMESPACE, OboFormatTag.TAG_SAVED_BY,
+                    OboFormatTag.TAG_DEFAULT_NAMESPACE,
+                    OboFormatTag.TAG_SAVED_BY,
                     OboFormatTag.TAG_AUTO_GENERATED_BY);
         }
         if (FrameType.TYPEDEF.equals(type)) {
-            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN, OboFormatTag.TAG_RANGE,
-                    OboFormatTag.TAG_IS_METADATA_TAG, OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
+            checkMaxOneCardinality(OboFormatTag.TAG_DOMAIN,
+                    OboFormatTag.TAG_RANGE, OboFormatTag.TAG_IS_METADATA_TAG,
+                    OboFormatTag.TAG_IS_CLASS_LEVEL_TAG);
         }
         if (!FrameType.HEADER.equals(getType())) {
             if (getClauses(OboFormatTag.TAG_ID).size() != 1) {
@@ -299,7 +342,8 @@ public class Frame {
                         "cardinality of id field must be 1");
             }
             if (this.getClause(OboFormatTag.TAG_ID).getValue() == null) {
-                throw new FrameStructureException(this, "id field must not be null");
+                throw new FrameStructureException(this,
+                        "id field must not be null");
             }
             if (getId() == null) {
                 throw new FrameStructureException(this, "id field must be set");
@@ -318,22 +362,25 @@ public class Frame {
                 OboFormatTag.TAG_IS_ANTI_SYMMETRIC, OboFormatTag.TAG_IS_CYCLIC,
                 OboFormatTag.TAG_IS_REFLEXIVE, OboFormatTag.TAG_IS_SYMMETRIC,
                 OboFormatTag.TAG_IS_TRANSITIVE, OboFormatTag.TAG_IS_FUNCTIONAL,
-                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL, OboFormatTag.TAG_IS_OBSELETE,
-                OboFormatTag.TAG_CREATED_BY, OboFormatTag.TAG_CREATION_DATE);
+                OboFormatTag.TAG_IS_INVERSE_FUNCTIONAL,
+                OboFormatTag.TAG_IS_OBSELETE, OboFormatTag.TAG_CREATED_BY,
+                OboFormatTag.TAG_CREATION_DATE);
     }
 
-    /** Check max one cardinality.
+    /**
+     * Check max one cardinality.
      * 
      * @param tags
-     *            the tags
+     *        the tags
      * @throws FrameStructureException
-     *             frame structure exception */
+     *         frame structure exception
+     */
     private void checkMaxOneCardinality(OboFormatTag... tags)
             throws FrameStructureException {
         for (OboFormatTag tag : tags) {
             if (getClauses(tag).size() > 1) {
-                throw new FrameStructureException(this, "multiple " + tag.getTag()
-                        + " tags not allowed.");
+                throw new FrameStructureException(this, "multiple "
+                        + tag.getTag() + " tags not allowed.");
             }
         }
     }

@@ -42,9 +42,12 @@ import org.semanticweb.owlapi.model.HasIRI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Apr-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Apr-2008
+ */
 public interface OWLProfile extends HasIRI {
+
     /** http://www.w3.org/ns/owl-profile/DL **/
     IRI OWL2_DL = IRI.create("http://www.w3.org/ns/owl-profile/DL");
     /** http://www.w3.org/ns/owl-profile/EL **/
@@ -56,25 +59,31 @@ public interface OWLProfile extends HasIRI {
     /** http://www.w3.org/ns/owl-profile/Full **/
     IRI OWL2_FULL = IRI.create("http://www.w3.org/ns/owl-profile/Full");
 
-    /** Gets the name of the profile.
+    /**
+     * Gets the name of the profile.
      * 
-     * @return A string that represents the name of the profile */
+     * @return A string that represents the name of the profile
+     */
     String getName();
 
-    /** The IRI that uniquely identifies this profile. If this profile is listed
+    /**
+     * The IRI that uniquely identifies this profile. If this profile is listed
      * at http://www.w3.org/ns/owl-profile/ this IRI MUST match the IRI given in
      * the list.
      * 
-     * @return The IRI that identifies this profile. */
-     @Override
-     IRI getIRI();
+     * @return The IRI that identifies this profile.
+     */
+    @Override
+    IRI getIRI();
 
-    /** Checks an ontology and its import closure to see if it is within this
+    /**
+     * Checks an ontology and its import closure to see if it is within this
      * profile.
      * 
      * @param ontology
-     *            The ontology to be checked.
+     *        The ontology to be checked.
      * @return An {@code OWLProfileReport} that describes whether or not the
-     *         ontology is within this profile. */
+     *         ontology is within this profile.
+     */
     OWLProfileReport checkOntology(OWLOntology ontology);
 }

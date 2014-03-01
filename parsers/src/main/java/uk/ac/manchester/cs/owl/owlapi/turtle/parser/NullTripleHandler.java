@@ -40,11 +40,14 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** The Class NullTripleHandler.
+/**
+ * The Class NullTripleHandler.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Apr-2008 */
+ *         Informatics Group, Date: 17-Apr-2008
+ */
 public class NullTripleHandler implements TripleHandler {
+
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {}
 
@@ -61,10 +64,12 @@ public class NullTripleHandler implements TripleHandler {
     public void handleTriple(IRI subject, IRI predicate, String object) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {}
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            String lang) {}
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {}
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            IRI datatype) {}
 
     @Override
     public void handleEnd() {}

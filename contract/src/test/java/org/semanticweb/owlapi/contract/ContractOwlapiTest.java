@@ -28,10 +28,12 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiTest {
+
     @Test
     public void shouldTestAbstractCompositeOntologyChange() throws Exception {
         AbstractCompositeOntologyChange testSubject0 = new AbstractCompositeOntologyChange(
                 mock(OWLDataFactory.class)) {
+
             @Override
             public List<OWLOntologyChange> getChanges() {
                 return null;
@@ -45,8 +47,8 @@ public class ContractOwlapiTest {
     public void shouldTestAddClassExpressionClosureAxiom() throws Exception {
         AddClassExpressionClosureAxiom testSubject0 = new AddClassExpressionClosureAxiom(
                 mock(OWLDataFactory.class), mock(OWLClass.class),
-                Utils.mockObjectProperty(), Utils.mockSet(Utils.getMockOntology()),
-                Utils.getMockOntology());
+                Utils.mockObjectProperty(), Utils.mockSet(Utils
+                        .getMockOntology()), Utils.getMockOntology());
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
@@ -54,41 +56,49 @@ public class ContractOwlapiTest {
     @Test
     public void shouldTestAmalgamateSubClassAxioms() throws Exception {
         AmalgamateSubClassAxioms testSubject0 = new AmalgamateSubClassAxioms(
-                Utils.mockSet(Utils.getMockOntology()), mock(OWLDataFactory.class));
+                Utils.mockSet(Utils.getMockOntology()),
+                mock(OWLDataFactory.class));
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestCoerceConstantsIntoDataPropertyRange() throws Exception {
+    public void shouldTestCoerceConstantsIntoDataPropertyRange()
+            throws Exception {
         CoerceConstantsIntoDataPropertyRange testSubject0 = new CoerceConstantsIntoDataPropertyRange(
-                mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
+                mock(OWLDataFactory.class), Utils.mockSet(Utils
+                        .getMockOntology()));
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestConvertEquivalentClassesToSuperClasses() throws Exception {
+    public void shouldTestConvertEquivalentClassesToSuperClasses()
+            throws Exception {
         ConvertEquivalentClassesToSuperClasses testSubject0 = new ConvertEquivalentClassesToSuperClasses(
-                mock(OWLDataFactory.class), mock(OWLClass.class), Utils.mockSet(Utils
-                        .getMockOntology()), Utils.getMockOntology(), false);
+                mock(OWLDataFactory.class), mock(OWLClass.class),
+                Utils.mockSet(Utils.getMockOntology()),
+                Utils.getMockOntology(), false);
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestConvertPropertyAssertionsToAnnotations() throws Exception {
+    public void shouldTestConvertPropertyAssertionsToAnnotations()
+            throws Exception {
         ConvertPropertyAssertionsToAnnotations testSubject0 = new ConvertPropertyAssertionsToAnnotations(
-                mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
+                mock(OWLDataFactory.class), Utils.mockSet(Utils
+                        .getMockOntology()));
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestConvertSuperClassesToEquivalentClass() throws Exception {
+    public void shouldTestConvertSuperClassesToEquivalentClass()
+            throws Exception {
         ConvertSuperClassesToEquivalentClass testSubject0 = new ConvertSuperClassesToEquivalentClass(
-                mock(OWLDataFactory.class), mock(OWLClass.class), Utils.mockSet(Utils
-                        .getMockOntology()), Utils.getMockOntology());
+                mock(OWLDataFactory.class), mock(OWLClass.class),
+                Utils.mockSet(Utils.getMockOntology()), Utils.getMockOntology());
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
@@ -97,8 +107,8 @@ public class ContractOwlapiTest {
     public void shouldTestCreateValuePartition() throws Exception {
         CreateValuePartition testSubject0 = new CreateValuePartition(
                 mock(OWLDataFactory.class), mock(OWLClass.class),
-                Utils.mockSet(mock(OWLClass.class)), mock(OWLObjectProperty.class),
-                Utils.getMockOntology());
+                Utils.mockSet(mock(OWLClass.class)),
+                mock(OWLObjectProperty.class), Utils.getMockOntology());
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
@@ -106,26 +116,30 @@ public class ContractOwlapiTest {
     @Test
     public void shouldTestMakeClassesMutuallyDisjoint() throws Exception {
         MakeClassesMutuallyDisjoint testSubject0 = new MakeClassesMutuallyDisjoint(
-                mock(OWLDataFactory.class), Utils.mockSet(Utils.mockAnonClass()), false,
+                mock(OWLDataFactory.class),
+                Utils.mockSet(Utils.mockAnonClass()), false,
                 Utils.getMockOntology());
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestMakePrimitiveSubClassesMutuallyDisjoint() throws Exception {
+    public void shouldTestMakePrimitiveSubClassesMutuallyDisjoint()
+            throws Exception {
         MakePrimitiveSubClassesMutuallyDisjoint testSubject0 = new MakePrimitiveSubClassesMutuallyDisjoint(
-                mock(OWLDataFactory.class), mock(OWLClass.class), Utils.mockSet(Utils
-                        .getMockOntology()), Utils.getMockOntology());
+                mock(OWLDataFactory.class), mock(OWLClass.class),
+                Utils.mockSet(Utils.getMockOntology()), Utils.getMockOntology());
         MakePrimitiveSubClassesMutuallyDisjoint testSubject1 = new MakePrimitiveSubClassesMutuallyDisjoint(
-                mock(OWLDataFactory.class), mock(OWLClass.class), Utils.mockSet(Utils
-                        .getMockOntology()), Utils.getMockOntology(), false);
+                mock(OWLDataFactory.class), mock(OWLClass.class),
+                Utils.mockSet(Utils.getMockOntology()),
+                Utils.getMockOntology(), false);
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestInterfaceOWLCompositeOntologyChange() throws Exception {
+    public void shouldTestInterfaceOWLCompositeOntologyChange()
+            throws Exception {
         OWLCompositeOntologyChange testSubject0 = mock(OWLCompositeOntologyChange.class);
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
     }
@@ -133,7 +147,8 @@ public class ContractOwlapiTest {
     @Test
     public void shouldTestRemoveAllDisjointAxioms() throws Exception {
         RemoveAllDisjointAxioms testSubject0 = new RemoveAllDisjointAxioms(
-                mock(OWLDataFactory.class), Utils.mockSet(Utils.getMockOntology()));
+                mock(OWLDataFactory.class), Utils.mockSet(Utils
+                        .getMockOntology()));
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }
@@ -151,8 +166,9 @@ public class ContractOwlapiTest {
 
     @Test
     public void shouldTestSplitSubClassAxioms() throws Exception {
-        SplitSubClassAxioms testSubject0 = new SplitSubClassAxioms(Utils.mockSet(Utils
-                .getMockOntology()), mock(OWLDataFactory.class));
+        SplitSubClassAxioms testSubject0 = new SplitSubClassAxioms(
+                Utils.mockSet(Utils.getMockOntology()),
+                mock(OWLDataFactory.class));
         List<OWLOntologyChange> result0 = testSubject0.getChanges();
         String result1 = testSubject0.toString();
     }

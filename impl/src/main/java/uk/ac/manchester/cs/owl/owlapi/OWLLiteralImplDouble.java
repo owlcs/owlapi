@@ -48,17 +48,22 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
+
     private static final long serialVersionUID = 30406L;
     private final double literal;
     private final OWLDatatype datatype;
 
-    /** @param literal
-     *            literal value
+    /**
+     * @param literal
+     *        literal value
      * @param datatype
-     *            datatype */
+     *        datatype
+     */
     public OWLLiteralImplDouble(double literal, OWLDatatype datatype) {
         super();
         this.literal = literal;
@@ -102,7 +107,8 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public int parseInteger() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not an integer but a double");
+        throw new NumberFormatException(
+                "this literal is not an integer but a double");
     }
 
     @Override
@@ -112,7 +118,8 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean parseBoolean() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not a boolean but a double");
+        throw new NumberFormatException(
+                "this literal is not a boolean but a double");
     }
 
     @Override
@@ -132,7 +139,8 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public float parseFloat() throws NumberFormatException {
-        throw new NumberFormatException("this literal is not a float but a double");
+        throw new NumberFormatException(
+                "this literal is not a float but a double");
     }
 
     @Override
@@ -155,7 +163,8 @@ public class OWLLiteralImplDouble extends OWLObjectImpl implements OWLLiteral {
         if (super.equals(obj)) {
             if (obj instanceof OWLLiteralImplDouble) {
                 OWLLiteralImplDouble other = (OWLLiteralImplDouble) obj;
-                return literal == other.literal && datatype.equals(other.getDatatype());
+                return literal == other.literal
+                        && datatype.equals(other.getDatatype());
             }
             if (obj instanceof OWLLiteral) {
                 return datatype.equals(((OWLLiteral) obj).getDatatype())

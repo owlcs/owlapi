@@ -42,15 +42,20 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group, Date: 30-Jul-2008
  * @param <O>
- *            visitor return type */
+ *        visitor return type
+ */
 public class OWLOntologyWalkerVisitor<O> extends OWLObjectVisitorExAdapter<O> {
+
     private final OWLOntologyWalker walker;
 
-    /** @param walker
-     *            ontology walker */
+    /**
+     * @param walker
+     *        ontology walker
+     */
     public OWLOntologyWalkerVisitor(OWLOntologyWalker walker) {
         this.walker = walker;
     }

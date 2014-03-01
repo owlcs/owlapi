@@ -42,20 +42,27 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
+ */
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
+
     /** default constructor. */
     public OWLDataPropertyNode() {}
 
-    /** @param entity
-     *            the entity to be contained */
+    /**
+     * @param entity
+     *        the entity to be contained
+     */
     public OWLDataPropertyNode(OWLDataProperty entity) {
         super(entity);
     }
 
-    /** @param entities
-     *            the entities to be contained */
+    /**
+     * @param entities
+     *        the entities to be contained
+     */
     public OWLDataPropertyNode(Set<OWLDataProperty> entities) {
         super(entities);
     }

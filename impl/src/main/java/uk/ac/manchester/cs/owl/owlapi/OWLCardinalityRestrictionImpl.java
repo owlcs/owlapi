@@ -43,21 +43,26 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006
  * @param <R>
- *            the range
+ *        the range
  * @param <P>
- *            the property expression
+ *        the property expression
  * @param <F>
- *            the value */
+ *        the value
+ */
 public abstract class OWLCardinalityRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-        extends OWLRestrictionImpl<R, P, F> implements OWLCardinalityRestriction<R, P, F> {
+        extends OWLRestrictionImpl<R, P, F> implements
+        OWLCardinalityRestriction<R, P, F> {
+
     private static final long serialVersionUID = 30406L;
     private final int cardinality;
     private final F filler;
 
-    protected OWLCardinalityRestrictionImpl(P property, int cardinality, F filler) {
+    protected OWLCardinalityRestrictionImpl(P property, int cardinality,
+            F filler) {
         super(property);
         this.cardinality = cardinality;
         this.filler = filler;

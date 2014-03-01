@@ -42,15 +42,20 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ */
 public class OWLDataPropertyDomainAxiomElementHandler extends
         AbstractOWLAxiomElementHandler {
+
     private OWLClassExpression domain;
     private OWLDataPropertyExpression property;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLDataPropertyDomainAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -75,7 +80,7 @@ public class OWLDataPropertyDomainAxiomElementHandler extends
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
                     getColumnNumber(), "class expression element");
         }
-        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property, domain,
-                getAnnotations());
+        return getOWLDataFactory().getOWLDataPropertyDomainAxiom(property,
+                domain, getAnnotations());
     }
 }

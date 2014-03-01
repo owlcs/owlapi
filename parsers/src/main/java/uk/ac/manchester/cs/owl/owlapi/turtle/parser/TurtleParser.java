@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 /** The Class TurtleParser. */
 public class TurtleParser implements AnonymousNodeChecker,
         TurtleParserConstants {
+
     /** The string2 iri. */
     private Map<String, IRI> string2IRI;
     /** The base. */
@@ -26,14 +27,16 @@ public class TurtleParser implements AnonymousNodeChecker,
     /** The pm. */
     private DefaultPrefixManager pm = new DefaultPrefixManager();
 
-    /** Instantiates a new turtle parser.
+    /**
+     * Instantiates a new turtle parser.
      * 
      * @param reader
-     *            the reader
+     *        the reader
      * @param handler
-     *            the handler
+     *        the handler
      * @param base
-     *            the base */
+     *        the base
+     */
     public TurtleParser(Reader reader, TripleHandler handler, String base) {
         this(reader);
         this.handler = handler;
@@ -42,14 +45,16 @@ public class TurtleParser implements AnonymousNodeChecker,
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    /** Instantiates a new turtle parser.
+    /**
+     * Instantiates a new turtle parser.
      * 
      * @param is
-     *            the is
+     *        the is
      * @param handler
-     *            the handler
+     *        the handler
      * @param base
-     *            the base */
+     *        the base
+     */
     public TurtleParser(InputStream is, TripleHandler handler, String base) {
         this(is);
         this.handler = handler;
@@ -58,17 +63,21 @@ public class TurtleParser implements AnonymousNodeChecker,
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    /** Gets the prefix manager.
+    /**
+     * Gets the prefix manager.
      * 
-     * @return the prefix manager */
+     * @return the prefix manager
+     */
     public DefaultPrefixManager getPrefixManager() {
         return pm;
     }
 
-    /** Sets the triple handler.
+    /**
+     * Sets the triple handler.
      * 
      * @param handler
-     *            the new triple handler */
+     *        the new triple handler
+     */
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
     }
@@ -88,11 +97,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         return NodeID.isAnonymousNodeID(iri);
     }
 
-    /** Gets the next blank node.
+    /**
+     * Gets the next blank node.
      * 
      * @param id
-     *            the id
-     * @return the next blank node */
+     *        the id
+     * @return the next blank node
+     */
     protected IRI getNextBlankNode(String id) {
         String string;
         if (id == null) {
@@ -112,13 +123,15 @@ public class TurtleParser implements AnonymousNodeChecker,
         return iri;
     }
 
-    /** Gets the iRI from q name.
+    /**
+     * Gets the iRI from q name.
      * 
      * @param qname
-     *            the qname
+     *        the qname
      * @return the iRI from q name
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     protected IRI getIRIFromQName(String qname) throws ParseException {
         int colonIndex = qname.indexOf(':');
         if (colonIndex == -1) {
@@ -134,11 +147,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         return pm.getIRI(qname);
     }
 
-    /** Gets the iri.
+    /**
+     * Gets the iri.
      * 
      * @param _s
-     *            the string
-     * @return the iri */
+     *        the string
+     * @return the iri
+     */
     public IRI getIRI(String _s) {
         String s = _s;
         if (s.charAt(0) == '<') {
@@ -161,10 +176,12 @@ public class TurtleParser implements AnonymousNodeChecker,
     // {
     // <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
     // }
-    /** Parses the document.
+    /**
+     * Parses the document.
      * 
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseDocument() throws ParseException {
         label_1: while (true) {
             if (jj_2_1(2)) {
@@ -185,10 +202,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         handler.handleEnd();
     }
 
-    /** Parses the directive.
+    /**
+     * Parses the directive.
      * 
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseDirective() throws ParseException {
         if (jj_2_4(2)) {
             parsePrefixDirective();
@@ -200,10 +219,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the prefix directive.
+    /**
+     * Parses the prefix directive.
      * 
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parsePrefixDirective() throws ParseException {
         Token t;
         String prefix = "";
@@ -216,10 +237,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         handler.handlePrefixDirective(prefix, ns.toString());
     }
 
-    /** Parses the base directive.
+    /**
+     * Parses the base directive.
      * 
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseBaseDirective() throws ParseException {
         Token t;
         jj_consume_token(BASE);
@@ -228,18 +251,22 @@ public class TurtleParser implements AnonymousNodeChecker,
         handler.handleBaseDirective(base);
     }
 
-    /** Parses the statement.
+    /**
+     * Parses the statement.
      * 
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseStatement() throws ParseException {
         parseTriples();
     }
 
-    /** Parses the triples.
+    /**
+     * Parses the triples.
      * 
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseTriples() throws ParseException {
         IRI subject;
         subject = parseSubject();
@@ -248,11 +275,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the subject.
+    /**
+     * Parses the subject.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseSubject() throws ParseException {
         IRI iri;
         if (jj_2_7(2)) {
@@ -266,44 +295,52 @@ public class TurtleParser implements AnonymousNodeChecker,
         return iri;
     }
 
-    /** Parses the lone ns.
+    /**
+     * Parses the lone ns.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseLoneNS() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_NS);
         return getIRIFromQName(t.image);
     }
 
-    /** Parses the abbreviated iri.
+    /**
+     * Parses the abbreviated iri.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseAbbreviatedIRI() throws ParseException {
         Token t;
         t = jj_consume_token(PNAME_LN);
         return getIRIFromQName(t.image);
     }
 
-    /** Parses the iri.
+    /**
+     * Parses the iri.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseIRI() throws ParseException {
         Token t;
         t = jj_consume_token(FULLIRI);
         return getIRI(t.image);
     }
 
-    /** Parses the blank node.
+    /**
+     * Parses the blank node.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseBlankNode() throws ParseException {
         IRI iri = null;
         if (jj_2_11(2)) {
@@ -333,23 +370,27 @@ public class TurtleParser implements AnonymousNodeChecker,
         return iri;
     }
 
-    /** Parses the node id.
+    /**
+     * Parses the node id.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseNodeID() throws ParseException {
         Token t;
         t = jj_consume_token(NODEID);
         return getNextBlankNode(t.image);
     }
 
-    /** Parses the predicate object list.
+    /**
+     * Parses the predicate object list.
      * 
      * @param subject
-     *            the subject
+     *        the subject
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parsePredicateObjectList(IRI subject)
             throws ParseException {
         IRI predicate;
@@ -368,11 +409,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the verb.
+    /**
+     * Parses the verb.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseVerb() throws ParseException {
         IRI iri;
         if (jj_2_17(2)) {
@@ -387,22 +430,26 @@ public class TurtleParser implements AnonymousNodeChecker,
         return iri;
     }
 
-    /** Parses the predicate.
+    /**
+     * Parses the predicate.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parsePredicate() throws ParseException {
         IRI iri;
         iri = parseResource();
         return iri;
     }
 
-    /** Parses the resource.
+    /**
+     * Parses the resource.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseResource() throws ParseException {
         IRI iri;
         if (jj_2_19(2)) {
@@ -418,14 +465,16 @@ public class TurtleParser implements AnonymousNodeChecker,
         return iri;
     }
 
-    /** Parses the object list.
+    /**
+     * Parses the object list.
      * 
      * @param subject
-     *            the subject
+     *        the subject
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseObjectList(IRI subject, IRI predicate)
             throws ParseException {
         parseObject(subject, predicate);
@@ -438,14 +487,16 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the object.
+    /**
+     * Parses the object.
      * 
      * @param subject
-     *            the subject
+     *        the subject
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseObject(IRI subject, IRI predicate)
             throws ParseException {
         IRI resObject;
@@ -467,11 +518,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the collection.
+    /**
+     * Parses the collection.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseCollection() throws ParseException {
         IRI iri;
         jj_consume_token(OPENPAR);
@@ -480,11 +533,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         return iri;
     }
 
-    /** Parses the item list.
+    /**
+     * Parses the item list.
      * 
      * @return the iri
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public IRI parseItemList() throws ParseException {
         // _x rdf:type rdf:List
         // _x rdf:first
@@ -519,14 +574,16 @@ public class TurtleParser implements AnonymousNodeChecker,
         return firstSubject;
     }
 
-    /** Parses the literal.
+    /**
+     * Parses the literal.
      * 
      * @param subject
-     *            the subject
+     *        the subject
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public void parseLiteral(IRI subject, IRI predicate)
             throws ParseException {
         String literal;
@@ -577,11 +634,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the integer.
+    /**
+     * Parses the integer.
      * 
      * @return the string
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public String parseInteger() throws ParseException {
         Token t;
         if (jj_2_36(2)) {
@@ -596,33 +655,39 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Parses the double.
+    /**
+     * Parses the double.
      * 
      * @return the string
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public String parseDouble() throws ParseException {
         Token t;
         t = jj_consume_token(DOUBLE);
         return t.image;
     }
 
-    /** Parses the decimal.
+    /**
+     * Parses the decimal.
      * 
      * @return the string
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public String parseDecimal() throws ParseException {
         Token t;
         t = jj_consume_token(DECIMAL);
         return t.image;
     }
 
-    /** Parses the boolean.
+    /**
+     * Parses the boolean.
      * 
      * @return the string
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public String parseBoolean() throws ParseException {
         Token t;
         if (jj_2_38(2)) {
@@ -636,22 +701,26 @@ public class TurtleParser implements AnonymousNodeChecker,
         return t.image;
     }
 
-    /** Parses the quoted string.
+    /**
+     * Parses the quoted string.
      * 
      * @return the string
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public String parseQuotedString() throws ParseException {
         String s;
         s = parseString();
         return s;
     }
 
-    /** Parses the string.
+    /**
+     * Parses the string.
      * 
      * @return the string
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     final public String parseString() throws ParseException {
         Token t;
         String rawString = "";
@@ -668,11 +737,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         return EscapeUtils.unescapeString(rawString);
     }
 
-    /** Jj_2_1.
+    /**
+     * Jj_2_1.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_1(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -685,11 +756,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_2.
+    /**
+     * Jj_2_2.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_2(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -702,11 +775,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_3.
+    /**
+     * Jj_2_3.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_3(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -719,11 +794,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_4.
+    /**
+     * Jj_2_4.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_4(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -736,11 +813,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_5.
+    /**
+     * Jj_2_5.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_5(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -753,11 +832,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_6.
+    /**
+     * Jj_2_6.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_6(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -770,11 +851,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_7.
+    /**
+     * Jj_2_7.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_7(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -787,11 +870,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_8.
+    /**
+     * Jj_2_8.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_8(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -804,11 +889,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_9.
+    /**
+     * Jj_2_9.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_9(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -821,11 +908,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_10.
+    /**
+     * Jj_2_10.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_10(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -838,11 +927,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_11.
+    /**
+     * Jj_2_11.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_11(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -855,11 +946,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_12.
+    /**
+     * Jj_2_12.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_12(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -872,11 +965,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_13.
+    /**
+     * Jj_2_13.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_13(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -889,11 +984,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_14.
+    /**
+     * Jj_2_14.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_14(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -906,11 +1003,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_15.
+    /**
+     * Jj_2_15.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_15(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -923,11 +1022,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_16.
+    /**
+     * Jj_2_16.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_16(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -940,11 +1041,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_17.
+    /**
+     * Jj_2_17.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_17(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -957,11 +1060,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_18.
+    /**
+     * Jj_2_18.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_18(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -974,11 +1079,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_19.
+    /**
+     * Jj_2_19.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_19(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -991,11 +1098,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_20.
+    /**
+     * Jj_2_20.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_20(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1008,11 +1117,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_21.
+    /**
+     * Jj_2_21.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_21(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1025,11 +1136,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_22.
+    /**
+     * Jj_2_22.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_22(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1042,11 +1155,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_23.
+    /**
+     * Jj_2_23.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_23(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1059,11 +1174,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_24.
+    /**
+     * Jj_2_24.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_24(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1076,11 +1193,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_25.
+    /**
+     * Jj_2_25.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_25(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1093,11 +1212,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_26.
+    /**
+     * Jj_2_26.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_26(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1110,11 +1231,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_27.
+    /**
+     * Jj_2_27.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_27(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1127,11 +1250,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_28.
+    /**
+     * Jj_2_28.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_28(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1144,11 +1269,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_29.
+    /**
+     * Jj_2_29.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_29(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1161,11 +1288,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_30.
+    /**
+     * Jj_2_30.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_30(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1178,11 +1307,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_31.
+    /**
+     * Jj_2_31.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_31(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1195,11 +1326,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_32.
+    /**
+     * Jj_2_32.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_32(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1212,11 +1345,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_33.
+    /**
+     * Jj_2_33.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_33(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1229,11 +1364,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_34.
+    /**
+     * Jj_2_34.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_34(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1246,11 +1383,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_35.
+    /**
+     * Jj_2_35.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_35(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1263,11 +1402,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_36.
+    /**
+     * Jj_2_36.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_36(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1280,11 +1421,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_37.
+    /**
+     * Jj_2_37.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_37(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1297,11 +1440,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_38.
+    /**
+     * Jj_2_38.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_38(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1314,11 +1459,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_39.
+    /**
+     * Jj_2_39.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_39(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1331,11 +1478,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_40.
+    /**
+     * Jj_2_40.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_40(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1348,11 +1497,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_2_41.
+    /**
+     * Jj_2_41.
      * 
      * @param xla
-     *            the xla
-     * @return true, if successful */
+     *        the xla
+     * @return true, if successful
+     */
     private boolean jj_2_41(int xla) {
         jj_la = xla;
         jj_lastpos = jj_scanpos = token;
@@ -1365,9 +1516,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_3_8.
+    /**
+     * Jj_3_8.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_8() {
         if (jj_3R_11()) {
             return true;
@@ -1375,9 +1528,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_37.
+    /**
+     * Jj_3_37.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_37() {
         if (jj_scan_token(DIGIT)) {
             return true;
@@ -1385,9 +1540,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_23.
+    /**
+     * Jj_3_23.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_23() {
         if (jj_3R_10()) {
             return true;
@@ -1395,9 +1552,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_24.
+    /**
+     * Jj_3_24.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_24() {
         if (jj_3R_11()) {
             return true;
@@ -1405,9 +1564,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_17.
+    /**
+     * Jj_3 r_17.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_17() {
         if (jj_scan_token(PNAME_LN)) {
             return true;
@@ -1415,9 +1576,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_26.
+    /**
+     * Jj_3_26.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_26() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1430,9 +1593,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_6.
+    /**
+     * Jj_3_6.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_6() {
         if (jj_3R_9()) {
             return true;
@@ -1440,9 +1605,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_25.
+    /**
+     * Jj_3_25.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_25() {
         if (jj_3R_20()) {
             return true;
@@ -1450,9 +1617,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_22.
+    /**
+     * Jj_3 r_22.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_22() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1465,9 +1634,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_19.
+    /**
+     * Jj_3 r_19.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_19() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1480,9 +1651,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_36.
+    /**
+     * Jj_3_36.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_36() {
         if (jj_scan_token(INTEGER)) {
             return true;
@@ -1490,9 +1663,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_28.
+    /**
+     * Jj_3_28.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_28() {
         if (jj_scan_token(DOUBLE_CARET)) {
             return true;
@@ -1503,9 +1678,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_30.
+    /**
+     * Jj_3_30.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_30() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1518,9 +1695,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_20.
+    /**
+     * Jj_3_20.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_20() {
         if (jj_3R_17()) {
             return true;
@@ -1528,9 +1707,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_18.
+    /**
+     * Jj_3 r_18.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_18() {
         if (jj_scan_token(PNAME_NS)) {
             return true;
@@ -1538,9 +1719,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_16.
+    /**
+     * Jj_3_16.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_16() {
         if (jj_scan_token(SEMICOLON)) {
             return true;
@@ -1548,9 +1731,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_27.
+    /**
+     * Jj_3 r_27.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_27() {
         if (jj_3R_19()) {
             return true;
@@ -1558,9 +1743,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_35.
+    /**
+     * Jj_3_35.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_35() {
         if (jj_3R_25()) {
             return true;
@@ -1568,9 +1755,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_34.
+    /**
+     * Jj_3_34.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_34() {
         if (jj_3R_24()) {
             return true;
@@ -1578,9 +1767,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_33.
+    /**
+     * Jj_3_33.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_33() {
         if (jj_3R_23()) {
             return true;
@@ -1588,9 +1779,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_32.
+    /**
+     * Jj_3_32.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_32() {
         if (jj_3R_22()) {
             return true;
@@ -1598,9 +1791,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_7.
+    /**
+     * Jj_3_7.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_7() {
         if (jj_3R_10()) {
             return true;
@@ -1608,9 +1803,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_30.
+    /**
+     * Jj_3 r_30.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_30() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1623,9 +1820,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_19.
+    /**
+     * Jj_3_19.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_19() {
         if (jj_3R_16()) {
             return true;
@@ -1633,9 +1832,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_10.
+    /**
+     * Jj_3 r_10.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_10() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1651,9 +1852,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_26.
+    /**
+     * Jj_3 r_26.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_26() {
         if (jj_3R_30()) {
             return true;
@@ -1666,9 +1869,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_15.
+    /**
+     * Jj_3 r_15.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_15() {
         if (jj_3R_10()) {
             return true;
@@ -1676,9 +1881,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_20.
+    /**
+     * Jj_3 r_20.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_20() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1700,9 +1907,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_31.
+    /**
+     * Jj_3_31.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_31() {
         if (jj_3R_21()) {
             return true;
@@ -1715,9 +1924,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_6.
+    /**
+     * Jj_3 r_6.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_6() {
         if (jj_3R_26()) {
             return true;
@@ -1725,9 +1936,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_41.
+    /**
+     * Jj_3_41.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_41() {
         if (jj_scan_token(LONG_STRING)) {
             return true;
@@ -1735,9 +1948,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_40.
+    /**
+     * Jj_3_40.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_40() {
         if (jj_scan_token(STRING)) {
             return true;
@@ -1745,9 +1960,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_5.
+    /**
+     * Jj_3_5.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_5() {
         if (jj_3R_8()) {
             return true;
@@ -1755,9 +1972,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_17.
+    /**
+     * Jj_3_17.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_17() {
         if (jj_scan_token(A)) {
             return true;
@@ -1765,9 +1984,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_29.
+    /**
+     * Jj_3 r_29.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_29() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1780,9 +2001,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_14.
+    /**
+     * Jj_3 r_14.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_14() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1795,9 +2018,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_8.
+    /**
+     * Jj_3 r_8.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_8() {
         if (jj_scan_token(BASE)) {
             return true;
@@ -1808,9 +2033,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_2.
+    /**
+     * Jj_3_2.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_2() {
         if (jj_3R_6()) {
             return true;
@@ -1821,9 +2048,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_10.
+    /**
+     * Jj_3_10.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_10() {
         if (jj_3R_9()) {
             return true;
@@ -1831,9 +2060,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_9.
+    /**
+     * Jj_3 r_9.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_9() {
         if (jj_3R_14()) {
             return true;
@@ -1844,9 +2075,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_39.
+    /**
+     * Jj_3_39.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_39() {
         if (jj_scan_token(FALSE)) {
             return true;
@@ -1854,9 +2087,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_21.
+    /**
+     * Jj_3 r_21.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_21() {
         if (jj_3R_29()) {
             return true;
@@ -1864,9 +2099,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_29.
+    /**
+     * Jj_3_29.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_29() {
         if (jj_scan_token(AT)) {
             return true;
@@ -1877,9 +2114,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_7.
+    /**
+     * Jj_3 r_7.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_7() {
         if (jj_scan_token(PREFIX)) {
             return true;
@@ -1890,9 +2129,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_12.
+    /**
+     * Jj_3 r_12.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_12() {
         if (jj_scan_token(NODEID)) {
             return true;
@@ -1900,9 +2141,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_21.
+    /**
+     * Jj_3_21.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_21() {
         if (jj_3R_18()) {
             return true;
@@ -1910,9 +2153,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_38.
+    /**
+     * Jj_3_38.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_38() {
         if (jj_scan_token(TRUE)) {
             return true;
@@ -1920,9 +2165,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_25.
+    /**
+     * Jj_3 r_25.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_25() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1935,9 +2182,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_27.
+    /**
+     * Jj_3_27.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_27() {
         if (jj_3R_19()) {
             return true;
@@ -1945,9 +2194,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_28.
+    /**
+     * Jj_3 r_28.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_28() {
         Token xsp;
         while (true) {
@@ -1960,9 +2211,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_5.
+    /**
+     * Jj_3 r_5.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_5() {
         Token xsp;
         xsp = jj_scanpos;
@@ -1975,9 +2228,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_4.
+    /**
+     * Jj_3_4.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_4() {
         if (jj_3R_7()) {
             return true;
@@ -1985,9 +2240,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_9.
+    /**
+     * Jj_3_9.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_9() {
         if (jj_scan_token(DOT)) {
             return true;
@@ -1995,9 +2252,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_14.
+    /**
+     * Jj_3_14.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_14() {
         if (jj_3R_13()) {
             return true;
@@ -2005,9 +2264,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_1.
+    /**
+     * Jj_3_1.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_1() {
         if (jj_3R_5()) {
             return true;
@@ -2015,9 +2276,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_3.
+    /**
+     * Jj_3_3.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_3() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2030,9 +2293,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_13.
+    /**
+     * Jj_3_13.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_13() {
         if (jj_scan_token(OPEN_SQUARE_BRACKET)) {
             return true;
@@ -2048,9 +2313,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_22.
+    /**
+     * Jj_3_22.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_22() {
         if (jj_scan_token(COMMA)) {
             return true;
@@ -2061,9 +2328,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_24.
+    /**
+     * Jj_3 r_24.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_24() {
         if (jj_scan_token(DECIMAL)) {
             return true;
@@ -2071,9 +2340,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_12.
+    /**
+     * Jj_3_12.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_12() {
         if (jj_scan_token(EMPTY_BLANK_NODE)) {
             return true;
@@ -2081,9 +2352,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_11.
+    /**
+     * Jj_3_11.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_11() {
         if (jj_3R_12()) {
             return true;
@@ -2091,9 +2364,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_11.
+    /**
+     * Jj_3 r_11.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_11() {
         Token xsp;
         xsp = jj_scanpos;
@@ -2112,9 +2387,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_23.
+    /**
+     * Jj_3 r_23.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_23() {
         if (jj_scan_token(DOUBLE)) {
             return true;
@@ -2122,9 +2399,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_13.
+    /**
+     * Jj_3 r_13.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_13() {
         if (jj_scan_token(OPENPAR)) {
             return true;
@@ -2138,9 +2417,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_15.
+    /**
+     * Jj_3_15.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_15() {
         if (jj_scan_token(SEMICOLON)) {
             return true;
@@ -2151,9 +2432,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3 r_16.
+    /**
+     * Jj_3 r_16.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3R_16() {
         if (jj_scan_token(FULLIRI)) {
             return true;
@@ -2161,9 +2444,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Jj_3_18.
+    /**
+     * Jj_3_18.
      * 
-     * @return true, if successful */
+     * @return true, if successful
+     */
     private boolean jj_3_18() {
         if (jj_3R_15()) {
             return true;
@@ -2213,20 +2498,24 @@ public class TurtleParser implements AnonymousNodeChecker,
     /** The jj_gc. */
     private int jj_gc = 0;
 
-    /** Constructor with InputStream.
+    /**
+     * Constructor with InputStream.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public TurtleParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding.
+    /**
+     * Constructor with InputStream and supplied encoding.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public TurtleParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
@@ -2244,20 +2533,24 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -2275,10 +2568,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public TurtleParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new TurtleParserTokenManager(jj_input_stream);
@@ -2292,10 +2587,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
@@ -2309,10 +2606,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Constructor with generated Token Manager.
+    /**
+     * Constructor with generated Token Manager.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public TurtleParser(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -2325,10 +2624,12 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public void ReInit(TurtleParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -2341,13 +2642,15 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Jj_consume_token.
+    /**
+     * Jj_consume_token.
      * 
      * @param kind
-     *            the kind
+     *        the kind
      * @return the token
      * @throws ParseException
-     *             the parse exception */
+     *         the parse exception
+     */
     private Token jj_consume_token(int kind) throws ParseException {
         Token oldToken;
         if ((oldToken = token).next != null) {
@@ -2378,6 +2681,7 @@ public class TurtleParser implements AnonymousNodeChecker,
 
     /** The Class LookaheadSuccess. */
     static private final class LookaheadSuccess extends java.lang.Error {
+
         public LookaheadSuccess() {}
 
         private static final long serialVersionUID = 1L;
@@ -2386,11 +2690,13 @@ public class TurtleParser implements AnonymousNodeChecker,
     /** The jj_ls. */
     final private LookaheadSuccess jj_ls = new LookaheadSuccess();
 
-    /** Jj_scan_token.
+    /**
+     * Jj_scan_token.
      * 
      * @param kind
-     *            the kind
-     * @return true, if successful */
+     *        the kind
+     * @return true, if successful
+     */
     private boolean jj_scan_token(int kind) {
         if (jj_scanpos == jj_lastpos) {
             jj_la--;
@@ -2423,9 +2729,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         return false;
     }
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     final public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
@@ -2436,11 +2744,13 @@ public class TurtleParser implements AnonymousNodeChecker,
         return token;
     }
 
-    /** Get the specific Token.
+    /**
+     * Get the specific Token.
      * 
      * @param index
-     *            the index
-     * @return the token */
+     *        the index
+     * @return the token
+     */
     final public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
@@ -2464,12 +2774,14 @@ public class TurtleParser implements AnonymousNodeChecker,
     /** The jj_endpos. */
     private int jj_endpos;
 
-    /** Jj_add_error_token.
+    /**
+     * Jj_add_error_token.
      * 
      * @param kind
-     *            the kind
+     *        the kind
      * @param pos
-     *            the pos */
+     *        the pos
+     */
     private void jj_add_error_token(int kind, int pos) {
         if (pos >= 100) {
             return;
@@ -2500,9 +2812,11 @@ public class TurtleParser implements AnonymousNodeChecker,
         }
     }
 
-    /** Generate ParseException.
+    /**
+     * Generate ParseException.
      * 
-     * @return the parses the exception */
+     * @return the parses the exception
+     */
     public ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[48];
@@ -2688,12 +3002,14 @@ public class TurtleParser implements AnonymousNodeChecker,
         jj_rescan = false;
     }
 
-    /** Jj_save.
+    /**
+     * Jj_save.
      * 
      * @param index
-     *            the index
+     *        the index
      * @param xla
-     *            the xla */
+     *        the xla
+     */
     private void jj_save(int index, int xla) {
         JJCalls p = jj_2_rtns[index];
         while (p.gen > jj_gen) {
@@ -2710,6 +3026,7 @@ public class TurtleParser implements AnonymousNodeChecker,
 
     /** The Class JJCalls. */
     static final class JJCalls {
+
         /** The gen. */
         int gen;
         /** The first. */

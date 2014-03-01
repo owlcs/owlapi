@@ -47,12 +47,16 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** An implementation of the OWLObjectRenderer interface. (Renders standalone
+/**
+ * An implementation of the OWLObjectRenderer interface. (Renders standalone
  * class class expressions and axioms in the manchester syntax).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Nov-2007 */
-public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRenderer {
+ *         Informatics Group, Date: 25-Nov-2007
+ */
+public class ManchesterOWLSyntaxOWLObjectRendererImpl implements
+        OWLObjectRenderer {
+
     private ManchesterOWLSyntaxObjectRenderer ren;
     private WriterDelegate writerDelegate;
 
@@ -71,11 +75,14 @@ public class ManchesterOWLSyntaxOWLObjectRendererImpl implements OWLObjectRender
     }
 
     @Override
-    public synchronized void setShortFormProvider(ShortFormProvider shortFormProvider) {
-        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate, shortFormProvider);
+    public synchronized void setShortFormProvider(
+            ShortFormProvider shortFormProvider) {
+        ren = new ManchesterOWLSyntaxObjectRenderer(writerDelegate,
+                shortFormProvider);
     }
 
     private static class WriterDelegate extends Writer {
+
         private StringWriter delegate;
 
         /** default constructor */

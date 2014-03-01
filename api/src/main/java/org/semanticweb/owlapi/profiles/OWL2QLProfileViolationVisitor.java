@@ -38,78 +38,105 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public interface OWL2QLProfileViolationVisitor {
-    /** visit UseOfAnonymousIndividual type
+
+    /**
+     * visit UseOfAnonymousIndividual type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfAnonymousIndividual individual);
 
-    /** visit UseOfDataOneOfWithMultipleLiterals type
+    /**
+     * visit UseOfDataOneOfWithMultipleLiterals type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfDataOneOfWithMultipleLiterals individual);
 
-    /** visit UseOfIllegalAxiom type
+    /**
+     * visit UseOfIllegalAxiom type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalAxiom individual);
 
-    /** visit UseOfIllegalDataRange type
+    /**
+     * visit UseOfIllegalDataRange type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalDataRange individual);
 
-    /** visit IllegalPunning type
+    /**
+     * visit IllegalPunning type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(IllegalPunning violation);
 
-    /** visit UseOfNonAtomicClassExpression type
+    /**
+     * visit UseOfNonAtomicClassExpression type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonAtomicClassExpression individual);
 
-    /** visit UseOfNonSubClassExpression type
+    /**
+     * visit UseOfNonSubClassExpression type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSubClassExpression individual);
 
-    /** visit UseOfNonSuperClassExpression type
+    /**
+     * visit UseOfNonSuperClassExpression type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSuperClassExpression individual);
 
-    /** visit InsufficientPropertyExpressions type
+    /**
+     * visit InsufficientPropertyExpressions type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientPropertyExpressions violation);
 
-    /** visit InsufficientIndividuals type
+    /**
+     * visit InsufficientIndividuals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientIndividuals violation);
 
-    /** visit InsufficientOperands type
+    /**
+     * visit InsufficientOperands type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientOperands violation);
 
-    /** visit EmptyOneOfAxiom type
+    /**
+     * visit EmptyOneOfAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(EmptyOneOfAxiom violation);
 }

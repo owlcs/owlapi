@@ -47,15 +47,20 @@ import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl implements
-        OWLObjectComplementOf {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLObjectComplementOfImpl extends OWLAnonymousClassExpressionImpl
+        implements OWLObjectComplementOf {
+
     private static final long serialVersionUID = 30406L;
     private final OWLClassExpression operand;
 
-    /** @param operand
-     *            class to complement */
+    /**
+     * @param operand
+     *        class to complement
+     */
     public OWLObjectComplementOfImpl(OWLClassExpression operand) {
         super();
         this.operand = operand;

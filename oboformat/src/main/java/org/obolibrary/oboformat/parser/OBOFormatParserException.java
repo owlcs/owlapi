@@ -2,6 +2,7 @@ package org.obolibrary.oboformat.parser;
 
 /** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
+
     // generated
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7346016707770104873L;
@@ -10,60 +11,71 @@ public class OBOFormatParserException extends OBOFormatException {
     /** The line. */
     private final String line;
 
-    /** Instantiates a new oBO format parser exception.
+    /**
+     * Instantiates a new oBO format parser exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param e
-     *            the cause
+     *        the cause
      * @param lineNo
-     *            the line no
+     *        the line no
      * @param line
-     *            the line */
-    public OBOFormatParserException(String message, Throwable e, int lineNo, String line) {
+     *        the line
+     */
+    public OBOFormatParserException(String message, Throwable e, int lineNo,
+            String line) {
         super(message, e);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** Instantiates a new oBO format parser exception.
+    /**
+     * Instantiates a new oBO format parser exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param lineNo
-     *            the line no
+     *        the line no
      * @param line
-     *            the line */
+     *        the line
+     */
     public OBOFormatParserException(String message, int lineNo, String line) {
         super(message);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** Instantiates a new oBO format parser exception.
+    /**
+     * Instantiates a new oBO format parser exception.
      * 
      * @param e
-     *            the e
+     *        the e
      * @param lineNo
-     *            the line no
+     *        the line no
      * @param line
-     *            the line */
+     *        the line
+     */
     public OBOFormatParserException(Throwable e, int lineNo, String line) {
         super(e);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** Gets the line no.
+    /**
+     * Gets the line no.
      * 
-     * @return the lineNo */
+     * @return the lineNo
+     */
     public int getLineNo() {
         return lineNo;
     }
 
-    /** Gets the line.
+    /**
+     * Gets the line.
      * 
-     * @return the line */
+     * @return the line
+     */
     public String getLine() {
         return line;
     }

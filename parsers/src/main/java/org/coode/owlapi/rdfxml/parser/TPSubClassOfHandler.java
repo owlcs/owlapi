@@ -47,14 +47,19 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Handles rdfs:subClassOf triples. If handling is set to strict then the triple
+/**
+ * Handles rdfs:subClassOf triples. If handling is set to strict then the triple
  * is only consumed if the subject and object are typed as classes.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006 */
+ *         Informatics Group, Date: 08-Dec-2006
+ */
 public class TPSubClassOfHandler extends TriplePredicateHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPSubClassOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_SUBCLASS_OF.getIRI());
     }
@@ -82,7 +87,8 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     public void handleTriple(IRI subject, IRI predicate, IRI object)
             throws UnloadableImportException {
         if (isStrict()) {
-            if (isClassExpressionStrict(subject) && isClassExpressionStrict(object)) {
+            if (isClassExpressionStrict(subject)
+                    && isClassExpressionStrict(object)) {
                 translate(subject, predicate, object);
             }
         } else {
@@ -95,9 +101,10 @@ public class TPSubClassOfHandler extends TriplePredicateHandler {
     private void translate(IRI subject, IRI predicate, IRI object) {
         OWLClassExpression subClass = translateClassExpression(subject);
         OWLClassExpression supClass = translateClassExpression(object);
-        Set<OWLAnnotation> pendingAnnotations = getConsumer().getPendingAnnotations();
-        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass, supClass,
-                pendingAnnotations);
+        Set<OWLAnnotation> pendingAnnotations = getConsumer()
+                .getPendingAnnotations();
+        OWLAxiom ax = getDataFactory().getOWLSubClassOfAxiom(subClass,
+                supClass, pendingAnnotations);
         addAxiom(ax);
         consumeTriple(subject, predicate, object);
     }

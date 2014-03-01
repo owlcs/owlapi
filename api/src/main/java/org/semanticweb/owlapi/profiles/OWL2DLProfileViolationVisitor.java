@@ -38,180 +38,242 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public interface OWL2DLProfileViolationVisitor {
-    /** visit IllegalPunning type
+
+    /**
+     * visit IllegalPunning type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(IllegalPunning violation);
 
-    /** visit CycleInDatatypeDefinition type
+    /**
+     * visit CycleInDatatypeDefinition type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(CycleInDatatypeDefinition violation);
 
-    /** visit UseOfBuiltInDatatypeInDatatypeDefinition type
+    /**
+     * visit UseOfBuiltInDatatypeInDatatypeDefinition type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfBuiltInDatatypeInDatatypeDefinition violation);
 
-    /** visit DatatypeIRIAlsoUsedAsClassIRI type
+    /**
+     * visit DatatypeIRIAlsoUsedAsClassIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(DatatypeIRIAlsoUsedAsClassIRI violation);
 
-    /** visit UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom type
+    /**
+     * visit UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSimplePropertyInAsymmetricObjectPropertyAxiom violation);
 
-    /** visit UseOfNonSimplePropertyInCardinalityRestriction type
+    /**
+     * visit UseOfNonSimplePropertyInCardinalityRestriction type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSimplePropertyInCardinalityRestriction violation);
 
-    /** visit UseOfNonSimplePropertyInDisjointPropertiesAxiom type
+    /**
+     * visit UseOfNonSimplePropertyInDisjointPropertiesAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSimplePropertyInDisjointPropertiesAxiom violation);
 
-    /** visit UseOfNonSimplePropertyInFunctionalPropertyAxiom type
+    /**
+     * visit UseOfNonSimplePropertyInFunctionalPropertyAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSimplePropertyInFunctionalPropertyAxiom violation);
 
-    /** visit UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom type
+    /**
+     * visit UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom type
      * 
      * @param violation
-     *            object to visit */
-    void visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom violation);
+     *        object to visit
+     */
+            void
+            visit(UseOfNonSimplePropertyInInverseFunctionalObjectPropertyAxiom violation);
 
-    /** visit UseOfNonSimplePropertyInIrreflexivePropertyAxiom type
+    /**
+     * visit UseOfNonSimplePropertyInIrreflexivePropertyAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSimplePropertyInIrreflexivePropertyAxiom violation);
 
-    /** visit UseOfNonSimplePropertyInObjectHasSelf type
+    /**
+     * visit UseOfNonSimplePropertyInObjectHasSelf type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSimplePropertyInObjectHasSelf violation);
 
-    /** visit UseOfPropertyInChainCausesCycle type
+    /**
+     * visit UseOfPropertyInChainCausesCycle type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfPropertyInChainCausesCycle violation);
 
-    /** visit UseOfReservedVocabularyForAnnotationPropertyIRI type
+    /**
+     * visit UseOfReservedVocabularyForAnnotationPropertyIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForAnnotationPropertyIRI violation);
 
-    /** visit UseOfReservedVocabularyForClassIRI type
+    /**
+     * visit UseOfReservedVocabularyForClassIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForClassIRI violation);
 
-    /** visit UseOfReservedVocabularyForDataPropertyIRI type
+    /**
+     * visit UseOfReservedVocabularyForDataPropertyIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForDataPropertyIRI violation);
 
-    /** visit UseOfReservedVocabularyForIndividualIRI type
+    /**
+     * visit UseOfReservedVocabularyForIndividualIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForIndividualIRI violation);
 
-    /** visit UseOfReservedVocabularyForObjectPropertyIRI type
+    /**
+     * visit UseOfReservedVocabularyForObjectPropertyIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForObjectPropertyIRI violation);
 
-    /** visit UseOfReservedVocabularyForOntologyIRI type
+    /**
+     * visit UseOfReservedVocabularyForOntologyIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForOntologyIRI violation);
 
-    /** visit UseOfReservedVocabularyForVersionIRI type
+    /**
+     * visit UseOfReservedVocabularyForVersionIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfReservedVocabularyForVersionIRI violation);
 
-    /** visit UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom type
+    /**
+     * visit UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom violation);
 
-    /** visit UseOfUndeclaredAnnotationProperty type
+    /**
+     * visit UseOfUndeclaredAnnotationProperty type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUndeclaredAnnotationProperty violation);
 
-    /** visit UseOfUndeclaredClass type
+    /**
+     * visit UseOfUndeclaredClass type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUndeclaredClass violation);
 
-    /** visit UseOfUndeclaredDataProperty type
+    /**
+     * visit UseOfUndeclaredDataProperty type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUndeclaredDataProperty violation);
 
-    /** visit UseOfUndeclaredDatatype type
+    /**
+     * visit UseOfUndeclaredDatatype type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUndeclaredDatatype violation);
 
-    /** visit UseOfUndeclaredObjectProperty type
+    /**
+     * visit UseOfUndeclaredObjectProperty type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUndeclaredObjectProperty violation);
 
-    /** visit InsufficientPropertyExpressions type
+    /**
+     * visit InsufficientPropertyExpressions type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientPropertyExpressions violation);
 
-    /** visit InsufficientIndividuals type
+    /**
+     * visit InsufficientIndividuals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientIndividuals violation);
 
-    /** visit InsufficientOperands type
+    /**
+     * visit InsufficientOperands type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientOperands violation);
 
-    /** visit EmptyOneOfAxiom type
+    /**
+     * visit EmptyOneOfAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(EmptyOneOfAxiom violation);
 }

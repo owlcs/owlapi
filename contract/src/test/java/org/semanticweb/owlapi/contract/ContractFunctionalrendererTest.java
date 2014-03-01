@@ -22,13 +22,17 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalrendererTest {
+
     public void shouldTestOWLFunctionalSyntaxOntologyStorer() throws Exception {
         OWLFunctionalSyntaxOntologyStorer testSubject0 = new OWLFunctionalSyntaxOntologyStorer();
-        boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
+        boolean result0 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), mock(OWLOntologyDocumentTarget.class),
+                mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
 
@@ -41,11 +45,12 @@ public class ContractFunctionalrendererTest {
     }
 
     public void shouldTestOWLObjectRenderer() throws Exception {
-        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(Utils.getMockOntology(),
-                mock(Writer.class));
+        OWLObjectRenderer testSubject0 = new OWLObjectRenderer(
+                Utils.getMockOntology(), mock(Writer.class));
         testSubject0.write(mock(OWLAnnotation.class));
         testSubject0.write(OWLXMLVocabulary.COMMENT, mock(OWLObject.class));
-        Set<OWLAxiom> result0 = testSubject0.writeAnnotations(Utils.mockOWLEntity());
+        Set<OWLAxiom> result0 = testSubject0.writeAnnotations(Utils
+                .mockOWLEntity());
         testSubject0.writeAnnotations(mock(OWLAxiom.class));
         testSubject0.writeOpenBracket();
         testSubject0.writeSpace();
@@ -55,8 +60,10 @@ public class ContractFunctionalrendererTest {
         testSubject0.writePrefix("", "");
         testSubject0.writePrefixes();
         Set<OWLAxiom> result1 = testSubject0.writeAxioms(Utils.mockOWLEntity());
-        Set<OWLAxiom> result2 = testSubject0.writeDeclarations(Utils.mockOWLEntity());
-        testSubject0.writeAxiomStart(OWLXMLVocabulary.COMMENT, mock(OWLAxiom.class));
+        Set<OWLAxiom> result2 = testSubject0.writeDeclarations(Utils
+                .mockOWLEntity());
+        testSubject0.writeAxiomStart(OWLXMLVocabulary.COMMENT,
+                mock(OWLAxiom.class));
         testSubject0.writeAxiomEnd();
         testSubject0.writePropertyCharacteristic(OWLXMLVocabulary.COMMENT,
                 mock(OWLAxiom.class), mock(OWLPropertyExpression.class));

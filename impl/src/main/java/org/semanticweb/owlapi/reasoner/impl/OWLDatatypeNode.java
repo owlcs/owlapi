@@ -42,20 +42,27 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLDatatype;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
+ */
 public class OWLDatatypeNode extends DefaultNode<OWLDatatype> {
+
     /** default constructor. */
     public OWLDatatypeNode() {}
 
-    /** @param entity
-     *            datatype to include */
+    /**
+     * @param entity
+     *        datatype to include
+     */
     public OWLDatatypeNode(OWLDatatype entity) {
         super(entity);
     }
 
-    /** @param entities
-     *            set of datatypes to include */
+    /**
+     * @param entities
+     *        set of datatypes to include
+     */
     public OWLDatatypeNode(Set<OWLDatatype> entities) {
         super(entities);
     }

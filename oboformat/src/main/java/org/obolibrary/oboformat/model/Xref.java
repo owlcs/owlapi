@@ -2,11 +2,14 @@ package org.obolibrary.oboformat.model;
 
 /** Xref */
 public class Xref {
+
     String idref;
     String annotation;
 
-    /** @param idref
-     *            idref */
+    /**
+     * @param idref
+     *        idref
+     */
     public Xref(String idref) {
         super();
         this.idref = idref;
@@ -17,8 +20,10 @@ public class Xref {
         return idref;
     }
 
-    /** @param idref
-     *            idref */
+    /**
+     * @param idref
+     *        idref
+     */
     public void setIdref(String idref) {
         this.idref = idref;
     }
@@ -28,8 +33,10 @@ public class Xref {
         return annotation;
     }
 
-    /** @param annotation
-     *            annotation */
+    /**
+     * @param annotation
+     *        annotation
+     */
     public void setAnnotation(String annotation) {
         this.annotation = annotation;
     }

@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 @SuppressWarnings("javadoc")
 public class ObsoleteTermTest extends OboFormatTestBasics {
+
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE

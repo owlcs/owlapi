@@ -6,22 +6,27 @@ import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
-/** A weakly linked cache - elements in the cache can be garbage collected.
+/**
+ * A weakly linked cache - elements in the cache can be garbage collected.
  * 
  * @param <K>
- *            key type
+ *        key type
  * @param <V>
- *            value type */
+ *        value type
+ */
 public class WeakIndexCache<K, V> implements Serializable {
+
     private static final long serialVersionUID = 30406L;
     protected transient Map<K, WeakReference<V>> prefixCache = CollectionFactory
             .createSyncWeakMap();
 
-    /** @param s
-     *            the cache key
+    /**
+     * @param s
+     *        the cache key
      * @param v
-     *            the cache value
-     * @return the cached value */
+     *        the cache value
+     * @return the cached value
+     */
     public V cache(K s, V v) {
         WeakReference<V> w = prefixCache.get(s);
         if (w != null) {
@@ -41,9 +46,11 @@ public class WeakIndexCache<K, V> implements Serializable {
         prefixCache = CollectionFactory.createSyncWeakMap();
     }
 
-    /** @param k
-     *            the key
-     * @return the value */
+    /**
+     * @param k
+     *        the key
+     * @return the value
+     */
     public V get(K k) {
         WeakReference<V> w = prefixCache.get(k);
         if (w != null) {
@@ -53,11 +60,13 @@ public class WeakIndexCache<K, V> implements Serializable {
         return null;
     }
 
-    /** @param k
-     *            the key to check
+    /**
+     * @param k
+     *        the key to check
      * @return true if the cache contains k as a key; note that, due to the
      *         nature of this cache, by the time the method returns the key may
-     *         no longer be in the map. */
+     *         no longer be in the map.
+     */
     public boolean contains(K k) {
         WeakReference<V> w = prefixCache.get(k);
         if (w != null) {

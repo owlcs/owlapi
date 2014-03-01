@@ -67,9 +67,12 @@ import org.semanticweb.owlapi.util.OWLClassExpressionCollector;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006
+ */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
+
     private static final long serialVersionUID = 30406L;
     /** a convenience reference for an empty annotation set, saves on typing. */
     protected static final Set<OWLAnnotation> NO_ANNOTATIONS = Collections

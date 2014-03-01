@@ -43,16 +43,21 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 14-Dec-2006
  * @param <O>
- *            operand type */
-public abstract class AbstractOperandAxiomElementHandler<O extends OWLObject> extends
-        AbstractOWLAxiomElementHandler {
+ *        operand type
+ */
+public abstract class AbstractOperandAxiomElementHandler<O extends OWLObject>
+        extends AbstractOWLAxiomElementHandler {
+
     private Set<O> operands;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public AbstractOperandAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         operands = new HashSet<O>();

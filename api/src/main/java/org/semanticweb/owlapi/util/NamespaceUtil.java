@@ -46,12 +46,15 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** A utility class which can generate namespaces, local names and namespace
+/**
+ * A utility class which can generate namespaces, local names and namespace
  * prefixes in accordance with the XML spec.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 04-Apr-2007 */
+ *         Informatics Group, Date: 04-Apr-2007
+ */
 public class NamespaceUtil {
+
     private final Map<String, String> namespace2PrefixMap;
     private final Map<String, String> standardNamespacePrefixMappings;
     private int candidateIndex = 1;
@@ -59,7 +62,8 @@ public class NamespaceUtil {
     /** default constructor */
     public NamespaceUtil() {
         standardNamespacePrefixMappings = new HashMap<String, String>();
-        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE, "dc");
+        standardNamespacePrefixMappings.put(DublinCoreVocabulary.NAME_SPACE,
+                "dc");
         standardNamespacePrefixMappings.put(Namespaces.SKOS.toString(), "skos");
         namespace2PrefixMap = new HashMap<String, String>();
         namespace2PrefixMap.put(Namespaces.OWL.toString(), "owl");
@@ -68,47 +72,54 @@ public class NamespaceUtil {
         namespace2PrefixMap.put(Namespaces.XSD.toString(), "xsd");
     }
 
-    /** @param ch
-     *            character to check
+    /**
+     * @param ch
+     *        character to check
      * @return true if ncname
      * @deprecated Use
-     *             {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameChar(int)} */
+     *             {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameChar(int)}
+     */
     @Deprecated
     public static boolean isNCNameChar(char ch) {
         // No colon in an NCNameChar
-        return Character.isLetter(ch) || Character.isDigit(ch) || ch == '.' || ch == '-'
-                || ch == '_';
+        return Character.isLetter(ch) || Character.isDigit(ch) || ch == '.'
+                || ch == '-' || ch == '_';
     }
 
-    /** @param ch
-     *            character to check
+    /**
+     * @param ch
+     *        character to check
      * @return true if ncname start
      * @deprecated Use
-     *             {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameStartChar(int)} */
+     *             {@link org.semanticweb.owlapi.io.XMLUtils#isNCNameStartChar(int)}
+     */
     @Deprecated
     public static boolean isNCNameStartChar(char ch) {
         return Character.isLetter(ch) || ch == '_';
     }
 
-    /** Splits a string into a namespace and local name.
+    /**
+     * Splits a string into a namespace and local name.
      * 
      * @param s
-     *            The string to be split.
+     *        The string to be split.
      * @param result
-     *            May be {@code null}. If not {@code null} the method will fill
-     *            the array with the result and return the passed in array. This
-     *            allows a String array to be reused. If this parameter is
-     *            {@code null} then a new String array will be created to hold
-     *            the result. <b> The size of the array must be 2 </b>
+     *        May be {@code null}. If not {@code null} the method will fill the
+     *        array with the result and return the passed in array. This allows
+     *        a String array to be reused. If this parameter is {@code null}
+     *        then a new String array will be created to hold the result. <b>
+     *        The size of the array must be 2 </b>
      * @return The result of the split. The first element corresponds to the
      *         namespace and the second element corresponds to the local name.
      *         If the string could not be split into a namespace and local name
      *         then the first element will be an empty string and the second
      *         element will an empty string
      * @deprecated Use
-     *             {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)} */
+     *             {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)}
+     */
     @Deprecated
-    public String[] split(String s, @SuppressWarnings("unused") String[] result) {
+    public String[]
+            split(String s, @SuppressWarnings("unused") String[] result) {
         // We need to deal with escape sequences. %20 is a space
         // and can be contained within a qname.
         String temp = s;
@@ -134,7 +145,8 @@ public class NamespaceUtil {
         return split;
     }
 
-    /** * @param s The string to be split.
+    /**
+     * * @param s The string to be split.
      * 
      * @return The result of the split. The first element corresponds to the
      *         namespace and the second element corresponds to the local name.
@@ -142,7 +154,8 @@ public class NamespaceUtil {
      *         then the first element will be an empty string and the second
      *         element will an empty string
      * @deprecated Use
-     *             {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)} */
+     *             {@link org.semanticweb.owlapi.io.XMLUtils#getNCNamePrefix(CharSequence)}
+     */
     @Deprecated
     public String[] split(String s) {
         // We need to deal with escape sequences. %20 is a space
@@ -170,13 +183,15 @@ public class NamespaceUtil {
         return split;
     }
 
-    /** Gets a prefix for the given namespace. If a mapping has not been
+    /**
+     * Gets a prefix for the given namespace. If a mapping has not been
      * specified then a prefix will be computed and stored for the specified
      * namespace.
      * 
      * @param namespace
-     *            The namespace whose prefix is to be retrieved.
-     * @return The prefix for the specified namespace. */
+     *        The namespace whose prefix is to be retrieved.
+     * @return The prefix for the specified namespace.
+     */
     public String getPrefix(String namespace) {
         String prefix = namespace2PrefixMap.get(namespace);
         if (prefix != null) {
@@ -200,15 +215,17 @@ public class NamespaceUtil {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }
 
-    /** Generates a candidate prefix for the specified namespace.
+    /**
+     * Generates a candidate prefix for the specified namespace.
      * 
      * @param namespace
-     *            The namespace that a prefix should be generated for. The
-     *            implementation attempts to generate a prefix based on the
-     *            namespace. If it cannot do this, a prefix of the form pn is
-     *            generated, where n is an integer.
+     *        The namespace that a prefix should be generated for. The
+     *        implementation attempts to generate a prefix based on the
+     *        namespace. If it cannot do this, a prefix of the form pn is
+     *        generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the
-     *         namespace to prefix mapping. */
+     *         namespace to prefix mapping.
+     */
     public String generatePrefix(String namespace) {
         String prefix = standardNamespacePrefixMappings.get(namespace);
         if (prefix != null) {
@@ -231,7 +248,8 @@ public class NamespaceUtil {
             return null;
         }
         int endIndex = startIndex + 1;
-        for (int i = startIndex; endIndex < namespace.length() && i < namespace.length(); i++) {
+        for (int i = startIndex; endIndex < namespace.length()
+                && i < namespace.length(); i++) {
             char curChar = namespace.charAt(endIndex);
             // We include any NCNameChar except a full stop (.) so
             // that if the URI looks like a file with an extension the
@@ -246,20 +264,23 @@ public class NamespaceUtil {
         String candidatePrefix = computedPrefix;
         int index = 2;
         while (namespace2PrefixMap.containsValue(candidatePrefix)
-                || standardNamespacePrefixMappings.containsValue(candidatePrefix)) {
+                || standardNamespacePrefixMappings
+                        .containsValue(candidatePrefix)) {
             candidatePrefix = computedPrefix + index;
             index++;
         }
         return candidatePrefix;
     }
 
-    /** Sets the prefix for the specified namespace. This will override any
+    /**
+     * Sets the prefix for the specified namespace. This will override any
      * computed prefix and take precedence over any computed prefix.
      * 
      * @param namespace
-     *            The namespace whose prefix is to be set.
+     *        The namespace whose prefix is to be set.
      * @param prefix
-     *            The prefix for the namespace */
+     *        The prefix for the namespace
+     */
     public void setPrefix(String namespace, String prefix) {
         namespace2PrefixMap.put(namespace, prefix);
     }

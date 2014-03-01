@@ -44,13 +44,19 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 28-Nov-2007 */
-public class ReferencedEntitySetProvider implements OWLEntitySetProvider<OWLEntity> {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 28-Nov-2007
+ */
+public class ReferencedEntitySetProvider implements
+        OWLEntitySetProvider<OWLEntity> {
+
     private final Set<OWLOntology> ontologies;
 
-    /** @param ontologies
-     *            ontologies to use */
+    /**
+     * @param ontologies
+     *        ontologies to use
+     */
     public ReferencedEntitySetProvider(Set<OWLOntology> ontologies) {
         this.ontologies = ontologies;
     }

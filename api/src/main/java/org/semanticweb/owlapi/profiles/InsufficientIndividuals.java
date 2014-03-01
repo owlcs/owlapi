@@ -7,10 +7,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class InsufficientIndividuals extends OWLProfileViolation implements
         OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
         OWL2QLProfileViolation, OWL2RLProfileViolation {
-    /** @param ontology
-     *            ontology with violation
+
+    /**
+     * @param ontology
+     *        ontology with violation
      * @param axiom
-     *            axiom with violation */
+     *        axiom with violation
+     */
     public InsufficientIndividuals(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom);
     }

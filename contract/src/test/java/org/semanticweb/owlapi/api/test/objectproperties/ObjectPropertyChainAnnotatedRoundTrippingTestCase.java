@@ -51,10 +51,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 01-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Jun-2009
+ */
 public class ObjectPropertyChainAnnotatedRoundTrippingTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLObjectProperty propA = ObjectProperty(getIRI("propA"));

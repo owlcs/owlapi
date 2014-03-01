@@ -47,19 +47,26 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006
+ */
 public class TypeAxiomHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeAxiomHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_AXIOM.getIRI());
     }
 
-    /** @param consumer
-     *            consumer
+    /**
+     * @param consumer
+     *        consumer
      * @param typeIRI
-     *            typeIRI */
+     *        typeIRI
+     */
     public TypeAxiomHandler(OWLRDFConsumer consumer, IRI typeIRI) {
         super(consumer, typeIRI);
     }
@@ -72,26 +79,32 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return false;
     }
 
-    /** Gets the IRI of the predicate of the triple that specifies the target of
+    /**
+     * Gets the IRI of the predicate of the triple that specifies the target of
      * a reified axiom
      * 
-     * @return The IRI, by default this is owl:annotatedTarget */
+     * @return The IRI, by default this is owl:annotatedTarget
+     */
     protected OWLRDFVocabulary getTargetTriplePredicate() {
         return OWLRDFVocabulary.OWL_ANNOTATED_TARGET;
     }
 
-    /** Gets the IRI of the predicate of the triple that specifies that predicate
+    /**
+     * Gets the IRI of the predicate of the triple that specifies that predicate
      * of a reified axiom
      * 
-     * @return The IRI, by default this is owl:annotatedProperty */
+     * @return The IRI, by default this is owl:annotatedProperty
+     */
     protected OWLRDFVocabulary getPropertyTriplePredicate() {
         return OWLRDFVocabulary.OWL_ANNOTATED_PROPERTY;
     }
 
-    /** Gets the IRI of the predicate of the triple that specifies the source of
+    /**
+     * Gets the IRI of the predicate of the triple that specifies the source of
      * a reified axiom
      * 
-     * @return The IRI, by default this is owl:annotatedSource */
+     * @return The IRI, by default this is owl:annotatedSource
+     */
     protected OWLRDFVocabulary getSourceTriplePredicate() {
         return OWLRDFVocabulary.OWL_ANNOTATED_SOURCE;
     }
@@ -109,10 +122,12 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         // check that other conditions are not invalid
         if (annotatedSource != null && annotatedProperty != null) {
             consumeTriple(subject, predicate, object);
-            Set<OWLAnnotation> annotations = getConsumer().translateAnnotations(subject);
+            Set<OWLAnnotation> annotations = getConsumer()
+                    .translateAnnotations(subject);
             getConsumer().setPendingAnnotations(annotations);
             if (annotatedTarget != null) {
-                getConsumer().handle(annotatedSource, annotatedProperty, annotatedTarget);
+                getConsumer().handle(annotatedSource, annotatedProperty,
+                        annotatedTarget);
             } else if (annotatedTargetLiteral != null) {
                 getConsumer().handle(annotatedSource, annotatedProperty,
                         annotatedTargetLiteral);
@@ -125,14 +140,16 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
     }
 
     @SuppressWarnings("unused")
-    protected OWLAxiom handleAxiomTriples(IRI subjectTriple, IRI predicateTriple,
-            IRI objectTriple, Set<OWLAnnotation> annotations) {
+    protected OWLAxiom handleAxiomTriples(IRI subjectTriple,
+            IRI predicateTriple, IRI objectTriple,
+            Set<OWLAnnotation> annotations) {
         // Reconstitute the original triple from the reification triples
         return getConsumer().getLastAddedAxiom();
     }
 
     protected OWLAxiom handleAxiomTriples(IRI subjectTripleObject,
-            IRI predicateTripleObject, OWLLiteral con, Set<OWLAnnotation> annotations) {
+            IRI predicateTripleObject, OWLLiteral con,
+            Set<OWLAnnotation> annotations) {
         getConsumer().handle(subjectTripleObject, predicateTripleObject, con);
         return getConsumer().getLastAddedAxiom();
     }
@@ -148,16 +165,18 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return con;
     }
 
-    /** Gets the object of the target triple that has the specified main node
+    /**
+     * Gets the object of the target triple that has the specified main node
      * 
      * @param mainNode
-     *            The main node
+     *        The main node
      * @return The object of the triple that has the specified mainNode as its
      *         subject and the IRI returned by the
      *         {@code TypeAxiomHandler#getSourceTriplePredicate()} method. For
      *         backwards compatibility, a search will also be performed for
      *         triples whos subject is the specified mainNode and predicate
-     *         rdf:object */
+     *         rdf:object
+     */
     @SuppressWarnings("deprecation")
     private IRI getObjectOfTargetTriple(IRI mainNode) {
         IRI objectTripleObject = getConsumer().getResourceObject(mainNode,
@@ -184,13 +203,15 @@ public class TypeAxiomHandler extends BuiltInTypeHandler {
         return predicateTripleObject;
     }
 
-    /** Gets the source IRI for an annotated or reified axiom
+    /**
+     * Gets the source IRI for an annotated or reified axiom
      * 
      * @param mainNode
-     *            The main node of the triple
+     *        The main node of the triple
      * @return The source object
      * @throws OWLRDFXMLParserMalformedNodeException
-     *             malformed node */
+     *         malformed node
+     */
     @SuppressWarnings("deprecation")
     private IRI getObjectOfSourceTriple(IRI mainNode) {
         IRI subjectTripleObject = getConsumer().getResourceObject(mainNode,

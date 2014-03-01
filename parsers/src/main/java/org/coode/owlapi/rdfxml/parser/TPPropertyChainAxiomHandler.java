@@ -47,11 +47,16 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 01-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Jun-2009
+ */
 public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPPropertyChainAxiomHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_PROPERTY_CHAIN_AXIOM.getIRI());
     }
@@ -71,6 +76,7 @@ public class TPPropertyChainAxiomHandler extends TriplePredicateHandler {
                 .translateToObjectPropertyList(object);
         consumeTriple(subject, predicate, object);
         Set<OWLAnnotation> annos = getPendingAnnotations();
-        addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(chain, superProp, annos));
+        addAxiom(getDataFactory().getOWLSubPropertyChainOfAxiom(chain,
+                superProp, annos));
     }
 }

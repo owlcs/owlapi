@@ -46,11 +46,16 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 21-Jan-2009
+ */
 public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeNamedIndividualHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI());
     }
@@ -60,8 +65,8 @@ public class TypeNamedIndividualHandler extends BuiltInTypeHandler {
             throws UnloadableImportException {
         if (!isAnonymous(subject)) {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
-            OWLNamedIndividual individual = getDataFactory().getOWLNamedIndividual(
-                    subject);
+            OWLNamedIndividual individual = getDataFactory()
+                    .getOWLNamedIndividual(subject);
             addAxiom(getDataFactory().getOWLDeclarationAxiom(individual, annos));
         }
         getConsumer().addOWLNamedIndividual(subject, true);

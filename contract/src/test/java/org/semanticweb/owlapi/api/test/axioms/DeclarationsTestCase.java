@@ -48,10 +48,13 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 21-Jan-2009
+ */
 @SuppressWarnings("javadoc")
 public class DeclarationsTestCase extends AbstractFileRoundTrippingTestCase {
+
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

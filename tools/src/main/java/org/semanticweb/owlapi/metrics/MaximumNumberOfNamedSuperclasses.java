@@ -49,12 +49,18 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
-    public MaximumNumberOfNamedSuperclasses(OWLOntologyManager owlOntologyManager) {
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
+    public MaximumNumberOfNamedSuperclasses(
+            OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 
@@ -87,9 +93,11 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
-            if (chg.isAxiomChange() && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
+            if (chg.isAxiomChange()
+                    && chg.getAxiom() instanceof OWLSubClassOfAxiom) {
                 return true;
             }
         }

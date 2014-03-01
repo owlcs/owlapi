@@ -42,19 +42,25 @@ import java.io.IOException;
 
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** Indicates an {@link java.io.IOException} happened during ontology creation.
+/**
+ * Indicates an {@link java.io.IOException} happened during ontology creation.
  * The cause of this exception will be an {@link java.io.IOException}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Apr-2008 */
-public class OWLOntologyCreationIOException extends OWLOntologyCreationException {
+ *         Informatics Group, Date: 11-Apr-2008
+ */
+public class OWLOntologyCreationIOException extends
+        OWLOntologyCreationException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param ioException
-     *            the cause */
+    /**
+     * @param ioException
+     *        the cause
+     */
     public OWLOntologyCreationIOException(IOException ioException) {
-        super(ioException.getClass().getSimpleName() + ": " + ioException.getMessage(),
-                ioException);
+        super(ioException.getClass().getSimpleName() + ": "
+                + ioException.getMessage(), ioException);
     }
 
     @Override
@@ -62,9 +68,11 @@ public class OWLOntologyCreationIOException extends OWLOntologyCreationException
         return (IOException) super.getCause();
     }
 
-    /** Delegates to the getMessage() method of the cause.
+    /**
+     * Delegates to the getMessage() method of the cause.
      * 
-     * @return The message of the IOException */
+     * @return The message of the IOException
+     */
     @Override
     public String getMessage() {
         return getCause().getMessage();

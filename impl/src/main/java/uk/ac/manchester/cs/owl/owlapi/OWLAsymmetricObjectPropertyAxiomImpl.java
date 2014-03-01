@@ -50,18 +50,24 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLAsymmetricObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLAsymmetricObjectPropertyAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
-    public OWLAsymmetricObjectPropertyAxiomImpl(OWLObjectPropertyExpression property,
+     *        annotations
+     */
+    public OWLAsymmetricObjectPropertyAxiomImpl(
+            OWLObjectPropertyExpression property,
             Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
@@ -71,7 +77,8 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLAsymmetricObjectPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -83,7 +90,8 @@ public class OWLAsymmetricObjectPropertyAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLAsymmetricObjectPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLAsymmetricObjectPropertyAxiom;
     }
 
     @Override

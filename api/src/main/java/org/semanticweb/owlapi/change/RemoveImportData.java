@@ -42,51 +42,58 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
-/** Represents the specific non-ontology data required by a
+/**
+ * Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.RemoveImport} change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ * @since 3.5
+ */
 public final class RemoveImportData extends ImportChangeData {
+
     private static final long serialVersionUID = 30406L;
 
-    /** Constructs a {@link RemoveImportData} object that describes a
+    /**
+     * Constructs a {@link RemoveImportData} object that describes a
      * {@link org.semanticweb.owlapi.model.RemoveImport} change for the
      * {@link OWLImportsDeclaration} specified by the {@code declaration}
      * parameter.
      * 
      * @param declaration
-     *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. Not {@code null}.
+     *        The {@link OWLImportsDeclaration} that is the focus of some
+     *        change. Not {@code null}.
      * @throws NullPointerException
-     *             if {@code declaration} is {@code null}. */
+     *         if {@code declaration} is {@code null}.
+     */
     public RemoveImportData(OWLImportsDeclaration declaration) {
         super(declaration);
     }
 
-    /** Creates the {@link org.semanticweb.owlapi.model.AddImport} change that
+    /**
+     * Creates the {@link org.semanticweb.owlapi.model.AddImport} change that
      * describes the removal of an {@link OWLImportsDeclaration} from an
      * {@link OWLOntology} specified by the {@code ontology} parameter.
      * 
      * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
+     *        The {@link OWLOntology} that the change should apply to. Not
+     *        {@code null}.
      * @return The {@link org.semanticweb.owlapi.model.RemoveImport} change for
      *         the {@link OWLOntology} specified by {@code ontology} and the
      *         {@link OWLImportsDeclaration} associated with this
      *         {@link ImportChangeData} object.
      * @throws NullPointerException
-     *             if {@code ontology} is {@code null}. */
+     *         if {@code ontology} is {@code null}.
+     */
     @Override
     public RemoveImport createOntologyChange(OWLOntology ontology) {
         return new RemoveImport(ontology, getDeclaration());
     }
 
     @Override
-    public <O, E extends Exception> O accept(OWLOntologyChangeDataVisitor<O, E> visitor)
-            throws E {
+    public <O, E extends Exception> O accept(
+            OWLOntologyChangeDataVisitor<O, E> visitor) throws E {
         return visitor.visit(this);
     }
 

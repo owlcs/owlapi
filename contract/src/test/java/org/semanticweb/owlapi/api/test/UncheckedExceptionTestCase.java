@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class UncheckedExceptionTestCase {
+
     @Test(expected = OWLOntologyCreationException.class)
     public void testLoad() throws Exception {
         OWLOntologyManager m = Factory.getManager();

@@ -37,27 +37,27 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi;/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+* Copyright (C) 2007, University of Manchester
+*
+* Modifications to the initial code base are copyright of their
+* respective authors, or their employers as appropriate.  Authorship
+* of the modifications may be determined from the ChangeLog placed at
+* the end of this file.
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation; either
+* version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+* You should have received a copy of the GNU Lesser General Public
+* License along with this library; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -73,7 +73,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** This composite change will convert a primitive class to a defined class by
+/**
+ * This composite change will convert a primitive class to a defined class by
  * replacing subclass axioms where the class in question is on the left hand
  * side of the subclass axiom to an equivalent classes axiom which makes the
  * class equivalent to the intersection of its superclasses. <br>
@@ -88,26 +89,31 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * editors.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Jul-2007 */
-public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntologyChange {
+ *         Informatics Group, Date: 23-Jul-2007
+ */
+public class ConvertSuperClassesToEquivalentClass extends
+        AbstractCompositeOntologyChange {
+
     private final OWLOntology targetOntology;
     private final OWLClass cls;
     private final Set<OWLOntology> ontologies;
     private List<OWLOntologyChange> changes;
 
-    /** @param dataFactory
-     *            A data factory which can be used to create the appropriate
-     *            axioms
+    /**
+     * @param dataFactory
+     *        A data factory which can be used to create the appropriate axioms
      * @param cls
-     *            The class whose superclasses will be converted to an
-     *            equivalent class.
+     *        The class whose superclasses will be converted to an equivalent
+     *        class.
      * @param ontologies
-     *            The ontologies which should be examined for subclass axioms.
+     *        The ontologies which should be examined for subclass axioms.
      * @param targetOntology
-     *            The targetOntology which the equivalent classes axiom should
-     *            be added to */
-    public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory, OWLClass cls,
-            Set<OWLOntology> ontologies, OWLOntology targetOntology) {
+     *        The targetOntology which the equivalent classes axiom should be
+     *        added to
+     */
+    public ConvertSuperClassesToEquivalentClass(OWLDataFactory dataFactory,
+            OWLClass cls, Set<OWLOntology> ontologies,
+            OWLOntology targetOntology) {
         super(dataFactory);
         this.targetOntology = targetOntology;
         this.cls = cls;
@@ -126,8 +132,8 @@ public class ConvertSuperClassesToEquivalentClass extends AbstractCompositeOntol
                 descs.add(ax.getSuperClass());
             }
         }
-        OWLClassExpression equivalentClass = getDataFactory().getOWLObjectIntersectionOf(
-                descs);
+        OWLClassExpression equivalentClass = getDataFactory()
+                .getOWLObjectIntersectionOf(descs);
         Set<OWLClassExpression> equivalentClasses = new HashSet<OWLClassExpression>();
         equivalentClasses.add(cls);
         equivalentClasses.add(equivalentClass);

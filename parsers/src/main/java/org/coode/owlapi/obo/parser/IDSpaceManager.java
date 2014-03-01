@@ -41,7 +41,8 @@ package org.coode.owlapi.obo.parser;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Maps between id prefixes and IRI prefixes. By default an IRI prefix is the
+/**
+ * Maps between id prefixes and IRI prefixes. By default an IRI prefix is the
  * value defined by {@link OBOPrefix#getPrefix()}, but this can be overridden
  * using an idspace tag in the ontology header. <br>
  * Note that the terminology used here, i.e. "id prefix" and "IRI prefix" is OBO
@@ -50,21 +51,25 @@ import java.util.Map;
  * prefix of an IRI that is the result of translating an OBO id to an IRI.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 18/04/2012 */
+ *         Research Group, Date: 18/04/2012
+ */
 public class IDSpaceManager {
+
     private Map<String, String> idPrefix2IRIPrefixMap = new HashMap<String, String>();
 
     /** default constructor */
     public IDSpaceManager() {}
 
-    /** Creates an IDSpaceManager and copying the id prefix to IRI prefix
+    /**
+     * Creates an IDSpaceManager and copying the id prefix to IRI prefix
      * mappings contained in some other IDSpaceManager.
      * 
      * @param idSpaceManager
-     *            The other IDSpaceManager from where id prefix to IRI prefix
-     *            mappings will be copied. Not null.
+     *        The other IDSpaceManager from where id prefix to IRI prefix
+     *        mappings will be copied. Not null.
      * @throws NullPointerException
-     *             if idSpaceManager is null. */
+     *         if idSpaceManager is null.
+     */
     public IDSpaceManager(IDSpaceManager idSpaceManager) {
         if (idSpaceManager == null) {
             throw new NullPointerException("idSpaceManager must not be null");
@@ -72,23 +77,27 @@ public class IDSpaceManager {
         idPrefix2IRIPrefixMap.putAll(idSpaceManager.idPrefix2IRIPrefixMap);
     }
 
-    /** Gets the default IRI prefix (which is returned by the
+    /**
+     * Gets the default IRI prefix (which is returned by the
      * {@link #getIRIPrefix(String)} for unregistered id prefixes.
      * 
      * @return The default prefix. This is actually defined by
-     *         {@link OBOPrefix#OBO}. */
+     *         {@link OBOPrefix#OBO}.
+     */
     public String getDefaultIRIPrefix() {
         return OBOPrefix.OBO.getPrefix();
     }
 
-    /** Gets an IRI prefix from an id prefix.
+    /**
+     * Gets an IRI prefix from an id prefix.
      * 
      * @param idPrefix
-     *            The id prefix. May be null.
+     *        The id prefix. May be null.
      * @return The IRI prefix for the given id prefix. Not null. If the
      *         specified id prefix is not registered/set with this manager, or
      *         it is null, then the default prefix will be returned, which is
-     *         defined by {@link OBOPrefix#OBO}. */
+     *         defined by {@link OBOPrefix#OBO}.
+     */
     public String getIRIPrefix(String idPrefix) {
         String iriPrefix = idPrefix2IRIPrefixMap.get(idPrefix);
         if (iriPrefix != null) {
@@ -98,13 +107,15 @@ public class IDSpaceManager {
         }
     }
 
-    /** Sets the IRI prefix for a given id prefix. This clears any previously set
+    /**
+     * Sets the IRI prefix for a given id prefix. This clears any previously set
      * IRI prefix for the given id prefix.
      * 
      * @param idPrefix
-     *            The id prefix to set.
+     *        The id prefix to set.
      * @param iriPrefix
-     *            The IRI prefix that the id prefix maps to. */
+     *        The IRI prefix that the id prefix maps to.
+     */
     public void setIRIPrefix(String idPrefix, String iriPrefix) {
         if (idPrefix == null) {
             throw new NullPointerException("idPrefix must not be null");

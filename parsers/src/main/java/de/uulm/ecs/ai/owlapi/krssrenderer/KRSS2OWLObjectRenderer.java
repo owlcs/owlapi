@@ -142,6 +142,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /** @author Olaf Noppens */
 @SuppressWarnings({ "unused", "javadoc" })
 public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
+
     private final OWLOntology ontology;
     private final Writer writer;
 
@@ -262,7 +263,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                Set<OWLClassExpression> superClasses = eachClass.getSuperClasses(onto);
+                Set<OWLClassExpression> superClasses = eachClass
+                        .getSuperClasses(onto);
                 if (superClasses.size() == 1) {
                     write(superClasses.iterator().next());
                 } else {
@@ -295,7 +297,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
                     writeCloseBracket();
                     writeln();
                 } else {
-                    Iterator<OWLClassExpression> iter = equivalentClasses.iterator();
+                    Iterator<OWLClassExpression> iter = equivalentClasses
+                            .iterator();
                     write(iter.next());
                     writeCloseBracket();
                     writeln();
@@ -314,7 +317,8 @@ public class KRSS2OWLObjectRenderer implements OWLObjectVisitor {
         for (final OWLClassAxiom axiom : onto.getGeneralClassAxioms()) {
             axiom.accept(this);
         }
-        for (final OWLObjectProperty property : onto.getObjectPropertiesInSignature()) {
+        for (final OWLObjectProperty property : onto
+                .getObjectPropertiesInSignature()) {
             writeOpenBracket();
             write(DEFINE_PRIMITIVE_ROLE);
             write(property);

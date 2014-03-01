@@ -40,27 +40,36 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Apr-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007
+ */
 public class OWLRendererException extends OWLOntologyStorageException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param message
-     *            the message */
+    /**
+     * @param message
+     *        the message
+     */
     public OWLRendererException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            the message
+    /**
+     * @param message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRendererException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            the cause */
+    /**
+     * @param cause
+     *        the cause
+     */
     public OWLRendererException(Throwable cause) {
         super(cause);
     }

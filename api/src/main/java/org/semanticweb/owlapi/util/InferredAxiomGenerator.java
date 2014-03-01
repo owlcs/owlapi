@@ -44,7 +44,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Given a reasoner, implementations of this interface generate axioms that
+/**
+ * Given a reasoner, implementations of this interface generate axioms that
  * represent inferred information. For example, an implementation might generate
  * the necessary subclass axioms that represent the inferred class subsumption
  * hierarchy within the reasoner. It is assumed that axioms generated reflect
@@ -53,13 +54,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 27-Jul-2007
  * @param <A>
- *            the axiom type */
+ *        the axiom type
+ */
 public interface InferredAxiomGenerator<A extends OWLAxiom> {
-    /** @param manager
-     *            the menager to use
+
+    /**
+     * @param manager
+     *        the menager to use
      * @param reasoner
-     *            the reasoner to use
-     * @return the set of axioms generated */
+     *        the reasoner to use
+     * @return the set of axioms generated
+     */
     Set<A> createAxioms(OWLOntologyManager manager, OWLReasoner reasoner);
 
     /** @return the label */

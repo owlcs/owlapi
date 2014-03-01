@@ -45,11 +45,17 @@ import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 19/12/2010 */
-public class DataQualifiedCardinalityTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 19/12/2010
+ */
+public class DataQualifiedCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DataQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -57,7 +63,8 @@ public class DataQualifiedCardinalityTranslator extends AbstractClassExpressionT
     @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode)
-                && isNonNegativeIntegerStrict(mainNode, OWL_QUALIFIED_CARDINALITY)
+                && isNonNegativeIntegerStrict(mainNode,
+                        OWL_QUALIFIED_CARDINALITY)
                 && isDataPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isDataRangeStrict(mainNode, OWL_ON_CLASS);
     }
@@ -71,16 +78,17 @@ public class DataQualifiedCardinalityTranslator extends AbstractClassExpressionT
 
     @Override
     public OWLDataExactCardinality translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_QUALIFIED_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLDataPropertyExpression property = getConsumer()
                 .translateDataPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_DATA_RANGE, true);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_DATA_RANGE, true);
         OWLDataRange filler = getConsumer().translateDataRange(fillerIRI);
-        return getDataFactory().getOWLDataExactCardinality(cardi, property, filler);
+        return getDataFactory().getOWLDataExactCardinality(cardi, property,
+                filler);
     }
 }

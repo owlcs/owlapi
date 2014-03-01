@@ -55,10 +55,13 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 01-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 01-Jul-2010
+ */
 @SuppressWarnings("javadoc")
 public class AnnotationAccessorsTestCase extends AbstractOWLAPITestCase {
+
     private static final IRI SUBJECT = IRI
             .create("http://owlapi.sourceforge.net/ontologies/test#X");
 

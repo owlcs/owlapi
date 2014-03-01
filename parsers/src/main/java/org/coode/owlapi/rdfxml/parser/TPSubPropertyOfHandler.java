@@ -47,11 +47,16 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class TPSubPropertyOfHandler extends TriplePredicateHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPSubPropertyOfHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_SUB_PROPERTY_OF.getIRI());
     }
@@ -110,23 +115,24 @@ public class TPSubPropertyOfHandler extends TriplePredicateHandler {
                     .getOWLAnnotationProperty(subject);
             OWLAnnotationProperty superAnnoProp = getDataFactory()
                     .getOWLAnnotationProperty(object);
-            addAxiom(getDataFactory().getOWLSubAnnotationPropertyOfAxiom(subAnnoProp,
-                    superAnnoProp, getPendingAnnotations()));
+            addAxiom(getDataFactory().getOWLSubAnnotationPropertyOfAxiom(
+                    subAnnoProp, superAnnoProp, getPendingAnnotations()));
             consumeTriple(subject, predicate, object);
         }
     }
 
-    private void translateSubObjectProperty(IRI subject, IRI predicate, IRI object)
-            throws OWLOntologyChangeException {
+    private void translateSubObjectProperty(IRI subject, IRI predicate,
+            IRI object) throws OWLOntologyChangeException {
         // Object - object
         addAxiom(getDataFactory().getOWLSubObjectPropertyOfAxiom(
-                translateObjectProperty(subject), translateObjectProperty(object),
-                getPendingAnnotations()));
+                translateObjectProperty(subject),
+                translateObjectProperty(object), getPendingAnnotations()));
         consumeTriple(subject, predicate, object);
     }
 
-    private void translateSubDataProperty(IRI subject, IRI predicate, IRI object)
-            throws OWLOntologyChangeException {
+    private void
+            translateSubDataProperty(IRI subject, IRI predicate, IRI object)
+                    throws OWLOntologyChangeException {
         // Data - Data
         addAxiom(getDataFactory().getOWLSubDataPropertyOfAxiom(
                 translateDataProperty(subject), translateDataProperty(object),

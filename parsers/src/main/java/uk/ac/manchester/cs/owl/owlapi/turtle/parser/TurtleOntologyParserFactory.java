@@ -42,11 +42,14 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** A factory for creating TurtleOntologyParser objects.
+/**
+ * A factory for creating TurtleOntologyParser objects.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Feb-2008 */
+ *         Informatics Group, Date: 24-Feb-2008
+ */
 public class TurtleOntologyParserFactory implements OWLParserFactory {
+
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new TurtleOntologyParser();

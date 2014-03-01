@@ -51,10 +51,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Jan-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Jan-2010
+ */
 @SuppressWarnings("javadoc")
 public class ManualImportsTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testManualImports() throws Exception {
         OWLOntologyManager manager = getManager();

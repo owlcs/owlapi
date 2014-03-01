@@ -40,9 +40,12 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 11/03/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 11/03/2011
+ */
 public class TestParser06TestCase extends AbstractFileRoundTrippingTestCase {
+
     @Override
     protected String getFileName() {
         return "TestParser06.rdf";

@@ -52,10 +52,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 17/02/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 17/02/2011
+ */
 @SuppressWarnings("javadoc")
 public class MapperlessOntologyManagerTestCase {
+
     private static final IRI ONTOLOGY_IRI = IRI("http://test.com/ont");
 
     private OWLOntologyManager createManager() {
@@ -73,18 +76,21 @@ public class MapperlessOntologyManagerTestCase {
     }
 
     @Test
-    public void testCreateOntologyWithAxioms() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithAxioms()
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom> emptySet());
+        OWLOntology ontology = manager.createOntology(Collections
+                .<OWLAxiom> emptySet());
         assertNotNull("ontology should not be null",
                 manager.getOntologyDocumentIRI(ontology));
     }
 
     @Test
-    public void testCreateOntologyWithAxiomsAndIRI() throws OWLOntologyCreationException {
+    public void testCreateOntologyWithAxiomsAndIRI()
+            throws OWLOntologyCreationException {
         OWLOntologyManager manager = createManager();
-        OWLOntology ontology = manager.createOntology(Collections.<OWLAxiom> emptySet(),
-                ONTOLOGY_IRI);
+        OWLOntology ontology = manager.createOntology(
+                Collections.<OWLAxiom> emptySet(), ONTOLOGY_IRI);
         assertEquals(ONTOLOGY_IRI, ontology.getOntologyID().getOntologyIRI());
         assertEquals(ONTOLOGY_IRI, manager.getOntologyDocumentIRI(ontology));
     }

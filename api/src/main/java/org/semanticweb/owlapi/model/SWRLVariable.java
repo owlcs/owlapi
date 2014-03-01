@@ -38,15 +38,20 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents a variable that can appear in an atom. Variable can either be
+/**
+ * Represents a variable that can appear in an atom. Variable can either be
  * place holders for individuals or literals. Variables are named with IRIs.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLVariable extends SWRLIArgument, SWRLDArgument, HasIRI {
-    /** Gets the variable IRI that names the variable.
+
+    /**
+     * Gets the variable IRI that names the variable.
      * 
-     * @return The IRI that represents the name of the variable */
+     * @return The IRI that represents the name of the variable
+     */
     @Override
     IRI getIRI();
 }

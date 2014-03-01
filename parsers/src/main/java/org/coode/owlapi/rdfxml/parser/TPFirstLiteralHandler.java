@@ -43,23 +43,31 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Jan-2007
+ */
 public class TPFirstLiteralHandler extends AbstractLiteralTripleHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPFirstLiteralHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean canHandle(IRI subject, IRI predicate, OWLLiteral object) {
-        return predicate != null && predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
+        return predicate != null
+                && predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
     }
 
     @Override
-    public boolean canHandleStreaming(IRI subject, IRI predicate, OWLLiteral object) {
-        return predicate != null && predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
+    public boolean canHandleStreaming(IRI subject, IRI predicate,
+            OWLLiteral object) {
+        return predicate != null
+                && predicate.equals(OWLRDFVocabulary.RDF_FIRST.getIRI());
     }
 
     @Override

@@ -43,22 +43,27 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Represent the common non-ontology data required by instances of
+/**
+ * Represent the common non-ontology data required by instances of
  * {@link org.semanticweb.owlapi.model.OWLAxiomChange}.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 27/04/2012 */
+ *         Research Group, Date: 27/04/2012
+ */
 public abstract class AxiomChangeData extends OWLOntologyChangeData {
+
     private static final long serialVersionUID = 30406L;
     private final OWLAxiom axiom;
 
-    /** Constructs an {@link AxiomChangeData} object that describes a change
+    /**
+     * Constructs an {@link AxiomChangeData} object that describes a change
      * involving the specified {@code axiom}.
      * 
      * @param axiom
-     *            The {@link OWLAxiom} involved in a change.
+     *        The {@link OWLAxiom} involved in a change.
      * @throws NullPointerException
-     *             if {@code axiom} is {@code null}. */
+     *         if {@code axiom} is {@code null}.
+     */
     public AxiomChangeData(OWLAxiom axiom) {
         if (axiom == null) {
             throw new NullPointerException("axiom must not be null");
@@ -66,9 +71,11 @@ public abstract class AxiomChangeData extends OWLOntologyChangeData {
         this.axiom = axiom;
     }
 
-    /** Gets the {@link OWLAxiom} that is associated with this change data.
+    /**
+     * Gets the {@link OWLAxiom} that is associated with this change data.
      * 
-     * @return The {@link OWLAxiom}. Not {@code null}. */
+     * @return The {@link OWLAxiom}. Not {@code null}.
+     */
     public OWLAxiom getAxiom() {
         return axiom;
     }

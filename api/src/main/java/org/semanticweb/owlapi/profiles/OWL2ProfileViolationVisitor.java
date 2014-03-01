@@ -38,84 +38,113 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public interface OWL2ProfileViolationVisitor {
-    /** visit UseOfNonAbsoluteIRI type
+
+    /**
+     * visit UseOfNonAbsoluteIRI type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonAbsoluteIRI violation);
 
-    /** visit UseOfIllegalFacetRestriction type
+    /**
+     * visit UseOfIllegalFacetRestriction type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalFacetRestriction violation);
 
-    /** visit LexicalNotInLexicalSpace type
+    /**
+     * visit LexicalNotInLexicalSpace type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(LexicalNotInLexicalSpace violation);
 
-    /** visit OntologyIRINotAbsolute type
+    /**
+     * visit OntologyIRINotAbsolute type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OntologyIRINotAbsolute violation);
 
-    /** visit IllegalPunning type
+    /**
+     * visit IllegalPunning type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(IllegalPunning violation);
 
-    /** visit OntologyVersionIRINotAbsolute type
+    /**
+     * visit OntologyVersionIRINotAbsolute type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OntologyVersionIRINotAbsolute violation);
 
-    /** visit UseOfDefinedDatatypeInDatatypeRestriction type
+    /**
+     * visit UseOfDefinedDatatypeInDatatypeRestriction type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfDefinedDatatypeInDatatypeRestriction violation);
 
-    /** visit UseOfUndeclaredDatatype type
+    /**
+     * visit UseOfUndeclaredDatatype type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUndeclaredDatatype violation);
 
-    /** visit UseOfUnknownDatatype type
+    /**
+     * visit UseOfUnknownDatatype type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfUnknownDatatype violation);
 
-    /** visit InsufficientPropertyExpressions type
+    /**
+     * visit InsufficientPropertyExpressions type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientPropertyExpressions violation);
 
-    /** visit InsufficientIndividuals type
+    /**
+     * visit InsufficientIndividuals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientIndividuals violation);
 
-    /** visit InsufficientOperands type
+    /**
+     * visit InsufficientOperands type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientOperands violation);
 
-    /** visit EmptyOneOfAxiom type
+    /**
+     * visit EmptyOneOfAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(EmptyOneOfAxiom violation);
 }

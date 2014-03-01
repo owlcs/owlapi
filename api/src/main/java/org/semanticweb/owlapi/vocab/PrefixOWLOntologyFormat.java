@@ -46,9 +46,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-Feb-2007 */
-public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements PrefixManager {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Feb-2007
+ */
+public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements
+        PrefixManager {
+
     private static final long serialVersionUID = 30406L;
     private DefaultPrefixManager nsm;
 
@@ -57,26 +61,32 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         this(new DefaultPrefixManager());
     }
 
-    /** @param manager
-     *            prefix manager to use */
+    /**
+     * @param manager
+     *        prefix manager to use
+     */
     public PrefixOWLOntologyFormat(DefaultPrefixManager manager) {
         nsm = manager;
         nsm.clear();
     }
 
-    /** @param m
-     *            prefix manager to use */
+    /**
+     * @param m
+     *        prefix manager to use
+     */
     public void setPrefixManager(DefaultPrefixManager m) {
         nsm = m;
         nsm.clear();
     }
 
-    /** A convenience method to add a prefix name to prefix mapping.
+    /**
+     * A convenience method to add a prefix name to prefix mapping.
      * 
      * @param prefixName
-     *            The prefix name which maps to a prefix
+     *        The prefix name which maps to a prefix
      * @param prefix
-     *            The prefix */
+     *        The prefix
+     */
     // XXX not in the interface
     public void setPrefix(String prefixName, String prefix) {
         String _prefixName = prefixName;
@@ -92,10 +102,12 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         nsm.clear();
     }
 
-    /** Copies the prefix from another ontology format into this format.
+    /**
+     * Copies the prefix from another ontology format into this format.
      * 
      * @param fromFormat
-     *            The format that the prefixes should be copied from */
+     *        The format that the prefixes should be copied from
+     */
     // XXX not in the interface
     public void copyPrefixesFrom(PrefixOWLOntologyFormat fromFormat) {
         Map<String, String> map = fromFormat.getPrefixName2PrefixMap();
@@ -105,8 +117,10 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         }
     }
 
-    /** @param prefixManager
-     *            prefix to copy prefixes from */
+    /**
+     * @param prefixManager
+     *        prefix to copy prefixes from
+     */
     // XXX not in the interface
     public void copyPrefixesFrom(PrefixManager prefixManager) {
         for (String prefixName : prefixManager.getPrefixNames()) {
@@ -120,11 +134,13 @@ public class PrefixOWLOntologyFormat extends OWLOntologyFormat implements Prefix
         return nsm.getPrefixNames();
     }
 
-    /** Sets the default namespace. This is equivalent to adding mapping from the
+    /**
+     * Sets the default namespace. This is equivalent to adding mapping from the
      * empty string prefix to a namespace.
      * 
      * @param namespace
-     *            The namespace to be set. */
+     *        The namespace to be set.
+     */
     // XXX not in the interface
     public void setDefaultPrefix(String namespace) {
         nsm.setDefaultPrefix(namespace);

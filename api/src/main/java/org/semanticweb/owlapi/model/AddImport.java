@@ -40,16 +40,21 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.change.AddImportData;
 
-/** Represents an ontology change where an import statement is added to an
+/**
+ * Represents an ontology change where an import statement is added to an
  * ontology.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 18-Mar-2009 */
+ *         Management Group, Date: 18-Mar-2009
+ */
 public class AddImport extends ImportChange {
-    /** @param ont
-     *            the ontology to which the change is to be applied
+
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param importDeclaration
-     *            the import declaration */
+     *        the import declaration
+     */
     public AddImport(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);
     }
@@ -61,7 +66,8 @@ public class AddImport extends ImportChange {
 
     @Override
     public int hashCode() {
-        return getOntology().hashCode() * 37 + getImportDeclaration().hashCode();
+        return getOntology().hashCode() * 37
+                + getImportDeclaration().hashCode();
     }
 
     @Override

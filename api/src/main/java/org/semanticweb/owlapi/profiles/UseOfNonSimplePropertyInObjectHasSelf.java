@@ -43,20 +43,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
-public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation implements
-        OWL2DLProfileViolation {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
+public class UseOfNonSimplePropertyInObjectHasSelf extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
+
     private final OWLObjectHasSelf hasSelf;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param hasSelf
-     *            wrong expression */
-    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology, OWLAxiom axiom,
-            OWLObjectHasSelf hasSelf) {
+     *        wrong expression
+     */
+    public UseOfNonSimplePropertyInObjectHasSelf(OWLOntology ontology,
+            OWLAxiom axiom, OWLObjectHasSelf hasSelf) {
         super(ontology, axiom);
         this.hasSelf = hasSelf;
     }

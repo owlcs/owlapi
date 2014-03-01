@@ -45,11 +45,16 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 18/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012
+ */
 public class IsObsoleteTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public IsObsoleteTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_OBSOLETE.getName(), consumer);
     }

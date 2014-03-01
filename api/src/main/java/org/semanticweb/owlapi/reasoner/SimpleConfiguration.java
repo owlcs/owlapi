@@ -38,11 +38,14 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** A simple configuration with the general options.
+/**
+ * A simple configuration with the general options.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 18-Mar-2009 */
+ *         Management Group, Date: 18-Mar-2009
+ */
 public class SimpleConfiguration implements OWLReasonerConfiguration {
+
     private ReasonerProgressMonitor progressMonitor = new NullReasonerProgressMonitor();
     private FreshEntityPolicy freshEntityPolicy = FreshEntityPolicy.ALLOW;
     private IndividualNodeSetPolicy individualNodeSetPolicy = IndividualNodeSetPolicy.BY_NAME;
@@ -51,29 +54,36 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
     /** default constructor */
     public SimpleConfiguration() {}
 
-    /** @param progressMonitor
-     *            the progress monitor to use */
+    /**
+     * @param progressMonitor
+     *        the progress monitor to use
+     */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor) {
         this.progressMonitor = progressMonitor;
     }
 
-    /** @param progressMonitor
-     *            the progress monitor to use
+    /**
+     * @param progressMonitor
+     *        the progress monitor to use
      * @param timeOut
-     *            the timeout in milliseconds */
-    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor, long timeOut) {
+     *        the timeout in milliseconds
+     */
+    public SimpleConfiguration(ReasonerProgressMonitor progressMonitor,
+            long timeOut) {
         this.progressMonitor = progressMonitor;
         this.timeOut = timeOut;
     }
 
-    /** @param progressMonitor
-     *            the progress monitor to use
+    /**
+     * @param progressMonitor
+     *        the progress monitor to use
      * @param freshEntityPolicy
-     *            the policy for fresh entities
+     *        the policy for fresh entities
      * @param timeOut
-     *            the timeout in milliseconds
+     *        the timeout in milliseconds
      * @param individualNodeSetPolicy
-     *            the policy for individual nodes */
+     *        the policy for individual nodes
+     */
     public SimpleConfiguration(ReasonerProgressMonitor progressMonitor,
             FreshEntityPolicy freshEntityPolicy, long timeOut,
             IndividualNodeSetPolicy individualNodeSetPolicy) {
@@ -83,17 +93,21 @@ public class SimpleConfiguration implements OWLReasonerConfiguration {
         this.individualNodeSetPolicy = individualNodeSetPolicy;
     }
 
-    /** @param freshEntityPolicy
-     *            the policy for fresh entities
+    /**
+     * @param freshEntityPolicy
+     *        the policy for fresh entities
      * @param timeOut
-     *            the timeout in milliseconds */
+     *        the timeout in milliseconds
+     */
     public SimpleConfiguration(FreshEntityPolicy freshEntityPolicy, long timeOut) {
         this.freshEntityPolicy = freshEntityPolicy;
         this.timeOut = timeOut;
     }
 
-    /** @param timeOut
-     *            the timeout in milliseconds */
+    /**
+     * @param timeOut
+     *        the timeout in milliseconds
+     */
     public SimpleConfiguration(long timeOut) {
         this.timeOut = timeOut;
     }

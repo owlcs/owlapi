@@ -56,14 +56,18 @@ import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class RDFXMLParser extends AbstractOWLParser {
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -75,6 +79,7 @@ public class RDFXMLParser extends AbstractOWLParser {
         try {
             final RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
             final RDFParser parser = new RDFParser() {
+
                 @Override
                 public void startPrefixMapping(String prefix, String IRI)
                         throws SAXException {
@@ -89,6 +94,7 @@ public class RDFXMLParser extends AbstractOWLParser {
                 }
             };
             IRIProvider prov = new IRIProvider() {
+
                 @Override
                 public IRI getIRI(String s) {
                     return parser.getIRI(s);
@@ -96,6 +102,7 @@ public class RDFXMLParser extends AbstractOWLParser {
             };
             OWLRDFConsumer consumer = new OWLRDFConsumer(ontology,
                     new AnonymousNodeChecker() {
+
                         @Override
                         public boolean isAnonymousNode(IRI iri) {
                             return NodeID.isAnonymousNodeIRI(iri);

@@ -41,17 +41,21 @@ package org.semanticweb.owlapi.model;
 /**
  * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
  * ObjectPropertyRange</a> axioms in the OWL 2 specification.
- *
- * @param <R> range
- * @param <P> property expression
+ * 
+ * @param <R>
+ *        range
+ * @param <P>
+ *        property expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group Date: 24-Oct-2006
  */
-public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression<?, ?>, R extends OWLPropertyRange> extends
-        OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut, HasRange<R> {
+public interface OWLPropertyRangeAxiom<P extends OWLPropertyExpression<?, ?>, R extends OWLPropertyRange>
+        extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
+        HasRange<R> {
 
     /**
      * Gets the range specified by this axiom.
+     * 
      * @return The range specified by this axiom.
      */
     @Override

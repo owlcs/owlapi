@@ -16,10 +16,13 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 22/10/2012
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTestCase {
+
     private OWLOntologyID mockOntologyID;
     private OWLOntologyChangeData mockChangeData;
     private OWLAxiom mockAxiom;
@@ -45,24 +48,24 @@ public class OWLOntologyChangeRecordTestCase {
 
     @Test
     public void testEquals() {
-        OWLOntologyChangeRecord record1 = new OWLOntologyChangeRecord(mockOntologyID,
-                mockChangeData);
-        OWLOntologyChangeRecord record2 = new OWLOntologyChangeRecord(mockOntologyID,
-                mockChangeData);
+        OWLOntologyChangeRecord record1 = new OWLOntologyChangeRecord(
+                mockOntologyID, mockChangeData);
+        OWLOntologyChangeRecord record2 = new OWLOntologyChangeRecord(
+                mockOntologyID, mockChangeData);
         assertEquals(record1, record2);
     }
 
     @Test
     public void testGettersNotNull() {
-        OWLOntologyChangeRecord record = new OWLOntologyChangeRecord(mockOntologyID,
-                mockChangeData);
+        OWLOntologyChangeRecord record = new OWLOntologyChangeRecord(
+                mockOntologyID, mockChangeData);
         assertNotNull(record.getOntologyID());
     }
 
     @Test
     public void testGetterEqual() {
-        OWLOntologyChangeRecord record = new OWLOntologyChangeRecord(mockOntologyID,
-                mockChangeData);
+        OWLOntologyChangeRecord record = new OWLOntologyChangeRecord(
+                mockOntologyID, mockChangeData);
         assertEquals(mockOntologyID, record.getOntologyID());
         assertEquals(mockChangeData, record.getData());
     }
@@ -81,8 +84,8 @@ public class OWLOntologyChangeRecordTestCase {
         OWLOntology ontology = manager.createOntology();
         OWLOntologyID ontologyID = ontology.getOntologyID();
         AddAxiomData addAxiomData = new AddAxiomData(mockAxiom);
-        OWLOntologyChangeRecord changeRecord = new OWLOntologyChangeRecord(ontologyID,
-                addAxiomData);
+        OWLOntologyChangeRecord changeRecord = new OWLOntologyChangeRecord(
+                ontologyID, addAxiomData);
         OWLOntologyChange change = changeRecord.createOntologyChange(manager);
         assertNotNull(change);
         assertEquals(change.getOntology().getOntologyID(), ontologyID);

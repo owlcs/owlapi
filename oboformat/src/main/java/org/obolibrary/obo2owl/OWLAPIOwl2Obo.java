@@ -80,6 +80,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /** owlapi version of Owl2Obo */
 public class OWLAPIOwl2Obo {
+
     private static Logger LOG = Logger.getLogger(OWLAPIOwl2Obo.class.getName());
     protected OWLOntologyManager manager;
     protected OWLOntology owlOntology;
@@ -103,8 +104,10 @@ public class OWLAPIOwl2Obo {
         apToDeclare = new HashSet<OWLAnnotationProperty>();
     }
 
-    /** @param translationManager
-     *            translationManager */
+    /**
+     * @param translationManager
+     *        translationManager
+     */
     public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
         manager = translationManager;
         init();
@@ -119,8 +122,10 @@ public class OWLAPIOwl2Obo {
         return map;
     }
 
-    /** @param b
-     *            strict conversion */
+    /**
+     * @param b
+     *        strict conversion
+     */
     public void setStrictConversion(boolean b) {
         strictConversion = b;
     }
@@ -135,8 +140,10 @@ public class OWLAPIOwl2Obo {
         return discardUntranslatable;
     }
 
-    /** @param discardUntranslatable
-     *            the discardUntranslatable to set */
+    /**
+     * @param discardUntranslatable
+     *        the discardUntranslatable to set
+     */
     public void setDiscardUntranslatable(boolean discardUntranslatable) {
         this.discardUntranslatable = discardUntranslatable;
     }
@@ -146,8 +153,10 @@ public class OWLAPIOwl2Obo {
         return manager;
     }
 
-    /** @param manager
-     *            manager */
+    /**
+     * @param manager
+     *        manager
+     */
     public void setManager(OWLOntologyManager manager) {
         this.manager = manager;
     }
@@ -157,15 +166,19 @@ public class OWLAPIOwl2Obo {
         return obodoc;
     }
 
-    /** @param obodoc
-     *            obodoc */
+    /**
+     * @param obodoc
+     *        obodoc
+     */
     public void setObodoc(OBODoc obodoc) {
         this.obodoc = obodoc;
     }
 
-    /** @param ont
-     *            ont
-     * @return obo doc */
+    /**
+     * @param ont
+     *        ont
+     * @return obo doc
+     */
     public OBODoc convert(OWLOntology ont) {
         owlOntology = ont;
         if (ont != null) {
@@ -838,14 +851,16 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** Handle a duplicate clause in a frame during translation.
+    /**
+     * Handle a duplicate clause in a frame during translation.
      * 
      * @param frame
-     *            frame
+     *        frame
      * @param clause
-     *            clause
+     *        clause
      * @return true if the clause is to be marked as redundant and will not be
-     *         added to the */
+     *         added to the
+     */
     protected boolean handleDuplicateClause(Frame frame, Clause clause) {
         // default is to report it via the logger and remove it.
         LOG.log(Level.WARNING, "Duplicate clause '" + clause
@@ -932,18 +947,22 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** if does not match this pattern, then retain original IRI
+    /**
+     * if does not match this pattern, then retain original IRI
      * 
      * @param ontology
-     *            ontology
-     * @return The OBO ID of the ontology */
+     *        ontology
+     * @return The OBO ID of the ontology
+     */
     public static String getOntologyId(OWLOntology ontology) {
         return getOntologyId(ontology.getOntologyID().getOntologyIRI());
     }
 
-    /** @param iriObj
-     *            iriObj
-     * @return ontology id */
+    /**
+     * @param iriObj
+     *        iriObj
+     * @return ontology id
+     */
     public static String getOntologyId(IRI iriObj) {
         // String id = getIdentifier(ontology.getOntologyID().getOntologyIRI());
         String iri = iriObj.toString();
@@ -959,9 +978,11 @@ public class OWLAPIOwl2Obo {
         return id;
     }
 
-    /** @param ontology
-     *            ontology
-     * @return data version */
+    /**
+     * @param ontology
+     *        ontology
+     * @return data version
+     */
     public static String getDataVersion(OWLOntology ontology) {
         String oid = getOntologyId(ontology);
         IRI v = ontology.getOntologyID().getVersionIRI();
@@ -1255,9 +1276,11 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** @param obj
-     *            obj
-     * @return identifier */
+    /**
+     * @param obj
+     *        obj
+     * @return identifier
+     */
     public String getIdentifier(OWLObject obj) {
         try {
             return getIdentifierFromObject(obj, owlOntology);
@@ -1269,36 +1292,43 @@ public class OWLAPIOwl2Obo {
 
     /** untranslatable axiom exception */
     public static class UntranslatableAxiomException extends Exception {
+
         // generated
         private static final long serialVersionUID = 4674805484349471665L;
 
-        /** @param message
-         *            message
+        /**
+         * @param message
+         *        message
          * @param cause
-         *            cause */
+         *        cause
+         */
         public UntranslatableAxiomException(String message, Throwable cause) {
             super(message, cause);
         }
 
-        /** @param message
-         *            message */
+        /**
+         * @param message
+         *        message
+         */
         public UntranslatableAxiomException(String message) {
             super(message);
         }
     }
 
-    /** Retrieve the identifier for a given {@link OWLObject}. This methods uses
+    /**
+     * Retrieve the identifier for a given {@link OWLObject}. This methods uses
      * also shorthand hints to resolve the identifier. Should the translation
      * process encounter a problem or not find an identifier the defaultValue is
      * returned.
      * 
      * @param obj
-     *            the {@link OWLObject} to resolve
+     *        the {@link OWLObject} to resolve
      * @param ont
-     *            the target ontology
+     *        the target ontology
      * @param defaultValue
-     *            the value to return in case of an error or no id
-     * @return identifier or the default value */
+     *        the value to return in case of an error or no id
+     * @return identifier or the default value
+     */
     public static String getIdentifierFromObject(OWLObject obj,
             OWLOntology ont, String defaultValue) {
         String id = defaultValue;
@@ -1313,18 +1343,20 @@ public class OWLAPIOwl2Obo {
         return id;
     }
 
-    /** Retrieve the identifier for a given {@link OWLObject}. This methods uses
+    /**
+     * Retrieve the identifier for a given {@link OWLObject}. This methods uses
      * also shorthand hints to resolve the identifier. Should the translation
      * process encounter an unexpected axiom an
      * {@link UntranslatableAxiomException} is thrown.
      * 
      * @param obj
-     *            the {@link OWLObject} to resolve
+     *        the {@link OWLObject} to resolve
      * @param ont
-     *            the target ontology
+     *        the target ontology
      * @return identifier or null
      * @throws UntranslatableAxiomException
-     *             UntranslatableAxiomException */
+     *         UntranslatableAxiomException
+     */
     public static String
             getIdentifierFromObject(OWLObject obj, OWLOntology ont)
                     throws UntranslatableAxiomException {
@@ -1358,11 +1390,13 @@ public class OWLAPIOwl2Obo {
         return null;
     }
 
-    /** See table 5.9.2. Translation of identifiers
+    /**
+     * See table 5.9.2. Translation of identifiers
      * 
      * @param iriId
-     *            iriId
-     * @return obo identifier or null */
+     *        iriId
+     * @return obo identifier or null
+     */
     public static String getIdentifier(IRI iriId) {
         return getIdentifier(iriId, null);
     }
@@ -1371,11 +1405,13 @@ public class OWLAPIOwl2Obo {
         return getIdentifier(iriId, owlOntology);
     }
 
-    /** @param iriId
-     *            iriId
+    /**
+     * @param iriId
+     *        iriId
      * @param baseOntology
-     *            baseOntology
-     * @return identifier */
+     *        baseOntology
+     * @return identifier
+     */
     public static String getIdentifier(IRI iriId, OWLOntology baseOntology) {
         if (iriId == null) {
             return null;
@@ -1451,9 +1487,11 @@ public class OWLAPIOwl2Obo {
         return iri;
     }
 
-    /** @param obj
-     *            obj
-     * @return tag for object */
+    /**
+     * @param obj
+     *        obj
+     * @return tag for object
+     */
     public static String owlObjectToTag(OWLObject obj) {
         IRI iriObj = null;
         if (obj instanceof OWLNamedObject) {
@@ -1734,15 +1772,17 @@ public class OWLAPIOwl2Obo {
         return c;
     }
 
-    /** Join clauses and its {@link QualifierValue} which have the same
+    /**
+     * Join clauses and its {@link QualifierValue} which have the same
      * relationship type and target. Try to resolve conflicts for multiple
      * statements. E.g., min=2 and min=3 is resolved to min=2, or max=2 and
      * max=4 is resolved to max=4. It will not merge conflicting exact
      * cardinality statements. TODO How to merge "all_some", and "all_only"?
      * 
      * @param clauses
-     *            clauses
-     * @return normalized list of {@link Clause} */
+     *        clauses
+     * @return normalized list of {@link Clause}
+     */
     public static List<Clause>
             normalizeRelationshipClauses(List<Clause> clauses) {
         final List<Clause> normalized = new ArrayList<Clause>();

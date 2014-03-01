@@ -38,13 +38,17 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
+/**
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
  * SubObjectPropertyOf</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLSubObjectPropertyOfAxiom extends
-        OWLSubPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+        OWLSubPropertyAxiom<OWLObjectPropertyExpression>,
+        OWLObjectPropertyAxiom {
+
     @Override
     OWLSubObjectPropertyOfAxiom getAxiomWithoutAnnotations();
 }

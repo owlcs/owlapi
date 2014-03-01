@@ -44,15 +44,21 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class IndividualListItemTranslator implements ListItemTranslator<OWLIndividual> {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
+public class IndividualListItemTranslator implements
+        ListItemTranslator<OWLIndividual> {
+
     private static final Logger logger = Logger
             .getLogger(IndividualListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public IndividualListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }

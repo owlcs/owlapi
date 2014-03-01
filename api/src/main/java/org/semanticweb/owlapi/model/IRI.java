@@ -50,15 +50,20 @@ import org.semanticweb.owlapi.util.WeakCache;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 14-Jan-2009 Represents International Resource
- *         Identifiers */
-public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredicate, OWLPrimitive,
-        CharSequence {
-    /** Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
+ *         Identifiers
+ */
+public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
+        SWRLPredicate, OWLPrimitive, CharSequence {
+
+    /**
+     * Obtains this IRI as a URI. Note that Java URIs handle unicode characters,
      * so there is no loss during this translation.
      * 
-     * @return The URI */
+     * @return The URI
+     */
     public URI toURI() {
         if (remainder != null) {
             StringBuilder sb = new StringBuilder();
@@ -70,10 +75,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         }
     }
 
-    /** Determines if this IRI is absolute
+    /**
+     * Determines if this IRI is absolute
      * 
      * @return {@code true} if this IRI is absolute or {@code false} if this IRI
-     *         is not absolute */
+     *         is not absolute
+     */
     public boolean isAbsolute() {
         int colonIndex = prefix.indexOf(':');
         if (colonIndex == -1) {
@@ -98,8 +105,10 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return prefix.substring(0, colonIndex);
     }
 
-    /** @return the prefix. Can be null.
-     * @deprecated use getNamespace instead - better name */
+    /**
+     * @return the prefix. Can be null.
+     * @deprecated use getNamespace instead - better name
+     */
     @Deprecated
     public String getStart() {
         return prefix;
@@ -110,10 +119,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return prefix;
     }
 
-    /** @param s
-     *            the IRI stirng to be resolved
+    /**
+     * @param s
+     *        the IRI stirng to be resolved
      * @return s resolved against this IRI (with the URI::resolve() method,
-     *         unless this IRI is opaque) */
+     *         unless this IRI is opaque)
+     */
     public IRI resolve(String s) {
         // shortcut: checking absolute and opaque here saves the creation of an
         // extra URI object
@@ -124,7 +135,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return IRI.create(toURI().resolve(uri).toString());
     }
 
-    /** Determines if this IRI is in the reserved vocabulary. An IRI is in the
+    /**
+     * Determines if this IRI is in the reserved vocabulary. An IRI is in the
      * reserved vocabulary if it starts with
      * &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; or
      * &lt;http://www.w3.org/2000/01/rdf-schema#&gt; or
@@ -132,56 +144,68 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
      * &lt;http://www.w3.org/2002/07/owl#&gt;
      * 
      * @return {@code true} if the IRI is in the reserved vocabulary, otherwise
-     *         {@code false}. */
+     *         {@code false}.
+     */
     public boolean isReservedVocabulary() {
-        return Namespaces.OWL.inNamespace(prefix) || Namespaces.RDF.inNamespace(prefix)
+        return Namespaces.OWL.inNamespace(prefix)
+                || Namespaces.RDF.inNamespace(prefix)
                 || Namespaces.RDFS.inNamespace(prefix)
                 || Namespaces.XSD.inNamespace(prefix);
     }
 
-    /** Determines if this IRI is equal to the IRI that {@code owl:Thing} is
+    /**
+     * Determines if this IRI is equal to the IRI that {@code owl:Thing} is
      * named with
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Thing&gt; and otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     public boolean isThing() {
         return remainder != null && remainder.equals("Thing")
                 && Namespaces.OWL.inNamespace(prefix);
     }
 
-    /** Determines if this IRI is equal to the IRI that {@code owl:Nothing} is
+    /**
+     * Determines if this IRI is equal to the IRI that {@code owl:Nothing} is
      * named with
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/2002/07/owl#Nothing&gt; and otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     public boolean isNothing() {
         return equals(OWLRDFVocabulary.OWL_NOTHING.getIRI());
     }
 
-    /** Determines if this IRI is equal to the IRI that is named
+    /**
+     * Determines if this IRI is equal to the IRI that is named
      * {@code rdf:PlainLiteral}
      * 
      * @return {@code true} if this IRI is equal to
      *         &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral&gt;,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     public boolean isPlainLiteral() {
         return remainder != null && remainder.equals("PlainLiteral")
                 && Namespaces.RDF.inNamespace(prefix);
     }
 
-    /** Gets the fragment of the IRI.
+    /**
+     * Gets the fragment of the IRI.
      * 
      * @return The IRI fragment, or {@code null} if the IRI does not have a
-     *         fragment */
+     *         fragment
+     */
     public String getFragment() {
         return remainder;
     }
 
-    /** Obtained this IRI surrounded by angled brackets
+    /**
+     * Obtained this IRI surrounded by angled brackets
      * 
-     * @return This IRI surrounded by &lt; and &gt; */
+     * @return This IRI surrounded by &lt; and &gt;
+     */
     public String toQuotedString() {
         StringBuilder sb = new StringBuilder();
         sb.append("<");
@@ -193,11 +217,13 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return sb.toString();
     }
 
-    /** Creates an IRI from the specified String.
+    /**
+     * Creates an IRI from the specified String.
      * 
      * @param str
-     *            The String that specifies the IRI. Cannot be null.
-     * @return The IRI that has the specified string representation. */
+     *        The String that specifies the IRI. Cannot be null.
+     * @return The IRI that has the specified string representation.
+     */
     public static IRI create(String str) {
         if (str == null) {
             throw new IllegalArgumentException("String must not be null");
@@ -210,15 +236,17 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return new IRI(str.substring(0, index), str.substring(index));
     }
 
-    /** Creates an IRI by concatenating two strings. The full IRI is an IRI that
+    /**
+     * Creates an IRI by concatenating two strings. The full IRI is an IRI that
      * contains the characters in prefix + suffix.
      * 
      * @param prefix
-     *            The first string. May be {@code null}.
+     *        The first string. May be {@code null}.
      * @param suffix
-     *            The second string. May be {@code null}.
+     *        The second string. May be {@code null}.
      * @return An IRI whose characters consist of prefix + suffix.
-     * @since 3.3 */
+     * @since 3.3
+     */
     public static IRI create(String prefix, String suffix) {
         if (prefix == null) {
             return create(suffix);
@@ -245,9 +273,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         }
     }
 
-    /** @param file
-     *            the file to create the IRI from. Cannot be null.
-     * @return file.toURI() IRI */
+    /**
+     * @param file
+     *        the file to create the IRI from. Cannot be null.
+     * @return file.toURI() IRI
+     */
     public static IRI create(File file) {
         if (file == null) {
             throw new IllegalArgumentException("file cannot be null");
@@ -255,9 +285,11 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return new IRI(file.toURI());
     }
 
-    /** @param uri
-     *            the uri to create the IRI from. Cannot be null
-     * @return the IRI wrapping the uri */
+    /**
+     * @param uri
+     *        the uri to create the IRI from. Cannot be null
+     * @return the IRI wrapping the uri
+     */
     public static IRI create(URI uri) {
         if (uri == null) {
             throw new IllegalArgumentException("uri cannot be null");
@@ -265,11 +297,13 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return new IRI(uri);
     }
 
-    /** @param url
-     *            the url to create the IRI from. Cannot be null.
+    /**
+     * @param url
+     *        the url to create the IRI from. Cannot be null.
      * @return an IRI wraopping url.toURI()
      * @throws URISyntaxException
-     *             if the URL is ill formed */
+     *         if the URL is ill formed
+     */
     public static IRI create(URL url) throws URISyntaxException {
         if (url == null) {
             throw new IllegalArgumentException("url cannot be null");
@@ -277,10 +311,12 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
         return new IRI(url.toURI());
     }
 
-    /** Gets an auto-generated ontology document IRI.
+    /**
+     * Gets an auto-generated ontology document IRI.
      * 
      * @return An auto-generated ontology document IRI. The IRI has the form
-     *         {@code owlapi:ontologyTIMESTAMP} */
+     *         {@code owlapi:ontologyTIMESTAMP}
+     */
     public static IRI generateDocumentIRI() {
         return create("owlapi:ontology" + System.nanoTime());
     }
@@ -299,13 +335,15 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     private final String prefix;
     private int hashCode = 0;
 
-    /** Constructs an IRI which is built from the concatenation of the specified
+    /**
+     * Constructs an IRI which is built from the concatenation of the specified
      * prefix and suffix.
      * 
      * @param prefix
-     *            The prefix.
+     *        The prefix.
      * @param fragment
-     *            The suffix. */
+     *        The suffix.
+     */
     protected IRI(String prefix, String fragment) {
         this.prefix = prefixCache.cache(prefix);
         remainder = fragment;
@@ -455,7 +493,8 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue, SWRLPredic
     @Override
     public int hashCode() {
         if (hashCode == 0) {
-            hashCode = prefix.hashCode() + (remainder != null ? remainder.hashCode() : 0);
+            hashCode = prefix.hashCode()
+                    + (remainder != null ? remainder.hashCode() : 0);
         }
         return hashCode;
     }

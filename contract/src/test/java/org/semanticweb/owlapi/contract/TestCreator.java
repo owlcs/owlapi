@@ -13,11 +13,13 @@ import java.util.Set;
 
 @SuppressWarnings("javadoc")
 public class TestCreator {
+
     public static void _main() throws Exception {
         Map<String, PrintStream> streams = new HashMap<String, PrintStream>();
         File[] roots = new File[] { new File("api/src/main/java"),
-                new File("apibinding/src/main/java"), new File("impl/src/main/java"),
-                new File("misc/src/main/java"), new File("parsers/src/main/java"),
+                new File("apibinding/src/main/java"),
+                new File("impl/src/main/java"), new File("misc/src/main/java"),
+                new File("parsers/src/main/java"),
                 new File("tutorial2012/src/main/java") };
         for (File root : roots) {
             visit(root, null, streams);
@@ -28,7 +30,8 @@ public class TestCreator {
         }
     }
 
-    private static PrintStream initPrintStream(String _name) throws FileNotFoundException {
+    private static PrintStream initPrintStream(String _name)
+            throws FileNotFoundException {
         String name = _name.replace("/", "_");
         PrintStream out = new PrintStream(
                 "apibinding/src/test/java/org/semanticweb/owlapi/unit/test/GeneratedJUnitTest"
@@ -39,8 +42,9 @@ public class TestCreator {
     }
 
     @SuppressWarnings("resource")
-    private static void visit(File root, File current, Map<String, PrintStream> outMap)
-            throws ClassNotFoundException, FileNotFoundException {
+    private static void visit(File root, File current,
+            Map<String, PrintStream> outMap) throws ClassNotFoundException,
+            FileNotFoundException {
         if (current == null) {
             for (File f : root.listFiles()) {
                 visit(root, f, outMap);
@@ -57,8 +61,9 @@ public class TestCreator {
                 out = initPrintStream(id);
                 outMap.put(id, out);
             }
-            String fullyQualifiedName = current.getAbsolutePath().replace(".java", "")
-                    .replace(root.getAbsolutePath(), "").replace("/", ".").substring(1);
+            String fullyQualifiedName = current.getAbsolutePath()
+                    .replace(".java", "").replace(root.getAbsolutePath(), "")
+                    .replace("/", ".").substring(1);
             Class<?> theClass = Class.forName(fullyQualifiedName);
             if (theClass.isInterface()) {
                 out.println("@Test\npublic void shouldTestInterface"
@@ -66,16 +71,18 @@ public class TestCreator {
                 out.println(theClass.getSimpleName() + " testSubject0 = mock("
                         + theClass.getSimpleName() + ".class);");
             } else {
-                out.println("@Test\npublic void shouldTest" + theClass.getSimpleName()
-                        + "()throws Exception{");
+                out.println("@Test\npublic void shouldTest"
+                        + theClass.getSimpleName() + "()throws Exception{");
                 int counter = 0;
                 Constructor<?>[] constructors = theClass.getConstructors();
                 if (constructors.length > 0) {
                     for (Constructor<?> c : constructors) {
-                        out.print(theClass.getSimpleName() + " testSubject" + counter++
-                                + " = new " + theClass.getSimpleName() + "(");
+                        out.print(theClass.getSimpleName() + " testSubject"
+                                + counter++ + " = new "
+                                + theClass.getSimpleName() + "(");
                         for (int i = 0; i < c.getParameterTypes().length; i++) {
-                            out.print("mock(" + c.getParameterTypes()[i].getSimpleName()
+                            out.print("mock("
+                                    + c.getParameterTypes()[i].getSimpleName()
                                     + ".class)");
                             if (i < c.getParameterTypes().length - 1) {
                                 out.print(",");
@@ -97,7 +104,8 @@ public class TestCreator {
                     }
                     out.print("testSubject0." + m.getName() + "(");
                     for (int i = 0; i < m.getParameterTypes().length; i++) {
-                        out.print("mock(" + m.getParameterTypes()[i].getSimpleName()
+                        out.print("mock("
+                                + m.getParameterTypes()[i].getSimpleName()
                                 + ".class)");
                         if (i < m.getParameterTypes().length - 1) {
                             out.print(",");
@@ -111,6 +119,6 @@ public class TestCreator {
     }
 
     private static Set<String> methodNamesToSkip = new HashSet<String>(
-            Arrays.asList("wait", "equals", "toString()", "hashCode", "getClass",
-                    "notify", "notifyAll"));
+            Arrays.asList("wait", "equals", "toString()", "hashCode",
+                    "getClass", "notify", "notifyAll"));
 }

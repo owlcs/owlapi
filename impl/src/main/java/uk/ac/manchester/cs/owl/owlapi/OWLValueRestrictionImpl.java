@@ -43,17 +43,20 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-/** @param <R>
- *            the range
+/**
+ * @param <R>
+ *        the range
  * @param <P>
- *            the property expression
+ *        the property expression
  * @param <V>
- *            the value
+ *        the value
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006 */
+ *         Informatics Group, Date: 26-Oct-2006
+ */
 public abstract class OWLValueRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, V extends OWLObject>
         extends OWLRestrictionImpl<R, P, P> implements
         OWLHasValueRestriction<R, P, V> {
+
     private static final long serialVersionUID = 30406L;
     private final V value;
 

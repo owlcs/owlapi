@@ -40,11 +40,16 @@ package org.semanticweb.owlapi.expression;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 15-Feb-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Feb-2009
+ */
 public interface OWLOntologyChecker {
-    /** @param name
-     *            the ontology name
-     * @return the ontology */
+
+    /**
+     * @param name
+     *        the ontology name
+     * @return the ontology
+     */
     OWLOntology getOntology(String name);
 }

@@ -9,6 +9,7 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 
 @SuppressWarnings("javadoc")
 public class MissingImportTestCase {
+
     @Test(expected = UnloadableImportException.class)
     public void shouldThrowExceptionWithDefaultImportsconfig()
             throws OWLOntologyCreationException {

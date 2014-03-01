@@ -11,11 +11,14 @@ import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** @author cjm unmappable expressions should be handled gracefully. in
+/**
+ * @author cjm unmappable expressions should be handled gracefully. in
  *         particular, there should be no single intersection_of tags See
- *         http://code.google.com/p/oboformat/issues/detail?id=13 */
+ *         http://code.google.com/p/oboformat/issues/detail?id=13
+ */
 @SuppressWarnings("javadoc")
 public class UnmappableExpressionsTest extends OboFormatTestBasics {
+
     @Test
     public void testConvert() throws Exception {
         OBODoc obodoc = convert(parseOWLFile("nesting.owl"));

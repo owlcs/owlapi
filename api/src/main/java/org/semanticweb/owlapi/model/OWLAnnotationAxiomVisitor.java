@@ -38,32 +38,43 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** A visitor which visits the different kinds of annotation axioms.
+/**
+ * A visitor which visits the different kinds of annotation axioms.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 17-Jan-2009 */
+ *         Management Group, Date: 17-Jan-2009
+ */
 public interface OWLAnnotationAxiomVisitor {
-    /** visit OWLAnnotationAssertionAxiom type
+
+    /**
+     * visit OWLAnnotationAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLAnnotationAssertionAxiom axiom);
 
-    /** visit OWLSubAnnotationPropertyOfAxiom type
+    /**
+     * visit OWLSubAnnotationPropertyOfAxiom type
      * 
      * @param axiom
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLSubAnnotationPropertyOfAxiom axiom);
 
-    /** visit OWLAnnotationPropertyDomainAxiom type
+    /**
+     * visit OWLAnnotationPropertyDomainAxiom type
      * 
      * @param axiom
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLAnnotationPropertyDomainAxiom axiom);
 
-    /** visit OWLAnnotationPropertyRangeAxiom type
+    /**
+     * visit OWLAnnotationPropertyRangeAxiom type
      * 
      * @param axiom
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLAnnotationPropertyRangeAxiom axiom);
 }

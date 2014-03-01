@@ -47,18 +47,23 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectMinCardinalityImpl extends OWLObjectCardinalityRestrictionImpl
-        implements OWLObjectMinCardinality {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLObjectMinCardinalityImpl extends
+        OWLObjectCardinalityRestrictionImpl implements OWLObjectMinCardinality {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param cardinality
-     *            cardinality
+     *        cardinality
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OWLObjectMinCardinalityImpl(OWLObjectPropertyExpression property,
             int cardinality, OWLClassExpression filler) {
         super(property, cardinality, filler);

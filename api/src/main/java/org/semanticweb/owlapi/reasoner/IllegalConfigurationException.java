@@ -38,38 +38,47 @@
  */
 package org.semanticweb.owlapi.reasoner;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 21-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 21-Jan-2009
+ */
 public class IllegalConfigurationException extends OWLReasonerRuntimeException {
+
     private static final long serialVersionUID = 30406L;
     private final OWLReasonerConfiguration configuration;
 
-    /** @param cause
-     *            exception cause
+    /**
+     * @param cause
+     *        exception cause
      * @param configuration
-     *            loading configuration */
+     *        loading configuration
+     */
     public IllegalConfigurationException(Throwable cause,
             OWLReasonerConfiguration configuration) {
         super(cause);
         this.configuration = configuration;
     }
 
-    /** @param message
-     *            exception message
+    /**
+     * @param message
+     *        exception message
      * @param configuration
-     *            reasoner configuration */
+     *        reasoner configuration
+     */
     public IllegalConfigurationException(String message,
             OWLReasonerConfiguration configuration) {
         super(message);
         this.configuration = configuration;
     }
 
-    /** @param cause
-     *            exception cause
+    /**
+     * @param cause
+     *        exception cause
      * @param message
-     *            exception message
+     *        exception message
      * @param configuration
-     *            reasoner configuration */
+     *        reasoner configuration
+     */
     public IllegalConfigurationException(String message, Throwable cause,
             OWLReasonerConfiguration configuration) {
         super(message, cause);

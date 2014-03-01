@@ -40,12 +40,17 @@ package org.coode.owlapi.obo.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 19/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 19/04/2012
+ */
 public class OBOIdTranslator {
-    /** @param oboId
-     *            oboId
-     * @return null */
+
+    /**
+     * @param oboId
+     *        oboId
+     * @return null
+     */
     public IRI getIRIFromOBOId(@SuppressWarnings("unused") String oboId) {
         return null;
     }

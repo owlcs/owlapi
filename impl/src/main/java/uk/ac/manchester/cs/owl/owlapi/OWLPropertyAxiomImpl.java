@@ -43,15 +43,21 @@ import java.util.Collection;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 05-Dec-2006 */
-public abstract class OWLPropertyAxiomImpl extends OWLLogicalAxiomImpl implements
-        OWLPropertyAxiom {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 05-Dec-2006
+ */
+public abstract class OWLPropertyAxiomImpl extends OWLLogicalAxiomImpl
+        implements OWLPropertyAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param annotations
-     *            annotations on the axiom */
-    protected OWLPropertyAxiomImpl(Collection<? extends OWLAnnotation> annotations) {
+    /**
+     * @param annotations
+     *        annotations on the axiom
+     */
+    protected OWLPropertyAxiomImpl(
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
     }
 }

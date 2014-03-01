@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class ExpandNothingTest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OWLOntology ontology = convert(parseOBOFile("nothing_expansion_test.obo"));

@@ -48,6 +48,7 @@ import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 /** Implementation of single explanation generator. */
 public abstract class SingleExplanationGeneratorImpl implements
         TransactionAwareSingleExpGen {
+
     /** The in transaction. */
     private boolean inTransaction;
     /** The owl ontology manager. */
@@ -61,14 +62,16 @@ public abstract class SingleExplanationGeneratorImpl implements
     /** The definition tracker. */
     private final DefinitionTracker definitionTracker;
 
-    /** Instantiates a new single explanation generator impl.
+    /**
+     * Instantiates a new single explanation generator impl.
      * 
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param reasonerFactory
-     *            the reasoner factory
+     *        the reasoner factory
      * @param reasoner
-     *            the reasoner */
+     *        the reasoner
+     */
     public SingleExplanationGeneratorImpl(OWLOntology ontology,
             OWLReasonerFactory reasonerFactory, OWLReasoner reasoner) {
         this.ontology = ontology;
@@ -88,9 +91,11 @@ public abstract class SingleExplanationGeneratorImpl implements
         return reasoner;
     }
 
-    /** Gets the definition tracker.
+    /**
+     * Gets the definition tracker.
      * 
-     * @return the definition tracker */
+     * @return the definition tracker
+     */
     public DefinitionTracker getDefinitionTracker() {
         return definitionTracker;
     }
@@ -105,9 +110,11 @@ public abstract class SingleExplanationGeneratorImpl implements
         return reasonerFactory;
     }
 
-    /** Checks if is first explanation.
+    /**
+     * Checks if is first explanation.
      * 
-     * @return true, if is first explanation */
+     * @return true, if is first explanation
+     */
     protected boolean isFirstExplanation() {
         return !inTransaction;
     }

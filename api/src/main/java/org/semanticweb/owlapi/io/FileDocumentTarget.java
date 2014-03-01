@@ -49,19 +49,24 @@ import java.io.Writer;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** An {@code OWLOntologyDocumentTarget} that supports writing out to a
+/**
+ * An {@code OWLOntologyDocumentTarget} that supports writing out to a
  * {@code File}.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group, Date: 16/12/2010
- * @since 3.2 */
+ * @since 3.2
+ */
 public class FileDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final File file;
 
-    /** Constructs the document target, with the target being the specified file.
+    /**
+     * Constructs the document target, with the target being the specified file.
      * 
      * @param file
-     *            The file that is the target. */
+     *        The file that is the target.
+     */
     public FileDocumentTarget(File file) {
         this.file = file;
     }

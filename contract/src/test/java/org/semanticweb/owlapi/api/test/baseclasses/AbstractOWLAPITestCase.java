@@ -67,10 +67,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2008
+ */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
+
     public boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same",
@@ -141,9 +144,11 @@ public abstract class AbstractOWLAPITestCase {
         return true;
     }
 
-    /** @param leftOnly
+    /**
+     * @param leftOnly
      * @param rightOnly
-     * @return */
+     * @return
+     */
     public static boolean verifyErrorIsDueToBlankNodesId(
             Set<OWLAxiom> leftOnly, Set<OWLAxiom> rightOnly) {
         Set<String> leftOnlyStrings = new HashSet<String>();
@@ -161,13 +166,14 @@ public abstract class AbstractOWLAPITestCase {
         return rightOnlyStrings.equals(leftOnlyStrings);
     }
 
-    /** ignore declarations of builtins and of named individuals - named
+    /**
+     * ignore declarations of builtins and of named individuals - named
      * individuals do not /need/ a declaration, but addiong one is not an error.
      * 
      * @param parse
-     *            true if the axiom belongs to the parsed ones, false for the
-     *            input
-     * @return true if the axiom can be ignored */
+     *        true if the axiom belongs to the parsed ones, false for the input
+     * @return true if the axiom can be ignored
+     */
     public boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
         if (ax instanceof OWLDeclarationAxiom) {
             OWLDeclarationAxiom d = (OWLDeclarationAxiom) ax;
@@ -240,16 +246,18 @@ public abstract class AbstractOWLAPITestCase {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
 
-    /** Saves the specified ontology in the specified format and reloads it.
+    /**
+     * Saves the specified ontology in the specified format and reloads it.
      * Calling this method from a test will cause the test to fail if the
      * ontology could not be stored, could not be reloaded, or was reloaded and
      * the reloaded version is not equal (in terms of ontology URI and axioms)
      * with the original.
      * 
      * @param ont
-     *            The ontology to be round tripped.
+     *        The ontology to be round tripped.
      * @param format
-     *            The format to use when doing the round trip. */
+     *        The format to use when doing the round trip.
+     */
     public OWLOntology roundTripOntology(OWLOntology ont,
             OWLOntologyFormat format) throws Exception {
         StringDocumentTarget target = new StringDocumentTarget();

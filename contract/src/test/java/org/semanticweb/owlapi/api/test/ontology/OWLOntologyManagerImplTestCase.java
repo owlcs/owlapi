@@ -54,10 +54,13 @@ import uk.ac.manchester.cs.owl.owlapi.EmptyInMemOWLOntologyFactory;
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 import uk.ac.manchester.cs.owl.owlapi.OWLOntologyManagerImpl;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 02-Jan-2007
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyManagerImplTestCase {
+
     private OWLOntologyManager manager;
 
     @Before
@@ -74,7 +77,8 @@ public class OWLOntologyManagerImplTestCase {
         assertNotNull("ontology should not be null",
                 manager.getOntology(ont.getOntologyID()));
         assertTrue(manager.getOntologies().contains(ont));
-        assertNotNull("IRI should not be null", manager.getOntologyDocumentIRI(ont));
+        assertNotNull("IRI should not be null",
+                manager.getOntologyDocumentIRI(ont));
         manager.removeOntology(ont);
         assertFalse(manager.contains(ont.getOntologyID()));
     }
@@ -83,7 +87,8 @@ public class OWLOntologyManagerImplTestCase {
     public void testImports() throws Exception {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
-        OWLImportsDeclaration decl = manager.getOWLDataFactory()
+        OWLImportsDeclaration decl = manager
+                .getOWLDataFactory()
                 .getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
         manager.applyChange(new AddImport(ontA, decl));
         assertTrue(manager.getDirectImports(ontA).contains(ontB));
@@ -97,9 +102,11 @@ public class OWLOntologyManagerImplTestCase {
         OWLOntology ontA = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontB = manager.createOntology(TestUtils.createIRI());
         OWLOntology ontC = manager.createOntology(TestUtils.createIRI());
-        OWLImportsDeclaration declA = manager.getOWLDataFactory()
+        OWLImportsDeclaration declA = manager
+                .getOWLDataFactory()
                 .getOWLImportsDeclaration(ontB.getOntologyID().getOntologyIRI());
-        OWLImportsDeclaration declB = manager.getOWLDataFactory()
+        OWLImportsDeclaration declB = manager
+                .getOWLDataFactory()
                 .getOWLImportsDeclaration(ontC.getOntologyID().getOntologyIRI());
         manager.applyChange(new AddImport(ontA, declA));
         manager.applyChange(new AddImport(ontB, declB));

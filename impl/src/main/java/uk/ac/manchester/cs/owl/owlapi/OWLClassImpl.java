@@ -75,17 +75,22 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006
+ */
 public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
         Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final IRI iri;
     private final boolean isThing;
     private final boolean isNothing;
 
-    /** @param iri
-     *            class iri */
+    /**
+     * @param iri
+     *        class iri
+     */
     public OWLClassImpl(IRI iri) {
         super();
         this.iri = iri;
@@ -149,8 +154,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology,
+            boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 
@@ -205,39 +210,49 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     // XXX not in the interface
-    /** @param ontology
-     *            ontology
-     * @return subclasses */
+    /**
+     * @param ontology
+     *        ontology
+     * @return subclasses
+     */
     @Deprecated
     public Set<OWLSubClassOfAxiom> getSubClassAxioms(OWLOntology ontology) {
         return ontology.getSubClassAxiomsForSubClass(this);
     }
 
     // XXX not in the interface
-    /** @param ontology
-     *            ontology
-     * @return equivalent classes */
+    /**
+     * @param ontology
+     *        ontology
+     * @return equivalent classes
+     */
     @Deprecated
-    public Set<OWLEquivalentClassesAxiom>
-            getEquivalentClassesAxioms(OWLOntology ontology) {
+    public Set<OWLEquivalentClassesAxiom> getEquivalentClassesAxioms(
+            OWLOntology ontology) {
         return ontology.getEquivalentClassesAxioms(this);
     }
 
     // XXX not in the interface
-    /** @param ontology
-     *            ontology
-     * @return disjoints */
+    /**
+     * @param ontology
+     *        ontology
+     * @return disjoints
+     */
     @Deprecated
-    public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(OWLOntology ontology) {
+    public Set<OWLDisjointClassesAxiom> getDisjointClassesAxioms(
+            OWLOntology ontology) {
         return ontology.getDisjointClassesAxioms(this);
     }
 
     // XXX not in the interface
-    /** @param ontology
-     *            ontology
-     * @return disjoint unions */
+    /**
+     * @param ontology
+     *        ontology
+     * @return disjoint unions
+     */
     @Deprecated
-    public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(OWLOntology ontology) {
+    public Set<OWLDisjointUnionAxiom> getDisjointUnionAxioms(
+            OWLOntology ontology) {
         return ontology.getDisjointUnionAxioms(this);
     }
 
@@ -262,7 +277,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     @Override
     public Set<OWLClassExpression> getSubClasses(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLSubClassOfAxiom axiom : ontology.getSubClassAxiomsForSuperClass(this)) {
+        for (OWLSubClassOfAxiom axiom : ontology
+                .getSubClassAxiomsForSuperClass(this)) {
             result.add(axiom.getSubClass());
         }
         return result;
@@ -289,7 +305,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     @Override
-    public Set<OWLClassExpression> getEquivalentClasses(Set<OWLOntology> ontologies) {
+    public Set<OWLClassExpression> getEquivalentClasses(
+            Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getEquivalentClasses(ont));
@@ -309,7 +326,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     }
 
     @Override
-    public Set<OWLClassExpression> getDisjointClasses(Set<OWLOntology> ontologies) {
+    public Set<OWLClassExpression> getDisjointClasses(
+            Set<OWLOntology> ontologies) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getDisjointClasses(ont));
@@ -343,7 +361,8 @@ public class OWLClassImpl extends OWLClassExpressionImpl implements OWLClass,
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
+        return ImplUtils.getAnnotationAxioms(this,
+                Collections.singleton(ontology));
     }
 
     @Override

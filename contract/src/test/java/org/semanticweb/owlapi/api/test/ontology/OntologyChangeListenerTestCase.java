@@ -56,10 +56,13 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 04-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010
+ */
 @SuppressWarnings("javadoc")
 public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testOntologyChangeListener() {
         OWLOntology ont = getOWLOntology("ont");
@@ -72,6 +75,7 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
         final Set<OWLAxiom> removals = new HashSet<OWLAxiom>();
         getManager().addImpendingOntologyChangeListener(
                 new ImpendingOWLOntologyChangeListener() {
+
                     @Override
                     public void handleImpendingOntologyChanges(
                             List<? extends OWLOntologyChange> impendingChanges) {
@@ -85,8 +89,10 @@ public class OntologyChangeListenerTestCase extends AbstractOWLAPITestCase {
                     }
                 });
         getManager().addOntologyChangeListener(new OWLOntologyChangeListener() {
+
             @Override
-            public void ontologiesChanged(List<? extends OWLOntologyChange> changes)
+            public void ontologiesChanged(
+                    List<? extends OWLOntologyChange> changes)
                     throws OWLException {
                 for (OWLOntologyChange change : changes) {
                     if (change.isAddAxiom()) {

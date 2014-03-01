@@ -40,14 +40,18 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Represents <a href=
+/**
+ * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Equivalent_Object_Properties"
  * >EquivalentObjectProperties</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLEquivalentObjectPropertiesAxiom extends
-        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>, OWLObjectPropertyAxiom {
+        OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
+        OWLObjectPropertyAxiom {
+
     /** @return the axioms equivalent to the equivalent object property axiom */
     Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms();
 

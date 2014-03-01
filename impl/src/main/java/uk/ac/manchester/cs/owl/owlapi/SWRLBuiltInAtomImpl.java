@@ -53,16 +53,22 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
-public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements SWRLBuiltInAtom {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007
+ */
+public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
+        SWRLBuiltInAtom {
+
     private static final long serialVersionUID = 30406L;
     private final List<SWRLDArgument> args;
 
-    /** @param predicate
-     *            predicate
+    /**
+     * @param predicate
+     *        predicate
      * @param args
-     *            builtin argument */
+     *        builtin argument
+     */
     public SWRLBuiltInAtomImpl(IRI predicate, List<SWRLDArgument> args) {
         super(predicate);
         this.args = new ArrayList<SWRLDArgument>(args);

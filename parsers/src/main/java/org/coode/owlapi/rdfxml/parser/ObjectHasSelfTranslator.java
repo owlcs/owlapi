@@ -48,11 +48,16 @@ import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public ObjectHasSelfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -66,8 +71,10 @@ public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
     }
 
     private boolean isStrictBooleanTrueLiteral(OWLLiteral literal) {
-        return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(literal.getDatatype().getIRI())
-                && literal.getLiteral().toLowerCase(Locale.ENGLISH).equals("true");
+        return OWL2Datatype.XSD_BOOLEAN.getIRI().equals(
+                literal.getDatatype().getIRI())
+                && literal.getLiteral().toLowerCase(Locale.ENGLISH)
+                        .equals("true");
     }
 
     @Override
@@ -78,11 +85,11 @@ public class ObjectHasSelfTranslator extends AbstractClassExpressionTranslator {
 
     @Override
     public OWLObjectHasSelf translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
         getConsumer().getLiteralObject(mainNode, OWL_HAS_SELF, true);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
         return getDataFactory().getOWLObjectHasSelf(property);

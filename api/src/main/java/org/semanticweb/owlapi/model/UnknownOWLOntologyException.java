@@ -38,13 +38,18 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Apr-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007
+ */
 public class UnknownOWLOntologyException extends OWLRuntimeException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param ontologyID
-     *            the unknown ontology id */
+    /**
+     * @param ontologyID
+     *        the unknown ontology id
+     */
     public UnknownOWLOntologyException(OWLOntologyID ontologyID) {
         super("Unknown ontology: " + ontologyID);
     }

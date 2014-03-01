@@ -55,23 +55,29 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
         OWLDatatypeRestriction {
+
     private static final long serialVersionUID = 30406L;
     private final OWLDatatype datatype;
     private final Set<OWLFacetRestriction> facetRestrictions;
 
-    /** @param datatype
-     *            datatype
+    /**
+     * @param datatype
+     *        datatype
      * @param facetRestrictions
-     *            facet restriction */
+     *        facet restriction
+     */
     public OWLDatatypeRestrictionImpl(OWLDatatype datatype,
             Set<OWLFacetRestriction> facetRestrictions) {
         super();
         this.datatype = datatype;
-        this.facetRestrictions = new HashSet<OWLFacetRestriction>(facetRestrictions);
+        this.facetRestrictions = new HashSet<OWLFacetRestriction>(
+                facetRestrictions);
     }
 
     @Override

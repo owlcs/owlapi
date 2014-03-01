@@ -57,6 +57,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase {
+
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 

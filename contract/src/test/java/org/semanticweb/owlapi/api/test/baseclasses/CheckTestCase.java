@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
 public class CheckTestCase {
+
     @Test
     public void checkVerify() {
         OWLDataFactory df = OWLManager.getOWLDataFactory();

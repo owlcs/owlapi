@@ -21,6 +21,7 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.DLSyntaxOntologyStorerBase;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {
+
     @Test
     public void shouldTestDLSyntax() throws Exception {
         DLSyntax testSubject0 = DLSyntax.AND;
@@ -34,21 +35,27 @@ public class ContractDlsyntaxTest {
         DLSyntaxHTMLOntologyFormat testSubject0 = new DLSyntaxHTMLOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result1 = testSubject0
-                .getParameter(mock(Object.class), mock(Object.class));
+        Object result1 = testSubject0.getParameter(mock(Object.class),
+                mock(Object.class));
         boolean result2 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result3 = testSubject0.asPrefixOWLOntologyFormat();
-        OWLOntologyLoaderMetaData result4 = testSubject0.getOntologyLoaderMetaData();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+        PrefixOWLOntologyFormat result3 = testSubject0
+                .asPrefixOWLOntologyFormat();
+        OWLOntologyLoaderMetaData result4 = testSubject0
+                .getOntologyLoaderMetaData();
+        testSubject0
+                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     public void shouldTestDLSyntaxHTMLOntologyStorer() throws Exception {
         DLSyntaxHTMLOntologyStorer testSubject0 = new DLSyntaxHTMLOntologyStorer();
-        boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
+        boolean result0 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), mock(OWLOntologyDocumentTarget.class),
+                mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
 
@@ -66,26 +73,33 @@ public class ContractDlsyntaxTest {
         DLSyntaxOntologyFormat testSubject0 = new DLSyntaxOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result1 = testSubject0
-                .getParameter(mock(Object.class), mock(Object.class));
+        Object result1 = testSubject0.getParameter(mock(Object.class),
+                mock(Object.class));
         boolean result2 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result3 = testSubject0.asPrefixOWLOntologyFormat();
-        OWLOntologyLoaderMetaData result4 = testSubject0.getOntologyLoaderMetaData();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+        PrefixOWLOntologyFormat result3 = testSubject0
+                .asPrefixOWLOntologyFormat();
+        OWLOntologyLoaderMetaData result4 = testSubject0
+                .getOntologyLoaderMetaData();
+        testSubject0
+                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     public void shouldTestDLSyntaxOntologyStorer() throws Exception {
         DLSyntaxOntologyStorer testSubject0 = new DLSyntaxOntologyStorer();
-        boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
+        boolean result0 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), mock(OWLOntologyDocumentTarget.class),
+                mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
 
     public void shouldTestDLSyntaxOntologyStorerBase() throws Exception {
         DLSyntaxOntologyStorerBase testSubject0 = new DLSyntaxOntologyStorerBase() {
+
             /**
              * 
              */
@@ -96,11 +110,14 @@ public class ContractDlsyntaxTest {
                 return false;
             }
         };
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), mock(OWLOntologyDocumentTarget.class),
+                mock(OWLOntologyFormat.class));
         String result0 = testSubject0.toString();
-        boolean result1 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
+        boolean result1 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
     }
 }

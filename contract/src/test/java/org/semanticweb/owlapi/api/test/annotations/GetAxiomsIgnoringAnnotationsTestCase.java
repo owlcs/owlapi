@@ -52,25 +52,32 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009
+ */
 @SuppressWarnings("javadoc")
-public class GetAxiomsIgnoringAnnotationsTestCase extends AbstractOWLAPITestCase {
+public class GetAxiomsIgnoringAnnotationsTestCase extends
+        AbstractOWLAPITestCase {
+
     @Test
     public void testGetAxiomsIgnoringAnnoations() {
         OWLLiteral annoLiteral = Literal("value");
         OWLAnnotationProperty annoProp = AnnotationProperty(getIRI("annoProp"));
-        OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(annoProp, annoLiteral);
-        OWLAxiom axiom = Factory.getFactory().getOWLSubClassOfAxiom(Class(getIRI("A")),
-                Class(getIRI("B")), Collections.singleton(anno));
+        OWLAnnotation anno = Factory.getFactory().getOWLAnnotation(annoProp,
+                annoLiteral);
+        OWLAxiom axiom = Factory.getFactory().getOWLSubClassOfAxiom(
+                Class(getIRI("A")), Class(getIRI("B")),
+                Collections.singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         getManager().addAxiom(ont, axiom);
         assertTrue(ont.getAxiomsIgnoreAnnotations(axiom).contains(axiom));
         assertFalse(ont.getAxiomsIgnoreAnnotations(axiom).contains(
                 axiom.getAxiomWithoutAnnotations()));
-        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations())
-                .contains(axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom.getAxiomWithoutAnnotations())
-                .contains(axiom.getAxiomWithoutAnnotations()));
+        assertTrue(ont.getAxiomsIgnoreAnnotations(
+                axiom.getAxiomWithoutAnnotations()).contains(axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(
+                axiom.getAxiomWithoutAnnotations()).contains(
+                axiom.getAxiomWithoutAnnotations()));
     }
 }

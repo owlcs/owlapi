@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-May-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-May-2009
+ */
 public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
-    /** @param handler
-     *            owlxml handler */
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public AbbreviatedIRIElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -64,7 +69,8 @@ public class AbbreviatedIRIElementHandler extends AbstractIRIElementHandler {
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         String iriText = getText().trim();
         iri = getAbbreviatedIRI(iriText);
         getParentHandler().handleChild(this);

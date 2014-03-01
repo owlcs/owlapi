@@ -50,6 +50,7 @@ import de.uulm.ecs.ai.owlapi.krssparser.KRSS2OntologyFormat;
 
 /** @author Olaf Noppens */
 public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 30406L;
 
     @Override
@@ -60,8 +61,9 @@ public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
     // I changed this class to extend AbstractOWLOntologyStorer - Matthew
     // Horridge
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager,
+            OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 

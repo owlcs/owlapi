@@ -45,6 +45,7 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.ManchesterOWLSyntaxPrefi
 
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserTestCase {
+
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

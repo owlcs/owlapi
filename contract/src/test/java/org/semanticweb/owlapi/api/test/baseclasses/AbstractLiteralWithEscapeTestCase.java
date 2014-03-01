@@ -47,10 +47,13 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 28/09/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 28/09/2011
+ */
 public abstract class AbstractLiteralWithEscapeTestCase extends
         AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() throws Exception {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));
@@ -59,11 +62,16 @@ public abstract class AbstractLiteralWithEscapeTestCase extends
         OWLLiteral lit2 = Literal("Start" + getEscape());
         OWLLiteral lit3 = Literal(getEscape() + "End");
         OWLLiteral lit4 = Literal("Start" + getEscape() + "End");
-        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop, cls.getIRI(), lit1);
-        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop, cls.getIRI(), lit2);
-        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop, cls.getIRI(), lit3);
-        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop, cls.getIRI(), lit4);
-        return Ontology(Factory.getManager(), ax1, ax2, ax3, ax4, Declaration(cls));
+        OWLAnnotationAssertionAxiom ax1 = AnnotationAssertion(prop,
+                cls.getIRI(), lit1);
+        OWLAnnotationAssertionAxiom ax2 = AnnotationAssertion(prop,
+                cls.getIRI(), lit2);
+        OWLAnnotationAssertionAxiom ax3 = AnnotationAssertion(prop,
+                cls.getIRI(), lit3);
+        OWLAnnotationAssertionAxiom ax4 = AnnotationAssertion(prop,
+                cls.getIRI(), lit4);
+        return Ontology(Factory.getManager(), ax1, ax2, ax3, ax4,
+                Declaration(cls));
     }
 
     protected abstract String getEscape();

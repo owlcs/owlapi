@@ -52,17 +52,20 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 
 /** Some ontology utils methods. */
 public class OntologyUtils {
-    /** Determines if a class description contains any unreferenced entities with
+
+    /**
+     * Determines if a class description contains any unreferenced entities with
      * respect to the ontology that contains the entailments which are being
      * explained.
      * 
      * @param ontology
-     *            the ontology to search
+     *        the ontology to search
      * @param desc
-     *            The description to be searched
+     *        The description to be searched
      * @return {@code true} if the description references entities that the
      *         ontology that contains entailments which are being explained,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     public static boolean containsUnreferencedEntity(OWLOntology ontology,
             OWLClassExpression desc) {
         for (OWLEntity entity : desc.getSignature()) {
@@ -78,16 +81,18 @@ public class OntologyUtils {
         return false;
     }
 
-    /** Removes an axiom from all the given ontologies that contains the axiom
+    /**
+     * Removes an axiom from all the given ontologies that contains the axiom
      * and returns those ontologies.
      * 
      * @param axiom
-     *            axiom being removed
+     *        axiom being removed
      * @param ontologies
-     *            ontologies from which axiom is being removed
+     *        ontologies from which axiom is being removed
      * @param manager
-     *            manager to apply the actual change
-     * @return set of ontologies that have been affected */
+     *        manager to apply the actual change
+     * @return set of ontologies that have been affected
+     */
     public static Set<OWLOntology> removeAxiom(OWLAxiom axiom,
             Set<OWLOntology> ontologies, OWLOntologyManager manager) {
         Set<OWLOntology> modifiedOnts = new HashSet<OWLOntology>();
@@ -100,14 +105,16 @@ public class OntologyUtils {
         return modifiedOnts;
     }
 
-    /** Add the axiom to all the given ontologies.
+    /**
+     * Add the axiom to all the given ontologies.
      * 
      * @param axiom
-     *            the axiom to add
+     *        the axiom to add
      * @param ontologies
-     *            the ontologies to add the axiom to
+     *        the ontologies to add the axiom to
      * @param manager
-     *            the manager for the application */
+     *        the manager for the application
+     */
     public static void addAxiom(OWLAxiom axiom, Set<OWLOntology> ontologies,
             OWLOntologyManager manager) {
         for (OWLOntology ont : ontologies) {

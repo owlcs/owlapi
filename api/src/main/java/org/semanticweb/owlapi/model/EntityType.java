@@ -49,82 +49,62 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
  * Represents the different types of OWL 2 Entities.
- *
- * @param <E> entity type
+ * 
+ * @param <E>
+ *        entity type
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group, Date: 11-Oct-2009
  */
-public final class EntityType<E extends OWLEntity> implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+public final class EntityType<E extends OWLEntity> implements Serializable,
+        HasShortForm, HasPrefixedName, HasIRI {
 
     private static final long serialVersionUID = 30406L;
-
     /**
      * class entity
      */
-    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>("Class", "Class", "Classes", OWL_CLASS);
-
+    public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>(
+            "Class", "Class", "Classes", OWL_CLASS);
     /**
      * object property entity
      */
     public static final EntityType<OWLObjectProperty> OBJECT_PROPERTY = new EntityType<OWLObjectProperty>(
-            "ObjectProperty",
-            "Object property",
-            "Object properties",
+            "ObjectProperty", "Object property", "Object properties",
             OWL_OBJECT_PROPERTY);
-
     /**
      * data property entity
      */
     public static final EntityType<OWLDataProperty> DATA_PROPERTY = new EntityType<OWLDataProperty>(
-            "DataProperty",
-            "Data property",
-            "Data properties",
+            "DataProperty", "Data property", "Data properties",
             OWL_DATA_PROPERTY);
-
     /**
      * annotation property entity
      */
     public static final EntityType<OWLAnnotationProperty> ANNOTATION_PROPERTY = new EntityType<OWLAnnotationProperty>(
-            "AnnotationProperty",
-            "Annotation property",
-            "Annotation properties",
-            OWL_ANNOTATION_PROPERTY);
-
+            "AnnotationProperty", "Annotation property",
+            "Annotation properties", OWL_ANNOTATION_PROPERTY);
     /**
      * named individual entity
      */
     public static final EntityType<OWLNamedIndividual> NAMED_INDIVIDUAL = new EntityType<OWLNamedIndividual>(
-            "NamedIndividual",
-            "Named individual",
-            "Named individuals",
+            "NamedIndividual", "Named individual", "Named individuals",
             OWL_NAMED_INDIVIDUAL);
-
     /**
      * datatype entity
      */
     public static final EntityType<OWLDatatype> DATATYPE = new EntityType<OWLDatatype>(
-            "Datatype",
-            "Datatype",
-            "Datatypes",
-            RDFS_DATATYPE);
-
+            "Datatype", "Datatype", "Datatypes", RDFS_DATATYPE);
     @SuppressWarnings("unchecked")
-    private static List<EntityType<?>> values = Collections.<EntityType<?>>unmodifiableList(Arrays.asList(CLASS,
-            OBJECT_PROPERTY,
-            DATA_PROPERTY,
-            ANNOTATION_PROPERTY,
-            NAMED_INDIVIDUAL,
-            DATATYPE));
-
+    private static List<EntityType<?>> values = Collections
+            .<EntityType<?>> unmodifiableList(Arrays.asList(CLASS,
+                    OBJECT_PROPERTY, DATA_PROPERTY, ANNOTATION_PROPERTY,
+                    NAMED_INDIVIDUAL, DATATYPE));
     private final String name;
-
     private final OWLRDFVocabulary vocabulary;
-
     private final String printName;
-
     private final String pluralPrintName;
 
-    private EntityType(String name, String print, String pluralPrint, OWLRDFVocabulary vocabulary) {
+    private EntityType(String name, String print, String pluralPrint,
+            OWLRDFVocabulary vocabulary) {
         this.name = name;
         this.vocabulary = vocabulary;
         printName = print;

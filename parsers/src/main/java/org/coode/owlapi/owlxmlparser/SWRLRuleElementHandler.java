@@ -44,14 +44,19 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Oct-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Oct-2009
+ */
 public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
+
     private Set<SWRLAtom> body = null;
     private Set<SWRLAtom> head = null;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public SWRLRuleElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

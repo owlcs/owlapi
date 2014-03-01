@@ -45,23 +45,29 @@ import java.util.List;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Represents an RDF triple (S, P, O)
+/**
+ * Represents an RDF triple (S, P, O)
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 06-Dec-2006 */
+ *         Informatics Group, Date: 06-Dec-2006
+ */
 public class RDFTriple implements Comparable<RDFTriple> {
+
     private RDFResourceNode subject;
     private RDFResourceNode property;
     private RDFNode object;
     private int hashCode = 0;
 
-    /** @param subject
-     *            subject of triple
+    /**
+     * @param subject
+     *        subject of triple
      * @param property
-     *            property of triple
+     *        property of triple
      * @param object
-     *            object of triple */
-    public RDFTriple(RDFResourceNode subject, RDFResourceNode property, RDFNode object) {
+     *        object of triple
+     */
+    public RDFTriple(RDFResourceNode subject, RDFResourceNode property,
+            RDFNode object) {
         this.object = object;
         this.property = property;
         this.subject = subject;
@@ -114,10 +120,11 @@ public class RDFTriple implements Comparable<RDFTriple> {
         return sb.toString();
     }
 
-    private static final List<IRI> orderedURIs = Arrays.asList(RDF_TYPE.getIRI(),
-            RDFS_LABEL.getIRI(), OWL_EQUIVALENT_CLASS.getIRI(),
-            RDFS_SUBCLASS_OF.getIRI(), OWL_DISJOINT_WITH.getIRI(),
-            OWL_ON_PROPERTY.getIRI(), OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
+    private static final List<IRI> orderedURIs = Arrays.asList(
+            RDF_TYPE.getIRI(), RDFS_LABEL.getIRI(),
+            OWL_EQUIVALENT_CLASS.getIRI(), RDFS_SUBCLASS_OF.getIRI(),
+            OWL_DISJOINT_WITH.getIRI(), OWL_ON_PROPERTY.getIRI(),
+            OWL_DATA_RANGE.getIRI(), OWL_ON_CLASS.getIRI());
 
     private int getIndex(IRI iri) {
         int index = orderedURIs.indexOf(iri);
@@ -130,7 +137,8 @@ public class RDFTriple implements Comparable<RDFTriple> {
     @Override
     public int compareTo(RDFTriple b) {
         // compare by predicate, then subject, then object
-        int diff = getIndex(getProperty().getIRI()) - getIndex(b.getProperty().getIRI());
+        int diff = getIndex(getProperty().getIRI())
+                - getIndex(b.getProperty().getIRI());
         if (diff == 0) {
             diff = getSubject().compareTo(b.getSubject());
         }

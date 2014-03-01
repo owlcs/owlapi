@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class RoundTripMultipleDefXrefTest extends RoundTripTest {
+
     @Test
     public void testRoundTrip() throws Exception {
         roundTripOBOFile("multiple_def_xref_test.obo", true);

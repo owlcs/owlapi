@@ -81,13 +81,19 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 01-Aug-2009 */
-public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpression> {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 01-Aug-2009
+ */
+public class SatisfiabilityReducer implements
+        OWLAxiomVisitorEx<OWLClassExpression> {
+
     private final OWLDataFactory df;
 
-    /** @param dataFactory
-     *            data factory to use */
+    /**
+     * @param dataFactory
+     *        data factory to use
+     */
     public SatisfiabilityReducer(OWLDataFactory dataFactory) {
         df = dataFactory;
     }
@@ -99,7 +105,8 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
     }
 
     @Override
-    public OWLClassExpression visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
+    public OWLClassExpression visit(
+            OWLNegativeObjectPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
@@ -134,7 +141,8 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
     }
 
     @Override
-    public OWLClassExpression visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+    public OWLClassExpression
+            visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 
@@ -234,7 +242,8 @@ public class SatisfiabilityReducer implements OWLAxiomVisitorEx<OWLClassExpressi
     }
 
     @Override
-    public OWLClassExpression visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
+    public OWLClassExpression visit(
+            OWLInverseFunctionalObjectPropertyAxiom axiom) {
         return axiom.asOWLSubClassOfAxiom().accept(this);
     }
 

@@ -8,6 +8,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 
 @SuppressWarnings("javadoc")
 public class ChebiXRefTest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OBODoc obodoc = parseOBOFile("chebi_problematic_xref.obo");

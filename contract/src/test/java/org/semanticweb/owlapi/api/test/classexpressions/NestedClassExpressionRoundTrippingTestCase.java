@@ -47,10 +47,13 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2008
+ */
 public class NestedClassExpressionRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("OntA");

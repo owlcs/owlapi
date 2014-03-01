@@ -43,9 +43,13 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 22-Jul-2008 */
-public class InversePropertiesAxiomTestCase extends AbstractRoundTrippingTestCase {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 22-Jul-2008
+ */
+public class InversePropertiesAxiomTestCase extends
+        AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() {
         OWLOntology ont = getOWLOntology("ont");

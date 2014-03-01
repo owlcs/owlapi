@@ -42,18 +42,23 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public class UseOfObjectPropertyInverse extends OWLProfileViolation implements
         OWL2ELProfileViolation {
+
     private final OWLObjectPropertyExpression propertyExpression;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param propertyExpression
-     *            wrong property */
+     *        wrong property
+     */
     public UseOfObjectPropertyInverse(OWLOntology ontology, OWLAxiom axiom,
             OWLObjectPropertyExpression propertyExpression) {
         super(ontology, axiom);

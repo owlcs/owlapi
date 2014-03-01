@@ -38,14 +38,21 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Apr-2007 */
-public class OWLOntologyStorerNotFoundException extends OWLOntologyStorageException {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Apr-2007
+ */
+public class OWLOntologyStorerNotFoundException extends
+        OWLOntologyStorageException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param format
-     *            format that cannot be stored */
+    /**
+     * @param format
+     *        format that cannot be stored
+     */
     public OWLOntologyStorerNotFoundException(OWLOntologyFormat format) {
-        super("Could not find an ontology storer which can handle the format: " + format);
+        super("Could not find an ontology storer which can handle the format: "
+                + format);
     }
 }

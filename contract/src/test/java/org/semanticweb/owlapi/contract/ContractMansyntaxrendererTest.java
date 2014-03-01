@@ -45,10 +45,11 @@ import uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer.SectionMap;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractMansyntaxrendererTest {
+
     @Test
     public void shouldTestAbstractRenderer() throws Exception {
-        AbstractRenderer testSubject0 = new AbstractRenderer(mock(Writer.class),
-                mock(ShortFormProvider.class));
+        AbstractRenderer testSubject0 = new AbstractRenderer(
+                mock(Writer.class), mock(ShortFormProvider.class));
         testSubject0.flush();
         testSubject0.setUseTabbing(false);
         testSubject0.setUseWrapping(false);
@@ -70,7 +71,8 @@ public class ContractMansyntaxrendererTest {
         Set<OWLAxiom> result3 = testSubject0.write(mock(OWLDataProperty.class));
         Set<OWLAxiom> result4 = testSubject0.write(Utils.mockObjectProperty());
         Set<OWLAxiom> result5 = testSubject0.write(mock(OWLClass.class));
-        Set<OWLAxiom> result6 = testSubject0.write(mock(OWLAnnotationProperty.class));
+        Set<OWLAxiom> result6 = testSubject0
+                .write(mock(OWLAnnotationProperty.class));
         Set<OWLOntology> result7 = testSubject0.getOntologies();
         Set<OWLAnnotationAssertionAxiom> result8 = testSubject0
                 .writeAnnotations(mock(OWLAnnotationSubject.class));
@@ -117,16 +119,20 @@ public class ContractMansyntaxrendererTest {
 
     public void shouldTestManchesterOWLSyntaxOntologyStorer() throws Exception {
         ManchesterOWLSyntaxOntologyStorer testSubject0 = new ManchesterOWLSyntaxOntologyStorer();
-        boolean result0 = testSubject0.canStoreOntology(mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                IRI("urn:aFake"), mock(OWLOntologyFormat.class));
-        testSubject0.storeOntology(Utils.getMockManager(), Utils.getMockOntology(),
-                mock(OWLOntologyDocumentTarget.class), mock(OWLOntologyFormat.class));
+        boolean result0 = testSubject0
+                .canStoreOntology(mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), IRI("urn:aFake"),
+                mock(OWLOntologyFormat.class));
+        testSubject0.storeOntology(Utils.getMockManager(),
+                Utils.getMockOntology(), mock(OWLOntologyDocumentTarget.class),
+                mock(OWLOntologyFormat.class));
         String result1 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxOntologyStorerException() throws Exception {
+    public void shouldTestManchesterOWLSyntaxOntologyStorerException()
+            throws Exception {
         ManchesterOWLSyntaxOntologyStorerException testSubject0 = new ManchesterOWLSyntaxOntologyStorerException(
                 "");
         ManchesterOWLSyntaxOntologyStorerException testSubject1 = new ManchesterOWLSyntaxOntologyStorerException(
@@ -140,7 +146,8 @@ public class ContractMansyntaxrendererTest {
     }
 
     @Test
-    public void shouldTestManchesterOWLSyntaxOWLObjectRendererImpl() throws Exception {
+    public void shouldTestManchesterOWLSyntaxOWLObjectRendererImpl()
+            throws Exception {
         ManchesterOWLSyntaxOWLObjectRendererImpl testSubject0 = new ManchesterOWLSyntaxOWLObjectRendererImpl();
         String result0 = testSubject0.render(mock(OWLObject.class));
         testSubject0.setShortFormProvider(mock(ShortFormProvider.class));
@@ -172,9 +179,11 @@ public class ContractMansyntaxrendererTest {
     @Test
     public void shouldTestRendererEvent() throws Exception {
         RendererEvent testSubject0 = new RendererEvent(
-                mock(ManchesterOWLSyntaxFrameRenderer.class), mock(OWLObject.class));
+                mock(ManchesterOWLSyntaxFrameRenderer.class),
+                mock(OWLObject.class));
         testSubject0.writeComment("");
-        ManchesterOWLSyntaxFrameRenderer result0 = testSubject0.getFrameRenderer();
+        ManchesterOWLSyntaxFrameRenderer result0 = testSubject0
+                .getFrameRenderer();
         testSubject0.writeCommentOnNewLine("");
         OWLObject result1 = testSubject0.getFrameSubject();
         String result2 = testSubject0.toString();

@@ -42,21 +42,27 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLRestriction;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006
  * @param <P>
- *            property type
+ *        property type
  * @param <R>
- *            range type
+ *        range type
  * @param <F>
- *            range type */
+ *        range type
+ */
 public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F>
-        extends OWLAnonymousClassExpressionImpl implements OWLRestriction<R, P, F> {
+        extends OWLAnonymousClassExpressionImpl implements
+        OWLRestriction<R, P, F> {
+
     private static final long serialVersionUID = 30406L;
     private final P property;
 
-    /** @param property
-     *            property for restriction */
+    /**
+     * @param property
+     *        property for restriction
+     */
     public OWLRestrictionImpl(P property) {
         super();
         this.property = property;
@@ -78,7 +84,8 @@ public abstract class OWLRestrictionImpl<R extends OWLPropertyRange, P extends O
             if (!(obj instanceof OWLRestriction)) {
                 return false;
             }
-            return ((OWLRestriction<?, ?, ?>) obj).getProperty().equals(property);
+            return ((OWLRestriction<?, ?, ?>) obj).getProperty().equals(
+                    property);
         }
         return false;
     }

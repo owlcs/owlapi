@@ -43,8 +43,10 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006 A vocabulary for XML Schema Data Types (XSD) */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 25-Oct-2006 A vocabulary for XML Schema Data Types (XSD)
+ */
 public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // @formatter:off
     /** ANY_TYPE */             ANY_TYPE        ("anyType"),
@@ -114,9 +116,10 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     }
 
     /**
-     * Gets the short form for this vocabulary element.  This is the local name, for example, "integer" for
-     * {@link #INTEGER}.
-     * @return The short form.  Not {@code null}.
+     * Gets the short form for this vocabulary element. This is the local name,
+     * for example, "integer" for {@link #INTEGER}.
+     * 
+     * @return The short form. Not {@code null}.
      */
     @Override
     public String getShortForm() {
@@ -136,17 +139,20 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return iri.toString();
     }
 
-    /** Easy parse of short names of the kind "xsd:typename". Note that the match
+    /**
+     * Easy parse of short names of the kind "xsd:typename". Note that the match
      * must be exact - uppercase or lowercase variants are not accepted. An
      * IllegalArgumentException will he thrown for null or non matching input.
      * 
      * @param s
-     *            string of the form {@code xsd:typename}
+     *        string of the form {@code xsd:typename}
      * @return the XSDVocabulary item matching xsd:typename, e.g.,
-     *         {@code STRING} for {@code "xsd:string"} */
+     *         {@code STRING} for {@code "xsd:string"}
+     */
     public static XSDVocabulary parseShortName(String s) {
         if (s == null) {
-            throw new IllegalArgumentException("the input string cannot be null");
+            throw new IllegalArgumentException(
+                    "the input string cannot be null");
         }
         if (s.startsWith("xsd:")) {
             String name = s.substring(4);
@@ -157,7 +163,8 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
             }
         }
         throw new IllegalArgumentException(
-                "the input value does not match any of the known xsd types: " + s);
+                "the input value does not match any of the known xsd types: "
+                        + s);
     }
 
     @Override

@@ -40,12 +40,17 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ */
 public class OWLObjectMaxCardinalityElementHandler extends
         AbstractOWLObjectCardinalityElementHandler {
-    /** @param handler
-     *            owlxml handler */
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLObjectMaxCardinalityElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

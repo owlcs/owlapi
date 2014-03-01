@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Aug-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Aug-2010
+ */
 @SuppressWarnings("javadoc")
 public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testImportsClosureUpdate() throws Exception {
         OWLOntologyManager manager = getManager();
@@ -61,7 +64,8 @@ public class ImportsClosureTestCase extends AbstractOWLAPITestCase {
         IRI bIRI = IRI("http://b.com");
         OWLOntology ontB = manager.createOntology(bIRI);
         OWLDataFactory df = manager.getOWLDataFactory();
-        manager.applyChange(new AddImport(ontA, df.getOWLImportsDeclaration(bIRI)));
+        manager.applyChange(new AddImport(ontA, df
+                .getOWLImportsDeclaration(bIRI)));
         assertEquals(2, manager.getImportsClosure(ontA).size());
         manager.removeOntology(ontB);
         assertEquals(1, manager.getImportsClosure(ontA).size());

@@ -48,24 +48,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 22-Jan-2008
  * @param <N>
- *            type of elements */
+ *        type of elements
+ */
 public class MutableTree<N> implements Tree<N> {
+
     private final N userObject;
     private MutableTree<N> parent;
     private final List<MutableTree<N>> children;
     private final Map<Tree<N>, Object> child2EdgeMap;
     private NodeRenderer<N> toStringRenderer;
 
-    /** @param userObject
-     *            the user object */
+    /**
+     * @param userObject
+     *        the user object
+     */
     public MutableTree(N userObject) {
         this.userObject = userObject;
         children = new ArrayList<MutableTree<N>>();
         child2EdgeMap = new HashMap<Tree<N>, Object>();
         toStringRenderer = new NodeRenderer<N>() {
+
             @Override
             public String render(Tree<N> object) {
                 return object.toString();
@@ -78,8 +84,10 @@ public class MutableTree<N> implements Tree<N> {
         return userObject;
     }
 
-    /** @param parent
-     *            the new parent */
+    /**
+     * @param parent
+     *        the new parent
+     */
     // XXX not in the interface
     public void setParent(MutableTree<N> parent) {
         if (this.parent != null) {
@@ -89,25 +97,31 @@ public class MutableTree<N> implements Tree<N> {
         this.parent.children.add(this);
     }
 
-    /** @param child
-     *            child to add */
+    /**
+     * @param child
+     *        child to add
+     */
     public void addChild(MutableTree<N> child) {
         children.add(child);
         child.parent = this;
     }
 
-    /** @param child
-     *            child to add
+    /**
+     * @param child
+     *        child to add
      * @param edge
-     *            the edge */
+     *        the edge
+     */
     // XXX not in the interface
     public void addChild(MutableTree<N> child, Object edge) {
         addChild(child);
         child2EdgeMap.put(child, edge);
     }
 
-    /** @param child
-     *            child to remove */
+    /**
+     * @param child
+     *        child to remove
+     */
     public void removeChild(MutableTree<N> child) {
         children.remove(child);
         child.parent = null;
@@ -253,9 +267,11 @@ public class MutableTree<N> implements Tree<N> {
         }
     }
 
-    /** @param tree
-     *            the node to put in place of this one
-     * @deprecated this method is not in the public interface and is unused. */
+    /**
+     * @param tree
+     *        the node to put in place of this one
+     * @deprecated this method is not in the public interface and is unused.
+     */
     // XXX not in the interface
     @Deprecated
     public void replace(MutableTree<N> tree) {

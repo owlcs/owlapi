@@ -45,11 +45,17 @@ import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class DataCardinalityTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
+public class DataCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DataCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -69,19 +75,20 @@ public class DataCardinalityTranslator extends AbstractClassExpressionTranslator
 
     @Override
     public OWLDataExactCardinality translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLDataPropertyExpression property = getConsumer()
                 .translateDataPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_DATA_RANGE, true);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_DATA_RANGE, true);
         if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
             // Be tolerant
             OWLDataRange filler = getConsumer().translateDataRange(fillerIRI);
-            return getDataFactory().getOWLDataExactCardinality(cardi, property, filler);
+            return getDataFactory().getOWLDataExactCardinality(cardi, property,
+                    filler);
         } else {
             return getDataFactory().getOWLDataExactCardinality(cardi, property);
         }

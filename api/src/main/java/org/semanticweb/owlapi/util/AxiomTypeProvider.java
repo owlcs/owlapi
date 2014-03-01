@@ -83,13 +83,16 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 27-Jan-2008
- * @deprecated use OWLAxiom::getAxiomType() */
+ * @deprecated use OWLAxiom::getAxiomType()
+ */
 @Deprecated
 // XXX visitorEx?
 @SuppressWarnings({ "javadoc" })
 public class AxiomTypeProvider implements OWLAxiomVisitor {
+
     private AxiomType<?> axiomType;
 
     @Override

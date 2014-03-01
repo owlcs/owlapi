@@ -41,37 +41,48 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** Give a node in an RDF graph, which represents the main node of an OWL class
+/**
+ * Give a node in an RDF graph, which represents the main node of an OWL class
  * expression, the {@code ClassExpressionTranslator} consumes the triples that
  * represent the class expression, and translates the triples to the appropriate
  * OWL API {@code OWLClassExpression} object.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 08-Dec-2006 */
+ *         Informatics Group, Date: 08-Dec-2006
+ */
 public interface ClassExpressionTranslator {
-    /** @param mainNode
-     *            mainNode
+
+    /**
+     * @param mainNode
+     *        mainNode
      * @param mode
-     *            mode
-     * @return true if matches */
+     *        mode
+     * @return true if matches
+     */
     boolean matches(IRI mainNode, Mode mode);
 
-    /** @param mainNode
-     *            mainNode
-     * @return true if matches strict */
+    /**
+     * @param mainNode
+     *        mainNode
+     * @return true if matches strict
+     */
     boolean matchesStrict(IRI mainNode);
 
-    /** @param mainNode
-     *            mainNode
-     * @return true if lax match */
+    /**
+     * @param mainNode
+     *        mainNode
+     * @return true if lax match
+     */
     boolean matchesLax(IRI mainNode);
 
-    /** Translates the specified main node into an {@code OWLClassExpression}.
+    /**
+     * Translates the specified main node into an {@code OWLClassExpression}.
      * All triples used in the translation are consumed.
      * 
      * @param mainNode
-     *            The main node of the set of triples that represent the class
-     *            expression.
-     * @return The class expression that represents the translation. */
+     *        The main node of the set of triples that represent the class
+     *        expression.
+     * @return The class expression that represents the translation.
+     */
     OWLClassExpression translate(IRI mainNode);
 }

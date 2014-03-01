@@ -8,15 +8,19 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class InsufficientOperands extends OWLProfileViolation implements
         OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
         OWL2QLProfileViolation, OWL2RLProfileViolation {
+
     private final OWLObject expression;
 
-    /** @param ontology
-     *            ontology with violation
+    /**
+     * @param ontology
+     *        ontology with violation
      * @param axiom
-     *            axiom with violation
+     *        axiom with violation
      * @param c
-     *            object without enough operands */
-    public InsufficientOperands(OWLOntology ontology, OWLAxiom axiom, OWLObject c) {
+     *        object without enough operands
+     */
+    public InsufficientOperands(OWLOntology ontology, OWLAxiom axiom,
+            OWLObject c) {
         super(ontology, axiom);
         expression = c;
     }

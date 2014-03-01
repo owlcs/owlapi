@@ -21,10 +21,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** Test for reading and converting the Relationship ontology. */
 @SuppressWarnings("javadoc")
 public class RoundTripOWLROTest extends RoundTripTest {
-    /** Test that the converted RO from OWL to OBO can be written and parsed back
+
+    /**
+     * Test that the converted RO from OWL to OBO can be written and parsed back
      * into OBO, and also round-trip back into OWL.
      * 
-     * @throws Exception */
+     * @throws Exception
+     */
     @Test
     public void testRoundTrip() throws Exception {
         OWLOntology oo1 = parseOWLFile("ro.owl");

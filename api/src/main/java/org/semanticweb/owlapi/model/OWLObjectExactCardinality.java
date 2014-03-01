@@ -38,16 +38,22 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality">
+/**
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality">
  * ObjectExactCardinality</a> restriction in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLObjectExactCardinality extends OWLObjectCardinalityRestriction {
-    /** Obtains an equivalent form that is a conjunction of a min cardinality and
+ *         Informatics Group Date: 24-Oct-2006
+ */
+public interface OWLObjectExactCardinality extends
+        OWLObjectCardinalityRestriction {
+
+    /**
+     * Obtains an equivalent form that is a conjunction of a min cardinality and
      * max cardinality restriction.
      * 
      * @return The semantically equivalent but structurally simpler form (= 1 R
-     *         C) = &gt;= 1 R C and &lt;= 1 R C */
+     *         C) = &gt;= 1 R C and &lt;= 1 R C
+     */
     OWLClassExpression asIntersectionOfMinMax();
 }

@@ -52,15 +52,20 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl implements
-        OWLObjectInverseOf {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl
+        implements OWLObjectInverseOf {
+
     private static final long serialVersionUID = 30406L;
     private final OWLObjectPropertyExpression inverseProperty;
 
-    /** @param inverseProperty
-     *            property to invert */
+    /**
+     * @param inverseProperty
+     *        property to invert
+     */
     public OWLObjectInverseOfImpl(OWLObjectPropertyExpression inverseProperty) {
         super();
         this.inverseProperty = inverseProperty;
@@ -77,7 +82,8 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
             if (!(obj instanceof OWLObjectInverseOf)) {
                 return false;
             }
-            return ((OWLObjectInverseOf) obj).getInverse().equals(inverseProperty);
+            return ((OWLObjectInverseOf) obj).getInverse().equals(
+                    inverseProperty);
         }
         return false;
     }
@@ -121,7 +127,8 @@ public class OWLObjectInverseOfImpl extends OWLObjectPropertyExpressionImpl impl
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return inverseProperty.compareTo(((OWLObjectInverseOf) object).getInverse());
+        return inverseProperty.compareTo(((OWLObjectInverseOf) object)
+                .getInverse());
     }
 
     @Override

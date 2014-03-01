@@ -43,11 +43,16 @@ import java.util.List;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 17-Jan-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 17-Jan-2008
+ */
 public class ImportClosureSize extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public ImportClosureSize(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
@@ -58,7 +63,8 @@ public class ImportClosureSize extends IntegerValuedMetric {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isImportChange()) {
                 return true;

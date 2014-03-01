@@ -49,9 +49,12 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-May-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-May-2007
+ */
 public class EquivalentClassesTestCase extends AbstractRendererAndParser {
+
     @Override
     protected String getClassExpression() {
         return "Equivalent classes axioms test case";
@@ -62,12 +65,13 @@ public class EquivalentClassesTestCase extends AbstractRendererAndParser {
         OWLClass clsA = Class(TestUtils.createIRI());
         OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
                 TestUtils.createIRI());
-        OWLClassExpression descA = getDataFactory().getOWLObjectSomeValuesFrom(prop,
-                getDataFactory().getOWLThing());
+        OWLClassExpression descA = getDataFactory().getOWLObjectSomeValuesFrom(
+                prop, getDataFactory().getOWLThing());
         Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>();
         classExpressions.add(clsA);
         classExpressions.add(descA);
-        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(classExpressions);
+        OWLAxiom ax = getDataFactory().getOWLEquivalentClassesAxiom(
+                classExpressions);
         return Collections.singleton(ax);
     }
 }

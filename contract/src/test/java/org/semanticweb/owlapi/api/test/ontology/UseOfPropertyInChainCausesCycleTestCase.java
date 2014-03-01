@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 
 @SuppressWarnings("javadoc")
 public class UseOfPropertyInChainCausesCycleTestCase {
+
     @Test
     public void shouldCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = Factory.getManager().createOntology();
@@ -28,18 +29,25 @@ public class UseOfPropertyInChainCausesCycleTestCase {
         // a:hasUncle ) The brother of someone's father is that person's uncle.
         // SubObjectPropertyOf( ObjectPropertyChain( a:hasChild a:hasUncle )
         // a:hasBrother ) The uncle of someone's child is that person's brother.
-        OWLObjectProperty father = f.getOWLObjectProperty(IRI("urn:test:hasFather"));
-        OWLObjectProperty brother = f.getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = f.getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI("urn:test:hasUncle"));
+        OWLObjectProperty father = f
+                .getOWLObjectProperty(IRI("urn:test:hasFather"));
+        OWLObjectProperty brother = f
+                .getOWLObjectProperty(IRI("urn:test:hasBrother"));
+        OWLObjectProperty child = f
+                .getOWLObjectProperty(IRI("urn:test:hasChild"));
+        OWLObjectProperty uncle = f
+                .getOWLObjectProperty(IRI("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
+        o.getOWLOntologyManager()
+                .addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
-                Arrays.asList(father, brother), uncle);
-        OWLSubPropertyChainOfAxiom brokenAxiom2 = f.getOWLSubPropertyChainOfAxiom(
-                Arrays.asList(child, uncle), brother);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = f
+                .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
+                        uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom2 = f
+                .getOWLSubPropertyChainOfAxiom(Arrays.asList(child, uncle),
+                        brother);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
@@ -49,7 +57,8 @@ public class UseOfPropertyInChainCausesCycleTestCase {
         assertTrue(manager.isLessThan(brother, brother));
         assertTrue(manager.isLessThan(uncle, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
+                .getViolations();
         assertTrue(!violations.isEmpty());
         for (OWLProfileViolation v : violations) {
             assertTrue(v.getAxiom().equals(brokenAxiom1)
@@ -61,22 +70,29 @@ public class UseOfPropertyInChainCausesCycleTestCase {
     public void shouldNotCauseViolations() throws OWLOntologyCreationException {
         OWLOntology o = Factory.getManager().createOntology();
         OWLDataFactory f = Factory.getFactory();
-        OWLObjectProperty father = f.getOWLObjectProperty(IRI("urn:test:hasFather"));
-        OWLObjectProperty brother = f.getOWLObjectProperty(IRI("urn:test:hasBrother"));
-        OWLObjectProperty child = f.getOWLObjectProperty(IRI("urn:test:hasChild"));
-        OWLObjectProperty uncle = f.getOWLObjectProperty(IRI("urn:test:hasUncle"));
+        OWLObjectProperty father = f
+                .getOWLObjectProperty(IRI("urn:test:hasFather"));
+        OWLObjectProperty brother = f
+                .getOWLObjectProperty(IRI("urn:test:hasBrother"));
+        OWLObjectProperty child = f
+                .getOWLObjectProperty(IRI("urn:test:hasChild"));
+        OWLObjectProperty uncle = f
+                .getOWLObjectProperty(IRI("urn:test:hasUncle"));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(father));
-        o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(brother));
+        o.getOWLOntologyManager()
+                .addAxiom(o, f.getOWLDeclarationAxiom(brother));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(child));
         o.getOWLOntologyManager().addAxiom(o, f.getOWLDeclarationAxiom(uncle));
-        OWLSubPropertyChainOfAxiom brokenAxiom1 = f.getOWLSubPropertyChainOfAxiom(
-                Arrays.asList(father, brother), uncle);
+        OWLSubPropertyChainOfAxiom brokenAxiom1 = f
+                .getOWLSubPropertyChainOfAxiom(Arrays.asList(father, brother),
+                        uncle);
         OWLObjectPropertyManager manager = new OWLObjectPropertyManager(
                 o.getOWLOntologyManager(), o);
         o.getOWLOntologyManager().addAxiom(o, brokenAxiom1);
         assertTrue(manager.isLessThan(brother, uncle));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
+                .getViolations();
         assertTrue(violations.isEmpty());
         for (OWLProfileViolation v : violations) {
             assertTrue(v.getAxiom().equals(brokenAxiom1));
@@ -155,8 +171,10 @@ public class UseOfPropertyInChainCausesCycleTestCase {
             + "                        </owl:onProperty>\n"
             + "                        <owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#nonNegativeInteger\">1</owl:cardinality>\n"
             + "                    </owl:Restriction>\n"
-            + "                </owl:intersectionOf>\n" + "            </owl:Class>\n"
-            + "        </rdfs:subClassOf>\n" + "    </owl:Class>\n"
+            + "                </owl:intersectionOf>\n"
+            + "            </owl:Class>\n"
+            + "        </rdfs:subClassOf>\n"
+            + "    </owl:Class>\n"
             + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n"
             + "</rdf:RDF>";
     String input2 = "<?xml version=\"1.0\"?>\n"
@@ -391,26 +409,32 @@ public class UseOfPropertyInChainCausesCycleTestCase {
             + "                        </owl:onProperty>\n"
             + "                        <owl:cardinality rdf:datatype=\"http://www.w3.org/2001/XMLSchema#nonNegativeInteger\">1</owl:cardinality>\n"
             + "                    </owl:Restriction>\n"
-            + "                </owl:intersectionOf>\n" + "            </owl:Class>\n"
-            + "        </rdfs:subClassOf>\n" + "    </owl:Class>\n"
+            + "                </owl:intersectionOf>\n"
+            + "            </owl:Class>\n"
+            + "        </rdfs:subClassOf>\n"
+            + "    </owl:Class>\n"
             + "    <owl:Class rdf:about=\"http://www.w3.org/2002/07/owl#Thing\"/>\n"
             + "</rdf:RDF>";
 
     @Test
-    public void shouldNotCauseViolationsInput1() throws OWLOntologyCreationException {
+    public void shouldNotCauseViolationsInput1()
+            throws OWLOntologyCreationException {
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new ByteArrayInputStream(input1.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
+                .getViolations();
         assertTrue(violations.isEmpty());
     }
 
     @Test
-    public void shouldNotCauseViolationsInput2() throws OWLOntologyCreationException {
+    public void shouldNotCauseViolationsInput2()
+            throws OWLOntologyCreationException {
         OWLOntology o = Factory.getManager().loadOntologyFromOntologyDocument(
                 new ByteArrayInputStream(input2.getBytes()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        List<OWLProfileViolation> violations = profile.checkOntology(o).getViolations();
+        List<OWLProfileViolation> violations = profile.checkOntology(o)
+                .getViolations();
         assertTrue(violations.isEmpty());
     }
 }

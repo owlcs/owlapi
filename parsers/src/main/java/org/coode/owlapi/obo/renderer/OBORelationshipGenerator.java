@@ -51,21 +51,28 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
-/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group, Date: Dec 18, 2008 */
+/**
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 18, 2008
+ */
 public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
+
     private Set<OBORelationship> relationships = new HashSet<OBORelationship>();
     private OBOExceptionHandler eHandler;
     private OWLClass cls;
 
-    /** @param eHandler
-     *            eHandler */
+    /**
+     * @param eHandler
+     *        eHandler
+     */
     public OBORelationshipGenerator(OBOExceptionHandler eHandler) {
         this.eHandler = eHandler;
     }
 
-    /** @param cls
-     *            cls */
+    /**
+     * @param cls
+     *        cls
+     */
     public void setClass(OWLClass cls) {
         this.cls = cls;
         clear();
@@ -111,9 +118,11 @@ public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
     }
 
     // TODO error handling for un-translatable class expressions
-    private OBORelationship getRelationship(OWLObjectCardinalityRestriction desc) {
+    private OBORelationship
+            getRelationship(OWLObjectCardinalityRestriction desc) {
         if (desc.isAnonymous() && !desc.getFiller().isAnonymous()) {
-            final OWLObjectProperty p = desc.getProperty().asOWLObjectProperty();
+            final OWLObjectProperty p = desc.getProperty()
+                    .asOWLObjectProperty();
             final OWLClass f = desc.getFiller().asOWLClass();
             for (OBORelationship rel : relationships) {
                 if (rel.getProperty().equals(p) && rel.getFiller().equals(f)) {
@@ -129,9 +138,11 @@ public class OBORelationshipGenerator extends OWLClassExpressionVisitorAdapter {
         return null;
     }
 
-    private OBORelationship getRelationship(OWLQuantifiedObjectRestriction desc) {
+    private OBORelationship
+            getRelationship(OWLQuantifiedObjectRestriction desc) {
         if (desc.isAnonymous() && !desc.getFiller().isAnonymous()) {
-            final OWLObjectProperty p = desc.getProperty().asOWLObjectProperty();
+            final OWLObjectProperty p = desc.getProperty()
+                    .asOWLObjectProperty();
             final OWLClass f = desc.getFiller().asOWLClass();
             for (OBORelationship rel : relationships) {
                 if (rel.getProperty().equals(p) && rel.getFiller().equals(f)) {

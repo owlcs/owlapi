@@ -38,11 +38,16 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 19/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 19/04/2012
+ */
 public class DataVersionTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DataVersionTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DATA_VERSION.getName(), consumer);
     }

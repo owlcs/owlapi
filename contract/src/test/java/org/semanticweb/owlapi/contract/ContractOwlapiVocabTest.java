@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiVocabTest {
+
     @Test
     public void shouldTestBuiltInVocabulary() throws Exception {
         BuiltInVocabulary testSubject0 = BuiltInVocabulary.DUBLIN_CORE;
@@ -133,12 +134,15 @@ public class ContractOwlapiVocabTest {
         String result5 = testSubject0.getDefaultPrefix();
         String result6 = testSubject0.getPrefixIRI(IRI("urn:aFake"));
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result7 = testSubject0
-                .getParameter(mock(Object.class), mock(Object.class));
+        Object result7 = testSubject0.getParameter(mock(Object.class),
+                mock(Object.class));
         boolean result8 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result9 = testSubject0.asPrefixOWLOntologyFormat();
-        OWLOntologyLoaderMetaData result10 = testSubject0.getOntologyLoaderMetaData();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+        PrefixOWLOntologyFormat result9 = testSubject0
+                .asPrefixOWLOntologyFormat();
+        OWLOntologyLoaderMetaData result10 = testSubject0
+                .getOntologyLoaderMetaData();
+        testSubject0
+                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
         String result11 = testSubject0.toString();
     }
 
@@ -146,7 +150,8 @@ public class ContractOwlapiVocabTest {
     public void shouldTestSKOSVocabulary() throws Exception {
         SKOSVocabulary testSubject0 = SKOSVocabulary.ALTLABEL;
         SKOSVocabulary[] result0 = SKOSVocabulary.values();
-        Set<OWLClass> result2 = SKOSVocabulary.getClasses(mock(OWLDataFactory.class));
+        Set<OWLClass> result2 = SKOSVocabulary
+                .getClasses(mock(OWLDataFactory.class));
         IRI result3 = testSubject0.getIRI();
         EntityType<?> result4 = testSubject0.getEntityType();
         Set<OWLAnnotationProperty> result6 = SKOSVocabulary

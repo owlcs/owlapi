@@ -13,21 +13,29 @@ import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 
-/** Diffs two OBO Documents. Performs structural diffing only - does not use
+/**
+ * Diffs two OBO Documents. Performs structural diffing only - does not use
  * reasoning (use OWLDiff or similar tools for this)
  * 
- * @author cjm */
+ * @author cjm
+ */
 public class OBODocDiffer {
-    /** @param doc1
-     *            doc1
+
+    /**
+     * @param doc1
+     *        doc1
      * @param doc2
-     *            doc2
-     * @return list of diffs */
+     *        doc2
+     * @return list of diffs
+     */
     public List<Diff> getDiffs(OBODoc doc1, OBODoc doc2) {
         List<Diff> diffs = new ArrayList<Diff>();
-        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(), doc2.getHeaderFrame()));
-        diffs.addAll(getDiffs("Term", doc1.getTermFrames(), doc2.getTermFrames()));
-        diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(), doc2.getTypedefFrames()));
+        diffs.addAll(getDiffs("Header", doc1.getHeaderFrame(),
+                doc2.getHeaderFrame()));
+        diffs.addAll(getDiffs("Term", doc1.getTermFrames(),
+                doc2.getTermFrames()));
+        diffs.addAll(getDiffs("Typedef", doc1.getTypedefFrames(),
+                doc2.getTypedefFrames()));
         diffs.addAll(getDiffs("Instance", doc1.getInstanceFrames(),
                 doc2.getInstanceFrames()));
         return diffs;
@@ -55,8 +63,8 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    private List<Diff>
-            getDiffs(String ftype, Collection<Frame> fl1, Collection<Frame> fl2) {
+    private List<Diff> getDiffs(String ftype, Collection<Frame> fl1,
+            Collection<Frame> fl2) {
         List<Diff> diffs = getDiffsAsym(ftype, fl1, fl2, 1, true);
         diffs.addAll(getDiffsAsym(ftype, fl1, fl2, 2, false));
         return diffs;
@@ -98,10 +106,12 @@ public class OBODocDiffer {
         return diffs;
     }
 
-    /** @param args
-     *            args
+    /**
+     * @param args
+     *        args
      * @throws Exception
-     *             Exception */
+     *         Exception
+     */
     public static void main(String[] args) throws Exception {
         OBOFormatParser p = new OBOFormatParser();
         OBODoc obodoc1 = p.parse(args[0]);

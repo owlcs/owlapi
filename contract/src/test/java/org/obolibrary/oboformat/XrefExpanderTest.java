@@ -12,6 +12,7 @@ import org.obolibrary.oboformat.parser.XrefExpander;
 
 @SuppressWarnings("javadoc")
 public class XrefExpanderTest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OBODoc obodoc = parseOBOFile("treat_xrefs_test.obo");

@@ -52,7 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** A short form provider that generates short forms from the values of object
+/**
+ * A short form provider that generates short forms from the values of object
  * property assertions or data property assertions if the entity is an
  * individual. If the entity whose short form is not being generated is not an
  * individual (i.e. it is a class, property etc.) then an alternate short form
@@ -61,23 +62,28 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
  * preferredLabel property assertions).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Jun-2007 */
-public class PropertyAssertionValueShortFormProvider implements ShortFormProvider {
+ *         Informatics Group, Date: 17-Jun-2007
+ */
+public class PropertyAssertionValueShortFormProvider implements
+        ShortFormProvider {
+
     private final List<OWLPropertyExpression<?, ?>> properties;
     private final Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap;
     private final OWLOntologySetProvider ontologySetProvider;
     private final ShortFormProvider alternateShortFormProvider;
 
-    /** Constructs a property value short form provider. Using
+    /**
+     * Constructs a property value short form provider. Using
      * {@code SimpleShortFormProvider} as the alternate short form provider (see
      * other constructor for details).
      * 
      * @param properties
-     *            set of properties
+     *        set of properties
      * @param preferredLanguageMap
-     *            language map
+     *        language map
      * @param ontologySetProvider
-     *            the ontology container */
+     *        the ontology container
+     */
     public PropertyAssertionValueShortFormProvider(
             List<OWLPropertyExpression<?, ?>> properties,
             Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
@@ -86,32 +92,31 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                 new SimpleShortFormProvider());
     }
 
-    /** Constructs a property value short form provider.
+    /**
+     * Constructs a property value short form provider.
      * 
      * @param properties
-     *            A {@code List} of preferred properties. The list is searched
-     *            from start to end, so that property assertions whose property
-     *            is at the start of the list have a higher priority and are
-     *            selected over properties that appear towards or at the end of
-     *            the list.
+     *        A {@code List} of preferred properties. The list is searched from
+     *        start to end, so that property assertions whose property is at the
+     *        start of the list have a higher priority and are selected over
+     *        properties that appear towards or at the end of the list.
      * @param preferredLanguageMap
-     *            A map which maps data properties to preferred languages. For
-     *            any given data property there may be a list of preferred
-     *            languages for the values of that property Languages at the
-     *            start of the list have a higher priority over languages at the
-     *            end of the list. This parameter may be empty but it must not
-     *            be {@code null}.
+     *        A map which maps data properties to preferred languages. For any
+     *        given data property there may be a list of preferred languages for
+     *        the values of that property Languages at the start of the list
+     *        have a higher priority over languages at the end of the list. This
+     *        parameter may be empty but it must not be {@code null}.
      * @param ontologySetProvider
-     *            An {@code OWLOntologySetProvider} which provides a set of
-     *            ontology from which candidate annotation axioms should be
-     *            taken. For a given entity, all ontologies are examined.
+     *        An {@code OWLOntologySetProvider} which provides a set of ontology
+     *        from which candidate annotation axioms should be taken. For a
+     *        given entity, all ontologies are examined.
      * @param alternateShortFormProvider
-     *            A short form provider which will be used to generate the short
-     *            form for an entity that does not have any property values
-     *            (e.g. class, property). This provider will also be used in the
-     *            case where the value of an annotation is an
-     *            {@code OWLIndividual} for providing the short form of the
-     *            individual. */
+     *        A short form provider which will be used to generate the short
+     *        form for an entity that does not have any property values (e.g.
+     *        class, property). This provider will also be used in the case
+     *        where the value of an annotation is an {@code OWLIndividual} for
+     *        providing the short form of the individual.
+     */
     public PropertyAssertionValueShortFormProvider(
             List<OWLPropertyExpression<?, ?>> properties,
             Map<OWLDataPropertyExpression, List<String>> preferredLanguageMap,
@@ -157,15 +162,16 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
                     // and see if we take priority over the previous one
                     OWLObject obj = ax.getObject();
                     if (obj instanceof OWLLiteral) {
-                        List<String> langList = preferredLanguageMap
-                                .get(ax.getProperty());
+                        List<String> langList = preferredLanguageMap.get(ax
+                                .getProperty());
                         if (langList != null) {
                             // There is no need to check if lang is null. It may
                             // well be that no
                             // lang is preferred over any other lang.
                             OWLLiteral lit = (OWLLiteral) obj;
                             int langIndex = langList.indexOf(lit.getLang());
-                            if (langIndex != -1 && langIndex < lastLangMatchIndex) {
+                            if (langIndex != -1
+                                    && langIndex < lastLangMatchIndex) {
                                 lastLangMatchIndex = langIndex;
                                 candidateValue = ax.getObject();
                             }
@@ -185,14 +191,16 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
         }
     }
 
-    /** Obtains the rendering of the specified object. If the object is a
+    /**
+     * Obtains the rendering of the specified object. If the object is a
      * constant then the rendering is equal to the literal value, if the object
      * is an individual then the rendering is equal to the rendering of the
      * individual as provided by the alternate short form provider
      * 
      * @param object
-     *            The object to the rendered
-     * @return The rendering of the object. */
+     *        The object to the rendered
+     * @return The rendering of the object.
+     */
     private String getRendering(OWLObject object) {
         // We return the literal value of constants or use the alternate
         // short form provider to render individuals.
@@ -209,7 +217,8 @@ public class PropertyAssertionValueShortFormProvider implements ShortFormProvide
     }
 
     /** @return the language map */
-    public Map<OWLDataPropertyExpression, List<String>> getPreferredLanguageMap() {
+    public Map<OWLDataPropertyExpression, List<String>>
+            getPreferredLanguageMap() {
         return preferredLanguageMap;
     }
 

@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class UTF8RoundTripTestCase {
+
     @Test
     public void testRoundTrip() throws Exception {
         String NS = "http://protege.org/ontologies/UTF8RoundTrip.owl";
@@ -86,8 +87,8 @@ public class UTF8RoundTripTestCase {
         return ontology;
     }
 
-    private static boolean
-            checkOntology(OWLOntology ontology, OWLClass C, String CHINESE) {
+    private static boolean checkOntology(OWLOntology ontology, OWLClass C,
+            String CHINESE) {
         for (OWLAnnotation annotation : C.getAnnotations(ontology)) {
             String value = ((OWLLiteral) annotation.getValue()).getLiteral();
             return CHINESE.equals(value);
@@ -103,8 +104,8 @@ public class UTF8RoundTripTestCase {
         OWLOntologyManager newManager = Factory.getManager();
         OWLOntology newOntology;
         newOntology = newManager
-                .loadOntologyFromOntologyDocument(new StringDocumentSource(target
-                        .toString()));
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        target.toString()));
         return newOntology;
     }
 }

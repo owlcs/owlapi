@@ -46,18 +46,24 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public ObjectOneOfTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
     @Override
     public boolean matchesStrict(IRI mainNode) {
-        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, false);
+        IRI listNode = getConsumer().getResourceObject(mainNode, OWL_ONE_OF,
+                false);
         return isIndividualListStrict(listNode, 1);
     }
 
@@ -68,9 +74,10 @@ public class ObjectOneOfTranslator extends AbstractClassExpressionTranslator {
 
     @Override
     public OWLObjectOneOf translate(IRI mainNode) {
-        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWL_ONE_OF, true);
-        Set<OWLIndividual> individuals = getConsumer().translateToIndividualSet(
-                oneOfObject);
+        IRI oneOfObject = getConsumer().getResourceObject(mainNode, OWL_ONE_OF,
+                true);
+        Set<OWLIndividual> individuals = getConsumer()
+                .translateToIndividualSet(oneOfObject);
         return getDataFactory().getOWLObjectOneOf(individuals);
     }
 }

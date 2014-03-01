@@ -56,17 +56,23 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
-        implements OWLDifferentIndividualsAxiom {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLDifferentIndividualsAxiomImpl extends
+        OWLNaryIndividualAxiomImpl implements OWLDifferentIndividualsAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param individuals
-     *            individuals
+    /**
+     * @param individuals
+     *        individuals
      * @param annotations
-     *            annotations on the axiom */
-    public OWLDifferentIndividualsAxiomImpl(Set<? extends OWLIndividual> individuals,
+     *        annotations on the axiom
+     */
+    public OWLDifferentIndividualsAxiomImpl(
+            Set<? extends OWLIndividual> individuals,
             Set<? extends OWLAnnotation> annotations) {
         super(individuals, annotations);
     }
@@ -76,11 +82,13 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDifferentIndividualsAxiomImpl(getIndividuals(), NO_ANNOTATIONS);
+        return new OWLDifferentIndividualsAxiomImpl(getIndividuals(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDifferentIndividualsAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLDifferentIndividualsAxiomImpl(getIndividuals(),
                 mergeAnnos(annotations));
     }
@@ -120,13 +128,15 @@ public class OWLDifferentIndividualsAxiomImpl extends OWLNaryIndividualAxiomImpl
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         List<OWLClassExpression> nominalsList = new ArrayList<OWLClassExpression>();
         for (OWLIndividual individual : getIndividuals()) {
-            nominalsList.add(new OWLObjectOneOfImpl(Collections.singleton(individual)));
+            nominalsList.add(new OWLObjectOneOfImpl(Collections
+                    .singleton(individual)));
         }
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
         for (int i = 0; i < nominalsList.size() - 1; i++) {
             for (int j = i + 1; j < nominalsList.size(); j++) {
                 OWLClassExpression ceI = nominalsList.get(i);
-                OWLClassExpression ceJ = nominalsList.get(j).getObjectComplementOf();
+                OWLClassExpression ceJ = nominalsList.get(j)
+                        .getObjectComplementOf();
                 result.add(new OWLSubClassOfAxiomImpl(ceI, ceJ, NO_ANNOTATIONS));
             }
         }

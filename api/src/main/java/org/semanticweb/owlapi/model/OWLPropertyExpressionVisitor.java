@@ -38,27 +38,36 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An interface to object that can visit the different types of property
+/**
+ * An interface to object that can visit the different types of property
  * expressions.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006 */
+ *         Informatics Group, Date: 13-Nov-2006
+ */
 public interface OWLPropertyExpressionVisitor {
-    /** visit OWLObjectProperty type
+
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLObjectProperty property);
 
-    /** visit OWLObjectInverseOf type
+    /**
+     * visit OWLObjectInverseOf type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLObjectInverseOf property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLDataProperty property);
 }

@@ -45,12 +45,17 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 19/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 19/12/2010
+ */
 public class ObjectMaxQualifiedCardinalityTranslator extends
         AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public ObjectMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -58,7 +63,8 @@ public class ObjectMaxQualifiedCardinalityTranslator extends
     @Override
     public boolean matchesStrict(IRI mainNode) {
         return isRestrictionStrict(mainNode)
-                && isNonNegativeIntegerStrict(mainNode, OWL_MAX_QUALIFIED_CARDINALITY)
+                && isNonNegativeIntegerStrict(mainNode,
+                        OWL_MAX_QUALIFIED_CARDINALITY)
                 && isObjectPropertyStrict(mainNode, OWL_ON_PROPERTY)
                 && isClassExpressionStrict(mainNode, OWL_ON_CLASS);
     }
@@ -73,12 +79,15 @@ public class ObjectMaxQualifiedCardinalityTranslator extends
     @Override
     public OWLObjectMaxCardinality translate(IRI mainNode) {
         int cardi = translateInteger(mainNode, OWL_MAX_QUALIFIED_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
-        OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
-        return getDataFactory().getOWLObjectMaxCardinality(cardi, property, filler);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS,
+                true);
+        OWLClassExpression filler = getConsumer().translateClassExpression(
+                fillerIRI);
+        return getDataFactory().getOWLObjectMaxCardinality(cardi, property,
+                filler);
     }
 }

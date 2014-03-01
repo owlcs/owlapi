@@ -40,16 +40,21 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** An object that can create an {@code OWLParser}.
+/**
+ * An object that can create an {@code OWLParser}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Nov-2006 */
+ *         Informatics Group, Date: 15-Nov-2006
+ */
 public interface OWLParserFactory {
-    /** Creates a parser.
+
+    /**
+     * Creates a parser.
      * 
      * @param owlOntologyManager
-     *            This parameter is here for legacy reasons. Parser factories
-     *            should not use it.
-     * @return The parser created by this parser factory. */
+     *        This parameter is here for legacy reasons. Parser factories should
+     *        not use it.
+     * @return The parser created by this parser factory.
+     */
     OWLParser createParser(OWLOntologyManager owlOntologyManager);
 }

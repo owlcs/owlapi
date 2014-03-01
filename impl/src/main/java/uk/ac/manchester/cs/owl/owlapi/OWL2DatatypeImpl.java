@@ -35,11 +35,14 @@ import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** An optimised implementation of OWLDatatype for OWL2Datatypes.
+/**
+ * An optimised implementation of OWLDatatype for OWL2Datatypes.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 24/10/2012 */
+ *         Research Group, Date: 24/10/2012
+ */
 public class OWL2DatatypeImpl implements OWLDatatype {
+
     // NOTE: This class did extend OWLObjectImpl but this created a circular
     // dependency and caused initialisation
     // problems with static methods.
@@ -54,13 +57,15 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         instanceMap = map;
     }
 
-    /** Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
+    /**
+     * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
      * specified {@link OWL2Datatype}.
      * 
      * @param owl2Datatype
-     *            The datatype. Not {@code null}.
+     *        The datatype. Not {@code null}.
      * @throws NullPointerException
-     *             if {@code owl2Datatype} is {@code null}. */
+     *         if {@code owl2Datatype} is {@code null}.
+     */
     private OWL2DatatypeImpl(OWL2Datatype owl2Datatype) {
         if (owl2Datatype == null) {
             throw new NullPointerException("owl2Datatype must not be null");
@@ -68,14 +73,16 @@ public class OWL2DatatypeImpl implements OWLDatatype {
         this.owl2Datatype = owl2Datatype;
     }
 
-    /** A factory method which gets an instance of {@link OWLDatatype} for an
+    /**
+     * A factory method which gets an instance of {@link OWLDatatype} for an
      * instance of {@link OWL2Datatype} specified by the {@code owl2Datatype}
      * parameter.
      * 
      * @param owl2Datatype
-     *            The datatype to be retrieved.
+     *        The datatype to be retrieved.
      * @return A {@link OWLDatatype} that has the same IRI as the IRI returned
-     *         by {@code owl2Datatype#getIRI()}. */
+     *         by {@code owl2Datatype#getIRI()}.
+     */
     public static OWLDatatype getDatatype(OWL2Datatype owl2Datatype) {
         return instanceMap.get(owl2Datatype);
     }
@@ -188,7 +195,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
+        return ImplUtils.getAnnotationAxioms(this,
+                Collections.singleton(ontology));
     }
 
     @Override
@@ -267,8 +275,8 @@ public class OWL2DatatypeImpl implements OWLDatatype {
     }
 
     @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology,
+            boolean includeImports) {
         return ontology.getReferencingAxioms(this, true);
     }
 
@@ -316,8 +324,9 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLEntity> getSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLEntity> singleton(this));
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLEntity> singleton(this));
     }
 
     @Override
@@ -327,44 +336,51 @@ public class OWL2DatatypeImpl implements OWLDatatype {
 
     @Override
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLAnonymousIndividual> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLAnonymousIndividual> emptySet());
     }
 
     @Override
     public Set<OWLClass> getClassesInSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLClass> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLClass> emptySet());
     }
 
     @Override
     public Set<OWLDataProperty> getDataPropertiesInSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLDataProperty> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLDataProperty> emptySet());
     }
 
     @Override
     public Set<OWLObjectProperty> getObjectPropertiesInSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLObjectProperty> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLObjectProperty> emptySet());
     }
 
     @Override
     public Set<OWLNamedIndividual> getIndividualsInSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLNamedIndividual> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLNamedIndividual> emptySet());
     }
 
     @Override
     public Set<OWLDatatype> getDatatypesInSignature() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .singleton((OWLDatatype) this));
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .singleton((OWLDatatype) this));
     }
 
     @Override
     public Set<OWLClassExpression> getNestedClassExpressions() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(Collections
-                .<OWLClassExpression> emptySet());
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(Collections
+                        .<OWLClassExpression> emptySet());
     }
 
     @Override

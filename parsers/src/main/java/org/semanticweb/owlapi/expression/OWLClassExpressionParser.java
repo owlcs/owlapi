@@ -40,9 +40,12 @@ package org.semanticweb.owlapi.expression;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** An expression parser that parses expressions that correspond to class
+/**
+ * An expression parser that parses expressions that correspond to class
  * expressions.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 28-Nov-2007 */
-public interface OWLClassExpressionParser extends OWLExpressionParser<OWLClassExpression> {}
+ *         Informatics Group, Date: 28-Nov-2007
+ */
+public interface OWLClassExpressionParser extends
+        OWLExpressionParser<OWLClassExpression> {}

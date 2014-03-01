@@ -38,8 +38,10 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** A super interface for annotation axioms.
+/**
+ * A super interface for annotation axioms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Oct-2006 */
+ *         Informatics Group, Date: 25-Oct-2006
+ */
 public interface OWLAnnotationAxiom extends OWLAxiom, OWLAnnotationObject {}

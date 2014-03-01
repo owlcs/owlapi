@@ -10,14 +10,17 @@ import org.semanticweb.owlapi.model.OWLEntity;
 
 /** @author Shahid Manzoor */
 public class Obo2OWLConstants {
+
     /** default iri */
     public static final String DEFAULT_IRI_PREFIX = "http://purl.obolibrary.org/obo/";
     /** OIO vocabulary prefix */
     public static final String OIOVOCAB_IRI_PREFIX = "http://www.geneontology.org/formats/oboInOwl#";
 
-    /** @param d
-     *            date to format
-     * @return formatted string */
+    /**
+     * @param d
+     *        date to format
+     * @return formatted string
+     */
     public static synchronized String format(Date d) {
         return formatter.format(d);
     }
@@ -98,10 +101,12 @@ public class Obo2OWLConstants {
             return mappedTag;
         }
 
-        /** @param e
-         *            entity to check
+        /**
+         * @param e
+         *        entity to check
          * @return true if e has the same iri as the enum value, false if e is
-         *         null or has a different iri */
+         *         null or has a different iri
+         */
         public boolean sameIRI(OWLEntity e) {
             // if a null value is passed in, then no match
             if (e == null) {
@@ -119,9 +124,11 @@ public class Obo2OWLConstants {
         }
     }
 
-    /** @param tag
-     *            tag
-     * @return obj for tag */
+    /**
+     * @param tag
+     *        tag
+     * @return obj for tag
+     */
     public static Obo2OWLVocabulary getVocabularyObj(String tag) {
         return tagsToVocab.get(tag);
     }

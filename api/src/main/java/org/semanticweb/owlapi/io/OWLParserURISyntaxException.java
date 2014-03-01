@@ -40,19 +40,24 @@ package org.semanticweb.owlapi.io;
 
 import java.net.URISyntaxException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 07-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 07-Dec-2009
+ */
 public class OWLParserURISyntaxException extends OWLParserException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param cause
-     *            the cause
+    /**
+     * @param cause
+     *        the cause
      * @param lineNumber
-     *            the line number
+     *        the line number
      * @param columnNumber
-     *            the column number */
-    public OWLParserURISyntaxException(URISyntaxException cause, int lineNumber,
-            int columnNumber) {
+     *        the column number
+     */
+    public OWLParserURISyntaxException(URISyntaxException cause,
+            int lineNumber, int columnNumber) {
         super(cause, lineNumber, columnNumber);
     }
 

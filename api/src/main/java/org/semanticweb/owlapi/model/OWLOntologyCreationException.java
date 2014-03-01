@@ -38,34 +38,43 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An exception which describes an error during the creation of an ontology. If
+/**
+ * An exception which describes an error during the creation of an ontology. If
  * an ontology cannot be created then subclasses of this class will describe the
  * reasons.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
+ *         Informatics Group, Date: 13-Apr-2007
+ */
 public class OWLOntologyCreationException extends OWLException {
+
     private static final long serialVersionUID = 30406L;
 
     /** default constructor */
     public OWLOntologyCreationException() {}
 
-    /** @param message
-     *            message */
+    /**
+     * @param message
+     *        message
+     */
     public OWLOntologyCreationException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyCreationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public OWLOntologyCreationException(Throwable cause) {
         super(cause);
     }

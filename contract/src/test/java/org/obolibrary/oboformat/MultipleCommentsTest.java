@@ -10,6 +10,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 
 @SuppressWarnings("javadoc")
 public class MultipleCommentsTest extends OboFormatTestBasics {
+
     @Test(expected = FrameStructureException.class)
     public void testCheckForMultipleCommentsinFrame() throws Exception {
         OBODoc obodoc = parseOBOFile("multiple_comments_test.obo");

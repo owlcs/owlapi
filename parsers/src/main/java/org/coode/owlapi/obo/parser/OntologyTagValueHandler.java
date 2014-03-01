@@ -38,11 +38,16 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 03/02/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 03/02/2011
+ */
 public class OntologyTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public OntologyTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ONTOLOGY.getName(), consumer);
     }

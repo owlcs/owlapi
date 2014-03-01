@@ -38,59 +38,76 @@
  */
 package org.semanticweb.owlapi.change;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 08/05/2012
  * @param <R>
- *            return type
+ *        return type
  * @param <E>
- *            exception thrown */
+ *        exception thrown
+ */
 public interface OWLOntologyChangeDataVisitor<R, E extends Exception> {
-    /** @param data
-     *            object to visit
+
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(AddAxiomData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(RemoveAxiomData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(AddOntologyAnnotationData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(RemoveOntologyAnnotationData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(SetOntologyIDData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(AddImportData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(RemoveImportData data) throws E;
 }

@@ -54,7 +54,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
 
-/** This class demonstrates some aspects of the OWL API. It expects three
+/**
+ * This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
  * <ol>
  * <li>The URI of an ontology</li>
@@ -67,8 +68,10 @@ import uk.ac.manchester.owl.owlapi.tutorial.io.OWLTutorialSyntaxObjectRenderer;
  * file.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+ *         Group, Date: 24-April-2007
+ */
 public class Debugger {
+
     private final OWLOntology ontology;
     private final OWLDebugger debugger;
     private final OWLReasoner checker;
@@ -114,7 +117,8 @@ public class Debugger {
                  * Find the set of support for the inconsistency. This will
                  * return us a collection of axioms
                  */
-                Set<OWLAxiom> sos = debugger.getSOSForIncosistentClass(unsatisfiable);
+                Set<OWLAxiom> sos = debugger
+                        .getSOSForIncosistentClass(unsatisfiable);
                 /* Print the axioms. */
                 for (OWLAxiom axiom : sos) {
                     writer.println("<li>");

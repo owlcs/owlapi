@@ -46,15 +46,20 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007
+ */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
         SWRLIndividualArgument {
+
     private static final long serialVersionUID = 30406L;
     private final OWLIndividual individual;
 
-    /** @param individual
-     *            individual for argument */
+    /**
+     * @param individual
+     *        individual for argument
+     */
     public SWRLIndividualArgumentImpl(OWLIndividual individual) {
         super();
         this.individual = individual;
@@ -99,6 +104,7 @@ public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return individual.compareTo(((SWRLIndividualArgument) object).getIndividual());
+        return individual.compareTo(((SWRLIndividualArgument) object)
+                .getIndividual());
     }
 }

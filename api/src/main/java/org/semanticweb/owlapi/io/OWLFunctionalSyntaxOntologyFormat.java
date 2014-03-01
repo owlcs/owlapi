@@ -40,9 +40,12 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 02-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 02-Jan-2007
+ */
 public class OWLFunctionalSyntaxOntologyFormat extends PrefixOWLOntologyFormat {
+
     private static final long serialVersionUID = 30406L;
 
     @Override

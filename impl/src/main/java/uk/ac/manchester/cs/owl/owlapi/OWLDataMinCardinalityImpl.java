@@ -48,28 +48,36 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDataMinCardinalityImpl extends OWLDataCardinalityRestrictionImpl
-        implements OWLDataMinCardinality {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLDataMinCardinalityImpl extends
+        OWLDataCardinalityRestrictionImpl implements OWLDataMinCardinality {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param cardinality
-     *            cardinality
+     *        cardinality
      * @param filler
-     *            filler */
-    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property, int cardinality,
-            OWLDataRange filler) {
+     *        filler
+     */
+    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property,
+            int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param cardinality
-     *            cardinality */
-    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
+     *        cardinality
+     */
+    public OWLDataMinCardinalityImpl(OWLDataPropertyExpression property,
+            int cardinality) {
         this(property, cardinality, OWL2DatatypeImpl
                 .getDatatype(OWL2Datatype.RDFS_LITERAL));
     }

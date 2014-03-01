@@ -3,7 +3,8 @@ package org.obolibrary.obo2owl;
 import org.junit.Ignore;
 import org.junit.Test;
 
-/** Scenario: Translate a OBO relationship using an annotation property in OWL
+/**
+ * Scenario: Translate a OBO relationship using an annotation property in OWL
  * instead of an object property (is_metadata_tag: true). <br>
  * Problem: reverse translation of AA (R ID Y) to OBO, there are two possible
  * translations:
@@ -15,15 +16,20 @@ import org.junit.Test;
  * Unfortunately, the Protein ontology (PRO) expects the 'only_in_taxon'
  * annotations as relationships.
  * 
- * @see RoundTripPropertyValueTest */
+ * @see RoundTripPropertyValueTest
+ */
 @SuppressWarnings("javadoc")
 public class RoundTripProRelationshipTest extends RoundTripTest {
-    /** This test fails due to the non-deterministic translation from OWL2OBO
+
+    /**
+     * This test fails due to the non-deterministic translation from OWL2OBO
      * 
-     * @throws Exception */
+     * @throws Exception
+     */
     @Ignore("This test fails due to the non-deterministic translation from OWL2OBO")
     @Test
-    public void testRoundTripRelationship() throws Exception {
+    public
+            void testRoundTripRelationship() throws Exception {
         roundTripOBOFile("rel-pv-roundtrip.obo", true);
     }
 }

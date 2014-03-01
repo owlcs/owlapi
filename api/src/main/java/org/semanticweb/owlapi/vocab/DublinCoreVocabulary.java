@@ -47,9 +47,15 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-Mar-2007 */
-public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-Mar-2007
+ */
+public enum DublinCoreVocabulary
+        implements
+        HasShortForm,
+        HasIRI,
+        HasPrefixedName {
     //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),
     /** http://purl.org/dc/elements/1.1/coverage */    COVERAGE   ("coverage"   ),
@@ -72,6 +78,7 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
     private final IRI iri;
     /**
      * Dublin Core name space
+     * 
      * @deprecated Use {@link org.semanticweb.owlapi.vocab.Namespaces#DC}
      */
     @Deprecated
@@ -93,16 +100,15 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
     }
 
     /**
-     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
-     * "contributor" for {@link #CONTRIBUTOR} etc.
-     * @return The short form.  Not {@code null}.
+     * Gets the short form for this vocabulary element. Short forms are the
+     * local name e.g. "contributor" for {@link #CONTRIBUTOR} etc.
+     * 
+     * @return The short form. Not {@code null}.
      */
     @Override
-     public String getShortForm() {
+    public String getShortForm() {
         return shortName;
     }
-
-
 
     /**
      * @return qname
@@ -113,8 +119,10 @@ public enum DublinCoreVocabulary implements HasShortForm, HasIRI, HasPrefixedNam
         return qname;
     }
 
-    /** @return IRI as URI.
-     * @deprecated use getIRI() */
+    /**
+     * @return IRI as URI.
+     * @deprecated use getIRI()
+     */
     @Deprecated
     public URI getURI() {
         return iri.toURI();

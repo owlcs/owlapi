@@ -8,6 +8,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 
 @SuppressWarnings("javadoc")
 public class TypeDefCommentsTest extends OboFormatTestBasics {
+
     @Test
     public void writeTypeDefComments() throws Exception {
         OBODoc doc = parseOBOFile("typedef_comments.obo", true);

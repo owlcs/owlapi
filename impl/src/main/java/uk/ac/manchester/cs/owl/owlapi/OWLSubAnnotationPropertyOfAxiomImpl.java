@@ -51,21 +51,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 25-Mar-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 25-Mar-2009
+ */
 public class OWLSubAnnotationPropertyOfAxiomImpl extends OWLAxiomImpl implements
         OWLSubAnnotationPropertyOfAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLAnnotationProperty subProperty;
     private final OWLAnnotationProperty superProperty;
 
-    /** @param subProperty
-     *            sub property
+    /**
+     * @param subProperty
+     *        sub property
      * @param superProperty
-     *            super property
+     *        super property
      * @param annotations
-     *            annotations on the axiom */
-    public OWLSubAnnotationPropertyOfAxiomImpl(OWLAnnotationProperty subProperty,
+     *        annotations on the axiom
+     */
+    public OWLSubAnnotationPropertyOfAxiomImpl(
+            OWLAnnotationProperty subProperty,
             OWLAnnotationProperty superProperty,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

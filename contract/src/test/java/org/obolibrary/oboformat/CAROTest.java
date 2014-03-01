@@ -14,6 +14,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class CAROTest extends OboFormatTestBasics {
+
     @Test
     public void testParseCARO() throws Exception {
         OBODoc obodoc = parseOBOFile("caro.obo");

@@ -46,9 +46,12 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Sean Bechhofer, The University Of Manchester, Information Management
- *         Group, Date: 24-April-2007 */
+/**
+ * @author Sean Bechhofer, The University Of Manchester, Information Management
+ *         Group, Date: 24-April-2007
+ */
 public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
+
     @SuppressWarnings("javadoc")
     @Deprecated
     public OWLTutorialSyntaxRenderer(OWLOntologyManager manager) {
@@ -59,7 +62,8 @@ public class OWLTutorialSyntaxRenderer extends AbstractOWLRenderer {
     public OWLTutorialSyntaxRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererIOException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererIOException {
         try {
             OWLTutorialSyntaxObjectRenderer ren = new OWLTutorialSyntaxObjectRenderer(
                     ontology, writer);

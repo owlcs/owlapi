@@ -50,10 +50,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 04-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 04-Jul-2010
+ */
 public class AnnotationPropertyDeclarationWithAnnotationsTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
+
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         OWLEntity ent = AnnotationProperty(getIRI("propA"));

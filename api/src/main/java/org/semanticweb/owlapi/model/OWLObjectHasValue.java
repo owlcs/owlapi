@@ -38,12 +38,14 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Individual_Value_Restriction"
  * >ObjectHasValue</a> class expression in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLObjectHasValue
         extends
         OWLHasValueRestriction<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual> {}

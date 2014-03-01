@@ -47,9 +47,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group, Date: Dec 17, 2008 */
+/**
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 17, 2008
+ */
 public class OBOFormatStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 30406L;
 
     @Override
@@ -58,8 +61,9 @@ public class OBOFormatStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager,
+            OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 

@@ -40,11 +40,14 @@ package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** The Class ConsoleTripleHandler.
+/**
+ * The Class ConsoleTripleHandler.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Feb-2008 */
+ *         Informatics Group, Date: 24-Feb-2008
+ */
 public class ConsoleTripleHandler implements TripleHandler {
+
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         System.out.println(subject + " --> " + predicate + " --> " + object);
@@ -56,14 +59,17 @@ public class ConsoleTripleHandler implements TripleHandler {
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, String lang) {
-        System.out.println(subject + " --> " + predicate + " --> " + object + "@" + lang);
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            String lang) {
+        System.out.println(subject + " --> " + predicate + " --> " + object
+                + "@" + lang);
     }
 
     @Override
-    public void handleTriple(IRI subject, IRI predicate, String object, IRI datatype) {
-        System.out.println(subject + " --> " + predicate + " --> " + object + "^^"
-                + datatype);
+    public void handleTriple(IRI subject, IRI predicate, String object,
+            IRI datatype) {
+        System.out.println(subject + " --> " + predicate + " --> " + object
+                + "^^" + datatype);
     }
 
     @Override

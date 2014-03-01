@@ -43,25 +43,32 @@ import java.net.URI;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006
+ */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
+
     private final IRI ontologyIRI;
     private final IRI documentIRI;
 
-    /** @param ontologyIRI
-     *            ontology IRI
+    /**
+     * @param ontologyIRI
+     *        ontology IRI
      * @param documentIRI
-     *            document IRI */
+     *        document IRI
+     */
     public SimpleIRIMapper(final IRI ontologyIRI, final IRI documentIRI) {
         this.ontologyIRI = ontologyIRI;
         this.documentIRI = documentIRI;
     }
 
-    /** @param ontologyURI
-     *            ontology IRI
+    /**
+     * @param ontologyURI
+     *        ontology IRI
      * @param documentIRI
-     *            document IRI */
+     *        document IRI
+     */
     @Deprecated
     public SimpleIRIMapper(final URI ontologyURI, final IRI documentIRI) {
         this(IRI.create(ontologyURI), documentIRI);

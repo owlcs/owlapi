@@ -54,6 +54,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** @author ignazio no cache used */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
+
     private static final long serialVersionUID = 30406L;
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
             .getDatatype(OWL2Datatype.RDF_PLAIN_LITERAL);
@@ -72,8 +73,10 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
-    /** @param useCompression
-     *            true if compression of literals should be used */
+    /**
+     * @param useCompression
+     *        true if compression of literals should be used
+     */
     public InternalsNoCache(boolean useCompression) {
         trueLiteral = new OWLLiteralImplBoolean(true);
         falseLiteral = new OWLLiteralImplBoolean(false);
@@ -173,13 +176,15 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
             // check the four special cases
             try {
                 if (datatype.isBoolean()) {
-                    literal = getOWLLiteral(isBooleanTrueValue(lexicalValue.trim()));
+                    literal = getOWLLiteral(isBooleanTrueValue(lexicalValue
+                            .trim()));
                 } else if (datatype.isFloat()) {
                     if (lexicalValue.trim().equals("-0.0")) {
                         // according to some W3C test, this needs to be
                         // different from 0.0; Java floats disagree
                         if (negativeFloatZero == null) {
-                            negativeFloatZero = getBasicLiteral("-0.0", XSD_FLOAT);
+                            negativeFloatZero = getBasicLiteral("-0.0",
+                                    XSD_FLOAT);
                         }
                         literal = negativeFloatZero;
                     } else {
@@ -196,12 +201,14 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
                     // again, some W3C tests require padding zeroes to make
                     // literals different
                     if (lexicalValue.trim().charAt(0) == '0') {
-                        literal = getBasicLiteral(lexicalValue, getIntegerOWLDatatype());
+                        literal = getBasicLiteral(lexicalValue,
+                                getIntegerOWLDatatype());
                     } else {
                         try {
                             // this is fine for values that can be parsed as
                             // ints - not all values are
-                            literal = getOWLLiteral(Integer.parseInt(lexicalValue));
+                            literal = getOWLLiteral(Integer
+                                    .parseInt(lexicalValue));
                         } catch (NumberFormatException ex) {
                             // try as a big decimal
                             literal = getBasicLiteral(lexicalValue, datatype);
@@ -218,7 +225,8 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         return literal;
     }
 
-    protected OWLLiteral getBasicLiteral(String lexicalValue, OWLDatatype datatype) {
+    protected OWLLiteral getBasicLiteral(String lexicalValue,
+            OWLDatatype datatype) {
         return getBasicLiteral(lexicalValue, "", datatype);
     }
 
@@ -228,7 +236,8 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
         if (useCompression) {
             literal = new OWLLiteralImpl(lexicalValue, lang, datatype);
         } else {
-            literal = new OWLLiteralImplNoCompression(lexicalValue, lang, datatype);
+            literal = new OWLLiteralImplNoCompression(lexicalValue, lang,
+                    datatype);
         }
         return literal;
     }

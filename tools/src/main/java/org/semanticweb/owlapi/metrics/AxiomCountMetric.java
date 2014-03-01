@@ -43,11 +43,16 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-Dec-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Dec-2007
+ */
 public abstract class AxiomCountMetric extends ObjectCountMetric<OWLAxiom> {
-    /** @param owlOntologyManager
-     *            manager to use */
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public AxiomCountMetric(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

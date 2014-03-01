@@ -54,16 +54,21 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public abstract class AbstractTagValueHandler implements TagValueHandler {
+
     private String tag;
     private OBOConsumer consumer;
 
-    /** @param tag
-     *            tag
+    /**
+     * @param tag
+     *        tag
      * @param consumer
-     *            consumer */
+     *        consumer
+     */
     public AbstractTagValueHandler(String tag, OBOConsumer consumer) {
         this.tag = tag;
         this.consumer = consumer;
@@ -84,8 +89,10 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getOntology();
     }
 
-    /** @param change
-     *            change */
+    /**
+     * @param change
+     *        change
+     */
     public void applyChange(OWLOntologyChange change) {
         consumer.getOWLOntologyManager().applyChange(change);
     }
@@ -100,26 +107,32 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         return consumer.getOWLOntologyManager().getOWLDataFactory();
     }
 
-    /** @param vocabulary
-     *            vocabulary
-     * @return iri */
+    /**
+     * @param vocabulary
+     *        vocabulary
+     * @return iri
+     */
     public IRI getTagIRI(OBOVocabulary vocabulary) {
         return consumer.getIRIFromTagName(vocabulary.getName());
     }
 
-    /** Gets an IRI for a tag name. This is a helper method, which ultimately
+    /**
+     * Gets an IRI for a tag name. This is a helper method, which ultimately
      * calls {@link OBOConsumer#getIRIFromTagName(String)}.
      * 
      * @param tagName
-     *            The tag name.
-     * @return The IRI corresponding to the tag name. */
+     *        The tag name.
+     * @return The IRI corresponding to the tag name.
+     */
     public IRI getTagIRI(String tagName) {
         return consumer.getIRIFromTagName(tagName);
     }
 
-    /** @param id
-     *            id
-     * @return iri */
+    /**
+     * @param id
+     *        id
+     * @return iri
+     */
     public IRI getIRIFromOBOId(String id) {
         return consumer.getIRIFromOBOId(id);
     }
@@ -127,35 +140,42 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
     // public IRI getIRIFromSymbolicId(String symbolicId) {
     // return consumer.getIRIFromSymbolicId(symbolicId);
     // }
-    /** Gets an {@link OWLAnnotation} for a tag value pair.
+    /**
+     * Gets an {@link OWLAnnotation} for a tag value pair.
      * 
      * @param tagName
-     *            The tag name.
+     *        The tag name.
      * @param value
-     *            The tag value. Note that the tag value is un-escaped and
-     *            stripped of double quotes if they exist.
+     *        The tag value. Note that the tag value is un-escaped and stripped
+     *        of double quotes if they exist.
      * @return An {@link OWLAnnotation} that is formed by converting the tagName
      *         to an IRI and then to an {@link OWLAnnotationProperty} and the
-     *         value to an {@link OWLLiteral}. */
-    public OWLAnnotation getAnnotationForTagValuePair(String tagName, String value) {
+     *         value to an {@link OWLLiteral}.
+     */
+    public OWLAnnotation getAnnotationForTagValuePair(String tagName,
+            String value) {
         IRI tagIRI = getTagIRI(tagName);
         OWLDataFactory df = getDataFactory();
-        OWLAnnotationProperty annotationProperty = df.getOWLAnnotationProperty(tagIRI);
+        OWLAnnotationProperty annotationProperty = df
+                .getOWLAnnotationProperty(tagIRI);
         String unescapedString = getUnquotedString(value);
         OWLLiteral annotationValue = df.getOWLLiteral(unescapedString);
         return df.getOWLAnnotation(annotationProperty, annotationValue);
     }
 
-    /** @param s
-     *            id
-     * @return class */
+    /**
+     * @param s
+     *        id
+     * @return class
+     */
     public OWLClass getClassFromId(String s) {
         return getDataFactory().getOWLClass(getIRIFromOBOId(s));
     }
 
     /** @return current class */
     public OWLClass getCurrentClass() {
-        return getDataFactory().getOWLClass(getIRIFromOBOId(consumer.getCurrentId()));
+        return getDataFactory().getOWLClass(
+                getIRIFromOBOId(consumer.getCurrentId()));
     }
 
     protected OWLClass getOWLClass(String id) {
@@ -187,9 +207,12 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         if (id1 == null) {
             return getDataFactory().getOWLClass(getIRIFromOBOId(id0));
         } else {
-            IRI propertyIRI = getConsumer().getRelationIRIFromSymbolicIdOrOBOId(id0);
-            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(propertyIRI);
-            OWLClass filler = getDataFactory().getOWLClass(getIRIFromOBOId(id1));
+            IRI propertyIRI = getConsumer()
+                    .getRelationIRIFromSymbolicIdOrOBOId(id0);
+            OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
+                    propertyIRI);
+            OWLClass filler = getDataFactory()
+                    .getOWLClass(getIRIFromOBOId(id1));
             return getDataFactory().getOWLObjectSomeValuesFrom(prop, filler);
         }
     }
@@ -202,8 +225,8 @@ public abstract class AbstractTagValueHandler implements TagValueHandler {
         IRI subject = getIRIFromOBOId(id);
         OWLAnnotationProperty annotationProperty = getDataFactory()
                 .getOWLAnnotationProperty(getIRIFromOBOId(uriID));
-        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(annotationProperty,
-                subject, value);
+        OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
+                annotationProperty, subject, value);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

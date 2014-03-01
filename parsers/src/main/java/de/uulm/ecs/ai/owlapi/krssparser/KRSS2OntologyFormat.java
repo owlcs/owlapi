@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OntologyFormat extends OWLOntologyFormat {
+
     private static final long serialVersionUID = 30406L;
     /** ignore ontology iri parameter */
     public static final String IGNORE_ONTOLOGYURI = "ignoreOntologyURI";
@@ -56,8 +57,10 @@ public class KRSS2OntologyFormat extends OWLOntologyFormat {
         return (Boolean) getParameter(IGNORE_ONTOLOGYURI, false);
     }
 
-    /** @param ignore
-     *            ignore ontology iri */
+    /**
+     * @param ignore
+     *        ignore ontology iri
+     */
     public void setIgnoreOntologyURI(boolean ignore) {
         setParameter(IGNORE_ONTOLOGYURI, ignore);
     }

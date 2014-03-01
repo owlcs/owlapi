@@ -52,9 +52,12 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 07-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 07-Jul-2010
+ */
 public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
+
     @SuppressWarnings("javadoc")
     @Test
     public void testClassHierarchy() {
@@ -98,7 +101,8 @@ public class StructuralReasonerTestCase extends AbstractOWLAPITestCase {
         assertTrue(descOfTop.containsEntity(clsA));
         assertTrue(descOfTop.containsEntity(clsB));
         assertTrue(descOfTop.containsEntity(OWLNothing()));
-        NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(), false);
+        NodeSet<OWLClass> supersOfTop = reasoner.getSuperClasses(OWLThing(),
+                false);
         assertTrue(supersOfTop.isEmpty());
         NodeSet<OWLClass> supersOfA = reasoner.getSuperClasses(clsA, false);
         assertTrue(supersOfA.isTopSingleton());

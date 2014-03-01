@@ -40,20 +40,27 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Collection;
 
-/** Represents an atom in a rule. Atoms can either be in the head (concequent) or
+/**
+ * Represents an atom in a rule. Atoms can either be in the head (concequent) or
  * body (antecedent) of the rule. Atoms hold objects which are either data
  * objects or individual objects.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLAtom extends SWRLObject {
-    /** Gets the predicate of this atom.
+
+    /**
+     * Gets the predicate of this atom.
      * 
-     * @return The atom predicate */
+     * @return The atom predicate
+     */
     SWRLPredicate getPredicate();
 
-    /** Gets all of the arguments in this atom.
+    /**
+     * Gets all of the arguments in this atom.
      * 
-     * @return The collection of arguments in this atom */
+     * @return The collection of arguments in this atom
+     */
     Collection<SWRLArgument> getAllArguments();
 }

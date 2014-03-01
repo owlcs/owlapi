@@ -38,22 +38,29 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 17-Jan-2010
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLAnnotationSubjectVisitorEx<O> {
-    /** visit IRI type
+
+    /**
+     * visit IRI type
      * 
      * @param iri
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(IRI iri);
 
-    /** visit OWLAnonymousIndividual type
+    /**
+     * visit OWLAnonymousIndividual type
      * 
      * @param individual
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLAnonymousIndividual individual);
 }

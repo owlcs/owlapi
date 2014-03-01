@@ -50,17 +50,22 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDisjointObjectPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
         OWLDisjointObjectPropertiesAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param properties
-     *            disjoint properties
+    /**
+     * @param properties
+     *        disjoint properties
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDisjointObjectPropertiesAxiomImpl(
             Set<? extends OWLObjectPropertyExpression> properties,
             Collection<? extends OWLAnnotation> annotations) {
@@ -72,7 +77,8 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointObjectPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
+        return new OWLDisjointObjectPropertiesAxiomImpl(getProperties(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -84,7 +90,8 @@ public class OWLDisjointObjectPropertiesAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDisjointObjectPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLDisjointObjectPropertiesAxiom;
     }
 
     @Override

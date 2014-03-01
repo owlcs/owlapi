@@ -58,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase {
+
     @Test
     public void testRoundTrip() throws Exception {
         AnonymousRoundTrip ma = new AnonymousRoundTrip();
@@ -67,6 +68,7 @@ public class AnonymousRoundTripTestCase {
 }
 
 class AnonymousRoundTrip {
+
     public static final String NS = "http://smi-protege.stanford.edu/ontologies/AnonymousIndividuals.owl";
     private OWLOntologyManager manager;
     private OWLOntology ontology;

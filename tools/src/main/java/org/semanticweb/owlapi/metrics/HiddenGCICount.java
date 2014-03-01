@@ -49,17 +49,22 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
+/**
+ * Counts the number of "hidden" GCIs in an ontology imports closure. A GCI is
  * regarded to be a "hidden" GCI if it is essentially introduce via an
  * equivalent class axiom and a subclass axioms where the LHS of the subclass
  * axiom is nameed. For example, A equivalentTo p some C, A subClassOf B results
  * in a "hidden" GCI.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Aug-2007 */
+ *         Informatics Group, Date: 13-Aug-2007
+ */
 public class HiddenGCICount extends IntegerValuedMetric {
-    /** @param owlOntologyManager
-     *            manager to use */
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public HiddenGCICount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
@@ -68,7 +73,8 @@ public class HiddenGCICount extends IntegerValuedMetric {
     protected void disposeMetric() {}
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange chg : changes) {
             if (chg.isAxiomChange()) {
                 if (chg.getAxiom() instanceof OWLEquivalentClassesAxiom
@@ -95,12 +101,12 @@ public class HiddenGCICount extends IntegerValuedMetric {
                 boolean foundSubClassAxiom = false;
                 for (OWLOntology o : getOntologies()) {
                     if (!foundEquivalentClassesAxiom) {
-                        foundEquivalentClassesAxiom = !o.getEquivalentClassesAxioms(cls)
-                                .isEmpty();
+                        foundEquivalentClassesAxiom = !o
+                                .getEquivalentClassesAxioms(cls).isEmpty();
                     }
                     if (!foundSubClassAxiom) {
-                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(cls)
-                                .isEmpty();
+                        foundSubClassAxiom = !o.getSubClassAxiomsForSubClass(
+                                cls).isEmpty();
                     }
                     if (foundSubClassAxiom && foundEquivalentClassesAxiom) {
                         result.add(cls);

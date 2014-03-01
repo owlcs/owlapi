@@ -38,18 +38,23 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** The interface to an object that is capable of mapping ontology IRIs to
+/**
+ * The interface to an object that is capable of mapping ontology IRIs to
  * document IRIs.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 25-Oct-2006 */
+ *         Informatics Group Date: 25-Oct-2006
+ */
 public interface OWLOntologyIRIMapper {
-    /** Given an ontology IRI, this method maps the ontology IRI to a document
+
+    /**
+     * Given an ontology IRI, this method maps the ontology IRI to a document
      * IRI.
      * 
      * @param ontologyIRI
-     *            The ontology IRI to be mapped.
+     *        The ontology IRI to be mapped.
      * @return The document IRI of the ontology, or {@code null} if the mapper
-     *         doesn't have mapping for the specified ontology IRI. */
+     *         doesn't have mapping for the specified ontology IRI.
+     */
     IRI getDocumentIRI(IRI ontologyIRI);
 }

@@ -43,12 +43,16 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** An ontology URI mapper that simply returns the ontology URI without
+/**
+ * An ontology URI mapper that simply returns the ontology URI without
  * performing any mapping operation.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 12-Dec-2006 */
-public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper, Serializable {
+ *         Informatics Group, Date: 12-Dec-2006
+ */
+public class NonMappingOntologyIRIMapper implements OWLOntologyIRIMapper,
+        Serializable {
+
     private static final long serialVersionUID = 30406L;
 
     @Override

@@ -43,26 +43,32 @@ import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** A short form provider which creates QNames for entities.
+/**
+ * A short form provider which creates QNames for entities.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
+ *         Informatics Group, Date: 18-Apr-2007
+ */
 public class QNameShortFormProvider implements ShortFormProvider {
+
     private final NamespaceUtil namespaceUtil;
 
-    /** Creates a QNameShortFormProvider where namespace prefix mappings will
-     * automatically be generated. */
+    /**
+     * Creates a QNameShortFormProvider where namespace prefix mappings will
+     * automatically be generated.
+     */
     public QNameShortFormProvider() {
         this(new HashMap<String, String>());
     }
 
-    /** Creates a QNameShortFormProvider where the specified map overrides any
+    /**
+     * Creates a QNameShortFormProvider where the specified map overrides any
      * auto-generated prefix namespace mappings.
      * 
      * @param prefix2NamespaceMap
-     *            The map which contains a prefix to namespace mapping. The
-     *            prefix must not have a trailing ":"; if one is there, it will
-     *            be removed */
+     *        The map which contains a prefix to namespace mapping. The prefix
+     *        must not have a trailing ":"; if one is there, it will be removed
+     */
     public QNameShortFormProvider(Map<String, String> prefix2NamespaceMap) {
         namespaceUtil = new NamespaceUtil();
         for (Map.Entry<String, String> e : prefix2NamespaceMap.entrySet()) {

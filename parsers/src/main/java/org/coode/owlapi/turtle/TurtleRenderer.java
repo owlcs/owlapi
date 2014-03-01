@@ -72,37 +72,45 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Jan-2008
+ */
 public class TurtleRenderer extends RDFRendererBase {
+
     private PrintWriter writer;
     private Set<RDFResourceNode> pending;
     private DefaultPrefixManager pm;
     private String base;
     private OWLOntologyFormat format;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param manager
-     *            manager
+     *        manager
      * @param writer
-     *            writer
+     *        writer
      * @param format
-     *            format */
+     *        format
+     */
     @Deprecated
     public TurtleRenderer(OWLOntology ontology,
-            @SuppressWarnings("unused") OWLOntologyManager manager, Writer writer,
-            OWLOntologyFormat format) {
+            @SuppressWarnings("unused") OWLOntologyManager manager,
+            Writer writer, OWLOntologyFormat format) {
         this(ontology, writer, format);
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param writer
-     *            writer
+     *        writer
      * @param format
-     *            format */
-    public TurtleRenderer(OWLOntology ontology, Writer writer, OWLOntologyFormat format) {
+     *        format
+     */
+    public TurtleRenderer(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) {
         super(ontology, format);
         this.format = format;
         this.writer = new PrintWriter(writer);
@@ -215,7 +223,8 @@ public class TurtleRenderer extends RDFRendererBase {
         if (node.getDatatype() != null) {
             if (node.getDatatype().equals(XSDVocabulary.INTEGER.getIRI())) {
                 write(node.getLiteral());
-            } else if (node.getDatatype().equals(XSDVocabulary.DECIMAL.getIRI())) {
+            } else if (node.getDatatype()
+                    .equals(XSDVocabulary.DECIMAL.getIRI())) {
                 write(node.getLiteral());
             } else {
                 writeStringLiteral(node.getLiteral());
@@ -383,7 +392,8 @@ public class TurtleRenderer extends RDFRendererBase {
         for (RDFTriple triple : triples) {
             RDFResourceNode subj = triple.getSubject();
             RDFResourceNode pred = triple.getProperty();
-            if (lastSubject != null && (subj.equals(lastSubject) || subj.isAnonymous())) {
+            if (lastSubject != null
+                    && (subj.equals(lastSubject) || subj.isAnonymous())) {
                 if (lastPredicate != null && pred.equals(lastPredicate)) {
                     // Only the object differs from previous triple
                     // Just write the object

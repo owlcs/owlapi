@@ -45,11 +45,16 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class PartOfTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public PartOfTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.RELATIONSHIP.getName(), consumer);
     }
@@ -61,7 +66,8 @@ public class PartOfTagValueHandler extends AbstractTagValueHandler {
         String propLocalName = value.substring(0, index);
         String val = value.substring(index + 1, value.length());
         OWLDataFactory df = getDataFactory();
-        OWLObjectProperty prop = df.getOWLObjectProperty(getIRIFromOBOId(propLocalName));
+        OWLObjectProperty prop = df
+                .getOWLObjectProperty(getIRIFromOBOId(propLocalName));
         OWLClass filler = getClassFromId(val);
         OWLClassExpression desc = df.getOWLObjectSomeValuesFrom(prop, filler);
         OWLAxiom ax = df.getOWLSubClassOfAxiom(getCurrentClass(), desc);

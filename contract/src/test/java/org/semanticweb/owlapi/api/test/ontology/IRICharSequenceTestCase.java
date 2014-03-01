@@ -44,10 +44,13 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.IRI;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 09/11/2011 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 09/11/2011
+ */
 @SuppressWarnings("javadoc")
 public class IRICharSequenceTestCase {
+
     @Test
     public void testCharAt() {
         String str = "http://owlapi.sourceforge.net#ABC";

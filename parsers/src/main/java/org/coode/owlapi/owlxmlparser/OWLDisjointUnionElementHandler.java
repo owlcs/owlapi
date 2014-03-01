@@ -45,14 +45,20 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Apr-2007 */
-public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandler {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2007
+ */
+public class OWLDisjointUnionElementHandler extends
+        AbstractOWLAxiomElementHandler {
+
     private OWLClass cls;
     private Set<OWLClassExpression> classExpressions;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLDisjointUnionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         classExpressions = new HashSet<OWLClassExpression>();
@@ -60,8 +66,8 @@ public class OWLDisjointUnionElementHandler extends AbstractOWLAxiomElementHandl
 
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls, classExpressions,
-                getAnnotations());
+        return getOWLDataFactory().getOWLDisjointUnionAxiom(cls,
+                classExpressions, getAnnotations());
     }
 
     @Override

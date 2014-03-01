@@ -62,12 +62,15 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Implementation of {@link OWLLiteral} that uses compression of strings. See
+/**
+ * Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Oct-2006 */
+ *         Informatics Group, Date: 26-Oct-2006
+ */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
+
     private static final long serialVersionUID = 30406L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
@@ -75,14 +78,16 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final String lang;
     private final int hashcode;
 
-    /** @param literal
-     *            the lexical form
+    /**
+     * @param literal
+     *        the lexical form
      * @param lang
-     *            the language; can be null or an empty string, in which case
-     *            datatype can be any datatype but not null
+     *        the language; can be null or an empty string, in which case
+     *        datatype can be any datatype but not null
      * @param datatype
-     *            the datatype; if lang is null or the empty string, it can be
-     *            null or it MUST be RDFPlainLiteral */
+     *        the datatype; if lang is null or the empty string, it can be null
+     *        or it MUST be RDFPlainLiteral
+     */
     public OWLLiteralImpl(String literal, String lang, OWLDatatype datatype) {
         super();
         this.literal = new LiteralWrapper(literal);
@@ -93,11 +98,13 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
-                throw new OWLRuntimeException("Error: cannot build a literal with type: "
-                        + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException(
+                        "Error: cannot build a literal with type: "
+                                + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
-            this.datatype = new OWLDatatypeImpl(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+            this.datatype = new OWLDatatypeImpl(
+                    OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
         }
         hashcode = getHashCode();
     }
@@ -109,7 +116,8 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return datatype.getIRI()
+                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override
@@ -279,6 +287,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final class LiteralWrapper implements Serializable {
+
         private static final long serialVersionUID = 30406L;
         String l;
         byte[] bytes;

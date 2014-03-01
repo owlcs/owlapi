@@ -57,14 +57,17 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** An abstract debugger which provides common infrastructure for finding
+/**
+ * An abstract debugger which provides common infrastructure for finding
  * multiple justification. This functionality relies on a concrete
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 24-Nov-2006 */
+ *         Informatics Group, Date: 24-Nov-2006
+ */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
+
     private final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
 
@@ -79,12 +82,14 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         OWLOntology originalOntology = ontology;
         try {
             ontology = owlOntologyManager.createOntology(IRI.create(
-                    "http://debugger.semanticweb.org/", "ontolog" + System.nanoTime()));
+                    "http://debugger.semanticweb.org/",
+                    "ontolog" + System.nanoTime()));
         } catch (OWLOntologyCreationException e) {
             throw new OWLRuntimeException(e);
         }
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-        for (OWLOntology ont : owlOntologyManager.getImportsClosure(originalOntology)) {
+        for (OWLOntology ont : owlOntologyManager
+                .getImportsClosure(originalOntology)) {
             for (OWLAxiom ax : ont.getLogicalAxioms()) {
                 changes.add(new AddAxiom(ontology, ax));
             }
@@ -105,8 +110,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     }
 
     @Override
-    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls)
-            throws OWLException {
+    public Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(
+            OWLClassExpression cls) throws OWLException {
         Set<OWLAxiom> firstMups = getSOSForIncosistentClass(cls);
         if (firstMups.isEmpty()) {
             return Collections.emptySet();
@@ -115,7 +120,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         allMups.add(firstMups);
         Set<Set<OWLAxiom>> satPaths = new HashSet<Set<OWLAxiom>>();
         Set<OWLAxiom> currentPathContents = new HashSet<OWLAxiom>();
-        constructHittingSetTree(firstMups, allMups, satPaths, currentPathContents);
+        constructHittingSetTree(firstMups, allMups, satPaths,
+                currentPathContents);
         return allMups;
     }
 
@@ -124,32 +130,34 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     // Hitting Set Stuff
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** This is a recursive method that builds a hitting set tree to obtain all
+    /**
+     * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
      * 
      * @param mups
-     *            The current justification for the current class. This
-     *            corresponds to a node in the hitting set tree.
+     *        The current justification for the current class. This corresponds
+     *        to a node in the hitting set tree.
      * @param allMups
-     *            All of the MUPS that have been found - this set gets populated
-     *            over the course of the tree building process. Initially this
-     *            should just contain the first justification
+     *        All of the MUPS that have been found - this set gets populated
+     *        over the course of the tree building process. Initially this
+     *        should just contain the first justification
      * @param satPaths
-     *            Paths that have been completed.
+     *        Paths that have been completed.
      * @param currentPathContents
-     *            The contents of the current path. Initially this should be an
-     *            empty set.
+     *        The contents of the current path. Initially this should be an
+     *        empty set.
      * @throws OWLException
-     *             if there is any problem */
-    public void constructHittingSetTree(Set<OWLAxiom> mups, Set<Set<OWLAxiom>> allMups,
-            Set<Set<OWLAxiom>> satPaths, Set<OWLAxiom> currentPathContents)
-            throws OWLException {
+     *         if there is any problem
+     */
+    public void constructHittingSetTree(Set<OWLAxiom> mups,
+            Set<Set<OWLAxiom>> allMups, Set<Set<OWLAxiom>> satPaths,
+            Set<OWLAxiom> currentPathContents) throws OWLException {
         // We go through the current mups, axiom by axiom, and extend the tree
         // with edges for each axiom
         for (OWLAxiom axiom : mups) {
             // Remove the current axiom from the ontology
-            owlOntologyManager.applyChanges(Arrays
-                    .asList(new RemoveAxiom(ontology, axiom)));
+            owlOntologyManager.applyChanges(Arrays.asList(new RemoveAxiom(
+                    ontology, axiom)));
             currentPathContents.add(axiom);
             boolean earlyTermination = false;
             // Early path termination. If our path contents are the superset of
@@ -180,7 +188,8 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
             // Back track - go one level up the tree and run for the next axiom
             currentPathContents.remove(axiom);
             // Done with the axiom that was removed. Add it back in
-            owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(ontology, axiom)));
+            owlOntologyManager.applyChanges(Arrays.asList(new AddAxiom(
+                    ontology, axiom)));
         }
     }
     // /////////////////////////////////////////////////////////////////////////////////////////////////////

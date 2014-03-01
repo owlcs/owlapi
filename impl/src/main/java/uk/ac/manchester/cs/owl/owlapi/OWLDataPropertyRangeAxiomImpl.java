@@ -53,19 +53,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDataPropertyRangeAxiomImpl extends
-        OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange> implements
-        OWLDataPropertyRangeAxiom {
+        OWLPropertyRangeAxiomImpl<OWLDataPropertyExpression, OWLDataRange>
+        implements OWLDataPropertyRangeAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param range
-     *            range
+     *        range
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDataPropertyRangeAxiomImpl(OWLDataPropertyExpression property,
             OWLDataRange range, Set<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
@@ -118,7 +123,8 @@ public class OWLDataPropertyRangeAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sup = new OWLDataAllValuesFromImpl(getProperty(), getRange());
+        OWLClassExpression sup = new OWLDataAllValuesFromImpl(getProperty(),
+                getRange());
         return new OWLSubClassOfAxiomImpl(OWL_THING, sup, NO_ANNOTATIONS);
     }
 }

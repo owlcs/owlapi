@@ -38,15 +38,20 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Mar-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Mar-2007
+ */
 public interface OWLOntologyManagerFactory {
+
     /** @return a new ontology manager */
     OWLOntologyManager buildOWLOntologyManager();
 
-    /** @param f
-     *            the data factory the new manager will use
-     * @return a new ontology manager */
+    /**
+     * @param f
+     *        the data factory the new manager will use
+     * @return a new ontology manager
+     */
     OWLOntologyManager buildOWLOntologyManager(OWLDataFactory f);
 
     /** @return a data factory */

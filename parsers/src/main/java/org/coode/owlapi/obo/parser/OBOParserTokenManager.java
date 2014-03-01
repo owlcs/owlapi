@@ -7,13 +7,16 @@ import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 /** Token Manager. */
 public class OBOParserTokenManager implements OBOParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
+    /**
+     * Set debug output.
      * 
      * @param ds
-     *            ds */
+     *        ds
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -769,10 +772,12 @@ public class OBOParserTokenManager implements OBOParserConstants {
     private final int[] jjstateSet = new int[14];
     protected char curChar;
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            stream */
+     *        stream
+     */
     public OBOParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
@@ -781,21 +786,25 @@ public class OBOParserTokenManager implements OBOParserConstants {
         input_stream = stream;
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            stream
+     *        stream
      * @param lexState
-     *            lexState */
+     *        lexState
+     */
     public OBOParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            stream */
+     *        stream
+     */
     public void ReInit(BOMSafeJavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -811,21 +820,25 @@ public class OBOParserTokenManager implements OBOParserConstants {
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            stream
+     *        stream
      * @param lexState
-     *            lexState */
+     *        lexState
+     */
     public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            lexState */
+     *        lexState
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 6 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "

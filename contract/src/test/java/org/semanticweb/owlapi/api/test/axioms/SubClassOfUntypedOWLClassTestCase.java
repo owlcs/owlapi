@@ -52,10 +52,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 25/02/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 25/02/2011
+ */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
+
     public static final IRI SUBCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#A");
     public static final IRI SUPERCLASS_IRI = IRI("http://www.semanticweb.org/owlapi/test#B");
 
@@ -72,7 +75,8 @@ public class SubClassOfUntypedOWLClassTestCase extends AbstractFileTestCase {
     @Test
     public void testParsedAxioms() {
         OWLOntology ontology = createOntology();
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
         assertTrue(axioms.size() == 1);
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(SUBCLASS_IRI);

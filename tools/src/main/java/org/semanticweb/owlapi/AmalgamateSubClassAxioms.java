@@ -52,28 +52,34 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Given a set of ontologies S, for each ontology, O, in S, this change combines
+/**
+ * Given a set of ontologies S, for each ontology, O, in S, this change combines
  * multiple subclass axioms with a common left hand side into one subclass
  * axiom. For example, given A subClassOf B, A subClassOf C, this change will
  * remove these two axioms and replace them by adding one subclass axiom, A
  * subClassOf (B and C).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Aug-2007 */
+ *         Informatics Group, Date: 15-Aug-2007
+ */
 public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
+
     private final List<OWLOntologyChange> changes;
 
-    /** @param ontologies
-     *            the ontologies to use
+    /**
+     * @param ontologies
+     *        the ontologies to use
      * @param dataFactory
-     *            the data factory */
+     *        the data factory
+     */
     public AmalgamateSubClassAxioms(Set<OWLOntology> ontologies,
             OWLDataFactory dataFactory) {
         super(dataFactory);
         changes = new ArrayList<OWLOntologyChange>();
         for (OWLOntology ont : ontologies) {
             for (OWLClass cls : ont.getClassesInSignature()) {
-                Set<OWLSubClassOfAxiom> axioms = ont.getSubClassAxiomsForSubClass(cls);
+                Set<OWLSubClassOfAxiom> axioms = ont
+                        .getSubClassAxiomsForSubClass(cls);
                 if (axioms.size() > 1) {
                     Set<OWLClassExpression> superClasses = new HashSet<OWLClassExpression>();
                     for (OWLSubClassOfAxiom ax : axioms) {
@@ -82,8 +88,8 @@ public class AmalgamateSubClassAxioms extends AbstractCompositeOntologyChange {
                     }
                     OWLClassExpression combinedSuperClass = getDataFactory()
                             .getOWLObjectIntersectionOf(superClasses);
-                    changes.add(new AddAxiom(ont, getDataFactory().getOWLSubClassOfAxiom(
-                            cls, combinedSuperClass)));
+                    changes.add(new AddAxiom(ont, getDataFactory()
+                            .getOWLSubClassOfAxiom(cls, combinedSuperClass)));
                 }
             }
         }

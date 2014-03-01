@@ -47,13 +47,16 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** NOTE: this class was not designed as a general purpose renderer, i.e., some
+/**
+ * NOTE: this class was not designed as a general purpose renderer, i.e., some
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 15-Jun-2006 */
+ *         Group, Date: 15-Jun-2006
+ */
 public class LatexObjectVisitor implements OWLObjectVisitor {
+
     /** AND */
     public static final String AND = "\\ensuremath{\\sqcap}";
     /** OR */
@@ -92,10 +95,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     private OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
-    /** @param writer
-     *            writer
+    /**
+     * @param writer
+     *        writer
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
         this.writer = writer;
         this.df = df;
@@ -103,14 +108,18 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         subject = df.getOWLThing();
     }
 
-    /** @param subject
-     *            subject */
+    /**
+     * @param subject
+     *        subject
+     */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
     }
 
-    /** @param shortFormProvder
-     *            shortFormProvder */
+    /**
+     * @param shortFormProvder
+     *        shortFormProvder
+     */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
     }
@@ -136,8 +145,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         return prettyPrint;
     }
 
-    /** @param prettyPrint
-     *            prettyPrint */
+    /**
+     * @param prettyPrint
+     *        prettyPrint
+     */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
     }
@@ -293,7 +304,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectOneOf node) {
-        for (Iterator<OWLIndividual> it = node.getIndividuals().iterator(); it.hasNext();) {
+        for (Iterator<OWLIndividual> it = node.getIndividuals().iterator(); it
+                .hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -357,7 +369,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                 }
             }
         } else {
-            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions()
+                    .iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
             OWLClassExpression lhs;
@@ -386,8 +399,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
             for (OWLClassExpression left : axiom.getClassExpressions()) {
                 for (OWLClassExpression right : axiom.getClassExpressions()) {
                     if (left != right) {
-                        Set<OWLClassExpression> cur = CollectionFactory.createSet(left,
-                                right);
+                        Set<OWLClassExpression> cur = CollectionFactory
+                                .createSet(left, right);
                         if (!rendered.contains(cur)) {
                             rendered.add(cur);
                             left.accept(this);
@@ -400,7 +413,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
                 }
             }
         } else if (axiom.getClassExpressions().size() == 2) {
-            Iterator<OWLClassExpression> it = axiom.getClassExpressions().iterator();
+            Iterator<OWLClassExpression> it = axiom.getClassExpressions()
+                    .iterator();
             OWLClassExpression descA = it.next();
             OWLClassExpression descB = it.next();
             OWLClassExpression lhs;
@@ -474,7 +488,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLDataAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+        df.getOWLDataAllValuesFrom(axiom.getProperty(), axiom.getRange())
+                .accept(this);
     }
 
     @Override
@@ -494,7 +509,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDifferentIndividualsAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
+        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it
+                .hasNext();) {
             write("\\{");
             it.next().accept(this);
             write("\\}");
@@ -508,8 +524,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDisjointDataPropertiesAxiom axiom) {
-        for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties().iterator(); it
-                .hasNext();) {
+        for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties()
+                .iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -551,8 +567,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
-        for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties().iterator(); it
-                .hasNext();) {
+        for (Iterator<OWLDataPropertyExpression> it = axiom.getProperties()
+                .iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -564,8 +580,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.getProperties().iterator(); it
-                .hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom.getProperties()
+                .iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -593,8 +609,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
     }
 
-    /** @param axiom
-     *            the axiom */
+    /**
+     * @param axiom
+     *        the axiom
+     */
     public void visit(OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");
         axiom.getIRI().accept(this);
@@ -606,7 +624,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom.getProperty());
+        OWLObjectPropertyExpression prop = df.getOWLObjectInverseOf(axiom
+                .getProperty());
         df.getOWLObjectMaxCardinality(1, prop).accept(this);
     }
 
@@ -660,8 +679,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSubPropertyChainOfAxiom axiom) {
-        for (Iterator<OWLObjectPropertyExpression> it = axiom.getPropertyChain()
-                .iterator(); it.hasNext();) {
+        for (Iterator<OWLObjectPropertyExpression> it = axiom
+                .getPropertyChain().iterator(); it.hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -677,7 +696,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLObjectPropertyDomainAxiom axiom) {
-        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing()).accept(this);
+        df.getOWLObjectSomeValuesFrom(axiom.getProperty(), df.getOWLThing())
+                .accept(this);
         writeSpace();
         write(SUBCLASS);
         writeSpace();
@@ -690,7 +710,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         writeSpace();
         write(SUBCLASS);
         writeSpace();
-        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange()).accept(this);
+        df.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange())
+                .accept(this);
     }
 
     @Override
@@ -710,7 +731,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLSameIndividualAxiom axiom) {
-        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it.hasNext();) {
+        for (Iterator<OWLIndividual> it = axiom.getIndividuals().iterator(); it
+                .hasNext();) {
             write("\\{");
             it.next().accept(this);
             write("\\}");
@@ -807,7 +829,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataOneOf node) {
-        for (Iterator<OWLLiteral> it = node.getValues().iterator(); it.hasNext();) {
+        for (Iterator<OWLLiteral> it = node.getValues().iterator(); it
+                .hasNext();) {
             writeOpenBrace();
             it.next().accept(this);
             writeCloseBrace();
@@ -944,10 +967,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.getSuperProperty().accept(this);
     }
 
-    /** @param value
-     *            value */
+    /**
+     * @param value
+     *        value
+     */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
+
             @Override
             public void visit(IRI iri) {
                 iri.accept(LatexObjectVisitor.this);
@@ -977,7 +1003,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataIntersectionOf node) {
-        for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it.hasNext();) {
+        for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it
+                .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();
@@ -989,7 +1016,8 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
 
     @Override
     public void visit(OWLDataUnionOf node) {
-        for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it.hasNext();) {
+        for (Iterator<OWLDataRange> it = node.getOperands().iterator(); it
+                .hasNext();) {
             it.next().accept(this);
             if (it.hasNext()) {
                 writeSpace();

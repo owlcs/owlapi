@@ -43,14 +43,19 @@ import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009
+ */
 public class OWLFacetRestrictionListItemTranslator implements
         ListItemTranslator<OWLFacetRestriction> {
+
     private OWLRDFConsumer consumer;
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
         this.consumer = consumer;
     }
@@ -63,9 +68,11 @@ public class OWLFacetRestrictionListItemTranslator implements
     @Override
     public OWLFacetRestriction translate(IRI firstObject) {
         for (OWLFacet facet : OWLFacet.values()) {
-            OWLLiteral lit = consumer.getLiteralObject(firstObject, facet.getIRI(), true);
+            OWLLiteral lit = consumer.getLiteralObject(firstObject,
+                    facet.getIRI(), true);
             if (lit != null) {
-                return consumer.getDataFactory().getOWLFacetRestriction(facet, lit);
+                return consumer.getDataFactory().getOWLFacetRestriction(facet,
+                        lit);
             }
         }
         return null;

@@ -52,28 +52,36 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionImpl
-        implements OWLDataExactCardinality {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLDataExactCardinalityImpl extends
+        OWLDataCardinalityRestrictionImpl implements OWLDataExactCardinality {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param cardinality
-     *            cardinality
+     *        cardinality
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
             int cardinality, OWLDataRange filler) {
         super(property, cardinality, filler);
     }
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param cardinality
-     *            cardinality */
-    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property, int cardinality) {
+     *        cardinality
+     */
+    public OWLDataExactCardinalityImpl(OWLDataPropertyExpression property,
+            int cardinality) {
         super(property, cardinality, OWL2DatatypeImpl
                 .getDatatype(OWL2Datatype.RDFS_LITERAL));
     }
@@ -115,7 +123,8 @@ public class OWLDataExactCardinalityImpl extends OWLDataCardinalityRestrictionIm
     public OWLClassExpression asIntersectionOfMinMax() {
         return new OWLObjectIntersectionOfImpl(new HashSet<OWLClassExpression>(
                 Arrays.asList(new OWLDataMinCardinalityImpl(getProperty(),
-                        getCardinality(), getFiller()), new OWLDataMaxCardinalityImpl(
-                        getProperty(), getCardinality(), getFiller()))));
+                        getCardinality(), getFiller()),
+                        new OWLDataMaxCardinalityImpl(getProperty(),
+                                getCardinality(), getFiller()))));
     }
 }

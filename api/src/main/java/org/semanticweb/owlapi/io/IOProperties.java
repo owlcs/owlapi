@@ -38,9 +38,12 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Apr-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2008
+ */
 public class IOProperties {
+
     private static final IOProperties instance = new IOProperties();
     /** default connection timeout. */
     private static final String DEFAULT_CONNECTION_TIME_OUT = "20000";
@@ -54,8 +57,9 @@ public class IOProperties {
     private boolean connectionAcceptHTTPCompression = DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION;
 
     private IOProperties() {
-        connectionTimeout = Integer.parseInt(System.getProperty(
-                CONNECTION_TIME_OUT_PROPERTY_NAME, DEFAULT_CONNECTION_TIME_OUT));
+        connectionTimeout = Integer
+                .parseInt(System.getProperty(CONNECTION_TIME_OUT_PROPERTY_NAME,
+                        DEFAULT_CONNECTION_TIME_OUT));
         connectionAcceptHTTPCompression = DEFAULT_CONNECTION_ACCEPT_HTTP_COMPRESSION;
     }
 
@@ -64,37 +68,45 @@ public class IOProperties {
         return instance;
     }
 
-    /** Gets the connection timeout that is used for sockets when loading
+    /**
+     * Gets the connection timeout that is used for sockets when loading
      * ontologies over HTTP etc.
      * 
-     * @return The connection timeout in milliseconds */
+     * @return The connection timeout in milliseconds
+     */
     public int getConnectionTimeout() {
         return connectionTimeout;
     }
 
-    /** Sets the connection timeout that should be used when loading from
+    /**
+     * Sets the connection timeout that should be used when loading from
      * sockets.
      * 
      * @param connectionTimeout
-     *            The connection timeout in milliseconds */
+     *        The connection timeout in milliseconds
+     */
     public void setConnectionTimeout(int connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
     }
 
-    /** Determines whether HTTP compression can be used.
+    /**
+     * Determines whether HTTP compression can be used.
      * 
-     * @return {@code true} if HTTP compression can be used, otherwise false */
+     * @return {@code true} if HTTP compression can be used, otherwise false
+     */
     public boolean isConnectionAcceptHTTPCompression() {
         return connectionAcceptHTTPCompression;
     }
 
-    /** Sets whether HTTP compression can be used.
+    /**
+     * Sets whether HTTP compression can be used.
      * 
      * @param connectionAcceptHTTPCompression
-     *            {@code true} if HTTP compression can be used, otherwise
-     *            {@code false} */
-    public void
-            setConnectionAcceptHTTPCompression(boolean connectionAcceptHTTPCompression) {
+     *        {@code true} if HTTP compression can be used, otherwise
+     *        {@code false}
+     */
+    public void setConnectionAcceptHTTPCompression(
+            boolean connectionAcceptHTTPCompression) {
         this.connectionAcceptHTTPCompression = connectionAcceptHTTPCompression;
     }
 }

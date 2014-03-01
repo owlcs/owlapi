@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** A base interface of all axioms that affect the logical meaning of an
+/**
+ * A base interface of all axioms that affect the logical meaning of an
  * ontology. This excludes declaration axioms (including imports declarations)
  * and annotation axioms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 05-Dec-2006 */
+ *         Informatics Group, Date: 05-Dec-2006
+ */
 public interface OWLLogicalAxiom extends OWLAxiom {}

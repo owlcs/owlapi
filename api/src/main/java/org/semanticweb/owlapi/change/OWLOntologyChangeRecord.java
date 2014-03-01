@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
-/** Associates an {@link OWLOntologyID} with ontology-less change data.<br>
+/**
+ * Associates an {@link OWLOntologyID} with ontology-less change data.<br>
  * An {@link OWLOntologyChangeRecord} captures information about an
  * {@link OWLOntologyChange} in a way that does not require a reference to an
  * {@link OWLOntology} object. It does this by referencing an
@@ -72,8 +73,10 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 03/05/2012
- * @since 3.4.3 */
+ * @since 3.4.3
+ */
 public final class OWLOntologyChangeRecord implements Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final OWLOntologyID ontologyID;
     private final OWLOntologyChangeData data;
@@ -91,21 +94,24 @@ public final class OWLOntologyChangeRecord implements Serializable {
     // ////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Constructs an {@link OWLOntologyChangeRecord} object which holds
+    /**
+     * Constructs an {@link OWLOntologyChangeRecord} object which holds
      * information about a change to a particular ontology identified by an
      * {@link OWLOntologyID} object and also change details specified by the
      * {@link OWLOntologyChangeData} object.
      * 
      * @param ontologyID
-     *            The {@link OWLOntologyID} which identifies the ontology that
-     *            the change was applied to. Not {@code null}.
+     *        The {@link OWLOntologyID} which identifies the ontology that the
+     *        change was applied to. Not {@code null}.
      * @param data
-     *            The {@link OWLOntologyChangeData} that describes the
-     *            particular details of the change. Not {@code null}.
+     *        The {@link OWLOntologyChangeData} that describes the particular
+     *        details of the change. Not {@code null}.
      * @throws NullPointerException
-     *             if {@code ontologyID} is {@code null} or if
-     *             {@code recordInfo} is {@code null}. */
-    public OWLOntologyChangeRecord(OWLOntologyID ontologyID, OWLOntologyChangeData data) {
+     *         if {@code ontologyID} is {@code null} or if {@code recordInfo} is
+     *         {@code null}.
+     */
+    public OWLOntologyChangeRecord(OWLOntologyID ontologyID,
+            OWLOntologyChangeData data) {
         if (ontologyID == null) {
             throw new NullPointerException("ontologyID must not be null");
         }
@@ -116,14 +122,16 @@ public final class OWLOntologyChangeRecord implements Serializable {
         this.data = data;
     }
 
-    /** A convenience method that creates an {@link OWLOntologyChangeRecord} by
+    /**
+     * A convenience method that creates an {@link OWLOntologyChangeRecord} by
      * deriving data from an {@link OWLOntologyChange} object.
      * 
      * @param change
-     *            The {@link OWLOntologyChange} object. Not {@code null}.
+     *        The {@link OWLOntologyChange} object. Not {@code null}.
      * @return instance of OntologychangeRecord
      * @throws NullPointerException
-     *             if {@code change} is {@code null}. */
+     *         if {@code change} is {@code null}.
+     */
     public static OWLOntologyChangeRecord createFromOWLOntologyChange(
             OWLOntologyChange change) {
         if (change == null) {
@@ -141,23 +149,28 @@ public final class OWLOntologyChangeRecord implements Serializable {
     // ////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** Gets the {@link OWLOntologyID} that identifies the ontology associated
+    /**
+     * Gets the {@link OWLOntologyID} that identifies the ontology associated
      * with this change record.
      * 
-     * @return The {@link OWLOntologyID}. Not {@code null}. */
+     * @return The {@link OWLOntologyID}. Not {@code null}.
+     */
     public OWLOntologyID getOntologyID() {
         return ontologyID;
     }
 
-    /** Gets the {@link OWLOntologyChangeData} which is associated with this
+    /**
+     * Gets the {@link OWLOntologyChangeData} which is associated with this
      * {@link OWLOntologyChangeRecord}.
      * 
-     * @return The {@link OWLOntologyChangeData}. Not {@code null}. */
+     * @return The {@link OWLOntologyChangeData}. Not {@code null}.
+     */
     public OWLOntologyChangeData getData() {
         return data;
     }
 
-    /** Creates an {@link OWLOntologyChange} from the {@link OWLOntologyID} and
+    /**
+     * Creates an {@link OWLOntologyChange} from the {@link OWLOntologyID} and
      * {@link OWLOntologyChangeData} associated with this
      * {@link OWLOntologyChangeRecord} object. The {@link OWLOntology} that is
      * the target of the resulting {@link OWLOntologyChange} is derived from an
@@ -167,10 +180,10 @@ public final class OWLOntologyChangeRecord implements Serializable {
      * {@link OWLOntologyChangeRecord} object.
      * 
      * @param manager
-     *            The manager which will be used to obtain a reference to an
-     *            {@link OWLOntology} object having the same
-     *            {@link OWLOntologyID} as the {@link OWLOntologyID} associated
-     *            with this {@link OWLOntologyChangeRecord}. Not {@code null}.
+     *        The manager which will be used to obtain a reference to an
+     *        {@link OWLOntology} object having the same {@link OWLOntologyID}
+     *        as the {@link OWLOntologyID} associated with this
+     *        {@link OWLOntologyChangeRecord}. Not {@code null}.
      * @return The {@link OWLOntologyChange} object that is derived from this
      *         record's {@link OWLOntologyID} and {@link OWLOntologyChangeData}.
      *         The specific concrete subclass of the returned
@@ -178,12 +191,12 @@ public final class OWLOntologyChangeRecord implements Serializable {
      *         subclass of the {@link OWLOntologyChangeData} associated with
      *         this {@link OWLOntologyChangeRecord}.
      * @throws UnknownOWLOntologyException
-     *             if the specified manager does not contain an ontology which
-     *             has an {@link OWLOntologyID} equal to the
-     *             {@link OWLOntologyID} associated with this
-     *             {@link OWLOntologyChangeRecord}.
+     *         if the specified manager does not contain an ontology which has
+     *         an {@link OWLOntologyID} equal to the {@link OWLOntologyID}
+     *         associated with this {@link OWLOntologyChangeRecord}.
      * @throws NullPointerException
-     *             if {@code manager} is {@code null}. */
+     *         if {@code manager} is {@code null}.
+     */
     public OWLOntologyChange createOntologyChange(OWLOntologyManager manager)
             throws UnknownOWLOntologyException {
         if (manager == null) {

@@ -42,23 +42,29 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
+/**
+ * Use of an unknown datatype. That is, the datatype isn't in the OWL 2 datatype
  * map, the datatype IRI doesn't begin with the xsd: prefix, the datatype isn't
  * rdfs:Literal, and the datatype isn't defined with a DatatypeDefinition axiom
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 03-Aug-2009 */
+ *         Management Group, Date: 03-Aug-2009
+ */
 public class UseOfUnknownDatatype extends OWLProfileViolation implements
         OWL2ProfileViolation {
+
     private final OWLDatatype datatype;
 
-    /** @param ontology
-     *            ontology with violation
+    /**
+     * @param ontology
+     *        ontology with violation
      * @param axiom
-     *            axiom with violation
+     *        axiom with violation
      * @param datatype
-     *            unknown datatype */
-    public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom, OWLDatatype datatype) {
+     *        unknown datatype
+     */
+    public UseOfUnknownDatatype(OWLOntology ontology, OWLAxiom axiom,
+            OWLDatatype datatype) {
         super(ontology, axiom);
         this.datatype = datatype;
     }
@@ -68,9 +74,11 @@ public class UseOfUnknownDatatype extends OWLProfileViolation implements
         visitor.visit(this);
     }
 
-    /** Gets the datatype that is invalid.
+    /**
+     * Gets the datatype that is invalid.
      * 
-     * @return The invalid datatype */
+     * @return The invalid datatype
+     */
     public OWLDatatype getDatatype() {
         return datatype;
     }

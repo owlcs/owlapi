@@ -47,17 +47,23 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
-public class InferredEquivalentObjectPropertyAxiomGenerator extends
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
+public class InferredEquivalentObjectPropertyAxiomGenerator
+        extends
         InferredObjectPropertyAxiomGenerator<OWLEquivalentObjectPropertiesAxiom> {
+
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
-            OWLDataFactory dataFactory, Set<OWLEquivalentObjectPropertiesAxiom> result) {
+            OWLDataFactory dataFactory,
+            Set<OWLEquivalentObjectPropertiesAxiom> result) {
         Set<OWLObjectPropertyExpression> equivProps = new HashSet<OWLObjectPropertyExpression>(
                 reasoner.getEquivalentObjectProperties(entity).getEntities());
         equivProps.add(entity);
-        result.add(dataFactory.getOWLEquivalentObjectPropertiesAxiom(equivProps));
+        result.add(dataFactory
+                .getOWLEquivalentObjectPropertiesAxiom(equivProps));
     }
 
     @Override

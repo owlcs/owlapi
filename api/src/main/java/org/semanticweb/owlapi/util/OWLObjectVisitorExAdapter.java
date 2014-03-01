@@ -125,25 +125,30 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
+/**
+ * Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
  * methods that need specific client implementation need be overridden. The
  * adapter can be set up to return a default value.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group, Date: 29-Jul-2008
  * @param <O>
- *            visitor return type */
+ *        visitor return type
+ */
 public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
+
     private O defaultReturnValue = null;
 
-    /** Gets the default return value for this visitor. By default, the default
+    /**
+     * Gets the default return value for this visitor. By default, the default
      * is {@code null}, but a fixed value (independent of the specified
      * {@code OWLObject} {@code object}) can be specified in the constructor
      * {@link org.semanticweb.owlapi.util.OWLObjectVisitorExAdapter#OWLObjectVisitorExAdapter(Object)}
      * 
      * @param object
-     *            The object that was visited.
-     * @return The default return value */
+     *        The object that was visited.
+     * @return The default return value
+     */
     @SuppressWarnings("unused")
     protected O getDefaultReturnValue(OWLObject object) {
         return defaultReturnValue;
@@ -154,8 +159,10 @@ public class OWLObjectVisitorExAdapter<O> implements OWLObjectVisitorEx<O> {
         this(null);
     }
 
-    /** @param defaultReturnValue
-     *            default return value */
+    /**
+     * @param defaultReturnValue
+     *        default return value
+     */
     public OWLObjectVisitorExAdapter(O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }

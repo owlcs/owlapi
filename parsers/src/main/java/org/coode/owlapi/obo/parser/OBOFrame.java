@@ -42,22 +42,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 19/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 19/04/2012
+ */
 public class OBOFrame {
+
     private String frameType;
     private List<OBOTagValuePair> tagValuePairs;
 
-    /** @param tagValuePairs
-     *            tagValuePairs */
+    /**
+     * @param tagValuePairs
+     *        tagValuePairs
+     */
     public OBOFrame(List<OBOTagValuePair> tagValuePairs) {
         this.tagValuePairs = tagValuePairs;
     }
 
-    /** @param frameType
-     *            frameType
+    /**
+     * @param frameType
+     *        frameType
      * @param tagValuePairs
-     *            tagValuePairs */
+     *        tagValuePairs
+     */
     public OBOFrame(String frameType, List<OBOTagValuePair> tagValuePairs) {
         this.frameType = frameType;
         this.tagValuePairs = new ArrayList<OBOTagValuePair>(tagValuePairs);

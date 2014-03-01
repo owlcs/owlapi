@@ -117,7 +117,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** A parser for the Manchester OWL Syntax. All properties must be defined before
+/**
+ * A parser for the Manchester OWL Syntax. All properties must be defined before
  * they are used. For example, consider the restriction hasPart some Leg. The
  * parser must know in advance whether or not hasPart is an object property or a
  * data property so that Leg gets parsed correctly. In a tool, such as an
@@ -128,9 +129,11 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
  * hasPart)
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Sep-2007 */
+ *         Informatics Group, Date: 10-Sep-2007
+ */
 public class ManchesterOWLSyntaxEditorParser implements
         ManchesterOWLSyntaxParser {
+
     // This parser was built by hand! After struggling with terrible
     // error messages produced by ANTLR (or JavaCC) I decides to construct
     // this parser by hand. The error messages that this parser generates
@@ -142,6 +145,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     private int tokenIndex;
     private OWLEntityChecker owlEntityChecker;
     private OWLOntologyChecker owlOntologyChecker = new OWLOntologyChecker() {
+
         @Override
         public OWLOntology getOntology(String name) {
             return null;
@@ -160,20 +164,24 @@ public class ManchesterOWLSyntaxEditorParser implements
     private boolean allowEmptyFrameSections = false;
     private Map<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>> dataPropertyFrameSections = new HashMap<ManchesterOWLSyntax, AnnotatedListItemParser<OWLDataProperty, ?>>();
 
-    /** @param dataFactory
-     *            dataFactory
+    /**
+     * @param dataFactory
+     *        dataFactory
      * @param s
-     *            s */
+     *        s
+     */
     public ManchesterOWLSyntaxEditorParser(OWLDataFactory dataFactory, String s) {
         this(new OWLOntologyLoaderConfiguration(), dataFactory, s);
     }
 
-    /** @param configuration
-     *            configuration
+    /**
+     * @param configuration
+     *        configuration
      * @param dataFactory
-     *            dataFactory
+     *        dataFactory
      * @param s
-     *            s */
+     *        s
+     */
     public ManchesterOWLSyntaxEditorParser(
             OWLOntologyLoaderConfiguration configuration,
             OWLDataFactory dataFactory, String s) {
@@ -344,57 +352,71 @@ public class ManchesterOWLSyntaxEditorParser implements
         this.owlOntologyChecker = owlOntologyChecker;
     }
 
-    /** @param name
-     *            name
-     * @return true if object property */
+    /**
+     * @param name
+     *        name
+     * @return true if object property
+     */
     private boolean isObjectPropertyName(String name) {
         return objectPropertyNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLObjectProperty(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if annotation property */
+    /**
+     * @param name
+     *        name
+     * @return true if annotation property
+     */
     private boolean isAnnotationPropertyName(String name) {
         return annotationPropertyNames.contains(name)
                 || owlEntityChecker != null
                 && owlEntityChecker.getOWLAnnotationProperty(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if data property */
+    /**
+     * @param name
+     *        name
+     * @return true if data property
+     */
     private boolean isDataPropertyName(String name) {
         return dataPropertyNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLDataProperty(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if individual */
+    /**
+     * @param name
+     *        name
+     * @return true if individual
+     */
     private boolean isIndividualName(String name) {
         return individualNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLIndividual(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if datatype */
+    /**
+     * @param name
+     *        name
+     * @return true if datatype
+     */
     private boolean isDatatypeName(String name) {
         return dataTypeNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLDatatype(name) != null;
     }
 
-    /** @param name
-     *            name
-     * @return true if SWRL builtin */
+    /**
+     * @param name
+     *        name
+     * @return true if SWRL builtin
+     */
     private boolean isSWRLBuiltin(String name) {
         return ruleBuiltIns.containsKey(name);
     }
 
-    /** @param name
-     *            name
-     * @return class for name */
+    /**
+     * @param name
+     *        name
+     * @return class for name
+     */
     private OWLClass getOWLClass(String name) {
         OWLClass cls = owlEntityChecker.getOWLClass(name);
         if (cls == null && classNames.contains(name)) {
@@ -403,9 +425,11 @@ public class ManchesterOWLSyntaxEditorParser implements
         return cls;
     }
 
-    /** @param name
-     *            name
-     * @return object property for name */
+    /**
+     * @param name
+     *        name
+     * @return object property for name
+     */
     private OWLObjectProperty getOWLObjectProperty(String name) {
         OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
@@ -466,9 +490,11 @@ public class ManchesterOWLSyntaxEditorParser implements
         return getToken().getToken();
     }
 
-    /** Tokenizer.
+    /**
+     * Tokenizer.
      * 
-     * @return token */
+     * @return token
+     */
     private String consumeToken() {
         String token = getToken().getToken();
         if (tokenIndex < tokens.size() - 1) {
@@ -587,11 +613,13 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    /** Parses all class expressions except ObjectIntersectionOf and
+    /**
+     * Parses all class expressions except ObjectIntersectionOf and
      * ObjectUnionOf.
      * 
      * @return The class expression which was parsed @ * if a non-nary class
-     *         expression could not be parsed */
+     *         expression could not be parsed
+     */
     private OWLClassExpression parseNonNaryClassExpression() {
         String tok = peekToken();
         if (NOT.matches(tok)) {
@@ -902,10 +930,12 @@ public class ManchesterOWLSyntaxEditorParser implements
         return dataFactory.getOWLDataComplementOf(complementedDataRange);
     }
 
-    /** This method ignores parsing context; its results are unreliable. It is
+    /**
+     * This method ignores parsing context; its results are unreliable. It is
      * used by Pellet only, as far as I can tell.
      * 
-     * @return literal */
+     * @return literal
+     */
     @Override
     @Deprecated
     public OWLLiteral parseConstant() {
@@ -1046,9 +1076,11 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    /** @return frames
+    /**
+     * @return frames
      * @throws ParserException
-     *             parsing error */
+     *         parsing error
+     */
     public Set<OntologyAxiomPair> parseFrames() throws ParserException {
         Set<OntologyAxiomPair> axioms = new HashSet<OntologyAxiomPair>();
         Set<ManchesterOWLSyntax> possible = new HashSet<ManchesterOWLSyntax>();
@@ -1338,8 +1370,10 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
     }
 
-    /** @param defaultOntology
-     *            defaultOntology */
+    /**
+     * @param defaultOntology
+     *        defaultOntology
+     */
     public void setDefaultOntology(OWLOntology defaultOntology) {
         this.defaultOntology = defaultOntology;
     }
@@ -2107,6 +2141,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     private void processDeclaredEntities(OWLDeclarationAxiom ax) {
         ax.getEntity().accept(new OWLEntityVisitor() {
+
             @Override
             public void visit(OWLAnnotationProperty property) {
                 annotationPropertyNames.add(pm.getShortForm(property.getIRI()));
@@ -2292,6 +2327,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     protected class ExceptionBuilder {
+
         boolean ontologyNameExpected = false;
         boolean classNameExpected = false;
         boolean objectPropertyNameExpected = false;
@@ -2438,6 +2474,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     class DefaultEntityChecker implements OWLEntityChecker {
+
         private Map<String, OWLDatatype> dataTypeNameMap = new HashMap<String, OWLDatatype>();
 
         public DefaultEntityChecker() {
@@ -2846,6 +2883,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     interface AnnotatedListItemParser<F, O> {
+
         O parseItem(F s);
 
         OWLAxiom createAxiom(F s, O o, Set<OWLAnnotation> anns);
@@ -2855,6 +2893,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotatedClassExpressionListItemParser<F> implements
             AnnotatedListItemParser<F, OWLClassExpression> {
+
         @Override
         public OWLClassExpression parseItem(F s) {
             return parseIntersection();
@@ -2863,6 +2902,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotatedClassExpressionSetListItemParser<F> implements
             AnnotatedListItemParser<F, Set<OWLClassExpression>> {
+
         @Override
         public Set<OWLClassExpression> parseItem(F s) {
             return parseClassExpressionList();
@@ -2871,6 +2911,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotatedPropertyListListItemParser<F> implements
             AnnotatedListItemParser<F, Set<OWLPropertyExpression<?, ?>>> {
+
         @Override
         public Set<OWLPropertyExpression<?, ?>> parseItem(F s) {
             return parsePropertyList();
@@ -2879,6 +2920,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotatedIndividualsListItemParser<F> implements
             AnnotatedListItemParser<F, OWLIndividual> {
+
         @Override
         public OWLIndividual parseItem(F s) {
             return parseIndividual();
@@ -2887,6 +2929,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotationListItemParser<F> implements
             AnnotatedListItemParser<F, OWLAnnotation> {
+
         @Override
         public OWLAnnotation parseItem(F s) {
             return parseAnnotation();
@@ -2895,6 +2938,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassSubClassOfListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -2909,6 +2953,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassEquivalentToListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -2923,6 +2968,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassDisjointWithListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -2941,6 +2987,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassDisjointClassesListItemParser extends
             AnnotatedClassExpressionSetListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, Set<OWLClassExpression> o,
                 Set<OWLAnnotation> anns) {
@@ -2956,6 +3003,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassDisjointUnionOfListItemParser extends
             AnnotatedClassExpressionSetListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, Set<OWLClassExpression> o,
                 Set<OWLAnnotation> anns) {
@@ -2970,6 +3018,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassHasKeyListItemParser extends
             AnnotatedPropertyListListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s,
                 Set<OWLPropertyExpression<?, ?>> o, Set<OWLAnnotation> anns) {
@@ -2984,6 +3033,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassSuperClassOfListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -2998,6 +3048,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ClassIndividualsListItemParser extends
             AnnotatedIndividualsListItemParser<OWLClass> {
+
         @Override
         public OWLAxiom createAxiom(OWLClass s, OWLIndividual o,
                 Set<OWLAnnotation> anns) {
@@ -3012,6 +3063,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class EntityAnnotationsListItemParser<E extends OWLEntity> extends
             AnnotationListItemParser<E> {
+
         @Override
         public OWLAxiom createAxiom(E s, OWLAnnotation o,
                 Set<OWLAnnotation> anns) {
@@ -3027,6 +3079,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class ObjectPropertyExpressionListItemParser<F> implements
             AnnotatedListItemParser<F, OWLObjectPropertyExpression> {
+
         @Override
         public OWLObjectPropertyExpression parseItem(F s) {
             return parseObjectPropertyExpression(false);
@@ -3035,6 +3088,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertySubPropertyOfListItemParser extends
             ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s,
                 OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3049,6 +3103,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertySuperPropertyOfListItemParser extends
             ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s,
                 OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3063,6 +3118,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertyEquivalentToListItemParser extends
             ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s,
                 OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3078,6 +3134,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertyDisjointWithListItemParser extends
             ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s,
                 OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3096,6 +3153,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertyDomainListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -3110,6 +3168,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertyRangeListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -3124,6 +3183,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class ObjectPropertyInverseOfListItemParser extends
             ObjectPropertyExpressionListItemParser<OWLObjectProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLObjectProperty s,
                 OWLObjectPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3139,6 +3199,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     class ObjectPropertySubPropertyChainListItemParser
             implements
             AnnotatedListItemParser<OWLObjectProperty, List<OWLObjectPropertyExpression>> {
+
         @Override
         public List<OWLObjectPropertyExpression> parseItem(OWLObjectProperty s) {
             return parseObjectPropertyChain();
@@ -3159,6 +3220,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     class ObjectPropertyCharacteristicsItemParser
             implements
             AnnotatedListItemParser<OWLObjectProperty, OWLObjectPropertyCharacteristicAxiom> {
+
         @Override
         public OWLObjectPropertyCharacteristicAxiom parseItem(
                 OWLObjectProperty s) {
@@ -3181,6 +3243,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class DataPropertyExpressionListItemParser<F> implements
             AnnotatedListItemParser<F, OWLDataPropertyExpression> {
+
         @Override
         public OWLDataProperty parseItem(F s) {
             return parseDataProperty();
@@ -3189,6 +3252,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DataPropertySubPropertyOfListItemParser extends
             DataPropertyExpressionListItemParser<OWLDataProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s,
                 OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3203,6 +3267,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DataPropertyEquivalentToListItemParser extends
             DataPropertyExpressionListItemParser<OWLDataProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s,
                 OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3217,6 +3282,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DataPropertyDisjointWithListItemParser extends
             DataPropertyExpressionListItemParser<OWLDataProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s,
                 OWLDataPropertyExpression o, Set<OWLAnnotation> anns) {
@@ -3235,6 +3301,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DataPropertyDomainListItemParser extends
             AnnotatedClassExpressionListItemParser<OWLDataProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -3249,6 +3316,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotatedDataRangeListItemParser<F> implements
             AnnotatedListItemParser<F, OWLDataRange> {
+
         @Override
         public OWLDataRange parseItem(F s) {
             return parseDataRange();
@@ -3257,6 +3325,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class DataPropertyRangeListItemParser extends
             AnnotatedDataRangeListItemParser<OWLDataProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLDataProperty s, OWLDataRange o,
                 Set<OWLAnnotation> anns) {
@@ -3272,6 +3341,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     class DataPropertyCharacteristicsItemParser
             implements
             AnnotatedListItemParser<OWLDataProperty, OWLDataPropertyCharacteristicAxiom> {
+
         @Override
         public OWLDataPropertyCharacteristicAxiom parseItem(OWLDataProperty s) {
             return parseDataPropertyCharacteristic(s);
@@ -3291,6 +3361,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class IndividualTypesItemParser extends
             AnnotatedClassExpressionListItemParser<OWLIndividual> {
+
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, OWLClassExpression o,
                 Set<OWLAnnotation> anns) {
@@ -3306,6 +3377,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     class IndividualFactsItemParser
             implements
             AnnotatedListItemParser<OWLIndividual, OWLPropertyAssertionAxiom<?, ?>> {
+
         @Override
         public OWLPropertyAssertionAxiom<?, ?> parseItem(OWLIndividual s) {
             return parseFact(s);
@@ -3325,6 +3397,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class IndividualSameAsItemParser extends
             AnnotatedIndividualsListItemParser<OWLIndividual> {
+
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o,
                 Set<OWLAnnotation> anns) {
@@ -3342,6 +3415,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class IndividualDifferentFromItemParser extends
             AnnotatedIndividualsListItemParser<OWLIndividual> {
+
         @Override
         public OWLAxiom createAxiom(OWLIndividual s, OWLIndividual o,
                 Set<OWLAnnotation> anns) {
@@ -3360,6 +3434,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class IndividualDifferentIndividualsItemParser implements
             AnnotatedListItemParser<OWLIndividual, Set<OWLIndividual>> {
+
         @Override
         public Set<OWLIndividual> parseItem(OWLIndividual s) {
             return parseIndividualList();
@@ -3383,6 +3458,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class IndividualAnnotationItemParser implements
             AnnotatedListItemParser<OWLIndividual, OWLAnnotation> {
+
         @Override
         public OWLAnnotation parseItem(OWLIndividual s) {
             return parseAnnotation();
@@ -3408,6 +3484,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     abstract class AnnotatedIRIListItemParser<F> implements
             AnnotatedListItemParser<F, IRI> {
+
         @Override
         public IRI parseItem(F s) {
             return parseIRI();
@@ -3417,6 +3494,7 @@ public class ManchesterOWLSyntaxEditorParser implements
     class AnnotationPropertySubPropertyOfListItemParser
             implements
             AnnotatedListItemParser<OWLAnnotationProperty, OWLAnnotationProperty> {
+
         @Override
         public OWLAnnotationProperty parseItem(OWLAnnotationProperty s) {
             return parseAnnotationProperty();
@@ -3436,6 +3514,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class AnnotationPropertyDomainListItemParser extends
             AnnotatedIRIListItemParser<OWLAnnotationProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLAnnotationProperty s, IRI o,
                 Set<OWLAnnotation> anns) {
@@ -3450,6 +3529,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     class AnnotationPropertyRangeListItemParser extends
             AnnotatedIRIListItemParser<OWLAnnotationProperty> {
+
         @Override
         public OWLAxiom createAxiom(OWLAnnotationProperty s, IRI o,
                 Set<OWLAnnotation> anns) {

@@ -44,13 +44,18 @@ import java.io.Writer;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Jan-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Jan-2008
+ */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final OutputStream os;
 
-    /** @param os
-     *            the actual output stream */
+    /**
+     * @param os
+     *        the actual output stream
+     */
     public StreamDocumentTarget(OutputStream os) {
         this.os = os;
     }

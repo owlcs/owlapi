@@ -44,19 +44,24 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006
+ */
 public class RDFTranslator
         extends
         AbstractTranslator<RDFNode, RDFResourceNode, RDFResourceNode, RDFLiteralNode> {
+
     private RDFGraph graph;
 
-    /** @param manager
-     *            the manager
+    /**
+     * @param manager
+     *        the manager
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param useStrongTyping
-     *            true if strong typing is required */
+     *        true if strong typing is required
+     */
     public RDFTranslator(OWLOntologyManager manager, OWLOntology ontology,
             boolean useStrongTyping) {
         super(manager, ontology, useStrongTyping);
@@ -92,9 +97,11 @@ public class RDFTranslator
         return translateLiteralNode(literal);
     }
 
-    /** @param literal
-     *            literal to translate
-     * @return translated literal */
+    /**
+     * @param literal
+     *        literal to translate
+     * @return translated literal
+     */
     public static RDFLiteralNode translateLiteralNode(OWLLiteral literal) {
         if (!literal.isRDFPlainLiteral()) {
             return new RDFLiteralNode(literal.getLiteral(), literal

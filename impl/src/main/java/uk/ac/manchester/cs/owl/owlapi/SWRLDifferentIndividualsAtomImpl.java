@@ -47,23 +47,29 @@ import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 18-Feb-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 18-Feb-2007
+ */
 public class SWRLDifferentIndividualsAtomImpl extends
         SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
         SWRLDifferentIndividualsAtom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param dataFactory
-     *            data factory
+    /**
+     * @param dataFactory
+     *        data factory
      * @param arg0
-     *            first individual
+     *        first individual
      * @param arg1
-     *            second individual */
+     *        second individual
+     */
     public SWRLDifferentIndividualsAtomImpl(OWLDataFactory dataFactory,
             SWRLIArgument arg0, SWRLIArgument arg1) {
-        super(dataFactory.getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM
-                .getIRI()), arg0, arg1);
+        super(dataFactory
+                .getOWLObjectProperty(OWLRDFVocabulary.OWL_DIFFERENT_FROM
+                        .getIRI()), arg0, arg1);
     }
 
     @Override

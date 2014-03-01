@@ -47,10 +47,13 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 01-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 01-Jul-2010
+ */
 @SuppressWarnings("javadoc")
 public class MultiImportsTestCase extends AbstractOWLAPITestCase {
+
     public static final File RESOURCES;
     static {
         File f = new File("contract/src/test/resources/");
@@ -62,7 +65,8 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
                 RESOURCES = f;
             } else {
                 RESOURCES = null;
-                System.out.println("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
+                System.out
+                        .println("MultiImportsTestCase: NO RESOURCE FOLDER ACCESSIBLE");
             }
         }
     }
@@ -70,14 +74,17 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testImports() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
-        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"), true));
-        manager.loadOntologyFromOntologyDocument(new File(RESOURCES, "/imports/D.owl"));
+        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "imports"),
+                true));
+        manager.loadOntologyFromOntologyDocument(new File(RESOURCES,
+                "/imports/D.owl"));
     }
 
     @Test
     public void testCyclicImports() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
-        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES,
+                "importscyclic"), true));
         manager.loadOntologyFromOntologyDocument(new File(RESOURCES,
                 "/importscyclic/D.owl"));
     }
@@ -85,7 +92,8 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
     @Test
     public void testCyclicImports2() throws Exception {
         OWLOntologyManager manager = Factory.getManager();
-        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
+        manager.addIRIMapper(new AutoIRIMapper(new File(RESOURCES,
+                "importscyclic"), true));
         manager.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
                 "importscyclic/D.owl")));
     }

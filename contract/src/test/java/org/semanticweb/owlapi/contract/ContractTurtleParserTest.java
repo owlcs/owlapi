@@ -37,9 +37,11 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParserException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractTurtleParserTest {
+
     public void shouldTestConsoleTripleHandler() throws Exception {
         ConsoleTripleHandler testSubject0 = new ConsoleTripleHandler();
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "", "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "",
@@ -54,7 +56,8 @@ public class ContractTurtleParserTest {
     @Test
     public void shouldTestNullTripleHandler() throws Exception {
         NullTripleHandler testSubject0 = new NullTripleHandler();
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "", "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "",
@@ -74,7 +77,8 @@ public class ContractTurtleParserTest {
         OWLRDFConsumerAdapter testSubject1 = new OWLRDFConsumerAdapter(
                 Utils.getMockOntology(), mock(AnonymousNodeChecker.class),
                 new OWLOntologyLoaderConfiguration());
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "", "");
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "",
@@ -83,8 +87,10 @@ public class ContractTurtleParserTest {
         testSubject0.handleBaseDirective("");
         testSubject0.handleComment("");
         testSubject0.handleEnd();
-        testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"), mock(OWLLiteral.class));
+        testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
+        testSubject0.handle(IRI("urn:aFake"), IRI("urn:aFake"),
+                mock(OWLLiteral.class));
         testSubject0.addFirst(IRI("urn:aFake"), IRI("urn:aFake"));
         testSubject0.addFirst(IRI("urn:aFake"), mock(OWLLiteral.class));
         OWLOntologyManager result0 = testSubject0.getOWLOntologyManager();
@@ -93,15 +99,18 @@ public class ContractTurtleParserTest {
         testSubject0.addAxiom(IRI("urn:aFake"));
         RDFOntologyFormat result3 = testSubject0.getOntologyFormat();
         testSubject0.setOntologyFormat(mock(RDFOntologyFormat.class));
-        OWLOntologyLoaderConfiguration result4 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result4 = testSubject0
+                .getConfiguration();
         OWLDataFactory result5 = testSubject0.getDataFactory();
         testSubject0.addOntology(IRI("urn:aFake"));
-        testSubject0
-                .addTriple(IRI("urn:aFake"), IRI("urn:aFake"), mock(OWLLiteral.class));
-        testSubject0.addTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
-        Set<OWLAnnotation> result6 = testSubject0.translateAnnotations(IRI("urn:aFake"));
-        IRI result7 = testSubject0.getResourceObject(IRI("urn:aFake"), IRI("urn:aFake"),
-                false);
+        testSubject0.addTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                mock(OWLLiteral.class));
+        testSubject0.addTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
+        Set<OWLAnnotation> result6 = testSubject0
+                .translateAnnotations(IRI("urn:aFake"));
+        IRI result7 = testSubject0.getResourceObject(IRI("urn:aFake"),
+                IRI("urn:aFake"), false);
         IRI result8 = testSubject0.getResourceObject(IRI("urn:aFake"),
                 OWLRDFVocabulary.OWL_ALL_DIFFERENT, false);
         OWLLiteral result9 = testSubject0.getLiteralObject(IRI("urn:aFake"),
@@ -116,7 +125,8 @@ public class ContractTurtleParserTest {
         testSubject0.setIRIProvider(mock(IRIProvider.class));
         testSubject0.setExpectedAxioms(0);
         Set<OWLAnnotation> result15 = testSubject0.getPendingAnnotations();
-        testSubject0.setPendingAnnotations(Utils.mockSet(mock(OWLAnnotation.class)));
+        testSubject0.setPendingAnnotations(Utils
+                .mockSet(mock(OWLAnnotation.class)));
         OWLAxiom result16 = testSubject0.getLastAddedAxiom();
         testSubject0.addClassExpression(IRI("urn:aFake"), false);
         testSubject0.addObjectProperty(IRI("urn:aFake"), false);
@@ -129,7 +139,8 @@ public class ContractTurtleParserTest {
                 IRI("urn:aFake"), mock(OWLLiteral.class), false);
         boolean result19 = testSubject0.isTriplePresent(IRI("urn:aFake"),
                 IRI("urn:aFake"), IRI("urn:aFake"), false);
-        OWLIndividual result20 = testSubject0.translateIndividual(IRI("urn:aFake"));
+        OWLIndividual result20 = testSubject0
+                .translateIndividual(IRI("urn:aFake"));
         OWLClassExpression result21 = testSubject0
                 .translateClassExpression(IRI("urn:aFake"));
         testSubject0.startModel("");
@@ -140,21 +151,24 @@ public class ContractTurtleParserTest {
         IRI result22 = testSubject0.getSynonym(IRI("urn:aFake"));
         testSubject0.statementWithLiteralValue("", "", "", "", "");
         testSubject0.statementWithResourceValue("", "", "");
-        OWLDataRange result23 = testSubject0.translateDataRange(IRI("urn:aFake"));
+        OWLDataRange result23 = testSubject0
+                .translateDataRange(IRI("urn:aFake"));
         Set<OWLDataRange> result24 = testSubject0
                 .translateToDataRangeSet(IRI("urn:aFake"));
-        Set<OWLLiteral> result25 = testSubject0.translateToConstantSet(IRI("urn:aFake"));
+        Set<OWLLiteral> result25 = testSubject0
+                .translateToConstantSet(IRI("urn:aFake"));
         Set<OWLFacetRestriction> result26 = testSubject0
                 .translateToFacetRestrictionSet(IRI("urn:aFake"));
         OWLDataPropertyExpression result27 = testSubject0
                 .translateDataPropertyExpression(IRI("urn:aFake"));
         OWLObjectPropertyExpression result28 = testSubject0
                 .translateObjectPropertyExpression(IRI("urn:aFake"));
-        Set<IRI> result29 = testSubject0.getPredicatesBySubject(IRI("urn:aFake"));
+        Set<IRI> result29 = testSubject0
+                .getPredicatesBySubject(IRI("urn:aFake"));
         Set<IRI> result30 = testSubject0.getResourceObjects(IRI("urn:aFake"),
                 IRI("urn:aFake"));
-        Set<OWLLiteral> result31 = testSubject0.getLiteralObjects(IRI("urn:aFake"),
-                IRI("urn:aFake"));
+        Set<OWLLiteral> result31 = testSubject0.getLiteralObjects(
+                IRI("urn:aFake"), IRI("urn:aFake"));
         OWLClassExpression result32 = testSubject0
                 .getClassExpressionIfTranslated(IRI("urn:aFake"));
         List<OWLObjectPropertyExpression> result33 = testSubject0
@@ -165,7 +179,8 @@ public class ContractTurtleParserTest {
                 .translateToClassExpressionSet(IRI("urn:aFake"));
         Set<OWLIndividual> result36 = testSubject0
                 .translateToIndividualSet(IRI("urn:aFake"));
-        boolean result37 = testSubject0.hasPredicate(IRI("urn:aFake"), IRI("urn:aFake"));
+        boolean result37 = testSubject0.hasPredicate(IRI("urn:aFake"),
+                IRI("urn:aFake"));
         testSubject0.addRest(IRI("urn:aFake"), IRI("urn:aFake"));
         IRI result38 = testSubject0.getFirstResource(IRI("urn:aFake"), false);
         OWLLiteral result39 = testSubject0.getFirstLiteral(IRI("urn:aFake"));
@@ -181,7 +196,8 @@ public class ContractTurtleParserTest {
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "",
                 IRI("urn:aFake"));
         testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), "", "");
-        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"), IRI("urn:aFake"));
+        testSubject0.handleTriple(IRI("urn:aFake"), IRI("urn:aFake"),
+                IRI("urn:aFake"));
         testSubject0.handlePrefixDirective("", "");
         testSubject0.handleBaseDirective("");
         testSubject0.handleComment("");

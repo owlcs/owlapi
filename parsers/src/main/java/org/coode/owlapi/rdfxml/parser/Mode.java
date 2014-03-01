@@ -38,8 +38,10 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 11/03/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 11/03/2011
+ */
 public enum Mode {
     /** STRICT */
     STRICT,

@@ -51,9 +51,12 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 03-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 03-Jan-2007
+ */
 public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 30406L;
 
     @Override
@@ -62,8 +65,9 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
     }
 
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager,
+            OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 
@@ -71,7 +75,8 @@ public class RDFXMLOntologyStorer extends AbstractOWLOntologyStorer {
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         try {
-            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer, format);
+            RDFXMLRenderer renderer = new RDFXMLRenderer(ontology, writer,
+                    format);
             Set<OWLEntity> entities = renderer.getUnserialisableEntities();
             if (!entities.isEmpty()) {
                 StringBuilder sb = new StringBuilder();

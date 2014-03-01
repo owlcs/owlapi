@@ -38,27 +38,36 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** A visitor that visits values of {@link OWLAnnotation}s and
+/**
+ * A visitor that visits values of {@link OWLAnnotation}s and
  * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 17-Jan-2009 */
+ *         Management Group, Date: 17-Jan-2009
+ */
 public interface OWLAnnotationValueVisitor {
-    /** visit IRI type
+
+    /**
+     * visit IRI type
      * 
      * @param iri
-     *            object to visit */
+     *        object to visit
+     */
     void visit(IRI iri);
 
-    /** visit OWLAnonymousIndividual type
+    /**
+     * visit OWLAnonymousIndividual type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLAnonymousIndividual individual);
 
-    /** visit OWLLiteral type
+    /**
+     * visit OWLLiteral type
      * 
      * @param literal
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLLiteral literal);
 }

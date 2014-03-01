@@ -40,10 +40,13 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 29-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 29-Dec-2009
+ */
 public abstract class OWLClassExpressionImpl extends OWLObjectImpl implements
         OWLClassExpression {
+
     private static final long serialVersionUID = 30406L;
 
     protected OWLClassExpressionImpl() {

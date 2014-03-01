@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class SymmetricTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public SymmetricTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_SYMMETRIC.getName(), consumer);
     }
@@ -56,7 +61,8 @@ public class SymmetricTagValueHandler extends AbstractTagValueHandler {
             String comment) {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getOWLObjectProperty(currentId);
-            OWLAxiom ax = getDataFactory().getOWLSymmetricObjectPropertyAxiom(prop);
+            OWLAxiom ax = getDataFactory().getOWLSymmetricObjectPropertyAxiom(
+                    prop);
             applyChange(new AddAxiom(getOntology(), ax));
         } else {
             addAnnotation(currentId, OBOVocabulary.IS_SYMMETRIC.getName(),

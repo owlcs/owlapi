@@ -48,10 +48,13 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 10-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 10-Dec-2009
+ */
 @SuppressWarnings("javadoc")
 public class DeprecatedTestCase extends AbstractFileTestCase {
+
     @Test
     public void testAnnotationAssertionsPresent() {
         OWLOntology ont = createOntology();

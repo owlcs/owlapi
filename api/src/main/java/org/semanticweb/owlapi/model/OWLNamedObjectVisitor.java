@@ -38,48 +38,65 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 16-Nov-2006
+ */
 public interface OWLNamedObjectVisitor {
-    /** visit OWLClass type
+
+    /**
+     * visit OWLClass type
      * 
      * @param owlClass
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLClass owlClass);
 
-    /** visit OWLObjectProperty type
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLObjectProperty property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLDataProperty property);
 
-    /** visit OWLNamedIndividual type
+    /**
+     * visit OWLNamedIndividual type
      * 
      * @param owlIndividual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLNamedIndividual owlIndividual);
 
-    /** visit OWLOntology type
+    /**
+     * visit OWLOntology type
      * 
      * @param ontology
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLOntology ontology);
 
-    /** visit OWLDatatype type
+    /**
+     * visit OWLDatatype type
      * 
      * @param datatype
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLDatatype datatype);
 
-    /** visit OWLAnnotationProperty type
+    /**
+     * visit OWLAnnotationProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLAnnotationProperty property);
 }

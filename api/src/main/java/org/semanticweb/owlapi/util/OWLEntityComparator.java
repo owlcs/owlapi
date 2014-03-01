@@ -50,16 +50,19 @@ import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** A {@code Comparator} which compares entities. Entities are compared first by
+/**
+ * A {@code Comparator} which compares entities. Entities are compared first by
  * their type (in the following order: Class, Object property, Data property,
  * Individual, Datatype) then by their short form (using the specified short
  * form provider).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Jun-2007 */
+ *         Informatics Group, Date: 15-Jun-2007
+ */
 @SuppressWarnings("unused")
-public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisitor,
-        Serializable {
+public class OWLEntityComparator implements Comparator<OWLEntity>,
+        OWLEntityVisitor, Serializable {
+
     private static final long serialVersionUID = 30406L;
     int lastValue;
     private static final int OWL_CLASS_INDEX = 0;
@@ -69,11 +72,13 @@ public class OWLEntityComparator implements Comparator<OWLEntity>, OWLEntityVisi
     private static final int OWL_DATATYPE_INDEX = 4;
     private final ShortFormProvider shortFormProvider;
 
-    /** Constructs an entity comparator which uses the specified short form
+    /**
+     * Constructs an entity comparator which uses the specified short form
      * provider.
      * 
      * @param shortFormProvider
-     *            the short form provider to use */
+     *        the short form provider to use
+     */
     public OWLEntityComparator(ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }

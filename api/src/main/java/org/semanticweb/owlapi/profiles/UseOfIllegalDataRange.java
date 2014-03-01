@@ -42,18 +42,23 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public class UseOfIllegalDataRange extends OWLProfileViolation implements
         OWL2ELProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
+
     private final OWLDataRange dataRange;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param dataRange
-     *            wrong datarange */
+     *        wrong datarange
+     */
     public UseOfIllegalDataRange(OWLOntology ontology, OWLAxiom axiom,
             OWLDataRange dataRange) {
         super(ontology, axiom);

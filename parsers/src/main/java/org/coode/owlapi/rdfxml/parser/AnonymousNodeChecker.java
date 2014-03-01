@@ -40,21 +40,30 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 07-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 07-Dec-2006
+ */
 public interface AnonymousNodeChecker {
-    /** @param iri
-     *            iri
-     * @return true if anonymous */
+
+    /**
+     * @param iri
+     *        iri
+     * @return true if anonymous
+     */
     boolean isAnonymousNode(IRI iri);
 
-    /** @param iri
-     *            iri
-     * @return true if anonymous */
+    /**
+     * @param iri
+     *        iri
+     * @return true if anonymous
+     */
     boolean isAnonymousNode(String iri);
 
-    /** @param iri
-     *            iri
-     * @return true if anonymous */
+    /**
+     * @param iri
+     *        iri
+     * @return true if anonymous
+     */
     boolean isAnonymousSharedNode(String iri);
 }

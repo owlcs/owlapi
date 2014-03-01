@@ -48,20 +48,25 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 27-Jul-2007
  * @param <M>
- *            the metric type */
+ *        the metric type
+ */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         OWLOntologyChangeListener {
+
     private final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
     private M value;
 
-    /** @param owlOntologyManager
-     *            the manager to use */
+    /**
+     * @param owlOntologyManager
+     *        the manager to use
+     */
     public AbstractOWLMetric(OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = owlOntologyManager;
         owlOntologyManager.addOntologyChangeListener(this);
@@ -134,15 +139,17 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         }
     }
 
-    /** Determines if the specified list of changes will cause the value of this
+    /**
+     * Determines if the specified list of changes will cause the value of this
      * metric to be invalid.
      * 
      * @param changes
-     *            The list of changes which will be examined to determine if the
-     *            metric is now invalid.
+     *        The list of changes which will be examined to determine if the
+     *        metric is now invalid.
      * @return {@code true} if the metric value is invalidated by the specified
      *         list of changes, or {@code false} if the list of changes do not
-     *         cause the value of this metric to be invalidated. */
+     *         cause the value of this metric to be invalidated.
+     */
     protected abstract boolean isMetricInvalidated(
             List<? extends OWLOntologyChange> changes);
 

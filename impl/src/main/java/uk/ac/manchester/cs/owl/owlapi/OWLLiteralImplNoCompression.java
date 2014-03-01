@@ -53,9 +53,13 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLiteral {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
+        OWLLiteral {
+
     private static final long serialVersionUID = 30406L;
     static final String utf_8 = "UTF-8";
     private static final OWLDatatype RDF_PLAIN_LITERAL = OWL2DatatypeImpl
@@ -65,25 +69,31 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
     private final String lang;
     private final int hashcode;
 
-    /** @param literal
-     *            the lexical form
+    /**
+     * @param literal
+     *        the lexical form
      * @param lang
-     *            the language; can be null or an empty string, in which case
-     *            datatype can be any datatype but not null
+     *        the language; can be null or an empty string, in which case
+     *        datatype can be any datatype but not null
      * @param datatype
-     *            the datatype; if lang is null or the empty string, it can be
-     *            null or it MUST be RDFPlainLiteral */
-    public OWLLiteralImplNoCompression(String literal, String lang, OWLDatatype datatype) {
+     *        the datatype; if lang is null or the empty string, it can be null
+     *        or it MUST be RDFPlainLiteral
+     */
+    public OWLLiteralImplNoCompression(String literal, String lang,
+            OWLDatatype datatype) {
         this(getBytes(literal), lang, datatype);
     }
 
-    /** @param bytes
-     *            actual literal form
+    /**
+     * @param bytes
+     *        actual literal form
      * @param lang
-     *            language for literal, can be null
+     *        language for literal, can be null
      * @param datatype
-     *            datatype for literal */
-    public OWLLiteralImplNoCompression(byte[] bytes, String lang, OWLDatatype datatype) {
+     *        datatype for literal
+     */
+    public OWLLiteralImplNoCompression(byte[] bytes, String lang,
+            OWLDatatype datatype) {
         super();
         literal = new byte[bytes.length];
         System.arraycopy(bytes, 0, literal, 0, bytes.length);
@@ -99,8 +109,9 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
             if (datatype != null && !datatype.isRDFPlainLiteral()) {
                 // ERROR: attempting to build a literal with a language tag and
                 // type different from plain literal
-                throw new OWLRuntimeException("Error: cannot build a literal with type: "
-                        + datatype.getIRI() + " and language: " + lang);
+                throw new OWLRuntimeException(
+                        "Error: cannot build a literal with type: "
+                                + datatype.getIRI() + " and language: " + lang);
             }
             this.lang = lang;
             this.datatype = rdfplainlit;
@@ -112,7 +123,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         try {
             return literal.getBytes(utf_8);
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
+            throw new RuntimeException(
+                    "Unsupported UTF 8 encoding: broken JVM", e);
         }
     }
 
@@ -121,7 +133,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
         try {
             return new String(literal, utf_8);
         } catch (UnsupportedEncodingException e) {
-            throw new OWLRuntimeException("Unsupported UTF 8 encoding: broken JVM", e);
+            throw new OWLRuntimeException(
+                    "Unsupported UTF 8 encoding: broken JVM", e);
         }
     }
 
@@ -137,7 +150,8 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements OWLLit
 
     @Override
     public boolean isRDFPlainLiteral() {
-        return datatype.getIRI().equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
+        return datatype.getIRI()
+                .equals(OWL2Datatype.RDF_PLAIN_LITERAL.getIRI());
     }
 
     @Override

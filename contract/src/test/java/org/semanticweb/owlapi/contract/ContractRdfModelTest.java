@@ -20,11 +20,13 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractRdfModelTest {
+
     @Test
     public void shouldTestAbstractTranslator() throws Exception {
         @SuppressWarnings("rawtypes")
-        AbstractTranslator testSubject0 = new AbstractTranslator(Utils.getMockManager(),
-                Utils.getMockOntology(), false) {
+        AbstractTranslator testSubject0 = new AbstractTranslator(
+                Utils.getMockManager(), Utils.getMockOntology(), false) {
+
             @Override
             protected Object getResourceNode(IRI IRI) {
                 return null;
@@ -46,7 +48,8 @@ public class ContractRdfModelTest {
             }
 
             @Override
-            protected void addTriple(Object subject, Object pred, Object object) {}
+            protected void
+                    addTriple(Object subject, Object pred, Object object) {}
         };
         String result0 = testSubject0.toString();
     }
@@ -80,6 +83,7 @@ public class ContractRdfModelTest {
     @Test
     public void shouldTestRDFNode() throws Exception {
         RDFNode testSubject0 = new RDFNode() {
+
             @Override
             public boolean isLiteral() {
                 return false;

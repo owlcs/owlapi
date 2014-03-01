@@ -45,28 +45,38 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 24-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 24-Nov-2006
+ */
 public interface OWLDebugger {
-    /** @return the {@code OWLOntology} that is being debugged.
+
+    /**
+     * @return the {@code OWLOntology} that is being debugged.
      * @throws OWLException
-     *             if there is any problem */
+     *         if there is any problem
+     */
     OWLOntology getOWLOntology() throws OWLException;
 
-    /** @return the first set of supporting (SOS) axioms that are responsible for
+    /**
+     * @return the first set of supporting (SOS) axioms that are responsible for
      *         the specified class being inconsistent.
      * @param cls
-     *            The class which is inconsistent
+     *        The class which is inconsistent
      * @throws OWLException
-     *             if there is any problem */
-    Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls) throws OWLException;
+     *         if there is any problem
+     */
+    Set<OWLAxiom> getSOSForIncosistentClass(OWLClassExpression cls)
+            throws OWLException;
 
-    /** @return all sets of supporting axioms that are responsible for the
+    /**
+     * @return all sets of supporting axioms that are responsible for the
      *         specified class being inconsistent
      * @param cls
-     *            the inconsistent class
+     *        the inconsistent class
      * @throws OWLException
-     *             if there is any problem */
+     *         if there is any problem
+     */
     Set<Set<OWLAxiom>> getAllSOSForIncosistentClass(OWLClassExpression cls)
             throws OWLException;
 

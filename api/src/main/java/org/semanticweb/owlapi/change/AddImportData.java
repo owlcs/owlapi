@@ -42,42 +42,49 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Represents the specific non-ontology data required by an {@link AddImport}
+/**
+ * Represents the specific non-ontology data required by an {@link AddImport}
  * change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 27/04/2012
- * @since 3.5 */
+ * @since 3.5
+ */
 public final class AddImportData extends ImportChangeData {
+
     private static final long serialVersionUID = 30406L;
 
-    /** Constructs an {@link AddImportData} object that describes an
+    /**
+     * Constructs an {@link AddImportData} object that describes an
      * {@link AddImport} change for the {@link OWLImportsDeclaration} specified
      * by the {@code declaration} parameter.
      * 
      * @param declaration
-     *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. Not {@code null}.
+     *        The {@link OWLImportsDeclaration} that is the focus of some
+     *        change. Not {@code null}.
      * @throws NullPointerException
-     *             if {@code declaration} is {@code null}. */
+     *         if {@code declaration} is {@code null}.
+     */
     public AddImportData(OWLImportsDeclaration declaration) {
         super(declaration);
     }
 
-    /** Creates the {@link AddImport} change that describes an addition of an
+    /**
+     * Creates the {@link AddImport} change that describes an addition of an
      * {@link OWLImportsDeclaration} to an {@link OWLOntology} specified by the
      * {@code ontology} parameter.
      * 
      * @param ontology
-     *            The {@link OWLOntology} that the change should apply to. Not
-     *            {@code null}.
+     *        The {@link OWLOntology} that the change should apply to. Not
+     *        {@code null}.
      * @return The {@link AddImport} change for the {@link OWLOntology}
      *         specified by {@code ontology} and the
      *         {@link OWLImportsDeclaration} associated with this
      *         {@link ImportChangeData} object.
      * @throws NullPointerException
-     *             if {@code ontology} is {@code null}. */
+     *         if {@code ontology} is {@code null}.
+     */
     @Override
     public AddImport createOntologyChange(OWLOntology ontology) {
         if (ontology == null) {

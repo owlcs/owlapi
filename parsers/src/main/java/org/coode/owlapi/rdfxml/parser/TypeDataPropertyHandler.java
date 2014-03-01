@@ -46,11 +46,16 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class TypeDataPropertyHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeDataPropertyHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI());
     }
@@ -62,7 +67,8 @@ public class TypeDataPropertyHandler extends BuiltInTypeHandler {
             Set<OWLAnnotation> annos = getConsumer().getPendingAnnotations();
             OWLDataProperty owlDataProperty = getDataFactory()
                     .getOWLDataProperty(subject);
-            addAxiom(getDataFactory().getOWLDeclarationAxiom(owlDataProperty, annos));
+            addAxiom(getDataFactory().getOWLDeclarationAxiom(owlDataProperty,
+                    annos));
         }
         getConsumer().addDataProperty(subject, true);
     }

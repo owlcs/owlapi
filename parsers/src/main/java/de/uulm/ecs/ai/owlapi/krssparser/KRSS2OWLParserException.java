@@ -42,16 +42,21 @@ import org.coode.owl.krssparser.KRSSOWLParserException;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OWLParserException extends KRSSOWLParserException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param e
-     *            cause */
+    /**
+     * @param e
+     *        cause
+     */
     public KRSS2OWLParserException(org.coode.owl.krssparser.ParseException e) {
         super(e);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public KRSS2OWLParserException(Throwable cause) {
         super(cause);
     }

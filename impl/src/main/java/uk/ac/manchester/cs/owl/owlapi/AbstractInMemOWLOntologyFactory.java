@@ -45,9 +45,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Nov-2006 */
-public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFactory {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Nov-2006
+ */
+public abstract class AbstractInMemOWLOntologyFactory implements
+        OWLOntologyFactory {
+
     private static final long serialVersionUID = 30406L;
     private OWLOntologyManager ontologyManager;
 
@@ -69,19 +73,22 @@ public abstract class AbstractInMemOWLOntologyFactory implements OWLOntologyFact
         return true;
     }
 
-    /** Creates an empty ontology that a concrete representation can be parsed
+    /**
+     * Creates an empty ontology that a concrete representation can be parsed
      * into. Subclasses can override this method to change the implementation of
      * the ontology.
      * 
      * @param documentIRI
-     *            the document IRI
+     *        the document IRI
      * @param ontologyID
-     *            the ontology id
+     *        the ontology id
      * @param handler
-     *            the creation handler */
+     *        the creation handler
+     */
     @Override
-    public OWLOntology createOWLOntology(OWLOntologyID ontologyID, IRI documentIRI,
-            OWLOntologyCreationHandler handler) throws OWLOntologyCreationException {
+    public OWLOntology createOWLOntology(OWLOntologyID ontologyID,
+            IRI documentIRI, OWLOntologyCreationHandler handler)
+            throws OWLOntologyCreationException {
         OWLOntology ont = new OWLOntologyImpl(ontologyManager, ontologyID);
         handler.ontologyCreated(ont);
         return ont;

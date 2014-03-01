@@ -50,17 +50,22 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDisjointDataPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
         OWLDisjointDataPropertiesAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param properties
-     *            disjoint properties
+    /**
+     * @param properties
+     *        disjoint properties
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDisjointDataPropertiesAxiomImpl(
             Set<? extends OWLDataPropertyExpression> properties,
             Collection<? extends OWLAnnotation> annotations) {
@@ -72,19 +77,21 @@ public class OWLDisjointDataPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
+        return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLDisjointDataPropertiesAxiom
-            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLDisjointDataPropertiesAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLDisjointDataPropertiesAxiomImpl(getProperties(),
                 mergeAnnos(annotations));
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLDisjointDataPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLDisjointDataPropertiesAxiom;
     }
 
     @Override

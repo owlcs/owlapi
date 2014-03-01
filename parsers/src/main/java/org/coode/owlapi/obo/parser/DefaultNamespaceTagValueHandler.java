@@ -41,7 +41,8 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 
-/** OBO Namespaces are NOT like XML Namespaces. They are NOT used to form
+/**
+ * OBO Namespaces are NOT like XML Namespaces. They are NOT used to form
  * abbreviations for IRIs. The description below, taken from the OBOEdit manual,
  * explains their provenance. <br>
  * <h3>OBO Namespaces and Ontology Name (OBO Syntax and Semantics Document:
@@ -73,10 +74,14 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
  * namespaces are used to break the merged ontology back into separate files.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 01-Sep-2008 */
+ *         Management Group, Date: 01-Sep-2008
+ */
 public class DefaultNamespaceTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DefaultNamespaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEFAULT_NAMESPACE.getName(), consumer);
     }

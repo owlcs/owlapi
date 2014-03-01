@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalparserTest {
+
     public void shouldTestJJTOWLFunctionalSyntaxParserState() throws Exception {
         JJTOWLFunctionalSyntaxParserState testSubject0 = new JJTOWLFunctionalSyntaxParserState();
         testSubject0.reset();
@@ -58,7 +59,8 @@ public class ContractFunctionalparserTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants() throws Exception {
+    public void shouldTestInterfaceOWLFunctionalSyntaxParserConstants()
+            throws Exception {
         OWLFunctionalSyntaxParserConstants testSubject0 = mock(OWLFunctionalSyntaxParserConstants.class);
     }
 

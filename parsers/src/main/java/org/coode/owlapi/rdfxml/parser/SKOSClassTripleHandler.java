@@ -44,13 +44,18 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 05-Nov-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 05-Nov-2008
+ */
 public class SKOSClassTripleHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer
+
+    /**
+     * @param consumer
+     *        consumer
      * @param v
-     *            vocabulary */
+     *        vocabulary
+     */
     public SKOSClassTripleHandler(OWLRDFConsumer consumer, SKOSVocabulary v) {
         super(consumer, v.getIRI());
     }

@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 /** see 5.4 of spec */
 @SuppressWarnings("javadoc")
 public class TransitiveOverTest extends RoundTripTest {
+
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE, CONVERT TO OWL

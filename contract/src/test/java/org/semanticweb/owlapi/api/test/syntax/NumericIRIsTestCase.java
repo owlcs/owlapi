@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 20/09/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 20/09/2011
+ */
 @Ignore
 public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
+
     private static final String DEFAULT_PREFIX = "http://owlapi.sourceforge.net/ontology/";
 
     @Override
@@ -62,14 +65,15 @@ public class NumericIRIsTestCase extends AbstractRoundTrippingTestCase {
         cls123.getIRI().toURI();
         OWLNamedIndividual ind = NamedIndividual("456", pm);
         OWLObjectProperty prop = ObjectProperty("789", pm);
-        OWLOntology ont = getManager().createOntology(IRI("http://www.myont.com/ont"));
+        OWLOntology ont = getManager().createOntology(
+                IRI("http://www.myont.com/ont"));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(cls123));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(ind));
         ont.getOWLOntologyManager().addAxiom(ont, ClassAssertion(cls123, ind));
         ont.getOWLOntologyManager().addAxiom(ont, ClassAssertion(cls123, ind));
         ont.getOWLOntologyManager().addAxiom(ont, Declaration(prop));
-        ont.getOWLOntologyManager()
-                .addAxiom(ont, ObjectPropertyAssertion(prop, ind, ind));
+        ont.getOWLOntologyManager().addAxiom(ont,
+                ObjectPropertyAssertion(prop, ind, ind));
         return ont;
     }
 

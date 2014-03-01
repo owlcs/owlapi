@@ -38,29 +38,37 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public interface OBOParserHandler {
+
     /** start header */
     void startHeader();
 
     /** end header */
     void endHeader();
 
-    /** @param name
-     *            name */
+    /**
+     * @param name
+     *        name
+     */
     void startFrame(String name);
 
     /** end frame */
     void endFrame();
 
-    /** @param tag
-     *            tag
+    /**
+     * @param tag
+     *        tag
      * @param value
-     *            value
+     *        value
      * @param qualifierBlock
-     *            qualifierBlock
+     *        qualifierBlock
      * @param comment
-     *            comment */
-    void handleTagValue(String tag, String value, String qualifierBlock, String comment);
+     *        comment
+     */
+    void handleTagValue(String tag, String value, String qualifierBlock,
+            String comment);
 }

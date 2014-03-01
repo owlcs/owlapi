@@ -40,13 +40,19 @@ package org.coode.owlapi.owlxmlparser;
 
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
-public class OWLDataComplementOfElementHandler extends AbstractOWLDataRangeHandler {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ */
+public class OWLDataComplementOfElementHandler extends
+        AbstractOWLDataRangeHandler {
+
     private OWLDataRange operand;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLDataComplementOfElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }

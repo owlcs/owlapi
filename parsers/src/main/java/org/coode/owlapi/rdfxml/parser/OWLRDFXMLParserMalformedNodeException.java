@@ -38,36 +38,46 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
-/** The Class OWLRDFXMLParserMalformedNodeException.
+/**
+ * The Class OWLRDFXMLParserMalformedNodeException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Apr-2007 */
-public class OWLRDFXMLParserMalformedNodeException extends OWLRDFXMLParserException {
+ *         Informatics Group, Date: 13-Apr-2007
+ */
+public class OWLRDFXMLParserMalformedNodeException extends
+        OWLRDFXMLParserException {
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 30406L;
 
-    /** Instantiates a new oWLRDFXML parser malformed node exception.
+    /**
+     * Instantiates a new oWLRDFXML parser malformed node exception.
      * 
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserMalformedNodeException(Throwable cause) {
         super(cause);
     }
 
-    /** Instantiates a new oWLRDFXML parser malformed node exception.
+    /**
+     * Instantiates a new oWLRDFXML parser malformed node exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserMalformedNodeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** Instantiates a new oWLRDFXML parser malformed node exception.
+    /**
+     * Instantiates a new oWLRDFXML parser malformed node exception.
      * 
      * @param message
-     *            the message */
+     *        the message
+     */
     public OWLRDFXMLParserMalformedNodeException(String message) {
         super(message);
     }

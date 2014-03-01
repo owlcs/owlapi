@@ -44,11 +44,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
-public class ReferencedObjectPropertyCount extends ObjectCountMetric<OWLObjectProperty> {
-    /** @param owlOntologyManager
-     *            manager to use */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
+public class ReferencedObjectPropertyCount extends
+        ObjectCountMetric<OWLObjectProperty> {
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public ReferencedObjectPropertyCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

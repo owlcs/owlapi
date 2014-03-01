@@ -54,9 +54,12 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 03/02/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 03/02/2011
+ */
 public class SynonymTagValueHandler extends AbstractTagValueHandler {
+
     private static final String TAG_NAME = OBOVocabulary.SYNONYM.toString();
     // synonym: "synonym" (EXACT|BROAD|NARROW|RELATED) TYPE? XRefList
     private static final Pattern valuePattern = Pattern
@@ -66,12 +69,15 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
     private static final int SYNONYM_TYPE_GROUP = 3;
     private static final int XREF_GROUP = 4;
     /** synonym type iri */
-    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE.getIRI();
+    public static final IRI SYNONYM_TYPE_IRI = OBOVocabulary.SYNONYM_TYPE
+            .getIRI();
     /** xref iri */
     public static final IRI XREF_IRI = OBOVocabulary.XREF.getIRI();
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public SynonymTagValueHandler(OBOConsumer consumer) {
         super(TAG_NAME, consumer);
     }
@@ -139,7 +145,8 @@ public class SynonymTagValueHandler extends AbstractTagValueHandler {
     private OWLAnnotation getSynonymTypeAnnotation(Matcher matcher) {
         OWLDataFactory df = getDataFactory();
         String synonymType = matcher.group(SYNONYM_TYPE_GROUP);
-        return df.getOWLAnnotation(df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI),
+        return df.getOWLAnnotation(
+                df.getOWLAnnotationProperty(SYNONYM_TYPE_IRI),
                 df.getOWLLiteral(synonymType));
     }
 }

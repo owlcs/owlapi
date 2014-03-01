@@ -140,10 +140,13 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Feb-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Feb-2007
+ */
 @SuppressWarnings({ "unused", "javadoc" })
 public class DLExpressivityChecker implements OWLObjectVisitor {
+
     private Set<Construct> constructs;
     private Set<OWLOntology> ontologies;
 
@@ -152,8 +155,23 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
     }
 
     public enum Construct {
-        AL("AL"), U("U"), C("C"), E("E"), N("N"), Q("Q"), H("H"), I("I"), O("O"), F("F"), TRAN(
-                "+"), D("(D)"), R("R"), S("S"), EL("EL"), ELPLUSPLUS("EL++");
+        AL("AL"),
+        U("U"),
+        C("C"),
+        E("E"),
+        N("N"),
+        Q("Q"),
+        H("H"),
+        I("I"),
+        O("O"),
+        F("F"),
+        TRAN("+"),
+        D("(D)"),
+        R("R"),
+        S("S"),
+        EL("EL"),
+        ELPLUSPLUS("EL++");
+
         Construct(String s) {
             this.s = s;
         }
@@ -231,6 +249,7 @@ public class DLExpressivityChecker implements OWLObjectVisitor {
 
     /** A comparator that orders DL constucts to produce a traditional DL name. */
     private static class ConstructComparator implements Comparator<Construct> {
+
         private final List<Construct> order = new ArrayList<Construct>();
 
         public ConstructComparator() {

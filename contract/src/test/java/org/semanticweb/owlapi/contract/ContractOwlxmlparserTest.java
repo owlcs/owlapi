@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {
+
     @Test
     public void shouldTestAbbreviatedIRIElementHandler() throws Exception {
         AbbreviatedIRIElementHandler testSubject0 = new AbbreviatedIRIElementHandler(
@@ -45,7 +46,8 @@ public class ContractOwlxmlparserTest {
         boolean result0 = testSubject0.isTextContentPossible();
         IRI result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -72,17 +74,21 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractClassExpressionElementHandler() throws Exception {
+    public void shouldTestAbstractClassExpressionElementHandler()
+            throws Exception {
         AbstractClassExpressionElementHandler testSubject0 = new AbstractClassExpressionElementHandler(
                 Utils.mockHandler()) {
+
             @Override
-            protected void endClassExpressionElement() throws OWLXMLParserException {}
+            protected void endClassExpressionElement()
+                    throws OWLXMLParserException {}
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -111,9 +117,11 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractClassExpressionFillerRestriction() throws Exception {
+    public void shouldTestAbstractClassExpressionFillerRestriction()
+            throws Exception {
         AbstractClassExpressionFillerRestriction testSubject0 = new AbstractClassExpressionFillerRestriction(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createRestriction() {
                 return null;
@@ -125,7 +133,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -156,6 +165,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractClassExpressionOperandAxiomElementHandler testSubject0 = new AbstractClassExpressionOperandAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -169,7 +179,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -200,6 +211,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractDataCardinalityRestrictionElementHandler testSubject0 = new AbstractDataCardinalityRestrictionElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createRestriction() {
                 return null;
@@ -213,7 +225,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -242,6 +255,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractDataRangeFillerRestrictionElementHandler testSubject0 = new AbstractDataRangeFillerRestrictionElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createRestriction() {
                 return null;
@@ -253,7 +267,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -280,9 +295,11 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractDataRestrictionElementHandler() throws Exception {
+    public void shouldTestAbstractDataRestrictionElementHandler()
+            throws Exception {
         AbstractDataRestrictionElementHandler<OWLObject> testSubject0 = new AbstractDataRestrictionElementHandler<OWLObject>(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createRestriction() {
                 return null;
@@ -293,7 +310,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -324,22 +342,27 @@ public class ContractOwlxmlparserTest {
     public void shouldTestAbstractElementHandlerFactory() throws Exception {
         AbstractElementHandlerFactory testSubject0 = new AbstractElementHandlerFactory(
                 OWLXMLVocabulary.COMMENT) {
+
             @Override
-            public OWLElementHandler<?> createHandler(OWLXMLParserHandler handler) {
+            public OWLElementHandler<?> createHandler(
+                    OWLXMLParserHandler handler) {
                 return null;
             }
         };
         String result0 = testSubject0.getElementName();
         String result1 = testSubject0.toString();
-        OWLElementHandler<?> result2 = testSubject0.createHandler(Utils.mockHandler());
+        OWLElementHandler<?> result2 = testSubject0.createHandler(Utils
+                .mockHandler());
     }
 
     @Test
     public void shouldTestAbstractIRIElementHandler() throws Exception {
         AbstractIRIElementHandler testSubject0 = new AbstractIRIElementHandler(
                 Utils.mockHandler()) {
+
             @Override
-            public void endElement() throws OWLParserException, UnloadableImportException {}
+            public void endElement() throws OWLParserException,
+                    UnloadableImportException {}
 
             @Override
             public IRI getOWLObject() throws OWLXMLParserException {
@@ -347,7 +370,8 @@ public class ContractOwlxmlparserTest {
             }
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        OWLOntologyLoaderConfiguration result0 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result0 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result1 = testSubject0.isTextContentPossible();
         String result2 = testSubject0.getText();
@@ -382,6 +406,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractNaryBooleanClassExpressionElementHandler testSubject0 = new AbstractNaryBooleanClassExpressionElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createClassExpression(
                     Set<OWLClassExpression> operands) {
@@ -393,7 +418,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -421,9 +447,11 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractObjectRestrictionElementHandler() throws Exception {
+    public void shouldTestAbstractObjectRestrictionElementHandler()
+            throws Exception {
         AbstractObjectRestrictionElementHandler<OWLObject> testSubject0 = new AbstractObjectRestrictionElementHandler<OWLObject>(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createRestriction() {
                 return null;
@@ -434,7 +462,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -465,6 +494,7 @@ public class ContractOwlxmlparserTest {
     public void shouldTestAbstractOperandAxiomElementHandler() throws Exception {
         AbstractOperandAxiomElementHandler<OWLAxiom> testSubject0 = new AbstractOperandAxiomElementHandler<OWLAxiom>(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -477,7 +507,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -505,9 +536,11 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLAssertionAxiomElementHandler() throws Exception {
+    public void shouldTestAbstractOWLAssertionAxiomElementHandler()
+            throws Exception {
         AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLObject> testSubject0 = new AbstractOWLAssertionAxiomElementHandler<OWLObjectPropertyExpression, OWLObject>(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -526,7 +559,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -557,6 +591,7 @@ public class ContractOwlxmlparserTest {
     public void shouldTestAbstractOWLAxiomElementHandler() throws Exception {
         AbstractOWLAxiomElementHandler testSubject0 = new AbstractOWLAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -569,7 +604,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -601,6 +637,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractOWLDataPropertyAssertionAxiomElementHandler testSubject0 = new AbstractOWLDataPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -624,7 +661,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -651,6 +689,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractOWLDataPropertyOperandAxiomElementHandler testSubject0 = new AbstractOWLDataPropertyOperandAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -664,7 +703,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -694,6 +734,7 @@ public class ContractOwlxmlparserTest {
     public void shouldTestAbstractOWLDataRangeHandler() throws Exception {
         AbstractOWLDataRangeHandler testSubject0 = new AbstractOWLDataRangeHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected void endDataRangeElement() throws OWLXMLParserException {}
         };
@@ -702,7 +743,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -734,8 +776,10 @@ public class ContractOwlxmlparserTest {
     public void shouldTestAbstractOWLElementHandler() throws Exception {
         AbstractOWLElementHandler<Object> testSubject0 = new AbstractOWLElementHandler<Object>(
                 Utils.mockHandler()) {
+
             @Override
-            public void endElement() throws OWLParserException, UnloadableImportException {}
+            public void endElement() throws OWLParserException,
+                    UnloadableImportException {}
 
             @Override
             public Object getOWLObject() throws OWLXMLParserException {
@@ -744,7 +788,8 @@ public class ContractOwlxmlparserTest {
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
-        OWLOntologyLoaderConfiguration result0 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result0 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result1 = testSubject0.isTextContentPossible();
         String result2 = testSubject0.getText();
@@ -779,6 +824,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractOWLIndividualOperandAxiomElementHandler testSubject0 = new AbstractOWLIndividualOperandAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -793,7 +839,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -819,9 +866,11 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLObjectCardinalityElementHandler() throws Exception {
+    public void shouldTestAbstractOWLObjectCardinalityElementHandler()
+            throws Exception {
         AbstractOWLObjectCardinalityElementHandler testSubject0 = new AbstractOWLObjectCardinalityElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createCardinalityRestriction() {
                 return null;
@@ -835,7 +884,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -860,10 +910,12 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLObjectPropertyAssertionAxiomElementHandler()
-            throws Exception {
+    public void
+            shouldTestAbstractOWLObjectPropertyAssertionAxiomElementHandler()
+                    throws Exception {
         AbstractOWLObjectPropertyAssertionAxiomElementHandler testSubject0 = new AbstractOWLObjectPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -885,7 +937,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -910,10 +963,13 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLObjectPropertyCharacteristicAxiomElementHandler()
-            throws Exception {
+    public
+            void
+            shouldTestAbstractOWLObjectPropertyCharacteristicAxiomElementHandler()
+                    throws Exception {
         AbstractOWLObjectPropertyCharacteristicAxiomElementHandler testSubject0 = new AbstractOWLObjectPropertyCharacteristicAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createPropertyCharacteristicAxiom()
                     throws OWLXMLParserException {
@@ -930,7 +986,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -956,17 +1013,21 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLObjectPropertyElementHandler() throws Exception {
+    public void shouldTestAbstractOWLObjectPropertyElementHandler()
+            throws Exception {
         AbstractOWLObjectPropertyElementHandler testSubject0 = new AbstractOWLObjectPropertyElementHandler(
                 Utils.mockHandler()) {
+
             @Override
-            protected void endObjectPropertyElement() throws OWLXMLParserException {}
+            protected void endObjectPropertyElement()
+                    throws OWLXMLParserException {}
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.endElement();
         OWLObjectPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -999,6 +1060,7 @@ public class ContractOwlxmlparserTest {
             throws Exception {
         AbstractOWLObjectPropertyOperandAxiomElementHandler testSubject0 = new AbstractOWLObjectPropertyOperandAxiomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createAxiom() throws OWLXMLParserException {
                 return null;
@@ -1013,7 +1075,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1039,10 +1102,12 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestAbstractOWLPropertyCharacteristicAxiomElementHandler()
-            throws Exception {
+    public void
+            shouldTestAbstractOWLPropertyCharacteristicAxiomElementHandler()
+                    throws Exception {
         AbstractOWLPropertyCharacteristicAxiomElementHandler<OWLAxiom> testSubject0 = new AbstractOWLPropertyCharacteristicAxiomElementHandler<OWLAxiom>(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLAxiom createPropertyCharacteristicAxiom()
                     throws OWLXMLParserException {
@@ -1058,7 +1123,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1088,6 +1154,7 @@ public class ContractOwlxmlparserTest {
     public void shouldTestAbstractRestrictionElementHandler() throws Exception {
         AbstractRestrictionElementHandler<OWLObjectPropertyExpression, OWLClassExpression> testSubject0 = new AbstractRestrictionElementHandler<OWLObjectPropertyExpression, OWLClassExpression>(
                 Utils.mockHandler()) {
+
             @Override
             protected OWLClassExpression createRestriction() {
                 return null;
@@ -1097,7 +1164,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1127,13 +1195,15 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestIRIElementHandler() throws Exception {
-        IRIElementHandler testSubject0 = new IRIElementHandler(Utils.mockHandler());
+        IRIElementHandler testSubject0 = new IRIElementHandler(
+                Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.endElement();
         boolean result0 = testSubject0.isTextContentPossible();
         IRI result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1161,7 +1231,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestLegacyEntityAnnotationElementHandler() throws Exception {
+    public void shouldTestLegacyEntityAnnotationElementHandler()
+            throws Exception {
         LegacyEntityAnnotationElementHandler testSubject0 = new LegacyEntityAnnotationElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1176,7 +1247,8 @@ public class ContractOwlxmlparserTest {
         Object result1 = testSubject0.getOWLObject();
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1199,7 +1271,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationAssertionElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationAssertionElementHandler()
+            throws Exception {
         OWLAnnotationAssertionElementHandler testSubject0 = new OWLAnnotationAssertionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1214,7 +1287,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockSWRLVariableHandler());
@@ -1252,7 +1326,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockSWRLVariableHandler());
         testSubject0.handleChild(Utils.mockSWRLAtomHandler());
@@ -1273,7 +1348,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationPropertyDomainElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationPropertyDomainElementHandler()
+            throws Exception {
         OWLAnnotationPropertyDomainElementHandler testSubject0 = new OWLAnnotationPropertyDomainElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1286,7 +1362,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1311,7 +1388,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationPropertyElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationPropertyElementHandler()
+            throws Exception {
         OWLAnnotationPropertyElementHandler testSubject0 = new OWLAnnotationPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1319,7 +1397,8 @@ public class ContractOwlxmlparserTest {
         OWLAnnotationProperty result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1347,7 +1426,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnnotationPropertyRangeElementHandler() throws Exception {
+    public void shouldTestOWLAnnotationPropertyRangeElementHandler()
+            throws Exception {
         OWLAnnotationPropertyRangeElementHandler testSubject0 = new OWLAnnotationPropertyRangeElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1360,7 +1440,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1385,7 +1466,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAnonymousIndividualElementHandler() throws Exception {
+    public void shouldTestOWLAnonymousIndividualElementHandler()
+            throws Exception {
         OWLAnonymousIndividualElementHandler testSubject0 = new OWLAnonymousIndividualElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1393,7 +1475,8 @@ public class ContractOwlxmlparserTest {
         OWLAnonymousIndividual result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1435,7 +1518,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1461,7 +1545,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLAsymmetricObjectPropertyElementHandler() throws Exception {
+    public void shouldTestOWLAsymmetricObjectPropertyElementHandler()
+            throws Exception {
         OWLAsymmetricObjectPropertyElementHandler testSubject0 = new OWLAsymmetricObjectPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1474,7 +1559,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1500,7 +1586,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLClassAssertionAxiomElementHandler() throws Exception {
+    public void shouldTestOWLClassAssertionAxiomElementHandler()
+            throws Exception {
         OWLClassAssertionAxiomElementHandler testSubject0 = new OWLClassAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1514,7 +1601,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -1547,7 +1635,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1584,7 +1673,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1620,7 +1710,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1648,7 +1739,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataExactCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLDataExactCardinalityElementHandler()
+            throws Exception {
         OWLDataExactCardinalityElementHandler testSubject0 = new OWLDataExactCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1659,7 +1751,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1693,7 +1786,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1720,7 +1814,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataIntersectionOfElementHandler() throws Exception {
+    public void shouldTestOWLDataIntersectionOfElementHandler()
+            throws Exception {
         OWLDataIntersectionOfElementHandler testSubject0 = new OWLDataIntersectionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1729,7 +1824,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1757,7 +1853,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataMaxCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLDataMaxCardinalityElementHandler()
+            throws Exception {
         OWLDataMaxCardinalityElementHandler testSubject0 = new OWLDataMaxCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1768,7 +1865,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1793,7 +1891,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataMinCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLDataMinCardinalityElementHandler()
+            throws Exception {
         OWLDataMinCardinalityElementHandler testSubject0 = new OWLDataMinCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1804,7 +1903,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -1838,7 +1938,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1866,7 +1967,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyAssertionAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyAssertionAxiomElementHandler()
+            throws Exception {
         OWLDataPropertyAssertionAxiomElementHandler testSubject0 = new OWLDataPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1887,7 +1989,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -1910,7 +2013,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyDomainAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyDomainAxiomElementHandler()
+            throws Exception {
         OWLDataPropertyDomainAxiomElementHandler testSubject0 = new OWLDataPropertyDomainAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1923,7 +2027,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -1956,7 +2061,8 @@ public class ContractOwlxmlparserTest {
         OWLDataPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -1984,7 +2090,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataPropertyRangeAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDataPropertyRangeAxiomElementHandler()
+            throws Exception {
         OWLDataPropertyRangeAxiomElementHandler testSubject0 = new OWLDataPropertyRangeAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -1997,7 +2104,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2033,7 +2141,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2059,7 +2168,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDataSomeValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLDataSomeValuesFromElementHandler()
+            throws Exception {
         OWLDataSomeValuesFromElementHandler testSubject0 = new OWLDataSomeValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2068,7 +2178,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2095,7 +2206,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeDefinitionElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeDefinitionElementHandler()
+            throws Exception {
         OWLDatatypeDefinitionElementHandler testSubject0 = new OWLDatatypeDefinitionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2107,7 +2219,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2142,7 +2255,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2170,7 +2284,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeFacetRestrictionElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeFacetRestrictionElementHandler()
+            throws Exception {
         OWLDatatypeFacetRestrictionElementHandler testSubject0 = new OWLDatatypeFacetRestrictionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2179,7 +2294,8 @@ public class ContractOwlxmlparserTest {
         Object result1 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockLiteralHandler());
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2206,7 +2322,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDatatypeRestrictionElementHandler() throws Exception {
+    public void shouldTestOWLDatatypeRestrictionElementHandler()
+            throws Exception {
         OWLDatatypeRestrictionElementHandler testSubject0 = new OWLDatatypeRestrictionElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2216,7 +2333,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2252,7 +2370,8 @@ public class ContractOwlxmlparserTest {
         OWLDataRange result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setDataRange(mock(OWLDataRange.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2298,7 +2417,8 @@ public class ContractOwlxmlparserTest {
         Object result2 = testSubject0.getOWLObject();
         OWLAxiom result3 = testSubject0.getOWLObject();
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result4 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result4 = testSubject0
+                .getConfiguration();
         boolean result5 = testSubject0.isTextContentPossible();
         String result6 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2319,7 +2439,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDifferentIndividualsAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDifferentIndividualsAxiomElementHandler()
+            throws Exception {
         OWLDifferentIndividualsAxiomElementHandler testSubject0 = new OWLDifferentIndividualsAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2332,7 +2453,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -2357,7 +2479,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDisjointClassesAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDisjointClassesAxiomElementHandler()
+            throws Exception {
         OWLDisjointClassesAxiomElementHandler testSubject0 = new OWLDisjointClassesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2369,7 +2492,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2395,7 +2519,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLDisjointDataPropertiesAxiomElementHandler() throws Exception {
+    public void shouldTestOWLDisjointDataPropertiesAxiomElementHandler()
+            throws Exception {
         OWLDisjointDataPropertiesAxiomElementHandler testSubject0 = new OWLDisjointDataPropertiesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2407,7 +2532,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2446,7 +2572,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2484,7 +2611,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2542,11 +2670,13 @@ public class ContractOwlxmlparserTest {
     public void shouldTestInterfaceOWLElementHandlerFactory() throws Exception {
         OWLElementHandlerFactory testSubject0 = mock(OWLElementHandlerFactory.class);
         String result0 = testSubject0.getElementName();
-        OWLElementHandler<?> result1 = testSubject0.createHandler(Utils.mockHandler());
+        OWLElementHandler<?> result1 = testSubject0.createHandler(Utils
+                .mockHandler());
     }
 
     @Test
-    public void shouldTestOWLEquivalentClassesAxiomElementHandler() throws Exception {
+    public void shouldTestOWLEquivalentClassesAxiomElementHandler()
+            throws Exception {
         OWLEquivalentClassesAxiomElementHandler testSubject0 = new OWLEquivalentClassesAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2558,7 +2688,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2597,7 +2728,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2636,7 +2768,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2662,7 +2795,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLFunctionalDataPropertyAxiomElementHandler() throws Exception {
+    public void shouldTestOWLFunctionalDataPropertyAxiomElementHandler()
+            throws Exception {
         OWLFunctionalDataPropertyAxiomElementHandler testSubject0 = new OWLFunctionalDataPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2675,7 +2809,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2715,7 +2850,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2755,7 +2891,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2780,12 +2917,14 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLImportsHandler() throws Exception {
-        OWLImportsHandler testSubject0 = new OWLImportsHandler(Utils.mockHandler());
+        OWLImportsHandler testSubject0 = new OWLImportsHandler(
+                Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         boolean result0 = testSubject0.isTextContentPossible();
         OWLOntology result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -2821,7 +2960,8 @@ public class ContractOwlxmlparserTest {
         OWLNamedIndividual result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2849,8 +2989,9 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLInverseFunctionalObjectPropertyAxiomElementHandler()
-            throws Exception {
+    public void
+            shouldTestOWLInverseFunctionalObjectPropertyAxiomElementHandler()
+                    throws Exception {
         OWLInverseFunctionalObjectPropertyAxiomElementHandler testSubject0 = new OWLInverseFunctionalObjectPropertyAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2863,7 +3004,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2900,7 +3042,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -2926,7 +3069,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLInverseObjectPropertyElementHandler() throws Exception {
+    public void shouldTestOWLInverseObjectPropertyElementHandler()
+            throws Exception {
         OWLInverseObjectPropertyElementHandler testSubject0 = new OWLInverseObjectPropertyElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -2934,7 +3078,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLObjectPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -2976,7 +3121,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3012,7 +3158,8 @@ public class ContractOwlxmlparserTest {
         OWLLiteral result1 = testSubject0.getOWLObject();
         Object result2 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3060,7 +3207,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3083,8 +3231,9 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLNegativeObjectPropertyAssertionAxiomElementHandler()
-            throws Exception {
+    public void
+            shouldTestOWLNegativeObjectPropertyAssertionAxiomElementHandler()
+                    throws Exception {
         OWLNegativeObjectPropertyAssertionAxiomElementHandler testSubject0 = new OWLNegativeObjectPropertyAssertionAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3104,7 +3253,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3128,7 +3278,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectAllValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLObjectAllValuesFromElementHandler()
+            throws Exception {
         OWLObjectAllValuesFromElementHandler testSubject0 = new OWLObjectAllValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3137,7 +3288,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3164,7 +3316,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectComplementOfElementHandler() throws Exception {
+    public void shouldTestOWLObjectComplementOfElementHandler()
+            throws Exception {
         OWLObjectComplementOfElementHandler testSubject0 = new OWLObjectComplementOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3172,7 +3325,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3200,7 +3354,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectExactCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLObjectExactCardinalityElementHandler()
+            throws Exception {
         OWLObjectExactCardinalityElementHandler testSubject0 = new OWLObjectExactCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3211,7 +3366,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -3244,7 +3400,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3281,7 +3438,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3308,7 +3466,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectIntersectionOfElementHandler() throws Exception {
+    public void shouldTestOWLObjectIntersectionOfElementHandler()
+            throws Exception {
         OWLObjectIntersectionOfElementHandler testSubject0 = new OWLObjectIntersectionOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3316,7 +3475,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3344,7 +3504,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectMaxCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLObjectMaxCardinalityElementHandler()
+            throws Exception {
         OWLObjectMaxCardinalityElementHandler testSubject0 = new OWLObjectMaxCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3355,7 +3516,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -3380,7 +3542,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectMinCardinalityElementHandler() throws Exception {
+    public void shouldTestOWLObjectMinCardinalityElementHandler()
+            throws Exception {
         OWLObjectMinCardinalityElementHandler testSubject0 = new OWLObjectMinCardinalityElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3391,7 +3554,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
@@ -3423,7 +3587,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockIndividualHandler());
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3472,7 +3637,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result5 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result6 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result6 = testSubject0
+                .getConfiguration();
         boolean result7 = testSubject0.isTextContentPossible();
         String result8 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3496,7 +3662,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyDomainElementHandler() throws Exception {
+    public void shouldTestOWLObjectPropertyDomainElementHandler()
+            throws Exception {
         OWLObjectPropertyDomainElementHandler testSubject0 = new OWLObjectPropertyDomainElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3509,7 +3676,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3542,7 +3710,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLObjectPropertyExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3570,7 +3739,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectPropertyRangeAxiomElementHandler() throws Exception {
+    public void shouldTestOWLObjectPropertyRangeAxiomElementHandler()
+            throws Exception {
         OWLObjectPropertyRangeAxiomElementHandler testSubject0 = new OWLObjectPropertyRangeAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3583,7 +3753,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3608,7 +3779,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLObjectSomeValuesFromElementHandler() throws Exception {
+    public void shouldTestOWLObjectSomeValuesFromElementHandler()
+            throws Exception {
         OWLObjectSomeValuesFromElementHandler testSubject0 = new OWLObjectSomeValuesFromElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3617,7 +3789,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3652,7 +3825,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.endElement();
         OWLClassExpression result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3681,7 +3855,8 @@ public class ContractOwlxmlparserTest {
 
     @Test
     public void shouldTestOWLOntologyHandler() throws Exception {
-        OWLOntologyHandler testSubject0 = new OWLOntologyHandler(Utils.mockHandler());
+        OWLOntologyHandler testSubject0 = new OWLOntologyHandler(
+                Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.startElement("");
         testSubject0.endElement();
@@ -3693,7 +3868,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.handleChild(Utils.mockDataRangeHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3729,7 +3905,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3755,7 +3932,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSameIndividualsAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSameIndividualsAxiomElementHandler()
+            throws Exception {
         OWLSameIndividualsAxiomElementHandler testSubject0 = new OWLSameIndividualsAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3768,7 +3946,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAbstractIRIHandler());
@@ -3793,7 +3972,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubAnnotationPropertyOfElementHandler() throws Exception {
+    public void shouldTestOWLSubAnnotationPropertyOfElementHandler()
+            throws Exception {
         OWLSubAnnotationPropertyOfElementHandler testSubject0 = new OWLSubAnnotationPropertyOfElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3804,7 +3984,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3842,7 +4023,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3868,7 +4050,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubDataPropertyOfAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSubDataPropertyOfAxiomElementHandler()
+            throws Exception {
         OWLSubDataPropertyOfAxiomElementHandler testSubject0 = new OWLSubDataPropertyOfAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3880,7 +4063,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3906,7 +4090,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubObjectPropertyChainElementHandler() throws Exception {
+    public void shouldTestOWLSubObjectPropertyChainElementHandler()
+            throws Exception {
         OWLSubObjectPropertyChainElementHandler testSubject0 = new OWLSubObjectPropertyChainElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3914,7 +4099,8 @@ public class ContractOwlxmlparserTest {
         List<OWLObjectPropertyExpression> result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockObjectPropertyHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -3942,7 +4128,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLSubObjectPropertyOfAxiomElementHandler() throws Exception {
+    public void shouldTestOWLSubObjectPropertyOfAxiomElementHandler()
+            throws Exception {
         OWLSubObjectPropertyOfAxiomElementHandler testSubject0 = new OWLSubObjectPropertyOfAxiomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -3955,7 +4142,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -3994,7 +4182,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -4034,7 +4223,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -4066,7 +4256,8 @@ public class ContractOwlxmlparserTest {
         testSubject0.setParentHandler(Utils.mockElementHandler());
         testSubject0.endElement();
         testSubject0.handleChild(Utils.mockClassHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4095,13 +4286,15 @@ public class ContractOwlxmlparserTest {
 
     public void shouldTestOWLXMLParser() throws Exception {
         OWLXMLParser testSubject0 = new OWLXMLParser();
-        OWLOntologyFormat result1 = testSubject0.parse(new StringDocumentSource(""),
-                Utils.getMockOntology(), new OWLOntologyLoaderConfiguration());
+        OWLOntologyFormat result1 = testSubject0.parse(
+                new StringDocumentSource(""), Utils.getMockOntology(),
+                new OWLOntologyLoaderConfiguration());
         String result4 = testSubject0.toString();
     }
 
     @Test
-    public void shouldTestOWLXMLParserAttributeNotFoundException() throws Exception {
+    public void shouldTestOWLXMLParserAttributeNotFoundException()
+            throws Exception {
         OWLXMLParserAttributeNotFoundException testSubject0 = new OWLXMLParserAttributeNotFoundException(
                 0, 0, "");
         String result0 = testSubject0.getMessage();
@@ -4113,7 +4306,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestOWLXMLParserElementNotFoundException() throws Exception {
+    public void shouldTestOWLXMLParserElementNotFoundException()
+            throws Exception {
         OWLXMLParserElementNotFoundException testSubject0 = new OWLXMLParserElementNotFoundException(
                 0, 0, "");
         String result0 = testSubject0.getMessage();
@@ -4146,14 +4340,17 @@ public class ContractOwlxmlparserTest {
     public void shouldTestSWRLAtomElementHandler() throws Exception {
         SWRLAtomElementHandler testSubject0 = new SWRLAtomElementHandler(
                 Utils.mockHandler()) {
+
             @Override
-            public void endElement() throws OWLParserException, UnloadableImportException {}
+            public void endElement() throws OWLParserException,
+                    UnloadableImportException {}
         };
         testSubject0.setParentHandler(Utils.mockElementHandler());
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4191,7 +4388,8 @@ public class ContractOwlxmlparserTest {
         List<SWRLAtom> result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockSWRLAtomHandler());
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4230,7 +4428,8 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4267,7 +4466,8 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4306,7 +4506,8 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4330,7 +4531,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLDifferentIndividualsAtomElementHandler() throws Exception {
+    public void shouldTestSWRLDifferentIndividualsAtomElementHandler()
+            throws Exception {
         SWRLDifferentIndividualsAtomElementHandler testSubject0 = new SWRLDifferentIndividualsAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4340,7 +4542,8 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4367,7 +4570,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLObjectPropertyAtomElementHandler() throws Exception {
+    public void shouldTestSWRLObjectPropertyAtomElementHandler()
+            throws Exception {
         SWRLObjectPropertyAtomElementHandler testSubject0 = new SWRLObjectPropertyAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4378,7 +4582,8 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4416,7 +4621,8 @@ public class ContractOwlxmlparserTest {
         OWLAxiom result2 = testSubject0.getOWLObject();
         testSubject0.handleChild(Utils.mockAnnotationHandler());
         testSubject0.setAxiom(mock(OWLAxiom.class));
-        OWLOntologyLoaderConfiguration result3 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result3 = testSubject0
+                .getConfiguration();
         boolean result4 = testSubject0.isTextContentPossible();
         String result5 = testSubject0.getText();
         testSubject0.handleChild(Utils.mockAnonymousIndividualHandler());
@@ -4442,7 +4648,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestSWRLSameIndividualAtomElementHandler() throws Exception {
+    public void shouldTestSWRLSameIndividualAtomElementHandler()
+            throws Exception {
         SWRLSameIndividualAtomElementHandler testSubject0 = new SWRLSameIndividualAtomElementHandler(
                 Utils.mockHandler());
         testSubject0.setParentHandler(Utils.mockElementHandler());
@@ -4452,7 +4659,8 @@ public class ContractOwlxmlparserTest {
         SWRLAtom result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.setAtom(mock(SWRLAtom.class));
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4487,7 +4695,8 @@ public class ContractOwlxmlparserTest {
         SWRLVariable result0 = testSubject0.getOWLObject();
         Object result1 = testSubject0.getOWLObject();
         testSubject0.attribute("IRI", "");
-        OWLOntologyLoaderConfiguration result2 = testSubject0.getConfiguration();
+        OWLOntologyLoaderConfiguration result2 = testSubject0
+                .getConfiguration();
         testSubject0.startElement("");
         boolean result3 = testSubject0.isTextContentPossible();
         String result4 = testSubject0.getText();
@@ -4515,7 +4724,8 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestTranslatedOWLOntologyChangeException() throws Exception {
+    public void shouldTestTranslatedOWLOntologyChangeException()
+            throws Exception {
         TranslatedOWLOntologyChangeException testSubject0 = new TranslatedOWLOntologyChangeException(
                 mock(OWLOntologyChangeException.class));
         OWLOntologyChangeException result0 = testSubject0.getCause();
@@ -4539,10 +4749,12 @@ public class ContractOwlxmlparserTest {
     }
 
     @Test
-    public void shouldTestTranslatedUnloadableImportException() throws Exception {
+    public void shouldTestTranslatedUnloadableImportException()
+            throws Exception {
         TranslatedUnloadableImportException testSubject0 = new TranslatedUnloadableImportException(
                 mock(UnloadableImportException.class));
-        UnloadableImportException result0 = testSubject0.getUnloadableImportException();
+        UnloadableImportException result0 = testSubject0
+                .getUnloadableImportException();
         Throwable result1 = testSubject0.getCause();
         String result2 = testSubject0.toString();
         String result3 = testSubject0.getMessage();

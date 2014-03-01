@@ -41,11 +41,16 @@ package org.coode.owlapi.obo.parser;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Mar-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007
+ */
 public class InverseHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public InverseHandler(OBOConsumer consumer) {
         super(OBOVocabulary.INVERSE.getName(), consumer);
     }

@@ -46,13 +46,18 @@ import java.util.Set;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Jul-2009 */
-public class ObjectPropertyDomainTestCase extends AbstractAxiomsRoundTrippingTestCase {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Jul-2009
+ */
+public class ObjectPropertyDomainTestCase extends
+        AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-        axioms.add(ObjectPropertyDomain(ObjectProperty(getIRI("p")), Class(getIRI("A"))));
+        axioms.add(ObjectPropertyDomain(ObjectProperty(getIRI("p")),
+                Class(getIRI("A"))));
         return axioms;
     }
 }

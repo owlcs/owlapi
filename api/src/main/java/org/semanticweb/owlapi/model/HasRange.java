@@ -6,14 +6,15 @@ package org.semanticweb.owlapi.model;
  * Bio-Medical Informatics Research Group<br>
  * Date: 18/02/2014
  * <p>
- *     An interface to objects that have a range.
+ * An interface to objects that have a range.
  * </p>
  */
 public interface HasRange<R extends OWLObject> {
 
     /**
      * Gets the range.
-     * @return The range.  Not {@code null}.
+     * 
+     * @return The range. Not {@code null}.
      */
     R getRange();
 }

@@ -45,11 +45,16 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class ObjectHasValueTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public ObjectHasValueTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -69,10 +74,11 @@ public class ObjectHasValueTranslator extends AbstractClassExpressionTranslator 
 
     @Override
     public OWLObjectHasValue translate(IRI mainNode) {
-        IRI value = getConsumer().getResourceObject(mainNode, OWL_HAS_VALUE, true);
+        IRI value = getConsumer().getResourceObject(mainNode, OWL_HAS_VALUE,
+                true);
         OWLIndividual individual = getConsumer().translateIndividual(value);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
         return getDataFactory().getOWLObjectHasValue(property, individual);

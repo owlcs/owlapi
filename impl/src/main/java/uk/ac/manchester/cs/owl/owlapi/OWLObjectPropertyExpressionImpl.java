@@ -53,11 +53,15 @@ import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.util.ObjectPropertySimplifier;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLObjectPropertyExpressionImpl extends
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public abstract class OWLObjectPropertyExpressionImpl
+        extends
         OWLPropertyExpressionImpl<OWLClassExpression, OWLObjectPropertyExpression>
         implements OWLObjectPropertyExpression {
+
     private static final long serialVersionUID = 30406L;
     private OWLObjectPropertyExpression simplestForm;
     private OWLObjectPropertyExpression inverse;
@@ -95,7 +99,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends
 
     @Override
     public boolean isInverseFunctional(OWLOntology ontology) {
-        return !ontology.getInverseFunctionalObjectPropertyAxioms(this).isEmpty();
+        return !ontology.getInverseFunctionalObjectPropertyAxioms(this)
+                .isEmpty();
     }
 
     @Override
@@ -223,7 +228,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends
     }
 
     @Override
-    public Set<OWLObjectPropertyExpression> getInverses(Set<OWLOntology> ontologies) {
+    public Set<OWLObjectPropertyExpression> getInverses(
+            Set<OWLOntology> ontologies) {
         Set<OWLObjectPropertyExpression> result = new TreeSet<OWLObjectPropertyExpression>();
         for (OWLOntology ont : ontologies) {
             result.addAll(getInverses(ont));
@@ -258,7 +264,8 @@ public abstract class OWLObjectPropertyExpressionImpl extends
     public OWLObjectProperty getNamedProperty() {
         OWLObjectPropertyExpression simp = getSimplified();
         if (simp.isAnonymous()) {
-            return ((OWLObjectInverseOf) simp).getInverse().asOWLObjectProperty();
+            return ((OWLObjectInverseOf) simp).getInverse()
+                    .asOWLObjectProperty();
         } else {
             return simp.asOWLObjectProperty();
         }

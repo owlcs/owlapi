@@ -40,21 +40,28 @@ package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006
+ */
 public abstract class RDFNode implements Comparable<RDFNode> {
+
     /** @return true if the node is a literal */
     public abstract boolean isLiteral();
 
-    /** Gets the URI of the resource.
+    /**
+     * Gets the URI of the resource.
      * 
-     * @return The URI or {@code null} if this is an anonymous resource. */
+     * @return The URI or {@code null} if this is an anonymous resource.
+     */
     public abstract IRI getIRI();
 
-    /** Determines if this node is a resource and is anonymous.
+    /**
+     * Determines if this node is a resource and is anonymous.
      * 
      * @return {@code true} if this is a resource node (i.e. {@code isLiteral}
      *         returns {@code false}) and the node is anonymous, or
-     *         {@code false} if this is a resource node and is not anonymous. */
+     *         {@code false} if this is a resource node and is not anonymous.
+     */
     public abstract boolean isAnonymous();
 }

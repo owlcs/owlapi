@@ -53,9 +53,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Feb-2008 */
-public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Feb-2008
+ */
+public class ShortForm2AnnotationGenerator implements
+        OWLCompositeOntologyChange {
+
     // The annotation URI to be used.
     private final IRI annotationIRI;
     // An optional language tag to be used - could be null;
@@ -64,19 +68,21 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
     private final ShortFormProvider shortFormProvider;
     private final OWLOntology ontology;
 
-    /** @param ontologyManager
-     *            the ontology manager
+    /**
+     * @param ontologyManager
+     *        the ontology manager
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param shortFormProvider
-     *            the short form provider
+     *        the short form provider
      * @param annotationIRI
-     *            iri for annotation property
+     *        iri for annotation property
      * @param languageTag
-     *            language */
+     *        language
+     */
     public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager,
-            OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI,
-            String languageTag) {
+            OWLOntology ontology, ShortFormProvider shortFormProvider,
+            IRI annotationIRI, String languageTag) {
         this.ontologyManager = ontologyManager;
         this.shortFormProvider = shortFormProvider;
         this.annotationIRI = annotationIRI;
@@ -84,40 +90,47 @@ public class ShortForm2AnnotationGenerator implements OWLCompositeOntologyChange
         this.ontology = ontology;
     }
 
-    /** @param ontologyManager
-     *            the ontology manager
+    /**
+     * @param ontologyManager
+     *        the ontology manager
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param shortFormProvider
-     *            the short form provider
+     *        the short form provider
      * @param annotationIRI
-     *            iri for annotation property */
+     *        iri for annotation property
+     */
     public ShortForm2AnnotationGenerator(OWLOntologyManager ontologyManager,
-            OWLOntology ontology, ShortFormProvider shortFormProvider, IRI annotationIRI) {
+            OWLOntology ontology, ShortFormProvider shortFormProvider,
+            IRI annotationIRI) {
         this(ontologyManager, ontology, shortFormProvider, annotationIRI, null);
     }
 
     @Override
     public List<OWLOntologyChange> getChanges() {
-        ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(ontology,
-                ontologyManager);
+        ImportsStructureEntitySorter sorter = new ImportsStructureEntitySorter(
+                ontology, ontologyManager);
         List<OWLOntologyChange> changes = new ArrayList<OWLOntologyChange>();
-        Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter.getObjects();
+        Map<OWLOntology, Set<OWLEntity>> ontology2EntityMap = sorter
+                .getObjects();
         for (OWLOntology ont : ontology2EntityMap.keySet()) {
             for (OWLEntity ent : ontology2EntityMap.get(ont)) {
                 String shortForm = shortFormProvider.getShortForm(ent);
                 OWLLiteral con;
                 if (languageTag != null) {
-                    con = ontologyManager.getOWLDataFactory().getOWLLiteral(shortForm,
-                            languageTag);
+                    con = ontologyManager.getOWLDataFactory().getOWLLiteral(
+                            shortForm, languageTag);
                 } else {
-                    con = ontologyManager.getOWLDataFactory().getOWLLiteral(shortForm);
+                    con = ontologyManager.getOWLDataFactory().getOWLLiteral(
+                            shortForm);
                 }
                 if (ontology.containsEntityInSignature(ent)) {
                     OWLOntologyChange chg = new AddAxiom(ont, ontologyManager
-                            .getOWLDataFactory().getOWLAnnotationAssertionAxiom(
+                            .getOWLDataFactory()
+                            .getOWLAnnotationAssertionAxiom(
                                     ontologyManager.getOWLDataFactory()
-                                            .getOWLAnnotationProperty(annotationIRI),
+                                            .getOWLAnnotationProperty(
+                                                    annotationIRI),
                                     ent.getIRI(), con));
                     changes.add(chg);
                 }

@@ -41,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class OboFormatTestBasics {
+
     @BeforeClass
     public static void setUp() {
         Logger globalLogger = Logger.getLogger("");

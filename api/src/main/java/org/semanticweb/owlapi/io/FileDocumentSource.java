@@ -49,18 +49,23 @@ import java.io.UnsupportedEncodingException;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** A convenience class which will prepare an input source from a file.
+/**
+ * A convenience class which will prepare an input source from a file.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Nov-2007 */
+ *         Informatics Group, Date: 17-Nov-2007
+ */
 public class FileDocumentSource implements OWLOntologyDocumentSource {
+
     private final File file;
 
-    /** Constructs an ontology input source using the specified file.
+    /**
+     * Constructs an ontology input source using the specified file.
      * 
      * @param file
-     *            The file from which a concrete representation of an ontology
-     *            will be obtained. */
+     *        The file from which a concrete representation of an ontology will
+     *        be obtained.
+     */
     public FileDocumentSource(File file) {
         this.file = file;
     }

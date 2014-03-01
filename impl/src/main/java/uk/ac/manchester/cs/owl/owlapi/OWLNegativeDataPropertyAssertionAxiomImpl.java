@@ -53,21 +53,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLNegativeDataPropertyAssertionAxiomImpl extends
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLNegativeDataPropertyAssertionAxiomImpl
+        extends
         OWLIndividualRelationshipAxiomImpl<OWLDataPropertyExpression, OWLLiteral>
         implements OWLNegativeDataPropertyAssertionAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param property
-     *            property
+     *        property
      * @param object
-     *            object
+     *        object
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLNegativeDataPropertyAssertionAxiomImpl(OWLIndividual subject,
             OWLDataPropertyExpression property, OWLLiteral object,
             Set<? extends OWLAnnotation> annotations) {
@@ -77,8 +83,9 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
         return new OWLSubClassOfAxiomImpl(new OWLObjectOneOfImpl(
-                Collections.singleton(getSubject())), new OWLObjectComplementOfImpl(
-                new OWLDataHasValueImpl(getProperty(), getObject())), NO_ANNOTATIONS);
+                Collections.singleton(getSubject())),
+                new OWLObjectComplementOfImpl(new OWLDataHasValueImpl(
+                        getProperty(), getObject())), NO_ANNOTATIONS);
     }
 
     @Override
@@ -86,15 +93,15 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                getObject(), NO_ANNOTATIONS);
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLNegativeDataPropertyAssertionAxiom getAnnotatedAxiom(
             Set<OWLAnnotation> annotations) {
-        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(), getProperty(),
-                getObject(), mergeAnnos(annotations));
+        return new OWLNegativeDataPropertyAssertionAxiomImpl(getSubject(),
+                getProperty(), getObject(), mergeAnnos(annotations));
     }
 
     @Override
@@ -104,7 +111,8 @@ public class OWLNegativeDataPropertyAssertionAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLNegativeDataPropertyAssertionAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLNegativeDataPropertyAssertionAxiom;
     }
 
     @Override

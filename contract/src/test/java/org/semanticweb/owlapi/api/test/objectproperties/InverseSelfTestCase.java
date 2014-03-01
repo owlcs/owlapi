@@ -47,10 +47,13 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 01-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 01-Jul-2010
+ */
 @SuppressWarnings("javadoc")
 public class InverseSelfTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testInverse() {
         OWLOntology ont = getOWLOntology("Ont");

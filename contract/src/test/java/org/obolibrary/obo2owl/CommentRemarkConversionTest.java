@@ -17,19 +17,23 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Tests for the conversion of rdfs:comment in OWL to remark tag in OBO. This is
+/**
+ * Tests for the conversion of rdfs:comment in OWL to remark tag in OBO. This is
  * necessary as OBO-Edit won't load any OBO ontology containing a comment-tag in
  * the ontology header. WARNING: This conversion will not conserve the order of
- * remark tags in a round-trip via OWL. */
+ * remark tags in a round-trip via OWL.
+ */
 @SuppressWarnings("javadoc")
 public class CommentRemarkConversionTest extends OboFormatTestBasics {
+
     @Test
     public void test_conversion() throws Exception {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);
         Frame headerFrame = obo.getHeaderFrame();
-        Collection<String> remarks = headerFrame.getTagValues(OboFormatTag.TAG_REMARK,
-                String.class);
-        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(OWLManager.createOWLOntologyManager());
+        Collection<String> remarks = headerFrame.getTagValues(
+                OboFormatTag.TAG_REMARK, String.class);
+        OWLAPIObo2Owl obo2Owl = new OWLAPIObo2Owl(
+                OWLManager.createOWLOntologyManager());
         OWLOntology owlOntology = obo2Owl.convert(obo);
         Set<OWLAnnotation> annotations = owlOntology.getAnnotations();
         Set<String> comments = new HashSet<String>();
@@ -47,11 +51,12 @@ public class CommentRemarkConversionTest extends OboFormatTestBasics {
         assertEquals(remarks.size(), comments.size());
         assertTrue(comments.containsAll(remarks));
         assertTrue(remarks.containsAll(comments));
-        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(OWLManager.createOWLOntologyManager());
+        OWLAPIOwl2Obo owl2Obo = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
         OBODoc oboRoundTrip = owl2Obo.convert(owlOntology);
         Frame headerFrameRoundTrip = oboRoundTrip.getHeaderFrame();
-        Collection<String> remarksRoundTrip = headerFrameRoundTrip.getTagValues(
-                OboFormatTag.TAG_REMARK, String.class);
+        Collection<String> remarksRoundTrip = headerFrameRoundTrip
+                .getTagValues(OboFormatTag.TAG_REMARK, String.class);
         assertEquals(remarks.size(), remarksRoundTrip.size());
         assertTrue(remarksRoundTrip.containsAll(remarks));
         assertTrue(remarks.containsAll(remarksRoundTrip));

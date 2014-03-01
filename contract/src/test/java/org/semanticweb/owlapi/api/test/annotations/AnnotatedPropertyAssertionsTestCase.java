@@ -50,10 +50,13 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 30-Jun-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 30-Jun-2010
+ */
 @SuppressWarnings("javadoc")
 public class AnnotatedPropertyAssertionsTestCase extends AbstractFileTestCase {
+
     @Override
     protected String getFileName() {
         return "AnnotatedPropertyAssertions.rdf";

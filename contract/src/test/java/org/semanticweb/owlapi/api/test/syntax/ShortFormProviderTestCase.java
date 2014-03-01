@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.util.QNameShortFormProvider;
 
 @SuppressWarnings("javadoc")
 public class ShortFormProviderTestCase {
+
     @Test
     public void shouldFindShortForm() {
         OWLClass c = Class(IRI("http://www.ebi.ac.uk/fgpt/ontologies/test/TEST_00001> test:TEST_00001"));

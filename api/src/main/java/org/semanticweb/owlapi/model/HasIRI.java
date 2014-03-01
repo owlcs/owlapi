@@ -9,6 +9,7 @@ public interface HasIRI {
 
     /**
      * Gets the IRI of this object
+     * 
      * @return The IRI of this object
      * @since 3.5
      */

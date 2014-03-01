@@ -16,6 +16,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
 @SuppressWarnings("javadoc")
 public class TagTest extends OboFormatTestBasics {
+
     @Test
     public void testParseOBOFile() throws Exception {
         OBODoc obodoc = parseOBOFile("tag_test.obo");

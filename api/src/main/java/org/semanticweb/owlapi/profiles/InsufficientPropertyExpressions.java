@@ -4,13 +4,16 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /** Insufficient property expressions. */
-public class InsufficientPropertyExpressions extends OWLProfileViolation implements
-        OWL2DLProfileViolation, OWL2ELProfileViolation, OWL2ProfileViolation,
-        OWL2QLProfileViolation, OWL2RLProfileViolation {
-    /** @param ontology
-     *            ontology with violation
+public class InsufficientPropertyExpressions extends OWLProfileViolation
+        implements OWL2DLProfileViolation, OWL2ELProfileViolation,
+        OWL2ProfileViolation, OWL2QLProfileViolation, OWL2RLProfileViolation {
+
+    /**
+     * @param ontology
+     *        ontology with violation
      * @param axiom
-     *            axiom with violation */
+     *        axiom with violation
+     */
     public InsufficientPropertyExpressions(OWLOntology ontology, OWLAxiom axiom) {
         super(ontology, axiom);
     }

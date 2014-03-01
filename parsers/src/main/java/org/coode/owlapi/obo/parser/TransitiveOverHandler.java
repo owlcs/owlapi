@@ -45,11 +45,16 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Mar-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Mar-2007
+ */
 public class TransitiveOverHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TransitiveOverHandler(OBOConsumer consumer) {
         super("is_transitive_over", consumer);
     }
@@ -62,7 +67,8 @@ public class TransitiveOverHandler extends AbstractTagValueHandler {
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(first);
         chain.add(second);
-        OWLAxiom ax = getDataFactory().getOWLSubPropertyChainOfAxiom(chain, first);
+        OWLAxiom ax = getDataFactory().getOWLSubPropertyChainOfAxiom(chain,
+                first);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

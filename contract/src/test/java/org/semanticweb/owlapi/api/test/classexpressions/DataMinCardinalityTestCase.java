@@ -50,10 +50,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 23-Apr-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 23-Apr-2009
+ */
 @SuppressWarnings("javadoc")
-public class DataMinCardinalityTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataMinCardinalityTestCase extends
+        AbstractFileRoundTrippingTestCase {
+
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

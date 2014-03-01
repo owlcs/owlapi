@@ -38,29 +38,38 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 16-Apr-2008
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLPropertyExpressionVisitorEx<O> {
-    /** visit OWLObjectProperty type
+
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLObjectProperty property);
 
-    /** visit OWLObjectInverseOf type
+    /**
+     * visit OWLObjectInverseOf type
      * 
      * @param property
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLObjectInverseOf property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataProperty property);
 }

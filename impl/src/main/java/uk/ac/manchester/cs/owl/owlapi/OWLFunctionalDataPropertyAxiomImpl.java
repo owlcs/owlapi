@@ -52,17 +52,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLFunctionalDataPropertyAxiomImpl extends
-        OWLDataPropertyCharacteristicAxiomImpl implements OWLFunctionalDataPropertyAxiom {
+        OWLDataPropertyCharacteristicAxiomImpl implements
+        OWLFunctionalDataPropertyAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
-    public OWLFunctionalDataPropertyAxiomImpl(OWLDataPropertyExpression property,
+     *        annotations
+     */
+    public OWLFunctionalDataPropertyAxiomImpl(
+            OWLDataPropertyExpression property,
             Collection<? extends OWLAnnotation> annotations) {
         super(property, annotations);
     }
@@ -72,19 +79,21 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(), NO_ANNOTATIONS);
+        return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
+                NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLFunctionalDataPropertyAxiom
-            getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLFunctionalDataPropertyAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLFunctionalDataPropertyAxiomImpl(getProperty(),
                 mergeAnnos(annotations));
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLFunctionalDataPropertyAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLFunctionalDataPropertyAxiom;
     }
 
     @Override
@@ -120,7 +129,7 @@ public class OWLFunctionalDataPropertyAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        return new OWLSubClassOfAxiomImpl(OWL_THING, new OWLDataMaxCardinalityImpl(
-                getProperty(), 1), NO_ANNOTATIONS);
+        return new OWLSubClassOfAxiomImpl(OWL_THING,
+                new OWLDataMaxCardinalityImpl(getProperty(), 1), NO_ANNOTATIONS);
     }
 }

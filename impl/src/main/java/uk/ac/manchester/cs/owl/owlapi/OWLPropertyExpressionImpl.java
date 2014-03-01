@@ -50,14 +50,17 @@ import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006
  * @param <R>
- *            range type
+ *        range type
  * @param <P>
- *            property type */
+ *        property type
+ */
 public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>>
         extends OWLObjectImpl implements OWLPropertyExpression<R, P> {
+
     private static final long serialVersionUID = 30406L;
 
     /** default constructor */
@@ -137,8 +140,8 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-    protected abstract Set<? extends OWLSubPropertyAxiom<P>> getSubPropertyAxiomsForRHS(
-            OWLOntology ont);
+    protected abstract Set<? extends OWLSubPropertyAxiom<P>>
+            getSubPropertyAxiomsForRHS(OWLOntology ont);
 
     @Override
     public Set<P> getEquivalentProperties(OWLOntology ontology) {
@@ -168,14 +171,14 @@ public abstract class OWLPropertyExpressionImpl<R extends OWLPropertyRange, P ex
         return result;
     }
 
-    protected abstract Set<? extends OWLPropertyDomainAxiom<?>> getDomainAxioms(
-            OWLOntology ontology);
+    protected abstract Set<? extends OWLPropertyDomainAxiom<?>>
+            getDomainAxioms(OWLOntology ontology);
 
-    protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>> getRangeAxioms(
-            OWLOntology ontology);
+    protected abstract Set<? extends OWLPropertyRangeAxiom<P, R>>
+            getRangeAxioms(OWLOntology ontology);
 
-    protected abstract Set<? extends OWLSubPropertyAxiom<P>> getSubPropertyAxioms(
-            OWLOntology ontology);
+    protected abstract Set<? extends OWLSubPropertyAxiom<P>>
+            getSubPropertyAxioms(OWLOntology ontology);
 
     protected abstract Set<? extends OWLNaryPropertyAxiom<P>>
             getEquivalentPropertiesAxioms(OWLOntology ontology);

@@ -40,35 +40,46 @@ package org.semanticweb.owlapi.model;
 
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** A facet restriction is used to restrict a particular datatype. For example
+/**
+ * A facet restriction is used to restrict a particular datatype. For example
  * the set of integers greater than 18 can be obtained by restricting the
  * integer datatype using a minExclusive facet with a value of 18
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Jan-2007 */
+ *         Informatics Group, Date: 11-Jan-2007
+ */
 public interface OWLFacetRestriction extends OWLObject {
-    /** Gets the retricted facet
+
+    /**
+     * Gets the retricted facet
      * 
-     * @return The restricted facet */
+     * @return The restricted facet
+     */
     OWLFacet getFacet();
 
-    /** Gets the value that restricts the facet
+    /**
+     * Gets the value that restricts the facet
      * 
-     * @return the restricting value */
+     * @return the restricting value
+     */
     OWLLiteral getFacetValue();
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(OWLDataVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLDataVisitorEx<O> visitor);
 }

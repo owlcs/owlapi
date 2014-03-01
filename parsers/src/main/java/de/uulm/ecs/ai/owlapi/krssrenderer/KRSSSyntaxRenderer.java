@@ -49,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
+
     @SuppressWarnings({ "javadoc", "unused" })
     @Deprecated
     public KRSSSyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
@@ -57,7 +58,8 @@ public class KRSSSyntaxRenderer extends AbstractOWLRenderer {
     public KRSSSyntaxRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         try {
             KRSSObjectRenderer ren = new KRSSObjectRenderer(ontology, writer);
             ontology.accept(ren);

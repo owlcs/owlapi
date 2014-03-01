@@ -52,20 +52,24 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDataRange;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009
+ */
 @SuppressWarnings("javadoc")
-public class DataIntersectionOfTestCase extends AbstractFileRoundTrippingTestCase {
+public class DataIntersectionOfTestCase extends
+        AbstractFileRoundTrippingTestCase {
+
     @Test
     public void testCorrectAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLDataRange intdr = Factory.getFactory().getIntegerOWLDatatype();
         OWLDataRange floatdr = Factory.getFactory().getFloatOWLDatatype();
-        OWLDataRange intersection = Factory.getFactory().getOWLDataIntersectionOf(intdr,
-                floatdr);
+        OWLDataRange intersection = Factory.getFactory()
+                .getOWLDataIntersectionOf(intdr, floatdr);
         OWLDataProperty p = DataProperty(getIRI("p"));
-        OWLDataPropertyRangeAxiom ax = Factory.getFactory().getOWLDataPropertyRangeAxiom(
-                p, intersection);
+        OWLDataPropertyRangeAxiom ax = Factory.getFactory()
+                .getOWLDataPropertyRangeAxiom(p, intersection);
         axioms.add(ax);
         axioms.add(Declaration(p));
         assertEquals(getOnt().getAxioms(), axioms);

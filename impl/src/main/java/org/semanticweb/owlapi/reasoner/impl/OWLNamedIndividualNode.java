@@ -42,20 +42,27 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
+ */
 public class OWLNamedIndividualNode extends DefaultNode<OWLNamedIndividual> {
+
     /** default constructor. */
     public OWLNamedIndividualNode() {}
 
-    /** @param entity
-     *            individual to include */
+    /**
+     * @param entity
+     *        individual to include
+     */
     public OWLNamedIndividualNode(OWLNamedIndividual entity) {
         super(entity);
     }
 
-    /** @param entities
-     *            individuals to include */
+    /**
+     * @param entities
+     *        individuals to include
+     */
     public OWLNamedIndividualNode(Set<OWLNamedIndividual> entities) {
         super(entities);
     }

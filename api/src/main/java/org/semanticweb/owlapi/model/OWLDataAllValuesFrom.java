@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Universal_Quantification_2"
  * >DataAllValuesFrom</a> class expressions in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLDataAllValuesFrom extends OWLQuantifiedDataRestriction {}

@@ -64,9 +64,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Oct-2006 */
-public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndividual {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Oct-2006
+ */
+public abstract class OWLIndividualImpl extends OWLObjectImpl implements
+        OWLIndividual {
+
     private static final long serialVersionUID = 30406L;
 
     @SuppressWarnings("javadoc")
@@ -85,7 +89,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     @Override
     public Set<OWLClassExpression> getTypes(OWLOntology ontology) {
         Set<OWLClassExpression> result = new TreeSet<OWLClassExpression>();
-        for (OWLClassAssertionAxiom axiom : ontology.getClassAssertionAxioms(this)) {
+        for (OWLClassAssertionAxiom axiom : ontology
+                .getClassAssertionAxioms(this)) {
             result.add(axiom.getClassExpression());
         }
         return result;
@@ -113,8 +118,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
-    public Set<OWLLiteral> getDataPropertyValues(OWLDataPropertyExpression property,
-            OWLOntology ontology) {
+    public Set<OWLLiteral> getDataPropertyValues(
+            OWLDataPropertyExpression property, OWLOntology ontology) {
         Set<OWLLiteral> result = new HashSet<OWLLiteral>();
         for (OWLDataPropertyAssertionAxiom ax : ontology
                 .getDataPropertyAssertionAxioms(this)) {
@@ -130,7 +135,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
             OWLIndividual individual, OWLOntology ontology) {
         for (OWLObjectPropertyAssertionAxiom ax : ontology
                 .getObjectPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property) && ax.getObject().equals(individual)) {
+            if (ax.getProperty().equals(property)
+                    && ax.getObject().equals(individual)) {
                 return true;
             }
         }
@@ -142,7 +148,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
             OWLLiteral value, OWLOntology ontology) {
         for (OWLDataPropertyAssertionAxiom ax : ontology
                 .getDataPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property) && ax.getObject().equals(value)) {
+            if (ax.getProperty().equals(property)
+                    && ax.getObject().equals(value)) {
                 return true;
             }
         }
@@ -150,8 +157,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
-    public Map<OWLObjectPropertyExpression, Set<OWLIndividual>> getObjectPropertyValues(
-            OWLOntology ontology) {
+    public Map<OWLObjectPropertyExpression, Set<OWLIndividual>>
+            getObjectPropertyValues(OWLOntology ontology) {
         Map<OWLObjectPropertyExpression, Set<OWLIndividual>> result = new HashMap<OWLObjectPropertyExpression, Set<OWLIndividual>>();
         for (OWLObjectPropertyAssertionAxiom ax : ontology
                 .getObjectPropertyAssertionAxioms(this)) {
@@ -182,11 +189,13 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
-    public boolean hasNegativeObjectPropertyValue(OWLObjectPropertyExpression property,
-            OWLIndividual individual, OWLOntology ontology) {
+    public boolean hasNegativeObjectPropertyValue(
+            OWLObjectPropertyExpression property, OWLIndividual individual,
+            OWLOntology ontology) {
         for (OWLNegativeObjectPropertyAssertionAxiom ax : ontology
                 .getNegativeObjectPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property) && ax.getObject().equals(individual)) {
+            if (ax.getProperty().equals(property)
+                    && ax.getObject().equals(individual)) {
                 return true;
             }
         }
@@ -194,8 +203,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
-    public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getDataPropertyValues(
-            OWLOntology ontology) {
+    public Map<OWLDataPropertyExpression, Set<OWLLiteral>>
+            getDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for (OWLDataPropertyAssertionAxiom ax : ontology
                 .getDataPropertyAssertionAxioms(this)) {
@@ -210,8 +219,8 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
-    public Map<OWLDataPropertyExpression, Set<OWLLiteral>> getNegativeDataPropertyValues(
-            OWLOntology ontology) {
+    public Map<OWLDataPropertyExpression, Set<OWLLiteral>>
+            getNegativeDataPropertyValues(OWLOntology ontology) {
         Map<OWLDataPropertyExpression, Set<OWLLiteral>> result = new HashMap<OWLDataPropertyExpression, Set<OWLLiteral>>();
         for (OWLNegativeDataPropertyAssertionAxiom ax : ontology
                 .getNegativeDataPropertyAssertionAxioms(this)) {
@@ -226,11 +235,13 @@ public abstract class OWLIndividualImpl extends OWLObjectImpl implements OWLIndi
     }
 
     @Override
-    public boolean hasNegativeDataPropertyValue(OWLDataPropertyExpression property,
-            OWLLiteral literal, OWLOntology ontology) {
+    public boolean hasNegativeDataPropertyValue(
+            OWLDataPropertyExpression property, OWLLiteral literal,
+            OWLOntology ontology) {
         for (OWLNegativeDataPropertyAssertionAxiom ax : ontology
                 .getNegativeDataPropertyAssertionAxioms(this)) {
-            if (ax.getProperty().equals(property) && ax.getObject().equals(literal)) {
+            if (ax.getProperty().equals(property)
+                    && ax.getObject().equals(literal)) {
                 return true;
             }
         }

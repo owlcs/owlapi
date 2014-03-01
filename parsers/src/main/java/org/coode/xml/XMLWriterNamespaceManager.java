@@ -45,18 +45,23 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Developed as part of the CO-ODE project http://www.co-ode.org
+/**
+ * Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group, Date: 30-May-2006
+ */
 public class XMLWriterNamespaceManager {
+
     private Map<String, String> prefixNamespaceMap;
     private Map<String, String> namespacePrefixMap;
     private Map<String, String> wellknownNamespaces;
     private String defaultNamespace;
 
-    /** @param defaultNamespace
-     *            defaultNamespace */
+    /**
+     * @param defaultNamespace
+     *        defaultNamespace
+     */
     public XMLWriterNamespaceManager(String defaultNamespace) {
         prefixNamespaceMap = new HashMap<String, String>();
         namespacePrefixMap = new HashMap<String, String>();
@@ -64,49 +69,61 @@ public class XMLWriterNamespaceManager {
         this.defaultNamespace = defaultNamespace;
     }
 
-    /** @param prefix
-     *            prefix
+    /**
+     * @param prefix
+     *        prefix
      * @param namespace
-     *            namespace */
+     *        namespace
+     */
     public void addWellKnownNamespace(String prefix, String namespace) {
         wellknownNamespaces.put(prefix, namespace);
     }
 
-    /** @param prefix
-     *            prefix
+    /**
+     * @param prefix
+     *        prefix
      * @param namespace
-     *            namespace */
+     *        namespace
+     */
     public void setPrefix(String prefix, String namespace) {
         prefixNamespaceMap.put(prefix, namespace);
         namespacePrefixMap.put(namespace, prefix);
     }
 
-    /** @param namespace
-     *            namespace
-     * @return prefix */
+    /**
+     * @param namespace
+     *        namespace
+     * @return prefix
+     */
     public String getPrefixForNamespace(String namespace) {
         return namespacePrefixMap.get(namespace);
     }
 
-    /** @param namespace
-     *            namespace */
+    /**
+     * @param namespace
+     *        namespace
+     */
     public void setDefaultNamespace(String namespace) {
         defaultNamespace = namespace;
     }
 
-    /** @param prefix
-     *            prefix
-     * @return namespace */
+    /**
+     * @param prefix
+     *        prefix
+     * @return namespace
+     */
     public String getNamespaceForPrefix(String prefix) {
         return prefixNamespaceMap.get(prefix);
     }
 
-    /** Gets a QName for a full URI.
+    /**
+     * Gets a QName for a full URI.
      * 
      * @param name
-     *            The name which represents the full name.
+     *        The name which represents the full name.
      * @return The QName representation or {@code null} if a QName could not be
-     *         generated. */
+     *         generated.
+     */
     public String getQName(String name) {
         if (name.startsWith(defaultNamespace)) {
             return name.substring(defaultNamespace.length(), name.length());
@@ -120,26 +137,31 @@ public class XMLWriterNamespaceManager {
         return name;
     }
 
-    /** Gets a QName for an IRI.
+    /**
+     * Gets a QName for an IRI.
      * 
      * @param name
-     *            The name which represents the full name.
+     *        The name which represents the full name.
      * @return The QName representation or {@code null} if a QName could not be
-     *         generated. */
+     *         generated.
+     */
     public String getQName(IRI name) {
         if (name.getNamespace().equals(defaultNamespace)) {
             return name.getFragment() == null ? "" : name.getFragment();
         }
         String candidate = namespacePrefixMap.get(name.getNamespace());
         if (candidate != null) {
-            String localName = name.getFragment() == null ? "" : name.getFragment();
+            String localName = name.getFragment() == null ? "" : name
+                    .getFragment();
             return candidate + ":" + localName;
         }
         return name.toString();
     }
 
-    /** @param namespace
-     *            namespace */
+    /**
+     * @param namespace
+     *        namespace
+     */
     public void createPrefixForNamespace(String namespace) {
         if (namespace.equals(defaultNamespace)) {
             return;
@@ -176,9 +198,11 @@ public class XMLWriterNamespaceManager {
         return new HashMap<String, String>(prefixNamespaceMap);
     }
 
-    /** Search for a prefix other than "" for the default namespace
+    /**
+     * Search for a prefix other than "" for the default namespace
      * 
-     * @return the first prefix found for the default namespace that is not "" */
+     * @return the first prefix found for the default namespace that is not ""
+     */
     public String getDefaultPrefix() {
         for (String prefix : prefixNamespaceMap.keySet()) {
             if (!prefix.equals("")) {

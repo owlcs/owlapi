@@ -5,24 +5,29 @@ import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 
 /** Token Manager. */
 public class TurtleParserTokenManager implements TurtleParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
+    /**
+     * Set debug output.
      * 
      * @param ds
-     *            the new debug stream */
+     *        the new debug stream
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
-    /** Jj stop string literal dfa_0.
+    /**
+     * Jj stop string literal dfa_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private final int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
             case 0:
@@ -91,33 +96,39 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj start nfa_0.
+    /**
+     * Jj start nfa_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private final int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
 
-    /** Jj stop at pos.
+    /**
+     * Jj stop at pos.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param kind
-     *            the kind
-     * @return the int */
+     *        the kind
+     * @return the int
+     */
     private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
 
-    /** Jj move string literal dfa0_0.
+    /**
+     * Jj move string literal dfa0_0.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 34:
@@ -161,11 +172,13 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj move string literal dfa1_0.
+    /**
+     * Jj move string literal dfa1_0.
      * 
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa1_0(long active0) {
         try {
             curChar = input_stream.readChar();
@@ -359,15 +372,17 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjStartNfa_0(5, active0);
     }
 
-    /** Jj start nfa with states_0.
+    /**
+     * Jj start nfa with states_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param kind
-     *            the kind
+     *        the kind
      * @param state
-     *            the state
-     * @return the int */
+     *        the state
+     * @return the int
+     */
     private int jjStartNfaWithStates_0(int pos, int kind, int state) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
@@ -1270,9 +1285,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj move string literal dfa0_2.
+    /**
+     * Jj move string literal dfa0_2.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_2() {
         switch (curChar) {
             case 34:
@@ -1282,11 +1299,13 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj move string literal dfa1_2.
+    /**
+     * Jj move string literal dfa1_2.
      * 
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa1_2(long active0) {
         try {
             curChar = input_stream.readChar();
@@ -1323,9 +1342,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return 3;
     }
 
-    /** Jj move string literal dfa0_1.
+    /**
+     * Jj move string literal dfa0_1.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_1() {
         switch (curChar) {
             case 34:
@@ -1434,19 +1455,21 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
             39, 41, 23, 24, 26, 29, 30, 32, 44, 45, 46, 47, 48, 49, 53, 54, 3,
             4, 9, 10, 27, 28, 37, 38, };
 
-    /** Jj can move_0.
+    /**
+     * Jj can move_0.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
             long l1, long l2) {
         switch (hiByte) {
@@ -1460,19 +1483,21 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj can move_1.
+    /**
+     * Jj can move_1.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private static final boolean jjCanMove_1(int hiByte, int i1, int i2,
             long l1, long l2) {
         switch (hiByte) {
@@ -1500,19 +1525,21 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj can move_2.
+    /**
+     * Jj can move_2.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private static final boolean jjCanMove_2(int hiByte, int i1, int i2,
             long l1, long l2) {
         switch (hiByte) {
@@ -1573,10 +1600,12 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     /** The cur char. */
     protected char curChar;
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public TurtleParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
@@ -1585,21 +1614,25 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         input_stream = stream;
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public TurtleParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -1616,21 +1649,25 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -1641,9 +1678,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj fill token.
+    /**
+     * Jj fill token.
      * 
-     * @return the token */
+     * @return the token
+     */
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1680,9 +1719,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     /** The jjmatched kind. */
     int jjmatchedKind;
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
@@ -1781,10 +1822,12 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Jj check n add.
+    /**
+     * Jj check n add.
      * 
      * @param state
-     *            the state */
+     *        the state
+     */
     private void jjCheckNAdd(int state) {
         if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
@@ -1799,12 +1842,14 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         } while (start++ != end);
     }
 
-    /** Jj check n add two states.
+    /**
+     * Jj check n add two states.
      * 
      * @param state1
-     *            the state1
+     *        the state1
      * @param state2
-     *            the state2 */
+     *        the state2
+     */
     private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);

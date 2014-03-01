@@ -38,9 +38,11 @@
  */
 package de.uulm.ecs.ai.owlapi.krssrenderer;
 
-/** Vocabulary of KRSS2 syntax.
+/**
+ * Vocabulary of KRSS2 syntax.
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public enum KRSS2Vocabulary {
     //@formatter:off
     /** ALL */                  ALL("all"),

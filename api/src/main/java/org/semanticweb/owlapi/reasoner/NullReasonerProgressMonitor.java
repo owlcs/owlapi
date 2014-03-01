@@ -40,12 +40,16 @@ package org.semanticweb.owlapi.reasoner;
 
 import java.io.Serializable;
 
-/** An implementation of a progress monitor that does nothing when it receives
+/**
+ * An implementation of a progress monitor that does nothing when it receives
  * notification of progress events.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 29-Nov-2009 */
-public class NullReasonerProgressMonitor implements ReasonerProgressMonitor, Serializable {
+ *         Management Group, Date: 29-Nov-2009
+ */
+public class NullReasonerProgressMonitor implements ReasonerProgressMonitor,
+        Serializable {
+
     private static final long serialVersionUID = 30406L;
 
     @Override

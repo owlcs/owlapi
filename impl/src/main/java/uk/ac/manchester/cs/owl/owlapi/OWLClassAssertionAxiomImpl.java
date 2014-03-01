@@ -54,20 +54,25 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implements
-        OWLClassAssertionAxiom {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl
+        implements OWLClassAssertionAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLIndividual individual;
     private final OWLClassExpression classExpression;
 
-    /** @param individual
-     *            individual
+    /**
+     * @param individual
+     *        individual
      * @param classExpression
-     *            class
+     *        class
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLClassAssertionAxiomImpl(OWLIndividual individual,
             OWLClassExpression classExpression,
             Collection<? extends OWLAnnotation> annotations) {
@@ -81,14 +86,15 @@ public class OWLClassAssertionAxiomImpl extends OWLIndividualAxiomImpl implement
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
-                NO_ANNOTATIONS);
+        return new OWLClassAssertionAxiomImpl(getIndividual(),
+                getClassExpression(), NO_ANNOTATIONS);
     }
 
     @Override
-    public OWLClassAssertionAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLClassAssertionAxiomImpl(getIndividual(), getClassExpression(),
-                mergeAnnos(annotations));
+    public OWLClassAssertionAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
+        return new OWLClassAssertionAxiomImpl(getIndividual(),
+                getClassExpression(), mergeAnnos(annotations));
     }
 
     @Override

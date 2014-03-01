@@ -38,9 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLClassAtom extends SWRLUnaryAtom<SWRLIArgument> {
+
     @Override
     OWLClassExpression getPredicate();
 }

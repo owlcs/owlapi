@@ -41,16 +41,21 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public class UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom extends
         OWLProfileViolation implements OWL2DLProfileViolation {
-    /** @param ontology
-     *            wrong ontology
+
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom */
-    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(OWLOntology ontology,
-            OWLSubDataPropertyOfAxiom axiom) {
+     *        wrong axiom
+     */
+    public UseOfTopDataPropertyAsSubPropertyInSubPropertyAxiom(
+            OWLOntology ontology, OWLSubDataPropertyOfAxiom axiom) {
         super(ontology, axiom);
     }
 

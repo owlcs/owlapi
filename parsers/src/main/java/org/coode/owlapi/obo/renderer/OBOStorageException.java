@@ -41,18 +41,24 @@ package org.coode.owlapi.obo.renderer;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group, Date: Dec 19, 2008 */
+/**
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 19, 2008
+ */
 public class OBOStorageException extends OWLOntologyStorageException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param source
-     *            source
+    /**
+     * @param source
+     *        source
      * @param problem
-     *            problem
+     *        problem
      * @param message
-     *            message */
-    public OBOStorageException(OWLObject source, OWLObject problem, String message) {
+     *        message
+     */
+    public OBOStorageException(OWLObject source, OWLObject problem,
+            String message) {
         super(source + ": " + message + " (" + problem + ")");
     }
 }

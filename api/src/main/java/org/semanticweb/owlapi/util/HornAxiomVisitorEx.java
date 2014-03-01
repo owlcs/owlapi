@@ -101,6 +101,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
+
     final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
     final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
 
@@ -121,7 +122,8 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     @Override
     public Boolean visit(OWLSubClassOfAxiom axiom) {
-        return Boolean.valueOf(axiom.getSubClass().accept(negative).booleanValue()
+        return Boolean.valueOf(axiom.getSubClass().accept(negative)
+                .booleanValue()
                 && axiom.getSuperClass().accept(positive).booleanValue());
     }
 
@@ -208,11 +210,13 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     @Override
     public Boolean visit(OWLDisjointUnionAxiom axiom) {
         OWLClassExpression c1 = axiom.getOWLClass();
-        if (!c1.accept(positive).booleanValue() || !c1.accept(negative).booleanValue()) {
+        if (!c1.accept(positive).booleanValue()
+                || !c1.accept(negative).booleanValue()) {
             return Boolean.FALSE;
         }
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(positive).booleanValue() || !c.accept(negative).booleanValue()) {
+            if (!c.accept(positive).booleanValue()
+                    || !c.accept(negative).booleanValue()) {
                 return Boolean.FALSE;
             }
         }
@@ -257,7 +261,8 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
     @Override
     public Boolean visit(OWLEquivalentClassesAxiom axiom) {
         for (OWLClassExpression c : axiom.getClassExpressions()) {
-            if (!c.accept(positive).booleanValue() || !c.accept(negative).booleanValue()) {
+            if (!c.accept(positive).booleanValue()
+                    || !c.accept(negative).booleanValue()) {
                 return Boolean.FALSE;
             }
         }
@@ -321,6 +326,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     private class PositiveAppearanceVisitorEx implements
             OWLClassExpressionVisitorEx<Boolean> {
+
         public PositiveAppearanceVisitorEx() {}
 
         @Override
@@ -424,6 +430,7 @@ public class HornAxiomVisitorEx implements OWLAxiomVisitorEx<Boolean> {
 
     private class NegativeAppearanceVisitorEx implements
             OWLClassExpressionVisitorEx<Boolean> {
+
         public NegativeAppearanceVisitorEx() {}
 
         @Override

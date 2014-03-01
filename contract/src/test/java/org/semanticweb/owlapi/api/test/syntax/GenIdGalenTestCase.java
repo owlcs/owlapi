@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 @SuppressWarnings("javadoc")
 public class GenIdGalenTestCase {
+
     @Test
     public void testGenIdGalenFragment() throws Exception {
         String test = "<?xml version=\"1.0\"?>\n"

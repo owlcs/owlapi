@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings("javadoc")
 public class AnonymousFunctionalRoundtripTestCase {
+
     private static String NS = "http://namespace.owl";
     private static String broken = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"

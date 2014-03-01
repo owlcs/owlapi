@@ -38,9 +38,12 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class OBOParserHandlerAdapter implements OBOParserHandler {
+
     @Override
     public void endHeader() {}
 

@@ -46,20 +46,25 @@ import java.io.StringReader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document source which reads an ontology from a reader.
+/**
+ * An ontology document source which reads an ontology from a reader.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 17-Nov-2007 */
+ *         Informatics Group, Date: 17-Nov-2007
+ */
 public class ReaderDocumentSource implements OWLOntologyDocumentSource {
+
     private static int counter = 0;
     private final IRI documentIRI;
     private String buffer;
 
-    /** Constructs and ontology input source which will read an ontology from a
+    /**
+     * Constructs and ontology input source which will read an ontology from a
      * reader.
      * 
      * @param reader
-     *            The reader that will be used to read an ontology. */
+     *        The reader that will be used to read an ontology.
+     */
     public ReaderDocumentSource(Reader reader) {
         this(reader, getNextDocumentIRI());
     }
@@ -70,14 +75,16 @@ public class ReaderDocumentSource implements OWLOntologyDocumentSource {
         return IRI.create("reader:ontology" + counter);
     }
 
-    /** Constructs and ontology input source which will read an ontology from a
+    /**
+     * Constructs and ontology input source which will read an ontology from a
      * reader.
      * 
      * @param reader
-     *            The reader that will be used to read an ontology.
+     *        The reader that will be used to read an ontology.
      * @param documentIRI
-     *            The ontology document IRI which will be used as the base of
-     *            the document if needed. */
+     *        The ontology document IRI which will be used as the base of the
+     *        document if needed.
+     */
     public ReaderDocumentSource(Reader reader, IRI documentIRI) {
         this.documentIRI = documentIRI;
         fillBuffer(reader);

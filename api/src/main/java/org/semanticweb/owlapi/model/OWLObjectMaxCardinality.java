@@ -38,10 +38,13 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Maximum_Cardinality_2"
  * >ObjectMaxCardinality</a> restriction in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLObjectMaxCardinality extends OWLObjectCardinalityRestriction {}
+ *         Informatics Group Date: 24-Oct-2006
+ */
+public interface OWLObjectMaxCardinality extends
+        OWLObjectCardinalityRestriction {}

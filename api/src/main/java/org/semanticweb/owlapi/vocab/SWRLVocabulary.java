@@ -45,8 +45,10 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007
+ */
 public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     //@formatter:off
     /** IMP */                          IMP                     ("Imp"), 
@@ -95,17 +97,20 @@ public enum SWRLVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return iri;
     }
 
-    /** @return uri
-     * @deprecated use getIRI() */
+    /**
+     * @return uri
+     * @deprecated use getIRI()
+     */
     @Deprecated
     public URI getURI() {
         return iri.toURI();
     }
 
     /**
-     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
-     * "ClassAtom" for {@link #CLASS_ATOM} etc.
-     * @return The short form.  Not {@code null}.
+     * Gets the short form for this vocabulary element. Short forms are the
+     * local name e.g. "ClassAtom" for {@link #CLASS_ATOM} etc.
+     * 
+     * @return The short form. Not {@code null}.
      */
     @Override
     public String getShortForm() {

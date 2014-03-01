@@ -10,17 +10,22 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 22/10/2012
+ */
 @SuppressWarnings("javadoc")
 public class RemoveOntologyAnnotationDataTestCase {
+
     private OWLAnnotation mockAnnotation;
     private OWLOntology mockOntology;
 
-    /** Creates RemoveOntologyAnnotationData with the value of the
+    /**
+     * Creates RemoveOntologyAnnotationData with the value of the
      * {@code mockAnnotation} field as a parameter.
      * 
-     * @return The freshly created RemoveOntologyAnnotationData */
+     * @return The freshly created RemoveOntologyAnnotationData
+     */
     private RemoveOntologyAnnotationData createData() {
         return new RemoveOntologyAnnotationData(mockAnnotation);
     }
@@ -61,7 +66,8 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testCreateOntologyChange() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = data.createOntologyChange(mockOntology);
+        RemoveOntologyAnnotation change = data
+                .createOntologyChange(mockOntology);
         assertEquals(mockOntology, change.getOntology());
         assertEquals(mockAnnotation, change.getAnnotation());
     }
@@ -69,8 +75,8 @@ public class RemoveOntologyAnnotationDataTestCase {
     @Test
     public void testGetChangeData() {
         RemoveOntologyAnnotationData data = createData();
-        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(mockOntology,
-                mockAnnotation);
+        RemoveOntologyAnnotation change = new RemoveOntologyAnnotation(
+                mockOntology, mockAnnotation);
         assertEquals(change.getChangeData(), data);
     }
 }

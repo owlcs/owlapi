@@ -49,41 +49,48 @@ import org.xml.sax.SAXException;
 
 /** Throws if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends SAXException {
+
     private static final long serialVersionUID = 30406L;
     protected String m_publicId;
     protected String m_systemId;
     protected int m_lineNumber;
     protected int m_columnNumber;
 
-    /** @param message
-     *            message */
+    /**
+     * @param message
+     *        message
+     */
     public RDFParserException(String message) {
         this(message, null, null, -1, -1);
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param locator
-     *            locator */
+     *        locator
+     */
     public RDFParserException(String message, Locator locator) {
         this(message, locator.getPublicId(), locator.getSystemId(), locator
                 .getLineNumber(), locator.getColumnNumber());
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param publicId
-     *            publicId
+     *        publicId
      * @param systemId
-     *            systemId
+     *        systemId
      * @param lineNumber
-     *            lineNumber
+     *        lineNumber
      * @param columnNumber
-     *            columnNumber */
+     *        columnNumber
+     */
     public RDFParserException(String message, String publicId, String systemId,
             int lineNumber, int columnNumber) {
-        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber + ":"
-                + "column=" + columnNumber + "] " : "")
+        super((lineNumber != -1 || columnNumber != -1 ? "[line=" + lineNumber
+                + ":" + "column=" + columnNumber + "] " : "")
                 + message);
         m_publicId = publicId;
         m_systemId = systemId;

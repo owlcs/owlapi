@@ -38,12 +38,17 @@
  */
 package org.semanticweb.owlapi.io;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
- * @since 3.2 */
+ * @since 3.2
+ */
 public abstract class RDFNode {
-    /** Determines if this node is a literal node.
+
+    /**
+     * Determines if this node is a literal node.
      * 
-     * @return {@code true} if this node is a literal, otherwise {@code false}. */
+     * @return {@code true} if this node is a literal, otherwise {@code false}.
+     */
     public abstract boolean isLiteral();
 }

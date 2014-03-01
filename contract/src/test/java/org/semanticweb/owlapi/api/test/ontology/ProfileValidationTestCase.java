@@ -68,10 +68,13 @@ import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Aug-2009
+ */
 @SuppressWarnings("javadoc")
 public class ProfileValidationTestCase {
+
     private static final String TEST_NAMESPACE = "http://www.w3.org/2007/OWL/testOntology#";
     private static final IRI PROFILE_IDENTIFICATION_TEST_IRI = IRI(TEST_NAMESPACE
             + "ProfileIdentificationTest");
@@ -85,17 +88,21 @@ public class ProfileValidationTestCase {
             + "rdfXmlPremiseOntology");
 
     @Test
-    public void testProfiles() throws OWLOntologyCreationException, URISyntaxException {
+    public void testProfiles() throws OWLOntologyCreationException,
+            URISyntaxException {
         OWLOntologyManager man = Factory.getManager();
-        URL resourceURL = ProfileValidationTestCase.class.getResource("/all.rdf");
+        URL resourceURL = ProfileValidationTestCase.class
+                .getResource("/all.rdf");
         IRI allTestURI = IRI.create(resourceURL);
-        OWLOntology testCasesOntology = man.loadOntologyFromOntologyDocument(allTestURI);
+        OWLOntology testCasesOntology = man
+                .loadOntologyFromOntologyDocument(allTestURI);
         OWLDataFactory df = man.getOWLDataFactory();
         OWLClass profileIdentificationTestClass = Class(PROFILE_IDENTIFICATION_TEST_IRI);
         OWLNamedIndividual EL = df.getOWLNamedIndividual(EL_IRI);
         OWLNamedIndividual QL = df.getOWLNamedIndividual(QL_IRI);
         OWLNamedIndividual RL = df.getOWLNamedIndividual(RL_IRI);
-        OWLObjectProperty speciesProperty = df.getOWLObjectProperty(SPECIES_IRI);
+        OWLObjectProperty speciesProperty = df
+                .getOWLObjectProperty(SPECIES_IRI);
         OWLNamedIndividual FULL = df.getOWLNamedIndividual(FULL_IRI);
         OWLNamedIndividual DL = df.getOWLNamedIndividual(DL_IRI);
         OWLDataProperty rdfXMLPremiseOntologyProperty = df
@@ -113,7 +120,8 @@ public class ProfileValidationTestCase {
                     .loadOntologyFromOntologyDocument(new StringDocumentSource(
                             ontologySerialisation));
             // FULL?
-            if (ind.hasObjectPropertyValue(speciesProperty, FULL, testCasesOntology)) {
+            if (ind.hasObjectPropertyValue(speciesProperty, FULL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
             if (ind.hasNegativeObjectPropertyValue(speciesProperty, FULL,
@@ -121,31 +129,39 @@ public class ProfileValidationTestCase {
                 checkProfile(ontology, new OWL2Profile(), false);
             }
             // DL?
-            if (ind.hasObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
+            if (ind.hasObjectPropertyValue(speciesProperty, DL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2DLProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, DL, testCasesOntology)) {
+            if (ind.hasNegativeObjectPropertyValue(speciesProperty, DL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2DLProfile(), false);
             }
             // EL?
-            if (ind.hasObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
+            if (ind.hasObjectPropertyValue(speciesProperty, EL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2ELProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, EL, testCasesOntology)) {
+            if (ind.hasNegativeObjectPropertyValue(speciesProperty, EL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2ELProfile(), false);
             }
             // QL?
-            if (ind.hasObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
+            if (ind.hasObjectPropertyValue(speciesProperty, QL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2QLProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, QL, testCasesOntology)) {
+            if (ind.hasNegativeObjectPropertyValue(speciesProperty, QL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2QLProfile(), false);
             }
             // RL?
-            if (ind.hasObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
+            if (ind.hasObjectPropertyValue(speciesProperty, RL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2RLProfile(), true);
             }
-            if (ind.hasNegativeObjectPropertyValue(speciesProperty, RL, testCasesOntology)) {
+            if (ind.hasNegativeObjectPropertyValue(speciesProperty, RL,
+                    testCasesOntology)) {
                 checkProfile(ontology, new OWL2RLProfile(), false);
             }
             man.removeOntology(ontology);
@@ -155,8 +171,10 @@ public class ProfileValidationTestCase {
     private void checkProfile(OWLOntology ontology, OWLProfile profile,
             boolean shouldBeInProfile) {
         OWLProfileReport report = profile.checkOntology(ontology);
-        assertEquals("FAIL: " + ontology.getOntologyID() + " should "
-                + (!shouldBeInProfile ? "not " : "") + "be in the " + profile.getName()
-                + " profile. Report: " + report, shouldBeInProfile, report.isInProfile());
+        assertEquals(
+                "FAIL: " + ontology.getOntologyID() + " should "
+                        + (!shouldBeInProfile ? "not " : "") + "be in the "
+                        + profile.getName() + " profile. Report: " + report,
+                shouldBeInProfile, report.isInProfile());
     }
 }

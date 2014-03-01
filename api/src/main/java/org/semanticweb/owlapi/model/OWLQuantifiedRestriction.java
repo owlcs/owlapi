@@ -38,16 +38,19 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group Date: 25-Oct-2006
  * @param <R>
- *            range
+ *        range
  * @param <P>
- *            property expression
+ *        property expression
  * @param <F>
- *            value */
+ *        value
+ */
 public interface OWLQuantifiedRestriction<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
         extends OWLRestriction<R, P, F>, HasFiller<F> {
+
     /** @return the filler */
     F getFiller();
 }

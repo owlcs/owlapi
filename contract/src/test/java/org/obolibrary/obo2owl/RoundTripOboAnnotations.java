@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 @SuppressWarnings("javadoc")
 public class RoundTripOboAnnotations extends RoundTripTest {
+
     @Test
     public void testIsInferredAnnotation() throws Exception {
         OBODoc input = parseOBOFile("is_inferred_annotation.obo");
@@ -40,10 +41,12 @@ public class RoundTripOboAnnotations extends RoundTripTest {
             if (!superClassCE.isAnonymous() && !subClassCE.isAnonymous()) {
                 OWLClass superClass = (OWLClass) superClassCE;
                 OWLClass subClass = (OWLClass) subClassCE;
-                if (superClass.getIRI().equals(t1) && subClass.getIRI().equals(t3)) {
+                if (superClass.getIRI().equals(t1)
+                        && subClass.getIRI().equals(t3)) {
                     Set<OWLAnnotation> annotations = axiom.getAnnotations();
                     for (OWLAnnotation owlAnnotation : annotations) {
-                        OWLAnnotationProperty property = owlAnnotation.getProperty();
+                        OWLAnnotationProperty property = owlAnnotation
+                                .getProperty();
                         if (property.getIRI().equals(isInferredIRI)) {
                             OWLAnnotationValue value = owlAnnotation.getValue();
                             if (value instanceof OWLLiteral) {

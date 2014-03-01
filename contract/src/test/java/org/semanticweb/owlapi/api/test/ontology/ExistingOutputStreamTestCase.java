@@ -55,13 +55,16 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** API writers/storers/renderers should not close streams if they didn't open
+/**
+ * API writers/storers/renderers should not close streams if they didn't open
  * them.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
- *         Informatics Group, Date: 16/02/2011 */
+ *         Informatics Group, Date: 16/02/2011
+ */
 @SuppressWarnings("javadoc")
 public class ExistingOutputStreamTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testOutputStreamRemainsOpen() throws Exception {
         OWLOntologyManager manager = getManager();

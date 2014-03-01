@@ -50,17 +50,21 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 01-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 01-Jul-2010
+ */
 public class AnonymousIndividualRoundtripTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLAnonymousIndividual ind = AnonymousIndividual();
         OWLClass cls = Class(getIRI("A"));
         OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(), ind);
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
+                cls.getIRI(), ind);
         axioms.add(ax);
         axioms.add(Declaration(cls));
         return axioms;

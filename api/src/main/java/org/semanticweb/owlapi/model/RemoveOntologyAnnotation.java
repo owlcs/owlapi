@@ -41,16 +41,21 @@ package org.semanticweb.owlapi.model;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
-/** Represents an ontology change where an annotation is removed from an
+/**
+ * Represents an ontology change where an annotation is removed from an
  * ontology.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 24-Mar-2009 */
+ *         Management Group, Date: 24-Mar-2009
+ */
 public class RemoveOntologyAnnotation extends AnnotationChange {
-    /** @param ont
-     *            the ontology to which the change is to be applied
+
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param annotation
-     *            the annotation */
+     *        the annotation
+     */
     public RemoveOntologyAnnotation(OWLOntology ont, OWLAnnotation annotation) {
         super(ont, annotation);
     }

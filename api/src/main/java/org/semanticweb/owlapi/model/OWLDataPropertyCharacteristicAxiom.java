@@ -38,7 +38,9 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public interface OWLDataPropertyCharacteristicAxiom extends OWLDataPropertyAxiom,
-        OWLUnaryPropertyAxiom<OWLDataPropertyExpression> {}
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public interface OWLDataPropertyCharacteristicAxiom extends
+        OWLDataPropertyAxiom, OWLUnaryPropertyAxiom<OWLDataPropertyExpression> {}

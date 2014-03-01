@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManagerFactory;
 
 @SuppressWarnings("javadoc")
 public class Factory {
+
     public static final String SYSTEM_PARAM_NAME = "OntologyManagerFactory";
     private static OWLOntologyManagerFactory factory;
     static {

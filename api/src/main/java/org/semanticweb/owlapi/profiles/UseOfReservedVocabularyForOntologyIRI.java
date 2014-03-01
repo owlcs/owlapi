@@ -40,12 +40,17 @@ package org.semanticweb.owlapi.profiles;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
-public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation implements
-        OWL2DLProfileViolation {
-    /** @param ontology
-     *            wrong ontology */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
+public class UseOfReservedVocabularyForOntologyIRI extends OWLProfileViolation
+        implements OWL2DLProfileViolation {
+
+    /**
+     * @param ontology
+     *        wrong ontology
+     */
     public UseOfReservedVocabularyForOntologyIRI(OWLOntology ontology) {
         super(ontology, null);
     }

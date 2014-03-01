@@ -43,8 +43,10 @@ import static org.semanticweb.owlapi.vocab.Namespaces.Status.IN_USE;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006
+ */
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
@@ -116,7 +118,8 @@ public enum Namespaces {
     }
 
     Namespaces(String prefix, String ns, Status status) {
-        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN : BUILT_IN);
+        this(prefix, ns, status, status == Status.LEGACY ? NOT_BUILT_IN
+                : BUILT_IN);
     }
 
     Namespaces(String prefix, String ns, Status status, BuiltIn builtIn) {
@@ -126,8 +129,10 @@ public enum Namespaces {
         this.builtIn = builtIn;
     }
 
-    /** @return A short, human-readable, prefix name that matches, and expands to
-     *         the full IRI. Not {@code null}. */
+    /**
+     * @return A short, human-readable, prefix name that matches, and expands to
+     *         the full IRI. Not {@code null}.
+     */
     public String getPrefixName() {
         return prefix;
     }
@@ -137,14 +142,18 @@ public enum Namespaces {
         return ns;
     }
 
-    /** @return {@code true} if this namespace is not obsolete and is currently in
-     *         active use, otherwise {@code false}. */
+    /**
+     * @return {@code true} if this namespace is not obsolete and is currently in
+     *         active use, otherwise {@code false}.
+     */
     public boolean isInUse() {
         return status == IN_USE;
     }
 
-    /** @return {@code true} if this namespace is defined as a core part of the
-     *         OWL-2 specification, otherwise {@code false}. */
+    /**
+     * @return {@code true} if this namespace is defined as a core part of the
+     *         OWL-2 specification, otherwise {@code false}.
+     */
     public boolean isBuiltIn() {
         return builtIn == BUILT_IN;
     }
@@ -154,22 +163,28 @@ public enum Namespaces {
         return ns;
     }
 
-    /** @param s
-     *            string to check
-     * @return true if s equals this namespace */
+    /**
+     * @param s
+     *        string to check
+     * @return true if s equals this namespace
+     */
     public boolean inNamespace(String s) {
         return ns.equals(s);
     }
 
-    /** @param i
-     *            iri to check
-     * @return true if the namespace for i equals this namespace */
+    /**
+     * @param i
+     *        iri to check
+     * @return true if the namespace for i equals this namespace
+     */
     public boolean inNamespace(IRI i) {
         return ns.equals(i.getNamespace());
     }
 
-    /** Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
-     * rdfs, or xsd */
+    /**
+     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
+     * rdfs, or xsd
+     */
     public static enum BuiltIn {
         /** built in flag. */
         BUILT_IN,

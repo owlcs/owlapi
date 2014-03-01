@@ -15,17 +15,19 @@ import org.w3c.dom.NodeList;
 
 @SuppressWarnings("javadoc")
 public class VerifyVersionInfoTestCase {
+
     @Test
     public void checkMatchVersion() throws Exception {
         // given
         VersionInfo info = VersionInfo.getVersionInfo();
-        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(new File("pom.xml"));
+        Document doc = DocumentBuilderFactory.newInstance()
+                .newDocumentBuilder().parse(new File("pom.xml"));
         NodeList list = doc.getDocumentElement().getChildNodes();
         boolean found = false;
         for (int i = 0; i < list.getLength() && !found; i++) {
             Node n = list.item(i);
-            if (n instanceof Element && ((Element) n).getTagName().equals("version")) {
+            if (n instanceof Element
+                    && ((Element) n).getTagName().equals("version")) {
                 String version = ((Element) n).getTextContent();
                 if (!version.equals(info.getVersion())) {
                     System.out

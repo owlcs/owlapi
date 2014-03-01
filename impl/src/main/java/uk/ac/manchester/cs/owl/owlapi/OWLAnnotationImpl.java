@@ -53,22 +53,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 19-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 19-Dec-2006
+ */
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
+
     private static final long serialVersionUID = 30406L;
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
     private final Set<OWLAnnotation> annotations;
 
-    /** @param property
-     *            annotation property
+    /**
+     * @param property
+     *        annotation property
      * @param value
-     *            annotation value
+     *        annotation value
      * @param annotations
-     *            annotations on the axiom */
-    public OWLAnnotationImpl(OWLAnnotationProperty property, OWLAnnotationValue value,
-            Set<? extends OWLAnnotation> annotations) {
+     *        annotations on the axiom
+     */
+    public OWLAnnotationImpl(OWLAnnotationProperty property,
+            OWLAnnotationValue value, Set<? extends OWLAnnotation> annotations) {
         super();
         this.property = property;
         this.value = value;
@@ -93,7 +98,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     }
 
     @Override
-    public OWLAnnotation getAnnotatedAnnotation(Set<OWLAnnotation> annotationsToAdd) {
+    public OWLAnnotation getAnnotatedAnnotation(
+            Set<OWLAnnotation> annotationsToAdd) {
         if (annotationsToAdd.isEmpty()) {
             return this;
         }
@@ -116,13 +122,15 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return property.isLabel();
     }
 
-    /** Determines if this annotation is an annotation used to deprecate an IRI.
+    /**
+     * Determines if this annotation is an annotation used to deprecate an IRI.
      * This is the case if the annotation property has an IRI of
      * {@code owl:deprecated} and the value of the annotation is
      * {@code "true"^^xsd:boolean}
      * 
      * @return {@code true} if this annotation is an annotation that can be used
-     *         to deprecate an IRI, otherwise {@code false}. */
+     *         to deprecate an IRI, otherwise {@code false}.
+     */
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral
@@ -134,7 +142,8 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     public boolean equals(Object obj) {
         if (super.equals(obj) && obj instanceof OWLAnnotation) {
             OWLAnnotation other = (OWLAnnotation) obj;
-            return other.getProperty().equals(property) && other.getValue().equals(value)
+            return other.getProperty().equals(property)
+                    && other.getValue().equals(value)
                     && other.getAnnotations().equals(annotations);
         }
         return false;

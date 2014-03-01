@@ -41,12 +41,17 @@ package org.coode.owlapi.owlxmlparser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ */
 public class OWLObjectHasValueElementHandler extends
         AbstractObjectRestrictionElementHandler<OWLIndividual> {
-    /** @param handler
-     *            owlxml handler */
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLObjectHasValueElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -63,6 +68,7 @@ public class OWLObjectHasValueElementHandler extends
 
     @Override
     protected OWLClassExpression createRestriction() {
-        return getOWLDataFactory().getOWLObjectHasValue(getProperty(), getFiller());
+        return getOWLDataFactory().getOWLObjectHasValue(getProperty(),
+                getFiller());
     }
 }

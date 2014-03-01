@@ -38,22 +38,27 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An event that gets posted to objects that listen for missing imports when
+/**
+ * An event that gets posted to objects that listen for missing imports when
  * silent missing import handling is set to {@code true} in an ontology manager.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 11-Apr-2008
  * @see org.semanticweb.owlapi.model.MissingImportListener
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
- * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener) */
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
+ */
 public class MissingImportEvent {
+
     private final IRI ontologyIRI;
     private final OWLOntologyCreationException creationException;
 
-    /** @param ontologyIRI
-     *            the ontology uri
+    /**
+     * @param ontologyIRI
+     *        the ontology uri
      * @param creationException
-     *            the creation exception */
+     *        the creation exception
+     */
     public MissingImportEvent(IRI ontologyIRI,
             OWLOntologyCreationException creationException) {
         this.ontologyIRI = ontologyIRI;

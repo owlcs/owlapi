@@ -51,9 +51,13 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 25-Jan-2007 */
-public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 25-Jan-2007
+ */
+public class OWLFunctionalSyntaxOntologyStorer extends
+        AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 30406L;
 
     @Override
@@ -62,8 +66,9 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     }
 
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager,
+            OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 
@@ -75,7 +80,8 @@ public class OWLFunctionalSyntaxOntologyStorer extends AbstractOWLOntologyStorer
             if (format instanceof PrefixOWLOntologyFormat) {
                 PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
                 DefaultPrefixManager man = new DefaultPrefixManager();
-                Map<String, String> map = prefixFormat.getPrefixName2PrefixMap();
+                Map<String, String> map = prefixFormat
+                        .getPrefixName2PrefixMap();
                 for (Map.Entry<String, String> e : map.entrySet()) {
                     man.setPrefix(e.getKey(), e.getValue());
                 }

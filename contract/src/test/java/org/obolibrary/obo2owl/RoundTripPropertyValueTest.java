@@ -4,6 +4,7 @@ import org.junit.Test;
 
 @SuppressWarnings("javadoc")
 public class RoundTripPropertyValueTest extends RoundTripTest {
+
     @Test
     public void testRoundTrip() throws Exception {
         roundTripOBOFile("property_value_test.obo", true);

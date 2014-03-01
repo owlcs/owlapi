@@ -40,9 +40,13 @@ package org.semanticweb.owlapi.api.test.literals;
 
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractLiteralWithEscapeTestCase;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 28/09/2011 */
-public class LiteralWithDoubleQuoteTestCase extends AbstractLiteralWithEscapeTestCase {
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 28/09/2011
+ */
+public class LiteralWithDoubleQuoteTestCase extends
+        AbstractLiteralWithEscapeTestCase {
+
     @Override
     protected String getEscape() {
         return "\"";

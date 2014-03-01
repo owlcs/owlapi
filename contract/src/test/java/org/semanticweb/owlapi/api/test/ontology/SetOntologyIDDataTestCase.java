@@ -10,10 +10,13 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 22/10/2012
+ */
 @SuppressWarnings("javadoc")
 public class SetOntologyIDDataTestCase {
+
     private OWLOntology mockOntology;
     private OWLOntologyID mockOntologyID;
 
@@ -23,10 +26,12 @@ public class SetOntologyIDDataTestCase {
         mockOntologyID = new OWLOntologyID();
     }
 
-    /** Creates SetOntologyIDData with the value of the {@code mockDeclaration}
+    /**
+     * Creates SetOntologyIDData with the value of the {@code mockDeclaration}
      * field as a parameter.
      * 
-     * @return The freshly created SetOntologyIDData */
+     * @return The freshly created SetOntologyIDData
+     */
     private SetOntologyIDData createData() {
         return new SetOntologyIDData(mockOntologyID);
     }

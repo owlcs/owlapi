@@ -52,22 +52,28 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
         OWLSubClassOfAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLClassExpression subClass;
     private final OWLClassExpression superClass;
 
-    /** @param subClass
-     *            subclass
+    /**
+     * @param subClass
+     *        subclass
      * @param superClass
-     *            superclass
+     *        superclass
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLSubClassOfAxiomImpl(OWLClassExpression subClass,
-            OWLClassExpression superClass, Collection<? extends OWLAnnotation> annotations) {
+            OWLClassExpression superClass,
+            Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.subClass = subClass;
         this.superClass = superClass;
@@ -77,7 +83,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
     @SuppressWarnings("javadoc")
     @Deprecated
     public Set<OWLClassExpression> getClassExpressions() {
-        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>(3);
+        Set<OWLClassExpression> classExpressions = new HashSet<OWLClassExpression>(
+                3);
         classExpressions.add(subClass);
         classExpressions.add(superClass);
         return classExpressions;
@@ -86,7 +93,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
     // XXX not in the interface
     @SuppressWarnings("javadoc")
     @Deprecated
-    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... desc) {
+    public Set<OWLClassExpression> getClassExpressionsMinus(
+            OWLClassExpression... desc) {
         Set<OWLClassExpression> classExpressions = getClassExpressions();
         for (OWLClassExpression ce : desc) {
             classExpressions.remove(ce);
@@ -96,7 +104,8 @@ public class OWLSubClassOfAxiomImpl extends OWLClassAxiomImpl implements
 
     @Override
     public OWLSubClassOfAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLSubClassOfAxiomImpl(subClass, superClass, mergeAnnos(annotations));
+        return new OWLSubClassOfAxiomImpl(subClass, superClass,
+                mergeAnnos(annotations));
     }
 
     @Override

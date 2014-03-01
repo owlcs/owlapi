@@ -42,23 +42,29 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLQuantifiedRestriction;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 26-Oct-2006
  * @param <P>
- *            property type
+ *        property type
  * @param <R>
- *            range type
+ *        range type
  * @param <F>
- *            range type */
+ *        range type
+ */
 public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>, F extends OWLPropertyRange>
-        extends OWLRestrictionImpl<R, P, F> implements OWLQuantifiedRestriction<R, P, F> {
+        extends OWLRestrictionImpl<R, P, F> implements
+        OWLQuantifiedRestriction<R, P, F> {
+
     private static final long serialVersionUID = 30406L;
     private final F filler;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OWLQuantifiedRestrictionImpl(P property, F filler) {
         super(property);
         this.filler = filler;
@@ -73,8 +79,8 @@ public abstract class OWLQuantifiedRestrictionImpl<R extends OWLPropertyRange, P
     public boolean equals(Object obj) {
         if (super.equals(obj)) {
             if (obj instanceof OWLQuantifiedRestriction) {
-                return ((OWLQuantifiedRestriction<?, ?, ?>) obj).getFiller().equals(
-                        filler);
+                return ((OWLQuantifiedRestriction<?, ?, ?>) obj).getFiller()
+                        .equals(filler);
             }
         }
         return false;

@@ -53,17 +53,20 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 07-Jul-2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 07-Jul-2010
+ */
 @SuppressWarnings("javadoc")
 public class LiteralTestCase extends AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLLiteral literalWithLang = Literal("abc", "en");
         OWLClass cls = Class(getIRI("A"));
         OWLAnnotationProperty prop = AnnotationProperty(getIRI("prop"));
-        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop, cls.getIRI(),
-                literalWithLang);
+        OWLAnnotationAssertionAxiom ax = AnnotationAssertion(prop,
+                cls.getIRI(), literalWithLang);
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.add(ax);
         axioms.add(Declaration(cls));

@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** @author cjm */
 @SuppressWarnings("javadoc")
 public class SubsetTest extends OboFormatTestBasics {
+
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE

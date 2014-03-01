@@ -42,17 +42,24 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
+ */
 public class OWLClassNode extends DefaultNode<OWLClass> {
-    /** @param entity
-     *            the class to be contained */
+
+    /**
+     * @param entity
+     *        the class to be contained
+     */
     public OWLClassNode(OWLClass entity) {
         super(entity);
     }
 
-    /** @param entities
-     *            the classes to be contained */
+    /**
+     * @param entities
+     *        the classes to be contained
+     */
     public OWLClassNode(Set<OWLClass> entities) {
         super(entities);
     }

@@ -50,9 +50,12 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
-    /** @param owlOntologyManager
-     *            manager
-     * @deprecated manager is unnecessary */
+
+    /**
+     * @param owlOntologyManager
+     *        manager
+     * @deprecated manager is unnecessary
+     */
     @Deprecated
     @SuppressWarnings("unused")
     public KRSS2SyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
@@ -61,7 +64,8 @@ public class KRSS2SyntaxRenderer extends AbstractOWLRenderer {
     public KRSS2SyntaxRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         try {
             KRSS2ObjectRenderer ren = new KRSS2ObjectRenderer(ontology, writer);
             ontology.accept(ren);

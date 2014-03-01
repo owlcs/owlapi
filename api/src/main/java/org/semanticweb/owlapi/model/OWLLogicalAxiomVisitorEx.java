@@ -38,239 +38,308 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 17-Jan-2009
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLLogicalAxiomVisitorEx<O> {
-    /** visit OWLSubClassOfAxiom type
+
+    /**
+     * visit OWLSubClassOfAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLSubClassOfAxiom axiom);
 
-    /** visit OWLNegativeObjectPropertyAssertionAxiom type
+    /**
+     * visit OWLNegativeObjectPropertyAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLNegativeObjectPropertyAssertionAxiom axiom);
 
-    /** visit OWLAsymmetricObjectPropertyAxiom type
+    /**
+     * visit OWLAsymmetricObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLAsymmetricObjectPropertyAxiom axiom);
 
-    /** visit OWLReflexiveObjectPropertyAxiom type
+    /**
+     * visit OWLReflexiveObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLReflexiveObjectPropertyAxiom axiom);
 
-    /** visit OWLDisjointClassesAxiom type
+    /**
+     * visit OWLDisjointClassesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDisjointClassesAxiom axiom);
 
-    /** visit OWLDataPropertyDomainAxiom type
+    /**
+     * visit OWLDataPropertyDomainAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataPropertyDomainAxiom axiom);
 
-    /** visit OWLObjectPropertyDomainAxiom type
+    /**
+     * visit OWLObjectPropertyDomainAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLObjectPropertyDomainAxiom axiom);
 
-    /** visit OWLEquivalentObjectPropertiesAxiom type
+    /**
+     * visit OWLEquivalentObjectPropertiesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLEquivalentObjectPropertiesAxiom axiom);
 
-    /** visit OWLNegativeDataPropertyAssertionAxiom type
+    /**
+     * visit OWLNegativeDataPropertyAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLNegativeDataPropertyAssertionAxiom axiom);
 
-    /** visit OWLDifferentIndividualsAxiom type
+    /**
+     * visit OWLDifferentIndividualsAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDifferentIndividualsAxiom axiom);
 
-    /** visit OWLDisjointDataPropertiesAxiom type
+    /**
+     * visit OWLDisjointDataPropertiesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDisjointDataPropertiesAxiom axiom);
 
-    /** visit OWLDisjointObjectPropertiesAxiom type
+    /**
+     * visit OWLDisjointObjectPropertiesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDisjointObjectPropertiesAxiom axiom);
 
-    /** visit OWLObjectPropertyRangeAxiom type
+    /**
+     * visit OWLObjectPropertyRangeAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLObjectPropertyRangeAxiom axiom);
 
-    /** visit OWLObjectPropertyAssertionAxiom type
+    /**
+     * visit OWLObjectPropertyAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLObjectPropertyAssertionAxiom axiom);
 
-    /** visit OWLFunctionalObjectPropertyAxiom type
+    /**
+     * visit OWLFunctionalObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLFunctionalObjectPropertyAxiom axiom);
 
-    /** visit OWLSubObjectPropertyOfAxiom type
+    /**
+     * visit OWLSubObjectPropertyOfAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLSubObjectPropertyOfAxiom axiom);
 
-    /** visit OWLDisjointUnionAxiom type
+    /**
+     * visit OWLDisjointUnionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDisjointUnionAxiom axiom);
 
-    /** visit OWLSymmetricObjectPropertyAxiom type
+    /**
+     * visit OWLSymmetricObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLSymmetricObjectPropertyAxiom axiom);
 
-    /** visit OWLDataPropertyRangeAxiom type
+    /**
+     * visit OWLDataPropertyRangeAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataPropertyRangeAxiom axiom);
 
-    /** visit OWLFunctionalDataPropertyAxiom type
+    /**
+     * visit OWLFunctionalDataPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLFunctionalDataPropertyAxiom axiom);
 
-    /** visit OWLEquivalentDataPropertiesAxiom type
+    /**
+     * visit OWLEquivalentDataPropertiesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLEquivalentDataPropertiesAxiom axiom);
 
-    /** visit OWLClassAssertionAxiom type
+    /**
+     * visit OWLClassAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLClassAssertionAxiom axiom);
 
-    /** visit OWLEquivalentClassesAxiom type
+    /**
+     * visit OWLEquivalentClassesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLEquivalentClassesAxiom axiom);
 
-    /** visit OWLDataPropertyAssertionAxiom type
+    /**
+     * visit OWLDataPropertyAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLDataPropertyAssertionAxiom axiom);
 
-    /** visit OWLTransitiveObjectPropertyAxiom type
+    /**
+     * visit OWLTransitiveObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLTransitiveObjectPropertyAxiom axiom);
 
-    /** visit OWLIrreflexiveObjectPropertyAxiom type
+    /**
+     * visit OWLIrreflexiveObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLIrreflexiveObjectPropertyAxiom axiom);
 
-    /** visit OWLSubDataPropertyOfAxiom type
+    /**
+     * visit OWLSubDataPropertyOfAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLSubDataPropertyOfAxiom axiom);
 
-    /** visit OWLInverseFunctionalObjectPropertyAxiom type
+    /**
+     * visit OWLInverseFunctionalObjectPropertyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLInverseFunctionalObjectPropertyAxiom axiom);
 
-    /** visit OWLSameIndividualAxiom type
+    /**
+     * visit OWLSameIndividualAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLSameIndividualAxiom axiom);
 
-    /** visit OWLSubPropertyChainOfAxiom type
+    /**
+     * visit OWLSubPropertyChainOfAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLSubPropertyChainOfAxiom axiom);
 
-    /** visit OWLInverseObjectPropertiesAxiom type
+    /**
+     * visit OWLInverseObjectPropertiesAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLInverseObjectPropertiesAxiom axiom);
 
-    /** visit OWLHasKeyAxiom type
+    /**
+     * visit OWLHasKeyAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(OWLHasKeyAxiom axiom);
 
-    /** visit SWRLRule type
+    /**
+     * visit SWRLRule type
      * 
      * @param rule
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(SWRLRule rule);
 }

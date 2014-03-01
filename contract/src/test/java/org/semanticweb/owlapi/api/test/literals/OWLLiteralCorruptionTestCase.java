@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 
 @SuppressWarnings("javadoc")
 public class OWLLiteralCorruptionTestCase {
+
     @Test
     public void testmain() {
         String TEST_STRING;

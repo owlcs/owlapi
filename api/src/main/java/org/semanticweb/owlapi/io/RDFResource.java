@@ -42,27 +42,34 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFResource extends RDFNode implements Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final IRI resource;
     private final boolean anonymous;
 
-    /** @param resource
-     *            the resource
+    /**
+     * @param resource
+     *        the resource
      * @param anonymous
-     *            true if the resource is anonymous */
+     *        true if the resource is anonymous
+     */
     public RDFResource(IRI resource, boolean anonymous) {
         this.resource = resource;
         this.anonymous = anonymous;
     }
 
-    /** Create an RDFResource that is NOT anonymous.
+    /**
+     * Create an RDFResource that is NOT anonymous.
      * 
      * @param resource
-     *            The IRI of the resource */
+     *        The IRI of the resource
+     */
     public RDFResource(IRI resource) {
         this(resource, false);
     }

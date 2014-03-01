@@ -53,19 +53,24 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDataPropertyDomainAxiomImpl extends
         OWLPropertyDomainAxiomImpl<OWLDataPropertyExpression> implements
         OWLDataPropertyDomainAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param domain
-     *            domain
+     *        domain
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDataPropertyDomainAxiomImpl(OWLDataPropertyExpression property,
             OWLClassExpression domain, Set<? extends OWLAnnotation> annotations) {
         super(property, domain, annotations);

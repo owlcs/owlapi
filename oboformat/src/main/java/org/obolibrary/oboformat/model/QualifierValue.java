@@ -2,13 +2,16 @@ package org.obolibrary.oboformat.model;
 
 /** qualifier value */
 public class QualifierValue {
+
     protected String qualifier;
     protected Object value;
 
-    /** @param q
-     *            qualifier
+    /**
+     * @param q
+     *        qualifier
      * @param v
-     *            value */
+     *        value
+     */
     public QualifierValue(String q, String v) {
         qualifier = q;
         value = v;
@@ -19,8 +22,10 @@ public class QualifierValue {
         return qualifier;
     }
 
-    /** @param qualifier
-     *            qualifier */
+    /**
+     * @param qualifier
+     *        qualifier
+     */
     public void setQualifier(String qualifier) {
         this.qualifier = qualifier;
     }
@@ -30,8 +35,10 @@ public class QualifierValue {
         return value;
     }
 
-    /** @param value
-     *            value */
+    /**
+     * @param value
+     *        value
+     */
     public void setValue(Object value) {
         this.value = value;
     }
@@ -45,7 +52,8 @@ public class QualifierValue {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (qualifier == null ? 0 : qualifier.hashCode());
+        result = prime * result
+                + (qualifier == null ? 0 : qualifier.hashCode());
         result = prime * result + (value == null ? 0 : value.hashCode());
         return result;
     }

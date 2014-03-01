@@ -40,70 +40,87 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Represents <a href=
+/**
+ * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
  * >Entities</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
-    /** Gets the entity type for this entity
+
+    /**
+     * Gets the entity type for this entity
      * 
-     * @return The entity type */
+     * @return The entity type
+     */
     EntityType<?> getEntityType();
 
-    /** Gets an entity that has the same IRI as this entity but is of the
+    /**
+     * Gets an entity that has the same IRI as this entity but is of the
      * specified type.
      * 
      * @param entityType
-     *            The type of the entity to obtain. This entity is not affected
-     *            in any way.
+     *        The type of the entity to obtain. This entity is not affected in
+     *        any way.
      * @return An entity that has the same IRI as this entity and is of the
      *         specified type
      * @param <E>
-     *            entity type
-     * @deprecated use a datafactory instead */
+     *        entity type
+     * @deprecated use a datafactory instead
+     */
     @Deprecated
     <E extends OWLEntity> E getOWLEntity(EntityType<E> entityType);
 
-    /** Tests to see if this entity is of the specified type
+    /**
+     * Tests to see if this entity is of the specified type
      * 
      * @param entityType
-     *            The entity type
+     *        The entity type
      * @return {@code true} if this entity is of the specified type, otherwise
-     *         {@code false}. */
+     *         {@code false}.
+     */
     boolean isType(EntityType<?> entityType);
 
-    /** Gets the annotations for this entity. These are deemed to be annotations
+    /**
+     * Gets the annotations for this entity. These are deemed to be annotations
      * in annotation assertion axioms that have a subject that is an IRI that is
      * equal to the IRI of this entity.
      * 
      * @param ontology
-     *            The ontology to be examined for annotation assertion axioms
+     *        The ontology to be examined for annotation assertion axioms
      * @return The annotations that participate directly in an annotation
      *         assertion whose subject is an IRI corresponding to the IRI of
-     *         this entity. */
+     *         this entity.
+     */
     Set<OWLAnnotation> getAnnotations(OWLOntology ontology);
 
-    /** Obtains the annotations on this entity where the annotation has the
+    /**
+     * Obtains the annotations on this entity where the annotation has the
      * specified annotation property.
      * 
      * @param ontology
-     *            The ontology to examine for annotation axioms
+     *        The ontology to examine for annotation axioms
      * @param annotationProperty
-     *            The annotation property
+     *        The annotation property
      * @return A set of {@code OWLAnnotation} objects that have the specified
-     *         URI. */
+     *         URI.
+     */
     Set<OWLAnnotation> getAnnotations(OWLOntology ontology,
             OWLAnnotationProperty annotationProperty);
 
-    /** @param ontology
-     *            the ontology to use
+    /**
+     * @param ontology
+     *        the ontology to use
      * @return the annotation assertion axioms about this entity in the provided
-     *         ontology */
-    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(OWLOntology ontology);
+     *         ontology
+     */
+    Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
+            OWLOntology ontology);
 
-    /** Determines if this entity is a built in entity. The entity is a built in
+    /**
+     * Determines if this entity is a built in entity. The entity is a built in
      * entity if it is:
      * <ul>
      * <li>a class and the URI corresponds to owl:Thing or owl:Nothing</li>
@@ -129,141 +146,177 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      * </ul>
      * 
      * @return {@code true} if this entity is a built in entity, or
-     *         {@code false} if this entity is not a builtin entity. */
+     *         {@code false} if this entity is not a builtin entity.
+     */
     boolean isBuiltIn();
 
-    /** A convenience method that determines if this entity is an OWLClass
+    /**
+     * A convenience method that determines if this entity is an OWLClass
      * 
      * @return {@code true} if this entity is an OWLClass, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLClass();
 
-    /** A convenience method that obtains this entity as an OWLClass (in order to
+    /**
+     * A convenience method that obtains this entity as an OWLClass (in order to
      * avoid explicit casting).
      * 
      * @return The entity as an OWLClass.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLClass (check with the isOWLClass
-     *             method first). */
+     *         if this entity is not an OWLClass (check with the isOWLClass
+     *         method first).
+     */
     OWLClass asOWLClass();
 
-    /** A convenience method that determines if this entity is an
+    /**
+     * A convenience method that determines if this entity is an
      * OWLObjectProperty
      * 
      * @return {@code true} if this entity is an OWLObjectProperty, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLObjectProperty();
 
-    /** A convenience method that obtains this entity as an OWLObjectProperty (in
+    /**
+     * A convenience method that obtains this entity as an OWLObjectProperty (in
      * order to avoid explicit casting).
      * 
      * @return The entity as an OWLObjectProperty.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLObjectProperty (check with the
-     *             isOWLObjectProperty method first). */
+     *         if this entity is not an OWLObjectProperty (check with the
+     *         isOWLObjectProperty method first).
+     */
     OWLObjectProperty asOWLObjectProperty();
 
-    /** A convenience method that determines if this entity is an OWLDataProperty
+    /**
+     * A convenience method that determines if this entity is an OWLDataProperty
      * 
      * @return {@code true} if this entity is an OWLDataProperty, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLDataProperty();
 
-    /** A convenience method that obtains this entity as an OWLDataProperty (in
+    /**
+     * A convenience method that obtains this entity as an OWLDataProperty (in
      * order to avoid explicit casting).
      * 
      * @return The entity as an OWLDataProperty.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLDataProperty (check with the
-     *             isOWLDataProperty method first). */
+     *         if this entity is not an OWLDataProperty (check with the
+     *         isOWLDataProperty method first).
+     */
     OWLDataProperty asOWLDataProperty();
 
-    /** A convenience method that determines if this entity is an
+    /**
+     * A convenience method that determines if this entity is an
      * OWLNamedIndividual
      * 
      * @return {@code true} if this entity is an OWLNamedIndividual, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLNamedIndividual();
 
-    /** A convenience method that obtains this entity as an OWLNamedIndividual
+    /**
+     * A convenience method that obtains this entity as an OWLNamedIndividual
      * (in order to avoid explicit casting).
      * 
      * @return The entity as an OWLNamedIndividual.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLIndividual (check with the
-     *             isOWLIndividual method first). */
+     *         if this entity is not an OWLIndividual (check with the
+     *         isOWLIndividual method first).
+     */
     OWLNamedIndividual asOWLNamedIndividual();
 
-    /** A convenience method that determines if this entity is an OWLDatatype
+    /**
+     * A convenience method that determines if this entity is an OWLDatatype
      * 
      * @return {@code true} if this entity is an OWLDatatype, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLDatatype();
 
-    /** A convenience method that obtains this entity as an OWLDatatype (in order
+    /**
+     * A convenience method that obtains this entity as an OWLDatatype (in order
      * to avoid explicit casting).
      * 
      * @return The entity as an OWLDatatype.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLDatatype (check with the
-     *             isOWLDatatype method first). */
+     *         if this entity is not an OWLDatatype (check with the
+     *         isOWLDatatype method first).
+     */
     OWLDatatype asOWLDatatype();
 
-    /** A convenience method that determines if this entity is an
+    /**
+     * A convenience method that determines if this entity is an
      * OWLAnnotationProperty
      * 
      * @return {@code true} if this entity is an OWLAnnotationProperty,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isOWLAnnotationProperty();
 
-    /** A convenience method that obtains this entity as an OWLAnnotationProperty
+    /**
+     * A convenience method that obtains this entity as an OWLAnnotationProperty
      * (in order to avoid explicit casting).
      * 
      * @return The entity as an OWLAnnotationProperty.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLAnnotationProperty */
+     *         if this entity is not an OWLAnnotationProperty
+     */
     OWLAnnotationProperty asOWLAnnotationProperty();
 
-    /** Returns a string representation that can be used as the ID of this
+    /**
+     * Returns a string representation that can be used as the ID of this
      * entity. This is the toString representation of the IRI
      * 
-     * @return A string representing the toString of the IRI of this entity. */
+     * @return A string representing the toString of the IRI of this entity.
+     */
     String toStringID();
 
-    /** Gets the axioms in the specified ontology that contain this entity in
+    /**
+     * Gets the axioms in the specified ontology that contain this entity in
      * their signature.
      * 
      * @param ontology
-     *            The ontology that will be searched for axioms
+     *        The ontology that will be searched for axioms
      * @return The axioms in the specified ontology whose signature contains
-     *         this entity. */
+     *         this entity.
+     */
     Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology);
 
-    /** Gets the axioms in the specified ontology and possibly its imports
+    /**
+     * Gets the axioms in the specified ontology and possibly its imports
      * closure that contain this entity in their signature.
      * 
      * @param ontology
-     *            The ontology that will be searched for axioms
+     *        The ontology that will be searched for axioms
      * @param includeImports
-     *            If {@code true} then axioms in the imports closure will also
-     *            be returned, if {@code false} then only the axioms in the
-     *            specified ontology will be returned.
+     *        If {@code true} then axioms in the imports closure will also be
+     *        returned, if {@code false} then only the axioms in the specified
+     *        ontology will be returned.
      * @return The axioms in the specified ontology whose signature contains
-     *         this entity. */
-    Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology, boolean includeImports);
+     *         this entity.
+     */
+    Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology,
+            boolean includeImports);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(OWLEntityVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLEntityVisitorEx<O> visitor);
 }

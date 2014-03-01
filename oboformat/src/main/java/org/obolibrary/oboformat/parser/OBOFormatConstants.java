@@ -7,8 +7,10 @@ import java.util.Set;
 
 /** oboformat constants */
 public class OBOFormatConstants {
+
     /** oboformat tags */
     public enum OboFormatTag {
+
         //@formatter:off
         /**TAG_FORMAT_VERSION*/ TAG_FORMAT_VERSION("format-version"),
         /**TAG_ONTOLOGY*/ TAG_ONTOLOGY( "ontology"),
@@ -110,16 +112,21 @@ public class OBOFormatConstants {
         TAGS = tagsTable.keySet();
     }
 
-    /** @param tag
-     *            tag
-     * @return oboformat tag */
+    /**
+     * @param tag
+     *        tag
+     * @return oboformat tag
+     */
     public static OboFormatTag getTag(String tag) {
         return tagsTable.get(tag);
     }
 
-    /** Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
-     * safety, as {@link SimpleDateFormat} is not thread safe. */
+    /**
+     * Date format for OboFormatTag.TAG_DATE Use Thread local to ensure thread
+     * safety, as {@link SimpleDateFormat} is not thread safe.
+     */
     public static final ThreadLocal<DateFormat> headerDateFormat = new ThreadLocal<DateFormat>() {
+
         @Override
         protected DateFormat initialValue() {
             return new SimpleDateFormat("dd:MM:yyyy HH:mm");

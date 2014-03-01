@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 07-Sep-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 07-Sep-2008
+ */
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testOntologyID() {
         IRI iriA = IRI("http://www.another.com/ont");
@@ -101,7 +104,8 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
     public void testVersionURI() throws Exception {
         IRI ontIRI = IRI("http://www.another.com/ont");
         IRI verIRI = IRI("http://www.another.com/ont/versions/1.0.0");
-        OWLOntology ont = getManager().createOntology(new OWLOntologyID(ontIRI, verIRI));
+        OWLOntology ont = getManager().createOntology(
+                new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
     }
@@ -110,7 +114,8 @@ public class OntologyURITestCase extends AbstractOWLAPITestCase {
     public void testNullVersionURI() throws Exception {
         IRI ontIRI = IRI("http://www.another.com/ont");
         IRI verIRI = null;
-        OWLOntology ont = getManager().createOntology(new OWLOntologyID(ontIRI, verIRI));
+        OWLOntology ont = getManager().createOntology(
+                new OWLOntologyID(ontIRI, verIRI));
         assertEquals(ont.getOntologyID().getOntologyIRI(), ontIRI);
         assertEquals(ont.getOntologyID().getVersionIRI(), verIRI);
     }

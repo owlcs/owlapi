@@ -43,26 +43,32 @@ import java.util.TreeSet;
 
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 30-Jul-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
+ *         Group, Date: 30-Jul-2008
+ */
 public class OWL2ProfileReport extends OWLProfileReport {
+
     private final Set<OWLObjectPropertyExpression> nonSimpleRoles;
     private final Set<OWLObjectPropertyExpression> simpleRoles;
 
-    /** @param profile
-     *            the profile
+    /**
+     * @param profile
+     *        the profile
      * @param disallowedConstructs
-     *            the constructs not allowed
+     *        the constructs not allowed
      * @param nonSimpleRoles
-     *            the collection of non simple roles
+     *        the collection of non simple roles
      * @param simpleRoles
-     *            the collection of simple roles */
+     *        the collection of simple roles
+     */
     public OWL2ProfileReport(OWLProfile profile,
             Set<OWLProfileViolation> disallowedConstructs,
             Set<OWLObjectPropertyExpression> nonSimpleRoles,
             Set<OWLObjectPropertyExpression> simpleRoles) {
         super(profile, disallowedConstructs);
-        this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(nonSimpleRoles);
+        this.nonSimpleRoles = new TreeSet<OWLObjectPropertyExpression>(
+                nonSimpleRoles);
         this.simpleRoles = new TreeSet<OWLObjectPropertyExpression>(simpleRoles);
     }
 

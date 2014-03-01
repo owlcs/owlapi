@@ -44,34 +44,41 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** An ontology IRI mapper that can be used to map ontology IRIs to ontology
+/**
+ * An ontology IRI mapper that can be used to map ontology IRIs to ontology
  * document IRIs which share the same base.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 07-Feb-2007 */
+ *         Informatics Group, Date: 07-Feb-2007
+ */
 public class CommonBaseIRIMapper implements OWLOntologyIRIMapper {
+
     private final IRI base;
     private final Map<IRI, IRI> iriMap;
 
-    /** Creates a mapper, which maps ontology URIs to URIs which share the
+    /**
+     * Creates a mapper, which maps ontology URIs to URIs which share the
      * specified base.
      * 
      * @param base
-     *            the base IRI */
+     *        the base IRI
+     */
     public CommonBaseIRIMapper(IRI base) {
         this.base = base;
         iriMap = new HashMap<IRI, IRI>();
     }
 
-    /** Adds a mapping from an ontology IRI to an ontology document IRI which has
+    /**
+     * Adds a mapping from an ontology IRI to an ontology document IRI which has
      * a base of this mapper and a specified local name - in other words the
      * document IRI will be determined by resolving the local name against the
      * URI base of this mapper.
      * 
      * @param ontologyIRI
-     *            the ontology IRI
+     *        the ontology IRI
      * @param localName
-     *            the document IRI */
+     *        the document IRI
+     */
     public void addMapping(IRI ontologyIRI, String localName) {
         IRI documentIRI = base.resolve(localName);
         iriMap.put(ontologyIRI, documentIRI);

@@ -43,39 +43,46 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFTriple implements Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final RDFResource subject;
     private final RDFResource predicate;
     private final RDFNode object;
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param object
-     *            the object */
+     *        the object
+     */
     public RDFTriple(RDFResource subject, RDFResource predicate, RDFNode object) {
         this.subject = subject;
         this.predicate = predicate;
         this.object = object;
     }
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param subjectAnon
-     *            whether the subject is anonymous
+     *        whether the subject is anonymous
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param predicateAnon
-     *            whether the predicate is anon
+     *        whether the predicate is anon
      * @param object
-     *            the object
+     *        the object
      * @param objectAnon
-     *            whether the object is anonymous */
+     *        whether the object is anonymous
+     */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
             boolean predicateAnon, IRI object, boolean objectAnon) {
         this.subject = new RDFResource(subject, subjectAnon);
@@ -83,16 +90,18 @@ public class RDFTriple implements Serializable {
         this.object = new RDFResource(object, objectAnon);
     }
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param subjectAnon
-     *            whether the subject is anonymous
+     *        whether the subject is anonymous
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param predicateAnon
-     *            whether the predicate is anon
+     *        whether the predicate is anon
      * @param object
-     *            the object */
+     *        the object
+     */
     public RDFTriple(IRI subject, boolean subjectAnon, IRI predicate,
             boolean predicateAnon, OWLLiteral object) {
         this.subject = new RDFResource(subject, subjectAnon);
@@ -117,7 +126,8 @@ public class RDFTriple implements Serializable {
 
     @Override
     public int hashCode() {
-        return subject.hashCode() * 37 + predicate.hashCode() * 17 + object.hashCode();
+        return subject.hashCode() * 37 + predicate.hashCode() * 17
+                + object.hashCode();
     }
 
     @Override
@@ -129,7 +139,8 @@ public class RDFTriple implements Serializable {
             return false;
         }
         RDFTriple other = (RDFTriple) o;
-        return subject.equals(other.subject) && predicate.equals(other.predicate)
+        return subject.equals(other.subject)
+                && predicate.equals(other.predicate)
                 && object.equals(other.object);
     }
 

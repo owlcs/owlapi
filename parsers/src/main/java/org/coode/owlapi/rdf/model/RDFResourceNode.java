@@ -41,24 +41,31 @@ package org.coode.owlapi.rdf.model;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006
+ */
 public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
+
     private IRI iri;
     private int anonId;
 
-    /** Constructs a named resource (i.e. a resource with a IRI).
+    /**
+     * Constructs a named resource (i.e. a resource with a IRI).
      * 
      * @param iri
-     *            the IRI */
+     *        the IRI
+     */
     public RDFResourceNode(IRI iri) {
         this.iri = iri;
     }
 
-    /** Constructs an anonymous node, which has the specified ID.
+    /**
+     * Constructs an anonymous node, which has the specified ID.
      * 
      * @param anonId
-     *            The id of the node */
+     *        The id of the node
+     */
     public RDFResourceNode(int anonId) {
         this.anonId = anonId;
     }
@@ -109,7 +116,8 @@ public class RDFResourceNode extends RDFNode implements Comparable<RDFNode> {
 
     @Override
     public String toString() {
-        return iri != null ? "<" + iri.toString() + ">" : NodeID.nodeString(anonId);
+        return iri != null ? "<" + iri.toString() + ">" : NodeID
+                .nodeString(anonId);
     }
 
     /** @return a comparable id for this node */

@@ -48,21 +48,25 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Provides ordering and indenting of explanations based on various ordering
+/**
+ * Provides ordering and indenting of explanations based on various ordering
  * heuristics.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group, Date: 11-Jan-2008
  * @deprecated use ExplanationOrdererImpl instead - this class depends on
- *             OWLManager, while ExplanationOrdererImpl does not. */
+ *             OWLManager, while ExplanationOrdererImpl does not.
+ */
 @Deprecated
 public class DefaultExplanationOrderer implements ExplanationOrderer {
+
     private ExplanationOrdererImpl delegate;
 
     @SuppressWarnings("javadoc")
     public DefaultExplanationOrderer() {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
         man.addIRIMapper(new OWLOntologyIRIMapper() {
+
             @Override
             public IRI getDocumentIRI(IRI ontologyIRI) {
                 return ontologyIRI;
@@ -72,17 +76,19 @@ public class DefaultExplanationOrderer implements ExplanationOrderer {
     }
 
     @Override
-    public ExplanationTree
-            getOrderedExplanation(OWLAxiom entailment, Set<OWLAxiom> axioms) {
+    public ExplanationTree getOrderedExplanation(OWLAxiom entailment,
+            Set<OWLAxiom> axioms) {
         return delegate.getOrderedExplanation(entailment, axioms);
     }
 
-    /** Gets axioms that have a LHS corresponding to the specified entity.
+    /**
+     * Gets axioms that have a LHS corresponding to the specified entity.
      * 
      * @param lhs
-     *            The entity that occurs on the left hand side of the axiom.
+     *        The entity that occurs on the left hand side of the axiom.
      * @return A set of axioms that have the specified entity as their left hand
-     *         side. */
+     *         side.
+     */
     protected Set<OWLAxiom> getAxiomsForLHS(OWLEntity lhs) {
         return delegate.getAxiomsForLHS(lhs);
     }

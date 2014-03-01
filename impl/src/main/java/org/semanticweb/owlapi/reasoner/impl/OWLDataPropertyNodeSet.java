@@ -43,26 +43,35 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 05-Dec-2009
+ */
 public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
+
     /** default constructor. */
     public OWLDataPropertyNodeSet() {}
 
-    /** @param entity
-     *            the entity to be contained */
+    /**
+     * @param entity
+     *        the entity to be contained
+     */
     public OWLDataPropertyNodeSet(OWLDataProperty entity) {
         super(entity);
     }
 
-    /** @param owlDataPropertyNode
-     *            the node to be contained */
+    /**
+     * @param owlDataPropertyNode
+     *        the node to be contained
+     */
     public OWLDataPropertyNodeSet(Node<OWLDataProperty> owlDataPropertyNode) {
         super(owlDataPropertyNode);
     }
 
-    /** @param nodes
-     *            the nodes to be contained */
+    /**
+     * @param nodes
+     *        the nodes to be contained
+     */
     public OWLDataPropertyNodeSet(Set<Node<OWLDataProperty>> nodes) {
         super(nodes);
     }
@@ -73,7 +82,8 @@ public class OWLDataPropertyNodeSet extends DefaultNodeSet<OWLDataProperty> {
     }
 
     @Override
-    protected DefaultNode<OWLDataProperty> getNode(Set<OWLDataProperty> entities) {
+    protected DefaultNode<OWLDataProperty>
+            getNode(Set<OWLDataProperty> entities) {
         return NodeFactory.getOWLDataPropertyNode(entities);
     }
 }

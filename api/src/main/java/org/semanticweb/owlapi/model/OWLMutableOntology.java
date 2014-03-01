@@ -40,22 +40,29 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 25-Oct-2006
+ */
 public interface OWLMutableOntology extends OWLOntology {
-    /** @param change
-     *            the change to apply
+
+    /**
+     * @param change
+     *        the change to apply
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
-     *             if errors happen */
+     *         if errors happen
+     */
     List<OWLOntologyChange> applyChange(OWLOntologyChange change)
             throws OWLOntologyChangeException;
 
-    /** @param changes
-     *            the changes to apply
+    /**
+     * @param changes
+     *        the changes to apply
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
-     *             if errors happen */
+     *         if errors happen
+     */
     List<OWLOntologyChange> applyChanges(List<OWLOntologyChange> changes)
             throws OWLOntologyChangeException;
 }

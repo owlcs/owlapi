@@ -38,23 +38,30 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Subproperties"
  * >SubAnnotationPropertyOf</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group, Date: 13-Jan-2009
+ */
 public interface OWLSubAnnotationPropertyOfAxiom extends OWLAnnotationAxiom {
-    /** Gets the subproperty of this axiom.
+
+    /**
+     * Gets the subproperty of this axiom.
      * 
      * @return The annotation property that represents the subproperty in this
-     *         axiom. */
+     *         axiom.
+     */
     OWLAnnotationProperty getSubProperty();
 
-    /** Gets the superproperty of this axiom.
+    /**
+     * Gets the superproperty of this axiom.
      * 
      * @return The annotation property that represents the superproperty in this
-     *         axiom. */
+     *         axiom.
+     */
     OWLAnnotationProperty getSuperProperty();
 
     @Override

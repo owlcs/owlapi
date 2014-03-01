@@ -40,11 +40,14 @@ package org.coode.xml;
 
 import java.io.Writer;
 
-/** Developed as part of the CO-ODE project http://www.co-ode.org
+/**
+ * Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 30-May-2006 */
+ *         Group, Date: 30-May-2006
+ */
 public class XMLWriterFactory {
+
     private static final XMLWriterFactory instance = new XMLWriterFactory();
 
     private XMLWriterFactory() {}
@@ -54,17 +57,21 @@ public class XMLWriterFactory {
         return instance;
     }
 
-    /** Creates an XMLWriter.
+    /**
+     * Creates an XMLWriter.
      * 
      * @param writer
-     *            The {@code Writer} that the XMLWriter will actually write to
+     *        The {@code Writer} that the XMLWriter will actually write to
      * @param xmlWriterNamespaceManager
-     *            xmlWriterNamespaceManager
+     *        xmlWriterNamespaceManager
      * @param xmlBase
-     *            xmlBase
-     * @return xml writer */
-    public XMLWriter createXMLWriter(Writer writer,
-            XMLWriterNamespaceManager xmlWriterNamespaceManager, String xmlBase) {
+     *        xmlBase
+     * @return xml writer
+     */
+    public XMLWriter
+            createXMLWriter(Writer writer,
+                    XMLWriterNamespaceManager xmlWriterNamespaceManager,
+                    String xmlBase) {
         return new XMLWriterImpl(writer, xmlWriterNamespaceManager, xmlBase);
     }
 }

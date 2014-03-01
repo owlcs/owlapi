@@ -40,117 +40,149 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Class_Expressions">Class
  * Expressions</a> in the OWL 2 specification. This interface covers named and
  * anonymous classes.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
-public interface OWLClassExpression extends OWLObject, OWLPropertyRange, SWRLPredicate {
-    /** Gets the class expression type for this class expression
+ *         Informatics Group Date: 24-Oct-2006
+ */
+public interface OWLClassExpression extends OWLObject, OWLPropertyRange,
+        SWRLPredicate {
+
+    /**
+     * Gets the class expression type for this class expression
      * 
-     * @return The class expression type */
+     * @return The class expression type
+     */
     ClassExpressionType getClassExpressionType();
 
-    /** Determines whether or not this expression represents an anonymous class
+    /**
+     * Determines whether or not this expression represents an anonymous class
      * expression.
      * 
      * @return {@code true} if this is an anonymous class expression, or
-     *         {@code false} if this is a named class ( {@code OWLClass}) */
+     *         {@code false} if this is a named class ( {@code OWLClass})
+     */
     boolean isAnonymous();
 
-    /** Determines if this class is a literal. A literal being either a named
+    /**
+     * Determines if this class is a literal. A literal being either a named
      * class or the negation of a named class (i.e. A or not(A)).
      * 
      * @return {@code true} if this is a literal, or false if this is not a
-     *         literal. */
+     *         literal.
+     */
     boolean isClassExpressionLiteral();
 
-    /** If this class expression is in fact a named class then this method may be
+    /**
+     * If this class expression is in fact a named class then this method may be
      * used to obtain the expression as an {@code OWLClass} without the need for
      * casting. The general pattern of use is to use the {@code isAnonymous} to
      * first check
      * 
      * @return This class expression as an {@code OWLClass}.
      * @throws OWLRuntimeException
-     *             if this class expression is not an {@code OWLClass}. */
+     *         if this class expression is not an {@code OWLClass}.
+     */
     OWLClass asOWLClass();
 
-    /** Determines if this expression is the built in class owl:Thing. This
+    /**
+     * Determines if this expression is the built in class owl:Thing. This
      * method does not determine if the class is equivalent to owl:Thing.
      * 
      * @return {@code true} if this expression is owl:Thing, or {@code false} if
-     *         this expression is not owl:Thing */
+     *         this expression is not owl:Thing
+     */
     boolean isOWLThing();
 
-    /** Determines if this expression is the built in class owl:Nothing. This
+    /**
+     * Determines if this expression is the built in class owl:Nothing. This
      * method does not determine if the class is equivalent to owl:Nothing.
      * 
      * @return {@code true} if this expression is owl:Nothing, or {@code false}
-     *         if this expression is not owl:Nothing. */
+     *         if this expression is not owl:Nothing.
+     */
     boolean isOWLNothing();
 
-    /** Gets this expression in negation normal form.
+    /**
+     * Gets this expression in negation normal form.
      * 
-     * @return The expression in negation normal form. */
+     * @return The expression in negation normal form.
+     */
     OWLClassExpression getNNF();
 
-    /** Gets the negation normal form of the complement of this expression.
+    /**
+     * Gets the negation normal form of the complement of this expression.
      * 
      * @return A expression that represents the NNF of the complement of this
-     *         expression. */
+     *         expression.
+     */
     OWLClassExpression getComplementNNF();
 
-    /** Gets the object complement of this class expression.
+    /**
+     * Gets the object complement of this class expression.
      * 
      * @return A class expression that is the complement of this class
-     *         expression. */
+     *         expression.
+     */
     OWLClassExpression getObjectComplementOf();
 
-    /** Interprets this expression as a conjunction and returns the conjuncts.
+    /**
+     * Interprets this expression as a conjunction and returns the conjuncts.
      * This method does not normalise the expression (full CNF is not computed).
      * 
      * @return The conjucts of this expression if it is a conjunction (object
      *         intersection of), or otherwise a singleton set containing this
      *         expression. Note that nested conjunctions will be flattened, for
      *         example, calling this method on (A and B) and C will return the
-     *         set {A, B, C} */
+     *         set {A, B, C}
+     */
     Set<OWLClassExpression> asConjunctSet();
 
-    /** Determines if this class expression contains a particular conjunct. This
+    /**
+     * Determines if this class expression contains a particular conjunct. This
      * method does not do any normalisation such as applying DeMorgans rules.
      * 
      * @param ce
-     *            The conjunct to test for
+     *        The conjunct to test for
      * @return {@code true} if this class expression is equal to {@code ce} or
      *         if this class expression is an {@code ObjectIntersectionOf}
      *         (possibly nested withing another {@code ObjectIntersectionOf})
-     *         that contains {@code ce}, otherwise {@code false}. */
+     *         that contains {@code ce}, otherwise {@code false}.
+     */
     boolean containsConjunct(OWLClassExpression ce);
 
-    /** Interprets this expression as a disjunction and returns the disjuncts.
+    /**
+     * Interprets this expression as a disjunction and returns the disjuncts.
      * This method does not normalise the expression (full DNF is not computed).
      * 
      * @return The disjuncts of this expression if it is a disjunction (object
      *         union of), or otherwise a singleton set containing this
      *         expression. Note that nested disjunctions will be flattened, for
      *         example, calling this method on (A or B) or C will return the set
-     *         {A, B, C} */
+     *         {A, B, C}
+     */
     Set<OWLClassExpression> asDisjunctSet();
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(OWLClassExpressionVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLClassExpressionVisitorEx<O> visitor);
 }

@@ -42,15 +42,20 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 16/12/2010 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 16/12/2010
+ */
 public class OWLAnnotationPropertyRangeElementHandler extends
         AbstractOWLAxiomElementHandler {
+
     private IRI range;
     private OWLAnnotationProperty property;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLAnnotationPropertyRangeElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -77,7 +82,7 @@ public class OWLAnnotationPropertyRangeElementHandler extends
             throw new OWLXMLParserElementNotFoundException(getLineNumber(),
                     getColumnNumber(), "Expected IRI element");
         }
-        return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(property, range,
-                getAnnotations());
+        return getOWLDataFactory().getOWLAnnotationPropertyRangeAxiom(property,
+                range, getAnnotations());
     }
 }

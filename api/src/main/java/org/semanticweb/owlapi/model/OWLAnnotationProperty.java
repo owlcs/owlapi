@@ -40,30 +40,38 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** Represents an <a href=
+/**
+ * Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
  * >AnnotationProperty</a> in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group, Date: 13-Jan-2009 */
+ *         Management Group, Date: 13-Jan-2009
+ */
 public interface OWLAnnotationProperty extends OWLEntity {
-    /** Determines if this annotation property has an IRI corresponding to
+
+    /**
+     * Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:comment}.
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code rdfs:comment}, where {@code rdfs:} expands to the usual
-     *         prefix, otherwise {@code false}. */
+     *         prefix, otherwise {@code false}.
+     */
     boolean isComment();
 
-    /** Determines if this annotation property has an IRI corresponding to
+    /**
+     * Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:label}.
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code rdfs:label}, where {@code rdfs:} expands to the usual
-     *         prefix, otherwise {@code false}. */
+     *         prefix, otherwise {@code false}.
+     */
     boolean isLabel();
 
-    /** Determines if this annotation property has an IRI corresponding to
+    /**
+     * Determines if this annotation property has an IRI corresponding to
      * {@code owl:deprecated}. An annotation along the {@code owl:deprecated}
      * property which has a value of {@code "true"^^xsd:boolean} can be used to
      * deprecate IRIs. (See <a href
@@ -72,35 +80,38 @@ public interface OWLAnnotationProperty extends OWLEntity {
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code owl:deprecated}, where {@code owl:} expands to the usual
-     *         prefix, otherwise {@code false}. */
+     *         prefix, otherwise {@code false}.
+     */
     boolean isDeprecated();
 
-    /** Gets the annotation properties which are asserted to be sub-properties of
+    /**
+     * Gets the annotation properties which are asserted to be sub-properties of
      * this annotation property in the specified ontology.
      * 
      * @param ontology
-     *            The ontology to be examined for
-     *            {@code SubAnnotationPropertyOf} axioms.
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
      * @return A set of annotation properties such that for each property
      *         {@code p} in the set, it is the case that {@code ontology}
      *         contains an {@code SubAnnotationPropertyOf(p, this)} axiom where
      *         {@code this} refers to this annotation property.
-     * @since 3.2 */
+     * @since 3.2
+     */
     Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology);
 
-    /** Gets the annotation properties which are asserted to be sub-properties of
+    /**
+     * Gets the annotation properties which are asserted to be sub-properties of
      * this annotation property in the specified ontology and potentially its
      * imports closure.
      * 
      * @param ontology
-     *            The ontology to be examined for
-     *            {@code SubAnnotationPropertyOf} axioms.
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
      * @param includeImportsClosure
-     *            if {@code true} then the imports closure of this ontology is
-     *            searched for {@code SubAnnotationPropertyOf} axioms that
-     *            assert this property is the super property of some other
-     *            annotation property. If {@code false} then only
-     *            {@code ontology} is searched.
+     *        if {@code true} then the imports closure of this ontology is
+     *        searched for {@code SubAnnotationPropertyOf} axioms that assert
+     *        this property is the super property of some other annotation
+     *        property. If {@code false} then only {@code ontology} is searched.
      * @return If {@code includeImportsClosure} is {@code true}, a set of
      *         annotation properties such that for each property {@code p} in
      *         the set, it is the case that at least one {@code ontology} in the
@@ -112,50 +123,55 @@ public interface OWLAnnotationProperty extends OWLEntity {
      *         the set, it is the case that {@code ontology} contains a
      *         {@code SubAnnotationPropertyOf(p, this)} axiom where {@code this}
      *         refers to this annotation property.
-     * @since 3.2 */
+     * @since 3.2
+     */
     Set<OWLAnnotationProperty> getSubProperties(OWLOntology ontology,
             boolean includeImportsClosure);
 
-    /** Gets the annotation properties which are asserted to be sub-properties of
+    /**
+     * Gets the annotation properties which are asserted to be sub-properties of
      * this annotation property in the specified set of ontologies.
      * 
      * @param ontologies
-     *            The set of ontologies to be examined for
-     *            {@code SubAnnotationPropertyOf} axioms.
+     *        The set of ontologies to be examined for
+     *        {@code SubAnnotationPropertyOf} axioms.
      * @return A set of annotation properties such that for each property
      *         {@code p} in the set, it is the case that at least one
      *         {@code ontology} in {@code ontologies} contains a
      *         {@code SubAnnotationPropertyOf(p, this)} axiom where {@code this}
      *         refers to this annotation property.
-     * @since 3.2 */
+     * @since 3.2
+     */
     Set<OWLAnnotationProperty> getSubProperties(Set<OWLOntology> ontologies);
 
-    /** Gets the annotation properties which are asserted to be super-properties
+    /**
+     * Gets the annotation properties which are asserted to be super-properties
      * of this annotation property in the specified ontology.
      * 
      * @param ontology
-     *            The ontology to be examined for
-     *            {@code SubAnnotationPropertyOf} axioms.
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
      * @return A set of annotation properties such that for each property
      *         {@code p} in the set, it is the case that {@code ontology}
      *         contains an {@code SubAnnotationPropertyOf(this, p)} axiom where
      *         {@code this} refers to this annotation property.
-     * @since 3.2 */
+     * @since 3.2
+     */
     Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology);
 
-    /** Gets the annotation properties which are asserted to be super-properties
+    /**
+     * Gets the annotation properties which are asserted to be super-properties
      * of this annotation property in the specified ontology and potentially its
      * imports closure.
      * 
      * @param ontology
-     *            The ontology to be examined for
-     *            {@code SubAnnotationPropertyOf} axioms.
+     *        The ontology to be examined for {@code SubAnnotationPropertyOf}
+     *        axioms.
      * @param includeImportsClosure
-     *            if {@code true} then the imports closure of this ontology is
-     *            searched for {@code SubAnnotationPropertyOf} axioms that
-     *            assert this property is the super property of some other
-     *            annotation property. If {@code false} then only
-     *            {@code ontology} is searched.
+     *        if {@code true} then the imports closure of this ontology is
+     *        searched for {@code SubAnnotationPropertyOf} axioms that assert
+     *        this property is the super property of some other annotation
+     *        property. If {@code false} then only {@code ontology} is searched.
      * @return If {@code includeImportsClosure} is {@code true}, a set of
      *         annotation properties such that for each property {@code p} in
      *         the set, it is the case that at least one {@code ontology} in the
@@ -167,21 +183,24 @@ public interface OWLAnnotationProperty extends OWLEntity {
      *         the set, it is the case that {@code ontology} contains a
      *         {@code SuperAnnotationPropertyOf(this, p)} axiom where
      *         {@code this} refers to this annotation property.
-     * @since 3.2 */
+     * @since 3.2
+     */
     Set<OWLAnnotationProperty> getSuperProperties(OWLOntology ontology,
             boolean includeImportsClosure);
 
-    /** Gets the annotation properties which are asserted to be super-properties
+    /**
+     * Gets the annotation properties which are asserted to be super-properties
      * of this annotation property in the specified set of ontologies.
      * 
      * @param ontologies
-     *            The set of ontologies to be examined for
-     *            {@code SubAnnotationPropertyOf} axioms.
+     *        The set of ontologies to be examined for
+     *        {@code SubAnnotationPropertyOf} axioms.
      * @return A set of annotation properties such that for each property
      *         {@code p} in the set, it is the case that at least one
      *         {@code ontology} in {@code ontologies} contains a
      *         {@code SubAnnotationPropertyOf(this, p)} axiom where {@code this}
      *         refers to this annotation property.
-     * @since 3.2 */
+     * @since 3.2
+     */
     Set<OWLAnnotationProperty> getSuperProperties(Set<OWLOntology> ontologies);
 }

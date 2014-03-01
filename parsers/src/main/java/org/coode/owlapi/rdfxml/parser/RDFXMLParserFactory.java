@@ -42,9 +42,12 @@ import org.semanticweb.owlapi.io.OWLParser;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
 public class RDFXMLParserFactory implements OWLParserFactory {
+
     @Override
     public OWLParser createParser(OWLOntologyManager owlOntologyManager) {
         return new RDFXMLParser();

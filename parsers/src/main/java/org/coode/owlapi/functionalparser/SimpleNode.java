@@ -42,6 +42,7 @@ package org.coode.owlapi.functionalparser;
 
 /** node. */
 public class SimpleNode implements Node {
+
     /** The parent. */
     protected Node parent;
     /** The children. */
@@ -53,20 +54,24 @@ public class SimpleNode implements Node {
     /** The parser. */
     protected OWLFunctionalSyntaxParser parser;
 
-    /** Instantiates a new simple node.
+    /**
+     * Instantiates a new simple node.
      * 
      * @param i
-     *            id */
+     *        id
+     */
     public SimpleNode(int i) {
         id = i;
     }
 
-    /** Instantiates a new simple node.
+    /**
+     * Instantiates a new simple node.
      * 
      * @param p
-     *            parser
+     *        parser
      * @param i
-     *            id */
+     *        id
+     */
     public SimpleNode(OWLFunctionalSyntaxParser p, int i) {
         this(i);
         parser = p;
@@ -110,17 +115,21 @@ public class SimpleNode implements Node {
         return children == null ? 0 : children.length;
     }
 
-    /** Jjt set value.
+    /**
+     * Jjt set value.
      * 
      * @param value1
-     *            the value1 */
+     *        the value1
+     */
     public void jjtSetValue(Object value1) {
         value = value1;
     }
 
-    /** Jjt get value.
+    /**
+     * Jjt get value.
      * 
-     * @return the object */
+     * @return the object
+     */
     public Object jjtGetValue() {
         return value;
     }
@@ -136,20 +145,24 @@ public class SimpleNode implements Node {
         return OWLFunctionalSyntaxParserTreeConstants.jjtNodeName[id];
     }
 
-    /** To string.
+    /**
+     * To string.
      * 
      * @param prefix
-     *            prefix to use
-     * @return string representation */
+     *        prefix to use
+     * @return string representation
+     */
     public String toString(String prefix) {
         return prefix + toString();
     }
 
-    /** Override this method if you want to customize how the node dumps out its
+    /**
+     * Override this method if you want to customize how the node dumps out its
      * children.
      * 
      * @param prefix
-     *            prefix */
+     *        prefix
+     */
     public void dump(String prefix) {
         System.out.println(toString(prefix));
         if (children != null) {

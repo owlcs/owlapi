@@ -48,10 +48,13 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 09-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 09-Jun-2009
+ */
 public class EquivalentObjectPropertiesWithInversesTestCase extends
         AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

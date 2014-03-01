@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class LatexRendererTestCase {
+
     String input = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns=\"http://namespace.owl#\"\n"
             + "     xml:base=\"http://namespace.owl\"\n"
@@ -20,7 +21,8 @@ public class LatexRendererTestCase {
             + "     xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n"
             + "    <owl:Ontology rdf:about=\"http://namespace.owl\"/>\n"
             + "    <owl:Class rdf:about=\"http://namespace.owl#C_Test\"/>"
-            + "<owl:ObjectProperty rdf:about=\"http://namespace.owl#p\"/>" + "</rdf:RDF>";
+            + "<owl:ObjectProperty rdf:about=\"http://namespace.owl#p\"/>"
+            + "</rdf:RDF>";
 
     @Test
     public void shouldRenderEscapingUnderscores() throws Exception {

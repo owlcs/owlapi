@@ -40,13 +40,18 @@ package org.coode.owlapi.latex;
 
 import java.io.IOException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jun-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jun-2007
+ */
 public class LatexRendererIOException extends LatexRendererException {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public LatexRendererIOException(IOException cause) {
         super(cause);
     }

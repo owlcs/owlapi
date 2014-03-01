@@ -40,6 +40,7 @@ package org.semanticweb.owlapi.rdf.util;
 
 /** Defines some well-known RDF constants. */
 public interface RDFConstants {
+
     //@formatter:off
     /**XMLNS*/ String XMLNS = "http://www.w3.org/XML/1998/namespace";
     /**XMLLANG*/ String XMLLANG = "xml:lang";

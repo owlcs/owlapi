@@ -44,15 +44,18 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Converts the entity URI fragment or last path element if the fragment is not
+/**
+ * Converts the entity URI fragment or last path element if the fragment is not
  * present to Camel Case. For example, if the URI is
  * http://another.com/pathA/pathB#has_part then this will be converted to
  * http://another.com/pathA/pathB#hasPart
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 25-Nov-2007 */
+ *         Informatics Group, Date: 25-Nov-2007
+ */
 public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
         OWLEntityURIConverterStrategy {
+
     private final Map<IRI, IRI> iriMap;
 
     /** default constructor */
@@ -85,7 +88,8 @@ public class OWLEntityURIUnderscores2CamelBackConverterStrategy implements
             String lastPathElement = path.substring(index + 1, path.length());
             String camelCaseElement = toCamelCase(lastPathElement);
             String iriString = iri.toString();
-            String base = iriString.substring(0, iriString.lastIndexOf('/') + 1);
+            String base = iriString
+                    .substring(0, iriString.lastIndexOf('/') + 1);
             return IRI.create(base, camelCaseElement);
         }
         return iri;

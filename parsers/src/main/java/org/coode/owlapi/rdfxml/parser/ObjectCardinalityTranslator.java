@@ -45,11 +45,17 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public class ObjectCardinalityTranslator extends AbstractClassExpressionTranslator {
-    /** @param consumer
-     *            consumer */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
+public class ObjectCardinalityTranslator extends
+        AbstractClassExpressionTranslator {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public ObjectCardinalityTranslator(OWLRDFConsumer consumer) {
         super(consumer);
     }
@@ -69,20 +75,24 @@ public class ObjectCardinalityTranslator extends AbstractClassExpressionTranslat
 
     @Override
     public OWLObjectExactCardinality translate(IRI mainNode) {
-        getConsumer()
-                .consumeTriple(mainNode, RDF_TYPE.getIRI(), OWL_RESTRICTION.getIRI());
+        getConsumer().consumeTriple(mainNode, RDF_TYPE.getIRI(),
+                OWL_RESTRICTION.getIRI());
         int cardi = translateInteger(mainNode, OWL_CARDINALITY);
-        IRI propertyIRI = getConsumer()
-                .getResourceObject(mainNode, OWL_ON_PROPERTY, true);
+        IRI propertyIRI = getConsumer().getResourceObject(mainNode,
+                OWL_ON_PROPERTY, true);
         OWLObjectPropertyExpression property = getConsumer()
                 .translateObjectPropertyExpression(propertyIRI);
-        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS, true);
+        IRI fillerIRI = getConsumer().getResourceObject(mainNode, OWL_ON_CLASS,
+                true);
         if (fillerIRI != null && !getConsumer().getConfiguration().isStrict()) {
             // Be tolerant
-            OWLClassExpression filler = getConsumer().translateClassExpression(fillerIRI);
-            return getDataFactory().getOWLObjectExactCardinality(cardi, property, filler);
+            OWLClassExpression filler = getConsumer().translateClassExpression(
+                    fillerIRI);
+            return getDataFactory().getOWLObjectExactCardinality(cardi,
+                    property, filler);
         } else {
-            return getDataFactory().getOWLObjectExactCardinality(cardi, property);
+            return getDataFactory().getOWLObjectExactCardinality(cardi,
+                    property);
         }
     }
 }

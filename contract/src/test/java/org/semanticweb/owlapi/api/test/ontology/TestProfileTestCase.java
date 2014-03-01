@@ -50,6 +50,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 @SuppressWarnings("javadoc")
 public class TestProfileTestCase {
+
     @Test
     public void testOWLEL() throws Exception {
         String onto = "<?xml version=\"1.0\"?>\n"

@@ -41,17 +41,22 @@ package org.semanticweb.owlapi.reasoner;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 22-Nov-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 22-Nov-2009
+ */
 public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
+
     private static final long serialVersionUID = 30406L;
     private final OWLAxiom axiom;
     private final OWLProfile profile;
 
-    /** @param axiom
-     *            wrong axiom
+    /**
+     * @param axiom
+     *        wrong axiom
      * @param profile
-     *            profile */
+     *        profile
+     */
     public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
         this.axiom = axiom;
         this.profile = profile;

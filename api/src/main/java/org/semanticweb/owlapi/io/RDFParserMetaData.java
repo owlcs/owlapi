@@ -44,31 +44,39 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group, Date: 21/12/2010
- * @since 3.2 */
-public class RDFParserMetaData implements OWLOntologyLoaderMetaData, Serializable {
+ * @since 3.2
+ */
+public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
+        Serializable {
+
     private static final long serialVersionUID = 30406L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
 
-    /** @param headerStatus
-     *            the header status
+    /**
+     * @param headerStatus
+     *        the header status
      * @param tripleCount
-     *            the triple count
+     *        the triple count
      * @param unparsedTriples
-     *            the set of triples not parsed */
-    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus, int tripleCount,
-            Set<RDFTriple> unparsedTriples) {
+     *        the set of triples not parsed
+     */
+    public RDFParserMetaData(RDFOntologyHeaderStatus headerStatus,
+            int tripleCount, Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
         this.headerStatus = headerStatus;
         this.unparsedTriples.addAll(unparsedTriples);
     }
 
-    /** Gets a count of the triples process during loading.
+    /**
+     * Gets a count of the triples process during loading.
      * 
-     * @return The number of triples process during loading. */
+     * @return The number of triples process during loading.
+     */
     public int getTripleCount() {
         return tripleCount;
     }

@@ -51,10 +51,14 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006
+ */
 public class RDFGraph {
-    private static final Logger logger = Logger.getLogger(RDFGraph.class.getName());
+
+    private static final Logger logger = Logger.getLogger(RDFGraph.class
+            .getName());
     private Map<RDFResourceNode, Set<RDFTriple>> triplesBySubject;
     private Set<RDFResourceNode> rootAnonymousNodes;
     private Set<RDFTriple> triples;
@@ -66,18 +70,22 @@ public class RDFGraph {
         rootAnonymousNodes = null;
     }
 
-    /** Determines if this graph is empty (i.e. whether or not it contains any
+    /**
+     * Determines if this graph is empty (i.e. whether or not it contains any
      * triples).
      * 
      * @return {@code true} if the graph contains triples, otherwise
      *         {@code false}
-     * @since 3.5 */
+     * @since 3.5
+     */
     public boolean isEmpty() {
         return triples.isEmpty();
     }
 
-    /** @param triple
-     *            triple to add */
+    /**
+     * @param triple
+     *        triple to add
+     */
     public void addTriple(RDFTriple triple) {
         // Reset the computation of root anon nodes
         rootAnonymousNodes = null;
@@ -90,12 +98,14 @@ public class RDFGraph {
         tripleSet.add(triple);
     }
 
-    /** @param subject
-     *            node to search
+    /**
+     * @param subject
+     *        node to search
      * @return triples which have subject as subject
      * @deprecated this method makes a defensive copy for each element in the
      *             map, but most uses of this only iterate over the results. Use
-     *             getSortedTriplesForResult instead */
+     *             getSortedTriplesForResult instead
+     */
     @Deprecated
     public Set<RDFTriple> getTriplesForSubject(RDFNode subject) {
         if (triplesBySubject.containsKey(subject)) {
@@ -105,14 +115,17 @@ public class RDFGraph {
         }
     }
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param sort
-     *            sort
+     *        sort
      * @return sorted triples
-     * @deprecated use getTriplesForSubject */
+     * @deprecated use getTriplesForSubject
+     */
     @Deprecated
-    public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject, boolean sort) {
+    public List<RDFTriple> getSortedTriplesForSubject(RDFNode subject,
+            boolean sort) {
         List<RDFTriple> toReturn = new ArrayList<RDFTriple>();
         Set<RDFTriple> set = triplesBySubject.get(subject);
         if (set != null) {
@@ -136,12 +149,15 @@ public class RDFGraph {
         return toReturn;
     }
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param sort
-     *            sort
-     * @return sorted triples */
-    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject, boolean sort) {
+     *        sort
+     * @return sorted triples
+     */
+    public Collection<RDFTriple> getTriplesForSubject(RDFNode subject,
+            boolean sort) {
         Set<RDFTriple> set = triplesBySubject.get(subject);
         if (set == null) {
             return Collections.emptyList();
@@ -166,9 +182,11 @@ public class RDFGraph {
         return toReturn;
     }
 
-    /** @param node
-     *            node to search
-     * @return true if the anon node is shared */
+    /**
+     * @param node
+     *        node to search
+     * @return true if the anon node is shared
+     */
     public boolean isAnonymousNodeSharedSubject(RDFResourceNode node) {
         if (!node.isAnonymous()) {
             return false;
@@ -211,10 +229,12 @@ public class RDFGraph {
         }
     }
 
-    /** @param w
-     *            writer to write to
+    /**
+     * @param w
+     *        writer to write to
      * @throws IOException
-     *             if exceptions happen */
+     *         if exceptions happen
+     */
     public void dumpTriples(Writer w) throws IOException {
         for (Set<RDFTriple> set : triplesBySubject.values()) {
             for (RDFTriple triple : set) {

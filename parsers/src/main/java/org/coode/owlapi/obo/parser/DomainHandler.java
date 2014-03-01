@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-May-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-May-2007
+ */
 public class DomainHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DomainHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DOMAIN.getName(), consumer);
     }
@@ -54,7 +59,8 @@ public class DomainHandler extends AbstractTagValueHandler {
     @Override
     public void handle(String currentId, String value, String qualifierBlock,
             String comment) {
-        OWLObjectProperty prop = getOWLObjectProperty(getConsumer().getCurrentId());
+        OWLObjectProperty prop = getOWLObjectProperty(getConsumer()
+                .getCurrentId());
         OWLClass cls = getOWLClass(value);
         applyChange(new AddAxiom(getOntology(), getDataFactory()
                 .getOWLObjectPropertyDomainAxiom(prop, cls)));

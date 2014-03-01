@@ -47,19 +47,22 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 01/02/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 01/02/2012
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyToStringTestCase {
+
     @Test
     public void testNamedOntologyToString() throws Exception {
         OWLOntologyManager man = Factory.getManager();
         IRI ontIRI = IRI("http://owlapi.sourceforge.net/ont");
         OWLOntology ont = man.createOntology(ontIRI);
         String s = ont.toString();
-        String expected = "Ontology(" + ont.getOntologyID().toString() + ") [Axioms: "
-                + ont.getAxiomCount() + " Logical Axioms: " + ont.getLogicalAxiomCount()
-                + "]";
+        String expected = "Ontology(" + ont.getOntologyID().toString()
+                + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
+                + ont.getLogicalAxiomCount() + "]";
         assertEquals(expected, s);
     }
 }

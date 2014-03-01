@@ -44,11 +44,17 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
-public class ReferencedIndividualCount extends ObjectCountMetric<OWLNamedIndividual> {
-    /** @param owlOntologyManager
-     *            manager to use */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
+public class ReferencedIndividualCount extends
+        ObjectCountMetric<OWLNamedIndividual> {
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public ReferencedIndividualCount(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }

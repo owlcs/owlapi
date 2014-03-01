@@ -44,18 +44,24 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.DLExpressivityChecker;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 27-Jul-2007
+ */
 public class DLExpressivity extends AbstractOWLMetric<String> {
-    /** @param owlOntologyManager
-     *            manager to use */
+
+    /**
+     * @param owlOntologyManager
+     *        manager to use
+     */
     public DLExpressivity(OWLOntologyManager owlOntologyManager) {
         super(owlOntologyManager);
     }
 
     @Override
     public String recomputeMetric() {
-        DLExpressivityChecker checker = new DLExpressivityChecker(getOntologies());
+        DLExpressivityChecker checker = new DLExpressivityChecker(
+                getOntologies());
         return checker.getDescriptionLogicName();
     }
 
@@ -68,7 +74,8 @@ public class DLExpressivity extends AbstractOWLMetric<String> {
     }
 
     @Override
-    protected boolean isMetricInvalidated(List<? extends OWLOntologyChange> changes) {
+    protected boolean isMetricInvalidated(
+            List<? extends OWLOntologyChange> changes) {
         for (OWLOntologyChange change : changes) {
             if (change.isAxiomChange() && change.getAxiom().isLogicalAxiom()) {
                 return true;

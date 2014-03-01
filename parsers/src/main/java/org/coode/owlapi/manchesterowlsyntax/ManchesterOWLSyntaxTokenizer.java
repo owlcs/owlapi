@@ -43,15 +43,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 19-May-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 19-May-2008
+ */
 public class ManchesterOWLSyntaxTokenizer {
+
     /** EOF */
     public static final String EOF = "|EOF|";
 
-    /** @param s
-     *            string to check
-     * @return true if EOF */
+    /**
+     * @param s
+     *        string to check
+     * @return true if EOF
+     */
     public static boolean EOF(String s) {
         return EOF.equals(s);
     }
@@ -70,8 +75,10 @@ public class ManchesterOWLSyntaxTokenizer {
     private StringBuilder sb;
     private static final char ESCAPE_CHAR = '\\';
 
-    /** @param buffer
-     *            buffer */
+    /**
+     * @param buffer
+     *        buffer
+     */
     public ManchesterOWLSyntaxTokenizer(String buffer) {
         this.buffer = buffer;
         skip.add(' ');
@@ -173,7 +180,8 @@ public class ManchesterOWLSyntaxTokenizer {
                 int j = pos + 1;
                 if (j < buffer.length()) {
                     char escapedChar = readChar();
-                    if (escapedChar == '\"' || escapedChar == '\'' || escapedChar == '\\') {
+                    if (escapedChar == '\"' || escapedChar == '\''
+                            || escapedChar == '\\') {
                         sb.append(escapedChar);
                     } else {
                         sb.append(ch);
@@ -229,19 +237,22 @@ public class ManchesterOWLSyntaxTokenizer {
 
     /** token */
     public static class Token {
+
         private String token;
         private int pos;
         private int col;
         private int row;
 
-        /** @param token
-         *            token
+        /**
+         * @param token
+         *        token
          * @param pos
-         *            pos
+         *        pos
          * @param col
-         *            col
+         *        col
          * @param row
-         *            row */
+         *        row
+         */
         public Token(String token, int pos, int col, int row) {
             this.token = token;
             this.pos = pos;

@@ -38,18 +38,23 @@
  */
 package org.coode.string;
 
-/** @deprecated use EscapeUtils from the api util package.
+/**
+ * @deprecated use EscapeUtils from the api util package.
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 16-Apr-2008 */
+ *         Informatics Group, Date: 16-Apr-2008
+ */
 @Deprecated
 public class EscapeUtils {
-    /** Escapes quotes and backslashes in a string. Double quotes are replaced
+
+    /**
+     * Escapes quotes and backslashes in a string. Double quotes are replaced
      * with a backslash followed by a double quote, and backslashes are replaced
      * with a double backslash.
      * 
      * @param s
-     *            The string to be escaped
-     * @return The escaped string. */
+     *        The string to be escaped
+     * @return The escaped string.
+     */
     public static String escapeString(String s) {
         // We replace double quotes with a back slash followed
         // by a double quote. We replace backslashes with a double
@@ -73,9 +78,11 @@ public class EscapeUtils {
         return sb.toString();
     }
 
-    /** @param s
-     *            string to unescape
-     * @return the unescaped string */
+    /**
+     * @param s
+     *        string to unescape
+     * @return the unescaped string
+     */
     public static String unescapeString(String s) {
         if (s.indexOf('\\') == -1) {
             return s;
@@ -101,11 +108,13 @@ public class EscapeUtils {
         return sb.toString();
     }
 
-    /** @param s
-     *            string to escape
+    /**
+     * @param s
+     *        string to escape
      * @return escaped string
      * @deprecated Use
-     *             {@link org.semanticweb.owlapi.io.XMLUtils#escapeXML(CharSequence)} */
+     *             {@link org.semanticweb.owlapi.io.XMLUtils#escapeXML(CharSequence)}
+     */
     @Deprecated
     public static String escapeXML(String s) {
         // double quote -- quot

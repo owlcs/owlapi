@@ -41,23 +41,30 @@ package org.semanticweb.owlapi.model;
 import java.util.Collections;
 import java.util.Set;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Mar-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Mar-2009
+ */
 public abstract class ImportChange extends OWLOntologyChange {
+
     private final OWLImportsDeclaration declaration;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param importDeclaration
-     *            the import declaration */
+     *        the import declaration
+     */
     public ImportChange(OWLOntology ont, OWLImportsDeclaration importDeclaration) {
         super(ont);
         declaration = importDeclaration;
     }
 
-    /** Gets the import declaration that the change pertains to.
+    /**
+     * Gets the import declaration that the change pertains to.
      * 
-     * @return The import declaration */
+     * @return The import declaration
+     */
     public OWLImportsDeclaration getImportDeclaration() {
         return declaration;
     }

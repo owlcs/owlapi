@@ -15,6 +15,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class DbXrefCommentsTest extends OboFormatTestBasics {
+
     @Test
     public void testDbXrefCommentsRoundtrip() throws Exception {
         OBODoc obodoc = parseOBOFile("db_xref_comments.obo");

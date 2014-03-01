@@ -44,22 +44,27 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group Date: 25-Oct-2006
+ */
 @SuppressWarnings("javadoc")
 public class TestUtils {
+
     public static OWLIndividual createOWLIndividual() {
         return NamedIndividual(createIRI());
     }
 
     public static OWLLiteral createOWLLiteral() {
-        return Literal("Test" + System.currentTimeMillis(), Datatype(createIRI()));
+        return Literal("Test" + System.currentTimeMillis(),
+                Datatype(createIRI()));
     }
 
     private static int uriCounter = 0;
 
     public static IRI createIRI() {
         uriCounter++;
-        return IRI.create("http://org.semanticweb.owlapi/tests#uri" + uriCounter);
+        return IRI.create("http://org.semanticweb.owlapi/tests#uri"
+                + uriCounter);
     }
 }

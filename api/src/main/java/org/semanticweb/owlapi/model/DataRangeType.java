@@ -42,11 +42,18 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 
 import java.io.Serializable;
 
-/** Represents the different types of OWL 2 data ranges.
+/**
+ * Represents the different types of OWL 2 data ranges.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group */
-public enum DataRangeType implements Serializable, HasShortForm, HasPrefixedName, HasIRI {
+ *         Management Group
+ */
+public enum DataRangeType
+        implements
+        Serializable,
+        HasShortForm,
+        HasPrefixedName,
+        HasIRI {
     /** Represents {@link org.semanticweb.owlapi.model.OWLDatatype} */
     DATATYPE("Datatype"),
     /** Represents {@link OWLDataOneOf} */

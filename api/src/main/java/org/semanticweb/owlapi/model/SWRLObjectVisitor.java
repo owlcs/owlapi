@@ -38,72 +38,97 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLObjectVisitor {
-    /** visit SWRLRule type
+
+    /**
+     * visit SWRLRule type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLRule node);
 
-    /** visit SWRLClassAtom type
+    /**
+     * visit SWRLClassAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLClassAtom node);
 
-    /** visit SWRLDataRangeAtom type
+    /**
+     * visit SWRLDataRangeAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLDataRangeAtom node);
 
-    /** visit SWRLObjectPropertyAtom type
+    /**
+     * visit SWRLObjectPropertyAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLObjectPropertyAtom node);
 
-    /** visit SWRLDataPropertyAtom type
+    /**
+     * visit SWRLDataPropertyAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLDataPropertyAtom node);
 
-    /** visit SWRLBuiltInAtom type
+    /**
+     * visit SWRLBuiltInAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLBuiltInAtom node);
 
-    /** visit SWRLVariable type
+    /**
+     * visit SWRLVariable type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLVariable node);
 
-    /** visit SWRLIndividualArgument type
+    /**
+     * visit SWRLIndividualArgument type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLIndividualArgument node);
 
-    /** visit SWRLLiteralArgument type
+    /**
+     * visit SWRLLiteralArgument type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLLiteralArgument node);
 
-    /** visit SWRLSameIndividualAtom type
+    /**
+     * visit SWRLSameIndividualAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLSameIndividualAtom node);
 
-    /** visit SWRLDifferentIndividualsAtom type
+    /**
+     * visit SWRLDifferentIndividualsAtom type
      * 
      * @param node
-     *            object to visit */
+     *        object to visit
+     */
     void visit(SWRLDifferentIndividualsAtom node);
 }

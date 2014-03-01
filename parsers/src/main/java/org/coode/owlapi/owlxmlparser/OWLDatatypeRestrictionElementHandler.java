@@ -45,14 +45,20 @@ import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Apr-2007 */
-public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHandler {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Apr-2007
+ */
+public class OWLDatatypeRestrictionElementHandler extends
+        AbstractOWLDataRangeHandler {
+
     private OWLDatatype restrictedDataRange;
     private Set<OWLFacetRestriction> facetRestrictions;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLDatatypeRestrictionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
         facetRestrictions = new HashSet<OWLFacetRestriction>();
@@ -60,8 +66,8 @@ public class OWLDatatypeRestrictionElementHandler extends AbstractOWLDataRangeHa
 
     @Override
     protected void endDataRangeElement() {
-        setDataRange(getOWLDataFactory().getOWLDatatypeRestriction(restrictedDataRange,
-                facetRestrictions));
+        setDataRange(getOWLDataFactory().getOWLDatatypeRestriction(
+                restrictedDataRange, facetRestrictions));
     }
 
     @Override

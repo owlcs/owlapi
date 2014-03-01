@@ -41,9 +41,12 @@ package org.coode.owlapi.obo.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 19/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 19/04/2012
+ */
 public class RawFrameHandler implements OBOParserHandler {
+
     private String currentFrameType;
     private List<OBOTagValuePair> currentTagValuePairs = new ArrayList<OBOTagValuePair>();
     private OBOFrame headerFrame;
@@ -84,7 +87,8 @@ public class RawFrameHandler implements OBOParserHandler {
     @Override
     public void handleTagValue(String tag, String value, String qualifierBlock,
             String comment) {
-        OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock, comment);
+        OBOTagValuePair tvp = new OBOTagValuePair(tag, value, qualifierBlock,
+                comment);
         currentTagValuePairs.add(tvp);
     }
 

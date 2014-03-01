@@ -52,17 +52,23 @@ import org.semanticweb.owlapi.reasoner.Node;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group, Date: 05-Dec-2009
  * @param <E>
- *            the type of entities in the node */
+ *        the type of entities in the node
+ */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
-    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false, false);
+
+    private static final OWLDataFactory DF = new OWLDataFactoryImpl(false,
+            false);
     protected static final OWLClass TOP_CLASS = DF.getOWLThing();
     protected static final OWLClassNode TOP_NODE = new OWLClassNode(TOP_CLASS);
     protected static final OWLClass BOTTOM_CLASS = DF.getOWLNothing();
-    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(BOTTOM_CLASS);
-    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF.getOWLTopDataProperty();
+    protected static final OWLClassNode BOTTOM_NODE = new OWLClassNode(
+            BOTTOM_CLASS);
+    protected static final OWLDataProperty TOP_DATA_PROPERTY = DF
+            .getOWLTopDataProperty();
     protected static final OWLDataPropertyNode TOP_DATA_NODE = new OWLDataPropertyNode(
             TOP_DATA_PROPERTY);
     protected static final OWLDataProperty BOTTOM_DATA_PROPERTY = DF
@@ -80,14 +86,18 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
             BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<E>(4);
 
-    /** @param entity
-     *            the entity to add */
+    /**
+     * @param entity
+     *        the entity to add
+     */
     public DefaultNode(E entity) {
         this.entities.add(entity);
     }
 
-    /** @param entities
-     *            the set of entities to add */
+    /**
+     * @param entities
+     *        the set of entities to add
+     */
     public DefaultNode(Set<E> entities) {
         this.entities.addAll(entities);
     }
@@ -98,8 +108,10 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected abstract E getBottomEntity();
 
-    /** @param entity
-     *            entity to be added */
+    /**
+     * @param entity
+     *        entity to be added
+     */
     public void add(E entity) {
         entities.add(entity);
     }

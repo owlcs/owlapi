@@ -50,19 +50,25 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLObjectHasValueImpl
         extends
         OWLValueRestrictionImpl<OWLClassExpression, OWLObjectPropertyExpression, OWLIndividual>
         implements OWLObjectHasValue {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param value
-     *            value */
-    public OWLObjectHasValueImpl(OWLObjectPropertyExpression property, OWLIndividual value) {
+     *        value
+     */
+    public OWLObjectHasValueImpl(OWLObjectPropertyExpression property,
+            OWLIndividual value) {
         super(property, value);
     }
 
@@ -91,8 +97,8 @@ public class OWLObjectHasValueImpl
 
     @Override
     public OWLClassExpression asSomeValuesFrom() {
-        return new OWLObjectSomeValuesFromImpl(getProperty(), new OWLObjectOneOfImpl(
-                Collections.singleton(getValue())));
+        return new OWLObjectSomeValuesFromImpl(getProperty(),
+                new OWLObjectOneOfImpl(Collections.singleton(getValue())));
     }
 
     @Override

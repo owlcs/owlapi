@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 11-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 11-Dec-2006
+ */
 public class TypeRDFSClassHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeRDFSClassHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.RDFS_CLASS.getIRI());
     }
@@ -58,7 +63,8 @@ public class TypeRDFSClassHandler extends BuiltInTypeHandler {
         getConsumer().addClassExpression(subject, false);
         consumeTriple(subject, predicate, object);
         if (!isStrict()) {
-            getConsumer().handle(subject, predicate, OWLRDFVocabulary.OWL_CLASS.getIRI());
+            getConsumer().handle(subject, predicate,
+                    OWLRDFVocabulary.OWL_CLASS.getIRI());
         }
     }
 }

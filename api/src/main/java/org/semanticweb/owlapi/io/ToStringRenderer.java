@@ -42,14 +42,17 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleRenderer;
 
-/** A utility class which can be used by implementations to provide a toString
+/**
+ * A utility class which can be used by implementations to provide a toString
  * rendering of OWL API objects. The idea is that this is pluggable. TODO this
  * does not allow for independent rendering; in a multithreaded situation, the
  * rendere may change mid execution because of the static singleton instance
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Jan-2008 */
+ *         Informatics Group, Date: 14-Jan-2008
+ */
 public class ToStringRenderer {
+
     private static ToStringRenderer instance;
     private OWLObjectRenderer renderer;
 
@@ -65,32 +68,40 @@ public class ToStringRenderer {
         return instance;
     }
 
-    /** Deprecated: this method returns internal mutable state, it is not safe to
+    /**
+     * Deprecated: this method returns internal mutable state, it is not safe to
      * use in a multithreaded environment. Use
      * ToStringRenderer::getInstance().setShortFormProvider() to set the
      * ShortFormProvider instead.
      * 
-     * @return the current OWLObjectRenderer */
+     * @return the current OWLObjectRenderer
+     */
     @Deprecated
     public synchronized OWLObjectRenderer getRenderer() {
         return renderer;
     }
 
-    /** @param provider
-     *            the new short form provider */
+    /**
+     * @param provider
+     *        the new short form provider
+     */
     public synchronized void setShortFormProvider(ShortFormProvider provider) {
         renderer.setShortFormProvider(provider);
     }
 
-    /** @param renderer
-     *            the new renderer to use */
+    /**
+     * @param renderer
+     *        the new renderer to use
+     */
     public synchronized void setRenderer(OWLObjectRenderer renderer) {
         this.renderer = renderer;
     }
 
-    /** @param object
-     *            the object to render
-     * @return the rendering for the object */
+    /**
+     * @param object
+     *        the object to render
+     * @return the rendering for the object
+     */
     public synchronized String getRendering(OWLObject object) {
         return renderer.render(object);
     }

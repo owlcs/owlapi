@@ -44,20 +44,25 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
 
-/** An ontology set provider which provides a singleton set - i.e. a set
+/**
+ * An ontology set provider which provides a singleton set - i.e. a set
  * containing just one ontology.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 27-Apr-2007 */
+ *         Informatics Group, Date: 27-Apr-2007
+ */
 public class OWLOntologySingletonSetProvider implements OWLOntologySetProvider {
+
     private final Set<OWLOntology> ontologySingletonSet;
 
-    /** Constructs an {@code OWLOntologySingletonSetProvider} which provides a
+    /**
+     * Constructs an {@code OWLOntologySingletonSetProvider} which provides a
      * singleton set contain the specified ontology.
      * 
      * @param ontology
-     *            The one and only ontology which should be contained in the
-     *            sets provided by this provider. */
+     *        The one and only ontology which should be contained in the sets
+     *        provided by this provider.
+     */
     public OWLOntologySingletonSetProvider(OWLOntology ontology) {
         ontologySingletonSet = Collections.singleton(ontology);
     }

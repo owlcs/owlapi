@@ -49,14 +49,18 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Nov-2006
+ */
 public class KRSSOWLParser extends AbstractOWLParser {
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             OWLOntologyChangeException, UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -72,8 +76,8 @@ public class KRSSOWLParser extends AbstractOWLParser {
             } else if (documentSource.isInputStreamAvailable()) {
                 parser = new KRSSParser(documentSource.getInputStream());
             } else {
-                parser = new KRSSParser(getInputStream(documentSource.getDocumentIRI(),
-                        configuration));
+                parser = new KRSSParser(getInputStream(
+                        documentSource.getDocumentIRI(), configuration));
             }
             parser.setOntology(ontology, ontology.getOWLOntologyManager()
                     .getOWLDataFactory());

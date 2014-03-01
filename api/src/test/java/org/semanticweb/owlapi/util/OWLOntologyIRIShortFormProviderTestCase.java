@@ -10,12 +10,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date: 24/02/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 24/02/2014
  */
 public class OWLOntologyIRIShortFormProviderTestCase {
 
     public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";
-
     private OntologyIRIShortFormProvider sfp;
 
     @Before
@@ -31,8 +31,9 @@ public class OWLOntologyIRIShortFormProviderTestCase {
     }
 
     /**
-     * A test to see if a meaningful short form is returned when the ontology IRI encodes version information at the
-     * end.  For example, the dublin core IRIs do this.
+     * A test to see if a meaningful short form is returned when the ontology
+     * IRI encodes version information at the end. For example, the dublin core
+     * IRIs do this.
      */
     @Test
     public void shouldReturnLastNonNumericPathElement() {
@@ -103,5 +104,4 @@ public class OWLOntologyIRIShortFormProviderTestCase {
         String shortForm = sfp.getShortForm(IRI.create(input));
         assertThat(shortForm, is(CoreMatchers.equalTo("dc")));
     }
-
 }

@@ -42,13 +42,16 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Provides a set of entities to inputs that require this.
+/**
+ * Provides a set of entities to inputs that require this.
  * 
  * @param <E>
- *            the entity type
+ *        the entity type
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 18-Apr-2007 */
+ *         Informatics Group, Date: 18-Apr-2007
+ */
 public interface OWLEntitySetProvider<E extends OWLEntity> {
+
     /** @return the entities that are provided by this provider. */
     Set<E> getEntities();
 }

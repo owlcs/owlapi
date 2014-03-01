@@ -61,15 +61,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 15-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 15-Jan-2009
+ */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
         OWLNamedIndividual {
+
     private static final long serialVersionUID = 30406L;
     private final IRI iri;
 
-    /** @param iri
-     *            the iri */
+    /**
+     * @param iri
+     *        the iri
+     */
     public OWLNamedIndividualImpl(IRI iri) {
         super();
         this.iri = iri;
@@ -155,7 +160,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
+        return ImplUtils.getAnnotationAxioms(this,
+                Collections.singleton(ontology));
     }
 
     @Override
@@ -171,8 +177,8 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
     }
 
     @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology,
+            boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 

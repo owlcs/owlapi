@@ -43,21 +43,26 @@ import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public class UseOfIllegalFacetRestriction extends OWLProfileViolation implements
         OWL2ProfileViolation {
+
     private final OWLDatatypeRestriction datatypeRestriction;
     private final OWLFacet facet;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param dtr
-     *            wrong datatype restriction
+     *        wrong datatype restriction
      * @param facet
-     *            wrong facet */
+     *        wrong facet
+     */
     public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
             OWLDatatypeRestriction dtr, OWLFacet facet) {
         super(ontology, axiom);

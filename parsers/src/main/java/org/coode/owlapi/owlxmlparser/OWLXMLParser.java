@@ -59,14 +59,18 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006
+ */
 public class OWLXMLParser extends AbstractOWLParser {
+
     @Override
     public OWLOntologyFormat parse(OWLOntologyDocumentSource documentSource,
             OWLOntology ontology) throws OWLParserException, IOException,
             UnloadableImportException {
-        return parse(documentSource, ontology, new OWLOntologyLoaderConfiguration());
+        return parse(documentSource, ontology,
+                new OWLOntologyLoaderConfiguration());
     }
 
     @Override
@@ -82,9 +86,11 @@ public class OWLXMLParser extends AbstractOWLParser {
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
             isrc = getInputSource(documentSource, configuration);
-            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology, configuration);
+            OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,
+                    configuration);
             parser.parse(isrc, handler);
-            Map<String, String> prefix2NamespaceMap = handler.getPrefixName2PrefixMap();
+            Map<String, String> prefix2NamespaceMap = handler
+                    .getPrefixName2PrefixMap();
             for (String prefix : prefix2NamespaceMap.keySet()) {
                 format.setPrefix(prefix, prefix2NamespaceMap.get(prefix));
             }

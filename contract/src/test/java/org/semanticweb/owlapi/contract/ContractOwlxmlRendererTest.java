@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlRendererTest {
+
     @Test
     public void shouldTestOWLXMLObjectRenderer() throws Exception {
         OWLXMLObjectRenderer testSubject0 = new OWLXMLObjectRenderer(

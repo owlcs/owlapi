@@ -45,30 +45,38 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 
-/** This utility class can be used to obtain an object property expression in its
+/**
+ * This utility class can be used to obtain an object property expression in its
  * simplest form. Let P be an object property name and PE a property expression,
  * then the simplification is inductively defined as: simp(P) = P simp(inv(P)) =
  * inv(P) simp(inv(inv(PE)) = simp(PE)
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
- *         Management Group, Date: 06-Jun-2008 */
+ *         Management Group, Date: 06-Jun-2008
+ */
 public class ObjectPropertySimplifier {
+
     private final OWLDataFactory dataFactory;
     private final Simplifier simplifier;
 
-    /** @param dataFactory
-     *            datafactory to use */
+    /**
+     * @param dataFactory
+     *        datafactory to use
+     */
     public ObjectPropertySimplifier(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
         simplifier = new Simplifier();
     }
 
-    /** Gets an object property expression in its simplest form.
+    /**
+     * Gets an object property expression in its simplest form.
      * 
      * @param prop
-     *            The object property expression to be simplified.
-     * @return The simplest form of the object property expression. */
-    public OWLObjectPropertyExpression getSimplified(OWLObjectPropertyExpression prop) {
+     *        The object property expression to be simplified.
+     * @return The simplest form of the object property expression.
+     */
+    public OWLObjectPropertyExpression getSimplified(
+            OWLObjectPropertyExpression prop) {
         simplifier.reset();
         prop.accept(simplifier);
         if (simplifier.isInverse()) {
@@ -79,6 +87,7 @@ public class ObjectPropertySimplifier {
     }
 
     private static class Simplifier implements OWLPropertyExpressionVisitor {
+
         private OWLObjectProperty property;
         private int depth;
 

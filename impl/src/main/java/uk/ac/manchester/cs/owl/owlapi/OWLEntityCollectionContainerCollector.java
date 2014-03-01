@@ -143,16 +143,19 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** A utility class that visits axioms, class expressions etc. and accumulates
+/**
+ * A utility class that visits axioms, class expressions etc. and accumulates
  * the named objects that are referred to in those axioms, class expressions
  * etc. For example, if the collector visited the axiom (propP some C)
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
  * D.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006 */
+ *         Informatics Group, Date: 13-Nov-2006
+ */
 public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
         SWRLObjectVisitor {
+
     private Collection<OWLEntity> objects;
     private final Collection<OWLAnonymousIndividual> anonymousIndividuals;
     private boolean collectClasses = true;
@@ -161,93 +164,115 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
     private boolean collectIndividuals = true;
     private boolean collectDatatypes = true;
 
-    /** @param toReturn
-     *            the set that will contain the results
+    /**
+     * @param toReturn
+     *        the set that will contain the results
      * @param anonsToReturn
-     *            the set that will contain the anon individuals */
+     *        the set that will contain the anon individuals
+     */
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn,
             Collection<OWLAnonymousIndividual> anonsToReturn) {
         objects = toReturn;
         anonymousIndividuals = anonsToReturn;
     }
 
-    /** @param toReturn
-     *            the set that will contain the results */
+    /**
+     * @param toReturn
+     *        the set that will contain the results
+     */
     public OWLEntityCollectionContainerCollector(Set<OWLEntity> toReturn) {
         objects = toReturn;
         anonymousIndividuals = fake;
     }
 
-    /** Deprecated default constructor: use one of the other constructors to get
-     * more efficient set creation. */
+    /**
+     * Deprecated default constructor: use one of the other constructors to get
+     * more efficient set creation.
+     */
     @Deprecated
     public OWLEntityCollectionContainerCollector() {
         this(new HashSet<OWLEntity>(), new HashSet<OWLAnonymousIndividual>());
     }
 
-    /** Clears all objects that have accumulated during the course of visiting
+    /**
+     * Clears all objects that have accumulated during the course of visiting
      * axioms, class expressions etc.
      * 
      * @param toReturn
-     *            the set that will contain the results */
+     *        the set that will contain the results
+     */
     // XXX not in the interface
     public void reset(Set<OWLEntity> toReturn) {
         objects = toReturn;
         anonymousIndividuals.clear();
     }
 
-    /** @param collectClasses
-     *            true to collect classes */
+    /**
+     * @param collectClasses
+     *        true to collect classes
+     */
     // XXX not in the interface
     public void setCollectClasses(boolean collectClasses) {
         this.collectClasses = collectClasses;
     }
 
-    /** @param collectObjectProperties
-     *            true to collect object properties */
+    /**
+     * @param collectObjectProperties
+     *        true to collect object properties
+     */
     // XXX not in the interface
     public void setCollectObjectProperties(boolean collectObjectProperties) {
         this.collectObjectProperties = collectObjectProperties;
     }
 
-    /** @param collectDataProperties
-     *            true to collect data properties */
+    /**
+     * @param collectDataProperties
+     *        true to collect data properties
+     */
     public void setCollectDataProperties(boolean collectDataProperties) {
         this.collectDataProperties = collectDataProperties;
     }
 
-    /** @param collectIndividuals
-     *            true to collect individuals */
+    /**
+     * @param collectIndividuals
+     *        true to collect individuals
+     */
     // XXX not in the interface
     public void setCollectIndividuals(boolean collectIndividuals) {
         this.collectIndividuals = collectIndividuals;
     }
 
-    /** @param collectDatatypes
-     *            true to collect datatypes */
+    /**
+     * @param collectDatatypes
+     *        true to collect datatypes
+     */
     // XXX not in the interface
     public void setCollectDatatypes(boolean collectDatatypes) {
         this.collectDatatypes = collectDatatypes;
     }
 
-    /** Gets the objects that are used by all axioms, class expressions etc. that
+    /**
+     * Gets the objects that are used by all axioms, class expressions etc. that
      * this collector has visited since it was constructed or reset. Deprecated:
      * if the non deprecated constructors are used, this method is useless and
      * inefficient
      * 
-     * @return A set of entities. This will be a copy. */
+     * @return A set of entities. This will be a copy.
+     */
     @Deprecated
     public Set<OWLEntity> getObjects() {
         return new HashSet<OWLEntity>(objects);
     }
 
-    /** A convenience method. Although anonymous individuals are not entities
+    /**
+     * A convenience method. Although anonymous individuals are not entities
      * they are collected by this collector and stored in a separate set. This
      * method returns collected individuals. Deprecated: if the non deprecated
      * constructors are used, this method is useless and inefficient
      * 
      * @return The set of anonymous individuals that were collected by the
-     *         collector */
+     *         collector
+     */
     @Deprecated
     public Set<OWLAnonymousIndividual> getAnonymousIndividuals() {
         return new HashSet<OWLAnonymousIndividual>(anonymousIndividuals);
@@ -259,6 +284,7 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
+
         @Override
         public void visit(CollectionContainer<OWLAnnotation> c) {}
 
@@ -866,6 +892,7 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
     }
 
     private static final List<OWLAnonymousIndividual> fake = new List<OWLAnonymousIndividual>() {
+
         @Override
         public <T> T[] toArray(T[] arg0) {
             return arg0;
@@ -887,7 +914,8 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
         }
 
         @Override
-        public OWLAnonymousIndividual set(int arg0, OWLAnonymousIndividual arg1) {
+        public OWLAnonymousIndividual
+                set(int arg0, OWLAnonymousIndividual arg1) {
             return null;
         }
 
@@ -960,13 +988,14 @@ public class OWLEntityCollectionContainerCollector implements OWLObjectVisitor,
         public void clear() {}
 
         @Override
-        public boolean
-                addAll(int arg0, Collection<? extends OWLAnonymousIndividual> arg1) {
+        public boolean addAll(int arg0,
+                Collection<? extends OWLAnonymousIndividual> arg1) {
             return false;
         }
 
         @Override
-        public boolean addAll(Collection<? extends OWLAnonymousIndividual> arg0) {
+        public boolean
+                addAll(Collection<? extends OWLAnonymousIndividual> arg0) {
             return false;
         }
 

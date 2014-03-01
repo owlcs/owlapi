@@ -10,6 +10,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 
 @SuppressWarnings("javadoc")
 public class SingleIntersectionOfTagTest extends OboFormatTestBasics {
+
     @Test(expected = FrameStructureException.class)
     public void testParseOBOFile() throws Exception {
         OBODoc obodoc = parseOBOFile("single_intersection_of_tag_test.obo");

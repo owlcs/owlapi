@@ -51,14 +51,17 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class DisjointUnionTestCase {
+
     public static final String NS = "http://protege.org/protege/DisjointUnion.owl";
     public static final OWLClass A = Class(IRI(NS + "#A"));
     public static final OWLClass B = Class(IRI(NS + "#B"));
     public static final OWLClass C = Class(IRI(NS + "#C"));
 
-    /** @param args
+    /**
+     * @param args
      * @throws OWLOntologyCreationException
-     * @throws OWLOntologyStorageException */
+     * @throws OWLOntologyStorageException
+     */
     @Test
     public void testDisjointUnion() throws Exception {
         OWLOntologyManager manager = Factory.getManager();

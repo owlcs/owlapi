@@ -45,18 +45,24 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
         OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLObjectPropertyExpression property;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
-    public OWLObjectPropertyCharacteristicAxiomImpl(OWLObjectPropertyExpression property,
+     *        annotations
+     */
+    public OWLObjectPropertyCharacteristicAxiomImpl(
+            OWLObjectPropertyExpression property,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.property = property;
@@ -73,15 +79,16 @@ public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
             if (!(obj instanceof OWLObjectPropertyCharacteristicAxiom)) {
                 return false;
             }
-            return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty().equals(
-                    property);
+            return ((OWLObjectPropertyCharacteristicAxiom) obj).getProperty()
+                    .equals(property);
         }
         return false;
     }
 
     @Override
     protected int compareObjectOfSameType(OWLObject object) {
-        return property.compareTo(((OWLObjectPropertyCharacteristicAxiom) object)
-                .getProperty());
+        return property
+                .compareTo(((OWLObjectPropertyCharacteristicAxiom) object)
+                        .getProperty());
     }
 }

@@ -10,17 +10,22 @@ import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 22/10/2012
+ */
 @SuppressWarnings("javadoc")
 public class AddOntologyAnnotationDataTestCase {
+
     private OWLAnnotation mockAnnotation;
     private OWLOntology mockOntology;
 
-    /** Creates AddOntologyAnnotationData with the value of the
+    /**
+     * Creates AddOntologyAnnotationData with the value of the
      * {@code mockAnnotation} field as a parameter.
      * 
-     * @return The freshly created AddOntologyAnnotationData */
+     * @return The freshly created AddOntologyAnnotationData
+     */
     private AddOntologyAnnotationData createData() {
         return new AddOntologyAnnotationData(mockAnnotation);
     }

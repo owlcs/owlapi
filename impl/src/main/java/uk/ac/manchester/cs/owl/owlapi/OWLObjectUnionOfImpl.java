@@ -49,14 +49,19 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl implements
-        OWLObjectUnionOf {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLObjectUnionOfImpl extends OWLNaryBooleanClassExpressionImpl
+        implements OWLObjectUnionOf {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param operands
-     *            operands */
+    /**
+     * @param operands
+     *        operands
+     */
     public OWLObjectUnionOfImpl(Set<? extends OWLClassExpression> operands) {
         super(operands);
     }

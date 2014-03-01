@@ -40,15 +40,20 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Mar-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 18-Mar-2009
+ */
 public abstract class AnnotationChange extends OWLOntologyChange {
+
     private final OWLAnnotation annotation;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param annotation
-     *            the annotation */
+     *        the annotation
+     */
     public AnnotationChange(OWLOntology ont, OWLAnnotation annotation) {
         super(ont);
         this.annotation = annotation;
@@ -59,9 +64,11 @@ public abstract class AnnotationChange extends OWLOntologyChange {
         return annotation.getSignature();
     }
 
-    /** Gets the annotation that was added to an ontology.
+    /**
+     * Gets the annotation that was added to an ontology.
      * 
-     * @return The annotation that was added */
+     * @return The annotation that was added
+     */
     public OWLAnnotation getAnnotation() {
         return annotation;
     }

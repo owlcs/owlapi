@@ -70,9 +70,12 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007
+ */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
+
     private static final long serialVersionUID = 30406L;
     private final Set<SWRLAtom> head;
     private final Set<SWRLAtom> body;
@@ -80,13 +83,16 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private Boolean containsAnonymousClassExpressions = null;
     private Set<OWLClassExpression> classAtomsPredicates;
 
-    /** @param body
-     *            rule body
+    /**
+     * @param body
+     *        rule body
      * @param head
-     *            rule head
+     *        rule head
      * @param annotations
-     *            annotations on the axiom */
-    public SWRLRuleImpl(Set<? extends SWRLAtom> body, Set<? extends SWRLAtom> head,
+     *        annotations on the axiom
+     */
+    public SWRLRuleImpl(Set<? extends SWRLAtom> body,
+            Set<? extends SWRLAtom> head,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
         this.head = new TreeSet<SWRLAtom>(head);
@@ -187,12 +193,14 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Set<SWRLAtom> getBody() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(body);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(body);
     }
 
     @Override
     public Set<SWRLAtom> getHead() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(head);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(head);
     }
 
     @Override
@@ -245,6 +253,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     protected final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
+
         @Override
         public SWRLRule visit(SWRLRule node) {
             Set<SWRLAtom> nodebody = new HashSet<SWRLAtom>();
@@ -304,7 +313,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         }
 
         @Override
-        public SWRLDifferentIndividualsAtom visit(SWRLDifferentIndividualsAtom node) {
+        public SWRLDifferentIndividualsAtom visit(
+                SWRLDifferentIndividualsAtom node) {
             return node;
         }
     }

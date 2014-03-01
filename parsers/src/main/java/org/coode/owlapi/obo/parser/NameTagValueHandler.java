@@ -44,11 +44,16 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class NameTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public NameTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.NAME.getName(), consumer);
     }
@@ -61,14 +66,17 @@ public class NameTagValueHandler extends AbstractTagValueHandler {
         if (getConsumer().isTerm()) {
             ent = getDataFactory().getOWLClass(getIRIFromOBOId(currentId));
         } else if (getConsumer().isTypedef()) {
-            ent = getDataFactory().getOWLObjectProperty(getIRIFromOBOId(currentId));
+            ent = getDataFactory().getOWLObjectProperty(
+                    getIRIFromOBOId(currentId));
         } else {
-            ent = getDataFactory().getOWLNamedIndividual(getIRIFromOBOId(currentId));
+            ent = getDataFactory().getOWLNamedIndividual(
+                    getIRIFromOBOId(currentId));
         }
         OWLLiteral con = getDataFactory().getOWLLiteral(value);
         OWLAxiom ax = getDataFactory().getOWLAnnotationAssertionAxiom(
                 getDataFactory().getOWLAnnotationProperty(
-                        OWLRDFVocabulary.RDFS_LABEL.getIRI()), ent.getIRI(), con);
+                        OWLRDFVocabulary.RDFS_LABEL.getIRI()), ent.getIRI(),
+                con);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 }

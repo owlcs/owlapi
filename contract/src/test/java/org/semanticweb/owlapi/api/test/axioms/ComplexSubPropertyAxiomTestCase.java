@@ -52,10 +52,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Feb-2009
+ */
 @SuppressWarnings("javadoc")
-public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTestCase {
+public class ComplexSubPropertyAxiomTestCase extends
+        AbstractFileRoundTrippingTestCase {
+
     @Test
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
@@ -65,7 +69,8 @@ public class ComplexSubPropertyAxiomTestCase extends AbstractFileRoundTrippingTe
         List<OWLObjectProperty> chain = new ArrayList<OWLObjectProperty>();
         chain.add(propP);
         chain.add(propQ);
-        axioms.add(Factory.getFactory().getOWLSubPropertyChainOfAxiom(chain, propR));
+        axioms.add(Factory.getFactory().getOWLSubPropertyChainOfAxiom(chain,
+                propR));
         assertEquals(getOnt().getAxioms(), axioms);
     }
 

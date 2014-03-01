@@ -47,9 +47,13 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 22-May-2007 */
-public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 22-May-2007
+ */
+public class ManchesterOWLSyntaxOntologyStorer extends
+        AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 30406L;
 
     @Override
@@ -58,8 +62,9 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     }
 
     @Override
-    protected void storeOntology(OWLOntologyManager manager, OWLOntology ontology,
-            Writer writer, OWLOntologyFormat format) throws OWLOntologyStorageException {
+    protected void storeOntology(OWLOntologyManager manager,
+            OWLOntology ontology, Writer writer, OWLOntologyFormat format)
+            throws OWLOntologyStorageException {
         storeOntology(ontology, writer, format);
     }
 
@@ -67,8 +72,8 @@ public class ManchesterOWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer
     protected void storeOntology(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) throws OWLOntologyStorageException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                        format));
+                ontology, writer,
+                new ManchesterOWLSyntaxPrefixNameShortFormProvider(format));
         ren.writeOntology();
     }
 }

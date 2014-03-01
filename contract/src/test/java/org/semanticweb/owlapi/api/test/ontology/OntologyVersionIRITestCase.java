@@ -45,9 +45,12 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 24-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 24-Dec-2009
+ */
 public class OntologyVersionIRITestCase extends AbstractRoundTrippingTestCase {
+
     //
     // @Override
     // protected String getFileName() {

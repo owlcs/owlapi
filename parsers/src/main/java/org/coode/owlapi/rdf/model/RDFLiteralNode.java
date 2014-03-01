@@ -40,9 +40,12 @@ package org.coode.owlapi.rdf.model;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Dec-2006
+ */
 public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
+
     private String literal;
     private String lang;
     private IRI datatype;
@@ -58,34 +61,42 @@ public class RDFLiteralNode extends RDFNode implements Comparable<RDFNode> {
         return false;
     }
 
-    /** @param literal
-     *            lexical form
+    /**
+     * @param literal
+     *        lexical form
      * @param datatype
-     *            type */
+     *        type
+     */
     public RDFLiteralNode(String literal, IRI datatype) {
         this.literal = literal;
         this.datatype = datatype;
     }
 
-    /** @param literal
-     *            lexical form
+    /**
+     * @param literal
+     *        lexical form
      * @param lang
-     *            language tag */
+     *        language tag
+     */
     public RDFLiteralNode(String literal, String lang) {
         this.literal = literal;
         this.lang = lang;
     }
 
-    /** Gets the lexical form of this literal.
+    /**
+     * Gets the lexical form of this literal.
      * 
-     * @return The lexical form */
+     * @return The lexical form
+     */
     public String getLiteral() {
         return literal;
     }
 
-    /** Gets the lang
+    /**
+     * Gets the lang
      * 
-     * @return The lang, or {@code null} if there is no lang */
+     * @return The lang, or {@code null} if there is no lang
+     */
     public String getLang() {
         return lang;
     }

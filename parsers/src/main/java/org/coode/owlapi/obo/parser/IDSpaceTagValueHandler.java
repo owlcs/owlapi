@@ -41,15 +41,21 @@ package org.coode.owlapi.obo.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 18/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012
+ */
 public class IDSpaceTagValueHandler extends AbstractTagValueHandler {
-    private static final Pattern PATTERN = Pattern.compile("([^\\s]*)\\s+([^\\s]*)");
+
+    private static final Pattern PATTERN = Pattern
+            .compile("([^\\s]*)\\s+([^\\s]*)");
     private static final int ID_PREFIX_GROUP = 1;
     private static final int IRI_PREFIX_GROUP = 2;
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public IDSpaceTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.ID_SPACE.getName(), consumer);
     }

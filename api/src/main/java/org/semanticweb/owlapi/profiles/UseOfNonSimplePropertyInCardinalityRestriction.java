@@ -42,18 +42,23 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
-public class UseOfNonSimplePropertyInCardinalityRestriction extends OWLProfileViolation
-        implements OWL2DLProfileViolation {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
+public class UseOfNonSimplePropertyInCardinalityRestriction extends
+        OWLProfileViolation implements OWL2DLProfileViolation {
+
     private final OWLObjectCardinalityRestriction restriction;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param restriction
-     *            wrong property */
+     *        wrong property
+     */
     public UseOfNonSimplePropertyInCardinalityRestriction(OWLOntology ontology,
             OWLAxiom axiom, OWLObjectCardinalityRestriction restriction) {
         super(ontology, axiom);

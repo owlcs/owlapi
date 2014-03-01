@@ -42,18 +42,23 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
-public class UseOfNonAtomicClassExpression extends OWLProfileViolation implements
-        OWL2QLProfileViolation {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
+public class UseOfNonAtomicClassExpression extends OWLProfileViolation
+        implements OWL2QLProfileViolation {
+
     private final OWLClassExpression classExpression;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param classExpression
-     *            wrong class */
+     *        wrong class
+     */
     public UseOfNonAtomicClassExpression(OWLOntology ontology, OWLAxiom axiom,
             OWLClassExpression classExpression) {
         super(ontology, axiom);

@@ -47,13 +47,17 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 09-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 09-Jun-2009
+ */
 @SuppressWarnings("javadoc")
 public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testTopObjectPropertyPositive() {
-        OWLObjectPropertyExpression prop = Factory.getFactory().getOWLTopObjectProperty();
+        OWLObjectPropertyExpression prop = Factory.getFactory()
+                .getOWLTopObjectProperty();
         assertTrue(prop.isOWLTopObjectProperty());
     }
 
@@ -78,13 +82,15 @@ public class BuiltInPropertyTestCase extends AbstractOWLAPITestCase {
 
     @Test
     public void testTopDataPropertyPositive() {
-        OWLDataPropertyExpression prop = Factory.getFactory().getOWLTopDataProperty();
+        OWLDataPropertyExpression prop = Factory.getFactory()
+                .getOWLTopDataProperty();
         assertTrue(prop.isOWLTopDataProperty());
     }
 
     @Test
     public void testBottomDataPropertyPositive() {
-        OWLDataPropertyExpression prop = Factory.getFactory().getOWLBottomDataProperty();
+        OWLDataPropertyExpression prop = Factory.getFactory()
+                .getOWLBottomDataProperty();
         assertTrue(prop.isOWLBottomDataProperty());
     }
 

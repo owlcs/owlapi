@@ -42,11 +42,16 @@ import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Jan-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Jan-2007
+ */
 public class TransitiveTagValueHandler extends AbstractTagValueHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TransitiveTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.IS_TRANSITIVE.getName(), consumer);
     }
@@ -57,7 +62,8 @@ public class TransitiveTagValueHandler extends AbstractTagValueHandler {
         if (Boolean.parseBoolean(value)) {
             OWLObjectProperty prop = getDataFactory().getOWLObjectProperty(
                     getIRIFromOBOId(currentId));
-            OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(prop);
+            OWLAxiom ax = getDataFactory().getOWLTransitiveObjectPropertyAxiom(
+                    prop);
             applyChange(new AddAxiom(getOntology(), ax));
         }
     }

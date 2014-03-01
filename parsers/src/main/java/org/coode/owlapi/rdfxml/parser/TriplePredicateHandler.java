@@ -40,15 +40,21 @@ package org.coode.owlapi.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 08-Dec-2006 */
-public abstract class TriplePredicateHandler extends AbstractResourceTripleHandler {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 08-Dec-2006
+ */
+public abstract class TriplePredicateHandler extends
+        AbstractResourceTripleHandler {
+
     private IRI predicateIRI;
 
-    /** @param consumer
-     *            consumer
+    /**
+     * @param consumer
+     *        consumer
      * @param predicateIRI
-     *            predicate */
+     *        predicate
+     */
     public TriplePredicateHandler(OWLRDFConsumer consumer, IRI predicateIRI) {
         super(consumer);
         this.predicateIRI = predicateIRI;

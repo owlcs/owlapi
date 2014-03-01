@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Feb-2008 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Feb-2008
+ */
 @SuppressWarnings({ "unused", "javadoc" })
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
+
     private static final long serialVersionUID = 30406L;
     protected ShortFormProvider sfp;
 
@@ -68,6 +71,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     @Override
     protected String getRendering(final OWLEntity subject, OWLAxiom axiom) {
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
+
             @Override
             protected String renderEntity(OWLEntity entity) {
                 if (!entity.equals(subject)) {
@@ -95,7 +99,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
+    protected void
+            beginWritingOntology(OWLOntology ontology, PrintWriter writer) {
         writer.println("<html>");
         writer.println("<body>");
         writer.print("<h1>");
@@ -123,8 +128,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void beginWritingAxioms(OWLEntity subject, Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
+    protected void beginWritingAxioms(OWLEntity subject,
+            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         writer.print("<h2><a name=\"");
         writer.print(sfp.getShortForm(subject));
         writer.print("\">");
@@ -134,8 +139,8 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void endWritingAxioms(OWLEntity subject, Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
+    protected void endWritingAxioms(OWLEntity subject,
+            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         writer.println("</div>");
     }
 
@@ -152,15 +157,15 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     }
 
     @Override
-    protected void beginWritingUsage(OWLEntity subject, Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
+    protected void beginWritingUsage(OWLEntity subject,
+            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         writer.println("<div class=\"usage\" style=\"margin-left: 60px; size: tiny\">");
         writer.print("<h3>Usages (" + axioms.size() + ")</h3>");
     }
 
     @Override
-    protected void endWritingUsage(OWLEntity subject, Set<? extends OWLAxiom> axioms,
-            PrintWriter writer) {
+    protected void endWritingUsage(OWLEntity subject,
+            Set<? extends OWLAxiom> axioms, PrintWriter writer) {
         writer.println("</div>");
     }
 }

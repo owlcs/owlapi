@@ -16,15 +16,18 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** A test case to ensure that the reference implementation data factories do not
+/**
+ * A test case to ensure that the reference implementation data factories do not
  * create duplicate objects for distinguished values (e.g. owl:Thing,
  * rdfs:Literal etc.)
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 24/10/2012 */
+ *         Research Group, Date: 24/10/2012
+ */
 @RunWith(value = Parameterized.class)
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryImplTestCase {
+
     private final OWLDataFactoryImpl dataFactory;
 
     public OWLDataFactoryImplTestCase(OWLDataFactoryImpl dataFactory) {
@@ -35,7 +38,8 @@ public class OWLDataFactoryImplTestCase {
     public static Collection<Object[]> parameters() {
         OWLDataFactoryImpl noCaching = new OWLDataFactoryImpl(false, false);
         OWLDataFactoryImpl withCaching = new OWLDataFactoryImpl(true, false);
-        return Arrays.asList(new Object[] { noCaching }, new Object[] { withCaching });
+        return Arrays.asList(new Object[] { noCaching },
+                new Object[] { withCaching });
     }
 
     @Test
@@ -110,8 +114,10 @@ public class OWLDataFactoryImplTestCase {
 
     @Test
     public void getOWLBackwardCompatibleWith() {
-        OWLAnnotationProperty call1 = dataFactory.getOWLBackwardCompatibleWith();
-        OWLAnnotationProperty call2 = dataFactory.getOWLBackwardCompatibleWith();
+        OWLAnnotationProperty call1 = dataFactory
+                .getOWLBackwardCompatibleWith();
+        OWLAnnotationProperty call2 = dataFactory
+                .getOWLBackwardCompatibleWith();
         assertTrue(call1 == call2);
     }
 

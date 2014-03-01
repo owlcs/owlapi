@@ -46,12 +46,16 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTr
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 25-Nov-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 25-Nov-2009
+ */
 public class DataPropertyDomainAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
+
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
-        return DataPropertyDomain(DataProperty(getIRI("p")), Class(getIRI("A")), annos);
+        return DataPropertyDomain(DataProperty(getIRI("p")),
+                Class(getIRI("A")), annos);
     }
 }

@@ -54,9 +54,12 @@ import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 28-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 28-Jun-2009
+ */
 public class DataUnionOf2TestCase extends AbstractAxiomsRoundTrippingTestCase {
+
     @Override
     protected Set<? extends OWLAxiom> createAxioms() {
         OWLDatatype dt = Datatype(IRI("file:/c/test.owlapi#SSN"));
@@ -64,9 +67,11 @@ public class DataUnionOf2TestCase extends AbstractAxiomsRoundTrippingTestCase {
                 Literal("[0-9]{3}-[0-9]{2}-[0-9]{4}"));
         OWLDataRange dr = DatatypeRestriction(
                 Datatype(IRI("http://www.w3.org/2001/XMLSchema#string")), fr);
-        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr), dt);
+        OWLDataIntersectionOf disj1 = DataIntersectionOf(DataComplementOf(dr),
+                dt);
         // here I negate dr
-        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt), dr);
+        OWLDataIntersectionOf disj2 = DataIntersectionOf(DataComplementOf(dt),
+                dr);
         // here I negate dt
         OWLDataUnionOf union = DataUnionOf(disj1, disj2);
         OWLDataProperty prop = DataProperty(getIRI("prop"));

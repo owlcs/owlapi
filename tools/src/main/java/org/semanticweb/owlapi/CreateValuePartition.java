@@ -37,27 +37,27 @@
  * limitations under the License.
  */
 package org.semanticweb.owlapi;/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+* Copyright (C) 2007, University of Manchester
+*
+* Modifications to the initial code base are copyright of their
+* respective authors, or their employers as appropriate.  Authorship
+* of the modifications may be determined from the ChangeLog placed at
+* the end of this file.
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation; either
+* version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+* You should have received a copy of the GNU Lesser General Public
+* License along with this library; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +71,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** This composite change will create a value partion - see "pattern 2" in
+/**
+ * This composite change will create a value partion - see "pattern 2" in
  * "Representing Specified Values in OWL: "value partitions" and "value sets""
  * (http:/** A value partition is an ontology design pattern which is used to
  * represent a set of closed values for a particular property. For example the
@@ -83,33 +84,36 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  * made disjoint with eachother.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 23-Jul-2007 */
+ *         Informatics Group, Date: 23-Jul-2007
+ */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
+
     private List<OWLOntologyChange> changes;
     private final OWLOntology targetOntology;
     private final Set<OWLClass> valuePartionClasses;
     private final OWLClass valuePartitionClass;
     private final OWLObjectProperty valuePartitionProperty;
 
-    /** Creates a composite change that will create a value partition.
+    /**
+     * Creates a composite change that will create a value partition.
      * 
      * @param dataFactory
-     *            A data factory which can be used to create the necessary
-     *            axioms
+     *        A data factory which can be used to create the necessary axioms
      * @param valuePartitionClass
-     *            The class which represents the value partition.
+     *        The class which represents the value partition.
      * @param valuePartionClasses
-     *            The classes that represent the various values of the value
-     *            partition.
+     *        The classes that represent the various values of the value
+     *        partition.
      * @param valuePartitionProperty
-     *            the property which should be used in conjunction with the
-     *            value partition.
+     *        the property which should be used in conjunction with the value
+     *        partition.
      * @param targetOntology
-     *            The target ontology which the axioms that are necessary to
-     *            create the value partition will be added to. */
-    public CreateValuePartition(OWLDataFactory dataFactory, OWLClass valuePartitionClass,
-            Set<OWLClass> valuePartionClasses, OWLObjectProperty valuePartitionProperty,
-            OWLOntology targetOntology) {
+     *        The target ontology which the axioms that are necessary to create
+     *        the value partition will be added to.
+     */
+    public CreateValuePartition(OWLDataFactory dataFactory,
+            OWLClass valuePartitionClass, Set<OWLClass> valuePartionClasses,
+            OWLObjectProperty valuePartitionProperty, OWLOntology targetOntology) {
         super(dataFactory);
         this.targetOntology = targetOntology;
         this.valuePartionClasses = valuePartionClasses;
@@ -127,7 +131,8 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // value partition class
         for (OWLClassExpression valuePartitionValue : valuePartionClasses) {
             changes.add(new AddAxiom(targetOntology, getDataFactory()
-                    .getOWLSubClassOfAxiom(valuePartitionValue, valuePartitionClass)));
+                    .getOWLSubClassOfAxiom(valuePartitionValue,
+                            valuePartitionClass)));
         }
         // 2) Make the values disjoint
         changes.add(new AddAxiom(targetOntology, getDataFactory()
@@ -135,8 +140,8 @@ public class CreateValuePartition extends AbstractCompositeOntologyChange {
         // 3) Add a covering axiom to the value partition
         OWLClassExpression union = getDataFactory().getOWLObjectUnionOf(
                 valuePartionClasses);
-        changes.add(new AddAxiom(targetOntology, getDataFactory().getOWLSubClassOfAxiom(
-                valuePartitionClass, union)));
+        changes.add(new AddAxiom(targetOntology, getDataFactory()
+                .getOWLSubClassOfAxiom(valuePartitionClass, union)));
         // 4) Make the property functional
         changes.add(new AddAxiom(targetOntology, getDataFactory()
                 .getOWLFunctionalObjectPropertyAxiom(valuePartitionProperty)));

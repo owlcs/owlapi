@@ -60,6 +60,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 @SuppressWarnings("javadoc")
 public class TestPlainLiteralTestCase {
+
     @Test
     public void testPlainLiteral() {
         IRI iri = IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");
@@ -80,12 +81,14 @@ public class TestPlainLiteralTestCase {
     public void testPlainLiteralSerialization() throws Exception {
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
-        OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(IRI("urn:test#p"));
-        OWLIndividual i = m.getOWLDataFactory()
-                .getOWLNamedIndividual(IRI("urn:test#ind"));
+        OWLDataProperty p = m.getOWLDataFactory().getOWLDataProperty(
+                IRI("urn:test#p"));
+        OWLIndividual i = m.getOWLDataFactory().getOWLNamedIndividual(
+                IRI("urn:test#ind"));
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);
-        m.addAxiom(o, m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
+        m.addAxiom(o,
+                m.getOWLDataFactory().getOWLDataPropertyAssertionAxiom(p, i, l));
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         m.saveOntology(o, out);
         String expected = "<test:p>test</test:p>";
@@ -96,8 +99,8 @@ public class TestPlainLiteralTestCase {
     public void testPlainLiteralSerializationComments() throws Exception {
         OWLOntologyManager m = Factory.getManager();
         OWLOntology o = m.createOntology();
-        OWLIndividual i = m.getOWLDataFactory()
-                .getOWLNamedIndividual(IRI("urn:test#ind"));
+        OWLIndividual i = m.getOWLDataFactory().getOWLNamedIndividual(
+                IRI("urn:test#ind"));
         OWLLiteral l = m.getOWLDataFactory().getOWLLiteral("test",
                 OWL2Datatype.RDF_PLAIN_LITERAL);
         m.addAxiom(

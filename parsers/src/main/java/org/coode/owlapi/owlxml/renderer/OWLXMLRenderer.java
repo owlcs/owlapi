@@ -51,11 +51,16 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006
+ */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
-    /** @param owlOntologyManager
-     *            owlOntologyManager */
+
+    /**
+     * @param owlOntologyManager
+     *        owlOntologyManager
+     */
     @Deprecated
     @SuppressWarnings("unused")
     public OWLXMLRenderer(OWLOntologyManager owlOntologyManager) {}
@@ -63,16 +68,18 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     /** default constructor */
     public OWLXMLRenderer() {}
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param writer
-     *            writer
+     *        writer
      * @param format
-     *            format
+     *        format
      * @throws OWLRendererException
-     *             renderer error */
-    public void render(OWLOntology ontology, Writer writer, OWLOntologyFormat format)
-            throws OWLRendererException {
+     *         renderer error
+     */
+    public void render(OWLOntology ontology, Writer writer,
+            OWLOntologyFormat format) throws OWLRendererException {
         try {
             OWLXMLWriter w = new OWLXMLWriter(writer, ontology);
             w.startDocument(ontology);
@@ -114,8 +121,9 @@ public class OWLXMLRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
-        render(ontology, writer,
-                ontology.getOWLOntologyManager().getOntologyFormat(ontology));
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
+        render(ontology, writer, ontology.getOWLOntologyManager()
+                .getOntologyFormat(ontology));
     }
 }

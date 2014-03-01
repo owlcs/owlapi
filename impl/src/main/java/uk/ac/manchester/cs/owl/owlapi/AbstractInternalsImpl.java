@@ -90,6 +90,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 
 /** this class encapsulates all lazily built indexes. */
 public abstract class AbstractInternalsImpl implements Internals, Serializable {
+
     private static final long serialVersionUID = 30406L;
 
     protected <K, V extends OWLAxiom> MapPointer<K, V> build(AxiomType<?> t,
@@ -101,8 +102,8 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
         return build(null, null);
     }
 
-    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(AxiomType<?> t,
-            OWLAxiomVisitorEx<?> v) {
+    protected <K, V extends OWLAxiom> MapPointer<K, V> buildLazy(
+            AxiomType<?> t, OWLAxiomVisitorEx<?> v) {
         return new MapPointer<K, V>(t, v, false, this);
     }
 
@@ -216,7 +217,8 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
     }
 
     @Override
-    public MapPointer<OWLClass, OWLDisjointUnionAxiom> getDisjointUnionAxiomsByClass() {
+    public MapPointer<OWLClass, OWLDisjointUnionAxiom>
+            getDisjointUnionAxiomsByClass() {
         return disjointUnionAxiomsByClass;
     }
 
@@ -238,19 +240,22 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLEquivalentObjectPropertiesAxiom>
             getEquivalentObjectPropertyAxiomsByProperty() {
         return equivalentObjectPropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLDisjointObjectPropertiesAxiom>
             getDisjointObjectPropertyAxiomsByProperty() {
         return disjointObjectPropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLObjectPropertyDomainAxiom>
             getObjectPropertyDomainAxiomsByProperty() {
         return objectPropertyDomainAxiomsByProperty;
     }
@@ -262,7 +267,8 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLFunctionalObjectPropertyAxiom>
             getFunctionalObjectPropertyAxiomsByProperty() {
         return functionalObjectPropertyAxiomsByProperty;
     }
@@ -275,37 +281,43 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLSymmetricObjectPropertyAxiom>
             getSymmetricPropertyAxiomsByProperty() {
         return symmetricPropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLAsymmetricObjectPropertyAxiom>
             getAsymmetricPropertyAxiomsByProperty() {
         return asymmetricPropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLReflexiveObjectPropertyAxiom>
             getReflexivePropertyAxiomsByProperty() {
         return reflexivePropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLIrreflexiveObjectPropertyAxiom>
             getIrreflexivePropertyAxiomsByProperty() {
         return irreflexivePropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom>
             getTransitivePropertyAxiomsByProperty() {
         return transitivePropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom>
+    public
+            MapPointer<OWLObjectPropertyExpression, OWLInverseObjectPropertiesAxiom>
             getInversePropertyAxiomsByProperty() {
         return inversePropertyAxiomsByProperty;
     }
@@ -323,13 +335,15 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
     }
 
     @Override
-    public MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom>
+    public
+            MapPointer<OWLDataPropertyExpression, OWLEquivalentDataPropertiesAxiom>
             getEquivalentDataPropertyAxiomsByProperty() {
         return equivalentDataPropertyAxiomsByProperty;
     }
 
     @Override
-    public MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom>
+    public
+            MapPointer<OWLDataPropertyExpression, OWLDisjointDataPropertiesAxiom>
             getDisjointDataPropertyAxiomsByProperty() {
         return disjointDataPropertyAxiomsByProperty;
     }
@@ -347,7 +361,8 @@ public abstract class AbstractInternalsImpl implements Internals, Serializable {
     }
 
     @Override
-    public MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom>
+    public
+            MapPointer<OWLDataPropertyExpression, OWLFunctionalDataPropertyAxiom>
             getFunctionalDataPropertyAxiomsByProperty() {
         return functionalDataPropertyAxiomsByProperty;
     }

@@ -39,20 +39,22 @@
 package org.semanticweb.owlapi.model;
 
 /**
- * @param <P> property expression
- * @param <O> object
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 24-Oct-2006 Represents an <a
+ * @param <P>
+ *        property expression
+ * @param <O>
+ *        object
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 24-Oct-2006 Represents an <a
  *         href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in
  *         the OWL 2 specification.
  */
-public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>,
-        O extends OWLPropertyAssertionObject> extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut,
+public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>, O extends OWLPropertyAssertionObject>
+        extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut,
         HasSubject<OWLIndividual>, HasProperty<P>, HasObject<O> {
 
     /**
      * Gets the individual that is the subject of this assertion.
-     *
+     * 
      * @return The individual that represents the subject of this assertion.
      */
     @Override
@@ -60,7 +62,7 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>
 
     /**
      * Gets the property that this assertion acts along.
-     *
+     * 
      * @return The property
      */
     @Override
@@ -68,7 +70,7 @@ public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression<?, ?>
 
     /**
      * Gets the object of this assertion.
-     *
+     * 
      * @return The object that this assertion points to.
      */
     @Override

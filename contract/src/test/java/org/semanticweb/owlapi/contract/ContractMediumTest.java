@@ -76,6 +76,7 @@ import uk.ac.manchester.cs.owlapi.dlsyntax.parser.DLSyntaxParserTokenManager;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMediumTest {
+
     @Test
     public void shouldTestInterfaceOWLClassExpressionParser() throws Exception {
         OWLClassExpressionParser testSubject0 = mock(OWLClassExpressionParser.class);
@@ -89,7 +90,8 @@ public class ContractMediumTest {
         OWLClass result0 = testSubject0.getOWLClass("");
         OWLObjectProperty result1 = testSubject0.getOWLObjectProperty("");
         OWLDataProperty result2 = testSubject0.getOWLDataProperty("");
-        OWLAnnotationProperty result3 = testSubject0.getOWLAnnotationProperty("");
+        OWLAnnotationProperty result3 = testSubject0
+                .getOWLAnnotationProperty("");
         OWLDatatype result4 = testSubject0.getOWLDatatype("");
         OWLNamedIndividual result5 = testSubject0.getOWLIndividual("");
     }
@@ -114,7 +116,8 @@ public class ContractMediumTest {
         OWLClass result0 = testSubject0.getOWLClass("");
         OWLObjectProperty result1 = testSubject0.getOWLObjectProperty("");
         OWLDataProperty result2 = testSubject0.getOWLDataProperty("");
-        OWLAnnotationProperty result3 = testSubject0.getOWLAnnotationProperty("");
+        OWLAnnotationProperty result3 = testSubject0
+                .getOWLAnnotationProperty("");
         OWLDatatype result4 = testSubject0.getOWLDatatype("");
         OWLNamedIndividual result5 = testSubject0.getOWLIndividual("");
         String result6 = testSubject0.toString();
@@ -130,7 +133,8 @@ public class ContractMediumTest {
     }
 
     public void shouldTestEntailedAxiomTree() throws Exception {
-        EntailedAxiomTree testSubject0 = new EntailedAxiomTree(mock(OWLAxiom.class));
+        EntailedAxiomTree testSubject0 = new EntailedAxiomTree(
+                mock(OWLAxiom.class));
         boolean result0 = testSubject0.isEntailed();
         String result1 = testSubject0.toString();
         Tree<OWLAxiom> result2 = testSubject0.getParent();
@@ -203,7 +207,8 @@ public class ContractMediumTest {
     }
 
     @Test
-    public void shouldTestInterfaceOWLKnowledgeExplorerReasoner() throws Exception {
+    public void shouldTestInterfaceOWLKnowledgeExplorerReasoner()
+            throws Exception {
         OWLKnowledgeExplorerReasoner testSubject0 = mock(OWLKnowledgeExplorerReasoner.class);
         RootNode result0 = testSubject0.getRoot(Utils.mockAnonClass());
         Node<? extends OWLObjectPropertyExpression> result1 = testSubject0
@@ -214,34 +219,36 @@ public class ContractMediumTest {
                 mock(RootNode.class), false);
         Collection<RootNode> result4 = testSubject0.getDataNeighbours(
                 mock(RootNode.class), mock(OWLDataProperty.class));
-        Node<? extends OWLClassExpression> result5 = testSubject0.getObjectLabel(
-                mock(RootNode.class), false);
+        Node<? extends OWLClassExpression> result5 = testSubject0
+                .getObjectLabel(mock(RootNode.class), false);
         Node<? extends OWLDataRange> result6 = testSubject0.getDataLabel(
                 mock(RootNode.class), false);
         testSubject0.interrupt();
         testSubject0.flush();
         testSubject0.dispose();
-        NodeSet<OWLClass> result7 = testSubject0.getTypes(mock(OWLNamedIndividual.class),
-                false);
-        NodeSet<OWLNamedIndividual> result8 = testSubject0.getObjectPropertyValues(
-                mock(OWLNamedIndividual.class), Utils.mockObjectProperty());
+        NodeSet<OWLClass> result7 = testSubject0.getTypes(
+                mock(OWLNamedIndividual.class), false);
+        NodeSet<OWLNamedIndividual> result8 = testSubject0
+                .getObjectPropertyValues(mock(OWLNamedIndividual.class),
+                        Utils.mockObjectProperty());
         Set<OWLLiteral> result9 = testSubject0.getDataPropertyValues(
                 mock(OWLNamedIndividual.class), mock(OWLDataProperty.class));
         Node<OWLNamedIndividual> result10 = testSubject0
                 .getSameIndividuals(mock(OWLNamedIndividual.class));
         NodeSet<OWLNamedIndividual> result11 = testSubject0
                 .getDifferentIndividuals(mock(OWLNamedIndividual.class));
-        NodeSet<OWLClass> result12 = testSubject0.getSuperClasses(Utils.mockAnonClass(),
-                false);
-        NodeSet<OWLClass> result13 = testSubject0.getSubClasses(Utils.mockAnonClass(),
-                false);
-        Node<OWLClass> result14 = testSubject0
-                .getEquivalentClasses(Utils.mockAnonClass());
+        NodeSet<OWLClass> result12 = testSubject0.getSuperClasses(
+                Utils.mockAnonClass(), false);
+        NodeSet<OWLClass> result13 = testSubject0.getSubClasses(
+                Utils.mockAnonClass(), false);
+        Node<OWLClass> result14 = testSubject0.getEquivalentClasses(Utils
+                .mockAnonClass());
         NodeSet<OWLClass> result15 = testSubject0.getDisjointClasses(Utils
                 .mockAnonClass());
         long result16 = testSubject0.getTimeOut();
         FreshEntityPolicy result17 = testSubject0.getFreshEntityPolicy();
-        IndividualNodeSetPolicy result18 = testSubject0.getIndividualNodeSetPolicy();
+        IndividualNodeSetPolicy result18 = testSubject0
+                .getIndividualNodeSetPolicy();
         String result19 = testSubject0.getReasonerName();
         Version result20 = testSubject0.getReasonerVersion();
         BufferingMode result21 = testSubject0.getBufferingMode();
@@ -250,13 +257,16 @@ public class ContractMediumTest {
         Set<OWLAxiom> result24 = testSubject0.getPendingAxiomRemovals();
         OWLOntology result25 = testSubject0.getRootOntology();
         testSubject0.precomputeInferences(InferenceType.CLASS_HIERARCHY);
-        boolean result26 = testSubject0.isPrecomputed(InferenceType.CLASS_HIERARCHY);
-        Set<InferenceType> result27 = testSubject0.getPrecomputableInferenceTypes();
+        boolean result26 = testSubject0
+                .isPrecomputed(InferenceType.CLASS_HIERARCHY);
+        Set<InferenceType> result27 = testSubject0
+                .getPrecomputableInferenceTypes();
         boolean result28 = testSubject0.isConsistent();
         boolean result29 = testSubject0.isSatisfiable(Utils.mockAnonClass());
         Node<OWLClass> result30 = testSubject0.getUnsatisfiableClasses();
         boolean result31 = testSubject0.isEntailed(mock(OWLAxiom.class));
-        boolean result32 = testSubject0.isEntailed(Utils.mockSet(mock(OWLAxiom.class)));
+        boolean result32 = testSubject0.isEntailed(Utils
+                .mockSet(mock(OWLAxiom.class)));
         boolean result33 = testSubject0
                 .isEntailmentCheckingSupported(mock(AxiomType.class));
         Node<OWLClass> result34 = testSubject0.getTopClassNode();
@@ -280,11 +290,12 @@ public class ContractMediumTest {
         NodeSet<OWLClass> result44 = testSubject0.getObjectPropertyRanges(
                 Utils.mockObjectProperty(), false);
         Node<OWLDataProperty> result45 = testSubject0.getTopDataPropertyNode();
-        Node<OWLDataProperty> result46 = testSubject0.getBottomDataPropertyNode();
+        Node<OWLDataProperty> result46 = testSubject0
+                .getBottomDataPropertyNode();
         NodeSet<OWLDataProperty> result47 = testSubject0.getSubDataProperties(
                 mock(OWLDataProperty.class), false);
-        NodeSet<OWLDataProperty> result48 = testSubject0.getSuperDataProperties(
-                mock(OWLDataProperty.class), false);
+        NodeSet<OWLDataProperty> result48 = testSubject0
+                .getSuperDataProperties(mock(OWLDataProperty.class), false);
         Node<OWLDataProperty> result49 = testSubject0
                 .getEquivalentDataProperties(mock(OWLDataProperty.class));
         NodeSet<OWLDataProperty> result50 = testSubject0
@@ -297,7 +308,8 @@ public class ContractMediumTest {
 
     @Test
     public void shouldTestIllegalElementNameException() throws Exception {
-        IllegalElementNameException testSubject0 = new IllegalElementNameException("");
+        IllegalElementNameException testSubject0 = new IllegalElementNameException(
+                "");
         String result0 = testSubject0.getElementName();
         Throwable result2 = testSubject0.getCause();
         String result4 = testSubject0.toString();
@@ -371,7 +383,8 @@ public class ContractMediumTest {
 
     @Test
     public void shouldTestXMLWriterNamespaceManager() throws Exception {
-        XMLWriterNamespaceManager testSubject0 = new XMLWriterNamespaceManager("");
+        XMLWriterNamespaceManager testSubject0 = new XMLWriterNamespaceManager(
+                "");
         testSubject0.setPrefix("", "");
         String result0 = testSubject0.getDefaultPrefix();
         String result1 = testSubject0.getQName("");
@@ -401,37 +414,44 @@ public class ContractMediumTest {
     }
 
     public void shouldTestStructuralReasoner() throws Exception {
-        StructuralReasoner testSubject0 = new StructuralReasoner(Utils.getMockOntology(),
-                mock(OWLReasonerConfiguration.class), BufferingMode.NON_BUFFERING);
+        StructuralReasoner testSubject0 = new StructuralReasoner(
+                Utils.getMockOntology(), mock(OWLReasonerConfiguration.class),
+                BufferingMode.NON_BUFFERING);
         testSubject0.interrupt();
-        NodeSet<OWLClass> result0 = testSubject0.getTypes(mock(OWLNamedIndividual.class),
-                false);
-        NodeSet<OWLNamedIndividual> result1 = testSubject0.getObjectPropertyValues(
-                mock(OWLNamedIndividual.class), Utils.mockObjectProperty());
+        NodeSet<OWLClass> result0 = testSubject0.getTypes(
+                mock(OWLNamedIndividual.class), false);
+        NodeSet<OWLNamedIndividual> result1 = testSubject0
+                .getObjectPropertyValues(mock(OWLNamedIndividual.class),
+                        Utils.mockObjectProperty());
         Set<OWLLiteral> result2 = testSubject0.getDataPropertyValues(
                 mock(OWLNamedIndividual.class), mock(OWLDataProperty.class));
         Node<OWLNamedIndividual> result3 = testSubject0
                 .getSameIndividuals(mock(OWLNamedIndividual.class));
         NodeSet<OWLNamedIndividual> result4 = testSubject0
                 .getDifferentIndividuals(mock(OWLNamedIndividual.class));
-        NodeSet<OWLClass> result5 = testSubject0.getSuperClasses(Utils.mockAnonClass(),
-                false);
-        NodeSet<OWLClass> result6 = testSubject0.getSubClasses(Utils.mockAnonClass(),
-                false);
-        Node<OWLClass> result7 = testSubject0.getEquivalentClasses(Utils.mockAnonClass());
-        NodeSet<OWLClass> result8 = testSubject0
-                .getDisjointClasses(Utils.mockAnonClass());
+        NodeSet<OWLClass> result5 = testSubject0.getSuperClasses(
+                Utils.mockAnonClass(), false);
+        NodeSet<OWLClass> result6 = testSubject0.getSubClasses(
+                Utils.mockAnonClass(), false);
+        Node<OWLClass> result7 = testSubject0.getEquivalentClasses(Utils
+                .mockAnonClass());
+        NodeSet<OWLClass> result8 = testSubject0.getDisjointClasses(Utils
+                .mockAnonClass());
         FreshEntityPolicy result9 = testSubject0.getFreshEntityPolicy();
-        IndividualNodeSetPolicy result10 = testSubject0.getIndividualNodeSetPolicy();
+        IndividualNodeSetPolicy result10 = testSubject0
+                .getIndividualNodeSetPolicy();
         String result11 = testSubject0.getReasonerName();
         Version result12 = testSubject0.getReasonerVersion();
         testSubject0.precomputeInferences(InferenceType.CLASS_HIERARCHY);
-        boolean result13 = testSubject0.isPrecomputed(InferenceType.CLASS_HIERARCHY);
-        Set<InferenceType> result14 = testSubject0.getPrecomputableInferenceTypes();
+        boolean result13 = testSubject0
+                .isPrecomputed(InferenceType.CLASS_HIERARCHY);
+        Set<InferenceType> result14 = testSubject0
+                .getPrecomputableInferenceTypes();
         boolean result15 = testSubject0.isConsistent();
         boolean result16 = testSubject0.isSatisfiable(Utils.mockAnonClass());
         Node<OWLClass> result17 = testSubject0.getUnsatisfiableClasses();
-        boolean result18 = testSubject0.isEntailed(Utils.mockSet(mock(OWLAxiom.class)));
+        boolean result18 = testSubject0.isEntailed(Utils
+                .mockSet(mock(OWLAxiom.class)));
         boolean result19 = testSubject0.isEntailed(mock(OWLAxiom.class));
         boolean result20 = testSubject0
                 .isEntailmentCheckingSupported(mock(AxiomType.class));
@@ -456,11 +476,12 @@ public class ContractMediumTest {
         NodeSet<OWLClass> result31 = testSubject0.getObjectPropertyRanges(
                 Utils.mockObjectProperty(), false);
         Node<OWLDataProperty> result32 = testSubject0.getTopDataPropertyNode();
-        Node<OWLDataProperty> result33 = testSubject0.getBottomDataPropertyNode();
+        Node<OWLDataProperty> result33 = testSubject0
+                .getBottomDataPropertyNode();
         NodeSet<OWLDataProperty> result34 = testSubject0.getSubDataProperties(
                 mock(OWLDataProperty.class), false);
-        NodeSet<OWLDataProperty> result35 = testSubject0.getSuperDataProperties(
-                mock(OWLDataProperty.class), false);
+        NodeSet<OWLDataProperty> result35 = testSubject0
+                .getSuperDataProperties(mock(OWLDataProperty.class), false);
         Node<OWLDataProperty> result36 = testSubject0
                 .getEquivalentDataProperties(mock(OWLDataProperty.class));
         NodeSet<OWLDataProperty> result37 = testSubject0
@@ -482,7 +503,8 @@ public class ContractMediumTest {
         Set<OWLAxiom> result44 = testSubject0.getPendingAxiomAdditions();
         Set<OWLAxiom> result45 = testSubject0.getPendingAxiomRemovals();
         OWLOntology result46 = testSubject0.getRootOntology();
-        OWLReasonerConfiguration result47 = testSubject0.getReasonerConfiguration();
+        OWLReasonerConfiguration result47 = testSubject0
+                .getReasonerConfiguration();
         Collection<OWLAxiom> result48 = testSubject0.getReasonerAxioms();
         String result49 = testSubject0.toString();
     }
@@ -495,18 +517,21 @@ public class ContractMediumTest {
                 .getMockOntology());
         OWLReasoner result2 = testSubject0.createNonBufferingReasoner(
                 Utils.getMockOntology(), mock(OWLReasonerConfiguration.class));
-        OWLReasoner result3 = testSubject0.createReasoner(Utils.getMockOntology());
-        OWLReasoner result4 = testSubject0.createReasoner(Utils.getMockOntology(),
-                mock(OWLReasonerConfiguration.class));
+        OWLReasoner result3 = testSubject0.createReasoner(Utils
+                .getMockOntology());
+        OWLReasoner result4 = testSubject0.createReasoner(
+                Utils.getMockOntology(), mock(OWLReasonerConfiguration.class));
         String result5 = testSubject0.toString();
     }
 
     public void shouldTestDLSyntaxParser() throws Exception {
-        DLSyntaxParser testSubject0 = new DLSyntaxParser(mock(InputStream.class));
+        DLSyntaxParser testSubject0 = new DLSyntaxParser(
+                mock(InputStream.class));
         DLSyntaxParser testSubject1 = new DLSyntaxParser(
                 mock(DLSyntaxParserTokenManager.class));
         DLSyntaxParser testSubject2 = new DLSyntaxParser(mock(Reader.class));
-        DLSyntaxParser testSubject3 = new DLSyntaxParser(mock(InputStream.class), "UTF-8");
+        DLSyntaxParser testSubject3 = new DLSyntaxParser(
+                mock(InputStream.class), "UTF-8");
         IRI result0 = testSubject0.getIRI("");
         testSubject0.setDefaultNamespace("");
         testSubject0.ReInit(mock(InputStream.class), "UTF-8");
@@ -537,17 +562,20 @@ public class ContractMediumTest {
         OWLAxiom result21 = testSubject0.parseDifferentIndividualsAxiom();
         OWLAxiom result22 = testSubject0.parseClassAssertion();
         OWLIndividual result23 = testSubject0.parseIndividualId();
-        OWLObjectPropertyExpression result24 = testSubject0.parseObjectPropertyId();
+        OWLObjectPropertyExpression result24 = testSubject0
+                .parseObjectPropertyId();
         OWLDataPropertyExpression result25 = testSubject0.parseDataPropertyId();
         OWLAxiom result26 = testSubject0.parsePropertyChain();
         OWLClassExpression result27 = testSubject0.NonNaryBooleanDescription();
         OWLClassExpression result28 = testSubject0.parseObjectComplementOf();
-        OWLClassExpression result29 = testSubject0.NamedClassOrNestedDescription();
+        OWLClassExpression result29 = testSubject0
+                .NamedClassOrNestedDescription();
         IRI result30 = testSubject0.parseId();
         OWLClassExpression result31 = testSubject0.parseSomeRestriction();
         OWLClassExpression result32 = testSubject0.parseDataSomeRestriction();
         OWLClassExpression result33 = testSubject0.parseAllRestriction();
-        OWLClassExpression result34 = testSubject0.parseCardinalityRestriction();
+        OWLClassExpression result34 = testSubject0
+                .parseCardinalityRestriction();
         OWLClass result35 = testSubject0.parseClassId();
         OWLClassExpression result36 = testSubject0.NestedClassDescription();
         String result37 = testSubject0.toString();

@@ -55,10 +55,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 11/03/2011 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+ *         Group, Date: 11/03/2011
+ */
 @SuppressWarnings("javadoc")
-public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCase {
+public class SubClassOfUntypedSomeValuesFromTestCase extends
+        AbstractFileTestCase {
+
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedSomeValuesFrom.rdf";
@@ -76,7 +80,8 @@ public class SubClassOfUntypedSomeValuesFromTestCase extends AbstractFileTestCas
     @Test
     public void testParsedAxioms() {
         OWLOntology ontology = createOntology();
-        Set<OWLSubClassOfAxiom> axioms = ontology.getAxioms(AxiomType.SUBCLASS_OF);
+        Set<OWLSubClassOfAxiom> axioms = ontology
+                .getAxioms(AxiomType.SUBCLASS_OF);
         assertTrue(axioms.size() == 1);
         OWLSubClassOfAxiom ax = axioms.iterator().next();
         OWLClass subCls = Class(SUBCLASS_IRI);

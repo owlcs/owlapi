@@ -42,19 +42,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public class UseOfUndeclaredClass extends OWLProfileViolation implements
         OWL2DLProfileViolation {
+
     private final OWLClass cls;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param cls
-     *            wrong class */
-    public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom, OWLClass cls) {
+     *        wrong class
+     */
+    public UseOfUndeclaredClass(OWLOntology ontology, OWLAxiom axiom,
+            OWLClass cls) {
         super(ontology, axiom);
         this.cls = cls;
     }

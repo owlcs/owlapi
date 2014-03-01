@@ -50,13 +50,18 @@ import java.util.zip.ZipOutputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Apr-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Apr-2009
+ */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final File file;
 
-    /** @param file
-     *            the file to use */
+    /**
+     * @param file
+     *        the file to use
+     */
     public ZipDocumentTarget(File file) {
         this.file = file;
     }

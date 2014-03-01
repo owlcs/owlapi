@@ -13,11 +13,14 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** Comprehensive test for all tags, which support trailing qualifiers.
+/**
+ * Comprehensive test for all tags, which support trailing qualifiers.
  * 
- * @see RoundTripPropertyValueTest for basic tests. */
+ * @see RoundTripPropertyValueTest for basic tests.
+ */
 @SuppressWarnings("javadoc")
 public class TrailingQualifierTest extends OboFormatTestBasics {
+
     @Test
     public void testReadTrailingQualifiers() throws Exception {
         // load test file with trailing qualifiers
@@ -86,13 +89,15 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
 
     void hasQualifierClause(Frame frame, OboFormatTag tag) {
         Clause clause = frame.getClause(tag);
-        assertNotNull("Expected a clause " + tag.getTag() + " in frame: " + frame, clause);
+        assertNotNull("Expected a clause " + tag.getTag() + " in frame: "
+                + frame, clause);
         hasQualifier(clause);
     }
 
     void hasQualifierClauses(Frame frame, OboFormatTag tag) {
         Collection<Clause> clauses = frame.getClauses(tag);
-        final String message = "Expected clauses " + tag.getTag() + " in frame: " + frame;
+        final String message = "Expected clauses " + tag.getTag()
+                + " in frame: " + frame;
         assertNotNull(message, clauses);
         assertFalse(message, clauses.isEmpty());
         for (Clause clause : clauses) {
@@ -101,12 +106,15 @@ public class TrailingQualifierTest extends OboFormatTestBasics {
     }
 
     void hasQualifier(Clause clause) {
-        Collection<QualifierValue> qualifierValues = clause.getQualifierValues();
-        assertNotNull("Expected a clause qualifier values in clause: " + clause,
+        Collection<QualifierValue> qualifierValues = clause
+                .getQualifierValues();
+        assertNotNull(
+                "Expected a clause qualifier values in clause: " + clause,
                 qualifierValues);
         assertFalse("Qualifier values should not be empty in clause:" + clause,
                 qualifierValues.isEmpty());
-        assertTrue("Expected two or more qualifier values", qualifierValues.size() >= 2);
+        assertTrue("Expected two or more qualifier values",
+                qualifierValues.size() >= 2);
         boolean foundOne = false;
         boolean foundTwo = false;
         // {val1="one",val2="two"}

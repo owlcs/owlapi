@@ -47,20 +47,25 @@ import java.io.Reader;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document source which can read from a stream.
+/**
+ * An ontology document source which can read from a stream.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Nov-2007 */
+ *         Informatics Group, Date: 15-Nov-2007
+ */
 public class StreamDocumentSource implements OWLOntologyDocumentSource {
+
     private static int counter = 0;
     private final IRI documentIRI;
     private byte[] buffer;
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
      * @param is
-     *            The stream that the ontology representation will be read from. */
+     *        The stream that the ontology representation will be read from.
+     */
     public StreamDocumentSource(InputStream is) {
         this(is, getNextDocumentIRI());
     }
@@ -71,24 +76,28 @@ public class StreamDocumentSource implements OWLOntologyDocumentSource {
         return IRI.create("inputstream:ontology" + counter);
     }
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
      * @param stream
-     *            The stream that the ontology representation will be read from.
+     *        The stream that the ontology representation will be read from.
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public StreamDocumentSource(InputStream stream, IRI documentIRI) {
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);
     }
 
-    /** Reads all the bytes from the specified stream into a temporary buffer,
+    /**
+     * Reads all the bytes from the specified stream into a temporary buffer,
      * which is necessary because we may need to access the input stream more
      * than once. In other words, this method caches the input stream.
      * 
      * @param reader
-     *            The reader to be "cached" */
+     *        The reader to be "cached"
+     */
     private void readIntoBuffer(InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();

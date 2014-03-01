@@ -42,9 +42,16 @@ import java.net.URI;
 
 import org.semanticweb.owlapi.model.*;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
-public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIRI, HasPrefixedName {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007
+ */
+public enum SWRLBuiltInsVocabulary
+        implements
+        SWRLPredicate,
+        HasShortForm,
+        HasIRI,
+        HasPrefixedName {
     //@formatter:off
     /** EQUAL */                    EQUAL("equal", 2),
     /** NOT_EQUAL */                NOT_EQUAL("notEqual", 2),
@@ -145,9 +152,10 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
     }
 
     /**
-     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
-     * "equal" for {@link #EQUAL} etc.
-     * @return The short form.  Not {@code null}.
+     * Gets the short form for this vocabulary element. Short forms are the
+     * local name e.g. "equal" for {@link #EQUAL} etc.
+     * 
+     * @return The short form. Not {@code null}.
      */
     @Override
     public String getShortForm() {
@@ -160,42 +168,52 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
         return iri;
     }
 
-    /** @return uri
-     * @deprecated use getIRI() */
+    /**
+     * @return uri
+     * @deprecated use getIRI()
+     */
     @Deprecated
     public URI getURI() {
         return iri.toURI();
     }
 
-    /** Gets the minimum arity of this built in.
+    /**
+     * Gets the minimum arity of this built in.
      * 
-     * @return The minimum arity of this built in */
+     * @return The minimum arity of this built in
+     */
     public int getMinArity() {
         return minArity;
     }
 
-    /** Gets the maximum arity of this built in.
+    /**
+     * Gets the maximum arity of this built in.
      * 
-     * @return The maximum arity of the built in or -1 if the arity is infinite */
+     * @return The maximum arity of the built in or -1 if the arity is infinite
+     */
     public int getMaxArity() {
         return maxArity;
     }
 
-    /** Returns the minimum arity of this built in.
+    /**
+     * Returns the minimum arity of this built in.
      * 
      * @return The minimum arity of this built in.
-     * @deprecated Use getMinArity and getMaxArity instead */
+     * @deprecated Use getMinArity and getMaxArity instead
+     */
     @Deprecated
     public int getArity() {
         return minArity;
     }
 
-    /** Gets a builtin vocabulary value for a given IRI.
+    /**
+     * Gets a builtin vocabulary value for a given IRI.
      * 
      * @param iri
-     *            The IRI
+     *        The IRI
      * @return The builtin vocabulary having the specified IRI, or {@code null}
-     *         if there is no builtin vocabulary with the specified IRI */
+     *         if there is no builtin vocabulary with the specified IRI
+     */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
         for (SWRLBuiltInsVocabulary v : values()) {
             if (v.iri.equals(iri)) {
@@ -205,12 +223,14 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm, HasIR
         return null;
     }
 
-    /** Gets a builtin vocabulary value for a given URI.
+    /**
+     * Gets a builtin vocabulary value for a given URI.
      * 
      * @param uri
-     *            The URI
+     *        The URI
      * @return The builtin vocabulary having the specified URI, or {@code null}
-     *         if there is no builtin vocabulary with the specified URI */
+     *         if there is no builtin vocabulary with the specified URI
+     */
     public static SWRLBuiltInsVocabulary getBuiltIn(URI uri) {
         for (SWRLBuiltInsVocabulary v : values()) {
             if (v.getURI().equals(uri)) {

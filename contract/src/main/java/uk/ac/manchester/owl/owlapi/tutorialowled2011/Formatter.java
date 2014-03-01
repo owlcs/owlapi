@@ -50,13 +50,15 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({ "javadoc" })
 public class Formatter {
+
     public static void main(String[] args) throws Exception {
-        System.out.println("Formatter.main() " + Long.MAX_VALUE / (1000 * 86000 * 365));
+        System.out.println("Formatter.main() " + Long.MAX_VALUE
+                / (1000 * 86000 * 365));
         Map<String, String> specials = new HashMap<String, String>();
         specials.put("public void test", "\\begin{beamerboxesrounded}{");
         specials.put("() throws Exception \\{", "}\n\\scriptsize");
-        String[] keywords = new String[] { " class ", " void ", " extends ", "public",
-                " static final", "return", "throws" };
+        String[] keywords = new String[] { " class ", " void ", " extends ",
+                "public", " static final", "return", "throws" };
         Pattern stringPattern = Pattern.compile("(\"[\\w\\.\\:\\s\\#/\\-]*\")");
         BufferedReader r = new BufferedReader(
                 new InputStreamReader(
@@ -67,9 +69,11 @@ public class Formatter {
             if (line.trim().length() == 0) {
                 System.out.println("\\end{beamerboxesrounded}\n\n");
             } else {
-                line = line.replace("{", "\\{").replace("}", "\\}").replace("_", "\\_");
+                line = line.replace("{", "\\{").replace("}", "\\}")
+                        .replace("_", "\\_");
                 if (line.trim().startsWith("//")) {
-                    System.out.println("\\codecomment{" + line.trim() + "}\\\\");
+                    System.out
+                            .println("\\codecomment{" + line.trim() + "}\\\\");
                 } else {
                     // regular code
                     for (String s : specials.keySet()) {
@@ -78,9 +82,11 @@ public class Formatter {
                     for (String s : keywords) {
                         line = line.replace(s, "\\codekeyword{" + s + "}");
                     }
-                    line = line.replace("\t", "\\hspace{4mm}")
+                    line = line
+                            .replace("\t", "\\hspace{4mm}")
                             .replace("    ", "\\hspace{4mm}")
-                            .replace("\\hspace{4mm}\\hspace{4mm}", "\\hspace{4mm}");
+                            .replace("\\hspace{4mm}\\hspace{4mm}",
+                                    "\\hspace{4mm}");
                     Matcher match = stringPattern.matcher(line);
                     List<String> strings = new ArrayList<String>();
                     while (match.find()) {

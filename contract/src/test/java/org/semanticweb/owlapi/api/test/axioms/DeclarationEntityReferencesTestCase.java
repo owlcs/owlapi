@@ -53,14 +53,17 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** A test case which ensures that an ontology contains entity references when
+/**
+ * A test case which ensures that an ontology contains entity references when
  * that ontology only contains entity declaration axioms. In other words, entity
  * declaration axioms produce the correct entity references.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 01-May-2007 */
+ *         Informatics Group, Date: 01-May-2007
+ */
 @SuppressWarnings("javadoc")
 public class DeclarationEntityReferencesTestCase extends AbstractOWLAPITestCase {
+
     @Test
     public void testOWLClassDeclarationAxiom() throws Exception {
         OWLClass cls = Class(TestUtils.createIRI());

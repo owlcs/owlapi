@@ -58,7 +58,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** A convenience object that generates the changes which are necessary to remove
+/**
+ * A convenience object that generates the changes which are necessary to remove
  * an entity from a set of ontologies. This is accomplished by removing all
  * axioms that refer to the entity. The entity remover follows the visitor
  * design pattern, entities that need to be removed from an ontology should
@@ -66,20 +67,24 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * remover visits various entities.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 11-Dec-2006 */
+ *         Informatics Group, Date: 11-Dec-2006
+ */
 public class OWLEntityRemover implements OWLEntityVisitor {
+
     private final List<OWLOntologyChange> changes;
     private final Collection<OWLOntology> ontologies;
 
-    /** Creates an entity remover, which will remove entities (axioms referring
+    /**
+     * Creates an entity remover, which will remove entities (axioms referring
      * to the entities from the specified ontologies).
      * 
      * @param owlOntologyManager
-     *            The {@code OWLOntologyManager} which contains the ontologies
-     *            that contain entities to be removed.
+     *        The {@code OWLOntologyManager} which contains the ontologies that
+     *        contain entities to be removed.
      * @param ontologies
-     *            The set of ontologies that contain references to axioms to be
-     *            removed. */
+     *        The set of ontologies that contain references to axioms to be
+     *        removed.
+     */
     @SuppressWarnings("unused")
     public OWLEntityRemover(OWLOntologyManager owlOntologyManager,
             Set<OWLOntology> ontologies) {
@@ -87,15 +92,19 @@ public class OWLEntityRemover implements OWLEntityVisitor {
         this.ontologies = new ArrayList<OWLOntology>(ontologies);
     }
 
-    /** @return the list of ontology changes that are required in order to remove
-     *         visited entities from the set of ontologies. */
+    /**
+     * @return the list of ontology changes that are required in order to remove
+     *         visited entities from the set of ontologies.
+     */
     // XXX not in the interface
     public List<OWLOntologyChange> getChanges() {
         return new ArrayList<OWLOntologyChange>(changes);
     }
 
-    /** Clears any changes which have accumulated over the course of visiting
-     * different entities. */
+    /**
+     * Clears any changes which have accumulated over the course of visiting
+     * different entities.
+     */
     // XXX not in the interface
     public void reset() {
         changes.clear();
@@ -106,8 +115,8 @@ public class OWLEntityRemover implements OWLEntityVisitor {
             for (OWLAxiom ax : ont.getReferencingAxioms(entity)) {
                 changes.add(new RemoveAxiom(ont, ax));
             }
-            for (OWLAnnotationAssertionAxiom ax : ont.getAnnotationAssertionAxioms(entity
-                    .getIRI())) {
+            for (OWLAnnotationAssertionAxiom ax : ont
+                    .getAnnotationAssertionAxioms(entity.getIRI())) {
                 changes.add(new RemoveAxiom(ont, ax));
             }
         }

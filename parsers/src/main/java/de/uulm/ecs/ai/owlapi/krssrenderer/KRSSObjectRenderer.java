@@ -145,7 +145,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
+/**
+ * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
  * syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
  * <table summary="abbreviations">
@@ -303,9 +304,11 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 @SuppressWarnings({ "unused", "javadoc" })
 public class KRSSObjectRenderer implements OWLObjectVisitor {
+
     private static final String OPEN_BRACKET = "(";
     private static final String CLOSE_BRACKET = ")";
     private static final String NEWLINE = "\n";
@@ -402,7 +405,8 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
         obj.accept(this);
     }
 
-    protected void flattenProperties(final Set<OWLObjectPropertyExpression> properties,
+    protected void flattenProperties(
+            final Set<OWLObjectPropertyExpression> properties,
             KRSSVocabulary junctor) {
         if (properties.isEmpty()) {
             return;
@@ -466,14 +470,16 @@ public class KRSSObjectRenderer implements OWLObjectVisitor {
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(eachClass.getSuperClasses(ontology1), KRSSVocabulary.AND);
+                flatten(eachClass.getSuperClasses(ontology1),
+                        KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
             } else {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                flatten(eachClass.getEquivalentClasses(ontology1), KRSSVocabulary.AND);
+                flatten(eachClass.getEquivalentClasses(ontology1),
+                        KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
             }

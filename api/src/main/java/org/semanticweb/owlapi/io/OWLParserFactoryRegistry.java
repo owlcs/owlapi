@@ -42,15 +42,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** The {@code OWLParserFactoryRegistry} provides a central point for the
+/**
+ * The {@code OWLParserFactoryRegistry} provides a central point for the
  * registration of parser factories that create parsers to parse OWL ontologies.
  * The registry is typically used by at least one type of ontology factory for
  * loading ontologies whose concrete representations are contained in some kind
  * of document.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 15-Nov-2006 */
+ *         Informatics Group, Date: 15-Nov-2006
+ */
 public class OWLParserFactoryRegistry {
+
     private static final OWLParserFactoryRegistry instance = new OWLParserFactoryRegistry();
     private final List<OWLParserFactory> parserFactories = new ArrayList<OWLParserFactory>(
             10);
@@ -72,14 +75,18 @@ public class OWLParserFactoryRegistry {
         return Collections.unmodifiableList(parserFactories);
     }
 
-    /** @param parserFactory
-     *            the parser factory to register */
+    /**
+     * @param parserFactory
+     *        the parser factory to register
+     */
     public void registerParserFactory(OWLParserFactory parserFactory) {
         parserFactories.add(0, parserFactory);
     }
 
-    /** @param parserFactory
-     *            the parser factory to remove */
+    /**
+     * @param parserFactory
+     *        the parser factory to remove
+     */
     public void unregisterParserFactory(OWLParserFactory parserFactory) {
         parserFactories.remove(parserFactory);
     }

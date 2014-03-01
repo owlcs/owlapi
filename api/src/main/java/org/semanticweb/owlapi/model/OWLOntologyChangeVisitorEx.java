@@ -38,57 +38,74 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group, Date: 12-Dec-2006
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLOntologyChangeVisitorEx<O> {
-    /** visit AddAxiom type
+
+    /**
+     * visit AddAxiom type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(AddAxiom change);
 
-    /** visit RemoveAxiom type
+    /**
+     * visit RemoveAxiom type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(RemoveAxiom change);
 
-    /** visit SetOntologyID type
+    /**
+     * visit SetOntologyID type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(SetOntologyID change);
 
-    /** visit AddImport type
+    /**
+     * visit AddImport type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(AddImport change);
 
-    /** visit RemoveImport type
+    /**
+     * visit RemoveImport type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(RemoveImport change);
 
-    /** visit AddOntologyAnnotation type
+    /**
+     * visit AddOntologyAnnotation type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(AddOntologyAnnotation change);
 
-    /** visit RemoveOntologyAnnotation type
+    /**
+     * visit RemoveOntologyAnnotation type
      * 
      * @param change
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(RemoveOntologyAnnotation change);
 }

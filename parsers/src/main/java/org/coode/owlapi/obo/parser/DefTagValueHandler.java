@@ -54,16 +54,21 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 18/04/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 18/04/2012
+ */
 public class DefTagValueHandler extends AbstractTagValueHandler {
+
     private static final Pattern PATTERN = Pattern
             .compile("\"([^\"]*)\"\\s*(\\[([^\\]]*)\\])?\\s*");
     private static final int QUOTED_STRING_CONTENT_GROUP = 1;
     private static final int XREF_GROUP = 3;
 
-    /** @param consumer
-     *            consumer */
+    /**
+     * @param consumer
+     *        consumer
+     */
     public DefTagValueHandler(OBOConsumer consumer) {
         super(OBOVocabulary.DEF.getName(), consumer);
     }
@@ -82,11 +87,12 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
             annotationValue = getUnquotedString(value);
         }
         IRI propertyIRI = getTagIRI(getTagName());
-        OWLAnnotationProperty property = df.getOWLAnnotationProperty(propertyIRI);
+        OWLAnnotationProperty property = df
+                .getOWLAnnotationProperty(propertyIRI);
         OWLEntity currentEntity = getConsumer().getCurrentEntity();
         OWLLiteral literal = df.getOWLLiteral(annotationValue);
-        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(property,
-                currentEntity.getIRI(), literal, xrefAnnotations);
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
+                property, currentEntity.getIRI(), literal, xrefAnnotations);
         applyChange(new AddAxiom(getOntology(), ax));
     }
 
@@ -97,7 +103,8 @@ public class DefTagValueHandler extends AbstractTagValueHandler {
             StringTokenizer tokenizer = new StringTokenizer(xrefs, ",");
             while (tokenizer.hasMoreTokens()) {
                 String xrefValue = tokenizer.nextToken();
-                OWLAnnotation xrefAnnotation = getConsumer().parseXRef(xrefValue);
+                OWLAnnotation xrefAnnotation = getConsumer().parseXRef(
+                        xrefValue);
                 annotations.add(xrefAnnotation);
             }
         }

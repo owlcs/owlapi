@@ -47,15 +47,19 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Jun-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 02-Jun-2009
+ */
 @SuppressWarnings("javadoc")
 public class DefaultPrefixManagerTestCase {
+
     @Test
     public void getPrefixIRIEmpty() {
         DefaultPrefixManager pm = new DefaultPrefixManager();
         pm.setPrefix("foaf:", "http://xmlns.com/foaf/0.1/");
-        assertEquals("foaf:", pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/")));
+        assertEquals("foaf:",
+                pm.getPrefixIRI(IRI("http://xmlns.com/foaf/0.1/")));
     }
 
     @Test

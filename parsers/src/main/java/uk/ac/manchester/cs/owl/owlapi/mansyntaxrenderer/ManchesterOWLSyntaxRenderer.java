@@ -45,11 +45,16 @@ import org.semanticweb.owlapi.io.OWLRendererException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-May-2007
+ */
 public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
-    /** @param owlOntologyManager
-     *            manager */
+
+    /**
+     * @param owlOntologyManager
+     *        manager
+     */
     @Deprecated
     @SuppressWarnings("unused")
     public ManchesterOWLSyntaxRenderer(OWLOntologyManager owlOntologyManager) {}
@@ -58,10 +63,12 @@ public class ManchesterOWLSyntaxRenderer extends AbstractOWLRenderer {
     public ManchesterOWLSyntaxRenderer() {}
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         ManchesterOWLSyntaxFrameRenderer ren = new ManchesterOWLSyntaxFrameRenderer(
-                ontology, writer, new ManchesterOWLSyntaxPrefixNameShortFormProvider(
-                        ontology.getOWLOntologyManager().getOntologyFormat(ontology)));
+                ontology, writer,
+                new ManchesterOWLSyntaxPrefixNameShortFormProvider(ontology
+                        .getOWLOntologyManager().getOntologyFormat(ontology)));
         ren.writeOntology();
         ren.flush();
     }

@@ -71,22 +71,28 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSubPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLDataPropertyImpl extends
-        OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression> implements
-        OWLDataProperty {
+        OWLPropertyExpressionImpl<OWLDataRange, OWLDataPropertyExpression>
+        implements OWLDataProperty {
+
     private static final long serialVersionUID = 30406L;
     private final IRI iri;
     private final boolean builtin;
 
-    /** @param iri
-     *            property iri */
+    /**
+     * @param iri
+     *        property iri
+     */
     public OWLDataPropertyImpl(IRI iri) {
         super();
         this.iri = iri;
         builtin = iri.equals(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI())
-                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI());
+                || iri.equals(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY
+                        .getIRI());
     }
 
     @Override
@@ -211,7 +217,8 @@ public class OWLDataPropertyImpl extends
     @Override
     public Set<OWLAnnotationAssertionAxiom> getAnnotationAssertionAxioms(
             OWLOntology ontology) {
-        return ImplUtils.getAnnotationAxioms(this, Collections.singleton(ontology));
+        return ImplUtils.getAnnotationAxioms(this,
+                Collections.singleton(ontology));
     }
 
     @Override
@@ -347,8 +354,8 @@ public class OWLDataPropertyImpl extends
     }
 
     @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLOntology ontology, boolean includeImports) {
+    public Set<OWLAxiom> getReferencingAxioms(OWLOntology ontology,
+            boolean includeImports) {
         return ontology.getReferencingAxioms(this, includeImports);
     }
 

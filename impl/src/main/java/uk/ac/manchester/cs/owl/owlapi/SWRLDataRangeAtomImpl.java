@@ -47,16 +47,21 @@ import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Jan-2007 */
-public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument> implements
-        SWRLDataRangeAtom {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 15-Jan-2007
+ */
+public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
+        implements SWRLDataRangeAtom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param predicate
-     *            predicate
+    /**
+     * @param predicate
+     *        predicate
      * @param arg
-     *            range argument */
+     *        range argument
+     */
     public SWRLDataRangeAtomImpl(OWLDataRange predicate, SWRLDArgument arg) {
         super(predicate, arg);
     }

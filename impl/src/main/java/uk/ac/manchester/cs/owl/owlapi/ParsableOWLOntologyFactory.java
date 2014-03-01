@@ -68,7 +68,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** An ontology factory that creates ontologies by parsing documents containing
+/**
+ * An ontology factory that creates ontologies by parsing documents containing
  * concrete representations of ontologies. This ontology factory will claim that
  * it is suitable for creating an ontology if the document IRI can be opened for
  * reading. This factory will not create empty ontologies. Parsers are
@@ -76,8 +77,10 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * obtained from the {@code OWLParserFactoryRegistry}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Nov-2006 */
+ *         Informatics Group, Date: 14-Nov-2006
+ */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
+
     private static final long serialVersionUID = 30406L;
     private static final Logger logger = Logger
             .getLogger(ParsableOWLOntologyFactory.class.getName());
@@ -92,15 +95,17 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         parsableSchemes.add("ftp");
     }
 
-    /** @return a list of parsers that this factory uses when it tries to create
-     *         an ontology from a concrete representation. */
+    /**
+     * @return a list of parsers that this factory uses when it tries to create
+     *         an ontology from a concrete representation.
+     */
     @SuppressWarnings("deprecation")
     // XXX not in the interface
             public
             List<OWLParser> getParsers() {
         List<OWLParser> parsers = new ArrayList<OWLParser>();
-        List<OWLParserFactory> factories = OWLParserFactoryRegistry.getInstance()
-                .getParserFactories();
+        List<OWLParserFactory> factories = OWLParserFactoryRegistry
+                .getInstance().getParserFactories();
         for (OWLParserFactory factory : factories) {
             OWLParser parser = factory.createParser(getOWLOntologyManager());
             parser.setOWLOntologyManager(getOWLOntologyManager());
@@ -109,25 +114,29 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         return new ArrayList<OWLParser>(parsers);
     }
 
-    /** Overriden - We don't create new empty ontologies - this isn't our
+    /**
+     * Overriden - We don't create new empty ontologies - this isn't our
      * responsibility.
      * 
      * @param documentIRI
-     *            ignored
-     * @return false */
+     *        ignored
+     * @return false
+     */
     @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;
     }
 
-    /** Overriden - This method will throw an OWLException which wraps an
+    /**
+     * Overriden - This method will throw an OWLException which wraps an
      * UnsupportedOperationException.
      * 
      * @param ontologyURI
-     *            ignored
+     *        ignored
      * @param physicalURI
-     *            ignored
-     * @return never returns */
+     *        ignored
+     * @return never returns
+     */
     @SuppressWarnings("unused")
     // XXX not in the interface
             @Deprecated
@@ -145,14 +154,16 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         if (documentSource.isInputStreamAvailable()) {
             return true;
         }
-        if (parsableSchemes.contains(documentSource.getDocumentIRI().getScheme())) {
+        if (parsableSchemes.contains(documentSource.getDocumentIRI()
+                .getScheme())) {
             return true;
         }
         // If we can open an input stream then we can attempt to parse the
         // ontology
         // TODO: Take into consideration the request type!
         try {
-            InputStream is = documentSource.getDocumentIRI().toURI().toURL().openStream();
+            InputStream is = documentSource.getDocumentIRI().toURI().toURL()
+                    .openStream();
             is.close();
             return true;
         } catch (UnknownHostException e) {
@@ -168,7 +179,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+    public OWLOntology loadOWLOntology(
+            OWLOntologyDocumentSource documentSource,
             OWLOntologyCreationHandler mediator,
             OWLOntologyLoaderConfiguration configuration)
             throws OWLOntologyCreationException {
@@ -236,7 +248,8 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
     }
 
     @Override
-    public OWLOntology loadOWLOntology(OWLOntologyDocumentSource documentSource,
+    public OWLOntology loadOWLOntology(
+            OWLOntologyDocumentSource documentSource,
             final OWLOntologyCreationHandler mediator)
             throws OWLOntologyCreationException {
         return loadOWLOntology(documentSource, mediator,

@@ -10,17 +10,22 @@ import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveImport;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
- *         Research Group, Date: 22/10/2012 */
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 22/10/2012
+ */
 @SuppressWarnings("javadoc")
 public class RemoveImportDataTestCase {
+
     private OWLImportsDeclaration mockDeclaration;
     private OWLOntology mockOntology;
 
-    /** Creates RemoveImportData with the value of the {@code mockDeclaration}
+    /**
+     * Creates RemoveImportData with the value of the {@code mockDeclaration}
      * field as a parameter.
      * 
-     * @return The freshly created RemoveImportData */
+     * @return The freshly created RemoveImportData
+     */
     private RemoveImportData createData() {
         return new RemoveImportData(mockDeclaration);
     }

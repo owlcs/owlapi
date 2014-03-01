@@ -40,7 +40,8 @@ package org.semanticweb.owlapi.model;
 
 import java.util.List;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Subproperties">
  * SubObjectPropertyOf</a> axiom in the OWL 2 Specification where the
  * subproperty is a chain of properties. Note that this axiom type is not
@@ -48,26 +49,34 @@ import java.util.List;
  * convenience to the programmer.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 22-Nov-2006 */
+ *         Informatics Group, Date: 22-Nov-2006
+ */
 public interface OWLSubPropertyChainOfAxiom extends OWLObjectPropertyAxiom {
-    /** Gets the chain of properties that represents the subproperty in this
+
+    /**
+     * Gets the chain of properties that represents the subproperty in this
      * axiom.
      * 
      * @return A list of object property expressions that represents the chain
-     *         of properties that represent the subproperty in this axiom. */
+     *         of properties that represent the subproperty in this axiom.
+     */
     List<OWLObjectPropertyExpression> getPropertyChain();
 
-    /** Gets the super property of this axiom.
+    /**
+     * Gets the super property of this axiom.
      * 
      * @return The property expression that represents the superproperty in this
-     *         expression. */
+     *         expression.
+     */
     OWLObjectPropertyExpression getSuperProperty();
 
-    /** Determines if this axiom is of the form: P o P -&gt; P, which is an
+    /**
+     * Determines if this axiom is of the form: P o P -&gt; P, which is an
      * encoding of Transitive(P).
      * 
      * @return {@code true} if this encodes that the super property is
-     *         transitive, otherwise {@code false}. */
+     *         transitive, otherwise {@code false}.
+     */
     boolean isEncodingOfTransitiveProperty();
 
     @Override

@@ -45,16 +45,21 @@ import java.util.Map;
 import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** Represents the concrete representation format of an ontology. The equality of
+/**
+ * Represents the concrete representation format of an ontology. The equality of
  * an ontology format is defined by the equals and hashCode method (not its
  * identity).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 02-Jan-2007 */
+ *         Informatics Group, Date: 02-Jan-2007
+ */
 public abstract class OWLOntologyFormat implements Serializable {
+
     private static final long serialVersionUID = 30406L;
-    /** if set to "true", an intermediate file will be used for output, even for
-     * remote URIs. */
+    /**
+     * if set to "true", an intermediate file will be used for output, even for
+     * remote URIs.
+     */
     public static String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
     private Map<Object, Object> paramaterMap;
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
@@ -66,19 +71,23 @@ public abstract class OWLOntologyFormat implements Serializable {
         return paramaterMap;
     }
 
-    /** @param key
-     *            key for the new entry
+    /**
+     * @param key
+     *        key for the new entry
      * @param value
-     *            value for the new entry */
+     *        value for the new entry
+     */
     public void setParameter(Object key, Object value) {
         getParameterMap().put(key, value);
     }
 
-    /** @param key
-     *            key for the new entry
+    /**
+     * @param key
+     *        key for the new entry
      * @param defaultValue
-     *            value for the new entry
-     * @return the value */
+     *        value for the new entry
+     * @return the value
+     */
     public Object getParameter(Object key, Object defaultValue) {
         Object val = getParameterMap().get(key);
         if (val != null) {
@@ -88,17 +97,20 @@ public abstract class OWLOntologyFormat implements Serializable {
         }
     }
 
-    /** Determines if this format is an instance of a format that uses prefixes
+    /**
+     * Determines if this format is an instance of a format that uses prefixes
      * to shorted IRIs.
      * 
      * @return {@code true} if this format is an instance of
      *         {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
-     *         other wise {@code false}. */
+     *         other wise {@code false}.
+     */
     public boolean isPrefixOWLOntologyFormat() {
         return this instanceof PrefixOWLOntologyFormat;
     }
 
-    /** If this format is an instance of
+    /**
+     * If this format is an instance of
      * {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat} then this
      * method will obtain it as a
      * {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}.
@@ -106,37 +118,44 @@ public abstract class OWLOntologyFormat implements Serializable {
      * @return This format as a more specific
      *         {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}.
      * @throws ClassCastException
-     *             if this format is not an instance of
-     *             {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat} */
+     *         if this format is not an instance of
+     *         {@link org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat}
+     */
     public PrefixOWLOntologyFormat asPrefixOWLOntologyFormat() {
         return (PrefixOWLOntologyFormat) this;
     }
 
-    /** If this format describes an ontology that was loaded from some ontology
+    /**
+     * If this format describes an ontology that was loaded from some ontology
      * document (rather than created programmatically) there may be some meta
      * data about the loading process. Subclasses of {@code OWLOntologyFormat}
      * will provide accessors etc. to details pertaining to the meta data about
      * loading.
      * 
      * @return An object containing the meta data about loading. Not
-     *         {@code null}. */
+     *         {@code null}.
+     */
     public OWLOntologyLoaderMetaData getOntologyLoaderMetaData() {
         return loaderMetaData;
     }
 
-    /** Sets the meta data for the ontology loader.
+    /**
+     * Sets the meta data for the ontology loader.
      * 
      * @param loaderMetaData
-     *            The metadata. Must not be {@code null}.
+     *        The metadata. Must not be {@code null}.
      * @throws NullPointerException
-     *             if the {@code loaderMetaData} is {@code null}. */
-    public void setOntologyLoaderMetaData(OWLOntologyLoaderMetaData loaderMetaData) {
+     *         if the {@code loaderMetaData} is {@code null}.
+     */
+    public void setOntologyLoaderMetaData(
+            OWLOntologyLoaderMetaData loaderMetaData) {
         this.loaderMetaData = loaderMetaData;
     }
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null && (obj == this || obj.getClass().equals(getClass()));
+        return obj != null
+                && (obj == this || obj.getClass().equals(getClass()));
     }
 
     @Override
@@ -144,8 +163,9 @@ public abstract class OWLOntologyFormat implements Serializable {
         return getClass().hashCode();
     }
 
-    private static class NullLoaderMetaData implements OWLOntologyLoaderMetaData,
-            Serializable {
+    private static class NullLoaderMetaData implements
+            OWLOntologyLoaderMetaData, Serializable {
+
         private static final long serialVersionUID = 30406L;
 
         public NullLoaderMetaData() {}

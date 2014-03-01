@@ -24,10 +24,13 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 
 /** oboformat parser */
 public class OBOFormatOWLAPIParser implements OWLParser {
+
     private OWLOntologyManager manager;
 
-    /** @param m
-     *            manager */
+    /**
+     * @param m
+     *        manager
+     */
     public OBOFormatOWLAPIParser(OWLOntologyManager m) {
         manager = m;
     }

@@ -45,11 +45,16 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006
+ */
 public class TypeAllDifferentHandler extends BuiltInTypeHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TypeAllDifferentHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI());
     }
@@ -57,8 +62,8 @@ public class TypeAllDifferentHandler extends BuiltInTypeHandler {
     @Override
     public boolean canHandle(IRI subject, IRI predicate, IRI object) {
         return super.canHandle(subject, predicate, object)
-                && getConsumer().getResourceObject(subject, OWLRDFVocabulary.OWL_MEMBERS,
-                        false) != null;
+                && getConsumer().getResourceObject(subject,
+                        OWLRDFVocabulary.OWL_MEMBERS, false) != null;
     }
 
     @Override
@@ -67,7 +72,8 @@ public class TypeAllDifferentHandler extends BuiltInTypeHandler {
         IRI listNode = getConsumer().getResourceObject(subject,
                 OWLRDFVocabulary.OWL_MEMBERS.getIRI(), true);
         if (listNode != null) {
-            Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(listNode);
+            Set<OWLIndividual> inds = getConsumer().translateToIndividualSet(
+                    listNode);
             addAxiom(getDataFactory().getOWLDifferentIndividualsAxiom(inds,
                     getPendingAnnotations()));
             consumeTriple(subject, predicate, object);

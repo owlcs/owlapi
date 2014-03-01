@@ -51,21 +51,28 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLObjectPropertyRangeAxiomImpl extends
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLObjectPropertyRangeAxiomImpl
+        extends
         OWLPropertyRangeAxiomImpl<OWLObjectPropertyExpression, OWLClassExpression>
         implements OWLObjectPropertyRangeAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param range
-     *            range
+     *        range
      * @param annotations
-     *            annotations */
-    public OWLObjectPropertyRangeAxiomImpl(OWLObjectPropertyExpression property,
-            OWLClassExpression range, Set<? extends OWLAnnotation> annotations) {
+     *        annotations
+     */
+    public OWLObjectPropertyRangeAxiomImpl(
+            OWLObjectPropertyExpression property, OWLClassExpression range,
+            Set<? extends OWLAnnotation> annotations) {
         super(property, range, annotations);
     }
 
@@ -84,7 +91,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends
     }
 
     @Override
-    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
+    public OWLObjectPropertyRangeAxiom getAnnotatedAxiom(
+            Set<OWLAnnotation> annotations) {
         return new OWLObjectPropertyRangeAxiomImpl(getProperty(), getRange(),
                 mergeAnnos(annotations));
     }
@@ -116,7 +124,8 @@ public class OWLObjectPropertyRangeAxiomImpl extends
 
     @Override
     public OWLSubClassOfAxiom asOWLSubClassOfAxiom() {
-        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(), getRange());
+        OWLClassExpression sup = new OWLObjectAllValuesFromImpl(getProperty(),
+                getRange());
         return new OWLSubClassOfAxiomImpl(OWL_THING, sup, NO_ANNOTATIONS);
     }
 }

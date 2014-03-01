@@ -139,12 +139,15 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
-/** A simple renderer that can be used for debugging purposes and provide an
+/**
+ * A simple renderer that can be used for debugging purposes and provide an
  * implementation of the toString method for different implementations.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 26-Nov-2006 */
+ *         Informatics Group, Date: 26-Nov-2006
+ */
 public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
+
     private StringBuilder sb;
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;
@@ -165,33 +168,36 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         return shortFormProvider instanceof DefaultPrefixManager;
     }
 
-    /** Resets the short form provider to the default short form provider, which
-     * is a PrefixManager with the default set of prefixes. */
+    /**
+     * Resets the short form provider to the default short form provider, which
+     * is a PrefixManager with the default set of prefixes.
+     */
     public void resetShortFormProvider() {
         DefaultPrefixManager defaultPrefixManager = new DefaultPrefixManager();
         shortFormProvider = defaultPrefixManager;
         iriShortFormProvider = defaultPrefixManager;
     }
 
-    /** Resets the short form provider and adds prefix name to prefix mappings
+    /**
+     * Resets the short form provider and adds prefix name to prefix mappings
      * based on the specified ontology's format (if it is a prefix format) and
      * possibly the ontologies in the imports closure.
      * 
      * @param ontology
-     *            The ontology whose format will be used to obtain prefix
-     *            mappings
+     *        The ontology whose format will be used to obtain prefix mappings
      * @param manager
-     *            A manager which can be used to obtain the format of the
-     *            specified ontology (and possibly ontologies in its imports
-     *            closure)
+     *        A manager which can be used to obtain the format of the specified
+     *        ontology (and possibly ontologies in its imports closure)
      * @param processImportedOntologies
-     *            Specifies whether or not the prefix mapping should be obtained
-     *            from imported ontologies. */
+     *        Specifies whether or not the prefix mapping should be obtained
+     *        from imported ontologies.
+     */
     public void setPrefixesFromOntologyFormat(OWLOntology ontology,
             OWLOntologyManager manager, boolean processImportedOntologies) {
         resetShortFormProvider();
         if (processImportedOntologies) {
-            for (OWLOntology importedOntology : manager.getImportsClosure(ontology)) {
+            for (OWLOntology importedOntology : manager
+                    .getImportsClosure(ontology)) {
                 if (!importedOntology.equals(ontology)) {
                     copyPrefixes(manager.getOntologyFormat(importedOntology));
                 }
@@ -206,24 +212,29 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
             return;
         }
         PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) ontologyFormat;
-        for (String prefixName : prefixFormat.getPrefixName2PrefixMap().keySet()) {
-            String prefix = prefixFormat.getPrefixName2PrefixMap().get(prefixName);
+        for (String prefixName : prefixFormat.getPrefixName2PrefixMap()
+                .keySet()) {
+            String prefix = prefixFormat.getPrefixName2PrefixMap().get(
+                    prefixName);
             setPrefix(prefixName, prefix);
         }
     }
 
-    /** Sets a prefix name for a given prefix. Note that prefix names MUST end
+    /**
+     * Sets a prefix name for a given prefix. Note that prefix names MUST end
      * with a colon.
      * 
      * @param prefixName
-     *            The prefix name (ending with a colon)
+     *        The prefix name (ending with a colon)
      * @param prefix
-     *            The prefix that the prefix name maps to */
+     *        The prefix that the prefix name maps to
+     */
     public void setPrefix(String prefixName, String prefix) {
         if (!isUsingDefaultShortFormProvider()) {
             resetShortFormProvider();
         }
-        ((DefaultPrefixManager) shortFormProvider).setPrefix(prefixName, prefix);
+        ((DefaultPrefixManager) shortFormProvider)
+                .setPrefix(prefixName, prefix);
     }
 
     @Override
@@ -235,9 +246,11 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(s);
     }
 
-    /** @param iri
-     *            the iri to shorten
-     * @return the short form */
+    /**
+     * @param iri
+     *        the iri to shorten
+     * @return the short form
+     */
     public String getShortForm(IRI iri) {
         return iriShortFormProvider.getShortForm(iri);
     }
@@ -270,8 +283,10 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append(" ");
     }
 
-    /** @param axiom
-     *            the axiom whose annotations should be written */
+    /**
+     * @param axiom
+     *        the axiom whose annotations should be written
+     */
     public void writeAnnotations(OWLAxiom axiom) {
         for (OWLAnnotation anno : axiom.getAnnotations()) {
             anno.accept(this);
@@ -855,12 +870,14 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
         sb.append("HasKey(");
         axiom.getClassExpression().accept(this);
         sb.append(" (");
-        for (OWLObjectPropertyExpression prop : axiom.getObjectPropertyExpressions()) {
+        for (OWLObjectPropertyExpression prop : axiom
+                .getObjectPropertyExpressions()) {
             prop.accept(this);
             sb.append(" ");
         }
         sb.append(") (");
-        for (OWLDataPropertyExpression prop : axiom.getDataPropertyExpressions()) {
+        for (OWLDataPropertyExpression prop : axiom
+                .getDataPropertyExpressions()) {
             prop.accept(this);
             sb.append(" ");
         }

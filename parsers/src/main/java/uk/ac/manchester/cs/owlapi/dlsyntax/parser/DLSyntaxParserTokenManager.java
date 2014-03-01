@@ -8,24 +8,29 @@ import uk.ac.manchester.cs.BOMSafeJavaCharStream;
 /** Token Manager. */
 @SuppressWarnings("unused")
 public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
+    /**
+     * Set debug output.
      * 
      * @param ds
-     *            the new debug stream */
+     *        the new debug stream
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
 
-    /** Jj stop string literal dfa_0.
+    /**
+     * Jj stop string literal dfa_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
             default:
@@ -33,33 +38,39 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj start nfa_0.
+    /**
+     * Jj start nfa_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param active0
-     *            the active0
-     * @return the int */
+     *        the active0
+     * @return the int
+     */
     private int jjStartNfa_0(int pos, long active0) {
         return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
     }
 
-    /** Jj stop at pos.
+    /**
+     * Jj stop at pos.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param kind
-     *            the kind
-     * @return the int */
+     *        the kind
+     * @return the int
+     */
     private int jjStopAtPos(int pos, int kind) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
         return pos + 1;
     }
 
-    /** Jj move string literal dfa0_0.
+    /**
+     * Jj move string literal dfa0_0.
      * 
-     * @return the int */
+     * @return the int
+     */
     private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 10:
@@ -89,15 +100,17 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj start nfa with states_0.
+    /**
+     * Jj start nfa with states_0.
      * 
      * @param pos
-     *            the pos
+     *        the pos
      * @param kind
-     *            the kind
+     *        the kind
      * @param state
-     *            the state
-     * @return the int */
+     *        the state
+     * @return the int
+     */
     private int jjStartNfaWithStates_0(int pos, int kind, int state) {
         jjmatchedKind = kind;
         jjmatchedPos = pos;
@@ -150,13 +163,15 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     static final long[] jjbitVec18 = { 0xfffffffffffffeffL,
             0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
-    /** Jj move nfa_0.
+    /**
+     * Jj move nfa_0.
      * 
      * @param startState
-     *            the start state
+     *        the start state
      * @param _curPos
-     *            the _cur pos
-     * @return the int */
+     *        the _cur pos
+     * @return the int
+     */
     private int jjMoveNfa_0(int startState, int _curPos) {
         int curPos = _curPos;
         int startsAt = 0;
@@ -1007,19 +1022,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     static final int[] jjnextStates = { 117, 118, 119, 111, 115, 68, 73, 76,
             81, 86, 89, 95, 100, 103, 106, 48, 57, };
 
-    /** Jj can move_0.
+    /**
+     * Jj can move_0.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
             long l1, long l2) {
         switch (hiByte) {
@@ -1030,19 +1047,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_1.
+    /**
+     * Jj can move_1.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1,
             long l2) {
         switch (hiByte) {
@@ -1053,19 +1072,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_2.
+    /**
+     * Jj can move_2.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1,
             long l2) {
         switch (hiByte) {
@@ -1076,19 +1097,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_3.
+    /**
+     * Jj can move_3.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_3(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1098,19 +1121,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_4.
+    /**
+     * Jj can move_4.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_4(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 32:
@@ -1120,19 +1145,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_5.
+    /**
+     * Jj can move_5.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_5(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1142,19 +1169,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_6.
+    /**
+     * Jj can move_6.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_6(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1164,19 +1193,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_7.
+    /**
+     * Jj can move_7.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_7(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
@@ -1186,19 +1217,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_8.
+    /**
+     * Jj can move_8.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_8(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1208,19 +1241,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_9.
+    /**
+     * Jj can move_9.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_9(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1230,19 +1265,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_10.
+    /**
+     * Jj can move_10.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_10(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1252,19 +1289,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_11.
+    /**
+     * Jj can move_11.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_11(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1274,19 +1313,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_12.
+    /**
+     * Jj can move_12.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_12(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 34:
@@ -1296,19 +1337,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_13.
+    /**
+     * Jj can move_13.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_13(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 32:
@@ -1318,19 +1361,21 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj can move_14.
+    /**
+     * Jj can move_14.
      * 
      * @param hiByte
-     *            the hi byte
+     *        the hi byte
      * @param i1
-     *            the i1
+     *        the i1
      * @param i2
-     *            the i2
+     *        the i2
      * @param l1
-     *            the l1
+     *        the l1
      * @param l2
-     *            the l2
-     * @return true, if successful */
+     *        the l2
+     * @return true, if successful
+     */
     private boolean jjCanMove_14(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
             case 0:
@@ -1367,10 +1412,12 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     /** The cur char. */
     protected char curChar;
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
@@ -1379,21 +1426,25 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         input_stream = stream;
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public DLSyntaxParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(BOMSafeJavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -1410,21 +1461,25 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 1 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -1435,9 +1490,11 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj fill token.
+    /**
+     * Jj fill token.
      * 
-     * @return the token */
+     * @return the token
+     */
     protected Token jjFillToken() {
         final Token t;
         final String curTokenImage;
@@ -1472,9 +1529,11 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
     /** The jjmatched kind. */
     int jjmatchedKind;
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;
@@ -1535,10 +1594,12 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj check n add.
+    /**
+     * Jj check n add.
      * 
      * @param state
-     *            the state */
+     *        the state
+     */
     private void jjCheckNAdd(int state) {
         if (jjrounds[state] != jjround) {
             jjstateSet[jjnewStateCnt++] = state;
@@ -1546,12 +1607,14 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         }
     }
 
-    /** Jj add states.
+    /**
+     * Jj add states.
      * 
      * @param _start
-     *            the _start
+     *        the _start
      * @param end
-     *            the end */
+     *        the end
+     */
     private void jjAddStates(int _start, int end) {
         int start = _start;
         do {
@@ -1559,23 +1622,27 @@ public class DLSyntaxParserTokenManager implements DLSyntaxParserConstants {
         } while (start++ != end);
     }
 
-    /** Jj check n add two states.
+    /**
+     * Jj check n add two states.
      * 
      * @param state1
-     *            the state1
+     *        the state1
      * @param state2
-     *            the state2 */
+     *        the state2
+     */
     private void jjCheckNAddTwoStates(int state1, int state2) {
         jjCheckNAdd(state1);
         jjCheckNAdd(state2);
     }
 
-    /** Jj check n add states.
+    /**
+     * Jj check n add states.
      * 
      * @param _start
-     *            the _start
+     *        the _start
      * @param end
-     *            the end */
+     *        the end
+     */
     private void jjCheckNAddStates(int _start, int end) {
         int start = _start;
         do {

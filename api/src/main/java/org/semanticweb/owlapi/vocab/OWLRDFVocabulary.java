@@ -48,8 +48,10 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // //////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -162,11 +164,14 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     OWL_MAX_QUALIFIED_CARDINALITY(Namespaces.OWL, "maxQualifiedCardinality"),
     /** http://www.w3.org/2002/07/owl#NegativeObjectPropertyAssertion **/
     @Deprecated
-    OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(Namespaces.OWL,
+    OWL_NEGATIVE_OBJECT_PROPERTY_ASSERTION(
+            Namespaces.OWL,
             "NegativeObjectPropertyAssertion"),
     /** http://www.w3.org/2002/07/owl#NegativeDataPropertyAssertion **/
     @Deprecated
-    OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(Namespaces.OWL, "NegativeDataPropertyAssertion"),
+    OWL_NEGATIVE_DATA_PROPERTY_ASSERTION(
+            Namespaces.OWL,
+            "NegativeDataPropertyAssertion"),
     /** http://www.w3.org/2002/07/owl#NegativePropertyAssertion **/
     OWL_NEGATIVE_PROPERTY_ASSERTION(Namespaces.OWL, "NegativePropertyAssertion"),
     /** http://www.w3.org/2000/01/rdf-schema#label **/
@@ -298,7 +303,8 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /** http://www.w3.org/2002/07/owl#withRestrictions **/
     OWL_WITH_RESTRICTIONS(Namespaces.OWL, "withRestrictions"),
     /** http://www.w3.org/2002/07/owl#inverseObjectPropertyExpression **/
-    OWL_INVERSE_OBJECT_PROPERTY_EXPRESSION(Namespaces.OWL,
+    OWL_INVERSE_OBJECT_PROPERTY_EXPRESSION(
+            Namespaces.OWL,
             "inverseObjectPropertyExpression"),
     /** http://www.w3.org/2002/07/owl#Axiom **/
     OWL_AXIOM(Namespaces.OWL, "Axiom"),
@@ -337,6 +343,7 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     OWL_TARGET_INDIVIDUAL(Namespaces.OWL, "targetIndividual"),
     /** http://www.w3.org/2002/07/owl#targetValue **/
     OWL_TARGET_VALUE(Namespaces.OWL, "targetValue");
+
     final IRI iri;
     final Namespaces namespace;
     final String shortName;
@@ -349,8 +356,10 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         iri = IRI.create(namespace.toString(), shortName);
     }
 
-    /** @return The URI
-     * @deprecated Use getIRI() instead. */
+    /**
+     * @return The URI
+     * @deprecated Use getIRI() instead.
+     */
     @Deprecated
     public URI getURI() {
         return iri.toURI();
@@ -374,14 +383,17 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     public String getShortName() {
         return shortName;
     }
+
     @Override
     public String getPrefixedName() {
         return prefixedName;
     }
+
     /**
-     * Gets the short form for this vocabulary element.  Short forms are the local name e.g.
-     * "Thing" for {@link #OWL_THING} etc.
-     * @return The short form.  Not {@code null}.
+     * Gets the short form for this vocabulary element. Short forms are the
+     * local name e.g. "Thing" for {@link #OWL_THING} etc.
+     * 
+     * @return The short form. Not {@code null}.
      */
     @Override
     public String getShortForm() {
@@ -397,15 +409,18 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         }
         BUILT_IN_VOCABULARY_IRIS = Collections.unmodifiableSet(set);
     }
-    /** label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
-     * seeAlso , isDefinedBy , incompatibleWith , deprecated */
+    /**
+     * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
+     * seeAlso , isDefinedBy , incompatibleWith , deprecated
+     */
     public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
     static {
         BUILT_IN_ANNOTATION_PROPERTY_IRIS = new HashSet<IRI>();
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_LABEL.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_COMMENT.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_VERSION_INFO.getIRI());
-        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_BACKWARD_COMPATIBLE_WITH.getIRI());
+        BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_BACKWARD_COMPATIBLE_WITH
+                .getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(OWL_PRIOR_VERSION.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_SEE_ALSO.getIRI());
         BUILT_IN_ANNOTATION_PROPERTY_IRIS.add(RDFS_IS_DEFINED_BY.getIRI());
@@ -417,6 +432,4 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     public String toString() {
         return iri.toString();
     }
-
-
 }

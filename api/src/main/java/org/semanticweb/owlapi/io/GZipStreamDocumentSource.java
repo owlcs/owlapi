@@ -50,20 +50,25 @@ import java.util.zip.GZIPInputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document source which can read from a GZIP stream.
+/**
+ * An ontology document source which can read from a GZIP stream.
  * 
  * @author ignazio
- * @since 3.4.8 */
+ * @since 3.4.8
+ */
 public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
+
     private static int counter = 0;
     private final IRI documentIRI;
     private byte[] buffer;
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified file.
      * 
      * @param is
-     *            The stream that the ontology representation will be read from. */
+     *        The stream that the ontology representation will be read from.
+     */
     public GZipStreamDocumentSource(InputStream is) {
         this(is, getNextDocumentIRI());
     }
@@ -74,13 +79,15 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
         return IRI.create("gzipinputstream:ontology" + counter);
     }
 
-    /** Constructs an input source which will read an ontology from a
+    /**
+     * Constructs an input source which will read an ontology from a
      * representation from the specified stream.
      * 
      * @param stream
-     *            The stream that the ontology representation will be read from.
+     *        The stream that the ontology representation will be read from.
      * @param documentIRI
-     *            The document IRI */
+     *        The document IRI
+     */
     public GZipStreamDocumentSource(InputStream stream, IRI documentIRI) {
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);

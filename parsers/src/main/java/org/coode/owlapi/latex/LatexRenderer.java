@@ -63,13 +63,18 @@ import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: 15-Jun-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: 15-Jun-2007
+ */
 public class LatexRenderer extends AbstractOWLRenderer {
+
     private ShortFormProvider shortFormProvider;
 
-    /** @param owlOntologyManager
-     *            owlOntologyManager */
+    /**
+     * @param owlOntologyManager
+     *        owlOntologyManager
+     */
     @Deprecated
     @SuppressWarnings("unused")
     public LatexRenderer(OWLOntologyManager owlOntologyManager) {
@@ -92,7 +97,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
     }
 
     @Override
-    public void render(OWLOntology ontology, Writer writer) throws OWLRendererException {
+    public void render(OWLOntology ontology, Writer writer)
+            throws OWLRendererException {
         try {
             LatexWriter w = new LatexWriter(writer);
             w.write("\\documentclass{article}\n");
@@ -103,7 +109,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
             w.write("\\begin{document}\n\n");
             LatexObjectVisitor renderer = new LatexObjectVisitor(w, ontology
                     .getOWLOntologyManager().getOWLDataFactory());
-            Collection<OWLClass> clses = sortEntities(ontology.getClassesInSignature());
+            Collection<OWLClass> clses = sortEntities(ontology
+                    .getClassesInSignature());
             if (!clses.isEmpty()) {
                 w.write("\\subsection*{Classes}\n\n");
             }
@@ -143,7 +150,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
                 }
             }
             w.write("\\section*{Datatypes}");
-            for (OWLDatatype type : sortEntities(ontology.getDatatypesInSignature())) {
+            for (OWLDatatype type : sortEntities(ontology
+                    .getDatatypesInSignature())) {
                 writeEntitySection(type, w);
                 for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type))) {
                     ax.accept(renderer);
@@ -159,7 +167,8 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private <T extends OWLEntity> Collection<T> sortEntities(Set<T> entites) {
         List<T> list = new ArrayList<T>(entites);
-        OWLEntityComparator entityComparator = new OWLEntityComparator(shortFormProvider);
+        OWLEntityComparator entityComparator = new OWLEntityComparator(
+                shortFormProvider);
         Collections.sort(list, entityComparator);
         return list;
     }
@@ -170,7 +179,9 @@ public class LatexRenderer extends AbstractOWLRenderer {
         return list;
     }
 
-    private static class OWLAxiomComparator implements Comparator<OWLAxiom>, Serializable {
+    private static class OWLAxiomComparator implements Comparator<OWLAxiom>,
+            Serializable {
+
         private static final long serialVersionUID = 30406L;
 
         public OWLAxiomComparator() {}

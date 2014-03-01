@@ -38,7 +38,8 @@
  */
 package org.coode.owlapi.obo.parser;
 
-/** Concrete implementations of this interface allow specific behaviour for
+/**
+ * Concrete implementations of this interface allow specific behaviour for
  * processing specific tag value pairs in an OBO file to be specified. <br>
  * <h3>Tag-Value Pairs (From the OBO 1.4 Guide)</h3> Tag-value pairs consist of
  * a tag name, an unescaped colon, the tag value, and a newline: <br>
@@ -69,24 +70,31 @@ package org.coode.owlapi.obo.parser;
  * formatting).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 10-Jan-2007 */
+ *         Informatics Group, Date: 10-Jan-2007
+ */
 public interface TagValueHandler {
-    /** Gets the name of the tag handled by this tag value handler
+
+    /**
+     * Gets the name of the tag handled by this tag value handler
      * 
-     * @return The name of the tag */
+     * @return The name of the tag
+     */
     String getTagName();
 
-    /** Handles a tag. This is called by the OBOConsumer during parsing to handle
+    /**
+     * Handles a tag. This is called by the OBOConsumer during parsing to handle
      * tags that match the value returned by the {@link #getTagName()} method.
      * 
      * @param currentId
-     *            The id of the current frame.
+     *        The id of the current frame.
      * @param value
-     *            The value of the tag
+     *        The value of the tag
      * @param qualifierBlock
-     *            qualifierBlock
+     *        qualifierBlock
      * @param comment
-     *            The hidden comment. This is made up of any characters between
-     *            ! and the end of line. */
-    void handle(String currentId, String value, String qualifierBlock, String comment);
+     *        The hidden comment. This is made up of any characters between !
+     *        and the end of line.
+     */
+    void handle(String currentId, String value, String qualifierBlock,
+            String comment);
 }

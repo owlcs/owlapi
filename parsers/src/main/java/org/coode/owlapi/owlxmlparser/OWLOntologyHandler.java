@@ -48,11 +48,16 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 13-Dec-2006
+ */
 public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
-    /** @param handler
-     *            owlxml handler */
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLOntologyHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -63,14 +68,16 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     @Override
     public void attribute(String name, String value) throws OWLParserException {
         if (name.equals("ontologyIRI")) {
-            OWLOntologyID newID = new OWLOntologyID(IRI.create(value), getOntology()
-                    .getOntologyID().getVersionIRI());
-            getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), newID));
+            OWLOntologyID newID = new OWLOntologyID(IRI.create(value),
+                    getOntology().getOntologyID().getVersionIRI());
+            getOWLOntologyManager().applyChange(
+                    new SetOntologyID(getOntology(), newID));
         }
         if (name.equals("versionIRI")) {
-            OWLOntologyID newID = new OWLOntologyID(getOntology().getOntologyID()
-                    .getOntologyIRI(), IRI.create(value));
-            getOWLOntologyManager().applyChange(new SetOntologyID(getOntology(), newID));
+            OWLOntologyID newID = new OWLOntologyID(getOntology()
+                    .getOntologyID().getOntologyIRI(), IRI.create(value));
+            getOWLOntologyManager().applyChange(
+                    new SetOntologyID(getOntology(), newID));
         }
     }
 
@@ -78,8 +85,10 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     public void handleChild(AbstractOWLAxiomElementHandler handler)
             throws OWLXMLParserException {
         OWLAxiom axiom = handler.getOWLObject();
-        if (!axiom.isAnnotationAxiom() || getConfiguration().isLoadAnnotationAxioms()) {
-            getOWLOntologyManager().applyChange(new AddAxiom(getOntology(), axiom));
+        if (!axiom.isAnnotationAxiom()
+                || getConfiguration().isLoadAnnotationAxioms()) {
+            getOWLOntologyManager().applyChange(
+                    new AddAxiom(getOntology(), axiom));
         }
     }
 
@@ -94,12 +103,15 @@ public class OWLOntologyHandler extends AbstractOWLElementHandler<OWLOntology> {
     @Override
     public void handleChild(OWLAnnotationElementHandler handler)
             throws OWLXMLParserException {
-        getOWLOntologyManager().applyChange(
-                new AddOntologyAnnotation(getOntology(), handler.getOWLObject()));
+        getOWLOntologyManager()
+                .applyChange(
+                        new AddOntologyAnnotation(getOntology(), handler
+                                .getOWLObject()));
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {}
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {}
 
     @Override
     public OWLOntology getOWLObject() {

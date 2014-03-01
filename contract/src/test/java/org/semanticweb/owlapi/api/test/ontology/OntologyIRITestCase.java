@@ -45,15 +45,19 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 10-Dec-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 10-Dec-2009
+ */
 @SuppressWarnings("javadoc")
 public class OntologyIRITestCase extends AbstractFileTestCase {
+
     @Test
     public void testCorrectOntologyIRI() {
         OWLOntology ont = createOntology();
         OWLOntologyID id = ont.getOntologyID();
-        assertEquals("http://www.test.com/right.owl", id.getOntologyIRI().toString());
+        assertEquals("http://www.test.com/right.owl", id.getOntologyIRI()
+                .toString());
     }
 
     @Override

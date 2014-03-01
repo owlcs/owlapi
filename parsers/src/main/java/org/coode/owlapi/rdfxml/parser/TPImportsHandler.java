@@ -53,11 +53,16 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006
+ */
 public class TPImportsHandler extends TriplePredicateHandler {
-    /** @param consumer
-     *            consumer */
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public TPImportsHandler(OWLRDFConsumer consumer) {
         super(consumer, OWLRDFVocabulary.OWL_IMPORTS.getIRI());
     }
@@ -80,14 +85,16 @@ public class TPImportsHandler extends TriplePredicateHandler {
             OWLOntologyManager man = getConsumer().getOWLOntologyManager();
             man.makeLoadImportRequest(importsDeclaration, getConsumer()
                     .getConfiguration());
-            OWLOntology importedOntology = man.getImportedOntology(importsDeclaration);
+            OWLOntology importedOntology = man
+                    .getImportedOntology(importsDeclaration);
             if (importedOntology != null) {
                 OWLOntologyFormat importedOntologyFormat = man
                         .getOntologyFormat(importedOntology);
                 if (importedOntologyFormat instanceof RDFOntologyFormat) {
                     if (importedOntology.isAnonymous()) {
                         OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy missingOntologyHeaderStrategy = getConsumer()
-                                .getConfiguration().getMissingOntologyHeaderStrategy();
+                                .getConfiguration()
+                                .getMissingOntologyHeaderStrategy();
                         boolean includeGraph = missingOntologyHeaderStrategy
                                 .equals(OWLOntologyLoaderConfiguration.MissingOntologyHeaderStrategy.INCLUDE_GRAPH);
                         if (includeGraph) {
@@ -98,16 +105,17 @@ public class TPImportsHandler extends TriplePredicateHandler {
                             // out importing ontology and remove the imported
                             // ontology.
                             // WHO EVER THOUGHT THAT THIS WAS A GOOD IDEA?
-                            man.applyChange(new RemoveImport(getConsumer().getOntology(),
-                                    importsDeclaration));
+                            man.applyChange(new RemoveImport(getConsumer()
+                                    .getOntology(), importsDeclaration));
                             for (OWLImportsDeclaration decl : importedOntology
                                     .getImportsDeclarations()) {
-                                man.applyChange(new AddImport(
-                                        getConsumer().getOntology(), decl));
+                                man.applyChange(new AddImport(getConsumer()
+                                        .getOntology(), decl));
                             }
-                            for (OWLAnnotation anno : importedOntology.getAnnotations()) {
-                                man.applyChange(new AddOntologyAnnotation(getConsumer()
-                                        .getOntology(), anno));
+                            for (OWLAnnotation anno : importedOntology
+                                    .getAnnotations()) {
+                                man.applyChange(new AddOntologyAnnotation(
+                                        getConsumer().getOntology(), anno));
                             }
                             for (OWLAxiom ax : importedOntology.getAxioms()) {
                                 getConsumer().addAxiom(ax);

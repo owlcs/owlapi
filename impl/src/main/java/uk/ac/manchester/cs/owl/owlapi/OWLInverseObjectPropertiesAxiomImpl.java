@@ -54,26 +54,32 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 29-Nov-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 29-Nov-2006
+ */
 public class OWLInverseObjectPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
         OWLInverseObjectPropertiesAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
 
-    /** @param first
-     *            first property
+    /**
+     * @param first
+     *        first property
      * @param second
-     *            second peoperty
+     *        second peoperty
      * @param annotations
-     *            annotations */
-    public OWLInverseObjectPropertiesAxiomImpl(OWLObjectPropertyExpression first,
+     *        annotations
+     */
+    public OWLInverseObjectPropertiesAxiomImpl(
+            OWLObjectPropertyExpression first,
             OWLObjectPropertyExpression second,
             Collection<? extends OWLAnnotation> annotations) {
-        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first, second)),
-                annotations);
+        super(new TreeSet<OWLObjectPropertyExpression>(Arrays.asList(first,
+                second)), annotations);
         this.first = first;
         this.second = second;
     }
@@ -126,7 +132,8 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLInverseObjectPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLInverseObjectPropertiesAxiom;
     }
 
     @Override
@@ -137,10 +144,10 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
     @Override
     public Set<OWLSubObjectPropertyOfAxiom> asSubObjectPropertyOfAxioms() {
         Set<OWLSubObjectPropertyOfAxiom> axs = new HashSet<OWLSubObjectPropertyOfAxiom>();
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second.getInverseProperty()
-                .getSimplified(), NO_ANNOTATIONS));
-        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first.getInverseProperty()
-                .getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(first, second
+                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
+        axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first
+                .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
     }
 }

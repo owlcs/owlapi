@@ -18,16 +18,20 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractKrssparserTest {
+
     public void shouldTestKRSSOntologyFormat() throws Exception {
         KRSSOntologyFormat testSubject0 = new KRSSOntologyFormat();
         String result0 = testSubject0.toString();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
-        Object result1 = testSubject0
-                .getParameter(mock(Object.class), mock(Object.class));
+        Object result1 = testSubject0.getParameter(mock(Object.class),
+                mock(Object.class));
         boolean result2 = testSubject0.isPrefixOWLOntologyFormat();
-        PrefixOWLOntologyFormat result3 = testSubject0.asPrefixOWLOntologyFormat();
-        OWLOntologyLoaderMetaData result4 = testSubject0.getOntologyLoaderMetaData();
-        testSubject0.setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
+        PrefixOWLOntologyFormat result3 = testSubject0
+                .asPrefixOWLOntologyFormat();
+        OWLOntologyLoaderMetaData result4 = testSubject0
+                .getOntologyLoaderMetaData();
+        testSubject0
+                .setOntologyLoaderMetaData(mock(OWLOntologyLoaderMetaData.class));
     }
 
     public void shouldTestKRSSOWLParser() throws Exception {

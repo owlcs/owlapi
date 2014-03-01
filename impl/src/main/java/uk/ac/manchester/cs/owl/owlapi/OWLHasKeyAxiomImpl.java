@@ -56,19 +56,25 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009 */
-public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKeyAxiom {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009
+ */
+public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
+        OWLHasKeyAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final OWLClassExpression expression;
     private final Set<OWLPropertyExpression<?, ?>> propertyExpressions;
 
-    /** @param expression
-     *            class expression
+    /**
+     * @param expression
+     *        class expression
      * @param propertyExpressions
-     *            properties
+     *        properties
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLHasKeyAxiomImpl(OWLClassExpression expression,
             Set<? extends OWLPropertyExpression<?, ?>> propertyExpressions,
             Collection<? extends OWLAnnotation> annotations) {
@@ -83,14 +89,14 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLHasKeyAxiomImpl(getClassExpression(), getPropertyExpressions(),
-                NO_ANNOTATIONS);
+        return new OWLHasKeyAxiomImpl(getClassExpression(),
+                getPropertyExpressions(), NO_ANNOTATIONS);
     }
 
     @Override
     public OWLHasKeyAxiom getAnnotatedAxiom(Set<OWLAnnotation> annotations) {
-        return new OWLHasKeyAxiomImpl(getClassExpression(), getPropertyExpressions(),
-                mergeAnnos(annotations));
+        return new OWLHasKeyAxiomImpl(getClassExpression(),
+                getPropertyExpressions(), mergeAnnos(annotations));
     }
 
     @Override
@@ -182,7 +188,8 @@ public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements OWLHasKey
             }
             OWLHasKeyAxiom other = (OWLHasKeyAxiom) obj;
             return expression.equals(other.getClassExpression())
-                    && propertyExpressions.equals(other.getPropertyExpressions());
+                    && propertyExpressions.equals(other
+                            .getPropertyExpressions());
         }
         return false;
     }

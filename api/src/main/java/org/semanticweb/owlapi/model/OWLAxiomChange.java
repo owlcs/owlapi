@@ -40,15 +40,20 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 12-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 12-Dec-2006
+ */
 public abstract class OWLAxiomChange extends OWLOntologyChange {
+
     private final OWLAxiom axiom;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param axiom
-     *            the axiom to be changed */
+     *        the axiom to be changed
+     */
     public OWLAxiomChange(OWLOntology ont, OWLAxiom axiom) {
         super(ont);
         this.axiom = axiom;
@@ -74,12 +79,14 @@ public abstract class OWLAxiomChange extends OWLOntologyChange {
         return axiom;
     }
 
-    /** A convenience method that obtains the entities which are referenced in
+    /**
+     * A convenience method that obtains the entities which are referenced in
      * the axiom contained within this change.
      * 
      * @return A {@code Set} of entities which are referenced by the axiom
      *         contained within this change.
-     * @deprecated use getSignature() instead */
+     * @deprecated use getSignature() instead
+     */
     @Deprecated
     public Set<OWLEntity> getEntities() {
         return axiom.getSignature();

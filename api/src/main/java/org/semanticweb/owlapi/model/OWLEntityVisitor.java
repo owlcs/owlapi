@@ -38,45 +38,60 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** An interface to an object that can accept visits from
+/**
+ * An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLEntity}s.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 13-Nov-2006 */
+ *         Informatics Group, Date: 13-Nov-2006
+ */
 public interface OWLEntityVisitor {
-    /** visit OWLClass type
+
+    /**
+     * visit OWLClass type
      * 
      * @param cls
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLClass cls);
 
-    /** visit OWLObjectProperty type
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLObjectProperty property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLDataProperty property);
 
-    /** visit OWLNamedIndividual type
+    /**
+     * visit OWLNamedIndividual type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLNamedIndividual individual);
 
-    /** visit OWLDatatype type
+    /**
+     * visit OWLDatatype type
      * 
      * @param datatype
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLDatatype datatype);
 
-    /** visit OWLAnnotationProperty type
+    /**
+     * visit OWLAnnotationProperty type
      * 
      * @param property
-     *            object to visit */
+     *        object to visit
+     */
     void visit(OWLAnnotationProperty property);
 }

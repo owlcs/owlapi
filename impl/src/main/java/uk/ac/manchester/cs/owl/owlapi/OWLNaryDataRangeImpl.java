@@ -47,10 +47,13 @@ import org.semanticweb.owlapi.model.OWLNaryDataRange;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 17-Jan-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 17-Jan-2009
+ */
 public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
         OWLNaryDataRange {
+
     private static final long serialVersionUID = 30406L;
     private final Set<OWLDataRange> operands;
 
@@ -61,7 +64,8 @@ public abstract class OWLNaryDataRangeImpl extends OWLObjectImpl implements
 
     @Override
     public Set<OWLDataRange> getOperands() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(operands);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(operands);
     }
 
     @Override

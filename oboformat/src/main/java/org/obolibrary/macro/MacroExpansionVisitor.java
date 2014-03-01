@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /** @author cjm TODO - allow use of prefixes */
 public class MacroExpansionVisitor {
+
     protected static final Logger log = Logger
             .getLogger(MacroExpansionVisitor.class.getName());
     private OWLOntology inputOntology;
@@ -36,8 +37,10 @@ public class MacroExpansionVisitor {
     private Visitor visitor;
     protected ManchesterSyntaxTool manchesterSyntaxTool;
 
-    /** @param inputOntology
-     *            inputOntology */
+    /**
+     * @param inputOntology
+     *        inputOntology
+     */
     public MacroExpansionVisitor(OWLOntology inputOntology) {
         super();
         this.inputOntology = inputOntology;
@@ -130,6 +133,7 @@ public class MacroExpansionVisitor {
     }
 
     private class Visitor extends AbstractMacroExpansionVisitor {
+
         Visitor(OWLOntology inputOntology) {
             super(inputOntology, MacroExpansionVisitor.log);
         }

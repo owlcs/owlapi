@@ -46,9 +46,13 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 09-May-2007 */
-public class NegativeDataPropertyAssertionAxiomTestCase extends AbstractRendererAndParser {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 09-May-2007
+ */
+public class NegativeDataPropertyAssertionAxiomTestCase extends
+        AbstractRendererAndParser {
+
     @Override
     protected String getClassExpression() {
         return "Negative data property assertion test case";
@@ -59,8 +63,8 @@ public class NegativeDataPropertyAssertionAxiomTestCase extends AbstractRenderer
         OWLIndividual subj = createIndividual();
         OWLDataProperty prop = createDataProperty();
         OWLLiteral obj = getDataFactory().getOWLLiteral("TestConstant");
-        OWLAxiom ax = getDataFactory().getOWLNegativeDataPropertyAssertionAxiom(prop,
-                subj, obj);
+        OWLAxiom ax = getDataFactory()
+                .getOWLNegativeDataPropertyAssertionAxiom(prop, subj, obj);
         return Collections.singleton(ax);
     }
 }

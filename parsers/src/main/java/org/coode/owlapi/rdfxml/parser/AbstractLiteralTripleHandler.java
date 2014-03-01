@@ -41,39 +41,53 @@ package org.coode.owlapi.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-Dec-2006 */
-public abstract class AbstractLiteralTripleHandler extends AbstractTripleHandler {
-    /** @param consumer
-     *            consumer */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 10-Dec-2006
+ */
+public abstract class AbstractLiteralTripleHandler extends
+        AbstractTripleHandler {
+
+    /**
+     * @param consumer
+     *        consumer
+     */
     public AbstractLiteralTripleHandler(OWLRDFConsumer consumer) {
         super(consumer);
     }
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param predicate
-     *            predicate
+     *        predicate
      * @param object
-     *            object */
-    public abstract void handleTriple(IRI subject, IRI predicate, OWLLiteral object);
+     *        object
+     */
+    public abstract void handleTriple(IRI subject, IRI predicate,
+            OWLLiteral object);
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param predicate
-     *            predicate
+     *        predicate
      * @param object
-     *            object
-     * @return true if can handle */
-    public abstract boolean canHandle(IRI subject, IRI predicate, OWLLiteral object);
+     *        object
+     * @return true if can handle
+     */
+    public abstract boolean canHandle(IRI subject, IRI predicate,
+            OWLLiteral object);
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param predicate
-     *            predicate
+     *        predicate
      * @param object
-     *            object
-     * @return true if can handle streaming */
+     *        object
+     * @return true if can handle streaming
+     */
     public abstract boolean canHandleStreaming(IRI subject, IRI predicate,
             OWLLiteral object);
 }

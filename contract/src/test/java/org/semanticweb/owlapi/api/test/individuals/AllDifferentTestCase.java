@@ -48,6 +48,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class AllDifferentTestCase {
+
     private final String onto1 = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xml:base = \"http://example.org/\" "
             + "xmlns = \"http://example.org/\" xmlns:owl = \"http://www.w3.org/2002/07/owl#\" "
@@ -71,10 +72,12 @@ public class AllDifferentTestCase {
     @Test
     public void testDistinctMembers() throws Exception {
         OWLOntologyManager m = Factory.getManager();
-        OWLOntology o1 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                onto1));
-        OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                onto2));
+        OWLOntology o1 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        onto1));
+        OWLOntology o2 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        onto2));
         assertTrue(o1.getLogicalAxiomCount() == o2.getLogicalAxiomCount());
     }
 }

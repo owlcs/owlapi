@@ -38,11 +38,16 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLLiteralArgument extends SWRLDArgument {
-    /** Gets the literal for this argument.
+
+    /**
+     * Gets the literal for this argument.
      * 
-     * @return The literal */
+     * @return The literal
+     */
     OWLLiteral getLiteral();
 }

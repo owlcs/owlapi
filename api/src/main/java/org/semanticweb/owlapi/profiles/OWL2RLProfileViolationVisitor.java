@@ -38,66 +38,89 @@
  */
 package org.semanticweb.owlapi.profiles;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
 public interface OWL2RLProfileViolationVisitor {
-    /** visit UseOfIllegalAxiom type
+
+    /**
+     * visit UseOfIllegalAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalAxiom violation);
 
-    /** visit UseOfIllegalDataRange type
+    /**
+     * visit UseOfIllegalDataRange type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfIllegalDataRange violation);
 
-    /** visit IllegalPunning type
+    /**
+     * visit IllegalPunning type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(IllegalPunning violation);
 
-    /** visit UseOfNonEquivalentClassExpression type
+    /**
+     * visit UseOfNonEquivalentClassExpression type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonEquivalentClassExpression violation);
 
-    /** visit UseOfNonSubClassExpression type
+    /**
+     * visit UseOfNonSubClassExpression type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSubClassExpression violation);
 
-    /** visit UseOfNonSuperClassExpression type
+    /**
+     * visit UseOfNonSuperClassExpression type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(UseOfNonSuperClassExpression violation);
 
-    /** visit InsufficientPropertyExpressions type
+    /**
+     * visit InsufficientPropertyExpressions type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientPropertyExpressions violation);
 
-    /** visit InsufficientIndividuals type
+    /**
+     * visit InsufficientIndividuals type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientIndividuals violation);
 
-    /** visit InsufficientOperands type
+    /**
+     * visit InsufficientOperands type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(InsufficientOperands violation);
 
-    /** visit EmptyOneOfAxiom type
+    /**
+     * visit EmptyOneOfAxiom type
      * 
      * @param violation
-     *            object to visit */
+     *        object to visit
+     */
     void visit(EmptyOneOfAxiom violation);
 }

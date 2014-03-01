@@ -44,11 +44,14 @@ import java.util.TreeMap;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** Manual IRI mapper.
+/**
+ * Manual IRI mapper.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group, Date: 14-Nov-2006 */
+ *         Informatics Group, Date: 14-Nov-2006
+ */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
+
     private final Map<IRI, IRI> iriMap;
 
     /** default constructor */
@@ -66,10 +69,12 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
         }
     }
 
-    /** @param ontologyIRI
-     *            new ontology iri
+    /**
+     * @param ontologyIRI
+     *        new ontology iri
      * @param documentIRI
-     *            new document iri */
+     *        new document iri
+     */
     public void addMapping(IRI ontologyIRI, IRI documentIRI) {
         iriMap.put(ontologyIRI, documentIRI);
     }

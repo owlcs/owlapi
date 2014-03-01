@@ -43,28 +43,35 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
- *         Group, Date: Dec 18, 2008 */
+/**
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+ *         Group, Date: Dec 18, 2008
+ */
 public class OBORelationship {
+
     private OWLObjectProperty property;
     private int minCardinality = -1;
     private int maxCardinality = -1;
     private int cardinality = -1;
     private OWLEntity filler;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OBORelationship(OWLObjectProperty property, OWLNamedIndividual filler) {
         this.property = property;
         this.filler = filler;
     }
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OBORelationship(OWLObjectProperty property, OWLClass filler) {
         this.property = property;
         this.filler = filler;
@@ -90,14 +97,18 @@ public class OBORelationship {
         return maxCardinality;
     }
 
-    /** @param maxCardinality
-     *            maxCardinality */
+    /**
+     * @param maxCardinality
+     *        maxCardinality
+     */
     public void setMaxCardinality(int maxCardinality) {
         this.maxCardinality = maxCardinality;
     }
 
-    /** @param minCardinality
-     *            minCardinality */
+    /**
+     * @param minCardinality
+     *        minCardinality
+     */
     public void setMinCardinality(int minCardinality) {
         this.minCardinality = minCardinality;
     }
@@ -107,8 +118,10 @@ public class OBORelationship {
         return cardinality;
     }
 
-    /** @param cardinality
-     *            cardinality */
+    /**
+     * @param cardinality
+     *        cardinality
+     */
     public void setCardinality(int cardinality) {
         this.cardinality = cardinality;
     }

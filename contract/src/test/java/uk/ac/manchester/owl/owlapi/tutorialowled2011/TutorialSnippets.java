@@ -126,6 +126,7 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @Ignore
 @SuppressWarnings("javadoc")
 public class TutorialSnippets {
+
     public static final IRI pizza_iri = IRI
             .create("http://owl.cs.manchester.ac.uk/co-ode-files/ontologies/pizza.owl");
     public static final IRI example_iri = IRI
@@ -137,7 +138,8 @@ public class TutorialSnippets {
 
     public OWLOntologyManager create() {
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
-        m.addIRIMapper(new AutoIRIMapper(new File("materializedOntologies"), true));
+        m.addIRIMapper(new AutoIRIMapper(new File("materializedOntologies"),
+                true));
         return m;
     }
 
@@ -156,8 +158,9 @@ public class TutorialSnippets {
         StringDocumentTarget target = new StringDocumentTarget();
         m.saveOntology(o, target);
         m.removeOntology(o);
-        OWLOntology o2 = m.loadOntologyFromOntologyDocument(new StringDocumentSource(
-                target.toString()));
+        OWLOntology o2 = m
+                .loadOntologyFromOntologyDocument(new StringDocumentSource(
+                        target.toString()));
         assertNotNull(o2);
     }
 
@@ -207,7 +210,8 @@ public class TutorialSnippets {
         File output = File.createTempFile("saved_pizza", "owl");
         IRI documentIRI = IRI.create(output);
         // Set up a mapping, which maps the ontology to the document IRI
-        SimpleIRIMapper mapper = new SimpleIRIMapper(example_save_iri, documentIRI);
+        SimpleIRIMapper mapper = new SimpleIRIMapper(example_save_iri,
+                documentIRI);
         m.addIRIMapper(mapper);
         // set up a mapper to read local copies of ontologies
         File localFolder = new File("materializedOntologies");
@@ -247,7 +251,8 @@ public class TutorialSnippets {
         Set<OWLClassExpression> superClasses = clsA.getSuperClasses(o);
         // for each superclass there will be a corresponding axiom
         // the ontology indexes axioms in a variety of ways
-        Set<OWLSubClassOfAxiom> sameSuperClasses = o.getSubClassAxiomsForSubClass(clsA);
+        Set<OWLSubClassOfAxiom> sameSuperClasses = o
+                .getSubClassAxiomsForSubClass(clsA);
         assertEquals(superClasses.size(), sameSuperClasses.size());
     }
 
@@ -259,20 +264,25 @@ public class TutorialSnippets {
         OWLClass clsA = df.getOWLClass(IRI.create(example_iri + "#A"));
         OWLClass clsB = df.getOWLClass(IRI.create(example_iri + "#B"));
         SWRLVariable var = df.getSWRLVariable(IRI.create(example_iri + "#x"));
-        Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(clsA, var));
-        Set<SWRLClassAtom> head = Collections.singleton(df.getSWRLClassAtom(clsB, var));
+        Set<SWRLClassAtom> body = Collections.singleton(df.getSWRLClassAtom(
+                clsA, var));
+        Set<SWRLClassAtom> head = Collections.singleton(df.getSWRLClassAtom(
+                clsB, var));
         SWRLRule rule = df.getSWRLRule(body, head);
         m.applyChange(new AddAxiom(o, rule));
         OWLObjectProperty prop = df.getOWLObjectProperty(IRI.create(example_iri
                 + "#propA"));
-        OWLObjectProperty propB = df.getOWLObjectProperty(IRI.create(example_iri
-                + "#propB"));
-        SWRLObjectPropertyAtom propAtom = df.getSWRLObjectPropertyAtom(prop, var, var);
-        SWRLObjectPropertyAtom propAtom2 = df.getSWRLObjectPropertyAtom(propB, var, var);
+        OWLObjectProperty propB = df.getOWLObjectProperty(IRI
+                .create(example_iri + "#propB"));
+        SWRLObjectPropertyAtom propAtom = df.getSWRLObjectPropertyAtom(prop,
+                var, var);
+        SWRLObjectPropertyAtom propAtom2 = df.getSWRLObjectPropertyAtom(propB,
+                var, var);
         Set<SWRLAtom> antecedent = new HashSet<SWRLAtom>();
         antecedent.add(propAtom);
         antecedent.add(propAtom2);
-        SWRLRule rule2 = df.getSWRLRule(antecedent, Collections.singleton(propAtom));
+        SWRLRule rule2 = df.getSWRLRule(antecedent,
+                Collections.singleton(propAtom));
         m.applyChange(new AddAxiom(o, rule2));
     }
 
@@ -283,11 +293,11 @@ public class TutorialSnippets {
         // We want to state that matthew has a father who is peter.
         OWLIndividual matthew = df.getOWLNamedIndividual(IRI.create(example_iri
                 + "#matthew"));
-        OWLIndividual peter = df
-                .getOWLNamedIndividual(IRI.create(example_iri + "#peter"));
+        OWLIndividual peter = df.getOWLNamedIndividual(IRI.create(example_iri
+                + "#peter"));
         // We need the hasFather property
-        OWLObjectProperty hasFather = df.getOWLObjectProperty(IRI.create(example_iri
-                + "#hasFather"));
+        OWLObjectProperty hasFather = df.getOWLObjectProperty(IRI
+                .create(example_iri + "#hasFather"));
         // matthew --> hasFather --> peter
         OWLObjectPropertyAssertionAxiom assertion = df
                 .getOWLObjectPropertyAssertionAxiom(hasFather, matthew, peter);
@@ -295,8 +305,10 @@ public class TutorialSnippets {
         AddAxiom addAxiomChange = new AddAxiom(o, assertion);
         m.applyChange(addAxiomChange);
         // matthew is an instance of Person
-        OWLClass personClass = df.getOWLClass(IRI.create(example_iri + "#Person"));
-        OWLClassAssertionAxiom ax = df.getOWLClassAssertionAxiom(personClass, matthew);
+        OWLClass personClass = df.getOWLClass(IRI.create(example_iri
+                + "#Person"));
+        OWLClassAssertionAxiom ax = df.getOWLClassAssertionAxiom(personClass,
+                matthew);
         // Add this axiom to our ontology - with a convenience method
         m.addAxiom(o, ax);
     }
@@ -310,7 +322,8 @@ public class TutorialSnippets {
         // OWLEntityRemover will remove an entity (class, property or
         // individual)
         // from a set of ontologies by removing all referencing axioms
-        OWLEntityRemover remover = new OWLEntityRemover(m, Collections.singleton(o));
+        OWLEntityRemover remover = new OWLEntityRemover(m,
+                Collections.singleton(o));
         int previousNumberOfIndividuals = o.getIndividualsInSignature().size();
         // Visit all individuals with the remover
         // Changes needed for removal will be prepared
@@ -319,7 +332,8 @@ public class TutorialSnippets {
         }
         // Now apply the changes
         m.applyChanges(remover.getChanges());
-        assertTrue(previousNumberOfIndividuals > o.getIndividualsInSignature().size());
+        assertTrue(previousNumberOfIndividuals > o.getIndividualsInSignature()
+                .size());
     }
 
     @Test
@@ -328,12 +342,13 @@ public class TutorialSnippets {
         OWLOntology o = m.createOntology(example_iri);
         // all Heads have parts that are noses (at least one)
         // We do this by creating an existential (some) restriction
-        OWLObjectProperty hasPart = df.getOWLObjectProperty(IRI.create(example_iri
-                + "#hasPart"));
+        OWLObjectProperty hasPart = df.getOWLObjectProperty(IRI
+                .create(example_iri + "#hasPart"));
         OWLClass nose = df.getOWLClass(IRI.create(example_iri + "#Nose"));
         // Now let's describe the class of individuals that have at
         // least one part that is a kind of nose
-        OWLClassExpression hasPartSomeNose = df.getOWLObjectSomeValuesFrom(hasPart, nose);
+        OWLClassExpression hasPartSomeNose = df.getOWLObjectSomeValuesFrom(
+                hasPart, nose);
         OWLClass head = df.getOWLClass(IRI.create(example_iri + "#Head"));
         // Head subclass of our restriction
         OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(head, hasPartSomeNose);
@@ -347,17 +362,19 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = m.createOntology(example_iri);
         // Adults have an age greater than 18.
-        OWLDataProperty hasAge = df
-                .getOWLDataProperty(IRI.create(example_iri + "hasAge"));
+        OWLDataProperty hasAge = df.getOWLDataProperty(IRI.create(example_iri
+                + "hasAge"));
         // Create the restricted data range by applying the facet restriction
         // with a value of 18 to int
         OWLDataRange greaterThan18 = df.getOWLDatatypeRestriction(
-                df.getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE, df.getOWLLiteral(18));
+                df.getIntegerOWLDatatype(), OWLFacet.MIN_INCLUSIVE,
+                df.getOWLLiteral(18));
         // Now we can use this in our datatype restriction on hasAge
-        OWLClassExpression adultDefinition = df.getOWLDataSomeValuesFrom(hasAge,
-                greaterThan18);
+        OWLClassExpression adultDefinition = df.getOWLDataSomeValuesFrom(
+                hasAge, greaterThan18);
         OWLClass adult = df.getOWLClass(IRI.create(example_iri + "#Adult"));
-        OWLSubClassOfAxiom ax = df.getOWLSubClassOfAxiom(adult, adultDefinition);
+        OWLSubClassOfAxiom ax = df
+                .getOWLSubClassOfAxiom(adult, adultDefinition);
         m.applyChange(new AddAxiom(o, ax));
     }
 
@@ -369,7 +386,8 @@ public class TutorialSnippets {
         // Create a console progress monitor. This will print the reasoner
         // progress out to the console.
         ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor();
-        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
+        OWLReasonerConfiguration config = new SimpleConfiguration(
+                progressMonitor);
         // Create a reasoner that will reason over our ontology and its imports
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
@@ -399,7 +417,8 @@ public class TutorialSnippets {
         // Create a console progress monitor. This will print the reasoner
         // progress out to the console.
         ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor();
-        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
+        OWLReasonerConfiguration config = new SimpleConfiguration(
+                progressMonitor);
         // Create a reasoner that will reason over our ontology and its imports
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
@@ -428,7 +447,8 @@ public class TutorialSnippets {
         // Create a console progress monitor. This will print the reasoner
         // progress out to the console.
         ConsoleProgressMonitor progressMonitor = new ConsoleProgressMonitor();
-        OWLReasonerConfiguration config = new SimpleConfiguration(progressMonitor);
+        OWLReasonerConfiguration config = new SimpleConfiguration(
+                progressMonitor);
         // Create a reasoner that will reason over our ontology and its imports
         // closure. Pass in the configuration.
         // not using it in tests, we don't need the output
@@ -443,13 +463,15 @@ public class TutorialSnippets {
             // a NodeSet represents a set of Nodes.
             // a Node represents a set of equivalent classes/or sameAs
             // individuals
-            NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c, true);
+            NodeSet<OWLNamedIndividual> instances = reasoner.getInstances(c,
+                    true);
             for (OWLNamedIndividual i : instances.getFlattened()) {
                 // look up all property assertions
                 for (OWLObjectProperty op : o.getObjectPropertiesInSignature()) {
                     NodeSet<OWLNamedIndividual> petValuesNodeSet = reasoner
                             .getObjectPropertyValues(i, op);
-                    for (OWLNamedIndividual value : petValuesNodeSet.getFlattened()) {
+                    for (OWLNamedIndividual value : petValuesNodeSet
+                            .getFlattened()) {
                         // use the value individuals
                     }
                 }
@@ -465,7 +487,8 @@ public class TutorialSnippets {
         // We want to examine the restrictions on all classes.
         for (OWLClass c : o.getClassesInSignature()) {
             // collect the properties which are used in existential restrictions
-            RestrictionVisitor visitor = new RestrictionVisitor(Collections.singleton(o));
+            RestrictionVisitor visitor = new RestrictionVisitor(
+                    Collections.singleton(o));
             for (OWLSubClassOfAxiom ax : o.getSubClassAxiomsForSubClass(c)) {
                 // Ask our superclass to accept a visit from the
                 // RestrictionVisitor
@@ -484,9 +507,13 @@ public class TutorialSnippets {
         }
     }
 
-    /** Visits existential restrictions and collects the properties which are
-     * restricted */
-    private static class RestrictionVisitor extends OWLClassExpressionVisitorAdapter {
+    /**
+     * Visits existential restrictions and collects the properties which are
+     * restricted
+     */
+    private static class RestrictionVisitor extends
+            OWLClassExpressionVisitorAdapter {
+
         private final Set<OWLClass> processedClasses;
         private final Set<OWLObjectPropertyExpression> restrictedProperties;
         private final Set<OWLOntology> onts;
@@ -509,7 +536,8 @@ public class TutorialSnippets {
                 // we recursively visit named supers.
                 processedClasses.add(desc);
                 for (OWLOntology ont : onts) {
-                    for (OWLSubClassOfAxiom ax : ont.getSubClassAxiomsForSubClass(desc)) {
+                    for (OWLSubClassOfAxiom ax : ont
+                            .getSubClassAxiomsForSubClass(desc)) {
                         ax.getSuperClass().accept(this);
                     }
                 }
@@ -535,7 +563,8 @@ public class TutorialSnippets {
         OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(),
                 df.getOWLLiteral("A class which represents pizzas", "en"));
         // Specify that the pizza class has an annotation
-        OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(pizzaCls.getIRI(), commentAnno);
+        OWLAxiom ax = df.getOWLAnnotationAssertionAxiom(pizzaCls.getIRI(),
+                commentAnno);
         // Add the axiom to the ontology
         m.applyChange(new AddAxiom(o, ax));
         // add a version info annotation to the ontology
@@ -549,7 +578,8 @@ public class TutorialSnippets {
         OWLLiteral lit = df.getOWLLiteral("Added a comment to the pizza class");
         // create an annotation to pair a URI with the constant
         OWLAnnotationProperty owlAnnotationProperty = df
-                .getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO.getIRI());
+                .getOWLAnnotationProperty(OWLRDFVocabulary.OWL_VERSION_INFO
+                        .getIRI());
         OWLAnnotation anno = df.getOWLAnnotation(owlAnnotationProperty, lit);
         // Now we can add this as an ontology annotation
         // Apply the change in the usual way
@@ -562,7 +592,8 @@ public class TutorialSnippets {
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         for (OWLClass cls : o.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : cls.getAnnotations(o, df.getRDFSLabel())) {
+            for (OWLAnnotation annotation : cls.getAnnotations(o,
+                    df.getRDFSLabel())) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     // look for portuguese labels
@@ -588,7 +619,8 @@ public class TutorialSnippets {
         gens.add(new InferredSubClassAxiomGenerator());
         OWLOntology infOnt = m.createOntology();
         // create the inferred ontology generator
-        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, gens);
+        InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner,
+                gens);
         iog.fillOntology(m, infOnt);
     }
 
@@ -602,7 +634,8 @@ public class TutorialSnippets {
         // an OWLOntologySetProvider we
         // just pass this in. We also need to specify the URI of the new
         // ontology that will be created.
-        IRI mergedOntologyIRI = IRI.create("http://www.semanticweb.com/mymergedont");
+        IRI mergedOntologyIRI = IRI
+                .create("http://www.semanticweb.com/mymergedont");
         OWLOntology merged = merger.createMergedOntology(m, mergedOntologyIRI);
         assertTrue(merged.getAxiomCount() > o1.getAxiomCount());
         assertTrue(merged.getAxiomCount() > o2.getAxiomCount());
@@ -615,10 +648,12 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         OWLOntology o = m.loadOntologyFromOntologyDocument(pizza_iri);
         // Create the walker
-        OWLOntologyWalker walker = new OWLOntologyWalker(Collections.singleton(o));
+        OWLOntologyWalker walker = new OWLOntologyWalker(
+                Collections.singleton(o));
         // Now ask our walker to walk over the ontology
         OWLOntologyWalkerVisitor<Object> visitor = new OWLOntologyWalkerVisitor<Object>(
                 walker) {
+
             @Override
             public Object visit(OWLObjectSomeValuesFrom desc) {
                 // Print out the restriction
@@ -651,29 +686,33 @@ public class TutorialSnippets {
         printProperties(o, reasoner, margherita);
     }
 
-    /** Prints out the properties that instances of a class expression must have
+    /**
+     * Prints out the properties that instances of a class expression must have
      * 
      * @param o
-     *            The ontology
+     *        The ontology
      * @param reasoner
-     *            The reasoner
+     *        The reasoner
      * @param cls
-     *            The class expression */
-    private void printProperties(OWLOntology o, OWLReasoner reasoner, OWLClass cls) {
+     *        The class expression
+     */
+    private void printProperties(OWLOntology o, OWLReasoner reasoner,
+            OWLClass cls) {
         if (!o.containsClassInSignature(cls.getIRI())) {
             throw new RuntimeException("Class not in signature of the ontology");
         }
         // System.out.println("Properties of " + cls);
-        for (OWLObjectPropertyExpression prop : o.getObjectPropertiesInSignature()) {
+        for (OWLObjectPropertyExpression prop : o
+                .getObjectPropertiesInSignature()) {
             // To test whether an instance of A MUST have a property p with a
             // filler,
             // check for the satisfiability of A and not (some p Thing)
             // if this is satisfiable, then there might be instances with no
             // p-filler
-            OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(prop,
-                    df.getOWLThing());
-            OWLClassExpression intersection = df.getOWLObjectIntersectionOf(cls,
-                    df.getOWLObjectComplementOf(restriction));
+            OWLClassExpression restriction = df.getOWLObjectSomeValuesFrom(
+                    prop, df.getOWLThing());
+            OWLClassExpression intersection = df.getOWLObjectIntersectionOf(
+                    cls, df.getOWLObjectComplementOf(restriction));
             boolean sat = !reasoner.isSatisfiable(intersection);
             if (sat) {
                 // System.out.println("Instances of " + cls +
@@ -689,7 +728,8 @@ public class TutorialSnippets {
         // System.out.println("Loaded: " + o.getOntologyID());
         // extract a module for all toppings.
         // start by creating a signature that consists of "PizzaTopping".
-        OWLClass toppingCls = df.getOWLClass(IRI.create(pizza_iri + "#PizzaTopping"));
+        OWLClass toppingCls = df.getOWLClass(IRI.create(pizza_iri
+                + "#PizzaTopping"));
         Set<OWLEntity> sig = new HashSet<OWLEntity>();
         sig.add(toppingCls);
         // We now add all subclasses (direct and indirect) of the chosen
@@ -699,15 +739,15 @@ public class TutorialSnippets {
         for (OWLEntity ent : sig) {
             seedSig.add(ent);
             if (ent.isOWLClass()) {
-                NodeSet<OWLClass> subClasses = reasoner.getSubClasses(ent.asOWLClass(),
-                        false);
+                NodeSet<OWLClass> subClasses = reasoner.getSubClasses(
+                        ent.asOWLClass(), false);
                 seedSig.addAll(subClasses.getFlattened());
             }
         }
         // We now extract a locality-based module. STAR provides the smallest
         // ones
-        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(m, o,
-                ModuleType.STAR);
+        SyntacticLocalityModuleExtractor sme = new SyntacticLocalityModuleExtractor(
+                m, o, ModuleType.STAR);
         @SuppressWarnings("unused")
         Set<OWLAxiom> mod = sme.extract(seedSig);
         // System.out.println("TutorialSnippets.testModularization() " +
@@ -725,8 +765,8 @@ public class TutorialSnippets {
         OWLNamedIndividual mary = df.getOWLNamedIndividual(":Mary", pm);
         // create a ClassAssertion to specify that :Mary is an instance of
         // :Person
-        OWLClassAssertionAxiom classAssertion = df
-                .getOWLClassAssertionAxiom(person, mary);
+        OWLClassAssertionAxiom classAssertion = df.getOWLClassAssertionAxiom(
+                person, mary);
         OWLOntology o = m.createOntology(IRI.create(base));
         // Add the class assertion
         m.addAxiom(o, classAssertion);
@@ -744,7 +784,8 @@ public class TutorialSnippets {
         OWLOntologyManager m = create();
         // OWLDatatype represents named datatypes in OWL
         // The OWL2Datatype enum defines built in OWL 2 Datatypes
-        OWLDatatype integer = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER.getIRI());
+        OWLDatatype integer = df.getOWLDatatype(OWL2Datatype.XSD_INTEGER
+                .getIRI());
         // For common data types there are some convenience methods of
         // OWLDataFactory
         OWLDatatype integerDatatype = df.getIntegerOWLDatatype();
@@ -756,21 +797,23 @@ public class TutorialSnippets {
         // Custom data ranges can be built up from these basic datatypes
         // Get hold of a literal that is an integer value 18
         OWLLiteral eighteen = df.getOWLLiteral(18);
-        OWLDatatypeRestriction integerGE18 = df.getOWLDatatypeRestriction(integer,
-                OWLFacet.MIN_INCLUSIVE, eighteen);
-        OWLDataProperty hasAge = df.getOWLDataProperty(IRI
-                .create("http://www.semanticweb.org/ontologies/dataranges#hasAge"));
-        OWLDataPropertyRangeAxiom rangeAxiom = df.getOWLDataPropertyRangeAxiom(hasAge,
-                integerGE18);
+        OWLDatatypeRestriction integerGE18 = df.getOWLDatatypeRestriction(
+                integer, OWLFacet.MIN_INCLUSIVE, eighteen);
+        OWLDataProperty hasAge = df
+                .getOWLDataProperty(IRI
+                        .create("http://www.semanticweb.org/ontologies/dataranges#hasAge"));
+        OWLDataPropertyRangeAxiom rangeAxiom = df.getOWLDataPropertyRangeAxiom(
+                hasAge, integerGE18);
         OWLOntology o = m.createOntology(IRI
                 .create("http://www.semanticweb.org/ontologies/dataranges"));
         // Add the range axiom to our ontology
         m.addAxiom(o, rangeAxiom);
         // Now create a datatype definition axiom
-        OWLDatatypeDefinitionAxiom datatypeDef = df.getOWLDatatypeDefinitionAxiom(df
-                .getOWLDatatype(IRI
-                        .create("http://www.semanticweb.org/ontologies/dataranges#age")),
-                integerGE18);
+        OWLDatatypeDefinitionAxiom datatypeDef = df
+                .getOWLDatatypeDefinitionAxiom(
+                        df.getOWLDatatype(IRI
+                                .create("http://www.semanticweb.org/ontologies/dataranges#age")),
+                        integerGE18);
         // Add the definition to our ontology
         m.addAxiom(o, datatypeDef);
         // Dump our ontology
@@ -807,10 +850,13 @@ public class TutorialSnippets {
         m.addAxiom(o, dataPropertyAssertion);
     }
 
-    /** Print the class hierarchy for the given ontology from this class down,
+    /**
+     * Print the class hierarchy for the given ontology from this class down,
      * assuming this class is at the given level. Makes no attempt to deal
-     * sensibly with multiple inheritance. */
-    public void printHierarchy(OWLOntology o, OWLClass clazz) throws OWLException {
+     * sensibly with multiple inheritance.
+     */
+    public void printHierarchy(OWLOntology o, OWLClass clazz)
+            throws OWLException {
         OWLReasoner reasoner = reasonerFactory.createNonBufferingReasoner(o);
         printHierarchy(reasoner, clazz, 0, new HashSet<OWLClass>());
         /* Now print out any unsatisfiable classes */
@@ -824,6 +870,7 @@ public class TutorialSnippets {
 
     class LabelExtractor extends OWLObjectVisitorExAdapter<String> implements
             OWLAnnotationObjectVisitorEx<String> {
+
         @Override
         public String visit(OWLAnnotation annotation) {
             /*

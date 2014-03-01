@@ -54,17 +54,22 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public class OWLEquivalentObjectPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
         OWLEquivalentObjectPropertiesAxiom {
+
     private static final long serialVersionUID = 30406L;
 
-    /** @param properties
-     *            properties
+    /**
+     * @param properties
+     *        properties
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLEquivalentObjectPropertiesAxiomImpl(
             Set<? extends OWLObjectPropertyExpression> properties,
             Collection<? extends OWLAnnotation> annotations) {
@@ -76,7 +81,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         if (!isAnnotated()) {
             return this;
         }
-        return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(), NO_ANNOTATIONS);
+        return new OWLEquivalentObjectPropertiesAxiomImpl(getProperties(),
+                NO_ANNOTATIONS);
     }
 
     @Override
@@ -88,7 +94,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj) && obj instanceof OWLEquivalentObjectPropertiesAxiom;
+        return super.equals(obj)
+                && obj instanceof OWLEquivalentObjectPropertiesAxiom;
     }
 
     @Override
@@ -124,8 +131,8 @@ public class OWLEquivalentObjectPropertiesAxiomImpl extends
         for (int i = 0; i < props.size(); i++) {
             for (int j = 0; j < props.size(); j++) {
                 if (i != j) {
-                    result.add(new OWLSubObjectPropertyOfAxiomImpl(props.get(i), props
-                            .get(j), NO_ANNOTATIONS));
+                    result.add(new OWLSubObjectPropertyOfAxiomImpl(
+                            props.get(i), props.get(j), NO_ANNOTATIONS));
                 }
             }
         }

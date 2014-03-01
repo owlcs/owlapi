@@ -51,21 +51,28 @@ import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final Set<OWLClassExpression> classExpressions;
 
-    /** @param classExpressions
-     *            classes
+    /**
+     * @param classExpressions
+     *        classes
      * @param annotations
-     *            annotations */
-    public OWLNaryClassAxiomImpl(Set<? extends OWLClassExpression> classExpressions,
+     *        annotations
+     */
+    public OWLNaryClassAxiomImpl(
+            Set<? extends OWLClassExpression> classExpressions,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.classExpressions = new TreeSet<OWLClassExpression>(classExpressions);
+        this.classExpressions = new TreeSet<OWLClassExpression>(
+                classExpressions);
     }
 
     @Override
@@ -85,8 +92,10 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     }
 
     @Override
-    public Set<OWLClassExpression> getClassExpressionsMinus(OWLClassExpression... descs) {
-        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(classExpressions);
+    public Set<OWLClassExpression> getClassExpressionsMinus(
+            OWLClassExpression... descs) {
+        Set<OWLClassExpression> result = new HashSet<OWLClassExpression>(
+                classExpressions);
         for (OWLClassExpression desc : descs) {
             result.remove(desc);
         }

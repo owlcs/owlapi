@@ -47,15 +47,19 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 06-Jul-2007 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 06-Jul-2007
+ */
 public class AnonymousTypeTestCase extends AbstractRendererAndParser {
+
     @Override
     protected Set<OWLAxiom> getAxioms() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         OWLClassExpression desc = getDataFactory().getOWLObjectComplementOf(
                 Class(TestUtils.createIRI()));
-        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(TestUtils.createIRI());
+        OWLIndividual ind = getDataFactory().getOWLNamedIndividual(
+                TestUtils.createIRI());
         axioms.add(getDataFactory().getOWLClassAssertionAxiom(desc, ind));
         return axioms;
     }

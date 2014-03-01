@@ -42,20 +42,25 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
-public class UseOfReservedVocabularyForIndividualIRI extends OWLProfileViolation
-        implements OWL2DLProfileViolation {
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
+public class UseOfReservedVocabularyForIndividualIRI extends
+        OWLProfileViolation implements OWL2DLProfileViolation {
+
     private final OWLNamedIndividual ind;
 
-    /** @param ontology
-     *            wrong ontology
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom
+     *        wrong axiom
      * @param ind
-     *            wrong individual */
-    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology, OWLAxiom axiom,
-            OWLNamedIndividual ind) {
+     *        wrong individual
+     */
+    public UseOfReservedVocabularyForIndividualIRI(OWLOntology ontology,
+            OWLAxiom axiom, OWLNamedIndividual ind) {
         super(ontology, axiom);
         this.ind = ind;
     }

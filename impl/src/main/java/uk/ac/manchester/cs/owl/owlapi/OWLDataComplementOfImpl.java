@@ -51,14 +51,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public class OWLDataComplementOfImpl extends OWLObjectImpl implements OWLDataComplementOf {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public class OWLDataComplementOfImpl extends OWLObjectImpl implements
+        OWLDataComplementOf {
+
     private static final long serialVersionUID = 30406L;
     private final OWLDataRange dataRange;
 
-    /** @param dataRange
-     *            datarange */
+    /**
+     * @param dataRange
+     *        datarange
+     */
     public OWLDataComplementOfImpl(OWLDataRange dataRange) {
         super();
         this.dataRange = dataRange;

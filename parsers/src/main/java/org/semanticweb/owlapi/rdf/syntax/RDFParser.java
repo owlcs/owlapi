@@ -71,11 +71,14 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
 
-/** This class parses the RDF according to the syntax specified in <a
+/**
+ * This class parses the RDF according to the syntax specified in <a
  * href="http://www.w3.org/TR/rdf-syntax-grammar/"
- * >http://www.w3.org/TR/rdf-syntax-grammar/</a>. */
+ * >http://www.w3.org/TR/rdf-syntax-grammar/</a>.
+ */
 @SuppressWarnings("unused")
 public class RDFParser extends DefaultHandler implements RDFConstants {
+
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
     protected static final SAXParserFactory s_parserFactory = SAXParserFactory
             .newInstance();
@@ -112,16 +115,18 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         m_baseURICache = new HashMap<IRI, URI>();
     }
 
-    /** Parses RDF from given input source.
+    /**
+     * Parses RDF from given input source.
      * 
      * @param source
-     *            specifies where RDF comes from
+     *        specifies where RDF comes from
      * @param consumer
-     *            receives notifications about RDF parsing events
+     *        receives notifications about RDF parsing events
      * @throws SAXException
-     *             SAXException
+     *         SAXException
      * @throws IOException
-     *             IOException */
+     *         IOException
+     */
     public void parse(InputSource source, RDFConsumer consumer)
             throws SAXException, IOException {
         String systemID = source.getSystemId();
@@ -156,10 +161,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         m_documentLocator = locator;
     }
 
-    /** Sets the error handler.
+    /**
+     * Sets the error handler.
      * 
      * @param errorHandler
-     *            the error handler */
+     *        the error handler
+     */
     public void setErrorHandler(ErrorHandler errorHandler) {
         m_errorHandler = errorHandler;
     }
@@ -266,19 +273,23 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Pushes a new state on the state stack.
+    /**
+     * Pushes a new state on the state stack.
      * 
      * @param state
-     *            new state */
+     *        new state
+     */
     protected void pushState(State state) {
         m_states.add(state);
         m_state = state;
     }
 
-    /** Pops a state from the stack.
+    /**
+     * Pops a state from the stack.
      * 
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected void popState() throws SAXException {
         int size = m_states.size();
         if (size == 0) {
@@ -294,12 +305,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         m_states.remove(size - 1);
     }
 
-    /** Checks if attribute list contains some of the unsupported attributes.
+    /**
+     * Checks if attribute list contains some of the unsupported attributes.
      * 
      * @param atts
-     *            the attributes
+     *        the attributes
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected void checkUnsupportedAttributes(Attributes atts)
             throws SAXException {
         if (atts.getIndex(RDFNS, ATTR_ABOUT_EACH) != -1) {
@@ -328,12 +341,14 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         return IRI.create(delegateURI.resolve(value));
     }
 
-    /** Processes xml:base reference if there is one.
+    /**
+     * Processes xml:base reference if there is one.
      * 
      * @param atts
-     *            the attributes potentially containing xml:base declaration
+     *        the attributes potentially containing xml:base declaration
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected void processXMLBase(Attributes atts) throws SAXException {
         m_baseIRIs.add(0, m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
@@ -354,10 +369,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Processes xml:language reference is there is one.
+    /**
+     * Processes xml:language reference is there is one.
      * 
      * @param atts
-     *            the attributes potentially containing xml:language declaration */
+     *        the attributes potentially containing xml:language declaration
+     */
     protected void processXMLLanguage(Attributes atts) {
         m_languages.add(0, m_language);
         String value = atts.getValue(XMLLANG);
@@ -368,13 +385,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     private int cacheHits = 0;
 
-    /** Resolves an IRI with the current base.
+    /**
+     * Resolves an IRI with the current base.
      * 
      * @param uri
-     *            the IRI being resolved
+     *        the IRI being resolved
      * @return the resolved IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected String resolveIRI(String uri) throws SAXException {
         if (uri.length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
@@ -411,47 +430,55 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Returns an absolute IRI from an ID.
+    /**
+     * Returns an absolute IRI from an ID.
      * 
      * @param id
-     *            id
+     *        id
      * @return string for IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected String getIRIFromID(String id) throws SAXException {
         return resolveIRI("#" + id);
     }
 
-    /** Returns an absolute IRI from an about attribute.
+    /**
+     * Returns an absolute IRI from an about attribute.
      * 
      * @param about
-     *            about
+     *        about
      * @return string for IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected String getIRIFromAbout(String about) throws SAXException {
         return resolveIRI(about);
     }
 
-    /** Returns an absolute IRI from a resource attribute.
+    /**
+     * Returns an absolute IRI from a resource attribute.
      * 
      * @param resource
-     *            resource
+     *        resource
      * @return string for IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected String getIRIFromResource(String resource) throws SAXException {
         return resolveIRI(resource);
     }
 
-    /** Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
+    /**
+     * Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
      * attribute. If no attribute is found, an IRI is generated.
      * 
      * @param atts
-     *            atts
+     *        atts
      * @return string for IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected String getIDNodeIDAboutResourceIRI(Attributes atts)
             throws SAXException {
         String result = null;
@@ -483,14 +510,16 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         return result;
     }
 
-    /** Extracts the IRI of the resource from rdf:resource or rdf:nodeID
+    /**
+     * Extracts the IRI of the resource from rdf:resource or rdf:nodeID
      * attribute. If no attribute is found, {@code null} is returned.
      * 
      * @param atts
-     *            the attributes
+     *        the attributes
      * @return the IRI of the resource or {@code null}
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected String getNodeIDResourceResourceIRI(Attributes atts)
             throws SAXException {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
@@ -506,19 +535,21 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Called when a statement with resource value is added to the model.
+    /**
+     * Called when a statement with resource value is added to the model.
      * 
      * @param subject
-     *            IRI of the subject resource
+     *        IRI of the subject resource
      * @param predicate
-     *            IRI of the predicate resource
+     *        IRI of the predicate resource
      * @param object
-     *            IRI of the object resource
+     *        IRI of the object resource
      * @param reificationID
-     *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement
+     *        if not {@code null}, contains IRI of the resource that will wold
+     *        the reified statement
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected void statementWithResourceValue(String subject, String predicate,
             String object, String reificationID) throws SAXException {
         m_consumer.statementWithResourceValue(subject, predicate, object);
@@ -534,21 +565,23 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Called when a statement with literal value is added to the model.
+    /**
+     * Called when a statement with literal value is added to the model.
      * 
      * @param subject
-     *            IRI of the subject resource
+     *        IRI of the subject resource
      * @param predicate
-     *            IRI of the predicate resource
+     *        IRI of the predicate resource
      * @param object
-     *            literal object value
+     *        literal object value
      * @param dataType
-     *            the IRI of the literal's datatype (may be {@code null})
+     *        the IRI of the literal's datatype (may be {@code null})
      * @param reificationID
-     *            if not {@code null}, contains IRI of the resource that will
-     *            wold the reified statement
+     *        if not {@code null}, contains IRI of the resource that will wold
+     *        the reified statement
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected void statementWithLiteralValue(String subject, String predicate,
             String object, String dataType, String reificationID)
             throws SAXException {
@@ -566,16 +599,18 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Parses the propertyAttributes production.
+    /**
+     * Parses the propertyAttributes production.
      * 
      * @param subjectIRI
-     *            IRI of the resource whose properties are being parsed
+     *        IRI of the resource whose properties are being parsed
      * @param atts
-     *            attributes
+     *        attributes
      * @param reificationManager
-     *            the reification manager
+     *        the reification manager
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected void propertyAttributes(String subjectIRI, Attributes atts,
             ReificationManager reificationManager) throws SAXException {
         int length = atts.getLength();
@@ -608,15 +643,17 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Checks whether given characters contain only whitespace.
+    /**
+     * Checks whether given characters contain only whitespace.
      * 
      * @param data
-     *            the data being checked
+     *        the data being checked
      * @param start
-     *            the start index (inclusive)
+     *        the start index (inclusive)
      * @param length
-     *            the end index (non-inclusive)
-     * @return {@code true} if characters contain whitespace */
+     *        the end index (non-inclusive)
+     * @return {@code true} if characters contain whitespace
+     */
     protected boolean isWhitespaceOnly(char[] data, int start, int length) {
         int end = start + length;
         for (int i = start; i < end; i++) {
@@ -628,11 +665,13 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         return true;
     }
 
-    /** Checks whether given characters contain only whitespace.
+    /**
+     * Checks whether given characters contain only whitespace.
      * 
      * @param buffer
-     *            the data being checked
-     * @return {@code true} if characters contain whitespace */
+     *        the data being checked
+     * @return {@code true} if characters contain whitespace
+     */
     protected boolean isWhitespaceOnly(StringBuilder buffer) {
         for (int i = 0; i < buffer.length(); i++) {
             char c = buffer.charAt(i);
@@ -643,13 +682,15 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         return true;
     }
 
-    /** Returns the reification manager for given attributes.
+    /**
+     * Returns the reification manager for given attributes.
      * 
      * @param atts
-     *            the attributes
+     *        the attributes
      * @return the reification manager
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     protected ReificationManager getReificationManager(Attributes atts)
             throws SAXException {
         String bagIDAttr = atts.getValue(RDFNS, ATTR_BAG_ID);
@@ -661,14 +702,16 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Parses the string into a map of name-value pairs.
+    /**
+     * Parses the string into a map of name-value pairs.
      * 
      * @param string
-     *            string to be parsed
+     *        string to be parsed
      * @return map of name-value pairs
      * @throws SAXException
-     *             if there was an IOException this will be wrapped in a parse
-     *             exception */
+     *         if there was an IOException this will be wrapped in a parse
+     *         exception
+     */
     protected Map<String, String> parseStringArguments(String string)
             throws SAXException {
         try {
@@ -706,15 +749,18 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** @param s
-     *            string
-     * @return iri */
+    /**
+     * @param s
+     *        string
+     * @return iri
+     */
     public IRI getIRI(String s) {
         return uriCache.get(s);
     }
 
     /** Base class for all parser states. */
     protected static class State {
+
         public void startElement(String namespaceIRI, String localName,
                 String qName, Attributes atts) throws SAXException {}
 
@@ -727,6 +773,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** State expecting start of RDF text. */
     protected class StartRDF extends State {
+
         @Override
         public void startElement(String namespaceIRI, String localName,
                 String qName, Attributes atts) throws SAXException {
@@ -759,6 +806,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** Parses the nodeElementList production. */
     protected class NodeElementList extends State {
+
         @Override
         public void startElement(String namespaceIRI, String localName,
                 String qName, Attributes atts) throws SAXException {
@@ -786,6 +834,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** Parses the nodeElement production. */
     protected class NodeElement extends State {
+
         protected String m_subjectIRI;
         protected ReificationManager m_reificationManager;
         protected int m_nextLi = 1;
@@ -852,9 +901,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Parses the propertyEltList production. The contents of the startElement
-     * method implements also the propertyElt production. */
+    /**
+     * Parses the propertyEltList production. The contents of the startElement
+     * method implements also the propertyElt production.
+     */
     protected class PropertyElementList extends State {
+
         protected NodeElement m_nodeElement;
 
         public PropertyElementList(NodeElement nodeElement) {
@@ -903,9 +955,12 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
         }
     }
 
-    /** Parses resourcePropertyElt or literalPropertyElt productions. m_text is
-     * {@code null} when startElement is expected on the actual property element. */
+    /**
+     * Parses resourcePropertyElt or literalPropertyElt productions. m_text is
+     * {@code null} when startElement is expected on the actual property element.
+     */
     protected class ResourceOrLiteralPropertyElement extends State {
+
         protected NodeElement m_nodeElement;
         protected String m_propertyIRI;
         protected String m_reificationID;
@@ -976,6 +1031,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** Parses emptyPropertyElt production. */
     protected class EmptyPropertyElement extends State {
+
         protected NodeElement m_nodeElement;
         protected String m_propertyIRI;
 
@@ -1022,6 +1078,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** Parses parseTypeCollectionPropertyElt production. */
     protected class ParseTypeCollectionPropertyElement extends State {
+
         protected NodeElement m_nodeElement;
         protected String m_propertyIRI;
         protected String m_reificationID;
@@ -1087,6 +1144,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** Parses parseTypeLiteralPropertyElt production. */
     protected class ParseTypeLiteralPropertyElement extends State {
+
         protected NodeElement m_nodeElement;
         protected String m_propertyIRI;
         protected String m_reificationID;
@@ -1145,6 +1203,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /** Parses parseTypeResourcePropertyElt production. */
     protected class ParseTypeResourcePropertyElement extends State {
+
         protected NodeElement m_nodeElement;
         protected String m_propertyIRI;
         protected String m_reificationID;
@@ -1185,6 +1244,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     protected static class ReificationManager {
+
         public static final ReificationManager INSTANCE = new ReificationManager();
 
         public String getReificationID(String reificationID)
@@ -1194,6 +1254,7 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     }
 
     protected class ReifiedStatementBag extends ReificationManager {
+
         protected String m_uri;
         protected int m_elements;
 

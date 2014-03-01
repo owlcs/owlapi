@@ -47,15 +47,20 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 14-Dec-2006 */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 14-Dec-2006
+ */
 public abstract class AbstractOWLAxiomElementHandler extends
         AbstractOWLElementHandler<OWLAxiom> {
+
     private OWLAxiom axiom;
     private Set<OWLAnnotation> annotations;
 
-    /** @param handler
-     *            owlxml handler */
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public AbstractOWLAxiomElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -65,8 +70,10 @@ public abstract class AbstractOWLAxiomElementHandler extends
         return axiom;
     }
 
-    /** @param axiom
-     *            axiom to add */
+    /**
+     * @param axiom
+     *        axiom to add
+     */
     public void setAxiom(OWLAxiom axiom) {
         this.axiom = axiom;
     }
@@ -88,7 +95,8 @@ public abstract class AbstractOWLAxiomElementHandler extends
     }
 
     @Override
-    public void endElement() throws OWLParserException, UnloadableImportException {
+    public void endElement() throws OWLParserException,
+            UnloadableImportException {
         setAxiom(createAxiom());
         getParentHandler().handleChild(this);
     }

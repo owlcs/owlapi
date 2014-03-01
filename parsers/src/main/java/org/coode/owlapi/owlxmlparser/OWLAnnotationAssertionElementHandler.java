@@ -43,11 +43,17 @@ import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 20-Mar-2007 */
-public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElementHandler {
-    /** @param handler
-     *            owlxml handler */
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 20-Mar-2007
+ */
+public class OWLAnnotationAssertionElementHandler extends
+        AbstractOWLAxiomElementHandler {
+
+    /**
+     * @param handler
+     *        owlxml handler
+     */
     public OWLAnnotationAssertionElementHandler(OWLXMLParserHandler handler) {
         super(handler);
     }
@@ -90,7 +96,7 @@ public class OWLAnnotationAssertionElementHandler extends AbstractOWLAxiomElemen
 
     @Override
     protected OWLAxiom createAxiom() throws OWLXMLParserException {
-        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(property, subject,
-                object, getAnnotations());
+        return getOWLDataFactory().getOWLAnnotationAssertionAxiom(property,
+                subject, object, getAnnotations());
     }
 }

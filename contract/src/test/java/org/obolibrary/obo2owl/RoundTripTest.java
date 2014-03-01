@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class RoundTripTest extends OboFormatTestBasics {
+
     public List<Diff> roundTripOBOURL(String fn, boolean isExpectRoundtrip)
             throws Exception {
         OBODoc obodoc = parseOBOURL(fn);

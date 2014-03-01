@@ -50,17 +50,22 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006 */
-public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl implements
-        OWLNaryIndividualAxiom {
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+ *         Group, Date: 26-Oct-2006
+ */
+public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
+        implements OWLNaryIndividualAxiom {
+
     private static final long serialVersionUID = 30406L;
     private final Set<OWLIndividual> individuals;
 
-    /** @param individuals
-     *            individuals
+    /**
+     * @param individuals
+     *        individuals
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLNaryIndividualAxiomImpl(Set<? extends OWLIndividual> individuals,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
@@ -69,7 +74,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
 
     @Override
     public Set<OWLIndividual> getIndividuals() {
-        return CollectionFactory.getCopyOnRequestSetFromImmutableCollection(individuals);
+        return CollectionFactory
+                .getCopyOnRequestSetFromImmutableCollection(individuals);
     }
 
     @Override
@@ -83,7 +89,8 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl 
             if (!(obj instanceof OWLNaryIndividualAxiom)) {
                 return false;
             }
-            return ((OWLNaryIndividualAxiom) obj).getIndividuals().equals(individuals);
+            return ((OWLNaryIndividualAxiom) obj).getIndividuals().equals(
+                    individuals);
         }
         return false;
     }

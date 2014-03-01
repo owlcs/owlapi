@@ -38,10 +38,12 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents arguments in {@link org.semanticweb.owlapi.model.SWRLAtom}s that
+/**
+ * Represents arguments in {@link org.semanticweb.owlapi.model.SWRLAtom}s that
  * are either {@link OWLLiteral}s or variables for individuals
  * {@link SWRLLiteralArgument}.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
- *         Group, Date: Jan 15, 2007 */
+ *         Group, Date: Jan 15, 2007
+ */
 public interface SWRLDArgument extends SWRLArgument {}

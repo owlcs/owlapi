@@ -97,79 +97,98 @@ import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /** @author ignazio */
 public interface Internals {
-    /** a marker interface for objects that identify contained maps - so that
+
+    /**
+     * a marker interface for objects that identify contained maps - so that
      * getting the keys of a specific map does not require a specific method for
      * each map nor does it require the map to be copied and returned.
      * 
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type */
+     *        value type
+     */
     public interface Pointer<K, V> {}
 
-    /** a marker interface for objects that identify contained sets.
+    /**
+     * a marker interface for objects that identify contained sets.
      * 
      * @param <K>
-     *            key type */
+     *        key type
+     */
     public interface SimplePointer<K> {}
 
     /** @return axioms by type */
     Pointer<AxiomType<?>, OWLAxiom> getAxiomsByType();
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param key
-     *            key
+     *        key
      * @param value
-     *            value
+     *        value
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return true if added */
+     *        value type
+     * @return true if added
+     */
     <K, V extends OWLAxiom> boolean add(Pointer<K, V> pointer, K key, V value);
 
-    /** @param ax
-     *            gci to add */
+    /**
+     * @param ax
+     *        gci to add
+     */
     void addGeneralClassAxioms(OWLClassAxiom ax);
 
-    /** @param importDeclaration
-     *            declaration to be added
+    /**
+     * @param importDeclaration
+     *        declaration to be added
      * @return true if the import declaration was not already present, false
-     *         otherwise */
+     *         otherwise
+     */
     boolean addImportsDeclaration(OWLImportsDeclaration importDeclaration);
 
-    /** @param ann
-     *            annotation to add
-     * @return true if change made */
+    /**
+     * @param ann
+     *        annotation to add
+     * @return true if change made
+     */
     boolean addOntologyAnnotation(OWLAnnotation ann);
 
-    /** @param ax
-     *            axiom to add */
+    /**
+     * @param ax
+     *        axiom to add
+     */
     void addPropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax);
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param k
-     *            key
+     *        key
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return true if k contained */
+     *        value type
+     * @return true if k contained
+     */
     <K, V extends OWLAxiom> boolean contains(Pointer<K, V> pointer, K k);
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param k
-     *            key
+     *        key
      * @param v
-     *            value
+     *        value
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return true if k and v contained */
+     *        value type
+     * @return true if k and v contained
+     */
     <K, V extends OWLAxiom> boolean contains(Pointer<K, V> pointer, K k, V v);
 
     /** @return pointer */
@@ -183,11 +202,13 @@ public interface Internals {
     /** @return axiom count */
     int getAxiomCount();
 
-    /** @param axiomType
-     *            axiom type
+    /**
+     * @param axiomType
+     *        axiom type
      * @param <T>
-     *            axiom type
-     * @return count of axioms */
+     *        axiom type
+     * @return count of axioms
+     */
     <T extends OWLAxiom> int getAxiomCount(AxiomType<T> axiomType);
 
     /** @return pointer */
@@ -369,95 +390,119 @@ public interface Internals {
     Pointer<OWLObjectPropertyExpression, OWLTransitiveObjectPropertyAxiom>
             getTransitivePropertyAxiomsByProperty();
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param key
-     *            key
+     *        key
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return values for pointer */
+     *        value type
+     * @return values for pointer
+     */
     <K, V extends OWLAxiom> Set<V> getValues(Pointer<K, V> pointer, K key);
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param key
-     *            key
+     *        key
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return true if there are values */
+     *        value type
+     * @return true if there are values
+     */
     <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer, K key);
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return keyset */
+     *        value type
+     * @return keyset
+     */
     <K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer);
 
-    /** @param filter
-     *            filter for search
+    /**
+     * @param filter
+     *        filter for search
      * @param key
-     *            key
+     *        key
      * @param <K>
-     *            key type
+     *        key type
      * @param <T>
-     *            value type
-     * @return set of objects selected */
+     *        value type
+     * @return set of objects selected
+     */
     <T extends OWLAxiom, K> Set<T> filterAxioms(
             OWLAxiomSearchFilter<T, K> filter, K key);
 
-    /** @param ax
-     *            axiom
-     * @return true if declared */
+    /**
+     * @param ax
+     *        axiom
+     * @return true if declared
+     */
     boolean isDeclared(OWLDeclarationAxiom ax);
 
     /** @return true if empty */
     boolean isEmpty();
 
-    /** @param axiom
-     *            axiom to add
-     * @return true if match added */
+    /**
+     * @param axiom
+     *        axiom to add
+     * @return true if match added
+     */
     boolean addAxiom(OWLAxiom axiom);
 
-    /** @param axiom
-     *            axiom to remove
-     * @return true if match removed */
+    /**
+     * @param axiom
+     *        axiom to remove
+     * @return true if match removed
+     */
     boolean removeAxiom(OWLAxiom axiom);
 
-    /** @param ax
-     *            axiom to remove */
+    /**
+     * @param ax
+     *        axiom to remove
+     */
     void removeGeneralClassAxioms(OWLClassAxiom ax);
 
-    /** @param importDeclaration
-     *            declaration to be added
-     * @return true if the import declaration was present, false otherwise */
+    /**
+     * @param importDeclaration
+     *        declaration to be added
+     * @return true if the import declaration was present, false otherwise
+     */
     boolean removeImportsDeclaration(OWLImportsDeclaration importDeclaration);
 
-    /** @param ann
-     *            annotation to remove
-     * @return true if match removed */
+    /**
+     * @param ann
+     *        annotation to remove
+     * @return true if match removed
+     */
     boolean removeOntologyAnnotation(OWLAnnotation ann);
 
-    /** @param pointer
-     *            pointer to work on
+    /**
+     * @param pointer
+     *        pointer to work on
      * @param k
-     *            key
+     *        key
      * @param v
-     *            value
+     *        value
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type
-     * @return true if match removed */
+     *        value type
+     * @return true if match removed
+     */
     <K, V extends OWLAxiom> boolean remove(Pointer<K, V> pointer, K k, V v);
 
-    /** @param ax
-     *            chain to remove */
+    /**
+     * @param ax
+     *        chain to remove
+     */
     void removePropertyChainSubPropertyAxioms(OWLSubPropertyChainOfAxiom ax);
 }

@@ -38,19 +38,23 @@
  */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a href=
+/**
+ * Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Positive_Object_Property_Assertions"
  * >ObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
- *         Informatics Group Date: 24-Oct-2006 */
+ *         Informatics Group Date: 24-Oct-2006
+ */
 public interface OWLObjectPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
         OWLSubClassOfAxiomShortCut {
+
     @Override
     OWLObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
-    /** Gets a simplified version of this object property axiom. This is defined
+    /**
+     * Gets a simplified version of this object property axiom. This is defined
      * recursively as follows:
      * <ul>
      * <li>ObjectPropertyAssertion(P S O) = ObjectPropertyAssertion(P S O)
@@ -58,15 +62,18 @@ public interface OWLObjectPropertyAssertionAxiom extends
      * ObjectPropertyAssertion(P O S)
      * </ul>
      * 
-     * @return the simplified version */
+     * @return the simplified version
+     */
     OWLObjectPropertyAssertionAxiom getSimplified();
 
-    /** Determines if this axiom is in a simplified form, i.e. a form where the
+    /**
+     * Determines if this axiom is in a simplified form, i.e. a form where the
      * property is not a property inverse. ObjectPropertyAssertion(P S O) is in
      * a simplified form, where as ObjectPropertyAssertion(ObjectInverseOf(P) S
      * O) is not because it contains an inverse object property.
      * 
      * @return {@code true} if this axiom is in a simplified form, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isInSimplifiedForm();
 }

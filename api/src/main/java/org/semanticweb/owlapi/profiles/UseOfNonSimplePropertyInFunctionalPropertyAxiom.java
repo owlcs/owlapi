@@ -41,16 +41,21 @@ package org.semanticweb.owlapi.profiles;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 03-Aug-2009 */
-public class UseOfNonSimplePropertyInFunctionalPropertyAxiom extends OWLProfileViolation
-        implements OWL2DLProfileViolation {
-    /** @param ontology
-     *            wrong ontology
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
+ *         Group, Date: 03-Aug-2009
+ */
+public class UseOfNonSimplePropertyInFunctionalPropertyAxiom extends
+        OWLProfileViolation implements OWL2DLProfileViolation {
+
+    /**
+     * @param ontology
+     *        wrong ontology
      * @param axiom
-     *            wrong axiom */
-    public UseOfNonSimplePropertyInFunctionalPropertyAxiom(OWLOntology ontology,
-            OWLFunctionalObjectPropertyAxiom axiom) {
+     *        wrong axiom
+     */
+    public UseOfNonSimplePropertyInFunctionalPropertyAxiom(
+            OWLOntology ontology, OWLFunctionalObjectPropertyAxiom axiom) {
         super(ontology, axiom);
     }
 

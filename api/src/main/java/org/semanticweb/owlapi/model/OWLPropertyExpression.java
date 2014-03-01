@@ -40,152 +40,189 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group Date: 24-Oct-2006 Represents a property or possibly the inverse
  *         of a property.
  * @param <R>
- *            range
+ *        range
  * @param <P>
- *            property expression */
+ *        property expression
+ */
 public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWLPropertyExpression<R, P>>
         extends OWLObject {
-    /** Gets the asserted domains of this property.
+
+    /**
+     * Gets the asserted domains of this property.
      * 
      * @param ontology
-     *            The ontology that should be examined for axioms which assert a
-     *            domain of this property
+     *        The ontology that should be examined for axioms which assert a
+     *        domain of this property
      * @return A set of {@code OWLClassExpression}s corresponding to the domains
      *         of this property (the domain of the property is essentially the
-     *         intersection of these class expressions). */
+     *         intersection of these class expressions).
+     */
     Set<OWLClassExpression> getDomains(OWLOntology ontology);
 
-    /** Gets the asserted domains of this property by examining the axioms in the
+    /**
+     * Gets the asserted domains of this property by examining the axioms in the
      * specified ontologies.
      * 
      * @param ontologies
-     *            The ontologies to be examined.
+     *        The ontologies to be examined.
      * @return A set of {@code OWLClassExpression}s that represent the asserted
-     *         domains of this property. */
+     *         domains of this property.
+     */
     Set<OWLClassExpression> getDomains(Set<OWLOntology> ontologies);
 
-    /** Gets the ranges of this property that have been asserted in the specified
+    /**
+     * Gets the ranges of this property that have been asserted in the specified
      * ontology.
      * 
      * @param ontology
-     *            The ontology to be searched for axioms which assert a range
-     *            for this property.
-     * @return A set of ranges for this property. */
+     *        The ontology to be searched for axioms which assert a range for
+     *        this property.
+     * @return A set of ranges for this property.
+     */
     Set<R> getRanges(OWLOntology ontology);
 
-    /** Gets the asserted ranges of this property by examining the axioms in the
+    /**
+     * Gets the asserted ranges of this property by examining the axioms in the
      * specified ontologies.
      * 
      * @param ontologies
-     *            The ontologies to be examined for range axioms.
+     *        The ontologies to be examined for range axioms.
      * @return A set of ranges for this property, which have been asserted by
-     *         axioms in the specified ontologies. */
+     *         axioms in the specified ontologies.
+     */
     Set<R> getRanges(Set<OWLOntology> ontologies);
 
-    /** Gets the asserted/told super properties by examining the axioms in the
+    /**
+     * Gets the asserted/told super properties by examining the axioms in the
      * specified ontology.
      * 
      * @param ontology
-     *            The ontology which will be examined for subproperty axioms.
+     *        The ontology which will be examined for subproperty axioms.
      * @return A set of properties which represent the explicitly asserted/told
-     *         superproperties of this property. */
+     *         superproperties of this property.
+     */
     Set<P> getSuperProperties(OWLOntology ontology);
 
-    /** Gets the asserted super properties by examining the axioms in the
+    /**
+     * Gets the asserted super properties by examining the axioms in the
      * specified set of ontologies.
      * 
      * @param ontologies
-     *            The ontologies which will bne examined for axioms
+     *        The ontologies which will bne examined for axioms
      * @return A set of properties which represent the asserted super properties
-     *         of this property. */
+     *         of this property.
+     */
     Set<P> getSuperProperties(Set<OWLOntology> ontologies);
 
-    /** Gets the asserted/told sub properties by examining the axioms in the
+    /**
+     * Gets the asserted/told sub properties by examining the axioms in the
      * specified ontology.
      * 
      * @param ontology
-     *            The ontology which will be examined for subproperty axioms.
+     *        The ontology which will be examined for subproperty axioms.
      * @return A set of properties which represent the explicitly asserted/told
-     *         subproperties of this property. */
+     *         subproperties of this property.
+     */
     Set<P> getSubProperties(OWLOntology ontology);
 
-    /** Gets the asserted sub properties by examining the axioms in the specified
+    /**
+     * Gets the asserted sub properties by examining the axioms in the specified
      * ontologies.
      * 
      * @param ontologies
-     *            The ontologies which will be examined for subproperty axioms.
+     *        The ontologies which will be examined for subproperty axioms.
      * @return A set of properties which represent the explicitly asserted
-     *         subproperties of this property. */
+     *         subproperties of this property.
+     */
     Set<P> getSubProperties(Set<OWLOntology> ontologies);
 
-    /** Gets the asserted/told equivalent properties by examining the axioms in
+    /**
+     * Gets the asserted/told equivalent properties by examining the axioms in
      * the specified ontology.
      * 
      * @param ontology
-     *            The ontology which will be examined for equivalent properties
-     *            axioms.
+     *        The ontology which will be examined for equivalent properties
+     *        axioms.
      * @return A set of properties which represent the explicitly asserted/told
-     *         equivalent properties of this property. */
+     *         equivalent properties of this property.
+     */
     Set<P> getEquivalentProperties(OWLOntology ontology);
 
-    /** Gets the asserted equivalent properties by examining the axioms in the
+    /**
+     * Gets the asserted equivalent properties by examining the axioms in the
      * specified ontologies.
      * 
      * @param ontologies
-     *            The ontologies which will be examined for equivalent
-     *            properties axioms.
+     *        The ontologies which will be examined for equivalent properties
+     *        axioms.
      * @return A set of properties which represent the explicitly asserted/told
-     *         equivalent properties of this property. */
+     *         equivalent properties of this property.
+     */
     Set<P> getEquivalentProperties(Set<OWLOntology> ontologies);
 
-    /** @param ontology
-     *            the ontology to use
-     * @return the properties disjoint with this one declared in ontology */
+    /**
+     * @param ontology
+     *        the ontology to use
+     * @return the properties disjoint with this one declared in ontology
+     */
     Set<P> getDisjointProperties(OWLOntology ontology);
 
-    /** @param ontologies
-     *            the ontologies to use
-     * @return the properties disjoint with this one declared in ontologies */
+    /**
+     * @param ontologies
+     *        the ontologies to use
+     * @return the properties disjoint with this one declared in ontologies
+     */
     Set<P> getDisjointProperties(Set<OWLOntology> ontologies);
 
-    /** Determines if this property is functional in the specified ontology.
+    /**
+     * Determines if this property is functional in the specified ontology.
      * 
      * @param ontology
-     *            The ontology to be tested for a functional property axiom.
+     *        The ontology to be tested for a functional property axiom.
      * @return {@code true} if the specified ontology contains an axiom stating
-     *         that the property is functional, other wise {@code false}. */
+     *         that the property is functional, other wise {@code false}.
+     */
     boolean isFunctional(OWLOntology ontology);
 
-    /** Determines if the property is functional because there is an axiom in one
+    /**
+     * Determines if the property is functional because there is an axiom in one
      * of the specified ontologies that assert this to be the case.
      * 
      * @param ontologies
-     *            The ontologies which will be searched for axioms which specify
-     *            that this property is fuctional.
+     *        The ontologies which will be searched for axioms which specify
+     *        that this property is fuctional.
      * @return {@code true} if the property is functional, or {@code false} if
-     *         the property is not functional. */
+     *         the property is not functional.
+     */
     boolean isFunctional(Set<OWLOntology> ontologies);
 
-    /** Determines if this property expression is anonymous.
+    /**
+     * Determines if this property expression is anonymous.
      * 
      * @return {@code true} if the property expression is anonymous (because it
      *         is the inverse of a property). {@code false} if this property is
-     *         a named object property or named data property. */
+     *         a named object property or named data property.
+     */
     boolean isAnonymous();
 
-    /** @param visitor
-     *            visitor to accept */
+    /**
+     * @param visitor
+     *        visitor to accept
+     */
     void accept(OWLPropertyExpressionVisitor visitor);
 
-    /** @param visitor
-     *            visitor to accept
+    /**
+     * @param visitor
+     *        visitor to accept
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor);
 
     /** @return true if this is a data property */
@@ -194,27 +231,35 @@ public interface OWLPropertyExpression<R extends OWLPropertyRange, P extends OWL
     /** @return true if this is an object property */
     boolean isObjectPropertyExpression();
 
-    /** Determines if this is the owl:topObjectProperty.
+    /**
+     * Determines if this is the owl:topObjectProperty.
      * 
      * @return {@code true} if this property is the owl:topObjectProperty
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isOWLTopObjectProperty();
 
-    /** Determines if this is the owl:bottomObjectProperty.
+    /**
+     * Determines if this is the owl:bottomObjectProperty.
      * 
      * @return {@code true} if this property is the owl:bottomObjectProperty
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isOWLBottomObjectProperty();
 
-    /** Determines if this is the owl:topDataProperty.
+    /**
+     * Determines if this is the owl:topDataProperty.
      * 
      * @return {@code true} if this property is the owl:topDataProperty
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isOWLTopDataProperty();
 
-    /** Determines if this is the owl:bottomDataProperty.
+    /**
+     * Determines if this is the owl:bottomDataProperty.
      * 
      * @return {@code true} if this property is the owl:bottomDataProperty
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isOWLBottomDataProperty();
 }
