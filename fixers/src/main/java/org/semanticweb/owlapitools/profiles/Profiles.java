@@ -37,6 +37,7 @@ interface KnownFactories {
     String Pellet = "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory";
     String MORe = "org.semanticweb.more.MOReRLrewReasonerFactory";
     String Elk = "org.semanticweb.elk.owlapi.ElkReasonerFactory";
+    String Snorocket = "au.csiro.snorocket.owlapi.SnorocketReasonerFactory";
 }
 
 /**
@@ -57,11 +58,11 @@ interface KnownFactories {
  */
 public enum Profiles implements HasIRI, KnownFactories {
     //@formatter:off
-    /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     ("DL",   new OWL2DLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",   new OWL2QLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   new OWL2ELProfile(), Elk, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",   new OWL2RLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
-    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full", new OWL2DLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe);
+    /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     ("DL",   new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",   new OWL2QLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   new OWL2ELProfile(), Elk, Snorocket, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",   new OWL2RLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full", new OWL2DLProfile(),                 FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe);
     //@formatter:on
     private IRI iri;
     private List<String> supportingFactories;
