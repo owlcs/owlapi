@@ -25,13 +25,12 @@ import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.RDFWriter;
 import org.openrdf.rio.Rio;
 import org.openrdf.rio.helpers.StatementCollector;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.registries.OWLOntologyManagerFactoryRegistry;
 import org.semanticweb.owlapi.registries.OWLOntologyStorerFactoryRegistry;
-import org.semanticweb.owlapi.registries.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRenderer;
@@ -74,11 +73,18 @@ public class RioRendererTest {
         storerRegistry.add(new RioRDFXMLOntologyStorerFactory());
         storerRegistry.add(new RioTurtleOntologyStorerFactory());
         // use all parsers for renderer test
-        OWLParserFactoryRegistry parserRegistry = new OWLParserFactoryRegistry();
-        testManager = OWLOntologyManagerFactoryRegistry
-                .createOWLOntologyManager(
-                        OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
-                        storerRegistry, parserRegistry);
+        // OWLParserFactoryRegistry parserRegistry = new
+        // OWLParserFactoryRegistry();
+        // XXX update registry
+        // testManager = OWLOntologyManagerFactoryRegistry
+        // .createOWLOntologyManager(
+        // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
+        // storerRegistry, parserRegistry);
+        testManager = OWLManager.createOWLOntologyManager();
+        testManager.getOntologyStorers().set(
+                new RioNTriplesOntologyStorerFactory().get(),
+                new RioRDFXMLOntologyStorerFactory().get(),
+                new RioTurtleOntologyStorerFactory().get());
         testOntologyUri1 = IRI.create("urn:test:ontology:uri:1");
         testOntologyEmpty = testManager.createOntology(testOntologyUri1);
         testOntologyKoala = testManager.loadOntologyFromOntologyDocument(this

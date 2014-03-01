@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLClassExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLDataComplementOf;
 import org.semanticweb.owlapi.model.OWLDataExactCardinality;
 import org.semanticweb.owlapi.model.OWLDataHasValue;
 import org.semanticweb.owlapi.model.OWLDataIntersectionOf;
@@ -208,6 +209,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
+            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
+                    axiom));
             return null;
         }
 
@@ -273,6 +276,13 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLDataOneOf node) {
+            profileViolations.add(new UseOfIllegalDataRange(
+                    getCurrentOntology(), getCurrentAxiom(), node));
+            return null;
+        }
+
+        @Override
+        public Object visit(OWLDataComplementOf node) {
             profileViolations.add(new UseOfIllegalDataRange(
                     getCurrentOntology(), getCurrentAxiom(), node));
             return null;

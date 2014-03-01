@@ -14,8 +14,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openrdf.rio.RDFFormat;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormatFactory;
+import org.semanticweb.owlapi.formats.RioRDFXMLOntologyFormat;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
@@ -25,7 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
-import org.semanticweb.owlapi.registries.OWLOntologyManagerFactoryRegistry;
 import org.semanticweb.owlapi.registries.OWLOntologyStorerFactoryRegistry;
 import org.semanticweb.owlapi.registries.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.rio.RioParserImpl;
@@ -52,10 +54,13 @@ public class RioParserTest {
         OWLParserFactoryRegistry parserRegistry = new OWLParserFactoryRegistry();
         parserRegistry.clear();
         parserRegistry.add(new RioRDFXMLParserFactory());
-        testManager = OWLOntologyManagerFactoryRegistry
-                .createOWLOntologyManager(
-                        OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
-                        storerRegistry, parserRegistry);
+        // testManager = OWLOntologyManagerFactoryRegistry
+        // .createOWLOntologyManager(
+        // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
+        // storerRegistry, parserRegistry);
+        testManager = OWLManager.createOWLOntologyManager();
+        testManager.getOntologyParsers()
+                .set(new RioRDFXMLParserFactory().get());
         // testOntologyKoala =
         // testManager.loadOntologyFromOntologyDocument(this.getClass().getResourceAsStream("/koala.owl"));
     }
@@ -87,13 +92,16 @@ public class RioParserTest {
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
                 new RDFXMLOntologyFormatFactory());
-        OWLOntology ontology = OWLOntologyManagerFactoryRegistry
-                .createOWLOntologyManager().createOntology(
+        // OWLOntology ontology = OWLOntologyManagerFactoryRegistry
+        // .createOWLOntologyManager().createOntology(
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .createOntology(
                         IRI.create("urn:test:rioparser:ontology:koala:1"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/koala.owl")), ontology);
-        assertEquals(new RDFXMLOntologyFormat(), rioOntologyFormat);
+        assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
+                rioOntologyFormat);
         List<String> missingAxioms = new ArrayList<String>();
         for (OWLAxiom nextAxiom : owlapiOntologyPrimer.getAxioms()) {
             if (!ontology.getAxioms().contains(nextAxiom)) {
@@ -138,13 +146,16 @@ public class RioParserTest {
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
                 new RDFXMLOntologyFormatFactory());
-        OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-                .createOWLOntologyManager().createOntology(
+        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
+        // .createOWLOntologyManager()
+        OWLOntology rioOntologyPrimer = OWLManager.createOWLOntologyManager()
+                .createOntology(
                         IRI.create("urn:test:rioparser:ontology:primer:1"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/primer.rdfxml.xml")), rioOntologyPrimer);
-        assertEquals(new RDFXMLOntologyFormat(), rioOntologyFormat);
+        assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
+                rioOntologyFormat);
         List<String> missingAxioms = new ArrayList<String>();
         for (OWLAxiom nextAxiom : owlapiOntologyPrimer.getAxioms()) {
             if (!rioOntologyPrimer.getAxioms().contains(nextAxiom)) {
@@ -187,6 +198,16 @@ public class RioParserTest {
     @Test
     public void testParsePrimerSubset() throws OWLParserException, IOException,
             OWLOntologyCreationException {
+        // XXX this test does not work yet
+        // output:
+        // Rio:
+        // DatatypeDefinition(<http://example.com/owl/families/majorAge>
+        // DataIntersectionOf(<http://org.semanticweb.owlapi/error#Error1>
+        // DataComplementOf(<http://example.com/owl/families/minorAge>) ))
+        // OWLAPI:
+        // DatatypeDefinition(<http://example.com/owl/families/majorAge>
+        // DataIntersectionOf(<http://example.com/owl/families/personAge>
+        // DataComplementOf(<http://example.com/owl/families/minorAge>) ))]
         OWLOntology owlapiOntologyPrimer = testManager.createOntology();
         RDFXMLParser owlapiParser = new RDFXMLParser();
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
@@ -196,14 +217,21 @@ public class RioParserTest {
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
                 new RDFXMLOntologyFormatFactory());
-        OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-                .createOWLOntologyManager().createOntology(
+        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
+        // .createOWLOntologyManager().createOntology(
+        OWLOntology rioOntologyPrimer = OWLManager.createOWLOntologyManager()
+                .createOntology(
                         IRI.create("urn:test:rioparser:ontology:primer:1"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/rioParserTest1.rdf")), rioOntologyPrimer);
-        assertEquals(new RDFXMLOntologyFormat(), rioOntologyFormat);
+        assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
+                rioOntologyFormat);
         List<String> missingAxioms = new ArrayList<String>();
+        System.out.println("RioParserTest.testParsePrimerSubset() "
+                + rioOntologyPrimer.getAxioms());
+        System.out.println("RioParserTest.testParsePrimerSubset() "
+                + owlapiOntologyPrimer.getAxioms());
         for (OWLAxiom nextAxiom : owlapiOntologyPrimer.getAxioms()) {
             if (!rioOntologyPrimer.getAxioms().contains(nextAxiom)) {
                 missingAxioms.add(nextAxiom.toString());
@@ -232,7 +260,8 @@ public class RioParserTest {
             }
         }
         assertEquals(2, rioOntologyPrimer.getAxiomCount());
-        assertTrue("There were missing axioms", missingAxioms.isEmpty());
+        assertTrue("There were missing axioms " + missingAxioms,
+                missingAxioms.isEmpty());
     }
 
     /**
@@ -244,7 +273,6 @@ public class RioParserTest {
      * @throws OWLParserException
      * @throws OWLOntologyCreationException
      */
-    @Ignore
     @Test
     public void testParsePrimerMinimalSubset() throws OWLParserException,
             IOException, OWLOntologyCreationException {
@@ -257,13 +285,16 @@ public class RioParserTest {
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
                 new RDFXMLOntologyFormatFactory());
-        OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
-                .createOWLOntologyManager().createOntology(
+        // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
+        // .createOWLOntologyManager().createOntology(
+        OWLOntology rioOntologyPrimer = OWLManager.createOWLOntologyManager()
+                .createOntology(
                         IRI.create("urn:test:rioparser:ontology:primer:1"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/rioParserTest1-minimal.rdf")), rioOntologyPrimer);
-        assertEquals(new RDFXMLOntologyFormat(), rioOntologyFormat);
+        assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
+                rioOntologyFormat);
         List<String> missingAxioms = new ArrayList<String>();
         for (OWLAxiom nextAxiom : owlapiOntologyPrimer.getAxioms()) {
             if (!rioOntologyPrimer.getAxioms().contains(nextAxiom)) {

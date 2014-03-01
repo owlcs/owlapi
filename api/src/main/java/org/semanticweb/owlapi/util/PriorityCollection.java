@@ -21,6 +21,10 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
     private static final long serialVersionUID = 40000L;
     private List<T> delegate = new ArrayList<T>();
 
+    public int size() {
+        return delegate.size();
+    }
+
     /**
      * @param c
      *        collection of elements to set. Existing elements will be removed,
@@ -29,6 +33,14 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
     public void set(Collection<T> c) {
         clear();
         delegate.addAll(c);
+        sort();
+    }
+
+    public void set(T... c) {
+        clear();
+        for (T t : c) {
+            delegate.add(0, t);
+        }
         sort();
     }
 

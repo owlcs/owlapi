@@ -1,7 +1,4 @@
-/**
- * 
- */
-package org.semanticweb.owlapi.io.test;
+package org.semanticweb.owlapi.rio.io.test;
 
 import static org.junit.Assert.*;
 
@@ -13,6 +10,7 @@ import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormatFactory;
 import org.semanticweb.owlapi.io.OWLParserFactory;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
@@ -33,8 +31,10 @@ public class OWLParserFactoryRegistryTest {
     @Before
     public void setUp() throws Exception {
         testRegistry = new OWLParserFactoryRegistry();
-        assertEquals(EXPECTED_PARSERS, testRegistry.getKeys().size());
+        // assertEquals(EXPECTED_PARSERS, testRegistry.getKeys().size());
         testRegistry.clearParserFactories();
+        assertEquals(EXPECTED_PARSERS, OWLManager.createOWLOntologyManager()
+                .getOntologyParsers().size());
     }
 
     /**

@@ -112,4 +112,24 @@ public class OWLOntologyFormatFactoryImpl<T extends OWLOntologyFormat>
     public OWLOntologyFormat get() {
         return createFormat();
     }
+
+    @Override
+    public int hashCode() {
+        return getKey().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (null == other) {
+            return false;
+        }
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof OWLOntologyFormatFactory)) {
+            return false;
+        }
+        OWLOntologyFormatFactory otherFactory = (OWLOntologyFormatFactory) other;
+        return getKey().equals(otherFactory.getKey());
+    }
 }
