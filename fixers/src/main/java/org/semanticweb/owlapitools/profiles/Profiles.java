@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapitools.profiles;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +23,22 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import com.google.inject.Provides;
 
+/*
+ * Not a pretty pattern but I didn't want to have long strings repeated across
+ * constructors, and no static constants are allowed before members declaration
+ * in an enum.
+ */
+interface KnownFactories {
+
+    String FaCTPlusPlus = "uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory";
+    String HermiT = "org.semanticweb.HermiT.Reasoner.ReasonerFactory";
+    String JFact = "uk.ac.manchester.cs.jfact.JFactFactory";
+    String TrOWL = "eu.trowl.owlapi3.rel.reasoner.dl.RELReasonerFactory";
+    String Pellet = "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory";
+    String MORe = "org.semanticweb.more.MOReRLrewReasonerFactory";
+    String Elk = "org.semanticweb.elk.owlapi.ElkReasonerFactory";
+}
+
 /**
  * This enumeration includes all currently implemented profile checkers and
  * known information about available reasoners for those profiles. Note that
@@ -34,33 +49,29 @@ import com.google.inject.Provides;
  * "https://github.com/ansell/owlapi/commit/fa88c8139fe3d59ea46d363a9c9a36f6ddf05119"
  * >patch set 1</a> and <a href=
  * "https://github.com/ansell/owlapi/commit/354885abd0f581942a1ac1d64ae8de4b85cbec7f"
- * >patch set 2</a>.
+ * >patch set 2</a>.<br>
+ * Notice that the OWLProfiles referred here are stateless, therefore only one
+ * instance needs to be created and can be reused across threads.
  * 
  * @author ignazio
  */
-public enum Profiles implements HasIRI {
+public enum Profiles implements HasIRI, KnownFactories {
     //@formatter:off
-    /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     (IRI.create("http://www.w3.org/ns/owl-profile/","DL"))   { @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile(); }
-
-    @Override
-    public Collection<String> supportingReasoners() {
-        return Arrays.asList("uk.ac.manchester.cs.factplusplus.owlapiv3.FaCTPlusPlusReasonerFactory", "org.semanticweb.HermiT.Reasoner.ReasonerFactory", "uk.ac.manchester.cs.jfact.JFactFactory",
-                "eu.trowl.owlapi3.rel.reasoner.dl.RELReasonerFactory", "com.clarkparsia.pellet.owlapiv3.PelletReasonerFactory", "org.semanticweb.more.MOReRLrewReasonerFactory");
-    } },
-    /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     (IRI.create("http://www.w3.org/ns/owl-profile/","QL"))   { @Override public OWLProfile getOWLProfile() { return new OWL2QLProfile(); } },
-    /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     (IRI.create("http://www.w3.org/ns/owl-profile/","EL"))   { @Override public OWLProfile getOWLProfile() { return new OWL2ELProfile(); }
-    @Override public Collection<String> supportingReasoners() {
-        List<String> list=new ArrayList<String>(OWL2_DL.supportingReasoners());
-        list.add(0, "org.semanticweb.elk.owlapi.ElkReasonerFactory");
-        return list;
-    } },
-    /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     (IRI.create("http://www.w3.org/ns/owl-profile/","RL"))   { @Override public OWLProfile getOWLProfile() { return new OWL2RLProfile(); } },
-    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   (IRI.create("http://www.w3.org/ns/owl-profile/","Full")) { @Override public OWLProfile getOWLProfile() { return new OWL2DLProfile(); } };
+    /** http://www.w3.org/ns/owl-profile/DL **/     OWL2_DL     ("DL",   new OWL2DLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/QL **/     OWL2_QL     ("QL",   new OWL2QLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/EL **/     OWL2_EL     ("EL",   new OWL2ELProfile(), Elk, FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/RL **/     OWL2_RL     ("RL",   new OWL2RLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe),
+    /** http://www.w3.org/ns/owl-profile/Full **/   OWL2_FULL   ("Full", new OWL2DLProfile(),      FaCTPlusPlus, HermiT, JFact, TrOWL, Pellet, MORe);
     //@formatter:on
     private IRI iri;
+    private List<String> supportingFactories;
+    private OWLProfile profile;
 
-    private Profiles(IRI iri) {
-        this.iri = iri;
+    private Profiles(String name, OWLProfile profile,
+            String... supportingFactories) {
+        iri = IRI.create("http://www.w3.org/ns/owl-profile/", name);
+        this.profile = profile;
+        this.supportingFactories = Arrays.asList(supportingFactories);
     }
 
     @Override
@@ -74,7 +85,9 @@ public enum Profiles implements HasIRI {
      * @return profile checker for this profile
      */
     @Provides
-    public abstract OWLProfile getOWLProfile();
+    public OWLProfile getOWLProfile() {
+        return profile;
+    }
 
     /**
      * @return collection of OWLReasonerFactory class names known to support the
@@ -88,7 +101,7 @@ public enum Profiles implements HasIRI {
      *         about it.
      */
     public Collection<String> supportingReasoners() {
-        return OWL2_DL.supportingReasoners();
+        return supportingFactories;
     }
 
     /**
