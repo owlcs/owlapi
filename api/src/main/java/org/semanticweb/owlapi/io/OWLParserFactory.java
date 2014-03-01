@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.inject.Provider;
 
+import org.semanticweb.owlapi.model.MIMETypeAware;
 import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 
 /**
@@ -27,7 +28,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLParserFactory extends Serializable, Provider<OWLParser> {
+public interface OWLParserFactory extends Serializable, Provider<OWLParser>,
+        MIMETypeAware {
 
     /**
      * Creates a parser.

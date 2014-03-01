@@ -30,7 +30,6 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.registries.OWLOntologyStorerFactoryRegistry;
 import org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRenderer;
@@ -67,11 +66,6 @@ public class RioRendererTest {
         vf = new ValueFactoryImpl();
         // limit the storers to known Rio OntologyStorers to minimise false
         // negative results
-        OWLOntologyStorerFactoryRegistry storerRegistry = new OWLOntologyStorerFactoryRegistry();
-        storerRegistry.clearStorerFactories();
-        storerRegistry.add(new RioNTriplesOntologyStorerFactory());
-        storerRegistry.add(new RioRDFXMLOntologyStorerFactory());
-        storerRegistry.add(new RioTurtleOntologyStorerFactory());
         // use all parsers for renderer test
         // OWLParserFactoryRegistry parserRegistry = new
         // OWLParserFactoryRegistry();

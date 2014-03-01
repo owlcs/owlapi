@@ -36,6 +36,7 @@
 package org.semanticweb.owlapi.rio;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import org.semanticweb.owlapi.formats.RioRDFOntologyFormatFactory;
@@ -64,5 +65,23 @@ public abstract class AbstractRioParserFactory implements OWLParserFactory {
     @Override
     public OWLParser get() {
         return createParser();
+    }
+
+    @Override
+    public String getDefaultMIMEType() {
+        return getRioFormatFactory().createFormat().getRioFormat()
+                .getDefaultMIMEType();
+    }
+
+    @Override
+    public List<String> getMIMETypes() {
+        return getRioFormatFactory().createFormat().getRioFormat()
+                .getMIMETypes();
+    }
+
+    @Override
+    public boolean handlesMimeType(String mimeType) {
+        return getRioFormatFactory().createFormat().getRioFormat()
+                .hasMIMEType(mimeType);
     }
 }

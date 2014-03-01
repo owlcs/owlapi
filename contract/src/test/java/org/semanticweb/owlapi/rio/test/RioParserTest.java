@@ -28,8 +28,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
-import org.semanticweb.owlapi.registries.OWLOntologyStorerFactoryRegistry;
-import org.semanticweb.owlapi.registries.OWLParserFactoryRegistry;
 import org.semanticweb.owlapi.rio.RioParserImpl;
 import org.semanticweb.owlapi.rio.RioRDFXMLParserFactory;
 import org.slf4j.Logger;
@@ -49,11 +47,7 @@ public class RioParserTest {
     @Before
     public void setUp() throws Exception {
         // Use non-Rio storers
-        OWLOntologyStorerFactoryRegistry storerRegistry = new OWLOntologyStorerFactoryRegistry();
         // limit to Rio parsers for RioParserImpl Test
-        OWLParserFactoryRegistry parserRegistry = new OWLParserFactoryRegistry();
-        parserRegistry.clear();
-        parserRegistry.add(new RioRDFXMLParserFactory());
         // testManager = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager(
         // OWLOntologyManagerFactoryRegistry.getOWLDataFactory(),
