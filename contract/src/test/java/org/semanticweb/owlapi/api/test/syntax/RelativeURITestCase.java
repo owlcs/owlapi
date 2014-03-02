@@ -23,6 +23,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
 import org.semanticweb.owlapi.io.StreamDocumentSource;
+import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -52,8 +53,10 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
         expectedException.expect(OWLRDFXMLParserSAXException.class);
         expectedException
                 .expectMessage("[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");
-        expectedException
-                .expectMessage(" reason is: Illegal character in fragment at index 21: http://example.com/#1#2");
+        // on Java 6 for Mac the following assertion does not work: the root
+        // exception does not have a message.
+        // expectedException
+        // .expectMessage(" reason is: Illegal character in fragment at index 21: http://example.com/#1#2");
         String RDFCONTENT = ""
                 + "<rdf:RDF"
                 + "    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
@@ -65,9 +68,8 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
                 + "  <owl:Thing rdf:about=\"http://example.com/#1#2\">"
                 + "    <rdf:type rdf:resource=\"http://www.w3.org/2002/07/owl#NamedIndividual\"/>"
                 + "  </owl:Thing>" + "</rdf:RDF>";
-        InputStream in = new ByteArrayInputStream(RDFCONTENT.getBytes());
         OWLOntology ontology = m.createOntology();
         RDFXMLParser parser = new RDFXMLParser();
-        parser.parse(new StreamDocumentSource(in), ontology);
+        parser.parse(new StringDocumentSource(RDFCONTENT), ontology);
     }
 }
