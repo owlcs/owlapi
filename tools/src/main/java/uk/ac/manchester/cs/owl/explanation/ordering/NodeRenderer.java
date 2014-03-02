@@ -14,17 +14,22 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
  * @since 2.2.0
  * @param <N>
- *            type of nodes to render */
+ *        type of nodes to render
+ */
 public interface NodeRenderer<N> {
-    /** Render.
+
+    /**
+     * Render.
      * 
      * @param node
-     *            the node to render
-     * @return the rendering */
+     *        the node to render
+     * @return the rendering
+     */
     @Nonnull
     String render(@Nonnull Tree<N> node);
 }

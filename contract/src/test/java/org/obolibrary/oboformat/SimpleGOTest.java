@@ -10,6 +10,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class SimpleGOTest extends OboFormatTestBasics {
+
     @Test
     public void testParseOBOFile() throws Exception {
         OBODoc obodoc = parseOBOFile("simplego.obo");

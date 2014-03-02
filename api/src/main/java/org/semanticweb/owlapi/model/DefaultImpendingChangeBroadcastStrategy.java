@@ -17,11 +17,14 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public class DefaultImpendingChangeBroadcastStrategy implements
         ImpendingOWLOntologyChangeBroadcastStrategy, Serializable {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

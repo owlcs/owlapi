@@ -12,21 +12,26 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** An exception that describes the situation where an ontology could not be
+/**
+ * An exception that describes the situation where an ontology could not be
  * renamed (have its ID set) because its manager already contained an ontology
  * with the same name.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLOntologyRenameException extends OWLOntologyChangeException {
+
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyID ontologyID;
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param ontologyID
-     *            ontology id that cannot be renamed */
+     *        ontology id that cannot be renamed
+     */
     public OWLOntologyRenameException(OWLOntologyChange<?> change,
             OWLOntologyID ontologyID) {
         super(change,

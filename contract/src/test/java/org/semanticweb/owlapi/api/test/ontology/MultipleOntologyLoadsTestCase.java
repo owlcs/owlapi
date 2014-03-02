@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 /** @author Peter Ansell p_ansell@yahoo.com */
 @SuppressWarnings("javadoc")
 public class MultipleOntologyLoadsTestCase {
+
     private IRI v2;
     private IRI v1;
     private IRI i139;

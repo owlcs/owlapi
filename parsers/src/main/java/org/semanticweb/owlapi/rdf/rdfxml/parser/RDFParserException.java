@@ -17,26 +17,31 @@ import org.xml.sax.SAXException;
 
 /** Throws if an RDF error is encountered while parsing RDF. */
 public class RDFParserException extends SAXException {
+
     private static final long serialVersionUID = 40000L;
     protected final String publicId;
     protected final String systemId;
     protected final int lineNumber;
     protected final int columnNumber;
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param locator
-     *            locator */
+     *        locator
+     */
     public RDFParserException(String message, Locator locator) {
         this(null, message, locator);
     }
 
-    /** @param e
-     *            cause
+    /**
+     * @param e
+     *        cause
      * @param message
-     *            message
+     *        message
      * @param locator
-     *            locator */
+     *        locator
+     */
     public RDFParserException(Exception e, String message, Locator locator) {
         super(message(locator, message), e);
         publicId = locator.getPublicId();

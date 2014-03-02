@@ -21,15 +21,18 @@ import java.util.List;
 
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Represents the different types of OWL 2 Entities.
+/**
+ * Represents the different types of OWL 2 Entities.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
  * @since 3.0.0
  * @param <E>
- *            entity type */
+ *        entity type
+ */
 public final class EntityType<E extends OWLEntity> implements Serializable,
         HasShortForm, HasPrefixedName, HasIRI {
+
     private static final long serialVersionUID = 40000L;
     /** class entity */
     public static final EntityType<OWLClass> CLASS = new EntityType<OWLClass>(

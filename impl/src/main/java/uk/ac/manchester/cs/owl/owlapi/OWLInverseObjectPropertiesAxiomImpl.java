@@ -33,22 +33,27 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLInverseObjectPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLObjectPropertyExpression> implements
         OWLInverseObjectPropertiesAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression first;
     private final OWLObjectPropertyExpression second;
 
-    /** @param first
-     *            first property
+    /**
+     * @param first
+     *        first property
      * @param second
-     *            second peoperty
+     *        second peoperty
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLInverseObjectPropertiesAxiomImpl(
             @Nonnull OWLObjectPropertyExpression first,
             @Nonnull OWLObjectPropertyExpression second,

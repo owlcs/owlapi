@@ -14,10 +14,13 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLDataRangeAtom extends SWRLUnaryAtom<SWRLDArgument> {
+
     @Override
     @Nonnull
     OWLDataRange getPredicate();

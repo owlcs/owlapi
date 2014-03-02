@@ -19,11 +19,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.1 */
+ * @since 2.1.1
+ */
 @SuppressWarnings("javadoc")
 public class SWRLTestCase extends TestBase {
+
     @Test
     public void testSWRLParser() throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n"

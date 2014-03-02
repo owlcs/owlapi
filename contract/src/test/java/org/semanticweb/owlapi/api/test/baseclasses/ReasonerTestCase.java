@@ -30,16 +30,19 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
 
-/** This test case creates a small ontology and tests the getters in the reasoner
+/**
+ * This test case creates a small ontology and tests the getters in the reasoner
  * interface. The test ontology isn't designed to test the correctness of
  * reasoning results, rather it is designed to test the reasoner returns the
  * results in the form required by the OWL API reasoner interface.
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 @SuppressWarnings("javadoc")
 public class ReasonerTestCase extends TestBase {
+
     private OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
     private OWLOntology ont;
     private OWLReasoner reasoner;

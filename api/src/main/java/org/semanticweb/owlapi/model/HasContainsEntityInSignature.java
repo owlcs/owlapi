@@ -12,17 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** An interface to an object that has a signature.
+/**
+ * An interface to an object that has a signature.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.4.6 */
+ * @since 3.4.6
+ */
 public interface HasContainsEntityInSignature {
-    /** Determines if the signature of this object contains the specified entity.
+
+    /**
+     * Determines if the signature of this object contains the specified entity.
      * 
      * @param owlEntity
-     *            The entity
+     *        The entity
      * @return {@code true} if the signature of this object contains
-     *         {@code owlEntity}, otherwise {@code false} */
+     *         {@code owlEntity}, otherwise {@code false}
+     */
     boolean containsEntityInSignature(OWLEntity owlEntity);
 }

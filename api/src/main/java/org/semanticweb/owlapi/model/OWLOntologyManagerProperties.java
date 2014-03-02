@@ -14,11 +14,14 @@ package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 // XXX refactor or remove
 public class OWLOntologyManagerProperties implements Serializable {
+
     private static final long serialVersionUID = 40000L;
     private boolean loadAnnotationAxioms = true;
     private boolean treatDublinCoreVocabularyAsBuiltInVocabulary = true;
@@ -29,27 +32,31 @@ public class OWLOntologyManagerProperties implements Serializable {
         treatDublinCoreVocabularyAsBuiltInVocabulary = true;
     }
 
-    /** Determines if annotation axioms should be loaded or discarded.
+    /**
+     * Determines if annotation axioms should be loaded or discarded.
      * 
      * @return {@code true} if annotation axioms should be loaded or
-     *         {@code false} if annotation axioms should be ignored. */
+     *         {@code false} if annotation axioms should be ignored.
+     */
     public boolean isLoadAnnotationAxioms() {
         return loadAnnotationAxioms;
     }
 
-    /** Specifies whether annotation axioms should be loaded or ignored.
+    /**
+     * Specifies whether annotation axioms should be loaded or ignored.
      * 
      * @param loadAnnotationAxioms
-     *            {@code true} if annotation axioms should be loaded (default)
-     *            or {@code false} if annotation axioms should be ignored. Note
-     *            that this is merely a hint to parsers and loaders - a setting
-     *            of {@code false} does not guarentee that annotations won't be
-     *            loaded. */
+     *        {@code true} if annotation axioms should be loaded (default) or
+     *        {@code false} if annotation axioms should be ignored. Note that
+     *        this is merely a hint to parsers and loaders - a setting of
+     *        {@code false} does not guarentee that annotations won't be loaded.
+     */
     public void setLoadAnnotationAxioms(boolean loadAnnotationAxioms) {
         this.loadAnnotationAxioms = loadAnnotationAxioms;
     }
 
-    /** Determines if the various parsers, for formats such as RDF based formats
+    /**
+     * Determines if the various parsers, for formats such as RDF based formats
      * that do not require strong typing, should treat Dublin Core Vocabulary as
      * built in vocabulary, so that Dublin Core metadata properties are
      * interpreted as annotation properties.
@@ -57,18 +64,21 @@ public class OWLOntologyManagerProperties implements Serializable {
      * @return {@code true} if the Dublin Core Vocabulary should be treated as
      *         built in vocabulary and Dublin Core properties are interpreted as
      *         annotation properties, otherwise {@code false}. The defaut is
-     *         {@code true}. */
+     *         {@code true}.
+     */
     public boolean isTreatDublinCoreVocabularyAsBuiltInVocabulary() {
         return treatDublinCoreVocabularyAsBuiltInVocabulary;
     }
 
-    /** Specifies if the various parsers, for formats such as RDF based formats
+    /**
+     * Specifies if the various parsers, for formats such as RDF based formats
      * that do not require strong typing, should treat Dublin Core Vocabulary as
      * built in vocabulary, so that Dublin Core metadata properties are
      * interpreted as annotation properties.
      * 
      * @param treatDublinCoreVocabularyAsBuiltInVocabulary
-     *            the new value */
+     *        the new value
+     */
     public void setTreatDublinCoreVocabularyAsBuiltInVocabulary(
             boolean treatDublinCoreVocabularyAsBuiltInVocabulary) {
         this.treatDublinCoreVocabularyAsBuiltInVocabulary = treatDublinCoreVocabularyAsBuiltInVocabulary;

@@ -5,11 +5,14 @@ import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-/** Wrapper for triple logging functions.
+/**
+ * Wrapper for triple logging functions.
  * 
  * @author ignazio
- * @since 4.0.0 */
+ * @since 4.0.0
+ */
 public class TripleLogger {
+
     /** The Constant tripleProcessor. */
     private static final Logger tripleProcessor = Logger
             .getLogger(TripleLogger.class.getName());
@@ -36,8 +39,10 @@ public class TripleLogger {
         }
     }
 
-    /** @param id
-     *            log ontology id */
+    /**
+     * @param id
+     *        log ontology id
+     */
     public void logOntologyID(OWLOntologyID id) {
         if (tripleProcessor.isLoggable(Level.FINE)) {
             tripleProcessor.fine("Loaded " + id);

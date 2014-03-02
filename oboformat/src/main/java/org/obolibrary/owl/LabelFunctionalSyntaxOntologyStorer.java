@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 /** Implement the writer for {@link LabelFunctionalFormat}. */
 public class LabelFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {
+
     // generated
     private static final long serialVersionUID = 40000L;
 
@@ -40,6 +41,7 @@ public class LabelFunctionalSyntaxOntologyStorer extends
     }
 
     static class LabelPrefixManager extends DefaultPrefixManager {
+
         // generated
         private static final long serialVersionUID = 40000L;
         private final OWLOntology ontology;

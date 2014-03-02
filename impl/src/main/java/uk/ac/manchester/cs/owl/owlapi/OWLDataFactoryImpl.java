@@ -25,11 +25,14 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         OWLClassProvider {
+
     private static final String ANNOTATIONS = "annotations";
     private static final long serialVersionUID = 40000L;
     private static final String ABBREVIATED_IRI = "abbreviatedIRI";
@@ -85,10 +88,12 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         this(true, false);
     }
 
-    /** @param cache
-     *            true if objects should be cached
+    /**
+     * @param cache
+     *        true if objects should be cached
      * @param useCompression
-     *            true if literals should be compressed */
+     *        true if literals should be compressed
+     */
     public OWLDataFactoryImpl(boolean cache, boolean useCompression) {
         if (cache) {
             data = new OWLDataFactoryInternalsImpl(useCompression);

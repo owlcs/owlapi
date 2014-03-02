@@ -21,11 +21,14 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class SubClassOfAxiomAnnotatedTestCase extends
         AbstractAnnotatedAxiomRoundTrippingTestCase {
+
     @Override
     protected OWLAxiom getMainAxiom(Set<OWLAnnotation> annos) {
         OWLClass clsA = Class(getIRI("A"));

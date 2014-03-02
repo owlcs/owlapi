@@ -105,16 +105,19 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** Collects all of the nested class expression that are used in some OWLObject.
+/**
+ * Collects all of the nested class expression that are used in some OWLObject.
  * For example, given SubClassOf(ObjectUnionOf(D C) ObjectSomeValuesFrom(R F))
  * the collector could be used to obtain ObjectUnionOf(D C), D, C,
  * ObjectSomeValuesFrom(R F), F
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public class OWLClassExpressionCollector implements
         OWLObjectVisitorEx<Set<OWLClassExpression>> {
+
     @Override
     public Set<OWLClassExpression> visit(IRI iri) {
         return Collections.emptySet();

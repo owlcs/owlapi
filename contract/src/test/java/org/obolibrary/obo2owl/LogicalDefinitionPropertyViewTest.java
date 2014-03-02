@@ -16,10 +16,13 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author cjm see 5.9.3 and 8.2.2 of spec See
- *         http://code.google.com/p/oboformat/issues/detail?id=13 */
+/**
+ * @author cjm see 5.9.3 and 8.2.2 of spec See
+ *         http://code.google.com/p/oboformat/issues/detail?id=13
+ */
 @SuppressWarnings("javadoc")
 public class LogicalDefinitionPropertyViewTest extends OboFormatTestBasics {
+
     @Test
     public void testConvert() throws Exception {
         // PARSE TEST FILE

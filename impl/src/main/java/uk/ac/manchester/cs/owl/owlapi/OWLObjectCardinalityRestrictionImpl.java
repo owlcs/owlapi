@@ -21,12 +21,15 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLObjectCardinalityRestrictionImpl extends
         OWLCardinalityRestrictionImpl<OWLClassExpression> implements
         OWLObjectCardinalityRestriction {
+
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 

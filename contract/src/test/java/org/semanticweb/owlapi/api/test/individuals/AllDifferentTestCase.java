@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class AllDifferentTestCase extends TestBase {
+
     @Test
     public void testDistinctMembers() throws OWLOntologyCreationException {
         String onto1 = "<?xml version=\"1.0\"?>\n"

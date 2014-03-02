@@ -41,12 +41,16 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLObjectPropertyManager {
+
     static final class SetSizeComparator implements
             Comparator<Set<OWLObjectPropertyExpression>>, Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         @Override
@@ -70,10 +74,12 @@ public class OWLObjectPropertyManager {
     private boolean simpleDirty;
     private boolean partialOrderingDirty;
 
-    /** @param manager
-     *            the ontology manager to use
+    /**
+     * @param manager
+     *        the ontology manager to use
      * @param ont
-     *            the ontology to use */
+     *        the ontology to use
+     */
     public OWLObjectPropertyManager(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ont) {
         man = checkNotNull(manager, "manager cannot be null");
@@ -107,7 +113,8 @@ public class OWLObjectPropertyManager {
         return man.getImportsClosure(ontology);
     }
 
-    /** An object property expression PE is composite in Ax if Ax contains an
+    /**
+     * An object property expression PE is composite in Ax if Ax contains an
      * axiom of the form SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn)
      * PE) with n greater than 1, or
      * SubObjectPropertyOf(SubObjectPropertyChain(PE1 ... PEn) INV(PE)) with n
@@ -115,10 +122,11 @@ public class OWLObjectPropertyManager {
      * TransitiveObjectProperty(INV(PE)).
      * 
      * @param expression
-     *            The object property expression to be tested
+     *        The object property expression to be tested
      * @return {@code true} if the object property is composite (according to
      *         the above definition) or {@code false} if the object property is
-     *         not composite. */
+     *         not composite.
+     */
     public boolean isComposite(@Nonnull OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
         return getCompositeProperties().contains(expression.getSimplified());
@@ -167,7 +175,8 @@ public class OWLObjectPropertyManager {
         compositeProperties.add(prop.getInverseProperty().getSimplified());
     }
 
-    /** The object property hierarchy relation -&gt; is the smallest relation on
+    /**
+     * The object property hierarchy relation -&gt; is the smallest relation on
      * object property expressions for which the following conditions hold (A
      * -&gt; B means that -&gt; holds for A and B): if Ax contains an axiom
      * SubObjectPropertyOf(PE1 PE2), then PE1 -&gt; PE2 holds; and if Ax
@@ -178,7 +187,8 @@ public class OWLObjectPropertyManager {
      * then PE -&gt; INV(PE) holds; and if PE1 -&gt; PE2 holds, then INV(PE1)
      * -&gt; INV(PE2) holds as well.
      * 
-     * @return A Map that maps sub properties to sets of super properties. */
+     * @return A Map that maps sub properties to sets of super properties.
+     */
     @Nonnull
     public Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>>
             getPropertyHierarchy() {
@@ -281,15 +291,17 @@ public class OWLObjectPropertyManager {
         return reflexiveTransitiveClosure;
     }
 
-    /** Tests to see if one property is a sub property of another property in the
+    /**
+     * Tests to see if one property is a sub property of another property in the
      * reflexive transitive closure of the property hierarchy.
      * 
      * @param sub
-     *            The sub property
+     *        The sub property
      * @param sup
-     *            The super property
+     *        The super property
      * @return {@code true} if sub is the sub-property of sup, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     public boolean isSubPropertyOf(@Nonnull OWLObjectPropertyExpression sub,
             @Nonnull OWLObjectPropertyExpression sup) {
         checkNotNull(sub, "sub cannot be null");
@@ -303,15 +315,17 @@ public class OWLObjectPropertyManager {
         }
     }
 
-    /** The relation -&gt;* is the reflexive-transitive closure of -&gt;. An
+    /**
+     * The relation -&gt;* is the reflexive-transitive closure of -&gt;. An
      * object property expression PE is simple in Ax if, for each object
      * property expression PE' such that PE' -&gt;* PE holds, PE' is not
      * composite.
      * 
      * @param expression
-     *            The expression to be tested.
+     *        The expression to be tested.
      * @return {@code true} if the object property expression is simple,
-     *         otherwise false. */
+     *         otherwise false.
+     */
     public boolean isNonSimple(@Nonnull OWLObjectPropertyExpression expression) {
         checkNotNull(expression, "expression cannot be null");
         return getNonSimpleProperties().contains(expression.getSimplified());
@@ -389,11 +403,13 @@ public class OWLObjectPropertyManager {
         return partialOrdering;
     }
 
-    /** @param propA
-     *            first property
+    /**
+     * @param propA
+     *        first property
      * @param propB
-     *            second property
-     * @return true if first property comes first in the default ordering */
+     *        second property
+     * @return true if first property comes first in the default ordering
+     */
     public boolean isLessThan(@Nonnull OWLObjectPropertyExpression propA,
             @Nonnull OWLObjectPropertyExpression propB) {
         checkNotNull(propA, "propA cannot be null");
@@ -419,9 +435,11 @@ public class OWLObjectPropertyManager {
         return props;
     }
 
-    /** @param ontologies
-     *            ontologies to search
-     * @return sets of equivalent properties */
+    /**
+     * @param ontologies
+     *        ontologies to search
+     * @return sets of equivalent properties
+     */
     @Nonnull
     public static Collection<Set<OWLObjectPropertyExpression>>
             getEquivalentObjectProperties(@Nonnull Set<OWLOntology> ontologies) {
@@ -467,24 +485,26 @@ public class OWLObjectPropertyManager {
         return getEquivalentObjectProperties(getOntologies());
     }
 
-    /** @param ontologies
-     *            The ontologies
+    /**
+     * @param ontologies
+     *        The ontologies
      * @param prop
-     *            the property
+     *        the property
      * @param index
-     *            index
+     *        index
      * @param stack
-     *            stack
+     *        stack
      * @param indexMap
-     *            index map
+     *        index map
      * @param lowlinkMap
-     *            low link map
+     *        low link map
      * @param result
-     *            result
+     *        result
      * @param processed
-     *            processed
+     *        processed
      * @param stackProps
-     *            stack entities */
+     *        stack entities
+     */
     @SuppressWarnings("boxing")
     public static void tarjan(@Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLObjectPropertyExpression prop, int index,

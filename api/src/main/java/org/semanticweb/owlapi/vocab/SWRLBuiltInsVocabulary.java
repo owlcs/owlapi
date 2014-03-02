@@ -18,11 +18,17 @@ import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
-public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm,
-        HasIRI, HasPrefixedName {
+ * @since 2.0.0
+ */
+public enum SWRLBuiltInsVocabulary
+        implements
+        SWRLPredicate,
+        HasShortForm,
+        HasIRI,
+        HasPrefixedName {
 //@formatter:off
     /** EQUAL */                    EQUAL("equal", 2),
     /** NOT_EQUAL */                NOT_EQUAL("notEqual", 2),
@@ -123,26 +129,32 @@ public enum SWRLBuiltInsVocabulary implements SWRLPredicate, HasShortForm,
         return iri;
     }
 
-    /** Gets the minimum arity of this built in.
+    /**
+     * Gets the minimum arity of this built in.
      * 
-     * @return The minimum arity of this built in */
+     * @return The minimum arity of this built in
+     */
     public int getMinArity() {
         return minArity;
     }
 
-    /** Gets the maximum arity of this built in.
+    /**
+     * Gets the maximum arity of this built in.
      * 
-     * @return The maximum arity of the built in or -1 if the arity is infinite */
+     * @return The maximum arity of the built in or -1 if the arity is infinite
+     */
     public int getMaxArity() {
         return maxArity;
     }
 
-    /** Gets a builtin vocabulary value for a given IRI.
+    /**
+     * Gets a builtin vocabulary value for a given IRI.
      * 
      * @param iri
-     *            The IRI
+     *        The IRI
      * @return The builtin vocabulary having the specified IRI, or {@code null}
-     *         if there is no builtin vocabulary with the specified IRI */
+     *         if there is no builtin vocabulary with the specified IRI
+     */
     public static SWRLBuiltInsVocabulary getBuiltIn(IRI iri) {
         for (SWRLBuiltInsVocabulary v : values()) {
             if (v.iri.equals(iri)) {

@@ -47,34 +47,41 @@ import org.semanticweb.owlapi.util.HashCode;
 import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** An optimised implementation of OWLDatatype for OWL2Datatypes.
+/**
+ * An optimised implementation of OWLDatatype for OWL2Datatypes.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.2.0 */
+ * @since 3.2.0
+ */
 public class OWL2DatatypeImpl implements OWLDatatype {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
+    /**
+     * Creates an instance of {@code OWLDatatypeImplForOWL2Datatype} for the
      * specified {@link OWL2Datatype}.
      * 
      * @param owl2Datatype
-     *            The datatype. Not {@code null}.
+     *        The datatype. Not {@code null}.
      * @throws NullPointerException
-     *             if {@code owl2Datatype} is {@code null}. */
+     *         if {@code owl2Datatype} is {@code null}.
+     */
     public OWL2DatatypeImpl(@Nonnull OWL2Datatype owl2Datatype) {
         this.owl2Datatype = checkNotNull(owl2Datatype,
                 "owl2Datatype must not be null");
     }
 
-    /** A factory method which gets an instance of {@link OWLDatatype} for an
+    /**
+     * A factory method which gets an instance of {@link OWLDatatype} for an
      * instance of {@link OWL2Datatype} specified by the {@code owl2Datatype}
      * parameter.
      * 
      * @param owl2Datatype
-     *            The datatype to be retrieved.
+     *        The datatype to be retrieved.
      * @return A {@link OWLDatatype} that has the same IRI as the IRI returned
-     *         by {@code owl2Datatype#getIRI()}. */
+     *         by {@code owl2Datatype#getIRI()}.
+     */
     @Deprecated
     public static OWLDatatype getDatatype(OWL2Datatype owl2Datatype) {
         return new OWL2DatatypeImpl(owl2Datatype);

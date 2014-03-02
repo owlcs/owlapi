@@ -30,16 +30,21 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class CollectionFactory {
+
     private static final AtomicInteger expectedThreads = new AtomicInteger(8);
 
-    /** @param value
-     *            the number of expected threads that will access threadsafe
-     *            collections; useful for increasing the concurrency in
-     *            ConcurrentHashMaps */
+    /**
+     * @param value
+     *        the number of expected threads that will access threadsafe
+     *        collections; useful for increasing the concurrency in
+     *        ConcurrentHashMaps
+     */
     public static void setExpectedThreads(int value) {
         expectedThreads.set(value);
     }
@@ -49,63 +54,77 @@ public class CollectionFactory {
         return expectedThreads.get();
     }
 
-    /** @return fresh non threadsafe set
+    /**
+     * @return fresh non threadsafe set
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> createSet() {
         // TODO large number of sets stay very small, wasting space
         return new HashSet<T>();
     }
 
-    /** @return fresh non threadsafe list
+    /**
+     * @return fresh non threadsafe list
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> List<T> createList() {
         return new ArrayList<T>();
     }
 
-    /** @param c
-     *            values to add to the set
+    /**
+     * @param c
+     *        values to add to the set
      * @return fresh non threadsafe set
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> createSet(Collection<T> c) {
         return new HashSet<T>(c);
     }
 
-    /** @param initialCapacity
-     *            initial capacity for the new set
+    /**
+     * @param initialCapacity
+     *        initial capacity for the new set
      * @return fresh non threadsafe set
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> createSet(int initialCapacity) {
         return new HashSet<T>(initialCapacity);
     }
 
-    /** @return fresh map
+    /**
+     * @return fresh map
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type */
+     *        value type
+     */
     public static <K, V> Map<K, V> createMap() {
         return new HashMap<K, V>();
     }
 
-    /** @return a new weak hashmap wrapped as a synchronized map
+    /**
+     * @return a new weak hashmap wrapped as a synchronized map
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type */
+     *        value type
+     */
     public static <K, V> Map<K, WeakReference<V>> createSyncWeakMap() {
         return Collections
                 .synchronizedMap(new WeakHashMap<K, WeakReference<V>>());
     }
 
-    /** @param elements
-     *            values to add to the set
+    /**
+     * @param elements
+     *        values to add to the set
      * @return fresh non threadsafe set
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> createSet(T... elements) {
         Set<T> result = createSet();
         for (T t : elements) {
@@ -114,31 +133,38 @@ public class CollectionFactory {
         return result;
     }
 
-    /** @return fresh threadsafe set
+    /**
+     * @return fresh threadsafe set
      * @param <T>
-     *            set type */
+     *        set type
+     */
     public static <T> Set<T> createSyncSet() {
         ConcurrentHashMap<T, Boolean> internalMap = createSyncMap();
         return Collections.newSetFromMap(internalMap);
     }
 
-    /** @return fresh threadsafe hashmap
+    /**
+     * @return fresh threadsafe hashmap
      * @param <K>
-     *            key type
+     *        key type
      * @param <V>
-     *            value type */
+     *        value type
+     */
     public static <K, V> ConcurrentHashMap<K, V> createSyncMap() {
         return new ConcurrentHashMap<K, V>(16, 0.75F, expectedThreads.get());
     }
 
-    /** this class implements a Set using a ConcurrentHashMap as backing
+    /**
+     * this class implements a Set using a ConcurrentHashMap as backing
      * structure; compared to the default HashSet implementation, this structure
      * is threadsafe without being completely synchronized, so it offers better
      * performances.
      * 
      * @param <T>
-     *            type of collection */
+     *        type of collection
+     */
     private static final class SyncSet<T> implements Set<T> {
+
         private final ConcurrentHashMap<T, Set<T>> backingMap;
 
         public SyncSet(ConcurrentHashMap<T, Set<T>> map) {
@@ -268,22 +294,26 @@ public class CollectionFactory {
         }
     }
 
-    /** @param source
-     *            the collection to lazily copy
+    /**
+     * @param source
+     *        the collection to lazily copy
      * @return a lazy defensive copy for source; the source collection will not
      *         be copied until a method that modifies the collection gets
      *         called, e.g., add(), addAll()
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> getCopyOnRequestSet(Collection<T> source) {
         return getCopyOnRequestSetFromMutableCollection(source);
     }
 
-    /** @param source
-     *            source collection
+    /**
+     * @param source
+     *        source collection
      * @return copy on request that builds a list from the input set
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> getCopyOnRequestSetFromMutableCollection(
             Collection<T> source) {
         if (source == null || source.isEmpty()) {
@@ -292,11 +322,13 @@ public class CollectionFactory {
         return new ConditionalCopySet<T>(source, true);
     }
 
-    /** @param source
-     *            the source collection
+    /**
+     * @param source
+     *        the source collection
      * @return copy on request that does not build a list immediately
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> getCopyOnRequestSetFromImmutableCollection(
             Collection<T> source) {
         if (source == null || source.isEmpty()) {
@@ -305,16 +337,19 @@ public class CollectionFactory {
         return new ConditionalCopySet<T>(source, false);
     }
 
-    /** @param source
-     *            initial values
+    /**
+     * @param source
+     *        initial values
      * @return a threadsafe copy on request set
      * @param <T>
-     *            axiom type */
+     *        axiom type
+     */
     public static <T> Set<T> getThreadSafeCopyOnRequestSet(Set<T> source) {
         return new ThreadSafeConditionalCopySet<T>(source);
     }
 
-    /** a set implementation that uses a delegate collection for all read-only
+    /**
+     * a set implementation that uses a delegate collection for all read-only
      * operations and makes a copy if changes are attempted. Useful for cheap
      * defensive copies: no costly rehashing on the original collection is made
      * unless changes are attempted. Changes are not mirrored back to the
@@ -334,17 +369,21 @@ public class CollectionFactory {
      * is: there is no lock during the copy, and the new set is not threadsafe.
      * 
      * @param <T>
-     *            the type contained */
+     *        the type contained
+     */
     public static class ConditionalCopySet<T> implements Set<T> {
+
         private static final int maxContains = 10;
         private boolean copyDone = false;
         protected Collection<T> delegate;
         private int containsCounter = 0;
 
-        /** @param source
-         *            initial elements
+        /**
+         * @param source
+         *        initial elements
          * @param listCopy
-         *            true if a copy must be made */
+         *        true if a copy must be made
+         */
         public ConditionalCopySet(Collection<T> source, boolean listCopy) {
             if (listCopy) {
                 this.delegate = new ArrayList<T>(source);
@@ -492,13 +531,16 @@ public class CollectionFactory {
         }
     }
 
-    /** this class behaves like ConditionalCopySet except it is designed to be
+    /**
+     * this class behaves like ConditionalCopySet except it is designed to be
      * threadsafe; multiple thread access is regulated by a readwritelock;
      * modifications will create a copy based on SyncSet.
      * 
      * @param <T>
-     *            the type contained */
+     *        the type contained
+     */
     public static class ThreadSafeConditionalCopySet<T> implements Set<T> {
+
         private static final int maxContains = 10;
         private final AtomicBoolean copyDone = new AtomicBoolean(false);
         private Collection<T> delegate;
@@ -507,8 +549,10 @@ public class CollectionFactory {
         private final Lock writeLock = lock.writeLock();
         private final AtomicInteger containsCounter = new AtomicInteger(0);
 
-        /** @param source
-         *            initial values */
+        /**
+         * @param source
+         *        initial values
+         */
         public ThreadSafeConditionalCopySet(Collection<T> source) {
             this.delegate = new ArrayList<T>(source);
         }

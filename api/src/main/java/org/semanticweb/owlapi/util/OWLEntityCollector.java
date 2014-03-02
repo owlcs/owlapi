@@ -117,7 +117,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** A utility class that visits axioms, class expressions etc. and accumulates
+/**
+ * A utility class that visits axioms, class expressions etc. and accumulates
  * the named objects that are referred to in those axioms, class expressions
  * etc. For example, if the collector visited the axiom (propP some C)
  * subClassOf (propQ some D), it would contain the objects propP, C, propQ and
@@ -125,14 +126,18 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLEntityCollector implements
         OWLObjectVisitorEx<Collection<OWLEntity>>,
         SWRLObjectVisitorEx<Collection<OWLEntity>> {
+
     private Collection<OWLEntity> objects;
 
-    /** @param toReturn
-     *            the set that will contain the results */
+    /**
+     * @param toReturn
+     *        the set that will contain the results
+     */
     public OWLEntityCollector(@Nonnull Set<OWLEntity> toReturn) {
         objects = checkNotNull(toReturn, "toReturn cannot be null");
     }

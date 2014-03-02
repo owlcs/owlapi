@@ -14,18 +14,23 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import org.xml.sax.SAXException;
 
-/** The Class OWLRDFXMLParserSAXException.
+/**
+ * The Class OWLRDFXMLParserSAXException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLRDFXMLParserSAXException extends OWLRDFXMLParserException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Instantiates a new oWLRDFXML parser sax exception.
+    /**
+     * Instantiates a new oWLRDFXML parser sax exception.
      * 
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserSAXException(SAXException cause) {
         super(cause);
     }

@@ -16,17 +16,22 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Enumeration_of_Literals"
  * >DataOneOf</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLDataOneOf extends OWLDataRange {
-    /** Gets the values ({@link OWLLiteral}s) that this data range consists of.
+
+    /**
+     * Gets the values ({@link OWLLiteral}s) that this data range consists of.
      * 
-     * @return The values that this data range consists of. */
+     * @return The values that this data range consists of.
+     */
     @Nonnull
     Set<OWLLiteral> getValues();
 }

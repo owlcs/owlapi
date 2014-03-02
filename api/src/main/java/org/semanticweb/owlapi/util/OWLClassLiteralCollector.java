@@ -23,25 +23,32 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
+
     // XXX stateful visitor...
     protected final Set<OWLClass> pos = new HashSet<OWLClass>();
     protected final Set<OWLClass> neg = new HashSet<OWLClass>();
     private boolean processed = false;
 
-    /** @param objects
-     *            the objects to visit */
+    /**
+     * @param objects
+     *        the objects to visit
+     */
     public OWLClassLiteralCollector(@Nonnull Set<OWLObject> objects) {
         super(objects);
     }
 
-    /** @param objects
-     *            the objects to visit
+    /**
+     * @param objects
+     *        the objects to visit
      * @param visitDuplicates
-     *            true if duplicates must be visited */
+     *        true if duplicates must be visited
+     */
     public OWLClassLiteralCollector(@Nonnull Set<OWLObject> objects,
             boolean visitDuplicates) {
         super(objects, visitDuplicates);
@@ -68,6 +75,7 @@ public class OWLClassLiteralCollector extends OWLObjectWalker<OWLObject> {
 
     private class OWLClassLiteralCollectorVisitor extends
             OWLObjectVisitorExAdapter<Object> {
+
         public OWLClassLiteralCollectorVisitor() {}
 
         @Override

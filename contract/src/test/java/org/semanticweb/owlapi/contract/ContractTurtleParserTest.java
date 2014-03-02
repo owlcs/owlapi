@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractTurtleParserTest {
+
     private static final String URN_A_FAKE = "urn:aFake";
 
     public void shouldTestConsoleTripleHandler() throws OWLException {

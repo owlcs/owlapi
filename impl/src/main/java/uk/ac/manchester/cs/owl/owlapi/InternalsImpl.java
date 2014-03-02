@@ -80,10 +80,12 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /** @author ignazio */
 public class InternalsImpl extends AbstractInternalsImpl {
+
     private static final long serialVersionUID = 40000L;
 
     protected class SetPointer<K> implements Internals.SimplePointer<K>,
             Serializable {
+
         private static final long serialVersionUID = 40000L;
         private final Set<K> set;
 
@@ -173,6 +175,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
         if (add(getAxiomsByType(), axiom.getAxiomType(), axiom)) {
             axiom.accept(addChangeVisitor);
             axiom.accept(new AbstractEntityRegistrationManager() {
+
                 @Override
                 public void visit(OWLClass owlClass) {
                     add(getOwlClassReferences(), owlClass, axiom);
@@ -220,6 +223,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
         if (remove(getAxiomsByType(), axiom.getAxiomType(), axiom)) {
             axiom.accept(removeChangeVisitor);
             AbstractEntityRegistrationManager referenceRemover = new AbstractEntityRegistrationManager() {
+
                 @Override
                 public void visit(OWLClass owlClass) {
                     remove(getOwlClassReferences(), owlClass, axiom);
@@ -468,6 +472,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     class AddAxiomVisitor extends OWLAxiomVisitorAdapter implements
             Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         @Override
@@ -724,6 +729,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
 
     class RemoveAxiomVisitor extends OWLAxiomVisitorAdapter implements
             Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         @Override

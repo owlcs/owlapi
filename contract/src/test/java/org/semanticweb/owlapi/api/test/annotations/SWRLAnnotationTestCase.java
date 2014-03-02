@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 
 @SuppressWarnings("javadoc")
 public class SWRLAnnotationTestCase extends TestBase {
+
     private static final String NS = "http://protege.org/ontologies/SWRLAnnotation.owl";
     OWLClass a;
     OWLClass b;

@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /** The Class DLSyntaxParser. */
 public class DLSyntaxParser implements DLSyntaxParserConstants {
+
     private String defaultNamespace = "http://www.sematicweb.org/ontologies/Ontology"
             + System.nanoTime();
     private Map<String, String> namespaceMap = new HashMap<String, String>();
@@ -49,31 +50,39 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
     private Map<String, IRI> qnameIRIMap = new HashMap<String, IRI>();
 
-    /** @param factory
-     *            data factory */
+    /**
+     * @param factory
+     *        data factory
+     */
     public void setOWLDataFactory(OWLDataFactory factory) {
         this.factory = factory;
     }
 
-    /** Map a prefix to a nalespace.
+    /**
+     * Map a prefix to a nalespace.
      * 
      * @param prefix
-     *            prefix
+     *        prefix
      * @param namespace
-     *            namespace */
+     *        namespace
+     */
     public void setPrefixMapping(String prefix, String namespace) {
         namespaceMap.put(prefix, namespace);
     }
 
-    /** @param ns
-     *            the new default namespace */
+    /**
+     * @param ns
+     *        the new default namespace
+     */
     public void setDefaultNamespace(String ns) {
         defaultNamespace = ns;
     }
 
-    /** @param val
-     *            value
-     * @return the iri */
+    /**
+     * @param val
+     *        value
+     * @return the iri
+     */
     public IRI getIRI(String val) {
         IRI iri = iriMap.get(val);
         if (iri == null) {
@@ -83,9 +92,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return iri;
     }
 
-    /** @param qname
-     *            qname
-     * @return IRI from id */
+    /**
+     * @param qname
+     *        qname
+     * @return IRI from id
+     */
     public IRI getIRIFromId(String qname) {
         if (qname.equals("top") || qname.equals("\u22a4")) {
             return OWLRDFVocabulary.OWL_THING.getIRI();
@@ -2143,20 +2154,24 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /** Constructor with InputStream.
+    /**
+     * Constructor with InputStream.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public DLSyntaxParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding.
+    /**
+     * Constructor with InputStream and supplied encoding.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public DLSyntaxParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
@@ -2174,20 +2189,24 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -2205,8 +2224,10 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** @param stream
-     *            the stream */
+    /**
+     * @param stream
+     *        the stream
+     */
     public DLSyntaxParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new DLSyntaxParserTokenManager(jj_input_stream);
@@ -2220,10 +2241,12 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
@@ -2237,10 +2260,12 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Constructor with generated Token Manager.
+    /**
+     * Constructor with generated Token Manager.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public DLSyntaxParser(DLSyntaxParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -2253,10 +2278,12 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public void ReInit(DLSyntaxParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -2299,6 +2326,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     /** The Class LookaheadSuccess. */
     static private final class LookaheadSuccess extends java.lang.Error {
+
         public LookaheadSuccess() {}
 
         private static final long serialVersionUID = 40000L;
@@ -2339,9 +2367,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return false;
     }
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
@@ -2352,11 +2382,13 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         return token;
     }
 
-    /** Get the specific Token.
+    /**
+     * Get the specific Token.
      * 
      * @param index
-     *            the index
-     * @return the token */
+     *        the index
+     * @return the token
+     */
     public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
@@ -2405,9 +2437,11 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
         }
     }
 
-    /** Generate ParseException.
+    /**
+     * Generate ParseException.
      * 
-     * @return the parses the exception */
+     * @return the parses the exception
+     */
     public ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[32];
@@ -2632,6 +2666,7 @@ public class DLSyntaxParser implements DLSyntaxParserConstants {
 
     /** The Class JJCalls. */
     static final class JJCalls {
+
         int gen;
         Token first;
         int arg;

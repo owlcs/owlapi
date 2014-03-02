@@ -14,14 +14,17 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Complement_of_Class_Expressions"
  * >ObjectComplementOf</a> class expression in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObjectComplementOf extends OWLBooleanClassExpression {
+
     /** @return the wrapped expression */
     @Nonnull
     OWLClassExpression getOperand();

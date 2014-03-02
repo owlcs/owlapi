@@ -29,11 +29,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 @SuppressWarnings("javadoc")
 public class OntologyMutationTestCase extends TestBase {
+
     @Test
     public void testAddAxiom() {
         OWLOntology ont = getOWLOntology("OntA");
@@ -41,6 +44,7 @@ public class OntologyMutationTestCase extends TestBase {
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
+
                     @Override
                     public void ontologiesChanged(
                             List<? extends OWLOntologyChange<?>> changes)
@@ -60,6 +64,7 @@ public class OntologyMutationTestCase extends TestBase {
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
+
                     @Override
                     public void ontologiesChanged(
                             List<? extends OWLOntologyChange<?>> changes)
@@ -79,6 +84,7 @@ public class OntologyMutationTestCase extends TestBase {
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
+
                     @Override
                     public void ontologiesChanged(
                             List<? extends OWLOntologyChange<?>> changes)
@@ -98,6 +104,7 @@ public class OntologyMutationTestCase extends TestBase {
         final List<OWLOntologyChange<?>> chgs = new ArrayList<OWLOntologyChange<?>>();
         ont.getOWLOntologyManager().addOntologyChangeListener(
                 new OWLOntologyChangeListener() {
+
                     @Override
                     public void ontologiesChanged(
                             List<? extends OWLOntologyChange<?>> changes)

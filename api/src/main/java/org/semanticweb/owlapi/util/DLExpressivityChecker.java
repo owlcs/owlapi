@@ -85,10 +85,13 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
+
     private Set<Construct> constructs;
     private Set<OWLOntology> ontologies;
 
@@ -97,8 +100,10 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
         return getOrderedConstructs();
     }
 
-    /** @param ontologies
-     *            ontologies */
+    /**
+     * @param ontologies
+     *        ontologies
+     */
     public DLExpressivityChecker(Set<OWLOntology> ontologies) {
         this.ontologies = ontologies;
         constructs = new HashSet<Construct>();
@@ -165,6 +170,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
 
     /** A comparator that orders DL constucts to produce a traditional DL name. */
     private static class ConstructComparator implements Comparator<Construct> {
+
         private final List<Construct> order = new ArrayList<Construct>();
 
         public ConstructComparator() {

@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractDlsyntaxTest {
+
     public void shouldTestDLSyntaxHTMLOntologyFormat() {
         DLSyntaxHTMLOntologyFormat testSubject0 = new DLSyntaxHTMLOntologyFormat();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));
@@ -96,6 +97,7 @@ public class ContractDlsyntaxTest {
     public void shouldTestDLSyntaxOntologyStorerBase()
             throws OWLOntologyStorageException {
         DLSyntaxOntologyStorerBase testSubject0 = new DLSyntaxOntologyStorerBase() {
+
             private static final long serialVersionUID = 40000L;
 
             @Override

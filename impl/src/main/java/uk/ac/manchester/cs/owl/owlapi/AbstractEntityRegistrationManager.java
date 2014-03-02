@@ -107,12 +107,14 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 /** base for entity registration manager */
 public abstract class AbstractEntityRegistrationManager implements
         OWLObjectVisitor, SWRLObjectVisitor {
+
     // ////////////////////////////////////////////////////////////////////////////////////////////
     //
     // Axiom Visitor stuff
     //
     // ////////////////////////////////////////////////////////////////////////////////////////////
     private final CollectionContainerVisitor<OWLAnnotation> annotationVisitor = new CollectionContainerVisitor<OWLAnnotation>() {
+
         @Override
         public void visit(CollectionContainer<OWLAnnotation> c) {}
 

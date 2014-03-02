@@ -19,15 +19,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class ReferencedIndividualCount extends
         ObjectCountMetric<OWLNamedIndividual> {
-    /** Instantiates a new referenced individual count.
+
+    /**
+     * Instantiates a new referenced individual count.
      * 
      * @param o
-     *            ontology to use */
+     *        ontology to use
+     */
     public ReferencedIndividualCount(@Nonnull OWLOntology o) {
         super(o);
     }

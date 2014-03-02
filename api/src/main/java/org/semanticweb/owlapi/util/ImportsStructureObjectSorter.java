@@ -25,7 +25,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Sorts objects into sets based on where they appear in the imports closure of
+/**
+ * Sorts objects into sets based on where they appear in the imports closure of
  * an ontology. Consider ontology B that imports ontology A. A map will be
  * generated that maps each ontology, A, B, to a set of objects that are
  * associated with the ontology. If an object is associated with ontology A and
@@ -40,20 +41,24 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * @since 2.2.0
  * @see org.semanticweb.owlapi.util.ImportsStructureEntitySorter
  * @param <O>
- *            the type */
+ *        the type
+ */
 public class ImportsStructureObjectSorter<O> {
+
     private final OWLOntology ontology;
     private final ObjectSelector<O> objectSelector;
 
-    /** Creates a sorter for the specified ontology, whose imports closure is
+    /**
+     * Creates a sorter for the specified ontology, whose imports closure is
      * obtained with the specified manager, and for each ontology whose objects
      * are selected using the specified object selector.
      * 
      * @param ontology
-     *            The ontology
+     *        The ontology
      * @param objectSelector
-     *            The selector that will be used to select objects that are
-     *            associated with each ontology. */
+     *        The selector that will be used to select objects that are
+     *        associated with each ontology.
+     */
     public ImportsStructureObjectSorter(@Nonnull OWLOntology ontology,
             @Nonnull ObjectSelector<O> objectSelector) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -61,11 +66,13 @@ public class ImportsStructureObjectSorter<O> {
                 "objectSelector cannot be null");
     }
 
-    /** Gets a map that maps ontologies to sets of associated objects. The
+    /**
+     * Gets a map that maps ontologies to sets of associated objects. The
      * ontologies will be the ontologies that are contained in the imports
      * closure of the original specified ontology.
      * 
-     * @return The map. */
+     * @return The map.
+     */
     @Nonnull
     public Map<OWLOntology, Set<O>> getObjects() {
         List<OWLOntology> imports = new ArrayList<OWLOntology>(
@@ -86,12 +93,17 @@ public class ImportsStructureObjectSorter<O> {
         return ontology2EntityMap;
     }
 
-    /** @param <O>
-     *            type of selected objects */
+    /**
+     * @param <O>
+     *        type of selected objects
+     */
     public interface ObjectSelector<O> {
-        /** @param ontology
-         *            the ontology to explore
-         * @return set of objects selected */
+
+        /**
+         * @param ontology
+         *        the ontology to explore
+         * @return set of objects selected
+         */
         Set<O> getObjects(OWLOntology ontology);
     }
 }

@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class IDsTest {
+
     @Test
     public void testIDs() throws OWLOntologyCreationException {
         OBODoc doc = new OBODoc();

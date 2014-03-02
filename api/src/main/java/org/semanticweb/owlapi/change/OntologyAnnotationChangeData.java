@@ -22,33 +22,40 @@ import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** Represents the specific non-ontology data required by an
+/**
+ * Represents the specific non-ontology data required by an
  * {@link AddOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.3 */
+ * @since 3.3
+ */
 public abstract class OntologyAnnotationChangeData extends
         OWLOntologyChangeData<OWLAnnotation> {
+
     private static final long serialVersionUID = 40000L;
     private final OWLAnnotation annotation;
 
-    /** Constructs an {@link OntologyAnnotationChangeData} object that describes
+    /**
+     * Constructs an {@link OntologyAnnotationChangeData} object that describes
      * an {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
      * specified by the {@code annotation} parameter.
      * 
      * @param annotation
-     *            The {@link OWLAnnotation} that is the focus of some change. */
+     *        The {@link OWLAnnotation} that is the focus of some change.
+     */
     public OntologyAnnotationChangeData(@Nonnull OWLAnnotation annotation) {
         this.annotation = checkNotNull(annotation,
                 "annotation must not be null");
     }
 
-    /** Gets the {@link OWLAnnotation} that is the focus of some
+    /**
+     * Gets the {@link OWLAnnotation} that is the focus of some
      * {@link AddOntologyAnnotation} change.
      * 
-     * @return The {@link OWLAnnotation}. */
+     * @return The {@link OWLAnnotation}.
+     */
     @Nonnull
     public OWLAnnotation getAnnotation() {
         return annotation;

@@ -12,33 +12,42 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** The root of runtime exceptions in the OWL API.
+/**
+ * The root of runtime exceptions in the OWL API.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLRuntimeException extends RuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
     /** default constructor */
     public OWLRuntimeException() {}
 
-    /** @param message
-     *            message */
+    /**
+     * @param message
+     *        message
+     */
     public OWLRuntimeException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLRuntimeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public OWLRuntimeException(Throwable cause) {
         super(cause);
     }

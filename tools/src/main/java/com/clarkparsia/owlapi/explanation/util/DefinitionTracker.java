@@ -32,16 +32,19 @@ import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 /** Tracker for definitions. */
 public class DefinitionTracker implements OWLOntologyChangeListener {
+
     /** Mapping from entities to the number of axioms. */
     private final Map<OWLEntity, Integer> referenceCounts = new HashMap<OWLEntity, Integer>();
     private final OWLOntology ontology;
     private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
     private final Integer ONE = Integer.valueOf(1);
 
-    /** Instantiates a new definition tracker.
+    /**
+     * Instantiates a new definition tracker.
      * 
      * @param ontology
-     *            ontology to track */
+     *        ontology to track
+     */
     public DefinitionTracker(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
         for (OWLOntology importOnt : ontology.getImportsClosure()) {
@@ -79,28 +82,32 @@ public class DefinitionTracker implements OWLOntologyChangeListener {
         }
     }
 
-    /** Checks if this entity is referred by a logical axiom in the imports
+    /**
+     * Checks if this entity is referred by a logical axiom in the imports
      * closure of the designated ontology.
      * 
      * @param entity
-     *            entity we are searching for
+     *        entity we are searching for
      * @return {@code true} if there is at least one logical axiom in the
      *         imports closure of the given ontology that refers the given
-     *         entity */
+     *         entity
+     */
     public boolean isDefined(@Nonnull OWLEntity entity) {
         return checkNotNull(entity, "entity cannot be null").isBuiltIn()
                 || referenceCounts.containsKey(entity);
     }
 
-    /** Checks if all the entities referred in the given concept are also
+    /**
+     * Checks if all the entities referred in the given concept are also
      * referred by a logical axiom in the imports closure of the designated
      * ontology.
      * 
      * @param classExpression
-     *            description that contains the entities we are searching for
+     *        description that contains the entities we are searching for
      * @return {@code true} if all the entities in the given description are
      *         referred by at least one logical axiom in the imports closure of
-     *         the given ontology */
+     *         the given ontology
+     */
     public boolean isDefined(@Nonnull OWLClassExpression classExpression) {
         for (OWLEntity entity : checkNotNull(classExpression,
                 "classExpression cannot be null").getSignature()) {

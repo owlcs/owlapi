@@ -15,16 +15,21 @@ package org.semanticweb.owlapi.io;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OntologyIRIMappingNotFoundException extends
         OWLOntologyCreationException {
+
     private static final long serialVersionUID = 40000L;
     private final IRI ontologyIRI;
 
-    /** @param ontologyIRI
-     *            the ontology not found */
+    /**
+     * @param ontologyIRI
+     *        the ontology not found
+     */
     public OntologyIRIMappingNotFoundException(IRI ontologyIRI) {
         super("Document IRI mapping not found for " + ontologyIRI);
         this.ontologyIRI = ontologyIRI;

@@ -20,11 +20,14 @@ import org.semanticweb.owlapi.model.IRI;
 
 /** IRI node implementation */
 public class RDFResourceIRI extends RDFResource {
+
     private static final long serialVersionUID = 40000L;
     private final IRI resource;
 
-    /** @param resource
-     *            the resource */
+    /**
+     * @param resource
+     *        the resource
+     */
     public RDFResourceIRI(@Nonnull IRI resource) {
         this.resource = checkNotNull(resource, "resource cannot be null");
     }

@@ -16,18 +16,23 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents an axiom that contains two or more operands that could also be
+/**
+ * Represents an axiom that contains two or more operands that could also be
  * represented with multiple pairwise axioms
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLNaryAxiom extends OWLAxiom {
-    /** Gets this axiom as a set of pairwise axioms. Note that annotations on
+
+    /**
+     * Gets this axiom as a set of pairwise axioms. Note that annotations on
      * this axiom will not be copied to each axiom returned in the set of
      * pairwise axioms.
      * 
-     * @return This axiom as a set of pairwise axioms. */
+     * @return This axiom as a set of pairwise axioms.
+     */
     @Nonnull
     Set<? extends OWLNaryAxiom> asPairwiseAxioms();
 }

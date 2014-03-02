@@ -30,17 +30,22 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         CollectionContainer<OWLAnnotation> {
+
     private static final long serialVersionUID = 40000L;
     private OWLAxiom nnf;
     private final List<OWLAnnotation> annotations;
 
-    /** @param annotations
-     *            annotations on the axiom */
+    /**
+     * @param annotations
+     *        annotations on the axiom
+     */
     public OWLAxiomImpl(@Nonnull Collection<? extends OWLAnnotation> annotations) {
         checkNotNull(annotations, "annotations cannot be null");
         if (!annotations.isEmpty()) {
@@ -112,12 +117,14 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
         return types.contains(getAxiomType());
     }
 
-    /** A convenience method for implementation that returns a set containing the
+    /**
+     * A convenience method for implementation that returns a set containing the
      * annotations on this axiom plus the annotations in the specified set.
      * 
      * @param annos
-     *            The annotations to add to the annotations on this axiom
-     * @return The annotations */
+     *        The annotations to add to the annotations on this axiom
+     * @return The annotations
+     */
     protected Set<OWLAnnotation> mergeAnnos(Set<OWLAnnotation> annos) {
         Set<OWLAnnotation> merged = new HashSet<OWLAnnotation>(annos);
         merged.addAll(annotations);

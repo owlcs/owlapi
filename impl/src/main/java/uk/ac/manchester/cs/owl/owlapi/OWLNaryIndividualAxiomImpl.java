@@ -28,18 +28,23 @@ import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
         implements OWLNaryIndividualAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final Set<OWLIndividual> individuals;
 
-    /** @param individuals
-     *            individuals
+    /**
+     * @param individuals
+     *        individuals
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLNaryIndividualAxiomImpl(
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

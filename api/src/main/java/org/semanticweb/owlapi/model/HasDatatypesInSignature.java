@@ -14,16 +14,21 @@ package org.semanticweb.owlapi.model;
 
 import java.util.Set;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.4.6 */
+ * @since 3.4.6
+ */
 public interface HasDatatypesInSignature {
-    /** A convenience method that obtains the datatypes that are in the signature
+
+    /**
+     * A convenience method that obtains the datatypes that are in the signature
      * of this object
      * 
      * @return A set containing the datatypes that are in the signature of this
      *         object.The set is a subset of the signature, and is not backed by
      *         the signature; it is a modifiable collection and changes are not
-     *         reflected by the signature. */
+     *         reflected by the signature.
+     */
     Set<OWLDatatype> getDatatypesInSignature();
 }

@@ -12,11 +12,13 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** A base interface of all axioms that affect the logical meaning of an
+/**
+ * A base interface of all axioms that affect the logical meaning of an
  * ontology. This excludes declaration axioms (including imports declarations)
  * and annotation axioms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLLogicalAxiom extends OWLAxiom {}

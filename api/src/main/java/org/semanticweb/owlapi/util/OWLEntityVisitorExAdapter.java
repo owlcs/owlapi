@@ -21,7 +21,8 @@ import org.semanticweb.owlapi.model.OWLEntityVisitorEx;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
+/**
+ * Provides a default implementation of {@code OWLObjectVisitorEx}. Only the
  * methods that need specific client implementation need be overridden. The
  * adapter can be set up to return a default value.
  * 
@@ -29,17 +30,21 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
  *         Management Group
  * @since 2.2.0
  * @param <O>
- *            visitor return type */
+ *        visitor return type
+ */
 public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
+
     private O defaultReturnValue = null;
 
-    /** Gets the default return value for this visitor. A fixed value
+    /**
+     * Gets the default return value for this visitor. A fixed value
      * (independent of the specified {@code OWLObject} {@code object}) can be
      * specified in the constructor {@link OWLObjectVisitorExAdapter}
      * 
      * @param object
-     *            The object that was visited.
-     * @return The default return value */
+     *        The object that was visited.
+     * @return The default return value
+     */
     protected O doDefault(@SuppressWarnings("unused") OWLEntity object) {
         return defaultReturnValue;
     }
@@ -49,8 +54,10 @@ public class OWLEntityVisitorExAdapter<O> implements OWLEntityVisitorEx<O> {
         this(null);
     }
 
-    /** @param defaultReturnValue
-     *            default return value */
+    /**
+     * @param defaultReturnValue
+     *        default return value
+     */
     public OWLEntityVisitorExAdapter(O defaultReturnValue) {
         this.defaultReturnValue = defaultReturnValue;
     }

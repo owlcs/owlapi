@@ -11,27 +11,27 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+* Copyright (C) 2007, University of Manchester
+*
+* Modifications to the initial code base are copyright of their
+* respective authors, or their employers as appropriate.  Authorship
+* of the modifications may be determined from the ChangeLog placed at
+* the end of this file.
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation; either
+* version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+* You should have received a copy of the GNU Lesser General Public
+* License along with this library; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -50,7 +50,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
-/** This composite change will convert a defined class to a primitive class by
+/**
+ * This composite change will convert a defined class to a primitive class by
  * replacing equivalent classes axioms where the class in question is a class in
  * the equivalent classes axioms to a set of subclass axioms whose superclasses
  * are the set of classes which were originally equivalent to the class in
@@ -66,9 +67,11 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class ConvertEquivalentClassesToSuperClasses extends
         AbstractCompositeOntologyChange {
+
     /** The target ontology. */
     private final OWLOntology targetOntology;
     /** The OWL class. */
@@ -78,18 +81,20 @@ public class ConvertEquivalentClassesToSuperClasses extends
     /** true if intersections should be split. */
     private final boolean splitIntersections;
 
-    /** Instantiates a new convert equivalent classes to super classes.
+    /**
+     * Instantiates a new convert equivalent classes to super classes.
      * 
      * @param dataFactory
-     *            the data factory
+     *        the data factory
      * @param cls
-     *            the class to convert
+     *        the class to convert
      * @param ontologies
-     *            the ontologies to use
+     *        the ontologies to use
      * @param targetOntology
-     *            the target ontology
+     *        the target ontology
      * @param splitIntersections
-     *            whether or not intersections should be split */
+     *        whether or not intersections should be split
+     */
     public ConvertEquivalentClassesToSuperClasses(
             @Nonnull OWLDataFactory dataFactory, @Nonnull OWLClass cls,
             @Nonnull Set<OWLOntology> ontologies,
@@ -127,6 +132,7 @@ public class ConvertEquivalentClassesToSuperClasses extends
         final Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
         if (splitIntersections) {
             desc.accept(new OWLClassExpressionVisitorAdapter() {
+
                 @Override
                 public void visit(OWLObjectIntersectionOf intersection) {
                     for (OWLClassExpression op : intersection.getOperands()) {

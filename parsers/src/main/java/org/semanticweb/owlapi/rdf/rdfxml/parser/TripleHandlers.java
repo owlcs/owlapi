@@ -64,34 +64,44 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class TripleHandlers {
+
     static final Logger logger = Logger.getLogger(TripleHandlers.class
             .getName());
 
     static class HandlerAccessor {
+
         /** Handlers for built in types */
         private final Map<IRI, BuiltInTypeHandler> builtInTypes;
-        /** Handler for triples that denote nodes which represent axioms. i.e.
+        /**
+         * Handler for triples that denote nodes which represent axioms. i.e.
          * owl:AllDisjointClasses owl:AllDisjointProperties owl:AllDifferent
          * owl:NegativePropertyAssertion owl:Axiom These need to be handled
          * separately from other types, because the base triples for annotated
          * axioms should be in the ontology before annotations on the annotated
-         * versions of these axioms are parsed. */
+         * versions of these axioms are parsed.
+         */
         protected final Map<IRI, BuiltInTypeHandler> axiomTypes;
         /** Handlers for build in predicates */
         private final Map<IRI, TriplePredicateHandler> predicates;
-        /** Handlers for general literal triples (i.e. triples which have
+        /**
+         * Handlers for general literal triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
          * Such triples either constitute annotationIRIs of relationships
-         * between an individual and a data literal (typed or untyped) */
+         * between an individual and a data literal (typed or untyped)
+         */
         protected List<LiteralTripleHandler> literals;
-        /** Handlers for general resource triples (i.e. triples which have
+        /**
+         * Handlers for general resource triples (i.e. triples which have
          * predicates that are not part of the built in OWL/RDFS/RDF vocabulary.
          * Such triples either constitute annotationIRIs or relationships
-         * between an individual and another individual. */
+         * between an individual and another individual.
+         */
         protected List<ResourceTripleHandler> resources;
         /** The inverse of handler. */
         protected TPInverseOfHandler inverseOf;
@@ -147,6 +157,7 @@ public class TripleHandlers {
 
         public void consumeNonReservedPredicateTriples() {
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
+
                 @Override
                 public void handleResourceTriple(IRI subject, IRI predicate,
                         IRI object) {
@@ -154,6 +165,7 @@ public class TripleHandlers {
                 }
             });
             consumer.iterateLiteralTriples(new LiteralTripleIterator() {
+
                 @Override
                 public void handleLiteralTriple(IRI subject, IRI predicate,
                         OWLLiteral object) {
@@ -164,6 +176,7 @@ public class TripleHandlers {
 
         public void consumeAnnotatedAxioms() {
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
+
                 @Override
                 public void handleResourceTriple(IRI subject, IRI predicate,
                         IRI object) {
@@ -172,14 +185,16 @@ public class TripleHandlers {
             });
         }
 
-        /** Called when a resource triple has been parsed.
+        /**
+         * Called when a resource triple has been parsed.
          * 
          * @param subject
-         *            The subject of the triple that has been parsed
+         *        The subject of the triple that has been parsed
          * @param predicate
-         *            The predicate of the triple that has been parsed
+         *        The predicate of the triple that has been parsed
          * @param object
-         *            The object of the triple that has been parsed */
+         *        The object of the triple that has been parsed
+         */
         public void handleStreaming(IRI subject, IRI predicate, IRI object) {
             boolean consumed = false;
             if (predicate.equals(RDF_TYPE.getIRI())) {
@@ -243,15 +258,17 @@ public class TripleHandlers {
             consumer.addTriple(subject, predicate, con);
         }
 
-        /** Handles triples in a non-streaming mode. Type triples whose type is
+        /**
+         * Handles triples in a non-streaming mode. Type triples whose type is
          * an axiom type, are NOT handled.
          * 
          * @param subject
-         *            The subject of the triple
+         *        The subject of the triple
          * @param predicate
-         *            The predicate of the triple
+         *        The predicate of the triple
          * @param object
-         *            The object of the triple */
+         *        The object of the triple
+         */
         protected void handle(IRI subject, IRI predicate, IRI object) {
             if (predicate.equals(OWLRDFVocabulary.RDF_TYPE.getIRI())) {
                 BuiltInTypeHandler typeHandler = builtInTypes.get(object);
@@ -282,14 +299,16 @@ public class TripleHandlers {
             }
         }
 
-        /** Handle.
+        /**
+         * Handle.
          * 
          * @param subject
-         *            the subject
+         *        the subject
          * @param predicate
-         *            the predicate
+         *        the predicate
          * @param object
-         *            the object */
+         *        the object
+         */
         protected void handle(IRI subject, IRI predicate, OWLLiteral object) {
             for (LiteralTripleHandler handler : literals) {
                 if (handler.canHandle(subject, predicate, object)) {
@@ -299,16 +318,19 @@ public class TripleHandlers {
             }
         }
 
-        /** We need to mop up all remaining triples. These triples will be in the
+        /**
+         * We need to mop up all remaining triples. These triples will be in the
          * triples by subject map. Other triples which reside in the triples by
          * predicate (single valued) triple aren't "root" triples for axioms.
          * First we translate all system triples and then go for triples whose
          * predicates are not system/reserved vocabulary IRIs to translate these
          * into ABox assertions or annotationIRIs
          * 
-         * @return any remaining triples */
+         * @return any remaining triples
+         */
         public Set<RDFTriple> mopUp() {
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
+
                 @Override
                 public void handleResourceTriple(IRI subject, IRI predicate,
                         IRI object) {
@@ -316,6 +338,7 @@ public class TripleHandlers {
                 }
             });
             consumer.iterateLiteralTriples(new LiteralTripleIterator() {
+
                 @Override
                 public void handleLiteralTriple(IRI subject, IRI predicate,
                         OWLLiteral object) {
@@ -325,6 +348,7 @@ public class TripleHandlers {
             // Inverse property axioms
             inverseOf.setAxiomParsingMode(true);
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
+
                 @Override
                 public void handleResourceTriple(IRI subject, IRI predicate,
                         IRI object) {
@@ -343,6 +367,7 @@ public class TripleHandlers {
         private Set<RDFTriple> getRemainingTriples() {
             final Set<RDFTriple> remainingTriples = new HashSet<RDFTriple>();
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
+
                 @Override
                 public void handleResourceTriple(IRI subject, IRI predicate,
                         IRI object) {
@@ -352,6 +377,7 @@ public class TripleHandlers {
                 }
             });
             consumer.iterateLiteralTriples(new LiteralTripleIterator() {
+
                 @Override
                 public void handleLiteralTriple(IRI subject, IRI predicate,
                         OWLLiteral object) {
@@ -423,7 +449,8 @@ public class TripleHandlers {
             return map;
         }
 
-        /** General literal triples - i.e. triples which have a predicate that is
+        /**
+         * General literal triples - i.e. triples which have a predicate that is
          * not a built in IRI. Annotation properties get precedence over data
          * properties, so that if we have the statement<br>
          * a:A a:foo a:B<br>
@@ -431,8 +458,9 @@ public class TripleHandlers {
          * statement will be translated as an annotation on a:A
          * 
          * @param r
-         *            consumer
-         * @return handlers */
+         *        consumer
+         * @return handlers
+         */
         public List<LiteralTripleHandler> getLiteralTripleHandlers(
                 OWLRDFConsumer r) {
             return Arrays.asList(
@@ -495,11 +523,14 @@ public class TripleHandlers {
         }
     }
 
-    /** A base handler for equivalent class axioms where the axiom is stated in a
+    /**
+     * A base handler for equivalent class axioms where the axiom is stated in a
      * direct way without an equivalent class triple. For example A
-     * intersectionOf (C or C) */
+     * intersectionOf (C or C)
+     */
     static abstract class AbstractNamedEquivalentClassAxiomHandler extends
             AbstractTriplePredicateHandler {
+
         public AbstractNamedEquivalentClassAxiomHandler(
                 OWLRDFConsumer consumer, IRI predicateIRI) {
             super(consumer, predicateIRI);
@@ -532,6 +563,7 @@ public class TripleHandlers {
 
     static abstract class AbstractResourceTripleHandler extends
             AbstractTripleHandler implements ResourceTripleHandler {
+
         protected AbstractResourceTripleHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -558,10 +590,12 @@ public class TripleHandlers {
                     && consumer.isClassExpression(object);
         }
 
-        /** @param subject
-         *            subject
+        /**
+         * @param subject
+         *        subject
          * @param object
-         *            object */
+         *        object
+         */
         protected void inferTypes(IRI subject, IRI object) {
             if (consumer.isClassExpression(object)) {
                 consumer.addClassExpression(subject, false);
@@ -576,6 +610,7 @@ public class TripleHandlers {
     }
 
     static class AbstractTripleHandler {
+
         protected final OWLRDFConsumer consumer;
         private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
         private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
@@ -848,6 +883,7 @@ public class TripleHandlers {
         }
 
         class ClassExpressionMatcher implements TypeMatcher {
+
             public ClassExpressionMatcher() {}
 
             @Override
@@ -857,6 +893,7 @@ public class TripleHandlers {
         }
 
         class DataRangeMatcher implements TypeMatcher {
+
             public DataRangeMatcher() {}
 
             @Override
@@ -866,6 +903,7 @@ public class TripleHandlers {
         }
 
         class IndividualMatcher implements TypeMatcher {
+
             public IndividualMatcher() {}
 
             @Override
@@ -877,6 +915,7 @@ public class TripleHandlers {
 
     static abstract class AbstractBuiltInTypeHandler extends
             AbstractTriplePredicateHandler implements BuiltInTypeHandler {
+
         private IRI typeIRI;
 
         protected AbstractBuiltInTypeHandler(OWLRDFConsumer consumer,
@@ -905,6 +944,7 @@ public class TripleHandlers {
 
     static class GTPAnnotationLiteralHandler extends AbstractTripleHandler
             implements LiteralTripleHandler {
+
         public GTPAnnotationLiteralHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -975,6 +1015,7 @@ public class TripleHandlers {
 
     static class GTPAnnotationResourceTripleHandler extends
             AbstractResourceTripleHandler {
+
         public GTPAnnotationResourceTripleHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -1029,6 +1070,7 @@ public class TripleHandlers {
 
     static class GTPDataPropertyAssertionHandler extends AbstractTripleHandler
             implements LiteralTripleHandler {
+
         public GTPDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -1062,6 +1104,7 @@ public class TripleHandlers {
 
     static class GTPLiteralTripleHandler extends AbstractTripleHandler
             implements LiteralTripleHandler {
+
         public GTPLiteralTripleHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -1091,6 +1134,7 @@ public class TripleHandlers {
 
     static class GTPObjectPropertyAssertionHandler extends
             AbstractResourceTripleHandler {
+
         public GTPObjectPropertyAssertionHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -1125,6 +1169,7 @@ public class TripleHandlers {
     }
 
     static class GTPResourceTripleHandler extends AbstractResourceTripleHandler {
+
         public GTPResourceTripleHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -1145,6 +1190,7 @@ public class TripleHandlers {
     }
 
     static class SKOSClassTripleHandler extends AbstractBuiltInTypeHandler {
+
         public SKOSClassTripleHandler(OWLRDFConsumer consumer, SKOSVocabulary v) {
             super(consumer, v.getIRI());
         }
@@ -1158,6 +1204,7 @@ public class TripleHandlers {
     }
 
     static class TPAllValuesFromHandler extends AbstractTriplePredicateHandler {
+
         public TPAllValuesFromHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ALL_VALUES_FROM.getIRI());
         }
@@ -1189,6 +1236,7 @@ public class TripleHandlers {
 
     static class TPAnnotatedPropertyHandler extends
             AbstractTriplePredicateHandler {
+
         public TPAnnotatedPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ANNOTATED_PROPERTY.getIRI());
         }
@@ -1207,6 +1255,7 @@ public class TripleHandlers {
 
     static class TPAnnotatedSourceHandler extends
             AbstractTriplePredicateHandler {
+
         public TPAnnotatedSourceHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ANNOTATED_SOURCE.getIRI());
         }
@@ -1225,6 +1274,7 @@ public class TripleHandlers {
 
     static class TPAnnotatedTargetHandler extends
             AbstractTriplePredicateHandler {
+
         public TPAnnotatedTargetHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ANNOTATED_TARGET.getIRI());
         }
@@ -1243,6 +1293,7 @@ public class TripleHandlers {
 
     static class TPComplementOfHandler extends
             AbstractNamedEquivalentClassAxiomHandler {
+
         public TPComplementOfHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_COMPLEMENT_OF.getIRI());
         }
@@ -1264,6 +1315,7 @@ public class TripleHandlers {
 
     static class TPDatatypeComplementOfHandler extends
             AbstractTriplePredicateHandler {
+
         public TPDatatypeComplementOfHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DATATYPE_COMPLEMENT_OF.getIRI());
         }
@@ -1287,6 +1339,7 @@ public class TripleHandlers {
 
     @Deprecated
     static class TPDeclaredAsHandler extends AbstractTriplePredicateHandler {
+
         public TPDeclaredAsHandler(OWLRDFConsumer consumer) {
             super(consumer, DeprecatedVocabulary.OWL_DECLARED_AS);
         }
@@ -1318,6 +1371,7 @@ public class TripleHandlers {
     }
 
     static class TPDifferentFromHandler extends AbstractTriplePredicateHandler {
+
         public TPDifferentFromHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DIFFERENT_FROM.getIRI());
         }
@@ -1340,6 +1394,7 @@ public class TripleHandlers {
     }
 
     static class TPDisjointUnionHandler extends AbstractTriplePredicateHandler {
+
         public TPDisjointUnionHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DISJOINT_UNION_OF.getIRI());
         }
@@ -1372,6 +1427,7 @@ public class TripleHandlers {
     }
 
     static class TPDisjointWithHandler extends AbstractTriplePredicateHandler {
+
         public TPDisjointWithHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DISJOINT_WITH.getIRI());
         }
@@ -1410,6 +1466,7 @@ public class TripleHandlers {
 
     static class TPDistinctMembersHandler extends
             AbstractTriplePredicateHandler {
+
         public TPDistinctMembersHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DISTINCT_MEMBERS.getIRI());
         }
@@ -1433,6 +1490,7 @@ public class TripleHandlers {
 
     static class TPEquivalentClassHandler extends
             AbstractTriplePredicateHandler {
+
         public TPEquivalentClassHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_EQUIVALENT_CLASS.getIRI());
         }
@@ -1497,6 +1555,7 @@ public class TripleHandlers {
 
     static class TPEquivalentPropertyHandler extends
             AbstractTriplePredicateHandler {
+
         public TPEquivalentPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_EQUIVALENT_PROPERTY.getIRI());
         }
@@ -1534,6 +1593,7 @@ public class TripleHandlers {
 
     static class TPFirstLiteralHandler extends AbstractTripleHandler implements
             LiteralTripleHandler {
+
         public TPFirstLiteralHandler(OWLRDFConsumer consumer) {
             super(consumer);
         }
@@ -1558,6 +1618,7 @@ public class TripleHandlers {
     }
 
     static class TPFirstResourceHandler extends AbstractTriplePredicateHandler {
+
         public TPFirstResourceHandler(OWLRDFConsumer consumer) {
             super(consumer, RDF_FIRST.getIRI());
         }
@@ -1576,6 +1637,7 @@ public class TripleHandlers {
     }
 
     static class TPHasKeyHandler extends AbstractTriplePredicateHandler {
+
         private OptimisedListTranslator<OWLPropertyExpression> listTranslator;
 
         public TPHasKeyHandler(OWLRDFConsumer consumer) {
@@ -1604,6 +1666,7 @@ public class TripleHandlers {
     }
 
     static class TPHasValueHandler extends AbstractTriplePredicateHandler {
+
         public TPHasValueHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_HAS_VALUE.getIRI());
         }
@@ -1620,6 +1683,7 @@ public class TripleHandlers {
     }
 
     static class TPImportsHandler extends AbstractTriplePredicateHandler {
+
         public TPImportsHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_IMPORTS.getIRI());
         }
@@ -1693,6 +1757,7 @@ public class TripleHandlers {
     /** A handler for top level intersection classes. */
     static class TPIntersectionOfHandler extends
             AbstractNamedEquivalentClassAxiomHandler {
+
         public TPIntersectionOfHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_INTERSECTION_OF.getIRI());
         }
@@ -1721,6 +1786,7 @@ public class TripleHandlers {
 
     /** owl:inverseOf is used in both property expressions AND axioms. */
     static class TPInverseOfHandler extends AbstractTriplePredicateHandler {
+
         private boolean axiomParsingMode = false;
 
         public TPInverseOfHandler(OWLRDFConsumer consumer) {
@@ -1765,6 +1831,7 @@ public class TripleHandlers {
     }
 
     static class TPOnClassHandler extends AbstractTriplePredicateHandler {
+
         public TPOnClassHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ON_CLASS.getIRI());
         }
@@ -1786,6 +1853,7 @@ public class TripleHandlers {
     }
 
     static class TPOnDataRangeHandler extends AbstractTriplePredicateHandler {
+
         public TPOnDataRangeHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ON_DATA_RANGE.getIRI());
         }
@@ -1807,6 +1875,7 @@ public class TripleHandlers {
     }
 
     static class TPOnPropertyHandler extends AbstractTriplePredicateHandler {
+
         public TPOnPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ON_PROPERTY.getIRI());
         }
@@ -1824,6 +1893,7 @@ public class TripleHandlers {
 
     static class TPOneOfHandler extends
             AbstractNamedEquivalentClassAxiomHandler {
+
         public TPOneOfHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ONE_OF.getIRI());
         }
@@ -1837,6 +1907,7 @@ public class TripleHandlers {
 
     static class TPPropertyChainAxiomHandler extends
             AbstractTriplePredicateHandler {
+
         public TPPropertyChainAxiomHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_PROPERTY_CHAIN_AXIOM.getIRI());
         }
@@ -1862,6 +1933,7 @@ public class TripleHandlers {
 
     static class TPPropertyDisjointWithHandler extends
             AbstractTriplePredicateHandler {
+
         public TPPropertyDisjointWithHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_PROPERTY_DISJOINT_WITH.getIRI());
         }
@@ -1906,6 +1978,7 @@ public class TripleHandlers {
     }
 
     static class TPPropertyDomainHandler extends AbstractTriplePredicateHandler {
+
         public TPPropertyDomainHandler(OWLRDFConsumer consumer) {
             super(consumer, RDFS_DOMAIN.getIRI());
         }
@@ -1960,6 +2033,7 @@ public class TripleHandlers {
     }
 
     static class TPPropertyRangeHandler extends AbstractTriplePredicateHandler {
+
         public TPPropertyRangeHandler(OWLRDFConsumer consumer) {
             super(consumer, RDFS_RANGE.getIRI());
         }
@@ -2032,6 +2106,7 @@ public class TripleHandlers {
     }
 
     static class TPRestHandler extends AbstractTriplePredicateHandler {
+
         public TPRestHandler(OWLRDFConsumer consumer) {
             super(consumer, RDF_REST.getIRI());
         }
@@ -2052,6 +2127,7 @@ public class TripleHandlers {
     }
 
     static class TPSameAsHandler extends AbstractTriplePredicateHandler {
+
         public TPSameAsHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_SAME_AS.getIRI());
         }
@@ -2074,6 +2150,7 @@ public class TripleHandlers {
     }
 
     static class TPSomeValuesFromHandler extends AbstractTriplePredicateHandler {
+
         public TPSomeValuesFromHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_SOME_VALUES_FROM.getIRI());
         }
@@ -2098,9 +2175,12 @@ public class TripleHandlers {
         }
     }
 
-    /** Handles rdfs:subClassOf triples. If handling is set to strict then the
-     * triple is only consumed if the subject and object are typed as classes. */
+    /**
+     * Handles rdfs:subClassOf triples. If handling is set to strict then the
+     * triple is only consumed if the subject and object are typed as classes.
+     */
     static class TPSubClassOfHandler extends AbstractTriplePredicateHandler {
+
         public TPSubClassOfHandler(OWLRDFConsumer consumer) {
             super(consumer, RDFS_SUBCLASS_OF.getIRI());
         }
@@ -2152,6 +2232,7 @@ public class TripleHandlers {
     }
 
     static class TPSubPropertyOfHandler extends AbstractTriplePredicateHandler {
+
         public TPSubPropertyOfHandler(OWLRDFConsumer consumer) {
             super(consumer, RDFS_SUB_PROPERTY_OF.getIRI());
         }
@@ -2236,6 +2317,7 @@ public class TripleHandlers {
     }
 
     static class TPTypeHandler extends AbstractTriplePredicateHandler {
+
         public TPTypeHandler(OWLRDFConsumer consumer) {
             super(consumer, RDF_TYPE.getIRI());
         }
@@ -2272,6 +2354,7 @@ public class TripleHandlers {
 
     static class TPUnionOfHandler extends
             AbstractNamedEquivalentClassAxiomHandler {
+
         public TPUnionOfHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_UNION_OF.getIRI());
         }
@@ -2284,6 +2367,7 @@ public class TripleHandlers {
     }
 
     static class TPVersionIRIHandler extends AbstractTriplePredicateHandler {
+
         public TPVersionIRIHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_VERSION_IRI.getIRI());
         }
@@ -2327,6 +2411,7 @@ public class TripleHandlers {
 
     static abstract class AbstractTriplePredicateHandler extends
             AbstractResourceTripleHandler implements TriplePredicateHandler {
+
         private IRI predicateIRI;
 
         public AbstractTriplePredicateHandler(OWLRDFConsumer consumer,
@@ -2348,6 +2433,7 @@ public class TripleHandlers {
     }
 
     static class TypeAllDifferentHandler extends AbstractBuiltInTypeHandler {
+
         public TypeAllDifferentHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ALL_DIFFERENT.getIRI());
         }
@@ -2380,6 +2466,7 @@ public class TripleHandlers {
 
     static class TypeAllDisjointClassesHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeAllDisjointClassesHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ALL_DISJOINT_CLASSES.getIRI());
         }
@@ -2413,6 +2500,7 @@ public class TripleHandlers {
 
     static class TypeAllDisjointPropertiesHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeAllDisjointPropertiesHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ALL_DISJOINT_PROPERTIES.getIRI());
         }
@@ -2450,6 +2538,7 @@ public class TripleHandlers {
     }
 
     static class TypeAnnotationHandler extends AbstractBuiltInTypeHandler {
+
         public TypeAnnotationHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ANNOTATION.getIRI());
         }
@@ -2462,6 +2551,7 @@ public class TripleHandlers {
 
     static class TypeAnnotationPropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeAnnotationPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ANNOTATION_PROPERTY.getIRI());
         }
@@ -2481,6 +2571,7 @@ public class TripleHandlers {
 
     static class TypeAsymmetricPropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeAsymmetricPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ASYMMETRIC_PROPERTY.getIRI());
         }
@@ -2504,6 +2595,7 @@ public class TripleHandlers {
     }
 
     static class TypeAxiomHandler extends AbstractBuiltInTypeHandler {
+
         public TypeAxiomHandler(OWLRDFConsumer consumer) {
             this(consumer, OWL_AXIOM.getIRI());
         }
@@ -2522,26 +2614,32 @@ public class TripleHandlers {
             return false;
         }
 
-        /** Gets the IRI of the predicate of the triple that specifies the target
+        /**
+         * Gets the IRI of the predicate of the triple that specifies the target
          * of a reified axiom
          * 
-         * @return The IRI, by default this is owl:annotatedTarget */
+         * @return The IRI, by default this is owl:annotatedTarget
+         */
         protected OWLRDFVocabulary getTargetTriplePredicate() {
             return OWL_ANNOTATED_TARGET;
         }
 
-        /** Gets the IRI of the predicate of the triple that specifies that
+        /**
+         * Gets the IRI of the predicate of the triple that specifies that
          * predicate of a reified axiom
          * 
-         * @return The IRI, by default this is owl:annotatedProperty */
+         * @return The IRI, by default this is owl:annotatedProperty
+         */
         protected OWLRDFVocabulary getPropertyTriplePredicate() {
             return OWL_ANNOTATED_PROPERTY;
         }
 
-        /** Gets the IRI of the predicate of the triple that specifies the source
+        /**
+         * Gets the IRI of the predicate of the triple that specifies the source
          * of a reified axiom
          * 
-         * @return The IRI, by default this is owl:annotatedSource */
+         * @return The IRI, by default this is owl:annotatedSource
+         */
         protected OWLRDFVocabulary getSourceTriplePredicate() {
             return OWL_ANNOTATED_SOURCE;
         }
@@ -2601,16 +2699,18 @@ public class TripleHandlers {
             return con;
         }
 
-        /** Gets the object of the target triple that has the specified main node
+        /**
+         * Gets the object of the target triple that has the specified main node
          * 
          * @param mainNode
-         *            The main node
+         *        The main node
          * @return The object of the triple that has the specified mainNode as
          *         its subject and the IRI returned by the
          *         {@code TypeAxiomHandler#getSourceTriplePredicate()} method.
          *         For backwards compatibility, a search will also be performed
          *         for triples whos subject is the specified mainNode and
-         *         predicate rdf:object */
+         *         predicate rdf:object
+         */
         private IRI getObjectOfTargetTriple(IRI mainNode) {
             IRI objectTripleObject = consumer.getResourceObject(mainNode,
                     getTargetTriplePredicate(), true);
@@ -2635,13 +2735,15 @@ public class TripleHandlers {
             return predicateTripleObject;
         }
 
-        /** Gets the source IRI for an annotated or reified axiom
+        /**
+         * Gets the source IRI for an annotated or reified axiom
          * 
          * @param mainNode
-         *            The main node of the triple
+         *        The main node of the triple
          * @return The source object
          * @throws OWLRDFXMLParserMalformedNodeException
-         *             malformed node */
+         *         malformed node
+         */
         private IRI getObjectOfSourceTriple(IRI mainNode) {
             IRI subjectTripleObject = consumer.getResourceObject(mainNode,
                     getSourceTriplePredicate(), true);
@@ -2654,6 +2756,7 @@ public class TripleHandlers {
     }
 
     static class TypeClassHandler extends AbstractBuiltInTypeHandler {
+
         public TypeClassHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_CLASS.getIRI());
         }
@@ -2670,6 +2773,7 @@ public class TripleHandlers {
     }
 
     static class TypeDataPropertyHandler extends AbstractBuiltInTypeHandler {
+
         public TypeDataPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DATA_PROPERTY.getIRI());
         }
@@ -2687,6 +2791,7 @@ public class TripleHandlers {
     }
 
     static class TypeDataRangeHandler extends AbstractBuiltInTypeHandler {
+
         public TypeDataRangeHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DATA_RANGE.getIRI());
         }
@@ -2700,6 +2805,7 @@ public class TripleHandlers {
     }
 
     static class TypeDatatypeHandler extends AbstractBuiltInTypeHandler {
+
         public TypeDatatypeHandler(OWLRDFConsumer consumer) {
             super(consumer, RDFS_DATATYPE.getIRI());
         }
@@ -2716,6 +2822,7 @@ public class TripleHandlers {
     }
 
     static class TypeDeprecatedClassHandler extends AbstractBuiltInTypeHandler {
+
         public TypeDeprecatedClassHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DEPRECATED_CLASS.getIRI());
         }
@@ -2730,6 +2837,7 @@ public class TripleHandlers {
 
     static class TypeDeprecatedPropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeDeprecatedPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_DEPRECATED_PROPERTY.getIRI());
         }
@@ -2743,6 +2851,7 @@ public class TripleHandlers {
 
     static class TypeFunctionalPropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeFunctionalPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_FUNCTIONAL_PROPERTY.getIRI());
         }
@@ -2773,6 +2882,7 @@ public class TripleHandlers {
 
     static class TypeInverseFunctionalPropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeInverseFunctionalPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI());
         }
@@ -2798,6 +2908,7 @@ public class TripleHandlers {
 
     static class TypeIrreflexivePropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeIrreflexivePropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_IRREFLEXIVE_PROPERTY.getIRI());
         }
@@ -2821,6 +2932,7 @@ public class TripleHandlers {
     }
 
     static class TypeListHandler extends AbstractBuiltInTypeHandler {
+
         public TypeListHandler(OWLRDFConsumer consumer) {
             super(consumer, RDF_LIST.getIRI());
         }
@@ -2832,6 +2944,7 @@ public class TripleHandlers {
     }
 
     static class TypeNamedIndividualHandler extends AbstractBuiltInTypeHandler {
+
         public TypeNamedIndividualHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_NAMED_INDIVIDUAL.getIRI());
         }
@@ -2850,6 +2963,7 @@ public class TripleHandlers {
 
     static class TypeNegativeDataPropertyAssertionHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeNegativeDataPropertyAssertionHandler(OWLRDFConsumer consumer) {
             super(consumer,
                     DeprecatedVocabulary.OWL_NEGATIVE_DATA_PROPERTY_ASSERTION);
@@ -2906,6 +3020,7 @@ public class TripleHandlers {
 
     static class TypeNegativePropertyAssertionHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeNegativePropertyAssertionHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_NEGATIVE_PROPERTY_ASSERTION.getIRI());
         }
@@ -2983,6 +3098,7 @@ public class TripleHandlers {
     }
 
     static class TypeObjectPropertyHandler extends AbstractBuiltInTypeHandler {
+
         public TypeObjectPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_OBJECT_PROPERTY.getIRI());
         }
@@ -3000,6 +3116,7 @@ public class TripleHandlers {
     }
 
     static class TypeOntologyHandler extends AbstractBuiltInTypeHandler {
+
         public TypeOntologyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_ONTOLOGY.getIRI());
         }
@@ -3022,6 +3139,7 @@ public class TripleHandlers {
     }
 
     static class TypeOntologyPropertyHandler extends AbstractBuiltInTypeHandler {
+
         public TypeOntologyPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, DeprecatedVocabulary.OWL_ONTOLOGY_PROPERTY);
         }
@@ -3043,6 +3161,7 @@ public class TripleHandlers {
     }
 
     static class TypePropertyHandler extends AbstractBuiltInTypeHandler {
+
         public TypePropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, RDF_PROPERTY.getIRI());
         }
@@ -3059,6 +3178,7 @@ public class TripleHandlers {
     }
 
     static class TypeRDFSClassHandler extends AbstractBuiltInTypeHandler {
+
         public TypeRDFSClassHandler(OWLRDFConsumer consumer) {
             super(consumer, RDFS_CLASS.getIRI());
         }
@@ -3077,6 +3197,7 @@ public class TripleHandlers {
 
     static class TypeReflexivePropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeReflexivePropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_REFLEXIVE_PROPERTY.getIRI());
         }
@@ -3100,6 +3221,7 @@ public class TripleHandlers {
     }
 
     static class TypeRestrictionHandler extends AbstractBuiltInTypeHandler {
+
         public TypeRestrictionHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_RESTRICTION.getIRI());
         }
@@ -3113,6 +3235,7 @@ public class TripleHandlers {
     }
 
     static class TypeSWRLAtomListHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSWRLAtomListHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.ATOM_LIST.getIRI());
         }
@@ -3124,6 +3247,7 @@ public class TripleHandlers {
     }
 
     static class TypeSWRLBuiltInAtomHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSWRLBuiltInAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.BUILT_IN_ATOM.getIRI());
         }
@@ -3136,6 +3260,7 @@ public class TripleHandlers {
     }
 
     static class TypeSWRLBuiltInHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSWRLBuiltInHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.BUILT_IN_CLASS.getIRI());
         }
@@ -3148,6 +3273,7 @@ public class TripleHandlers {
     }
 
     static class TypeSWRLClassAtomHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSWRLClassAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.CLASS_ATOM.getIRI());
         }
@@ -3161,6 +3287,7 @@ public class TripleHandlers {
 
     static class TypeSWRLDataRangeAtomHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeSWRLDataRangeAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.DATA_RANGE_ATOM.getIRI());
         }
@@ -3174,6 +3301,7 @@ public class TripleHandlers {
 
     static class TypeSWRLDataValuedPropertyAtomHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeSWRLDataValuedPropertyAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.DATAVALUED_PROPERTY_ATOM.getIRI());
         }
@@ -3187,6 +3315,7 @@ public class TripleHandlers {
 
     static class TypeSWRLDifferentIndividualsAtomHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeSWRLDifferentIndividualsAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.DIFFERENT_INDIVIDUALS_ATOM.getIRI());
         }
@@ -3199,6 +3328,7 @@ public class TripleHandlers {
     }
 
     static class TypeSWRLImpHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSWRLImpHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.IMP.getIRI());
         }
@@ -3212,6 +3342,7 @@ public class TripleHandlers {
 
     static class TypeSWRLIndividualPropertyAtomHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeSWRLIndividualPropertyAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.INDIVIDUAL_PROPERTY_ATOM.getIRI());
         }
@@ -3225,6 +3356,7 @@ public class TripleHandlers {
 
     static class TypeSWRLSameIndividualAtomHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeSWRLSameIndividualAtomHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.SAME_INDIVIDUAL_ATOM.getIRI());
         }
@@ -3237,6 +3369,7 @@ public class TripleHandlers {
     }
 
     static class TypeSWRLVariableHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSWRLVariableHandler(OWLRDFConsumer consumer) {
             super(consumer, SWRLVocabulary.VARIABLE.getIRI());
         }
@@ -3249,6 +3382,7 @@ public class TripleHandlers {
     }
 
     static class TypeSelfRestrictionHandler extends AbstractBuiltInTypeHandler {
+
         public TypeSelfRestrictionHandler(OWLRDFConsumer consumer) {
             super(consumer, DeprecatedVocabulary.OWL_SELF_RESTRICTION);
         }
@@ -3265,6 +3399,7 @@ public class TripleHandlers {
 
     static class TypeSymmetricPropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeSymmetricPropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_SYMMETRIC_PROPERTY.getIRI());
         }
@@ -3293,6 +3428,7 @@ public class TripleHandlers {
 
     static class TypeTransitivePropertyHandler extends
             AbstractBuiltInTypeHandler {
+
         public TypeTransitivePropertyHandler(OWLRDFConsumer consumer) {
             super(consumer, OWL_TRANSITIVE_PROPERTY.getIRI());
         }

@@ -12,12 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.renderer;
 
-/** Developed as part of the CO-ODE project http://www.co-ode.org
+/**
+ * Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class XMLWriterPreferences {
+
     private static XMLWriterPreferences instance = new XMLWriterPreferences();
     private boolean useNamespaceEntities;
     private boolean indenting;
@@ -39,8 +42,10 @@ public class XMLWriterPreferences {
         return useNamespaceEntities;
     }
 
-    /** @param useNamespaceEntities
-     *            useNamespaceEntities */
+    /**
+     * @param useNamespaceEntities
+     *        useNamespaceEntities
+     */
     public void setUseNamespaceEntities(boolean useNamespaceEntities) {
         this.useNamespaceEntities = useNamespaceEntities;
     }
@@ -50,8 +55,10 @@ public class XMLWriterPreferences {
         return indenting;
     }
 
-    /** @param indenting
-     *            indenting */
+    /**
+     * @param indenting
+     *        indenting
+     */
     public void setIndenting(boolean indenting) {
         this.indenting = indenting;
     }
@@ -61,8 +68,10 @@ public class XMLWriterPreferences {
         return indentSize;
     }
 
-    /** @param indentSize
-     *            indentSize */
+    /**
+     * @param indentSize
+     *        indentSize
+     */
     public void setIndentSize(int indentSize) {
         this.indentSize = indentSize;
     }

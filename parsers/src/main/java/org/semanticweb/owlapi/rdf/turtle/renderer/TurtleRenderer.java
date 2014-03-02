@@ -49,22 +49,27 @@ import org.semanticweb.owlapi.util.VersionInfo;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class TurtleRenderer extends RDFRendererBase {
+
     private PrintWriter writer;
     private PrefixManager pm;
     private Set<RDFResource> pending;
     private String base;
     private OWLOntologyFormat format;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param writer
-     *            writer
+     *        writer
      * @param format
-     *            format */
+     *        format
+     */
     public TurtleRenderer(OWLOntology ontology, Writer writer,
             OWLOntologyFormat format) {
         super(ontology, format);

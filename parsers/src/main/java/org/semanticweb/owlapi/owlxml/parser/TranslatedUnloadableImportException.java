@@ -15,15 +15,20 @@ package org.semanticweb.owlapi.owlxml.parser;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.xml.sax.SAXException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class TranslatedUnloadableImportException extends SAXException {
+
     private static final long serialVersionUID = 40000L;
     private UnloadableImportException unloadableImportException;
 
-    /** @param e
-     *            cause */
+    /**
+     * @param e
+     *        cause
+     */
     public TranslatedUnloadableImportException(UnloadableImportException e) {
         super(e);
         unloadableImportException = e;

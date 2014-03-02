@@ -29,23 +29,28 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLObjectPropertyAssertionAxiomImpl
         extends
         OWLIndividualRelationshipAxiomImpl<OWLObjectPropertyExpression, OWLIndividual>
         implements OWLObjectPropertyAssertionAxiom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param subject
-     *            subject
+    /**
+     * @param subject
+     *        subject
      * @param property
-     *            property
+     *        property
      * @param object
-     *            object
+     *        object
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLObjectPropertyAssertionAxiomImpl(@Nonnull OWLIndividual subject,
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLIndividual object,

@@ -22,12 +22,15 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** Manual IRI mapper.
+/**
+ * Manual IRI mapper.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
+
     private final Map<IRI, IRI> iriMap = new TreeMap<IRI, IRI>();
 
     @Override
@@ -40,10 +43,12 @@ public class OWLOntologyIRIMapperImpl implements OWLOntologyIRIMapper {
         }
     }
 
-    /** @param ontologyIRI
-     *            new ontology iri
+    /**
+     * @param ontologyIRI
+     *        new ontology iri
      * @param documentIRI
-     *            new document iri */
+     *        new document iri
+     */
     public void addMapping(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
         iriMap.put(checkNotNull(ontologyIRI, "ontologyIRI cannot be null"),
                 checkNotNull(documentIRI, "documentIRI cannot be null"));

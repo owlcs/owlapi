@@ -17,18 +17,23 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLNaryIndividualAxiom extends OWLIndividualAxiom,
         OWLNaryAxiom, OWLSubClassOfAxiomSetShortCut {
+
     /** @return the individuals */
     @Nonnull
     Set<OWLIndividual> getIndividuals();
 
-    /** Gets the individuals returned by {@link #getIndividuals()} as a list.
+    /**
+     * Gets the individuals returned by {@link #getIndividuals()} as a list.
      * 
-     * @return The individuals in this axiom as a list */
+     * @return The individuals in this axiom as a list
+     */
     @Nonnull
     List<OWLIndividual> getIndividualsAsList();
 }

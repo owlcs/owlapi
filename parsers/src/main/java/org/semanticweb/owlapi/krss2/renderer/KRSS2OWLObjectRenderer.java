@@ -57,13 +57,16 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
 /** @author Olaf Noppens */
 public class KRSS2OWLObjectRenderer extends OWLObjectVisitorAdapter {
+
     private final OWLOntology ontology;
     private final Writer writer;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param writer
-     *            writer */
+     *        writer
+     */
     public KRSS2OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;

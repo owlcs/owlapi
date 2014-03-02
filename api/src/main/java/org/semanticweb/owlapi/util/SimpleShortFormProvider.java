@@ -16,7 +16,8 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** A very simple short form provider which is intended to provide human readable
+/**
+ * A very simple short form provider which is intended to provide human readable
  * display names for entities. The following strategy is used: 1) If the entity
  * URI has a fragment then that fragment is returned e.g. http://an.other.com#A
  * would have a short form of "A". 2) If the entity URI does not have a fragment
@@ -26,8 +27,10 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SimpleShortFormProvider implements ShortFormProvider, Serializable {
+
     private static final long serialVersionUID = 40000L;
     private final SimpleIRIShortFormProvider uriShortFormProvider = new SimpleIRIShortFormProvider();
 

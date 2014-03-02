@@ -22,17 +22,22 @@ import org.junit.Test;
 import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.model.IRI;
 
-/** Unit tests for the {@link IRI} class.
+/**
+ * Unit tests for the {@link IRI} class.
  * 
- * @author Peter Ansell p_ansell@yahoo.com */
+ * @author Peter Ansell p_ansell@yahoo.com
+ */
 @SuppressWarnings("javadoc")
 public class IRITest {
+
     /** All of the unit tests individually timeout after 60 seconds. */
     @Rule
     public Timeout timeout = new Timeout(10000);
 
-    /** Test method for
-     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
+    /**
+     * Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
+     */
     @Test
     public void testIRIStringConcurrentWithCacheUse() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
@@ -42,6 +47,7 @@ public class IRITest {
         for (int i = 0; i < threadCount; i++) {
             final int number = i;
             Runnable runner = new Runnable() {
+
                 @Override
                 public void run() {
                     try {
@@ -72,8 +78,10 @@ public class IRITest {
         assertEquals(threadCount, count.get());
     }
 
-    /** Test method for
-     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
+    /**
+     * Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
+     */
     @Test
     public void testIRIStringConcurrentNoCacheUse() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
@@ -83,6 +91,7 @@ public class IRITest {
         for (int i = 0; i < threadCount; i++) {
             final int number = i;
             Runnable runner = new Runnable() {
+
                 @Override
                 public void run() {
                     try {
@@ -113,8 +122,10 @@ public class IRITest {
         assertEquals(threadCount, count.get());
     }
 
-    /** Test method for
-     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
+    /**
+     * Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
+     */
     @Test
     public void testIRIStringSerialWithCacheUse() {
         for (int i = 0; i < 100000; i++) {
@@ -123,8 +134,10 @@ public class IRITest {
         }
     }
 
-    /** Test method for
-     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}. */
+    /**
+     * Test method for
+     * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
+     */
     @Test
     public void testIRIStringSerialNoCacheUse() {
         for (int i = 0; i < 100000; i++) {

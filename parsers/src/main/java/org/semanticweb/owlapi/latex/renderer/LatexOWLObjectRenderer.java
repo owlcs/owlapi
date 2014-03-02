@@ -19,15 +19,20 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class LatexOWLObjectRenderer implements OWLObjectRenderer {
+
     private OWLDataFactory dataFactory;
     private ShortFormProvider shortFormProvider;
 
-    /** @param dataFactory
-     *            dataFactory */
+    /**
+     * @param dataFactory
+     *        dataFactory
+     */
     public LatexOWLObjectRenderer(OWLDataFactory dataFactory) {
         this.dataFactory = dataFactory;
     }

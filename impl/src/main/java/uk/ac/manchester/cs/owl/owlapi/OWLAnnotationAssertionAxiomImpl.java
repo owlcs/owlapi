@@ -31,24 +31,29 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
         OWLAnnotationAssertionAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLAnnotationSubject subject;
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
 
-    /** @param subject
-     *            subject for axiom
+    /**
+     * @param subject
+     *        subject for axiom
      * @param property
-     *            annotation property
+     *        annotation property
      * @param value
-     *            annotation value
+     *        annotation value
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLAnnotationAssertionAxiomImpl(
             @Nonnull OWLAnnotationSubject subject,
             @Nonnull OWLAnnotationProperty property,
@@ -69,12 +74,14 @@ public class OWLAnnotationAssertionAxiomImpl extends OWLAxiomImpl implements
                 getValue(), NO_ANNOTATIONS);
     }
 
-    /** Determines if this annotation assertion deprecates the IRI that is the
+    /**
+     * Determines if this annotation assertion deprecates the IRI that is the
      * subject of the annotation.
      * 
      * @return {@code true} if this annotation assertion deprecates the subject
      *         IRI of the assertion, otherwise {@code false}.
-     * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation() */
+     * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
+     */
     @Override
     public boolean isDeprecatedIRIAssertion() {
         return property.isDeprecated()

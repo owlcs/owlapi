@@ -25,11 +25,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.NNF;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class NNFTestCase extends TestBase {
+
     @Test
     public void testPosOWLClass() {
         OWLClass cls = Class(getIRI("A"));

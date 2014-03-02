@@ -19,11 +19,14 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 /** Token Manager. */
 @SuppressWarnings("unused")
 public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** @param ds
-     *            debug stream */
+    /**
+     * @param ds
+     *        debug stream
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -2010,8 +2013,10 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     private final int[] jjstateSet = new int[102];
     protected char curChar;
 
-    /** @param stream
-     *            the stream */
+    /**
+     * @param stream
+     *        the stream
+     */
     public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new OWLRuntimeException(
@@ -2020,19 +2025,23 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         input_stream = stream;
     }
 
-    /** @param stream
-     *            the stream
+    /**
+     * @param stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public KRSS2ParserTokenManager(BOMSafeJavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(BOMSafeJavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -2048,21 +2057,25 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void ReInit(BOMSafeJavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -2103,9 +2116,11 @@ public class KRSS2ParserTokenManager implements KRSS2ParserConstants {
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         Token matchedToken;
         int curPos = 0;

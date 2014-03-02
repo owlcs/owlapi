@@ -16,24 +16,31 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** A general purpose interface which provides the ability to parse some
+/**
+ * A general purpose interface which provides the ability to parse some
  * expression into some kind of object.
  * 
  * @param <O>
- *            the kind of parsed expression
+ *        the kind of parsed expression
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public interface OWLExpressionParser<O extends Object> {
-    /** @param entityChecker
-     *            the entity checker to use */
+
+    /**
+     * @param entityChecker
+     *        the entity checker to use
+     */
     void setOWLEntityChecker(@Nonnull OWLEntityChecker entityChecker);
 
-    /** @param expression
-     *            the expression to parse
+    /**
+     * @param expression
+     *        the expression to parse
      * @return the parsed expression
      * @throws OWLParserException
-     *             parse exception */
+     *         parse exception
+     */
     @Nonnull
     O parse(@Nonnull String expression) throws OWLParserException;
 }

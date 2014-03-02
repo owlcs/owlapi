@@ -19,13 +19,16 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLCardinalityRestriction;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <F>
- *            filler type */
+ *        filler type
+ */
 public abstract class OWLCardinalityRestrictionImpl<F extends OWLPropertyRange>
         extends OWLRestrictionImpl implements OWLCardinalityRestriction<F> {
+
     private static final long serialVersionUID = 40000L;
     private final int cardinality;
     private final F filler;

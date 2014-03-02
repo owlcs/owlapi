@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class InvalidAxiomRoundTripTestCase extends TestBase {
+
     private OWLOntology o;
 
     @Before

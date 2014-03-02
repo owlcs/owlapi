@@ -24,16 +24,21 @@ import org.semanticweb.owlapi.model.SWRLIndividualArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SWRLIndividualArgumentImpl extends OWLObjectImpl implements
         SWRLIndividualArgument {
+
     private static final long serialVersionUID = 40000L;
     private final OWLIndividual individual;
 
-    /** @param individual
-     *            individual for argument */
+    /**
+     * @param individual
+     *        individual for argument
+     */
     public SWRLIndividualArgumentImpl(@Nonnull OWLIndividual individual) {
         super();
         this.individual = checkNotNull(individual, "individual cannot be null");

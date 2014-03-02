@@ -24,16 +24,19 @@ import org.semanticweb.owlapi.model.OWLClassAxiom;
 /** @author ignazio */
 public class ClassAxiomByClassPointer extends
         MapPointer<OWLClass, OWLClassAxiom> {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param t
-     *            axiom type
+    /**
+     * @param t
+     *        axiom type
      * @param v
-     *            visitor
+     *        visitor
      * @param initialized
-     *            initialized
+     *        initialized
      * @param i
-     *            internals */
+     *        internals
+     */
     public ClassAxiomByClassPointer(@Nullable AxiomType<?> t,
             @Nullable OWLAxiomVisitorEx<?> v, boolean initialized,
             @Nonnull Internals i) {

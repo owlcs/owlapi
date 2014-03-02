@@ -31,22 +31,27 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-/** The Class OWLObjectRenderer.
+/**
+ * The Class OWLObjectRenderer.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLObjectRenderer implements OWLObjectVisitor {
+
     private PrefixManager prefixManager;
     protected OWLOntology ontology;
     private Writer writer;
     private boolean writeEntitiesAsURIs = true;
     private OWLObject focusedObject;
 
-    /** @param ontology
-     *            the ontology
+    /**
+     * @param ontology
+     *        the ontology
      * @param writer
-     *            the writer */
+     *        the writer
+     */
     public OWLObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = writer;
@@ -68,22 +73,28 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
                 .getOWLThing();
     }
 
-    /** @param prefixManager
-     *            the new prefix manager */
+    /**
+     * @param prefixManager
+     *        the new prefix manager
+     */
     public void setPrefixManager(PrefixManager prefixManager) {
         this.prefixManager = prefixManager;
     }
 
-    /** @param focusedObject
-     *            the new focused object */
+    /**
+     * @param focusedObject
+     *        the new focused object
+     */
     public void setFocusedObject(OWLObject focusedObject) {
         this.focusedObject = focusedObject;
     }
 
-    /** @param prefix
-     *            the prefix
+    /**
+     * @param prefix
+     *        the prefix
      * @param namespace
-     *            the namespace */
+     *        the namespace
+     */
     public void writePrefix(String prefix, String namespace) {
         write("Prefix");
         writeOpenBracket();
@@ -186,11 +197,13 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         flush();
     }
 
-    /** Writes out the axioms that define the specified entity.
+    /**
+     * Writes out the axioms that define the specified entity.
      * 
      * @param entity
-     *            The entity
-     * @return The set of axioms that was written out */
+     *        The entity
+     * @return The set of axioms that was written out
+     */
     public Set<OWLAxiom> writeAxioms(OWLEntity entity) {
         Set<OWLAxiom> writtenAxioms = new HashSet<OWLAxiom>();
         return writeAxioms(entity, writtenAxioms);
@@ -205,6 +218,7 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         List<OWLAxiom> axs = new ArrayList<OWLAxiom>();
         axs.addAll(entity
                 .accept(new OWLEntityVisitorEx<Set<? extends OWLAxiom>>() {
+
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLClass cls) {
                         return ontology.getAxioms(cls);
@@ -260,11 +274,13 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         return writtenAxioms;
     }
 
-    /** Writes out the declaration axioms for the specified entity.
+    /**
+     * Writes out the declaration axioms for the specified entity.
      * 
      * @param entity
-     *            The entity
-     * @return The axioms that were written out */
+     *        The entity
+     * @return The axioms that were written out
+     */
     public Set<OWLAxiom> writeDeclarations(OWLEntity entity) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         for (OWLAxiom ax : ontology.getDeclarationAxioms(entity)) {
@@ -289,11 +305,13 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         return axioms;
     }
 
-    /** Writes of the annotation for the specified entity.
+    /**
+     * Writes of the annotation for the specified entity.
      * 
      * @param entity
-     *            The entity
-     * @return The set of axioms that were written out */
+     *        The entity
+     * @return The set of axioms that were written out
+     */
     public Set<OWLAxiom> writeAnnotations(OWLEntity entity) {
         Set<OWLAxiom> annotationAssertions = new HashSet<OWLAxiom>();
         for (OWLAnnotationAxiom ax : find(OWLAnnotationAssertionAxiom.class)
@@ -305,12 +323,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         return annotationAssertions;
     }
 
-    /** Write.
+    /**
+     * Write.
      * 
      * @param v
-     *            the v
+     *        the v
      * @param o
-     *            the o */
+     *        the o
+     */
     public void write(OWLXMLVocabulary v, OWLObject o) {
         write(v);
         write("(");
@@ -376,16 +396,20 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write(" ");
     }
 
-    /** Write.
+    /**
+     * Write.
      * 
      * @param annotation
-     *            the annotation */
+     *        the annotation
+     */
     public void write(OWLAnnotation annotation) {}
 
-    /** Write annotations.
+    /**
+     * Write annotations.
      * 
      * @param ax
-     *            the ax */
+     *        the ax
+     */
     public void writeAnnotations(OWLAxiom ax) {
         for (OWLAnnotation anno : ax.getAnnotations()) {
             anno.accept(this);
@@ -393,12 +417,14 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         }
     }
 
-    /** Write axiom start.
+    /**
+     * Write axiom start.
      * 
      * @param v
-     *            the v
+     *        the v
      * @param axiom
-     *            the axiom */
+     *        the axiom
+     */
     public void writeAxiomStart(OWLXMLVocabulary v, OWLAxiom axiom) {
         write(v);
         writeOpenBracket();
@@ -410,14 +436,16 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
         write(")");
     }
 
-    /** Write property characteristic.
+    /**
+     * Write property characteristic.
      * 
      * @param v
-     *            the v
+     *        the v
      * @param ax
-     *            the ax
+     *        the ax
      * @param prop
-     *            the prop */
+     *        the prop
+     */
     public void writePropertyCharacteristic(OWLXMLVocabulary v, OWLAxiom ax,
             OWLPropertyExpression prop) {
         writeAxiomStart(v, ax);

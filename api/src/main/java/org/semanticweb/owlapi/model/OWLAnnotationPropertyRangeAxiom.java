@@ -14,25 +14,32 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Annotation_Property_Range"
  * >AnnotationPropertyRange</a> axiom in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLAnnotationPropertyRangeAxiom extends OWLAnnotationAxiom,
         HasProperty<OWLAnnotationProperty>, HasRange<IRI> {
-    /** Gets the annotation property that this axiom provides a range for.
+
+    /**
+     * Gets the annotation property that this axiom provides a range for.
      * 
-     * @return The annotation property */
+     * @return The annotation property
+     */
     @Override
     @Nonnull
     OWLAnnotationProperty getProperty();
 
-    /** Gets the specified IRI that corresponds to the range.
+    /**
+     * Gets the specified IRI that corresponds to the range.
      * 
-     * @return The range of the annotation property. */
+     * @return The range of the annotation property.
+     */
     @Override
     @Nonnull
     IRI getRange();

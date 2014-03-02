@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-/** This class demonstrates some aspects of the OWL API. It expects three
+/**
+ * This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
  * <ol>
  * <li>The URI of an ontology</li>
@@ -40,9 +41,11 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings({ "javadoc" })
 public class Debugger {
+
     private final OWLOntology ontology;
     private final OWLDebugger debugger;
     private final OWLReasoner checker;

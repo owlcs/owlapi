@@ -17,11 +17,14 @@ import org.semanticweb.owlapi.model.OWLOntologyBuilder;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** Default implementation of {@link OWLOntologyBuilder}
+/**
+ * Default implementation of {@link OWLOntologyBuilder}
  * 
  * @author ignazio
- * @since 4.0.0 */
+ * @since 4.0.0
+ */
 public class OWLOntologyBuilderImpl implements OWLOntologyBuilder {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

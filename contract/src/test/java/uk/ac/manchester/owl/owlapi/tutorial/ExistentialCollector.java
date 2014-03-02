@@ -22,7 +22,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
 
-/** A visitor that collects existential restrictions. If the given expression is
+/**
+ * A visitor that collects existential restrictions. If the given expression is
  * an intersection, then the visitor will recurse and visit the operands.
  * Otherwise, if it's an existential restriction, the visitor will add the
  * restriction to the collection. <br>
@@ -31,8 +32,10 @@ import org.semanticweb.owlapi.util.OWLClassExpressionVisitorAdapter;
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class ExistentialCollector extends OWLClassExpressionVisitorAdapter {
+
     /* Collected axioms */
     private final Map<OWLObjectPropertyExpression, Set<OWLClassExpression>> restrictions;
 

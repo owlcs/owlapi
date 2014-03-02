@@ -22,11 +22,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 @SuppressWarnings("javadoc")
 public class ImportsClosureTestCase extends TestBase {
+
     @Test
     public void testImportsClosureUpdate() throws OWLOntologyCreationException {
         IRI aIRI = IRI("http://a.com");

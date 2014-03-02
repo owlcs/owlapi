@@ -26,22 +26,27 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.1.0
  * @param <M>
- *            the metric type */
+ *        the metric type
+ */
 public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         OWLOntologyChangeListener {
+
     private OWLOntology ontology;
     private boolean dirty;
     private boolean importsClosureUsed;
     private M value;
 
-    /** Instantiates a new abstract owl metric.
+    /**
+     * Instantiates a new abstract owl metric.
      * 
      * @param o
-     *            the ontology to use */
+     *        the ontology to use
+     */
     public AbstractOWLMetric(@Nonnull OWLOntology o) {
         this.ontology = checkNotNull(o, "o cannot be null");
         ontology.getOWLOntologyManager().addOntologyChangeListener(this);
@@ -62,9 +67,11 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         setDirty(true);
     }
 
-    /** Recompute metric.
+    /**
+     * Recompute metric.
      * 
-     * @return the m */
+     * @return the m
+     */
     @Nonnull
     protected abstract M recomputeMetric();
 
@@ -80,9 +87,11 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         this.dirty = dirty;
     }
 
-    /** Gets the ontologies.
+    /**
+     * Gets the ontologies.
      * 
-     * @return ontologies as a set */
+     * @return ontologies as a set
+     */
     @Nonnull
     public Set<OWLOntology> getOntologies() {
         if (importsClosureUsed) {
@@ -124,15 +133,17 @@ public abstract class AbstractOWLMetric<M> implements OWLMetric<M>,
         }
     }
 
-    /** Determines if the specified list of changes will cause the value of this
+    /**
+     * Determines if the specified list of changes will cause the value of this
      * metric to be invalid.
      * 
      * @param changes
-     *            The list of changes which will be examined to determine if the
-     *            metric is now invalid.
+     *        The list of changes which will be examined to determine if the
+     *        metric is now invalid.
      * @return {@code true} if the metric value is invalidated by the specified
      *         list of changes, or {@code false} if the list of changes do not
-     *         cause the value of this metric to be invalidated. */
+     *         cause the value of this metric to be invalidated.
+     */
     protected abstract boolean isMetricInvalidated(
             @Nonnull List<? extends OWLOntologyChange<?>> changes);
 

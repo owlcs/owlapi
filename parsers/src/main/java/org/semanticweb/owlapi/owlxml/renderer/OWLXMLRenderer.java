@@ -28,18 +28,23 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLXMLRenderer extends AbstractOWLRenderer {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param writer
-     *            writer
+     *        writer
      * @param format
-     *            format
+     *        format
      * @throws OWLRendererException
-     *             renderer error */
+     *         renderer error
+     */
     public void render(@Nonnull OWLOntology ontology, @Nonnull Writer writer,
             @Nonnull OWLOntologyFormat format) throws OWLRendererException {
         checkNotNull(ontology, "ontology cannot be null");

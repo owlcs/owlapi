@@ -15,14 +15,19 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class TranslatedUnloadableImportException extends OWLRuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param e
-     *            cause */
+    /**
+     * @param e
+     *        cause
+     */
     public TranslatedUnloadableImportException(UnloadableImportException e) {
         super(e);
     }

@@ -25,10 +25,13 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.1 */
+ * @since 2.1.1
+ */
 public class QCRTestCase extends AbstractRendererAndParser {
+
     @Override
     protected Set<OWLAxiom> getAxioms() {
         OWLClass clsA = Class(TestUtils.createIRI());

@@ -21,11 +21,14 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.3.0 */
+ * @since 3.3.0
+ */
 public abstract class AbstractLiteralWithEscapeTestCase extends
         AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLClass cls = Class(IRI("http://owlapi.sourceforge.net/ontology#A"));

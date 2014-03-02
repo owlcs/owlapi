@@ -25,11 +25,14 @@ import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 @SuppressWarnings("javadoc")
 public class EquivalentClassesAxiomTestCase extends TestBase {
+
     @Test
     public void testContainsNamedClass() {
         OWLClass clsA = Class(getIRI("A"));

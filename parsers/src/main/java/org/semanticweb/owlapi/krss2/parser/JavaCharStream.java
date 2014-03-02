@@ -19,26 +19,31 @@ import java.io.UnsupportedEncodingException;
 /** JavaCharStream for this parser */
 public class JavaCharStream extends
         org.semanticweb.owlapi.BOMSafeJavaCharStream {
-    /** @param dstream
-     *            stream
+
+    /**
+     * @param dstream
+     *        stream
      * @param startline
-     *            start line
+     *        start line
      * @param startcolumn
-     *            start column */
+     *        start column
+     */
     public JavaCharStream(java.io.Reader dstream, int startline, int startcolumn) {
         super(dstream, startline, startcolumn, 4096);
     }
 
-    /** @param dstream
-     *            stream
+    /**
+     * @param dstream
+     *        stream
      * @param encoding
-     *            encoding
+     *        encoding
      * @param startline
-     *            start line
+     *        start line
      * @param startcolumn
-     *            start column
+     *        start column
      * @throws UnsupportedEncodingException
-     *             for unsupported encoding */
+     *         for unsupported encoding
+     */
     public JavaCharStream(java.io.InputStream dstream, String encoding,
             int startline, int startcolumn) throws UnsupportedEncodingException {
         super(dstream, encoding, startline, startcolumn, 4096);

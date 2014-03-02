@@ -12,20 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** An exception to describe a situation where there was an attempt to apply a
+/**
+ * An exception to describe a situation where there was an attempt to apply a
  * change to an immutable ontology.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class ImmutableOWLOntologyChangeException extends
         OWLOntologyChangeException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Constructs an exception which describes the attempted change.
+    /**
+     * Constructs an exception which describes the attempted change.
      * 
      * @param change
-     *            The change. */
+     *        The change.
+     */
     public ImmutableOWLOntologyChangeException(OWLOntologyChange<?> change) {
         super(change, "Cannot apply changes to immutable ontology: "
                 + change.getOntology());

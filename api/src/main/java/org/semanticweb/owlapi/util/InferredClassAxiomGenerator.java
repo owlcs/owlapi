@@ -18,13 +18,16 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.1.0
  * @param <A>
- *            the axiom type */
+ *        the axiom type
+ */
 public abstract class InferredClassAxiomGenerator<A extends OWLClassAxiom>
         extends InferredEntityAxiomGenerator<OWLClass, A> {
+
     @Override
     protected Set<OWLClass> getEntities(OWLOntology ont) {
         return ont.getClassesInSignature();

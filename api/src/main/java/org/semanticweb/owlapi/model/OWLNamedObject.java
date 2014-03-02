@@ -14,23 +14,30 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents a named object for example, class, property, ontology etc. - i.e.
+/**
+ * Represents a named object for example, class, property, ontology etc. - i.e.
  * anything that has an IRI as its name.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLNamedObject extends OWLObject, HasIRI {
-    /** Gets the IRI of this object
+
+    /**
+     * Gets the IRI of this object
      * 
-     * @return The IRI of this object */
+     * @return The IRI of this object
+     */
     @Override
     @Nonnull
     IRI getIRI();
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(@Nonnull OWLNamedObjectVisitor visitor);
 }

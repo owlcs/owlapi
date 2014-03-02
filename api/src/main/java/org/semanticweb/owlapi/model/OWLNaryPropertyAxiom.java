@@ -16,20 +16,25 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <P>
- *            property expression */
+ *        property expression
+ */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends
         OWLPropertyAxiom, OWLNaryAxiom {
+
     /** @return all of the properties that appear in this axiom */
     @Nonnull
     Set<P> getProperties();
 
-    /** @param property
-     *            the property to skip
-     * @return the set of properties minus property */
+    /**
+     * @param property
+     *        the property to skip
+     * @return the set of properties minus property
+     */
     @Nonnull
     Set<P> getPropertiesMinus(@Nonnull P property);
 }

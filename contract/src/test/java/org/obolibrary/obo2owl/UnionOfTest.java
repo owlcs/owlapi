@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class UnionOfTest extends OboFormatTestBasics {
+
     @Test
     public void testUnion() throws Exception {
         OWLOntology owlOnt = convertOBOFile("taxon_union_terms.obo");

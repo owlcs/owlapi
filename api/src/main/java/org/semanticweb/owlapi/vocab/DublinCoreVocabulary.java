@@ -20,10 +20,15 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
-public enum DublinCoreVocabulary implements HasShortForm, HasIRI,
+ * @since 2.0.0
+ */
+public enum DublinCoreVocabulary
+        implements
+        HasShortForm,
+        HasIRI,
         HasPrefixedName {
 //@formatter:off
     /** http://purl.org/dc/elements/1.1/contributor */ CONTRIBUTOR("contributor"),

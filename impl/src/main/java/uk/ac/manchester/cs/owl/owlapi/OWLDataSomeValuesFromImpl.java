@@ -23,17 +23,22 @@ import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDataSomeValuesFromImpl extends OWLQuantifiedDataRestrictionImpl
         implements OWLDataSomeValuesFrom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OWLDataSomeValuesFromImpl(
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange filler) {

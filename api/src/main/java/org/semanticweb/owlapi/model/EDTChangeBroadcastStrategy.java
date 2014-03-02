@@ -16,14 +16,17 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-/** A change broadcast strategy which broadcasts all ontology changes in the
+/**
+ * A change broadcast strategy which broadcasts all ontology changes in the
  * Swing Even Dispatch Thread (EDT).
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class EDTChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
+
     private static final long serialVersionUID = 40000L;
 
     @Override
@@ -35,6 +38,7 @@ public class EDTChangeBroadcastStrategy implements
         } else {
             try {
                 Runnable r = new Runnable() {
+
                     @Override
                     public void run() {
                         try {
@@ -51,9 +55,12 @@ public class EDTChangeBroadcastStrategy implements
         }
     }
 
-    /** XXX bit of a roundabout way to wrap an exception as a runtime exception,
-     * for unwrapping later on */
+    /**
+     * XXX bit of a roundabout way to wrap an exception as a runtime exception,
+     * for unwrapping later on
+     */
     private static class BroadcastException extends RuntimeException {
+
         private static final long serialVersionUID = 40000L;
 
         BroadcastException(OWLException cause) {

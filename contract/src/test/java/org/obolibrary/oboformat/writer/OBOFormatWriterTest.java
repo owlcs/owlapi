@@ -19,11 +19,14 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 /** Tests for {@link OBOFormatWriter}. */
 @SuppressWarnings("javadoc")
 public class OBOFormatWriterTest extends OboFormatTestBasics {
-    /** Test a special case of the specification. For intersections put the genus
+
+    /**
+     * Test a special case of the specification. For intersections put the genus
      * before the differentia, instead of the default case-insensitive
      * alphabetical ordering.
      * 
-     * @throws Exception */
+     * @throws Exception
+     */
     @Test
     public void testSortTermClausesIntersection_of() throws Exception {
         OBODoc oboDoc = parseOBOFile("equivtest.obo");
@@ -36,9 +39,11 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         assertEquals("Z:1", clauses.get(1).getValue2());
     }
 
-    /** Test for sorting clauses according to alphabetical case-insensitive
+    /**
+     * Test for sorting clauses according to alphabetical case-insensitive
      * order. Prefer upper-case over lower case for equal strings. Prefer
-     * shorter strings over longer strings. */
+     * shorter strings over longer strings.
+     */
     @Test
     public void testSortTermClausesSynonyms() {
         List<Clause> clauses = createSynonymClauses("cc", "ccc", "AAA", "aaa",
@@ -80,10 +85,12 @@ public class OBOFormatWriterTest extends OboFormatTestBasics {
         return out.toString().trim();
     }
 
-    /** Test that the OBO format writer only writes one new-line at the end of
+    /**
+     * Test that the OBO format writer only writes one new-line at the end of
      * the file.
      * 
-     * @throws Exception */
+     * @throws Exception
+     */
     @Test
     public void testWriteEndOfFile() throws Exception {
         OBODoc oboDoc = parseOBOFile("caro.obo");

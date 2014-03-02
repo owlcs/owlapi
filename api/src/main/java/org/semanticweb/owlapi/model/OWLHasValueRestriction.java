@@ -14,27 +14,34 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <V>
- *            the value type */
+ *        the value type
+ */
 public interface OWLHasValueRestriction<V extends OWLObject> extends
         OWLRestriction, HasFiller<V> {
-    /** Gets the value which is the filler for this restriction. In the case of
+
+    /**
+     * Gets the value which is the filler for this restriction. In the case of
      * an object restriction this will be an individual, in the case of a data
      * restriction this will be a constant (data value).
      * 
-     * @return the value */
+     * @return the value
+     */
     @Override
     @Nonnull
     V getFiller();
 
-    /** A convenience method that obtains this restriction as an existential
+    /**
+     * A convenience method that obtains this restriction as an existential
      * restriction with a nominal filler.
      * 
      * @return The existential equivalent of this value restriction.
-     *         simp(HasValue(p a)) = some(p {a}) */
+     *         simp(HasValue(p a)) = some(p {a})
+     */
     @Nonnull
     OWLClassExpression asSomeValuesFrom();
 }

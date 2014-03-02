@@ -41,7 +41,8 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 
-/** An ontology factory that creates ontologies by parsing documents containing
+/**
+ * An ontology factory that creates ontologies by parsing documents containing
  * concrete representations of ontologies. This ontology factory will claim that
  * it is suitable for creating an ontology if the document IRI can be opened for
  * reading. This factory will not create empty ontologies. Parsers are
@@ -50,27 +51,33 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
+
     private static final long serialVersionUID = 40000L;
     private static final Logger LOGGER = Logger
             .getLogger(ParsableOWLOntologyFactory.class.getName());
     private final Set<String> parsableSchemes = new HashSet<String>(
             Arrays.asList("http", "https", "file", "ftp"));
 
-    /** @param builder
-     *            injected ontology builder */
+    /**
+     * @param builder
+     *        injected ontology builder
+     */
     @Inject
     public ParsableOWLOntologyFactory(OWLOntologyBuilder builder) {
         super(builder);
     }
 
-    /** Overriden - We don't create new empty ontologies - this isn't our
+    /**
+     * Overriden - We don't create new empty ontologies - this isn't our
      * responsibility.
      * 
      * @param documentIRI
-     *            ignored
-     * @return false */
+     *        ignored
+     * @return false
+     */
     @Override
     public boolean canCreateFromDocumentIRI(IRI documentIRI) {
         return false;

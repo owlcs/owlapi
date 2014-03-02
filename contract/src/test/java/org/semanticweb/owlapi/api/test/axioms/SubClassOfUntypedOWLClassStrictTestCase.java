@@ -26,12 +26,15 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2.3 */
+ * @since 3.2.3
+ */
 @SuppressWarnings("javadoc")
 public class SubClassOfUntypedOWLClassStrictTestCase extends
         AbstractFileTestCase {
+
     @Override
     protected String getFileName() {
         return "SubClassOfUntypedOWLClass.rdf";

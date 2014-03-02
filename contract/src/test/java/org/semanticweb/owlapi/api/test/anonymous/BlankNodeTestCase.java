@@ -23,11 +23,14 @@ import org.semanticweb.owlapi.rdf.turtle.parser.ParseException;
 import org.semanticweb.owlapi.rdf.turtle.parser.TripleHandler;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleParser;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class BlankNodeTestCase {
+
     @Test
     public void testBlankNodes() throws ParseException {
         Reader input = new StringReader("_:foo <http://example.com/> _:bar .");

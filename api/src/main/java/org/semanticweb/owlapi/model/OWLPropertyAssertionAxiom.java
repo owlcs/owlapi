@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Assertions">Assertion</a> in the OWL
  * 2 specification.
  * 
@@ -22,29 +23,37 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  * @param <P>
- *            property expression
+ *        property expression
  * @param <O>
- *            object */
+ *        object
+ */
 public interface OWLPropertyAssertionAxiom<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
         extends OWLIndividualAxiom, OWLSubClassOfAxiomShortCut,
         HasSubject<OWLIndividual>, HasProperty<P>, HasObject<O> {
-    /** Gets the individual that is the subject of this assertion.
+
+    /**
+     * Gets the individual that is the subject of this assertion.
      * 
-     * @return The individual that represents the subject of this assertion. */
+     * @return The individual that represents the subject of this assertion.
+     */
     @Nonnull
     @Override
     OWLIndividual getSubject();
 
-    /** Gets the property that this assertion acts along.
+    /**
+     * Gets the property that this assertion acts along.
      * 
-     * @return The property */
+     * @return The property
+     */
     @Override
     @Nonnull
     P getProperty();
 
-    /** Gets the object of this assertion.
+    /**
+     * Gets the object of this assertion.
      * 
-     * @return The object that this assertion points to. */
+     * @return The object that this assertion points to.
+     */
     @Override
     @Nonnull
     O getObject();

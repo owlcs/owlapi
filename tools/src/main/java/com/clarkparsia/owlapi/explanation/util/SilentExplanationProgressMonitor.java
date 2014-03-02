@@ -16,13 +16,16 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** The Class SilentExplanationProgressMonitor.
+/**
+ * The Class SilentExplanationProgressMonitor.
  * 
  * @author Matthew Horridge, Clark &amp; Parsia, LLC, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class SilentExplanationProgressMonitor implements
         ExplanationProgressMonitor {
+
     @Override
     public void foundExplanation(Set<OWLAxiom> axioms) {}
 

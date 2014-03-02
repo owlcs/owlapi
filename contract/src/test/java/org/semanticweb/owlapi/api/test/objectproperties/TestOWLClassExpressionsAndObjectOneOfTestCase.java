@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class TestOWLClassExpressionsAndObjectOneOfTestCase extends TestBase {
+
     @Test
     public void testAnonymous() throws OWLOntologyCreationException {
         String text = "Prefix(:=<http://example.org/#>)\n "

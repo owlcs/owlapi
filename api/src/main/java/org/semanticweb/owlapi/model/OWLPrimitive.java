@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** A common interface for: {@link org.semanticweb.owlapi.model.OWLClass},
+/**
+ * A common interface for: {@link org.semanticweb.owlapi.model.OWLClass},
  * {@link org.semanticweb.owlapi.model.OWLObjectProperty},
  * {@link org.semanticweb.owlapi.model.OWLDataProperty},
  * {@link org.semanticweb.owlapi.model.OWLAnnotationProperty},
@@ -24,5 +25,6 @@ package org.semanticweb.owlapi.model;
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.4.6 */
+ * @since 3.4.6
+ */
 public interface OWLPrimitive extends OWLObject {}

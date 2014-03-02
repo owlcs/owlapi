@@ -85,13 +85,16 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.util.Version;
 
-/** This is a simple structural reasoner that essentially answers with told
+/**
+ * This is a simple structural reasoner that essentially answers with told
  * information. It is incomplete.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class StructuralReasoner extends OWLReasonerBase {
+
     private final ClassHierarchyInfo classHierarchyInfo = new ClassHierarchyInfo();
     private final ObjectPropertyHierarchyInfo objectPropertyHierarchyInfo = new ObjectPropertyHierarchyInfo();
     private final DataPropertyHierarchyInfo dataPropertyHierarchyInfo = new DataPropertyHierarchyInfo();
@@ -100,12 +103,14 @@ public class StructuralReasoner extends OWLReasonerBase {
     protected final ReasonerProgressMonitor pm;
     private boolean prepared = false;
 
-    /** @param rootOntology
-     *            the ontology
+    /**
+     * @param rootOntology
+     *        the ontology
      * @param configuration
-     *            the reasoner configuration
+     *        the reasoner configuration
      * @param bufferingMode
-     *            the buffering mode */
+     *        the buffering mode
+     */
     public StructuralReasoner(@Nonnull OWLOntology rootOntology,
             @Nonnull OWLReasonerConfiguration configuration,
             @Nonnull BufferingMode bufferingMode) {
@@ -162,10 +167,12 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    /** @throws ReasonerInterruptedException
-     *             on interruption
+    /**
+     * @throws ReasonerInterruptedException
+     *         on interruption
      * @throws TimeOutException
-     *             on timeout */
+     *         on timeout
+     */
     public void prepareReasoner() throws ReasonerInterruptedException,
             TimeOutException {
         classHierarchyInfo.computeHierarchy();
@@ -715,8 +722,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         return getRootOntology().getOWLOntologyManager().getOWLDataFactory();
     }
 
-    /** @param showBottomNode
-     *            true if bottom node is to be showed */
+    /**
+     * @param showBottomNode
+     *        true if bottom node is to be showed
+     */
     public void dumpClassHierarchy(boolean showBottomNode) {
         dumpClassHierarchy(OWLClassNode.getTopNode(), 0, showBottomNode);
     }
@@ -734,8 +743,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    /** @param showBottomNode
-     *            true if bottom node is to be showed */
+    /**
+     * @param showBottomNode
+     *        true if bottom node is to be showed
+     */
     public void dumpObjectPropertyHierarchy(boolean showBottomNode) {
         dumpObjectPropertyHierarchy(OWLObjectPropertyNode.getTopNode(), 0,
                 showBottomNode);
@@ -757,8 +768,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         }
     }
 
-    /** @param showBottomNode
-     *            true if bottom node is to be showed */
+    /**
+     * @param showBottomNode
+     *        true if bottom node is to be showed
+     */
     public void dumpDataPropertyHierarchy(boolean showBottomNode) {
         dumpDataPropertyHierarchy(OWLDataPropertyNode.getTopNode(), 0,
                 showBottomNode);
@@ -794,6 +807,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private abstract class HierarchyInfo<T extends OWLObject> {
+
         private RawHierarchyProvider<T> rawParentChildProvider;
         /** The entity that always appears in the top node in the hierarchy. */
         T topEntity;
@@ -818,28 +832,34 @@ public class StructuralReasoner extends OWLReasonerBase {
             return rawParentChildProvider;
         }
 
-        /** Gets the set of relevant entities from the specified ontology.
+        /**
+         * Gets the set of relevant entities from the specified ontology.
          * 
          * @param ont
-         *            The ontology
-         * @return A set of entities to be "classified" */
+         *        The ontology
+         * @return A set of entities to be "classified"
+         */
         protected abstract Set<T> getEntities(OWLOntology ont);
 
-        /** Creates a node for a given set of entities.
+        /**
+         * Creates a node for a given set of entities.
          * 
          * @param cycle
-         *            The set of entities
-         * @return A node */
+         *        The set of entities
+         * @return A node
+         */
         protected abstract DefaultNode<T> createNode(Set<T> cycle);
 
         protected abstract DefaultNode<T> createNode();
 
-        /** Gets the set of relevant entities in a particular axiom.
+        /**
+         * Gets the set of relevant entities in a particular axiom.
          * 
          * @param ax
-         *            The axiom
+         *        The axiom
          * @return The set of relevant entities in the signature of the
-         *         specified axiom */
+         *         specified axiom
+         */
         protected abstract Set<? extends T> getEntitiesInSignature(OWLAxiom ax);
 
         Set<T> getEntitiesInSignature(Set<OWLAxiom> axioms) {
@@ -933,15 +953,17 @@ public class StructuralReasoner extends OWLReasonerBase {
             }
         }
 
-        /** Processes the specified signature that represents the signature of
+        /**
+         * Processes the specified signature that represents the signature of
          * potential changes.
          * 
          * @param signature
-         *            The signature
+         *        The signature
          * @param added
-         *            added axioms
+         *        added axioms
          * @param removed
-         *            removed axioms */
+         *        removed axioms
+         */
         @SuppressWarnings("unused")
         public void processChanges(Set<T> signature, Set<OWLAxiom> added,
                 Set<OWLAxiom> removed) {
@@ -950,34 +972,36 @@ public class StructuralReasoner extends OWLReasonerBase {
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /** Applies the tarjan algorithm for a given entity. This computes the
+        /**
+         * Applies the tarjan algorithm for a given entity. This computes the
          * cycle that the entity is involved in (if any).
          * 
          * @param entity
-         *            The entity
+         *        The entity
          * @param _index
-         *            index
+         *        index
          * @param stack
-         *            stack
+         *        stack
          * @param indexMap
-         *            index map
+         *        index map
          * @param lowlinkMap
-         *            low link map
+         *        low link map
          * @param result
-         *            result
+         *        result
          * @param processed
-         *            processed
+         *        processed
          * @param stackEntities
-         *            stack entities
+         *        stack entities
          * @param cache
-         *            A cache of children to parents - may be {@code null} if no
-         *            caching is to take place.
+         *        A cache of children to parents - may be {@code null} if no
+         *        caching is to take place.
          * @param childrenOfTop
-         *            A set of entities that have a raw parent that is the top
-         *            entity
+         *        A set of entities that have a raw parent that is the top
+         *        entity
          * @param parentsOfBottom
-         *            A set of entities that have a raw parent that is the
-         *            bottom entity */
+         *        A set of entities that have a raw parent that is the bottom
+         *        entity
+         */
         public void tarjan(T entity, int _index, Stack<T> stack,
                 Map<T, Integer> indexMap, Map<T, Integer> lowlinkMap,
                 Set<Set<T>> result, Set<T> processed, Set<T> stackEntities,
@@ -1119,6 +1143,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     private static class NodeCache<T extends OWLObject> {
+
         private HierarchyInfo<T> hierarchyInfo;
         private Node<T> topNode;
         private Node<T> bottomNode;
@@ -1208,6 +1233,7 @@ public class StructuralReasoner extends OWLReasonerBase {
     }
 
     private class ClassHierarchyInfo extends HierarchyInfo<OWLClass> {
+
         public ClassHierarchyInfo() {
             super("class", getDataFactory().getOWLThing(), getDataFactory()
                     .getOWLNothing(), new RawClassHierarchyProvider());
@@ -1236,6 +1262,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class ObjectPropertyHierarchyInfo extends
             HierarchyInfo<OWLObjectPropertyExpression> {
+
         public ObjectPropertyHierarchyInfo() {
             super("object property",
                     getDataFactory().getOWLTopObjectProperty(),
@@ -1305,6 +1332,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class DataPropertyHierarchyInfo extends
             HierarchyInfo<OWLDataProperty> {
+
         public DataPropertyHierarchyInfo() {
             super("data property", getDataFactory().getOWLTopDataProperty(),
                     getDataFactory().getOWLBottomDataProperty(),
@@ -1336,31 +1364,39 @@ public class StructuralReasoner extends OWLReasonerBase {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** An interface for objects who can provide the parents and children of some
+    /**
+     * An interface for objects who can provide the parents and children of some
      * object.
      * 
      * @param <T>
-     *            type of elements */
+     *        type of elements
+     */
     private interface RawHierarchyProvider<T> {
-        /** Gets the parents as asserted. These parents may also be children
+
+        /**
+         * Gets the parents as asserted. These parents may also be children
          * (resulting in equivalences).
          * 
          * @param child
-         *            The child whose parents are to be retrieved
+         *        The child whose parents are to be retrieved
          * @return The raw asserted parents of the specified child. If the child
-         *         does not have any parents then the empty set can be returned. */
+         *         does not have any parents then the empty set can be returned.
+         */
         Collection<T> getParents(T child);
 
-        /** Gets the children as asserted.
+        /**
+         * Gets the children as asserted.
          * 
          * @param parent
-         *            The parent whose children are to be retrieved
-         * @return The raw asserted children of the speicified parent */
+         *        The parent whose children are to be retrieved
+         * @return The raw asserted children of the speicified parent
+         */
         Collection<T> getChildren(T parent);
     }
 
     private class RawClassHierarchyProvider implements
             RawHierarchyProvider<OWLClass> {
+
         public RawClassHierarchyProvider() {}
 
         @Override
@@ -1438,6 +1474,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class RawObjectPropertyHierarchyProvider implements
             RawHierarchyProvider<OWLObjectPropertyExpression> {
+
         private OWLObjectPropertyManager propertyManager;
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> sub2Super;
         private Map<OWLObjectPropertyExpression, Set<OWLObjectPropertyExpression>> super2Sub;
@@ -1499,6 +1536,7 @@ public class StructuralReasoner extends OWLReasonerBase {
 
     private class RawDataPropertyHierarchyProvider implements
             RawHierarchyProvider<OWLDataProperty> {
+
         public RawDataPropertyHierarchyProvider() {}
 
         @Override

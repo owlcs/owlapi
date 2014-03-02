@@ -15,18 +15,23 @@ package org.semanticweb.owlapi.owlxml.parser;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.xml.sax.SAXException;
 
-/** Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a
+/**
+ * Translates an {@link org.semanticweb.owlapi.io.OWLParserException} to a
  * {@link org.xml.sax.SAXException}.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class TranslatedOWLParserException extends SAXException {
+
     private static final long serialVersionUID = 40000L;
     private OWLParserException parserException;
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public TranslatedOWLParserException(OWLParserException cause) {
         super(cause);
         parserException = cause;

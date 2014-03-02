@@ -42,6 +42,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 /** The Class KRSS2Parser. */
 @SuppressWarnings("unused")
 public class KRSS2Parser implements KRSS2ParserConstants {
+
     private OWLOntology ontology;
     private OWLDataFactory dataFactory;
     private Map<String, IRI> string2IRI;
@@ -52,10 +53,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     private boolean alwaysIRIs = false;
     private boolean alwaysNames = false;
 
-    /** @param ontology
-     *            the ontology
+    /**
+     * @param ontology
+     *        the ontology
      * @param dataFactory
-     *            the data factory */
+     *        the data factory
+     */
     public void setOntology(OWLOntology ontology, OWLDataFactory dataFactory) {
         this.ontology = ontology;
         this.dataFactory = dataFactory;
@@ -69,10 +72,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         nameResolution = NameResolverStrategy.CHECK;
     }
 
-    /** @param ax
-     *            the ax
+    /**
+     * @param ax
+     *        the ax
      * @throws KRSS2OWLParserException
-     *             the kRS s2 owl parser exception */
+     *         the kRS s2 owl parser exception
+     */
     protected void addAxiom(OWLAxiom ax) throws KRSS2OWLParserException {
         try {
             ((OWLMutableOntology) ontology).applyChange(new AddAxiom(ontology,
@@ -82,11 +87,13 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** @param s
-     *            the string
+    /**
+     * @param s
+     *        the string
      * @return the iri
      * @throws URISyntaxException
-     *             the uRI syntax exception */
+     *         the uRI syntax exception
+     */
     public IRI getIRI(final String s) throws URISyntaxException {
         IRI iri = string2IRI.get(s);
         if (iri == null) {
@@ -129,8 +136,10 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         return iri;
     }
 
-    /** @param nameResolution
-     *            the new name resolution */
+    /**
+     * @param nameResolution
+     *        the new name resolution
+     */
     public void setNameResolution(NameResolverStrategy nameResolution) {
         this.nameResolution = nameResolution;
     }
@@ -2960,20 +2969,24 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /** Constructor with InputStream.
+    /**
+     * Constructor with InputStream.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public KRSS2Parser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding.
+    /**
+     * Constructor with InputStream and supplied encoding.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public KRSS2Parser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new BOMSafeJavaCharStream(stream, encoding, 1, 1);
@@ -2992,20 +3005,24 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -3024,10 +3041,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public KRSS2Parser(java.io.Reader stream) {
         jj_input_stream = new BOMSafeJavaCharStream(stream, 1, 1);
         token_source = new KRSS2ParserTokenManager(jj_input_stream);
@@ -3042,10 +3061,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.Reader stream) {
         jj_input_stream.ReInit(stream, 1, 1);
         token_source.ReInit(jj_input_stream);
@@ -3060,10 +3081,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** Constructor with generated Token Manager.
+    /**
+     * Constructor with generated Token Manager.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public KRSS2Parser(KRSS2ParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -3077,10 +3100,12 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public void ReInit(KRSS2ParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -3124,6 +3149,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     static private final class LookaheadSuccess extends OWLRuntimeException {
+
         private static final long serialVersionUID = 40000L;
 
         public LookaheadSuccess() {}
@@ -3163,9 +3189,11 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         return false;
     }
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
@@ -3177,11 +3205,13 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         return token;
     }
 
-    /** Get the specific Token.
+    /**
+     * Get the specific Token.
      * 
      * @param index
-     *            the index
-     * @return the token */
+     *        the index
+     * @return the token
+     */
     public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
@@ -3238,9 +3268,11 @@ public class KRSS2Parser implements KRSS2ParserConstants {
         }
     }
 
-    /** Generate ParseException.
+    /**
+     * Generate ParseException.
      * 
-     * @return the parses the exception */
+     * @return the parses the exception
+     */
     public ParseException generateParseException() {
         jj_expentries.clear();
         boolean[] la1tokens = new boolean[70];
@@ -3547,6 +3579,7 @@ public class KRSS2Parser implements KRSS2ParserConstants {
     }
 
     static final class JJCalls {
+
         int gen;
         Token first;
         int arg;

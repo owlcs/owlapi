@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class ExpandExpressionGCITest extends OboFormatTestBasics {
+
     @Test
     public void testExpand() throws Exception {
         OWLOntology ontology = convert(parseOBOFile("no_overlap.obo"));

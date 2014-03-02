@@ -77,7 +77,8 @@ public interface OWLOntologyDocumentSource {
      * If an input stream can be obtained from this document source then this
      * method creates it. This method may be called multiple times. Each
      * invocation will return a new input stream. This method should not be
-     * called if the {@code isInputStreamAvailable} method returns {@code false}.
+     * called if the {@code isInputStreamAvailable} method returns {@code false}
+     * .
      * 
      * @return A new input stream which the ontology can be read from.
      */

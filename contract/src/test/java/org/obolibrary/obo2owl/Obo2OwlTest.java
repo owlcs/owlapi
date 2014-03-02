@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class Obo2OwlTest extends OboFormatTestBasics {
+
     @Test
     public void testConvertCARO() throws Exception {
         OWLOntology owlOnt = convertOBOFile("caro.obo");

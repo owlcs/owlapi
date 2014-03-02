@@ -33,13 +33,16 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <O>
- *            return type */
+ *        return type
+ */
 public class OWLClassExpressionVisitorExAdapter<O> implements
         OWLClassExpressionVisitorEx<O> {
+
     private O object;
 
     /** constructor for null default value. */
@@ -47,19 +50,23 @@ public class OWLClassExpressionVisitorExAdapter<O> implements
         this(null);
     }
 
-    /** adapter with object as default value
+    /**
+     * adapter with object as default value
      * 
      * @param object
-     *            default return value */
+     *        default return value
+     */
     public OWLClassExpressionVisitorExAdapter(O object) {
         this.object = object;
     }
 
-    /** override to change default behaviour.
+    /**
+     * override to change default behaviour.
      * 
      * @param c
-     *            visited axiom
-     * @return default return value; */
+     *        visited axiom
+     * @return default return value;
+     */
     protected O handleDefault(@SuppressWarnings("unused") OWLClassExpression c) {
         return object;
     }

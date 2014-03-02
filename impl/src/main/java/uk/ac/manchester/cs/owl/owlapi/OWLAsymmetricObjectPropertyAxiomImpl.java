@@ -26,18 +26,23 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLAsymmetricObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLAsymmetricObjectPropertyAxiom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLAsymmetricObjectPropertyAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

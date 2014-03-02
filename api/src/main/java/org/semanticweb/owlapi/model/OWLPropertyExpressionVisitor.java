@@ -14,28 +14,37 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** An interface to object that can visit the different types of property
+/**
+ * An interface to object that can visit the different types of property
  * expressions.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLPropertyExpressionVisitor {
-    /** visit OWLObjectProperty type
+
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            property to visit */
+     *        property to visit
+     */
     void visit(@Nonnull OWLObjectProperty property);
 
-    /** visit OWLObjectInverseOf type
+    /**
+     * visit OWLObjectInverseOf type
      * 
      * @param property
-     *            property to visit */
+     *        property to visit
+     */
     void visit(@Nonnull OWLObjectInverseOf property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            property to visit */
+     *        property to visit
+     */
     void visit(@Nonnull OWLDataProperty property);
 }

@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class UncheckedExceptionTestCase {
+
     @Test(expected = OWLOntologyCreationException.class)
     public void testLoad() throws OWLOntologyCreationException {
         OWLManager

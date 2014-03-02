@@ -12,28 +12,33 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-/** A simple utility class that describes the version of a piece of software e.g.
+/**
+ * A simple utility class that describes the version of a piece of software e.g.
  * reasoner version. <br>
  * A version number is assumed to be the following format:
  * <b>major.minor.patch.build</b>.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class Version {
+
     private final int major;
     private final int minor;
     private final int patch;
     private final int build;
 
-    /** @param major
-     *            major version number
+    /**
+     * @param major
+     *        major version number
      * @param minor
-     *            minor version number
+     *        minor version number
      * @param patch
-     *            patch number
+     *        patch number
      * @param build
-     *            build number */
+     *        build number
+     */
     public Version(int major, int minor, int patch, int build) {
         this.major = major;
         this.minor = minor;

@@ -49,9 +49,11 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /** Satisfiability converter. */
 public class SatisfiabilityConverter {
+
     /** The Class AxiomConverter. */
     private class AxiomConverter extends
             OWLAxiomVisitorExAdapter<OWLClassExpression> {
+
         private static final long serialVersionUID = 40000L;
 
         public AxiomConverter() {}
@@ -232,20 +234,24 @@ public class SatisfiabilityConverter {
     private final AxiomConverter converter;
     protected final OWLDataFactory factory;
 
-    /** Instantiates a new satisfiability converter.
+    /**
+     * Instantiates a new satisfiability converter.
      * 
      * @param factory
-     *            the factory to use */
+     *        the factory to use
+     */
     public SatisfiabilityConverter(@Nonnull OWLDataFactory factory) {
         this.factory = checkNotNull(factory, "factory cannot be null");
         converter = new AxiomConverter();
     }
 
-    /** Convert.
+    /**
+     * Convert.
      * 
      * @param axiom
-     *            axiom to convert
-     * @return converted class expression */
+     *        axiom to convert
+     * @return converted class expression
+     */
     @Nonnull
     public OWLClassExpression convert(@Nonnull OWLAxiom axiom) {
         return checkNotNull(axiom, "axiom cannot be null").accept(converter);

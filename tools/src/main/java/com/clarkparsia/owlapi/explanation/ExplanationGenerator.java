@@ -21,39 +21,46 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 
 /** a generator for explanations. */
 public interface ExplanationGenerator {
-    /** Returns a single explanation for the given unsatisfiable class.
+
+    /**
+     * Returns a single explanation for the given unsatisfiable class.
      * 
      * @param unsatClass
-     *            The class that is unsatisfiable for which an explanation will
-     *            be generated.
+     *        The class that is unsatisfiable for which an explanation will be
+     *        generated.
      * @return A single explanation for the given unsatisfiable class, or empty
-     *         set if the concept is satisfiable */
+     *         set if the concept is satisfiable
+     */
     @Nonnull
     Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass);
 
-    /** Returns all the explanations for the given unsatisfiable class.
+    /**
+     * Returns all the explanations for the given unsatisfiable class.
      * 
      * @param unsatClass
-     *            The class that is unsatisfiable for which an explanation will
-     *            be generated.
+     *        The class that is unsatisfiable for which an explanation will be
+     *        generated.
      * @return All explanations for the given unsatisfiable class, or an empty
-     *         set if the concept is satisfiable */
+     *         set if the concept is satisfiable
+     */
     @Nonnull
     Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass);
 
-    /** Return a specified number of explanations for the given unsatisfiable
+    /**
+     * Return a specified number of explanations for the given unsatisfiable
      * class. A smaller number of explanations can be returned if there are not
      * as many explanations for the given concept. The returned set will be
      * empty if the given class is satisfiable,
      * 
      * @param unsatClass
-     *            The class that is unsatisfiable for which an explanation will
-     *            be generated.
+     *        The class that is unsatisfiable for which an explanation will be
+     *        generated.
      * @param maxExplanations
-     *            Maximum number of explanations requested, or 0 to get all the
-     *            explanations
+     *        Maximum number of explanations requested, or 0 to get all the
+     *        explanations
      * @return A specified number of explanations for the given unsatisfiable
-     *         class, or an empty set if the concept is satisfiable */
+     *         class, or an empty set if the concept is satisfiable
+     */
     @Nonnull
     Set<Set<OWLAxiom>> getExplanations(@Nonnull OWLClassExpression unsatClass,
             int maxExplanations);

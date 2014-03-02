@@ -38,6 +38,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractLatexTest {
+
     public void shouldTestLatexAxiomsListOntologyFormat() throws OWLException {
         LatexAxiomsListOntologyFormat testSubject0 = new LatexAxiomsListOntologyFormat();
         testSubject0.setParameter(mock(Object.class), mock(Object.class));

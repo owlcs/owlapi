@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 /** test for 3178902 adapted from the report Thimoty provided. */
 @SuppressWarnings("javadoc")
 public class ThreeEquivalentsRoundTripTestCase extends TestBase {
+
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

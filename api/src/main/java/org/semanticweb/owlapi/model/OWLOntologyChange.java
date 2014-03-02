@@ -21,109 +21,136 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.OWLOntologyChangeRecord;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <T>
- *            change type */
+ *        change type
+ */
 public abstract class OWLOntologyChange<T> implements HasSignature {
+
     private final OWLOntology ont;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied */
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
+     */
     public OWLOntologyChange(@Nonnull OWLOntology ont) {
         this.ont = checkNotNull(ont, "ontology must not be null");
     }
 
-    /** Determines if the change will cause the addition or removal of an axiom
+    /**
+     * Determines if the change will cause the addition or removal of an axiom
      * from an ontology.
      * 
      * @return {@code true} if the change is an {@code OWLAddAxiomChange} or
-     *         {@code OWLRemoveAxiomChange} otherwise {@code false}. */
+     *         {@code OWLRemoveAxiomChange} otherwise {@code false}.
+     */
     public abstract boolean isAxiomChange();
 
-    /** Determines if the change will add an axiom to an ontology.
+    /**
+     * Determines if the change will add an axiom to an ontology.
      * 
      * @return {@code true} if the change is an AddAxiom change and it will add
-     *         an axiom to an ontology, {@code false} otherwise. */
+     *         an axiom to an ontology, {@code false} otherwise.
+     */
     public abstract boolean isAddAxiom();
 
-    /** Determines if the change will remove an axiom from an ontology.
+    /**
+     * Determines if the change will remove an axiom from an ontology.
      * 
      * @return {@code true} if the change is a RemoveAxiom change and it will
-     *         remove an axiom from an ontology, {@code false} otherwise. */
+     *         remove an axiom from an ontology, {@code false} otherwise.
+     */
     public boolean isRemoveAxiom() {
         return isAxiomChange() && !isAddAxiom();
     }
 
-    /** If the change is an axiom change (i.e. AddAxiom or RemoveAxiom) this
+    /**
+     * If the change is an axiom change (i.e. AddAxiom or RemoveAxiom) this
      * method obtains the axiom.
      * 
      * @return The Axiom if this change is an axiom change
      * @throws UnsupportedOperationException
-     *             If the change is not an axiom change (check with the
-     *             {@code isAxiomChange} method first). */
+     *         If the change is not an axiom change (check with the
+     *         {@code isAxiomChange} method first).
+     */
     @Nonnull
     public abstract OWLAxiom getAxiom();
 
-    /** Determines if this change is an import change and hence causes a change
+    /**
+     * Determines if this change is an import change and hence causes a change
      * to the imports closure of an ontology.
      * 
      * @return {@code true} if this change is an import change, otherwise
-     *         {@code false}. */
+     *         {@code false}.
+     */
     public abstract boolean isImportChange();
 
-    /** Gets the ontology that the change is/was applied to.
+    /**
+     * Gets the ontology that the change is/was applied to.
      * 
-     * @return The ontology that the change is applicable to */
+     * @return The ontology that the change is applicable to
+     */
     @Nonnull
     public OWLOntology getOntology() {
         return ont;
     }
 
-    /** Gets the data (independent of the ontology) associated with this specific
+    /**
+     * Gets the data (independent of the ontology) associated with this specific
      * change.
      * 
      * @return The {@link OWLOntologyChangeData} associated with this
-     *         {@link OWLOntologyChange}. */
+     *         {@link OWLOntologyChange}.
+     */
     @Nonnull
     public abstract OWLOntologyChangeData<T> getChangeData();
 
-    /** Gets a {@link OWLOntologyChangeRecord} that is derived from this
+    /**
+     * Gets a {@link OWLOntologyChangeRecord} that is derived from this
      * {@link OWLOntologyChange}'s {@link OWLOntologyID} and it's
      * {@link OWLOntologyChangeData}.
      * 
      * @return An {@link OWLOntologyChangeRecord} containing an
      *         {@link OWLOntologyID} equal to the {@link OWLOntologyID} of this
      *         {@link OWLOntologyChange}'s {@link OWLOntology}. Not {@code null}
-     *         . */
+     *         .
+     */
     @Nonnull
     public OWLOntologyChangeRecord<T> getChangeRecord() {
         return new OWLOntologyChangeRecord<T>(ont.getOntologyID(),
                 getChangeData());
     }
 
-    /** Gets the signature of this ontology change. That is, the set of entities
+    /**
+     * Gets the signature of this ontology change. That is, the set of entities
      * appearing in objects in this change.
      * 
      * @return A set of entities that correspond to the signature of this
-     *         object. The set is a copy, changes are not reflected back. */
+     *         object. The set is a copy, changes are not reflected back.
+     */
     @Override
     @Nonnull
     public abstract Set<OWLEntity> getSignature();
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     public abstract void accept(OWLOntologyChangeVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     public abstract <O> O accept(OWLOntologyChangeVisitorEx<O> visitor);
 }

@@ -19,11 +19,14 @@ import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 @SuppressWarnings("javadoc")
 public class SimpleIRIShortFormProviderTestCase {
+
     @Test
     public void testFragmentShortForm() {
         IRI iri = IRI("http://owl.cs.manchester.ac.uk/ontology/x#A");

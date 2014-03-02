@@ -21,10 +21,13 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
+
     //@formatter:off
     // OWL Vocab
     /** http://www.w3.org/2002/07/owl#Thing                 **/    OWL_THING(Namespaces.OWL, "Thing"),
@@ -198,8 +201,10 @@ public enum OWLRDFVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         }
         BUILT_IN_VOCABULARY_IRIS = Collections.unmodifiableSet(set);
     }
-    /** label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
-     * seeAlso , isDefinedBy , incompatibleWith , deprecated */
+    /**
+     * label , comment , versionInfo , backwardCompatibleWith , priorVersion ,
+     * seeAlso , isDefinedBy , incompatibleWith , deprecated
+     */
     public static final Set<IRI> BUILT_IN_ANNOTATION_PROPERTY_IRIS;
     static {
         BUILT_IN_ANNOTATION_PROPERTY_IRIS = new HashSet<IRI>();

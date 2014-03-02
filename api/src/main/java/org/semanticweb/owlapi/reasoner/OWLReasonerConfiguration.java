@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-/** An OWLReasonerConfiguration can be used to customise the setup of a reasoner
+/**
+ * An OWLReasonerConfiguration can be used to customise the setup of a reasoner
  * at reasoner creation time via an
  * {@link org.semanticweb.owlapi.reasoner.OWLReasonerFactory}. Specific
  * reasoners may define their own configuration objects with configuration
@@ -25,16 +26,21 @@ package org.semanticweb.owlapi.reasoner;
  *         Management Group
  * @since 3.0.0
  * @see org.semanticweb.owlapi.reasoner.OWLReasonerFactory
- * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration */
+ * @see org.semanticweb.owlapi.reasoner.SimpleConfiguration
+ */
 public interface OWLReasonerConfiguration {
-    /** Gets a progress monitor that the reasoner may update with information
+
+    /**
+     * Gets a progress monitor that the reasoner may update with information
      * about the progress of its reasoning process.
      * 
      * @return A progress monitor. By default this returns
-     *         {@link NullReasonerProgressMonitor} */
+     *         {@link NullReasonerProgressMonitor}
+     */
     ReasonerProgressMonitor getProgressMonitor();
 
-    /** Gets the timeout in milliseconds for basic single reasoner operations
+    /**
+     * Gets the timeout in milliseconds for basic single reasoner operations
      * (satisfiability check time out). If the value is equal to
      * {@link Long#MAX_VALUE} then this means that the reasoner should never
      * time out. <br>
@@ -49,16 +55,20 @@ public interface OWLReasonerConfiguration {
      * 
      * @return The time out in milliseconds. By default this is set to the value
      *         of {@link Long#MAX_VALUE}, which means the reasoner SHOULD NOT
-     *         timeout. */
+     *         timeout.
+     */
     long getTimeOut();
 
-    /** Gets the fresh entity policy that should be used. By default this is set
+    /**
+     * Gets the fresh entity policy that should be used. By default this is set
      * to {@link FreshEntityPolicy#ALLOW}.
      * 
-     * @return The fresh entity policy. */
+     * @return The fresh entity policy.
+     */
     FreshEntityPolicy getFreshEntityPolicy();
 
-    /** Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
+    /**
+     * Gets the {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy}
      * which determines how {@code NodeSet}s of named individuals are returned
      * from the reasoner.
      * 
@@ -66,6 +76,7 @@ public interface OWLReasonerConfiguration {
      *         default the policy is
      *         {@link org.semanticweb.owlapi.reasoner.IndividualNodeSetPolicy#BY_NAME}
      *         i.e. by default individuals that are the same as each other are
-     *         not grouped into the same node within a node set. */
+     *         not grouped into the same node within a node set.
+     */
     IndividualNodeSetPolicy getIndividualNodeSetPolicy();
 }

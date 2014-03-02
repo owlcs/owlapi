@@ -25,41 +25,52 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 /** Explanation generator for a single explanation. */
 public interface SingleExplanationGenerator {
-    /** Gets the ontology manager.
+
+    /**
+     * Gets the ontology manager.
      * 
-     * @return the ontology manager for this explanation generator. */
+     * @return the ontology manager for this explanation generator.
+     */
     @Nonnull
     OWLOntologyManager getOntologyManager();
 
-    /** Gets the ontology.
+    /**
+     * Gets the ontology.
      * 
-     * @return the ontology according to which the explanations are generated */
+     * @return the ontology according to which the explanations are generated
+     */
     @Nonnull
     OWLOntology getOntology();
 
     /** dispose of the reasoners and ontologies. */
     void dispose();
 
-    /** Gets the reasoner.
+    /**
+     * Gets the reasoner.
      * 
-     * @return the reasoner associated with this generator. */
+     * @return the reasoner associated with this generator.
+     */
     @Nonnull
     OWLReasoner getReasoner();
 
-    /** Gets the reasoner factory.
+    /**
+     * Gets the reasoner factory.
      * 
-     * @return the reasoner factory used to create fresh reasoners. */
+     * @return the reasoner factory used to create fresh reasoners.
+     */
     @Nonnull
     OWLReasonerFactory getReasonerFactory();
 
-    /** Get a single explanation for an arbitrary class expression, or empty set
+    /**
+     * Get a single explanation for an arbitrary class expression, or empty set
      * if the given expression is satisfiable.
      * 
      * @param unsatClass
-     *            arbitrary class expression whose unsatisfiability will be
-     *            explained
+     *        arbitrary class expression whose unsatisfiability will be
+     *        explained
      * @return set of axioms explaining the unsatisfiability of given class
-     *         expression, or empty set if the given expression is satisfiable. */
+     *         expression, or empty set if the given expression is satisfiable.
+     */
     @Nonnull
     Set<OWLAxiom> getExplanation(@Nonnull OWLClassExpression unsatClass);
 }

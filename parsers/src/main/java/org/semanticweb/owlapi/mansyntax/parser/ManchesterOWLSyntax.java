@@ -12,12 +12,15 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.mansyntax.parser;
 
-/** The vocabulary that the Manchester OWL Syntax uses.
+/**
+ * The vocabulary that the Manchester OWL Syntax uses.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public enum ManchesterOWLSyntax {
+
     //@formatter:off
     
 //    public static final String VALUE_PARTITION = "ValuePartition:";
@@ -175,35 +178,43 @@ public enum ManchesterOWLSyntax {
         return keyword;
     }
 
-    /** @param s
-     *            s
-     * @return true if matches keyword */
+    /**
+     * @param s
+     *        s
+     * @return true if matches keyword
+     */
     public boolean matches(String s) {
         return keyword.equalsIgnoreCase(s);
     }
 
-    /** @param s
-     *            s
-     * @return true if either form matches */
+    /**
+     * @param s
+     *        s
+     * @return true if either form matches
+     */
     public boolean matchesEitherForm(String s) {
         return keyword.equalsIgnoreCase(s) || rendering.equalsIgnoreCase(s);
     }
 
-    /** for keywords which match two tokens.
+    /**
+     * for keywords which match two tokens.
      * 
      * @param s
-     *            s
+     *        s
      * @param v
-     *            v
-     * @return true if matches */
+     *        v
+     * @return true if matches
+     */
     public boolean matches(String s, String v) {
         return rendering.length() == s.length() + v.length()
                 && rendering.startsWith(s) && rendering.endsWith(v);
     }
 
-    /** @param rendering
-     *            rendering
-     * @return manchester owl syntax object */
+    /**
+     * @param rendering
+     *        rendering
+     * @return manchester owl syntax object
+     */
     public static ManchesterOWLSyntax parse(String rendering) {
         for (ManchesterOWLSyntax m : values()) {
             if (m.matches(rendering)) {

@@ -16,7 +16,8 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/** Annotation for Guice modules providing bindings for the OWLAPI. The bindings
+/**
+ * Annotation for Guice modules providing bindings for the OWLAPI. The bindings
  * can be for any interface. Modules annotated with {@link OwlapiModule} can be
  * loaded from the classpath and used to create the main injector. Every module
  * can create its bindings using a different strategy; e.g., hardcoding the
@@ -28,7 +29,8 @@ import java.lang.annotation.RetentionPolicy;
  * needed.
  * 
  * @author ignazio
- * @since 4.0.0 */
+ * @since 4.0.0
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface OwlapiModule {}

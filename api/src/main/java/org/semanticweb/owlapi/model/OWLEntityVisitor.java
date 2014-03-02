@@ -14,46 +14,61 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** An interface to an object that can accept visits from
+/**
+ * An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLEntity}s.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLEntityVisitor {
-    /** visit OWLClass type
+
+    /**
+     * visit OWLClass type
      * 
      * @param cls
-     *            cls to visit */
+     *        cls to visit
+     */
     void visit(@Nonnull OWLClass cls);
 
-    /** visit OWLObjectProperty type
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            property to visit */
+     *        property to visit
+     */
     void visit(@Nonnull OWLObjectProperty property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            property to visit */
+     *        property to visit
+     */
     void visit(@Nonnull OWLDataProperty property);
 
-    /** visit OWLNamedIndividual type
+    /**
+     * visit OWLNamedIndividual type
      * 
      * @param individual
-     *            individual to visit */
+     *        individual to visit
+     */
     void visit(@Nonnull OWLNamedIndividual individual);
 
-    /** visit OWLDatatype type
+    /**
+     * visit OWLDatatype type
      * 
      * @param datatype
-     *            datatype to visit */
+     *        datatype to visit
+     */
     void visit(@Nonnull OWLDatatype datatype);
 
-    /** visit OWLAnnotationProperty type
+    /**
+     * visit OWLAnnotationProperty type
      * 
      * @param property
-     *            property to visit */
+     *        property to visit
+     */
     void visit(@Nonnull OWLAnnotationProperty property);
 }

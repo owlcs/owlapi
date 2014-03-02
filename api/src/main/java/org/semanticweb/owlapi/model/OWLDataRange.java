@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Data_Ranges">DataRange</a> in the OWL
  * 2 Specification.<br>
  * A high level interface which represents a data range. Example of data ranges
@@ -24,55 +25,73 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLDataRange extends OWLObject, OWLPropertyRange,
         SWRLPredicate {
-    /** Determines if this data range is a datatype (int, float, ...)
+
+    /**
+     * Determines if this data range is a datatype (int, float, ...)
      * 
      * @return {@code true} if this datarange is a datatype, or {@code false} if
      *         it is not a datatype and is some other data range such as a data
-     *         range restriction, data oneOf or data complementOf. */
+     *         range restriction, data oneOf or data complementOf.
+     */
     boolean isDatatype();
 
-    /** Determines if this data range is the top data type.
+    /**
+     * Determines if this data range is the top data type.
      * 
      * @return {@code true} if this data range is the top datatype otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isTopDatatype();
 
-    /** If this data range is a datatype then this method may be used to obtain
+    /**
+     * If this data range is a datatype then this method may be used to obtain
      * it as a datatype (rather than using an explicit cast).
      * 
      * @return This data range as an
-     *         {@link org.semanticweb.owlapi.model.OWLDatatype} */
+     *         {@link org.semanticweb.owlapi.model.OWLDatatype}
+     */
     @Nonnull
     OWLDatatype asOWLDatatype();
 
-    /** Gets the type of this data range
+    /**
+     * Gets the type of this data range
      * 
-     * @return The data range type */
+     * @return The data range type
+     */
     @Nonnull
     DataRangeType getDataRangeType();
 
-    /** @param visitor
-     *            visitor */
+    /**
+     * @param visitor
+     *        visitor
+     */
     void accept(@Nonnull OWLDataVisitor visitor);
 
-    /** @param visitor
-     *            visitor
+    /**
+     * @param visitor
+     *        visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor return value */
+     *        visitor return type
+     * @return visitor return value
+     */
     <O> O accept(@Nonnull OWLDataVisitorEx<O> visitor);
 
-    /** @param visitor
-     *            visitor */
+    /**
+     * @param visitor
+     *        visitor
+     */
     void accept(@Nonnull OWLDataRangeVisitor visitor);
 
-    /** @param visitor
-     *            visitor
+    /**
+     * @param visitor
+     *        visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor return value */
+     *        visitor return type
+     * @return visitor return value
+     */
     <O> O accept(@Nonnull OWLDataRangeVisitorEx<O> visitor);
 }

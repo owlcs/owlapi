@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiModel_2Test {
+
     @Test
     public void shouldTestInterfaceOWLDataProperty() throws OWLException {
         OWLDataProperty testSubject0 = mock(OWLDataProperty.class);

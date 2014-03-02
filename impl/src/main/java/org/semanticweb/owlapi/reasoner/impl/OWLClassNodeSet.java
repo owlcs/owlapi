@@ -19,29 +19,38 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** A node set of OWL classes
+/**
+ * A node set of OWL classes
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLClassNodeSet extends DefaultNodeSet<OWLClass> {
+
     /** default constructor. */
     public OWLClassNodeSet() {}
 
-    /** @param entity
-     *            the entity to be contained */
+    /**
+     * @param entity
+     *        the entity to be contained
+     */
     public OWLClassNodeSet(@Nonnull OWLClass entity) {
         super(entity);
     }
 
-    /** @param owlClassNode
-     *            the node to be contained */
+    /**
+     * @param owlClassNode
+     *        the node to be contained
+     */
     public OWLClassNodeSet(@Nonnull Node<OWLClass> owlClassNode) {
         super(owlClassNode);
     }
 
-    /** @param nodes
-     *            the set of nodes to be contained */
+    /**
+     * @param nodes
+     *        the set of nodes to be contained
+     */
     public OWLClassNodeSet(@Nonnull Set<Node<OWLClass>> nodes) {
         super(nodes);
     }

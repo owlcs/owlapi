@@ -34,24 +34,29 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** An abstract debugger which provides common infrastructure for finding
+/**
+ * An abstract debugger which provides common infrastructure for finding
  * multiple justification. This functionality relies on a concrete
  * implementation of a debugger that can compute a minimal set of axioms that
  * cause the unsatisfiability.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class AbstractOWLDebugger implements OWLDebugger {
+
     protected final OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
 
-    /** Instantiates a new abstract owl debugger.
+    /**
+     * Instantiates a new abstract owl debugger.
      * 
      * @param owlOntologyManager
-     *            the owl ontology manager
+     *        the owl ontology manager
      * @param ontology
-     *            the ontology */
+     *        the ontology
+     */
     protected AbstractOWLDebugger(
             @Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull OWLOntology ontology) {
@@ -80,11 +85,13 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
         owlOntologyManager.applyChanges(changes);
     }
 
-    /** Gets the current class.
+    /**
+     * Gets the current class.
      * 
      * @return the current class
      * @throws OWLException
-     *             the OWL exception */
+     *         the OWL exception
+     */
     @Nonnull
     protected abstract OWLClassExpression getCurrentClass() throws OWLException;
 
@@ -114,23 +121,25 @@ public abstract class AbstractOWLDebugger implements OWLDebugger {
     // Hitting Set Stuff
     //
     // /////////////////////////////////////////////////////////////////////////////////////////
-    /** This is a recursive method that builds a hitting set tree to obtain all
+    /**
+     * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
      * 
      * @param mups
-     *            The current justification for the current class. This
-     *            corresponds to a node in the hitting set tree.
+     *        The current justification for the current class. This corresponds
+     *        to a node in the hitting set tree.
      * @param allMups
-     *            All of the MUPS that have been found - this set gets populated
-     *            over the course of the tree building process. Initially this
-     *            should just contain the first justification
+     *        All of the MUPS that have been found - this set gets populated
+     *        over the course of the tree building process. Initially this
+     *        should just contain the first justification
      * @param satPaths
-     *            Paths that have been completed.
+     *        Paths that have been completed.
      * @param currentPathContents
-     *            The contents of the current path. Initially this should be an
-     *            empty set.
+     *        The contents of the current path. Initially this should be an
+     *        empty set.
      * @throws OWLException
-     *             if there is any problem */
+     *         if there is any problem
+     */
     public void constructHittingSetTree(@Nonnull Set<OWLAxiom> mups,
             @Nonnull Set<Set<OWLAxiom>> allMups,
             @Nonnull Set<Set<OWLAxiom>> satPaths,

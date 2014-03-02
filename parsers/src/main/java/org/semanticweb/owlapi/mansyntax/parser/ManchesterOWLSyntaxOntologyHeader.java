@@ -21,22 +21,27 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class ManchesterOWLSyntaxOntologyHeader {
+
     private OWLOntologyID ontologyID;
     private Collection<OWLAnnotation> annotations;
     private Collection<OWLImportsDeclaration> importsDeclarations;
 
-    /** @param ontologyIRI
-     *            the ontology IRI
+    /**
+     * @param ontologyIRI
+     *        the ontology IRI
      * @param versionIRI
-     *            the version IRI
+     *        the version IRI
      * @param annotations
-     *            the ontology annotations
+     *        the ontology annotations
      * @param importsDeclarations
-     *            the imports declarations */
+     *        the imports declarations
+     */
     public ManchesterOWLSyntaxOntologyHeader(IRI ontologyIRI, IRI versionIRI,
             Set<OWLAnnotation> annotations,
             Set<OWLImportsDeclaration> importsDeclarations) {

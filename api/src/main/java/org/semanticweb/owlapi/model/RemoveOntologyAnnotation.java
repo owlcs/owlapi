@@ -17,17 +17,22 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.OWLOntologyChangeData;
 import org.semanticweb.owlapi.change.RemoveOntologyAnnotationData;
 
-/** Represents an ontology change where an annotation is removed from an
+/**
+ * Represents an ontology change where an annotation is removed from an
  * ontology.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class RemoveOntologyAnnotation extends AnnotationChange {
-    /** @param ont
-     *            the ontology to which the change is to be applied
+
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param annotation
-     *            the annotation */
+     *        the annotation
+     */
     public RemoveOntologyAnnotation(@Nonnull OWLOntology ont,
             @Nonnull OWLAnnotation annotation) {
         super(ont, annotation);

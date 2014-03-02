@@ -16,14 +16,19 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class EntailedAxiomTree extends ExplanationTree {
-    /** Instantiates a new entailed axiom tree.
+
+    /**
+     * Instantiates a new entailed axiom tree.
      * 
      * @param userObject
-     *            the axiom to wrap */
+     *        the axiom to wrap
+     */
     public EntailedAxiomTree(@Nonnull OWLAxiom userObject) {
         super(userObject);
     }

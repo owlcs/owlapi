@@ -22,14 +22,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class StreamDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final OutputStream os;
 
-    /** @param os
-     *            the actual output stream */
+    /**
+     * @param os
+     *        the actual output stream
+     */
     public StreamDocumentTarget(@Nonnull OutputStream os) {
         this.os = checkNotNull(os, "os cannot be null");
     }

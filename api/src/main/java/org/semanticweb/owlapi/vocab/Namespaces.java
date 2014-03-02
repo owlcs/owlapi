@@ -19,9 +19,11 @@ import java.util.EnumSet;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public enum Namespaces {
     //@formatter:off
     // OWL2XML("http://www.w3.org/2006/12/owl2-xml#"),
@@ -106,8 +108,10 @@ public enum Namespaces {
         hashless = hashless(prefix);
     }
 
-    /** @return A short, human-readable, prefix name that matches, and expands to
-     *         the full IRI. Not {@code null}. */
+    /**
+     * @return A short, human-readable, prefix name that matches, and expands to
+     *         the full IRI. Not {@code null}.
+     */
     public String getPrefixName() {
         return prefix;
     }
@@ -117,21 +121,27 @@ public enum Namespaces {
         return ns;
     }
 
-    /** @return {@code true} if this namespace is not obsolete and is currently in
-     *         active use, otherwise {@code false}. */
+    /**
+     * @return {@code true} if this namespace is not obsolete and is currently in
+     *         active use, otherwise {@code false}.
+     */
     public boolean isInUse() {
         return status == IN_USE;
     }
 
-    /** @return {@code true} if this namespace is defined as a core part of the
-     *         OWL-2 specification, otherwise {@code false}. */
+    /**
+     * @return {@code true} if this namespace is defined as a core part of the
+     *         OWL-2 specification, otherwise {@code false}.
+     */
     public boolean isBuiltIn() {
         return builtIn == BUILT_IN;
     }
 
-    /** @param ns
-     *            namespace
-     * @return this namespace without hash or slash at the end */
+    /**
+     * @param ns
+     *        namespace
+     * @return this namespace without hash or slash at the end
+     */
     private static String hashless(String ns) {
         int index = ns.length() - 1;
         if (ns.charAt(index) == '/' || ns.charAt(index) == '#') {
@@ -144,9 +154,11 @@ public enum Namespaces {
     public static EnumSet<Namespaces> defaultIgnoredImports = EnumSet.of(OWL,
             RDF, RDFS, SWRL, SWRLB, XML, XSD);
 
-    /** @param i
-     *            the iri to check
-     * @return true if the iri is for a namespace ignored by default */
+    /**
+     * @param i
+     *        the iri to check
+     * @return true if the iri is for a namespace ignored by default
+     */
     public static boolean isDefaultIgnoredImport(IRI i) {
         for (Namespaces n : defaultIgnoredImports) {
             if (n.hashless.equals(i.toString())) {
@@ -156,9 +168,11 @@ public enum Namespaces {
         return false;
     }
 
-    /** @param i
-     *            the stirng to check
-     * @return true if the string is for a namespace ignored by default */
+    /**
+     * @param i
+     *        the stirng to check
+     * @return true if the string is for a namespace ignored by default
+     */
     public static boolean isDefaultIgnoredImport(String i) {
         for (Namespaces n : defaultIgnoredImports) {
             if (n.hashless.equals(i)) {
@@ -173,22 +187,28 @@ public enum Namespaces {
         return ns;
     }
 
-    /** @param s
-     *            string to check
-     * @return true if s equals this namespace */
+    /**
+     * @param s
+     *        string to check
+     * @return true if s equals this namespace
+     */
     public boolean inNamespace(String s) {
         return ns.equals(s);
     }
 
-    /** @param i
-     *            iri to check
-     * @return true if the namespace for i equals this namespace */
+    /**
+     * @param i
+     *        iri to check
+     * @return true if the namespace for i equals this namespace
+     */
     public boolean inNamespace(IRI i) {
         return ns.equals(i.getNamespace());
     }
 
-    /** Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
-     * rdfs, or xsd */
+    /**
+     * Indicates that a prefix is builtin - i.e. that it is either owl, rdf,
+     * rdfs, or xsd
+     */
     public static enum BuiltIn {
         /** built in flag. */
         BUILT_IN,

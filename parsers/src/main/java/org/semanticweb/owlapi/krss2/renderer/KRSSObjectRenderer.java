@@ -65,7 +65,8 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 
-/** A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
+/**
+ * A {@code KRSSObjectRenderer} renderes an OWLOntology in the original KRSS
  * syntax. Note that only a subset of OWL can be expressed in KRSS. <br>
  * <b>Abbreviations</b>
  * <table summary="abbreviations">
@@ -223,8 +224,10 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
+
     private static final String OPEN_BRACKET = "(";
     private static final String CLOSE_BRACKET = ")";
     private static final String NEWLINE = "\n";
@@ -233,10 +236,12 @@ public class KRSSObjectRenderer extends OWLObjectVisitorAdapter {
     private int pos = 0;
     private int lastNewLinePos = 0;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param writer
-     *            writer */
+     *        writer
+     */
     public KRSSObjectRenderer(OWLOntology ontology, Writer writer) {
         this.ontology = ontology;
         this.writer = new PrintWriter(writer);

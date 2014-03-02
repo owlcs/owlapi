@@ -30,11 +30,14 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
         OWLLiteral {
+
     private static final long serialVersionUID = 40000L;
     static final String UTF8 = "UTF-8";
     private static final OWLDatatype RDF_PLAIN_LITERAL = new OWL2DatatypeImpl(
@@ -44,25 +47,29 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
     private final String lang;
     private final int hashcode;
 
-    /** @param literal
-     *            the lexical form
+    /**
+     * @param literal
+     *        the lexical form
      * @param lang
-     *            the language; can be null or an empty string, in which case
-     *            datatype can be any datatype but not null
+     *        the language; can be null or an empty string, in which case
+     *        datatype can be any datatype but not null
      * @param datatype
-     *            the datatype; if lang is null or the empty string, it can be
-     *            null or it MUST be RDFPlainLiteral */
+     *        the datatype; if lang is null or the empty string, it can be null
+     *        or it MUST be RDFPlainLiteral
+     */
     public OWLLiteralImplNoCompression(@Nonnull String literal,
             @Nullable String lang, @Nullable OWLDatatype datatype) {
         this(getBytes(literal), lang, datatype);
     }
 
-    /** @param bytes
-     *            actual literal form
+    /**
+     * @param bytes
+     *        actual literal form
      * @param lang
-     *            language for literal, can be null
+     *        language for literal, can be null
      * @param datatype
-     *            datatype for literal */
+     *        datatype for literal
+     */
     public OWLLiteralImplNoCompression(@Nonnull byte[] bytes,
             @Nullable String lang, @Nullable OWLDatatype datatype) {
         super();

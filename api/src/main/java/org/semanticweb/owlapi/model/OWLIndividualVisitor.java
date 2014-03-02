@@ -14,19 +14,26 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLIndividualVisitor {
-    /** visit OWLNamedIndividual type
+
+    /**
+     * visit OWLNamedIndividual type
      * 
      * @param individual
-     *            individual to visit */
+     *        individual to visit
+     */
     void visit(@Nonnull OWLNamedIndividual individual);
 
-    /** visit OWLAnonymousIndividual type
+    /**
+     * visit OWLAnonymousIndividual type
      * 
      * @param individual
-     *            individual to visit */
+     *        individual to visit
+     */
     void visit(@Nonnull OWLAnonymousIndividual individual);
 }

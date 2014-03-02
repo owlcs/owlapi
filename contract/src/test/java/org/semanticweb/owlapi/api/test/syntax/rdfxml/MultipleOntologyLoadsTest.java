@@ -33,13 +33,16 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
-/** Tests the loading of a single ontology multiple times, using the same
+/**
+ * Tests the loading of a single ontology multiple times, using the same
  * ontologyIRI in the {@link OWLOntologyID} as that used in the actual ontology
  * that is being imported.
  * 
- * @author Peter Ansell p_ansell@yahoo.com */
+ * @author Peter Ansell p_ansell@yahoo.com
+ */
 @SuppressWarnings("javadoc")
 public class MultipleOntologyLoadsTest extends TestBase {
+
     private static final IRI CREATEV1 = IRI("http://test.example.org/ontology/0139/version:1");
     private static final IRI CREATEV2 = IRI("http://test.example.org/ontology/0139/version:2");
     private static final IRI CREATE0139 = IRI("http://test.example.org/ontology/0139");

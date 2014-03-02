@@ -59,15 +59,20 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class SatisfiabilityReducer implements
         OWLAxiomVisitorEx<OWLClassExpression> {
+
     private final OWLDataFactory df;
 
-    /** @param dataFactory
-     *            data factory to use */
+    /**
+     * @param dataFactory
+     *        data factory to use
+     */
     public SatisfiabilityReducer(@Nonnull OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }

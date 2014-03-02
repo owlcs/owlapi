@@ -14,6 +14,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class IdSpaceTest extends OboFormatTestBasics {
+
     @Test
     public void testIdSpace() throws Exception {
         final OBODoc doc1 = parseOBOFile("idspace_test.obo");

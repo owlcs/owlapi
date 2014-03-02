@@ -93,13 +93,16 @@ import org.semanticweb.owlapi.util.OWLObjectVisitorAdapter;
 import org.semanticweb.owlapi.util.QNameShortFormProvider;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** A renderer that provides an HTML version of the ontology.
+/**
+ * A renderer that provides an HTML version of the ontology.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings({ "unused", "javadoc" })
 public class OWLTutorialSyntaxObjectRenderer extends OWLObjectVisitorAdapter {
+
     private final OWLOntology ontology;
     private final ShortFormProvider shortForms;
     private final Writer writer;

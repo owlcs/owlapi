@@ -14,16 +14,21 @@ package org.semanticweb.owlapi.owlxml.parser;
 
 import org.semanticweb.owlapi.io.OWLParserException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLXMLParserException extends OWLParserException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param h
-     *            handler */
+     *        handler
+     */
     public OWLXMLParserException(OWLXMLParserHandler h, String message) {
         super(message, h.getLineNumber(), h.getColumnNumber());
     }

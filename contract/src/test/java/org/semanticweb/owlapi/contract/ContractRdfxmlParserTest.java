@@ -33,6 +33,7 @@ import org.xml.sax.SAXException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractRdfxmlParserTest {
+
     @Test
     public void shouldTestInterfaceIRIProvider() throws OWLException {
         IRIProvider testSubject0 = mock(IRIProvider.class);

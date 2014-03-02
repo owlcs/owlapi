@@ -28,16 +28,19 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** A test case to ensure that the reference implementation data factories do not
+/**
+ * A test case to ensure that the reference implementation data factories do not
  * create duplicate objects for distinguished values (e.g. owl:Thing,
  * rdfs:Literal etc.)
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.2.0 */
+ * @since 3.2.0
+ */
 @RunWith(value = Parameterized.class)
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryImplTestCase {
+
     private final OWLDataFactoryImpl dataFactory;
 
     public OWLDataFactoryImplTestCase(OWLDataFactoryImpl dataFactory) {

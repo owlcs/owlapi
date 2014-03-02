@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class OWLProfileReport {
 

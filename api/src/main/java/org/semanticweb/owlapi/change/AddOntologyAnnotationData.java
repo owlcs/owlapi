@@ -18,22 +18,27 @@ import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Represents the specific non-ontology data required by an
+/**
+ * Represents the specific non-ontology data required by an
  * {@link AddOntologyAnnotation} change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.3 */
+ * @since 3.3
+ */
 public class AddOntologyAnnotationData extends OntologyAnnotationChangeData {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Constructs an {@link AddOntologyAnnotationData} object that describes an
+    /**
+     * Constructs an {@link AddOntologyAnnotationData} object that describes an
      * {@link AddOntologyAnnotation} change for the {@link OWLAnnotation}
      * specified by the {@code annotation} parameter.
      * 
      * @param annotation
-     *            The {@link OWLAnnotation} that is the focus of some change. */
+     *        The {@link OWLAnnotation} that is the focus of some change.
+     */
     public AddOntologyAnnotationData(@Nonnull OWLAnnotation annotation) {
         super(annotation);
     }

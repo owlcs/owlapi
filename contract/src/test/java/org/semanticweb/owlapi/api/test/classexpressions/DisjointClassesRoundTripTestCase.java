@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class DisjointClassesRoundTripTestCase extends TestBase {
+
     @Test
     public void shouldParse() throws OWLOntologyCreationException {
         String NS = "http://ns.owl";

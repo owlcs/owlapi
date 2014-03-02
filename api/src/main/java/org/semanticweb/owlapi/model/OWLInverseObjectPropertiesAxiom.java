@@ -16,7 +16,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties_2"
  * >InverseObjectProperties</a> axiom in the OWL 2 Specification. <br>
  * Represents a statement that two properties are the inverse of each other.
@@ -26,10 +27,12 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLInverseObjectPropertiesAxiom extends
         OWLNaryPropertyAxiom<OWLObjectPropertyExpression>,
         OWLObjectPropertyAxiom {
+
     @Override
     @Nonnull
     Set<OWLInverseObjectPropertiesAxiom> asPairwiseAxioms();

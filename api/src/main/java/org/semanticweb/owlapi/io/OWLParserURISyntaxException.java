@@ -14,18 +14,23 @@ package org.semanticweb.owlapi.io;
 
 import java.net.URISyntaxException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLParserURISyntaxException extends OWLParserException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause
-     *            the cause
+    /**
+     * @param cause
+     *        the cause
      * @param lineNumber
-     *            the line number
+     *        the line number
      * @param columnNumber
-     *            the column number */
+     *        the column number
+     */
     public OWLParserURISyntaxException(URISyntaxException cause,
             int lineNumber, int columnNumber) {
         super(cause, lineNumber, columnNumber);

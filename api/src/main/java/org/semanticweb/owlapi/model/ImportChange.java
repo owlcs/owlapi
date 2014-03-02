@@ -19,17 +19,22 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public abstract class ImportChange extends
         OWLOntologyChange<OWLImportsDeclaration> {
+
     private final OWLImportsDeclaration declaration;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param importDeclaration
-     *            the import declaration */
+     *        the import declaration
+     */
     public ImportChange(@Nonnull OWLOntology ont,
             @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont);
@@ -37,9 +42,11 @@ public abstract class ImportChange extends
                 "importDeclaration cannot be null");
     }
 
-    /** Gets the import declaration that the change pertains to.
+    /**
+     * Gets the import declaration that the change pertains to.
      * 
-     * @return The import declaration */
+     * @return The import declaration
+     */
     @Nonnull
     public OWLImportsDeclaration getImportDeclaration() {
         return declaration;

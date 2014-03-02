@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /** @author Olaf Noppens */
 public class KRSS2OWLSyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

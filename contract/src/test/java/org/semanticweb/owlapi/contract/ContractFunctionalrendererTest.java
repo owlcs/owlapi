@@ -36,6 +36,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalrendererTest {
+
     public void shouldTestOWLFunctionalSyntaxOntologyStorer()
             throws OWLOntologyStorageException {
         OWLFunctionalSyntaxOntologyStorer testSubject0 = new OWLFunctionalSyntaxOntologyStorer();

@@ -17,21 +17,26 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 
-/** An expression parser that parses class expressions written in the Manchester
+/**
+ * An expression parser that parses class expressions written in the Manchester
  * OWL Syntax.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ManchesterOWLSyntaxClassExpressionParser implements
         OWLExpressionParser<OWLClassExpression> {
+
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
-    /** @param dataFactory
-     *            dataFactory
+    /**
+     * @param dataFactory
+     *        dataFactory
      * @param checker
-     *            checker */
+     *        checker
+     */
     public ManchesterOWLSyntaxClassExpressionParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;

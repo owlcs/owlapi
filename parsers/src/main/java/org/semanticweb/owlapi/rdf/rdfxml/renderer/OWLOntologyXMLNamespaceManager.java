@@ -32,22 +32,27 @@ import org.semanticweb.owlapi.util.NamespaceUtil;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
+/**
+ * The OWLOntologyNamespaceManager wraps a NamespaceManager (OWLOntologyFormat).
  * In the case where the appropriate prefixes and mappings don't exist in the
  * NamespaceManager (OWLOntologyFormat) this manager will create them.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
+
     private OWLOntology ontology;
     private NamespaceUtil namespaceUtil = new NamespaceUtil();
     private OWLOntologyFormat ontologyFormat;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param format
-     *            format */
+     *        format
+     */
     public OWLOntologyXMLNamespaceManager(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {
         super(getDefaultNamespace(ontology, format));
@@ -115,16 +120,18 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         }
     }
 
-    /** Gets a suggested default namespace bases on the ID of an ontology. If the
+    /**
+     * Gets a suggested default namespace bases on the ID of an ontology. If the
      * ontology has an IRI then this IRI will be used to suggest a default
      * namespace, otherwise, the OWL namespace will be returned as the default
      * namespace
      * 
      * @param ontology
-     *            The ontology
+     *        The ontology
      * @param format
-     *            format
-     * @return A suggested default namespace */
+     *        format
+     * @return A suggested default namespace
+     */
     @Nonnull
     private static String getDefaultNamespace(@Nonnull OWLOntology ontology,
             @Nonnull OWLOntologyFormat format) {

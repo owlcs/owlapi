@@ -12,6 +12,7 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 @SuppressWarnings("javadoc")
 public class DanglingRestrictionOwl2OboTest extends OboFormatTestBasics {
+
     @Test
     public void testConversion() throws Exception {
         // this is a test ontology that has had its imports axioms removed

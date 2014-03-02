@@ -14,15 +14,20 @@ package org.semanticweb.owlapi.latex.renderer;
 
 import java.io.IOException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 // XXX do we need these exceptions?
 public class LatexRendererIOException extends LatexRendererException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public LatexRendererIOException(IOException cause) {
         super(cause);
     }

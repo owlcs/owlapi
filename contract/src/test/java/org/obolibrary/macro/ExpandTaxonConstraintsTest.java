@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 @SuppressWarnings("javadoc")
 public class ExpandTaxonConstraintsTest extends RoundTripTest {
+
     @Test
     public void testExpand() throws Exception {
         OWLOntology ontology = convert(parseOBOFile("taxon_constraints.obo"));

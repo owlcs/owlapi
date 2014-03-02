@@ -12,18 +12,23 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality">
+/**
+ * Represents an <a href="http://www.w3.org/TR/owl2-syntax/#Exact_Cardinality">
  * ObjectExactCardinality</a> restriction in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObjectExactCardinality extends
         OWLObjectCardinalityRestriction {
-    /** Obtains an equivalent form that is a conjunction of a min cardinality and
+
+    /**
+     * Obtains an equivalent form that is a conjunction of a min cardinality and
      * max cardinality restriction.
      * 
      * @return The semantically equivalent but structurally simpler form (= 1 R
-     *         C) = &gt;= 1 R C and &lt;= 1 R C */
+     *         C) = &gt;= 1 R C and &lt;= 1 R C
+     */
     OWLClassExpression asIntersectionOfMinMax();
 }

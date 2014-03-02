@@ -34,7 +34,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** A convenience object that generates the changes which are necessary to remove
+/**
+ * A convenience object that generates the changes which are necessary to remove
  * an entity from a set of ontologies. This is accomplished by removing all
  * axioms that refer to the entity. The entity remover follows the visitor
  * design pattern, entities that need to be removed from an ontology should
@@ -43,31 +44,39 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLEntityRemover implements OWLEntityVisitor {
+
     private final List<RemoveAxiom> changes = new ArrayList<RemoveAxiom>();
     private final Collection<OWLOntology> ontologies;
 
-    /** Creates an entity remover, which will remove entities (axioms referring
+    /**
+     * Creates an entity remover, which will remove entities (axioms referring
      * to the entities from the specified ontologies).
      * 
      * @param ontologies
-     *            The set of ontologies that contain references to axioms to be
-     *            removed. */
+     *        The set of ontologies that contain references to axioms to be
+     *        removed.
+     */
     public OWLEntityRemover(@Nonnull Set<OWLOntology> ontologies) {
         this.ontologies = new ArrayList<OWLOntology>(checkNotNull(ontologies,
                 "ontologies cannot be null"));
     }
 
-    /** @return the list of ontology changes that are required in order to remove
-     *         visited entities from the set of ontologies. */
+    /**
+     * @return the list of ontology changes that are required in order to remove
+     *         visited entities from the set of ontologies.
+     */
     @Nonnull
     public List<RemoveAxiom> getChanges() {
         return new ArrayList<RemoveAxiom>(changes);
     }
 
-    /** Clears any changes which have accumulated over the course of visiting
-     * different entities. */
+    /**
+     * Clears any changes which have accumulated over the course of visiting
+     * different entities.
+     */
     public void reset() {
         changes.clear();
     }

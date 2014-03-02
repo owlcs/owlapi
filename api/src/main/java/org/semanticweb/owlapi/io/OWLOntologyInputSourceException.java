@@ -14,31 +14,40 @@ package org.semanticweb.owlapi.io;
 
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLOntologyInputSourceException extends OWLRuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
     /** default constructor */
     public OWLOntologyInputSourceException() {}
 
-    /** @param cause
-     *            the cause */
+    /**
+     * @param cause
+     *        the cause
+     */
     public OWLOntologyInputSourceException(Throwable cause) {
         super(cause);
     }
 
-    /** @param message
-     *            the message */
+    /**
+     * @param message
+     *        the message
+     */
     public OWLOntologyInputSourceException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            the message
+    /**
+     * @param message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLOntologyInputSourceException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -25,13 +25,16 @@ import org.semanticweb.owlapi.io.XMLUtils;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** A utility class which can generate namespaces, local names and namespace
+/**
+ * A utility class which can generate namespaces, local names and namespace
  * prefixes in accordance with the XML spec.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class NamespaceUtil {
+
     private final Map<String, String> namespace2PrefixMap = new HashMap<String, String>();
     private final Map<String, String> standardNamespacePrefixMappings = new HashMap<String, String>();
     private final AtomicInteger candidateIndex = new AtomicInteger(1);
@@ -47,13 +50,15 @@ public class NamespaceUtil {
         namespace2PrefixMap.put(Namespaces.XSD.toString(), "xsd");
     }
 
-    /** Gets a prefix for the given namespace. If a mapping has not been
+    /**
+     * Gets a prefix for the given namespace. If a mapping has not been
      * specified then a prefix will be computed and stored for the specified
      * namespace.
      * 
      * @param namespace
-     *            The namespace whose prefix is to be retrieved.
-     * @return The prefix for the specified namespace. */
+     *        The namespace whose prefix is to be retrieved.
+     * @return The prefix for the specified namespace.
+     */
     @Nonnull
     public String getPrefix(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
@@ -87,15 +92,17 @@ public class NamespaceUtil {
         return Collections.unmodifiableMap(namespace2PrefixMap);
     }
 
-    /** Generates a candidate prefix for the specified namespace.
+    /**
+     * Generates a candidate prefix for the specified namespace.
      * 
      * @param namespace
-     *            The namespace that a prefix should be generated for. The
-     *            implementation attempts to generate a prefix based on the
-     *            namespace. If it cannot do this, a prefix of the form pn is
-     *            generated, where n is an integer.
+     *        The namespace that a prefix should be generated for. The
+     *        implementation attempts to generate a prefix based on the
+     *        namespace. If it cannot do this, a prefix of the form pn is
+     *        generated, where n is an integer.
      * @return The generated prefix. Note that this method will not store the
-     *         namespace to prefix mapping. */
+     *         namespace to prefix mapping.
+     */
     @Nonnull
     private String generatePrefix(@Nonnull String namespace) {
         checkNotNull(namespace, "namespace cannot be null");
@@ -146,13 +153,15 @@ public class NamespaceUtil {
         return candidatePrefix;
     }
 
-    /** Sets the prefix for the specified namespace. This will override any
+    /**
+     * Sets the prefix for the specified namespace. This will override any
      * computed prefix and take precedence over any computed prefix.
      * 
      * @param namespace
-     *            The namespace whose prefix is to be set.
+     *        The namespace whose prefix is to be set.
      * @param prefix
-     *            The prefix for the namespace */
+     *        The prefix for the namespace
+     */
     public void setPrefix(@Nonnull String namespace, @Nonnull String prefix) {
         checkNotNull(namespace, "namespace cannot be null");
         checkNotNull(prefix, "prefix cannot be null");

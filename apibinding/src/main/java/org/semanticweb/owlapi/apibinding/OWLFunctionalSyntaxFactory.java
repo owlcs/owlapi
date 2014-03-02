@@ -109,7 +109,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
-/** A utility class whose methods may be statically imported so that OWL API
+/**
+ * A utility class whose methods may be statically imported so that OWL API
  * objects can be constructed by writing code that looks like the OWL 2
  * Functional Syntax. <br>
  * Note that this class is primarily intended for developers who need to write
@@ -118,9 +119,11 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class OWLFunctionalSyntaxFactory {
+
     private static final OWLDataFactory DF = OWLManager.getOWLDataFactory();
 
     public static OWLImportsDeclaration ImportsDeclaration(IRI i) {

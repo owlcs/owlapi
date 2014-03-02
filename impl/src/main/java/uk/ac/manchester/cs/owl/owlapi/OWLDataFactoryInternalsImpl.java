@@ -28,10 +28,12 @@ import org.semanticweb.owlapi.util.WeakIndexCache;
 
 /** @author ignazio */
 public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
+
     private static final long serialVersionUID = 40000L;
 
     protected class BuildableWeakIndexCache<V extends OWLEntity> extends
             WeakIndexCache<IRI, V> {
+
         private static final long serialVersionUID = 40000L;
 
         public V cache(IRI s, Buildable v) {
@@ -66,8 +68,10 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
         return new BuildableWeakIndexCache<V>();
     }
 
-    /** @param useCompression
-     *            true if literals should be compressed */
+    /**
+     * @param useCompression
+     *        true if literals should be compressed
+     */
     public OWLDataFactoryInternalsImpl(boolean useCompression) {
         super(useCompression);
         classesByURI = buildCache();
@@ -126,41 +130,48 @@ public class OWLDataFactoryInternalsImpl extends InternalsNoCache {
     @SuppressWarnings("unchecked")
     protected enum Buildable {
         OWLCLASS {
+
             @Override
             OWLClass build(IRI iri) {
                 return new OWLClassImpl(iri);
             }
         },
         OWLOBJECTPROPERTY {
+
             @Override
             OWLObjectProperty build(IRI iri) {
                 return new OWLObjectPropertyImpl(iri);
             }
         },
         OWLDATAPROPERTY {
+
             @Override
             OWLDataProperty build(IRI iri) {
                 return new OWLDataPropertyImpl(iri);
             }
         },
         OWLNAMEDINDIVIDUAL {
+
             @Override
             OWLNamedIndividual build(IRI iri) {
                 return new OWLNamedIndividualImpl(iri);
             }
         },
         OWLDATATYPE {
+
             @Override
             OWLDatatype build(IRI iri) {
                 return new OWLDatatypeImpl(iri);
             }
         },
         OWLANNOTATIONPROPERTY {
+
             @Override
             OWLAnnotationProperty build(IRI iri) {
                 return new OWLAnnotationPropertyImpl(iri);
             }
         };
+
         abstract <K extends OWLEntity> K build(IRI iri);
     }
 

@@ -25,16 +25,21 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLObjectHasSelfImpl extends OWLRestrictionImpl implements
         OWLObjectHasSelf {
+
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
-    /** @param property
-     *            self property */
+    /**
+     * @param property
+     *        self property
+     */
     public OWLObjectHasSelfImpl(@Nonnull OWLObjectPropertyExpression property) {
         this.property = checkNotNull(property, "property cannot be null");
     }

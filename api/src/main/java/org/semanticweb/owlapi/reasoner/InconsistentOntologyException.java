@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-/** This type of exception is thrown by an
+/**
+ * This type of exception is thrown by an
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner} to indicate that the
  * imports closure of the root ontology (returned by
  * {@link org.semanticweb.owlapi.reasoner.OWLReasoner#getRootOntology()}) is
@@ -20,8 +21,10 @@ package org.semanticweb.owlapi.reasoner;
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class InconsistentOntologyException extends OWLReasonerRuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
     /** default constructor */

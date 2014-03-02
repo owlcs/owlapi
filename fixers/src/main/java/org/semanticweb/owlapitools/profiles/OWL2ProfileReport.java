@@ -18,8 +18,8 @@ import java.util.TreeSet;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
 public class OWL2ProfileReport extends OWLProfileReport {
 

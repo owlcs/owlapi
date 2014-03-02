@@ -19,14 +19,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class AxiomCount extends IntegerValuedMetric {
-    /** Instantiates a new axiom count.
+
+    /**
+     * Instantiates a new axiom count.
      * 
      * @param o
-     *            ontology to use */
+     *        ontology to use
+     */
     public AxiomCount(@Nonnull OWLOntology o) {
         super(o);
     }

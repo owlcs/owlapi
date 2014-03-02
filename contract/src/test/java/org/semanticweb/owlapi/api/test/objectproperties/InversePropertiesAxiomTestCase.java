@@ -18,11 +18,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractRoundTrippingTestCase
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class InversePropertiesAxiomTestCase extends
         AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() throws OWLOntologyCreationException {
         OWLOntology ont = getOWLOntology("ont");

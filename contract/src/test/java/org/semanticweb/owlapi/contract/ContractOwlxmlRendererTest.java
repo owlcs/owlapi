@@ -26,6 +26,7 @@ import org.semanticweb.owlapi.owlxml.renderer.OWLXMLWriter;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlRendererTest {
+
     @Test
     public void shouldTestOWLXMLObjectRenderer() throws OWLException {
         new OWLXMLObjectRenderer(mock(OWLXMLWriter.class));

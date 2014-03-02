@@ -16,6 +16,7 @@ package org.semanticweb.owlapi.krss2.parser;
 
 /** Describes the input token stream. */
 public class Token implements java.io.Serializable {
+
     private static final long serialVersionUID = 40000L;
     /** An integer that describes the kind of this token. */
     public int kind;
@@ -29,18 +30,24 @@ public class Token implements java.io.Serializable {
     public int endColumn;
     /** The string image of the token. */
     public String image;
-    /** A reference to the next regular (non-special) token from the input
-     * stream. */
+    /**
+     * A reference to the next regular (non-special) token from the input
+     * stream.
+     */
     public Token next;
-    /** This field is used to access special tokens that occur prior to this
-     * token, but after the immediately preceding regular (non-special) token. */
+    /**
+     * This field is used to access special tokens that occur prior to this
+     * token, but after the immediately preceding regular (non-special) token.
+     */
     public Token specialToken;
 
-    /** An optional attribute value of the Token. Tokens which are not used as
+    /**
+     * An optional attribute value of the Token. Tokens which are not used as
      * syntactic sugar will contain meaningful values that will be used later on
      * by the compiler or interpreter.
      * 
-     * @return value */
+     * @return value
+     */
     public Object getValue() {
         return null;
     }
@@ -48,16 +55,20 @@ public class Token implements java.io.Serializable {
     /** default constructor */
     public Token() {}
 
-    /** @param kind
-     *            kind */
+    /**
+     * @param kind
+     *        kind
+     */
     public Token(int kind) {
         this(kind, null);
     }
 
-    /** @param kind
-     *            kind
+    /**
+     * @param kind
+     *        kind
      * @param image
-     *            string value */
+     *        string value
+     */
     public Token(int kind, String image) {
         this.kind = kind;
         this.image = image;
@@ -69,13 +80,15 @@ public class Token implements java.io.Serializable {
         return image;
     }
 
-    /** Returns a new Token object.
+    /**
+     * Returns a new Token object.
      * 
      * @param ofKind
-     *            kind
+     *        kind
      * @param image
-     *            string value
-     * @return token */
+     *        string value
+     * @return token
+     */
     public static Token newToken(int ofKind, String image) {
         switch (ofKind) {
             default:
@@ -83,9 +96,11 @@ public class Token implements java.io.Serializable {
         }
     }
 
-    /** @param ofKind
-     *            type
-     * @return token */
+    /**
+     * @param ofKind
+     *        type
+     * @return token
+     */
     public static Token newToken(int ofKind) {
         return newToken(ofKind, null);
     }

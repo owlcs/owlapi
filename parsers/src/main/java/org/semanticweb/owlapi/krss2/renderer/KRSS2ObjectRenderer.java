@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.search.Searcher;
 
-/** {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer
+/**
+ * {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer
  * KRSSObjectRenderer} which uses the extended vocabulary. <br>
  * <b>Abbreviations</b>
  * <table summary="Abbreviations">
@@ -262,24 +263,32 @@ import org.semanticweb.owlapi.search.Searcher;
  * </tr>
  * </table>
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
+
     private final Set<OWLSubPropertyChainOfAxiom> leftRightIdentityUsed;
-    /** If declarations are ignored, entities which are only referenced in a
-     * declaration are not rendered. */
+    /**
+     * If declarations are ignored, entities which are only referenced in a
+     * declaration are not rendered.
+     */
     protected boolean ignoreDeclarations = false;
 
-    /** @param ontology
-     *            ontology to render
+    /**
+     * @param ontology
+     *        ontology to render
      * @param writer
-     *            writer to render to */
+     *        writer to render to
+     */
     public KRSS2ObjectRenderer(OWLOntology ontology, Writer writer) {
         super(ontology, writer);
         leftRightIdentityUsed = new HashSet<OWLSubPropertyChainOfAxiom>();
     }
 
-    /** @param ignoreDeclarations
-     *            true if declarations should be ignored */
+    /**
+     * @param ignoreDeclarations
+     *        true if declarations should be ignored
+     */
     public void setIgnoreDeclarations(boolean ignoreDeclarations) {
         this.ignoreDeclarations = ignoreDeclarations;
     }

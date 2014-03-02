@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class AnonymousRoundTripTestCase extends TestBase {
+
     @Test
     public void testRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

@@ -14,51 +14,66 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 3.0.0
  * @param <O>
- *            return type */
+ *        return type
+ */
 public interface OWLEntityVisitorEx<O> {
-    /** visit OWLClass type
+
+    /**
+     * visit OWLClass type
      * 
      * @param cls
-     *            cls to visit
-     * @return visitor value */
+     *        cls to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLClass cls);
 
-    /** visit OWLObjectProperty type
+    /**
+     * visit OWLObjectProperty type
      * 
      * @param property
-     *            property to visit
-     * @return visitor value */
+     *        property to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLObjectProperty property);
 
-    /** visit OWLDataProperty type
+    /**
+     * visit OWLDataProperty type
      * 
      * @param property
-     *            property to visit
-     * @return visitor value */
+     *        property to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDataProperty property);
 
-    /** visit OWLNamedIndividual type
+    /**
+     * visit OWLNamedIndividual type
      * 
      * @param individual
-     *            individual to visit
-     * @return visitor value */
+     *        individual to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLNamedIndividual individual);
 
-    /** visit OWLDatatype type
+    /**
+     * visit OWLDatatype type
      * 
      * @param datatype
-     *            datatype to visit
-     * @return visitor value */
+     *        datatype to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDatatype datatype);
 
-    /** visit OWLAnnotationProperty type
+    /**
+     * visit OWLAnnotationProperty type
      * 
      * @param property
-     *            property to visit
-     * @return visitor value */
+     *        property to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLAnnotationProperty property);
 }

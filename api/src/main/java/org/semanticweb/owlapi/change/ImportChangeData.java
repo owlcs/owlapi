@@ -22,34 +22,41 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 
-/** Instances of this class represent {@link OWLOntologyChangeData} for changes
+/**
+ * Instances of this class represent {@link OWLOntologyChangeData} for changes
  * that that are specific to the addition or removal of import statements
  * to/from an ontology.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.3 */
+ * @since 3.3
+ */
 public abstract class ImportChangeData extends
         OWLOntologyChangeData<OWLImportsDeclaration> {
+
     private static final long serialVersionUID = 40000L;
     private final OWLImportsDeclaration declaration;
 
-    /** Constructs an {@link ImportChangeData} object that describes an
+    /**
+     * Constructs an {@link ImportChangeData} object that describes an
      * {@link org.semanticweb.owlapi.model.ImportChange} based on the
      * {@link OWLImportsDeclaration} specified by the {@code declaration}
      * parameter.
      * 
      * @param declaration
-     *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. */
+     *        The {@link OWLImportsDeclaration} that is the focus of some
+     *        change.
+     */
     protected ImportChangeData(@Nonnull OWLImportsDeclaration declaration) {
         this.declaration = checkNotNull(declaration,
                 "declaration must not be null");
     }
 
-    /** Gets the {@link OWLImportsDeclaration} that this change data describes.
+    /**
+     * Gets the {@link OWLImportsDeclaration} that this change data describes.
      * 
-     * @return The {@link OWLImportsDeclaration}. */
+     * @return The {@link OWLImportsDeclaration}.
+     */
     @Nonnull
     public OWLImportsDeclaration getDeclaration() {
         return declaration;

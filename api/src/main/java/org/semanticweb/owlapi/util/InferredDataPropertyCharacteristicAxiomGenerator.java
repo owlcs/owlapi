@@ -20,13 +20,16 @@ import org.semanticweb.owlapi.model.OWLDataPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Generates inferred data property characteristics.
+/**
+ * Generates inferred data property characteristics.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class InferredDataPropertyCharacteristicAxiomGenerator extends
         InferredDataPropertyAxiomGenerator<OWLDataPropertyCharacteristicAxiom> {
+
     @Override
     protected void addAxioms(OWLDataProperty entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory,

@@ -17,13 +17,16 @@ import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
 /** Token Manager. */
 public class TurtleParserTokenManager implements TurtleParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** Set debug output.
+    /**
+     * Set debug output.
      * 
      * @param ds
-     *            the new debug stream */
+     *        the new debug stream
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -1490,8 +1493,10 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     private final int[] jjstateSet = new int[112];
     protected char curChar;
 
-    /** @param stream
-     *            the stream */
+    /**
+     * @param stream
+     *        the stream
+     */
     public TurtleParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
@@ -1500,19 +1505,23 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         input_stream = stream;
     }
 
-    /** @param stream
-     *            the stream
+    /**
+     * @param stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public TurtleParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -1528,21 +1537,25 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            the lex state */
+     *        the lex state
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -1581,9 +1594,11 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;

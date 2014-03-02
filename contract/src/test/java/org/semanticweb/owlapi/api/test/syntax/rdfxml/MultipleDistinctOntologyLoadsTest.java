@@ -32,13 +32,16 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
-/** Tests the loading of a single ontology multiple times, using a different
+/**
+ * Tests the loading of a single ontology multiple times, using a different
  * ontologyIRI in the OWLOntologyID as that used in the actual ontology that is
  * being imported.
  * 
- * @author Peter Ansell p_ansell@yahoo.com */
+ * @author Peter Ansell p_ansell@yahoo.com
+ */
 @SuppressWarnings("javadoc")
 public class MultipleDistinctOntologyLoadsTest {
+
     private OWLOntologyManager manager;
     IRI jb = IRI("http://example.purl.org.au/domainontology/JB_000007");
     IRI v1 = IRI("http://test.example.org/ontology/0139/version:1");

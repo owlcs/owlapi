@@ -14,32 +14,41 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Subclass_Axioms">SubClassOf</a> axiom
  * in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLSubClassOfAxiom extends OWLClassAxiom {
-    /** Gets the subclass in this axiom.
+
+    /**
+     * Gets the subclass in this axiom.
      * 
-     * @return The class expression that represents the subclass in this axiom. */
+     * @return The class expression that represents the subclass in this axiom.
+     */
     @Nonnull
     OWLClassExpression getSubClass();
 
-    /** Gets the superclass in this axiom.
+    /**
+     * Gets the superclass in this axiom.
      * 
      * @return The class expression that represents the superclass in this
-     *         axiom. */
+     *         axiom.
+     */
     @Nonnull
     OWLClassExpression getSuperClass();
 
-    /** Determines if this subclass axiom has a subclass that is anonymous. (if
+    /**
+     * Determines if this subclass axiom has a subclass that is anonymous. (if
      * the subclass is anonymous then the subclass axiom is known as a General
      * Concept Inclusion - GCI).
      * 
-     * @return {@code true} if this axiom is a GCI, other wise {@code false}. */
+     * @return {@code true} if this axiom is a GCI, other wise {@code false}.
+     */
     boolean isGCI();
 
     @Override

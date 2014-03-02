@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 class DeprecatedVocabulary {
+
     //@formatter:off
     private static final String OWL = Namespaces.OWL.toString();
     /** http://www.w3.org/2002/07/owl#OntologyProperty **/                  public static final IRI OWL_ONTOLOGY_PROPERTY                   = IRI.create(OWL, "OntologyProperty");

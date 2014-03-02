@@ -16,16 +16,21 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public interface ImpendingOWLOntologyChangeBroadcastStrategy {
-    /** Broadcasts the list of changes to the specified listeners.
+
+    /**
+     * Broadcasts the list of changes to the specified listeners.
      * 
      * @param changes
-     *            The changes to be broadcast.
+     *        The changes to be broadcast.
      * @param listener
-     *            The listeners that the changes should be broadcast to */
+     *        The listeners that the changes should be broadcast to
+     */
     void broadcastChanges(@Nonnull ImpendingOWLOntologyChangeListener listener,
             @Nonnull List<? extends OWLOntologyChange<?>> changes);
 }

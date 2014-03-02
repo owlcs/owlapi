@@ -60,19 +60,25 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
 
 /** @author ignazio */
 public class InitVisitorFactory {
-    /** @author ignazio
+
+    /**
+     * @author ignazio
      * @param <K>
-     *            visitor return type */
+     *        visitor return type
+     */
     @SuppressWarnings("unchecked")
     public static class InitVisitor<K> extends OWLAxiomVisitorExAdapter<K> {
+
         private static final long serialVersionUID = 40000L;
         private final boolean sub;
         private final boolean named;
 
-        /** @param sub
-         *            true for subclasses
+        /**
+         * @param sub
+         *        true for subclasses
          * @param named
-         *            true for named classes */
+         *        true for named classes
+         */
         public InitVisitor(boolean sub, boolean named) {
             this.sub = sub;
             this.named = named;
@@ -209,18 +215,23 @@ public class InitVisitorFactory {
         }
     }
 
-    /** @author ignazio
+    /**
+     * @author ignazio
      * @param <K>
-     *            visitor return type */
+     *        visitor return type
+     */
     @SuppressWarnings("unchecked")
     public static class InitIndividualVisitor<K extends OWLObject> extends
             InitVisitor<K> {
+
         private static final long serialVersionUID = 40000L;
 
-        /** @param sub
-         *            true for subclasses
+        /**
+         * @param sub
+         *        true for subclasses
          * @param named
-         *            true for named classes */
+         *        true for named classes
+         */
         public InitIndividualVisitor(boolean sub, boolean named) {
             super(sub, named);
         }
@@ -231,17 +242,22 @@ public class InitVisitorFactory {
         }
     }
 
-    /** @author ignazio
+    /**
+     * @author ignazio
      * @param <K>
-     *            collection type */
+     *        collection type
+     */
     @SuppressWarnings("unchecked")
     public static class InitCollectionVisitor<K> extends
             OWLAxiomVisitorExAdapter<Collection<K>> {
+
         private static final long serialVersionUID = 40000L;
         private final boolean named;
 
-        /** @param named
-         *            true for named classes */
+        /**
+         * @param named
+         *        true for named classes
+         */
         public InitCollectionVisitor(boolean named) {
             this.named = named;
         }

@@ -14,51 +14,66 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
  * @since 3.0.0
  * @param <O>
- *            visitor return type */
+ *        visitor return type
+ */
 public interface OWLDataRangeVisitorEx<O> {
-    /** visit OWLDatatype type
+
+    /**
+     * visit OWLDatatype type
      * 
      * @param node
-     *            node to visit
-     * @return visitor value */
+     *        node to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDatatype node);
 
-    /** visit OWLDataOneOf type
+    /**
+     * visit OWLDataOneOf type
      * 
      * @param node
-     *            node to visit
-     * @return visitor value */
+     *        node to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDataOneOf node);
 
-    /** visit OWLDataComplementOf type
+    /**
+     * visit OWLDataComplementOf type
      * 
      * @param node
-     *            node to visit
-     * @return visitor value */
+     *        node to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDataComplementOf node);
 
-    /** visit OWLDataIntersectionOf type
+    /**
+     * visit OWLDataIntersectionOf type
      * 
      * @param node
-     *            node to visit
-     * @return visitor value */
+     *        node to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDataIntersectionOf node);
 
-    /** visit OWLDataUnionOf type
+    /**
+     * visit OWLDataUnionOf type
      * 
      * @param node
-     *            node to visit
-     * @return visitor value */
+     *        node to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDataUnionOf node);
 
-    /** visit OWLDatatypeRestriction type
+    /**
+     * visit OWLDatatypeRestriction type
      * 
      * @param node
-     *            node to visit
-     * @return visitor value */
+     *        node to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLDatatypeRestriction node);
 }

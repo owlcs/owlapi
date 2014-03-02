@@ -18,16 +18,21 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> {
+
     private final OWLAnnotation annotation;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param annotation
-     *            the annotation */
+     *        the annotation
+     */
     public AnnotationChange(@Nonnull OWLOntology ont,
             @Nonnull OWLAnnotation annotation) {
         super(ont);
@@ -39,9 +44,11 @@ public abstract class AnnotationChange extends OWLOntologyChange<OWLAnnotation> 
         return annotation.getSignature();
     }
 
-    /** Gets the annotation that was added to an ontology.
+    /**
+     * Gets the annotation that was added to an ontology.
      * 
-     * @return The annotation that was added */
+     * @return The annotation that was added
+     */
     @Nonnull
     public OWLAnnotation getAnnotation() {
         return annotation;

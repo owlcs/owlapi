@@ -16,16 +16,21 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** An interface to an object that contains axioms.
+/**
+ * An interface to an object that contains axioms.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.4.6 */
+ * @since 3.4.6
+ */
 public interface HasAxioms {
-    /** Gets the {@link OWLAxiom}s contained in this object.
+
+    /**
+     * Gets the {@link OWLAxiom}s contained in this object.
      * 
      * @return The set of {@link OWLAxiom}s contained in this object. Changes
-     *         are not reflected back. */
+     *         are not reflected back.
+     */
     @Nonnull
     Set<OWLAxiom> getAxioms();
 }

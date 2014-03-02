@@ -19,24 +19,29 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
-/** A class that describes how ontology parsing failed. This class collects parse
+/**
+ * A class that describes how ontology parsing failed. This class collects parse
  * errors and the parsers that generated the errors.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class UnparsableOntologyException extends OWLOntologyCreationException {
+
     private static final long serialVersionUID = 40000L;
     private boolean includeStackTraceInMessage = true;
     private final IRI documentIRI;
     private final Map<OWLParser, OWLParserException> exceptions;
 
-    /** @param documentIRI
-     *            the document IRI
+    /**
+     * @param documentIRI
+     *        the document IRI
      * @param exceptions
-     *            the map parser-&gt;exceptions
+     *        the map parser-&gt;exceptions
      * @param config
-     *            the configuration object */
+     *        the configuration object
+     */
     public UnparsableOntologyException(IRI documentIRI,
             Map<OWLParser, OWLParserException> exceptions,
             OWLOntologyLoaderConfiguration config) {
@@ -99,18 +104,22 @@ public class UnparsableOntologyException extends OWLOntologyCreationException {
         return msg.toString();
     }
 
-    /** Gets the ontology document IRI from which there was an attempt to parse
+    /**
+     * Gets the ontology document IRI from which there was an attempt to parse
      * an ontology.
      * 
-     * @return The ontology document IRI */
+     * @return The ontology document IRI
+     */
     public IRI getDocumentIRI() {
         return documentIRI;
     }
 
-    /** Gets a map that lists the parsers (that were used to parse an ontology)
+    /**
+     * Gets a map that lists the parsers (that were used to parse an ontology)
      * and the errors that they generated.
      * 
-     * @return The map of parsers and their errors. */
+     * @return The map of parsers and their errors.
+     */
     public Map<OWLParser, OWLParserException> getExceptions() {
         return Collections.unmodifiableMap(exceptions);
     }

@@ -16,7 +16,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-/** An event that gets posted to objects that listen for missing imports when
+/**
+ * An event that gets posted to objects that listen for missing imports when
  * silent missing import handling is set to {@code true} in an ontology manager.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -24,15 +25,19 @@ import javax.annotation.Nonnull;
  * @since 2.2.0
  * @see org.semanticweb.owlapi.model.MissingImportListener
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
- * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener) */
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
+ */
 public class MissingImportEvent {
+
     private final IRI ontologyIRI;
     private final OWLOntologyCreationException creationException;
 
-    /** @param ontologyIRI
-     *            the ontology uri
+    /**
+     * @param ontologyIRI
+     *        the ontology uri
      * @param creationException
-     *            the creation exception */
+     *        the creation exception
+     */
     public MissingImportEvent(@Nonnull IRI ontologyIRI,
             @Nonnull OWLOntologyCreationException creationException) {
         this.ontologyIRI = checkNotNull(ontologyIRI,

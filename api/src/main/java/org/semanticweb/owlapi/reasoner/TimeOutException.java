@@ -12,13 +12,16 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-/** Thrown when the current reasoner operation has been interrupted due to a
+/**
+ * Thrown when the current reasoner operation has been interrupted due to a
  * satisfiability check timeout.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class TimeOutException extends OWLReasonerRuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
     /** default constructor */
@@ -26,16 +29,20 @@ public class TimeOutException extends OWLReasonerRuntimeException {
         this("Timeout occurred while reasoning!");
     }
 
-    /** @param message
-     *            error message */
+    /**
+     * @param message
+     *        error message
+     */
     public TimeOutException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            error message
+    /**
+     * @param message
+     *        error message
      * @param cause
-     *            error cause */
+     *        error cause
+     */
     public TimeOutException(String message, Throwable cause) {
         super(message, cause);
     }

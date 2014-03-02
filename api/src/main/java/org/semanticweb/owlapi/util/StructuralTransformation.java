@@ -90,16 +90,21 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class StructuralTransformation {
+
     protected final OWLDataFactory df;
     private int nameCounter = 0;
     protected final Set<OWLEntity> signature = new HashSet<OWLEntity>();
 
-    /** @param dataFactory
-     *            factory to use */
+    /**
+     * @param dataFactory
+     *        factory to use
+     */
     public StructuralTransformation(@Nonnull OWLDataFactory dataFactory) {
         df = checkNotNull(dataFactory, "dataFactory cannot be null");
     }
@@ -111,9 +116,11 @@ public class StructuralTransformation {
         return cls;
     }
 
-    /** @param axioms
-     *            axioms to transform
-     * @return transformed axioms */
+    /**
+     * @param axioms
+     *        axioms to transform
+     * @return transformed axioms
+     */
     public Set<OWLAxiom> getTransformedAxioms(@Nonnull Set<OWLAxiom> axioms) {
         checkNotNull(axioms, "axioms cannot be null");
         signature.clear();
@@ -143,6 +150,7 @@ public class StructuralTransformation {
 
     private class AxiomFlattener implements
             OWLClassExpressionVisitorEx<OWLClassExpression> {
+
         private final OWLDataFactory ldf;
         private final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         private final OWLClassExpression rhs;
@@ -314,9 +322,12 @@ public class StructuralTransformation {
         }
     }
 
-    /** Rewrites axioms into GCIs.<br>
-     * For example: SubClassOf(A, C) becomes SubClassOf(TOP, not(A) or C) */
+    /**
+     * Rewrites axioms into GCIs.<br>
+     * For example: SubClassOf(A, C) becomes SubClassOf(TOP, not(A) or C)
+     */
     private class AxiomRewriter implements OWLAxiomVisitorEx<Set<OWLAxiom>> {
+
         public AxiomRewriter() {}
 
         private Set<OWLAxiom> subClassOf(OWLClassExpression sub,

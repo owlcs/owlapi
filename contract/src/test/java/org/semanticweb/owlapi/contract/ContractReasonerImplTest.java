@@ -65,10 +65,12 @@ import org.semanticweb.owlapi.util.Version;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractReasonerImplTest {
+
     @Test
     public void shouldTestDefaultNode() throws OWLException {
         DefaultNode<OWLObject> testSubject0 = new DefaultNode<OWLObject>(
                 mock(OWLObject.class)) {
+
             @Override
             protected OWLObject getTopEntity() {
                 return null;
@@ -80,6 +82,7 @@ public class ContractReasonerImplTest {
             }
         };
         new DefaultNode<OWLObject>(Utils.mockSet(mock(OWLObject.class))) {
+
             @Override
             protected OWLObject getTopEntity() {
                 return null;
@@ -108,6 +111,7 @@ public class ContractReasonerImplTest {
     public void shouldTestDefaultNodeSet() throws OWLException {
         DefaultNodeSet<OWLObject> testSubject0 = new DefaultNodeSet<OWLObject>(
                 mock(OWLObject.class)) {
+
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -119,6 +123,7 @@ public class ContractReasonerImplTest {
             }
         };
         new DefaultNodeSet<OWLObject>(mock(Node.class)) {
+
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -131,6 +136,7 @@ public class ContractReasonerImplTest {
         };
         new DefaultNodeSet<OWLObject>(Utils.mockSet(Utils
                 .mockNode(OWLObject.class))) {
+
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -142,6 +148,7 @@ public class ContractReasonerImplTest {
             }
         };
         new DefaultNodeSet<OWLObject>() {
+
             @Override
             protected DefaultNode<OWLObject> getNode(OWLObject entity) {
                 return null;
@@ -445,6 +452,7 @@ public class ContractReasonerImplTest {
         OWLReasonerBase testSubject0 = new OWLReasonerBase(
                 Utils.getMockOntology(), mock(OWLReasonerConfiguration.class),
                 BufferingMode.NON_BUFFERING) {
+
             @Override
             public String getReasonerName() {
                 return null;

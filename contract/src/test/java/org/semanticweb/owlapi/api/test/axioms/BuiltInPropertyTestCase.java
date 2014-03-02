@@ -20,11 +20,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class BuiltInPropertyTestCase extends TestBase {
+
     @Test
     public void testTopObjectPropertyPositive() {
         OWLObjectPropertyExpression prop = df.getOWLTopObjectProperty();

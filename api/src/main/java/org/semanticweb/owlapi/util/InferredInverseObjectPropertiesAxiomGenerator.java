@@ -20,11 +20,14 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class InferredInverseObjectPropertiesAxiomGenerator extends
         InferredObjectPropertyAxiomGenerator<OWLInverseObjectPropertiesAxiom> {
+
     @Override
     protected void addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory,

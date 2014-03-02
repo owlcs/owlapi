@@ -27,6 +27,7 @@ import com.clarkparsia.owlapi.explanation.util.DefinitionTracker;
 /** The Class SingleExplanationGeneratorImpl. */
 public abstract class SingleExplanationGeneratorImpl implements
         TransactionAwareSingleExpGen {
+
     private boolean inTransaction;
     private final OWLOntologyManager owlOntologyManager;
     private final OWLOntology ontology;
@@ -34,14 +35,16 @@ public abstract class SingleExplanationGeneratorImpl implements
     private final OWLReasonerFactory reasonerFactory;
     private final DefinitionTracker definitionTracker;
 
-    /** Instantiates a new single explanation generator impl.
+    /**
+     * Instantiates a new single explanation generator impl.
      * 
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param reasonerFactory
-     *            the reasoner factory
+     *        the reasoner factory
      * @param reasoner
-     *            the reasoner */
+     *        the reasoner
+     */
     public SingleExplanationGeneratorImpl(@Nonnull OWLOntology ontology,
             @Nonnull OWLReasonerFactory reasonerFactory,
             @Nonnull OWLReasoner reasoner) {

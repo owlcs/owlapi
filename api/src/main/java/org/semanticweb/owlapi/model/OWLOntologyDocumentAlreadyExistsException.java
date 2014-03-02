@@ -12,20 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** An exception that describes the situation where there was an attempt to
+/**
+ * An exception that describes the situation where there was an attempt to
  * create or load an ontology where the corresponding ontology document IRI
  * already was already mapped to an ontology.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLOntologyDocumentAlreadyExistsException extends
         OWLOntologyCreationException {
+
     private static final long serialVersionUID = 40000L;
     private final IRI ontologyDocumentIRI;
 
-    /** @param ontologyDocumentIRI
-     *            iri already present */
+    /**
+     * @param ontologyDocumentIRI
+     *        iri already present
+     */
     public OWLOntologyDocumentAlreadyExistsException(IRI ontologyDocumentIRI) {
         this.ontologyDocumentIRI = ontologyDocumentIRI;
     }

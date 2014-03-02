@@ -84,6 +84,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 /** The Class OWLFunctionalSyntaxParser. */
 public class OWLFunctionalSyntaxParser implements
         OWLFunctionalSyntaxParserConstants {
+
     private OWLOntologyLoaderConfiguration configuration;
     private OWLOntology ontology;
     private Map<String, IRI> string2IRI;
@@ -93,10 +94,12 @@ public class OWLFunctionalSyntaxParser implements
     private Set<OWLAnnotation> currentAnnotations;
     private OWLDataFactory df;
 
-    /** @param ontology
-     *            the ontology
+    /**
+     * @param ontology
+     *        the ontology
      * @param configuration
-     *            the configuration */
+     *        the configuration
+     */
     public void setUp(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         this.ontology = ontology;
@@ -114,9 +117,11 @@ public class OWLFunctionalSyntaxParser implements
         string2IRI = new HashMap<String, IRI>();
     }
 
-    /** @param s
-     *            the string
-     * @return the iri */
+    /**
+     * @param s
+     *        the string
+     * @return the iri
+     */
     public IRI getIRI(String s) {
         IRI iri = string2IRI.get(s);
         if (iri == null) {
@@ -138,24 +143,30 @@ public class OWLFunctionalSyntaxParser implements
         return iri;
     }
 
-    /** @param b
-     *            the new ignore annotations and declarations */
+    /**
+     * @param b
+     *        the new ignore annotations and declarations
+     */
     public void setIgnoreAnnotationsAndDeclarations(boolean b) {
         ignoreAnnotationsAndDeclarations = b;
     }
 
-    /** Apply change.
+    /**
+     * Apply change.
      * 
      * @param chg
-     *            the chg */
+     *        the chg
+     */
     protected void applyChange(OWLOntologyChange<?> chg) {
         chg.getOntology().getOWLOntologyManager().applyChange(chg);
     }
 
-    /** Adds the axiom.
+    /**
+     * Adds the axiom.
      * 
      * @param ax
-     *            the ax */
+     *        the ax
+     */
     protected void addAxiom(OWLAxiom ax) {
         if (!(ax instanceof OWLAnnotationAxiom)
                 || configuration.isLoadAnnotationAxioms()) {
@@ -164,10 +175,12 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Sets the prefixes.
+    /**
+     * Sets the prefixes.
      * 
      * @param nsm
-     *            the new prefixes */
+     *        the new prefixes
+     */
     public void setPrefixes(PrefixManager nsm) {
         if (prefixMap == null) {
             prefixMap = new HashMap<String, String>();
@@ -175,9 +188,11 @@ public class OWLFunctionalSyntaxParser implements
         prefixMap.putAll(nsm.getPrefixName2PrefixMap());
     }
 
-    /** @return the oWL functional syntax ontology format
+    /**
+     * @return the oWL functional syntax ontology format
      * @throws UnloadableImportException
-     *             the unloadable import exception */
+     *         the unloadable import exception
+     */
     public OWLFunctionalSyntaxOntologyFormat parse()
             throws UnloadableImportException {
         label_1: while (true) {
@@ -5659,20 +5674,24 @@ public class OWLFunctionalSyntaxParser implements
     private boolean jj_rescan = false;
     private int jj_gc = 0;
 
-    /** Constructor with InputStream.
+    /**
+     * Constructor with InputStream.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public OWLFunctionalSyntaxParser(java.io.InputStream stream) {
         this(stream, null);
     }
 
-    /** Constructor with InputStream and supplied encoding.
+    /**
+     * Constructor with InputStream and supplied encoding.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public OWLFunctionalSyntaxParser(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream = new JavaCharStream(stream, encoding, 1, 1);
@@ -5691,20 +5710,24 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream */
+     *        the stream
+     */
     public void ReInit(java.io.InputStream stream) {
         ReInit(stream, null);
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param stream
-     *            the stream
+     *        the stream
      * @param encoding
-     *            the encoding */
+     *        the encoding
+     */
     public void ReInit(java.io.InputStream stream, String encoding) {
         try {
             jj_input_stream.ReInit(stream, encoding, 1, 1);
@@ -5722,8 +5745,10 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** @param stream
-     *            the stream */
+    /**
+     * @param stream
+     *        the stream
+     */
     public OWLFunctionalSyntaxParser(java.io.Reader stream) {
         jj_input_stream = new JavaCharStream(stream, 1, 1);
         token_source = new OWLFunctionalSyntaxParserTokenManager(
@@ -5738,10 +5763,12 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Constructor with generated Token Manager.
+    /**
+     * Constructor with generated Token Manager.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public OWLFunctionalSyntaxParser(OWLFunctionalSyntaxParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -5754,10 +5781,12 @@ public class OWLFunctionalSyntaxParser implements
         }
     }
 
-    /** Reinitialise.
+    /**
+     * Reinitialise.
      * 
      * @param tm
-     *            the tm */
+     *        the tm
+     */
     public void ReInit(OWLFunctionalSyntaxParserTokenManager tm) {
         token_source = tm;
         token = new Token();
@@ -5799,6 +5828,7 @@ public class OWLFunctionalSyntaxParser implements
     }
 
     static private final class LookaheadSuccess extends RuntimeException {
+
         private static final long serialVersionUID = 1L;
 
         public LookaheadSuccess() {}
@@ -5838,9 +5868,11 @@ public class OWLFunctionalSyntaxParser implements
         return false;
     }
 
-    /** Get the next Token.
+    /**
+     * Get the next Token.
      * 
-     * @return the next token */
+     * @return the next token
+     */
     public Token getNextToken() {
         if (token.next != null) {
             token = token.next;
@@ -5851,11 +5883,13 @@ public class OWLFunctionalSyntaxParser implements
         return token;
     }
 
-    /** Get the specific Token.
+    /**
+     * Get the specific Token.
      * 
      * @param index
-     *            the index
-     * @return the token */
+     *        the index
+     * @return the token
+     */
     public Token getToken(int index) {
         Token t = token;
         for (int i = 0; i < index; i++) {
@@ -6375,6 +6409,7 @@ public class OWLFunctionalSyntaxParser implements
 
     /** The Class JJCalls. */
     static final class JJCalls {
+
         /** The gen. */
         int gen;
         /** The first. */

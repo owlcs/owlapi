@@ -19,27 +19,36 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.reasoner.Node;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLDatatypeNodeSet extends DefaultNodeSet<OWLDatatype> {
+
     /** default constructor. */
     public OWLDatatypeNodeSet() {}
 
-    /** @param entity
-     *            datatype to include */
+    /**
+     * @param entity
+     *        datatype to include
+     */
     public OWLDatatypeNodeSet(@Nonnull OWLDatatype entity) {
         super(entity);
     }
 
-    /** @param owlDatatypeNode
-     *            node to include */
+    /**
+     * @param owlDatatypeNode
+     *        node to include
+     */
     public OWLDatatypeNodeSet(@Nonnull Node<OWLDatatype> owlDatatypeNode) {
         super(owlDatatypeNode);
     }
 
-    /** @param nodes
-     *            nodes to include */
+    /**
+     * @param nodes
+     *        nodes to include
+     */
     public OWLDatatypeNodeSet(@Nonnull Set<Node<OWLDatatype>> nodes) {
         super(nodes);
     }

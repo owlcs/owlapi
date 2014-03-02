@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 @SuppressWarnings("javadoc")
 public class SearcherTestCase extends TestBase {
+
     @Test
     public void shouldSearch() throws OWLOntologyCreationException {
         // given

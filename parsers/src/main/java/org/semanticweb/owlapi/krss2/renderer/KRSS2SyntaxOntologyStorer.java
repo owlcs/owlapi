@@ -20,11 +20,14 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** See {@link org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer
+/**
+ * See {@link org.semanticweb.owlapi.krss2.renderer.KRSS2ObjectRenderer
  * KRSS2ObjectRenderer} for definition/explanation of the syntax.
  * 
- * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
+ * @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence
+ */
 public class KRSS2SyntaxOntologyStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

@@ -26,18 +26,23 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
+
     private static final long serialVersionUID = 40000L;
     private final boolean literal;
     private final OWLDatatype datatype;
 
-    /** @param literal
-     *            literal value
+    /**
+     * @param literal
+     *        literal value
      * @param datatype
-     *            datatype */
+     *        datatype
+     */
     public OWLLiteralImplBoolean(boolean literal, @Nonnull OWLDatatype datatype) {
         this.datatype = checkNotNull(datatype, "datatype cannot be null");
         this.literal = literal;

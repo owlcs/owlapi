@@ -14,32 +14,43 @@
 /* JavaCCOptions:MULTI=false,NODE_USES_PARSER=false,VISITOR=false,TRACK_TOKENS=false,NODE_PREFIX=AST,NODE_EXTENDS=,NODE_FACTORY=,SUPPORT_CLASS_VISIBILITY_PUBLIC=true */
 package org.semanticweb.owlapi.functional.parser;
 
-/** All AST nodes must implement this interface. It provides basic machinery for
- * constructing the parent and child relationships between nodes. */
+/**
+ * All AST nodes must implement this interface. It provides basic machinery for
+ * constructing the parent and child relationships between nodes.
+ */
 public interface Node {
-    /** This method is called after the node has been made the current node. It
-     * indicates that child nodes can now be added to it. */
+
+    /**
+     * This method is called after the node has been made the current node. It
+     * indicates that child nodes can now be added to it.
+     */
     void jjtOpen();
 
     /** This method is called after all the child nodes have been added. */
     void jjtClose();
 
-    /** @param n
-     *            parent */
+    /**
+     * @param n
+     *        parent
+     */
     void jjtSetParent(Node n);
 
     /** @return parent */
     Node jjtGetParent();
 
-    /** @param n
-     *            node
+    /**
+     * @param n
+     *        node
      * @param i
-     *            position */
+     *        position
+     */
     void jjtAddChild(Node n, int i);
 
-    /** @param i
-     *            position
-     * @return node */
+    /**
+     * @param i
+     *        position
+     * @return node
+     */
     Node jjtGetChild(int i);
 
     /** @return number of children */

@@ -13,6 +13,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
 @SuppressWarnings("javadoc")
 public class CurlyBracesInCommentsTest extends OboFormatTestBasics {
+
     @Test(expected = OBOFormatParserException.class)
     public void testCurlyBracesInComments() throws Exception {
         /*

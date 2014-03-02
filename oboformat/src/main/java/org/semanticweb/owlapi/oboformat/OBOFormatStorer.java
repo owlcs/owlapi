@@ -21,11 +21,14 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
-/** @author Nick Drummond, The University Of Manchester, Bio Health Informatics
+/**
+ * @author Nick Drummond, The University Of Manchester, Bio Health Informatics
  *         Group
- * @since 3.4.10 */
+ * @since 3.4.10
+ */
 @HasPriority(value = 5)
 public class OBOFormatStorer extends AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

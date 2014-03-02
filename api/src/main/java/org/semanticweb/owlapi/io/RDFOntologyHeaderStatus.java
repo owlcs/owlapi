@@ -12,17 +12,25 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.io;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2 */
+ * @since 3.2
+ */
 public enum RDFOntologyHeaderStatus {
-    /** Specifies that during parsing, the ontology document did not contain any
-     * ontology headers. */
+    /**
+     * Specifies that during parsing, the ontology document did not contain any
+     * ontology headers.
+     */
     PARSED_ZERO_HEADERS,
-    /** Specifies that during parsing, the ontology document that the ontology
-     * was created from contained one header. */
+    /**
+     * Specifies that during parsing, the ontology document that the ontology
+     * was created from contained one header.
+     */
     PARSED_ONE_HEADER,
-    /** Specifies that during parsing, the ontology document that the ontology
-     * was created from contained multiple headers. */
+    /**
+     * Specifies that during parsing, the ontology document that the ontology
+     * was created from contained multiple headers.
+     */
     PARSED_MULTIPLE_HEADERS
 }

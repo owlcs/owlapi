@@ -12,31 +12,39 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** Represents an <a href=
+/**
+ * Represents an <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Annotation_Properties"
  * >AnnotationProperty</a> in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLAnnotationProperty extends OWLEntity {
-    /** Determines if this annotation property has an IRI corresponding to
+
+    /**
+     * Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:comment}.
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code rdfs:comment}, where {@code rdfs:} expands to the usual
-     *         prefix, otherwise {@code false}. */
+     *         prefix, otherwise {@code false}.
+     */
     boolean isComment();
 
-    /** Determines if this annotation property has an IRI corresponding to
+    /**
+     * Determines if this annotation property has an IRI corresponding to
      * {@code rdfs:label}.
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code rdfs:label}, where {@code rdfs:} expands to the usual
-     *         prefix, otherwise {@code false}. */
+     *         prefix, otherwise {@code false}.
+     */
     boolean isLabel();
 
-    /** Determines if this annotation property has an IRI corresponding to
+    /**
+     * Determines if this annotation property has an IRI corresponding to
      * {@code owl:deprecated}. An annotation along the {@code owl:deprecated}
      * property which has a value of {@code "true"^^xsd:boolean} can be used to
      * deprecate IRIs. (See <a href
@@ -45,6 +53,7 @@ public interface OWLAnnotationProperty extends OWLEntity {
      * 
      * @return {@code true} if the IRI of this annotation property is
      *         {@code owl:deprecated}, where {@code owl:} expands to the usual
-     *         prefix, otherwise {@code false}. */
+     *         prefix, otherwise {@code false}.
+     */
     boolean isDeprecated();
 }

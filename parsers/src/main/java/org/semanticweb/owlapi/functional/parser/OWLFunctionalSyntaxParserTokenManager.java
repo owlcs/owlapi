@@ -18,11 +18,14 @@ import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 /** Token Manager. */
 public class OWLFunctionalSyntaxParserTokenManager implements
         OWLFunctionalSyntaxParserConstants {
+
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /** @param ds
-     *            debug stream */
+    /**
+     * @param ds
+     *        debug stream
+     */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -3568,10 +3571,12 @@ public class OWLFunctionalSyntaxParserTokenManager implements
     private final int[] jjstateSet = new int[60];
     protected char curChar;
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            stream */
+     *        stream
+     */
     public OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
@@ -3580,22 +3585,26 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         input_stream = stream;
     }
 
-    /** Constructor.
+    /**
+     * Constructor.
      * 
      * @param stream
-     *            stream
+     *        stream
      * @param lexState
-     *            state */
+     *        state
+     */
     public OWLFunctionalSyntaxParserTokenManager(JavaCharStream stream,
             int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            stream */
+     *        stream
+     */
     public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -3611,21 +3620,25 @@ public class OWLFunctionalSyntaxParserTokenManager implements
         }
     }
 
-    /** Reinitialise parser.
+    /**
+     * Reinitialise parser.
      * 
      * @param stream
-     *            stream
+     *        stream
      * @param lexState
-     *            state */
+     *        state
+     */
     public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /** Switch to specified lex state.
+    /**
+     * Switch to specified lex state.
      * 
      * @param lexState
-     *            state */
+     *        state
+     */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "

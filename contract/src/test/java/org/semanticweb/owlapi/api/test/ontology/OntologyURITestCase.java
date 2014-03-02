@@ -24,11 +24,14 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 @SuppressWarnings("javadoc")
 public class OntologyURITestCase extends TestBase {
+
     @Test
     public void testOntologyID() {
         IRI iriA = IRI("http://www.another.com/ont");

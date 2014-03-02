@@ -32,21 +32,26 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Renames entities that have a particular IRI. Entities with the specified IRI
+/**
+ * Renames entities that have a particular IRI. Entities with the specified IRI
  * are renamed regardless of whether they are classes, object properties, data
  * properties, individuals or data types.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLEntityRenamer {
+
     private final OWLOntologyManager owlOntologyManager;
     private final Set<OWLOntology> ontologies;
 
-    /** @param owlOntologyManager
-     *            the ontology manager to use
+    /**
+     * @param owlOntologyManager
+     *        the ontology manager to use
      * @param ontologies
-     *            the ontologies to use */
+     *        the ontologies to use
+     */
     public OWLEntityRenamer(@Nonnull OWLOntologyManager owlOntologyManager,
             @Nonnull Set<OWLOntology> ontologies) {
         this.owlOntologyManager = checkNotNull(owlOntologyManager,
@@ -54,15 +59,17 @@ public class OWLEntityRenamer {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
 
-    /** Changes a IRI for another IRI. This creates the appropriate changes to be
+    /**
+     * Changes a IRI for another IRI. This creates the appropriate changes to be
      * applied in order to change a IRI.
      * 
      * @param iri
-     *            The IRI to be changed
+     *        The IRI to be changed
      * @param newIRI
-     *            The IRI that the IRI should be changed to.
+     *        The IRI that the IRI should be changed to.
      * @return A list of ontology changes that should be applied to change the
-     *         specified IRI. */
+     *         specified IRI.
+     */
     @Nonnull
     public List<OWLOntologyChange<?>> changeIRI(@Nonnull IRI iri,
             @Nonnull IRI newIRI) {
@@ -79,14 +86,16 @@ public class OWLEntityRenamer {
         return changes;
     }
 
-    /** Changes the IRI of an entity for another IRI.
+    /**
+     * Changes the IRI of an entity for another IRI.
      * 
      * @param entity
-     *            The entity whose IRI is to be changed.
+     *        The entity whose IRI is to be changed.
      * @param newIRI
-     *            The new IRI
+     *        The new IRI
      * @return A list of ontology changes that should be applied to change the
-     *         specified entity IRI. */
+     *         specified entity IRI.
+     */
     public List<OWLOntologyChange<?>> changeIRI(OWLEntity entity, IRI newIRI) {
         Map<OWLEntity, IRI> iriMap = new HashMap<OWLEntity, IRI>();
         iriMap.put(entity, newIRI);
@@ -100,9 +109,11 @@ public class OWLEntityRenamer {
         return changes;
     }
 
-    /** @param entity2IRIMap
-     *            map of IRIs to rename
-     * @return list of changes */
+    /**
+     * @param entity2IRIMap
+     *        map of IRIs to rename
+     * @return list of changes
+     */
     public List<OWLOntologyChange<?>> changeIRI(
             Map<OWLEntity, IRI> entity2IRIMap) {
         List<OWLOntologyChange<?>> changes = new ArrayList<OWLOntologyChange<?>>();
@@ -142,19 +153,21 @@ public class OWLEntityRenamer {
         return axioms;
     }
 
-    /** Fills a list with ontology changes which will replace a set of axioms
+    /**
+     * Fills a list with ontology changes which will replace a set of axioms
      * with duplicated/transformed axioms.
      * 
      * @param changes
-     *            A list that will be filled with ontology changes which will
-     *            remove the specified axioms from the specified ontology, and
-     *            add the duplicated/transformed version
+     *        A list that will be filled with ontology changes which will remove
+     *        the specified axioms from the specified ontology, and add the
+     *        duplicated/transformed version
      * @param axioms
-     *            The axioms to be duplicated/transformed
+     *        The axioms to be duplicated/transformed
      * @param ont
-     *            The ontology to which the changed should be applied
+     *        The ontology to which the changed should be applied
      * @param duplicator
-     *            The duplicator that will do the duplicating */
+     *        The duplicator that will do the duplicating
+     */
     private static void fillListWithTransformChanges(
             List<OWLOntologyChange<?>> changes, Set<OWLAxiom> axioms,
             OWLOntology ont, OWLObjectDuplicator duplicator) {

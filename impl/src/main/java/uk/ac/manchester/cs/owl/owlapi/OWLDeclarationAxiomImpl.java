@@ -29,18 +29,23 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDeclarationAxiomImpl extends OWLAxiomImpl implements
         OWLDeclarationAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLEntity entity;
 
-    /** @param entity
-     *            entity to declare
+    /**
+     * @param entity
+     *        entity to declare
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLDeclarationAxiomImpl(@Nonnull OWLEntity entity,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

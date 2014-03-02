@@ -29,16 +29,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements
         OWLDataComplementOf {
+
     private static final long serialVersionUID = 40000L;
     private final OWLDataRange dataRange;
 
-    /** @param dataRange
-     *            datarange */
+    /**
+     * @param dataRange
+     *        datarange
+     */
     public OWLDataComplementOfImpl(@Nonnull OWLDataRange dataRange) {
         this.dataRange = checkNotNull(dataRange, "dataRange cannot be null");
     }

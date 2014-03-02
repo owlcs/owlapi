@@ -12,39 +12,48 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** Describes a situation where a change was vetoed for some reason. Subclasses
+/**
+ * Describes a situation where a change was vetoed for some reason. Subclasses
  * of this class may provide more information about why the change was vetoed.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyChangeVetoException extends OWLOntologyChangeException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param message
-     *            message */
+     *        message
+     */
     public OWLOntologyChangeVetoException(OWLOntologyChange<?> change,
             String message) {
         super(change, message);
     }
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param message
-     *            message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyChangeVetoException(OWLOntologyChange<?> change,
             String message, Throwable cause) {
         super(change, message, cause);
     }
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyChangeVetoException(OWLOntologyChange<?> change,
             Throwable cause) {
         super(change, cause);

@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /** no cache used @author ignazio */
 public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
+
     private static final long serialVersionUID = 40000L;
     private static final OWLDatatype PLAIN = new OWL2DatatypeImpl(
             RDF_PLAIN_LITERAL);
@@ -48,8 +49,10 @@ public class InternalsNoCache implements OWLDataFactoryInternals, Serializable {
     private OWLLiteral negativeFloatZero;
     private final boolean useCompression;
 
-    /** @param useCompression
-     *            true if compression of literals should be used */
+    /**
+     * @param useCompression
+     *        true if compression of literals should be used
+     */
     public InternalsNoCache(boolean useCompression) {
         this.useCompression = useCompression;
     }

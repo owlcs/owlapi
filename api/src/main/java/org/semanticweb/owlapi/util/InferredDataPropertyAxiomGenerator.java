@@ -18,13 +18,16 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.1.0
  * @param <A>
- *            the axiom type */
+ *        the axiom type
+ */
 public abstract class InferredDataPropertyAxiomGenerator<A extends OWLDataPropertyAxiom>
         extends InferredEntityAxiomGenerator<OWLDataProperty, A> {
+
     @Override
     protected Set<OWLDataProperty> getEntities(OWLOntology ont) {
         return ont.getDataPropertiesInSignature();

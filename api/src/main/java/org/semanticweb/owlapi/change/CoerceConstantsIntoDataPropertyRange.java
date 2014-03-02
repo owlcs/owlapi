@@ -42,21 +42,26 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.util.OWLObjectDuplicator;
 
-/** Coerces constants to have the same type as the range of a property in axioms
+/**
+ * Coerces constants to have the same type as the range of a property in axioms
  * where the two are used. For example, given, p value "xyz", the "xyz" constant
  * would be typed with the range of p.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.1 */
+ * @since 2.1.1
+ */
 public class CoerceConstantsIntoDataPropertyRange extends
         AbstractCompositeOntologyChange {
-    /** Instantiates a new coerce constants into data property range.
+
+    /**
+     * Instantiates a new coerce constants into data property range.
      * 
      * @param dataFactory
-     *            the data factory
+     *        the data factory
      * @param ontologies
-     *            the ontologies to use */
+     *        the ontologies to use
+     */
     public CoerceConstantsIntoDataPropertyRange(
             @Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
@@ -86,12 +91,15 @@ public class CoerceConstantsIntoDataPropertyRange extends
 
     /** The Class OWLConstantReplacer. */
     private class OWLConstantReplacer extends OWLObjectDuplicator {
+
         private final Map<OWLDataPropertyExpression, OWLDatatype> map;
 
-        /** @param dataFactory
-         *            the data factory
+        /**
+         * @param dataFactory
+         *        the data factory
          * @param m
-         *            the m */
+         *        the m
+         */
         public OWLConstantReplacer(@Nonnull OWLDataFactory dataFactory,
                 @Nonnull Map<OWLDataPropertyExpression, OWLDatatype> m) {
             super(dataFactory);

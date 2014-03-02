@@ -23,10 +23,13 @@ import org.semanticweb.owlapi.io.OWLRendererIOException;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class AbstractRenderer {
+
     private ShortFormProvider shortFormProvider;
     private int lastNewLinePos = -1;
     private int currentPos;
@@ -35,10 +38,12 @@ public class AbstractRenderer {
     private boolean useTabbing = true;
     private boolean useWrapping = true;
 
-    /** @param writer
-     *            writer
+    /**
+     * @param writer
+     *        writer
      * @param shortFormProvider
-     *            shortFormProvider */
+     *        shortFormProvider
+     */
     protected AbstractRenderer(Writer writer,
             ShortFormProvider shortFormProvider) {
         this.writer = writer;
@@ -46,14 +51,18 @@ public class AbstractRenderer {
         pushTab(0);
     }
 
-    /** @param useTabbing
-     *            useTabbing */
+    /**
+     * @param useTabbing
+     *        useTabbing
+     */
     protected void setUseTabbing(boolean useTabbing) {
         this.useTabbing = useTabbing;
     }
 
-    /** @param useWrapping
-     *            useWrapping */
+    /**
+     * @param useWrapping
+     *        useWrapping
+     */
     protected void setUseWrapping(boolean useWrapping) {
         this.useWrapping = useWrapping;
     }
@@ -68,10 +77,12 @@ public class AbstractRenderer {
         return useTabbing;
     }
 
-    /** Flush.
+    /**
+     * Flush.
      * 
      * @throws OWLRendererException
-     *             renderer error */
+     *         renderer error
+     */
     protected void flush() throws OWLRendererException {
         try {
             writer.flush();

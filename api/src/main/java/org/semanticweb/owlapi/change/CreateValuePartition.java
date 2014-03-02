@@ -11,27 +11,27 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;/*
- * Copyright (C) 2007, University of Manchester
- *
- * Modifications to the initial code base are copyright of their
- * respective authors, or their employers as appropriate.  Authorship
- * of the modifications may be determined from the ChangeLog placed at
- * the end of this file.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+* Copyright (C) 2007, University of Manchester
+*
+* Modifications to the initial code base are copyright of their
+* respective authors, or their employers as appropriate.  Authorship
+* of the modifications may be determined from the ChangeLog placed at
+* the end of this file.
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Lesser General Public
+* License as published by the Free Software Foundation; either
+* version 2.1 of the License, or (at your option) any later version.
 
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+* You should have received a copy of the GNU Lesser General Public
+* License along with this library; if not, write to the Free Software
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
@@ -46,7 +46,8 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** This composite change will create a value partion - see "pattern 2" in
+/**
+ * This composite change will create a value partion - see "pattern 2" in
  * "Representing Specified Values in OWL: "value partitions" and "value sets""
  * (http://www.w3.org/TR/swbp-specified-values.)<br>
  * A value partition is an ontology design pattern which is used to represent a
@@ -60,24 +61,27 @@ import org.semanticweb.owlapi.model.OWLOntology;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class CreateValuePartition extends AbstractCompositeOntologyChange {
-    /** Creates a composite change that will create a value partition.
+
+    /**
+     * Creates a composite change that will create a value partition.
      * 
      * @param dataFactory
-     *            A data factory which can be used to create the necessary
-     *            axioms
+     *        A data factory which can be used to create the necessary axioms
      * @param valuePartitionClass
-     *            The class which represents the value partition.
+     *        The class which represents the value partition.
      * @param valuePartionClasses
-     *            The classes that represent the various values of the value
-     *            partition.
+     *        The classes that represent the various values of the value
+     *        partition.
      * @param valuePartitionProperty
-     *            the property which should be used in conjunction with the
-     *            value partition.
+     *        the property which should be used in conjunction with the value
+     *        partition.
      * @param targetOntology
-     *            The target ontology which the axioms that are necessary to
-     *            create the value partition will be added to. */
+     *        The target ontology which the axioms that are necessary to create
+     *        the value partition will be added to.
+     */
     public CreateValuePartition(@Nonnull OWLDataFactory dataFactory,
             @Nonnull OWLClass valuePartitionClass,
             @Nonnull Set<OWLClass> valuePartionClasses,

@@ -14,11 +14,14 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLDataPropertyAtom extends
         SWRLBinaryAtom<SWRLIArgument, SWRLDArgument> {
+
     @Override
     @Nonnull
     OWLDataPropertyExpression getPredicate();

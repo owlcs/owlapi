@@ -35,6 +35,7 @@ import org.semanticweb.owlapi.owlxml.parser.TranslatedUnloadableImportException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {
+
     public void shouldTestOWLXMLParser() throws OWLException,
             OWLOntologyChangeException, IOException {
         OWLXMLParser testSubject0 = new OWLXMLParser();

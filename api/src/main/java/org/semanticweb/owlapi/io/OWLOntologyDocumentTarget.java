@@ -20,7 +20,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** Specifies an interface that provides a pointer to an ontology document where
+/**
+ * Specifies an interface that provides a pointer to an ontology document where
  * an ontology can be stored. <br>
  * Any client that writes an ontology to a "stream" will first try to obtain a
  * writer (if {@link #isWriterAvailable()} returns true), followed by an
@@ -32,60 +33,74 @@ import org.semanticweb.owlapi.model.IRI;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public interface OWLOntologyDocumentTarget {
-    /** Determines if this document target can be pointed to by a
+
+    /**
+     * Determines if this document target can be pointed to by a
      * {@link java.io.Writer}.
      * 
      * @return {@code true} if a {@link java.io.Writer} can be obtained from
-     *         this document target. */
+     *         this document target.
+     */
     boolean isWriterAvailable();
 
-    /** Gets a {@link java.io.Writer} that can be used to write an ontology to an
+    /**
+     * Gets a {@link java.io.Writer} that can be used to write an ontology to an
      * ontology document.
      * 
      * @return The writer
      * @throws IOException
-     *             if there was a problem obtaining the writer
+     *         if there was a problem obtaining the writer
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
-     *             if a writer is not available ({@link #isWriterAvailable()}
-     *             returns {@code false}) and this method is called. */
+     *         if a writer is not available ({@link #isWriterAvailable()}
+     *         returns {@code false}) and this method is called.
+     */
     @Nonnull
     Writer getWriter() throws IOException;
 
-    /** Determines if this document target can be pointed to by an
+    /**
+     * Determines if this document target can be pointed to by an
      * {@link java.io.OutputStream}.
      * 
      * @return {@code true} if an {@link java.io.OutputStream} can be obtained
-     *         from this document target. */
+     *         from this document target.
+     */
     boolean isOutputStreamAvailable();
 
-    /** Gets an {@link java.io.OutputStream} that can be used to write an
+    /**
+     * Gets an {@link java.io.OutputStream} that can be used to write an
      * ontology to an ontology document.
      * 
      * @return The output stream
      * @throws IOException
-     *             if there was a problem obtaining the output stream
+     *         if there was a problem obtaining the output stream
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
-     *             if an output stream is not available (
-     *             {@link #isOutputStreamAvailable()} returns {@code false} )
-     *             and this method is called. */
+     *         if an output stream is not available (
+     *         {@link #isOutputStreamAvailable()} returns {@code false} ) and
+     *         this method is called.
+     */
     @Nonnull
     OutputStream getOutputStream() throws IOException;
 
-    /** Determines if an IRI that points to an ontology document is available.
+    /**
+     * Determines if an IRI that points to an ontology document is available.
      * The IRI encodes the exact details of how an ontology should be saved to a
      * document.
      * 
-     * @return {@code true} if an IRI is available, otherwise {@code false}. */
+     * @return {@code true} if an IRI is available, otherwise {@code false}.
+     */
     boolean isDocumentIRIAvailable();
 
-    /** Gets an IRI that points to an ontology document.
+    /**
+     * Gets an IRI that points to an ontology document.
      * 
      * @return The IRI
      * @throws org.semanticweb.owlapi.model.OWLRuntimeException
-     *             if an IRI is not available ({@link #isDocumentIRIAvailable()}
-     *             returns {@code false}) and this method is called. */
+     *         if an IRI is not available ({@link #isDocumentIRIAvailable()}
+     *         returns {@code false}) and this method is called.
+     */
     @Nonnull
     IRI getDocumentIRI();
 }

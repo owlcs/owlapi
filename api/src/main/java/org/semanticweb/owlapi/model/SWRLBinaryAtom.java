@@ -14,26 +14,33 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents an atom with two ordered arguments.
+/**
+ * Represents an atom with two ordered arguments.
  * 
  * @param <A>
- *            type of first argument
+ *        type of first argument
  * @param <B>
- *            type of second argument
+ *        type of second argument
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLBinaryAtom<A extends SWRLArgument, B extends SWRLArgument>
         extends SWRLAtom {
-    /** Gets the first argument.
+
+    /**
+     * Gets the first argument.
      * 
-     * @return The second argument */
+     * @return The second argument
+     */
     @Nonnull
     A getFirstArgument();
 
-    /** Gets the second argument.
+    /**
+     * Gets the second argument.
      * 
-     * @return The second argument */
+     * @return The second argument
+     */
     @Nonnull
     B getSecondArgument();
 }

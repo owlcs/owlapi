@@ -12,42 +12,51 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** A high level exception interface that describes errors that occurred when
+/**
+ * A high level exception interface that describes errors that occurred when
  * applying changes to ontologies.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLOntologyChangeException extends OWLRuntimeException {
+
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyChange<?> change;
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param message
-     *            message */
+     *        message
+     */
     public OWLOntologyChangeException(OWLOntologyChange<?> change,
             String message) {
         super(message);
         this.change = change;
     }
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param message
-     *            message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyChangeException(OWLOntologyChange<?> change,
             String message, Throwable cause) {
         super(message, cause);
         this.change = change;
     }
 
-    /** @param change
-     *            change causing the error
+    /**
+     * @param change
+     *        change causing the error
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyChangeException(OWLOntologyChange<?> change,
             Throwable cause) {
         super(cause);

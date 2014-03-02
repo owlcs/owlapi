@@ -20,14 +20,19 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLOntologyWalkerVisitor extends OWLObjectVisitorAdapter {
+
     private final OWLOntologyWalker walker;
 
-    /** @param walker
-     *            ontology walker */
+    /**
+     * @param walker
+     *        ontology walker
+     */
     public OWLOntologyWalkerVisitor(@Nonnull OWLOntologyWalker walker) {
         this.walker = checkNotNull(walker, "walker cannot be null");
     }

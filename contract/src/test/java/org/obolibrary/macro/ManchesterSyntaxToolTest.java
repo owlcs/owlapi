@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /** Tests for {@link ManchesterSyntaxTool}. */
 @SuppressWarnings("javadoc")
 public class ManchesterSyntaxToolTest extends OboFormatTestBasics {
+
     private OWLOntology owlOntology = null;
     private ManchesterSyntaxTool parser = null;
 

@@ -16,13 +16,16 @@ import java.util.Comparator;
 
 import org.semanticweb.owlapi.annotations.HasPriority;
 
-/** Comparator for objects with HasPriority annotations. Objects without
+/**
+ * Comparator for objects with HasPriority annotations. Objects without
  * HasPriority are considered to have lowest priority (Double.MAX_VALUE).
  * 
  * @author ignazio
  * @param <T>
- *            comparator type */
+ *        comparator type
+ */
 public class HasPriorityComparator<T> implements Comparator<T> {
+
     private double getPriority(Object p) {
         HasPriority priority = p.getClass().getAnnotation(HasPriority.class);
         if (priority != null) {

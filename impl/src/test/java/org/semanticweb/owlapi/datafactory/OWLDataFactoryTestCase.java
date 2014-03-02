@@ -48,13 +48,16 @@ import org.semanticweb.owlapi.model.OWLRestriction;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** The base for test cases that need a data factory.
+/**
+ * The base for test cases that need a data factory.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class OWLDataFactoryTestCase {
+
     private AtomicInteger counter = new AtomicInteger(1);
     private OWLDataFactory testSubject = new OWLDataFactoryImpl();
 

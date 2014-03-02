@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class RoundTripVersionIRITest extends RoundTripTest {
+
     @Test
     public void testRoundTrip() throws Exception {
         roundTripOBOFile("version_iri_test.obo", true);

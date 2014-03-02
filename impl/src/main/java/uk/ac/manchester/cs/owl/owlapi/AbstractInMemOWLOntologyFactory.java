@@ -25,16 +25,21 @@ import org.semanticweb.owlapi.model.OWLOntologyFactory;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class AbstractInMemOWLOntologyFactory implements
         OWLOntologyFactory {
+
     private static final long serialVersionUID = 40000L;
     private OWLOntologyBuilder builder;
 
-    /** @param builder
-     *            injected ontology builder */
+    /**
+     * @param builder
+     *        injected ontology builder
+     */
     @Inject
     public AbstractInMemOWLOntologyFactory(@Nonnull OWLOntologyBuilder builder) {
         this.builder = checkNotNull(builder);

@@ -19,14 +19,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class GCICount extends AxiomCountMetric {
-    /** Instantiates a new gCI count.
+
+    /**
+     * Instantiates a new gCI count.
      * 
      * @param o
-     *            ontology to use */
+     *        ontology to use
+     */
     public GCICount(@Nonnull OWLOntology o) {
         super(o);
     }

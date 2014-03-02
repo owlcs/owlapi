@@ -19,19 +19,24 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLRenderer {
-    /** Renders the specified ontology to a concrete representation which should
+
+    /**
+     * Renders the specified ontology to a concrete representation which should
      * be written to the specified output stream.
      * 
      * @param ontology
-     *            The ontology
+     *        The ontology
      * @param os
-     *            The OutputStream
+     *        The OutputStream
      * @throws OWLException
-     *             for any exception raised */
+     *         for any exception raised
+     */
     void render(@Nonnull OWLOntology ontology, @Nonnull OutputStream os)
             throws OWLException;
 }

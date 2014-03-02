@@ -28,14 +28,17 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import uk.ac.manchester.owl.owlapi.tutorial.LabelExtractor;
 
-/** Simple example. Read an ontology, and display the class hierarchy. May use a
+/**
+ * Simple example. Read an ontology, and display the class hierarchy. May use a
  * reasoner to calculate the hierarchy.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class SimpleHierarchyExample {
+
     private static final int INDENT = 4;
     private final OWLReasonerFactory reasonerFactory;
     private final OWLOntology ontology;
@@ -48,9 +51,11 @@ public class SimpleHierarchyExample {
         out = System.out;
     }
 
-    /** Print the class hierarchy for the given ontology from this class down,
+    /**
+     * Print the class hierarchy for the given ontology from this class down,
      * assuming this class is at the given level. Makes no attempt to deal
-     * sensibly with multiple inheritance. */
+     * sensibly with multiple inheritance.
+     */
     private void printHierarchy(OWLClass clazz) throws OWLException {
         OWLReasoner reasoner = reasonerFactory
                 .createNonBufferingReasoner(ontology);
@@ -81,9 +86,11 @@ public class SimpleHierarchyExample {
         }
     }
 
-    /** Print the class hierarchy from this class down, assuming this class is at
+    /**
+     * Print the class hierarchy from this class down, assuming this class is at
      * the given level. Makes no attempt to deal sensibly with multiple
-     * inheritance. */
+     * inheritance.
+     */
     private void
             printHierarchy(OWLReasoner reasoner, OWLClass clazz, int level)
                     throws OWLException {

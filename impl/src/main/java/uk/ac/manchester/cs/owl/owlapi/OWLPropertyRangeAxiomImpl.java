@@ -24,25 +24,30 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyRange;
 import org.semanticweb.owlapi.model.OWLPropertyRangeAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <P>
- *            property type
+ *        property type
  * @param <R>
- *            range type */
+ *        range type
+ */
 public abstract class OWLPropertyRangeAxiomImpl<P extends OWLPropertyExpression, R extends OWLPropertyRange>
         extends OWLUnaryPropertyAxiomImpl<P> implements
         OWLPropertyRangeAxiom<P, R> {
+
     private static final long serialVersionUID = 40000L;
     private final R range;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param range
-     *            range
+     *        range
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLPropertyRangeAxiomImpl(@Nonnull P property, @Nonnull R range,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
         super(property, annotations);

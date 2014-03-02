@@ -25,32 +25,39 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.*;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor {
+
     private final OWLDataFactory dataFactory;
     private Object obj;
     private Map<OWLEntity, IRI> replacementMap;
 
-    /** Creates an object duplicator that duplicates objects using the specified
+    /**
+     * Creates an object duplicator that duplicates objects using the specified
      * data factory.
      * 
      * @param dataFactory
-     *            The data factory to be used for the duplication. */
+     *        The data factory to be used for the duplication.
+     */
     public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory) {
         this(new HashMap<OWLEntity, IRI>(), dataFactory);
     }
 
-    /** Creates an object duplicator that duplicates objects using the specified
+    /**
+     * Creates an object duplicator that duplicates objects using the specified
      * data factory and uri replacement map.
      * 
      * @param dataFactory
-     *            The data factory to be used for the duplication.
+     *        The data factory to be used for the duplication.
      * @param iriReplacementMap
-     *            The map to use for the replacement of URIs. Any uris the
-     *            appear in the map will be replaced as objects are duplicated.
-     *            This can be used to "rename" entities. */
+     *        The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be
+     *        used to "rename" entities.
+     */
     public OWLObjectDuplicator(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Map<IRI, IRI> iriReplacementMap) {
         this.dataFactory = checkNotNull(dataFactory,
@@ -70,15 +77,17 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         }
     }
 
-    /** Creates an object duplicator that duplicates objects using the specified
+    /**
+     * Creates an object duplicator that duplicates objects using the specified
      * data factory and uri replacement map.
      * 
      * @param dataFactory
-     *            The data factory to be used for the duplication.
+     *        The data factory to be used for the duplication.
      * @param entityIRIReplacementMap
-     *            The map to use for the replacement of URIs. Any uris the
-     *            appear in the map will be replaced as objects are duplicated.
-     *            This can be used to "rename" entities. */
+     *        The map to use for the replacement of URIs. Any uris the appear in
+     *        the map will be replaced as objects are duplicated. This can be
+     *        used to "rename" entities.
+     */
     public OWLObjectDuplicator(
             @Nonnull Map<OWLEntity, IRI> entityIRIReplacementMap,
             @Nonnull OWLDataFactory dataFactory) {
@@ -89,11 +98,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
                 "entityIRIReplacementMap cannot be null"));
     }
 
-    /** @param object
-     *            the object to duplicate
+    /**
+     * @param object
+     *        the object to duplicate
      * @return the duplicate
      * @param <O>
-     *            return type */
+     *        return type
+     */
     @SuppressWarnings("unchecked")
     @Nonnull
     public <O extends OWLObject> O duplicateObject(@Nonnull OWLObject object) {
@@ -106,13 +117,15 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
         this.obj = obj;
     }
 
-    /** Given an IRI belonging to an entity, returns a IRI. This may be the same
+    /**
+     * Given an IRI belonging to an entity, returns a IRI. This may be the same
      * IRI that the entity has, or an alternative IRI if a replacement has been
      * specified.
      * 
      * @param entity
-     *            The entity
-     * @return The IRI */
+     *        The entity
+     * @return The IRI
+     */
     @Nonnull
     private IRI getIRI(@Nonnull OWLEntity entity) {
         checkNotNull(entity, "entity cannot be null");
@@ -872,11 +885,13 @@ public class OWLObjectDuplicator implements OWLObjectVisitor, SWRLObjectVisitor 
                 duplicateAxiomAnnotations(axiom));
     }
 
-    /** A utility function that duplicates a set of objects.
+    /**
+     * A utility function that duplicates a set of objects.
      * 
      * @param objects
-     *            The set of object to be duplicated
-     * @return The set of duplicated objects */
+     *        The set of object to be duplicated
+     * @return The set of duplicated objects
+     */
     @SuppressWarnings("unchecked")
     private <O extends OWLObject> Set<O> duplicateSet(Set<O> objects) {
         Set<O> dup = new HashSet<O>();

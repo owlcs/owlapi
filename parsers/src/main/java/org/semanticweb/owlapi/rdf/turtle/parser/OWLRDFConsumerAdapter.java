@@ -17,17 +17,22 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
 
-/** The Class OWLRDFConsumerAdapter.
+/**
+ * The Class OWLRDFConsumerAdapter.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLRDFConsumerAdapter extends OWLRDFConsumer implements
         TripleHandler {
-    /** @param ontology
-     *            ontology
+
+    /**
+     * @param ontology
+     *        ontology
      * @param configuration
-     *            configuration */
+     *        configuration
+     */
     public OWLRDFConsumerAdapter(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         super(ontology, configuration);

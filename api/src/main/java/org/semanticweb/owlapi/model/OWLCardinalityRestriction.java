@@ -12,26 +12,33 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <F>
- *            value */
+ *        value
+ */
 public interface OWLCardinalityRestriction<F extends OWLPropertyRange> extends
         OWLQuantifiedRestriction<F>, HasCardinality {
-    /** Gets the cardinality of this restriction
+
+    /**
+     * Gets the cardinality of this restriction
      * 
-     * @return The cardinality of this restriction */
+     * @return The cardinality of this restriction
+     */
     @Override
     int getCardinality();
 
-    /** Determines if this restriction is qualified. Qualified cardinality
+    /**
+     * Determines if this restriction is qualified. Qualified cardinality
      * restrictions are defined to be cardinality restrictions that have fillers
      * which aren't TOP (owl:Thing or rdfs:Literal). An object restriction is
      * unqualified if it has a filler that is owl:Thing. A data restriction is
      * unqualified if it has a filler which is the top data type (rdfs:Literal).
      * 
      * @return {@code true} if this restriction is qualified, or {@code false}
-     *         if this restriction is unqualified. */
+     *         if this restriction is unqualified.
+     */
     boolean isQualified();
 }

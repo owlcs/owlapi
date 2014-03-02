@@ -14,62 +14,79 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents a named or anonymous individual.
+/**
+ * Represents a named or anonymous individual.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLIndividual extends OWLObject, OWLPropertyAssertionObject {
-    /** Determines if this individual is an instance of
+
+    /**
+     * Determines if this individual is an instance of
      * {@link org.semanticweb.owlapi.model.OWLNamedIndividual}. Note that this
      * method is the dual of {@link #isAnonymous()}.
      * 
      * @return {@code true} if this individual is an instance of
      *         {@link org.semanticweb.owlapi.model.OWLNamedIndividual} because
-     *         it is a named individuals, otherwise {@code false} */
+     *         it is a named individuals, otherwise {@code false}
+     */
     boolean isNamed();
 
-    /** Determines if this object is an instance of
+    /**
+     * Determines if this object is an instance of
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} Note that
      * this method is the dual of {@link #isNamed()}.
      * 
      * @return {@code true} if this object represents an anonymous individual (
      *         {@code OWLAnonymousIndividual)} or {@code false} if this object
-     *         represents a named individual ( {@code OWLIndividual}) */
+     *         represents a named individual ( {@code OWLIndividual})
+     */
     boolean isAnonymous();
 
-    /** Obtains this individual as a named individual if it is indeed named.
+    /**
+     * Obtains this individual as a named individual if it is indeed named.
      * 
      * @return The individual as a named individual
      * @throws OWLRuntimeException
-     *             if this individual is anonymous */
+     *         if this individual is anonymous
+     */
     @Nonnull
     OWLNamedIndividual asOWLNamedIndividual();
 
-    /** Obtains this individual an anonymous individual if it is indeed anonymous
+    /**
+     * Obtains this individual an anonymous individual if it is indeed anonymous
      * 
      * @return The individual as an anonymous individual
      * @throws OWLRuntimeException
-     *             if this individual is named */
+     *         if this individual is named
+     */
     @Nonnull
     OWLAnonymousIndividual asOWLAnonymousIndividual();
 
-    /** Returns a string representation that can be used as the ID of this
+    /**
+     * Returns a string representation that can be used as the ID of this
      * individual. This is the toString representation of the node ID of this
      * individual
      * 
-     * @return A string representing the toString of the node ID of this entity. */
+     * @return A string representing the toString of the node ID of this entity.
+     */
     @Nonnull
     String toStringID();
 
-    /** @param visitor
-     *            visitor */
+    /**
+     * @param visitor
+     *        visitor
+     */
     void accept(@Nonnull OWLIndividualVisitor visitor);
 
-    /** @param visitor
-     *            visitor
+    /**
+     * @param visitor
+     *        visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor ex type */
+     *        visitor return type
+     * @return visitor ex type
+     */
     <O> O accept(@Nonnull OWLIndividualVisitorEx<O> visitor);
 }

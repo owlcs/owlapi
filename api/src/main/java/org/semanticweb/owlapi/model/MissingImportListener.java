@@ -14,16 +14,21 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** An interface for objects that listen to missing imports events.
+/**
+ * An interface for objects that listen to missing imports events.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.2.0
  * @see MissingImportEvent
  * @see org.semanticweb.owlapi.model.OWLOntologyManager#addMissingImportListener(MissingImportListener)
- * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener) */
+ * @see org.semanticweb.owlapi.model.OWLOntologyManager#removeMissingImportListener(MissingImportListener)
+ */
 public interface MissingImportListener {
-    /** @param event
-     *            the missing import event */
+
+    /**
+     * @param event
+     *        the missing import event
+     */
     void importMissing(@Nonnull MissingImportEvent event);
 }

@@ -104,16 +104,21 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class HashCode implements OWLObjectVisitor, SWRLObjectVisitor {
+
     private int hashCode;
     private static final int MULT = 37;
 
-    /** @param object
-     *            the object to compute the hashcode for
-     * @return the hashcode */
+    /**
+     * @param object
+     *        the object to compute the hashcode for
+     * @return the hashcode
+     */
     public static int hashCode(@Nonnull OWLObject object) {
         checkNotNull(object, "object cannot be null");
         HashCode hashCode = new HashCode();

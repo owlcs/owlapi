@@ -14,16 +14,19 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObjectPropertyDomainAxiom extends
         OWLPropertyDomainAxiom<OWLObjectPropertyExpression>,
         OWLObjectPropertyAxiom {
+
     @Override
     @Nonnull
     OWLObjectPropertyDomainAxiom getAxiomWithoutAnnotations();

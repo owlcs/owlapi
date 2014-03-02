@@ -26,27 +26,33 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.2.0
  * @param <N>
- *            type of elements */
+ *        type of elements
+ */
 public class MutableTree<N> implements Tree<N> {
+
     private final N userObject;
     private MutableTree<N> parent;
     private final List<MutableTree<N>> children = new ArrayList<MutableTree<N>>();
     private final Map<Tree<N>, Object> child2EdgeMap = new HashMap<Tree<N>, Object>();
     private NodeRenderer<N> toStringRenderer = new NodeRenderer<N>() {
+
         @Override
         public String render(Tree<N> object) {
             return object.toString();
         }
     };
 
-    /** Instantiates a new mutable tree.
+    /**
+     * Instantiates a new mutable tree.
      * 
      * @param userObject
-     *            the user object */
+     *        the user object
+     */
     public MutableTree(@Nonnull N userObject) {
         this.userObject = checkNotNull(userObject, "userObject cannot be null");
     }
@@ -56,15 +62,19 @@ public class MutableTree<N> implements Tree<N> {
         return userObject;
     }
 
-    /** @param child
-     *            child to add */
+    /**
+     * @param child
+     *        child to add
+     */
     public void addChild(@Nonnull MutableTree<N> child) {
         children.add(child);
         child.parent = this;
     }
 
-    /** @param child
-     *            child to remove */
+    /**
+     * @param child
+     *        child to remove
+     */
     public void removeChild(@Nonnull MutableTree<N> child) {
         children.remove(child);
         child.parent = null;

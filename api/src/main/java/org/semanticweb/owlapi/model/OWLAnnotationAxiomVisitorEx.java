@@ -14,37 +14,48 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
  * @since 3.0.0
  * @param <O>
- *            visitor type */
+ *        visitor type
+ */
 public interface OWLAnnotationAxiomVisitorEx<O> {
-    /** visit OWLAnnotationAssertionAxiom type
+
+    /**
+     * visit OWLAnnotationAssertionAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLAnnotationAssertionAxiom axiom);
 
-    /** visit OWLSubAnnotationPropertyOfAxiom type
+    /**
+     * visit OWLSubAnnotationPropertyOfAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLSubAnnotationPropertyOfAxiom axiom);
 
-    /** visit OWLAnnotationPropertyDomainAxiom type
+    /**
+     * visit OWLAnnotationPropertyDomainAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLAnnotationPropertyDomainAxiom axiom);
 
-    /** visit OWLAnnotationPropertyRangeAxiom type
+    /**
+     * visit OWLAnnotationPropertyRangeAxiom type
      * 
      * @param axiom
-     *            object to visit
-     * @return visitor value */
+     *        object to visit
+     * @return visitor value
+     */
     O visit(@Nonnull OWLAnnotationPropertyRangeAxiom axiom);
 }

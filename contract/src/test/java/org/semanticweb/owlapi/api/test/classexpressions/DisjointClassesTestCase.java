@@ -23,11 +23,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTest
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class DisjointClassesTestCase extends AbstractFileRoundTrippingTestCase {
+
     @Test
     public void testContains() {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();

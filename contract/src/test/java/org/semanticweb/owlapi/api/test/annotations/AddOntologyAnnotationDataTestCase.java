@@ -22,11 +22,14 @@ import org.semanticweb.owlapi.model.AddOntologyAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.2.0 */
+ * @since 3.2.0
+ */
 @SuppressWarnings("javadoc")
 public class AddOntologyAnnotationDataTestCase {
+
     private OWLAnnotation mockAnnotation;
     private OWLOntology mockOntology;
 

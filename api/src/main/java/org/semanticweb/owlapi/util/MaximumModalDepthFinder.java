@@ -100,10 +100,13 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public class MaximumModalDepthFinder implements OWLObjectVisitorEx<Integer> {
+
     private static final Integer _1 = Integer.valueOf(1);
     private static final Integer _0 = Integer.valueOf(0);
 

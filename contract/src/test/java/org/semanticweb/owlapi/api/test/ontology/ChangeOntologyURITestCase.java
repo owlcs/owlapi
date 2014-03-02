@@ -26,11 +26,14 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLOntologyIRIChanger;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class ChangeOntologyURITestCase extends TestBase {
+
     @Test
     public void testChangeURI() throws OWLOntologyCreationException {
         IRI oldIRI = IRI("http://www.semanticweb.org/ontologies/ontA");

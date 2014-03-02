@@ -24,17 +24,22 @@ import java.util.zip.GZIPOutputStream;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** An ontology document target which can write to a GZIP File. Notice that this
+/**
+ * An ontology document target which can write to a GZIP File. Notice that this
  * works best when the output stream is closed explicitly in the client code.
  * 
  * @author ignazio
- * @since 3.4.8 */
+ * @since 3.4.8
+ */
 public class GZipFileDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final File out;
     private OutputStream outputStream;
 
-    /** @param os
-     *            the actual file */
+    /**
+     * @param os
+     *        the actual file
+     */
     public GZipFileDocumentTarget(File os) {
         out = os;
     }

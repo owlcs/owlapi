@@ -13,11 +13,14 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
-/** Comprehensive test for all tags, which support trailing qualifiers.
+/**
+ * Comprehensive test for all tags, which support trailing qualifiers.
  * 
- * @see RoundTripPropertyValueTest for basic tests. */
+ * @see RoundTripPropertyValueTest for basic tests.
+ */
 @SuppressWarnings("javadoc")
 public class TrailingQualifierTest extends OboFormatTestBasics {
+
     @Test
     public void testReadTrailingQualifiers() throws Exception {
         // load test file with trailing qualifiers

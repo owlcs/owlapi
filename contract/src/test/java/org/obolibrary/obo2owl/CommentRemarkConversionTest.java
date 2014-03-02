@@ -17,12 +17,15 @@ import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Tests for the conversion of rdfs:comment in OWL to remark tag in OBO. This is
+/**
+ * Tests for the conversion of rdfs:comment in OWL to remark tag in OBO. This is
  * necessary as OBO-Edit won't load any OBO ontology containing a comment-tag in
  * the ontology header. WARNING: This conversion will not conserve the order of
- * remark tags in a round-trip via OWL. */
+ * remark tags in a round-trip via OWL.
+ */
 @SuppressWarnings("javadoc")
 public class CommentRemarkConversionTest extends OboFormatTestBasics {
+
     @Test
     public void test_conversion() throws Exception {
         OBODoc obo = parseOBOFile("comment_remark_conversion.obo", true);

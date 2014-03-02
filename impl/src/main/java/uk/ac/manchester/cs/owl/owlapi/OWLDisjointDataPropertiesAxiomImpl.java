@@ -30,18 +30,23 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDisjointDataPropertiesAxiomImpl extends
         OWLNaryPropertyAxiomImpl<OWLDataPropertyExpression> implements
         OWLDisjointDataPropertiesAxiom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param properties
-     *            disjoint properties
+    /**
+     * @param properties
+     *        disjoint properties
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDisjointDataPropertiesAxiomImpl(
             @Nonnull Set<? extends OWLDataPropertyExpression> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

@@ -45,11 +45,14 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 @SuppressWarnings("javadoc")
 public abstract class TestBase {
+
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
     @Rule
@@ -127,9 +130,11 @@ public abstract class TestBase {
         return true;
     }
 
-    /** @param leftOnly
+    /**
+     * @param leftOnly
      * @param rightOnly
-     * @return */
+     * @return
+     */
     public static boolean verifyErrorIsDueToBlankNodesId(
             Set<OWLAxiom> leftOnly, Set<OWLAxiom> rightOnly) {
         Set<String> leftOnlyStrings = new HashSet<String>();
@@ -147,13 +152,14 @@ public abstract class TestBase {
         return rightOnlyStrings.equals(leftOnlyStrings);
     }
 
-    /** ignore declarations of builtins and of named individuals - named
+    /**
+     * ignore declarations of builtins and of named individuals - named
      * individuals do not /need/ a declaration, but addiong one is not an error.
      * 
      * @param parse
-     *            true if the axiom belongs to the parsed ones, false for the
-     *            input
-     * @return true if the axiom can be ignored */
+     *        true if the axiom belongs to the parsed ones, false for the input
+     * @return true if the axiom can be ignored
+     */
     public boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
         if (ax instanceof OWLDeclarationAxiom) {
             OWLDeclarationAxiom d = (OWLDeclarationAxiom) ax;
@@ -209,16 +215,18 @@ public abstract class TestBase {
         roundTripOntology(ont, new RDFXMLOntologyFormat());
     }
 
-    /** Saves the specified ontology in the specified format and reloads it.
+    /**
+     * Saves the specified ontology in the specified format and reloads it.
      * Calling this method from a test will cause the test to fail if the
      * ontology could not be stored, could not be reloaded, or was reloaded and
      * the reloaded version is not equal (in terms of ontology URI and axioms)
      * with the original.
      * 
      * @param ont
-     *            The ontology to be round tripped.
+     *        The ontology to be round tripped.
      * @param format
-     *            The format to use when doing the round trip. */
+     *        The format to use when doing the round trip.
+     */
     public OWLOntology roundTripOntology(OWLOntology ont,
             OWLOntologyFormat format) throws OWLOntologyStorageException,
             OWLOntologyCreationException {

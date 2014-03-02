@@ -28,7 +28,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** This class demonstrates some aspects of the OWL API. Given a class in an
+/**
+ * This class demonstrates some aspects of the OWL API. Given a class in an
  * ontology, it will determine the subclass axioms that define the class. For
  * each of these, if the superclass is a conjunction of existential
  * restrictions, then an additional subclass axiom will be added to the
@@ -36,9 +37,11 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings({ "javadoc" })
 public class ClosureAxioms {
+
     private final OWLOntologyManager manager;
     private final OWLOntology ontology;
     private final OWLDataFactory factory;

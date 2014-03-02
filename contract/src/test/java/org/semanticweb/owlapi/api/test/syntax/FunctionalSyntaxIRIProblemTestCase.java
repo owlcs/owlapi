@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxIRIProblemTestCase extends TestBase {
+
     @Test
     public void testmain() throws OWLOntologyStorageException,
             OWLOntologyCreationException {

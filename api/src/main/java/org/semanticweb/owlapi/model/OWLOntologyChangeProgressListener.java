@@ -14,20 +14,27 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Objects that want to listen to the progress of applying changes to an
+/**
+ * Objects that want to listen to the progress of applying changes to an
  * ontology should implement this interface and add themselves as listener to a
  * manager.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLOntologyChangeProgressListener {
-    /** @param size
-     *            the start size */
+
+    /**
+     * @param size
+     *        the start size
+     */
     void begin(int size);
 
-    /** @param change
-     *            the change just applied */
+    /**
+     * @param change
+     *        the change just applied
+     */
     void appliedChange(@Nonnull OWLOntologyChange<?> change);
 
     /** end of the progress. */

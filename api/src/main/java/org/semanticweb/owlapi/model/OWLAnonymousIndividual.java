@@ -14,18 +14,23 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Anonymous_Individuals">Anonymous
  * Individuals</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLAnonymousIndividual extends OWLIndividual,
         OWLAnnotationValue, OWLAnnotationSubject, OWLPrimitive {
-    /** Gets the ID of this individual.
+
+    /**
+     * Gets the ID of this individual.
      * 
-     * @return The node ID of this individual. */
+     * @return The node ID of this individual.
+     */
     @Nonnull
     NodeID getID();
 }

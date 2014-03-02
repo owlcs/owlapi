@@ -28,9 +28,11 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** BROADMATCH        */  BROADMATCH          ("broadMatch",          OBJECT_PROPERTY), 
@@ -116,9 +118,11 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return iri;
     }
 
-    /** @param dataFactory
-     *            data factory to use
-     * @return set of SKOS annotation properties */
+    /**
+     * @param dataFactory
+     *        data factory to use
+     * @return set of SKOS annotation properties
+     */
     public static Set<OWLAnnotationProperty> getAnnotationProperties(
             OWLDataFactory dataFactory) {
         Set<OWLAnnotationProperty> result = new HashSet<OWLAnnotationProperty>();
@@ -130,9 +134,11 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return result;
     }
 
-    /** @param dataFactory
-     *            data factory to use
-     * @return set of SKOS object properties */
+    /**
+     * @param dataFactory
+     *        data factory to use
+     * @return set of SKOS object properties
+     */
     public static Set<OWLObjectProperty> getObjectProperties(
             OWLDataFactory dataFactory) {
         Set<OWLObjectProperty> result = new HashSet<OWLObjectProperty>();
@@ -144,9 +150,11 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return result;
     }
 
-    /** @param dataFactory
-     *            data factory to use
-     * @return set of SKOS data properties */
+    /**
+     * @param dataFactory
+     *        data factory to use
+     * @return set of SKOS data properties
+     */
     public static Set<OWLDataProperty> getDataProperties(
             OWLDataFactory dataFactory) {
         Set<OWLDataProperty> result = new HashSet<OWLDataProperty>();
@@ -158,9 +166,11 @@ public enum SKOSVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
         return result;
     }
 
-    /** @param dataFactory
-     *            data factory to use
-     * @return set of SKOS classes */
+    /**
+     * @param dataFactory
+     *        data factory to use
+     * @return set of SKOS classes
+     */
     public static Set<OWLClass> getClasses(OWLDataFactory dataFactory) {
         Set<OWLClass> result = new HashSet<OWLClass>();
         for (SKOSVocabulary v : values()) {

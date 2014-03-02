@@ -19,17 +19,22 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SimpleIRIMapper implements OWLOntologyIRIMapper {
+
     private final IRI ontologyIRI;
     private final IRI documentIRI;
 
-    /** @param ontologyIRI
-     *            ontology IRI
+    /**
+     * @param ontologyIRI
+     *        ontology IRI
      * @param documentIRI
-     *            document IRI */
+     *        document IRI
+     */
     public SimpleIRIMapper(@Nonnull IRI ontologyIRI, @Nonnull IRI documentIRI) {
         this.ontologyIRI = checkNotNull(ontologyIRI,
                 "ontologyIRI cannot be null");

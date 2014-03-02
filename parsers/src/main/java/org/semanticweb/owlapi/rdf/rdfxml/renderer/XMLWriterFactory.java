@@ -16,12 +16,15 @@ import java.io.Writer;
 
 import javax.annotation.Nonnull;
 
-/** Developed as part of the CO-ODE project http://www.co-ode.org
+/**
+ * Developed as part of the CO-ODE project http://www.co-ode.org
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class XMLWriterFactory {
+
     private static XMLWriterFactory instance = new XMLWriterFactory();
 
     private XMLWriterFactory() {}
@@ -31,15 +34,17 @@ public class XMLWriterFactory {
         return instance;
     }
 
-    /** Creates an XMLWriter.
+    /**
+     * Creates an XMLWriter.
      * 
      * @param writer
-     *            The {@code Writer} that the XMLWriter will actually write to
+     *        The {@code Writer} that the XMLWriter will actually write to
      * @param xmlWriterNamespaceManager
-     *            xmlWriterNamespaceManager
+     *        xmlWriterNamespaceManager
      * @param xmlBase
-     *            xmlBase
-     * @return xml writer */
+     *        xmlBase
+     * @return xml writer
+     */
     public XMLWriter createXMLWriter(@Nonnull Writer writer,
             @Nonnull XMLWriterNamespaceManager xmlWriterNamespaceManager,
             @Nonnull String xmlBase) {

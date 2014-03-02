@@ -31,21 +31,26 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLDatatypeDefinitionAxiomImpl extends OWLAxiomImpl implements
         OWLDatatypeDefinitionAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLDatatype datatype;
     private final OWLDataRange dataRange;
 
-    /** @param datatype
-     *            datatype
+    /**
+     * @param datatype
+     *        datatype
      * @param dataRange
-     *            datarange
+     *        datarange
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLDatatypeDefinitionAxiomImpl(@Nonnull OWLDatatype datatype,
             @Nonnull OWLDataRange dataRange,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

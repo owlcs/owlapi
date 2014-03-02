@@ -20,11 +20,14 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class NegativeDataPropertyAssertionAxiomTestCase extends
         AbstractRendererAndParser {
+
     @Override
     protected String getClassExpression() {
         return "Negative data property assertion test case";

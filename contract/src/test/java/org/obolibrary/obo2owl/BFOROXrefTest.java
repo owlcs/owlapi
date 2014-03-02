@@ -20,6 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class BFOROXrefTest extends OboFormatTestBasics {
+
     @Test
     public void testRelationXrefConversion() throws Exception {
         OWLOntology owlOnt = convertOBOFile("rel_xref_test.obo");

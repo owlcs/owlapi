@@ -37,25 +37,32 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class DebuggerClassExpressionGenerator extends OWLAxiomVisitorAdapter {
+
     private final OWLDataFactory dataFactory;
     private OWLClassExpression desc;
 
-    /** Instantiates a new debugger class expression generator.
+    /**
+     * Instantiates a new debugger class expression generator.
      * 
      * @param dataFactory
-     *            factory to use */
+     *        factory to use
+     */
     public DebuggerClassExpressionGenerator(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory,
                 "dataFactory cannot be null");
     }
 
-    /** Gets the debugger class expression.
+    /**
+     * Gets the debugger class expression.
      * 
-     * @return the class expression */
+     * @return the class expression
+     */
     @Nullable
     public OWLClassExpression getDebuggerClassExpression() {
         return desc;

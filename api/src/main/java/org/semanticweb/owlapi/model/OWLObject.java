@@ -17,121 +17,148 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObject extends Comparable<OWLObject>, Serializable,
         HasSignature, HasContainsEntityInSignature, HasAnonymousIndividuals,
         HasClassesInSignature, HasObjectPropertiesInSignature,
         HasDataPropertiesInSignature, HasIndividualsInSignature,
         HasDatatypesInSignature {
-    /** Gets the signature of this object
+
+    /**
+     * Gets the signature of this object
      * 
      * @return A set of entities that correspond to the signature of this
-     *         object. The set is a copy, changes are not reflected back. */
+     *         object. The set is a copy, changes are not reflected back.
+     */
     @Override
     @Nonnull
     Set<OWLEntity> getSignature();
 
-    /** Gets the anonymous individuals occurring in this object, as collected by
+    /**
+     * Gets the anonymous individuals occurring in this object, as collected by
      * an OWLEntityCollector. The set is a copy, changes are not reflected back.
      * 
-     * @return A set of anonymous individuals. */
+     * @return A set of anonymous individuals.
+     */
     @Override
     @Nonnull
     Set<OWLAnonymousIndividual> getAnonymousIndividuals();
 
-    /** A convenience method that obtains the classes that are in the signature
+    /**
+     * A convenience method that obtains the classes that are in the signature
      * of this object
      * 
      * @return A set containing the classes that are in the signature of this
      *         object. The set is a subset of the signature, and is not backed
      *         by the signature; it is a modifiable collection and changes are
-     *         not reflected by the signature. */
+     *         not reflected by the signature.
+     */
     @Override
     @Nonnull
     Set<OWLClass> getClassesInSignature();
 
-    /** A convenience method that obtains the data properties that are in the
+    /**
+     * A convenience method that obtains the data properties that are in the
      * signature of this object
      * 
      * @return A set containing the data properties that are in the signature of
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
-     *         changes are not reflected by the signature. */
+     *         changes are not reflected by the signature.
+     */
     @Override
     @Nonnull
     Set<OWLDataProperty> getDataPropertiesInSignature();
 
-    /** A convenience method that obtains the object properties that are in the
+    /**
+     * A convenience method that obtains the object properties that are in the
      * signature of this object
      * 
      * @return A set containing the object properties that are in the signature
      *         of this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
-     *         changes are not reflected by the signature. */
+     *         changes are not reflected by the signature.
+     */
     @Override
     @Nonnull
     Set<OWLObjectProperty> getObjectPropertiesInSignature();
 
-    /** A convenience method that obtains the individuals that are in the
+    /**
+     * A convenience method that obtains the individuals that are in the
      * signature of this object
      * 
      * @return A set containing the individuals that are in the signature of
      *         this object.The set is a subset of the signature, and is not
      *         backed by the signature; it is a modifiable collection and
-     *         changes are not reflected by the signature. */
+     *         changes are not reflected by the signature.
+     */
     @Override
     @Nonnull
     Set<OWLNamedIndividual> getIndividualsInSignature();
 
-    /** A convenience method that obtains the datatypes that are in the signature
+    /**
+     * A convenience method that obtains the datatypes that are in the signature
      * of this object
      * 
      * @return A set containing the datatypes that are in the signature of this
      *         object.The set is a subset of the signature, and is not backed by
      *         the signature; it is a modifiable collection and changes are not
-     *         reflected by the signature. */
+     *         reflected by the signature.
+     */
     @Override
     @Nonnull
     Set<OWLDatatype> getDatatypesInSignature();
 
-    /** Gets all of the nested (includes top level) class expressions that are
+    /**
+     * Gets all of the nested (includes top level) class expressions that are
      * used in this object
      * 
      * @return A set of {@link org.semanticweb.owlapi.model.OWLClassExpression}s
-     *         that represent the nested class expressions used in this object. */
+     *         that represent the nested class expressions used in this object.
+     */
     @Nonnull
     Set<OWLClassExpression> getNestedClassExpressions();
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor */
+     *        The visitor
+     */
     void accept(@Nonnull OWLObjectVisitor visitor);
 
-    /** Accepts a visitor
+    /**
+     * Accepts a visitor
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor value */
+     *        visitor return type
+     * @return visitor value
+     */
     <O> O accept(@Nonnull OWLObjectVisitorEx<O> visitor);
 
-    /** Determines if this object is either, owl:Thing (the top class),
+    /**
+     * Determines if this object is either, owl:Thing (the top class),
      * owl:topObjectProperty (the top object property) , owl:topDataProperty
      * (the top data property) or rdfs:Literal (the top datatype).
      * 
      * @return {@code true} if this object corresponds to one of the above
-     *         entities. */
+     *         entities.
+     */
     boolean isTopEntity();
 
-    /** Determines if this object is either, owl:Nothing (the bottom class),
+    /**
+     * Determines if this object is either, owl:Nothing (the bottom class),
      * owl:bottomObjectProperty (the bottom object property) ,
      * owl:bottomDataProperty (the bottom data property).
      * 
      * @return {@code true} if this object corresponds to one of the above
-     *         entities. */
+     *         entities.
+     */
     boolean isBottomEntity();
 }

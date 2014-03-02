@@ -29,11 +29,14 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.2.0 */
+ * @since 3.2.0
+ */
 @SuppressWarnings("javadoc")
 public class OWLOntologyChangeRecordTestCase {
+
     private OWLOntologyID mockOntologyID;
     private OWLOntologyChangeData<OWLAxiom> mockChangeData;
     private OWLAxiom mockAxiom;

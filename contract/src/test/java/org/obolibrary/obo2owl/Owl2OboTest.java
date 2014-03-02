@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class Owl2OboTest extends OboFormatTestBasics {
+
     @Test
     public void testConversion() throws Exception {
         OWLOntology ontology = convert(parseOBOFile("caro.obo"));

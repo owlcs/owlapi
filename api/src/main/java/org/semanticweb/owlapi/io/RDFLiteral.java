@@ -21,24 +21,29 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFLiteral extends RDFNode {
+
     private static final long serialVersionUID = 40000L;
     private final String lexicalValue;
     private final String lang;
     private final IRI datatype;
     private int hashCode;
 
-    /** Constructor for plain literal wrappers
+    /**
+     * Constructor for plain literal wrappers
      * 
      * @param literal
-     *            lexical form
+     *        lexical form
      * @param lang
-     *            language tag
+     *        language tag
      * @param datatype
-     *            datatype IRI */
+     *        datatype IRI
+     */
     public RDFLiteral(@Nonnull String literal, @Nullable String lang,
             @Nullable IRI datatype) {
         lexicalValue = checkNotNull(literal, "literal cannot be null");
@@ -46,8 +51,10 @@ public class RDFLiteral extends RDFNode {
         this.datatype = datatype;
     }
 
-    /** @param literal
-     *            the wrapped literal */
+    /**
+     * @param literal
+     *        the wrapped literal
+     */
     public RDFLiteral(@Nonnull OWLLiteral literal) {
         this(literal.getLiteral(), literal.getLang(), literal.getDatatype()
                 .getIRI());

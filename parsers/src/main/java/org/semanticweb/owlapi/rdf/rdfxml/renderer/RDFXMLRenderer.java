@@ -45,31 +45,38 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.rdf.RDFRendererBase;
 import org.semanticweb.owlapi.util.VersionInfo;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class RDFXMLRenderer extends RDFRendererBase {
+
     private RDFXMLWriter writer;
     private Set<RDFResource> pending = new HashSet<RDFResource>();
     private RDFXMLNamespaceManager qnameManager;
     private OWLOntologyFormat format;
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param w
-     *            writer */
+     *        writer
+     */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w) {
         this(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(w,
                 "w cannot be null"), ontology.getOWLOntologyManager()
                 .getOntologyFormat(ontology));
     }
 
-    /** @param ontology
-     *            ontology
+    /**
+     * @param ontology
+     *        ontology
      * @param w
-     *            writer
+     *        writer
      * @param format
-     *            format */
+     *        format
+     */
     public RDFXMLRenderer(@Nonnull OWLOntology ontology, @Nonnull Writer w,
             @Nonnull OWLOntologyFormat format) {
         super(checkNotNull(ontology, "ontology cannot be null"), checkNotNull(

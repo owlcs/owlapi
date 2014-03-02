@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class Utf8TestCase extends TestBase {
+
     @Test
     public void testUTF8roundTrip() throws OWLOntologyStorageException,
             OWLOntologyCreationException {

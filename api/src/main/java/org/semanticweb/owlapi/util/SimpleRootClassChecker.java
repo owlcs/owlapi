@@ -26,7 +26,8 @@ import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** A utility class that can be used to determine is a class is a syntactic
+/**
+ * A utility class that can be used to determine is a class is a syntactic
  * direct subclass of owl:Thing. A class is considered NOT to be a syntactic
  * direct subclass of owl:Thing if ANY of the following conditions apply:
  * <ol>
@@ -45,18 +46,22 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SimpleRootClassChecker implements RootClassChecker {
+
     private final Set<OWLOntology> ontologies;
 
-    /** Creates a root class checker, which examines axioms contained in
+    /**
+     * Creates a root class checker, which examines axioms contained in
      * ontologies from the specified set in order to determine if a class is a
      * syntactic subclass of owl:Thing.
      * 
      * @param ontologies
-     *            The ontologies whose axioms are to be taken into consideration
-     *            when determining if a class is a syntactic direct subclass of
-     *            owl:Thing */
+     *        The ontologies whose axioms are to be taken into consideration
+     *        when determining if a class is a syntactic direct subclass of
+     *        owl:Thing
+     */
     public SimpleRootClassChecker(@Nonnull Set<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }
@@ -92,6 +97,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
 
     private static class NamedSuperChecker extends
             OWLClassExpressionVisitorAdapter {
+
         protected boolean namedSuper;
 
         public NamedSuperChecker() {}
@@ -116,9 +122,12 @@ public class SimpleRootClassChecker implements RootClassChecker {
         }
     }
 
-    /** A utility class that checks if an axiom gives rise to a class being a
-     * subclass of Thing. */
+    /**
+     * A utility class that checks if an axiom gives rise to a class being a
+     * subclass of Thing.
+     */
     private class RootClassCheckerHelper extends OWLAxiomVisitorAdapter {
+
         private boolean isRoot;
         private OWLClass cls;
 

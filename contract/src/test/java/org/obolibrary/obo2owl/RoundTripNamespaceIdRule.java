@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class RoundTripNamespaceIdRule extends RoundTripTest {
+
     @Test
     public void testWrite() throws Exception {
         OBODoc oboDoc = parseOBOFile("namespace-id-rule.obo");

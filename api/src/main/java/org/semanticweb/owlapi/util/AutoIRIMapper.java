@@ -43,15 +43,18 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** A mapper which given a root folder attempts to automatically discover and map
+/**
+ * A mapper which given a root folder attempts to automatically discover and map
  * files to ontologies. The mapper is only capable of mapping ontologies in
  * RDF/XML and OWL/XML (other serialisations are not supported).
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class AutoIRIMapper extends DefaultHandler implements
         OWLOntologyIRIMapper, Serializable {
+
     private static final long serialVersionUID = 40000L;
     private final Set<String> fileExtensions = new HashSet<String>();
     private boolean mapped;
@@ -65,13 +68,15 @@ public class AutoIRIMapper extends DefaultHandler implements
     private transient File directory;
     private transient File currentFile;
 
-    /** Creates an auto-mapper which examines ontologies that reside in the
+    /**
+     * Creates an auto-mapper which examines ontologies that reside in the
      * specified root folder (and possibly sub-folders).
      * 
      * @param rootDirectory
-     *            The root directory which should be searched for ontologies.
+     *        The root directory which should be searched for ontologies.
      * @param recursive
-     *            Sub directories will be searched recursively if {@code true}. */
+     *        Sub directories will be searched recursively if {@code true}.
+     */
     public AutoIRIMapper(@Nonnull File rootDirectory, boolean recursive) {
         directory = checkNotNull(rootDirectory, "rootDirectory cannot be null");
         directoryPath = directory.getAbsolutePath();
@@ -109,29 +114,35 @@ public class AutoIRIMapper extends DefaultHandler implements
         return currentFile;
     }
 
-    /** The mapper only examines files that have specified file extensions. This
+    /**
+     * The mapper only examines files that have specified file extensions. This
      * method returns the file extensions that cause a file to be examined.
      * 
-     * @return A {@code Set} of file extensions. */
+     * @return A {@code Set} of file extensions.
+     */
     public Set<String> getFileExtensions() {
         return fileExtensions;
     }
 
-    /** Sets the extensions of files that are to be examined for ontological
+    /**
+     * Sets the extensions of files that are to be examined for ontological
      * content. (By default the extensions are, owl, xml and rdf). Only files
      * that have the specified extensions will be examined to see if they
      * contain ontologies.
      * 
      * @param extensions
-     *            the set of extensions */
+     *        the set of extensions
+     */
     public void setFileExtensions(Set<String> extensions) {
         fileExtensions.clear();
         fileExtensions.addAll(extensions);
     }
 
-    /** Gets the set of ontology IRIs that this mapper has found.
+    /**
+     * Gets the set of ontology IRIs that this mapper has found.
      * 
-     * @return A {@code Set} of ontology (logical) URIs */
+     * @return A {@code Set} of ontology (logical) URIs
+     */
     public Set<IRI> getOntologyIRIs() {
         if (!mapped) {
             mapFiles();
@@ -293,23 +304,30 @@ public class AutoIRIMapper extends DefaultHandler implements
         return sb.toString();
     }
 
-    /** A simple interface which extracts an ontology IRI from a set of element
-     * attributes. */
+    /**
+     * A simple interface which extracts an ontology IRI from a set of element
+     * attributes.
+     */
     private interface OntologyRootElementHandler {
-        /** Gets the ontology IRI.
+
+        /**
+         * Gets the ontology IRI.
          * 
          * @param attributes
-         *            The attributes which will be examined for the ontology
-         *            IRI.
+         *        The attributes which will be examined for the ontology IRI.
          * @return The ontology IRI or {@code null} if no ontology IRI could be
-         *         found. */
+         *         found.
+         */
         IRI handle(Attributes attributes);
     }
 
-    /** A handler to handle RDF/XML files. The xml:base (if present) is taken to
-     * be the ontology URI of the ontology document being parsed. */
+    /**
+     * A handler to handle RDF/XML files. The xml:base (if present) is taken to
+     * be the ontology URI of the ontology document being parsed.
+     */
     private static class RDFXMLOntologyRootElementHandler implements
             OntologyRootElementHandler, Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         public RDFXMLOntologyRootElementHandler() {}
@@ -328,6 +346,7 @@ public class AutoIRIMapper extends DefaultHandler implements
     /** A handler that can handle OWL/XML files. */
     private static class OWLXMLOntologyRootElementHandler implements
             OntologyRootElementHandler, Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         public OWLXMLOntologyRootElementHandler() {}

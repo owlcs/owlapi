@@ -16,23 +16,30 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Datatype_Restrictions"
  * >DatatypeRestriction</a> data range in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLDatatypeRestriction extends OWLDataRange {
-    /** Gets the data range that this data range restricts.
+
+    /**
+     * Gets the data range that this data range restricts.
      * 
-     * @return The datatype that is restricted */
+     * @return The datatype that is restricted
+     */
     @Nonnull
     OWLDatatype getDatatype();
 
-    /** Gets the facet restrictions on this data range
+    /**
+     * Gets the facet restrictions on this data range
      * 
-     * @return A {@code Set} of facet restrictions that apply to this data range */
+     * @return A {@code Set} of facet restrictions that apply to this data range
+     */
     @Nonnull
     Set<OWLFacetRestriction> getFacetRestrictions();
 }

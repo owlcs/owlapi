@@ -14,36 +14,45 @@ package org.semanticweb.owlapi.owlxml.renderer;
 
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** The Class OWLXMLOntologyStorageException.
+/**
+ * The Class OWLXMLOntologyStorageException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLXMLOntologyStorageException extends OWLOntologyStorageException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Instantiates a new oWLXML ontology storage exception.
+    /**
+     * Instantiates a new oWLXML ontology storage exception.
      * 
      * @param message
-     *            the message */
+     *        the message
+     */
     public OWLXMLOntologyStorageException(String message) {
         super(message);
     }
 
-    /** Instantiates a new oWLXML ontology storage exception.
+    /**
+     * Instantiates a new oWLXML ontology storage exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLXMLOntologyStorageException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** Instantiates a new oWLXML ontology storage exception.
+    /**
+     * Instantiates a new oWLXML ontology storage exception.
      * 
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLXMLOntologyStorageException(Throwable cause) {
         super(cause);
     }

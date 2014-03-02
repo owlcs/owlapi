@@ -35,7 +35,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorer;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
 
-/** Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
+/**
+ * Test cases for rendering of disjoint axioms. The OWL 1.1 specification makes
  * it possible to specify that a set of classes are mutually disjoint.
  * Unfortunately, this must be represented in RDF as a set of pairwise disjoint
  * statements. In otherwords, DisjointClasses(A, B, C) must be represented as
@@ -44,9 +45,11 @@ import org.semanticweb.owlapi.rdf.rdfxml.renderer.RDFXMLOntologyStorer;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class TestDisjointsTestCase extends TestBase {
+
     @Before
     public void setUp() {
         m.setOntologyStorers(Collections

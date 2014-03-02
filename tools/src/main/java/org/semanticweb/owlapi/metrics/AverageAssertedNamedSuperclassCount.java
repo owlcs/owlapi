@@ -26,14 +26,19 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class AverageAssertedNamedSuperclassCount extends DoubleValuedMetric {
-    /** Instantiates a new average asserted named superclass count.
+
+    /**
+     * Instantiates a new average asserted named superclass count.
      * 
      * @param o
-     *            ontology to use */
+     *        ontology to use
+     */
     public AverageAssertedNamedSuperclassCount(@Nonnull OWLOntology o) {
         super(o);
     }

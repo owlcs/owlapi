@@ -17,11 +17,14 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class NegativeObjectPropertyAssertionAxiomTestCase extends
         AbstractRendererAndParser {
+
     @Override
     protected String getClassExpression() {
         return "Negative object property assertion test case";

@@ -21,11 +21,14 @@ import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2.0 */
+ * @since 3.2.0
+ */
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyConvenienceMethodTestCase extends TestBase {
+
     @Test
     public void testGetSuperProperties() {
         OWLOntology ont = getOWLOntology("OntA");

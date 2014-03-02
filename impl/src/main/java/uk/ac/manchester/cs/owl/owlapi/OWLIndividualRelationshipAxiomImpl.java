@@ -25,28 +25,33 @@ import org.semanticweb.owlapi.model.OWLPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLPropertyAssertionObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
-/** @param <P>
- *            the property expression
+/**
+ * @param <P>
+ *        the property expression
  * @param <O>
- *            the object
+ *        the object
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLIndividualRelationshipAxiomImpl<P extends OWLPropertyExpression, O extends OWLPropertyAssertionObject>
         extends OWLLogicalAxiomImpl implements OWLPropertyAssertionAxiom<P, O> {
+
     private static final long serialVersionUID = 40000L;
     private final OWLIndividual subject;
     private final P property;
     private final O object;
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param property
-     *            the property
+     *        the property
      * @param object
-     *            the object
+     *        the object
      * @param annotations
-     *            the annotations */
+     *        the annotations
+     */
     public OWLIndividualRelationshipAxiomImpl(@Nonnull OWLIndividual subject,
             @Nonnull P property, @Nonnull O object,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

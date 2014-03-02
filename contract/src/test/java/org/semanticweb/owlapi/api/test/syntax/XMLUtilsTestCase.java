@@ -17,11 +17,14 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import org.semanticweb.owlapi.io.XMLUtils;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.3.0 */
+ * @since 3.3.0
+ */
 @SuppressWarnings("javadoc")
 public class XMLUtilsTestCase {
+
     private static final int CODE_POINT = 0xEFFFF;
     private static final String CODE_POINT_STRING;
     static {

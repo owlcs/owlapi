@@ -24,31 +24,38 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** Represents the specific non-ontology data required by a
+/**
+ * Represents the specific non-ontology data required by a
  * {@link org.semanticweb.owlapi.model.SetOntologyID} change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.3 */
+ * @since 3.3
+ */
 public class SetOntologyIDData extends OWLOntologyChangeData<OWLOntologyID> {
+
     private static final long serialVersionUID = 40000L;
     private final OWLOntologyID newId;
 
-    /** Constructs a {@link SetOntologyIDData} object that describes an
+    /**
+     * Constructs a {@link SetOntologyIDData} object that describes an
      * {@link SetOntologyID} change for the {@link OWLOntologyID} object
      * specified by the {@code newId} parameter.
      * 
      * @param newId
-     *            The {@link OWLOntologyID} that is the focus of some change. */
+     *        The {@link OWLOntologyID} that is the focus of some change.
+     */
     public SetOntologyIDData(@Nonnull OWLOntologyID newId) {
         this.newId = checkNotNull(newId, "newId must not be null");
     }
 
-    /** Gets the {@link OWLOntologyID} that is associated with some
+    /**
+     * Gets the {@link OWLOntologyID} that is associated with some
      * {@link SetOntologyID} change.
      * 
-     * @return The {@link OWLOntologyID}. */
+     * @return The {@link OWLOntologyID}.
+     */
     @Nonnull
     public OWLOntologyID getNewId() {
         return newId;

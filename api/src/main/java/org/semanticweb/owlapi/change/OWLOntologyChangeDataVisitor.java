@@ -12,60 +12,77 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.3
  * @param <R>
- *            return type
+ *        return type
  * @param <E>
- *            exception thrown */
+ *        exception thrown
+ */
 public interface OWLOntologyChangeDataVisitor<R, E extends Exception> {
-    /** @param data
-     *            object to visit
+
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(AddAxiomData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(RemoveAxiomData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(AddOntologyAnnotationData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(RemoveOntologyAnnotationData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(SetOntologyIDData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(AddImportData data) throws E;
 
-    /** @param data
-     *            object to visit
+    /**
+     * @param data
+     *        object to visit
      * @return result of visit
      * @throws E
-     *             exception */
+     *         exception
+     */
     R visit(RemoveImportData data) throws E;
 }

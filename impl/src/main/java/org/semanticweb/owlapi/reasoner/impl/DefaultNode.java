@@ -30,12 +30,15 @@ import org.semanticweb.owlapi.reasoner.Node;
 
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
  * @since 3.0.0
  * @param <E>
- *            the type of entities in the node */
+ *        the type of entities in the node
+ */
 public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
+
     private static final OWLDataFactory DF = new OWLDataFactoryImpl(false,
             false);
     protected static final OWLClass TOP_CLASS = DF.getOWLThing();
@@ -62,14 +65,18 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
             BOTTOM_OBJECT_PROPERTY);
     private final Set<E> entities = new HashSet<E>(4);
 
-    /** @param entity
-     *            the entity to add */
+    /**
+     * @param entity
+     *        the entity to add
+     */
     public DefaultNode(@Nonnull E entity) {
         this.entities.add(checkNotNull(entity, "entity cannot be null"));
     }
 
-    /** @param entities
-     *            the set of entities to add */
+    /**
+     * @param entities
+     *        the set of entities to add
+     */
     public DefaultNode(@Nonnull Set<E> entities) {
         this.entities.addAll(checkNotNull(entities, "entities cannot be null"));
     }
@@ -80,8 +87,10 @@ public abstract class DefaultNode<E extends OWLObject> implements Node<E> {
 
     protected abstract E getBottomEntity();
 
-    /** @param entity
-     *            entity to be added */
+    /**
+     * @param entity
+     *        entity to be added
+     */
     public void add(E entity) {
         entities.add(entity);
     }

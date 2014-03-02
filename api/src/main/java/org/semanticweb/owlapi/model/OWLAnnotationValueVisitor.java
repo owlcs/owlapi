@@ -14,28 +14,37 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** A visitor that visits values of {@link OWLAnnotation}s and
+/**
+ * A visitor that visits values of {@link OWLAnnotation}s and
  * {@link org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom}s.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLAnnotationValueVisitor {
-    /** visit IRI type
+
+    /**
+     * visit IRI type
      * 
      * @param iri
-     *            object to visit */
+     *        object to visit
+     */
     void visit(@Nonnull IRI iri);
 
-    /** visit OWLAnonymousIndividual type
+    /**
+     * visit OWLAnonymousIndividual type
      * 
      * @param individual
-     *            object to visit */
+     *        object to visit
+     */
     void visit(@Nonnull OWLAnonymousIndividual individual);
 
-    /** visit OWLLiteral type
+    /**
+     * visit OWLLiteral type
      * 
      * @param literal
-     *            object to visit */
+     *        object to visit
+     */
     void visit(@Nonnull OWLLiteral literal);
 }

@@ -68,10 +68,13 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class Translators {
+
     static OptimisedListTranslator<OWLPropertyExpression> getListTranslator(
             OWLRDFConsumer consumer) {
         return new OptimisedListTranslator<OWLPropertyExpression>(consumer,
@@ -79,13 +82,18 @@ public class Translators {
     }
 
     static class TranslatorAccessor {
-        /** A translator for lists of class expressions (such lists are used in
-         * intersections, unions etc.) */
+
+        /**
+         * A translator for lists of class expressions (such lists are used in
+         * intersections, unions etc.)
+         */
         private OptimisedListTranslator<OWLClassExpression> classExpressionListTranslator;
         /** The class expression translators. */
         private List<ClassExpressionTranslator> classExpressionTranslators = new ArrayList<ClassExpressionTranslator>();
-        /** A translator for individual lists (such lists are used in object
-         * oneOf constructs) */
+        /**
+         * A translator for individual lists (such lists are used in object
+         * oneOf constructs)
+         */
         private OptimisedListTranslator<OWLIndividual> individualListTranslator;
         /** The object property list translator. */
         private OptimisedListTranslator<OWLObjectPropertyExpression> objectPropertyListTranslator;
@@ -243,6 +251,7 @@ public class Translators {
 
     static abstract class AbstractClassExpressionTranslator implements
             ClassExpressionTranslator {
+
         private OWLRDFConsumer consumer;
         private ClassExpressionMatcher classExpressionMatcher = new ClassExpressionMatcher();
         private DataRangeMatcher dataRangeMatcher = new DataRangeMatcher();
@@ -471,10 +480,12 @@ public class Translators {
         }
 
         private interface TypeMatcher {
+
             boolean isTypeStrict(IRI node);
         }
 
         private class ClassExpressionMatcher implements TypeMatcher {
+
             public ClassExpressionMatcher() {}
 
             @Override
@@ -484,6 +495,7 @@ public class Translators {
         }
 
         private class DataRangeMatcher implements TypeMatcher {
+
             public DataRangeMatcher() {}
 
             @Override
@@ -493,6 +505,7 @@ public class Translators {
         }
 
         private class IndividualMatcher implements TypeMatcher {
+
             public IndividualMatcher() {}
 
             @Override
@@ -504,6 +517,7 @@ public class Translators {
 
     static class ClassExpressionListItemTranslator implements
             ListItemTranslator<OWLClassExpression> {
+
         private OWLRDFConsumer consumer;
         protected TranslatorAccessor accessor;
 
@@ -525,40 +539,52 @@ public class Translators {
         }
     }
 
-    /** Give a node in an RDF graph, which represents the main node of an OWL
+    /**
+     * Give a node in an RDF graph, which represents the main node of an OWL
      * class expression, the {@code ClassExpressionTranslator} consumes the
      * triples that represent the class expression, and translates the triples
-     * to the appropriate OWL API {@code OWLClassExpression} object. */
+     * to the appropriate OWL API {@code OWLClassExpression} object.
+     */
     public interface ClassExpressionTranslator {
-        /** @param mainNode
-         *            mainNode
+
+        /**
+         * @param mainNode
+         *        mainNode
          * @param mode
-         *            mode
-         * @return true if parameter matches */
+         *        mode
+         * @return true if parameter matches
+         */
         boolean matches(IRI mainNode, Mode mode);
 
-        /** @param mainNode
-         *            mainNode
-         * @return true if parameter matches strictly */
+        /**
+         * @param mainNode
+         *        mainNode
+         * @return true if parameter matches strictly
+         */
         boolean matchesStrict(IRI mainNode);
 
-        /** @param mainNode
-         *            mainNode
-         * @return true if parameter matches in lax mode */
+        /**
+         * @param mainNode
+         *        mainNode
+         * @return true if parameter matches in lax mode
+         */
         boolean matchesLax(IRI mainNode);
 
-        /** Translates the specified main node into an {@code OWLClassExpression}
+        /**
+         * Translates the specified main node into an {@code OWLClassExpression}
          * . All triples used in the translation are consumed.
          * 
          * @param mainNode
-         *            The main node of the set of triples that represent the
-         *            class expression.
-         * @return The class expression that represents the translation. */
+         *        The main node of the set of triples that represent the class
+         *        expression.
+         * @return The class expression that represents the translation.
+         */
         OWLClassExpression translate(IRI mainNode);
     }
 
     static class DataAllValuesFromTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataAllValuesFromTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -597,6 +623,7 @@ public class Translators {
 
     static class DataCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -642,6 +669,7 @@ public class Translators {
 
     static class DataHasValueTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataHasValueTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -675,6 +703,7 @@ public class Translators {
 
     static class DataMaxCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataMaxCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -720,6 +749,7 @@ public class Translators {
 
     static class DataMaxQualifiedCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -762,6 +792,7 @@ public class Translators {
 
     static class DataMinCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataMinCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -807,6 +838,7 @@ public class Translators {
 
     static class DataMinQualifiedCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -849,6 +881,7 @@ public class Translators {
 
     static class DataPropertyListItemTranslator implements
             ListItemTranslator<OWLDataPropertyExpression> {
+
         private OWLRDFConsumer consumer;
 
         public DataPropertyListItemTranslator(OWLRDFConsumer consumer) {
@@ -869,6 +902,7 @@ public class Translators {
 
     static class DataQualifiedCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -909,6 +943,7 @@ public class Translators {
 
     static class DataRangeListItemTranslator implements
             ListItemTranslator<OWLDataRange> {
+
         private OWLRDFConsumer consumer;
 
         public DataRangeListItemTranslator(OWLRDFConsumer consumer) {
@@ -928,6 +963,7 @@ public class Translators {
 
     static class DataSomeValuesFromTranslator extends
             AbstractClassExpressionTranslator {
+
         public DataSomeValuesFromTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -966,6 +1002,7 @@ public class Translators {
 
     static class HasKeyListItemTranslator implements
             ListItemTranslator<OWLPropertyExpression> {
+
         private OWLRDFConsumer consumer;
 
         public HasKeyListItemTranslator(OWLRDFConsumer consumer) {
@@ -991,6 +1028,7 @@ public class Translators {
 
     static class IndividualListItemTranslator implements
             ListItemTranslator<OWLIndividual> {
+
         private static final Logger logger = Logger
                 .getLogger(IndividualListItemTranslator.class.getName());
         private OWLRDFConsumer consumer;
@@ -1011,30 +1049,37 @@ public class Translators {
         }
     }
 
-    /** Translates and consumes an item in an RDF list.
+    /**
+     * Translates and consumes an item in an RDF list.
      * 
      * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
      * @since 2.0.0
      * @param <O>
-     *            type */
+     *        type
+     */
     public interface ListItemTranslator<O extends OWLObject> {
-        /** The rdf:first triple that represents the item to be translated. This
+
+        /**
+         * The rdf:first triple that represents the item to be translated. This
          * triple will point to something like a class expression, individual.
          * 
          * @param firstObject
-         *            The rdf:first triple that points to the item to be
-         *            translated.
-         * @return The translated item. */
+         *        The rdf:first triple that points to the item to be translated.
+         * @return The translated item.
+         */
         O translate(IRI firstObject);
 
-        /** @param firstObject
-         *            firstObject
-         * @return translated item */
+        /**
+         * @param firstObject
+         *        firstObject
+         * @return translated item
+         */
         O translate(OWLLiteral firstObject);
     }
 
     static class NamedClassTranslator extends AbstractClassExpressionTranslator {
+
         public NamedClassTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1050,13 +1095,15 @@ public class Translators {
             return !isAnonymous(mainNode);
         }
 
-        /** Translates the specified main node into an {@code OWLClassExpression}
+        /**
+         * Translates the specified main node into an {@code OWLClassExpression}
          * . All triples used in the translation are consumed.
          * 
          * @param mainNode
-         *            The main node of the set of triples that represent the
-         *            class expression.
-         * @return The class expression that represents the translation. */
+         *        The main node of the set of triples that represent the class
+         *        expression.
+         * @return The class expression that represents the translation.
+         */
         @Override
         public OWLClass translate(IRI mainNode) {
             return getConsumer().getOWLClass(mainNode);
@@ -1065,6 +1112,7 @@ public class Translators {
 
     static class OWLFacetRestrictionListItemTranslator implements
             ListItemTranslator<OWLFacetRestriction> {
+
         private OWLRDFConsumer consumer;
 
         public OWLFacetRestrictionListItemTranslator(OWLRDFConsumer consumer) {
@@ -1092,6 +1140,7 @@ public class Translators {
 
     static class OWLObjectPropertyExpressionListItemTranslator implements
             ListItemTranslator<OWLObjectPropertyExpression> {
+
         private static final Logger logger = Logger
                 .getLogger(OWLObjectPropertyExpressionListItemTranslator.class
                         .getName());
@@ -1116,6 +1165,7 @@ public class Translators {
 
     static class ObjectAllValuesFromTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectAllValuesFromTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1154,6 +1204,7 @@ public class Translators {
 
     static class ObjectCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1197,14 +1248,17 @@ public class Translators {
         }
     }
 
-    /** Translates a set of triples that represent an {@code OWLComplementOf}
+    /**
+     * Translates a set of triples that represent an {@code OWLComplementOf}
      * class expression.
      * 
      * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectComplementOfTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectComplementOfTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1236,6 +1290,7 @@ public class Translators {
 
     static class ObjectHasSelfTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectHasSelfTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1277,6 +1332,7 @@ public class Translators {
 
     static class ObjectHasValueTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectHasValueTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1308,14 +1364,17 @@ public class Translators {
         }
     }
 
-    /** A class expression translator which produces an {@code OWLIntersectionOf}
+    /**
+     * A class expression translator which produces an {@code OWLIntersectionOf}
      * . This relies on the main node having an intersectionOf triple.
      * 
      * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectIntersectionOfTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectIntersectionOfTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1345,11 +1404,14 @@ public class Translators {
         }
     }
 
-    /** @author Matthew Horridge, The University Of Manchester, Bio-Health
+    /**
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectMaxCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectMaxCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1393,11 +1455,14 @@ public class Translators {
         }
     }
 
-    /** @author Matthew Horridge, The University of Manchester, Bio-Health
+    /**
+     * @author Matthew Horridge, The University of Manchester, Bio-Health
      *         Informatics Group
-     * @since 3.1.0 */
+     * @since 3.1.0
+     */
     static class ObjectMaxQualifiedCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectMaxQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1437,11 +1502,14 @@ public class Translators {
         }
     }
 
-    /** @author Matthew Horridge, The University Of Manchester, Bio-Health
+    /**
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectMinCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectMinCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1487,6 +1555,7 @@ public class Translators {
 
     static class ObjectMinQualifiedCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectMinQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1528,6 +1597,7 @@ public class Translators {
 
     static class ObjectOneOfTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectOneOfTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1555,11 +1625,14 @@ public class Translators {
         }
     }
 
-    /** @author Matthew Horridge, The University Of Manchester, Bio-Health
+    /**
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectPropertyListItemTranslator implements
             ListItemTranslator<OWLObjectPropertyExpression> {
+
         private static final Logger logger = Logger
                 .getLogger(ObjectPropertyListItemTranslator.class.getName());
         private OWLRDFConsumer consumer;
@@ -1568,13 +1641,14 @@ public class Translators {
             this.consumer = consumer;
         }
 
-        /** The rdf:first triple that represents the item to be translated. This
+        /**
+         * The rdf:first triple that represents the item to be translated. This
          * triple will point to something like a class expression, individual.
          * 
          * @param firstObject
-         *            The rdf:first triple that points to the item to be
-         *            translated.
-         * @return The translated item. */
+         *        The rdf:first triple that points to the item to be translated.
+         * @return The translated item.
+         */
         @Override
         public OWLObjectPropertyExpression translate(IRI firstObject) {
             consumer.addObjectProperty(firstObject, false);
@@ -1588,11 +1662,14 @@ public class Translators {
         }
     }
 
-    /** @author Matthew Horridge, The University of Manchester, Bio-Health
+    /**
+     * @author Matthew Horridge, The University of Manchester, Bio-Health
      *         Informatics Group
-     * @since 3.1.0 */
+     * @since 3.1.0
+     */
     static class ObjectQualifiedCardinalityTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectQualifiedCardinalityTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1630,11 +1707,14 @@ public class Translators {
         }
     }
 
-    /** @author Matthew Horridge, The University Of Manchester, Bio-Health
+    /**
+     * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectSomeValuesFromTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectSomeValuesFromTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1672,13 +1752,16 @@ public class Translators {
         }
     }
 
-    /** Translates a set of triples to an {@code OWLUnionOf}.
+    /**
+     * Translates a set of triples to an {@code OWLUnionOf}.
      * 
      * @author Matthew Horridge, The University Of Manchester, Bio-Health
      *         Informatics Group
-     * @since 2.0.0 */
+     * @since 2.0.0
+     */
     static class ObjectUnionOfTranslator extends
             AbstractClassExpressionTranslator {
+
         public ObjectUnionOfTranslator(OWLRDFConsumer consumer,
                 TranslatorAccessor accessor) {
             super(consumer, accessor);
@@ -1709,6 +1792,7 @@ public class Translators {
 
     static class SWRLAtomListItemTranslator implements
             ListItemTranslator<SWRLAtom> {
+
         private static final Logger logger = Logger
                 .getLogger(SWRLAtomListItemTranslator.class.getName());
         private OWLRDFConsumer consumer;
@@ -1858,6 +1942,7 @@ public class Translators {
 
         private class SWRLAtomDObjectListItemTranslator implements
                 ListItemTranslator<SWRLDArgument> {
+
             public SWRLAtomDObjectListItemTranslator() {}
 
             @Override
@@ -1873,6 +1958,7 @@ public class Translators {
     }
 
     static class SWRLRuleTranslator {
+
         private OWLRDFConsumer consumer;
         private OptimisedListTranslator<SWRLAtom> listTranslator;
 
@@ -1883,8 +1969,10 @@ public class Translators {
                     new SWRLAtomListItemTranslator(consumer, accessor));
         }
 
-        /** @param mainNode
-         *            rule to translate */
+        /**
+         * @param mainNode
+         *        rule to translate
+         */
         public void translateRule(IRI mainNode) {
             Set<OWLAnnotation> annotations = new HashSet<OWLAnnotation>();
             Set<IRI> predicates = consumer.getPredicatesBySubject(mainNode);
@@ -1928,6 +2016,7 @@ public class Translators {
 
     static class TypedConstantListItemTranslator implements
             ListItemTranslator<OWLLiteral> {
+
         private static final Logger logger = Logger
                 .getLogger(TypedConstantListItemTranslator.class.getName());
 

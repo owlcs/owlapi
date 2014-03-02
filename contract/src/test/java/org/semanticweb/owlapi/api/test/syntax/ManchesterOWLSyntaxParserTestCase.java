@@ -52,6 +52,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
 public class ManchesterOWLSyntaxParserTestCase extends TestBase {
+
     @Test
     public void shouldRoundTrip() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

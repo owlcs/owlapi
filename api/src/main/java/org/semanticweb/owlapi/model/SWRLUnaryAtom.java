@@ -14,12 +14,15 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
  * @since 2.0.0
  * @param <A>
- *            the type of argument */
+ *        the type of argument
+ */
 public interface SWRLUnaryAtom<A extends SWRLArgument> extends SWRLAtom {
+
     /** @return the argument */
     @Nonnull
     A getArgument();

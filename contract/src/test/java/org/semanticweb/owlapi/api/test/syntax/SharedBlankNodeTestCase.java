@@ -32,11 +32,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** test for 3294629 - currently disabled. Not clear whether structure sharing is
- * allowed or disallowed. Data is equivalent, ontology annotations are not */
+/**
+ * test for 3294629 - currently disabled. Not clear whether structure sharing is
+ * allowed or disallowed. Data is equivalent, ontology annotations are not
+ */
 @SuppressWarnings("javadoc")
 @Ignore
 public class SharedBlankNodeTestCase extends TestBase {
+
     @Test
     public void shouldSaveOneIndividual() throws OWLOntologyStorageException,
             OWLOntologyCreationException {

@@ -22,15 +22,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ReferencedEntitySetProvider implements
         OWLEntitySetProvider<OWLEntity> {
+
     private final Set<OWLOntology> ontologies;
 
-    /** @param ontologies
-     *            ontologies to use */
+    /**
+     * @param ontologies
+     *        ontologies to use
+     */
     public ReferencedEntitySetProvider(@Nonnull Set<OWLOntology> ontologies) {
         this.ontologies = checkNotNull(ontologies, "ontologies cannot be null");
     }

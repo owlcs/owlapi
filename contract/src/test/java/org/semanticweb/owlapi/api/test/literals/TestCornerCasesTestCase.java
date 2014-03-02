@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class TestCornerCasesTestCase extends TestBase {
+
     @Test
     public void testFloatZeros() {
         // +0 and -0 are not equal

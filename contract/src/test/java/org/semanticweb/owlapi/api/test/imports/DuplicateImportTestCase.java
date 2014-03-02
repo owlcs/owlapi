@@ -32,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class DuplicateImportTestCase extends TestBase {
+
     @Test
     public void shouldLoad() throws OWLOntologyStorageException,
             OWLOntologyCreationException, IOException {

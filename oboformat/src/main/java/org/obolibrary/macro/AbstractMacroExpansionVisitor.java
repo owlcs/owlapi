@@ -90,12 +90,15 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.search.Searcher;
 
-/** Empty abstract visitor for macro expansion. This class allows to minimize the
+/**
+ * Empty abstract visitor for macro expansion. This class allows to minimize the
  * code in the actual visitors, as they only need to overwrite the relevant
- * methods. */
+ * methods.
+ */
 public abstract class AbstractMacroExpansionVisitor implements
         OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
+
     final Logger log;
     final OWLDataFactory dataFactory;
     final Map<IRI, String> expandAssertionToMap;

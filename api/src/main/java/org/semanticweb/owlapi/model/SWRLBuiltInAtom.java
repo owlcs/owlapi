@@ -16,10 +16,13 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLBuiltInAtom extends SWRLAtom {
+
     @Override
     @Nonnull
     IRI getPredicate();
@@ -28,8 +31,10 @@ public interface SWRLBuiltInAtom extends SWRLAtom {
     @Nonnull
     List<SWRLDArgument> getArguments();
 
-    /** Determines if the predicate of this atom is is a core builtin.
+    /**
+     * Determines if the predicate of this atom is is a core builtin.
      * 
-     * @return {@code true} if this is a core builtin, otherwise {@code false} */
+     * @return {@code true} if this is a core builtin, otherwise {@code false}
+     */
     boolean isCoreBuiltIn();
 }

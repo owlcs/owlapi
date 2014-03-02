@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
 public class FunctionalSyntaxCommentTestCase extends TestBase {
+
     @Test
     public void shouldParseCommentAndSkipIt()
             throws OWLOntologyCreationException {

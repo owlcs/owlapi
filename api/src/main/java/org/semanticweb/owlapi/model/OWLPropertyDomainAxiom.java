@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a
+/**
+ * Represents <a
  * href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Domain">
  * ObjectPropertyDomain</a> axioms in the OWL 2 specification.
  * 
@@ -22,14 +23,18 @@ import javax.annotation.Nonnull;
  *         Informatics Group
  * @since 2.0.0
  * @param <P>
- *            property expression */
+ *        property expression
+ */
 public interface OWLPropertyDomainAxiom<P extends OWLPropertyExpression>
         extends OWLUnaryPropertyAxiom<P>, OWLSubClassOfAxiomShortCut,
         HasDomain<OWLClassExpression> {
-    /** Gets the domain specified by this property axiom.
+
+    /**
+     * Gets the domain specified by this property axiom.
      * 
      * @return The class expression that represents the domain specified by this
-     *         axiom. */
+     *         axiom.
+     */
     @Override
     @Nonnull
     OWLClassExpression getDomain();

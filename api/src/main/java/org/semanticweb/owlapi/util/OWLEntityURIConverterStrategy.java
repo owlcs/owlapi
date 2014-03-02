@@ -17,15 +17,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** An interface for customisation of entity URI conversions.
+/**
+ * An interface for customisation of entity URI conversions.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public interface OWLEntityURIConverterStrategy {
-    /** @param entity
-     *            the entity to convert
-     * @return the converted IRI */
+
+    /**
+     * @param entity
+     *        the entity to convert
+     * @return the converted IRI
+     */
     @Nonnull
     IRI getConvertedIRI(@Nonnull OWLEntity entity);
 }

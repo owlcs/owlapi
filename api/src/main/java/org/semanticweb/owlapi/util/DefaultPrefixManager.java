@@ -34,16 +34,22 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
+
     private static final long serialVersionUID = 40000L;
 
-    /** String comparator that takes length into account before natural ordering. */
+    /**
+     * String comparator that takes length into account before natural ordering.
+     */
     private static final class StringLengthComparator implements
             Comparator<String>, Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         public StringLengthComparator() {}
@@ -67,10 +73,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         this(STRING_LENGTH_COMPARATOR);
     }
 
-    /** Creates a namespace manager that does not have a default namespace.
+    /**
+     * Creates a namespace manager that does not have a default namespace.
      * 
      * @param c
-     *            comparator to sort prefixes */
+     *        comparator to sort prefixes
+     */
     public DefaultPrefixManager(@Nonnull Comparator<String> c) {
         checkNotNull(c, "c cannot be null");
         prefix2NamespaceMap = new TreeMap<String, String>(c);
@@ -78,17 +86,21 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         setupDefaultPrefixes();
     }
 
-    /** @param pm
-     *            the prefix manager to copy */
+    /**
+     * @param pm
+     *        the prefix manager to copy
+     */
     public DefaultPrefixManager(@Nonnull PrefixManager pm) {
         this();
         copyPrefixesFrom(pm);
     }
 
-    /** @param pm
-     *            the prefix manager to copy
+    /**
+     * @param pm
+     *        the prefix manager to copy
      * @param c
-     *            comparator to sort prefixes */
+     *        comparator to sort prefixes
+     */
     public DefaultPrefixManager(@Nonnull PrefixManager pm,
             @Nonnull Comparator<String> c) {
         this(c);
@@ -106,10 +118,12 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         return new HashSet<String>(prefix2NamespaceMap.keySet());
     }
 
-    /** Creates a namespace manager that has the specified default namespace.
+    /**
+     * Creates a namespace manager that has the specified default namespace.
      * 
      * @param defaultPrefix
-     *            The namespace to be used as the default namespace. */
+     *        The namespace to be used as the default namespace.
+     */
     public DefaultPrefixManager(@Nullable String defaultPrefix) {
         this();
         if (defaultPrefix != null) {
@@ -117,12 +131,14 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         }
     }
 
-    /** Creates a namespace manager that has the specified default namespace.
+    /**
+     * Creates a namespace manager that has the specified default namespace.
      * 
      * @param defaultPrefix
-     *            The namespace to be used as the default namespace.
+     *        The namespace to be used as the default namespace.
      * @param c
-     *            comparator to sort prefixes */
+     *        comparator to sort prefixes
+     */
     public DefaultPrefixManager(@Nullable String defaultPrefix,
             @Nonnull Comparator<String> c) {
         this(c);

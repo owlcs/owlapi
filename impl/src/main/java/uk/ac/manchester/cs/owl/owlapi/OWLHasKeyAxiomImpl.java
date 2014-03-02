@@ -34,21 +34,26 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLHasKeyAxiomImpl extends OWLLogicalAxiomImpl implements
         OWLHasKeyAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLClassExpression expression;
     private final Set<OWLPropertyExpression> propertyExpressions;
 
-    /** @param expression
-     *            class expression
+    /**
+     * @param expression
+     *        class expression
      * @param propertyExpressions
-     *            properties
+     *        properties
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLHasKeyAxiomImpl(@Nonnull OWLClassExpression expression,
             @Nonnull Set<? extends OWLPropertyExpression> propertyExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

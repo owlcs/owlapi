@@ -62,17 +62,22 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** Provides the object that is the subject of an axiom.
+/**
+ * Provides the object that is the subject of an axiom.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class AxiomSubjectProvider implements OWLAxiomVisitor {
+
     private OWLObject subject;
 
-    /** @param axiom
-     *            the axiom to visit
-     * @return the subject */
+    /**
+     * @param axiom
+     *        the axiom to visit
+     * @return the subject
+     */
     public OWLObject getSubject(@Nonnull OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         axiom.accept(this);

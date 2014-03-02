@@ -16,17 +16,22 @@ import org.semanticweb.owlapi.krss1.parser.KRSSOWLParserException;
 
 /** @author Olaf Noppens, Ulm University, Institute of Artificial Intelligence */
 public class KRSS2OWLParserException extends KRSSOWLParserException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param e
-     *            cause */
+    /**
+     * @param e
+     *        cause
+     */
     public KRSS2OWLParserException(
             org.semanticweb.owlapi.krss1.parser.ParseException e) {
         super(e);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public KRSS2OWLParserException(Throwable cause) {
         super(cause);
     }

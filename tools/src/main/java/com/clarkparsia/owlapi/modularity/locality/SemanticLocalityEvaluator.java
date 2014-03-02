@@ -56,6 +56,7 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 /** Semantic locality evaluator. */
 public class SemanticLocalityEvaluator implements LocalityEvaluator {
+
     protected static final Logger LOGGER = Logger
             .getLogger(SemanticLocalityEvaluator.class.getName());
     protected final OWLDataFactory df;
@@ -63,12 +64,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     private final BottomReplacer bottomReplacer = new BottomReplacer();
     protected final OWLReasoner reasoner;
 
-    /** Instantiates a new semantic locality evaluator.
+    /**
+     * Instantiates a new semantic locality evaluator.
      * 
      * @param man
-     *            ontology manager
+     *        ontology manager
      * @param reasonerFactory
-     *            reasoner factory */
+     *        reasoner factory
+     */
     public SemanticLocalityEvaluator(@Nonnull OWLOntologyManager man,
             @Nonnull OWLReasonerFactory reasonerFactory) {
         df = checkNotNull(man, "man cannot be null").getOWLDataFactory();
@@ -84,6 +87,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /** The Class AxiomLocalityVisitor. */
     private class AxiomLocalityVisitor extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor {
+
         private boolean isLocal;
 
         public AxiomLocalityVisitor() {}
@@ -93,9 +97,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return isLocal;
         }
 
-        /** @param axiom
-         *            the axiom
-         * @return true, if is local */
+        /**
+         * @param axiom
+         *        the axiom
+         * @return true, if is local
+         */
         public boolean isLocal(OWLAxiom axiom) {
             reset();
             axiom.accept(this);
@@ -143,6 +149,7 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
     /** The Class BottomReplacer. */
     private class BottomReplacer extends OWLAxiomVisitorAdapter implements
             OWLAxiomVisitor, OWLClassExpressionVisitor {
+
         private OWLAxiom newAxiom;
         private OWLClassExpression newClassExpression;
         private Set<? extends OWLEntity> signature;
@@ -154,13 +161,15 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return newAxiom;
         }
 
-        /** Replace bottom.
+        /**
+         * Replace bottom.
          * 
          * @param axiom
-         *            the axiom
+         *        the axiom
          * @param sig
-         *            the sig
-         * @return the modified OWL axiom */
+         *        the sig
+         * @return the modified OWL axiom
+         */
         @Nonnull
         public OWLAxiom replaceBottom(@Nonnull OWLAxiom axiom,
                 @Nonnull Set<? extends OWLEntity> sig) {
@@ -169,12 +178,14 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return getResult();
         }
 
-        /** Takes an OWLClassExpression and a signature replaces by bottom the
+        /**
+         * Takes an OWLClassExpression and a signature replaces by bottom the
          * entities not in the signature
          * 
          * @param desc
-         *            the desc
-         * @return the modified OWL class expression */
+         *        the desc
+         * @return the modified OWL class expression
+         */
         @Nonnull
         public OWLClassExpression
                 replaceBottom(@Nonnull OWLClassExpression desc) {
@@ -187,9 +198,11 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return newClassExpression;
         }
 
-        /** @param classExpressions
-         *            the class expressions
-         * @return the set of modified OWL class expressions */
+        /**
+         * @param classExpressions
+         *        the class expressions
+         * @return the set of modified OWL class expressions
+         */
         @Nonnull
         public Set<OWLClassExpression> replaceBottom(
                 @Nonnull Set<OWLClassExpression> classExpressions) {
@@ -201,10 +214,12 @@ public class SemanticLocalityEvaluator implements LocalityEvaluator {
             return result;
         }
 
-        /** Reset.
+        /**
+         * Reset.
          * 
          * @param s
-         *            the signature */
+         *        the signature
+         */
         public void reset(@Nonnull Set<? extends OWLEntity> s) {
             signature = checkNotNull(s, "s cannot be null");
             newAxiom = null;

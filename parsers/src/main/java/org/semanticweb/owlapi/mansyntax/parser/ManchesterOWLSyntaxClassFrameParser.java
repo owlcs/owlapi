@@ -19,21 +19,26 @@ import org.semanticweb.owlapi.expression.OWLExpressionParser;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 
-/** An expression parser that parses a Manchester OWL Syntax Class Frame to
+/**
+ * An expression parser that parses a Manchester OWL Syntax Class Frame to
  * produce a set of axioms that represent the class frame.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ManchesterOWLSyntaxClassFrameParser implements
         OWLExpressionParser<Set<OntologyAxiomPair>> {
+
     private OWLDataFactory dataFactory;
     private OWLEntityChecker checker;
 
-    /** @param dataFactory
-     *            dataFactory
+    /**
+     * @param dataFactory
+     *        dataFactory
      * @param checker
-     *            checker */
+     *        checker
+     */
     public ManchesterOWLSyntaxClassFrameParser(OWLDataFactory dataFactory,
             OWLEntityChecker checker) {
         this.dataFactory = dataFactory;

@@ -14,15 +14,18 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
+/**
+ * Represents <a href="http://www.w3.org/TR/owl2-syntax/#Object_Property_Range">
  * ObjectPropertyRange</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObjectPropertyRangeAxiom extends
         OWLPropertyRangeAxiom<OWLObjectPropertyExpression, OWLClassExpression>,
         OWLObjectPropertyAxiom {
+
     @Override
     @Nonnull
     OWLObjectPropertyRangeAxiom getAxiomWithoutAnnotations();

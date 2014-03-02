@@ -16,16 +16,21 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** An interface to an object which has a signature
+/**
+ * An interface to an object which has a signature
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.4.6 */
+ * @since 3.4.6
+ */
 public interface HasSignature {
-    /** Gets the signature of this object.
+
+    /**
+     * Gets the signature of this object.
      * 
      * @return A set of entities that represents the signature of this object.
-     *         Changes are not reflected back. */
+     *         Changes are not reflected back.
+     */
     @Nonnull
     Set<OWLEntity> getSignature();
 }

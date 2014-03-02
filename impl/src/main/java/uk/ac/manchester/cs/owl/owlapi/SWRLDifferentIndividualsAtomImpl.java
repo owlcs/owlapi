@@ -24,20 +24,25 @@ import org.semanticweb.owlapi.model.SWRLIArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SWRLDifferentIndividualsAtomImpl extends
         SWRLBinaryAtomImpl<SWRLIArgument, SWRLIArgument> implements
         SWRLDifferentIndividualsAtom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param arg0
-     *            first individual
+     *        first individual
      * @param arg1
-     *            second individual */
+     *        second individual
+     */
     public SWRLDifferentIndividualsAtomImpl(
             @Nonnull OWLObjectProperty property, @Nonnull SWRLIArgument arg0,
             @Nonnull SWRLIArgument arg1) {

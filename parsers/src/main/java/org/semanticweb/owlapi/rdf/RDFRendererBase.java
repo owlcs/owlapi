@@ -67,10 +67,13 @@ import org.semanticweb.owlapi.rdf.model.RDFTranslator;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public abstract class RDFRendererBase {
+
     private static final String ANNOTATION_PROPERTIES_BANNER_TEXT = "Annotation properties";
     private static final String DATATYPES_BANNER_TEXT = "Datatypes";
     private static final String OBJECT_PROPERTIES_BANNER_TEXT = "Object Properties";
@@ -98,8 +101,10 @@ public abstract class RDFRendererBase {
                 OWL_AXIOM.getIRI(), OWL_ANNOTATION.getIRI()));
     }
 
-    /** @param ontology
-     *            ontology */
+    /**
+     * @param ontology
+     *        ontology
+     */
     public RDFRendererBase(OWLOntology ontology) {
         this(ontology, ontology.getOWLOntologyManager().getOntologyFormat(
                 ontology));
@@ -111,94 +116,116 @@ public abstract class RDFRendererBase {
     }
 
     /** Hooks for subclasses */
-    /** Called before the ontology document is rendered.
+    /**
+     * Called before the ontology document is rendered.
      * 
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void beginDocument() throws IOException;
 
-    /** Called after the ontology document has been rendered.
+    /**
+     * Called after the ontology document has been rendered.
      * 
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void endDocument() throws IOException;
 
-    /** Called before an OWLObject such as an entity, anonymous individual, rule
+    /**
+     * Called before an OWLObject such as an entity, anonymous individual, rule
      * etc. is rendered.
      * 
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     @SuppressWarnings("unused")
     protected void beginObject() throws IOException {}
 
-    /** Called after an OWLObject such as an entity, anonymous individual, rule
+    /**
+     * Called after an OWLObject such as an entity, anonymous individual, rule
      * etc. has been rendered.
      * 
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     @SuppressWarnings("unused")
     protected void endObject() throws IOException {}
 
-    /** Called before an annotation property is rendered to give subclasses the
+    /**
+     * Called before an annotation property is rendered to give subclasses the
      * chance to prefix the rendering with comments etc.
      * 
      * @param prop
-     *            The property being rendered
+     *        The property being rendered
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void writeAnnotationPropertyComment(
             OWLAnnotationProperty prop) throws IOException;
 
-    /** Called before a data property is rendered to give subclasses the chance
+    /**
+     * Called before a data property is rendered to give subclasses the chance
      * to prefix the rendering with comments etc.
      * 
      * @param prop
-     *            The property being rendered
+     *        The property being rendered
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void writeDataPropertyComment(OWLDataProperty prop)
             throws IOException;
 
-    /** Called before an object property is rendered.
+    /**
+     * Called before an object property is rendered.
      * 
      * @param prop
-     *            The property being rendered
+     *        The property being rendered
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void writeObjectPropertyComment(OWLObjectProperty prop)
             throws IOException;
 
-    /** Called before a class is rendered to give subclasses the chance to prefix
+    /**
+     * Called before a class is rendered to give subclasses the chance to prefix
      * the rendering with comments etc.
      * 
      * @param cls
-     *            The class being rendered
+     *        The class being rendered
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void writeClassComment(OWLClass cls) throws IOException;
 
-    /** Called before a datatype is rendered to give subclasses the chance to
+    /**
+     * Called before a datatype is rendered to give subclasses the chance to
      * prefix the rendering with comments etc.
      * 
      * @param datatype
-     *            The datatype being rendered
+     *        The datatype being rendered
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void writeDatatypeComment(OWLDatatype datatype)
             throws IOException;
 
-    /** Called before an individual is rendered to give subclasses the chance to
+    /**
+     * Called before an individual is rendered to give subclasses the chance to
      * prefix the rendering with comments etc.
      * 
      * @param ind
-     *            The individual being rendered
+     *        The individual being rendered
      * @throws IOException
-     *             if there was a problem writing to the output stream */
+     *         if there was a problem writing to the output stream
+     */
     protected abstract void writeIndividualComments(OWLNamedIndividual ind)
             throws IOException;
 
-    /** @throws IOException
-     *             io error */
+    /**
+     * @throws IOException
+     *         io error
+     */
     public void render() throws IOException {
         beginDocument();
         renderOntologyHeader();
@@ -257,16 +284,18 @@ public abstract class RDFRendererBase {
         renderEntities(datatypes, DATATYPES_BANNER_TEXT);
     }
 
-    /** Renders a set of entities.
+    /**
+     * Renders a set of entities.
      * 
      * @param entities
-     *            The entities. Not null.
+     *        The entities. Not null.
      * @param bannerText
-     *            The banner text that will prefix the rendering of the entities
-     *            if anything is rendered. Not null. May be empty, in which case
-     *            no banner will be written.
+     *        The banner text that will prefix the rendering of the entities if
+     *        anything is rendered. Not null. May be empty, in which case no
+     *        banner will be written.
      * @throws IOException
-     *             If there was a problem writing the rendering */
+     *         If there was a problem writing the rendering
+     */
     private void renderEntities(Set<? extends OWLEntity> entities,
             String bannerText) throws IOException {
         boolean firstRendering = true;
@@ -291,12 +320,14 @@ public abstract class RDFRendererBase {
         endObject();
     }
 
-    /** Calls the appropriate hook method to write the comments for an entity.
+    /**
+     * Calls the appropriate hook method to write the comments for an entity.
      * 
      * @param entity
-     *            The entity for which comments should be written.
+     *        The entity for which comments should be written.
      * @throws IOException
-     *             if there was a problem writing the comment */
+     *         if there was a problem writing the comment
+     */
     private void writeEntityComment(OWLEntity entity) throws IOException {
         if (entity.isOWLClass()) {
             writeClassComment(entity.asOWLClass());
@@ -389,14 +420,16 @@ public abstract class RDFRendererBase {
         }
     }
 
-    /** Gets the general axioms in the ontology. These are axioms such as
+    /**
+     * Gets the general axioms in the ontology. These are axioms such as
      * DifferentIndividuals, General Class axioms which do not describe or
      * define a named class and so can't be written out as a frame, nary
      * disjoint classes, disjoint object properties, disjoint data properties
      * and HasKey axioms where the class expression is anonymous.
      * 
      * @return A set of axioms that are general axioms (and can't be written out
-     *         in a frame-based style). */
+     *         in a frame-based style).
+     */
     private Set<OWLAxiom> getGeneralAxioms() {
         Set<OWLAxiom> generalAxioms = new HashSet<OWLAxiom>();
         generalAxioms.addAll(ontology.getGeneralClassAxioms());
@@ -475,6 +508,7 @@ public abstract class RDFRendererBase {
     private void addAnnotationsToOntologyHeader(RDFResource ontologyHeaderNode) {
         for (OWLAnnotation anno : ontology.getAnnotations()) {
             OWLAnnotationValueVisitorEx<RDFNode> valVisitor = new OWLAnnotationValueVisitorEx<RDFNode>() {
+
                 @Override
                 public RDFNode visit(IRI iri) {
                     return new RDFResourceIRI(iri);
@@ -506,6 +540,7 @@ public abstract class RDFRendererBase {
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {
+
             @Override
             public void visit(OWLClass cls) {
                 for (OWLAxiom ax : ontology.getAxioms(cls)) {
@@ -616,21 +651,25 @@ public abstract class RDFRendererBase {
         return results;
     }
 
-    /** @throws IOException
-     *             io error */
+    /**
+     * @throws IOException
+     *         io error
+     */
     public void renderAnonRoots() throws IOException {
         for (RDFResourceBlankNode node : graph.getRootAnonymousNodes()) {
             render(node);
         }
     }
 
-    /** Renders the triples in the current graph into a concrete format.
+    /**
+     * Renders the triples in the current graph into a concrete format.
      * Subclasses of this class decide upon how the triples get rendered.
      * 
      * @param node
-     *            The main node to be rendered
+     *        The main node to be rendered
      * @throws IOException
-     *             If there was a problem rendering the triples. */
+     *         If there was a problem rendering the triples.
+     */
     public abstract void render(RDFResource node) throws IOException;
 
     protected boolean isObjectList(RDFResource node) {
@@ -684,6 +723,7 @@ public abstract class RDFRendererBase {
     /** Comparator that uses IRI ordering to order entities. */
     private static final class OWLEntityIRIComparator implements
             Comparator<OWLEntity>, Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         public OWLEntityIRIComparator() {}

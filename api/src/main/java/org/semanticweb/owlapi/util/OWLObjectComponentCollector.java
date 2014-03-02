@@ -111,19 +111,24 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLObjectComponentCollector implements OWLObjectVisitor {
+
     private final Set<OWLObject> result = new HashSet<OWLObject>();
 
-    /** A convenience method that obtains the components of an OWL object. Note
+    /**
+     * A convenience method that obtains the components of an OWL object. Note
      * that by definition, the components of the object include the object
      * itself.
      * 
      * @param object
-     *            The object whose components are to be obtained.
-     * @return The component of the specified object. */
+     *        The object whose components are to be obtained.
+     * @return The component of the specified object.
+     */
     @Nonnull
     public Set<OWLObject> getComponents(@Nonnull OWLObject object) {
         checkNotNull(object, "object cannot be null");
@@ -146,11 +151,13 @@ public class OWLObjectComponentCollector implements OWLObjectVisitor {
         }
     }
 
-    /** Handles an object. By default, this method adds the object to the result
+    /**
+     * Handles an object. By default, this method adds the object to the result
      * collection. This method may be overriden to do something else.
      * 
      * @param obj
-     *            The object being added. */
+     *        The object being added.
+     */
     protected void handleObject(@Nonnull OWLObject obj) {
         checkNotNull(obj, "obj cannot be null");
         result.add(obj);

@@ -35,16 +35,21 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
         OWLNamedIndividual {
+
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
 
-    /** @param iri
-     *            the iri */
+    /**
+     * @param iri
+     *        the iri
+     */
     public OWLNamedIndividualImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");
     }

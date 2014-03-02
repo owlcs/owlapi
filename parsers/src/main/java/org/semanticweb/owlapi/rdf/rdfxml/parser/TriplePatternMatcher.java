@@ -15,19 +15,26 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public interface TriplePatternMatcher {
-    /** @param consumer
-     *            consumer
+
+    /**
+     * @param consumer
+     *        consumer
      * @param mainNode
-     *            node to match
-     * @return true if matches */
+     *        node to match
+     * @return true if matches
+     */
     boolean matches(OWLRDFConsumer consumer, IRI mainNode);
 
-    /** @param consumer
-     *            consumer
-     * @return new object */
+    /**
+     * @param consumer
+     *        consumer
+     * @return new object
+     */
     OWLObject createObject(OWLRDFConsumer consumer);
 }

@@ -30,19 +30,24 @@ import org.semanticweb.owlapi.model.OWLObjectRestriction;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLObjectHasValueImpl extends
         OWLValueRestrictionImpl<OWLIndividual> implements OWLObjectHasValue,
         OWLObjectRestriction {
+
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param value
-     *            value */
+     *        value
+     */
     public OWLObjectHasValueImpl(@Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLIndividual value) {
         super(value);

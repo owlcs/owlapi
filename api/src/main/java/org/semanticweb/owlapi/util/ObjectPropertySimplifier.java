@@ -23,30 +23,37 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 
-/** This utility class can be used to obtain an object property expression in its
+/**
+ * This utility class can be used to obtain an object property expression in its
  * simplest form. Let P be an object property name and PE a property expression,
  * then the simplification is inductively defined as: simp(P) = P simp(inv(P)) =
  * inv(P) simp(inv(inv(PE)) = simp(PE)
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ObjectPropertySimplifier {
+
     private final OWLDataFactory dataFactory;
     private final Simplifier simplifier = new Simplifier();
 
-    /** @param dataFactory
-     *            datafactory to use */
+    /**
+     * @param dataFactory
+     *        datafactory to use
+     */
     public ObjectPropertySimplifier(@Nonnull OWLDataFactory dataFactory) {
         this.dataFactory = checkNotNull(dataFactory,
                 "dataFactory cannot be null");
     }
 
-    /** Gets an object property expression in its simplest form.
+    /**
+     * Gets an object property expression in its simplest form.
      * 
      * @param prop
-     *            The object property expression to be simplified.
-     * @return The simplest form of the object property expression. */
+     *        The object property expression to be simplified.
+     * @return The simplest form of the object property expression.
+     */
     @Nonnull
     public OWLObjectPropertyExpression getSimplified(
             @Nonnull OWLObjectPropertyExpression prop) {
@@ -61,6 +68,7 @@ public class ObjectPropertySimplifier {
     }
 
     private static class Simplifier implements OWLPropertyExpressionVisitor {
+
         private OWLObjectProperty property;
         private int depth;
 

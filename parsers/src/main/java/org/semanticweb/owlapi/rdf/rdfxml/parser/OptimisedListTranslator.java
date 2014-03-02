@@ -15,8 +15,8 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator;
 /**
  * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
  * type of list (i.e. the type of objects in the list) are determined by a
- * {@code ListItemTranslator}. The translator consumes all triples which are used
- * in the translation.
+ * {@code ListItemTranslator}. The translator consumes all triples which are
+ * used in the translation.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group

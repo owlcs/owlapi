@@ -40,12 +40,15 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** A handler which knows about OWLXML.
+/**
+ * A handler which knows about OWLXML.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLXMLParserHandler extends DefaultHandler {
+
     private OWLOntologyManager owlOntologyManager;
     private OWLOntology ontology;
     private List<OWLElementHandler<?>> handlerStack;
@@ -55,16 +58,20 @@ public class OWLXMLParserHandler extends DefaultHandler {
     private Stack<URI> bases;
     private OWLOntologyLoaderConfiguration configuration;
 
-    /** @param ontology
-     *            ontology to parse into */
+    /**
+     * @param ontology
+     *        ontology to parse into
+     */
     public OWLXMLParserHandler(OWLOntology ontology) {
         this(ontology, null, new OWLOntologyLoaderConfiguration());
     }
 
-    /** @param ontology
-     *            ontology to add to
+    /**
+     * @param ontology
+     *        ontology to add to
      * @param configuration
-     *            load configuration */
+     *        load configuration
+     */
     public OWLXMLParserHandler(OWLOntology ontology,
             OWLOntologyLoaderConfiguration configuration) {
         this(ontology, null, configuration);
@@ -84,27 +91,31 @@ public class OWLXMLParserHandler extends DefaultHandler {
         bases.push(base);
     }
 
-    /** @param ontology
-     *            ontology to parse into
+    /**
+     * @param ontology
+     *        ontology to parse into
      * @param topHandler
-     *            top level handler */
+     *        top level handler
+     */
     public OWLXMLParserHandler(OWLOntology ontology,
             OWLElementHandler<?> topHandler) {
         this(ontology, topHandler, new OWLOntologyLoaderConfiguration());
     }
 
-    /** Creates an OWLXML handler with the specified top level handler. This
+    /**
+     * Creates an OWLXML handler with the specified top level handler. This
      * allows OWL/XML representations of axioms to be embedded in abitrary XML
      * documents e.g. DIG 2.0 documents. (The default handler behaviour expects
      * the top level element to be an Ontology element).
      * 
      * @param ontology
-     *            The ontology object that the XML representation should be
-     *            parsed into.
+     *        The ontology object that the XML representation should be parsed
+     *        into.
      * @param topHandler
-     *            top level handler
+     *        top level handler
      * @param configuration
-     *            load configuration */
+     *        load configuration
+     */
     public OWLXMLParserHandler(OWLOntology ontology,
             OWLElementHandler<?> topHandler,
             OWLOntologyLoaderConfiguration configuration) {
@@ -218,10 +229,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
         return configuration;
     }
 
-    /** Gets the line number that the parser is at.
+    /**
+     * Gets the line number that the parser is at.
      * 
      * @return A positive integer that represents the line number or -1 if the
-     *         line number is not known. */
+     *         line number is not known.
+     */
     public int getLineNumber() {
         if (locator != null) {
             return locator.getLineNumber();
@@ -241,9 +254,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
 
     private Map<String, IRI> iriMap = new HashMap<String, IRI>();
 
-    /** @param iriStr
-     *            iri
-     * @return parsed, absolute iri */
+    /**
+     * @param iriStr
+     *        iri
+     * @return parsed, absolute iri
+     */
     public IRI getIRI(String iriStr) {
         try {
             IRI iri = iriMap.get(iriStr);
@@ -276,9 +291,11 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    /** @param abbreviatedIRI
-     *            short iri
-     * @return extended iri */
+    /**
+     * @param abbreviatedIRI
+     *        short iri
+     * @return extended iri
+     */
     public IRI getAbbreviatedIRI(String abbreviatedIRI) {
         String normalisedAbbreviatedIRI = getNormalisedAbbreviatedIRI(abbreviatedIRI);
         int sepIndex = normalisedAbbreviatedIRI.indexOf(':');
@@ -386,10 +403,12 @@ public class OWLXMLParserHandler extends DefaultHandler {
         }
     }
 
-    /** Return the base URI for resolution of relative URIs.
+    /**
+     * Return the base URI for resolution of relative URIs.
      * 
      * @return base URI or null if unavailable (xml:base not present and the
-     *         document locator does not provide a URI) */
+     *         document locator does not provide a URI)
+     */
     public URI getBase() {
         return bases.peek();
     }

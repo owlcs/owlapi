@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** An exception to describe a problem in accessing an ontology. Since there
+/**
+ * An exception to describe a problem in accessing an ontology. Since there
  * could be any kind of implementation of {@code OWLOntology} (and other model
  * interfaces), some of which may use secondary storage, such as a database
  * backend, there could be problems with accessing ontology objects such as
@@ -25,26 +26,34 @@ package org.semanticweb.owlapi.model;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyResourceAccessException extends OWLRuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param message
-     *            message */
+    /**
+     * @param message
+     *        message
+     */
     public OWLOntologyResourceAccessException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyResourceAccessException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public OWLOntologyResourceAccessException(Throwable cause) {
         super(cause);
     }

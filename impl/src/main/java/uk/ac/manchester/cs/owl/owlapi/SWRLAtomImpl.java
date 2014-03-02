@@ -19,10 +19,13 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLPredicate;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class SWRLAtomImpl extends OWLObjectImpl implements SWRLAtom {
+
     private static final long serialVersionUID = 40000L;
     protected final SWRLPredicate predicate;
 

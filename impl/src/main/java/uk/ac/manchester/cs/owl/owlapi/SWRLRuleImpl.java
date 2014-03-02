@@ -49,10 +49,13 @@ import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
+
     private static final long serialVersionUID = 40000L;
     private final Set<SWRLAtom> head;
     private final Set<SWRLAtom> body;
@@ -60,12 +63,14 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private Boolean containsAnonymousClassExpressions = null;
     private Set<OWLClassExpression> classAtomsPredicates;
 
-    /** @param body
-     *            rule body
+    /**
+     * @param body
+     *        rule body
      * @param head
-     *            rule head
+     *        rule head
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public SWRLRuleImpl(@Nonnull Set<? extends SWRLAtom> body,
             @Nonnull Set<? extends SWRLAtom> head,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
@@ -89,10 +94,12 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
         return new SWRLRuleImpl(getBody(), getHead(), annotations);
     }
 
-    /** @param body
-     *            rule body
+    /**
+     * @param body
+     *        rule body
      * @param head
-     *            rule head */
+     *        rule head
+     */
     public SWRLRuleImpl(Set<? extends SWRLAtom> body,
             Set<? extends SWRLAtom> head) {
         this(body, head, Collections.<OWLAnnotation> emptyList());
@@ -238,6 +245,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     protected final AtomSimplifier ATOM_SIMPLIFIER = new AtomSimplifier();
 
     protected class AtomSimplifier implements SWRLObjectVisitorEx<SWRLObject> {
+
         @Override
         public SWRLRule visit(SWRLRule node) {
             Set<SWRLAtom> nodebody = new HashSet<SWRLAtom>();

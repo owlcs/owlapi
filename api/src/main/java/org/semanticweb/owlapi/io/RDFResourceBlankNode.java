@@ -21,21 +21,26 @@ import org.semanticweb.owlapi.model.NodeID;
 
 /** Anonymous node implementation */
 public class RDFResourceBlankNode extends RDFResource {
+
     private static final long serialVersionUID = 40000L;
     private final IRI resource;
 
-    /** Create an RDFResource that is anonymous
+    /**
+     * Create an RDFResource that is anonymous
      * 
      * @param resource
-     *            The IRI of the resource */
+     *        The IRI of the resource
+     */
     public RDFResourceBlankNode(@Nonnull IRI resource) {
         this.resource = checkNotNull(resource, "resource cannot be null");
     }
 
-    /** Create an RDFResource that is anonymous
+    /**
+     * Create an RDFResource that is anonymous
      * 
      * @param anonId
-     *            the number at the end of the anon IRI */
+     *        the number at the end of the anon IRI
+     */
     public RDFResourceBlankNode(int anonId) {
         this(NodeID.nodeId(anonId));
     }

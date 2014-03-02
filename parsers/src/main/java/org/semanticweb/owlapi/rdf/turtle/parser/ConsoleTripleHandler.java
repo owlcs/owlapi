@@ -14,12 +14,15 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** The Class ConsoleTripleHandler.
+/**
+ * The Class ConsoleTripleHandler.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ConsoleTripleHandler implements TripleHandler {
+
     @Override
     public void handleTriple(IRI subject, IRI predicate, IRI object) {
         System.out.println(subject + " --> " + predicate + " --> " + object);

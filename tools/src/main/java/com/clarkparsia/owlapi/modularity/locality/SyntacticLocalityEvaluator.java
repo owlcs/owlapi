@@ -91,16 +91,19 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 /** Syntactic locality evaluator. */
 public class SyntacticLocalityEvaluator implements LocalityEvaluator {
+
     protected final LocalityClass localityCls;
     private final AxiomLocalityVisitor axiomVisitor = new AxiomLocalityVisitor();
     private static final EnumSet<LocalityClass> SUPPORTED_LOCALITY_CLASSES = EnumSet
             .of(LocalityClass.TOP_BOTTOM, LocalityClass.BOTTOM_BOTTOM,
                     LocalityClass.TOP_TOP);
 
-    /** Constructs a new locality evaluator for the given locality class.
+    /**
+     * Constructs a new locality evaluator for the given locality class.
      * 
      * @param localityClass
-     *            the locality class for this evaluator */
+     *        the locality class for this evaluator
+     */
     public SyntacticLocalityEvaluator(@Nonnull LocalityClass localityClass) {
         localityCls = checkNotNull(localityClass,
                 "localityClass cannot be null");
@@ -110,22 +113,26 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /** Returns all supported locality classes.
+    /**
+     * Returns all supported locality classes.
      * 
-     * @return a set containing all supported locality classes */
+     * @return a set containing all supported locality classes
+     */
     public Set<LocalityClass> supportedLocalityClasses() {
         return SUPPORTED_LOCALITY_CLASSES;
     }
 
-    /** This is a convenience method for determining whether a given data range
+    /**
+     * This is a convenience method for determining whether a given data range
      * expression is the top datatype or a built-in datatype. This is used in
      * the bottom- and top-equivalence evaluators for treating cardinality
      * restrictions.
      * 
      * @param dataRange
-     *            a data range expression
+     *        a data range expression
      * @return {@code true} if the specified data range expression is the top
-     *         datatype or a built-in datatype; {@code false} otherwise */
+     *         datatype or a built-in datatype; {@code false} otherwise
+     */
     protected static boolean isTopOrBuiltInDatatype(
             @Nonnull OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
@@ -136,15 +143,17 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /** This is a convenience method for determining whether a given data range
+    /**
+     * This is a convenience method for determining whether a given data range
      * expression is the top datatype or a built-in infinite datatype. This is
      * used in the bottom- and top-equivalence evaluators for treating
      * cardinality restrictions.
      * 
      * @param dataRange
-     *            a data range expression
+     *        a data range expression
      * @return {@code true} if the specified data range expression is the top
-     *         datatype or a built-in infinite datatype; {@code false} otherwise */
+     *         datatype or a built-in infinite datatype; {@code false} otherwise
+     */
     protected static boolean isTopOrBuiltInInfiniteDatatype(
             @Nonnull OWLDataRange dataRange) {
         if (dataRange.isDatatype()) {
@@ -158,6 +167,7 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
 
     // TODO (TS): only visit logical axioms if possible
     private class AxiomLocalityVisitor implements OWLAxiomVisitor {
+
         private final BottomEquivalenceEvaluator bottomEvaluator = new BottomEquivalenceEvaluator();
         private boolean isLocal;
         private Collection<? extends OWLEntity> signature;
@@ -169,13 +179,15 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             bottomEvaluator.setTopEvaluator(topEvaluator);
         }
 
-        /** Checks if is local.
+        /**
+         * Checks if is local.
          * 
          * @param axiom
-         *            the axiom
+         *        the axiom
          * @param sig
-         *            the sig
-         * @return true, if is local */
+         *        the sig
+         * @return true, if is local
+         */
         public boolean isLocal(@Nonnull OWLAxiom axiom,
                 @Nonnull Collection<? extends OWLEntity> sig) {
             signature = checkNotNull(sig, "sig cannot be null");
@@ -831,10 +843,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /** Used to determine if class expressions are equivalent to \bottom using
-     * the provided locality class. */
+    /**
+     * Used to determine if class expressions are equivalent to \bottom using
+     * the provided locality class.
+     */
     private static class BottomEquivalenceEvaluator implements
             OWLClassExpressionVisitor {
+
         private boolean isBottomEquivalent;
         private LocalityClass localityCls;
         private Collection<? extends OWLEntity> signature;
@@ -843,25 +858,29 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         /** Instantiates a new bottom equivalence evaluator. */
         public BottomEquivalenceEvaluator() {}
 
-        /** Checks if is bottom equivalent.
+        /**
+         * Checks if is bottom equivalent.
          * 
          * @param desc
-         *            the desc
-         * @return true, if is bottom equivalent */
+         *        the desc
+         * @return true, if is bottom equivalent
+         */
         private boolean isBottomEquivalent(@Nonnull OWLClassExpression desc) {
             checkNotNull(desc, "desc cannot be null").accept(this);
             return isBottomEquivalent;
         }
 
-        /** Checks if is bottom equivalent.
+        /**
+         * Checks if is bottom equivalent.
          * 
          * @param desc
-         *            the desc
+         *        the desc
          * @param sig
-         *            the sig
+         *        the sig
          * @param locality
-         *            the locality
-         * @return true, if is bottom equivalent */
+         *        the locality
+         * @return true, if is bottom equivalent
+         */
         public boolean isBottomEquivalent(@Nonnull OWLClassExpression desc,
                 @Nonnull Collection<? extends OWLEntity> sig,
                 @Nonnull LocalityClass locality) {
@@ -871,10 +890,12 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isBottomEquivalent;
         }
 
-        /** Sets the top evaluator.
+        /**
+         * Sets the top evaluator.
          * 
          * @param evaluator
-         *            the new top evaluator */
+         *        the new top evaluator
+         */
         public void setTopEvaluator(@Nonnull TopEquivalenceEvaluator evaluator) {
             topEvaluator = checkNotNull(evaluator, "evaluator cannot be null");
         }
@@ -1196,10 +1217,13 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
         }
     }
 
-    /** Used to determine if class expressions are equivalent to \top using the
-     * provided locality class. */
+    /**
+     * Used to determine if class expressions are equivalent to \top using the
+     * provided locality class.
+     */
     private static class TopEquivalenceEvaluator implements
             OWLClassExpressionVisitor {
+
         private BottomEquivalenceEvaluator bottomEvaluator;
         private boolean isTopEquivalent;
         private LocalityClass localityCls;
@@ -1213,15 +1237,17 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isTopEquivalent;
         }
 
-        /** Checks if is top equivalent.
+        /**
+         * Checks if is top equivalent.
          * 
          * @param desc
-         *            the desc
+         *        the desc
          * @param sig
-         *            the sig
+         *        the sig
          * @param locality
-         *            the locality
-         * @return true, if is top equivalent */
+         *        the locality
+         * @return true, if is top equivalent
+         */
         public boolean isTopEquivalent(@Nonnull OWLClassExpression desc,
                 @Nonnull Collection<? extends OWLEntity> sig,
                 @Nonnull LocalityClass locality) {
@@ -1231,10 +1257,12 @@ public class SyntacticLocalityEvaluator implements LocalityEvaluator {
             return isTopEquivalent;
         }
 
-        /** Sets the bottom evaluator.
+        /**
+         * Sets the bottom evaluator.
          * 
          * @param evaluator
-         *            the new bottom evaluator */
+         *        the new bottom evaluator
+         */
         public void setBottomEvaluator(
                 @Nonnull BottomEquivalenceEvaluator evaluator) {
             bottomEvaluator = checkNotNull(evaluator,

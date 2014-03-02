@@ -16,22 +16,27 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents an <a
+/**
+ * Represents an <a
  * href="http://www.w3.org/TR/owl2-syntax/#Individual_Equality">
  * SameIndividual</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLSameIndividualAxiom extends OWLNaryIndividualAxiom {
+
     @Override
     @Nonnull
     OWLSameIndividualAxiom getAxiomWithoutAnnotations();
 
-    /** Determines whether this axiom contains anonymous individuals. Anonymous
+    /**
+     * Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in same individuals axioms.
      * 
-     * @return {@code true} if this axioms contains anonymous individual axioms */
+     * @return {@code true} if this axioms contains anonymous individual axioms
+     */
     boolean containsAnonymousIndividuals();
 
     @Override

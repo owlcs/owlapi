@@ -24,15 +24,20 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.RemoveImport;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class OWLImportsClosureTestCase extends TestBase {
-    /** Tests to see if the method which obtains the imports closure behaves
+
+    /**
+     * Tests to see if the method which obtains the imports closure behaves
      * correctly.
      * 
      * @throws OWLOntologyCreationException
-     *             exception */
+     *         exception
+     */
     @Test
     public void testImportsClosure() throws OWLOntologyCreationException {
         OWLOntology ontA = m.createOntology(TestUtils.createIRI());

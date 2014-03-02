@@ -42,7 +42,8 @@ import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** An example that shows how to do a Protege like DLQuery. The example contains
+/**
+ * An example that shows how to do a Protege like DLQuery. The example contains
  * several helper classes:<br>
  * DLQueryEngine - This takes a string representing a class expression built
  * from the terms in the signature of some ontology. DLQueryPrinter - This takes
@@ -52,8 +53,10 @@ import org.semanticweb.owlapi.util.SimpleShortFormProvider;
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public class DLQueryExample {
+
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl#\" xml:base=\"http://protege.stanford.edu/plugins/owl/owl-library/koala.owl\">\n"
             + "  <owl:Ontology rdf:about=\"\"/>\n"
@@ -155,20 +158,25 @@ public class DLQueryExample {
     }
 }
 
-/** This example shows how to perform a "dlquery". The DLQuery view/tab in
- * Protege 4 works like this. */
+/**
+ * This example shows how to perform a "dlquery". The DLQuery view/tab in
+ * Protege 4 works like this.
+ */
 class DLQueryEngine {
+
     private final OWLReasoner reasoner;
     private final DLQueryParser parser;
 
-    /** Constructs a DLQueryEngine. This will answer "DL queries" using the
+    /**
+     * Constructs a DLQueryEngine. This will answer "DL queries" using the
      * specified reasoner. A short form provider specifies how entities are
      * rendered.
      * 
      * @param reasoner
-     *            The reasoner to be used for answering the queries.
+     *        The reasoner to be used for answering the queries.
      * @param shortFormProvider
-     *            A short form provider. */
+     *        A short form provider.
+     */
     public DLQueryEngine(OWLReasoner reasoner,
             ShortFormProvider shortFormProvider) {
         this.reasoner = reasoner;
@@ -176,15 +184,16 @@ class DLQueryEngine {
         parser = new DLQueryParser(rootOntology, shortFormProvider);
     }
 
-    /** Gets the superclasses of a class expression parsed from a string.
+    /**
+     * Gets the superclasses of a class expression parsed from a string.
      * 
      * @param classExpressionString
-     *            The string from which the class expression will be parsed.
+     *        The string from which the class expression will be parsed.
      * @param direct
-     *            Specifies whether direct superclasses should be returned or
-     *            not.
+     *        Specifies whether direct superclasses should be returned or not.
      * @return The superclasses of the specified class expression If there was a
-     *         problem parsing the class expression. */
+     *         problem parsing the class expression.
+     */
     public Set<OWLClass> getSuperClasses(String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().length() == 0) {
@@ -197,12 +206,14 @@ class DLQueryEngine {
         return superClasses.getFlattened();
     }
 
-    /** Gets the equivalent classes of a class expression parsed from a string.
+    /**
+     * Gets the equivalent classes of a class expression parsed from a string.
      * 
      * @param classExpressionString
-     *            The string from which the class expression will be parsed.
+     *        The string from which the class expression will be parsed.
      * @return The equivalent classes of the specified class expression If there
-     *         was a problem parsing the class expression. */
+     *         was a problem parsing the class expression.
+     */
     public Set<OWLClass> getEquivalentClasses(String classExpressionString) {
         if (classExpressionString.trim().length() == 0) {
             return Collections.emptySet();
@@ -221,14 +232,16 @@ class DLQueryEngine {
         return result;
     }
 
-    /** Gets the subclasses of a class expression parsed from a string.
+    /**
+     * Gets the subclasses of a class expression parsed from a string.
      * 
      * @param classExpressionString
-     *            The string from which the class expression will be parsed.
+     *        The string from which the class expression will be parsed.
      * @param direct
-     *            Specifies whether direct subclasses should be returned or not.
+     *        Specifies whether direct subclasses should be returned or not.
      * @return The subclasses of the specified class expression If there was a
-     *         problem parsing the class expression. */
+     *         problem parsing the class expression.
+     */
     public Set<OWLClass> getSubClasses(String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().length() == 0) {
@@ -241,14 +254,16 @@ class DLQueryEngine {
         return subClasses.getFlattened();
     }
 
-    /** Gets the instances of a class expression parsed from a string.
+    /**
+     * Gets the instances of a class expression parsed from a string.
      * 
      * @param classExpressionString
-     *            The string from which the class expression will be parsed.
+     *        The string from which the class expression will be parsed.
      * @param direct
-     *            Specifies whether direct instances should be returned or not.
+     *        Specifies whether direct instances should be returned or not.
      * @return The instances of the specified class expression If there was a
-     *         problem parsing the class expression. */
+     *         problem parsing the class expression.
+     */
     public Set<OWLNamedIndividual> getInstances(String classExpressionString,
             boolean direct) {
         if (classExpressionString.trim().length() == 0) {
@@ -263,18 +278,21 @@ class DLQueryEngine {
 }
 
 class DLQueryParser {
+
     private final OWLOntology rootOntology;
     private final BidirectionalShortFormProvider bidiShortFormProvider;
 
-    /** Constructs a DLQueryParser using the specified ontology and short form
+    /**
+     * Constructs a DLQueryParser using the specified ontology and short form
      * provider to map entity IRIs to short names.
      * 
      * @param rootOntology
-     *            The root ontology. This essentially provides the domain
-     *            vocabulary for the query.
+     *        The root ontology. This essentially provides the domain vocabulary
+     *        for the query.
      * @param shortFormProvider
-     *            A short form provider to be used for mapping back and forth
-     *            between entities and their short names (renderings). */
+     *        A short form provider to be used for mapping back and forth
+     *        between entities and their short names (renderings).
+     */
     public DLQueryParser(OWLOntology rootOntology,
             ShortFormProvider shortFormProvider) {
         this.rootOntology = rootOntology;
@@ -287,12 +305,14 @@ class DLQueryParser {
                 manager, importsClosure, shortFormProvider);
     }
 
-    /** Parses a class expression string to obtain a class expression.
+    /**
+     * Parses a class expression string to obtain a class expression.
      * 
      * @param classExpressionString
-     *            The class expression string
+     *        The class expression string
      * @return The corresponding class expression if the class expression string
-     *         is malformed or contains unknown entity names. */
+     *         is malformed or contains unknown entity names.
+     */
     public OWLClassExpression
             parseClassExpression(String classExpressionString) {
         OWLDataFactory dataFactory = rootOntology.getOWLOntologyManager()
@@ -312,21 +332,26 @@ class DLQueryParser {
 }
 
 class DLQueryPrinter {
+
     private final DLQueryEngine dlQueryEngine;
     private final ShortFormProvider shortFormProvider;
 
-    /** @param engine
-     *            the engine
+    /**
+     * @param engine
+     *        the engine
      * @param shortFormProvider
-     *            the short form provider */
+     *        the short form provider
+     */
     public DLQueryPrinter(DLQueryEngine engine,
             ShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
         dlQueryEngine = engine;
     }
 
-    /** @param classExpression
-     *            the class expression to use for interrogation */
+    /**
+     * @param classExpression
+     *        the class expression to use for interrogation
+     */
     public void askQuery(String classExpression) {
         if (classExpression.length() == 0) {
             System.out.println("No class expression specified");

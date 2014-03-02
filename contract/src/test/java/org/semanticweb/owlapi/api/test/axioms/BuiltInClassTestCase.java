@@ -21,13 +21,16 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
-/** Tests that the isOWLThing and isOWLNothing methods return correct values.
+/**
+ * Tests that the isOWLThing and isOWLNothing methods return correct values.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings("javadoc")
 public class BuiltInClassTestCase {
+
     @Test
     public void testOWLThing() {
         OWLClass thing = OWLThing();

@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
 public class TestPlainLiteralTestCase extends TestBase {
+
     @Test
     public void testPlainLiteral() {
         IRI iri = IRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral");

@@ -15,10 +15,13 @@ package com.clarkparsia.owlapi.explanation;
 /** transactional support for single explanation generator. */
 public interface TransactionAwareSingleExpGen extends
         SingleExplanationGenerator {
-    /** Indicates to the explanation generator that a transaction which may
+
+    /**
+     * Indicates to the explanation generator that a transaction which may
      * modify the ontology state is starting. Intended to allow the explanation
      * generator to efficiently preserve state when used by
-     * {@link HSTExplanationGenerator}. */
+     * {@link HSTExplanationGenerator}.
+     */
     void beginTransaction();
 
     /** End a transaction. See {@link #beginTransaction()} */

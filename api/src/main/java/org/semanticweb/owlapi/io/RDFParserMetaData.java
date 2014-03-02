@@ -22,22 +22,27 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
         Serializable {
+
     private static final long serialVersionUID = 40000L;
     private final int tripleCount;
     private final RDFOntologyHeaderStatus headerStatus;
     private final Set<RDFTriple> unparsedTriples = new HashSet<RDFTriple>();
 
-    /** @param headerStatus
-     *            the header status
+    /**
+     * @param headerStatus
+     *        the header status
      * @param tripleCount
-     *            the triple count
+     *        the triple count
      * @param unparsedTriples
-     *            the set of triples not parsed */
+     *        the set of triples not parsed
+     */
     public RDFParserMetaData(@Nonnull RDFOntologyHeaderStatus headerStatus,
             int tripleCount, @Nonnull Set<RDFTriple> unparsedTriples) {
         this.tripleCount = tripleCount;
@@ -47,9 +52,11 @@ public class RDFParserMetaData implements OWLOntologyLoaderMetaData,
                 "unparsedTriples cannot be null"));
     }
 
-    /** Gets a count of the triples process during loading.
+    /**
+     * Gets a count of the triples process during loading.
      * 
-     * @return The number of triples process during loading. */
+     * @return The number of triples process during loading.
+     */
     public int getTripleCount() {
         return tripleCount;
     }

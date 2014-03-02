@@ -36,10 +36,13 @@ import org.semanticweb.owlapi.util.OWLEntityComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class LatexRenderer extends AbstractOWLRenderer {
+
     private ShortFormProvider shortFormProvider = new SimpleShortFormProvider();
 
     private void writeEntitySection(OWLEntity entity, LatexWriter w) {
@@ -137,6 +140,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
 
     private static class OWLAxiomComparator implements Comparator<OWLAxiom>,
             Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         public OWLAxiomComparator() {}

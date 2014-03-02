@@ -16,22 +16,29 @@ import java.io.Serializable;
 
 import org.semanticweb.owlapi.model.HasIRI;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2 */
+ * @since 3.2
+ */
 public abstract class RDFNode implements Serializable, Comparable<RDFNode>,
         HasIRI {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Determines if this node is a literal node.
+    /**
+     * Determines if this node is a literal node.
      * 
-     * @return {@code true} if this node is a literal, otherwise {@code false}. */
+     * @return {@code true} if this node is a literal, otherwise {@code false}.
+     */
     public abstract boolean isLiteral();
 
-    /** Determines if this node is a resource and is anonymous.
+    /**
+     * Determines if this node is a resource and is anonymous.
      * 
      * @return {@code true} if this is a resource node (i.e. {@code isLiteral}
      *         returns {@code false}) and the node is anonymous, or
-     *         {@code false} if this is a resource node and is not anonymous. */
+     *         {@code false} if this is a resource node and is not anonymous.
+     */
     public abstract boolean isAnonymous();
 }

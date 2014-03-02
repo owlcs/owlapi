@@ -24,21 +24,26 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFTriple implements Serializable, Comparable<RDFTriple> {
+
     private static final long serialVersionUID = 40000L;
     private final RDFResource subject;
     private final RDFResourceIRI predicate;
     private final RDFNode object;
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param object
-     *            the object */
+     *        the object
+     */
     public RDFTriple(@Nonnull RDFResource subject,
             @Nonnull RDFResourceIRI predicate, @Nonnull RDFNode object) {
         this.subject = checkNotNull(subject, "subject cannot be null");
@@ -46,16 +51,18 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         this.object = checkNotNull(object, "object cannot be null");
     }
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param subjectAnon
-     *            whether the subject is anonymous
+     *        whether the subject is anonymous
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param object
-     *            the object
+     *        the object
      * @param objectAnon
-     *            whether the object is anonymous */
+     *        whether the object is anonymous
+     */
     public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
             @Nonnull IRI predicate, @Nonnull IRI object, boolean objectAnon) {
         this(getResource(subject, subjectAnon),
@@ -70,14 +77,16 @@ public class RDFTriple implements Serializable, Comparable<RDFTriple> {
         return new RDFResourceIRI(iri);
     }
 
-    /** @param subject
-     *            the subject
+    /**
+     * @param subject
+     *        the subject
      * @param subjectAnon
-     *            whether the subject is anonymous
+     *        whether the subject is anonymous
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param object
-     *            the object */
+     *        the object
+     */
     public RDFTriple(@Nonnull IRI subject, boolean subjectAnon,
             @Nonnull IRI predicate, @Nonnull OWLLiteral object) {
         this(getResource(subject, subjectAnon), new RDFResourceIRI(predicate),

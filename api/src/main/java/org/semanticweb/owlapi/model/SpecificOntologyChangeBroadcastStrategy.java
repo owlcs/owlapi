@@ -19,22 +19,27 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** A change broadcast strategy that broadcasts changes that have been applied to
+/**
+ * A change broadcast strategy that broadcasts changes that have been applied to
  * a specific ontology.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SpecificOntologyChangeBroadcastStrategy implements
         OWLOntologyChangeBroadcastStrategy {
+
     private static final long serialVersionUID = 40000L;
     private final OWLOntology ontology;
 
-    /** Constructs a change broadcast strategy which only causes changes that
+    /**
+     * Constructs a change broadcast strategy which only causes changes that
      * have been applied to the specific ontology to be broadcast.
      * 
      * @param ontology
-     *            The ontology. */
+     *        The ontology.
+     */
     public SpecificOntologyChangeBroadcastStrategy(@Nonnull OWLOntology ontology) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
     }

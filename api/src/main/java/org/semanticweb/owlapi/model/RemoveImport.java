@@ -20,14 +20,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class RemoveImport extends ImportChange {
-    /** @param ont
-     *            the ontology to which the change is to be applied
+
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param importDeclaration
-     *            the import declaration */
+     *        the import declaration
+     */
     public RemoveImport(@Nonnull OWLOntology ont,
             @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);

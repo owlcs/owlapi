@@ -14,46 +14,61 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** An interface to an object that can accept visits from
+/**
+ * An interface to an object that can accept visits from
  * {@link org.semanticweb.owlapi.model.OWLDataRange}s.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLDataRangeVisitor {
-    /** visit OWLDatatype type
+
+    /**
+     * visit OWLDatatype type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLDatatype node);
 
-    /** visit OWLDataOneOf type
+    /**
+     * visit OWLDataOneOf type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLDataOneOf node);
 
-    /** visit OWLDataComplementOf type
+    /**
+     * visit OWLDataComplementOf type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLDataComplementOf node);
 
-    /** visit OWLDataIntersectionOf type
+    /**
+     * visit OWLDataIntersectionOf type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLDataIntersectionOf node);
 
-    /** visit OWLDataUnionOf type
+    /**
+     * visit OWLDataUnionOf type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLDataUnionOf node);
 
-    /** visit OWLDatatypeRestriction type
+    /**
+     * visit OWLDatatypeRestriction type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLDatatypeRestriction node);
 }

@@ -21,16 +21,21 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class UnsatisfiableClassCountMetric extends IntegerValuedMetric {
+
     private final OWLReasoner reasoner;
 
-    /** Instantiates a new unsatisfiable class count metric.
+    /**
+     * Instantiates a new unsatisfiable class count metric.
      * 
      * @param reasoner
-     *            the reasoner */
+     *        the reasoner
+     */
     public UnsatisfiableClassCountMetric(@Nonnull OWLReasoner reasoner) {
         super(checkNotNull(reasoner, "reasoner cannot be null")
                 .getRootOntology());

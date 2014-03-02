@@ -21,23 +21,30 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class OWLMetricManager {
+
     private final List<OWLMetric<?>> metrics;
 
-    /** Instantiates a new OWL metric manager.
+    /**
+     * Instantiates a new OWL metric manager.
      * 
      * @param metrics
-     *            the metrics to use */
+     *        the metrics to use
+     */
     public OWLMetricManager(@Nonnull List<OWLMetric<?>> metrics) {
         this.metrics = new ArrayList<OWLMetric<?>>(checkNotNull(metrics,
                 "metrics cannot be null"));
     }
 
-    /** @param ontology
-     *            the ontology to measure */
+    /**
+     * @param ontology
+     *        the ontology to measure
+     */
     public void setOntology(@Nonnull OWLOntology ontology) {
         for (OWLMetric<?> metric : metrics) {
             metric.setOntology(ontology);

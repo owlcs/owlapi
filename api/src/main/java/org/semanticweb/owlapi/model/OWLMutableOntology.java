@@ -16,26 +16,33 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLMutableOntology extends OWLOntology {
-    /** @param change
-     *            the change to apply
+
+    /**
+     * @param change
+     *        the change to apply
      * @param <T>
-     *            type class
+     *        type class
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
-     *             if errors happen */
+     *         if errors happen
+     */
     @Nonnull
     <T> OWLOntologyChange<T> applyChange(@Nonnull OWLOntologyChange<T> change)
             throws OWLOntologyChangeException;
 
-    /** @param changes
-     *            the changes to apply
+    /**
+     * @param changes
+     *        the changes to apply
      * @return the list of ontology changes NOT applied
      * @throws OWLOntologyChangeException
-     *             if errors happen */
+     *         if errors happen
+     */
     @Nonnull
     List<OWLOntologyChange<?>> applyChanges(
             @Nonnull List<? extends OWLOntologyChange<?>> changes)

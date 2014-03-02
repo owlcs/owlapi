@@ -60,8 +60,8 @@ import org.semanticweb.owlapitools.profiles.violations.UseOfUndeclaredObjectProp
 import org.semanticweb.owlapitools.profiles.violations.UseOfUnknownDatatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @param <T>
  *        return type
  */

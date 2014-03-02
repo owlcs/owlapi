@@ -23,11 +23,14 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class RenameToExistingOntologyTestCase extends TestBase {
+
     @Test(expected = OWLOntologyRenameException.class)
     public void testRenameToExistingOntology()
             throws OWLOntologyCreationException {

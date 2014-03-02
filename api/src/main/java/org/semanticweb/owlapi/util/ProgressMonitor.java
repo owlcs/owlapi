@@ -12,29 +12,40 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-/** A general interface for things whose progress can be monitored.
+/**
+ * A general interface for things whose progress can be monitored.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface ProgressMonitor {
+
     /** start of the process. */
     void setStarted();
 
-    /** @param size
-     *            size of the process */
+    /**
+     * @param size
+     *        size of the process
+     */
     void setSize(long size);
 
-    /** @param progress
-     *            new progress */
+    /**
+     * @param progress
+     *        new progress
+     */
     void setProgress(long progress);
 
-    /** @param message
-     *            the message to be displayed */
+    /**
+     * @param message
+     *        the message to be displayed
+     */
     void setMessage(String message);
 
-    /** @param b
-     *            true if the state is indeterminate */
+    /**
+     * @param b
+     *        true if the state is indeterminate
+     */
     void setIndeterminate(boolean b);
 
     /** progress completed. */

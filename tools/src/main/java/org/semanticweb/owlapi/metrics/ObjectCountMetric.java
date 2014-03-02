@@ -21,24 +21,31 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.1.0
  * @param <E>
- *            the entity type */
+ *        the entity type
+ */
 public abstract class ObjectCountMetric<E extends Object> extends
         IntegerValuedMetric {
-    /** Instantiates a new object count metric.
+
+    /**
+     * Instantiates a new object count metric.
      * 
      * @param o
-     *            ontology to use */
+     *        ontology to use
+     */
     public ObjectCountMetric(@Nonnull OWLOntology o) {
         super(o);
     }
 
-    /** Gets the object type name.
+    /**
+     * Gets the object type name.
      * 
-     * @return the object type name */
+     * @return the object type name
+     */
     @Nonnull
     protected abstract String getObjectTypeName();
 
@@ -47,11 +54,13 @@ public abstract class ObjectCountMetric<E extends Object> extends
         return getObjectTypeName() + " count";
     }
 
-    /** Gets the objects.
+    /**
+     * Gets the objects.
      * 
      * @param ont
-     *            the ont
-     * @return the objects */
+     *        the ont
+     * @return the objects
+     */
     @Nonnull
     protected abstract Set<? extends E> getObjects(@Nonnull OWLOntology ont);
 
@@ -60,9 +69,11 @@ public abstract class ObjectCountMetric<E extends Object> extends
         return getObjects().size();
     }
 
-    /** Gets the objects.
+    /**
+     * Gets the objects.
      * 
-     * @return the objects */
+     * @return the objects
+     */
     @Nonnull
     protected Set<? extends E> getObjects() {
         Set<E> objects = new HashSet<E>();

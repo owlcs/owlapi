@@ -22,14 +22,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class WriterDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final Writer writer;
 
-    /** @param writer
-     *            the writer to use */
+    /**
+     * @param writer
+     *        the writer to use
+     */
     public WriterDocumentTarget(@Nonnull Writer writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }

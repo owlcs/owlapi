@@ -51,6 +51,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractMansyntaxrendererTest {
+
     public void shouldTestManchesterOWLSyntaxFrameRenderer() throws Exception {
         ManchesterOWLSyntaxFrameRenderer testSubject0 = new ManchesterOWLSyntaxFrameRenderer(
                 Utils.mockSet(Utils.getMockOntology()), mock(Writer.class),

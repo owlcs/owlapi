@@ -116,13 +116,16 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** Renders objects in unicode DL syntax.
+/**
+ * Renders objects in unicode DL syntax.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         OWLObjectRenderer, OWLObjectVisitor {
+
     private ShortFormProvider shortFormProvider;
     private IRIShortFormProvider iriShortFormProvider;
     private StringBuilder buffer;
@@ -135,16 +138,20 @@ public class DLSyntaxObjectRenderer extends OWLObjectVisitorAdapter implements
         buffer = new StringBuilder();
     }
 
-    /** @param focusedObject
-     *            focusedObject */
+    /**
+     * @param focusedObject
+     *        focusedObject
+     */
     public void setFocusedObject(@Nonnull OWLObject focusedObject) {
         this.focusedObject = checkNotNull(focusedObject,
                 "focusedObject cannot be null");
     }
 
-    /** @param obj
-     *            obj
-     * @return true if obj is equal to focusedObject */
+    /**
+     * @param obj
+     *        obj
+     * @return true if obj is equal to focusedObject
+     */
     public boolean isFocusedObject(OWLObject obj) {
         if (focusedObject == null) {
             return false;

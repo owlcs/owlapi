@@ -14,73 +14,98 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLObjectVisitor {
-    /** visit SWRLRule type
+
+    /**
+     * visit SWRLRule type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLRule node);
 
-    /** visit SWRLClassAtom type
+    /**
+     * visit SWRLClassAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLClassAtom node);
 
-    /** visit SWRLDataRangeAtom type
+    /**
+     * visit SWRLDataRangeAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLDataRangeAtom node);
 
-    /** visit SWRLObjectPropertyAtom type
+    /**
+     * visit SWRLObjectPropertyAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLObjectPropertyAtom node);
 
-    /** visit SWRLDataPropertyAtom type
+    /**
+     * visit SWRLDataPropertyAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLDataPropertyAtom node);
 
-    /** visit SWRLBuiltInAtom type
+    /**
+     * visit SWRLBuiltInAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLBuiltInAtom node);
 
-    /** visit SWRLVariable type
+    /**
+     * visit SWRLVariable type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLVariable node);
 
-    /** visit SWRLIndividualArgument type
+    /**
+     * visit SWRLIndividualArgument type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLIndividualArgument node);
 
-    /** visit SWRLLiteralArgument type
+    /**
+     * visit SWRLLiteralArgument type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLLiteralArgument node);
 
-    /** visit SWRLSameIndividualAtom type
+    /**
+     * visit SWRLSameIndividualAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLSameIndividualAtom node);
 
-    /** visit SWRLDifferentIndividualsAtom type
+    /**
+     * visit SWRLDifferentIndividualsAtom type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull SWRLDifferentIndividualsAtom node);
 }

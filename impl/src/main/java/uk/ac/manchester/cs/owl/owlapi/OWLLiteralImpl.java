@@ -41,13 +41,16 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
-/** Implementation of {@link OWLLiteral} that uses compression of strings. See
+/**
+ * Implementation of {@link OWLLiteral} that uses compression of strings. See
  * also {@link OWLLiteralImplNoCompression}
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
+
     private static final long serialVersionUID = 40000L;
     private static final int COMPRESSION_LIMIT = 160;
     private final LiteralWrapper literal;
@@ -55,14 +58,16 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final String lang;
     private final int hashcode;
 
-    /** @param literal
-     *            the lexical form
+    /**
+     * @param literal
+     *        the lexical form
      * @param lang
-     *            the language; can be null or an empty string, in which case
-     *            datatype can be any datatype but not null
+     *        the language; can be null or an empty string, in which case
+     *        datatype can be any datatype but not null
      * @param datatype
-     *            the datatype; if lang is null or the empty string, it can be
-     *            null or it MUST be RDFPlainLiteral */
+     *        the datatype; if lang is null or the empty string, it can be null
+     *        or it MUST be RDFPlainLiteral
+     */
     public OWLLiteralImpl(@Nonnull String literal, @Nullable String lang,
             @Nullable OWLDatatype datatype) {
         this.literal = new LiteralWrapper(checkNotNull(literal,
@@ -267,6 +272,7 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final class LiteralWrapper implements Serializable {
+
         private static final long serialVersionUID = 40000L;
         String l;
         byte[] bytes;

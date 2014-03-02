@@ -17,37 +17,44 @@ import org.xml.sax.SAXException;
 
 /** Base class for all parser states. */
 public interface State {
-    /** @param namespaceIRI
-     *            namespaceIRI
+
+    /**
+     * @param namespaceIRI
+     *        namespaceIRI
      * @param localName
-     *            localName
+     *        localName
      * @param qName
-     *            qName
+     *        qName
      * @param atts
-     *            atts
+     *        atts
      * @throws SAXException
-     *             sax exception */
+     *         sax exception
+     */
     void startElement(String namespaceIRI, String localName, String qName,
             Attributes atts) throws SAXException;
 
-    /** @param namespaceIRI
-     *            namespaceIRI
+    /**
+     * @param namespaceIRI
+     *        namespaceIRI
      * @param localName
-     *            localName
+     *        localName
      * @param qName
-     *            qName
+     *        qName
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     void endElement(String namespaceIRI, String localName, String qName)
             throws SAXException;
 
-    /** @param data
-     *            data
+    /**
+     * @param data
+     *        data
      * @param start
-     *            start
+     *        start
      * @param length
-     *            length
+     *        length
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     void characters(char[] data, int start, int length) throws SAXException;
 }

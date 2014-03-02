@@ -19,7 +19,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/** Represents the type of axioms which can belong to ontologies. Axioms can be
+/**
+ * Represents the type of axioms which can belong to ontologies. Axioms can be
  * retrieved from ontologies by their {@code AxiomType}. For example, see
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxioms(AxiomType)} and
  * {@link org.semanticweb.owlapi.model.OWLOntology#getAxiomCount(AxiomType, boolean)}
@@ -29,8 +30,10 @@ import java.util.Set;
  *         Informatics Group
  * @since 2.1.0
  * @param <C>
- *            axiom type */
+ *        axiom type
+ */
 public class AxiomType<C extends OWLAxiom> implements Serializable {
+
     private static final long serialVersionUID = 40000L;
     private final String name;
     private final boolean owl2Axiom;
@@ -62,23 +65,27 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
         return name;
     }
 
-    /** Determines if this axiom is structurally an OWL 2 axiom.
+    /**
+     * Determines if this axiom is structurally an OWL 2 axiom.
      * 
      * @return {@code true} if this axiom is an OWL 2 axiom, {@code false} if
      *         this axiom is not an OWL 2 axiom and it can be represented using
-     *         OWL 1. */
+     *         OWL 1.
+     */
     public boolean isOWL2Axiom() {
         return owl2Axiom;
     }
 
-    /** Some OWL 2 axioms, for example,
+    /**
+     * Some OWL 2 axioms, for example,
      * {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom}
      * axioms are structurally OWL 2 axioms, but can be represented using OWL 1
      * syntax. This method determines if this axiom type is a pure OWL 2 axiom
      * and cannot be represented using OWL 1 syntax.
      * 
      * @return {@code true} if this axiom is a pure OWL 2 axiom and cannot be
-     *         represented using OWL 1 syntax, otherwise {@code false}. */
+     *         represented using OWL 1 syntax, otherwise {@code false}.
+     */
     public boolean isNonSyntacticOWL2Axiom() {
         return nonSyntacticOWL2Axiom;
     }
@@ -93,24 +100,28 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
         return name;
     }
 
-    /** Determines if this axiom type is a logical axiom type.
+    /**
+     * Determines if this axiom type is a logical axiom type.
      * 
      * @return {@code true} if this axiom type is a logical axiom type,
-     *         otherwise false; */
+     *         otherwise false;
+     */
     public boolean isLogical() {
         return isLogical;
     }
 
-    /** Gets the set of axioms from a source set of axioms that are not of the
+    /**
+     * Gets the set of axioms from a source set of axioms that are not of the
      * specified type
      * 
      * @param sourceAxioms
-     *            The source set of axioms
+     *        The source set of axioms
      * @param axiomTypes
-     *            The types that will be filtered out of the source set
+     *        The types that will be filtered out of the source set
      * @return A set of axioms that represents the sourceAxioms without the
      *         specified types. Note that sourceAxioms will not be modified. The
-     *         returned set is a copy. */
+     *         returned set is a copy.
+     */
     public static Set<OWLAxiom> getAxiomsWithoutTypes(
             Set<OWLAxiom> sourceAxioms, AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
@@ -126,16 +137,18 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
         return result;
     }
 
-    /** Gets the set of axioms from a source set of axioms that have a specified
+    /**
+     * Gets the set of axioms from a source set of axioms that have a specified
      * type
      * 
      * @param sourceAxioms
-     *            The source set of axioms
+     *        The source set of axioms
      * @param axiomTypes
-     *            The types of axioms that will be returned
+     *        The types of axioms that will be returned
      * @return A set of axioms that represents the sourceAxioms that have the
      *         specified types. Note that sourceAxioms will not be modified. The
-     *         returned set is a copy. */
+     *         returned set is a copy.
+     */
     public static Set<OWLAxiom> getAxiomsOfTypes(Set<OWLAxiom> sourceAxioms,
             AxiomType<?>... axiomTypes) {
         Set<OWLAxiom> result = new HashSet<OWLAxiom>();
@@ -151,23 +164,27 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
         return result;
     }
 
-    /** Gets an axiom type by its name
+    /**
+     * Gets an axiom type by its name
      * 
      * @param name
-     *            The name of the axiom type
+     *        The name of the axiom type
      * @return The axiom type with the specified name, or {@code null} if there
-     *         is no such axiom type with the specified name */
+     *         is no such axiom type with the specified name
+     */
     public static AxiomType<?> getAxiomType(String name) {
         return NAME_TYPE_MAP.get(name);
     }
 
-    /** Determines if there is an axiom type with the specified name
+    /**
+     * Determines if there is an axiom type with the specified name
      * 
      * @param _name
-     *            The name to test for
+     *        The name to test for
      * @return {@code true} if there is an axiom type with the specified name,
      *         or {@code false} if there is no axiom type with the specified
-     *         name. */
+     *         name.
+     */
     public boolean isAxiomType(String _name) {
         return NAME_TYPE_MAP.containsKey(_name);
     }

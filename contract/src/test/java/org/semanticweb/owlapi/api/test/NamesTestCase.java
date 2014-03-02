@@ -51,10 +51,12 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 @SuppressWarnings("javadoc")
 public class NamesTestCase {
+
     @SuppressWarnings("unchecked")
     @Test
     public void shoudReturnRightName() throws OWLOntologyCreationException {
         assertEquals("AddAxiomData", new AddAxiomData(mock(OWLAxiom.class)) {
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -64,6 +66,7 @@ public class NamesTestCase {
         }.getName());
         assertEquals("AddImportData", new AddImportData(
                 mock(OWLImportsDeclaration.class)) {
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -73,6 +76,7 @@ public class NamesTestCase {
         }.getName());
         assertEquals("AddOntologyAnnotationData",
                 new AddOntologyAnnotationData(mock(OWLAnnotation.class)) {
+
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -84,6 +88,7 @@ public class NamesTestCase {
                 new OWLOntologyChangeRecord<OWLAxiom>(
                         mock(OWLOntologyID.class),
                         mock(OWLOntologyChangeData.class)) {
+
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -93,6 +98,7 @@ public class NamesTestCase {
                 }.getName());
         assertEquals("RemoveAxiomData", new RemoveAxiomData(
                 mock(OWLAxiom.class)) {
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -102,6 +108,7 @@ public class NamesTestCase {
         }.getName());
         assertEquals("RemoveImportData", new RemoveImportData(
                 mock(OWLImportsDeclaration.class)) {
+
             private static final long serialVersionUID = 1L;
 
             @Override
@@ -111,6 +118,7 @@ public class NamesTestCase {
         }.getName());
         assertEquals("RemoveOntologyAnnotationData",
                 new RemoveOntologyAnnotationData(mock(OWLAnnotation.class)) {
+
                     private static final long serialVersionUID = 1L;
 
                     @Override
@@ -121,6 +129,7 @@ public class NamesTestCase {
         assertEquals("SetOntologyIDData",
                 new SetOntologyIDData(new OWLOntologyID(
                         IRI.create("urn:test1"), IRI.create("urn:test2"))) {
+
                     private static final long serialVersionUID = 1L;
 
                     @Override

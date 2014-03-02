@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractFunctionalparserTest {
+
     public void shouldTestJJTOWLFunctionalSyntaxParserState() {
         JJTOWLFunctionalSyntaxParserState testSubject0 = new JJTOWLFunctionalSyntaxParserState();
         testSubject0.reset();

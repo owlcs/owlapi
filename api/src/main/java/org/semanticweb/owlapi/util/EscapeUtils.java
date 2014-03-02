@@ -12,17 +12,22 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class EscapeUtils {
-    /** Escapes quotes and backslashes in a string. Double quotes are replaced
+
+    /**
+     * Escapes quotes and backslashes in a string. Double quotes are replaced
      * with a backslash followed by a double quote, and backslashes are replaced
      * with a double backslash.
      * 
      * @param s
-     *            The string to be escaped
-     * @return The escaped string. */
+     *        The string to be escaped
+     * @return The escaped string.
+     */
     public static String escapeString(String s) {
         // We replace double quotes with a back slash followed
         // by a double quote. We replace backslashes with a double
@@ -46,9 +51,11 @@ public class EscapeUtils {
         return sb.toString();
     }
 
-    /** @param s
-     *            string to unescape
-     * @return the unescaped string */
+    /**
+     * @param s
+     *        string to unescape
+     * @return the unescaped string
+     */
     public static String unescapeString(String s) {
         if (s.indexOf('\\') == -1) {
             return s;

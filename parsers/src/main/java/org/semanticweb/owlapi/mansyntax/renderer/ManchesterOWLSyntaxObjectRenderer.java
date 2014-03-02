@@ -28,15 +28,20 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
         implements OWLObjectVisitor {
-    /** @param writer
-     *            writer
+
+    /**
+     * @param writer
+     *        writer
      * @param entityShortFormProvider
-     *            entityShortFormProvider */
+     *        entityShortFormProvider
+     */
     public ManchesterOWLSyntaxObjectRenderer(Writer writer,
             ShortFormProvider entityShortFormProvider) {
         super(writer, entityShortFormProvider);

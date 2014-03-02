@@ -22,11 +22,14 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class InferredSubObjectPropertyAxiomGenerator extends
         InferredObjectPropertyAxiomGenerator<OWLSubObjectPropertyOfAxiom> {
+
     @Override
     protected void
             addAxioms(OWLObjectProperty entity, OWLReasoner reasoner,

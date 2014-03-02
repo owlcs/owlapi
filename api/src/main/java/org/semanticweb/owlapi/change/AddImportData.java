@@ -18,23 +18,28 @@ import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** Represents the specific non-ontology data required by an {@link AddImport}
+/**
+ * Represents the specific non-ontology data required by an {@link AddImport}
  * change. <br>
  * Instances of this class are immutable.
  * 
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.3 */
+ * @since 3.3
+ */
 public class AddImportData extends ImportChangeData {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Constructs an {@link AddImportData} object that describes an
+    /**
+     * Constructs an {@link AddImportData} object that describes an
      * {@link AddImport} change for the {@link OWLImportsDeclaration} specified
      * by the {@code declaration} parameter.
      * 
      * @param declaration
-     *            The {@link OWLImportsDeclaration} that is the focus of some
-     *            change. */
+     *        The {@link OWLImportsDeclaration} that is the focus of some
+     *        change.
+     */
     public AddImportData(@Nonnull OWLImportsDeclaration declaration) {
         super(declaration);
     }

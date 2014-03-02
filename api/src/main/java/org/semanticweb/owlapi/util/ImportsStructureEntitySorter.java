@@ -19,13 +19,18 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ImportsStructureEntitySorter extends
         ImportsStructureObjectSorter<OWLEntity> {
-    /** @param ontology
-     *            the ontology */
+
+    /**
+     * @param ontology
+     *        the ontology
+     */
     public ImportsStructureEntitySorter(@Nonnull OWLOntology ontology) {
         super(ontology, new ReferencedEntitySelector());
     }
@@ -33,6 +38,7 @@ public class ImportsStructureEntitySorter extends
     /** Selector of referenced entities. */
     public static class ReferencedEntitySelector implements
             ObjectSelector<OWLEntity> {
+
         @Override
         public Set<OWLEntity> getObjects(OWLOntology ontology) {
             return ontology.getSignature();

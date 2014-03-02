@@ -12,7 +12,8 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner;
 
-/** Specifies that a some internal error occurred during reasoning. Each reasoner
+/**
+ * Specifies that a some internal error occurred during reasoning. Each reasoner
  * implementation will specify the cause of the error in the message. <br>
  * This exception is only thrown when an internal error (due to errors in the
  * reasoner code) has occurred and the reasoner cannot recover silently from the
@@ -24,26 +25,34 @@ package org.semanticweb.owlapi.reasoner;
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public class ReasonerInternalException extends OWLReasonerRuntimeException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param cause
-     *            error cause */
+    /**
+     * @param cause
+     *        error cause
+     */
     public ReasonerInternalException(Throwable cause) {
         super(cause);
     }
 
-    /** @param message
-     *            error message */
+    /**
+     * @param message
+     *        error message
+     */
     public ReasonerInternalException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            error message
+    /**
+     * @param message
+     *        error message
      * @param cause
-     *            error cause */
+     *        error cause
+     */
     public ReasonerInternalException(String message, Throwable cause) {
         super(message, cause);
     }

@@ -16,13 +16,18 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface OWLOntologyChecker {
-    /** @param name
-     *            the ontology name
-     * @return the ontology */
+
+    /**
+     * @param name
+     *        the ontology name
+     * @return the ontology
+     */
     @Nullable
     OWLOntology getOntology(@Nullable String name);
 }

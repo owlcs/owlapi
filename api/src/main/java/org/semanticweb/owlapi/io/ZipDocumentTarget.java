@@ -28,14 +28,19 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class ZipDocumentTarget implements OWLOntologyDocumentTarget {
+
     private final File file;
 
-    /** @param file
-     *            the file to use */
+    /**
+     * @param file
+     *        the file to use
+     */
     public ZipDocumentTarget(@Nonnull File file) {
         this.file = checkNotNull(file, "file cannot be null");
     }

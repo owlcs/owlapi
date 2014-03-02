@@ -25,19 +25,24 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.io.OWLObjectRenderer;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-/** Orders an explanation in a flat list, sorting axioms alphabetically.
+/**
+ * Orders an explanation in a flat list, sorting axioms alphabetically.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class AlphaExplanationOrderer implements ExplanationOrderer {
+
     /** The renderer. */
     protected final OWLObjectRenderer renderer;
 
-    /** Instantiates a new alpha explanation orderer.
+    /**
+     * Instantiates a new alpha explanation orderer.
      * 
      * @param renderer
-     *            the renderer to use */
+     *        the renderer to use
+     */
     public AlphaExplanationOrderer(@Nonnull OWLObjectRenderer renderer) {
         this.renderer = checkNotNull(renderer, "renderer cannot be null");
     }
@@ -48,6 +53,7 @@ public class AlphaExplanationOrderer implements ExplanationOrderer {
         EntailedAxiomTree root = new EntailedAxiomTree(entailment);
         List<OWLAxiom> sortedAxioms = new ArrayList<OWLAxiom>(axioms);
         Collections.sort(sortedAxioms, new Comparator<OWLAxiom>() {
+
             @Override
             public int compare(OWLAxiom o1, OWLAxiom o2) {
                 return renderer.render(o1).compareTo(renderer.render(o2));

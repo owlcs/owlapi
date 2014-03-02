@@ -15,10 +15,13 @@ package org.semanticweb.owlapi.dlsyntax.renderer;
 import org.semanticweb.owlapi.formats.DLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class DLSyntaxOntologyStorer extends DLSyntaxOntologyStorerBase {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

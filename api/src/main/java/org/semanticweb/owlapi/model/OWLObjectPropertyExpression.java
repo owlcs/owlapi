@@ -14,12 +14,16 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
         SWRLPredicate {
-    /** If the property is a named object property then this method will obtain
+
+    /**
+     * If the property is a named object property then this method will obtain
      * the property as such. The general pattern of use is that the
      * {@code isAnonymous} method should first be used to determine if the
      * property is named (i.e. not an object property expression such as
@@ -28,28 +32,35 @@ public interface OWLObjectPropertyExpression extends OWLPropertyExpression,
      * 
      * @return The property as an {@code OWLObjectProperty} if possible.
      * @throws OWLRuntimeException
-     *             if the property is not a named property. */
+     *         if the property is not a named property.
+     */
     @Nonnull
     OWLObjectProperty asOWLObjectProperty();
 
-    /** Obtains the property that corresponds to the inverse of this property.
+    /**
+     * Obtains the property that corresponds to the inverse of this property.
      * 
      * @return The inverse of this property. Note that this property will not
-     *         necessarily be in the simplest form. */
+     *         necessarily be in the simplest form.
+     */
     @Nonnull
     OWLObjectPropertyExpression getInverseProperty();
 
-    /** Returns this property in its simplified form.
+    /**
+     * Returns this property in its simplified form.
      * 
      * @return Let p be a property name and PE an object property expression.
      *         The simplification, 'simp', is defined as follows: simp(p) = p
-     *         simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE) */
+     *         simp(inv(p)) = inv(p) simp(inv(inv(PE)) = simp(PE)
+     */
     @Nonnull
     OWLObjectPropertyExpression getSimplified();
 
-    /** Get the named object property used in this property expression.
+    /**
+     * Get the named object property used in this property expression.
      * 
-     * @return P if simp(PE) = inv(P) or P if simp(PE) = P. */
+     * @return P if simp(PE) = inv(P) or P if simp(PE) = P.
+     */
     @Nonnull
     OWLObjectProperty getNamedProperty();
 }

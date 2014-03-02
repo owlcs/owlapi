@@ -26,20 +26,25 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <P>
- *            the property expression */
+ *        the property expression
+ */
 public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
+
     private static final long serialVersionUID = 40000L;
     private final Set<P> properties;
 
-    /** @param properties
-     *            properties
+    /**
+     * @param properties
+     *        properties
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);

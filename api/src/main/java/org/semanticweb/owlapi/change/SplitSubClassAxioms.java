@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Given a set of ontologies, this composite change will replace all subclass
+/**
+ * Given a set of ontologies, this composite change will replace all subclass
  * axioms in each ontology, whose super class is an object intersection
  * (conjuction) with multiple subclass axioms - one for each conjunct. For
  * example, A subClassOf (B and C), would be replaced with two subclass axioms,
@@ -51,15 +52,19 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.1 */
+ * @since 2.1.1
+ */
 public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
-    /** Creates a composite change to split subclass axioms into multiple more
+
+    /**
+     * Creates a composite change to split subclass axioms into multiple more
      * fine grained subclass axioms.
      * 
      * @param ontologies
-     *            The ontologies whose subclass axioms should be processed.
+     *        The ontologies whose subclass axioms should be processed.
      * @param dataFactory
-     *            The data factory which should be used to create new axioms. */
+     *        The data factory which should be used to create new axioms.
+     */
     public SplitSubClassAxioms(Set<OWLOntology> ontologies,
             OWLDataFactory dataFactory) {
         super(dataFactory);
@@ -81,6 +86,7 @@ public class SplitSubClassAxioms extends AbstractCompositeOntologyChange {
 
     /** The Class ConjunctSplitter. */
     private static class ConjunctSplitter implements OWLClassExpressionVisitor {
+
         /** The result. */
         Set<OWLClassExpression> result = new HashSet<OWLClassExpression>();
 

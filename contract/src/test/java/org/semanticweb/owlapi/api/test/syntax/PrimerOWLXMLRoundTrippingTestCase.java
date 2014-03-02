@@ -15,11 +15,14 @@ package org.semanticweb.owlapi.api.test.syntax;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class PrimerOWLXMLRoundTrippingTestCase extends
         AbstractFileRoundTrippingTestCase {
+
     @Override
     protected String getFileName() {
         return "primer.owlxml.xml";

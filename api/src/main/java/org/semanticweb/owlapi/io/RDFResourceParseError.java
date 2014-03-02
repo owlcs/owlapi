@@ -18,7 +18,8 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** Describes why an RDF resource could not be parsed into an {@code OWLObject}.
+/**
+ * Describes why an RDF resource could not be parsed into an {@code OWLObject}.
  * For example, why an RDF resource could not be parsed into an
  * {@code OWLClassExpression}. <br>
  * When these errors occur, the RDF parser generates an {@code OWLEntity} that
@@ -27,18 +28,22 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.2 */
+ * @since 3.2
+ */
 public class RDFResourceParseError {
+
     private final OWLEntity parserGeneratedErrorEntity;
     private final RDFNode mainNode;
     private final Set<RDFTriple> mainNodeTriples = new HashSet<RDFTriple>();
 
-    /** @param parserGeneratedErrorEntity
-     *            the error entity
+    /**
+     * @param parserGeneratedErrorEntity
+     *        the error entity
      * @param mainNode
-     *            the main node
+     *        the main node
      * @param mainNodeTriples
-     *            the main node triples */
+     *        the main node triples
+     */
     public RDFResourceParseError(OWLEntity parserGeneratedErrorEntity,
             RDFNode mainNode, Set<RDFTriple> mainNodeTriples) {
         this.parserGeneratedErrorEntity = parserGeneratedErrorEntity;

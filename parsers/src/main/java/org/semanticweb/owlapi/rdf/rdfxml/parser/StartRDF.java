@@ -25,6 +25,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 abstract class AbstractState {
+
     //@formatter:off
     static final String DATATYPE_RESOURCE           = "rdf:datatype specified on a node with resource value.";
     static final String TEXT_SEEN                   = "Text was seen and new node is started.";
@@ -46,13 +47,15 @@ abstract class AbstractState {
         this.parser = parser;
     }
 
-    /** Returns the reification manager for given attributes.
+    /**
+     * Returns the reification manager for given attributes.
      * 
      * @param atts
-     *            the attributes
+     *        the attributes
      * @return the reification manager
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     ReificationManager getReificationManager(Attributes atts)
             throws SAXException {
         String bagIDAttr = atts.getValue(RDFNS, ATTR_BAG_ID);
@@ -64,16 +67,18 @@ abstract class AbstractState {
         }
     }
 
-    /** Parses the propertyAttributes production.
+    /**
+     * Parses the propertyAttributes production.
      * 
      * @param subjectIRI
-     *            IRI of the resource whose properties are being parsed
+     *        IRI of the resource whose properties are being parsed
      * @param atts
-     *            attributes
+     *        attributes
      * @param reificationManager
-     *            the reification manager
+     *        the reification manager
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     void propertyAttributes(@Nonnull String subjectIRI,
             @Nonnull Attributes atts,
             @Nonnull ReificationManager reificationManager) throws SAXException {
@@ -107,14 +112,16 @@ abstract class AbstractState {
         }
     }
 
-    /** Extracts the IRI of the resource from rdf:resource or rdf:nodeID
+    /**
+     * Extracts the IRI of the resource from rdf:resource or rdf:nodeID
      * attribute. If no attribute is found, {@code null} is returned.
      * 
      * @param atts
-     *            the attributes
+     *        the attributes
      * @return the IRI of the resource or {@code null}
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     @Nullable
     String getNodeIDResourceResourceIRI(Attributes atts) throws SAXException {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
@@ -130,15 +137,17 @@ abstract class AbstractState {
         }
     }
 
-    /** Checks whether given characters contain only whitespace.
+    /**
+     * Checks whether given characters contain only whitespace.
      * 
      * @param data
-     *            the data being checked
+     *        the data being checked
      * @param start
-     *            the start index (inclusive)
+     *        the start index (inclusive)
      * @param length
-     *            the end index (non-inclusive)
-     * @return {@code true} if characters contain whitespace */
+     *        the end index (non-inclusive)
+     * @return {@code true} if characters contain whitespace
+     */
     boolean notBlank(char[] data, int start, int length) {
         int end = start + length;
         for (int i = start; i < end; i++) {
@@ -149,19 +158,23 @@ abstract class AbstractState {
         return false;
     }
 
-    /** @param c
-     *            character to test
+    /**
+     * @param c
+     *        character to test
      * @return true if the character is other than a space, carriage return, or
-     *         tabulator */
+     *         tabulator
+     */
     boolean notSpace(char c) {
         return c != ' ' && c != '\n' && c != '\r' && c != '\t';
     }
 
-    /** Checks whether given characters contain only whitespace.
+    /**
+     * Checks whether given characters contain only whitespace.
      * 
      * @param buffer
-     *            the data being checked
-     * @return {@code true} if characters contain whitespace */
+     *        the data being checked
+     * @return {@code true} if characters contain whitespace
+     */
     boolean notBlank(StringBuilder buffer) {
         for (int i = 0; i < buffer.length(); i++) {
             if (notSpace(buffer.charAt(i))) {
@@ -174,6 +187,7 @@ abstract class AbstractState {
 
 /** State expecting start of RDF text. */
 class StartRDF extends AbstractState implements State {
+
     StartRDF(RDFParser parser) {
         super(parser);
     }
@@ -205,6 +219,7 @@ class StartRDF extends AbstractState implements State {
 
 /** Parses emptyPropertyElt production. */
 class EmptyPropertyElement extends AbstractState implements State {
+
     protected NodeElement m_nodeElement;
     protected String m_propertyIRI;
 
@@ -244,6 +259,7 @@ class EmptyPropertyElement extends AbstractState implements State {
 
 /** Parses the nodeElement production. */
 class NodeElement extends AbstractState implements State {
+
     protected String subjectIRI;
     protected ReificationManager reificationManager;
     protected AtomicLong m_nextLi = new AtomicLong(1);
@@ -257,11 +273,13 @@ class NodeElement extends AbstractState implements State {
         reificationManager = getReificationManager(atts);
     }
 
-    /** @param atts
-     *            the atts
+    /**
+     * @param atts
+     *        the atts
      * @return reification id
      * @throws SAXException
-     *             the SAX exception */
+     *         the SAX exception
+     */
     String getReificationID(Attributes atts) throws SAXException {
         String rdfID = atts.getValue(RDFNS, ATTR_ID);
         if (rdfID != null) {
@@ -275,9 +293,11 @@ class NodeElement extends AbstractState implements State {
         return RDFNS + "_" + m_nextLi.getAndIncrement();
     }
 
-    /** @param uri
-     *            the uri
-     * @return property iri */
+    /**
+     * @param uri
+     *        the uri
+     * @return property iri
+     */
     String getPropertyIRI(String uri) {
         if (RDF_LI.equals(uri)) {
             return getNextLi();
@@ -305,14 +325,16 @@ class NodeElement extends AbstractState implements State {
         parser.pushState(new PropertyElementList(this, parser));
     }
 
-    /** Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
+    /**
+     * Extracts the IRI of the resource from rdf:ID, rdf:nodeID or rdf:about
      * attribute. If no attribute is found, an IRI is generated.
      * 
      * @param atts
-     *            atts
+     *        atts
      * @return string for IRI
      * @throws SAXException
-     *             SAXException */
+     *         SAXException
+     */
     @Nonnull
     String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts)
             throws SAXException {
@@ -353,6 +375,7 @@ class NodeElement extends AbstractState implements State {
 
 /** Parses the nodeElementList production. */
 class NodeElementList extends AbstractState implements State {
+
     NodeElementList(RDFParser parser) {
         super(parser);
     }
@@ -380,6 +403,7 @@ class NodeElementList extends AbstractState implements State {
 
 /** Parses parseTypeCollectionPropertyElt production. */
 class ParseTypeCollectionElement extends AbstractState implements State {
+
     protected NodeElement m_nodeElement;
     protected String m_propertyIRI;
     protected String m_reificationID;
@@ -441,9 +465,12 @@ class ParseTypeCollectionElement extends AbstractState implements State {
     }
 }
 
-/** Parses resourcePropertyElt or literalPropertyElt productions. m_text is
- * {@code null} when startElement is expected on the actual property element. */
+/**
+ * Parses resourcePropertyElt or literalPropertyElt productions. m_text is
+ * {@code null} when startElement is expected on the actual property element.
+ */
 class ResourceOrLiteralElement extends AbstractState implements State {
+
     protected NodeElement nodeElement;
     protected String propertyIRI;
     protected String reificationID;
@@ -500,6 +527,7 @@ class ResourceOrLiteralElement extends AbstractState implements State {
 
 /** Parses parseTypeLiteralPropertyElt production. */
 class ParseTypeLiteralElement extends AbstractState implements State {
+
     protected NodeElement m_nodeElement;
     protected String m_propertyIRI;
     protected String m_reificationID;
@@ -559,6 +587,7 @@ class ParseTypeLiteralElement extends AbstractState implements State {
 
 /** Parses parseTypeResourcePropertyElt production. */
 class ParseTypeResourceElement extends AbstractState implements State {
+
     protected NodeElement m_nodeElement;
     protected String m_propertyIRI;
     protected String m_reificationID;
@@ -593,9 +622,12 @@ class ParseTypeResourceElement extends AbstractState implements State {
     }
 }
 
-/** Parses the propertyEltList production. The contents of the startElement
- * method implements also the propertyElt production. */
+/**
+ * Parses the propertyEltList production. The contents of the startElement
+ * method implements also the propertyElt production.
+ */
 class PropertyElementList extends AbstractState implements State {
+
     protected NodeElement node;
 
     PropertyElementList(NodeElement nodeElement, RDFParser parser) {
@@ -641,6 +673,7 @@ class PropertyElementList extends AbstractState implements State {
 }
 
 class ReificationManager {
+
     public static final ReificationManager INSTANCE = new ReificationManager();
 
     @SuppressWarnings("unused")
@@ -651,6 +684,7 @@ class ReificationManager {
 }
 
 class ReifiedStatementBag extends ReificationManager {
+
     protected AtomicLong m_elements = new AtomicLong(1);
     protected String m_uri;
 

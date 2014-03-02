@@ -16,7 +16,8 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLEntity;
 
-/** A short form provider produces renderings of entities. These renderings are
+/**
+ * A short form provider produces renderings of entities. These renderings are
  * strings which in general can be used for display and serialisation purposes.
  * A given entity only has one short form for a given short form provider.
  * However, a short form may map to multiple enntities for a given short form
@@ -26,18 +27,24 @@ import org.semanticweb.owlapi.model.OWLEntity;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface ShortFormProvider {
-    /** Gets the short form for the specified entity.
+
+    /**
+     * Gets the short form for the specified entity.
      * 
      * @param entity
-     *            The entity.
+     *        The entity.
      * @return A string which represents a short rendering of the speicified
-     *         entity. */
+     *         entity.
+     */
     @Nonnull
     String getShortForm(@Nonnull OWLEntity entity);
 
-    /** Disposes of the short form proivider. This frees any resources and clears
-     * any caches. */
+    /**
+     * Disposes of the short form proivider. This frees any resources and clears
+     * any caches.
+     */
     void dispose();
 }

@@ -20,112 +20,131 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 
 /** Receives notifications about triples generated during the parsing process. */
 public interface RDFConsumer {
-    /** Called when model parsing is started.
+
+    /**
+     * Called when model parsing is started.
      * 
      * @param physicalURI
-     *            physical URI of the model
+     *        physical URI of the model
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void startModel(@Nonnull IRI physicalURI) throws OWLRuntimeException;
 
-    /** Called when model parsing is finished.
+    /**
+     * Called when model parsing is finished.
      * 
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void endModel() throws OWLRuntimeException;
 
-    /** Called when a statement with resource value is added to the model.
+    /**
+     * Called when a statement with resource value is added to the model.
      * 
      * @param subject
-     *            URI of the subject resource
+     *        URI of the subject resource
      * @param predicate
-     *            URI of the predicate resource
+     *        URI of the predicate resource
      * @param object
-     *            URI of the object resource
+     *        URI of the object resource
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void statementWithResourceValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object)
             throws OWLRuntimeException;
 
-    /** Called when a statement with resource value is added to the model.
+    /**
+     * Called when a statement with resource value is added to the model.
      * 
      * @param subject
-     *            URI of the subject resource
+     *        URI of the subject resource
      * @param predicate
-     *            URI of the predicate resource
+     *        URI of the predicate resource
      * @param object
-     *            URI of the object resource
+     *        URI of the object resource
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void statementWithResourceValue(IRI subject, IRI predicate, IRI object);
 
-    /** Called when a statement with literal value is added to the model.
+    /**
+     * Called when a statement with literal value is added to the model.
      * 
      * @param subject
-     *            URI of the subject resource
+     *        URI of the subject resource
      * @param predicate
-     *            URI of the predicate resource
+     *        URI of the predicate resource
      * @param object
-     *            literal object value
+     *        literal object value
      * @param language
-     *            the language
+     *        the language
      * @param datatype
-     *            the URI of the literal's datatype (may be {@code null})
+     *        the URI of the literal's datatype (may be {@code null})
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void statementWithLiteralValue(@Nonnull String subject,
             @Nonnull String predicate, @Nonnull String object,
             @Nullable String language, @Nullable String datatype)
             throws OWLRuntimeException;
 
-    /** Called when a statement with literal value is added to the model.
+    /**
+     * Called when a statement with literal value is added to the model.
      * 
      * @param subject
-     *            URI of the subject resource
+     *        URI of the subject resource
      * @param predicate
-     *            URI of the predicate resource
+     *        URI of the predicate resource
      * @param object
-     *            literal object value
+     *        literal object value
      * @param language
-     *            the language
+     *        the language
      * @param datatype
-     *            the URI of the literal's datatype (may be {@code null})
+     *        the URI of the literal's datatype (may be {@code null})
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void statementWithLiteralValue(IRI subject, IRI predicate, String object,
             String language, IRI datatype) throws OWLRuntimeException;
 
-    /** Receives the logical URI of the model.
+    /**
+     * Receives the logical URI of the model.
      * 
      * @param logicalURI
-     *            logical URI of the model
+     *        logical URI of the model
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void logicalURI(@Nonnull IRI logicalURI) throws OWLRuntimeException;
 
-    /** Receives the notification that the model being parsed includes another
+    /**
+     * Receives the notification that the model being parsed includes another
      * model with supplied URIs.
      * 
      * @param logicalURI
-     *            logical URI of the model
+     *        logical URI of the model
      * @param physicalURI
-     *            physical URI of the model
+     *        physical URI of the model
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void
             includeModel(@Nullable String logicalURI,
                     @Nullable String physicalURI) throws OWLRuntimeException;
 
-    /** Receives the notification that the attribute and its value has been
+    /**
+     * Receives the notification that the attribute and its value has been
      * parsed.
      * 
      * @param key
-     *            the key of the attribute
+     *        the key of the attribute
      * @param value
-     *            the value of the attribute
+     *        the value of the attribute
      * @throws OWLRuntimeException
-     *             OWLRuntimeException */
+     *         OWLRuntimeException
+     */
     void addModelAttribte(@Nonnull String key, @Nonnull String value)
             throws OWLRuntimeException;
 }

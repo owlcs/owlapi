@@ -19,11 +19,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public abstract class AbstractFileRoundTrippingTestCase extends
         AbstractRoundTrippingTestCase {
+
     @Override
     protected OWLOntology createOntology() {
         try {

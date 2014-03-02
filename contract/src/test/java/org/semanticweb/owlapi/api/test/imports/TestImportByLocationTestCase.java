@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class TestImportByLocationTestCase extends TestBase {
+
     @Test
     public void testImportOntologyByLocation() throws Exception {
         File f = folder.newFile("a.owl");

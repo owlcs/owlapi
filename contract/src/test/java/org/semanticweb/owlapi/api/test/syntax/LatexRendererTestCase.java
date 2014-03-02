@@ -23,6 +23,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class LatexRendererTestCase extends TestBase {
+
     @Test
     public void shouldRenderEscapingUnderscores()
             throws OWLOntologyCreationException, OWLOntologyStorageException {

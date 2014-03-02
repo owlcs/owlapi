@@ -22,13 +22,16 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <O>
- *            return type */
+ *        return type
+ */
 public class OWLOntologyChangeVisitorExAdapter<O> implements
         OWLOntologyChangeVisitorEx<O> {
+
     private O object;
 
     /** adapter with null default */
@@ -36,19 +39,23 @@ public class OWLOntologyChangeVisitorExAdapter<O> implements
         this(null);
     }
 
-    /** adapter with object as default value
+    /**
+     * adapter with object as default value
      * 
      * @param object
-     *            default return value */
+     *        default return value
+     */
     public OWLOntologyChangeVisitorExAdapter(O object) {
         this.object = object;
     }
 
-    /** override to change default behaviour
+    /**
+     * override to change default behaviour
      * 
      * @param change
-     *            visited change
-     * @return default return value; */
+     *        visited change
+     * @return default return value;
+     */
     protected O doDefault(
             @SuppressWarnings("unused") OWLOntologyChange<?> change) {
         return object;

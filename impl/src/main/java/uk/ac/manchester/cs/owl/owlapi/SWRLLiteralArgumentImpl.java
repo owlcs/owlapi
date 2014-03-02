@@ -24,16 +24,21 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class SWRLLiteralArgumentImpl extends OWLObjectImpl implements
         SWRLLiteralArgument {
+
     private static final long serialVersionUID = 40000L;
     private final OWLLiteral literal;
 
-    /** @param literal
-     *            literal for argument */
+    /**
+     * @param literal
+     *        literal for argument
+     */
     public SWRLLiteralArgumentImpl(@Nonnull OWLLiteral literal) {
         super();
         this.literal = checkNotNull(literal, "literal cannot be null");

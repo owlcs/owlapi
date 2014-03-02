@@ -16,17 +16,22 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.change.AddImportData;
 
-/** Represents an ontology change where an import statement is added to an
+/**
+ * Represents an ontology change where an import statement is added to an
  * ontology.
  * 
  * @author Matthew Horridge, The University of Manchester, Information
  *         Management Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class AddImport extends ImportChange {
-    /** @param ont
-     *            the ontology to which the change is to be applied
+
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param importDeclaration
-     *            the import declaration */
+     *        the import declaration
+     */
     public AddImport(@Nonnull OWLOntology ont,
             @Nonnull OWLImportsDeclaration importDeclaration) {
         super(ont, importDeclaration);

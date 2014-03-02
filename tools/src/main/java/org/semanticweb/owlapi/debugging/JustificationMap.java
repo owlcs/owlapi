@@ -66,10 +66,13 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class JustificationMap {
+
     private final Set<OWLAxiom> axioms;
     private final Set<OWLAxiom> rootAxioms = new HashSet<OWLAxiom>();
     private final Set<OWLAxiom> usedAxioms = new HashSet<OWLAxiom>();
@@ -78,12 +81,14 @@ public class JustificationMap {
     private final Map<OWLEntity, Set<OWLAxiom>> axiomsByLHS = new HashMap<OWLEntity, Set<OWLAxiom>>();
     private final OWLClassExpression desc;
 
-    /** Instantiates a new justification map.
+    /**
+     * Instantiates a new justification map.
      * 
      * @param desc
-     *            the class expression
+     *        the class expression
      * @param axioms
-     *            the axioms */
+     *        the axioms
+     */
     public JustificationMap(@Nonnull OWLClassExpression desc,
             @Nonnull Set<OWLAxiom> axioms) {
         this.axioms = checkNotNull(axioms, "axioms cannot be null");
@@ -117,11 +122,13 @@ public class JustificationMap {
         buildChildren(desc);
     }
 
-    /** Gets the axioms by lhs.
+    /**
+     * Gets the axioms by lhs.
      * 
      * @param lhs
-     *            the lhs
-     * @return the axioms by lhs */
+     *        the lhs
+     * @return the axioms by lhs
+     */
     @Nonnull
     private Set<OWLAxiom> getAxiomsByLHS(@Nonnull OWLEntity lhs) {
         Set<OWLAxiom> axiomSet = axiomsByLHS.get(lhs);
@@ -162,11 +169,13 @@ public class JustificationMap {
         }
     }
 
-    /** Builds the.
+    /**
+     * Builds the.
      * 
      * @param parentAxiom
-     *            the parent axiom
-     * @return the sets the */
+     *        the parent axiom
+     * @return the sets the
+     */
     @Nonnull
     private Set<OWLAxiom> build(@Nonnull OWLAxiom parentAxiom) {
         usedAxioms.add(parentAxiom);
@@ -187,18 +196,20 @@ public class JustificationMap {
         return result;
     }
 
-    /** Index.
+    /**
+     * Index.
      * 
      * @param <K>
-     *            the key type
+     *        the key type
      * @param <V>
-     *            the value type
+     *        the value type
      * @param key
-     *            the key
+     *        the key
      * @param map
-     *            the map
+     *        the map
      * @param value
-     *            the value */
+     *        the value
+     */
     @Nonnull
     private static <K, V> void index(@Nonnull K key,
             @Nonnull Map<K, Set<V>> map, @Nonnull V value) {
@@ -210,19 +221,23 @@ public class JustificationMap {
         values.add(value);
     }
 
-    /** Gets the root axioms.
+    /**
+     * Gets the root axioms.
      * 
-     * @return the root axioms */
+     * @return the root axioms
+     */
     @Nonnull
     public Set<OWLAxiom> getRootAxioms() {
         return rootAxioms;
     }
 
-    /** Gets the child axioms.
+    /**
+     * Gets the child axioms.
      * 
      * @param ax
-     *            the axiom whose children are to be retrieved
-     * @return children of ax */
+     *        the axiom whose children are to be retrieved
+     * @return children of ax
+     */
     @Nonnull
     public Set<OWLAxiom> getChildAxioms(@Nonnull OWLAxiom ax) {
         Set<OWLAxiom> result = map.get(ax);
@@ -235,20 +250,25 @@ public class JustificationMap {
 
     /** The Class OWLAxiomPartExtractor. */
     private static class OWLAxiomPartExtractor extends OWLAxiomVisitorAdapter {
+
         private Set<OWLObject> rhs = new HashSet<OWLObject>();
         private Set<OWLObject> lhs = new HashSet<OWLObject>();
 
-        /** Gets the rhs.
+        /**
+         * Gets the rhs.
          * 
-         * @return the rhs */
+         * @return the rhs
+         */
         @Nonnull
         public Set<OWLObject> getRHS() {
             return rhs;
         }
 
-        /** Gets the lhs.
+        /**
+         * Gets the lhs.
          * 
-         * @return the lhs */
+         * @return the lhs
+         */
         @Nonnull
         public Set<OWLObject> getLHS() {
             return lhs;
@@ -446,6 +466,7 @@ public class JustificationMap {
     /** The Class OWLAxiomComparator. */
     private static class OWLAxiomComparator extends OWLAxiomVisitorAdapter
             implements Comparator<OWLAxiom>, Serializable {
+
         private static final long serialVersionUID = 40000L;
         private int result;
 

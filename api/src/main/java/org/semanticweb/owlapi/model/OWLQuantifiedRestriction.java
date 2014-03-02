@@ -14,13 +14,16 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
  * @since 2.0.0
  * @param <F>
- *            value */
+ *        value
+ */
 public interface OWLQuantifiedRestriction<F extends OWLPropertyRange> extends
         OWLRestriction, HasFiller<F> {
+
     /** @return the filler */
     @Override
     @Nonnull

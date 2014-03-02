@@ -14,15 +14,20 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
  * @since 3.4.6
  * @param <T>
- *            subject type */
+ *        subject type
+ */
 public interface HasSubject<T extends OWLObject> {
-    /** Gets the subject of this object.
+
+    /**
+     * Gets the subject of this object.
      * 
-     * @return The subject */
+     * @return The subject
+     */
     @Nonnull
     T getSubject();
 }

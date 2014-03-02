@@ -31,21 +31,26 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
+
     private static final long serialVersionUID = 40000L;
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
     private final Set<OWLAnnotation> annotations;
 
-    /** @param property
-     *            annotation property
+    /**
+     * @param property
+     *        annotation property
      * @param value
-     *            annotation value
+     *        annotation value
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLAnnotationImpl(@Nonnull OWLAnnotationProperty property,
             @Nonnull OWLAnnotationValue value,
             @Nonnull Set<? extends OWLAnnotation> annotations) {
@@ -82,13 +87,15 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
         return new OWLAnnotationImpl(property, value, merged);
     }
 
-    /** Determines if this annotation is an annotation used to deprecate an IRI.
+    /**
+     * Determines if this annotation is an annotation used to deprecate an IRI.
      * This is the case if the annotation property has an IRI of
      * {@code owl:deprecated} and the value of the annotation is
      * {@code "true"^^xsd:boolean}
      * 
      * @return {@code true} if this annotation is an annotation that can be used
-     *         to deprecate an IRI, otherwise {@code false}. */
+     *         to deprecate an IRI, otherwise {@code false}.
+     */
     @Override
     public boolean isDeprecatedIRIAnnotation() {
         return property.isDeprecated() && value instanceof OWLLiteral

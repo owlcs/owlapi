@@ -24,19 +24,24 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Given a set of ontologies, this composite change will remove all disjoint
+/**
+ * Given a set of ontologies, this composite change will remove all disjoint
  * classes axioms from these ontologies.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class RemoveAllDisjointAxioms extends AbstractCompositeOntologyChange {
-    /** Instantiates a new removes the all disjoint axioms.
+
+    /**
+     * Instantiates a new removes the all disjoint axioms.
      * 
      * @param dataFactory
-     *            factory to use
+     *        factory to use
      * @param ontologies
-     *            ontologies to change */
+     *        ontologies to change
+     */
     public RemoveAllDisjointAxioms(@Nonnull OWLDataFactory dataFactory,
             @Nonnull Set<OWLOntology> ontologies) {
         super(dataFactory);

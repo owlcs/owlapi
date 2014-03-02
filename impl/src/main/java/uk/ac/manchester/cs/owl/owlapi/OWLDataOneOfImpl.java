@@ -33,15 +33,20 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDataOneOfImpl extends OWLObjectImpl implements OWLDataOneOf {
+
     private static final long serialVersionUID = 40000L;
     private final Set<OWLLiteral> values;
 
-    /** @param values
-     *            lierals */
+    /**
+     * @param values
+     *        lierals
+     */
     public OWLDataOneOfImpl(@Nonnull Set<? extends OWLLiteral> values) {
         this.values = new TreeSet<OWLLiteral>(checkNotNull(values,
                 "values cannot be null"));

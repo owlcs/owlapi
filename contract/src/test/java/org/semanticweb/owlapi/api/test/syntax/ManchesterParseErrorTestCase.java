@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 
 @SuppressWarnings("javadoc")
 public class ManchesterParseErrorTestCase extends TestBase {
+
     @Test(expected = ParserException.class)
     public void shouldNotParse() {
         parse("p some rdfs:Literal");
@@ -52,13 +53,16 @@ public class ManchesterParseErrorTestCase extends TestBase {
         return parser.parseClassExpression();
     }
 
-    /** A very simple entity checker that only understands that "p" is a property
+    /**
+     * A very simple entity checker that only understands that "p" is a property
      * and rdfs:Literal is a datatype. He is an extreme simplification of the
      * entity checker that runs when Protege is set to render entities as
      * qnames.
      * 
-     * @author tredmond */
+     * @author tredmond
+     */
     private static class MockEntityChecker implements OWLEntityChecker {
+
         private final OWLDataFactory factory;
 
         public MockEntityChecker(OWLDataFactory factory) {

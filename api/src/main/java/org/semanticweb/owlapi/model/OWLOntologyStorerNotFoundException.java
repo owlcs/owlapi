@@ -12,15 +12,20 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyStorerNotFoundException extends
         OWLOntologyStorageException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param format
-     *            format that cannot be stored */
+    /**
+     * @param format
+     *        format that cannot be stored
+     */
     public OWLOntologyStorerNotFoundException(OWLOntologyFormat format) {
         super("Could not find an ontology storer which can handle the format: "
                 + format);

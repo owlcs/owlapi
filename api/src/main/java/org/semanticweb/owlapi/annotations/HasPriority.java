@@ -16,16 +16,19 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/** Annotation for objects that have a priority that can be used for sorting
+/**
+ * Annotation for objects that have a priority that can be used for sorting
  * purposes. The priority is represented as a double so that it's always
  * possible to place an object's priority between two existing priorities
  * (within the limits of double representation).
  * 
  * @author ignazio
- * @since 4.0.0 */
+ * @since 4.0.0
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface HasPriority {
+
     /** @return priority value for this object */
     double value();
 }

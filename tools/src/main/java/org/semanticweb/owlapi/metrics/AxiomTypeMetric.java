@@ -20,18 +20,23 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class AxiomTypeMetric extends AxiomCountMetric {
+
     private final AxiomType<?> axiomType;
 
-    /** Instantiates a new axiom type metric.
+    /**
+     * Instantiates a new axiom type metric.
      * 
      * @param o
-     *            ontology to use
+     *        ontology to use
      * @param axiomType
-     *            type of axioms */
+     *        type of axioms
+     */
     public AxiomTypeMetric(@Nonnull OWLOntology o,
             @Nonnull AxiomType<?> axiomType) {
         super(o);
@@ -48,9 +53,11 @@ public class AxiomTypeMetric extends AxiomCountMetric {
         return ont.getAxioms(axiomType);
     }
 
-    /** Gets the axiom type.
+    /**
+     * Gets the axiom type.
      * 
-     * @return axiom type */
+     * @return axiom type
+     */
     @Nonnull
     public AxiomType<?> getAxiomType() {
         return axiomType;

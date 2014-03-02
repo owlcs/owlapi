@@ -21,13 +21,16 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
-/** Generates inferred equivalent classes axioms.
+/**
+ * Generates inferred equivalent classes axioms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.1.0 */
+ * @since 2.1.0
+ */
 public class InferredEquivalentClassAxiomGenerator extends
         InferredClassAxiomGenerator<OWLEquivalentClassesAxiom> {
+
     @Override
     protected void addAxioms(OWLClass entity, OWLReasoner reasoner,
             OWLDataFactory dataFactory, Set<OWLEquivalentClassesAxiom> result) {

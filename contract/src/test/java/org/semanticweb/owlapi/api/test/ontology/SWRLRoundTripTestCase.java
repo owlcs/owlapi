@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
 public class SWRLRoundTripTestCase extends TestBase {
+
     @Test
     public void shouldDoCompleteRoundtrip()
             throws OWLOntologyCreationException, OWLOntologyStorageException {

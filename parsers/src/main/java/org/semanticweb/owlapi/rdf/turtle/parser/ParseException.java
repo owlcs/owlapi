@@ -16,13 +16,17 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 /** This exception is thrown when parse errors are encountered. */
 public class ParseException extends Exception {
+
     private static final long serialVersionUID = 40000L;
-    /** @param currentTokenVal
-     *            current token
+
+    /**
+     * @param currentTokenVal
+     *        current token
      * @param expectedTokenSequencesVal
-     *            expected token sequences
+     *        expected token sequences
      * @param tokenImageVal
-     *             token image val */
+     *        token image val
+     */
     public ParseException(Token currentTokenVal,
             int[][] expectedTokenSequencesVal, String[] tokenImageVal) {
         super(initialise(currentTokenVal, expectedTokenSequencesVal,
@@ -37,21 +41,26 @@ public class ParseException extends Exception {
         super();
     }
 
-    /** @param message
-     *            exception message */
+    /**
+     * @param message
+     *        exception message
+     */
     public ParseException(String message) {
         super(message);
     }
 
     /** This is the last token that has been consumed successfully. */
     public Token currentToken;
-    /** Each entry in this array represents a sequence of tokens (by their
-     * ordinal values) that is expected at this point of the parse. */
+    /**
+     * Each entry in this array represents a sequence of tokens (by their
+     * ordinal values) that is expected at this point of the parse.
+     */
     public int[][] expectedTokenSequences;
-    /** This is a reference to the "tokenImage" array of the generated parser
-     * within which the parse error occurred. */
+    /**
+     * This is a reference to the "tokenImage" array of the generated parser
+     * within which the parse error occurred.
+     */
     public String[] tokenImage;
-
 
     private static String initialise(Token currentToken,
             int[][] expectedTokenSequences, String[] tokenImage) {
@@ -101,11 +110,13 @@ public class ParseException extends Exception {
 
     protected String eol = System.getProperty("line.separator", "\n");
 
-    /** Used to convert raw characters to their escaped version.
+    /**
+     * Used to convert raw characters to their escaped version.
      * 
      * @param str
-     *            string to escape
-     * @return escaped string */
+     *        string to escape
+     * @return escaped string
+     */
     static String add_escapes(String str) {
         StringBuffer retval = new StringBuffer();
         char ch;

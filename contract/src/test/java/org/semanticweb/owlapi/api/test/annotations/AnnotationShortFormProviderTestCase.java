@@ -36,11 +36,14 @@ import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 @SuppressWarnings("javadoc")
 public class AnnotationShortFormProviderTestCase extends TestBase {
+
     @Test
     public void testLiteralWithoutLanguageValue()
             throws OWLOntologyCreationException {
@@ -120,6 +123,7 @@ public class AnnotationShortFormProviderTestCase extends TestBase {
                 m, new SimpleShortFormProvider(),
                 new SimpleIRIShortFormProvider(), props, langMap,
                 new OWLAnnotationValueVisitorEx<String>() {
+
                     @Override
                     public String visit(OWLLiteral literal) {
                         return "\"" + literal.getLiteral() + "\"";

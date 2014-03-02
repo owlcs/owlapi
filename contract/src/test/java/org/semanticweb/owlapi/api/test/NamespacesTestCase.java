@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 @SuppressWarnings("javadoc")
 public class NamespacesTestCase extends TestBase {
+
     @Test
     public void shouldFindInNamespace() {
         EnumSet<Namespaces> reserved = EnumSet.of(Namespaces.OWL,

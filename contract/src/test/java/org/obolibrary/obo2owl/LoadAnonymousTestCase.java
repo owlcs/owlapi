@@ -24,6 +24,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 @SuppressWarnings("javadoc")
 public class LoadAnonymousTestCase extends TestBase {
+
     @Test
     public void shouldLoad() throws OWLOntologyCreationException {
         OWLOntologyManager rootOntologyManager = OWLManager

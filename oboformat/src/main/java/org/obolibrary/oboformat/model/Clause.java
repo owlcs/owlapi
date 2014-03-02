@@ -8,45 +8,56 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 
 /** Clause */
 public class Clause {
+
     protected String tag;
     protected final Collection<Object> values = new ArrayList<Object>();
     protected final Collection<Xref> xrefs = new ArrayList<Xref>();
     protected final Collection<QualifierValue> qualifierValues = new ArrayList<QualifierValue>();
 
-    /** @param tag
-     *            tag */
+    /**
+     * @param tag
+     *        tag
+     */
     public Clause(OboFormatTag tag) {
         this(tag.getTag());
     }
 
-    /** @param tag
-     *            tag */
+    /**
+     * @param tag
+     *        tag
+     */
     public Clause(String tag) {
         super();
         this.tag = tag;
     }
 
-    /** @param tag
-     *            tag
+    /**
+     * @param tag
+     *        tag
      * @param value
-     *            value */
+     *        value
+     */
     public Clause(String tag, String value) {
         this(tag);
         setValue(value);
     }
 
-    /** @param tag
-     *            tag
+    /**
+     * @param tag
+     *        tag
      * @param value
-     *            value */
+     *        value
+     */
     public Clause(OboFormatTag tag, String value) {
         this(tag.getTag(), value);
     }
 
-    /** default constructor
+    /**
+     * default constructor
      * 
      * @deprecated use Clause(String). Using this constructor makes the hashcode
-     *             variable. */
+     *             variable.
+     */
     @Deprecated
     public Clause() {
         super();
@@ -57,9 +68,11 @@ public class Clause {
         return tag;
     }
 
-    /** @param tag
-     *            tag
-     * @deprecated Using this method makes the hashcode variable. */
+    /**
+     * @param tag
+     *        tag
+     * @deprecated Using this method makes the hashcode variable.
+     */
     @Deprecated
     public void setTag(String tag) {
         this.tag = tag;
@@ -70,22 +83,28 @@ public class Clause {
         return values;
     }
 
-    /** @param values
-     *            values */
+    /**
+     * @param values
+     *        values
+     */
     public void setValues(Collection<Object> values) {
         this.values.clear();
         this.values.addAll(values);
     }
 
-    /** @param v
-     *            v */
+    /**
+     * @param v
+     *        v
+     */
     public void setValue(Object v) {
         values.clear();
         values.add(v);
     }
 
-    /** @param v
-     *            v */
+    /**
+     * @param v
+     *        v
+     */
     public void addValue(Object v) {
         values.add(v);
     }
@@ -99,11 +118,13 @@ public class Clause {
         return value;
     }
 
-    /** @param cls
-     *            cls
+    /**
+     * @param cls
+     *        cls
      * @param <T>
-     *            value type
-     * @return value */
+     *        value type
+     * @return value
+     */
     public <T> T getValue(Class<T> cls) {
         Object value = getValue();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
@@ -123,11 +144,13 @@ public class Clause {
         return value;
     }
 
-    /** @param cls
-     *            cls
+    /**
+     * @param cls
+     *        cls
      * @param <T>
-     *            value type
-     * @return value2 */
+     *        value type
+     * @return value2
+     */
     public <T> T getValue2(Class<T> cls) {
         Object value = getValue2();
         if (value != null && value.getClass().isAssignableFrom(cls)) {
@@ -141,15 +164,19 @@ public class Clause {
         return xrefs;
     }
 
-    /** @param xrefs
-     *            xrefs */
+    /**
+     * @param xrefs
+     *        xrefs
+     */
     public void setXrefs(Collection<Xref> xrefs) {
         this.xrefs.clear();
         this.xrefs.addAll(xrefs);
     }
 
-    /** @param xref
-     *            xref */
+    /**
+     * @param xref
+     *        xref
+     */
     public void addXref(Xref xref) {
         xrefs.add(xref);
     }
@@ -159,15 +186,19 @@ public class Clause {
         return qualifierValues;
     }
 
-    /** @param qualifierValues
-     *            qualifierValues */
+    /**
+     * @param qualifierValues
+     *        qualifierValues
+     */
     public void setQualifierValues(Collection<QualifierValue> qualifierValues) {
         this.qualifierValues.clear();
         this.qualifierValues.addAll(qualifierValues);
     }
 
-    /** @param qv
-     *            qv */
+    /**
+     * @param qv
+     *        qv
+     */
     public void addQualifierValue(QualifierValue qv) {
         qualifierValues.add(qv);
     }

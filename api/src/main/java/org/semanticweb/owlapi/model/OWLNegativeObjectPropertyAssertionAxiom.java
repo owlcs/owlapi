@@ -14,23 +14,28 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents a <a href=
+/**
+ * Represents a <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Negative_Object_Property_Assertions"
  * >NegativeObjectPropertyAssertion</a> axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLNegativeObjectPropertyAssertionAxiom extends
         OWLPropertyAssertionAxiom<OWLObjectPropertyExpression, OWLIndividual>,
         OWLSubClassOfAxiomShortCut {
+
     @Override
     @Nonnull
     OWLNegativeObjectPropertyAssertionAxiom getAxiomWithoutAnnotations();
 
-    /** Determines whether this axiom contains anonymous individuals. Anonymous
+    /**
+     * Determines whether this axiom contains anonymous individuals. Anonymous
      * individuals are not allowed in negative object property assertions.
      * 
-     * @return {@code true} if this axioms contains anonymous individual axioms */
+     * @return {@code true} if this axioms contains anonymous individual axioms
+     */
     boolean containsAnonymousIndividuals();
 }

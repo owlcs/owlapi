@@ -114,14 +114,19 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
+
     private OWLXMLWriter writer;
 
-    /** @param writer
-     *            writer */
+    /**
+     * @param writer
+     *        writer
+     */
     public OWLXMLObjectRenderer(@Nonnull OWLXMLWriter writer) {
         this.writer = checkNotNull(writer, "writer cannot be null");
     }

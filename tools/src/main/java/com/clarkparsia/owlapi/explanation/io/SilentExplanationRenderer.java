@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLException;
 
 /** Null implementation. */
 public class SilentExplanationRenderer implements ExplanationRenderer {
+
     @Override
     public void endRendering() {
         // do nothing

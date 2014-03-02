@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Inverse_Object_Properties"
  * >ObjectInverseOf</a> Represents the inverse of a property expression. This
  * can be used to refer to the inverse of a property, without actually naming
@@ -25,12 +26,16 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLObjectInverseOf extends OWLObjectPropertyExpression {
-    /** Gets the property expression that this is the inverse of.
+
+    /**
+     * Gets the property expression that this is the inverse of.
      * 
      * @return The object property expression such that this object property
-     *         expression is an inverse of it. */
+     *         expression is an inverse of it.
+     */
     @Nonnull
     OWLObjectPropertyExpression getInverse();
 }

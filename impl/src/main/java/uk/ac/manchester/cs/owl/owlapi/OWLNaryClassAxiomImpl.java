@@ -29,18 +29,23 @@ import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final Set<OWLClassExpression> classExpressions;
 
-    /** @param classExpressions
-     *            classes
+    /**
+     * @param classExpressions
+     *        classes
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLNaryClassAxiomImpl(
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

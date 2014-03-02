@@ -27,18 +27,23 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLFunctionalObjectPropertyAxiomImpl extends
         OWLObjectPropertyCharacteristicAxiomImpl implements
         OWLFunctionalObjectPropertyAxiom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLFunctionalObjectPropertyAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

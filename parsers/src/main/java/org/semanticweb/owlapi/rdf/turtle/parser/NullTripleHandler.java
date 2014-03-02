@@ -14,12 +14,15 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** The Class NullTripleHandler.
+/**
+ * The Class NullTripleHandler.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class NullTripleHandler implements TripleHandler {
+
     @Override
     public void handlePrefixDirective(String prefixName, String prefix) {}
 

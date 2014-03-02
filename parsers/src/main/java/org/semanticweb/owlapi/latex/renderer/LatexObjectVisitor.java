@@ -21,14 +21,17 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** NOTE: this class was not designed as a general purpose renderer, i.e., some
+/**
+ * NOTE: this class was not designed as a general purpose renderer, i.e., some
  * ontologies might be misrepresented in the output. Please report any
  * formatting error you find to the bug tracker or the mailing list.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class LatexObjectVisitor implements OWLObjectVisitor {
+
     //@formatter:off
         /** AND */      private static final String AND     = "\\ensuremath{\\sqcap}";
     /** OR */           public static final String OR       = "\\ensuremath{\\sqcup}";
@@ -53,10 +56,12 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
     private OWLDataFactory df;
     private ShortFormProvider shortFormProvider;
 
-    /** @param writer
-     *            writer
+    /**
+     * @param writer
+     *        writer
      * @param df
-     *            data factory */
+     *        data factory
+     */
     public LatexObjectVisitor(LatexWriter writer, OWLDataFactory df) {
         this.writer = writer;
         this.df = df;
@@ -64,14 +69,18 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         subject = df.getOWLThing();
     }
 
-    /** @param subject
-     *            subject */
+    /**
+     * @param subject
+     *        subject
+     */
     public void setSubject(OWLObject subject) {
         this.subject = subject;
     }
 
-    /** @param shortFormProvder
-     *            shortFormProvder */
+    /**
+     * @param shortFormProvder
+     *        shortFormProvder
+     */
     public void setShortFormProvider(ShortFormProvider shortFormProvder) {
         shortFormProvider = shortFormProvder;
     }
@@ -97,8 +106,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         return prettyPrint;
     }
 
-    /** @param prettyPrint
-     *            prettyPrint */
+    /**
+     * @param prettyPrint
+     *        prettyPrint
+     */
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
     }
@@ -559,8 +570,10 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         df.getOWLObjectMaxCardinality(1, axiom.getProperty()).accept(this);
     }
 
-    /** @param axiom
-     *            the axiom */
+    /**
+     * @param axiom
+     *        the axiom
+     */
     public void visit(OWLImportsDeclaration axiom) {
         write("ImportsDeclaration");
         axiom.getIRI().accept(this);
@@ -915,10 +928,13 @@ public class LatexObjectVisitor implements OWLObjectVisitor {
         axiom.getSuperProperty().accept(this);
     }
 
-    /** @param value
-     *            value */
+    /**
+     * @param value
+     *        value
+     */
     public void visit(OWLAnnotationValue value) {
         value.accept(new OWLAnnotationValueVisitor() {
+
             @Override
             public void visit(IRI iri) {
                 iri.accept(LatexObjectVisitor.this);

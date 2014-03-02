@@ -23,18 +23,23 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLObjectPropertyCharacteristicAxiomImpl extends
         OWLPropertyAxiomImpl implements OWLObjectPropertyCharacteristicAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLObjectPropertyExpression property;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLObjectPropertyCharacteristicAxiomImpl(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {

@@ -28,10 +28,13 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleShortFormProvider;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
+
     private static final long serialVersionUID = 40000L;
     protected ShortFormProvider sfp = new SimpleShortFormProvider();
 
@@ -44,6 +47,7 @@ public class DLSyntaxHTMLOntologyStorer extends DLSyntaxOntologyStorerBase {
     protected String getRendering(final OWLEntity subject, OWLAxiom axiom) {
         checkNotNull(axiom, "axiom cannot be null");
         DLSyntaxObjectRenderer ren = new DLSyntaxObjectRenderer() {
+
             @Override
             protected String renderEntity(OWLEntity entity) {
                 String shortForm = sfp.getShortForm(checkNotNull(entity,

@@ -10,6 +10,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 @SuppressWarnings("javadoc")
 public class GetLoadedOntologyTest {
+
     @Test
     public void testConvert() throws Exception {
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

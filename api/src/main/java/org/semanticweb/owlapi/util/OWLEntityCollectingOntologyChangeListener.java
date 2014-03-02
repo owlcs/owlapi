@@ -22,14 +22,17 @@ import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
-/** A convenience class which is an ontology change listener which collects the
+/**
+ * A convenience class which is an ontology change listener which collects the
  * entities which are referenced in a set of ontology changes.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLEntityCollectingOntologyChangeListener implements
         OWLOntologyChangeListener {
+
     private final Set<OWLEntity> entities = new HashSet<OWLEntity>();
 
     @Override
@@ -45,10 +48,12 @@ public abstract class OWLEntityCollectingOntologyChangeListener implements
         ontologiesChanged();
     }
 
-    /** Called when a set of changes have been applied.
+    /**
+     * Called when a set of changes have been applied.
      * 
      * @throws OWLException
-     *             if there is any exception */
+     *         if there is any exception
+     */
     public abstract void ontologiesChanged() throws OWLException;
 
     /** @return the entities which were referenced in the last change set. */

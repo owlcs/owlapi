@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.util.SimpleRenderer;
 
 /** Explanation renderer in concise form. */
 public class ConciseExplanationRenderer implements ExplanationRenderer {
+
     /** The Constant INDENT. */
     private static final String INDENT = "   ";
     /** The renderer. */

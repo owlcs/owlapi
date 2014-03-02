@@ -16,53 +16,68 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represent a rule. A rule consists of a head and a body. Both the head and the
+/**
+ * Represent a rule. A rule consists of a head and a body. Both the head and the
  * body consist of a conjunction of atoms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLRule extends OWLLogicalAxiom, SWRLObject {
-    /** Gets the atoms in the body of the rule.
+
+    /**
+     * Gets the atoms in the body of the rule.
      * 
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the body
-     *         of the rule. */
+     *         of the rule.
+     */
     @Nonnull
     Set<SWRLAtom> getBody();
 
-    /** Gets the atoms in the head of the rule.
+    /**
+     * Gets the atoms in the head of the rule.
      * 
      * @return A set of {@code SWRLAtom}s, which represent the atoms in the head
-     *         of the rule */
+     *         of the rule
+     */
     @Nonnull
     Set<SWRLAtom> getHead();
 
-    /** If this rule contains atoms that have predicates that are inverse object
+    /**
+     * If this rule contains atoms that have predicates that are inverse object
      * properties, then this method creates and returns a rule where the
      * arguments of these atoms are fliped over and the predicate is the inverse
      * (simplified) property.
      * 
      * @return The rule such that any atoms of the form inverseOf(p)(x, y) are
-     *         transformed to p(x, y). */
+     *         transformed to p(x, y).
+     */
     @Nonnull
     SWRLRule getSimplified();
 
-    /** Gets the variables that appear in this rule.
+    /**
+     * Gets the variables that appear in this rule.
      * 
-     * @return A set of variables. */
+     * @return A set of variables.
+     */
     @Nonnull
     Set<SWRLVariable> getVariables();
 
-    /** Determines if this rule uses anonymous class expressions in class atoms.
+    /**
+     * Determines if this rule uses anonymous class expressions in class atoms.
      * 
      * @return {@code true} if this rule contains anonymous class expression in
-     *         class atoms, otherwise {@code false}. */
+     *         class atoms, otherwise {@code false}.
+     */
     boolean containsAnonymousClassExpressions();
 
-    /** Gets the predicates of class atoms.
+    /**
+     * Gets the predicates of class atoms.
      * 
      * @return A set of class expressions that represent the class class
-     *         expressions that are predicates of class atoms. */
+     *         expressions that are predicates of class atoms.
+     */
     @Nonnull
     Set<OWLClassExpression> getClassAtomPredicates();
 

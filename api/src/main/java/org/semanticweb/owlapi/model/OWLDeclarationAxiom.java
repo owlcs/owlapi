@@ -14,7 +14,8 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Entity_Declarations_and_Typing"
  * >Declaration</a> in the OWL 2 Specification. <br>
  * A declaration axiom declares an entity in an ontology. It doesn't affect the
@@ -22,8 +23,10 @@ import javax.annotation.Nonnull;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLDeclarationAxiom extends OWLAxiom {
+
     /** @return The entity that is declared by this axiom. */
     @Nonnull
     OWLEntity getEntity();

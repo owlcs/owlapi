@@ -17,7 +17,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.vocab.Namespaces;
 
-/** A configuration object that specifies options and hints to objects that load
+/**
+ * A configuration object that specifies options and hints to objects that load
  * OWLOntologies. Every {@code OWLOntologyLoaderConfiguration} is immutable.
  * Changing a setting results in the creation of a new
  * {@code OWLOntologyLoaderConfiguration} with that setting. For example,
@@ -32,8 +33,10 @@ import org.semanticweb.owlapi.vocab.Namespaces;
  * 
  * @author Matthew Horridge, The University of Manchester, Bio-Health
  *         Informatics Group
- * @since 3.2.0 */
+ * @since 3.2.0
+ */
 public final class OWLOntologyLoaderConfiguration {
+
     /** strategies to cope with missing headers */
     public enum MissingOntologyHeaderStrategy {
         /** include triples */
@@ -59,9 +62,11 @@ public final class OWLOntologyLoaderConfiguration {
         return missingOntologyHeaderStrategy;
     }
 
-    /** @param missingOntologyHeaderStrategy
-     *            new value
-     * @return a copy of this configuration object with a different strategy */
+    /**
+     * @param missingOntologyHeaderStrategy
+     *        new value
+     * @return a copy of this configuration object with a different strategy
+     */
     public OWLOntologyLoaderConfiguration setMissingOntologyHeaderStrategy(
             MissingOntologyHeaderStrategy missingOntologyHeaderStrategy) {
         // do not make copies if setting the same value
@@ -73,17 +78,19 @@ public final class OWLOntologyLoaderConfiguration {
         return copy;
     }
 
-    /** Specifies whether or not annotation axioms (instances of
+    /**
+     * Specifies whether or not annotation axioms (instances of
      * {@code OWLAnnotationAxiom}) should be loaded or whether they should be
      * discarded on loading. By default, the loading of annotation axioms is
      * enabled.
      * 
      * @param b
-     *            {@code true} if annotation axioms should be loaded, or
-     *            {@code false} if annotation axioms should not be loaded and
-     *            should be discarded on loading.
+     *        {@code true} if annotation axioms should be loaded, or
+     *        {@code false} if annotation axioms should not be loaded and should
+     *        be discarded on loading.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the option
-     *         set. */
+     *         set.
+     */
     public OWLOntologyLoaderConfiguration setLoadAnnotationAxioms(boolean b) {
         // do not make copies if setting the same value
         if (loadAnnotations == b) {
@@ -94,18 +101,21 @@ public final class OWLOntologyLoaderConfiguration {
         return copy;
     }
 
-    /** Determines whether or not annotation axioms (instances of
+    /**
+     * Determines whether or not annotation axioms (instances of
      * {@code OWLAnnotationAxiom}) should be loaded. By default, the loading of
      * annotation axioms is enabled.
      * 
      * @return {@code true} if annotation assertions will be loaded, or
      *         {@code false} if annotation assertions will not be loaded because
-     *         they will be discarded on loading. */
+     *         they will be discarded on loading.
+     */
     public boolean isLoadAnnotationAxioms() {
         return loadAnnotations;
     }
 
-    /** When loading an ontology, a parser might connect to a remote URL. If the
+    /**
+     * When loading an ontology, a parser might connect to a remote URL. If the
      * remote URL is a 302 redirect and the protocol is different, e.g., http to
      * https, the parser needs to decide whether to follow the redirect and
      * download the ontology from an alternate source, or stop with an
@@ -115,7 +125,8 @@ public final class OWLOntologyLoaderConfiguration {
      * redirects).
      * 
      * @return true if redirects should be followed when importing ontologies
-     *         from remote URLs */
+     *         from remote URLs
+     */
     public boolean isFollowRedirects() {
         return followRedirects;
     }
@@ -125,10 +136,12 @@ public final class OWLOntologyLoaderConfiguration {
         return acceptHTTPCompression;
     }
 
-    /** @param b
-     *            true if HTTP compression should be accepted
+    /**
+     * @param b
+     *        true if HTTP compression should be accepted
      * @return a copy of this configuration with accepting HTTP compression set
-     *         to the new value */
+     *         to the new value
+     */
     public OWLOntologyLoaderConfiguration
             setAcceptingHTTPCompression(boolean b) {
         // do not make copies if setting the same value
@@ -140,11 +153,13 @@ public final class OWLOntologyLoaderConfiguration {
         return copy;
     }
 
-    /** @param value
-     *            true if redirects should be followed across protocols, false
-     *            otherwise.
+    /**
+     * @param value
+     *        true if redirects should be followed across protocols, false
+     *        otherwise.
      * @return a copy of the current object with followRedirects set to the new
-     *         value. */
+     *         value.
+     */
     public OWLOntologyLoaderConfiguration setFollowRedirects(boolean value) {
         // as the objects are immutable, setting to the same value returns the
         // same object
@@ -156,15 +171,17 @@ public final class OWLOntologyLoaderConfiguration {
         return copy;
     }
 
-    /** Sets the strategy that is used for missing imports handling. See
+    /**
+     * Sets the strategy that is used for missing imports handling. See
      * {@link MissingImportHandlingStrategy} for the strategies and their
      * descriptions.
      * 
      * @param missingImportHandlingStrategy
-     *            The strategy to be used.
+     *        The strategy to be used.
      * @return An {@code OWLOntologyLoaderConfiguration} object with the
      *         strategy set.
-     * @since 3.3 */
+     * @since 3.3
+     */
     public OWLOntologyLoaderConfiguration setMissingImportHandlingStrategy(
             MissingImportHandlingStrategy missingImportHandlingStrategy) {
         // do not make copies if setting the same value
@@ -176,11 +193,13 @@ public final class OWLOntologyLoaderConfiguration {
         return copy;
     }
 
-    /** Gets the strategy used for missing imports.
+    /**
+     * Gets the strategy used for missing imports.
      * 
      * @return The strategy. See {@link MissingImportHandlingStrategy} for the
      *         strategies and their descriptions.
-     * @since 3.3 */
+     * @since 3.3
+     */
     public MissingImportHandlingStrategy getMissingImportHandlingStrategy() {
         return missingImportHandlingStrategy;
     }
@@ -190,9 +209,11 @@ public final class OWLOntologyLoaderConfiguration {
         return strict;
     }
 
-    /** @param strict
-     *            new value for strict
-     * @return copy of the configuration with new strict value */
+    /**
+     * @param strict
+     *        new value for strict
+     * @return copy of the configuration with new strict value
+     */
     public OWLOntologyLoaderConfiguration setStrict(boolean strict) {
         // do not make copies if setting the same value
         if (this.strict == strict) {
@@ -203,22 +224,26 @@ public final class OWLOntologyLoaderConfiguration {
         return copy;
     }
 
-    /** @param iri
-     *            iri to check
-     * @return true if iri should be ignored */
+    /**
+     * @param iri
+     *        iri to check
+     * @return true if iri should be ignored
+     */
     public boolean isIgnoredImport(IRI iri) {
         return Namespaces.isDefaultIgnoredImport(iri)
                 || ignoredImports.contains(iri);
     }
 
-    /** Adds an ontology document IRI to the list of ontology imports that will
+    /**
+     * Adds an ontology document IRI to the list of ontology imports that will
      * be ignored during ontology loading.
      * 
      * @param ontologyDocumentIRI
-     *            The ontology document IRI that will be ignored if it is
-     *            encountered as an imported ontology during loading.
+     *        The ontology document IRI that will be ignored if it is
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
-     *         ontology document IRI set. */
+     *         ontology document IRI set.
+     */
     public OWLOntologyLoaderConfiguration addIgnoredImport(
             IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
@@ -226,14 +251,16 @@ public final class OWLOntologyLoaderConfiguration {
         return configuration;
     }
 
-    /** Removes an ontology document IRI from the list of ontology imports that
+    /**
+     * Removes an ontology document IRI from the list of ontology imports that
      * will be ignored during ontology loading.
      * 
      * @param ontologyDocumentIRI
-     *            The ontology document IRI that would be ignored if it is
-     *            encountered as an imported ontology during loading.
+     *        The ontology document IRI that would be ignored if it is
+     *        encountered as an imported ontology during loading.
      * @return An {@code OWLOntologyLoaderConfiguration} with the ignored
-     *         ontology document IRI removed. */
+     *         ontology document IRI removed.
+     */
     public OWLOntologyLoaderConfiguration removeIgnoredImport(
             IRI ontologyDocumentIRI) {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
@@ -241,25 +268,29 @@ public final class OWLOntologyLoaderConfiguration {
         return configuration;
     }
 
-    /** Clears all ontology document IRIs from the list of ignored ontology
+    /**
+     * Clears all ontology document IRIs from the list of ignored ontology
      * document IRIs.
      * 
      * @return An {@code OWLOntologyLoaderConfiguration} with the list of
-     *         ignored ontology document IRIs set to be empty. */
+     *         ignored ontology document IRIs set to be empty.
+     */
     public OWLOntologyLoaderConfiguration clearIgnoredImports() {
         OWLOntologyLoaderConfiguration configuration = copyConfiguration();
         configuration.ignoredImports.clear();
         return configuration;
     }
 
-    /** Set the value for the report stack traces flag. If true, parsing
+    /**
+     * Set the value for the report stack traces flag. If true, parsing
      * exceptions will have the full stack trace for the source exceptions.
      * Default is false.
      * 
      * @param b
-     *            the new value for the flag
+     *        the new value for the flag
      * @return A {@code OWLOntologyLoaderConfiguration} with the report flag set
-     *         to the new value. */
+     *         to the new value.
+     */
     public OWLOntologyLoaderConfiguration setReportStackTraces(boolean b) {
         if (b == reportStackTraces) {
             return this;
@@ -279,12 +310,13 @@ public final class OWLOntologyLoaderConfiguration {
         return connectionTimeout;
     }
 
-    /** @param l
-     *            new timeout Note: the timeout is an int and represents
-     *            milliseconds. This is necessary for use in
-     *            {@code URLConnection}
+    /**
+     * @param l
+     *        new timeout Note: the timeout is an int and represents
+     *        milliseconds. This is necessary for use in {@code URLConnection}
      * @return A {@code OWLOntologyLoaderConfiguration} with the connection
-     *         timeout set to the new value. */
+     *         timeout set to the new value.
+     */
     public OWLOntologyLoaderConfiguration setConnectionTimeout(int l) {
         if (l == connectionTimeout) {
             return this;
@@ -294,9 +326,11 @@ public final class OWLOntologyLoaderConfiguration {
         return configuration;
     }
 
-    /** Internally copies this configuaration object.
+    /**
+     * Internally copies this configuaration object.
      * 
-     * @return The copied configuration */
+     * @return The copied configuration
+     */
     private OWLOntologyLoaderConfiguration copyConfiguration() {
         OWLOntologyLoaderConfiguration copy = new OWLOntologyLoaderConfiguration();
         copy.loadAnnotations = loadAnnotations;

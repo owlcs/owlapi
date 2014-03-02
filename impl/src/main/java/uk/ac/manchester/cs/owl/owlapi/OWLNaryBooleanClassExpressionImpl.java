@@ -26,17 +26,22 @@ import org.semanticweb.owlapi.model.OWLNaryBooleanClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLNaryBooleanClassExpressionImpl extends
         OWLAnonymousClassExpressionImpl implements
         OWLNaryBooleanClassExpression {
+
     private static final long serialVersionUID = 40000L;
     private final Set<OWLClassExpression> operands;
 
-    /** @param operands
-     *            operands */
+    /**
+     * @param operands
+     *        operands
+     */
     public OWLNaryBooleanClassExpressionImpl(
             @Nonnull Set<? extends OWLClassExpression> operands) {
         this.operands = new TreeSet<OWLClassExpression>(checkNotNull(operands,

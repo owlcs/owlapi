@@ -32,17 +32,22 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLSameIndividualAxiomImpl extends OWLNaryIndividualAxiomImpl
         implements OWLSameIndividualAxiom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param individuals
-     *            individuals
+    /**
+     * @param individuals
+     *        individuals
      * @param annotations
-     *            annotations on the axiom */
+     *        annotations on the axiom
+     */
     public OWLSameIndividualAxiomImpl(
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Set<? extends OWLAnnotation> annotations) {

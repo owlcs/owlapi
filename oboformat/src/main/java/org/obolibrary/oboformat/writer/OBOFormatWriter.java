@@ -33,10 +33,13 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 
-/** The Class OBOFormatWriter.
+/**
+ * The Class OBOFormatWriter.
  * 
- * @author Shahid Manzoor */
+ * @author Shahid Manzoor
+ */
 public class OBOFormatWriter {
+
     private static Logger LOG = Logger.getLogger(OBOFormatWriter.class
             .getName());
     private static HashSet<String> tagsInformative = buildTagsInformative();
@@ -47,8 +50,10 @@ public class OBOFormatWriter {
         return isCheckStructure;
     }
 
-    /** @param isCheckStructure
-     *            the new check structure */
+    /**
+     * @param isCheckStructure
+     *        the new check structure
+     */
     public void setCheckStructure(boolean isCheckStructure) {
         this.isCheckStructure = isCheckStructure;
     }
@@ -75,14 +80,16 @@ public class OBOFormatWriter {
         return set;
     }
 
-    /** @param fn
-     *            the file name to read in
+    /**
+     * @param fn
+     *        the file name to read in
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred.
+     *         Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
-     *             the oBO format parser exception */
+     *         the oBO format parser exception
+     */
     public void write(String fn, BufferedWriter writer) throws IOException,
             OBOFormatParserException {
         if (fn.startsWith("http:")) {
@@ -94,16 +101,18 @@ public class OBOFormatWriter {
         }
     }
 
-    /** Write.
+    /**
+     * Write.
      * 
      * @param url
-     *            the url
+     *        the url
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred.
+     *         Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
-     *             the oBO format parser exception */
+     *         the oBO format parser exception
+     */
     public void write(URL url, BufferedWriter writer) throws IOException,
             OBOFormatParserException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -111,14 +120,16 @@ public class OBOFormatWriter {
         write(reader, writer);
     }
 
-    /** @param reader
-     *            the reader
+    /**
+     * @param reader
+     *        the reader
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred.
+     *         Signals that an I/O exception has occurred.
      * @throws OBOFormatParserException
-     *             the oBO format parser exception */
+     *         the oBO format parser exception
+     */
     public void write(BufferedReader reader, BufferedWriter writer)
             throws IOException, OBOFormatParserException {
         OBOFormatParser parser = new OBOFormatParser();
@@ -126,12 +137,14 @@ public class OBOFormatWriter {
         write(doc, writer);
     }
 
-    /** @param doc
-     *            the doc
+    /**
+     * @param doc
+     *        the doc
      * @param outFile
-     *            the out file
+     *        the out file
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void write(OBODoc doc, String outFile) throws IOException {
         FileOutputStream os = new FileOutputStream(new File(outFile));
         OutputStreamWriter osw = new OutputStreamWriter(os,
@@ -141,25 +154,29 @@ public class OBOFormatWriter {
         bw.close();
     }
 
-    /** @param doc
-     *            the doc
+    /**
+     * @param doc
+     *        the doc
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void write(OBODoc doc, BufferedWriter writer) throws IOException {
         NameProvider nameProvider = new OBODocNameProvider(doc);
         write(doc, writer, nameProvider);
     }
 
-    /** @param doc
-     *            the doc
+    /**
+     * @param doc
+     *        the doc
      * @param writer
-     *            the writer
+     *        the writer
      * @param nameProvider
-     *            the name provider
+     *        the name provider
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void write(OBODoc doc, BufferedWriter writer,
             NameProvider nameProvider) throws IOException {
         if (isCheckStructure) {
@@ -209,16 +226,18 @@ public class OBOFormatWriter {
         return tags;
     }
 
-    /** Write header.
+    /**
+     * Write header.
      * 
      * @param frame
-     *            the frame
+     *        the frame
      * @param writer
-     *            the writer
+     *        the writer
      * @param nameProvider
-     *            the name provider
+     *        the name provider
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void writeHeader(Frame frame, BufferedWriter writer,
             NameProvider nameProvider) throws IOException {
         List<String> tags = duplicateTags(frame.getTags());
@@ -250,14 +269,16 @@ public class OBOFormatWriter {
         writeEmptyLine(writer);
     }
 
-    /** @param frame
-     *            the frame
+    /**
+     * @param frame
+     *        the frame
      * @param writer
-     *            the writer
+     *        the writer
      * @param nameProvider
-     *            the name provider
+     *        the name provider
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void write(Frame frame, BufferedWriter writer,
             NameProvider nameProvider) throws IOException {
         Comparator<String> comparator = null;
@@ -505,27 +526,31 @@ public class OBOFormatWriter {
         sb.append("]");
     }
 
-    /** Write def.
+    /**
+     * Write def.
      * 
      * @param clause
-     *            the clause
+     *        the clause
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void writeDef(Clause clause, BufferedWriter writer)
             throws IOException {
         writeClauseWithQuotedString(clause, writer);
     }
 
-    /** Write property value.
+    /**
+     * Write property value.
      * 
      * @param clause
-     *            the clause
+     *        the clause
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void writePropertyValue(Clause clause, BufferedWriter writer)
             throws IOException {
         Collection<?> cols = clause.getValues();
@@ -561,14 +586,16 @@ public class OBOFormatWriter {
         writeLine(sb, writer);
     }
 
-    /** Write synonym.
+    /**
+     * Write synonym.
      * 
      * @param clause
-     *            the clause
+     *        the clause
      * @param writer
-     *            the writer
+     *        the writer
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void writeSynonym(Clause clause, BufferedWriter writer)
             throws IOException {
         Collection<Xref> xrefs = clause.getXrefs();
@@ -580,16 +607,18 @@ public class OBOFormatWriter {
         writeClauseWithQuotedString(clause, writer);
     }
 
-    /** Write.
+    /**
+     * Write.
      * 
      * @param clause
-     *            the clause
+     *        the clause
      * @param writer
-     *            the writer
+     *        the writer
      * @param nameProvider
-     *            the name provider
+     *        the name provider
      * @throws IOException
-     *             Signals that an I/O exception has occurred. */
+     *         Signals that an I/O exception has occurred.
+     */
     public void write(Clause clause, BufferedWriter writer,
             NameProvider nameProvider) throws IOException {
         if (OboFormatTag.TAG_IS_OBSELETE.getTag().equals(clause.getTag())) {
@@ -765,6 +794,7 @@ public class OBOFormatWriter {
 
     /** The Class HeaderTagsComparator. */
     private static class HeaderTagsComparator implements Comparator<String> {
+
         static final HeaderTagsComparator instance = new HeaderTagsComparator();
         private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
 
@@ -811,6 +841,7 @@ public class OBOFormatWriter {
 
     /** The Class TermsTagsComparator. */
     private static class TermsTagsComparator implements Comparator<String> {
+
         static final TermsTagsComparator instance = new TermsTagsComparator();
         private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
 
@@ -860,6 +891,7 @@ public class OBOFormatWriter {
     /** The Class ClauseListComparator. */
     private static final class ClauseListComparator implements
             Comparator<Clause> {
+
         protected static final ClauseListComparator instance = new ClauseListComparator();
 
         @Override
@@ -874,17 +906,20 @@ public class OBOFormatWriter {
         }
     }
 
-    /** Sort a list of term frame clauses according to in the OBO format
+    /**
+     * Sort a list of term frame clauses according to in the OBO format
      * specified tag and value order.
      * 
      * @param clauses
-     *            the clauses */
+     *        the clauses
+     */
     public static void sortTermClauses(List<Clause> clauses) {
         Collections.sort(clauses, ClauseListComparator.instance);
     }
 
     /** The Class TypeDefTagsComparator. */
     private static class TypeDefTagsComparator implements Comparator<String> {
+
         static final TypeDefTagsComparator instance = new TypeDefTagsComparator();
         private static Hashtable<String, Integer> tagsPriorities = buildTagsPriorities();
 
@@ -950,6 +985,7 @@ public class OBOFormatWriter {
 
     /** The Class FramesComparator. */
     private static class FramesComparator implements Comparator<Frame> {
+
         static final FramesComparator instance = new FramesComparator();
 
         @Override
@@ -958,9 +994,12 @@ public class OBOFormatWriter {
         }
     }
 
-    /** This comparator sorts clauses with the same tag in the specified write
-     * order. */
+    /**
+     * This comparator sorts clauses with the same tag in the specified write
+     * order.
+     */
     private static class ClauseComparator implements Comparator<Clause> {
+
         static final ClauseComparator instance = new ClauseComparator();
 
         @Override
@@ -985,13 +1024,15 @@ public class OBOFormatWriter {
             return compareValues(o1.getValue2(), o2.getValue2());
         }
 
-        /** Compare values.
+        /**
+         * Compare values.
          * 
          * @param o1
-         *            the o1
+         *        the o1
          * @param o2
-         *            the o2
-         * @return the int */
+         *        the o2
+         * @return the int
+         */
         private int compareValues(Object o1, Object o2) {
             String s1 = toStringRepresentation(o1);
             String s2 = toStringRepresentation(o2);
@@ -1014,9 +1055,11 @@ public class OBOFormatWriter {
             return comp;
         }
 
-        /** @param obj
-         *            the obj
-         * @return toString representation */
+        /**
+         * @param obj
+         *        the obj
+         * @return toString representation
+         */
         private String toStringRepresentation(Object obj) {
             String s = null;
             if (obj != null) {
@@ -1035,6 +1078,7 @@ public class OBOFormatWriter {
 
     /** The Class XrefComparator. */
     private static class XrefComparator implements Comparator<Xref> {
+
         static final XrefComparator instance = new XrefComparator();
 
         @Override
@@ -1054,33 +1098,45 @@ public class OBOFormatWriter {
         }
     }
 
-    /** Provide names for given OBO identifiers. This abstraction layer allows to
-     * find names from different sources, including {@link OBODoc}. */
+    /**
+     * Provide names for given OBO identifiers. This abstraction layer allows to
+     * find names from different sources, including {@link OBODoc}.
+     */
     public interface NameProvider {
-        /** Try to retrieve the valid name for the given identifier. If not
+
+        /**
+         * Try to retrieve the valid name for the given identifier. If not
          * available return null.
          * 
          * @param id
-         *            identifier
-         * @return name or null */
+         *        identifier
+         * @return name or null
+         */
         String getName(String id);
 
-        /** Retrieve the default OBO namespace.
+        /**
+         * Retrieve the default OBO namespace.
          * 
-         * @return default OBO namespace or null */
+         * @return default OBO namespace or null
+         */
         String getDefaultOboNamespace();
     }
 
-    /** Default implementation of a {@link NameProvider} using an underlying.
-     * {@link OBODoc}. */
+    /**
+     * Default implementation of a {@link NameProvider} using an underlying.
+     * {@link OBODoc}.
+     */
     public static class OBODocNameProvider implements NameProvider {
+
         private final OBODoc oboDoc;
         private final String defaultOboNamespace;
 
-        /** Instantiates a new OBO doc name provider.
+        /**
+         * Instantiates a new OBO doc name provider.
          * 
          * @param oboDoc
-         *            the obo doc */
+         *        the obo doc
+         */
         public OBODocNameProvider(OBODoc oboDoc) {
             super();
             this.oboDoc = oboDoc;

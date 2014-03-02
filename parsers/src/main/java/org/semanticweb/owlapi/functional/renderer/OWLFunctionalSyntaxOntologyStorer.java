@@ -26,12 +26,15 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @HasPriority(value = 2)
 public class OWLFunctionalSyntaxOntologyStorer extends
         AbstractOWLOntologyStorer {
+
     private static final long serialVersionUID = 40000L;
 
     @Override

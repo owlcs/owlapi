@@ -14,12 +14,17 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import org.semanticweb.owlapi.model.IRI;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public interface IRIProvider {
-    /** @param s
-     *            input String
-     * @return iri */
+
+    /**
+     * @param s
+     *        input String
+     * @return iri
+     */
     IRI getIRI(String s);
 }

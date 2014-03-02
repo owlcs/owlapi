@@ -18,16 +18,21 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLAxiomChange extends OWLOntologyChange<OWLAxiom> {
+
     private final OWLAxiom axiom;
 
-    /** @param ont
-     *            the ontology to which the change is to be applied
+    /**
+     * @param ont
+     *        the ontology to which the change is to be applied
      * @param axiom
-     *            the axiom to be changed */
+     *        the axiom to be changed
+     */
     public OWLAxiomChange(@Nonnull OWLOntology ont, @Nonnull OWLAxiom axiom) {
         super(ont);
         this.axiom = checkNotNull(axiom, "axiom cannot be null");

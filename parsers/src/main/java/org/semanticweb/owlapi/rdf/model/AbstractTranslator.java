@@ -31,33 +31,38 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-/** An abstract translator that can produce an RDF graph from an OWLOntology.
+/**
+ * An abstract translator that can produce an RDF graph from an OWLOntology.
  * Subclasses must provide implementations to create concrete representations of
  * resources, triples etc.
  * 
  * @param <NODE>
- *            the basic node
+ *        the basic node
  * @param <RESOURCE>
- *            a resource node
+ *        a resource node
  * @param <PREDICATE>
- *            a predicate node
+ *        a predicate node
  * @param <LITERAL>
- *            a literal node
+ *        a literal node
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE extends NODE, LITERAL extends NODE>
         implements OWLObjectVisitor, SWRLObjectVisitor {
+
     private OWLOntologyManager manager;
     private OWLOntology ontology;
     private boolean useStrongTyping = true;
 
-    /** @param manager
-     *            the manager
+    /**
+     * @param manager
+     *        the manager
      * @param ontology
-     *            the ontology
+     *        the ontology
      * @param useStrongTyping
-     *            true if strong typing should be used */
+     *        true if strong typing should be used
+     */
     public AbstractTranslator(@Nonnull OWLOntologyManager manager,
             @Nonnull OWLOntology ontology, boolean useStrongTyping) {
         this.ontology = checkNotNull(ontology, "ontology cannot be null");
@@ -152,12 +157,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     // //
     // ///////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////
-    /** Add type triples and the owl:onProperty triples for an OWLRestriction.
+    /**
+     * Add type triples and the owl:onProperty triples for an OWLRestriction.
      * 
      * @param desc
-     *            The restriction
+     *        The restriction
      * @param property
-     *            property */
+     *        property
+     */
     private
             <R extends OWLPropertyRange, P extends OWLPropertyExpression, F extends OWLPropertyRange>
             void addRestrictionCommonTriplePropertyRange(OWLRestriction desc,
@@ -830,7 +837,8 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
                 getNode(obj));
     }
 
-    /** Adds the representation of an axiom to the RDF graph where the axiom has
+    /**
+     * Adds the representation of an axiom to the RDF graph where the axiom has
      * a SINGLE MAIN TRIPLE (specified by the subject, predicate, object
      * parameters). The triple specified by the subject, predicate and object
      * parameters will be added to the graph. If the axiom has any annotations
@@ -841,14 +849,15 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
      * the annotations.
      * 
      * @param ax
-     *            The axiom that the triple specified as subject, pred, obj
-     *            represents.
+     *        The axiom that the triple specified as subject, pred, obj
+     *        represents.
      * @param subject
-     *            The subject of the triple representing the axiom
+     *        The subject of the triple representing the axiom
      * @param predicate
-     *            The predicate of the triple representing the axiom
+     *        The predicate of the triple representing the axiom
      * @param object
-     *            The object of the triple representing the axiom */
+     *        The object of the triple representing the axiom
+     */
     private void addSingleTripleAxiom(OWLAxiom ax, RESOURCE subject,
             PREDICATE predicate, NODE object) {
         // Base triple
@@ -877,13 +886,15 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
-    /** Translates an annotation on a given subject. This method implements the
+    /**
+     * Translates an annotation on a given subject. This method implements the
      * TANN(ann, y) translation in the spec
      * 
      * @param subject
-     *            The subject of the annotation
+     *        The subject of the annotation
      * @param annotation
-     *            The annotation */
+     *        The annotation
+     */
     private void
             translateAnnotation(OWLObject subject, OWLAnnotation annotation) {
         // We first add the base triple
@@ -925,22 +936,25 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         nodeMap.put(object, getAnonymousNode(object));
     }
 
-    /** Gets a resource that has a IRI.
+    /**
+     * Gets a resource that has a IRI.
      * 
      * @param IRI
-     *            The IRI of the resource
-     * @return The resource with the specified IRI */
+     *        The IRI of the resource
+     * @return The resource with the specified IRI
+     */
     protected abstract RESOURCE getResourceNode(IRI IRI);
 
     protected abstract PREDICATE getPredicateNode(IRI IRI);
 
-    /** Gets an anonymous resource.
+    /**
+     * Gets an anonymous resource.
      * 
      * @param key
-     *            A key for the resource. For a given key identity, the
-     *            resources that are returned should be equal and have the same
-     *            hashcode.
-     * @return The resource */
+     *        A key for the resource. For a given key identity, the resources
+     *        that are returned should be equal and have the same hashcode.
+     * @return The resource
+     */
     protected abstract RESOURCE getAnonymousNode(Object key);
 
     protected abstract LITERAL getLiteralNode(OWLLiteral literal);
@@ -1096,20 +1110,21 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         }
     }
 
-    /** Renders a set of class expressions in a pairwise manner using the
+    /**
+     * Renders a set of class expressions in a pairwise manner using the
      * specified IRI. It is assumed that the relationship described by the IRI
      * (e.g. disjointWith) is symmetric. The method delegates to the
      * {@code addPairwise} method after sorting the class expressions so that
      * named classes appear first.
      * 
      * @param axiom
-     *            The axiom which will dictate which axiom annotation get
-     *            rendered
+     *        The axiom which will dictate which axiom annotation get rendered
      * @param classExpressions
-     *            The set of class expressions to be rendered.
+     *        The set of class expressions to be rendered.
      * @param IRI
-     *            The IRI which describes the relationship between pairs of
-     *            class expressions. */
+     *        The IRI which describes the relationship between pairs of class
+     *        expressions.
+     */
     private void addPairwiseClassExpressions(OWLAxiom axiom,
             Set<OWLClassExpression> classExpressions, IRI IRI) {
         List<OWLClassExpression> classExpressionList = new ArrayList<OWLClassExpression>(
@@ -1117,12 +1132,14 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
         addPairwise(axiom, classExpressionList, IRI);
     }
 
-    /** Adds triples to strong type an entity. Triples are only added if the
+    /**
+     * Adds triples to strong type an entity. Triples are only added if the
      * useStrongTyping flag is set to {@code true} and the entity is not a built
      * in entity.
      * 
      * @param entity
-     *            The entity for which strong typing triples should be added. */
+     *        The entity for which strong typing triples should be added.
+     */
     private void addStrongTyping(OWLEntity entity) {
         if (!useStrongTyping) {
             return;
@@ -1137,6 +1154,7 @@ public abstract class AbstractTranslator<NODE, RESOURCE extends NODE, PREDICATE 
     /** Visits entities and returns their RDF type. */
     private static class OWLEntityTypeProvider implements
             OWLEntityVisitorEx<IRI> {
+
         public static OWLEntityTypeProvider INSTANCE = new OWLEntityTypeProvider();
 
         @Override

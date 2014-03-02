@@ -23,17 +23,22 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLObjectAllValuesFromImpl extends
         OWLQuantifiedObjectRestrictionImpl implements OWLObjectAllValuesFrom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param property
-     *            property
+    /**
+     * @param property
+     *        property
      * @param filler
-     *            filler */
+     *        filler
+     */
     public OWLObjectAllValuesFromImpl(
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression filler) {

@@ -18,21 +18,28 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class OWLDataPropertyNode extends DefaultNode<OWLDataProperty> {
+
     /** default constructor. */
     public OWLDataPropertyNode() {}
 
-    /** @param entity
-     *            the entity to be contained */
+    /**
+     * @param entity
+     *        the entity to be contained
+     */
     public OWLDataPropertyNode(@Nonnull OWLDataProperty entity) {
         super(entity);
     }
 
-    /** @param entities
-     *            the entities to be contained */
+    /**
+     * @param entities
+     *        the entities to be contained
+     */
     public OWLDataPropertyNode(@Nonnull Set<OWLDataProperty> entities) {
         super(entities);
     }

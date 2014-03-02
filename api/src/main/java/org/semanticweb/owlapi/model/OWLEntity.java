@@ -14,29 +14,37 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a href=
+/**
+ * Represents <a href=
  * "http://www.w3.org/TR/owl2-syntax/#Entities.2C_Literals.2C_and_Anonymous_Individuals"
  * >Entities</a> in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
-    /** Gets the entity type for this entity
+
+    /**
+     * Gets the entity type for this entity
      * 
-     * @return The entity type */
+     * @return The entity type
+     */
     @Nonnull
     EntityType<?> getEntityType();
 
-    /** Tests to see if this entity is of the specified type
+    /**
+     * Tests to see if this entity is of the specified type
      * 
      * @param entityType
-     *            The entity type
+     *        The entity type
      * @return {@code true} if this entity is of the specified type, otherwise
-     *         {@code false}. */
+     *         {@code false}.
+     */
     boolean isType(@Nonnull EntityType<?> entityType);
 
-    /** Determines if this entity is a built in entity. The entity is a built in
+    /**
+     * Determines if this entity is a built in entity. The entity is a built in
      * entity if it is:
      * <ul>
      * <li>a class and the URI corresponds to owl:Thing or owl:Nothing</li>
@@ -62,122 +70,153 @@ public interface OWLEntity extends OWLObject, OWLNamedObject, OWLPrimitive {
      * </ul>
      * 
      * @return {@code true} if this entity is a built in entity, or
-     *         {@code false} if this entity is not a builtin entity. */
+     *         {@code false} if this entity is not a builtin entity.
+     */
     boolean isBuiltIn();
 
-    /** A convenience method that determines if this entity is an OWLClass
+    /**
+     * A convenience method that determines if this entity is an OWLClass
      * 
      * @return {@code true} if this entity is an OWLClass, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLClass();
 
-    /** A convenience method that obtains this entity as an OWLClass (in order to
+    /**
+     * A convenience method that obtains this entity as an OWLClass (in order to
      * avoid explicit casting).
      * 
      * @return The entity as an OWLClass.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLClass (check with the isOWLClass
-     *             method first). */
+     *         if this entity is not an OWLClass (check with the isOWLClass
+     *         method first).
+     */
     @Nonnull
     OWLClass asOWLClass();
 
-    /** A convenience method that determines if this entity is an
+    /**
+     * A convenience method that determines if this entity is an
      * OWLObjectProperty
      * 
      * @return {@code true} if this entity is an OWLObjectProperty, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLObjectProperty();
 
-    /** A convenience method that obtains this entity as an OWLObjectProperty (in
+    /**
+     * A convenience method that obtains this entity as an OWLObjectProperty (in
      * order to avoid explicit casting).
      * 
      * @return The entity as an OWLObjectProperty.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLObjectProperty (check with the
-     *             isOWLObjectProperty method first). */
+     *         if this entity is not an OWLObjectProperty (check with the
+     *         isOWLObjectProperty method first).
+     */
     @Nonnull
     OWLObjectProperty asOWLObjectProperty();
 
-    /** A convenience method that determines if this entity is an OWLDataProperty
+    /**
+     * A convenience method that determines if this entity is an OWLDataProperty
      * 
      * @return {@code true} if this entity is an OWLDataProperty, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLDataProperty();
 
-    /** A convenience method that obtains this entity as an OWLDataProperty (in
+    /**
+     * A convenience method that obtains this entity as an OWLDataProperty (in
      * order to avoid explicit casting).
      * 
      * @return The entity as an OWLDataProperty.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLDataProperty (check with the
-     *             isOWLDataProperty method first). */
+     *         if this entity is not an OWLDataProperty (check with the
+     *         isOWLDataProperty method first).
+     */
     @Nonnull
     OWLDataProperty asOWLDataProperty();
 
-    /** A convenience method that determines if this entity is an
+    /**
+     * A convenience method that determines if this entity is an
      * OWLNamedIndividual
      * 
      * @return {@code true} if this entity is an OWLNamedIndividual, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLNamedIndividual();
 
-    /** A convenience method that obtains this entity as an OWLNamedIndividual
+    /**
+     * A convenience method that obtains this entity as an OWLNamedIndividual
      * (in order to avoid explicit casting).
      * 
      * @return The entity as an OWLNamedIndividual.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLIndividual (check with the
-     *             isOWLIndividual method first). */
+     *         if this entity is not an OWLIndividual (check with the
+     *         isOWLIndividual method first).
+     */
     @Nonnull
     OWLNamedIndividual asOWLNamedIndividual();
 
-    /** A convenience method that determines if this entity is an OWLDatatype
+    /**
+     * A convenience method that determines if this entity is an OWLDatatype
      * 
      * @return {@code true} if this entity is an OWLDatatype, otherwise
-     *         {@code false} */
+     *         {@code false}
+     */
     boolean isOWLDatatype();
 
-    /** A convenience method that obtains this entity as an OWLDatatype (in order
+    /**
+     * A convenience method that obtains this entity as an OWLDatatype (in order
      * to avoid explicit casting).
      * 
      * @return The entity as an OWLDatatype.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLDatatype (check with the
-     *             isOWLDatatype method first). */
+     *         if this entity is not an OWLDatatype (check with the
+     *         isOWLDatatype method first).
+     */
     @Nonnull
     OWLDatatype asOWLDatatype();
 
-    /** A convenience method that determines if this entity is an
+    /**
+     * A convenience method that determines if this entity is an
      * OWLAnnotationProperty
      * 
      * @return {@code true} if this entity is an OWLAnnotationProperty,
-     *         otherwise {@code false} */
+     *         otherwise {@code false}
+     */
     boolean isOWLAnnotationProperty();
 
-    /** A convenience method that obtains this entity as an OWLAnnotationProperty
+    /**
+     * A convenience method that obtains this entity as an OWLAnnotationProperty
      * (in order to avoid explicit casting).
      * 
      * @return The entity as an OWLAnnotationProperty.
      * @throws OWLRuntimeException
-     *             if this entity is not an OWLAnnotationProperty */
+     *         if this entity is not an OWLAnnotationProperty
+     */
     @Nonnull
     OWLAnnotationProperty asOWLAnnotationProperty();
 
-    /** Returns a string representation that can be used as the ID of this
+    /**
+     * Returns a string representation that can be used as the ID of this
      * entity. This is the toString representation of the IRI
      * 
-     * @return A string representing the toString of the IRI of this entity. */
+     * @return A string representing the toString of the IRI of this entity.
+     */
     @Nonnull
     String toStringID();
 
-    /** @param visitor
-     *            visitor */
+    /**
+     * @param visitor
+     *        visitor
+     */
     void accept(@Nonnull OWLEntityVisitor visitor);
 
-    /** @param visitor
-     *            visitor
+    /**
+     * @param visitor
+     *        visitor
      * @param <O>
-     *            visitor return type
-     * @return visitor return value */
+     *        visitor return type
+     * @return visitor return value
+     */
     <O> O accept(@Nonnull OWLEntityVisitorEx<O> visitor);
 }

@@ -184,9 +184,11 @@ import org.semanticweb.owlapi.util.WeakIndexCache;
 
 @SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractOwlapiUtilTest {
+
     @Test
     public void shouldTestAbstractOWLOntologyStorer() throws OWLException {
         AbstractOWLOntologyStorer testSubject0 = new AbstractOWLOntologyStorer() {
+
             private static final long serialVersionUID = 40000L;
 
             @Override
@@ -266,6 +268,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestCachingBidirectionalShortFormProvider()
             throws OWLException {
         CachingBidirectionalShortFormProvider testSubject0 = new CachingBidirectionalShortFormProvider() {
+
             @Override
             protected String generateShortForm(OWLEntity entity) {
                 return null;
@@ -437,6 +440,7 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestInferredClassAxiomGenerator() throws OWLException {
         InferredClassAxiomGenerator<OWLClassAxiom> testSubject0 = new InferredClassAxiomGenerator<OWLClassAxiom>() {
+
             @Override
             public String getLabel() {
                 return null;
@@ -456,6 +460,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestInferredDataPropertyAxiomGenerator()
             throws OWLException {
         InferredDataPropertyAxiomGenerator<OWLDataPropertyAxiom> testSubject0 = new InferredDataPropertyAxiomGenerator<OWLDataPropertyAxiom>() {
+
             @Override
             public String getLabel() {
                 return null;
@@ -526,6 +531,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestInferredIndividualAxiomGenerator()
             throws OWLException {
         InferredIndividualAxiomGenerator<OWLIndividualAxiom> testSubject0 = new InferredIndividualAxiomGenerator<OWLIndividualAxiom>() {
+
             @Override
             public String getLabel() {
                 return null;
@@ -556,6 +562,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestInferredObjectPropertyAxiomGenerator()
             throws OWLException {
         InferredObjectPropertyAxiomGenerator<OWLObjectPropertyAxiom> testSubject0 = new InferredObjectPropertyAxiomGenerator<OWLObjectPropertyAxiom>() {
+
             @Override
             public String getLabel() {
                 return null;
@@ -784,6 +791,7 @@ public class ContractOwlapiUtilTest {
     public void shouldTestOWLEntityCollectingOntologyChangeListener()
             throws OWLException {
         OWLEntityCollectingOntologyChangeListener testSubject0 = new OWLEntityCollectingOntologyChangeListener() {
+
             @Override
             public void ontologiesChanged() throws OWLException {}
         };

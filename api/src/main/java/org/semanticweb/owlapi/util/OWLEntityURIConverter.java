@@ -37,7 +37,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveAxiom;
 
-/** Performs a bulk conversion/translation of entity URIs. This utility class can
+/**
+ * Performs a bulk conversion/translation of entity URIs. This utility class can
  * be used to replace entity names with IDs for example. The entity converter is
  * supplied with a set of ontologies and a conversion strategy. All of the
  * entities that are referenced in the specified ontologies will have their URIs
@@ -45,8 +46,10 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLEntityURIConverter {
+
     private final OWLOntologyManager manager;
     // The ontologies that reference the
     // entities whose names will be converted
@@ -55,15 +58,17 @@ public class OWLEntityURIConverter {
     private Set<OWLEntity> processedEntities;
     private final OWLEntityURIConverterStrategy strategy;
 
-    /** Creates a converter that will convert the URIs of entities in the
+    /**
+     * Creates a converter that will convert the URIs of entities in the
      * specified ontologies using the specified conversion strategy.
      * 
      * @param manager
-     *            The manager which managers the specified ontologies.
+     *        The manager which managers the specified ontologies.
      * @param ontologies
-     *            The ontologies whose entity URIs will be converted
+     *        The ontologies whose entity URIs will be converted
      * @param strategy
-     *            The conversion strategy to be used. */
+     *        The conversion strategy to be used.
+     */
     public OWLEntityURIConverter(@Nonnull OWLOntologyManager manager,
             @Nonnull Set<OWLOntology> ontologies,
             @Nonnull OWLEntityURIConverterStrategy strategy) {
@@ -73,10 +78,12 @@ public class OWLEntityURIConverter {
         this.strategy = checkNotNull(strategy, "strategy cannot be null");
     }
 
-    /** Gets the changes required to perform the conversion.
+    /**
+     * Gets the changes required to perform the conversion.
      * 
      * @return A list of ontology changes that should be applied in order to
-     *         convert the URI of entities in the specified ontologies. */
+     *         convert the URI of entities in the specified ontologies.
+     */
     public List<OWLOntologyChange<?>> getChanges() {
         replacementMap = new HashMap<OWLEntity, IRI>();
         processedEntities = new HashSet<OWLEntity>();

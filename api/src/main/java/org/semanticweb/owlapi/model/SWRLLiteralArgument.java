@@ -14,13 +14,18 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Medical Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Medical Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface SWRLLiteralArgument extends SWRLDArgument {
-    /** Gets the literal for this argument.
+
+    /**
+     * Gets the literal for this argument.
      * 
-     * @return The literal */
+     * @return The literal
+     */
     @Nonnull
     OWLLiteral getLiteral();
 }

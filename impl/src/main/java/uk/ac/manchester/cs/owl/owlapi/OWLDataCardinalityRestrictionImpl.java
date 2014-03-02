@@ -21,12 +21,15 @@ import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLDataCardinalityRestrictionImpl extends
         OWLCardinalityRestrictionImpl<OWLDataRange> implements
         OWLDataCardinalityRestriction {
+
     private static final long serialVersionUID = 40000L;
     private final OWLDataPropertyExpression property;
 

@@ -19,109 +19,132 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-/** A prefix manager than can provide prefixes for prefix names.
+/**
+ * A prefix manager than can provide prefixes for prefix names.
  * 
  * @author Matthew Horridge, The University Of Manchester, Information
  *         Management Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public interface PrefixManager extends Serializable {
-    /** Gets the default prefix. The default prefix is denoted by the prefix name
+
+    /**
+     * Gets the default prefix. The default prefix is denoted by the prefix name
      * ":"
      * 
      * @return The default prefix, or {@code null} if there is no default
-     *         prefix. */
+     *         prefix.
+     */
     @Nonnull
     String getDefaultPrefix();
 
-    /** Determines if this manager knows about a given prefix name and it
+    /**
+     * Determines if this manager knows about a given prefix name and it
      * contains a (non-null) mapping for the prefix.
      * 
      * @param prefixName
-     *            The prefix name to be tested for.
+     *        The prefix name to be tested for.
      * @return {@code true} if the manager knows about this prefix and there is
-     *         a non-null mapping for this prefix. */
+     *         a non-null mapping for this prefix.
+     */
     boolean containsPrefixMapping(@Nonnull String prefixName);
 
-    /** Gets the prefix that is bound to a particular prefix name. Note that
+    /**
+     * Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
      * return the same result as a call to the {@code getDefaultPrefix()} method.
      * 
      * @param prefixName
-     *            The prefix name. A string that represents a prefix name of the
-     *            prefix to be retrieved. Note that specifying ":" is the same
-     *            as asking for the default prefix (see the getDefaultPrefix()
-     *            method).
+     *        The prefix name. A string that represents a prefix name of the
+     *        prefix to be retrieved. Note that specifying ":" is the same as
+     *        asking for the default prefix (see the getDefaultPrefix() method).
      * @return The prefix, or {@code null} if there is no prefix name bound to
-     *         this prefix, or the prefix name doesn't exist. */
+     *         this prefix, or the prefix name doesn't exist.
+     */
     @Nonnull
     String getPrefix(@Nonnull String prefixName);
 
-    /** Gets a map that maps prefix names to prefixes.
+    /**
+     * Gets a map that maps prefix names to prefixes.
      * 
      * @return The map of prefix names to prefixes. Note that modifying the
      *         contents of this map will not change the prefix name - prefix
-     *         mappings */
+     *         mappings
+     */
     @Nonnull
     Map<String, String> getPrefixName2PrefixMap();
 
-    /** Gets the URI for a given prefix IRI. The prefix IRI must have a prefix
+    /**
+     * Gets the URI for a given prefix IRI. The prefix IRI must have a prefix
      * name that is registered with this manager, or a runtime exception will be
      * thrown.
      * 
      * @param prefixIRI
-     *            The Prefix IRI
+     *        The Prefix IRI
      * @return The full IRI.
      * @throws OWLRuntimeException
-     *             if the prefix name of the prefix IRI doesn't have a
-     *             corresponding prefix managed by this manager. */
+     *         if the prefix name of the prefix IRI doesn't have a corresponding
+     *         prefix managed by this manager.
+     */
     @Nonnull
     IRI getIRI(@Nonnull String prefixIRI);
 
-    /** Gets the prefix IRI given a IRI (URI).
+    /**
+     * Gets the prefix IRI given a IRI (URI).
      * 
      * @param iri
-     *            The IRI whose prefix it to be retrieved
+     *        The IRI whose prefix it to be retrieved
      * @return The prefix IRI for this IRI, or {@code null} if a prefix IRI
-     *         cannot be generated. */
+     *         cannot be generated.
+     */
     @Nullable
     String getPrefixIRI(@Nonnull IRI iri);
 
-    /** Gets the prefix names that have a mapping in this prefix manager.
+    /**
+     * Gets the prefix names that have a mapping in this prefix manager.
      * 
-     * @return The prefix names as a set of strings. */
+     * @return The prefix names as a set of strings.
+     */
     @Nonnull
     Set<String> getPrefixNames();
 
-    /** Sets the default namespace. This will also bind the prefix name ":" to
+    /**
+     * Sets the default namespace. This will also bind the prefix name ":" to
      * this prefix
      * 
      * @param defaultPrefix
-     *            The namespace to be used as the default namespace. Note that
-     *            the value may be {@code null} in order to clear the default
-     *            namespace. */
+     *        The namespace to be used as the default namespace. Note that the
+     *        value may be {@code null} in order to clear the default namespace.
+     */
     void setDefaultPrefix(@Nonnull String defaultPrefix);
 
-    /** Adds a prefix name to prefix mapping
+    /**
+     * Adds a prefix name to prefix mapping
      * 
      * @param prefixName
-     *            name The prefix name (must not be null)
+     *        name The prefix name (must not be null)
      * @param prefix
-     *            The prefix. Cannot be null.
+     *        The prefix. Cannot be null.
      * @throws IllegalArgumentException
-     *             if some parameter is null or the prefix name does not end
-     *             with a colon. */
+     *         if some parameter is null or the prefix name does not end with a
+     *         colon.
+     */
     void setPrefix(@Nonnull String prefixName, @Nonnull String prefix);
 
-    /** Copies the prefix from another prefix manager into this one
+    /**
+     * Copies the prefix from another prefix manager into this one
      * 
      * @param from
-     *            The manager that the prefixes should be copied from */
+     *        The manager that the prefixes should be copied from
+     */
     void copyPrefixesFrom(@Nonnull PrefixManager from);
 
-    /** Removes a previously registerd prefix namespace mapping
+    /**
+     * Removes a previously registerd prefix namespace mapping
      * 
      * @param namespace
-     *            The namespace to be removed. */
+     *        The namespace to be removed.
+     */
     void unregisterNamespace(@Nonnull String namespace);
 
     /** clear the map */

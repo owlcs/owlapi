@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class DanglingRoundTripTest extends OboFormatTestBasics {
+
     @Test
     public void testConvertXPs() throws Exception {
         OWLOntology owlOnt = convertOBOFile("dangling_roundtrip_test.obo");

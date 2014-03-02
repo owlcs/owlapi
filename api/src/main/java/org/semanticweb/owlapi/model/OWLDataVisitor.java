@@ -14,21 +14,28 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** A visitor which can visit various data ranges and constants.
+/**
+ * A visitor which can visit various data ranges and constants.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLDataVisitor extends OWLDataRangeVisitor {
-    /** visit OWLLiteral type
+
+    /**
+     * visit OWLLiteral type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLLiteral node);
 
-    /** visit OWLFacetRestriction type
+    /**
+     * visit OWLFacetRestriction type
      * 
      * @param node
-     *            node to visit */
+     *        node to visit
+     */
     void visit(@Nonnull OWLFacetRestriction node);
 }

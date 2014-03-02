@@ -43,6 +43,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /** Returns true if the visited axioms are an ontology in Horn-SHIQ form. */
 public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
+
     private static final long serialVersionUID = 40000L;
     final PositiveAppearanceVisitorEx positive = new PositiveAppearanceVisitorEx();
     final NegativeAppearanceVisitorEx negative = new NegativeAppearanceVisitorEx();
@@ -168,6 +169,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     private class PositiveAppearanceVisitorEx extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
+
         public PositiveAppearanceVisitorEx() {
             super(Boolean.FALSE);
         }
@@ -223,6 +225,7 @@ public class HornAxiomVisitorEx extends OWLAxiomVisitorExAdapter<Boolean> {
 
     private class NegativeAppearanceVisitorEx extends
             OWLClassExpressionVisitorExAdapter<Boolean> {
+
         public NegativeAppearanceVisitorEx() {
             super(Boolean.FALSE);
         }

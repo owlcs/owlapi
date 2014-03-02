@@ -30,6 +30,7 @@ import org.xml.sax.SAXException;
 
 @SuppressWarnings("javadoc")
 public class VerifyVersionInfoTestCase {
+
     @Test
     public void checkMatchVersion() throws SAXException, IOException,
             ParserConfigurationException {

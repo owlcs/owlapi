@@ -16,30 +16,35 @@ import com.google.common.base.Optional;
 
 /** a set of personalized preconditions */
 public class OWLAPIPreconditions {
-    /** check for null and throw IllegalArgumentException if null
+
+    /**
+     * check for null and throw IllegalArgumentException if null
      * 
      * @param object
-     *            reference to check
+     *        reference to check
      * @param <T>
-     *            reference type
+     *        reference type
      * @return the input reference if not null
      * @throws IllegalArgumentException
-     *             if object is null */
+     *         if object is null
+     */
     public static <T> T checkNotNull(T object) {
         return checkNotNull(object, "this variable cannot be null");
     }
 
-    /** check for null and throw IllegalArgumentException if null
+    /**
+     * check for null and throw IllegalArgumentException if null
      * 
      * @param object
-     *            reference to check
+     *        reference to check
      * @param message
-     *            message for the illegal argument exception
+     *        message for the illegal argument exception
      * @param <T>
-     *            reference type
+     *        reference type
      * @return the input reference if not null
      * @throws IllegalArgumentException
-     *             if object is null */
+     *         if object is null
+     */
     public static <T> T checkNotNull(T object, String message) {
         if (object == null) {
             throw new IllegalArgumentException(message);
@@ -47,17 +52,19 @@ public class OWLAPIPreconditions {
         return object;
     }
 
-    /** check for absent and throw IllegalArgumentException if null or absent
+    /**
+     * check for absent and throw IllegalArgumentException if null or absent
      * 
      * @param object
-     *            reference to check
+     *        reference to check
      * @param message
-     *            message for the illegal argument exception
+     *        message for the illegal argument exception
      * @param <T>
-     *            reference type
+     *        reference type
      * @return the input reference if not null
      * @throws IllegalArgumentException
-     *             if object is null */
+     *         if object is null
+     */
     public static <T> T checkNotNull(Optional<T> object, String message) {
         if (object == null || !object.isPresent()) {
             throw new IllegalArgumentException(message);

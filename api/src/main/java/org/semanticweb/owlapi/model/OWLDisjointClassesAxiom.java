@@ -16,14 +16,17 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** Represents a <a
+/**
+ * Represents a <a
  * href="http://www.w3.org/TR/owl2-syntax/#Disjoint_Classes">DisjointClasses</a>
  * axiom in the OWL 2 Specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLDisjointClassesAxiom extends OWLNaryClassAxiom {
+
     @Override
     @Nonnull
     Set<OWLDisjointClassesAxiom> asPairwiseAxioms();

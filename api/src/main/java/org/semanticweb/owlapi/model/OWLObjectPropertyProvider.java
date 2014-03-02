@@ -16,17 +16,22 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+/**
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group
- * @since 3.4.6 */
+ * @since 3.4.6
+ */
 public interface OWLObjectPropertyProvider extends Serializable {
-    /** Gets an instance of {@link OWLObjectProperty} that has the specified
+
+    /**
+     * Gets an instance of {@link OWLObjectProperty} that has the specified
      * {@code IRI}.
      * 
      * @param iri
-     *            The IRI. Not {@code null}.
+     *        The IRI. Not {@code null}.
      * @return An {@link OWLObjectProperty} that has the specified IRI. Not
-     *         {@code null}. */
+     *         {@code null}.
+     */
     @Nonnull
     OWLObjectProperty getOWLObjectProperty(@Nonnull IRI iri);
 }

@@ -22,15 +22,20 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyChangeVisitorAdapter implements
         OWLOntologyChangeVisitor {
-    /** override this method to change the default behaviour.
+
+    /**
+     * override this method to change the default behaviour.
      * 
      * @param c
-     *            object visited */
+     *        object visited
+     */
     protected void handleDefault(
             @SuppressWarnings("unused") OWLOntologyChange<?> c) {}
 

@@ -47,6 +47,7 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlapiTest {
+
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
 
     @Test

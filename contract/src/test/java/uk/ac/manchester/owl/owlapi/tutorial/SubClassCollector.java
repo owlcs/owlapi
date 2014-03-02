@@ -19,14 +19,17 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-/** A visitor that simply collects any subclass axioms that have the given class
+/**
+ * A visitor that simply collects any subclass axioms that have the given class
  * as the subclass.
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 @SuppressWarnings({ "javadoc" })
 public class SubClassCollector extends OWLAxiomVisitorAdapter {
+
     /* Collected axioms */
     private final Set<OWLSubClassOfAxiom> axioms;
     /* Class to look for */

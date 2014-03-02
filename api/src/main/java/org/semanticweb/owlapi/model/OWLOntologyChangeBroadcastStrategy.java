@@ -17,18 +17,23 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLOntologyChangeBroadcastStrategy extends Serializable {
-    /** Broadcasts the list of changes to the specified listeners.
+
+    /**
+     * Broadcasts the list of changes to the specified listeners.
      * 
      * @param changes
-     *            The changes to be broadcast.
+     *        The changes to be broadcast.
      * @param listener
-     *            The listeners that the changes should be broadcast to
+     *        The listeners that the changes should be broadcast to
      * @throws OWLException
-     *             for any exception raised */
+     *         for any exception raised
+     */
     void broadcastChanges(@Nonnull OWLOntologyChangeListener listener,
             @Nonnull List<? extends OWLOntologyChange<?>> changes)
             throws OWLException;

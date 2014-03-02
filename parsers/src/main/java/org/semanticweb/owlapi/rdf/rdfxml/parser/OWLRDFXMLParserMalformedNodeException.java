@@ -12,37 +12,46 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
-/** The Class OWLRDFXMLParserMalformedNodeException.
+/**
+ * The Class OWLRDFXMLParserMalformedNodeException.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLRDFXMLParserMalformedNodeException extends
         OWLRDFXMLParserException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** Instantiates a new oWLRDFXML parser malformed node exception.
+    /**
+     * Instantiates a new oWLRDFXML parser malformed node exception.
      * 
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserMalformedNodeException(Throwable cause) {
         super(cause);
     }
 
-    /** Instantiates a new oWLRDFXML parser malformed node exception.
+    /**
+     * Instantiates a new oWLRDFXML parser malformed node exception.
      * 
      * @param message
-     *            the message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public OWLRDFXMLParserMalformedNodeException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** Instantiates a new oWLRDFXML parser malformed node exception.
+    /**
+     * Instantiates a new oWLRDFXML parser malformed node exception.
      * 
      * @param message
-     *            the message */
+     *        the message
+     */
     public OWLRDFXMLParserMalformedNodeException(String message) {
         super(message);
     }

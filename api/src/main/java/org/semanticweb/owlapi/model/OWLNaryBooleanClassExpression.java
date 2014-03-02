@@ -17,19 +17,24 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLNaryBooleanClassExpression extends
         OWLBooleanClassExpression {
+
     /** @return the class expressions */
     @Nonnull
     Set<OWLClassExpression> getOperands();
 
-    /** Gets the class expressions returned by {@link #getOperands()} as a list
+    /**
+     * Gets the class expressions returned by {@link #getOperands()} as a list
      * of class expressions.
      * 
-     * @return The class expressions as a list. */
+     * @return The class expressions as a list.
+     */
     @Nonnull
     List<OWLClassExpression> getOperandsAsList();
 }

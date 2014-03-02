@@ -19,13 +19,16 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLHasValueRestriction;
 import org.semanticweb.owlapi.model.OWLObject;
 
-/** @param <V>
- *            the value
+/**
+ * @param <V>
+ *        the value
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLValueRestrictionImpl<V extends OWLObject> extends
         OWLRestrictionImpl implements OWLHasValueRestriction<V> {
+
     private static final long serialVersionUID = 40000L;
     protected final V value;
 

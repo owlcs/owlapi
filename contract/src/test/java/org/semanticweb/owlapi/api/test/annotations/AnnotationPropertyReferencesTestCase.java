@@ -29,11 +29,14 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class AnnotationPropertyReferencesTestCase extends TestBase {
+
     @Test
     public void testContainsReferenceForAnnotationAssertion() {
         OWLAnnotationProperty ap = AnnotationProperty(getIRI("prop"));

@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class MissingDeclarationRoundTripTestCase extends TestBase {
+
     @Test
     public void shouldFindOneAxiom() throws OWLOntologyCreationException,
             OWLOntologyStorageException {

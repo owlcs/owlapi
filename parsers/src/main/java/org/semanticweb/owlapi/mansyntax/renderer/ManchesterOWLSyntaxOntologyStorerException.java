@@ -14,30 +14,39 @@ package org.semanticweb.owlapi.mansyntax.renderer;
 
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class ManchesterOWLSyntaxOntologyStorerException extends
         OWLOntologyStorageException {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param message
-     *            the message */
+    /**
+     * @param message
+     *        the message
+     */
     public ManchesterOWLSyntaxOntologyStorerException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            the message
+    /**
+     * @param message
+     *        the message
      * @param cause
-     *            the cause */
+     *        the cause
+     */
     public ManchesterOWLSyntaxOntologyStorerException(String message,
             Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            the cause */
+    /**
+     * @param cause
+     *        the cause
+     */
     public ManchesterOWLSyntaxOntologyStorerException(Throwable cause) {
         super(cause);
     }

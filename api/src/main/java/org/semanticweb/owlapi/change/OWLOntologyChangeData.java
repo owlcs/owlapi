@@ -20,7 +20,8 @@ import org.semanticweb.owlapi.model.HasSignature;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 
-/** Represents an abstraction of the essential non-ontology data required by a
+/**
+ * Represents an abstraction of the essential non-ontology data required by a
  * particular kind of {@link OWLOntologyChange}. There is a concrete subclass of
  * this class for each concrete class of {@link OWLOntologyChange}. <br>
  * Instances of this class are immutable.
@@ -29,40 +30,46 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
  *         Research Group
  * @since 3.3
  * @param <T>
- *            change type
- * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData() */
+ *        change type
+ * @see org.semanticweb.owlapi.model.OWLOntologyChange#getChangeData()
+ */
 public abstract class OWLOntologyChangeData<T> implements HasSignature,
         Serializable {
+
     private static final long serialVersionUID = 40000L;
 
     /** Default constructor for serialization purposes. */
     protected OWLOntologyChangeData() {}
 
-    /** Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.
+    /**
+     * Accepts a visit from an {@link OWLOntologyChangeDataVisitor}.
      * 
      * @param visitor
-     *            The visitor
+     *        The visitor
      * @param <R>
-     *            The return type for visitor's visit methods.
+     *        The return type for visitor's visit methods.
      * @param <E>
-     *            The exception type for exceptions thrown by the visitor's
-     *            visit methods.
+     *        The exception type for exceptions thrown by the visitor's visit
+     *        methods.
      * @return The object returned by the visitor's visit methods.
      * @throws E
-     *             The exception thrown by the visitor's visit methods. */
+     *         The exception thrown by the visitor's visit methods.
+     */
     public abstract <R, E extends Exception> R accept(
             @Nonnull OWLOntologyChangeDataVisitor<R, E> visitor) throws E;
 
-    /** Creates an {@link OWLOntologyChange} object that pertains to the
+    /**
+     * Creates an {@link OWLOntologyChange} object that pertains to the
      * specified {@code ontology}, which when applied to the specified ontology
      * enacts the change described by this info object.
      * 
      * @param ontology
-     *            The {@link OWLOntology} that the change should apply to.
+     *        The {@link OWLOntology} that the change should apply to.
      * @return An {@link OWLOntologyChange} object that applies to
      *         {@code ontology} and changes {@code ontology} in a way that is
      *         consistent with this the information held in this
-     *         {@link OWLOntologyChangeData} object. **/
+     *         {@link OWLOntologyChangeData} object.
+     **/
     @Nonnull
     public abstract OWLOntologyChange<T> createOntologyChange(
             @Nonnull OWLOntology ontology);

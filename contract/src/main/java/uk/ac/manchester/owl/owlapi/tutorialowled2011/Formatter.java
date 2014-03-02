@@ -24,6 +24,7 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings({ "javadoc" })
 public class Formatter {
+
     public static void main(String[] args) throws Exception {
         System.out.println("Formatter.main() " + Long.MAX_VALUE
                 / (1000 * 86000 * 365));

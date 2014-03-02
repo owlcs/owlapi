@@ -2,18 +2,21 @@ package org.obolibrary.oboformat.parser;
 
 /** The Class OBOFormatParserException. */
 public class OBOFormatParserException extends OBOFormatException {
+
     private static final long serialVersionUID = 40000L;
     private final int lineNo;
     private final String line;
 
-    /** @param message
-     *            the message
+    /**
+     * @param message
+     *        the message
      * @param e
-     *            the cause
+     *        the cause
      * @param lineNo
-     *            the line no
+     *        the line no
      * @param line
-     *            the line */
+     *        the line
+     */
     public OBOFormatParserException(String message, Throwable e, int lineNo,
             String line) {
         super(message, e);
@@ -21,24 +24,28 @@ public class OBOFormatParserException extends OBOFormatException {
         this.line = line;
     }
 
-    /** @param message
-     *            the message
+    /**
+     * @param message
+     *        the message
      * @param lineNo
-     *            the line no
+     *        the line no
      * @param line
-     *            the line */
+     *        the line
+     */
     public OBOFormatParserException(String message, int lineNo, String line) {
         super(message);
         this.lineNo = lineNo;
         this.line = line;
     }
 
-    /** @param e
-     *            the cause
+    /**
+     * @param e
+     *        the cause
      * @param lineNo
-     *            the line no
+     *        the line no
      * @param line
-     *            the line */
+     *        the line
+     */
     public OBOFormatParserException(Throwable e, int lineNo, String line) {
         super(e);
         this.lineNo = lineNo;

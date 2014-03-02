@@ -12,35 +12,44 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-/** An exception which describes an error during the creation of an ontology. If
+/**
+ * An exception which describes an error during the creation of an ontology. If
  * an ontology cannot be created then subclasses of this class will describe the
  * reasons.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyCreationException extends OWLException {
+
     private static final long serialVersionUID = 40000L;
 
     /** default constructor */
     public OWLOntologyCreationException() {}
 
-    /** @param message
-     *            message */
+    /**
+     * @param message
+     *        message
+     */
     public OWLOntologyCreationException(String message) {
         super(message);
     }
 
-    /** @param message
-     *            message
+    /**
+     * @param message
+     *        message
      * @param cause
-     *            cause */
+     *        cause
+     */
     public OWLOntologyCreationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /** @param cause
-     *            cause */
+    /**
+     * @param cause
+     *        cause
+     */
     public OWLOntologyCreationException(Throwable cause) {
         super(cause);
     }

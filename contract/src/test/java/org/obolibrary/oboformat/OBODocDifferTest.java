@@ -12,6 +12,7 @@ import org.obolibrary.oboformat.model.OBODoc;
 
 @SuppressWarnings("javadoc")
 public class OBODocDifferTest extends OboFormatTestBasics {
+
     @Test
     public void testIdentical() throws Exception {
         OBODoc obodoc1 = parseOBOFile("caro.obo");

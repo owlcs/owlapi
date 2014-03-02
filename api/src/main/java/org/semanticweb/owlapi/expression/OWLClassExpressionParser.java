@@ -14,11 +14,13 @@ package org.semanticweb.owlapi.expression;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** An expression parser that parses expressions that correspond to class
+/**
+ * An expression parser that parses expressions that correspond to class
  * expressions.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public interface OWLClassExpressionParser extends
         OWLExpressionParser<OWLClassExpression> {}

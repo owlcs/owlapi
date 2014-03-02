@@ -22,20 +22,25 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.change.SetOntologyIDData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
+
     private final OWLOntologyID ontologyID;
     private final OWLOntologyID newOntologyID;
 
-    /** Creates a set ontology id change, which will set the ontology id to the
+    /**
+     * Creates a set ontology id change, which will set the ontology id to the
      * new one.
      * 
      * @param ont
-     *            The ontology whose id is to be changed
+     *        The ontology whose id is to be changed
      * @param ontologyID
-     *            The ontology ID */
+     *        The ontology ID
+     */
     public SetOntologyID(@Nonnull OWLOntology ont,
             @Nonnull OWLOntologyID ontologyID) {
         super(ont);
@@ -44,13 +49,15 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
         newOntologyID = checkNotNull(ontologyID, "ontology id cannot be null");
     }
 
-    /** Creates a set ontology id change using the ontologyIRI, which will set
+    /**
+     * Creates a set ontology id change using the ontologyIRI, which will set
      * the ontology id to the new one.
      * 
      * @param ont
-     *            The ontology whose id is to be changed
+     *        The ontology whose id is to be changed
      * @param ontologyIRI
-     *            The ontology iri */
+     *        The ontology iri
+     */
     public SetOntologyID(@Nonnull OWLOntology ont, @Nonnull IRI ontologyIRI) {
         this(ont, new OWLOntologyID(ontologyIRI));
     }
@@ -87,16 +94,20 @@ public class SetOntologyID extends OWLOntologyChange<OWLOntologyID> {
         throw new UnsupportedOperationException("Not an axiom change");
     }
 
-    /** Gets the original ID of the ontology whose URI was changed.
+    /**
+     * Gets the original ID of the ontology whose URI was changed.
      * 
-     * @return The original ID */
+     * @return The original ID
+     */
     @Nonnull
     public OWLOntologyID getOriginalOntologyID() {
         return ontologyID;
     }
 
-    /** @return the new URI - i.e. the URI of the ontology after the change was
-     *         applied. */
+    /**
+     * @return the new URI - i.e. the URI of the ontology after the change was
+     *         applied.
+     */
     @Nonnull
     public OWLOntologyID getNewOntologyID() {
         return newOntologyID;

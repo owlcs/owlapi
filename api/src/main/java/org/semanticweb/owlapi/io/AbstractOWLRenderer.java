@@ -22,10 +22,13 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class AbstractOWLRenderer implements OWLRenderer {
+
     protected AbstractOWLRenderer() {}
 
     @Override
@@ -41,17 +44,18 @@ public abstract class AbstractOWLRenderer implements OWLRenderer {
         }
     }
 
-    /** Renders the specified ontology using the specified writer.
+    /**
+     * Renders the specified ontology using the specified writer.
      * 
      * @param ontology
-     *            the ontology to render
+     *        the ontology to render
      * @param writer
-     *            The writer that should be used to write the ontology. Note
-     *            that this writer need not be wrapped with a
-     *            {@code BufferedWriter} because this is taken care of by this
-     *            abstract implementation.
+     *        The writer that should be used to write the ontology. Note that
+     *        this writer need not be wrapped with a {@code BufferedWriter}
+     *        because this is taken care of by this abstract implementation.
      * @throws OWLRendererException
-     *             if exceptions arise */
+     *         if exceptions arise
+     */
     public abstract void render(@Nonnull OWLOntology ontology,
             @Nonnull Writer writer) throws OWLRendererException;
 }

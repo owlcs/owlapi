@@ -22,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 
 @SuppressWarnings("javadoc")
 public class OntologyIDTestCase {
+
     @Test
     public void shouldFindSameHashCode() {
         IRI iri1 = IRI("http://test.it/check1");

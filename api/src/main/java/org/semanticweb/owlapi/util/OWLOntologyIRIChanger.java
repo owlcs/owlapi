@@ -29,31 +29,38 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
 
-/** Changes the URI of an ontology and ensures that ontologies which import the
+/**
+ * Changes the URI of an ontology and ensures that ontologies which import the
  * ontology have their imports statements updated
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLOntologyIRIChanger {
+
     private final OWLOntologyManager owlOntologyManager;
 
-    /** @param owlOntologyManager
-     *            the ontology manager to use */
+    /**
+     * @param owlOntologyManager
+     *        the ontology manager to use
+     */
     public OWLOntologyIRIChanger(@Nonnull OWLOntologyManager owlOntologyManager) {
         this.owlOntologyManager = checkNotNull(owlOntologyManager,
                 "owlOntologyManager cannot be null");
     }
 
-    /** Changes the URI of the specified ontology to the new URI.
+    /**
+     * Changes the URI of the specified ontology to the new URI.
      * 
      * @param ontology
-     *            The ontology whose URI is to be changed.
+     *        The ontology whose URI is to be changed.
      * @param newIRI
-     *            the new IRI
+     *        the new IRI
      * @return A list of changes, which when applied will change the URI of the
      *         specified ontology, and also update the imports declarations in
-     *         any ontologies which import the specified ontology. */
+     *         any ontologies which import the specified ontology.
+     */
     @Nonnull
     public List<OWLOntologyChange<?>> getChanges(@Nonnull OWLOntology ontology,
             @Nonnull IRI newIRI) {

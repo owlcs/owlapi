@@ -14,31 +14,39 @@ package org.semanticweb.owlapi.model;
 
 import javax.annotation.Nonnull;
 
-/** Represents <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion"
+/**
+ * Represents <a href= "http://www.w3.org/TR/owl2-syntax/#Annotation_Assertion"
  * >AnnotationAssertion</a> axioms in the OWL 2 specification.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
         HasSubject<OWLAnnotationSubject>, HasProperty<OWLAnnotationProperty> {
-    /** Gets the subject of the annotation assertion. This is either an
+
+    /**
+     * Gets the subject of the annotation assertion. This is either an
      * {@link org.semanticweb.owlapi.model.IRI} or an
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual}.
      * 
-     * @return The subject of the annotation */
+     * @return The subject of the annotation
+     */
     @Nonnull
     @Override
     OWLAnnotationSubject getSubject();
 
-    /** Gets the annotation property.
+    /**
+     * Gets the annotation property.
      * 
-     * @return The annotation property. */
+     * @return The annotation property.
+     */
     @Override
     @Nonnull
     OWLAnnotationProperty getProperty();
 
-    /** Gets the annotation value. This is either an
+    /**
+     * Gets the annotation value. This is either an
      * {@link org.semanticweb.owlapi.model.IRI}, an
      * {@link org.semanticweb.owlapi.model.OWLAnonymousIndividual} or an
      * {@link OWLLiteral}. Annotation values can be visited with an
@@ -46,24 +54,29 @@ public interface OWLAnnotationAssertionAxiom extends OWLAnnotationAxiom,
      * 
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitor
      * @see org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx
-     * @return The annotation value. */
+     * @return The annotation value.
+     */
     @Nonnull
     OWLAnnotationValue getValue();
 
-    /** Gets the combination of the annotation property and the annotation value
+    /**
+     * Gets the combination of the annotation property and the annotation value
      * as an {@link org.semanticweb.owlapi.model.OWLAnnotation} object.
      * 
      * @return The annotation object that combines the property and value of
-     *         this annotation. */
+     *         this annotation.
+     */
     @Nonnull
     OWLAnnotation getAnnotation();
 
-    /** Determines if this annotation assertion deprecates the IRI that is the
+    /**
+     * Determines if this annotation assertion deprecates the IRI that is the
      * subject of the annotation.
      * 
      * @return {@code true} if this annotation assertion deprecates the subject
      *         IRI of the assertion, otherwise {@code false}.
-     * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation() */
+     * @see org.semanticweb.owlapi.model.OWLAnnotation#isDeprecatedIRIAnnotation()
+     */
     boolean isDeprecatedIRIAssertion();
 
     @Override

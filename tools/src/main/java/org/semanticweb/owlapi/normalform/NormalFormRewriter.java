@@ -16,22 +16,29 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public interface NormalFormRewriter {
-    /** Checks if is in normal form.
+
+    /**
+     * Checks if is in normal form.
      * 
      * @param classExpression
-     *            expression to check
-     * @return true if classExpression is in normal form */
+     *        expression to check
+     * @return true if classExpression is in normal form
+     */
     boolean isInNormalForm(@Nonnull OWLClassExpression classExpression);
 
-    /** Convert to normal form.
+    /**
+     * Convert to normal form.
      * 
      * @param classExpression
-     *            the expression to convert
-     * @return the converted expression */
+     *        the expression to convert
+     * @return the converted expression
+     */
     @Nonnull
     OWLClassExpression convertToNormalForm(
             @Nonnull OWLClassExpression classExpression);

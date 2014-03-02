@@ -25,11 +25,14 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University of Manchester, Information Management
  *         Group
- * @since 3.0.0 */
+ * @since 3.0.0
+ */
 @SuppressWarnings("javadoc")
 public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
+
     @Test
     public void testGetAxiomsIgnoringAnnoations() {
         OWLLiteral annoLiteral = Literal("value");

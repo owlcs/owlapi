@@ -76,13 +76,16 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-/** Provides ordering and indenting of explanations based on various ordering
+/**
+ * Provides ordering and indenting of explanations based on various ordering
  * heuristics.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class ExplanationOrdererImpl implements ExplanationOrderer {
+
     private Set<OWLAxiom> currentExplanation;
     private final Map<OWLEntity, Set<OWLAxiom>> lhs2AxiomMap = new HashMap<OWLEntity, Set<OWLAxiom>>();
     private final Map<OWLAxiom, Set<OWLEntity>> entitiesByAxiomRHS = new HashMap<OWLAxiom, Set<OWLEntity>>();
@@ -93,10 +96,12 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private final Set<OWLAxiom> consumedAxioms = new HashSet<OWLAxiom>();
     private final Set<AxiomType<?>> passTypes = new HashSet<AxiomType<?>>();
 
-    /** Instantiates a new explanation orderer impl.
+    /**
+     * Instantiates a new explanation orderer impl.
      * 
      * @param m
-     *            the manager to use */
+     *        the manager to use
+     */
     public ExplanationOrdererImpl(@Nonnull OWLOntologyManager m) {
         currentExplanation = Collections.emptySet();
         man = checkNotNull(m, "m cannot be null");
@@ -134,11 +139,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return root;
     }
 
-    /** Gets the target axioms.
+    /**
+     * Gets the target axioms.
      * 
      * @param currentTarget
-     *            the current target
-     * @return the target axioms */
+     *        the current target
+     * @return the target axioms
+     */
     @Nonnull
     private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity currentTarget) {
         Set<OWLAxiom> targetAxioms = new HashSet<OWLAxiom>();
@@ -235,22 +242,24 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         }
     }
 
-    /** A utility method that obtains a set of axioms that are indexed by some
+    /**
+     * A utility method that obtains a set of axioms that are indexed by some
      * object.
      * 
      * @param <K>
-     *            the key type
+     *        the key type
      * @param <E>
-     *            the element type
+     *        the element type
      * @param obj
-     *            The object that indexed the axioms
+     *        The object that indexed the axioms
      * @param map
-     *            The map that provides the index structure
+     *        The map that provides the index structure
      * @param addIfEmpty
-     *            A flag that indicates whether an empty set of axiom should be
-     *            added to the index if there is not value present for the
-     *            indexing object.
-     * @return A set of axioms (may be empty) */
+     *        A flag that indicates whether an empty set of axiom should be
+     *        added to the index if there is not value present for the indexing
+     *        object.
+     * @return A set of axioms (may be empty)
+     */
     @Nonnull
     private static <K, E> Set<E> getIndexedSet(@Nonnull K obj,
             @Nonnull Map<K, Set<E>> map, boolean addIfEmpty) {
@@ -264,33 +273,39 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
         return values;
     }
 
-    /** Gets axioms that have a LHS corresponding to the specified entity.
+    /**
+     * Gets axioms that have a LHS corresponding to the specified entity.
      * 
      * @param lhs
-     *            The entity that occurs on the left hand side of the axiom.
+     *        The entity that occurs on the left hand side of the axiom.
      * @return A set of axioms that have the specified entity as their left hand
-     *         side. */
+     *         side.
+     */
     @Nonnull
     protected Set<OWLAxiom> getAxiomsForLHS(@Nonnull OWLEntity lhs) {
         return getIndexedSet(lhs, lhs2AxiomMap, true);
     }
 
-    /** Gets the rHS entities.
+    /**
+     * Gets the rHS entities.
      * 
      * @param axiom
-     *            the axiom
-     * @return the rHS entities */
+     *        the axiom
+     * @return the rHS entities
+     */
     @Nonnull
     private Collection<OWLEntity> getRHSEntities(@Nonnull OWLAxiom axiom) {
         return getIndexedSet(axiom, entitiesByAxiomRHS, true);
     }
 
-    /** Index axioms by rhs entities.
+    /**
+     * Index axioms by rhs entities.
      * 
      * @param rhs
-     *            the rhs
+     *        the rhs
      * @param axiom
-     *            the axiom */
+     *        the axiom
+     */
     protected void indexAxiomsByRHSEntities(@Nonnull OWLObject rhs,
             @Nonnull OWLAxiom axiom) {
         getIndexedSet(axiom, entitiesByAxiomRHS, true).addAll(
@@ -299,12 +314,15 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The Class TargetAxiomsComparator. */
     private static class TargetAxiomsComparator implements Comparator<OWLAxiom> {
+
         private final Set<OWLAxiom> targetAxioms;
 
-        /** Instantiates a new target axioms comparator.
+        /**
+         * Instantiates a new target axioms comparator.
          * 
          * @param targetAxioms
-         *            the target axioms */
+         *        the target axioms
+         */
         TargetAxiomsComparator(@Nonnull Set<OWLAxiom> targetAxioms) {
             this.targetAxioms = checkNotNull(targetAxioms,
                     "targetAxioms cannot be null");
@@ -325,6 +343,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** The Class PropertiesFirstComparator. */
     private static final class PropertiesFirstComparator implements
             Comparator<OWLObject> {
+
         public PropertiesFirstComparator() {}
 
         @Override
@@ -348,6 +367,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     /** tree comparator. */
     private static final class OWLAxiomTreeComparator implements
             Comparator<Tree<OWLAxiom>>, Serializable {
+
         private static final long serialVersionUID = 40000L;
 
         public OWLAxiomTreeComparator() {}
@@ -391,22 +411,27 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
 
     /** The Class SeedExtractor. */
     private static class SeedExtractor extends OWLAxiomVisitorAdapter {
+
         private OWLEntity source;
         private OWLEntity target;
 
         public SeedExtractor() {}
 
-        /** @param axiom
-         *            the axiom
-         * @return the source */
+        /**
+         * @param axiom
+         *        the axiom
+         * @return the source
+         */
         public OWLEntity getSource(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
             return source;
         }
 
-        /** @param axiom
-         *            the axiom
-         * @return the target */
+        /**
+         * @param axiom
+         *        the axiom
+         * @return the target
+         */
         public OWLEntity getTarget(@Nonnull OWLAxiom axiom) {
             axiom.accept(this);
             return target;
@@ -479,6 +504,7 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /** A visitor that indexes axioms by their left and right hand sides. */
     private class AxiomMapBuilder extends OWLAxiomVisitorAdapter {
+
         public AxiomMapBuilder() {}
 
         @Override

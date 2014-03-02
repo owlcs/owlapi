@@ -35,21 +35,26 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class OWLDisjointUnionAxiomImpl extends OWLClassAxiomImpl implements
         OWLDisjointUnionAxiom {
+
     private static final long serialVersionUID = 40000L;
     private final OWLClass owlClass;
     private final Set<OWLClassExpression> classExpressions;
 
-    /** @param owlClass
-     *            union
+    /**
+     * @param owlClass
+     *        union
      * @param classExpressions
-     *            disjoint classes
+     *        disjoint classes
      * @param annotations
-     *            annotations */
+     *        annotations
+     */
     public OWLDisjointUnionAxiomImpl(@Nonnull OWLClass owlClass,
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Set<? extends OWLAnnotation> annotations) {

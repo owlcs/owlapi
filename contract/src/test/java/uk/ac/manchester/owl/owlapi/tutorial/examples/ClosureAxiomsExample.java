@@ -23,7 +23,8 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
 
-/** This class demonstrates some aspects of the OWL API. It expects three
+/**
+ * This class demonstrates some aspects of the OWL API. It expects three
  * arguments:
  * <ol>
  * <li>The URI of an ontology</li>
@@ -37,16 +38,20 @@ import uk.ac.manchester.owl.owlapi.tutorial.ClosureAxioms;
  * 
  * @author Sean Bechhofer, The University Of Manchester, Information Management
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public class ClosureAxiomsExample {
-    /** @param inputOntology
-     *            input ontology IRI
+
+    /**
+     * @param inputOntology
+     *        input ontology IRI
      * @param outputOntology
-     *            output ontology IRI
+     *        output ontology IRI
      * @param classToClose
-     *            the class to compute the closure of
+     *        the class to compute the closure of
      * @throws OWLException
-     *             if an exception is raised */
+     *         if an exception is raised
+     */
     public void closure(String inputOntology, String outputOntology,
             String classToClose) throws OWLException {
         if (inputOntology == null || outputOntology == null

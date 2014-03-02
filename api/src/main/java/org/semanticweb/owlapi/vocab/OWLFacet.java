@@ -21,13 +21,15 @@ import org.semanticweb.owlapi.model.HasPrefixedName;
 import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
-/** Represents the facets that can be used for restricting a datatype.
+/**
+ * Represents the facets that can be used for restricting a datatype.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
  * @since 2.0.0
  * @see org.semanticweb.owlapi.model.OWLFacetRestriction
- * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction */
+ * @see org.semanticweb.owlapi.model.OWLDatatypeRestriction
+ */
 public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
 //@formatter:off
     /** LENGTH */           LENGTH          (Namespaces.XSD, "length",          "length"), 
@@ -88,9 +90,11 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         return FACET_IRIS;
     }
 
-    /** @param iri
-     *            facet IRI
-     * @return facet for iri */
+    /**
+     * @param iri
+     *        facet IRI
+     * @return facet for iri
+     */
     public static OWLFacet getFacet(IRI iri) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getIRI().equals(iri)) {
@@ -100,12 +104,14 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         return null;
     }
 
-    /** Gets a facet by its short name.
+    /**
+     * Gets a facet by its short name.
      * 
      * @param shortName
-     *            The short name of the facet.
+     *        The short name of the facet.
      * @return The facet or {@code null} if not facet by the specified name
-     *         exists. */
+     *         exists.
+     */
     public static OWLFacet getFacetByShortName(String shortName) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getShortForm().equals(shortName)) {
@@ -115,9 +121,11 @@ public enum OWLFacet implements HasShortForm, HasIRI, HasPrefixedName {
         return null;
     }
 
-    /** @param symbolicName
-     *            symbolic name for facet
-     * @return facet for name */
+    /**
+     * @param symbolicName
+     *        symbolic name for facet
+     * @return facet for name
+     */
     public static OWLFacet getFacetBySymbolicName(String symbolicName) {
         for (OWLFacet vocabulary : OWLFacet.values()) {
             if (vocabulary.getSymbolicForm().equals(symbolicName)) {

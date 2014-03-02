@@ -56,13 +56,16 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-/** adapter for axiom visitors
+/**
+ * adapter for axiom visitors
  * 
  * @author ignazio
  * @param <O>
- *            return type */
+ *        return type
+ */
 public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
         Serializable {
+
     private static final long serialVersionUID = 40000L;
     private O object;
 
@@ -71,19 +74,23 @@ public class OWLAxiomVisitorExAdapter<O> implements OWLAxiomVisitorEx<O>,
         this(null);
     }
 
-    /** adapter with object as default value
+    /**
+     * adapter with object as default value
      * 
      * @param object
-     *            default return value */
+     *        default return value
+     */
     public OWLAxiomVisitorExAdapter(O object) {
         this.object = object;
     }
 
-    /** override to change default behaviour
+    /**
+     * override to change default behaviour
      * 
      * @param axiom
-     *            visited axiom
-     * @return default return value; */
+     *        visited axiom
+     * @return default return value;
+     */
     protected O doDefault(@SuppressWarnings("unused") OWLAxiom axiom) {
         return object;
     }

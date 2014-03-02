@@ -16,16 +16,21 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/** @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
  *         Group
- * @since 3.1.0 */
+ * @since 3.1.0
+ */
 public interface OWLOntologyChangesVetoedListener {
-    /** Called when a list of ontology changes has been vetoed for some reason.
+
+    /**
+     * Called when a list of ontology changes has been vetoed for some reason.
      * 
      * @param changes
-     *            The changes that were vetoed.
+     *        The changes that were vetoed.
      * @param veto
-     *            The cause of the veto. */
+     *        The cause of the veto.
+     */
     void ontologyChangesVetoed(
             @Nonnull List<? extends OWLOntologyChange<?>> changes,
             @Nonnull OWLOntologyChangeVetoException veto);

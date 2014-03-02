@@ -18,12 +18,17 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLOntology;
 
-/** @author Matthew Horridge, The University Of Manchester, Information Management
+/**
+ * @author Matthew Horridge, The University Of Manchester, Information Management
  *         Group
- * @since 2.2.0 */
+ * @since 2.2.0
+ */
 public class OWLOntologyWalker extends OWLObjectWalker<OWLOntology> {
-    /** @param objects
-     *            objects to walk */
+
+    /**
+     * @param objects
+     *        objects to walk
+     */
     public OWLOntologyWalker(@Nonnull Set<OWLOntology> objects) {
         super(objects);
     }

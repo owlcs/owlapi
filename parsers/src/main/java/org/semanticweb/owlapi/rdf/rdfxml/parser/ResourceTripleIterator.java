@@ -3,13 +3,16 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 import org.semanticweb.owlapi.model.IRI;
 
 interface ResourceTripleIterator {
-    /** Handle resource triple.
+
+    /**
+     * Handle resource triple.
      * 
      * @param subject
-     *            the subject
+     *        the subject
      * @param predicate
-     *            the predicate
+     *        the predicate
      * @param object
-     *            the object */
+     *        the object
+     */
     void handleResourceTriple(IRI subject, IRI predicate, IRI object);
 }

@@ -19,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 @SuppressWarnings("javadoc")
 public class RoundTripOboAnnotations extends RoundTripTest {
+
     @Test
     public void testIsInferredAnnotation() throws Exception {
         OBODoc input = parseOBOFile("is_inferred_annotation.obo");

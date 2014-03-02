@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.IRI;
 
 @SuppressWarnings("javadoc")
 public class RdfGraphComparatorTestCase {
+
     @Test
     public void shouldSort() {
         RDFResourceIRI iri1 = new RDFResourceIRI(IRI.create("urn:test:1"));

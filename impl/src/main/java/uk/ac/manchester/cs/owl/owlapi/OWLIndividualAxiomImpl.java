@@ -19,15 +19,20 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 
-/** @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
+/**
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
  *         Group
- * @since 2.0.0 */
+ * @since 2.0.0
+ */
 public abstract class OWLIndividualAxiomImpl extends OWLLogicalAxiomImpl
         implements OWLIndividualAxiom {
+
     private static final long serialVersionUID = 40000L;
 
-    /** @param annotations
-     *            annotations on the axiom */
+    /**
+     * @param annotations
+     *        annotations on the axiom
+     */
     public OWLIndividualAxiomImpl(
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
