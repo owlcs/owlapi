@@ -1,5 +1,6 @@
 package org.semanticweb.owlapi.api.test.anonymous;
 
+import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.ArrayList;
@@ -10,14 +11,20 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -72,5 +79,30 @@ public class AnonymousTestCase extends AbstractOWLAPITestCase {
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
                         ontologyFile));
         return ontology;
+    }
+
+    @Test
+    public void testRoundTripWithAnonymousIndividuals() throws Exception {
+        String NS = "http://test.com/genid#";
+        IRI ONT = IRI.create(NS + "ontology.owl");
+        OWLDataFactory df = OWLManager.getOWLDataFactory();
+        OWLNamedIndividual I = df.getOWLNamedIndividual(IRI.create(NS + "i"));
+        OWLObjectProperty P = df.getOWLObjectProperty(IRI.create(NS + "p"));
+        OWLDataProperty Q = df.getOWLDataProperty(IRI.create(NS + "q"));
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        OWLOntology ontology = manager.createOntology(ONT);
+        OWLIndividual ind = df.getOWLAnonymousIndividual();
+        OWLObjectPropertyAssertionAxiom ax1 = df
+                .getOWLObjectPropertyAssertionAxiom(P, I, ind);
+        OWLDataPropertyAssertionAxiom ax2 = df
+                .getOWLDataPropertyAssertionAxiom(Q, ind, df.getOWLLiteral(5));
+        manager.addAxiom(ontology, ax1);
+        manager.addAxiom(ontology, ax2);
+        StringDocumentTarget savedLocation = new StringDocumentTarget();
+        ontology.getOWLOntologyManager().saveOntology(ontology, savedLocation);
+        OWLOntology reloadedOntology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(savedLocation));
+        assertTrue(equal(ontology, reloadedOntology));
     }
 }
