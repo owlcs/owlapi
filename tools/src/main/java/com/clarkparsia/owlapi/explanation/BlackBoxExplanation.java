@@ -22,8 +22,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -46,6 +44,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 
@@ -53,7 +53,7 @@ import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
 public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         implements SingleExplanationGenerator {
 
-    private static final Logger LOGGER = Logger
+    private static final Logger LOGGER = LoggerFactory
             .getLogger(BlackBoxExplanation.class.getName());
     /** The debugging ontology. */
     private OWLOntology debuggingOntology;
@@ -307,8 +307,8 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
         Object[] axioms = debuggingAxioms.toArray();
-        log("Fast pruning: ");
-        log("     - Window size: %s", fastPruningWindowSize);
+        LOGGER.info("Fast pruning: ");
+        LOGGER.info("     - Window size: {}", fastPruningWindowSize);
         int windowCount = debuggingAxioms.size() / fastPruningWindowSize;
         for (int currentWindow = 0; currentWindow < windowCount; currentWindow++) {
             axiomWindow.clear();
@@ -339,7 +339,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                 debuggingAxioms.addAll(axiomWindow);
             }
         }
-        log("    - End of fast pruning");
+        LOGGER.info("    - End of fast pruning");
     }
 
     private void performSlowPruning(@Nonnull OWLClassExpression unsatClass)
@@ -424,22 +424,22 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             expandAxioms();
             debuggingAxioms.remove(axiom);
         }
-        log("Initial axiom count: ", debuggingAxioms.size());
+        LOGGER.info("Initial axiom count: {}", debuggingAxioms.size());
         int totalAdded = 0;
         int expansionCount = 0;
         while (isSatisfiable(unsatClass)) {
-            log("Expanding axioms (expansion %s)", expansionCount);
+            LOGGER.info("Expanding axioms (expansion {})", expansionCount);
             expansionCount++;
             int numberAdded = expandAxioms();
             totalAdded += numberAdded;
-            log("    ... expanded by ", numberAdded);
+            LOGGER.info("    ... expanded by {}", numberAdded);
             if (numberAdded == 0) {
-                log("ERROR! Cannot find SOS axioms!");
+                LOGGER.info("ERROR! Cannot find SOS axioms!");
                 debuggingAxioms.clear();
                 return;
             }
         }
-        log("Total number of axioms added: %s", totalAdded);
+        LOGGER.info("Total number of axioms added: {}", totalAdded);
     }
 
     /**
@@ -452,9 +452,9 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
      */
     protected void pruneUntilMinimal(@Nonnull OWLClassExpression unsatClass)
             throws OWLException {
-        log("FOUND CLASH! Pruning %s axioms...", debuggingAxioms.size());
+        LOGGER.info("FOUND CLASH! Pruning {} axioms...", debuggingAxioms.size());
         resetSatisfiabilityTestCounter();
-        log("Fast pruning...");
+        LOGGER.info("Fast pruning...");
         // fastPruningWindowSize = 0;
         if (performRepeatedFastPruning) {
             // Base the initial fast pruning window size on the number of axioms
@@ -462,12 +462,12 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
             if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
                 fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             }
-            log("    Initial fast pruning window size: %s",
+            LOGGER.info("    Initial fast pruning window size: {}",
                     fastPruningWindowSize);
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {
-                log("    Round: %s (axioms to prune: %s)", fastPruningCounter,
-                        debuggingAxioms.size());
+                LOGGER.info("    Round: %s (axioms to prune: {})",
+                        fastPruningCounter, debuggingAxioms.size());
                 fastPruningCounter++;
                 performFastPruning(unsatClass);
                 fastPruningWindowSize = fastPruningWindowSize / 3;
@@ -475,27 +475,30 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
                     fastPruningWindowSize = 1;
                 }
             }
-            log("... end of fast pruning. Axioms remaining: %s",
+            LOGGER.info("... end of fast pruning. Axioms remaining: {}",
                     debuggingAxioms.size());
-            log("Performed %s satisfiability tests during fast pruning",
+            LOGGER.info(
+                    "Performed {} satisfiability tests during fast pruning",
                     satTestCount);
         } else {
             fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             performFastPruning(unsatClass);
-            log("... end of fast pruning. Axioms remaining: %s",
+            LOGGER.info("... end of fast pruning. Axioms remaining: {}",
                     debuggingAxioms.size());
-            log("Performed %s satisfiability tests during fast pruning",
+            LOGGER.info(
+                    "Performed {} satisfiability tests during fast pruning",
                     satTestCount);
         }
         int totalSatTests = satTestCount;
         resetSatisfiabilityTestCounter();
-        log("Slow pruning...");
+        LOGGER.info("Slow pruning...");
         performSlowPruning(unsatClass);
-        log("... end of slow pruning");
-        log("Performed %s satisfiability tests during slow pruning",
+        LOGGER.info("... end of slow pruning");
+        LOGGER.info("Performed {} satisfiability tests during slow pruning",
                 satTestCount);
         totalSatTests += satTestCount;
-        log("Total number of satisfiability tests performed: %s", totalSatTests);
+        LOGGER.info("Total number of satisfiability tests performed: {}",
+                totalSatTests);
     }
 
     private void removeDeclarations() {
@@ -516,23 +519,5 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
     @Override
     public String toString() {
         return "BlackBox";
-    }
-
-    private static void log(String template, Object... objects) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, objects));
-        }
-    }
-
-    private static void log(String template, int objects) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, objects));
-        }
-    }
-
-    private static void log(String template, int object1, int object2) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, object1, object2));
-        }
     }
 }

@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -46,6 +44,8 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is an implementation of a blackbox debugger. The implementation is based
@@ -58,8 +58,8 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  */
 public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
 
-    private static final Logger LOGGER = Logger
-            .getLogger(BlackBoxOWLDebugger.class.getName());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(BlackBoxOWLDebugger.class);
     private OWLClass currentClass;
     private OWLOntology debuggingOntology;
     private final Set<OWLAxiom> debuggingAxioms = new LinkedHashSet<OWLAxiom>();
@@ -326,8 +326,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private void performFastPruning() throws OWLException {
         Set<OWLAxiom> axiomWindow = new HashSet<OWLAxiom>();
         Object[] axioms = debuggingAxioms.toArray();
-        log("Fast pruning: ");
-        log("     - Window size: %s", fastPruningWindowSize);
+        LOGGER.info("Fast pruning: ");
+        LOGGER.info("     - Window size: {}", fastPruningWindowSize);
         int windowCount = debuggingAxioms.size() / fastPruningWindowSize;
         for (int currentWindow = 0; currentWindow < windowCount; currentWindow++) {
             axiomWindow.clear();
@@ -358,7 +358,7 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                 debuggingAxioms.addAll(axiomWindow);
             }
         }
-        log("    - End of fast pruning");
+        LOGGER.info("    - End of fast pruning");
     }
 
     private void performSlowPruning() throws OWLException {
@@ -429,61 +429,43 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         satTestCount = 0;
     }
 
-    private static void log(String template, Object... objects) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, objects));
-        }
-    }
-
-    private static void log(String template, int objects) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, objects));
-        }
-    }
-
-    private static void log(String template, int object1, int object2) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, object1, object2));
-        }
-    }
-
     private void generateSOSAxioms() throws OWLException {
         // Perform the initial expansion - this will cause
         // the debugging axioms set to be expanded to the
         // defining axioms for the class being debugged
         resetSatisfiabilityTestCounter();
         expandWithDefiningAxioms(currentClass, expansionLimit);
-        log("Initial axiom count: %s", debuggingAxioms.size());
+        LOGGER.info("Initial axiom count: {}", debuggingAxioms.size());
         int totalAdded = 0;
         int expansionCount = 0;
         while (isSatisfiable()) {
-            log("Expanding axioms (expansion %s)", expansionCount);
+            LOGGER.info("Expanding axioms (expansion {})", expansionCount);
             expansionCount++;
             int numberAdded = expandAxioms();
             totalAdded += numberAdded;
-            log("    ... expanded by %s", numberAdded);
+            LOGGER.info("    ... expanded by {}", numberAdded);
             if (numberAdded == 0) {
-                log("ERROR! Cannot find SOS axioms!");
+                LOGGER.info("ERROR! Cannot find SOS axioms!");
                 debuggingAxioms.clear();
                 return;
             }
         }
-        log("Total number of axioms added: %s", totalAdded);
-        log("FOUND CLASH! Pruning %s axioms...", debuggingAxioms.size());
+        LOGGER.info("Total number of axioms added: {}", totalAdded);
+        LOGGER.info("FOUND CLASH! Pruning {} axioms...", debuggingAxioms.size());
         resetSatisfiabilityTestCounter();
-        log("Fast pruning...");
+        LOGGER.info("Fast pruning...");
         if (performRepeatedFastPruning) {
             // Base the initial fast pruning window size on the number of axioms
             fastPruningWindowSize = debuggingAxioms.size() / 10;
             if (fastPruningWindowSize < DEFAULT_FAST_PRUNING_WINDOW_SIZE) {
                 fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             }
-            log("    Initial fast prunung window size: %s",
+            LOGGER.info("    Initial fast prunung window size: {}",
                     fastPruningWindowSize);
             int fastPruningCounter = 0;
             while (fastPruningWindowSize != 1) {
-                log("    Round: %s (axioms to prune: %s)", fastPruningCounter,
-                        debuggingAxioms.size());
+                LOGGER.info("    Round: {} (axioms to prune: {})",
+                        fastPruningCounter, debuggingAxioms.size());
                 fastPruningCounter++;
                 performFastPruning();
                 fastPruningWindowSize = fastPruningWindowSize / 3;
@@ -491,27 +473,30 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
                     fastPruningWindowSize = 1;
                 }
             }
-            log("... end of fast pruning. Axioms remaining: %s",
+            LOGGER.info("... end of fast pruning. Axioms remaining: {}",
                     debuggingAxioms.size());
-            log("Performed %s satisfiability tests during fast pruning",
+            LOGGER.info(
+                    "Performed {} satisfiability tests during fast pruning",
                     satTestCount);
         } else {
             fastPruningWindowSize = DEFAULT_FAST_PRUNING_WINDOW_SIZE;
             performFastPruning();
-            log("... end of fast pruning. Axioms remaining: %s",
+            LOGGER.info("... end of fast pruning. Axioms remaining: {}",
                     debuggingAxioms.size());
-            log("Performed %s satisfiability tests during fast pruning",
+            LOGGER.info(
+                    "Performed {} satisfiability tests during fast pruning",
                     satTestCount);
         }
         int totalSatTests = satTestCount;
         resetSatisfiabilityTestCounter();
-        log("Slow pruning...");
+        LOGGER.info("Slow pruning...");
         performSlowPruning();
-        log("... end of slow pruning");
-        log("Performed %s satisfiability tests during slow pruning",
+        LOGGER.info("... end of slow pruning");
+        LOGGER.info("Performed {} satisfiability tests during slow pruning",
                 satTestCount);
         totalSatTests += satTestCount;
-        log("Total number of satisfiability tests performed: %s", totalSatTests);
+        LOGGER.info("Total number of satisfiability tests performed: {}",
+                totalSatTests);
     }
 
     private static final AtomicLong counter = new AtomicLong(System.nanoTime());

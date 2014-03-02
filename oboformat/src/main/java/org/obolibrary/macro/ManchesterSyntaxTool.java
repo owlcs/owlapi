@@ -3,8 +3,6 @@ package org.obolibrary.macro;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.obo2owl.OWLAPIObo2Owl;
 import org.obolibrary.oboformat.model.OBODoc;
@@ -35,6 +33,8 @@ import org.semanticweb.owlapi.util.IRIShortFormProvider;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * wrapper for parsing Manchester Syntax.
@@ -43,7 +43,7 @@ import org.semanticweb.owlapi.util.SimpleIRIShortFormProvider;
  */
 public class ManchesterSyntaxTool {
 
-    private static final Logger log = Logger
+    private static final Logger log = LoggerFactory
             .getLogger(ManchesterSyntaxTool.class.getName());
     protected IRIShortFormProvider iriShortFormProvider;
     private OWLDataFactory dataFactory;
@@ -174,9 +174,7 @@ public class ManchesterSyntaxTool {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(entityChecker);
-        if (log.isLoggable(Level.WARNING)) {
-            log.log(Level.WARNING, "parsing:" + expression);
-        }
+        log.warn("parsing: {}", expression);
         return parser;
     }
 

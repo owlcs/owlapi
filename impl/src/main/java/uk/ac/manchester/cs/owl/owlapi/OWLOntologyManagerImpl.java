@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
@@ -95,6 +94,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 import org.semanticweb.owlapi.util.PriorityCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -105,8 +106,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private static final Logger LOGGER = Logger
-            .getLogger(OWLOntologyManagerImpl.class.getName());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(OWLOntologyManagerImpl.class);
     protected Map<OWLOntologyID, OWLOntology> ontologiesByID = new HashMap<OWLOntologyID, OWLOntology>();
     protected Map<OWLOntologyID, IRI> documentIRIsByID = new HashMap<OWLOntologyID, IRI>();
     protected Map<OWLOntologyID, OWLOntologyFormat> ontologyFormatsByOntology = new HashMap<OWLOntologyID, OWLOntologyFormat>();
@@ -538,10 +539,12 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     && !change.getOntology().equals(existingOntology)) {
                 if (!change.getOntology().getAxioms()
                         .equals(existingOntology.getAxioms())) {
-                    LOGGER.severe("OWLOntologyManagerImpl.checkForOntologyIDChange() existing:\n"
-                            + existingOntology);
-                    LOGGER.severe("OWLOntologyManagerImpl.checkForOntologyIDChange() new:\n"
-                            + change.getOntology());
+                    LOGGER.error(
+                            "OWLOntologyManagerImpl.checkForOntologyIDChange() existing:{}",
+                            existingOntology);
+                    LOGGER.error(
+                            "OWLOntologyManagerImpl.checkForOntologyIDChange() new:{}",
+                            change.getOntology());
                     throw new OWLOntologyRenameException(change,
                             ((SetOntologyID) change).getNewOntologyID());
                 }
@@ -1130,7 +1133,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 // to prevent the other listeners from receiving events.
                 strategy.broadcastChanges(listener, changes);
             } catch (Throwable e) {
-                LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
+                LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
             }
         }
     }
@@ -1326,7 +1329,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 lsnr.begin(size);
             }
         } catch (Throwable e) {
-            LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
+            LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
         }
     }
 
@@ -1340,7 +1343,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             }
         } catch (Throwable e) {
             // Listener threw an exception
-            LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
+            LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
         }
     }
 
@@ -1357,7 +1360,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             }
         } catch (Throwable e) {
             // Listener threw an exception
-            LOGGER.warning("BADLY BEHAVING LISTENER: " + e);
+            LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
         }
     }
 }

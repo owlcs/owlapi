@@ -1,8 +1,6 @@
 package org.obolibrary.macro;
 
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.AddAxiom;
@@ -24,12 +22,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** macro expansion gci visitor */
 public class MacroExpansionGCIVisitor {
 
-    protected static final Logger log = Logger
-            .getLogger(MacroExpansionGCIVisitor.class.getName());
+    protected static final Logger log = LoggerFactory
+            .getLogger(MacroExpansionGCIVisitor.class);
     private OWLOntology inputOntology;
     private OWLOntologyManager outputManager;
     private OWLOntology outputOntology;
@@ -53,13 +53,13 @@ public class MacroExpansionGCIVisitor {
             outputOntology = outputManager.createOntology(inputOntology
                     .getOntologyID());
         } catch (Exception ex) {
-            log.log(Level.SEVERE, ex.getMessage(), ex);
+            log.error(ex.getMessage(), ex);
         }
     }
 
     protected void output(OWLAxiom axiom) {
         if (axiom == null) {
-            log.log(Level.SEVERE, "no axiom");
+            log.error("no axiom");
             return;
         }
         // System.out.println("adding:"+axiom);
@@ -67,7 +67,7 @@ public class MacroExpansionGCIVisitor {
         try {
             outputManager.applyChange(addAx);
         } catch (Exception e) {
-            log.log(Level.SEVERE, "COULD NOT TRANSLATE AXIOM", e);
+            log.error("COULD NOT TRANSLATE AXIOM", e);
         }
     }
 
@@ -91,16 +91,12 @@ public class MacroExpansionGCIVisitor {
         OWLAnnotationProperty prop = ax.getProperty();
         String expandTo = visitor.expandAssertionToMap.get(prop.getIRI());
         if (expandTo != null) {
-            if (log.isLoggable(Level.FINE)) {
-                log.log(Level.SEVERE, "Template to Expand" + expandTo);
-            }
+            log.info("Template to Expand{}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
                     manchesterSyntaxTool.getId((IRI) ax.getValue()));
-            if (log.isLoggable(Level.FINE)) {
-                log.log(Level.SEVERE, "Expanding " + expandTo);
-            }
+            log.info("Expanding {}", expandTo);
             try {
                 Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
                         .parseManchesterExpressionFrames(expandTo);
@@ -108,7 +104,7 @@ public class MacroExpansionGCIVisitor {
                     output(axp.getAxiom());
                 }
             } catch (Exception ex) {
-                log.log(Level.SEVERE, ex.getMessage(), ex);
+                log.error(ex.getMessage(), ex);
             }
         }
     }
@@ -116,7 +112,7 @@ public class MacroExpansionGCIVisitor {
     private class GCIVisitor extends AbstractMacroExpansionVisitor {
 
         GCIVisitor(OWLOntology inputOntology) {
-            super(inputOntology, MacroExpansionGCIVisitor.log);
+            super(inputOntology);
         }
 
         @Override
@@ -174,7 +170,7 @@ public class MacroExpansionGCIVisitor {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
-                        log.log(Level.SEVERE, e.getMessage(), e);
+                        log.error(e.getMessage(), e);
                     }
                 }
             }

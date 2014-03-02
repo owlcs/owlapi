@@ -14,8 +14,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -25,14 +23,19 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** implements the OBO Format 1.4 specification. */
 public class OBOFormatParser {
 
-    static final Logger LOG = Logger.getLogger(OBOFormatParser.class.getName());
+    static final Logger LOG = LoggerFactory.getLogger(OBOFormatParser.class);
+
     // TODO use this to validate date strings for OboFormatTag.TAG_CREATION_DATE
-    SimpleDateFormat isoDateFormat = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss'Z'");
+    protected SimpleDateFormat getISODateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    }
+
     private boolean followImport;
     private Object location;
 
@@ -88,7 +91,7 @@ public class OBOFormatParser {
                 lineNo++;
                 pos = 0;
             } catch (IOException e) {
-                LOG.log(Level.SEVERE, "lineNo: " + lineNo);
+                LOG.error("lineNo: " + lineNo);
                 throw new Error("Error reading from input.", e);
             }
         }
@@ -1505,6 +1508,6 @@ public class OBOFormatParser {
         sb.append(message);
         sb.append("  LINE:\n");
         sb.append(stream.line);
-        LOG.log(Level.WARNING, sb.toString());
+        LOG.warn(sb.toString());
     }
 }

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.semanticweb.owlapi.model.IRI;
@@ -89,6 +87,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.search.Searcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Empty abstract visitor for macro expansion. This class allows to minimize the
@@ -99,15 +99,14 @@ public abstract class AbstractMacroExpansionVisitor implements
         OWLClassExpressionVisitorEx<OWLClassExpression>,
         OWLDataVisitorEx<OWLDataRange>, OWLAxiomVisitorEx<OWLAxiom> {
 
-    final Logger log;
+    static final Logger log = LoggerFactory
+            .getLogger(AbstractMacroExpansionVisitor.class);
     final OWLDataFactory dataFactory;
     final Map<IRI, String> expandAssertionToMap;
     final Map<IRI, String> expandExpressionMap;
 
-    protected AbstractMacroExpansionVisitor(OWLOntology inputOntology,
-            Logger log) {
+    protected AbstractMacroExpansionVisitor(OWLOntology inputOntology) {
         super();
-        this.log = log;
         dataFactory = inputOntology.getOWLOntologyManager().getOWLDataFactory();
         expandExpressionMap = new HashMap<IRI, String>();
         expandAssertionToMap = new HashMap<IRI, String>();
@@ -125,9 +124,7 @@ public abstract class AbstractMacroExpansionVisitor implements
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
-                    if (log.isLoggable(Level.WARNING)) {
-                        log.log(Level.WARNING, "mapping " + p + " to " + str);
-                    }
+                    log.warn("mapping {} to {}", p, str);
                     expandExpressionMap.put(p.getIRI(), str);
                 }
             }
@@ -140,10 +137,7 @@ public abstract class AbstractMacroExpansionVisitor implements
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
-                    if (log.isLoggable(Level.WARNING)) {
-                        log.log(Level.WARNING, "assertion mapping " + p
-                                + " to " + str);
-                    }
+                    log.warn("assertion mapping {} to {}", p, str);
                     expandAssertionToMap.put(p.getIRI(), str);
                 }
             }

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Translates an rdf:List into a Java {@code List}, or Java {@code Set}. The
@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.rdf.rdfxml.parser.Translators.ListItemTranslator;
  */
 class OptimisedListTranslator<O extends OWLObject> {
 
-    private static final Logger logger = Logger
-            .getLogger(OptimisedListTranslator.class.getName());
+    private static final Logger logger = LoggerFactory
+            .getLogger(OptimisedListTranslator.class);
     private OWLRDFConsumer consumer;
     private ListItemTranslator<O> translator;
 
@@ -62,9 +62,7 @@ class OptimisedListTranslator<O extends OWLObject> {
                     }
                 } else {
                     // Empty list?
-                    if (logger.isLoggable(Level.FINE)) {
-                        logger.fine("Possible malformed list: rdf:first triple missing");
-                    }
+                    logger.warn("Possible malformed list: rdf:first triple missing");
                 }
             }
             current = consumer.getRest(current, true);

@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.formats.RDFOntologyFormat;
 import org.semanticweb.owlapi.io.RDFTriple;
@@ -63,16 +61,17 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class TripleHandlers {
 
-    static final Logger logger = Logger.getLogger(TripleHandlers.class
-            .getName());
+    static final Logger logger = LoggerFactory.getLogger(TripleHandlers.class);
 
     static class HandlerAccessor {
 
@@ -2343,7 +2342,7 @@ public class TripleHandlers {
                     && !object.equals(OWL_THING.getIRI())) {
                 // Can't have instance of built in vocabulary!
                 // Shall we throw an exception here?
-                logger.fine("Individual of builtin type " + object);
+                logger.info("Individual of builtin type {}", object);
             }
             addAxiom(df.getOWLClassAssertionAxiom(
                     translateClassExpression(object),
@@ -3170,10 +3169,8 @@ public class TripleHandlers {
         public void handleTriple(IRI subject, IRI predicate, IRI object) {
             // We need to consume this triple
             consumeTriple(subject, predicate, object);
-            if (logger.isLoggable(Level.FINE)) {
-                logger.fine("Usage of rdf vocabulary: " + subject + " -> "
-                        + predicate + " -> " + object);
-            }
+            logger.info("Usage of rdf vocabulary: {} -> {} -> {}", subject,
+                    predicate, object);
         }
     }
 

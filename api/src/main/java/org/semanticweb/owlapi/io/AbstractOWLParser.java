@@ -22,7 +22,6 @@ import java.net.URLConnection;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -40,6 +39,8 @@ import org.semanticweb.owlapi.model.OWLOntologyFormatFactory;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.OWLOntologyFormatFactoryImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 /**
@@ -55,8 +56,8 @@ import org.xml.sax.InputSource;
 public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     private static final long serialVersionUID = 40000L;
-    private static final Logger LOGGER = Logger
-            .getLogger(AbstractOWLParser.class.getName());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AbstractOWLParser.class);
     private static final String ZIP_FILE_EXTENSION = ".zip";
     private static final String CONTENT_DISPOSITION_HEADER = "Content-Disposition";
     private static final Pattern CONTENT_DISPOSITION_FILE_NAME_PATTERN = Pattern
@@ -154,11 +155,11 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
             throws IOException {
         InputStream is;
         if ("gzip".equals(contentEncoding)) {
-            LOGGER.fine("URL connection input stream is compressed using gzip");
+            LOGGER.info("URL connection input stream is compressed using gzip");
             is = new BufferedInputStream(new GZIPInputStream(
                     conn.getInputStream()));
         } else if ("deflate".equals(contentEncoding)) {
-            LOGGER.fine("URL connection input stream is compressed using deflate");
+            LOGGER.info("URL connection input stream is compressed using deflate");
             is = new BufferedInputStream(new InflaterInputStream(
                     conn.getInputStream(), new Inflater(true)));
         } else {

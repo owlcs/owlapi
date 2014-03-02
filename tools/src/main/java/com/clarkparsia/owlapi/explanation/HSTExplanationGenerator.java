@@ -21,8 +21,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -37,6 +35,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.clarkparsia.owlapi.explanation.util.ExplanationProgressMonitor;
 import com.clarkparsia.owlapi.explanation.util.OntologyUtils;
@@ -45,8 +45,8 @@ import com.clarkparsia.owlapi.explanation.util.SilentExplanationProgressMonitor;
 /** HST explanation generator. */
 public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
-    private static final Logger LOGGER = Logger
-            .getLogger(HSTExplanationGenerator.class.getName());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(HSTExplanationGenerator.class);
     private final TransactionAwareSingleExpGen singleExplanationGenerator;
     private ExplanationProgressMonitor progressMonitor = new SilentExplanationProgressMonitor();
 
@@ -121,7 +121,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             throw new IllegalArgumentException();
         }
         Object max = maxExplanations == 0 ? "all" : maxExplanations;
-        log("Get %s explanation(s) for: %s", max, unsatClass);
+        LOGGER.info("Get {} explanation(s) for: {}", max, unsatClass);
         try {
             Set<OWLAxiom> firstMups = getExplanation(unsatClass);
             if (firstMups.isEmpty()) {
@@ -215,18 +215,6 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         return toReturn;
     }
 
-    private static void log(String template, Object... objects) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, objects));
-        }
-    }
-
-    private static void log(String template, int objects) {
-        if (LOGGER.isLoggable(Level.FINE)) {
-            LOGGER.fine(String.format(template, objects));
-        }
-    }
-
     /**
      * This is a recursive method that builds a hitting set tree to obtain all
      * justifications for an unsatisfiable class.
@@ -256,7 +244,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             @Nonnull Set<Set<OWLAxiom>> satPaths,
             @Nonnull Set<OWLAxiom> currentPathContents, int maxExplanations)
             throws OWLException {
-        log("MUPS %s: %s", allMups.size(), mups);
+        LOGGER.info("MUPS {}: {}", allMups.size(), mups);
         if (progressMonitor.isCancelled()) {
             return;
         }
@@ -271,10 +259,10 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             OWLAxiom axiom = orderedMups.get(0);
             orderedMups.remove(0);
             if (allMups.size() == maxExplanations) {
-                log("Computed %s explanations", maxExplanations);
+                LOGGER.info("Computed {} explanations", maxExplanations);
                 return;
             }
-            log("Removing axiom: %s %s more removed: %s", axiom,
+            LOGGER.info("Removing axiom: {} {} more removed: {}", axiom,
                     currentPathContents.size(), currentPathContents);
             // Removal may have dereferenced some entities, if so declarations
             // are added
@@ -312,7 +300,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
         for (Set<OWLAxiom> satPath : satPaths) {
             if (currentPathContents.containsAll(satPath)) {
                 earlyTermination = true;
-                log("Stop - satisfiable (early termination)");
+                LOGGER.info("Stop - satisfiable (early termination)");
                 break;
             }
         }
@@ -368,7 +356,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             // axioms in the MUPS at the current level
             orderedMups = getOrderedMUPS(orderedMups, allMups);
         } else {
-            log("Stop - satisfiable");
+            LOGGER.info("Stop - satisfiable");
             // End of current path - add it to the list of paths
             satPaths.add(new HashSet<OWLAxiom>(currentPathContents));
         }
@@ -381,7 +369,7 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
             @Nonnull Set<OWLOntology> ontologies) {
         // Back track - go one level up the tree and run for the next axiom
         currentPathContents.remove(axiom);
-        log("Restoring axiom: %s", axiom);
+        LOGGER.info("Restoring axiom: {}", axiom);
         // Remove any temporary declarations
         for (OWLDeclarationAxiom decl : temporaryDeclarations) {
             OntologyUtils.removeAxiom(decl, getReasoner().getRootOntology()

@@ -26,7 +26,6 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.io.OWLOntologyDocumentTarget;
 import org.semanticweb.owlapi.model.IRI;
@@ -34,6 +33,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.OWLOntologyStorer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for ontology storers. Note that all current implementations are
@@ -47,8 +48,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
 
     private static final long serialVersionUID = 40000L;
     private static final String UTF_8 = "UTF-8";
-    protected static final Logger LOGGER = Logger
-            .getLogger(OWLOntologyStorer.class.getName());
+    protected static final Logger LOGGER = LoggerFactory
+            .getLogger(OWLOntologyStorer.class);
 
     @Override
     public final void storeOntology(OWLOntology ontology, IRI documentIRI,
@@ -106,8 +107,8 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             }
         } finally {
             if (tempFile != null && !tempFile.delete()) {
-                LOGGER.warning("Temporary file " + tempFile.getAbsolutePath()
-                        + " cannot be deleted.");
+                LOGGER.warn("Temporary file {} cannot be deleted.",
+                        tempFile.getAbsolutePath());
             }
             if (outputStreamWriter != null) {
                 outputStreamWriter.close();

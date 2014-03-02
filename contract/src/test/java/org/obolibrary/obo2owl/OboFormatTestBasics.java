@@ -14,11 +14,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.junit.BeforeClass;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
@@ -41,17 +37,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 @SuppressWarnings("javadoc")
 public class OboFormatTestBasics {
-
-    @BeforeClass
-    public static void setUp() {
-        Logger globalLogger = Logger.getLogger("");
-        Handler[] handlers = globalLogger.getHandlers();
-        for (Handler handler : handlers) {
-            globalLogger.removeHandler(handler);
-        }
-        globalLogger.setLevel(Level.OFF);
-        globalLogger.setUseParentHandlers(false);
-    }
 
     protected OBODoc parseOBOURL(String fn) throws IOException,
             OBOFormatParserException {

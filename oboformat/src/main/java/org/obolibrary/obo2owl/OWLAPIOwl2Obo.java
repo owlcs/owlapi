@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,12 +77,14 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** The Class OWLAPIOwl2Obo. */
 public class OWLAPIOwl2Obo {
 
     /** The log. */
-    private static Logger LOG = Logger.getLogger(OWLAPIOwl2Obo.class.getName());
+    private static Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
     /** The manager. */
     protected OWLOntologyManager manager;
     /** The owl ontology. */
@@ -358,20 +358,19 @@ public class OWLAPIOwl2Obo {
                         OWLObjectProperty p = (OWLObjectProperty) ((OWLObjectSomeValuesFrom) x)
                                 .getProperty();
                         if (this.getIdentifier(p).equals(viewRel) == false) {
-                            LOG.log(Level.SEVERE, "Expected: " + viewRel
-                                    + " got: " + p + " in " + eca);
+                            LOG.error("Expected: {} got: {} in {}", viewRel, p,
+                                    eca);
                         }
                         xs.add(((OWLObjectSomeValuesFrom) x).getFiller());
                     } else {
-                        LOG.log(Level.SEVERE, "Unexpected: " + eca);
+                        LOG.error("Unexpected: {}", eca);
                     }
                 }
                 if (numNamed == 1) {
                     rmAxioms.add(eca);
                     newAxioms.add(fac.getOWLEquivalentClassesAxiom(xs));
                 } else {
-                    LOG.log(Level.SEVERE, "ECA did not fit expected pattern: "
-                            + eca);
+                    LOG.error("ECA did not fit expected pattern: {}", eca);
                 }
             }
             manager.removeAxioms(owlOntology, rmAxioms);
@@ -379,18 +378,12 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /**
-     * Adds the.
-     * 
-     * @param f
-     *        the f
-     */
     protected void add(Frame f) {
         if (f != null) {
             try {
                 obodoc.addFrame(f);
             } catch (Exception ex) {
-                LOG.log(Level.SEVERE, ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
         }
     }
@@ -837,8 +830,7 @@ public class OWLAPIOwl2Obo {
             if (!hf.getClauses().contains(clause)) {
                 hf.addClause(clause);
             } else {
-                LOG.log(Level.WARNING, "duplicate clause: " + clause
-                        + " in header");
+                LOG.warn("duplicate clause: {} in header", clause);
             }
             return;
         } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(_tag)) {
@@ -861,8 +853,7 @@ public class OWLAPIOwl2Obo {
             if (!hf.getClauses().contains(clause)) {
                 hf.addClause(clause);
             } else {
-                LOG.log(Level.WARNING, "duplicate clause: " + clause
-                        + " in header");
+                LOG.warn("duplicate clause: {} in header", clause);
             }
             addQualifiers(clause, ax.getAnnotations());
             return;
@@ -1079,8 +1070,8 @@ public class OWLAPIOwl2Obo {
      */
     protected boolean handleDuplicateClause(Frame frame, Clause clause) {
         // default is to report it via the logger and remove it.
-        LOG.log(Level.WARNING, "Duplicate clause '" + clause
-                + "' generated in frame: " + frame.getId());
+        LOG.warn("Duplicate clause '{}' generated in frame: {}", clause,
+                frame.getId());
         return true;
     }
 
@@ -1626,7 +1617,7 @@ public class OWLAPIOwl2Obo {
                 id = defaultValue;
             }
         } catch (UntranslatableAxiomException e) {
-            LOG.log(Level.WARNING, e.getMessage());
+            LOG.warn(e.getMessage(), e);
         }
         return id;
     }
@@ -2301,7 +2292,7 @@ public class OWLAPIOwl2Obo {
      *        the message
      */
     protected void error(String message) {
-        LOG.log(Level.WARNING, message);
+        LOG.warn(message);
         if (strictConversion) {
             throw new RuntimeException("The conversion is halted: " + message);
         }

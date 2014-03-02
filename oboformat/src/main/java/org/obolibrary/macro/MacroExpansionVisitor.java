@@ -2,8 +2,6 @@ package org.obolibrary.macro;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
 import org.semanticweb.owlapi.model.IRI;
@@ -26,12 +24,14 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OntologyAxiomPair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** @author cjm TODO - allow use of prefixes */
 public class MacroExpansionVisitor {
 
-    protected static final Logger log = Logger
-            .getLogger(MacroExpansionVisitor.class.getName());
+    protected static final Logger log = LoggerFactory
+            .getLogger(MacroExpansionVisitor.class);
     private OWLOntology inputOntology;
     private OWLOntologyManager manager;
     private Visitor visitor;
@@ -108,16 +108,12 @@ public class MacroExpansionVisitor {
                 // then add the declarations at this point
                 manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
             }
-            if (log.isLoggable(Level.WARNING)) {
-                log.log(Level.WARNING, "Template to Expand" + expandTo);
-            }
+            log.warn("Template to Expand {}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
                     manchesterSyntaxTool.getId(axValIRI));
-            if (log.isLoggable(Level.WARNING)) {
-                log.log(Level.WARNING, "Expanding " + expandTo);
-            }
+            log.warn("Expanding {}", expandTo);
             try {
                 Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
                         .parseManchesterExpressionFrames(expandTo);
@@ -125,7 +121,7 @@ public class MacroExpansionVisitor {
                     setAx.add(axp.getAxiom());
                 }
             } catch (Exception ex) {
-                log.log(Level.SEVERE, ex.getMessage(), ex);
+                log.error(ex.getMessage(), ex);
             }
             // TODO:
         }
@@ -135,7 +131,7 @@ public class MacroExpansionVisitor {
     private class Visitor extends AbstractMacroExpansionVisitor {
 
         Visitor(OWLOntology inputOntology) {
-            super(inputOntology, MacroExpansionVisitor.log);
+            super(inputOntology);
         }
 
         @Override
@@ -182,7 +178,7 @@ public class MacroExpansionVisitor {
                         result = manchesterSyntaxTool
                                 .parseManchesterExpression(exStr);
                     } catch (ParserException e) {
-                        log.log(Level.SEVERE, e.getMessage(), e);
+                        log.error(e.getMessage(), e);
                     }
                 }
             }

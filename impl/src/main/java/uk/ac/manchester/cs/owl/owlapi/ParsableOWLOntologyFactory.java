@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 
@@ -40,6 +39,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An ontology factory that creates ontologies by parsing documents containing
@@ -56,8 +57,8 @@ import org.semanticweb.owlapi.model.UnloadableImportException;
 public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory {
 
     private static final long serialVersionUID = 40000L;
-    private static final Logger LOGGER = Logger
-            .getLogger(ParsableOWLOntologyFactory.class.getName());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(ParsableOWLOntologyFactory.class);
     private final Set<String> parsableSchemes = new HashSet<String>(
             Arrays.asList("http", "https", "file", "ftp"));
 
@@ -104,13 +105,13 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
             is.close();
             return true;
         } catch (UnknownHostException e) {
-            LOGGER.info("Unknown host: " + e.getMessage());
+            LOGGER.info("Unknown host: {}", e.getMessage(), e);
         } catch (MalformedURLException e) {
-            LOGGER.info("Malformed URL: " + e.getMessage());
+            LOGGER.info("Malformed URL: {}", e.getMessage(), e);
         } catch (FileNotFoundException e) {
-            LOGGER.info("File not found: " + e.getMessage());
+            LOGGER.info("File not found: {}", e.getMessage(), e);
         } catch (IOException e) {
-            LOGGER.info("IO Exception: " + e.getMessage());
+            LOGGER.info("IO Exception: {}", e.getMessage(), e);
         }
         return false;
     }

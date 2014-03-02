@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
@@ -67,13 +66,18 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SWRLVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class Translators {
+
+    protected static final Logger logger = LoggerFactory
+            .getLogger(Translators.class);
 
     static OptimisedListTranslator<OWLPropertyExpression> getListTranslator(
             OWLRDFConsumer consumer) {
@@ -1029,8 +1033,6 @@ public class Translators {
     static class IndividualListItemTranslator implements
             ListItemTranslator<OWLIndividual> {
 
-        private static final Logger logger = Logger
-                .getLogger(IndividualListItemTranslator.class.getName());
         private OWLRDFConsumer consumer;
 
         public IndividualListItemTranslator(OWLRDFConsumer consumer) {
@@ -1141,9 +1143,6 @@ public class Translators {
     static class OWLObjectPropertyExpressionListItemTranslator implements
             ListItemTranslator<OWLObjectPropertyExpression> {
 
-        private static final Logger logger = Logger
-                .getLogger(OWLObjectPropertyExpressionListItemTranslator.class
-                        .getName());
         private OWLRDFConsumer consumer;
 
         public OWLObjectPropertyExpressionListItemTranslator(
@@ -1633,8 +1632,6 @@ public class Translators {
     static class ObjectPropertyListItemTranslator implements
             ListItemTranslator<OWLObjectPropertyExpression> {
 
-        private static final Logger logger = Logger
-                .getLogger(ObjectPropertyListItemTranslator.class.getName());
         private OWLRDFConsumer consumer;
 
         public ObjectPropertyListItemTranslator(OWLRDFConsumer consumer) {
@@ -1793,8 +1790,6 @@ public class Translators {
     static class SWRLAtomListItemTranslator implements
             ListItemTranslator<SWRLAtom> {
 
-        private static final Logger logger = Logger
-                .getLogger(SWRLAtomListItemTranslator.class.getName());
         private OWLRDFConsumer consumer;
         protected OWLDataFactory dataFactory;
         protected TranslatorAccessor accessor;
@@ -1924,8 +1919,9 @@ public class Translators {
             if (argIRI != null) {
                 // Must be a variable -- double check
                 if (!consumer.isSWRLVariable(argIRI)) {
-                    logger.info("Expected SWRL variable for SWRL Data Object: "
-                            + argIRI + "(possibly untyped)");
+                    logger.info(
+                            "Expected SWRL variable for SWRL Data Object: {} (possibly untyped)",
+                            argIRI);
                 }
                 return dataFactory.getSWRLVariable(argIRI);
             } else {
@@ -2016,9 +2012,6 @@ public class Translators {
 
     static class TypedConstantListItemTranslator implements
             ListItemTranslator<OWLLiteral> {
-
-        private static final Logger logger = Logger
-                .getLogger(TypedConstantListItemTranslator.class.getName());
 
         @Override
         public OWLLiteral translate(IRI firstObject) {

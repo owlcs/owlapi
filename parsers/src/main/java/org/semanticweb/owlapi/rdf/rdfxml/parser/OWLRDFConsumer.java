@@ -22,8 +22,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -77,6 +75,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A parser/interpreter for an RDF graph which represents an OWL ontology. The
@@ -101,8 +101,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     /** The Constant DAML_OIL. */
     private static final String DAML_OIL = "http://www.daml.org/2001/03/daml+oil#";
-    private static final Logger logger = Logger.getLogger(OWLRDFConsumer.class
-            .getName());
+    private static final Logger logger = LoggerFactory
+            .getLogger(OWLRDFConsumer.class);
     TripleLogger tripleLogger;
     /** The configuration. */
     private OWLOntologyLoaderConfiguration configuration;
@@ -550,8 +550,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     protected void setPendingAnnotations(Set<OWLAnnotation> annotations) {
         if (!pendingAnnotations.isEmpty()) {
             for (OWLAnnotation ann : pendingAnnotations) {
-                logger.log(
-                        Level.WARNING,
+                logger.error(
                         "Pending annotation was not used before next call to setPendingAnnotations: {}",
                         ann);
             }
@@ -923,8 +922,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
             if (explicitlyTyped) {
                 types.add(iri);
             } else {
-                logger.warning("STRICT: Not adding implicit type iri={" + iri
-                        + "} types={" + types + "}");
+                logger.warn("STRICT: Not adding implicit type iri={} types={}",
+                        iri, types);
             }
         } else {
             types.add(iri);
@@ -1407,7 +1406,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         append(predicate, b);
         b.append(" -> ");
         append(object, b);
-        logger.fine(b.toString());
+        logger.info(b.toString());
     }
 
     private void printTriple(IRI subject, IRI predicate, Object object) {
@@ -1417,12 +1416,12 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         append(predicate, b);
         b.append(" -> ");
         b.append(object.toString());
-        logger.fine(b.toString());
+        logger.info(b.toString());
     }
 
     /** Dump remaining triples. */
     protected void dumpRemainingTriples() {
-        if (logger.isLoggable(Level.FINE)) {
+        if (logger.isInfoEnabled()) {
             for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
                 Map<IRI, IRI> map = singleValuedResTriplesByPredicate
                         .get(predicate);

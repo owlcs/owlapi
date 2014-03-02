@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -43,6 +42,8 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.clarkparsia.owlapi.modularity.locality.LocalityClass;
 import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
@@ -55,8 +56,8 @@ import com.clarkparsia.owlapi.modularity.locality.SyntacticLocalityEvaluator;
  */
 public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
 
-    private static final Logger logger = Logger
-            .getLogger(SyntacticLocalityModuleExtractor.class.getName());
+    private static final Logger logger = LoggerFactory
+            .getLogger(SyntacticLocalityModuleExtractor.class);
 
     /**
      * Auxiliary inner class for the representation of the associated ontology
@@ -332,15 +333,16 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             change = false;
             loopNumber++;
             if (verbose) {
-                logger.info("  Loop " + loopNumber);
+                logger.info("  Loop {}", loopNumber);
             }
             for (int i = 0; i < q2.length; i = i + 1) {
                 if (q2[i]) {
                     if (!sle.isLocal(ontologyAxiomSet.getAxiom(i), signature)) {
                         if (verbose) {
-                            logger.info("      Non-local axiom:   "
-                                    + minusOntologyURI(ontologyAxiomSet
-                                            .getAxiom(i).toString()));
+                            logger.info(
+                                    "      Non-local axiom:   {}",
+                                    minusOntologyURI(ontologyAxiomSet.getAxiom(
+                                            i).toString()));
                         }
                         mod[i] = true;
                         q2[i] = false;
@@ -352,14 +354,16 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                         if (signature.size() > oldSize) {
                             change = true;
                             if (verbose) {
-                                logger.info("    New signature:   " + signature);
+                                logger.info("    New signature:   {}",
+                                        signature);
                             }
                         }
                     } else {
                         if (verbose) {
-                            logger.info("      Local axiom:       "
-                                    + minusOntologyURI(ontologyAxiomSet
-                                            .getAxiom(i).toString()));
+                            logger.info(
+                                    "      Local axiom:       {}",
+                                    minusOntologyURI(ontologyAxiomSet.getAxiom(
+                                            i).toString()));
                         }
                     }
                 }
@@ -399,14 +403,14 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
             change = false;
             loopNumber++;
             if (verbose) {
-                logger.info("  Loop " + loopNumber);
+                logger.info("  Loop {}", loopNumber);
             }
             HashSet<OWLAxiom> q2remove = new HashSet<OWLAxiom>();
             for (OWLAxiom ax : q2) {
                 if (!sle.isLocal(ax, signature)) {
                     if (verbose) {
-                        logger.info("      Non-local axiom:   "
-                                + minusOntologyURI(ax.toString()));
+                        logger.info("      Non-local axiom:   {}",
+                                minusOntologyURI(ax.toString()));
                     }
                     mod.add(ax);
                     q2remove.add(ax);
@@ -417,13 +421,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     if (signature.size() > oldSize) {
                         change = true;
                         if (verbose) {
-                            logger.info("    New signature:   " + signature);
+                            logger.info("    New signature:   {}", signature);
                         }
                     }
                 } else {
                     if (verbose) {
-                        logger.info("      Local axiom:       "
-                                + minusOntologyURI(ax.toString()));
+                        logger.info("      Local axiom:       {}",
+                                minusOntologyURI(ax.toString()));
                     }
                 }
             }
@@ -463,8 +467,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 enrichedModule.addAll(declarationAxioms);
                 if (verbose) {
                     for (OWLDeclarationAxiom declarationAxiom : declarationAxioms) {
-                        logger.info("  Added entity declaration axiom:   "
-                                + minusOntologyURI(declarationAxiom.toString()));
+                        logger.info("  Added entity declaration axiom:   {}",
+                                minusOntologyURI(declarationAxiom.toString()));
                     }
                 }
                 Collection<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = find(
@@ -473,8 +477,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                 enrichedModule.addAll(entityAnnotationAxioms);
                 if (verbose) {
                     for (OWLAnnotationAssertionAxiom entityAnnotationAxiom : entityAnnotationAxioms) {
-                        logger.info("  Added entity annotation axiom:   "
-                                + minusOntologyURI(entityAnnotationAxiom
+                        logger.info("  Added entity annotation axiom:   {}",
+                                minusOntologyURI(entityAnnotationAxiom
                                         .toString()));
                     }
                 }
@@ -492,8 +496,8 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     enrichedModule.addAll(sameIndividualAxioms);
                     if (verbose) {
                         for (OWLSameIndividualAxiom sameIndividualAxiom : sameIndividualAxioms) {
-                            logger.info("  Added same individual axiom:   "
-                                    + minusOntologyURI(sameIndividualAxiom
+                            logger.info("  Added same individual axiom:   {}",
+                                    minusOntologyURI(sameIndividualAxiom
                                             .toString()));
                         }
                     }
@@ -502,8 +506,9 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                     enrichedModule.addAll(differentIndividualAxioms);
                     if (verbose) {
                         for (OWLDifferentIndividualsAxiom differentIndividualsAxiom : differentIndividualAxioms) {
-                            logger.info("  Added different individual axiom:   "
-                                    + minusOntologyURI(differentIndividualsAxiom
+                            logger.info(
+                                    "  Added different individual axiom:   {}",
+                                    minusOntologyURI(differentIndividualsAxiom
                                             .toString()));
                         }
                     }
@@ -542,7 +547,7 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
         if (verbose) {
             logger.info(preamble);
             for (OWLEntity ent : sig) {
-                logger.info("  " + minusOntologyURI(ent.toString()));
+                logger.info("  {}", minusOntologyURI(ent.toString()));
             }
         }
     }

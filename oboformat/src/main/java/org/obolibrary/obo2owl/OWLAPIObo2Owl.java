@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.obo2owl.OwlStringTools.OwlStringException;
@@ -66,12 +64,14 @@ import org.semanticweb.owlapi.model.SetOntologyID;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** The Class OWLAPIObo2Owl. */
 public class OWLAPIObo2Owl {
 
     /** The log. */
-    private static Logger LOG = Logger.getLogger(OWLAPIObo2Owl.class.getName());
+    private static Logger LOG = LoggerFactory.getLogger(OWLAPIObo2Owl.class);
     /** The Constant IRI_PROP_isReversiblePropertyChain. */
     public static final String IRI_PROP_isReversiblePropertyChain = DEFAULT_IRI_PREFIX
             + "IAO_isReversiblePropertyChain";
@@ -157,10 +157,7 @@ public class OWLAPIObo2Owl {
         OWLOntology ontology = bridge.convert(obodoc);
         IRI outputStream = IRI.create(outFile);
         OWLOntologyFormat format = new RDFXMLOntologyFormat();
-        if (LOG.isLoggable(Level.WARNING)) {
-            LOG.log(Level.WARNING, "saving to " + outputStream + " fmt="
-                    + format);
-        }
+        LOG.warn("saving to {} fmt={}", outputStream, format);
         manager.saveOntology(ontology, format, outputStream);
     }
 
@@ -197,10 +194,7 @@ public class OWLAPIObo2Owl {
         OWLOntology ontology = bridge.convert(obodoc);
         IRI outputStream = IRI.create(outFile);
         OWLOntologyFormat format = new RDFXMLOntologyFormat();
-        if (LOG.isLoggable(Level.WARNING)) {
-            LOG.log(Level.WARNING, "saving to " + outputStream + " fmt="
-                    + format);
-        }
+        LOG.warn("saving to {} fmt={}", outputStream, format);
         manager.saveOntology(ontology, format, outputStream);
     }
 
@@ -558,7 +552,7 @@ public class OWLAPIObo2Owl {
                             trLiteral(dateString), trAnnotations(clause));
                 } else {
                     // TODO: Throw Exceptions
-                    LOG.log(Level.WARNING, "Cannot translate: " + clause);
+                    LOG.warn("Cannot translate: {}", clause);
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
                 addPropertyValueHeaders(headerFrame
@@ -628,7 +622,7 @@ public class OWLAPIObo2Owl {
             Object v2 = clause.getValue2();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.log(Level.WARNING, "Cannot translate: " + clause);
+                LOG.warn("Cannot translate: {}", clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 OWLAnnotationProperty prop = trAnnotationProp((String) v);
@@ -661,7 +655,7 @@ public class OWLAPIObo2Owl {
                         owlOntology, ontAnn);
                 apply(addAnn);
             } else {
-                LOG.log(Level.WARNING, "Cannot translate: " + clause);
+                LOG.warn("Cannot translate: {}", clause);
                 // TODO
             }
         }
@@ -854,9 +848,9 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trRelationUnionOf(String id, OWLProperty p,
             Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
-        LOG.log(Level.WARNING, "The relation union_of for " + id
-                + " is currently non-translatable to OWL. Ignoring clauses: "
-                + clauses);
+        LOG.warn(
+                "The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
+                id, clauses);
         return null;
     }
 
@@ -874,9 +868,9 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trRelationIntersectionOf(String id, OWLProperty p,
             Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
-        LOG.log(Level.WARNING, "The relation intersection_of for " + id
-                + " is currently non-translatable to OWL. Ignoring clauses: "
-                + clauses);
+        LOG.warn(
+                "The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
+                id, clauses);
         return null;
     }
 
@@ -902,8 +896,7 @@ public class OWLAPIObo2Owl {
             if (clause.getValues().size() == 1) {
                 iSet.add(trClass(clause.getValue()));
             } else {
-                LOG.log(Level.SEVERE,
-                        "union_of n-ary slots not is standard - converting anyway");
+                LOG.error("union_of n-ary slots not is standard - converting anyway");
                 // System.err.println("union_of n-ary slots not is standard - converting anyway");
                 iSet.add(trRel((String) clause.getValue(),
                         (String) clause.getValue2(), qvs));
@@ -963,7 +956,7 @@ public class OWLAPIObo2Owl {
      */
     protected void add(OWLAxiom axiom) {
         if (axiom == null) {
-            LOG.log(Level.SEVERE, "no axiom");
+            LOG.error("no axiom");
             return;
         }
         add(Collections.singleton(axiom));
@@ -977,7 +970,7 @@ public class OWLAPIObo2Owl {
      */
     protected void add(Set<OWLAxiom> axioms) {
         if (axioms == null || axioms.isEmpty()) {
-            LOG.log(Level.SEVERE, "no axiom");
+            LOG.error("no axiom");
             return;
         }
         List<OWLOntologyChange<OWLAxiom>> changes = new ArrayList<OWLOntologyChange<OWLAxiom>>(
@@ -1014,7 +1007,7 @@ public class OWLAPIObo2Owl {
         try {
             manager.applyChanges(changes);
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "COULD NOT TRANSLATE AXIOM", e);
+            LOG.error("COULD NOT TRANSLATE AXIOM", e);
         }
     }
 
@@ -1227,7 +1220,7 @@ public class OWLAPIObo2Owl {
             Clause clause) {
         Set<OWLAnnotation> annotations = trAnnotations(clause);
         if (clause.getValue() == null) {
-            LOG.log(Level.SEVERE, "Problem: " + clause);
+            LOG.error("Problem: {}", clause);
         }
         OWLAxiom ax = null;
         OboFormatTag _tag = OBOFormatConstants.getTag(tag);
@@ -1242,7 +1235,7 @@ public class OWLAPIObo2Owl {
             Object v = clause.getValue();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.log(Level.WARNING, "Cannot translate: " + clause);
+                LOG.warn("Cannot translate: {}", clause);
             } else {
                 ax = fac.getOWLAnnotationAssertionAxiom(
                         trTagToAnnotationProp(tag), sub,
@@ -1254,7 +1247,7 @@ public class OWLAPIObo2Owl {
             Object v2 = clause.getValue2();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.log(Level.WARNING, "Cannot translate: " + clause);
+                LOG.warn("Cannot translate: {}", clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 ax = fac.getOWLAnnotationAssertionAxiom(
@@ -1278,7 +1271,7 @@ public class OWLAPIObo2Owl {
                 ax = fac.getOWLAnnotationAssertionAxiom(
                         trAnnotationProp((String) v), sub, value, annotations);
             } else {
-                LOG.log(Level.WARNING, "Cannot translate: " + clause);
+                LOG.warn("Cannot translate: {}", clause);
                 // TODO
             }
         } else if (_tag == OboFormatTag.TAG_SYNONYM) {
@@ -1296,9 +1289,9 @@ public class OWLAPIObo2Owl {
                     annotations.add(ann);
                 }
             } else {
-                LOG.log(Level.WARNING,
-                        "Assume 'RELATED'for missing scope in synonym clause: "
-                                + clause);
+                LOG.warn(
+                        "Assume 'RELATED'for missing scope in synonym clause: {}",
+                        clause);
                 // we make allowances for obof1.0, where the synonym scope is
                 // optional
                 synType = OboFormatTag.TAG_RELATED.getTag();
@@ -1722,7 +1715,7 @@ public class OWLAPIObo2Owl {
      */
     public IRI oboIdToIRI(String id) {
         if (id.contains(" ")) {
-            LOG.log(Level.SEVERE, "id contains space: \"" + id + "\"");
+            LOG.error("id contains space: \"{}\"", id);
             // throw new UnsupportedEncodingException();
             return null;
         }

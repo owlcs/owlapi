@@ -24,8 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -33,6 +31,8 @@ import org.semanticweb.owlapi.io.RDFNode;
 import org.semanticweb.owlapi.io.RDFResource;
 import org.semanticweb.owlapi.io.RDFResourceBlankNode;
 import org.semanticweb.owlapi.io.RDFTriple;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -41,8 +41,8 @@ import org.semanticweb.owlapi.io.RDFTriple;
  */
 public class RDFGraph {
 
-    private static final Logger logger = Logger.getLogger(RDFGraph.class
-            .getName());
+    private static final Logger logger = LoggerFactory
+            .getLogger(RDFGraph.class);
     private Map<RDFResource, Set<RDFTriple>> triplesBySubject = new HashMap<RDFResource, Set<RDFTriple>>();
     private Set<RDFResourceBlankNode> rootAnonymousNodes = null;
     private Set<RDFTriple> triples = new HashSet<RDFTriple>();
@@ -102,9 +102,9 @@ public class RDFGraph {
                 throw e;
             }
             // otherwise print a warning and leave the list unsorted
-            logger.log(Level.WARNING,
-                    "Misbehaving triple comparator, leaving triples unsorted: "
-                            + toReturn, e);
+            logger.warn(
+                    "Misbehaving triple comparator, leaving triples unsorted: {}",
+                    e, toReturn);
         }
         return toReturn;
     }

@@ -32,8 +32,6 @@ import org.semanticweb.owlapi.rio.RioNTriplesOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRDFXMLOntologyStorerFactory;
 import org.semanticweb.owlapi.rio.RioRenderer;
 import org.semanticweb.owlapi.rio.RioTurtleOntologyStorerFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Peter Ansell p_ansell@yahoo.com
@@ -41,7 +39,6 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("javadoc")
 public class RioRendererTest {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private ValueFactory vf;
     private OWLOntologyManager testManager;
     private OWLOntology testOntologyEmpty;
@@ -123,9 +120,10 @@ public class RioRendererTest {
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
-        log.debug("result={}", result);
-        assertTrue("Result was smaller than expected", result.length() > 560);
-        assertTrue("Result was larger than expected", result.length() < 590);
+        assertTrue("Result was smaller than expected:" + result,
+                result.length() > 560);
+        assertTrue("Result was larger than expected:" + result,
+                result.length() < 590);
     }
 
     /*
@@ -139,9 +137,10 @@ public class RioRendererTest {
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
-        log.debug("result={}", result);
-        assertTrue("Result was smaller than expected", result.length() > 420);
-        assertTrue("Result was larger than expected", result.length() < 450);
+        assertTrue("Result was smaller than expected:" + result,
+                result.length() > 420);
+        assertTrue("Result was larger than expected:" + result,
+                result.length() < 450);
     }
 
     /*
@@ -155,9 +154,10 @@ public class RioRendererTest {
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
-        log.debug("result={}", result);
-        assertTrue("Result was smaller than expected", result.length() > 190);
-        assertTrue("Result was larger than expected", result.length() < 220);
+        assertTrue("Result was smaller than expected:" + result,
+                result.length() > 190);
+        assertTrue("Result was larger than expected:" + result,
+                result.length() < 220);
     }
 
     /*
@@ -190,7 +190,6 @@ public class RioRendererTest {
         testRenderer.render();
         // testRdfXmlRioWriter outputs its results to testRdfXmlStringWriter
         String result = testRdfXmlStringWriter.toString();
-        log.debug("result={}", result);
         // actual length depends on the length of dynamically assigned blank
         // node identifiers, so we
         // only test a minimum length and a maximum length
@@ -228,7 +227,6 @@ public class RioRendererTest {
         testRenderer.render();
         // testTurtleRioWriter outputs its results to testTurtleStringWriter
         String result = testTurtleStringWriter.toString();
-        log.debug("result={}", result);
         // actual length depends on the length of dynamically assigned blank
         // node identifiers, so we
         // only test a minimum length and a maximum length
@@ -260,7 +258,6 @@ public class RioRendererTest {
         testRenderer.render();
         // testNTriplesRioWriter outputs its results to testNTriplesStringWriter
         String result = testNTriplesStringWriter.toString();
-        log.debug("result={}", result);
         // actual length depends on the length of dynamically assigned blank
         // node identifiers, so we
         // only test a minimum length and a maximum length

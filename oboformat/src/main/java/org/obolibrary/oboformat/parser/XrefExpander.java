@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -15,11 +13,13 @@ import org.obolibrary.oboformat.model.FrameMergeException;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** xref expander */
 public class XrefExpander {
 
-    private static Logger LOG = Logger.getLogger(XrefExpander.class.getName());
+    private static Logger LOG = LoggerFactory.getLogger(XrefExpander.class);
     OBODoc sourceOBODoc;
     OBODoc targetOBODoc;
     String targetBase;
@@ -88,8 +88,7 @@ public class XrefExpander {
             String[] parts;
             String v = c.getValue(String.class);
             if (v == null) {
-                LOG.log(Level.SEVERE,
-                        "problem with header clause in xref expansion: " + c);
+                LOG.error("problem with header clause in xref expansion: {}", c);
                 continue;
             }
             parts = v.split("\\s");

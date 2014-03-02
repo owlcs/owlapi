@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -46,6 +45,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorExAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Satisfiability converter. */
 public class SatisfiabilityConverter {
@@ -150,7 +151,7 @@ public class SatisfiabilityConverter {
             OWLClassExpression c1 = classes.next();
             OWLClassExpression c2 = classes.next();
             if (classes.hasNext()) {
-                LOGGER.warning("EquivalentClassesAxiom with more than two elements not supported!");
+                LOGGER.warn("EquivalentClassesAxiom with more than two elements not supported!");
             }
             // apply simplification for the cases where either concept is
             // owl:Thing or owlapi:Nothing
@@ -229,8 +230,8 @@ public class SatisfiabilityConverter {
         }
     }
 
-    protected static final Logger LOGGER = Logger
-            .getLogger(SatisfiabilityConverter.class.getName());
+    protected static final Logger LOGGER = LoggerFactory
+            .getLogger(SatisfiabilityConverter.class);
     private final AxiomConverter converter;
     protected final OWLDataFactory factory;
 

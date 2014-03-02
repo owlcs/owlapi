@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
@@ -24,6 +22,8 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Tools for checking and fixing cardinality constrains for OBO ontologies in
@@ -31,8 +31,8 @@ import org.semanticweb.owlapi.model.RemoveOntologyAnnotation;
  */
 public class OboInOwlCardinalityTools {
 
-    protected static final Logger LOGGER = Logger
-            .getLogger(OboInOwlCardinalityTools.class.getName());
+    protected static final Logger LOGGER = LoggerFactory
+            .getLogger(OboInOwlCardinalityTools.class);
 
     /**
      * Functor for resolving conflicts for an annotation property and its
@@ -338,8 +338,7 @@ public class OboInOwlCardinalityTools {
             checkAnnotationCardinality(ontology, reporter, null);
         } catch (AnnotationCardinalityException e) {
             // this will not happen as no handler is registered
-            LOGGER.log(
-                    Level.SEVERE,
+            LOGGER.error(
                     "Cardinality exception during report: This isn't supposed to happen.",
                     e);
         }
@@ -360,10 +359,8 @@ public class OboInOwlCardinalityTools {
                 }
                 // take the first one in the collection
                 // (may be random)
-                if (LOGGER.isLoggable(Level.WARNING)) {
-                    LOGGER.log(Level.WARNING, "Fixing multiple " + tag
-                            + " tags for entity: " + entity.getIRI());
-                }
+                LOGGER.warn("Fixing multiple {} tags for entity: {}", tag,
+                        entity.getIRI());
                 return Collections.singletonList(annotations.iterator().next());
             }
             throw new AnnotationCardinalityException(
@@ -382,11 +379,9 @@ public class OboInOwlCardinalityTools {
                 }
                 // take the first one in the collection
                 // (may be random)
-                if (LOGGER.isLoggable(Level.WARNING)) {
-                    LOGGER.log(Level.WARNING,
-                            "Fixing multiple ontolgy annotations with, tag: "
-                                    + tag);
-                }
+                LOGGER.warn(
+                        "Fixing multiple ontolgy annotations with, tag: {}",
+                        tag);
                 return Collections.singletonList(ontologyAnnotations.iterator()
                         .next());
             }

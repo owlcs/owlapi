@@ -19,8 +19,6 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -32,6 +30,8 @@ import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class OBOFormatWriter.
@@ -40,8 +40,7 @@ import org.obolibrary.oboformat.parser.OBOFormatParserException;
  */
 public class OBOFormatWriter {
 
-    private static Logger LOG = Logger.getLogger(OBOFormatWriter.class
-            .getName());
+    private static Logger LOG = LoggerFactory.getLogger(OBOFormatWriter.class);
     private static HashSet<String> tagsInformative = buildTagsInformative();
     private boolean isCheckStructure = true;
 
@@ -420,10 +419,9 @@ public class OBOFormatWriter {
         } else if (value instanceof String) {
             sb.append(value);
         } else {
-            if (LOG.isLoggable(Level.WARNING)) {
-                LOG.log(Level.WARNING, "Unknown datatype ('"
-                        + value.getClass().getName()
-                        + "') for value in clause: " + clause);
+            if (LOG.isWarnEnabled()) {
+                LOG.warn("Unknown datatype ('{}') for value in clause: {}",
+                        value.getClass().getName(), clause);
                 sb.append(value.toString());
             }
         }
@@ -555,11 +553,8 @@ public class OBOFormatWriter {
             throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
-            if (LOG.isLoggable(Level.WARNING)) {
-                LOG.log(Level.WARNING,
-                        "The " + OboFormatTag.TAG_PROPERTY_VALUE.getTag()
-                                + " has incorrect number of values: " + clause);
-            }
+            LOG.warn("The {} has incorrect number of values: {}",
+                    OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
             return;
         }
         StringBuilder sb = new StringBuilder();
@@ -567,8 +562,8 @@ public class OBOFormatWriter {
         sb.append(": ");
         Iterator<?> it = cols.iterator();
         // write property
-        String property = it.next().toString(); // TODO replace toString()
-                                                // method
+        // TODO replace toString() method
+        String property = it.next().toString();
         sb.append(escapeOboString(property, EscapeMode.simple));
         // write value and optional type
         while (it.hasNext()) {
