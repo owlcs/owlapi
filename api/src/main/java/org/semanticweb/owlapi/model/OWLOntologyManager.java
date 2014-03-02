@@ -36,7 +36,9 @@ import org.semanticweb.owlapi.util.PriorityCollection;
  *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLOntologyManager extends OWLOntologySetProvider {
+public interface OWLOntologyManager extends OWLOntologySetProvider,
+        HasDataFactory, HasGetOntologyById, HasApplyChanges, HasAddAxioms,
+        HasContainsOntology {
 
     /**
      * Gets a data factory which can be used to create OWL API objects such as
