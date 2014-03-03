@@ -54,6 +54,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -779,6 +780,9 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
     /** Base class for all parser states. */
     protected static class State {
 
+        protected static final Logger logger = Logger.getLogger(State.class
+                .getName());
+
         public void startElement(String namespaceIRI, String localName,
                 String qName, Attributes atts) throws SAXException {}
 
@@ -798,6 +802,11 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
             if (!RDFNS.equals(namespaceIRI) || !ELT_RDF.equals(localName)) {
                 throw new RDFParserException("Expecting rdf:RDF element.",
                         m_documentLocator);
+            }
+            String value = atts.getValue(XMLNS, "base");
+            if (value == null) {
+                logger.info("Notice: root element does not have an xml:base. Relative IRIs will be resolved against "
+                        + m_baseIRI);
             }
             // the logical IRI is the current IRI that we have as the base IRI
             // at this point
