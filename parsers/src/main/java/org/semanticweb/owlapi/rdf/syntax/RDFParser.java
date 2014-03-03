@@ -61,12 +61,15 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.rdf.util.RDFConstants;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
@@ -80,13 +83,28 @@ import org.xml.sax.helpers.LocatorImpl;
 public class RDFParser extends DefaultHandler implements RDFConstants {
 
     protected static final Locator s_nullDocumentLocator = new LocatorImpl();
-    protected static final SAXParserFactory s_parserFactory = SAXParserFactory
-            .newInstance();
+    protected static final SAXParserFactory s_parserFactory = buildFactory();
     private Map<String, String> resolvedIRIs = new HashMap<String, String>();
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
-    static {
-        s_parserFactory.setNamespaceAware(true);
+
+    static SAXParserFactory buildFactory() {
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            factory.setValidating(false);
+            factory.setFeature(
+                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                    false);
+            return factory;
+        } catch (SAXNotRecognizedException e) {
+            throw new OWLRuntimeException(e);
+        } catch (SAXNotSupportedException e) {
+            throw new OWLRuntimeException(e);
+        } catch (ParserConfigurationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
+
     /** Registered error handler. */
     protected ErrorHandler m_errorHandler;
     /** Stack of base IRIs. */
@@ -957,7 +975,8 @@ public class RDFParser extends DefaultHandler implements RDFConstants {
 
     /**
      * Parses resourcePropertyElt or literalPropertyElt productions. m_text is
-     * {@code null} when startElement is expected on the actual property element.
+     * {@code null} when startElement is expected on the actual property
+     * element.
      */
     protected class ResourceOrLiteralPropertyElement extends State {
 
