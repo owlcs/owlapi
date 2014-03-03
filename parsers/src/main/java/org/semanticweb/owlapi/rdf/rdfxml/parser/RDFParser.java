@@ -33,11 +33,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.LocatorImpl;
@@ -56,9 +59,21 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
     protected Map<String, IRI> uriCache = new HashMap<String, IRI>();
 
     static SAXParserFactory initFactory() {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        factory.setNamespaceAware(true);
-        return factory;
+        try {
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            factory.setValidating(false);
+            factory.setFeature(
+                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                    false);
+            return factory;
+        } catch (SAXNotRecognizedException e) {
+            throw new OWLRuntimeException(e);
+        } catch (SAXNotSupportedException e) {
+            throw new OWLRuntimeException(e);
+        } catch (ParserConfigurationException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     /** Registered error handler. */
