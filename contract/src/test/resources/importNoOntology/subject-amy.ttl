@@ -1,0 +1,15 @@
+# $Id: subject-amy.ttl,v 1.11 2014-02-19 16:39:26 eric Exp $
+#
+# ericP at the keyboard
+
+@prefix : <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy#> .
+@prefix core: <http://www.w3.org/2013/12/FDA-TA/core#> .
+@prefix bridg: <http://www.bridgmodel.org/owl#> .
+
+<http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy> a owl:Ontology ;
+   owl:imports <http://www.w3.org/2013/12/FDA-TA/core> .
+
+:subjectOnImmunosuppressantB 
+    core:hasDosagePlan [ 
+        core:hasMedicationSchedule [ core:hasMedicationFrequency 6 ; core:hasMedicationDuration 1.0 ]
+    ] .

@@ -1,0 +1,29 @@
+# $Id: core.ttl,v 1.3 2014-02-19 16:36:06 eric Exp $
+#
+# ericP at the keyboard
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix : <http://www.w3.org/2013/12/FDA-TA/core#> .
+  
+:hasDosagePlan a owl:ObjectProperty ;
+    rdfs:domain :MedicationAdministration ;
+    rdfs:range :DosagePlan .
+
+:DosagePlan rdfs:subClassOf [ owl:onProperty :hasMedicationSchedule ; owl:cardinality 1 ] .
+:hasMedicationSchedule a owl:ObjectProperty ;
+     rdfs:domain :DosagePlan ;
+     rdfs:range :MedicationSchedule .
+
+:hasMedicationFrequency a owl:DatatypeProperty ;
+    rdfs:domain :Dosage ;
+    rdfs:range xsd:integer .
+:hasMedicationDuration a owl:DatatypeProperty ;
+    rdfs:domain :Dosage ;
+    rdfs:range xsd:float .
+:MedicationSchedule 
+    rdfs:subClassOf 
+        [ owl:onProperty :hasMedicationFrequency ; owl:cardinality 1 ] ,
+        [ owl:onProperty :hasMedicationDuration ; owl:cardinality 1 ] .

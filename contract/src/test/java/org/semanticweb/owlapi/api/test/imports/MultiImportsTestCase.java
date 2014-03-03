@@ -38,18 +38,26 @@
  */
 package org.semanticweb.owlapi.api.test.imports;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractOWLAPITestCase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group, Date: 01-Jul-2010
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group, Date: 01-Jul-2010
  */
 @SuppressWarnings("javadoc")
 public class MultiImportsTestCase extends AbstractOWLAPITestCase {
@@ -96,5 +104,35 @@ public class MultiImportsTestCase extends AbstractOWLAPITestCase {
                 "importscyclic"), true));
         manager.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
                 "importscyclic/D.owl")));
+    }
+
+    @Test
+    public void testTurtleGraphImport() throws OWLOntologyCreationException {
+        // document without ontology declaration should be removed and
+        // reimported
+        OWLDataFactory factory = OWLManager.getOWLDataFactory();
+        File ONTOLOGY_DIRECTORY = new File(RESOURCES, "importNoOntology");
+        IRI BOBS_ONTOLOGY_NAME = IRI
+                .create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob");
+        OWLNamedIndividual BOBS_INDIVIDUAL = factory
+                .getOWLNamedIndividual(IRI
+                        .create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob#subjectOnImmunosuppressantA2"));
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+        manager.addIRIMapper(new SimpleIRIMapper(
+                IRI.create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy"),
+                IRI.create(new File(ONTOLOGY_DIRECTORY, "subject-amy.ttl"))));
+        manager.addIRIMapper(new SimpleIRIMapper(BOBS_ONTOLOGY_NAME, IRI
+                .create(new File(ONTOLOGY_DIRECTORY, "subject-bob.ttl"))));
+        manager.addIRIMapper(new SimpleIRIMapper(
+                IRI.create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue"),
+                IRI.create(new File(ONTOLOGY_DIRECTORY, "subject-sue.ttl"))));
+        manager.addIRIMapper(new SimpleIRIMapper(IRI
+                .create("http://www.w3.org/2013/12/FDA-TA/core"), IRI
+                .create(new File(ONTOLOGY_DIRECTORY, "core.ttl"))));
+        OWLOntology topLevelImport = manager
+                .loadOntologyFromOntologyDocument(new File(ONTOLOGY_DIRECTORY,
+                        "subjects.ttl"));
+        assertTrue("Individuals about Bob are missing...",
+                topLevelImport.containsEntityInSignature(BOBS_INDIVIDUAL, true));
     }
 }

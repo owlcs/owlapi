@@ -1,0 +1,21 @@
+# $Id: subject-sue.ttl,v 1.12 2014-02-19 16:39:26 eric Exp $
+#
+# ericP at the keyboard
+
+@prefix : <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue#> .
+@prefix core: <http://www.w3.org/2013/12/FDA-TA/core#> .
+@prefix bridg: <http://www.bridgmodel.org/owl#> .
+
+<http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue> a owl:Ontology ;
+    owl:imports <http://www.w3.org/2013/12/FDA-TA/core> .
+
+:subjectOnImmunosuppressantB 
+    core:hasDosagePlan [ 
+        core:hasMedicationSchedule [ core:hasMedicationFrequency 6 ; core:hasMedicationDuration 1.0 ] 
+    ] .
+
+:subjectOnImmunosuppressantB2 
+    core:hasDosagePlan [
+        core:hasMedicationSchedule [ core:hasMedicationFrequency 8 ; core:hasMedicationDuration 1.0 ]
+    ] .
+

@@ -114,8 +114,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NonMappingOntologyIRIMapper;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 27-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 27-Oct-2006
  */
 public class OWLOntologyManagerImpl implements OWLOntologyManager,
         OWLOntologyFactory.OWLOntologyCreationHandler, Serializable {
@@ -577,8 +577,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 }
             } else {
                 // Remove the mapping from declaration to ontology
-                ontologyIDsByImportsDeclaration.remove(((RemoveImport) change)
-                        .getImportDeclaration());
+                OWLImportsDeclaration importDeclaration = ((RemoveImport) change)
+                        .getImportDeclaration();
+                ontologyIDsByImportsDeclaration.remove(importDeclaration);
+                importedIRIs.remove(importDeclaration.getIRI());
             }
         }
     }

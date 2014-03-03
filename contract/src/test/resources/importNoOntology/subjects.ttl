@@ -1,0 +1,22 @@
+# $Id: subjects.ttl,v 1.2 2014-02-19 16:40:50 eric Exp $
+#
+# ericP at the keyboard
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix amy: <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy#> .
+@prefix bob: <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob#> .
+@prefix sue: <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue#> .
+
+@prefix : <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subjects#> .
+
+<http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subjects> a owl:Ontology ;
+   owl:imports <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy> ,
+               <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob> ,
+               <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue> .
+
+:doc :imported true .
+
+amy:doc :imported true . bob:doc :imported true . sue:doc :imported true .
