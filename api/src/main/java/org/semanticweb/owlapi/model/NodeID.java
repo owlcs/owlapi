@@ -29,6 +29,9 @@ public class NodeID implements Comparable<NodeID>, Serializable {
     private static final String NODE_ID_PREFIX = "genid";
     private static final String SHARED_NODE_ID_PREFIX = "genid-nodeid-";
     private static final String PREFIX = "_:";
+    private static final String PREFIX_NODE = PREFIX + NODE_ID_PREFIX;
+    private static final String PREFIX_SHARED_NODE = PREFIX
+            + SHARED_NODE_ID_PREFIX;
 
     /**
      * @param id
@@ -36,7 +39,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return string version of id
      */
     public static String nodeString(int id) {
-        return NodeID.NODE_ID_PREFIX + Integer.toString(id);
+        return PREFIX_NODE + Integer.toString(id);
     }
 
     /**
@@ -46,7 +49,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      */
     public static IRI nodeId(int id) {
         return IRI
-                .create(PREFIX + NodeID.NODE_ID_PREFIX + Integer.toString(id));
+                .create(PREFIX_NODE + Integer.toString(id));
     }
 
     /**
@@ -57,7 +60,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return absolute IRI
      */
     public static String getIRIFromNodeID(String nodeID) {
-        return PREFIX + SHARED_NODE_ID_PREFIX + nodeID.replace("genid", "");
+        return PREFIX_SHARED_NODE + nodeID.replace(NODE_ID_PREFIX, "");
     }
 
     /**
@@ -66,7 +69,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return absolute IRI
      */
     public static String nextAnonymousIRI() {
-        return PREFIX + NODE_ID_PREFIX + COUNTER.incrementAndGet();
+        return PREFIX_NODE + COUNTER.incrementAndGet();
     }
 
     /**
@@ -79,9 +82,8 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      *         anonymous node
      */
     public static boolean isAnonymousNodeIRI(String uri) {
-        return uri != null
-                && (uri.startsWith(PREFIX) || uri
-                        .indexOf(NodeID.NODE_ID_PREFIX) != -1);
+        return uri != null && uri.startsWith(PREFIX)
+                && uri.contains(NodeID.NODE_ID_PREFIX);
     }
 
     /**
@@ -94,8 +96,9 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      *         anonymous node
      */
     public static boolean isAnonymousNodeIRI(IRI iri) {
-        return iri.getNamespace() != null
-                && iri.getNamespace().contains(NodeID.NODE_ID_PREFIX);
+        return iri != null && iri.getNamespace() != null
+                && iri.getNamespace().startsWith(PREFIX)
+                && iri.getNamespace().contains(NODE_ID_PREFIX);
     }
 
     /**
@@ -104,7 +107,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return true if the iri is an anonymous label
      */
     public static boolean isAnonymousNodeID(String iri) {
-        return iri != null && iri.indexOf(NodeID.SHARED_NODE_ID_PREFIX) > -1;
+        return iri != null && iri.contains(PREFIX_SHARED_NODE);
     }
 
     /**
@@ -118,8 +121,8 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return A NodeID
      */
     public static NodeID getNodeID(String id) {
-        String nonBlankId = id == null || id.length() == 0 ? PREFIX
-                + NODE_ID_PREFIX + Long.toString(COUNTER.incrementAndGet())
+        String nonBlankId = id == null || id.length() == 0 ? 
+                PREFIX_NODE + Long.toString(COUNTER.incrementAndGet())
                 : id;
         return new NodeID(nonBlankId);
     }

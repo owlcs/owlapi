@@ -20,10 +20,14 @@ import java.util.List;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -49,5 +53,24 @@ public class AnonymousTestCase extends TestBase {
         m.applyChanges(changes);
         OWLOntology ontologyReloaded = loadOntologyFromString(saveOntology(ontology));
         equal(ontology, ontologyReloaded);
+    }
+
+    @Test
+    public void testRoundTripWithAnonymousIndividuals() throws Exception {
+        String NS = "http://test.com/genid#";
+        IRI ONT = IRI.create(NS + "ontology.owl");
+        OWLNamedIndividual I = df.getOWLNamedIndividual(IRI.create(NS + "i"));
+        OWLObjectProperty P = df.getOWLObjectProperty(IRI.create(NS + "p"));
+        OWLDataProperty Q = df.getOWLDataProperty(IRI.create(NS + "q"));
+        OWLOntology ontology = m.createOntology(ONT);
+        OWLIndividual ind = df.getOWLAnonymousIndividual();
+        OWLObjectPropertyAssertionAxiom ax1 = df
+                .getOWLObjectPropertyAssertionAxiom(P, I, ind);
+        OWLDataPropertyAssertionAxiom ax2 = df
+                .getOWLDataPropertyAssertionAxiom(Q, ind, df.getOWLLiteral(5));
+        m.addAxiom(ontology, ax1);
+        m.addAxiom(ontology, ax2);
+        OWLOntology reload = roundTrip(ontology);
+        equal(ontology, reload);
     }
 }
