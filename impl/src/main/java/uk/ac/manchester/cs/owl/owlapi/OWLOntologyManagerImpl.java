@@ -524,8 +524,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 }
             } else {
                 // Remove the mapping from declaration to ontology
-                ontologyIDsByImportsDeclaration.remove(((RemoveImport) change)
-                        .getImportDeclaration());
+                OWLImportsDeclaration importDeclaration = ((RemoveImport) change)
+                        .getImportDeclaration();
+                ontologyIDsByImportsDeclaration.remove(importDeclaration);
+                importedIRIs.remove(importDeclaration.getIRI());
             }
         }
     }

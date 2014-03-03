@@ -12,13 +12,18 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.imports;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Bio-Health
@@ -66,5 +71,39 @@ public class MultiImportsTestCase extends TestBase {
                 new AutoIRIMapper(new File(RESOURCES, "importscyclic"), true));
         m.loadOntologyFromOntologyDocument(IRI.create(new File(RESOURCES,
                 "importscyclic/D.owl")));
+    }
+
+    @Test
+    public void testTurtleGraphImport() throws OWLOntologyCreationException {
+        // document without ontology declaration should be removed and
+        // reimported
+        File ONTOLOGY_DIRECTORY = new File(RESOURCES, "importNoOntology");
+        IRI BOBS_ONTOLOGY_NAME = IRI
+                .create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob");
+        OWLNamedIndividual BOBS_INDIVIDUAL = df
+                .getOWLNamedIndividual(IRI
+                        .create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob#subjectOnImmunosuppressantA2"));
+        m.getIRIMappers()
+                .add(new SimpleIRIMapper(
+                        IRI.create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-amy"),
+                        IRI.create(new File(ONTOLOGY_DIRECTORY,
+                                "subject-amy.ttl"))));
+        m.getIRIMappers().add(
+                new SimpleIRIMapper(BOBS_ONTOLOGY_NAME, IRI.create(new File(
+                        ONTOLOGY_DIRECTORY, "subject-bob.ttl"))));
+        m.getIRIMappers()
+                .add(new SimpleIRIMapper(
+                        IRI.create("http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-sue"),
+                        IRI.create(new File(ONTOLOGY_DIRECTORY,
+                                "subject-sue.ttl"))));
+        m.getIRIMappers().add(
+                new SimpleIRIMapper(IRI
+                        .create("http://www.w3.org/2013/12/FDA-TA/core"), IRI
+                        .create(new File(ONTOLOGY_DIRECTORY, "core.ttl"))));
+        OWLOntology topLevelImport = m
+                .loadOntologyFromOntologyDocument(new File(ONTOLOGY_DIRECTORY,
+                        "subjects.ttl"));
+        assertTrue("Individuals about Bob are missing...",
+                topLevelImport.containsEntityInSignature(BOBS_INDIVIDUAL, true));
     }
 }

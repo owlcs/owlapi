@@ -1,0 +1,25 @@
+# $Id: subject-bob.ttl,v 1.12 2014-02-19 16:39:26 eric Exp $
+#
+# ericP at the keyboard
+
+@prefix : <http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob#> .
+@prefix core: <http://www.w3.org/2013/12/FDA-TA/core#> .
+
+<http://www.w3.org/2013/12/FDA-TA/tests/RenalTransplantation/subject-bob> a owl:Ontology ;
+    owl:imports <http://www.w3.org/2013/12/FDA-TA/core> .
+
+:subjectOnImmunosuppressantA 
+    core:hasDosagePlan [ 
+        core:hasMedicationSchedule [ core:hasMedicationFrequency 1 ; core:hasMedicationDuration 1.0 ]
+    ] .
+
+:subjectOnImmunosuppressantA2 
+    core:hasDosagePlan [
+        core:hasMedicationSchedule [ core:hasMedicationFrequency 1 ; core:hasMedicationDuration 1.0 ]
+    ] .
+
+:subjectOnImmunosuppressantA3 
+    core:hasDosagePlan [
+        core:hasMedicationSchedule [ core:hasMedicationFrequency 1 ; core:hasMedicationDuration 1.0 ]
+    ] .
+
