@@ -21,6 +21,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.NodeID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -41,6 +43,8 @@ abstract class AbstractState {
     static final String ABOUT_EACH_PREFIX_UNSUPPORTED = "rdf:aboutEachPrefix attribute is not supported.";
     static final String ABOUT_EACH_UNSUPPORTED      = "rdf:aboutEach attribute is not supported.";
     //@formatter:on
+    protected static final Logger logger = LoggerFactory
+            .getLogger(AbstractState.class);
     protected final RDFParser parser;
 
     AbstractState(RDFParser parser) {
@@ -198,6 +202,12 @@ class StartRDF extends AbstractState implements State {
         parser.verify(
                 !RDFNS.equals(namespaceIRI) || !ELT_RDF.equals(localName),
                 RDF_RDF);
+        String value = atts.getValue(XMLNS, "base");
+        if (value == null) {
+            logger.info(
+                    "Notice: root element does not have an xml:base. Relative IRIs will be resolved against {}",
+                    parser.m_baseIRI);
+        }
         // the logical IRI is the current IRI that we have as the base IRI
         // at this point
         parser.m_consumer.logicalURI(parser.m_baseIRI);
