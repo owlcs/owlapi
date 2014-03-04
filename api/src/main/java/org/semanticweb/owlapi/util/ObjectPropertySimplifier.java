@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -100,5 +101,8 @@ public class ObjectPropertySimplifier {
 
         @Override
         public void visit(OWLDataProperty p) {}
+
+        @Override
+        public void visit(OWLAnnotationProperty p) {}
     }
 }

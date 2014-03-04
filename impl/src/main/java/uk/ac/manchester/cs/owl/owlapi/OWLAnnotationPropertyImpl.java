@@ -30,12 +30,14 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
+import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
@@ -118,6 +120,11 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
     }
 
     @Override
+    public <O> O accept(OWLPropertyExpressionVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
     public OWLDataProperty asOWLDataProperty() {
         throw new OWLRuntimeException("Not OWLDataProperty");
     }
@@ -193,5 +200,45 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
         }
         OWLAnnotationProperty other = (OWLAnnotationProperty) obj;
         return iri.equals(other.getIRI());
+    }
+
+    @Override
+    public boolean isAnonymous() {
+        return false;
+    }
+
+    @Override
+    public void accept(OWLPropertyExpressionVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public boolean isDataPropertyExpression() {
+        return false;
+    }
+
+    @Override
+    public boolean isObjectPropertyExpression() {
+        return false;
+    }
+
+    @Override
+    public boolean isOWLTopObjectProperty() {
+        return false;
+    }
+
+    @Override
+    public boolean isOWLBottomObjectProperty() {
+        return false;
+    }
+
+    @Override
+    public boolean isOWLTopDataProperty() {
+        return false;
+    }
+
+    @Override
+    public boolean isOWLBottomDataProperty() {
+        return false;
     }
 }

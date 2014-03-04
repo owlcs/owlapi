@@ -328,6 +328,11 @@ public class Utils {
             public OWLObject visit(OWLDataProperty property) {
                 return null;
             }
+
+            @Override
+            public OWLObject visit(OWLAnnotationProperty property) {
+                return null;
+            }
         };
     }
 

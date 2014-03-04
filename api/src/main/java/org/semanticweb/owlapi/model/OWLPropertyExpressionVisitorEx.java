@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.model;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  * @param <O>
  *        visitor type
@@ -49,4 +49,13 @@ public interface OWLPropertyExpressionVisitorEx<O> {
      * @return visitor value
      */
     O visit(@Nonnull OWLDataProperty property);
+
+    /**
+     * visit OWLAnnotationProperty type
+     * 
+     * @param property
+     *        property to visit
+     * @return visitor value
+     */
+    O visit(@Nonnull OWLAnnotationProperty property);
 }

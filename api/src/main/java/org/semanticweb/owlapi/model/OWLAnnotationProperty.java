@@ -21,7 +21,7 @@ package org.semanticweb.owlapi.model;
  *         Management Group
  * @since 3.0.0
  */
-public interface OWLAnnotationProperty extends OWLEntity {
+public interface OWLAnnotationProperty extends OWLProperty {
 
     /**
      * Determines if this annotation property has an IRI corresponding to

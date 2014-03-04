@@ -47,4 +47,12 @@ public interface OWLPropertyExpressionVisitor {
      *        property to visit
      */
     void visit(@Nonnull OWLDataProperty property);
+
+    /**
+     * visit OWLAnnotationProperty type
+     * 
+     * @param property
+     *        property to visit
+     */
+    void visit(@Nonnull OWLAnnotationProperty property);
 }
