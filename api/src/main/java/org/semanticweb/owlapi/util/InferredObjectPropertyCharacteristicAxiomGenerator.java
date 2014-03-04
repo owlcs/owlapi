@@ -38,12 +38,11 @@
  */
 package org.semanticweb.owlapi.util;
 
-import java.util.Set;
-
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyCharacteristicAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
@@ -66,12 +65,50 @@ public class InferredObjectPropertyCharacteristicAxiomGenerator
                 reasoner, result);
         addIfEntailed(dataFactory.getOWLAsymmetricObjectPropertyAxiom(entity),
                 reasoner, result);
-        addIfEntailed(dataFactory.getOWLTransitiveObjectPropertyAxiom(entity),
-                reasoner, result);
+        addTransitiveAxiomIfEntailed(entity, reasoner, dataFactory, result);
         addIfEntailed(dataFactory.getOWLReflexiveObjectPropertyAxiom(entity),
                 reasoner, result);
         addIfEntailed(dataFactory.getOWLIrreflexiveObjectPropertyAxiom(entity),
                 reasoner, result);
+    }
+
+    protected void addTransitiveAxiomIfEntailed(OWLObjectProperty property, OWLReasoner reasoner, OWLDataFactory dataFactory, Set<OWLObjectPropertyCharacteristicAxiom> result) {
+
+        OWLObjectPropertyCharacteristicAxiom axiom = dataFactory.getOWLTransitiveObjectPropertyAxiom(property);
+        if (reasoner.isEntailmentCheckingSupported(axiom.getAxiomType())
+                && reasoner.isEntailed(axiom)) {
+            if(!triviallyTransitiveCheck(property, reasoner, dataFactory)) {
+                result.add(axiom);
+            }
+
+        }
+    }
+
+    /**
+     * Test to see if a property is only vacuuously transitive; i.e. if there cannot be any three individuals
+     * a,b,c such that foo(a,b) and foo(b,c) - e.g. if the domain and range of foo are disjoint.
+     * .
+     * @param property
+     * @param reasoner
+     * @param dataFactory
+     * @return  Return true if property is trivially transitive.
+     * If entailment checking for OWLObjectPropertyAssertionAxioms is not supported, default to true.
+     */
+    private boolean triviallyTransitiveCheck(OWLObjectProperty property, OWLReasoner reasoner, OWLDataFactory dataFactory) {
+        Set<OWLAxiom> trivialityCheckAxioms = new HashSet<OWLAxiom>();
+        OWLAnonymousIndividual a = dataFactory.getOWLAnonymousIndividual();
+        OWLAnonymousIndividual b = dataFactory.getOWLAnonymousIndividual();
+        OWLAnonymousIndividual c = dataFactory.getOWLAnonymousIndividual();
+
+        OWLObjectPropertyAssertionAxiom p1 = dataFactory.getOWLObjectPropertyAssertionAxiom(property, a, b);
+        OWLObjectPropertyAssertionAxiom p2 = dataFactory.getOWLObjectPropertyAssertionAxiom(property, b, c);
+        trivialityCheckAxioms.add(p1);
+        trivialityCheckAxioms.add(p2);
+        if(reasoner.isEntailmentCheckingSupported(p1.getAxiomType()))  {
+            return !reasoner.isEntailed(trivialityCheckAxioms);
+        } else {
+            return true;
+        }
     }
 
     protected void addIfEntailed(OWLObjectPropertyCharacteristicAxiom axiom,
