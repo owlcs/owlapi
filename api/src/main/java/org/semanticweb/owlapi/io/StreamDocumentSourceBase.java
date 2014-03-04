@@ -18,9 +18,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Reader;
-import java.io.StringReader;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnull;
 
@@ -42,8 +45,9 @@ public abstract class StreamDocumentSourceBase implements
     private static final AtomicLong COUNTER = new AtomicLong();
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
-    protected char[] charBuffer;
     private OWLOntologyFormat format;
+    private String encoding = "UTF-8";
+    private Boolean streamAvailable = null;
 
     /**
      * @param prefix
@@ -68,6 +72,7 @@ public abstract class StreamDocumentSourceBase implements
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
+        streamAvailable = true;
     }
 
     /**
@@ -83,7 +88,14 @@ public abstract class StreamDocumentSourceBase implements
             @Nonnull IRI documentIRI) {
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
-        readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
+        checkNotNull(stream, "stream cannot be null");
+        // if the input stream carries encoding information, use it; else leave
+        // the default as UTF-8
+        if (stream instanceof InputStreamReader) {
+            encoding = ((InputStreamReader) stream).getEncoding();
+        }
+        readIntoBuffer(stream);
+        streamAvailable = false;
     }
 
     @Override
@@ -115,15 +127,18 @@ public abstract class StreamDocumentSourceBase implements
     private void readIntoBuffer(@Nonnull InputStream reader) {
         try {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            GZIPOutputStream out = new GZIPOutputStream(bos);
             int length = 100000;
             byte[] tempBuffer = new byte[length];
             int read = 0;
             do {
                 read = reader.read(tempBuffer, 0, length);
                 if (read > 0) {
-                    bos.write(tempBuffer, 0, read);
+                    out.write(tempBuffer, 0, read);
                 }
             } while (read > 0);
+            out.finish();
+            out.flush();
             byteBuffer = bos.toByteArray();
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
@@ -132,18 +147,22 @@ public abstract class StreamDocumentSourceBase implements
 
     private void readIntoBuffer(Reader reader) {
         try {
-            StringBuilder builder = new StringBuilder();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            GZIPOutputStream out = new GZIPOutputStream(bos);
+            OutputStreamWriter writer = new OutputStreamWriter(out);
             int length = 100000;
             char[] tempBuffer = new char[length];
             int read = 0;
             do {
                 read = reader.read(tempBuffer, 0, length);
                 if (read > 0) {
-                    builder.append(tempBuffer, 0, read);
+                    writer.write(tempBuffer, 0, read);
                 }
             } while (read > 0);
-            charBuffer = new char[builder.length()];
-            builder.getChars(0, builder.length(), charBuffer, 0);
+            writer.flush();
+            out.finish();
+            out.flush();
+            byteBuffer = bos.toByteArray();
         } catch (IOException e) {
             throw new OWLRuntimeException(e);
         }
@@ -156,7 +175,7 @@ public abstract class StreamDocumentSourceBase implements
 
     @Override
     public boolean isInputStreamAvailable() {
-        return byteBuffer != null;
+        return Boolean.TRUE.equals(streamAvailable);
     }
 
     @Override
@@ -165,7 +184,11 @@ public abstract class StreamDocumentSourceBase implements
             throw new OWLRuntimeException(
                     "InputStream not available. Check with OWLOntologyDocumentSource.isInputStreamAvailable()");
         }
-        return new ByteArrayInputStream(byteBuffer);
+        try {
+            return new GZIPInputStream(new ByteArrayInputStream(byteBuffer));
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Override
@@ -174,11 +197,16 @@ public abstract class StreamDocumentSourceBase implements
             throw new OWLRuntimeException(
                     "Reader not available.  Check with OWLOntologyDocumentSource.isReaderAvailable()");
         }
-        return new StringReader(new String(charBuffer));
+        try {
+            return new InputStreamReader(new GZIPInputStream(
+                    new ByteArrayInputStream(byteBuffer)), encoding);
+        } catch (IOException e) {
+            throw new OWLRuntimeException(e);
+        }
     }
 
     @Override
     public boolean isReaderAvailable() {
-        return charBuffer != null;
+        return Boolean.FALSE.equals(streamAvailable);
     }
 }
