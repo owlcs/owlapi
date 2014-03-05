@@ -221,11 +221,39 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     Set<OWLAxiom> getAxioms();
 
     /**
+     * Retrieves all of the axioms in this ontology, and optionally in the
+     * import closure. Note that to test whether or not this ontology is empty
+     * (i.e. contains no axioms, the isEmpty method is preferred over
+     * getAxioms().isEmpty(). )
+     * 
+     * @param includeImportsclosure
+     *        if true, the imports closure actions are included.
+     * @return The set of all axioms in this ontology, including logical axioms
+     *         and annotation axioms. The set that is returned is a copy of the
+     *         axioms in the ontology - it will not be updated if the ontology
+     *         changes. It is recommended that the {@code containsAxiom} method
+     *         is used to determine whether or not this ontology contains a
+     *         particular axiom rather than using getAxioms().contains().
+     */
+    @Nonnull
+    Set<OWLAxiom> getAxioms(boolean includeImportsclosure);
+
+    /**
      * Gets the number of axioms in this ontology.
      * 
      * @return The number of axioms in this ontology.
      */
     int getAxiomCount();
+
+    /**
+     * Gets the number of axioms in this ontology, and optionally in the import
+     * closure.
+     * 
+     * @param includeImportsClosure
+     *        true if import closure should be included
+     * @return The number of axioms in this ontology.
+     */
+    int getAxiomCount(boolean includeImportsClosure);
 
     /**
      * Gets all of the axioms in the ontology that affect the logical meaning of
@@ -448,10 +476,10 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     /**
      * Determines if this ontology and possibly its imports closure contains the
      * specified axiom but ignoring any annotations on this axiom. For example,
-     * if the ontology contains {@code SubClassOf(Annotation(p V) A B)} then this
-     * method will return {@code true} if the ontology contains
-     * {@code SubClassOf(A B)} or {@code SubClassOf(Annotation(q S) A B)} for any
-     * annotation property {@code q} and any annotation value {@code S}.
+     * if the ontology contains {@code SubClassOf(Annotation(p V) A B)} then
+     * this method will return {@code true} if the ontology contains
+     * {@code SubClassOf(A B)} or {@code SubClassOf(Annotation(q S) A B)} for
+     * any annotation property {@code q} and any annotation value {@code S}.
      * 
      * @param axiom
      *        The axiom to test for.
@@ -1996,8 +2024,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     /**
      * Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom}
-     * s contained in this ontology that have the specified {@code individual} as
-     * the subject of the axiom.
+     * s contained in this ontology that have the specified {@code individual}
+     * as the subject of the axiom.
      * 
      * @param individual
      *        The individual that the returned axioms have as a subject.
@@ -2020,8 +2048,8 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
     /**
      * Gets the
      * {@link org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom}
-     * s contained in this ontology that have the specified {@code individual} as
-     * the subject of the axiom.
+     * s contained in this ontology that have the specified {@code individual}
+     * as the subject of the axiom.
      * 
      * @param individual
      *        The individual that the returned axioms have as a subject.

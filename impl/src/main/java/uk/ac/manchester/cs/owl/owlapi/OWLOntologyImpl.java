@@ -108,8 +108,8 @@ import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLOntologyImpl extends OWLObjectImpl implements
@@ -208,12 +208,36 @@ public class OWLOntologyImpl extends OWLObjectImpl implements
 
     @Override
     public int getAxiomCount() {
-        return internals.getAxiomCount();
+        return getAxiomCount(false);
+    }
+
+    @Override
+    public int getAxiomCount(boolean imports) {
+        if (!imports) {
+            return internals.getAxiomCount();
+        }
+        int total = 0;
+        for (OWLOntology o : getImportsClosure()) {
+            total += o.getAxiomCount();
+        }
+        return total;
     }
 
     @Override
     public Set<OWLAxiom> getAxioms() {
-        return internals.getAxioms();
+        return getAxioms(false);
+    }
+
+    @Override
+    public Set<OWLAxiom> getAxioms(boolean imports) {
+        if (!imports) {
+            return internals.getAxioms();
+        }
+        Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+        for (OWLOntology o : getImportsClosure()) {
+            axioms.addAll(o.getAxioms());
+        }
+        return axioms;
     }
 
     @Override
