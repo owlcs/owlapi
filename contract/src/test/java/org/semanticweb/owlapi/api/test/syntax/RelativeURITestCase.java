@@ -14,26 +14,23 @@ package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTestCase;
-import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserSAXException;
+import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.RDFXMLParser;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -53,7 +50,7 @@ public class RelativeURITestCase extends AbstractAxiomsRoundTrippingTestCase {
     @Test
     public void shouldThrowMeaningfulException()
             throws OWLOntologyCreationException, IOException {
-        expectedException.expect(OWLRDFXMLParserSAXException.class);
+        expectedException.expect(OWLRDFXMLParserException.class);
         expectedException
                 .expectMessage("[line=1:column=378] IRI 'http://example.com/#1#2' cannot be resolved against current base IRI ");
         // on Java 6 for Mac the following assertion does not work: the root

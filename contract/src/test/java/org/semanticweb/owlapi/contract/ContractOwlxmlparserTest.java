@@ -17,21 +17,16 @@ import static org.mockito.Mockito.mock;
 import java.io.IOException;
 
 import org.junit.Test;
-import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserAttributeNotFoundException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserElementNotFoundException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserHandler;
-import org.semanticweb.owlapi.owlxml.parser.TranslatedOWLOntologyChangeException;
-import org.semanticweb.owlapi.owlxml.parser.TranslatedOWLParserException;
-import org.semanticweb.owlapi.owlxml.parser.TranslatedUnloadableImportException;
 
 @SuppressWarnings({ "unused", "javadoc" })
 public class ContractOwlxmlparserTest {
@@ -76,42 +71,6 @@ public class ContractOwlxmlparserTest {
         int result1 = testSubject0.getLineNumber();
         int result2 = testSubject0.getColumnNumber();
         Throwable result4 = testSubject0.getCause();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestTranslatedOWLOntologyChangeException()
-            throws OWLException {
-        TranslatedOWLOntologyChangeException testSubject0 = new TranslatedOWLOntologyChangeException(
-                mock(OWLOntologyChangeException.class));
-        OWLOntologyChangeException result0 = testSubject0.getCause();
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.getMessage();
-        Exception result4 = testSubject0.getException();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestTranslatedOWLParserException() throws OWLException {
-        TranslatedOWLParserException testSubject0 = new TranslatedOWLParserException(
-                mock(OWLParserException.class));
-        OWLParserException result0 = testSubject0.getParserException();
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.getMessage();
-        Exception result4 = testSubject0.getException();
-        String result7 = testSubject0.getLocalizedMessage();
-    }
-
-    @Test
-    public void shouldTestTranslatedUnloadableImportException()
-            throws OWLException {
-        TranslatedUnloadableImportException testSubject0 = new TranslatedUnloadableImportException(
-                mock(UnloadableImportException.class));
-        UnloadableImportException result0 = testSubject0
-                .getUnloadableImportException();
-        Throwable result1 = testSubject0.getCause();
-        String result3 = testSubject0.getMessage();
-        Exception result4 = testSubject0.getException();
         String result7 = testSubject0.getLocalizedMessage();
     }
 }

@@ -84,8 +84,10 @@ public class RDFXMLParser extends AbstractOWLParser {
             is = getInputSource(documentSource, configuration);
             parser.parse(is, consumer);
             return format;
+        } catch (RDFParserException e) {
+            throw new OWLRDFXMLParserException(e);
         } catch (SAXException e) {
-            throw new OWLRDFXMLParserSAXException(e);
+            throw new OWLRDFXMLParserException(e);
         } finally {
             if (is != null && is.getByteStream() != null) {
                 is.getByteStream().close();

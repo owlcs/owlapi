@@ -25,7 +25,6 @@ import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.IRIProvider;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFConsumer;
-import org.semanticweb.owlapi.rdf.rdfxml.parser.OWLRDFXMLParserSAXException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.TranslatedOntologyChangeException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.TranslatedUnloadableImportException;
 import org.semanticweb.owlapi.rdf.rdfxml.parser.TriplePatternMatcher;
@@ -52,17 +51,6 @@ public class ContractRdfxmlParserTest {
         testSubject0.logicalURI(IRI.create(""));
         testSubject0.statementWithLiteralValue("", "", "", "", "");
         testSubject0.statementWithResourceValue("", "", "");
-    }
-
-    @Test
-    public void shouldTestOWLRDFXMLParserSAXException() throws OWLException {
-        OWLRDFXMLParserSAXException testSubject0 = new OWLRDFXMLParserSAXException(
-                mock(SAXException.class));
-        String result0 = testSubject0.getMessage();
-        int result1 = testSubject0.getLineNumber();
-        int result2 = testSubject0.getColumnNumber();
-        Throwable result4 = testSubject0.getCause();
-        String result7 = testSubject0.getLocalizedMessage();
     }
 
     @Test

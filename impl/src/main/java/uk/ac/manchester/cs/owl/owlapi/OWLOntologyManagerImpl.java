@@ -802,7 +802,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 documentSource.getDocumentIRI(), loadCount > 0);
         loadCount++;
         broadcastChanges = false;
-        OWLOntologyCreationException ex = null;
+        Exception ex = null;
         OWLOntologyID idOfLoadedOntology = new OWLOntologyID();
         try {
             for (OWLOntologyFactory factory : ontologyFactories) {
@@ -827,10 +827,13 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     }
                 }
             }
+        } catch (UnloadableImportException e) {
+            ex = e;
+            throw e;
         } catch (OWLRuntimeException e) {
             if (e.getCause() instanceof OWLOntologyCreationException) {
                 ex = (OWLOntologyCreationException) e.getCause();
-                throw ex;
+                throw (OWLOntologyCreationException) e.getCause();
             }
             throw e;
         } catch (OWLOntologyCreationException e) {
@@ -1302,7 +1305,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     protected void fireFinishedLoadingEvent(OWLOntologyID ontologyID,
-            IRI documentIRI, boolean imported, OWLOntologyCreationException ex) {
+            IRI documentIRI, boolean imported, Exception ex) {
         for (OWLOntologyLoaderListener listener : new ArrayList<OWLOntologyLoaderListener>(
                 loaderListeners)) {
             listener.finishedLoadingOntology(new OWLOntologyLoaderListener.LoadingFinishedEvent(

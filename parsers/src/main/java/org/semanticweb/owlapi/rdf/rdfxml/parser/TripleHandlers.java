@@ -52,10 +52,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
-import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.SetOntologyID;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -1703,12 +1701,8 @@ public class TripleHandlers {
             consumer.addImport(importsDeclaration);
             if (!consumer.getConfiguration().isIgnoredImport(object)) {
                 OWLOntologyManager man = consumer.getOWLOntologyManager();
-                try {
-                    man.makeLoadImportRequest(importsDeclaration,
-                            consumer.getConfiguration());
-                } catch (UnloadableImportException e) {
-                    throw new OWLRuntimeException(e);
-                }
+                man.makeLoadImportRequest(importsDeclaration,
+                        consumer.getConfiguration());
                 OWLOntology importedOntology = man
                         .getImportedOntology(importsDeclaration);
                 if (importedOntology != null) {

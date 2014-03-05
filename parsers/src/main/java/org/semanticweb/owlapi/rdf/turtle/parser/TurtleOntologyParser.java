@@ -21,7 +21,6 @@ import org.semanticweb.owlapi.annotations.HasPriority;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
-import org.semanticweb.owlapi.io.OWLParserIOException;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
@@ -97,7 +96,7 @@ public class TurtleOntologyParser extends AbstractOWLParser {
         } catch (ParseException e) {
             throw new TurtleParserException(e);
         } catch (IOException e) {
-            throw new OWLParserIOException(e);
+            throw new TurtleParserException(e);
         } finally {
             if (is != null) {
                 is.close();

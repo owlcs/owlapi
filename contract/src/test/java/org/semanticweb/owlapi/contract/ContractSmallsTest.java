@@ -312,7 +312,6 @@ public class ContractSmallsTest {
         String result3 = testSubject0.getSystemId();
         Throwable result4 = testSubject0.getCause();
         String result6 = testSubject0.getMessage();
-        Exception result7 = testSubject0.getException();
         String result10 = testSubject0.getLocalizedMessage();
     }
 

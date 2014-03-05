@@ -107,10 +107,10 @@ public interface OWLOntologyLoaderListener {
      */
     static class LoadingFinishedEvent extends LoadingEvent {
 
-        private final OWLOntologyCreationException ex;
+        private final Exception ex;
 
         public LoadingFinishedEvent(OWLOntologyID ontologyID, IRI documentIRI,
-                boolean imported, OWLOntologyCreationException ex) {
+                boolean imported, Exception ex) {
             super(ontologyID, documentIRI, imported);
             this.ex = ex;
         }
@@ -137,7 +137,7 @@ public interface OWLOntologyLoaderListener {
          *         successfully, or {@code null} if the ontology was loaded
          *         successfully.
          */
-        public OWLOntologyCreationException getException() {
+        public Exception getException() {
             return ex;
         }
     }

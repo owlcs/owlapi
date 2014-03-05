@@ -25,14 +25,12 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.semanticweb.owlapi.io.OWLParserException;
-import org.semanticweb.owlapi.io.OWLParserURISyntaxException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
-import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -278,8 +276,7 @@ public class OWLXMLParserHandler extends DefaultHandler {
             }
             return iri;
         } catch (URISyntaxException e) {
-            throw new OWLParserURISyntaxException(e, getLineNumber(),
-                    getColumnNumber());
+            throw new OWLParserException(e, getLineNumber(), getColumnNumber());
         }
     }
 
@@ -359,38 +356,32 @@ public class OWLXMLParserHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
-        try {
-            processXMLBase(attributes);
-            if (localName.equals(PREFIX.getShortForm())) {
-                String name = attributes
-                        .getValue(NAME_ATTRIBUTE.getShortForm());
-                String iriString = attributes.getValue(IRI_ATTRIBUTE
-                        .getShortForm());
-                if (name != null && iriString != null) {
-                    if (name.endsWith(":")) {
-                        prefixName2PrefixMap.put(name, iriString);
-                    } else {
-                        prefixName2PrefixMap.put(name + ":", iriString);
-                    }
+        processXMLBase(attributes);
+        if (localName.equals(PREFIX.getShortForm())) {
+            String name = attributes.getValue(NAME_ATTRIBUTE.getShortForm());
+            String iriString = attributes
+                    .getValue(IRI_ATTRIBUTE.getShortForm());
+            if (name != null && iriString != null) {
+                if (name.endsWith(":")) {
+                    prefixName2PrefixMap.put(name, iriString);
+                } else {
+                    prefixName2PrefixMap.put(name + ":", iriString);
                 }
-                return;
             }
-            PARSER_OWLXMLVocabulary handlerFactory = handlerMap.get(localName);
-            if (handlerFactory != null) {
-                OWLElementHandler<?> handler = handlerFactory
-                        .createHandler(this);
-                if (!handlerStack.isEmpty()) {
-                    handler.setParentHandler(handlerStack.get(0));
-                }
-                handlerStack.add(0, handler);
-                for (int i = 0; i < attributes.getLength(); i++) {
-                    handler.attribute(attributes.getLocalName(i),
-                            attributes.getValue(i));
-                }
-                handler.startElement(localName);
+            return;
+        }
+        PARSER_OWLXMLVocabulary handlerFactory = handlerMap.get(localName);
+        if (handlerFactory != null) {
+            OWLElementHandler<?> handler = handlerFactory.createHandler(this);
+            if (!handlerStack.isEmpty()) {
+                handler.setParentHandler(handlerStack.get(0));
             }
-        } catch (OWLParserException e) {
-            throw new TranslatedOWLParserException(e);
+            handlerStack.add(0, handler);
+            for (int i = 0; i < attributes.getLength(); i++) {
+                handler.attribute(attributes.getLocalName(i),
+                        attributes.getValue(i));
+            }
+            handler.startElement(localName);
         }
     }
 
@@ -416,22 +407,14 @@ public class OWLXMLParserHandler extends DefaultHandler {
     @Override
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
-        try {
-            if (localName.equals(PREFIX.getShortForm())) {
-                return;
-            }
-            if (!handlerStack.isEmpty()) {
-                OWLElementHandler<?> handler = handlerStack.remove(0);
-                handler.endElement();
-            }
-            bases.pop();
-        } catch (OWLParserException e) {
-            // Temporarily translate to a SAX parse exception
-            throw new TranslatedOWLParserException(e);
-        } catch (UnloadableImportException e) {
-            // Temporarily translate to a SAX parse exception
-            throw new TranslatedUnloadableImportException(e);
+        if (localName.equals(PREFIX.getShortForm())) {
+            return;
         }
+        if (!handlerStack.isEmpty()) {
+            OWLElementHandler<?> handler = handlerStack.remove(0);
+            handler.endElement();
+        }
+        bases.pop();
     }
 
     @Override
