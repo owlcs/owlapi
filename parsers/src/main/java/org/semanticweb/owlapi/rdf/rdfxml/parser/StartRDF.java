@@ -57,11 +57,8 @@ abstract class AbstractState {
      * @param atts
      *        the attributes
      * @return the reification manager
-     * @throws SAXException
-     *         SAXException
      */
-    ReificationManager getReificationManager(Attributes atts)
-            throws SAXException {
+    ReificationManager getReificationManager(Attributes atts) {
         String bagIDAttr = atts.getValue(RDFNS, ATTR_BAG_ID);
         if (bagIDAttr == null) {
             return ReificationManager.INSTANCE;
@@ -123,11 +120,9 @@ abstract class AbstractState {
      * @param atts
      *        the attributes
      * @return the IRI of the resource or {@code null}
-     * @throws SAXException
-     *         SAXException
      */
     @Nullable
-    String getNodeIDResourceResourceIRI(Attributes atts) throws SAXException {
+    String getNodeIDResourceResourceIRI(Attributes atts) {
         String value = atts.getValue(RDFNS, ATTR_RESOURCE);
         if (value != null) {
             return parser.resolveIRI(value);
@@ -278,7 +273,7 @@ class NodeElement extends AbstractState implements State {
         super(parser);
     }
 
-    void startDummyElement(Attributes atts) throws SAXException {
+    void startDummyElement(Attributes atts) {
         subjectIRI = NodeID.nextAnonymousIRI();
         reificationManager = getReificationManager(atts);
     }
@@ -342,12 +337,9 @@ class NodeElement extends AbstractState implements State {
      * @param atts
      *        atts
      * @return string for IRI
-     * @throws SAXException
-     *         SAXException
      */
     @Nonnull
-    String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts)
-            throws SAXException {
+    String getIDNodeIDAboutResourceIRI(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
         String result = null;
         String value = atts.getValue(RDFNS, ATTR_ID);

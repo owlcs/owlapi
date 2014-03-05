@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
+@SuppressWarnings("javadoc")
 public class StreamDocumentSourceBaseTestCase {
 
     @Test

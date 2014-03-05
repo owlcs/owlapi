@@ -260,11 +260,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Pops a state from the stack.
-     * 
-     * @throws SAXException
-     *         SAXException
      */
-    public void popState() throws SAXException {
+    public void popState() {
         int size = m_states.size();
         verify(size == 0, "Internal exception: state stack is empty.");
         if (size == 1) {
@@ -297,10 +294,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * 
      * @param atts
      *        the attributes potentially containing xml:base declaration
-     * @throws SAXException
-     *         SAXException
      */
-    private void processXMLBase(@Nonnull Attributes atts) throws SAXException {
+    private void processXMLBase(@Nonnull Attributes atts) {
         checkNotNull(atts, "atts cannot be null");
         m_baseIRIs.add(0, m_baseIRI);
         String value = atts.getValue(XMLNS, "base");
@@ -336,11 +331,9 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param uri
      *        the IRI being resolved
      * @return the resolved IRI
-     * @throws SAXException
-     *         SAXException
      */
     @Nonnull
-    public String resolveIRI(@Nonnull String uri) throws SAXException {
+    public String resolveIRI(@Nonnull String uri) {
         checkNotNull(uri, "uri cannot be null");
         if (uri.length() == 0) {
             // MH - Fix for resolving a "This document" reference against base
@@ -442,12 +435,8 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
      * @param string
      *        string to be parsed
      * @return map of name-value pairs
-     * @throws SAXException
-     *         if there was an IOException this will be wrapped in a parse
-     *         exception
      */
-    private Map<String, String> parseStringArguments(String string)
-            throws SAXException {
+    private Map<String, String> parseStringArguments(String string) {
         try {
             StreamTokenizer tokenizer = new StreamTokenizer(new StringReader(
                     string));
