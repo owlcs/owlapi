@@ -38,7 +38,7 @@ public class OWLOntologyToStringTestCase {
         String s = ont.toString();
         String expected = "Ontology(" + ont.getOntologyID().toString()
                 + ") [Axioms: " + ont.getAxiomCount() + " Logical Axioms: "
-                + ont.getLogicalAxiomCount() + "]";
+                + ont.getLogicalAxiomCount() + "] First 20 axioms: {}";
         assertEquals(expected, s);
     }
 }
