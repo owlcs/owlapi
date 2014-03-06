@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.3.0
  */
 public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
@@ -54,7 +54,7 @@ public class RDFXMLNamespaceManager extends OWLOntologyXMLNamespaceManager {
                 AxiomType.DATA_PROPERTY_ASSERTION)) {
             entities.add(ax.getProperty().asOWLDataProperty());
         }
-        entities.addAll(getOntology().getAnnotationPropertiesInSignature());
+        entities.addAll(getOntology().getAnnotationPropertiesInSignature(false));
         return entities;
     }
 

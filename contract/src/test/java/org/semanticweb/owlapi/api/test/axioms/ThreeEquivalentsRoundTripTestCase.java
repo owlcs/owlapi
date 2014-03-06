@@ -44,9 +44,11 @@ public class ThreeEquivalentsRoundTripTestCase extends TestBase {
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsObjectPropertyInSignature(p.getIRI()));
-        assertTrue(ontology.containsObjectPropertyInSignature(q.getIRI()));
-        assertTrue(ontology.containsClassInSignature(b.getIRI()));
-        assertTrue(ontology.containsClassInSignature(c.getIRI()));
+        assertTrue(ontology
+                .containsObjectPropertyInSignature(p.getIRI(), false));
+        assertTrue(ontology
+                .containsObjectPropertyInSignature(q.getIRI(), false));
+        assertTrue(ontology.containsClassInSignature(b.getIRI(), false));
+        assertTrue(ontology.containsClassInSignature(c.getIRI(), false));
     }
 }

@@ -105,7 +105,7 @@ public class OWLOntologyXMLNamespaceManager extends XMLWriterNamespaceManager {
         result.addAll(ontology.getObjectPropertiesInSignature());
         result.addAll(ontology.getDataPropertiesInSignature());
         result.addAll(ontology.getIndividualsInSignature());
-        result.addAll(ontology.getAnnotationPropertiesInSignature());
+        result.addAll(ontology.getAnnotationPropertiesInSignature(false));
         return result;
     }
 

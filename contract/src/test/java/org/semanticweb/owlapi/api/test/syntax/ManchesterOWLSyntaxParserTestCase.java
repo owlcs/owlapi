@@ -64,7 +64,7 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         // when
         ontology = roundTrip(ontology);
         // then
-        assertTrue(ontology.containsDataPropertyInSignature(iri));
+        assertTrue(ontology.containsDataPropertyInSignature(iri, false));
     }
 
     @Test

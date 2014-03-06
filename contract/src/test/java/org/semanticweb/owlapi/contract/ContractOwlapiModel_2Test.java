@@ -1627,9 +1627,9 @@ public class ContractOwlapiModel_2Test {
                 mock(OWLAxiom.class), false);
         Set<OWLClassAxiom> result47 = testSubject0.getGeneralClassAxioms();
         Set<OWLAnonymousIndividual> result48 = testSubject0
-                .getReferencedAnonymousIndividuals();
+                .getReferencedAnonymousIndividuals(false);
         Set<OWLAnnotationProperty> result49 = testSubject0
-                .getAnnotationPropertiesInSignature();
+                .getAnnotationPropertiesInSignature(false);
         Set<OWLAxiom> result50 = testSubject0.getReferencingAxioms(
                 Utils.mockOWLEntity(), false);
         Set<OWLAxiom> result51 = testSubject0.getReferencingAxioms(
@@ -1642,33 +1642,33 @@ public class ContractOwlapiModel_2Test {
                 .mockOWLEntity());
         boolean result55 = testSubject0.containsEntityInSignature(
                 IRI("urn:aFake"), false);
-        boolean result56 = testSubject0
-                .containsEntityInSignature(IRI("urn:aFake"));
+        boolean result56 = testSubject0.containsEntityInSignature(
+                IRI("urn:aFake"), false);
         boolean result57 = testSubject0.isDeclared(Utils.mockOWLEntity());
         boolean result58 = testSubject0
                 .isDeclared(Utils.mockOWLEntity(), false);
         boolean result59 = testSubject0.containsClassInSignature(
                 IRI("urn:aFake"), false);
-        boolean result60 = testSubject0
-                .containsClassInSignature(IRI("urn:aFake"));
+        boolean result60 = testSubject0.containsClassInSignature(
+                IRI("urn:aFake"), false);
         boolean result61 = testSubject0.containsObjectPropertyInSignature(
                 IRI("urn:aFake"), false);
-        boolean result62 = testSubject0
-                .containsObjectPropertyInSignature(IRI("urn:aFake"));
-        boolean result63 = testSubject0
-                .containsDataPropertyInSignature(IRI("urn:aFake"));
+        boolean result62 = testSubject0.containsObjectPropertyInSignature(
+                IRI("urn:aFake"), false);
+        boolean result63 = testSubject0.containsDataPropertyInSignature(
+                IRI("urn:aFake"), false);
         boolean result64 = testSubject0.containsDataPropertyInSignature(
                 IRI("urn:aFake"), false);
-        boolean result65 = testSubject0
-                .containsAnnotationPropertyInSignature(IRI("urn:aFake"));
+        boolean result65 = testSubject0.containsAnnotationPropertyInSignature(
+                IRI("urn:aFake"), false);
         boolean result66 = testSubject0.containsAnnotationPropertyInSignature(
                 IRI("urn:aFake"), false);
-        boolean result67 = testSubject0
-                .containsIndividualInSignature(IRI("urn:aFake"));
+        boolean result67 = testSubject0.containsIndividualInSignature(
+                IRI("urn:aFake"), false);
         boolean result68 = testSubject0.containsIndividualInSignature(
                 IRI("urn:aFake"), false);
-        boolean result69 = testSubject0
-                .containsDatatypeInSignature(IRI("urn:aFake"));
+        boolean result69 = testSubject0.containsDatatypeInSignature(
+                IRI("urn:aFake"), false);
         boolean result70 = testSubject0.containsDatatypeInSignature(
                 IRI("urn:aFake"), false);
         Set<OWLEntity> result71 = testSubject0.getEntitiesInSignature(

@@ -1487,7 +1487,7 @@ public class Examples {
      */
     private static void printProperties(OWLOntologyManager man,
             OWLOntology ont, OWLReasoner reasoner, OWLClass cls) {
-        if (!ont.containsClassInSignature(cls.getIRI())) {
+        if (!ont.containsClassInSignature(cls.getIRI(), false)) {
             throw new OWLRuntimeException(
                     "Class not in signature of the ontology");
         }

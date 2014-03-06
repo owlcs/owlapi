@@ -105,7 +105,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
         List<OWLNamedIndividual> punned = new ArrayList<OWLNamedIndividual>();
         for (OWLNamedIndividual ind : individuals) {
             for (OWLOntology ont : ontologies) {
-                if (ont.containsClassInSignature(ind.getIRI())) {
+                if (ont.containsClassInSignature(ind.getIRI(), false)) {
                     punned.add(ind);
                 }
             }

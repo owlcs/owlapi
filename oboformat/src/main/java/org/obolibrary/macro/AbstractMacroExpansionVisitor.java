@@ -130,7 +130,7 @@ public abstract class AbstractMacroExpansionVisitor implements
             }
         }
         for (OWLAnnotationProperty p : inputOntology
-                .getAnnotationPropertiesInSignature()) {
+                .getAnnotationPropertiesInSignature(false)) {
             for (OWLAnnotation a : Searcher.find(OWLAnnotation.class)
                     .in(inputOntology).annotations(p)
                     .forProperty(expandAssertionAP)) {

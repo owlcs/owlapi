@@ -23,8 +23,8 @@ import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class ReferencedEntitySetProvider implements
@@ -48,7 +48,7 @@ public class ReferencedEntitySetProvider implements
             entities.addAll(ont.getObjectPropertiesInSignature());
             entities.addAll(ont.getDataPropertiesInSignature());
             entities.addAll(ont.getIndividualsInSignature());
-            entities.addAll(ont.getAnnotationPropertiesInSignature());
+            entities.addAll(ont.getAnnotationPropertiesInSignature(false));
             entities.addAll(ont.getDatatypesInSignature());
         }
         return entities;

@@ -252,7 +252,7 @@ public abstract class RDFRendererBase {
 
     private void renderAnnotationProperties() throws IOException {
         Set<OWLAnnotationProperty> annotationProperties = ontology
-                .getAnnotationPropertiesInSignature();
+                .getAnnotationPropertiesInSignature(false);
         renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT);
     }
 
@@ -351,7 +351,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (!ontology.containsEntityInSignature(iri)) {
+                if (!ontology.containsEntityInSignature(iri, false)) {
                     annotatedIRIs.add(iri);
                 }
             }
@@ -370,7 +370,7 @@ public abstract class RDFRendererBase {
 
     private void renderAnonymousIndividuals() throws IOException {
         for (OWLAnonymousIndividual anonInd : ontology
-                .getReferencedAnonymousIndividuals()) {
+                .getReferencedAnonymousIndividuals(false)) {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
             for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, false)) {
@@ -624,7 +624,7 @@ public abstract class RDFRendererBase {
 
     private boolean isIndividualAndClass(OWLEntity entity) {
         return entity.isOWLNamedIndividual()
-                && ontology.containsClassInSignature(entity.getIRI());
+                && ontology.containsClassInSignature(entity.getIRI(), false);
     }
 
     protected boolean shouldInsertDeclarations() {

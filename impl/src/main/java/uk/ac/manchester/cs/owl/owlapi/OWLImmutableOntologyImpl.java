@@ -401,155 +401,86 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public boolean containsClassInSignature(IRI owlClassIRI) {
-        return containsReference(manager.getOWLDataFactory().getOWLClass(
-                owlClassIRI));
-    }
-
-    @Override
     public boolean containsClassInSignature(IRI owlClassIRI,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsClassInSignature(owlClassIRI);
-        }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (ont.containsClassInSignature(owlClassIRI)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean containsObjectPropertyInSignature(IRI propIRI) {
-        return containsReference(manager.getOWLDataFactory()
-                .getOWLObjectProperty(propIRI));
+        return containsReference(
+                manager.getOWLDataFactory().getOWLClass(owlClassIRI),
+                includeImportsClosure);
     }
 
     @Override
     public boolean containsObjectPropertyInSignature(IRI propIRI,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsObjectPropertyInSignature(propIRI);
-        }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (ont.containsObjectPropertyInSignature(propIRI)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean containsDataPropertyInSignature(IRI propIRI) {
         return containsReference(manager.getOWLDataFactory()
-                .getOWLDataProperty(propIRI));
+                .getOWLObjectProperty(propIRI), includeImportsClosure);
     }
 
     @Override
     public boolean containsDataPropertyInSignature(IRI propIRI,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsDataPropertyInSignature(propIRI);
-        }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (ont.containsDataPropertyInSignature(propIRI)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean containsAnnotationPropertyInSignature(IRI propIRI) {
-        final OWLAnnotationProperty owlAnnotationProperty = manager
-                .getOWLDataFactory().getOWLAnnotationProperty(propIRI);
-        boolean b = containsReference(owlAnnotationProperty);
-        if (b) {
-            return true;
-        } else {
-            for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
-                if (anno.getProperty().equals(owlAnnotationProperty)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return containsReference(manager.getOWLDataFactory()
+                .getOWLDataProperty(propIRI), includeImportsClosure);
     }
 
     @Override
     public boolean containsAnnotationPropertyInSignature(IRI propIRI,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsAnnotationPropertyInSignature(propIRI);
-        }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (ont.containsAnnotationPropertyInSignature(propIRI)) {
+        OWLAnnotationProperty p = manager.getOWLDataFactory()
+                .getOWLAnnotationProperty(propIRI);
+        return containsReference(p, includeImportsClosure)
+                || checkOntologyAnnotations(p);
+    }
+
+    private boolean checkOntologyAnnotations(
+            OWLAnnotationProperty owlAnnotationProperty) {
+        for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
+            if (anno.getProperty().equals(owlAnnotationProperty)) {
                 return true;
             }
         }
         return false;
-    }
-
-    @Override
-    public boolean containsIndividualInSignature(IRI individualIRI) {
-        return containsReference(manager.getOWLDataFactory()
-                .getOWLNamedIndividual(individualIRI));
     }
 
     @Override
     public boolean containsIndividualInSignature(IRI individualIRI,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsIndividualInSignature(individualIRI);
-        }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (ont.containsIndividualInSignature(individualIRI)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean containsDatatypeInSignature(IRI datatypeIRI) {
-        return containsReference(manager.getOWLDataFactory().getOWLDatatype(
-                datatypeIRI));
+        return containsReference(manager.getOWLDataFactory()
+                .getOWLNamedIndividual(individualIRI), includeImportsClosure);
     }
 
     @Override
     public boolean containsDatatypeInSignature(IRI datatypeIRI,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsDatatypeInSignature(datatypeIRI);
-        }
-        for (OWLOntology ont : manager.getImportsClosure(this)) {
-            if (ont.containsDatatypeInSignature(datatypeIRI)) {
-                return true;
-            }
-        }
-        return false;
+        return containsReference(
+                manager.getOWLDataFactory().getOWLDatatype(datatypeIRI),
+                includeImportsClosure);
     }
 
     @Override
     public Set<OWLEntity> getEntitiesInSignature(IRI iri) {
+        return getEntitiesInSignature(iri, false);
+    }
+
+    @Override
+    public Set<OWLEntity> getEntitiesInSignature(IRI iri,
+            boolean includeImportsClosure) {
         Set<OWLEntity> result = createSet(6);
-        if (containsClassInSignature(iri)) {
+        if (containsClassInSignature(iri, includeImportsClosure)) {
             result.add(manager.getOWLDataFactory().getOWLClass(iri));
         }
-        if (containsObjectPropertyInSignature(iri)) {
+        if (containsObjectPropertyInSignature(iri, includeImportsClosure)) {
             result.add(manager.getOWLDataFactory().getOWLObjectProperty(iri));
         }
-        if (containsDataPropertyInSignature(iri)) {
+        if (containsDataPropertyInSignature(iri, includeImportsClosure)) {
             result.add(manager.getOWLDataFactory().getOWLDataProperty(iri));
         }
-        if (containsIndividualInSignature(iri)) {
+        if (containsIndividualInSignature(iri, includeImportsClosure)) {
             result.add(manager.getOWLDataFactory().getOWLNamedIndividual(iri));
         }
-        if (containsDatatypeInSignature(iri)) {
+        if (containsDatatypeInSignature(iri, includeImportsClosure)) {
             result.add(manager.getOWLDataFactory().getOWLDatatype(iri));
         }
-        if (containsAnnotationPropertyInSignature(iri)) {
+        if (containsAnnotationPropertyInSignature(iri, includeImportsClosure)) {
             result.add(manager.getOWLDataFactory()
                     .getOWLAnnotationProperty(iri));
         }
@@ -557,50 +488,56 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLEntity> getEntitiesInSignature(IRI iri,
-            boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return getEntitiesInSignature(iri);
-        } else {
-            Set<OWLEntity> result = createSet(6);
-            for (OWLOntology ont : getImportsClosure()) {
-                result.addAll(ont.getEntitiesInSignature(iri));
-            }
-            return result;
+    public boolean containsReference(final OWLEntity entity,
+            boolean importsClosure) {
+        if (!importsClosure) {
+            return entity.accept(new OWLEntityVisitorEx<Boolean>() {
+
+                @Override
+                public Boolean visit(OWLClass cls) {
+                    return internals.contains(
+                            internals.getOwlClassReferences(), cls);
+                }
+
+                @Override
+                public Boolean visit(OWLObjectProperty property) {
+                    return internals.contains(
+                            internals.getOwlObjectPropertyReferences(),
+                            property);
+                }
+
+                @Override
+                public Boolean visit(OWLDataProperty property) {
+                    return internals.contains(
+                            internals.getOwlDataPropertyReferences(), property);
+                }
+
+                @Override
+                public Boolean visit(OWLNamedIndividual individual) {
+                    return internals.contains(
+                            internals.getOwlIndividualReferences(), individual);
+                }
+
+                @Override
+                public Boolean visit(OWLDatatype datatype) {
+                    return internals.contains(
+                            internals.getOwlDatatypeReferences(), datatype);
+                }
+
+                @Override
+                public Boolean visit(OWLAnnotationProperty property) {
+                    return internals.contains(
+                            internals.getOwlAnnotationPropertyReferences(),
+                            property);
+                }
+            });
         }
-    }
-
-    @Override
-    public boolean containsReference(OWLClass owlClass) {
-        return internals.contains(internals.getOwlClassReferences(), owlClass);
-    }
-
-    @Override
-    public boolean containsReference(OWLObjectProperty prop) {
-        return internals.contains(internals.getOwlObjectPropertyReferences(),
-                prop);
-    }
-
-    @Override
-    public boolean containsReference(OWLDataProperty prop) {
-        return internals.contains(internals.getOwlDataPropertyReferences(),
-                prop);
-    }
-
-    @Override
-    public boolean containsReference(OWLNamedIndividual ind) {
-        return internals.contains(internals.getOwlIndividualReferences(), ind);
-    }
-
-    @Override
-    public boolean containsReference(OWLDatatype dt) {
-        return internals.contains(internals.getOwlDatatypeReferences(), dt);
-    }
-
-    @Override
-    public boolean containsReference(OWLAnnotationProperty property) {
-        return internals.contains(
-                internals.getOwlAnnotationPropertyReferences(), property);
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.containsReference(entity, false)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -711,55 +648,45 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity) {
-        OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker();
+        OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker(
+                false);
         return entityReferenceChecker.containsReference(owlEntity);
     }
 
     @Override
     public boolean containsEntityInSignature(OWLEntity owlEntity,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsEntityInSignature(owlEntity);
-        }
-        for (OWLOntology ont : getImportsClosure()) {
-            if (ont.containsEntityInSignature(owlEntity)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public boolean containsEntityInSignature(IRI entityIRI) {
-        if (containsClassInSignature(entityIRI)) {
-            return true;
-        }
-        if (containsObjectPropertyInSignature(entityIRI)) {
-            return true;
-        }
-        if (containsDataPropertyInSignature(entityIRI)) {
-            return true;
-        }
-        if (containsIndividualInSignature(entityIRI)) {
-            return true;
-        }
-        if (containsDatatypeInSignature(entityIRI)) {
-            return true;
-        }
-        if (containsAnnotationPropertyInSignature(entityIRI)) {
-            return true;
-        }
-        return false;
+        OWLEntityReferenceChecker entityReferenceChecker = new OWLEntityReferenceChecker(
+                includeImportsClosure);
+        return entityReferenceChecker.containsReference(owlEntity);
     }
 
     @Override
     public boolean containsEntityInSignature(IRI entityIRI,
             boolean includeImportsClosure) {
         if (!includeImportsClosure) {
-            return containsEntityInSignature(entityIRI);
+            if (containsClassInSignature(entityIRI, false)) {
+                return true;
+            }
+            if (containsObjectPropertyInSignature(entityIRI, false)) {
+                return true;
+            }
+            if (containsDataPropertyInSignature(entityIRI, false)) {
+                return true;
+            }
+            if (containsIndividualInSignature(entityIRI, false)) {
+                return true;
+            }
+            if (containsDatatypeInSignature(entityIRI, false)) {
+                return true;
+            }
+            if (containsAnnotationPropertyInSignature(entityIRI, false)) {
+                return true;
+            }
+            return false;
         }
         for (OWLOntology ont : getImportsClosure()) {
-            if (ont.containsEntityInSignature(entityIRI)) {
+            if (ont.containsEntityInSignature(entityIRI, false)) {
                 return true;
             }
         }
@@ -920,7 +847,7 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
         entities.addAll(getDataPropertiesInSignature());
         entities.addAll(getIndividualsInSignature());
         entities.addAll(getDatatypesInSignature());
-        entities.addAll(getAnnotationPropertiesInSignature());
+        entities.addAll(getAnnotationPropertiesInSignature(false));
         return entities;
     }
 
@@ -1020,9 +947,17 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals() {
-        return internals.getKeyset(internals
-                .getOwlAnonymousIndividualReferences());
+    public Set<OWLAnonymousIndividual> getReferencedAnonymousIndividuals(
+            boolean includeImportsClosure) {
+        if (!includeImportsClosure) {
+            return internals.getKeyset(internals
+                    .getOwlAnonymousIndividualReferences());
+        }
+        Set<OWLAnonymousIndividual> result = createSet();
+        for (OWLOntology o : getImportsClosure()) {
+            result.addAll(o.getReferencedAnonymousIndividuals(false));
+        }
+        return result;
     }
 
     @Override
@@ -1039,11 +974,19 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature() {
-        Set<OWLAnnotationProperty> props = createSet(internals
-                .getKeyset(internals.getOwlAnnotationPropertyReferences()));
-        for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
-            props.add(anno.getProperty());
+    public Set<OWLAnnotationProperty> getAnnotationPropertiesInSignature(
+            boolean includeImportsClosure) {
+        Set<OWLAnnotationProperty> props = createSet();
+        if (!includeImportsClosure) {
+            props.addAll(internals.getKeyset(internals
+                    .getOwlAnnotationPropertyReferences()));
+            for (OWLAnnotation anno : internals.getOntologyAnnotations()) {
+                props.add(anno.getProperty());
+            }
+        } else {
+            for (OWLOntology ont : getImportsClosure()) {
+                props.addAll(ont.getAnnotationPropertiesInSignature(false));
+            }
         }
         return props;
     }
@@ -1443,8 +1386,11 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
 
         private static final long serialVersionUID = 40000L;
         private boolean ref;
+        private boolean includeImports;
 
-        public OWLEntityReferenceChecker() {}
+        public OWLEntityReferenceChecker(boolean b) {
+            includeImports = b;
+        }
 
         public boolean containsReference(OWLEntity entity) {
             ref = false;
@@ -1454,32 +1400,38 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
 
         @Override
         public void visit(OWLClass cls) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(cls);
+            ref = OWLImmutableOntologyImpl.this.containsReference(cls,
+                    includeImports);
         }
 
         @Override
         public void visit(OWLDatatype datatype) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(datatype);
+            ref = OWLImmutableOntologyImpl.this.containsReference(datatype,
+                    includeImports);
         }
 
         @Override
         public void visit(OWLNamedIndividual individual) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(individual);
+            ref = OWLImmutableOntologyImpl.this.containsReference(individual,
+                    includeImports);
         }
 
         @Override
         public void visit(OWLDataProperty property) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(property);
+            ref = OWLImmutableOntologyImpl.this.containsReference(property,
+                    includeImports);
         }
 
         @Override
         public void visit(OWLObjectProperty property) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(property);
+            ref = OWLImmutableOntologyImpl.this.containsReference(property,
+                    includeImports);
         }
 
         @Override
         public void visit(OWLAnnotationProperty property) {
-            ref = OWLImmutableOntologyImpl.this.containsReference(property);
+            ref = OWLImmutableOntologyImpl.this.containsReference(property,
+                    includeImports);
         }
     }
 }

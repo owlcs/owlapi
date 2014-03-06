@@ -230,7 +230,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         writeNewLine();
         writeOntologyHeader(ontology);
         for (OWLAnnotationProperty prop : ontology
-                .getAnnotationPropertiesInSignature()) {
+                .getAnnotationPropertiesInSignature(false)) {
             write(prop);
         }
         for (OWLDatatype datatype : ontology.getDatatypesInSignature()) {
@@ -253,7 +253,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
             write(ind);
         }
         for (OWLAnonymousIndividual ind : ontology
-                .getReferencedAnonymousIndividuals()) {
+                .getReferencedAnonymousIndividuals(false)) {
             write(ind);
         }
         // Nary disjoint classes axioms
