@@ -91,8 +91,8 @@ public class OBOFormatParser {
                 lineNo++;
                 pos = 0;
             } catch (IOException e) {
-                LOG.error("lineNo: " + lineNo);
-                throw new Error("Error reading from input.", e);
+                throw new OBOFormatParserException(e, lineNo,
+                        "Error reading from input.");
             }
         }
 

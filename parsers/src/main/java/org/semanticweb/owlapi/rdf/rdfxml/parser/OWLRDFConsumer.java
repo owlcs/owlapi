@@ -549,11 +549,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      */
     protected void setPendingAnnotations(Set<OWLAnnotation> annotations) {
         if (!pendingAnnotations.isEmpty()) {
-            for (OWLAnnotation ann : pendingAnnotations) {
-                logger.error(
-                        "Pending annotation was not used before next call to setPendingAnnotations: {}",
-                        ann);
-            }
             throw new OWLRuntimeException(pendingAnnotations.size()
                     + " pending annotations should have been used by now. "
                     + pendingAnnotations);
