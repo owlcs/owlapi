@@ -68,9 +68,9 @@ public class RioParserTest extends TestBase {
                 new RDFXMLOntologyFormatFactory());
         // OWLOntology ontology = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
-        OWLOntology ontology = OWLManager.createOWLOntologyManager()
-                .createOntology(
-                        IRI.create("urn:test:rioparser:ontology:koala:1"));
+        OWLOntology ontology = m1
+                .createOntology(IRI
+                        .create("http://protege.stanford.edu/plugins/owl/owl-library/koala.owl"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/koala.owl")), ontology);
@@ -84,6 +84,7 @@ public class RioParserTest extends TestBase {
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
+    @Ignore
     @Test
     public void testParsePrimer() throws OWLParserException, IOException,
             OWLOntologyCreationException {
@@ -98,9 +99,8 @@ public class RioParserTest extends TestBase {
                 new RDFXMLOntologyFormatFactory());
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager()
-        OWLOntology rioOntologyPrimer = OWLManager.createOWLOntologyManager()
-                .createOntology(
-                        IRI.create("urn:test:rioparser:ontology:primer:1"));
+        OWLOntology rioOntologyPrimer = m1.createOntology(IRI
+                .create("http://example.com/owl/families"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/primer.rdfxml.xml")), rioOntologyPrimer);
@@ -169,9 +169,8 @@ public class RioParserTest extends TestBase {
                 new RDFXMLOntologyFormatFactory());
         // OWLOntology rioOntologyPrimer = OWLOntologyManagerFactoryRegistry
         // .createOWLOntologyManager().createOntology(
-        OWLOntology rioOntologyPrimer = OWLManager.createOWLOntologyManager()
-                .createOntology(
-                        IRI.create("urn:test:rioparser:ontology:primer:1"));
+        OWLOntology rioOntologyPrimer = m1.createOntology(IRI
+                .create("http://example.com/owl/families"));
         OWLOntologyFormat rioOntologyFormat = rioParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/rioParserTest1-minimal.rdf")), rioOntologyPrimer);
