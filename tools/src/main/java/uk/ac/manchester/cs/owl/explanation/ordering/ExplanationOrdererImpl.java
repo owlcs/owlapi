@@ -150,19 +150,20 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
     private Set<OWLAxiom> getTargetAxioms(@Nonnull OWLEntity currentTarget) {
         Set<OWLAxiom> targetAxioms = new HashSet<OWLAxiom>();
         if (currentTarget.isOWLClass()) {
-            targetAxioms.addAll(ont.getAxioms(currentTarget.asOWLClass()));
+            targetAxioms
+                    .addAll(ont.getAxioms(currentTarget.asOWLClass(), false));
         }
         if (currentTarget.isOWLObjectProperty()) {
-            targetAxioms.addAll(ont.getAxioms(currentTarget
-                    .asOWLObjectProperty()));
+            targetAxioms.addAll(ont.getAxioms(
+                    currentTarget.asOWLObjectProperty(), false));
         }
         if (currentTarget.isOWLDataProperty()) {
-            targetAxioms
-                    .addAll(ont.getAxioms(currentTarget.asOWLDataProperty()));
+            targetAxioms.addAll(ont.getAxioms(
+                    currentTarget.asOWLDataProperty(), false));
         }
         if (currentTarget.isOWLNamedIndividual()) {
-            targetAxioms.addAll(ont.getAxioms(currentTarget
-                    .asOWLNamedIndividual()));
+            targetAxioms.addAll(ont.getAxioms(
+                    currentTarget.asOWLNamedIndividual(), false));
         }
         return targetAxioms;
     }
@@ -181,13 +182,13 @@ public class ExplanationOrdererImpl implements ExplanationOrderer {
                 tree.getUserObjectPathToRoot());
         Set<? extends OWLAxiom> axioms = Collections.emptySet();
         if (entity.isOWLClass()) {
-            axioms = ont.getAxioms(entity.asOWLClass());
+            axioms = ont.getAxioms(entity.asOWLClass(), false);
         } else if (entity.isOWLObjectProperty()) {
-            axioms = ont.getAxioms(entity.asOWLObjectProperty());
+            axioms = ont.getAxioms(entity.asOWLObjectProperty(), false);
         } else if (entity.isOWLDataProperty()) {
-            axioms = ont.getAxioms(entity.asOWLDataProperty());
+            axioms = ont.getAxioms(entity.asOWLDataProperty(), false);
         } else if (entity.isOWLNamedIndividual()) {
-            axioms = ont.getAxioms(entity.asOWLNamedIndividual());
+            axioms = ont.getAxioms(entity.asOWLNamedIndividual(), false);
         }
         for (OWLAxiom ax : axioms) {
             if (passTypes.contains(ax.getAxiomType())) {

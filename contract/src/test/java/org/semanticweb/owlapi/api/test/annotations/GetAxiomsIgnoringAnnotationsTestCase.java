@@ -26,8 +26,8 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -42,13 +42,13 @@ public class GetAxiomsIgnoringAnnotationsTestCase extends TestBase {
                 Class(getIRI("B")), Collections.singleton(anno));
         OWLOntology ont = getOWLOntology("testont");
         ont.getOWLOntologyManager().addAxiom(ont, axiom);
-        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom).contains(axiom));
-        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom).contains(
+        assertTrue(ont.getAxiomsIgnoreAnnotations(axiom, false).contains(axiom));
+        assertFalse(ont.getAxiomsIgnoreAnnotations(axiom, false).contains(
                 axiom.getAxiomWithoutAnnotations()));
         assertTrue(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations()).contains(axiom));
+                axiom.getAxiomWithoutAnnotations(), false).contains(axiom));
         assertFalse(ont.getAxiomsIgnoreAnnotations(
-                axiom.getAxiomWithoutAnnotations()).contains(
+                axiom.getAxiomWithoutAnnotations(), false).contains(
                 axiom.getAxiomWithoutAnnotations()));
     }
 }

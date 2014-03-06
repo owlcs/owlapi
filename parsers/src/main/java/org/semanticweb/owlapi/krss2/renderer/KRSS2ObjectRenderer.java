@@ -302,7 +302,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         reset();
         for (final OWLClass eachClass : ontology1.getClassesInSignature()) {
             if (ignoreDeclarations) {
-                if (ontology1.getAxioms(eachClass).size() == 1
+                if (ontology1.getAxioms(eachClass, false).size() == 1
                         && ontology1.getDeclarationAxioms(eachClass).size() == 1) {
                     continue;
                 }
@@ -355,7 +355,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         for (final OWLObjectProperty property : sort(ontology1
                 .getObjectPropertiesInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology1.getAxioms(property).size() == 1
+                if (ontology1.getAxioms(property, false).size() == 1
                         && ontology1.getDeclarationAxioms(property).size() == 1) {
                     continue;
                 }
@@ -482,7 +482,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
         for (final OWLNamedIndividual individual : sort(ontology1
                 .getIndividualsInSignature())) {
             if (ignoreDeclarations) {
-                if (ontology1.getAxioms(individual).size() == 1
+                if (ontology1.getAxioms(individual, false).size() == 1
                         && ontology1.getDeclarationAxioms(individual).size() == 1) {
                     continue;
                 }

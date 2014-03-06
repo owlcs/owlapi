@@ -37,8 +37,8 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public abstract class OWLReasonerBase implements OWLReasoner {
@@ -184,7 +184,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
             }
         }
         for (OWLAxiom ax : reasonerAxioms) {
-            if (!rootOntology.containsAxiomIgnoreAnnotations(ax, true)) {
+            if (!rootOntology.containsAxiom(ax, true, true)) {
                 removed.add(ax);
             }
         }

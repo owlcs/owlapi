@@ -239,7 +239,7 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         for (OWLObjectProperty prop : ontology.getObjectPropertiesInSignature()) {
             write(prop);
             OWLObjectPropertyExpression invProp = prop.getInverseProperty();
-            if (!ontology.getAxioms(invProp).isEmpty()) {
+            if (!ontology.getAxioms(invProp, false).isEmpty()) {
                 write(invProp);
             }
         }

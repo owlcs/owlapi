@@ -236,7 +236,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             UnsupportedEntailmentTypeException, TimeOutException,
             AxiomNotInProfileException, FreshEntitiesException,
             InconsistentOntologyException {
-        return getRootOntology().containsAxiomIgnoreAnnotations(axiom, true);
+        return getRootOntology().containsAxiom(axiom, true, true);
     }
 
     @Override
@@ -246,7 +246,7 @@ public class StructuralReasoner extends OWLReasonerBase {
             AxiomNotInProfileException, FreshEntitiesException,
             InconsistentOntologyException {
         for (OWLAxiom ax : axioms) {
-            if (!getRootOntology().containsAxiomIgnoreAnnotations(ax, true)) {
+            if (!getRootOntology().containsAxiom(ax, true, true)) {
                 return false;
             }
         }
@@ -1442,26 +1442,25 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLClass> getChildren(OWLClass parent) {
             Collection<OWLClass> result = new HashSet<OWLClass>();
-            for (OWLOntology ont : getRootOntology().getImportsClosure()) {
-                for (OWLAxiom ax : ont.getReferencingAxioms(parent)) {
-                    if (ax instanceof OWLSubClassOfAxiom) {
-                        OWLSubClassOfAxiom sca = (OWLSubClassOfAxiom) ax;
-                        if (!sca.getSubClass().isAnonymous()) {
-                            Set<OWLClassExpression> conjuncts = sca
-                                    .getSuperClass().asConjunctSet();
-                            if (conjuncts.contains(parent)) {
-                                result.add(sca.getSubClass().asOWLClass());
-                            }
+            for (OWLAxiom ax : getRootOntology().getReferencingAxioms(parent,
+                    true)) {
+                if (ax instanceof OWLSubClassOfAxiom) {
+                    OWLSubClassOfAxiom sca = (OWLSubClassOfAxiom) ax;
+                    if (!sca.getSubClass().isAnonymous()) {
+                        Set<OWLClassExpression> conjuncts = sca.getSuperClass()
+                                .asConjunctSet();
+                        if (conjuncts.contains(parent)) {
+                            result.add(sca.getSubClass().asOWLClass());
                         }
-                    } else if (ax instanceof OWLEquivalentClassesAxiom) {
-                        OWLEquivalentClassesAxiom eca = (OWLEquivalentClassesAxiom) ax;
-                        for (OWLClassExpression ce : eca.getClassExpressions()) {
-                            if (ce.containsConjunct(parent)) {
-                                for (OWLClassExpression sub : eca
-                                        .getClassExpressions()) {
-                                    if (!sub.isAnonymous() && !sub.equals(ce)) {
-                                        result.add(sub.asOWLClass());
-                                    }
+                    }
+                } else if (ax instanceof OWLEquivalentClassesAxiom) {
+                    OWLEquivalentClassesAxiom eca = (OWLEquivalentClassesAxiom) ax;
+                    for (OWLClassExpression ce : eca.getClassExpressions()) {
+                        if (ce.containsConjunct(parent)) {
+                            for (OWLClassExpression sub : eca
+                                    .getClassExpressions()) {
+                                if (!sub.isAnonymous() && !sub.equals(ce)) {
+                                    result.add(sub.asOWLClass());
                                 }
                             }
                         }

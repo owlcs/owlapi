@@ -84,7 +84,7 @@ public class SimpleRootClassChecker implements RootClassChecker {
     @Override
     public boolean isRootClass(OWLClass cls) {
         for (OWLOntology ont : ontologies) {
-            for (OWLAxiom ax : ont.getReferencingAxioms(cls)) {
+            for (OWLAxiom ax : ont.getReferencingAxioms(cls, false)) {
                 checker.setOWLClass(cls);
                 ax.accept(checker);
                 if (!checker.isRoot()) {

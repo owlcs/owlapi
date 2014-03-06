@@ -130,7 +130,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
                 addChange(new RemoveAxiom(ont, ax));
             }
-            for (OWLAxiom ax : ont.getAxioms(prop)) {
+            for (OWLAxiom ax : ont.getAxioms(prop, false)) {
                 addChange(new RemoveAxiom(ont, ax));
             }
         }

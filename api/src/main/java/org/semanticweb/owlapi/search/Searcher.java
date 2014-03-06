@@ -1025,70 +1025,34 @@ public class Searcher<T> implements Iterable<T> {
             // TODO Auto-generated constructor stub
         }
 
-        /*
-         * (non-Javadoc)
-         * @see
-         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
-         * .owlapi.model.OWLClass)
-         */
         @Override
         public Collection<T> visit(OWLClass e) {
-            return (Collection<T>) o.getAxioms(e);
+            return (Collection<T>) o.getAxioms(e, false);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see
-         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
-         * .owlapi.model.OWLObjectProperty)
-         */
         @Override
         public Collection<T> visit(OWLObjectProperty e) {
-            return (Collection<T>) o.getAxioms(e);
+            return (Collection<T>) o.getAxioms(e, false);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see
-         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
-         * .owlapi.model.OWLDataProperty)
-         */
         @Override
         public Collection<T> visit(OWLDataProperty e) {
-            return (Collection<T>) o.getAxioms(e);
+            return (Collection<T>) o.getAxioms(e, false);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see
-         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
-         * .owlapi.model.OWLNamedIndividual)
-         */
         @Override
         public Collection<T> visit(OWLNamedIndividual e) {
-            return (Collection<T>) o.getAxioms(e);
+            return (Collection<T>) o.getAxioms(e, false);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see
-         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
-         * .owlapi.model.OWLDatatype)
-         */
         @Override
         public Collection<T> visit(OWLDatatype e) {
-            return (Collection<T>) o.getAxioms(e);
+            return (Collection<T>) o.getAxioms(e, false);
         }
 
-        /*
-         * (non-Javadoc)
-         * @see
-         * org.semanticweb.owlapi.model.OWLEntityVisitorEx#visit(org.semanticweb
-         * .owlapi.model.OWLAnnotationProperty)
-         */
         @Override
         public Collection<T> visit(OWLAnnotationProperty e) {
-            return (Collection<T>) o.getAxioms(e);
+            return (Collection<T>) o.getAxioms(e, false);
         }
     }
 

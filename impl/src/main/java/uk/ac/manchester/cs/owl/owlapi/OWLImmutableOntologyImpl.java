@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,6 +85,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
@@ -291,8 +293,32 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
+    public Set<OWLLogicalAxiom> getLogicalAxioms(boolean includeImports) {
+        if (!includeImports) {
+            return internals.getLogicalAxioms();
+        }
+        Set<OWLLogicalAxiom> result = createSet();
+        for (OWLOntology o : getImportsClosure()) {
+            result.addAll(o.getLogicalAxioms(false));
+        }
+        return result;
+    }
+
+    @Override
     public int getLogicalAxiomCount() {
         return internals.getLogicalAxiomCount();
+    }
+
+    @Override
+    public int getLogicalAxiomCount(boolean includeImports) {
+        if (!includeImports) {
+            return internals.getLogicalAxiomCount();
+        }
+        int total = 0;
+        for (OWLOntology o : getImportsClosure()) {
+            total += o.getLogicalAxiomCount(false);
+        }
+        return total;
     }
 
     @Override
@@ -318,20 +344,24 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure) {
+    public boolean containsAxiom(OWLAxiom axiom, boolean includeImportsClosure,
+            boolean ignoreAnnotations) {
         if (!includeImportsClosure) {
-            return containsAxiom(axiom);
+            if (!ignoreAnnotations) {
+                return containsAxiom(axiom);
+            } else {
+                return containsAxiomIgnoreAnnotations(axiom);
+            }
         }
         for (OWLOntology ont : getImportsClosure()) {
-            if (ont.containsAxiom(axiom)) {
+            if (ont.containsAxiom(axiom, false, ignoreAnnotations)) {
                 return true;
             }
         }
         return false;
     }
 
-    @Override
-    public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
+    private boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> set = internals.getValues(internals.getAxiomsByType(),
                 axiom.getAxiomType());
         for (OWLAxiom ax : set) {
@@ -342,23 +372,7 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
         return false;
     }
 
-    @Override
-    public boolean containsAxiomIgnoreAnnotations(OWLAxiom axiom,
-            boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return containsAxiomIgnoreAnnotations(axiom);
-        } else {
-            for (OWLOntology ont : getImportsClosure()) {
-                if (ont.containsAxiomIgnoreAnnotations(axiom)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }
-
-    @Override
-    public Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
+    private Set<OWLAxiom> getAxiomsIgnoreAnnotations(OWLAxiom axiom) {
         Set<OWLAxiom> result = createSet();
         if (containsAxiom(axiom)) {
             result.add(axiom);
@@ -381,7 +395,7 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
         }
         Set<OWLAxiom> result = createSet();
         for (OWLOntology ont : getImportsClosure()) {
-            result.addAll(ont.getAxiomsIgnoreAnnotations(axiom));
+            result.addAll(ont.getAxiomsIgnoreAnnotations(axiom, false));
         }
         return result;
     }
@@ -752,106 +766,148 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
         return false;
     }
 
-    @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
-        final ReferencedAxiomsCollector referencedAxiomsCollector = new ReferencedAxiomsCollector();
+    private Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity) {
+        ReferencedAxiomsCollector referencedAxiomsCollector = new ReferencedAxiomsCollector();
         return owlEntity.accept(referencedAxiomsCollector);
     }
 
     @Override
-    public Set<OWLAxiom> getReferencingAxioms(OWLEntity owlEntity,
+    public Set<OWLAxiom> getReferencingAxioms(OWLPrimitive owlEntity,
             boolean includeImportsClosure) {
-        if (!includeImportsClosure) {
-            return getReferencingAxioms(owlEntity);
+        if (owlEntity instanceof OWLEntity) {
+            if (!includeImportsClosure) {
+                return getReferencingAxioms((OWLEntity) owlEntity);
+            }
+            Set<OWLAxiom> result = createSet();
+            for (OWLOntology ont : getImportsClosure()) {
+                result.addAll(ont.getReferencingAxioms(owlEntity, false));
+            }
+            return result;
+        } else if (owlEntity instanceof OWLAnonymousIndividual) {
+            return internals.getValues(
+                    internals.getOwlAnonymousIndividualReferences(),
+                    (OWLAnonymousIndividual) owlEntity);
         }
-        Set<OWLAxiom> result = createSet();
-        for (OWLOntology ont : getImportsClosure()) {
-            result.addAll(ont.getReferencingAxioms(owlEntity));
+        // TODO add support for looking up by IRI, OWLLiteral, etc.
+        return Collections.emptySet();
+    }
+
+    @Override
+    public Set<OWLClassAxiom> getAxioms(OWLClass cls, boolean includeImports) {
+        if (!includeImports) {
+            return internals.getValues(internals.getClassAxiomsByClass(), cls);
+        }
+        Set<OWLClassAxiom> result = createSet();
+        for (OWLOntology o : getImportsClosure()) {
+            result.addAll(o.getAxioms(cls, false));
         }
         return result;
-    }
-
-    @Override
-    public Set<OWLAxiom>
-            getReferencingAxioms(OWLAnonymousIndividual individual) {
-        return internals.getValues(
-                internals.getOwlAnonymousIndividualReferences(), individual);
-    }
-
-    @Override
-    public Set<OWLClassAxiom> getAxioms(final OWLClass cls) {
-        return internals.getValues(internals.getClassAxiomsByClass(), cls);
     }
 
     @Override
     public Set<OWLObjectPropertyAxiom> getAxioms(
-            final OWLObjectPropertyExpression prop) {
-        final Set<OWLObjectPropertyAxiom> result = createSet(50);
-        result.addAll(getAsymmetricObjectPropertyAxioms(prop));
-        result.addAll(getReflexiveObjectPropertyAxioms(prop));
-        result.addAll(getSymmetricObjectPropertyAxioms(prop));
-        result.addAll(getIrreflexiveObjectPropertyAxioms(prop));
-        result.addAll(getTransitiveObjectPropertyAxioms(prop));
-        result.addAll(getInverseFunctionalObjectPropertyAxioms(prop));
-        result.addAll(getFunctionalObjectPropertyAxioms(prop));
-        result.addAll(getInverseObjectPropertyAxioms(prop));
-        result.addAll(getObjectPropertyDomainAxioms(prop));
-        result.addAll(getEquivalentObjectPropertiesAxioms(prop));
-        result.addAll(getDisjointObjectPropertiesAxioms(prop));
-        result.addAll(getObjectPropertyRangeAxioms(prop));
-        result.addAll(getObjectSubPropertyAxiomsForSubProperty(prop));
+            OWLObjectPropertyExpression prop, boolean includeImports) {
+        Set<OWLObjectPropertyAxiom> result = createSet(50);
+        if (!includeImports) {
+            result.addAll(getAsymmetricObjectPropertyAxioms(prop));
+            result.addAll(getReflexiveObjectPropertyAxioms(prop));
+            result.addAll(getSymmetricObjectPropertyAxioms(prop));
+            result.addAll(getIrreflexiveObjectPropertyAxioms(prop));
+            result.addAll(getTransitiveObjectPropertyAxioms(prop));
+            result.addAll(getInverseFunctionalObjectPropertyAxioms(prop));
+            result.addAll(getFunctionalObjectPropertyAxioms(prop));
+            result.addAll(getInverseObjectPropertyAxioms(prop));
+            result.addAll(getObjectPropertyDomainAxioms(prop));
+            result.addAll(getEquivalentObjectPropertiesAxioms(prop));
+            result.addAll(getDisjointObjectPropertiesAxioms(prop));
+            result.addAll(getObjectPropertyRangeAxioms(prop));
+            result.addAll(getObjectSubPropertyAxiomsForSubProperty(prop));
+        } else {
+            for (OWLOntology o : getImportsClosure()) {
+                result.addAll(o.getAxioms(prop, false));
+            }
+        }
         return result;
     }
 
     @Override
-    public Set<OWLAnnotationAxiom> getAxioms(final OWLAnnotationProperty prop) {
+    public Set<OWLAnnotationAxiom> getAxioms(OWLAnnotationProperty prop,
+            boolean includeImports) {
         Set<OWLAnnotationAxiom> result = createSet();
-        for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
-            if (ax.getSubProperty().equals(prop)) {
-                result.add(ax);
+        if (!includeImports) {
+            for (OWLSubAnnotationPropertyOfAxiom ax : getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF)) {
+                if (ax.getSubProperty().equals(prop)) {
+                    result.add(ax);
+                }
             }
-        }
-        for (OWLAnnotationPropertyRangeAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
-            if (ax.getProperty().equals(prop)) {
-                result.add(ax);
+            for (OWLAnnotationPropertyRangeAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_RANGE)) {
+                if (ax.getProperty().equals(prop)) {
+                    result.add(ax);
+                }
             }
-        }
-        for (OWLAnnotationPropertyDomainAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
-            if (ax.getProperty().equals(prop)) {
-                result.add(ax);
+            for (OWLAnnotationPropertyDomainAxiom ax : getAxioms(AxiomType.ANNOTATION_PROPERTY_DOMAIN)) {
+                if (ax.getProperty().equals(prop)) {
+                    result.add(ax);
+                }
+            }
+        } else {
+            for (OWLOntology o : getImportsClosure()) {
+                result.addAll(o.getAxioms(prop, false));
             }
         }
         return result;
     }
 
     @Override
-    public Set<OWLDataPropertyAxiom> getAxioms(final OWLDataProperty prop) {
-        final Set<OWLDataPropertyAxiom> result = createSet();
-        result.addAll(getDataPropertyDomainAxioms(prop));
-        result.addAll(getEquivalentDataPropertiesAxioms(prop));
-        result.addAll(getDisjointDataPropertiesAxioms(prop));
-        result.addAll(getDataPropertyRangeAxioms(prop));
-        result.addAll(getFunctionalDataPropertyAxioms(prop));
-        result.addAll(getDataSubPropertyAxiomsForSubProperty(prop));
+    public Set<OWLDataPropertyAxiom> getAxioms(final OWLDataProperty prop,
+            boolean includeImports) {
+        Set<OWLDataPropertyAxiom> result = createSet();
+        if (!includeImports) {
+            result.addAll(getDataPropertyDomainAxioms(prop));
+            result.addAll(getEquivalentDataPropertiesAxioms(prop));
+            result.addAll(getDisjointDataPropertiesAxioms(prop));
+            result.addAll(getDataPropertyRangeAxioms(prop));
+            result.addAll(getFunctionalDataPropertyAxioms(prop));
+            result.addAll(getDataSubPropertyAxiomsForSubProperty(prop));
+        } else {
+            for (OWLOntology o : getImportsClosure()) {
+                result.addAll(o.getAxioms(prop, false));
+            }
+        }
         return result;
     }
 
     @Override
-    public Set<OWLIndividualAxiom> getAxioms(final OWLIndividual individual) {
+    public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
+            boolean includeImports) {
         final Set<OWLIndividualAxiom> result = createSet();
-        result.addAll(getClassAssertionAxioms(individual));
-        result.addAll(getObjectPropertyAssertionAxioms(individual));
-        result.addAll(getDataPropertyAssertionAxioms(individual));
-        result.addAll(getNegativeObjectPropertyAssertionAxioms(individual));
-        result.addAll(getNegativeDataPropertyAssertionAxioms(individual));
-        result.addAll(getSameIndividualAxioms(individual));
-        result.addAll(getDifferentIndividualAxioms(individual));
+        if (!includeImports) {
+            result.addAll(getClassAssertionAxioms(individual));
+            result.addAll(getObjectPropertyAssertionAxioms(individual));
+            result.addAll(getDataPropertyAssertionAxioms(individual));
+            result.addAll(getNegativeObjectPropertyAssertionAxioms(individual));
+            result.addAll(getNegativeDataPropertyAssertionAxioms(individual));
+            result.addAll(getSameIndividualAxioms(individual));
+            result.addAll(getDifferentIndividualAxioms(individual));
+        } else {
+            for (OWLOntology o : getImportsClosure()) {
+                result.addAll(o.getAxioms(individual, false));
+            }
+        }
         return result;
     }
 
     @Override
-    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype) {
-        return getDatatypeDefinitions(datatype);
+    public Set<OWLDatatypeDefinitionAxiom> getAxioms(OWLDatatype datatype,
+            boolean includeImports) {
+        if (!includeImports) {
+            return getDatatypeDefinitions(datatype);
+        }
+        Set<OWLDatatypeDefinitionAxiom> result = createSet();
+        for (OWLOntology o : getImportsClosure()) {
+            result.addAll(o.getAxioms(datatype, false));
+        }
+        return result;
     }
 
     @Override

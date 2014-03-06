@@ -947,23 +947,23 @@ public class ContractOwlapiModel_3Test {
         Set<OWLOntology> result20 = testSubject0.getImportsClosure();
         Set<OWLImportsDeclaration> result21 = testSubject0
                 .getImportsDeclarations();
-        Set<OWLDataPropertyAxiom> result22 = testSubject0
-                .getAxioms(mock(OWLDataProperty.class));
-        Set<OWLObjectPropertyAxiom> result23 = testSubject0.getAxioms(Utils
-                .mockObjectProperty());
-        Set<OWLClassAxiom> result24 = testSubject0
-                .getAxioms(mock(OWLClass.class));
+        Set<OWLDataPropertyAxiom> result22 = testSubject0.getAxioms(
+                mock(OWLDataProperty.class), false);
+        Set<OWLObjectPropertyAxiom> result23 = testSubject0.getAxioms(
+                Utils.mockObjectProperty(), false);
+        Set<OWLClassAxiom> result24 = testSubject0.getAxioms(
+                mock(OWLClass.class), false);
         Set<OWLAxiom> result25 = testSubject0.getAxioms();
         Set<OWLAnnotationAssertionAxiom> result26 = testSubject0
                 .getAxioms(Utils.mockAxiomType());
         Set<OWLAnnotationAssertionAxiom> result27 = testSubject0.getAxioms(
                 Utils.mockAxiomType(), false);
-        Set<OWLDatatypeDefinitionAxiom> result28 = testSubject0
-                .getAxioms(mock(OWLDatatype.class));
-        Set<OWLAnnotationAxiom> result29 = testSubject0
-                .getAxioms(mock(OWLAnnotationProperty.class));
-        Set<OWLIndividualAxiom> result30 = testSubject0
-                .getAxioms(mock(OWLIndividual.class));
+        Set<OWLDatatypeDefinitionAxiom> result28 = testSubject0.getAxioms(
+                mock(OWLDatatype.class), false);
+        Set<OWLAnnotationAxiom> result29 = testSubject0.getAxioms(
+                mock(OWLAnnotationProperty.class), false);
+        Set<OWLIndividualAxiom> result30 = testSubject0.getAxioms(
+                mock(OWLIndividual.class), false);
         int result31 = testSubject0.getAxiomCount(Utils.mockAxiomType(), false);
         int result32 = testSubject0.getAxiomCount();
         int result33 = testSubject0.getAxiomCount(Utils.mockAxiomType());
@@ -974,26 +974,16 @@ public class ContractOwlapiModel_3Test {
         Set<OWLAxiom> result38 = testSubject0.getRBoxAxioms(false);
         boolean result39 = testSubject0.containsAxiom(mock(OWLAxiom.class));
         boolean result40 = testSubject0.containsAxiom(mock(OWLAxiom.class),
-                false);
-        boolean result41 = testSubject0.containsAxiomIgnoreAnnotations(
-                mock(OWLAxiom.class), false);
-        boolean result42 = testSubject0
-                .containsAxiomIgnoreAnnotations(mock(OWLAxiom.class));
+                false, false);
         Set<OWLAxiom> result43 = testSubject0.getAxiomsIgnoreAnnotations(
                 mock(OWLAxiom.class), false);
-        Set<OWLAxiom> result44 = testSubject0
-                .getAxiomsIgnoreAnnotations(mock(OWLAxiom.class));
         Set<OWLClassAxiom> result45 = testSubject0.getGeneralClassAxioms();
         Set<OWLAnonymousIndividual> result46 = testSubject0
                 .getReferencedAnonymousIndividuals();
         Set<OWLAnnotationProperty> result47 = testSubject0
                 .getAnnotationPropertiesInSignature();
-        Set<OWLAxiom> result48 = testSubject0.getReferencingAxioms(Utils
-                .mockOWLEntity());
         Set<OWLAxiom> result49 = testSubject0.getReferencingAxioms(
                 Utils.mockOWLEntity(), false);
-        Set<OWLAxiom> result60 = testSubject0
-                .getReferencingAxioms(mock(OWLAnonymousIndividual.class));
         boolean result61 = testSubject0.containsEntityInSignature(
                 Utils.mockOWLEntity(), false);
         boolean result62 = testSubject0.containsEntityInSignature(Utils
