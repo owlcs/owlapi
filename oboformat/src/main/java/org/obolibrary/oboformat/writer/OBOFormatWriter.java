@@ -553,7 +553,7 @@ public class OBOFormatWriter {
             throws IOException {
         Collection<?> cols = clause.getValues();
         if (cols.size() < 2) {
-            LOG.warn("The {} has incorrect number of values: {}",
+            LOG.error("The {} has incorrect number of values: {}",
                     OboFormatTag.TAG_PROPERTY_VALUE.getTag(), clause);
             return;
         }

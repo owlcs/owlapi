@@ -108,12 +108,12 @@ public class MacroExpansionVisitor {
                 // then add the declarations at this point
                 manchesterSyntaxTool = new ManchesterSyntaxTool(inputOntology);
             }
-            log.warn("Template to Expand {}", expandTo);
+            log.info("Template to Expand {}", expandTo);
             expandTo = expandTo.replaceAll("\\?X",
                     manchesterSyntaxTool.getId((IRI) ax.getSubject()));
             expandTo = expandTo.replaceAll("\\?Y",
                     manchesterSyntaxTool.getId(axValIRI));
-            log.warn("Expanding {}", expandTo);
+            log.info("Expanding {}", expandTo);
             try {
                 Set<OntologyAxiomPair> setAxp = manchesterSyntaxTool
                         .parseManchesterExpressionFrames(expandTo);

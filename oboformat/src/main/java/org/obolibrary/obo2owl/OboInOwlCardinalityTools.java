@@ -359,7 +359,7 @@ public class OboInOwlCardinalityTools {
                 }
                 // take the first one in the collection
                 // (may be random)
-                LOGGER.warn("Fixing multiple {} tags for entity: {}", tag,
+                LOGGER.info("Fixing multiple {} tags for entity: {}", tag,
                         entity.getIRI());
                 return Collections.singletonList(annotations.iterator().next());
             }
@@ -379,7 +379,7 @@ public class OboInOwlCardinalityTools {
                 }
                 // take the first one in the collection
                 // (may be random)
-                LOGGER.warn(
+                LOGGER.info(
                         "Fixing multiple ontolgy annotations with, tag: {}",
                         tag);
                 return Collections.singletonList(ontologyAnnotations.iterator()

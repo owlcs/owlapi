@@ -124,7 +124,7 @@ public abstract class AbstractMacroExpansionVisitor implements
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
-                    log.warn("mapping {} to {}", p, str);
+                    log.info("mapping {} to {}", p, str);
                     expandExpressionMap.put(p.getIRI(), str);
                 }
             }
@@ -137,7 +137,7 @@ public abstract class AbstractMacroExpansionVisitor implements
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
-                    log.warn("assertion mapping {} to {}", p, str);
+                    log.info("assertion mapping {} to {}", p, str);
                     expandAssertionToMap.put(p.getIRI(), str);
                 }
             }

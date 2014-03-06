@@ -25,12 +25,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.IdentityHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -1099,8 +1099,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     // Listener stuff - methods to add/remove listeners
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////
-    private final Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new IdentityHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
-    private final Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = new IdentityHashMap<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy>();
+    private final Map<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy> listenerMap = new ConcurrentHashMap<OWLOntologyChangeListener, OWLOntologyChangeBroadcastStrategy>();
+    private final Map<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy> impendingChangeListenerMap = new ConcurrentHashMap<ImpendingOWLOntologyChangeListener, ImpendingOWLOntologyChangeBroadcastStrategy>();
     private final List<OWLOntologyChangesVetoedListener> vetoListeners = new ArrayList<OWLOntologyChangesVetoedListener>();
 
     @Override
@@ -1126,10 +1126,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                     .get(listener);
             if (strategy == null) {
                 // This listener may have been removed during the broadcast of
-                // the changes,
-                // so when we attempt to retrieve it from the map it isn't there
-                // (because
-                // we iterate over a copy).
+                // the changes, so when we attempt to retrieve it from the map
+                // it isn't there (because we iterate over a copy).
                 continue;
             }
             try {
@@ -1137,8 +1135,10 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
                 // badly behaving listeners, we don't want one listener
                 // to prevent the other listeners from receiving events.
                 strategy.broadcastChanges(listener, changes);
-            } catch (Throwable e) {
-                LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
+            } catch (Exception e) {
+                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
+                        e.getMessage(), e);
+                listenerMap.remove(listener);
             }
         }
     }
@@ -1326,46 +1326,50 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     }
 
     protected void fireBeginChanges(int size) {
-        try {
-            if (!broadcastChanges) {
-                return;
+        if (!broadcastChanges) {
+            return;
+        }
+        for (OWLOntologyChangeProgressListener listener : progressListeners) {
+            try {
+                listener.begin(size);
+            } catch (Exception e) {
+                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
+                        e.getMessage(), e);
+                progressListeners.remove(listener);
             }
-            for (OWLOntologyChangeProgressListener lsnr : progressListeners) {
-                lsnr.begin(size);
-            }
-        } catch (Throwable e) {
-            LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
         }
     }
 
     protected void fireEndChanges() {
-        try {
-            if (!broadcastChanges) {
-                return;
+        if (!broadcastChanges) {
+            return;
+        }
+        for (OWLOntologyChangeProgressListener listener : progressListeners) {
+            try {
+                listener.end();
+            } catch (Exception e) {
+                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
+                        e.getMessage(), e);
+                progressListeners.remove(listener);
             }
-            for (OWLOntologyChangeProgressListener lsnr : progressListeners) {
-                lsnr.end();
-            }
-        } catch (Throwable e) {
-            // Listener threw an exception
-            LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
         }
     }
 
     protected void fireChangeApplied(OWLOntologyChange<?> change) {
-        try {
-            if (!broadcastChanges) {
-                return;
+        if (!broadcastChanges) {
+            return;
+        }
+        if (progressListeners.isEmpty()) {
+            return;
+        }
+        for (OWLOntologyChangeProgressListener listener : progressListeners) {
+            try {
+                listener.appliedChange(change);
+            } catch (Exception e) {
+                LOGGER.warn("BADLY BEHAVING LISTENER: {} has been removed",
+                        e.getMessage(), e);
+                progressListeners.remove(listener);
             }
-            if (progressListeners.isEmpty()) {
-                return;
-            }
-            for (OWLOntologyChangeProgressListener lsnr : progressListeners) {
-                lsnr.appliedChange(change);
-            }
-        } catch (Throwable e) {
-            // Listener threw an exception
-            LOGGER.warn("BADLY BEHAVING LISTENER: {}", e.getMessage(), e);
         }
     }
 }

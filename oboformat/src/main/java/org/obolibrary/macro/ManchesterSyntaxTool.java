@@ -174,7 +174,7 @@ public class ManchesterSyntaxTool {
         ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
                 dataFactory, expression);
         parser.setOWLEntityChecker(entityChecker);
-        log.warn("parsing: {}", expression);
+        log.info("parsing: {}", expression);
         return parser;
     }
 

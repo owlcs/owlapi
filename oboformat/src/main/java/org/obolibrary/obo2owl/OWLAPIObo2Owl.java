@@ -157,7 +157,7 @@ public class OWLAPIObo2Owl {
         OWLOntology ontology = bridge.convert(obodoc);
         IRI outputStream = IRI.create(outFile);
         OWLOntologyFormat format = new RDFXMLOntologyFormat();
-        LOG.warn("saving to {} fmt={}", outputStream, format);
+        LOG.info("saving to {} fmt={}", outputStream, format);
         manager.saveOntology(ontology, format, outputStream);
     }
 
@@ -194,7 +194,7 @@ public class OWLAPIObo2Owl {
         OWLOntology ontology = bridge.convert(obodoc);
         IRI outputStream = IRI.create(outFile);
         OWLOntologyFormat format = new RDFXMLOntologyFormat();
-        LOG.warn("saving to {} fmt={}", outputStream, format);
+        LOG.info("saving to {} fmt={}", outputStream, format);
         manager.saveOntology(ontology, format, outputStream);
     }
 
@@ -552,7 +552,7 @@ public class OWLAPIObo2Owl {
                             trLiteral(dateString), trAnnotations(clause));
                 } else {
                     // TODO: Throw Exceptions
-                    LOG.warn("Cannot translate: {}", clause);
+                    LOG.error("Cannot translate: {}", clause);
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
                 addPropertyValueHeaders(headerFrame
@@ -622,7 +622,7 @@ public class OWLAPIObo2Owl {
             Object v2 = clause.getValue2();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.warn("Cannot translate: {}", clause);
+                LOG.error("Cannot translate: {}", clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 OWLAnnotationProperty prop = trAnnotationProp((String) v);
@@ -655,7 +655,7 @@ public class OWLAPIObo2Owl {
                         owlOntology, ontAnn);
                 apply(addAnn);
             } else {
-                LOG.warn("Cannot translate: {}", clause);
+                LOG.error("Cannot translate: {}", clause);
                 // TODO
             }
         }
@@ -848,7 +848,7 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trRelationUnionOf(String id, OWLProperty p,
             Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
-        LOG.warn(
+        LOG.error(
                 "The relation union_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
                 id, clauses);
         return null;
@@ -868,7 +868,7 @@ public class OWLAPIObo2Owl {
     protected OWLAxiom trRelationIntersectionOf(String id, OWLProperty p,
             Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
-        LOG.warn(
+        LOG.error(
                 "The relation intersection_of for {} is currently non-translatable to OWL. Ignoring clauses: {}",
                 id, clauses);
         return null;
@@ -1235,7 +1235,7 @@ public class OWLAPIObo2Owl {
             Object v = clause.getValue();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.warn("Cannot translate: {}", clause);
+                LOG.error("Cannot translate: {}", clause);
             } else {
                 ax = fac.getOWLAnnotationAssertionAxiom(
                         trTagToAnnotationProp(tag), sub,
@@ -1247,7 +1247,7 @@ public class OWLAPIObo2Owl {
             Object v2 = clause.getValue2();
             if (v == null) {
                 // TODO: Throw Exceptions
-                LOG.warn("Cannot translate: {}", clause);
+                LOG.error("Cannot translate: {}", clause);
             } else if (values.size() == 2) {
                 // property_value(Rel-ID Entity-ID Qualifiers)
                 ax = fac.getOWLAnnotationAssertionAxiom(
@@ -1271,7 +1271,7 @@ public class OWLAPIObo2Owl {
                 ax = fac.getOWLAnnotationAssertionAxiom(
                         trAnnotationProp((String) v), sub, value, annotations);
             } else {
-                LOG.warn("Cannot translate: {}", clause);
+                LOG.error("Cannot translate: {}", clause);
                 // TODO
             }
         } else if (_tag == OboFormatTag.TAG_SYNONYM) {

@@ -830,7 +830,7 @@ public class OWLAPIOwl2Obo {
             if (!hf.getClauses().contains(clause)) {
                 hf.addClause(clause);
             } else {
-                LOG.warn("duplicate clause: {} in header", clause);
+                LOG.error("duplicate clause: {} in header", clause);
             }
             return;
         } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(_tag)) {
@@ -853,7 +853,7 @@ public class OWLAPIOwl2Obo {
             if (!hf.getClauses().contains(clause)) {
                 hf.addClause(clause);
             } else {
-                LOG.warn("duplicate clause: {} in header", clause);
+                LOG.error("duplicate clause: {} in header", clause);
             }
             addQualifiers(clause, ax.getAnnotations());
             return;
@@ -1070,7 +1070,7 @@ public class OWLAPIOwl2Obo {
      */
     protected boolean handleDuplicateClause(Frame frame, Clause clause) {
         // default is to report it via the logger and remove it.
-        LOG.warn("Duplicate clause '{}' generated in frame: {}", clause,
+        LOG.error("Duplicate clause '{}' generated in frame: {}", clause,
                 frame.getId());
         return true;
     }
@@ -1617,7 +1617,7 @@ public class OWLAPIOwl2Obo {
                 id = defaultValue;
             }
         } catch (UntranslatableAxiomException e) {
-            LOG.warn(e.getMessage(), e);
+            LOG.error(e.getMessage(), e);
         }
         return id;
     }
@@ -2292,7 +2292,7 @@ public class OWLAPIOwl2Obo {
      *        the message
      */
     protected void error(String message) {
-        LOG.warn(message);
+        LOG.error(message);
         if (strictConversion) {
             throw new RuntimeException("The conversion is halted: " + message);
         }
