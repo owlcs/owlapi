@@ -12,14 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -64,11 +61,7 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
             try {
                 // prepare actual output
                 os = prepareActualOutput(documentIRI);
-                if (useTemp(ontologyFormat)) {
-                    saveWithTempFile(ontology, ontologyFormat, os);
-                } else {
-                    store(ontology, ontologyFormat, os);
-                }
+                store(ontology, ontologyFormat, os);
             } finally {
                 if (os != null) {
                     os.close();
@@ -77,65 +70,6 @@ public abstract class AbstractOWLOntologyStorer implements OWLOntologyStorer {
         } catch (IOException e) {
             throw new OWLOntologyStorageException(e);
         }
-    }
-
-    private void saveWithTempFile(OWLOntology ontology,
-            OWLOntologyFormat ontologyFormat, OutputStream os)
-            throws IOException, OWLOntologyStorageException {
-        InputStreamReader inputStreamReader = null;
-        File tempFile = null;
-        OutputStreamWriter outputStreamWriter = null;
-        FileOutputStream tempOutputStream = null;
-        FileInputStream tempInputStream = null;
-        BufferedReader br = null;
-        BufferedWriter w = null;
-        try {
-            tempFile = File.createTempFile("owlapi", ".owl");
-            tempOutputStream = new FileOutputStream(tempFile);
-            store(ontology, ontologyFormat, tempOutputStream);
-            // Now copy across
-            tempInputStream = new FileInputStream(tempFile);
-            inputStreamReader = new InputStreamReader(tempInputStream, UTF_8);
-            br = new BufferedReader(inputStreamReader);
-            outputStreamWriter = new OutputStreamWriter(os, UTF_8);
-            w = new BufferedWriter(outputStreamWriter);
-            String line = br.readLine();
-            while (line != null) {
-                w.write(line);
-                w.write("\n");
-                line = br.readLine();
-            }
-        } finally {
-            if (tempFile != null && !tempFile.delete()) {
-                LOGGER.warn("Temporary file {} cannot be deleted.",
-                        tempFile.getAbsolutePath());
-            }
-            if (outputStreamWriter != null) {
-                outputStreamWriter.close();
-            }
-            if (br != null) {
-                br.close();
-            }
-            if (w != null) {
-                w.close();
-            }
-            if (tempOutputStream != null) {
-                tempOutputStream.close();
-            }
-            if (tempInputStream != null) {
-                tempInputStream.close();
-            }
-            if (inputStreamReader != null) {
-                inputStreamReader.close();
-            }
-        }
-    }
-
-    private boolean useTemp(OWLOntologyFormat ontologyFormat) {
-        boolean useTemp = Boolean.parseBoolean(ontologyFormat.getParameter(
-                OWLOntologyFormat.USE_INTERMEDIATE_OUTPUT_FILE, Boolean.FALSE)
-                .toString());
-        return useTemp;
     }
 
     private OutputStream prepareActualOutput(IRI documentIRI)

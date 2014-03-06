@@ -31,11 +31,6 @@ import org.semanticweb.owlapi.io.OWLOntologyLoaderMetaData;
 public abstract class OWLOntologyFormat implements Serializable {
 
     private static final long serialVersionUID = 40000L;
-    /**
-     * if set to "true", an intermediate file will be used for output, even for
-     * remote URIs.
-     */
-    public static final String USE_INTERMEDIATE_OUTPUT_FILE = "USE_INTERMEDIATE_OUTPUT_FILE";
     private Map<Object, Object> paramaterMap;
     private OWLOntologyLoaderMetaData loaderMetaData = new NullLoaderMetaData();
 
