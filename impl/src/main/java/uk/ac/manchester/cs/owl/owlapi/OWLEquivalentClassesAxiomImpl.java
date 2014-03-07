@@ -35,8 +35,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
@@ -137,7 +137,7 @@ public class OWLEquivalentClassesAxiomImpl extends OWLNaryClassAxiomImpl
     @Override
     public Set<OWLSubClassOfAxiom> asOWLSubClassOfAxioms() {
         Set<OWLSubClassOfAxiom> result = new HashSet<OWLSubClassOfAxiom>();
-        final List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
+        List<OWLClassExpression> classExpressions = new ArrayList<OWLClassExpression>(
                 getClassExpressions());
         for (int i = 0; i < classExpressions.size(); i++) {
             for (int j = 0; j < classExpressions.size(); j++) {

@@ -75,15 +75,19 @@ public class MapPointer<K, V extends OWLAxiom> implements
         return initialized;
     }
 
-    /** init the map pointer */
+    /**
+     * init the map pointer
+     * 
+     * @return the map pointer
+     */
     @SuppressWarnings("unchecked")
-    public void init() {
+    public MapPointer<K, V> init() {
         if (initialized) {
-            return;
+            return this;
         }
         initialized = true;
         if (visitor == null) {
-            return;
+            return this;
         }
         if (visitor instanceof InitVisitor) {
             for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
@@ -101,6 +105,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
                 }
             }
         }
+        return this;
     }
 
     @Override

@@ -31,8 +31,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
@@ -74,7 +74,7 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
 
     @Override
     public void accept(CollectionContainerVisitor<OWLAnnotation> t) {
-        final int size = annotations.size();
+        int size = annotations.size();
         for (int i = 0; i < size; i++) {
             t.visitItem(annotations.get(i));
         }

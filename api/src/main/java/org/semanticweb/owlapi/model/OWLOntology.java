@@ -39,14 +39,6 @@ public interface OWLOntology extends OWLObject, HasAxioms, HasLogicalAxioms,
         HasGetEntitiesInSignature, OWLAxiomCollection, OWLSignature {
 
     /**
-     * interim method to access ontology internals for searching purposes
-     * 
-     * @return internals for this ontology
-     */
-    @Nonnull
-    Internals getInternals();
-
-    /**
      * accept for named object visitor
      * 
      * @param visitor

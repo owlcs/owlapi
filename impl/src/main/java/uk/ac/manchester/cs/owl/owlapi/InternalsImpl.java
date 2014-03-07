@@ -119,47 +119,42 @@ public class InternalsImpl extends AbstractInternalsImpl {
         return new SetPointer<K>(CollectionFactory.<K> createSet());
     }
 
-    protected final SetPointer<OWLImportsDeclaration> importsDeclarations = buildSet();
-    protected final SetPointer<OWLAnnotation> ontologyAnnotations = buildSet();
-    protected final SetPointer<OWLClassAxiom> generalClassAxioms = buildSet();
-    protected final SetPointer<OWLSubPropertyChainOfAxiom> propertyChainSubPropertyAxioms = buildSet();
-    protected final MapPointer<AxiomType<?>, OWLAxiom> axiomsByType = build();
-    protected final MapPointer<OWLClass, OWLAxiom> owlClassReferences = build();
-    protected final MapPointer<OWLObjectProperty, OWLAxiom> owlObjectPropertyReferences = build();
-    protected final MapPointer<OWLDataProperty, OWLAxiom> owlDataPropertyReferences = build();
-    protected final MapPointer<OWLNamedIndividual, OWLAxiom> owlIndividualReferences = build();
-    protected final MapPointer<OWLAnonymousIndividual, OWLAxiom> owlAnonymousIndividualReferences = build();
-    protected final MapPointer<OWLDatatype, OWLAxiom> owlDatatypeReferences = build();
-    protected final MapPointer<OWLAnnotationProperty, OWLAxiom> owlAnnotationPropertyReferences = build();
-    protected final MapPointer<OWLEntity, OWLDeclarationAxiom> declarationsByEntity = build();
-
+//@formatter:off
+    protected final SetPointer<OWLImportsDeclaration>               importsDeclarations                 = buildSet();
+    protected final SetPointer<OWLAnnotation>                       ontologyAnnotations                 = buildSet();
+    protected final SetPointer<OWLClassAxiom>                       generalClassAxioms                  = buildSet();
+    protected final SetPointer<OWLSubPropertyChainOfAxiom>          propertyChainSubPropertyAxioms      = buildSet();
+    protected final MapPointer<AxiomType<?>, OWLAxiom>              axiomsByType                        = build();
+    protected final MapPointer<OWLClass, OWLAxiom>                  owlClassReferences                  = build();
+    protected final MapPointer<OWLObjectProperty, OWLAxiom>         owlObjectPropertyReferences         = build();
+    protected final MapPointer<OWLDataProperty, OWLAxiom>           owlDataPropertyReferences           = build();
+    protected final MapPointer<OWLNamedIndividual, OWLAxiom>        owlIndividualReferences             = build();
+    protected final MapPointer<OWLAnonymousIndividual, OWLAxiom>    owlAnonymousIndividualReferences    = build();
+    protected final MapPointer<OWLDatatype, OWLAxiom>               owlDatatypeReferences               = build();
+    protected final MapPointer<OWLAnnotationProperty, OWLAxiom>     owlAnnotationPropertyReferences     = build();
+    protected final MapPointer<OWLEntity, OWLDeclarationAxiom>      declarationsByEntity                = build();
+//@formatter:on
     @Override
     public <K, V extends OWLAxiom> Set<K> getKeyset(Pointer<K, V> pointer) {
-        final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-        mapPointer.init();
-        return mapPointer.keySet();
+        return ((MapPointer<K, V>) pointer).init().keySet();
     }
 
     @Override
     public <K, V extends OWLAxiom> Set<V>
             getValues(Pointer<K, V> pointer, K key) {
-        final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-        mapPointer.init();
-        return mapPointer.getValues(key);
+        return ((MapPointer<K, V>) pointer).init().getValues(key);
     }
 
     @Override
     public <K, V extends OWLAxiom> boolean hasValues(Pointer<K, V> pointer,
             K key) {
-        final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
-        mapPointer.init();
-        return mapPointer.hasValues(key);
+        return ((MapPointer<K, V>) pointer).init().hasValues(key);
     }
 
     @Override
     public <K, V extends OWLAxiom> boolean remove(
             Internals.Pointer<K, V> pointer, K k, V v) {
-        final MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
+        MapPointer<K, V> mapPointer = (MapPointer<K, V>) pointer;
         if (!mapPointer.isInitialized()) {
             return false;
         }
@@ -355,8 +350,7 @@ public class InternalsImpl extends AbstractInternalsImpl {
         if (!axiomsByType.isInitialized()) {
             return 0;
         }
-        final Collection<OWLAxiom> collection = axiomsByType
-                .getValues(axiomType);
+        Collection<OWLAxiom> collection = axiomsByType.getValues(axiomType);
         if (collection.isEmpty()) {
             return 0;
         }
