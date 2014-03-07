@@ -1,6 +1,6 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.StringReader;
 import java.util.Collection;
@@ -10,6 +10,7 @@ import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 
 /**
  * @author cjm unmappable expressions should be handled gracefully. in
@@ -21,7 +22,13 @@ public class UnmappableExpressionsTest extends OboFormatTestBasics {
 
     @Test
     public void testConvert() throws Exception {
-        OBODoc obodoc = convert(parseOWLFile("nesting.owl"));
+        OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
+                OWLManager.createOWLOntologyManager());
+        bridge.setMuteUntranslatableAxioms(true);
+        OBODoc doc = bridge.convert(parseOWLFile("nesting.owl"));
+        assertEquals("untranslatable axiom count", 1, bridge
+                .getUntranslatableAxioms().size());
+        OBODoc obodoc = doc;
         // checkOBODoc(obodoc);
         // ROUNDTRIP AND TEST AGAIN
         String file = writeOBO(obodoc);

@@ -28,6 +28,7 @@ import org.obolibrary.oboformat.model.QualifierValue;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
+import org.obolibrary.oboformat.parser.OBOFormatException;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
@@ -552,7 +553,9 @@ public class OWLAPIObo2Owl {
                             trLiteral(dateString), trAnnotations(clause));
                 } else {
                     // TODO: Throw Exceptions
-                    LOG.error("Cannot translate: {}", clause);
+                    OBOFormatException e = new OBOFormatException(
+                            "Cannot translate clause «" + clause + "»");
+                    LOG.error("Cannot translate: {}", clause, e);
                 }
             } else if (tag == OboFormatTag.TAG_PROPERTY_VALUE) {
                 addPropertyValueHeaders(headerFrame

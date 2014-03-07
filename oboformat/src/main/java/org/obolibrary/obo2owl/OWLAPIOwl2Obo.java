@@ -80,35 +80,67 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** The Class OWLAPIOwl2Obo. */
+/**
+ * The Class OWLAPIOwl2Obo.
+ */
 public class OWLAPIOwl2Obo {
 
-    /** The log. */
+    /**
+     * The log.
+     */
     private static Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
-    /** The manager. */
+    /**
+     * The manager.
+     */
     protected OWLOntologyManager manager;
-    /** The owl ontology. */
+    /**
+     * The owl ontology.
+     */
     protected OWLOntology owlOntology;
-    /** The fac. */
+    /**
+     * The fac.
+     */
     protected OWLDataFactory fac;
-    /** The obodoc. */
+    /**
+     * The obodoc.
+     */
     protected OBODoc obodoc;
-    /** The untranslatable axioms. */
+    /**
+     * The untranslatable axioms.
+     */
     protected Set<OWLAxiom> untranslatableAxioms;
-    /** The id space map. */
+    /**
+     * The id space map.
+     */
     protected Map<String, String> idSpaceMap;
-    /** The annotation property map. */
+    /**
+     * The annotation property map.
+     */
     public static Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
-    /** The ap to declare. */
+    /**
+     * The ap to declare.
+     */
     protected Set<OWLAnnotationProperty> apToDeclare;
-    /** The ontology id. */
+    /**
+     * The ontology id.
+     */
     protected String ontologyId;
-    /** The strict conversion. */
+    /**
+     * The strict conversion.
+     */
     protected boolean strictConversion;
-    /** The discard untranslatable. */
+    /**
+     * The discard untranslatable.
+     */
     protected boolean discardUntranslatable = false;
+    /**
+     * mute untranslatable axiom warnings
+     */
+    private boolean muteUntranslatableAxioms = false;
 
-    /** Inits the. */
+    /**
+     * Inits the.
+     */
     protected void init() {
         idSpaceMap = new HashMap<String, String>();
         // legacy:
@@ -323,7 +355,9 @@ public class OWLAPIOwl2Obo {
         return obodoc;
     }
 
-    /** Pre process. */
+    /**
+     * Pre process.
+     */
     protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
@@ -672,9 +706,12 @@ public class OWLAPIOwl2Obo {
             if (trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(), range,
                     ax.getAnnotations())) {
                 return;
+            } else {
+                error("trObjectProperty failed for " + prop, ax);
             }
+        } else {
+            error("no range translatable for " + ax);
         }
-        error(ax);
     }
 
     /**
@@ -873,7 +910,9 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** The absoulte url pattern. */
+    /**
+     * The absoulte url pattern.
+     */
     protected Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
 
     /**
@@ -1552,7 +1591,24 @@ public class OWLAPIOwl2Obo {
         return null;
     }
 
-    /** The Class UntranslatableAxiomException. */
+    /**
+     * @return true if untranslatable axioms should not be logged
+     */
+    public boolean isMuteUntranslatableAxioms() {
+        return muteUntranslatableAxioms;
+    }
+
+    /**
+     * @param muteUntranslatableAxioms
+     *        true disables logging
+     */
+    public void setMuteUntranslatableAxioms(boolean muteUntranslatableAxioms) {
+        this.muteUntranslatableAxioms = muteUntranslatableAxioms;
+    }
+
+    /**
+     * The Class UntranslatableAxiomException.
+     */
     public static class UntranslatableAxiomException extends Exception {
 
         // generated
@@ -2279,9 +2335,12 @@ public class OWLAPIOwl2Obo {
      *        the message
      */
     protected void error(String message) {
-        LOG.error(message);
         if (strictConversion) {
             throw new RuntimeException("The conversion is halted: " + message);
+        } else {
+            if (!muteUntranslatableAxioms) {
+                LOG.error("MASKING ERROR «{}»", message, new Exception());
+            }
         }
     }
 }

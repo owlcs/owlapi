@@ -128,8 +128,13 @@ public class OboFormatTestBasics {
     }
 
     protected OBODoc convert(OWLOntology ontology) {
+        return convert(ontology, false);
+    }
+
+    protected OBODoc convert(OWLOntology ontology, boolean strictness) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
+        bridge.setStrictConversion(strictness);
         OBODoc doc = bridge.convert(ontology);
         return doc;
     }

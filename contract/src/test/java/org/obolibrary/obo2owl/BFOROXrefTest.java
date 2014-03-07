@@ -1,5 +1,12 @@
 package org.obolibrary.obo2owl;
 
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
@@ -8,50 +15,47 @@ import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 @SuppressWarnings("javadoc")
 public class BFOROXrefTest extends OboFormatTestBasics {
 
-    public static final OWLAnnotationProperty OBO_ID = OWLManager.getOWLDataFactory().getOWLAnnotationProperty(IRI.create("http://www.geneontology.org/formats/oboInOwl#id"));
+    public static final OWLAnnotationProperty OBO_ID = OWLManager
+            .getOWLDataFactory()
+            .getOWLAnnotationProperty(
+                    IRI.create("http://www.geneontology.org/formats/oboInOwl#id"));
     private OWLOntology owlOnt;
 
     @Before
     public void setup() throws Exception {
         owlOnt = convertOBOFile("rel_xref_test.obo");
-
     }
 
     @Test
     public void testCorrectIdAnnotationCount() {
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
         assertTrue(ops.size() == 4);
-
         // Check ID Property Count Exactly 1
         for (OWLObjectProperty objectProperty : ops) {
             IRI annotationSubject = objectProperty.getIRI();
-            assertAnnotationPropertyCountEquals(owlOnt, annotationSubject, OBO_ID, 1);
+            assertAnnotationPropertyCountEquals(owlOnt, annotationSubject,
+                    OBO_ID, 1);
         }
-
     }
 
     @Test
-    public void testRelationXrefConversion() throws Exception {
+    public void testRelationXrefConversion() {
         // test initial conversion
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
         assertTrue(ops.size() == 4);
-
-
-        Set<OWLAnnotationAssertionAxiom> aaas = owlOnt.getAnnotationAssertionAxioms(IRI.create("http://purl.obolibrary.org/obo/BFO_0000051"));
-
+        Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
+                .getAnnotationAssertionAxioms(IRI
+                        .create("http://purl.obolibrary.org/obo/BFO_0000051"));
         boolean ok = false;
         for (OWLAnnotationAssertionAxiom a : aaas) {
             if (a.getProperty()
@@ -66,7 +70,6 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         }
         assertTrue(aaas.size() > 0);
         assertTrue(ok);
-
         aaas = owlOnt.getAnnotationAssertionAxioms(IRI
                 .create("http://purl.obolibrary.org/obo/BFO_0000050"));
         assertTrue(aaas.size() > 0);
@@ -100,16 +103,17 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         assertTrue(rc.getValue2().equals("TEST:b"));
     }
 
-    private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt, IRI subjectIRI, OWLAnnotationProperty property, int expected) {
-
-        Set<OWLAnnotationAssertionAxiom> aaas = owlOnt.getAnnotationAssertionAxioms(subjectIRI);
+    private static void assertAnnotationPropertyCountEquals(OWLOntology owlOnt,
+            IRI subjectIRI, OWLAnnotationProperty property, int expected) {
+        Set<OWLAnnotationAssertionAxiom> aaas = owlOnt
+                .getAnnotationAssertionAxioms(subjectIRI);
         List<OWLAnnotationAssertionAxiom> matches = new ArrayList<OWLAnnotationAssertionAxiom>();
-
         for (OWLAnnotationAssertionAxiom annotationAssertionAxiom : aaas) {
             if (annotationAssertionAxiom.getProperty().equals(property)) {
                 matches.add(annotationAssertionAxiom);
             }
         }
-        assertEquals(subjectIRI + " has too many annotations of type " + property + ":\n\t" + matches, expected, matches.size());
+        assertEquals(subjectIRI + " has too many annotations of type "
+                + property + ":\n\t" + matches, expected, matches.size());
     }
 }
