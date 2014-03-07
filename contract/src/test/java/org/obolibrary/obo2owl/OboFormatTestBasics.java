@@ -1,20 +1,5 @@
 package org.obolibrary.obo2owl;
 
-import static org.junit.Assert.*;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-
 import org.obolibrary.oboformat.model.OBODoc;
 import org.obolibrary.oboformat.parser.OBOFormatParser;
 import org.obolibrary.oboformat.parser.OBOFormatParserException;
@@ -22,18 +7,11 @@ import org.obolibrary.oboformat.writer.OBOFormatWriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StringDocumentTarget;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationSubject;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyFormat;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.*;
+
+import java.io.*;
+
+import static org.junit.Assert.*;
 
 @SuppressWarnings("javadoc")
 public class OboFormatTestBasics {
@@ -126,10 +104,13 @@ public class OboFormatTestBasics {
         writeOWL(convert);
         return convert;
     }
-
     protected OBODoc convert(OWLOntology ontology) {
+        return convert(ontology,false);
+    }
+    protected OBODoc convert(OWLOntology ontology,boolean strictness) {
         OWLAPIOwl2Obo bridge = new OWLAPIOwl2Obo(
                 OWLManager.createOWLOntologyManager());
+        bridge.setStrictConversion(strictness);
         OBODoc doc = bridge.convert(ontology);
         return doc;
     }
