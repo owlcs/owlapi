@@ -46,6 +46,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * 
      * @return A reference to a data factory for creating OWL API objects.
      */
+    @Override
     @Nonnull
     OWLDataFactory getOWLDataFactory();
 
@@ -104,6 +105,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @return {@code true} if there is an ontology with the specified id that
      *         is managed by this manager, otherwise {@code false}.
      */
+    @Override
     boolean contains(@Nonnull OWLOntologyID id);
 
     /**
@@ -153,6 +155,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         manager does not manage an ontology with the specified ontology
      *         ID.
      */
+    @Override
     @Nullable
     OWLOntology getOntology(@Nonnull OWLOntologyID ontologyID);
 
@@ -256,6 +259,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      *         {@link org.semanticweb.owlapi.model.OWLOntologyID} already
      *         belongs to an ontology managed by this manager.
      */
+    @Override
     @Nonnull
     List<OWLOntologyChange<?>> applyChanges(
             @Nonnull List<? extends OWLOntologyChange<?>> changes)
@@ -274,6 +278,7 @@ public interface OWLOntologyManager extends OWLOntologySetProvider,
      * @throws OWLOntologyChangeException
      *         if there was a problem adding the axioms
      */
+    @Override
     @Nonnull
     List<OWLOntologyChange<?>> addAxioms(@Nonnull OWLOntology ont,
             @Nonnull Set<? extends OWLAxiom> axioms);

@@ -108,7 +108,8 @@ public class TurtleTestCase extends TestBase {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1e+07 .";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
-        assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
+        assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
+                p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
                 Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
@@ -119,7 +120,8 @@ public class TurtleTestCase extends TestBase {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1 .";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
-        assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
+        assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
+                p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology
                 .containsAxiom(AnnotationAssertion(p, s, Literal(1))));
@@ -130,7 +132,8 @@ public class TurtleTestCase extends TestBase {
         String input = "<http://dbpedia.org/resource/South_Africa> <http://dbpedia.org/ontology/areaTotal> 1.0.";
         OWLOntology ontology = loadOntologyFromString(input);
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
-        assertTrue(ontology.getAnnotationPropertiesInSignature().contains(p));
+        assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
+                p));
         IRI s = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
                 Literal("1.0", OWL2Datatype.XSD_DECIMAL))));

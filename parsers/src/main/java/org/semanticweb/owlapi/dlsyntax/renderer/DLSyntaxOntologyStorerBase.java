@@ -34,8 +34,8 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.util.AbstractOWLOntologyStorer;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 @SuppressWarnings("unused")
@@ -53,19 +53,19 @@ public abstract class DLSyntaxOntologyStorerBase extends
         beginWritingOntology(ontology, writer);
         for (OWLObjectProperty prop : new TreeSet<OWLObjectProperty>(
                 ontology.getObjectPropertiesInSignature())) {
-            write(ontology, prop, ontology.getAxioms(prop), writer);
+            write(ontology, prop, ontology.getAxioms(prop, false), writer);
         }
         for (OWLDataProperty prop : new TreeSet<OWLDataProperty>(
                 ontology.getDataPropertiesInSignature())) {
-            write(ontology, prop, ontology.getAxioms(prop), writer);
+            write(ontology, prop, ontology.getAxioms(prop, false), writer);
         }
         for (OWLClass cls : new TreeSet<OWLClass>(
                 ontology.getClassesInSignature())) {
-            write(ontology, cls, ontology.getAxioms(cls), writer);
+            write(ontology, cls, ontology.getAxioms(cls, false), writer);
         }
         for (OWLNamedIndividual ind : new TreeSet<OWLNamedIndividual>(
                 ontology.getIndividualsInSignature())) {
-            write(ontology, ind, ontology.getAxioms(ind), writer);
+            write(ontology, ind, ontology.getAxioms(ind, false), writer);
         }
         beginWritingGeneralAxioms(ontology.getGeneralClassAxioms(), writer);
         for (OWLAxiom ax : ontology.getGeneralClassAxioms()) {
@@ -88,8 +88,8 @@ public abstract class DLSyntaxOntologyStorerBase extends
             writeAxiom(entity, ax, writer);
             endWritingAxiom(ax, writer);
         }
-        Set<OWLAxiom> usages = new TreeSet<OWLAxiom>(
-                ont.getReferencingAxioms(entity));
+        Set<OWLAxiom> usages = new TreeSet<OWLAxiom>(ont.getReferencingAxioms(
+                entity, false));
         usages.removeAll(axioms);
         beginWritingUsage(entity, usages, writer);
         for (OWLAxiom usage : usages) {

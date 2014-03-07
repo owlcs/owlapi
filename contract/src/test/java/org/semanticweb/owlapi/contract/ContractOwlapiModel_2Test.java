@@ -1595,23 +1595,23 @@ public class ContractOwlapiModel_2Test {
         Set<OWLOntology> result22 = testSubject0.getImportsClosure();
         Set<OWLImportsDeclaration> result23 = testSubject0
                 .getImportsDeclarations();
-        Set<OWLDataPropertyAxiom> result24 = testSubject0
-                .getAxioms(mock(OWLDataProperty.class));
-        Set<OWLObjectPropertyAxiom> result25 = testSubject0.getAxioms(Utils
-                .mockObjectProperty());
-        Set<OWLClassAxiom> result26 = testSubject0
-                .getAxioms(mock(OWLClass.class));
+        Set<OWLDataPropertyAxiom> result24 = testSubject0.getAxioms(
+                mock(OWLDataProperty.class), false);
+        Set<OWLObjectPropertyAxiom> result25 = testSubject0.getAxioms(
+                Utils.mockObjectProperty(), false);
+        Set<OWLClassAxiom> result26 = testSubject0.getAxioms(
+                mock(OWLClass.class), false);
         Set<OWLAxiom> result27 = testSubject0.getAxioms();
         Set<OWLAnnotationAssertionAxiom> result28 = testSubject0
                 .getAxioms(Utils.mockAxiomType());
         Set<OWLAnnotationAssertionAxiom> result29 = testSubject0.getAxioms(
                 Utils.mockAxiomType(), false);
-        Set<OWLDatatypeDefinitionAxiom> result30 = testSubject0
-                .getAxioms(mock(OWLDatatype.class));
-        Set<OWLAnnotationAxiom> result31 = testSubject0
-                .getAxioms(mock(OWLAnnotationProperty.class));
-        Set<OWLIndividualAxiom> result32 = testSubject0
-                .getAxioms(mock(OWLIndividual.class));
+        Set<OWLDatatypeDefinitionAxiom> result30 = testSubject0.getAxioms(
+                mock(OWLDatatype.class), false);
+        Set<OWLAnnotationAxiom> result31 = testSubject0.getAxioms(
+                mock(OWLAnnotationProperty.class), false);
+        Set<OWLIndividualAxiom> result32 = testSubject0.getAxioms(
+                mock(OWLIndividual.class), false);
         int result33 = testSubject0.getAxiomCount(Utils.mockAxiomType(), false);
         int result34 = testSubject0.getAxiomCount();
         int result35 = testSubject0.getAxiomCount(Utils.mockAxiomType());
@@ -1622,59 +1622,53 @@ public class ContractOwlapiModel_2Test {
         Set<OWLAxiom> result40 = testSubject0.getRBoxAxioms(false);
         boolean result41 = testSubject0.containsAxiom(mock(OWLAxiom.class));
         boolean result42 = testSubject0.containsAxiom(mock(OWLAxiom.class),
-                false);
-        boolean result43 = testSubject0.containsAxiomIgnoreAnnotations(
-                mock(OWLAxiom.class), false);
-        boolean result44 = testSubject0
-                .containsAxiomIgnoreAnnotations(mock(OWLAxiom.class));
+                false, false);
         Set<OWLAxiom> result45 = testSubject0.getAxiomsIgnoreAnnotations(
                 mock(OWLAxiom.class), false);
-        Set<OWLAxiom> result46 = testSubject0
-                .getAxiomsIgnoreAnnotations(mock(OWLAxiom.class));
         Set<OWLClassAxiom> result47 = testSubject0.getGeneralClassAxioms();
         Set<OWLAnonymousIndividual> result48 = testSubject0
-                .getReferencedAnonymousIndividuals();
+                .getReferencedAnonymousIndividuals(false);
         Set<OWLAnnotationProperty> result49 = testSubject0
-                .getAnnotationPropertiesInSignature();
-        Set<OWLAxiom> result50 = testSubject0.getReferencingAxioms(Utils
-                .mockOWLEntity());
+                .getAnnotationPropertiesInSignature(false);
+        Set<OWLAxiom> result50 = testSubject0.getReferencingAxioms(
+                Utils.mockOWLEntity(), false);
         Set<OWLAxiom> result51 = testSubject0.getReferencingAxioms(
                 Utils.mockOWLEntity(), false);
-        Set<OWLAxiom> result52 = testSubject0
-                .getReferencingAxioms(mock(OWLAnonymousIndividual.class));
+        Set<OWLAxiom> result52 = testSubject0.getReferencingAxioms(
+                mock(OWLAnonymousIndividual.class), false);
         boolean result53 = testSubject0.containsEntityInSignature(
                 Utils.mockOWLEntity(), false);
         boolean result54 = testSubject0.containsEntityInSignature(Utils
                 .mockOWLEntity());
         boolean result55 = testSubject0.containsEntityInSignature(
                 IRI("urn:aFake"), false);
-        boolean result56 = testSubject0
-                .containsEntityInSignature(IRI("urn:aFake"));
+        boolean result56 = testSubject0.containsEntityInSignature(
+                IRI("urn:aFake"), false);
         boolean result57 = testSubject0.isDeclared(Utils.mockOWLEntity());
         boolean result58 = testSubject0
                 .isDeclared(Utils.mockOWLEntity(), false);
         boolean result59 = testSubject0.containsClassInSignature(
                 IRI("urn:aFake"), false);
-        boolean result60 = testSubject0
-                .containsClassInSignature(IRI("urn:aFake"));
+        boolean result60 = testSubject0.containsClassInSignature(
+                IRI("urn:aFake"), false);
         boolean result61 = testSubject0.containsObjectPropertyInSignature(
                 IRI("urn:aFake"), false);
-        boolean result62 = testSubject0
-                .containsObjectPropertyInSignature(IRI("urn:aFake"));
-        boolean result63 = testSubject0
-                .containsDataPropertyInSignature(IRI("urn:aFake"));
+        boolean result62 = testSubject0.containsObjectPropertyInSignature(
+                IRI("urn:aFake"), false);
+        boolean result63 = testSubject0.containsDataPropertyInSignature(
+                IRI("urn:aFake"), false);
         boolean result64 = testSubject0.containsDataPropertyInSignature(
                 IRI("urn:aFake"), false);
-        boolean result65 = testSubject0
-                .containsAnnotationPropertyInSignature(IRI("urn:aFake"));
+        boolean result65 = testSubject0.containsAnnotationPropertyInSignature(
+                IRI("urn:aFake"), false);
         boolean result66 = testSubject0.containsAnnotationPropertyInSignature(
                 IRI("urn:aFake"), false);
-        boolean result67 = testSubject0
-                .containsIndividualInSignature(IRI("urn:aFake"));
+        boolean result67 = testSubject0.containsIndividualInSignature(
+                IRI("urn:aFake"), false);
         boolean result68 = testSubject0.containsIndividualInSignature(
                 IRI("urn:aFake"), false);
-        boolean result69 = testSubject0
-                .containsDatatypeInSignature(IRI("urn:aFake"));
+        boolean result69 = testSubject0.containsDatatypeInSignature(
+                IRI("urn:aFake"), false);
         boolean result70 = testSubject0.containsDatatypeInSignature(
                 IRI("urn:aFake"), false);
         Set<OWLEntity> result71 = testSubject0.getEntitiesInSignature(

@@ -86,8 +86,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
@@ -259,7 +259,7 @@ public class DLExpressivityChecker extends OWLObjectVisitorAdapter {
             return false;
         } else {
             for (OWLOntology ont : ontologies) {
-                if (!ont.getAxioms((OWLClass) classExpression).isEmpty()) {
+                if (!ont.getAxioms((OWLClass) classExpression, false).isEmpty()) {
                     return false;
                 }
             }

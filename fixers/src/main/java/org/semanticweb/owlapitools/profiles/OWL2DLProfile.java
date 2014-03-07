@@ -338,7 +338,8 @@ public class OWL2DLProfile implements OWLProfile {
                 profileViolations.add(new UseOfUndeclaredClass(
                         getCurrentOntology(), getCurrentAxiom(), desc));
             }
-            if (getCurrentOntology().containsDatatypeInSignature(desc.getIRI())) {
+            if (getCurrentOntology().containsDatatypeInSignature(desc.getIRI(),
+                    false)) {
                 profileViolations
                         .add(new DatatypeIRIAlsoUsedAsClassIRI(
                                 getCurrentOntology(), getCurrentAxiom(), desc

@@ -33,12 +33,14 @@ public class MissingDeclarationRoundTripTestCase extends TestBase {
             OWLOntologyStorageException {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://test.org/MissingDeclaration.owl#p"));
         OWLOntology ontology = createOntology(p);
-        assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
+        assertTrue(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
+                false));
         assertEquals(1, ontology.getAxiomCount());
         RDFXMLOntologyFormat format = new RDFXMLOntologyFormat();
         format.setAddMissingTypes(false);
         ontology = loadOntologyStrict(saveOntology(ontology, format));
-        assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI()));
+        assertFalse(ontology.containsAnnotationPropertyInSignature(p.getIRI(),
+                false));
         assertEquals(0, ontology.getAxiomCount());
     }
 

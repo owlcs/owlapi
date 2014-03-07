@@ -585,7 +585,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
         // imports closure.
         for (OWLOntology ont : owlOntologyManager.getImportsClosure(ontology)) {
             for (OWLAnnotationProperty prop : ont
-                    .getAnnotationPropertiesInSignature()) {
+                    .getAnnotationPropertiesInSignature(false)) {
                 annotationPropertyIRIs.add(prop.getIRI());
             }
             for (OWLDataProperty prop : ont.getDataPropertiesInSignature()) {

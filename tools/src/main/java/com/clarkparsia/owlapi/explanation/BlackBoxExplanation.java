@@ -225,17 +225,17 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         for (OWLOntology ont : getOntology().getImportsClosure()) {
             boolean referenceFound = false;
             if (obj instanceof OWLClass) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLClass) obj));
+                referenceFound = expansionAxioms.addAll(ont.getAxioms(
+                        (OWLClass) obj, false));
             } else if (obj instanceof OWLObjectProperty) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLObjectProperty) obj));
+                referenceFound = expansionAxioms.addAll(ont.getAxioms(
+                        (OWLObjectProperty) obj, false));
             } else if (obj instanceof OWLDataProperty) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLDataProperty) obj));
+                referenceFound = expansionAxioms.addAll(ont.getAxioms(
+                        (OWLDataProperty) obj, false));
             } else if (obj instanceof OWLIndividual) {
-                referenceFound = expansionAxioms.addAll(ont
-                        .getAxioms((OWLIndividual) obj));
+                referenceFound = expansionAxioms.addAll(ont.getAxioms(
+                        (OWLIndividual) obj, false));
             }
             if (!referenceFound) {
                 expansionAxioms.add(owlOntologyManager.getOWLDataFactory()
@@ -260,9 +260,7 @@ public class BlackBoxExplanation extends SingleExplanationGeneratorImpl
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        for (OWLOntology ont : getOntology().getImportsClosure()) {
-            expansionAxioms.addAll(ont.getReferencingAxioms(obj));
-        }
+        expansionAxioms.addAll(getOntology().getReferencingAxioms(obj, true));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

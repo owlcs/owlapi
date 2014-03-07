@@ -247,17 +247,18 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
     private int expandWithDefiningAxioms(@Nonnull OWLEntity obj, int limit)
             throws OWLException {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
-        for (OWLOntology ont : owlOntologyManager
-                .getImportsClosure(getOWLOntology())) {
-            if (obj instanceof OWLClass) {
-                expansionAxioms.addAll(ont.getAxioms((OWLClass) obj));
-            } else if (obj instanceof OWLObjectProperty) {
-                expansionAxioms.addAll(ont.getAxioms((OWLObjectProperty) obj));
-            } else if (obj instanceof OWLDataProperty) {
-                expansionAxioms.addAll(ont.getAxioms((OWLDataProperty) obj));
-            } else if (obj instanceof OWLIndividual) {
-                expansionAxioms.addAll(ont.getAxioms((OWLIndividual) obj));
-            }
+        if (obj instanceof OWLClass) {
+            expansionAxioms.addAll(getOWLOntology().getAxioms((OWLClass) obj,
+                    true));
+        } else if (obj instanceof OWLObjectProperty) {
+            expansionAxioms.addAll(getOWLOntology().getAxioms(
+                    (OWLObjectProperty) obj, true));
+        } else if (obj instanceof OWLDataProperty) {
+            expansionAxioms.addAll(getOWLOntology().getAxioms(
+                    (OWLDataProperty) obj, true));
+        } else if (obj instanceof OWLIndividual) {
+            expansionAxioms.addAll(getOWLOntology().getAxioms(
+                    (OWLIndividual) obj, true));
         }
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
@@ -280,10 +281,8 @@ public class BlackBoxOWLDebugger extends AbstractOWLDebugger {
         Set<OWLAxiom> expansionAxioms = new HashSet<OWLAxiom>();
         // First expand by getting the defining axioms - if this doesn't
         // return any axioms, then get the axioms that reference the entity
-        for (OWLOntology ont : owlOntologyManager
-                .getImportsClosure(getOWLOntology())) {
-            expansionAxioms.addAll(ont.getReferencingAxioms(obj));
-        }
+        expansionAxioms
+                .addAll(getOWLOntology().getReferencingAxioms(obj, true));
         expansionAxioms.removeAll(debuggingAxioms);
         return addMax(expansionAxioms, debuggingAxioms, limit);
     }

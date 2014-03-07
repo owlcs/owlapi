@@ -221,36 +221,36 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
 
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLClass cls) {
-                        return ontology.getAxioms(cls);
+                        return ontology.getAxioms(cls, false);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLObjectProperty property) {
-                        return ontology.getAxioms(property);
+                        return ontology.getAxioms(property, false);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLDataProperty property) {
-                        return ontology.getAxioms(property);
+                        return ontology.getAxioms(property, false);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLNamedIndividual individual) {
-                        return ontology.getAxioms(individual);
+                        return ontology.getAxioms(individual, false);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(OWLDatatype datatype) {
-                        return ontology.getAxioms(datatype);
+                        return ontology.getAxioms(datatype, false);
                     }
 
                     @Override
                     public Set<? extends OWLAxiom> visit(
                             OWLAnnotationProperty property) {
-                        return ontology.getAxioms(property);
+                        return ontology.getAxioms(property, false);
                     }
                 }));
         Collections.sort(axs);

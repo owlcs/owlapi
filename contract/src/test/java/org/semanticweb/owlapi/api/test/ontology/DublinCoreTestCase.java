@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.vocab.DublinCoreVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -37,8 +37,8 @@ public class DublinCoreTestCase extends AbstractFileTestCase {
     public void testAnnotationProperties() throws OWLOntologyCreationException {
         OWLOntology ontology = createOntology();
         for (DublinCoreVocabulary vocabulary : DublinCoreVocabulary.values()) {
-            assertTrue(ontology
-                    .containsAnnotationPropertyInSignature(vocabulary.getIRI()));
+            assertTrue(ontology.containsAnnotationPropertyInSignature(
+                    vocabulary.getIRI(), false));
         }
     }
 }

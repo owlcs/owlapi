@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -45,8 +45,9 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLAnnotationAssertionAxiom ax = AnnotationAssertion(ap, subject, val);
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
-        assertTrue(ont.containsAnnotationPropertyInSignature(ap.getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(ap));
+        assertTrue(ont
+                .containsAnnotationPropertyInSignature(ap.getIRI(), false));
+        assertTrue(ont.getAnnotationPropertiesInSignature(false).contains(ap));
     }
 
     @Test
@@ -60,8 +61,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         OWLOntology ont = getOWLOntology("Ont");
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
-                .getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(
+                .getIRI(), false));
+        assertTrue(ont.getAnnotationPropertiesInSignature(false).contains(
                 anno.getProperty()));
     }
 
@@ -74,8 +75,8 @@ public class AnnotationPropertyReferencesTestCase extends TestBase {
         ont.getOWLOntologyManager().applyChange(
                 new AddOntologyAnnotation(ont, anno));
         assertTrue(ont.containsAnnotationPropertyInSignature(anno.getProperty()
-                .getIRI()));
-        assertTrue(ont.getAnnotationPropertiesInSignature().contains(
+                .getIRI(), false));
+        assertTrue(ont.getAnnotationPropertiesInSignature(false).contains(
                 anno.getProperty()));
     }
 }

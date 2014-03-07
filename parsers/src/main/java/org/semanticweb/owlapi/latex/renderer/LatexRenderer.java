@@ -75,7 +75,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             }
             for (OWLClass cls : clses) {
                 writeEntitySection(cls, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(cls, false))) {
                     renderer.setSubject(cls);
                     ax.accept(renderer);
                     w.write("\n\n");
@@ -85,7 +85,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLObjectProperty prop : sortEntities(ontology
                     .getObjectPropertiesInSignature())) {
                 writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, false))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -94,7 +94,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLDataProperty prop : sortEntities(ontology
                     .getDataPropertiesInSignature())) {
                 writeEntitySection(prop, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(prop, false))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -103,7 +103,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLNamedIndividual ind : sortEntities(ontology
                     .getIndividualsInSignature())) {
                 writeEntitySection(ind, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(ind, false))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }
@@ -112,7 +112,7 @@ public class LatexRenderer extends AbstractOWLRenderer {
             for (OWLDatatype type : sortEntities(ontology
                     .getDatatypesInSignature())) {
                 writeEntitySection(type, w);
-                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type))) {
+                for (OWLAxiom ax : sortAxioms(ontology.getAxioms(type, false))) {
                     ax.accept(renderer);
                     w.write("\n\n");
                 }

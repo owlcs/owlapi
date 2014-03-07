@@ -68,8 +68,8 @@ import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public abstract class RDFRendererBase {
@@ -252,7 +252,7 @@ public abstract class RDFRendererBase {
 
     private void renderAnnotationProperties() throws IOException {
         Set<OWLAnnotationProperty> annotationProperties = ontology
-                .getAnnotationPropertiesInSignature();
+                .getAnnotationPropertiesInSignature(false);
         renderEntities(annotationProperties, ANNOTATION_PROPERTIES_BANNER_TEXT);
     }
 
@@ -351,7 +351,7 @@ public abstract class RDFRendererBase {
             OWLAnnotationSubject subject = ax.getSubject();
             if (subject instanceof IRI) {
                 IRI iri = (IRI) subject;
-                if (!ontology.containsEntityInSignature(iri)) {
+                if (!ontology.containsEntityInSignature(iri, false)) {
                     annotatedIRIs.add(iri);
                 }
             }
@@ -370,10 +370,10 @@ public abstract class RDFRendererBase {
 
     private void renderAnonymousIndividuals() throws IOException {
         for (OWLAnonymousIndividual anonInd : ontology
-                .getReferencedAnonymousIndividuals()) {
+                .getReferencedAnonymousIndividuals(false)) {
             boolean anonRoot = true;
             Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
-            for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd)) {
+            for (OWLAxiom ax : ontology.getReferencingAxioms(anonInd, false)) {
                 if (!(ax instanceof OWLDifferentIndividualsAxiom)) {
                     AxiomSubjectProvider subjectProvider = new AxiomSubjectProvider();
                     OWLObject obj = subjectProvider.getSubject(ax);
@@ -543,7 +543,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLClass cls) {
-                for (OWLAxiom ax : ontology.getAxioms(cls)) {
+                for (OWLAxiom ax : ontology.getAxioms(cls, false)) {
                     if (ax instanceof OWLDisjointClassesAxiom) {
                         OWLDisjointClassesAxiom disjAx = (OWLDisjointClassesAxiom) ax;
                         if (disjAx.getClassExpressions().size() > 2) {
@@ -567,7 +567,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLNamedIndividual individual) {
-                for (OWLAxiom ax : ontology.getAxioms(individual)) {
+                for (OWLAxiom ax : ontology.getAxioms(individual, false)) {
                     if (ax instanceof OWLDifferentIndividualsAxiom) {
                         continue;
                     }
@@ -577,7 +577,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLDataProperty property) {
-                for (OWLAxiom ax : ontology.getAxioms(property)) {
+                for (OWLAxiom ax : ontology.getAxioms(property, false)) {
                     if (ax instanceof OWLDisjointDataPropertiesAxiom
                             && ((OWLDisjointDataPropertiesAxiom) ax)
                                     .getProperties().size() > 2) {
@@ -589,7 +589,7 @@ public abstract class RDFRendererBase {
 
             @Override
             public void visit(OWLObjectProperty property) {
-                for (OWLAxiom ax : ontology.getAxioms(property)) {
+                for (OWLAxiom ax : ontology.getAxioms(property, false)) {
                     if (ax instanceof OWLDisjointObjectPropertiesAxiom
                             && ((OWLDisjointObjectPropertiesAxiom) ax)
                                     .getProperties().size() > 2) {
@@ -605,12 +605,12 @@ public abstract class RDFRendererBase {
                 }
                 axioms.addAll(ontology.getAxioms(ontology
                         .getOWLOntologyManager().getOWLDataFactory()
-                        .getOWLObjectInverseOf(property)));
+                        .getOWLObjectInverseOf(property), false));
             }
 
             @Override
             public void visit(OWLAnnotationProperty property) {
-                axioms.addAll(ontology.getAxioms(property));
+                axioms.addAll(ontology.getAxioms(property, false));
             }
         });
         if (axioms.isEmpty() && shouldInsertDeclarations()
@@ -624,7 +624,7 @@ public abstract class RDFRendererBase {
 
     private boolean isIndividualAndClass(OWLEntity entity) {
         return entity.isOWLNamedIndividual()
-                && ontology.containsClassInSignature(entity.getIRI());
+                && ontology.containsClassInSignature(entity.getIRI(), false);
     }
 
     protected boolean shouldInsertDeclarations() {

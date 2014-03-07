@@ -105,7 +105,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
         List<OWLNamedIndividual> punned = new ArrayList<OWLNamedIndividual>();
         for (OWLNamedIndividual ind : individuals) {
             for (OWLOntology ont : ontologies) {
-                if (ont.containsClassInSignature(ind.getIRI())) {
+                if (ont.containsClassInSignature(ind.getIRI(), false)) {
                     punned.add(ind);
                 }
             }
@@ -130,7 +130,7 @@ public class ConvertPropertyAssertionsToAnnotations extends
             for (OWLAxiom ax : ont.getDeclarationAxioms(prop)) {
                 addChange(new RemoveAxiom(ont, ax));
             }
-            for (OWLAxiom ax : ont.getAxioms(prop)) {
+            for (OWLAxiom ax : ont.getAxioms(prop, false)) {
                 addChange(new RemoveAxiom(ont, ax));
             }
         }

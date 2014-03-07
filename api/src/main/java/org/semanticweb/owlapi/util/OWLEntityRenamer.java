@@ -129,7 +129,7 @@ public class OWLEntityRenamer {
     }
 
     private static Set<OWLAxiom> getAxioms(OWLOntology ont, OWLEntity entity) {
-        Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity);
+        Set<OWLAxiom> axioms = ont.getReferencingAxioms(entity, false);
         axioms.addAll(ont.getDeclarationAxioms(entity));
         axioms.addAll(ont.getAnnotationAssertionAxioms(entity.getIRI()));
         return axioms;
@@ -138,17 +138,17 @@ public class OWLEntityRenamer {
     private Set<OWLAxiom> getAxioms(OWLOntology ont, IRI iri) {
         Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLClass(iri)));
+                .getOWLDataFactory().getOWLClass(iri), false));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLObjectProperty(iri)));
+                .getOWLDataFactory().getOWLObjectProperty(iri), false));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLDataProperty(iri)));
+                .getOWLDataFactory().getOWLDataProperty(iri), false));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLNamedIndividual(iri)));
+                .getOWLDataFactory().getOWLNamedIndividual(iri), false));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLDatatype(iri)));
+                .getOWLDataFactory().getOWLDatatype(iri), false));
         axioms.addAll(ont.getReferencingAxioms(owlOntologyManager
-                .getOWLDataFactory().getOWLAnnotationProperty(iri)));
+                .getOWLDataFactory().getOWLAnnotationProperty(iri), false));
         axioms.addAll(ont.getAnnotationAssertionAxioms(iri));
         return axioms;
     }
