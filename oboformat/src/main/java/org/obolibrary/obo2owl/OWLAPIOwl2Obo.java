@@ -1,114 +1,86 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
-
-import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.obolibrary.obo2owl.Obo2OWLConstants.Obo2OWLVocabulary;
 import org.obolibrary.obo2owl.OwlStringTools.OwlStringException;
-import org.obolibrary.oboformat.model.Clause;
-import org.obolibrary.oboformat.model.Frame;
+import org.obolibrary.oboformat.model.*;
 import org.obolibrary.oboformat.model.Frame.FrameType;
-import org.obolibrary.oboformat.model.OBODoc;
-import org.obolibrary.oboformat.model.QualifierValue;
-import org.obolibrary.oboformat.model.Xref;
 import org.obolibrary.oboformat.parser.OBOFormatConstants;
 import org.obolibrary.oboformat.parser.OBOFormatConstants.OboFormatTag;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLAnnotationProperty;
-import org.semanticweb.owlapi.model.OWLAnnotationValue;
-import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
-import org.semanticweb.owlapi.model.OWLNamedObject;
-import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectCardinalityRestriction;
-import org.semanticweb.owlapi.model.OWLObjectComplementOf;
-import org.semanticweb.owlapi.model.OWLObjectExactCardinality;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
-import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
-import org.semanticweb.owlapi.model.OWLObjectMinCardinality;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectUnionOf;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLQuantifiedObjectRestriction;
-import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** The Class OWLAPIOwl2Obo. */
+import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.semanticweb.owlapi.search.Searcher.find;
+
+/**
+ * The Class OWLAPIOwl2Obo.
+ */
 public class OWLAPIOwl2Obo {
 
-    /** The log. */
+    /**
+     * The log.
+     */
     private static Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
-    /** The manager. */
+    /**
+     * The manager.
+     */
     protected OWLOntologyManager manager;
-    /** The owl ontology. */
+    /**
+     * The owl ontology.
+     */
     protected OWLOntology owlOntology;
-    /** The fac. */
+    /**
+     * The fac.
+     */
     protected OWLDataFactory fac;
-    /** The obodoc. */
+    /**
+     * The obodoc.
+     */
     protected OBODoc obodoc;
-    /** The untranslatable axioms. */
+    /**
+     * The untranslatable axioms.
+     */
     protected Set<OWLAxiom> untranslatableAxioms;
-    /** The id space map. */
+    /**
+     * The id space map.
+     */
     protected Map<String, String> idSpaceMap;
-    /** The annotation property map. */
+    /**
+     * The annotation property map.
+     */
     public static Map<String, String> annotationPropertyMap = initAnnotationPropertyMap();
-    /** The ap to declare. */
+    /**
+     * The ap to declare.
+     */
     protected Set<OWLAnnotationProperty> apToDeclare;
-    /** The ontology id. */
+    /**
+     * The ontology id.
+     */
     protected String ontologyId;
-    /** The strict conversion. */
+    /**
+     * The strict conversion.
+     */
     protected boolean strictConversion;
-    /** The discard untranslatable. */
+    /**
+     * The discard untranslatable.
+     */
     protected boolean discardUntranslatable = false;
+    /**
+     * mute untranslatable axiom warnings
+     */
+    private boolean muteUntranslatableAxioms = false;
 
-    /** Inits the. */
+    /**
+     * Inits the.
+     */
     protected void init() {
         idSpaceMap = new HashMap<String, String>();
         // legacy:
@@ -120,9 +92,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Instantiates a new oWLAPI owl2 obo.
-     * 
-     * @param translationManager
-     *        the translation manager
+     *
+     * @param translationManager the translation manager
      */
     public OWLAPIOwl2Obo(OWLOntologyManager translationManager) {
         manager = translationManager;
@@ -131,7 +102,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Inits the annotation property map.
-     * 
+     *
      * @return the hash map
      */
     protected static HashMap<String, String> initAnnotationPropertyMap() {
@@ -145,9 +116,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Sets the strict conversion.
-     * 
-     * @param b
-     *        the new strict conversion
+     *
+     * @param b the new strict conversion
      */
     public void setStrictConversion(boolean b) {
         strictConversion = b;
@@ -155,7 +125,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the strict conversion.
-     * 
+     *
      * @return the strict conversion
      */
     public boolean getStrictConversion() {
@@ -164,7 +134,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Checks if is discard untranslatable.
-     * 
+     *
      * @return the discardUntranslatable
      */
     public boolean isDiscardUntranslatable() {
@@ -173,9 +143,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Sets the discard untranslatable.
-     * 
-     * @param discardUntranslatable
-     *        the discardUntranslatable to set
+     *
+     * @param discardUntranslatable the discardUntranslatable to set
      */
     public void setDiscardUntranslatable(boolean discardUntranslatable) {
         this.discardUntranslatable = discardUntranslatable;
@@ -183,7 +152,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the manager.
-     * 
+     *
      * @return the manager
      */
     public OWLOntologyManager getManager() {
@@ -192,9 +161,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Sets the manager.
-     * 
-     * @param manager
-     *        the new manager
+     *
+     * @param manager the new manager
      */
     public void setManager(OWLOntologyManager manager) {
         this.manager = manager;
@@ -202,7 +170,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the obodoc.
-     * 
+     *
      * @return the obodoc
      */
     public OBODoc getObodoc() {
@@ -211,9 +179,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Sets the obodoc.
-     * 
-     * @param obodoc
-     *        the new obodoc
+     *
+     * @param obodoc the new obodoc
      */
     public void setObodoc(OBODoc obodoc) {
         this.obodoc = obodoc;
@@ -221,9 +188,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Convert.
-     * 
-     * @param ont
-     *        the ont
+     *
+     * @param ont the ont
      * @return the oBO doc
      */
     public OBODoc convert(OWLOntology ont) {
@@ -239,7 +205,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the untranslatable axioms.
-     * 
+     *
      * @return the untranslatableAxioms
      */
     public Collection<OWLAxiom> getUntranslatableAxioms() {
@@ -248,7 +214,7 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
+     *
      * @return the oBO doc
      */
     protected OBODoc tr() {
@@ -323,7 +289,9 @@ public class OWLAPIOwl2Obo {
         return obodoc;
     }
 
-    /** Pre process. */
+    /**
+     * Pre process.
+     */
     protected void preProcess() {
         // converse of postProcess in obo2owl
         String viewRel = null;
@@ -390,19 +358,15 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr object property.
-     * 
-     * @param prop
-     *        the prop
-     * @param tag
-     *        the tag
-     * @param value
-     *        the value
-     * @param annotations
-     *        the annotations
+     *
+     * @param prop        the prop
+     * @param tag         the tag
+     * @param value       the value
+     * @param annotations the annotations
      * @return true, if successful
      */
     protected boolean trObjectProperty(OWLObjectProperty prop, String tag,
-            String value, Set<OWLAnnotation> annotations) {
+                                       String value, Set<OWLAnnotation> annotations) {
         if (prop == null || value == null) {
             return false;
         }
@@ -426,19 +390,15 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr object property.
-     * 
-     * @param prop
-     *        the prop
-     * @param tag
-     *        the tag
-     * @param value
-     *        the value
-     * @param annotations
-     *        the annotations
+     *
+     * @param prop        the prop
+     * @param tag         the tag
+     * @param value       the value
+     * @param annotations the annotations
      * @return true, if successful
      */
     protected boolean trObjectProperty(OWLObjectProperty prop, String tag,
-            Boolean value, Set<OWLAnnotation> annotations) {
+                                       Boolean value, Set<OWLAnnotation> annotations) {
         if (prop == null || value == null) {
             return false;
         }
@@ -452,11 +412,9 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr nary property axiom.
-     * 
-     * @param ax
-     *        the ax
-     * @param tag
-     *        the tag
+     *
+     * @param ax  the ax
+     * @param tag the tag
      */
     protected void trNaryPropertyAxiom(
             OWLNaryPropertyAxiom<OWLObjectPropertyExpression> ax, String tag) {
@@ -490,9 +448,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLSubPropertyChainOfAxiom ax) {
         OWLObjectPropertyExpression pEx = ax.getSuperProperty();
@@ -553,9 +510,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLEquivalentObjectPropertiesAxiom ax) {
         trNaryPropertyAxiom(ax, OboFormatTag.TAG_EQUIVALENT_TO.getTag());
@@ -563,9 +519,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLTransitiveObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
@@ -581,9 +536,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLDisjointObjectPropertiesAxiom ax) {
         trNaryPropertyAxiom(ax, OboFormatTag.TAG_DISJOINT_FROM.getTag());
@@ -591,9 +545,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLReflexiveObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
@@ -609,9 +562,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLInverseFunctionalObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
@@ -627,9 +579,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLInverseObjectPropertiesAxiom ax) {
         OWLObjectPropertyExpression prop1 = ax.getFirstProperty();
@@ -647,9 +598,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLObjectPropertyDomainAxiom ax) {
         final OWLClassExpression domain = ax.getDomain();
@@ -672,16 +622,18 @@ public class OWLAPIOwl2Obo {
             if (trObjectProperty(prop, OboFormatTag.TAG_DOMAIN.getTag(), range,
                     ax.getAnnotations())) {
                 return;
+            } else {
+                error("trObjectProperty failed for " + prop, ax);
             }
+        } else {
+            error("no range translatable for " + ax);
         }
-        error(ax);
     }
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLAsymmetricObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
@@ -697,9 +649,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLSymmetricObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
@@ -715,9 +666,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLFunctionalObjectPropertyAxiom ax) {
         OWLObjectPropertyExpression prop = ax.getProperty();
@@ -733,9 +683,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLObjectPropertyRangeAxiom ax) {
         final OWLClassExpression owlRange = ax.getRange();
@@ -764,9 +713,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLSubObjectPropertyOfAxiom ax) {
         OWLObjectPropertyExpression sup = ax.getSuperProperty();
@@ -793,9 +741,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLSubAnnotationPropertyOfAxiom ax) {
         OWLAnnotationProperty sup = ax.getSuperProperty();
@@ -873,16 +820,16 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /** The absoulte url pattern. */
+    /**
+     * The absoulte url pattern.
+     */
     protected Pattern absoulteURLPattern = Pattern.compile("<\\s*http.*?>");
 
     /**
      * Tr.
-     * 
-     * @param aanAx
-     *        the aan ax
-     * @param frame
-     *        the frame
+     *
+     * @param aanAx the aan ax
+     * @param frame the frame
      */
     protected void tr(OWLAnnotationAssertionAxiom aanAx, Frame frame) {
         boolean success = tr(aanAx.getProperty(), aanAx.getValue(),
@@ -894,19 +841,15 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param prop
-     *        the prop
-     * @param annVal
-     *        the ann val
-     * @param qualifiers
-     *        the qualifiers
-     * @param frame
-     *        the frame
+     *
+     * @param prop       the prop
+     * @param annVal     the ann val
+     * @param qualifiers the qualifiers
+     * @param frame      the frame
      * @return true, if successful
      */
     protected boolean tr(OWLAnnotationProperty prop, OWLAnnotationValue annVal,
-            Set<OWLAnnotation> qualifiers, Frame frame) {
+                         Set<OWLAnnotation> qualifiers, Frame frame) {
         String tagString = owlObjectToTag(prop);
         String synonymType = null;
         if (tagString == null) {
@@ -1022,18 +965,14 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Handle synonym.
-     * 
-     * @param qualifiers
-     *        the qualifiers
-     * @param scope
-     *        the scope
-     * @param clause
-     *        the clause
-     * @param unprocessedQualifiers
-     *        the unprocessed qualifiers
+     *
+     * @param qualifiers            the qualifiers
+     * @param scope                 the scope
+     * @param clause                the clause
+     * @param unprocessedQualifiers the unprocessed qualifiers
      */
     protected void handleSynonym(Set<OWLAnnotation> qualifiers, String scope,
-            Clause clause, Set<OWLAnnotation> unprocessedQualifiers) {
+                                 Clause clause, Set<OWLAnnotation> unprocessedQualifiers) {
         clause.setTag(OboFormatTag.TAG_SYNONYM.getTag());
         String type = null;
         clause.setXrefs(new Vector<Xref>());
@@ -1060,13 +999,11 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Handle a duplicate clause in a frame during translation.
-     * 
-     * @param frame
-     *        the frame
-     * @param clause
-     *        the clause
+     *
+     * @param frame  the frame
+     * @param clause the clause
      * @return true if the clause is to be marked as redundant and will not be
-     *         added to the
+     * added to the
      */
     protected boolean handleDuplicateClause(Frame frame, Clause clause) {
         // default is to report it via the logger and remove it.
@@ -1077,20 +1014,16 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr generic property value.
-     * 
-     * @param prop
-     *        the prop
-     * @param annVal
-     *        the ann val
-     * @param qualifiers
-     *        the qualifiers
-     * @param frame
-     *        the frame
+     *
+     * @param prop       the prop
+     * @param annVal     the ann val
+     * @param qualifiers the qualifiers
+     * @param frame      the frame
      * @return true, if successful
      */
     protected boolean trGenericPropertyValue(OWLAnnotationProperty prop,
-            OWLAnnotationValue annVal, Set<OWLAnnotation> qualifiers,
-            Frame frame) {
+                                             OWLAnnotationValue annVal, Set<OWLAnnotation> qualifiers,
+                                             Frame frame) {
         // no built-in obo tag for this: use the generic property_value tag
         Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE.getTag());
         String propId = this.getIdentifier(prop);
@@ -1124,11 +1057,9 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the value.
-     * 
-     * @param annVal
-     *        the ann val
-     * @param tag
-     *        the tag
+     *
+     * @param annVal the ann val
+     * @param tag    the tag
      * @return the value
      */
     protected String getValue(OWLAnnotationValue annVal, String tag) {
@@ -1154,11 +1085,9 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Adds the qualifiers.
-     * 
-     * @param c
-     *        the c
-     * @param qualifiers
-     *        the qualifiers
+     *
+     * @param c          the c
+     * @param qualifiers the qualifiers
      */
     protected void addQualifiers(Clause c, Set<OWLAnnotation> qualifiers) {
         for (OWLAnnotation ann : qualifiers) {
@@ -1187,9 +1116,8 @@ public class OWLAPIOwl2Obo {
     /**
      * E.g. http://purl.obolibrary.org/obo/go.owl to "go"<br>
      * if does not match this pattern, then retain original IRI
-     * 
-     * @param ontology
-     *        the ontology
+     *
+     * @param ontology the ontology
      * @return The OBO ID of the ontology
      */
     public static String getOntologyId(OWLOntology ontology) {
@@ -1198,9 +1126,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the ontology id.
-     * 
-     * @param iriObj
-     *        the iri obj
+     *
+     * @param iriObj the iri obj
      * @return the ontology id
      */
     public static String getOntologyId(IRI iriObj) {
@@ -1226,9 +1153,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the data version.
-     * 
-     * @param ontology
-     *        the ontology
+     *
+     * @param ontology the ontology
      * @return the data version
      */
     public static String getDataVersion(OWLOntology ontology) {
@@ -1246,9 +1172,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ontology
-     *        the ontology
+     *
+     * @param ontology the ontology
      */
     protected void tr(OWLOntology ontology) {
         Frame f = new Frame(FrameType.HEADER);
@@ -1282,9 +1207,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLEquivalentClassesAxiom ax) {
         /*
@@ -1473,9 +1397,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLDisjointClassesAxiom ax) {
         // use set, the OWL-API does not provide an order
@@ -1510,9 +1433,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param axiom
-     *        the axiom
+     *
+     * @param axiom the axiom
      */
     protected void tr(OWLDeclarationAxiom axiom) {
         OWLEntity entity = axiom.getEntity();
@@ -1551,9 +1473,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the identifier.
-     * 
-     * @param obj
-     *        the obj
+     *
+     * @param obj the obj
      * @return the identifier
      */
     public String getIdentifier(OWLObject obj) {
@@ -1565,7 +1486,17 @@ public class OWLAPIOwl2Obo {
         return null;
     }
 
-    /** The Class UntranslatableAxiomException. */
+    public boolean isMuteUntranslatableAxioms() {
+        return muteUntranslatableAxioms;
+    }
+
+    public void setMuteUntranslatableAxioms(boolean muteUntranslatableAxioms) {
+        this.muteUntranslatableAxioms = muteUntranslatableAxioms;
+    }
+
+    /**
+     * The Class UntranslatableAxiomException.
+     */
     public static class UntranslatableAxiomException extends Exception {
 
         // generated
@@ -1573,11 +1504,9 @@ public class OWLAPIOwl2Obo {
 
         /**
          * Instantiates a new untranslatable axiom exception.
-         * 
-         * @param message
-         *        the message
-         * @param cause
-         *        the cause
+         *
+         * @param message the message
+         * @param cause   the cause
          */
         public UntranslatableAxiomException(String message, Throwable cause) {
             super(message, cause);
@@ -1585,9 +1514,8 @@ public class OWLAPIOwl2Obo {
 
         /**
          * Instantiates a new untranslatable axiom exception.
-         * 
-         * @param message
-         *        the message
+         *
+         * @param message the message
          */
         public UntranslatableAxiomException(String message) {
             super(message);
@@ -1599,17 +1527,14 @@ public class OWLAPIOwl2Obo {
      * also shorthand hints to resolve the identifier. Should the translation
      * process encounter a problem or not find an identifier the defaultValue is
      * returned.
-     * 
-     * @param obj
-     *        the {@link OWLObject} to resolve
-     * @param ont
-     *        the target ontology
-     * @param defaultValue
-     *        the value to return in case of an error or no id
+     *
+     * @param obj          the {@link OWLObject} to resolve
+     * @param ont          the target ontology
+     * @param defaultValue the value to return in case of an error or no id
      * @return identifier or the default value
      */
     public static String getIdentifierFromObject(OWLObject obj,
-            OWLOntology ont, String defaultValue) {
+                                                 OWLOntology ont, String defaultValue) {
         String id = defaultValue;
         try {
             id = getIdentifierFromObject(obj, ont);
@@ -1626,19 +1551,16 @@ public class OWLAPIOwl2Obo {
      * Retrieve the identifier for a given {@link OWLObject}. This methods uses
      * also shorthand hints to resolve the identifier. Should the translation
      * process encounter an unexpected axiom an
-     * 
-     * @param obj
-     *        the {@link OWLObject} to resolve
-     * @param ont
-     *        the target ontology
+     *
+     * @param obj the {@link OWLObject} to resolve
+     * @param ont the target ontology
      * @return identifier or null
-     * @throws UntranslatableAxiomException
-     *         the untranslatable axiom exception
-     *         {@link UntranslatableAxiomException} is thrown.
+     * @throws UntranslatableAxiomException the untranslatable axiom exception
+     *                                      {@link UntranslatableAxiomException} is thrown.
      */
     public static String
-            getIdentifierFromObject(OWLObject obj, OWLOntology ont)
-                    throws UntranslatableAxiomException {
+    getIdentifierFromObject(OWLObject obj, OWLOntology ont)
+            throws UntranslatableAxiomException {
         if (obj instanceof OWLObjectProperty
                 || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
@@ -1672,9 +1594,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * See table 5.9.2. Translation of identifiers
-     * 
-     * @param iriId
-     *        the iri id
+     *
+     * @param iriId the iri id
      * @return obo identifier or null
      */
     public static String getIdentifier(IRI iriId) {
@@ -1683,9 +1604,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the identifier using base ontology.
-     * 
-     * @param iriId
-     *        the iri id
+     *
+     * @param iriId the iri id
      * @return the identifier using base ontology
      */
     protected String getIdentifierUsingBaseOntology(IRI iriId) {
@@ -1694,11 +1614,9 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the identifier.
-     * 
-     * @param iriId
-     *        the iri id
-     * @param baseOntology
-     *        the base ontology
+     *
+     * @param iriId        the iri id
+     * @param baseOntology the base ontology
      * @return the identifier
      */
     public static String getIdentifier(IRI iriId, OWLOntology baseOntology) {
@@ -1778,9 +1696,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Owl object to tag.
-     * 
-     * @param obj
-     *        the obj
+     *
+     * @param obj the obj
      * @return the string
      */
     public static String owlObjectToTag(OWLObject obj) {
@@ -1820,9 +1737,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the term frame.
-     * 
-     * @param entity
-     *        the entity
+     *
+     * @param entity the entity
      * @return the term frame
      */
     protected Frame getTermFrame(OWLClass entity) {
@@ -1839,9 +1755,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Gets the typedef frame.
-     * 
-     * @param entity
-     *        the entity
+     *
+     * @param entity the entity
      * @return the typedef frame
      */
     protected Frame getTypedefFrame(OWLEntity entity) {
@@ -1858,9 +1773,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLClassAssertionAxiom ax) {
         /*
@@ -1906,9 +1820,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Tr.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void tr(OWLSubClassOfAxiom ax) {
         OWLClassExpression sub = ax.getSubClass();
@@ -2061,15 +1974,11 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Creates the relationship clause with restrictions.
-     * 
-     * @param r
-     *        the r
-     * @param fillerId
-     *        the filler id
-     * @param qvs
-     *        the qvs
-     * @param ax
-     *        the ax
+     *
+     * @param r        the r
+     * @param fillerId the filler id
+     * @param qvs      the qvs
+     * @param ax       the ax
      * @return the clause
      */
     protected Clause createRelationshipClauseWithRestrictions(
@@ -2085,15 +1994,11 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Creates the relationship clause with cardinality.
-     * 
-     * @param restriction
-     *        the restriction
-     * @param fillerId
-     *        the filler id
-     * @param qvs
-     *        the qvs
-     * @param ax
-     *        the ax
+     *
+     * @param restriction the restriction
+     * @param fillerId    the filler id
+     * @param qvs         the qvs
+     * @param ax          the ax
      * @return the clause
      */
     protected Clause createRelationshipClauseWithCardinality(
@@ -2121,13 +2026,12 @@ public class OWLAPIOwl2Obo {
      * statements. E.g., min=2 and min=3 is resolved to min=2, or max=2 and
      * max=4 is resolved to max=4. It will not merge conflicting exact
      * cardinality statements. TODO How to merge "all_some", and "all_only"?
-     * 
-     * @param clauses
-     *        the clauses
+     *
+     * @param clauses the clauses
      * @return normalized list of {@link Clause}
      */
     public static List<Clause>
-            normalizeRelationshipClauses(List<Clause> clauses) {
+    normalizeRelationshipClauses(List<Clause> clauses) {
         final List<Clause> normalized = new ArrayList<Clause>();
         while (!clauses.isEmpty()) {
             final Clause target = clauses.remove(0);
@@ -2140,15 +2044,13 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Find similar clauses.
-     * 
-     * @param clauses
-     *        the clauses
-     * @param target
-     *        the target
+     *
+     * @param clauses the clauses
+     * @param target  the target
      * @return the list
      */
     static List<Clause> findSimilarClauses(List<Clause> clauses,
-            final Clause target) {
+                                           final Clause target) {
         final String targetTag = target.getTag();
         final Object targetValue = target.getValue();
         final Object targetValue2 = target.getValue2();
@@ -2176,14 +2078,12 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Merge similar into target.
-     * 
-     * @param target
-     *        the target
-     * @param similar
-     *        the similar
+     *
+     * @param target  the target
+     * @param similar the similar
      */
     static void
-            mergeSimilarIntoTarget(final Clause target, List<Clause> similar) {
+    mergeSimilarIntoTarget(final Clause target, List<Clause> similar) {
         if (similar.isEmpty()) {
             return;
         }
@@ -2213,15 +2113,13 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Find matching qualifier value.
-     * 
-     * @param query
-     *        the query
-     * @param list
-     *        the list
+     *
+     * @param query the query
+     * @param list  the list
      * @return the qualifier value
      */
     static QualifierValue findMatchingQualifierValue(QualifierValue query,
-            Collection<QualifierValue> list) {
+                                                     Collection<QualifierValue> list) {
         String queryQualifier = query.getQualifier();
         for (QualifierValue qv : list) {
             if (queryQualifier.equals(qv.getQualifier())) {
@@ -2233,14 +2131,12 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Merge qualifier values.
-     * 
-     * @param target
-     *        the target
-     * @param newQV
-     *        the new qv
+     *
+     * @param target the target
+     * @param newQV  the new qv
      */
     static void
-            mergeQualifierValues(QualifierValue target, QualifierValue newQV) {
+    mergeQualifierValues(QualifierValue target, QualifierValue newQV) {
         // do nothing, if they are equal
         if (!target.getValue().equals(newQV.getValue())) {
             if ("minCardinality".equals(target.getQualifier())) {
@@ -2263,11 +2159,9 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Error.
-     * 
-     * @param message
-     *        the message
-     * @param ax
-     *        the ax
+     *
+     * @param message the message
+     * @param ax      the ax
      */
     protected void error(String message, OWLAxiom ax) {
         untranslatableAxioms.add(ax);
@@ -2276,9 +2170,8 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Error.
-     * 
-     * @param ax
-     *        the ax
+     *
+     * @param ax the ax
      */
     protected void error(OWLAxiom ax) {
         untranslatableAxioms.add(ax);
@@ -2287,14 +2180,16 @@ public class OWLAPIOwl2Obo {
 
     /**
      * Error.
-     * 
-     * @param message
-     *        the message
+     *
+     * @param message the message
      */
     protected void error(String message) {
-        LOG.error(message);
         if (strictConversion) {
             throw new RuntimeException("The conversion is halted: " + message);
+        } else {
+            if (!muteUntranslatableAxioms) {
+                LOG.error("MASKING ERROR «{}»", message, new Exception());
+            }
         }
     }
 }
