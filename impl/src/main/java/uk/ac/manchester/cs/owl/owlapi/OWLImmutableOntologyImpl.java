@@ -110,11 +110,6 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     protected OWLOntologyID ontologyID;
     protected Internals internals;
 
-    @Override
-    public Internals getInternals() {
-        return internals;
-    }
-
     /**
      * @param manager
      *        ontology manager
@@ -786,7 +781,7 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     }
 
     @Override
-    public Set<OWLDataPropertyAxiom> getAxioms(final OWLDataProperty prop,
+    public Set<OWLDataPropertyAxiom> getAxioms(OWLDataProperty prop,
             boolean includeImports) {
         Set<OWLDataPropertyAxiom> result = createSet();
         if (!includeImports) {
@@ -807,7 +802,7 @@ public class OWLImmutableOntologyImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLIndividualAxiom> getAxioms(OWLIndividual individual,
             boolean includeImports) {
-        final Set<OWLIndividualAxiom> result = createSet();
+        Set<OWLIndividualAxiom> result = createSet();
         if (!includeImports) {
             result.addAll(getClassAssertionAxioms(individual));
             result.addAll(getObjectPropertyAssertionAxioms(individual));

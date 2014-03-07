@@ -44,9 +44,9 @@ public class ClassAxiomByClassPointer extends
     }
 
     @Override
-    public void init() {
+    public ClassAxiomByClassPointer init() {
         if (isInitialized()) {
-            return;
+            return this;
         }
         super.init();
         // special case: this map needs other maps to be initialized first
@@ -73,5 +73,6 @@ public class ClassAxiomByClassPointer extends
                 put(c, ax);
             }
         }
+        return this;
     }
 }

@@ -31,8 +31,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
@@ -143,7 +143,7 @@ public class OWLLiteralImplNoCompression extends OWLObjectImpl implements
 
     @Override
     public boolean parseBoolean() throws NumberFormatException {
-        final String literal2 = getLiteral();
+        String literal2 = getLiteral();
         if (literal2.equals("0")) {
             return false;
         }
