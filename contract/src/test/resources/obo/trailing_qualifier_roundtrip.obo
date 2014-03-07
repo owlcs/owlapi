@@ -18,7 +18,7 @@ alt_id: TEST:0002 {val1="one",val2="two"} ! comment
 def: "The fake definition for test1." [REF:0001 , REF:0002] {val1="one",val2="two"} ! comment
 comment: bla bla bla bla {val1="one",val2="two"} ! comment
 subset: GO_SLIM {val1="one",val2="two"} ! comment
-synonym: "test one" UK_SPELLING [REF:0001, REF:0002] {val1="one",val2="two"} ! comment
+synonym: "test one" EXACT UK_SPELLING [REF:0001, REF:0002] {val1="one",val2="two"} ! comment
 xref: ISBN:0000000 "Book title" {val1="one",val2="two"} ! comment
 builtin: false {val1="one",val2="two"} ! comment
 property_value: external_definition "An external definition string" xsd:string {val1="one",val2="two"} ! comment

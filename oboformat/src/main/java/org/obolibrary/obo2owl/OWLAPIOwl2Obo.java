@@ -908,22 +908,6 @@ public class OWLAPIOwl2Obo {
     protected boolean tr(OWLAnnotationProperty prop, OWLAnnotationValue annVal,
             Set<OWLAnnotation> qualifiers, Frame frame) {
         String tagString = owlObjectToTag(prop);
-        String synonymType = null;
-        if (tagString == null) {
-            // might be a synonym with custom synonym type
-            Set<OWLSubAnnotationPropertyOfAxiom> axioms = owlOntology
-                    .getAxioms(AxiomType.SUB_ANNOTATION_PROPERTY_OF);
-            if (axioms != null) {
-                for (OWLSubAnnotationPropertyOfAxiom axiom : axioms) {
-                    OWLAnnotationProperty subProperty = axiom.getSubProperty();
-                    if (prop.equals(subProperty)) {
-                        synonymType = getIdentifier(prop.getIRI());
-                        tagString = OboFormatTag.TAG_SYNONYM.getTag();
-                        break;
-                    }
-                }
-            }
-        }
         if (tagString == null) {
             // still unknown render as property value
             return trGenericPropertyValue(prop, annVal, qualifiers, frame);
@@ -1000,6 +984,9 @@ public class OWLAPIOwl2Obo {
                 handleSynonym(qualifiers, tag.getTag(), clause,
                         unprocessedQualifiers);
             } else if (tag == OboFormatTag.TAG_SYNONYM) {
+                // This should never happen.
+                // All synonyms need to be qualified with a type.
+                String synonymType = null;
                 handleSynonym(qualifiers, synonymType, clause,
                         unprocessedQualifiers);
             }

@@ -800,7 +800,6 @@ public class OBOFormatWriter {
             table.put(OboFormatTag.TAG_DATE.getTag(), 15);
             table.put(OboFormatTag.TAG_SAVED_BY.getTag(), 20);
             table.put(OboFormatTag.TAG_AUTO_GENERATED_BY.getTag(), 25);
-            table.put(OboFormatTag.TAG_IMPORT.getTag(), 30);
             table.put(OboFormatTag.TAG_SUBSETDEF.getTag(), 35);
             table.put(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag(), 40);
             table.put(OboFormatTag.TAG_DEFAULT_NAMESPACE.getTag(), 45);
@@ -813,6 +812,8 @@ public class OBOFormatWriter {
             table.put(OboFormatTag.TAG_TREAT_XREFS_AS_RELATIONSHIP.getTag(), 65);
             table.put(OboFormatTag.TAG_TREAT_XREFS_AS_IS_A.getTag(), 70);
             table.put(OboFormatTag.TAG_REMARK.getTag(), 75);
+            // moved from pos 30 to emulate OBO-Edit behavior
+            table.put(OboFormatTag.TAG_IMPORT.getTag(), 80);
             // moved from pos 5 to emulate OBO-Edit behavior
             table.put(OboFormatTag.TAG_ONTOLOGY.getTag(), 85);
             table.put(OboFormatTag.TAG_PROPERTY_VALUE.getTag(), 100);
