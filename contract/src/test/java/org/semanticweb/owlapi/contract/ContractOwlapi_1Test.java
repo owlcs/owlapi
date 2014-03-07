@@ -731,8 +731,6 @@ public class ContractOwlapi_1Test {
                 .isDeclared(mock(OWLDeclarationAxiom.class));
         boolean result13 = testSubject0.addAxiom(mock(OWLAxiom.class));
         boolean result14 = testSubject0.removeAxiom(mock(OWLAxiom.class));
-        Set<OWLClass> result15 = testSubject0.getValues(mock(MapPointer.class),
-                mock(Object.class));
         Pointer<OWLClass, OWLClassAxiom> result16 = testSubject0
                 .getClassAxiomsByClass();
         Pointer<OWLClass, OWLSubClassOfAxiom> result17 = testSubject0
@@ -833,9 +831,6 @@ public class ContractOwlapi_1Test {
                 .getOwlIndividualReferences();
         Pointer<OWLObjectProperty, OWLAxiom> result64 = testSubject0
                 .getOwlObjectPropertyReferences();
-        boolean result65 = testSubject0.hasValues(mock(MapPointer.class),
-                mock(Object.class));
-        Set<OWLClass> result66 = testSubject0.getKeyset(mock(MapPointer.class));
         Set<OWLClass> result67 = testSubject0.filterAxioms(
                 mock(OWLAxiomSearchFilter.class), mock(Object.class));
         testSubject0.removeGeneralClassAxioms(mock(OWLClassAxiom.class));
