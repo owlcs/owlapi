@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -36,6 +37,7 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         owlOnt = convertOBOFile("rel_xref_test.obo");
     }
 
+    @Ignore
     @Test
     public void testCorrectIdAnnotationCount() {
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
