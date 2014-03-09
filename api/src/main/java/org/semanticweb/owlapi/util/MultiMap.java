@@ -287,4 +287,9 @@ public class MultiMap<Key, Value> implements Serializable {
         }
         return true;
     }
+
+    /** @return true if this map is using sets for value collections */
+    public boolean isUsingSets() {
+        return useSets;
+    }
 }

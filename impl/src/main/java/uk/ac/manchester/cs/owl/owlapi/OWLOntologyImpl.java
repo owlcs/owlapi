@@ -79,7 +79,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
         @Override
         public T visit(RemoveAxiom change) {
-            if (internals.removeAxiom(change.getAxiom())) {
+            if (ints.removeAxiom(change.getAxiom())) {
                 return (T) change;
             }
             return null;
@@ -97,7 +97,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
         @Override
         public T visit(AddAxiom change) {
-            if (internals.addAxiom(change.getAxiom())) {
+            if (ints.addAxiom(change.getAxiom())) {
                 return (T) change;
             }
             return null;
@@ -106,7 +106,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         @Override
         public T visit(AddImport change) {
             // TODO change this to be done inside
-            if (internals.addImportsDeclaration(change.getImportDeclaration())) {
+            if (ints.addImportsDeclaration(change.getImportDeclaration())) {
                 return (T) change;
             }
             return null;
@@ -114,8 +114,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
         @Override
         public T visit(RemoveImport change) {
-            if (internals.removeImportsDeclaration(change
-                    .getImportDeclaration())) {
+            if (ints.removeImportsDeclaration(change.getImportDeclaration())) {
                 return (T) change;
             }
             return null;
@@ -123,7 +122,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
         @Override
         public T visit(AddOntologyAnnotation change) {
-            if (internals.addOntologyAnnotation(change.getAnnotation())) {
+            if (ints.addOntologyAnnotation(change.getAnnotation())) {
                 return (T) change;
             }
             return null;
@@ -131,7 +130,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
 
         @Override
         public T visit(RemoveOntologyAnnotation change) {
-            if (internals.removeOntologyAnnotation(change.getAnnotation())) {
+            if (ints.removeOntologyAnnotation(change.getAnnotation())) {
                 return (T) change;
             }
             return null;

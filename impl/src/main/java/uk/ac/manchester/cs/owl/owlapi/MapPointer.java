@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.Internals;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
@@ -32,7 +31,9 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitCollectionVisitor;
 import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
 
 /**
- * Map implementation for a pointer.
+ * * Objects that identify contained maps - so that getting the keys of a
+ * specific map does not require a specific method for each map nor does it
+ * require the map to be copied and returned.
  * 
  * @author ignazio
  * @param <K>
@@ -40,8 +41,7 @@ import uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.InitVisitor;
  * @param <V>
  *        value
  */
-public class MapPointer<K, V extends OWLAxiom> implements
-        Internals.Pointer<K, V>, Serializable {
+public class MapPointer<K, V extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
     private final MultiMap<K, V> map;
@@ -76,6 +76,14 @@ public class MapPointer<K, V extends OWLAxiom> implements
     }
 
     /**
+     * @return true if the underlying map is using sets. This implies the
+     *         collections returned contain only unique elements.
+     */
+    public boolean isUsingSets() {
+        return map.isUsingSets();
+    }
+
+    /**
      * init the map pointer
      * 
      * @return the map pointer
@@ -90,14 +98,14 @@ public class MapPointer<K, V extends OWLAxiom> implements
             return this;
         }
         if (visitor instanceof InitVisitor) {
-            for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
+            for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
                 K key = ax.accept((InitVisitor<K>) visitor);
                 if (key != null) {
                     map.put(key, ax);
                 }
             }
         } else {
-            for (V ax : (Set<V>) i.getValues(i.getAxiomsByType(), type)) {
+            for (V ax : (Set<V>) i.getAxiomsByType().getValues(type)) {
                 Collection<K> keys = ax
                         .accept((InitCollectionVisitor<K>) visitor);
                 for (K key : keys) {
@@ -115,6 +123,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
 
     /** @return keyset */
     public Set<K> keySet() {
+        init();
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
                 .keySet());
     }
@@ -125,6 +134,7 @@ public class MapPointer<K, V extends OWLAxiom> implements
      * @return value
      */
     public Set<V> getValues(K key) {
+        init();
         return CollectionFactory.getCopyOnRequestSetFromMutableCollection(map
                 .get(key));
     }
@@ -157,6 +167,9 @@ public class MapPointer<K, V extends OWLAxiom> implements
      * @return true if removal happens
      */
     public boolean remove(K key, V value) {
+        if (!isInitialized()) {
+            return false;
+        }
         return map.remove(key, value);
     }
 
