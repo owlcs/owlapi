@@ -80,7 +80,6 @@ public class RioParserTest extends TestBase {
      * Test method for
      * {@link org.semanticweb.owlapi.rio.RioParserImpl#parse(org.semanticweb.owlapi.io.OWLOntologyDocumentSource, org.semanticweb.owlapi.model.OWLOntology)}
      */
-    @Ignore
     @Test
     public void testParsePrimer() throws OWLParserException, IOException,
             OWLOntologyCreationException {
@@ -89,7 +88,7 @@ public class RioParserTest extends TestBase {
         OWLOntologyFormat owlapiOntologyFormat = owlapiParser.parse(
                 new StreamDocumentSource(this.getClass().getResourceAsStream(
                         "/primer.rdfxml.xml")), owlapiOntologyPrimer);
-        assertEquals(93, owlapiOntologyPrimer.getAxiomCount());
+        assertEquals(92, owlapiOntologyPrimer.getAxiomCount());
         assertEquals(new RDFXMLOntologyFormat(), owlapiOntologyFormat);
         RioParserImpl rioParser = new RioParserImpl(
                 new RDFXMLOntologyFormatFactory());
@@ -103,7 +102,7 @@ public class RioParserTest extends TestBase {
         assertEquals(new RioRDFXMLOntologyFormat(RDFFormat.RDFXML),
                 rioOntologyFormat);
         equal(owlapiOntologyPrimer, rioOntologyPrimer);
-        assertEquals(93, rioOntologyPrimer.getAxiomCount());
+        assertEquals(92, rioOntologyPrimer.getAxiomCount());
     }
 
     /*
