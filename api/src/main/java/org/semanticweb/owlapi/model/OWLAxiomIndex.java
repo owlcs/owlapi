@@ -33,7 +33,7 @@ public interface OWLAxiomIndex {
      * @param type
      *        type of axioms
      * @param entity
-     *        referred entity
+     *        referred entity (OWLPrimitive or property/class expression)
      * @param includeImports
      *        true if import closure should be searched
      * @param forSubPosition
@@ -45,7 +45,34 @@ public interface OWLAxiomIndex {
      *         data.
      */
     @Nonnull
-    <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLPrimitive entity,
+    <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
+            boolean includeImports, boolean forSubPosition);
+
+    /**
+     * Generic search method: resutns all axioms which refer entity, are
+     * instances of type, optionally including the imports closure in the
+     * results.
+     * 
+     * @param type
+     *        type of axioms
+     * @param explicitClass
+     *        for overlapping indexes in the ontology internals, an explicit
+     *        class rathet than the entity class might be necessary
+     * @param entity
+     *        referred entity (OWLPrimitive or property/class expression)
+     * @param includeImports
+     *        true if import closure should be searched
+     * @param forSubPosition
+     *        for sub axioms (subclass, subproperty), the value specifies
+     *        whether entity should appear as sub or super entity in the axioms
+     *        returned. For axiom types that have no sub/super entites, this
+     *        parameter is ignored.
+     * @return set of axioms satisfying the conditions. The set is a copy of the
+     *         data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Set<T> getAxioms(Class<T> type,
+            Class<? extends OWLObject> explicitClass, OWLObject entity,
             boolean includeImports, boolean forSubPosition);
 
     // ////////////////////////////////////////////////////////////////////////////////////////////

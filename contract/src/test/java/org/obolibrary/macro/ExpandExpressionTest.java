@@ -1,6 +1,6 @@
 package org.obolibrary.macro;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Set;
 
@@ -38,7 +38,7 @@ public class ExpandExpressionTest extends OboFormatTestBasics {
         Set<OWLSubClassOfAxiom> scas = outputOntology
                 .getSubClassAxiomsForSubClass(cls);
         // System.out.println(scas);
-        assertTrue(scas.size() == 1);
+        assertEquals(1, scas.size());
         assertTrue(scas
                 .toString()
                 .equals("[SubClassOf(<http://purl.obolibrary.org/obo/TEST_3> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> ObjectIntersectionOf(<http://purl.obolibrary.org/obo/GO_0005886> ObjectSomeValuesFrom(<http://purl.obolibrary.org/obo/BFO_0000051> <http://purl.obolibrary.org/obo/TEST_4>))))]"));

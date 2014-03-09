@@ -145,6 +145,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * @return true if there are values for key
      */
     public boolean hasValues(K key) {
+        init();
         return map.containsKey(key);
     }
 
@@ -156,6 +157,10 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * @return true if addition happens
      */
     public boolean put(K key, V value) {
+        // lazy init: no elements added until a recall is made
+        if (!initialized) {
+            return false;
+        }
         return map.put(key, value);
     }
 
@@ -167,7 +172,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * @return true if removal happens
      */
     public boolean remove(K key, V value) {
-        if (!isInitialized()) {
+        if (!initialized) {
             return false;
         }
         return map.remove(key, value);
@@ -179,6 +184,7 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * @return true if there are values for key
      */
     public boolean containsKey(K key) {
+        init();
         return map.containsKey(key);
     }
 
@@ -190,21 +196,25 @@ public class MapPointer<K, V extends OWLAxiom> implements Serializable {
      * @return true if key and value are contained
      */
     public boolean contains(K key, V value) {
+        init();
         return map.contains(key, value);
     }
 
     /** @return all values contained */
     public Set<V> getAllValues() {
+        init();
         return map.getAllValues();
     }
 
     /** @return number of mapping contained */
     public int size() {
+        init();
         return map.size();
     }
 
     /** @return true if empty */
     public boolean isEmpty() {
+        init();
         return map.size() == 0;
     }
 }

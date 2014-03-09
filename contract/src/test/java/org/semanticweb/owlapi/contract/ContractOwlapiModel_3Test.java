@@ -1035,8 +1035,6 @@ public class ContractOwlapiModel_3Test {
                 .getAnnotationAssertionAxioms(mock(OWLAnnotationSubject.class));
         Set<OWLSubClassOfAxiom> result76 = testSubject0
                 .getSubClassAxiomsForSubClass(mock(OWLClass.class));
-        Set<OWLSubClassOfAxiom> result77 = testSubject0
-                .getSubClassAxiomsForSuperClass(mock(OWLClass.class));
         Set<OWLEquivalentClassesAxiom> result78 = testSubject0
                 .getEquivalentClassesAxioms(mock(OWLClass.class));
         Set<OWLDisjointClassesAxiom> result79 = testSubject0
