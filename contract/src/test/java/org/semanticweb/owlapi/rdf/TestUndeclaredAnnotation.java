@@ -52,8 +52,8 @@ public class TestUndeclaredAnnotation {
         OWLAnonymousIndividual anonymousIndividual = df.getOWLAnonymousIndividual("genid1");
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty, TEST_IRI, anonymousIndividual);
 
-        OWLLiteral notVisible = df.getOWLLiteral("NotVisible");
-        OWLAnnotationAssertionAxiom predAx = df.getOWLAnnotationAssertionAxiom(predProperty, NodeID.nodeId(1), notVisible);
+        OWLLiteral notVisible = df.getOWLLiteral("Not visible","");
+        OWLAnnotationAssertionAxiom predAx = df.getOWLAnnotationAssertionAxiom(predProperty, anonymousIndividual, notVisible);
         assertTrue("should contain relax", annotationAxioms.contains(relAx));
         assertTrue("should contain predax", annotationAxioms.contains(predAx));
 
