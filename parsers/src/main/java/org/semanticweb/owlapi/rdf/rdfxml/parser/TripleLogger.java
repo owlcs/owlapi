@@ -12,35 +12,38 @@ import org.slf4j.LoggerFactory;
  */
 public class TripleLogger {
 
-    /** The Constant tripleProcessor. */
-    private static final Logger tripleProcessor = LoggerFactory
+    /** The Constant log. */
+    private static final Logger log = LoggerFactory
             .getLogger(TripleLogger.class);
     // Debug stuff
     private int count = 0;
 
     /** @return triples counted */
-    public int count() {
+    synchronized public int count() {
         return count;
     }
-
+    synchronized public void logTriple(Object s, Object p, Object o) {
+        log.debug("s={} p={} o={}",s,p,o);
+        incrementTripleCount();
+    }
     /** increment count and log. */
-    public void incrementTripleCount() {
+    private  void incrementTripleCount() {
         count++;
         if (count % 10000 == 0) {
-            tripleProcessor.info("Parsed: {} triples", count);
+            log.debug("Parsed: {} triples", count);
         }
     }
 
     /** log finl count. */
-    public void logNumberOfTriples() {
-        tripleProcessor.info("Total number of triples: {}", count);
+   synchronized public void logNumberOfTriples() {
+        log.debug("Total number of triples: {}", count);
     }
 
     /**
      * @param id
      *        log ontology id
      */
-    public void logOntologyID(OWLOntologyID id) {
-        tripleProcessor.info("Loaded {}", id);
+    synchronized public void logOntologyID(OWLOntologyID id) {
+        log.debug("Loaded {}", id);
     }
 }
