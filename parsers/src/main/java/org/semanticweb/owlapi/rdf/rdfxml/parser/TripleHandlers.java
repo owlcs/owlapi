@@ -982,8 +982,9 @@ public class TripleHandlers {
                 if (isDataPropertyLax(subject)) {
                     return true;
                 }
+                return false;
             }
-            return false;
+            return true;
         }
 
         @Override
@@ -1062,7 +1063,9 @@ public class TripleHandlers {
                         anno, getPendingAnnotations());
                 addAxiom(decAx);
             }
+            consumeTriple(subject,predicate,object);
         }
+
     }
 
     static class GTPDataPropertyAssertionHandler extends AbstractTripleHandler
