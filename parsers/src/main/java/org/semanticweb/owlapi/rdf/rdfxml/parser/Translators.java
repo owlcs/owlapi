@@ -1023,10 +1023,52 @@ public class Translators {
             if (consumer.isObjectPropertyOnly(firstObject)) {
                 return consumer.getDataFactory().getOWLObjectProperty(
                         firstObject);
-            } else {
+            }
+            if (consumer.isDataPropertyOnly(firstObject)) {
                 return consumer.getDataFactory()
                         .getOWLDataProperty(firstObject);
             }
+            // If neither condition was true, the property has been illegally
+            // punned, or is untyped
+            // use the first translation available, since there is no way to
+            // know which is correct
+            OWLPropertyExpression property = null;
+            if (consumer.isObjectProperty(firstObject)) {
+                logger.warn(
+                        "Property {} has been punned illegally: found declaration as OWLObjectProperty",
+                        firstObject);
+                property = consumer.getDataFactory().getOWLObjectProperty(
+                        firstObject);
+            }
+            if (consumer.isDataProperty(firstObject)) {
+                logger.warn(
+                        "Property {} has been punned illegally: found declaration as OWLDataProperty",
+                        firstObject);
+                if (property == null) {
+                    property = consumer.getDataFactory().getOWLDataProperty(
+                            firstObject);
+                }
+            }
+            if (consumer.isAnnotationProperty(firstObject)) {
+                logger.warn(
+                        "Property {} has been punned illegally: found declaration as OWLAnnotationProperty",
+                        firstObject);
+                if (property == null) {
+                    property = consumer.getDataFactory()
+                            .getOWLAnnotationProperty(firstObject);
+                }
+            }
+            // if there is no declaration for the property at this point, warn
+            // and consider it a datatype property.
+            // This matches existing behaviour.
+            if (property == null) {
+                logger.warn(
+                        "Property {} is undeclared at this point in parsing: typing as OWLDataProperty",
+                        firstObject);
+                property = consumer.getDataFactory().getOWLDataProperty(
+                        firstObject);
+            }
+            return property;
         }
     }
 
