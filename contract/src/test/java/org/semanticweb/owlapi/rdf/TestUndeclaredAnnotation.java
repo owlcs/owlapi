@@ -49,7 +49,9 @@ public class TestUndeclaredAnnotation {
         IRI PRED_IRI = IRI.create("http://example.com/ns#pred");
         OWLAnnotationProperty relProperty = df.getOWLAnnotationProperty(REL_IRI);
         OWLAnnotationProperty predProperty = df.getOWLAnnotationProperty(PRED_IRI);
-        OWLAnonymousIndividual anonymousIndividual = df.getOWLAnonymousIndividual("genid1");
+        Set<OWLAnonymousIndividual> anonymousIndividualSet= oo.getAnonymousIndividuals();
+        assertEquals("should be one anonymous individual",1,anonymousIndividualSet.size());
+        OWLAnonymousIndividual anonymousIndividual = anonymousIndividualSet.iterator().next();
         OWLAnnotationAssertionAxiom relAx = df.getOWLAnnotationAssertionAxiom(relProperty, TEST_IRI, anonymousIndividual);
 
         OWLLiteral notVisible = df.getOWLLiteral("Not visible","");
