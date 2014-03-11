@@ -179,7 +179,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         for (XSDVocabulary v : XSDVocabulary.values()) {
             dataTypeNames.add(v.getIRI().toString());
             dataTypeNames.add(v.getIRI().toQuotedString());
-            dataTypeNames.add("xsd:" + v.getIRI().getFragment());
+            dataTypeNames.add(v.getPrefixedName());
         }
         dataTypeNames.add("rdfs:"
                 + OWLRDFVocabulary.RDFS_LITERAL.getIRI().getFragment());
@@ -960,7 +960,20 @@ public class ManchesterOWLSyntaxEditorParser implements
         } else if (isClassName(tok)) {
             String name = consumeToken();
             return getOWLClass(name);
-        } else if (!eof(tok) || !lookaheadCheck) {
+        }
+        // XXX problem: if the class expression is missing, we should return
+        // owl:Thing. But there are many ways in which it could be missing. Hard
+        // to tell what sort of lookahead is needed.
+        // The next two checks should cover most cases.
+        for (ManchesterOWLSyntax x : ManchesterOWLSyntax.values()) {
+            if (x.matches(tok)) {
+                return dataFactory.getOWLThing();
+            }
+        }
+        if (eof(tok)) {
+            return dataFactory.getOWLThing();
+        }
+        if (!eof(tok) || !lookaheadCheck) {
             consumeToken();
             throw new ExceptionBuilder().withKeyword(OPEN, OPENBRACE)
                     .withClass().build();
@@ -2812,7 +2825,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         @Override
         public OWLClassExpression parseItem(F s) {
-            return parseIntersection();
+            return parseUnion();
         }
     }
 
