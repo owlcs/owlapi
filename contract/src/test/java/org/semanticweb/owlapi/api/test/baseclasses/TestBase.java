@@ -46,8 +46,8 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 @SuppressWarnings("javadoc")
@@ -112,10 +112,9 @@ public abstract class TestBase {
                 boolean fixed = !verifyErrorIsDueToBlankNodesId(leftOnly,
                         rightOnly);
                 if (fixed) {
-                    new RuntimeException().printStackTrace(System.out);
                     String x = this.getClass().getSimpleName()
-                            + " roundTripOntology() Failing to match axioms: "
-                            + sb.toString();
+                            + " roundTripOntology() Failing to match axioms: \n"
+                            + sb.toString() + topOfStackTrace();
                     System.out.println(x);
                     fail(x);
                     return false;
@@ -128,6 +127,12 @@ public abstract class TestBase {
         }
         assertEquals(axioms1, axioms2);
         return true;
+    }
+
+    private String topOfStackTrace() {
+        StackTraceElement[] elements = new RuntimeException().getStackTrace();
+        return elements[1].toString() + "\n" + elements[2].toString() + "\n"
+                + elements[3].toString();
     }
 
     /**
@@ -285,6 +290,15 @@ public abstract class TestBase {
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
                         new StringDocumentSource(input));
+        return ontology;
+    }
+
+    protected OWLOntology loadOntologyFromString(String input, IRI i,
+            OWLOntologyFormat f) throws OWLOntologyCreationException {
+        StringDocumentSource documentSource = new StringDocumentSource(input,
+                i, f);
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(documentSource);
         return ontology;
     }
 
