@@ -40,8 +40,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
@@ -111,7 +111,8 @@ public class OWLDatatypeImpl extends OWLObjectImpl implements OWLDatatype {
     public OWL2Datatype getBuiltInDatatype() {
         if (!builtin) {
             throw new OWLRuntimeException(
-                    "Not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
+                    iri
+                            + " is not a built in datatype.  The getBuiltInDatatype() method should only be called on built in datatypes.");
         } else {
             return OWL2Datatype.getDatatype(iri);
         }

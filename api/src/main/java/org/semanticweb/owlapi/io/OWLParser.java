@@ -140,4 +140,9 @@ public interface OWLParser {
      * @return set of supported format factories
      */
     Set<OWLOntologyFormatFactory> getSupportedFormats();
+
+    /**
+     * @return set of supported format classes
+     */
+    Set<Class<OWLOntologyFormat>> getSupportedFormatClasses();
 }

@@ -143,6 +143,43 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         OWLOntology ont = super.createOWLOntology(m, ontologyID,
                 documentSource.getDocumentIRI(), mediator);
         // Now parse the input into the empty ontology that we created
+        // select a parser if the input source has format information
+        OWLParser selectedParser = null;
+        if (documentSource.getFormat() != null) {
+            for (OWLParser parser : m.getOntologyParsers()) {
+                if (selectedParser == null
+                        && parser.getSupportedFormatClasses().contains(
+                                documentSource.getFormat().getClass())) {
+                    selectedParser = parser;
+                }
+            }
+        }
+        if (selectedParser != null) {
+            try {
+                OWLOntologyFormat format = selectedParser.parse(documentSource,
+                        ont, configuration);
+                mediator.setOntologyFormat(ont, format);
+                return ont;
+            } catch (IOException e) {
+                // No hope of any parsers working?
+                // First clean up
+                m.removeOntology(ont);
+                throw new OWLOntologyCreationIOException(e);
+            } catch (UnloadableImportException e) {
+                // First clean up
+                m.removeOntology(ont);
+                throw e;
+            } catch (OWLParserException e) {
+                // Record this attempts and abort parsing.
+                exceptions.put(selectedParser, e);
+                throw e;
+            } catch (RuntimeException e) {
+                // Clean up and rethrow
+                m.removeOntology(ont);
+                throw e;
+            }
+        }
+        // if the selected parser could not parse the ontology
         for (OWLParser parser : m.getOntologyParsers()) {
             try {
                 if (existingOntology == null && !ont.isEmpty()) {

@@ -68,6 +68,12 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     protected AbstractOWLParser() {}
 
+    @Override
+    public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
+        return Collections
+                .singleton((Class<OWLOntologyFormat>) getFormatClass());
+    }
+
     protected abstract Class<? extends OWLOntologyFormat> getFormatClass();
 
     protected String getRequestTypes() {

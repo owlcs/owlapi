@@ -123,6 +123,12 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
     }
 
     @Override
+    public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
+        return Collections
+                .singleton((Class<OWLOntologyFormat>) (Class<? extends OWLOntologyFormat>) OBOOntologyFormat.class);
+    }
+
+    @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections
                 .singleton((OWLOntologyFormatFactory) new OWLOntologyFormatFactoryImpl<OBOOntologyFormat>(

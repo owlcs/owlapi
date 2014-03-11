@@ -103,6 +103,12 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
     }
 
     @Override
+    public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
+        // not needed for this parser
+        return Collections.emptySet();
+    }
+
+    @Override
     protected Class<? extends OWLOntologyFormat> getFormatClass() {
         // not needed for this parser
         return null;
