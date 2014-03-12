@@ -39,13 +39,12 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *        will download the ontologies multiple times too, until parsing fails.
  *        Both issues could be addressed with a local file copy.
  */
-public abstract class StreamDocumentSourceBase implements
-        OWLOntologyDocumentSource {
+public abstract class StreamDocumentSourceBase extends
+        OWLOntologyDocumentSourceBase {
 
     private static final AtomicLong COUNTER = new AtomicLong();
     protected final IRI documentIRI;
     protected byte[] byteBuffer;
-    private OWLOntologyFormat format;
     private String encoding = "UTF-8";
     private Boolean streamAvailable = null;
 
@@ -68,7 +67,8 @@ public abstract class StreamDocumentSourceBase implements
      *        The document IRI
      */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI) {
+            @Nonnull IRI documentIRI, OWLOntologyFormat format, String mime) {
+        super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
         readIntoBuffer(checkNotNull(stream, "stream cannot be null"));
@@ -85,7 +85,8 @@ public abstract class StreamDocumentSourceBase implements
      *        The document IRI
      */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
-            @Nonnull IRI documentIRI) {
+            @Nonnull IRI documentIRI, OWLOntologyFormat format, String mime) {
+        super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
         checkNotNull(stream, "stream cannot be null");
@@ -96,24 +97,6 @@ public abstract class StreamDocumentSourceBase implements
         }
         readIntoBuffer(stream);
         streamAvailable = false;
-    }
-
-    @Override
-    public OWLOntologyFormat getFormat() {
-        return format;
-    }
-
-    @Override
-    public boolean isFormatKnown() {
-        return format != null;
-    }
-
-    /**
-     * @param f
-     *        format for this source
-     */
-    protected void setFormat(OWLOntologyFormat f) {
-        format = f;
     }
 
     /**

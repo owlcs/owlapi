@@ -221,7 +221,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
     @Override
     public OWLOntologyFormat parse(IRI documentIRI, OWLOntology ontology)
             throws OWLParserException, IOException, UnloadableImportException {
-        return parse(new IRIDocumentSource(documentIRI), ontology);
+        return parse(new IRIDocumentSource(documentIRI, null, null), ontology);
     }
 
     @Override

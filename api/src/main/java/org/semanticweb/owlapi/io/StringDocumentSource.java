@@ -32,19 +32,18 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Informatics Group
  * @since 2.0.0
  */
-public class StringDocumentSource implements OWLOntologyDocumentSource {
+public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static AtomicLong counter = new AtomicLong();
     private final IRI documentIRI;
     private final String string;
-    private OWLOntologyFormat format;
 
     /**
      * @param string
      *        the source string
      */
     public StringDocumentSource(@Nonnull String string) {
-        this(string, getNextDocumentIRI());
+        this(string, getNextDocumentIRI(), null, null);
     }
 
     /**
@@ -67,27 +66,15 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
      *        The string
      * @param documentIRI
      *        The document IRI
-     */
-    public StringDocumentSource(@Nonnull String string, @Nonnull IRI documentIRI) {
-        this(string, documentIRI, null);
-    }
-
-    /**
-     * Specifies a string as an ontology document.
-     * 
-     * @param string
-     *        The string
-     * @param documentIRI
-     *        The document IRI
      * @param f
      *        ontology format
      */
     public StringDocumentSource(@Nonnull String string,
-            @Nonnull IRI documentIRI, OWLOntologyFormat f) {
+            @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {
+        super(f, mime);
         this.string = checkNotNull(string, "string cannot be null");
         this.documentIRI = checkNotNull(documentIRI,
                 "documentIRI cannot be null");
-        format = f;
     }
 
     @Override
@@ -114,15 +101,5 @@ public class StringDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public IRI getDocumentIRI() {
         return documentIRI;
-    }
-
-    @Override
-    public OWLOntologyFormat getFormat() {
-        return format;
-    }
-
-    @Override
-    public boolean isFormatKnown() {
-        return format != null;
     }
 }

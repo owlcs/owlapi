@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
+import org.semanticweb.owlapi.util.PriorityCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -143,44 +144,11 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         OWLOntology ont = super.createOWLOntology(m, ontologyID,
                 documentSource.getDocumentIRI(), mediator);
         // Now parse the input into the empty ontology that we created
-        // select a parser if the input source has format information
-        OWLParser selectedParser = null;
-        if (documentSource.getFormat() != null) {
-            for (OWLParser parser : m.getOntologyParsers()) {
-                if (selectedParser == null
-                        && parser.getSupportedFormatClasses().contains(
-                                documentSource.getFormat().getClass())) {
-                    selectedParser = parser;
-                }
-            }
-        }
-        if (selectedParser != null) {
-            try {
-                OWLOntologyFormat format = selectedParser.parse(documentSource,
-                        ont, configuration);
-                mediator.setOntologyFormat(ont, format);
-                return ont;
-            } catch (IOException e) {
-                // No hope of any parsers working?
-                // First clean up
-                m.removeOntology(ont);
-                throw new OWLOntologyCreationIOException(e);
-            } catch (UnloadableImportException e) {
-                // First clean up
-                m.removeOntology(ont);
-                throw e;
-            } catch (OWLParserException e) {
-                // Record this attempts and abort parsing.
-                exceptions.put(selectedParser, e);
-                throw e;
-            } catch (RuntimeException e) {
-                // Clean up and rethrow
-                m.removeOntology(ont);
-                throw e;
-            }
-        }
-        // if the selected parser could not parse the ontology
-        for (OWLParser parser : m.getOntologyParsers()) {
+        // select a parser if the input source has format information and MIME
+        // information
+        PriorityCollection<OWLParser> parsers = getParsers(documentSource,
+                m.getOntologyParsers());
+        for (OWLParser parser : parsers) {
             try {
                 if (existingOntology == null && !ont.isEmpty()) {
                     // Junk from a previous parse. We should clear the ont
@@ -220,5 +188,79 @@ public class ParsableOWLOntologyFactory extends AbstractInMemOWLOntologyFactory 
         // that we have tried.
         throw new UnparsableOntologyException(documentSource.getDocumentIRI(),
                 exceptions, configuration);
+    }
+
+    /**
+     * select parsers by MIMe type and format of the input surce, if known. If
+     * format and MIME type are not known or not matched by any parser, return
+     * all known parsers.
+     * 
+     * @param documentSource
+     *        document source
+     * @param parsers
+     *        parsers
+     * @return selected parsers
+     */
+    private PriorityCollection<OWLParser> getParsers(
+            OWLOntologyDocumentSource documentSource,
+            PriorityCollection<OWLParser> parsers) {
+        PriorityCollection<OWLParser> candidateParsers = parsers;
+        candidateParsers = getParserCandidatesByMIME(documentSource, parsers);
+        candidateParsers = getParsersByFormat(documentSource, candidateParsers);
+        return candidateParsers;
+    }
+
+    /**
+     * If the format is known, use it to select a sublist of parsers. If it is
+     * not known, or there is no matching parser, return all parsers
+     * 
+     * @param documentSource
+     *        document source
+     * @param parsers
+     *        parsers
+     * @return candidate parsers
+     */
+    private PriorityCollection<OWLParser> getParsersByFormat(
+            OWLOntologyDocumentSource documentSource,
+            PriorityCollection<OWLParser> parsers) {
+        if (!documentSource.isFormatKnown()) {
+            return parsers;
+        }
+        PriorityCollection<OWLParser> candidateParsers = new PriorityCollection<OWLParser>();
+        for (OWLParser parser : parsers) {
+            if (parser.getSupportedFormatClasses().contains(
+                    documentSource.getFormat().getClass())) {
+                candidateParsers.add(parser);
+            }
+        }
+        if (candidateParsers.size() == 0) {
+            return parsers;
+        }
+        return candidateParsers;
+    }
+
+    /**
+     * If the MIME type is known, use it to select a sublist of parsers. If it
+     * is not known, or there is no matching parser, return all parsers
+     * 
+     * @param documentSource
+     *        document source
+     * @param parsers
+     *        parsers
+     * @return candidate parsers
+     */
+    private PriorityCollection<OWLParser> getParserCandidatesByMIME(
+            OWLOntologyDocumentSource documentSource,
+            PriorityCollection<OWLParser> parsers) {
+        if (!documentSource.isMIMETypeKnown()) {
+            return parsers;
+        }
+        PriorityCollection<OWLParser> candidateParsers = parsers
+                .getByMIMEType(documentSource.getMIMEType());
+        if (candidateParsers.size() == 0) {
+            // if no parsers match the MIME type, ignore it
+            return parsers;
+        }
+        return candidateParsers;
     }
 }

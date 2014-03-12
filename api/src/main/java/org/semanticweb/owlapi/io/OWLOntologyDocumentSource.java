@@ -99,4 +99,10 @@ public interface OWLOntologyDocumentSource {
 
     /** @return true if the format is known */
     boolean isFormatKnown();
+
+    /** @return MIME type for this source, if one is specified. */
+    String getMIMEType();
+
+    /** @return true if the MIME type for this source is known */
+    boolean isMIMETypeKnown();
 }

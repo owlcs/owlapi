@@ -722,8 +722,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
             // the ontology from.
             throw new OntologyIRIMappingNotFoundException(ontologyIRI);
         }
-        return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI),
-                configuration);
+        return loadOntology(ontologyIRI, new IRIDocumentSource(documentIRI,
+                null, null), configuration);
     }
 
     private OWLOntology getOntologyByDocumentIRI(IRI documentIRI) {
@@ -740,7 +740,8 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     public OWLOntology loadOntologyFromOntologyDocument(IRI documentIRI)
             throws OWLOntologyCreationException {
         // Ontology URI not known in advance
-        return loadOntology(null, new IRIDocumentSource(documentIRI),
+        return loadOntology(null,
+                new IRIDocumentSource(documentIRI, null, null),
                 new OWLOntologyLoaderConfiguration());
     }
 

@@ -128,18 +128,22 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
      * @return An {@link OWLOntologyFormatFactory} matching the given mime type
      *         or null if none were found.
      */
-    public T getByMIMEType(@Nonnull String mimeType) {
+    public PriorityCollection<T> getByMIMEType(@Nonnull String mimeType) {
         checkNotNull(mimeType, "MIME-Type cannot be null");
+        PriorityCollection<T> pc = new PriorityCollection<T>();
+        // adding directly to the delegate. No need to order because insertion
+        // will be ordered as in this PriorityCollection
         for (T t : delegate) {
             SupportsMIMEType mime = t.getClass().getAnnotation(
                     SupportsMIMEType.class);
             if (mime != null) {
                 if (mimeType.equals(mime.defaultMIMEType())) {
-                    return t;
-                }
-                for (String mimeName : mime.supportedMIMEtypes()) {
-                    if (mimeType.equals(mimeName)) {
-                        return t;
+                    pc.delegate.add(t);
+                } else {
+                    for (String mimeName : mime.supportedMIMEtypes()) {
+                        if (mimeType.equals(mimeName)) {
+                            pc.delegate.add(t);
+                        }
                     }
                 }
             } else {
@@ -147,14 +151,15 @@ public class PriorityCollection<T> implements Iterable<T>, Serializable {
                 if (t instanceof MIMETypeAware) {
                     MIMETypeAware mimeTypeAware = (MIMETypeAware) t;
                     if (mimeTypeAware.getDefaultMIMEType().equals(mimeType)) {
-                        return t;
-                    }
-                    if (mimeTypeAware.getMIMETypes().contains(mimeType)) {
-                        return t;
+                        pc.delegate.add(t);
+                    } else {
+                        if (mimeTypeAware.getMIMETypes().contains(mimeType)) {
+                            pc.delegate.add(t);
+                        }
                     }
                 }
             }
         }
-        return null;
+        return pc;
     }
 }

@@ -198,7 +198,7 @@ public abstract class TestBase {
         try {
             URL url = getClass().getResource("/" + fileName);
             return m.loadOntologyFromOntologyDocument(
-                    new IRIDocumentSource(IRI.create(url)),
+                    new IRIDocumentSource(IRI.create(url), null, null),
                     new OWLOntologyLoaderConfiguration()
                             .setReportStackTraces(true));
         } catch (OWLOntologyCreationException e) {
@@ -296,7 +296,7 @@ public abstract class TestBase {
     protected OWLOntology loadOntologyFromString(String input, IRI i,
             OWLOntologyFormat f) throws OWLOntologyCreationException {
         StringDocumentSource documentSource = new StringDocumentSource(input,
-                i, f);
+                i, f, null);
         OWLOntology ontology = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(documentSource);
         return ontology;

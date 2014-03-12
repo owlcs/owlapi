@@ -36,21 +36,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      *        The stream that the ontology representation will be read from.
      */
     public StreamDocumentSource(@Nonnull InputStream is) {
-        this(is, getNextDocumentIRI("inputstream:ontology"), null);
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
-     * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
-     */
-    public StreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI) {
-        this(stream, documentIRI, null);
+        this(is, getNextDocumentIRI("inputstream:ontology"), null, null);
     }
 
     /**
@@ -65,8 +51,7 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      *        ontology format
      */
     public StreamDocumentSource(@Nonnull InputStream stream,
-            @Nonnull IRI documentIRI, OWLOntologyFormat f) {
-        super(stream, documentIRI);
-        setFormat(f);
+            @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {
+        super(stream, documentIRI, f, mime);
     }
 }

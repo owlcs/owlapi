@@ -28,18 +28,9 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  *         Informatics Group
  * @since 2.0.0
  */
-public class IRIDocumentSource implements OWLOntologyDocumentSource {
+public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private final IRI documentIRI;
-    private OWLOntologyFormat format;
-
-    /**
-     * @param documentIRI
-     *        the source document IRI
-     */
-    public IRIDocumentSource(@Nonnull IRI documentIRI) {
-        this(documentIRI, null);
-    }
 
     /**
      * @param documentIRI
@@ -47,10 +38,11 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
      * @param format
      *        ontology format
      */
-    public IRIDocumentSource(@Nonnull IRI documentIRI, OWLOntologyFormat format) {
+    public IRIDocumentSource(@Nonnull IRI documentIRI,
+            OWLOntologyFormat format, String mime) {
+        super(format, mime);
         this.documentIRI = checkNotNull(documentIRI,
                 "document iri cannot be null");
-        this.format = format;
     }
 
     @Override
@@ -83,15 +75,5 @@ public class IRIDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public String toString() {
         return documentIRI.toString();
-    }
-
-    @Override
-    public OWLOntologyFormat getFormat() {
-        return format;
-    }
-
-    @Override
-    public boolean isFormatKnown() {
-        return format != null;
     }
 }

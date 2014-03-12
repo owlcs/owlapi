@@ -36,21 +36,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *        The reader that will be used to read an ontology.
      */
     public ReaderDocumentSource(@Nonnull Reader reader) {
-        this(reader, getNextDocumentIRI("reader:ontology"), null);
-    }
-
-    /**
-     * Constructs and ontology input source which will read an ontology from a
-     * reader.
-     * 
-     * @param reader
-     *        The reader that will be used to read an ontology.
-     * @param documentIRI
-     *        The ontology document IRI which will be used as the base of the
-     *        document if needed.
-     */
-    public ReaderDocumentSource(@Nonnull Reader reader, @Nonnull IRI documentIRI) {
-        this(reader, documentIRI, null);
+        this(reader, getNextDocumentIRI("reader:ontology"), null, null);
     }
 
     /**
@@ -66,8 +52,7 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *        ontology format
      */
     public ReaderDocumentSource(@Nonnull Reader reader,
-            @Nonnull IRI documentIRI, OWLOntologyFormat f) {
-        super(reader, documentIRI);
-        setFormat(f);
+            @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {
+        super(reader, documentIRI, f, mime);
     }
 }
