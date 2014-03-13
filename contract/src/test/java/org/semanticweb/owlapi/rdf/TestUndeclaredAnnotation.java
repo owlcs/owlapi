@@ -2,7 +2,6 @@ package org.semanticweb.owlapi.rdf;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
 import java.util.Set;
 
 import org.junit.Test;
@@ -20,11 +19,12 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 /**
  * Created by ses on 3/10/14.
  */
+@SuppressWarnings("javadoc")
 public class TestUndeclaredAnnotation extends TestBase {
 
     @Test
     public void testRDFXMLUsingUndeclaredAnnotationProperty()
-            throws FileNotFoundException, OWLOntologyCreationException {
+            throws OWLOntologyCreationException {
         String input = "<?xml version=\"1.0\"?>\n"
                 + "<!DOCTYPE rdf:RDF [\n <!ENTITY ns \"http://example.com/ns#\" >\n <!ENTITY owl \"http://www.w3.org/2002/07/owl#\" >\n <!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n <!ENTITY xml \"http://www.w3.org/XML/1998/namespace\" >\n <!ENTITY rdfs \"http://www.w3.org/2000/01/rdf-schema#\" >\n <!ENTITY rdf \"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" >\n ]>\n"
                 + "<rdf:RDF xmlns=\"http://www.org/\" xml:base=\"http://www.org/\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:ns=\"http://example.com/ns#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:xml=\"http://www.w3.org/XML/1998/namespace\">\n"
@@ -58,5 +58,40 @@ public class TestUndeclaredAnnotation extends TestBase {
                 predProperty, anonymousIndividual, notVisible);
         assertTrue("should contain relax", annotationAxioms.contains(relAx));
         assertTrue("should contain predax", annotationAxioms.contains(predAx));
+    }
+
+    @Test
+    public void testTurtleUsingUndeclaredAnnotationProperty()
+            throws OWLOntologyCreationException {
+        String input = "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "        @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "        @prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "        @prefix ex: <http://www.example.org/> .\n"
+                + "        [] rdfs:label \"Visible\" ;\n"
+                + "           ex:pred ex:Visible ;\n"
+                + "           ex:pred \"Not visible\" .\n"
+                + "        ex:subj rdfs:label \"Visible\" .\n"
+                + "        ex:subj ex:pred \"Visible\" .";
+        OWLOntology oo = loadOntologyFromString(input);
+        OWLAnnotationProperty pred = df.getOWLAnnotationProperty(IRI
+                .create("http://www.example.org/pred"));
+        int countLabels = 0;
+        int countPreds = 0;
+        int countBNodeAnnotations = 0;
+        for (OWLAnnotationAssertionAxiom oa : oo
+                .getAxioms(AxiomType.ANNOTATION_ASSERTION)) {
+            if (oa.getProperty().equals(df.getRDFSLabel())) {
+                countLabels++;
+            }
+            if (oa.getProperty().equals(pred)) {
+                countPreds++;
+            }
+            if (oa.getSubject() instanceof OWLAnonymousIndividual) {
+                countBNodeAnnotations++;
+            }
+        }
+        assertEquals(3, countPreds);
+        assertEquals(2, countLabels);
+        assertEquals(3, countBNodeAnnotations);
     }
 }
