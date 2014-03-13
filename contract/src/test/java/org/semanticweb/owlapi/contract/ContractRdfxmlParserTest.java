@@ -46,7 +46,6 @@ public class ContractRdfxmlParserTest {
         testSubject0.setOntologyFormat(mock(RDFOntologyFormat.class));
         testSubject0.startModel(IRI.create(""));
         testSubject0.endModel();
-        testSubject0.addModelAttribte("", "");
         testSubject0.includeModel("", "");
         testSubject0.logicalURI(IRI.create(""));
         testSubject0.statementWithLiteralValue("", "", "", "", "");
