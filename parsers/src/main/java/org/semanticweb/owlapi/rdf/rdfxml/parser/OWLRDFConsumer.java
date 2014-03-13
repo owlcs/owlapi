@@ -1416,7 +1416,14 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     /** Dump remaining triples. */
     protected void dumpRemainingTriples() {
-        if (logger.isInfoEnabled()) {
+        // if info logging is disabled or all collections are empty, do not
+        // output anything
+        if (logger.isInfoEnabled()
+                && singleValuedResTriplesByPredicate.size()
+                        + singleValuedLitTriplesByPredicate.size()
+                        + resTriplesBySubject.size()
+                        + litTriplesBySubject.size() > 0) {
+            logger.info("dumping remaining triples");
             for (IRI predicate : singleValuedResTriplesByPredicate.keySet()) {
                 Map<IRI, IRI> map = singleValuedResTriplesByPredicate
                         .get(predicate);
@@ -1454,6 +1461,7 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
                 }
             }
         }
+        logger.info("done dumping remaining triples");
     }
 
     @Override
