@@ -79,7 +79,6 @@ public class ContractTurtleParserTest {
         testSubject0.handleComment("");
         testSubject0.handleEnd();
         testSubject0.setOntologyFormat(mock(RDFOntologyFormat.class));
-        testSubject0.addModelAttribte("", "");
         testSubject0.includeModel("", "");
         testSubject0.logicalURI(IRI.create(""));
         testSubject0.statementWithLiteralValue("", "", "", "", "");

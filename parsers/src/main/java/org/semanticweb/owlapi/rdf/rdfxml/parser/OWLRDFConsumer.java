@@ -1576,9 +1576,6 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
     }
 
     @Override
-    public void addModelAttribte(String string, String string1) {}
-
-    @Override
     public void includeModel(String string, String string1) {
         // XXX should this do nothing?
     }

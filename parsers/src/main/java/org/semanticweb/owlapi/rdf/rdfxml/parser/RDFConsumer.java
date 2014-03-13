@@ -134,17 +134,4 @@ public interface RDFConsumer {
             includeModel(@Nullable String logicalURI,
                     @Nullable String physicalURI) throws OWLRuntimeException;
 
-    /**
-     * Receives the notification that the attribute and its value has been
-     * parsed.
-     * 
-     * @param key
-     *        the key of the attribute
-     * @param value
-     *        the value of the attribute
-     * @throws OWLRuntimeException
-     *         OWLRuntimeException
-     */
-    void addModelAttribte(@Nonnull String key, @Nonnull String value)
-            throws OWLRuntimeException;
 }
