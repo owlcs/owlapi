@@ -4,43 +4,64 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Nonnull;
+
 /**
  * Wrapper for triple logging functions.
- * 
+ *
  * @author ignazio
  * @since 4.0.0
  */
 public class TripleLogger {
 
-    /** The Constant tripleProcessor. */
-    private static final Logger tripleProcessor = LoggerFactory
-            .getLogger(TripleLogger.class);
+    /**
+     * The Constant log.
+     */
+    private final Logger log;
     // Debug stuff
     private int count = 0;
 
-    /** @return triples counted */
-    public int count() {
-        return count;
+    public TripleLogger() {
+        this(LoggerFactory.getLogger(TripleLogger.class));
     }
 
-    /** increment count and log. */
-    public void incrementTripleCount() {
-        count++;
-        if (count % 10000 == 0) {
-            tripleProcessor.info("Parsed: {} triples", count);
-        }
-    }
-
-    /** log finl count. */
-    public void logNumberOfTriples() {
-        tripleProcessor.info("Total number of triples: {}", count);
+    public TripleLogger(@Nonnull Logger log) {
+        this.log = log;
     }
 
     /**
-     * @param id
-     *        log ontology id
+     * @return triples counted
      */
-    public void logOntologyID(OWLOntologyID id) {
-        tripleProcessor.info("Loaded {}", id);
+    synchronized public int count() {
+        return count;
+    }
+
+    synchronized public void logTriple(Object s, Object p, Object o) {
+        log.trace("s={} p={} o={}", s, p, o);
+        incrementTripleCount();
+    }
+
+    /**
+     * increment count and log.
+     */
+    private void incrementTripleCount() {
+        count++;
+        if (count % 10000 == 0) {
+            log.debug("Parsed: {} triples", count);
+        }
+    }
+
+    /**
+     * log finl count.
+     */
+    synchronized public void logNumberOfTriples() {
+        log.debug("Total number of triples: {}", count);
+    }
+
+    /**
+     * @param id log ontology id
+     */
+    synchronized public void logOntologyID(OWLOntologyID id) {
+        log.debug("Loaded {}", id);
     }
 }
