@@ -1466,7 +1466,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
 
     @Override
     public void startModel(IRI string) {
-        tripleLogger = new TripleLogger();
+        tripleLogger = new TripleLogger(ontologyFormat == null ? null
+                : ontologyFormat.asPrefixOWLOntologyFormat());
     }
 
     /**

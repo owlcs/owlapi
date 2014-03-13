@@ -2,7 +2,11 @@ package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nullable;
+
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +18,19 @@ import org.slf4j.LoggerFactory;
  */
 public class TripleLogger {
 
-    /** The Constant log. */
     private static final Logger log = LoggerFactory
             .getLogger(TripleLogger.class);
+    private final PrefixManager prefixManager;
     // Debug stuff
     private AtomicInteger count = new AtomicInteger();
+
+    /**
+     * @param prefixManager
+     *        prefix manager
+     */
+    public TripleLogger(@Nullable PrefixManager prefixManager) {
+        this.prefixManager = prefixManager;
+    }
 
     /** @return triples counted */
     public int count() {
@@ -36,7 +48,9 @@ public class TripleLogger {
      *        object
      */
     public void logTriple(Object s, Object p, Object o) {
-        log.trace("s={} p={} o={}", s, p, o);
+        if (log.isTraceEnabled()) {
+            log.trace("s={} p={} o={}", shorten(s), shorten(p), shorten(o));
+        }
         incrementTripleCount();
     }
 
@@ -57,8 +71,28 @@ public class TripleLogger {
      */
     public void logTriple(Object s, Object p, Object o, Object lang,
             Object datatype) {
-        log.trace("s={} p={} o={} l={} dt={}", s, p, o, lang, datatype);
+        if (log.isTraceEnabled()) {
+            log.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p),
+                    shorten(o), lang, shorten(datatype));
+        }
         incrementTripleCount();
+    }
+
+    private Object shorten(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        if (prefixManager == null || !(o instanceof IRI)) {
+            // quote strings and bnodes
+            return "\"" + o + "\"";
+        }
+        // there is a prefix manager and o is an IRI
+        IRI i = (IRI) o;
+        String result = prefixManager.getPrefixIRI(i);
+        if (result == null) {
+            result = i.toQuotedString();
+        }
+        return result;
     }
 
     /** increment count and log. */
@@ -77,7 +111,7 @@ public class TripleLogger {
      * @param id
      *        log ontology id
      */
-    synchronized public void logOntologyID(OWLOntologyID id) {
+    public void logOntologyID(OWLOntologyID id) {
         log.debug("Loaded {}", id);
     }
 }
