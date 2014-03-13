@@ -32,12 +32,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author ignazio
  * @since 3.4.8
  */
-public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
+public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static int counter = 0;
     private final IRI documentIRI;
     private final File file;
-    private OWLOntologyFormat format;
 
     /**
      * Constructs an input source which will read an ontology from a
@@ -47,7 +46,7 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
      *        The file that the ontology representation will be read from.
      */
     public GZipFileDocumentSource(File is) {
-        this(is, getNextDocumentIRI());
+        this(is, getNextDocumentIRI(), null, null);
     }
 
     /** @return a fresh IRI */
@@ -64,27 +63,14 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
      *        The file that the ontology representation will be read from.
      * @param documentIRI
      *        The document IRI
-     */
-    public GZipFileDocumentSource(File stream, IRI documentIRI) {
-        this(stream, documentIRI, null);
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified file.
-     * 
-     * @param stream
-     *        The file that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
      * @param format
      *        ontology format. Can be null.
      */
     public GZipFileDocumentSource(File stream, IRI documentIRI,
-            OWLOntologyFormat format) {
+            OWLOntologyFormat format, String mime) {
+        super(format, mime);
         this.documentIRI = documentIRI;
         file = stream;
-        this.format = format;
     }
 
     @Override
@@ -122,15 +108,5 @@ public class GZipFileDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public boolean isReaderAvailable() {
         return file.exists();
-    }
-
-    @Override
-    public OWLOntologyFormat getFormat() {
-        return format;
-    }
-
-    @Override
-    public boolean isFormatKnown() {
-        return format != null;
     }
 }

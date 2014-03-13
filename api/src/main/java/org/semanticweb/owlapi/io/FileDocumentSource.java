@@ -35,10 +35,9 @@ import org.semanticweb.owlapi.model.OWLOntologyFormat;
  *         Informatics Group
  * @since 2.2.0
  */
-public class FileDocumentSource implements OWLOntologyDocumentSource {
+public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private final File file;
-    private OWLOntologyFormat format;
 
     /**
      * Constructs an ontology input source using the specified file.
@@ -48,7 +47,7 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
      *        be obtained.
      */
     public FileDocumentSource(@Nonnull File file) {
-        this(file, null);
+        this(file, null, null);
     }
 
     /**
@@ -61,8 +60,22 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
      *        ontology format. Can be null.
      */
     public FileDocumentSource(@Nonnull File file, OWLOntologyFormat format) {
+        this(file, format, null);
+    }
+
+    /**
+     * Constructs an ontology input source using the specified file.
+     * 
+     * @param file
+     *        The file from which a concrete representation of an ontology will
+     *        be obtained.
+     * @param format
+     *        ontology format. Can be null.
+     */
+    public FileDocumentSource(@Nonnull File file, OWLOntologyFormat format,
+            String mime) {
+        super(format, mime);
         this.file = checkNotNull(file, "file cannot be null");
-        this.format = format;
     }
 
     @Override
@@ -97,15 +110,5 @@ public class FileDocumentSource implements OWLOntologyDocumentSource {
             // it cannot not support UTF-8
             throw new OWLOntologyInputSourceException(e);
         }
-    }
-
-    @Override
-    public OWLOntologyFormat getFormat() {
-        return format;
-    }
-
-    @Override
-    public boolean isFormatKnown() {
-        return format != null;
     }
 }

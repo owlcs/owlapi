@@ -129,7 +129,8 @@ public class ContractOwlapiIoTest {
 
     @Test
     public void shouldTestIRIDocumentSource() throws OWLException {
-        IRIDocumentSource testSubject0 = new IRIDocumentSource(IRI("urn:aFake"));
+        IRIDocumentSource testSubject0 = new IRIDocumentSource(
+                IRI("urn:aFake"), null, null);
         boolean result2 = testSubject0.isReaderAvailable();
         if (result2) {
             Reader result3 = testSubject0.getReader();
@@ -319,7 +320,8 @@ public class ContractOwlapiIoTest {
     public void shouldTestStreamDocumentSource() throws OWLException {
         StreamDocumentSource testSubject0 = new StreamDocumentSource(
                 mock(InputStream.class));
-        new StreamDocumentSource(mock(InputStream.class), IRI("urn:aFake"));
+        new StreamDocumentSource(mock(InputStream.class), IRI("urn:aFake"),
+                null, null);
         boolean result3 = testSubject0.isInputStreamAvailable();
         if (result3) {
             InputStream result0 = testSubject0.getInputStream();
@@ -349,7 +351,7 @@ public class ContractOwlapiIoTest {
     @Test
     public void shouldTestStringDocumentSource() throws OWLException {
         StringDocumentSource testSubject0 = new StringDocumentSource("");
-        new StringDocumentSource("", IRI("urn:aFake"));
+        new StringDocumentSource("", IRI("urn:aFake"), null, null);
         boolean result1 = testSubject0.isReaderAvailable();
         if (result1) {
             Reader result2 = testSubject0.getReader();

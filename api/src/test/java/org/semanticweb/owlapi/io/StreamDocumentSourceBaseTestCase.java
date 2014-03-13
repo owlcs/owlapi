@@ -50,7 +50,7 @@ public class StreamDocumentSourceBaseTestCase {
         StreamDocumentSourceBase source = new StreamDocumentSourceBase(
                 new InputStreamReader(
                         new ByteArrayInputStream(input.getBytes()), "UTF-8"),
-                IRI.create("urn:test")) {};
+                IRI.create("urn:test"), null, null) {};
         Reader r = source.getReader();
         StringWriter w = new StringWriter();
         int i = r.read();

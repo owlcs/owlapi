@@ -291,4 +291,14 @@ public class RioMemoryTripleSource implements OWLOntologyDocumentSource {
             throws RepositoryException {
         setNamespaces(Namespaces.asMap(Iterations.asSet(namespaces)));
     }
+
+    @Override
+    public String getMIMEType() {
+        return null;
+    }
+
+    @Override
+    public boolean isMIMETypeKnown() {
+        return false;
+    }
 }

@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public abstract class AbstractFileTestCase extends TestBase {
@@ -31,7 +31,8 @@ public abstract class AbstractFileTestCase extends TestBase {
         String fileName = getFileName();
         URL uri = getClass().getResource("/" + fileName);
         return m.loadOntologyFromOntologyDocument(
-                new IRIDocumentSource(IRI.create(uri)), getConfiguration());
+                new IRIDocumentSource(IRI.create(uri), null, null),
+                getConfiguration());
     }
 
     protected OWLOntologyLoaderConfiguration getConfiguration() {

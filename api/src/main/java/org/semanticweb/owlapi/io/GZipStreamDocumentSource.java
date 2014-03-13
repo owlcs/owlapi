@@ -31,12 +31,11 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
  * @author ignazio
  * @since 3.4.8
  */
-public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
+public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
 
     private static int counter = 0;
     private final IRI documentIRI;
     private byte[] buffer;
-    private OWLOntologyFormat format;
 
     /**
      * Constructs an input source which will read an ontology from a
@@ -46,7 +45,7 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
      *        The stream that the ontology representation will be read from.
      */
     public GZipStreamDocumentSource(InputStream is) {
-        this(is, getNextDocumentIRI());
+        this(is, getNextDocumentIRI(), null, null);
     }
 
     /** @return a fresh IRI */
@@ -63,27 +62,14 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
      *        The stream that the ontology representation will be read from.
      * @param documentIRI
      *        The document IRI
-     */
-    public GZipStreamDocumentSource(InputStream stream, IRI documentIRI) {
-        this(stream, documentIRI, null);
-    }
-
-    /**
-     * Constructs an input source which will read an ontology from a
-     * representation from the specified stream.
-     * 
-     * @param stream
-     *        The stream that the ontology representation will be read from.
-     * @param documentIRI
-     *        The document IRI
      * @param format
      *        ontology format
      */
     public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
-            OWLOntologyFormat format) {
+            OWLOntologyFormat format, String mime) {
+        super(format, mime);
         this.documentIRI = documentIRI;
         readIntoBuffer(stream);
-        this.format = format;
     }
 
     private void readIntoBuffer(InputStream reader) {
@@ -140,15 +126,5 @@ public class GZipStreamDocumentSource implements OWLOntologyDocumentSource {
     @Override
     public boolean isReaderAvailable() {
         return isInputStreamAvailable();
-    }
-
-    @Override
-    public OWLOntologyFormat getFormat() {
-        return format;
-    }
-
-    @Override
-    public boolean isFormatKnown() {
-        return format != null;
     }
 }
