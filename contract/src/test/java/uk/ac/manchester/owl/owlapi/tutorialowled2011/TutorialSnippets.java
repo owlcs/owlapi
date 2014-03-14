@@ -206,15 +206,15 @@ public class TutorialSnippets {
         }
     }
 
-    @Ignore
     @Test
     public void testSaveOntology() throws OWLException, IOException {
-        // leaving this test ignored so we don't risk filling disks with temp
-        // files
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
-        File output = File.createTempFile("saved_pizza", "owl");
+        File output = createDeletedOnExitTempFile("saved_pizza", ".owl");
+        // Output will be deleted on exit; to keep temporary file replace
+        // previous line with the following
+        // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI2 = IRI.create(output);
         // save in OWL/XML format
         m.saveOntology(o, new OWLXMLOntologyFormat(), documentIRI2);
@@ -227,15 +227,16 @@ public class TutorialSnippets {
         m.removeOntology(o);
     }
 
-    @Ignore
+
     @Test
     public void testIRIMapper() throws OWLException, IOException {
-        // leaving this test ignored so we don't risk filling disks with temp
-        // files
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology
-        File output = File.createTempFile("saved_pizza", "owl");
+        File output = createDeletedOnExitTempFile("saved_pizza", ".owl");
+        // Output will be deleted on exit; to keep temporary file replace
+        // previous line with the following
+        // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI = IRI.create(output);
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(example_save_iri,
@@ -251,6 +252,12 @@ public class TutorialSnippets {
         // save the ontology to its physical location - documentIRI
         m.saveOntology(o);
         assertNotNull(o);
+    }
+
+    private File createDeletedOnExitTempFile(String filename, String suffix) throws IOException {
+        File file =  File.createTempFile(filename, suffix);
+        file.deleteOnExit();
+        return file;
     }
 
     @Test
