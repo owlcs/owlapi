@@ -6,4 +6,6 @@
 target/
 bin/
 .idea
+*.iws
+*.ipr
 .DS_Store
