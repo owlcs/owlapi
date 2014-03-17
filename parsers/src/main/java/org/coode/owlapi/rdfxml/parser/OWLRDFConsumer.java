@@ -114,7 +114,7 @@ import org.xml.sax.SAXException;
  * complete graph is in memory. Once a handler handles a triple, that triple is
  * deemed to have been consumed an is discarded. The parser attempts to consume
  * as many triples as possible while streaming parsing is taking place. Whether
- * or not a triple can be consumed dIRIng parsing is determined by installed
+ * or not a triple can be consumed during parsing is determined by installed
  * triple handlers.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

@@ -53,8 +53,7 @@
 :John  rdf:type  [
   rdf:type            owl:Class ;
   owl:intersectionOf  ( :Person
-                        [ rdf:type          owl:Class ;
-                          owl:complementOf  :Parent     ]
+                        [ rdf:type owl:Class ; owl:complementOf  :Parent ]
                       )
 ] .
 :Parent  owl:equivalentClass  [
@@ -71,13 +70,8 @@
 :HappyPerson
     owl:equivalentClass  [
       rdf:type            owl:Class ;
-      owl:intersectionOf  ( [ rdf:type            owl:Restriction ;
-                              owl:onProperty      :hasChild ;
-                              owl:allValuesFrom   :HappyPerson      ]
-                            [ rdf:type            owl:Restriction ;
-                              owl:onProperty      :hasChild ;
-                              owl:someValuesFrom  :HappyPerson      ]
-                          )
+      owl:intersectionOf  ( [ rdf:type owl:Restriction ; owl:onProperty :hasChild ; owl:allValuesFrom   :HappyPerson      ]
+                            [ rdf:type owl:Restriction ; owl:onProperty :hasChild ; owl:someValuesFrom  :HappyPerson      ] )
     ] .
 :JohnsChildren  owl:equivalentClass  [
   rdf:type        owl:Restriction ;
@@ -135,23 +129,17 @@
 :personAge  owl:equivalentClass
  [ rdf:type rdfs:Datatype;
    owl:onDatatype xsd:Integer;
-   owl:withRestrictions (
-      [ xsd:minInclusive "0"^^xsd:integer ]
-      [ xsd:maxInclusive "150"^^xsd:integer ]
+   owl:withRestrictions ( [ xsd:minInclusive "0"^^xsd:integer ] [ xsd:maxInclusive "150"^^xsd:integer ]
    )
  ] .
 :majorAge  owl:equivalentClass
   [ rdf:type rdfs:Datatype;
-    owl:intersectionOf (
-       :personAge
-       [ rdf:type rdfs:Datatype;
-         owl:datatypeComplementOf :minorAge ]
+    owl:intersectionOf ( :personAge
+                         [ rdf:type rdfs:Datatype; owl:datatypeComplementOf :minorAge ]
     )
   ] .
 :toddlerAge  owl:equivalentClass
-  [ rdf:type rdfs:Datatype;
-    owl:oneOf (  "1"^^xsd:integer  "2"^^xsd:integer )
-  ] .
+  [ rdf:type rdfs:Datatype; owl:oneOf (  "1"^^xsd:integer  "2"^^xsd:integer ) ] .
 :hasAge  rdf:type  owl:FunctionalProperty .
 :Teenager  rdfs:subClassOf
       [ rdf:type             owl:Restriction ;
@@ -159,9 +147,7 @@
         owl:someValuesFrom
          [ rdf:type             rdfs:Datatype ;
            owl:onDatatype       xsd:integer ;
-           owl:withRestrictions (  [ xsd:minInclusive     "13"^^xsd:integer ]
-                                   [ xsd:maxInclusive     "19"^^xsd:integer ]
-           )
+           owl:withRestrictions (  [ xsd:minInclusive     "13"^^xsd:integer ] [ xsd:maxInclusive     "19"^^xsd:integer ] )
          ]
       ] .
 :Person  rdfs:comment  "Represents the set of all people."^^xsd:string .
@@ -200,8 +186,7 @@
   owl:hasSelf     true
 ] .
 
-[] rdf:type     owl:AllDisjointClasses ;
-   owl:members  ( :Mother  :Father  :YoungChild ) .
+[] rdf:type     owl:AllDisjointClasses ;   owl:members  ( :Mother  :Father  :YoungChild ) .
 
 :hasUncle  owl:propertyChainAxiom  ( :hasFather  :hasBrother ) .
 
@@ -225,18 +210,13 @@
 
 :hasFather  rdfs:subPropertyOf  :hasParent.
 []  rdf:type            owl:Class ;
-    owl:intersectionOf  ( [ rdf:type   owl:Class ;
-                            owl:oneOf  ( :Mary  :Bill  :Meg ) ]
+    owl:intersectionOf  ( [ rdf:type   owl:Class ; owl:oneOf  ( :Mary  :Bill  :Meg ) ]
                           :Female
                         ) ;
     rdfs:subClassOf     [
       rdf:type            owl:Class ;
       owl:intersectionOf  ( :Parent
-                            [ rdf:type            owl:Restriction ;
-                              owl:maxCardinality  "1"^^xsd:nonNegativeInteger ;
-                              owl:onProperty      :hasChild ]
-                            [ rdf:type           owl:Restriction ;
-                              owl:onProperty     :hasChild ;
-                              owl:allValuesFrom  :Female ]
+                            [ rdf:type            owl:Restriction ; owl:maxCardinality  "1"^^xsd:nonNegativeInteger ; owl:onProperty      :hasChild ]
+                            [ rdf:type           owl:Restriction ; owl:onProperty     :hasChild ; owl:allValuesFrom  :Female ]
                           )
     ] .
