@@ -38,17 +38,21 @@
  */
 package org.coode.owlapi.rdfxml.parser;
 
+import java.util.logging.Logger;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Feb-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 02-Feb-2009
  */
 public class HasKeyListItemTranslator implements
         ListItemTranslator<OWLPropertyExpression<?, ?>> {
 
+    private static Logger logger = Logger
+            .getLogger(HasKeyListItemTranslator.class.getName());
     private OWLRDFConsumer consumer;
 
     /**
@@ -65,11 +69,44 @@ public class HasKeyListItemTranslator implements
     }
 
     @Override
-    public OWLPropertyExpression<?, ?> translate(IRI firstObject) {
+    public OWLPropertyExpression translate(IRI firstObject) {
         if (consumer.isObjectPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLObjectProperty(firstObject);
-        } else {
+        }
+        if (consumer.isDataPropertyOnly(firstObject)) {
             return consumer.getDataFactory().getOWLDataProperty(firstObject);
         }
+        // If neither condition was true, the property has been illegally
+        // punned, or is untyped
+        // use the first translation available, since there is no way to
+        // know which is correct
+        OWLPropertyExpression property = null;
+        if (consumer.isObjectProperty(firstObject)) {
+            logger.warning("Property "
+                    + firstObject
+                    + " has been punned illegally: found declaration as OWLObjectProperty");
+            property = consumer.getDataFactory().getOWLObjectProperty(
+                    firstObject);
+        }
+        if (consumer.isDataProperty(firstObject)) {
+            logger.warning("Property "
+                    + firstObject
+                    + " has been punned illegally: found declaration as OWLDataProperty");
+            if (property == null) {
+                property = consumer.getDataFactory().getOWLDataProperty(
+                        firstObject);
+            }
+        }
+        // if there is no declaration for the property at this point, warn
+        // and consider it a datatype property.
+        // This matches existing behaviour.
+        if (property == null) {
+            logger.warning("Property "
+                    + firstObject
+                    + " is undeclared at this point in parsing: typing as OWLDataProperty");
+            property = consumer.getDataFactory()
+                    .getOWLDataProperty(firstObject);
+        }
+        return property;
     }
 }

@@ -200,7 +200,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         for (XSDVocabulary v : XSDVocabulary.values()) {
             dataTypeNames.add(v.getIRI().toString());
             dataTypeNames.add(v.getIRI().toQuotedString());
-            dataTypeNames.add("xsd:" + v.getIRI().getFragment());
+            dataTypeNames.add(v.getPrefixedName());
         }
         dataTypeNames.add("rdfs:"
                 + OWLRDFVocabulary.RDFS_LITERAL.getIRI().getFragment());
@@ -220,7 +220,7 @@ public class ManchesterOWLSyntaxEditorParser implements
         tokens.addAll(getTokenizer(s).tokenize());
         tokenIndex = 0;
         for (SWRLBuiltInsVocabulary v : SWRLBuiltInsVocabulary.values()) {
-            ruleBuiltIns.put(v.getShortName(), v);
+            ruleBuiltIns.put(v.getShortForm(), v);
             ruleBuiltIns.put(v.getIRI().toQuotedString(), v);
         }
     }
@@ -352,71 +352,36 @@ public class ManchesterOWLSyntaxEditorParser implements
         this.owlOntologyChecker = owlOntologyChecker;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return true if object property
-     */
     private boolean isObjectPropertyName(String name) {
         return objectPropertyNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLObjectProperty(name) != null;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return true if annotation property
-     */
     private boolean isAnnotationPropertyName(String name) {
         return annotationPropertyNames.contains(name)
                 || owlEntityChecker != null
                 && owlEntityChecker.getOWLAnnotationProperty(name) != null;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return true if data property
-     */
     private boolean isDataPropertyName(String name) {
         return dataPropertyNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLDataProperty(name) != null;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return true if individual
-     */
     private boolean isIndividualName(String name) {
         return individualNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLIndividual(name) != null;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return true if datatype
-     */
     private boolean isDatatypeName(String name) {
         return dataTypeNames.contains(name) || owlEntityChecker != null
                 && owlEntityChecker.getOWLDatatype(name) != null;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return true if SWRL builtin
-     */
     private boolean isSWRLBuiltin(String name) {
         return ruleBuiltIns.containsKey(name);
     }
 
-    /**
-     * @param name
-     *        name
-     * @return class for name
-     */
     private OWLClass getOWLClass(String name) {
         OWLClass cls = owlEntityChecker.getOWLClass(name);
         if (cls == null && classNames.contains(name)) {
@@ -425,11 +390,6 @@ public class ManchesterOWLSyntaxEditorParser implements
         return cls;
     }
 
-    /**
-     * @param name
-     *        name
-     * @return object property for name
-     */
     private OWLObjectProperty getOWLObjectProperty(String name) {
         OWLObjectProperty prop = owlEntityChecker.getOWLObjectProperty(name);
         if (prop == null && objectPropertyNames.contains(name)) {
@@ -490,11 +450,6 @@ public class ManchesterOWLSyntaxEditorParser implements
         return getToken().getToken();
     }
 
-    /**
-     * Tokenizer.
-     * 
-     * @return token
-     */
     private String consumeToken() {
         String token = getToken().getToken();
         if (tokenIndex < tokens.size() - 1) {
@@ -1038,7 +993,20 @@ public class ManchesterOWLSyntaxEditorParser implements
         } else if (isClassName(tok)) {
             String name = consumeToken();
             return getOWLClass(name);
-        } else if (!EOF(tok) || !lookaheadCheck) {
+        }
+        // XXX problem: if the class expression is missing, we should return
+        // owl:Thing. But there are many ways in which it could be missing. Hard
+        // to tell what sort of lookahead is needed.
+        // The next two checks should cover most cases.
+        for (ManchesterOWLSyntax x : ManchesterOWLSyntax.values()) {
+            if (x.matches(tok)) {
+                return dataFactory.getOWLThing();
+            }
+        }
+        if (EOF(tok)) {
+            return dataFactory.getOWLThing();
+        }
+        if (!EOF(tok) || !lookaheadCheck) {
             consumeToken();
             throw new ExceptionBuilder().withKeyword(OPEN, OPENBRACE)
                     .withClass().build();
@@ -2309,6 +2277,10 @@ public class ManchesterOWLSyntaxEditorParser implements
                     throw new ExceptionBuilder().withOnto()
                             .withKeyword("<$ONTOLOGYYURI$>").build();
                 }
+                if (importedIRI == null) {
+                    throw new ExceptionBuilder().withOnto()
+                            .withKeyword("Imported IRI is null").build();
+                }
                 imports.add(dataFactory.getOWLImportsDeclaration(importedIRI));
             } else if (ANNOTATIONS.matches(section)) {
                 consumeToken();
@@ -2896,7 +2868,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
         @Override
         public OWLClassExpression parseItem(F s) {
-            return parseIntersection();
+            return parseUnion();
         }
     }
 
