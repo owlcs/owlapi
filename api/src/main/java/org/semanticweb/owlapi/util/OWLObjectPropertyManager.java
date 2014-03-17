@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.inverse;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
@@ -42,8 +42,8 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class OWLObjectPropertyManager {
@@ -148,18 +148,18 @@ public class OWLObjectPropertyManager {
                 for (OWLTransitiveObjectPropertyAxiom ax : ont
                         .getAxioms(AxiomType.TRANSITIVE_OBJECT_PROPERTY)) {
                     markComposite(ax.getProperty());
-                    for (OWLObjectPropertyExpression namedInv : find(
-                            OWLObjectPropertyExpression.class).inverse(
-                            ax.getProperty()).in(ontology)) {
+                    for (OWLObjectPropertyExpression namedInv : inverse(
+                            ontology.getInverseObjectPropertyAxioms(ax
+                                    .getProperty()), ax.getProperty())) {
                         markComposite(namedInv);
                     }
                 }
                 for (OWLSubPropertyChainOfAxiom ax : ont
                         .getAxioms(AxiomType.SUB_PROPERTY_CHAIN_OF)) {
                     markComposite(ax.getSuperProperty());
-                    for (OWLObjectPropertyExpression namedInv : find(
-                            OWLObjectPropertyExpression.class).inverse(
-                            ax.getSuperProperty()).in(ontology)) {
+                    for (OWLObjectPropertyExpression namedInv : inverse(
+                            ontology.getInverseObjectPropertyAxioms(ax
+                                    .getSuperProperty()), ax.getSuperProperty())) {
                         markComposite(namedInv);
                     }
                 }

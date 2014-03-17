@@ -17,18 +17,17 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
 import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
 
+@SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {
 
     OWLOntology func;
     OWL2DLProfile profile;
 
     @Before
-    public void setUp() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void setUp() throws OWLOntologyCreationException {
         profile = new OWL2DLProfile();
         func = loadOntologyFromString(functional,
                 IRI.create("urn:primer#functional"),
@@ -109,8 +108,7 @@ public class PrimerTestCase extends TestBase {
     }
 
     @Test
-    public void shouldTURTLEBeEquivalent() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldTURTLEBeEquivalent() throws OWLOntologyCreationException {
         OWLOntology turt = loadOntologyFromString(turtle,
                 IRI.create("urn:primer#turtle"), new TurtleOntologyFormat());
         for (OWLProfileViolation<?> v : profile.checkOntology(turt)

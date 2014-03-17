@@ -14,6 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.*;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
+import static org.semanticweb.owlapi.search.Filters.*;
 import static org.semanticweb.owlapi.search.Searcher.*;
 
 import org.junit.Test;
@@ -102,8 +103,10 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getSubClassAxiomsForSubClass(clsA).contains(ax));
         assertTrue(ont.getSubClassAxiomsForSuperClass(clsB).contains(ax));
         assertTrue(ont.getAxioms(clsA, false).contains(ax));
-        assertTrue(find().in(ont).sup().classes(clsA).contains(clsB));
-        assertTrue(find().in(ont).sub().classes(clsB).contains(clsA));
+        assertTrue(sup(ont.filterAxioms(subClassWithSub, clsA, true)).contains(
+                clsB));
+        assertTrue(sub(ont.filterAxioms(subClassWithSuper, clsB, true))
+                .contains(clsA));
     }
 
     @Test
@@ -240,7 +243,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isFunctional(propP));
+        assertTrue(isFunctional(ont, propP));
     }
 
     @Test
@@ -254,7 +257,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         assertTrue(ont.getInverseFunctionalObjectPropertyAxioms(propP)
                 .contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isInverseFunctional(propP));
+        assertTrue(isInverseFunctional(ont, propP));
     }
 
     @Test
@@ -267,7 +270,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getTransitiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isTransitive(propP));
+        assertTrue(isTransitive(ont, propP));
     }
 
     @Test
@@ -280,7 +283,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getSymmetricObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isSymmetric(propP));
+        assertTrue(isSymmetric(ont, propP));
     }
 
     @Test
@@ -293,7 +296,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getAsymmetricObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isAsymmetric(propP));
+        assertTrue(isAsymmetric(ont, propP));
     }
 
     @Test
@@ -306,7 +309,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getReflexiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isReflexive(propP));
+        assertTrue(isReflexive(ont, propP));
     }
 
     @Test
@@ -319,7 +322,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getIrreflexiveObjectPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isIrreflexive(propP));
+        assertTrue(isIrreflexive(ont, propP));
     }
 
     @Test
@@ -414,7 +417,7 @@ public class OWLOntologyAccessorsTestCase extends TestBase {
         performAxiomTests(ont, ax);
         assertTrue(ont.getFunctionalDataPropertyAxioms(propP).contains(ax));
         assertTrue(ont.getAxioms(propP, false).contains(ax));
-        assertTrue(find().in(ont).isFunctional(propP));
+        assertTrue(isFunctional(ont, propP));
     }
 
     @Test

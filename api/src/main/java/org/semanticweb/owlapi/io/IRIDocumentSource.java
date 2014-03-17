@@ -37,6 +37,8 @@ public class IRIDocumentSource extends OWLOntologyDocumentSourceBase {
      *        the source document IRI
      * @param format
      *        ontology format
+     * @param mime
+     *        mime type
      */
     public IRIDocumentSource(@Nonnull IRI documentIRI,
             OWLOntologyFormat format, String mime) {

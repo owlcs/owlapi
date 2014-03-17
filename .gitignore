@@ -1,11 +1,11 @@
 .classpath
 .project
 .settings
+*.iml
 *.class
 target/
 bin/
 .idea
-*.iml
 *.iws
 *.ipr
 .DS_Store

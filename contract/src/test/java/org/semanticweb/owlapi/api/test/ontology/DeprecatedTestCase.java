@@ -14,7 +14,7 @@ package org.semanticweb.owlapi.api.test.ontology;
 
 import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileTestCase;
@@ -23,10 +23,11 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.search.Filters;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 @SuppressWarnings("javadoc")
@@ -37,13 +38,13 @@ public class DeprecatedTestCase extends AbstractFileTestCase {
             throws OWLOntologyCreationException {
         OWLOntology ont = createOntology();
         OWLClass cls = Class(getIRI("http://www.semanticweb.org/owlapi/test#ClsA"));
-        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont)
-                .annotations(cls)) {
+        for (OWLAnnotation anno : annotations(ont.filterAxioms(
+                Filters.annotations, cls.getIRI(), true))) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
         OWLDataProperty prop = DataProperty(getIRI("http://www.semanticweb.org/owlapi/test#prop"));
-        for (OWLAnnotation anno : find(OWLAnnotation.class).in(ont)
-                .annotations(prop)) {
+        for (OWLAnnotation anno : annotations(ont.filterAxioms(
+                Filters.annotations, prop.getIRI(), true))) {
             assertTrue(anno.isDeprecatedIRIAnnotation());
         }
     }

@@ -1,7 +1,5 @@
 package org.obolibrary.obo2owl;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
-
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -75,6 +73,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
@@ -846,9 +845,8 @@ public class OWLAPIOwl2Obo {
         if (OboFormatTag.TAG_SYNONYMTYPEDEF.getTag().equals(_tag)) {
             String name = "";
             String scope = null;
-            for (OWLAnnotationAssertionAxiom axiom : find(
-                    OWLAnnotationAssertionAxiom.class).in(owlOntology)
-                    .annotationAxioms(sub)) {
+            for (OWLAnnotationAssertionAxiom axiom : owlOntology
+                    .getAnnotationAssertionAxioms(sub.getIRI())) {
                 String tg = owlObjectToTag(axiom.getProperty());
                 if (OboFormatTag.TAG_NAME.getTag().equals(tg)) {
                     name = ((OWLLiteral) axiom.getValue()).getLiteral();
@@ -872,9 +870,8 @@ public class OWLAPIOwl2Obo {
             return;
         } else if (OboFormatTag.TAG_SUBSETDEF.getTag().equals(_tag)) {
             String comment = "";
-            for (OWLAnnotationAssertionAxiom axiom : find(
-                    OWLAnnotationAssertionAxiom.class).in(owlOntology)
-                    .annotationAxioms(sub)) {
+            for (OWLAnnotationAssertionAxiom axiom : owlOntology
+                    .getAnnotationAssertionAxioms(sub.getIRI())) {
                 String tg = owlObjectToTag(axiom.getProperty());
                 if (OboFormatTag.TAG_COMMENT.getTag().equals(tg)) {
                     comment = ((OWLLiteral) axiom.getValue()).getLiteral();
@@ -1545,9 +1542,8 @@ public class OWLAPIOwl2Obo {
         if (entity.isBottomEntity() || entity.isTopEntity()) {
             return;
         }
-        Collection<OWLAnnotationAssertionAxiom> set = find(
-                OWLAnnotationAssertionAxiom.class).in(owlOntology)
-                .annotationAxioms(entity).asCollection();
+        Collection<OWLAxiom> set = owlOntology.filterAxioms(
+                Filters.annotations, entity.getIRI(), true);
         if (set.isEmpty()) {
             return;
         }
@@ -1557,7 +1553,8 @@ public class OWLAPIOwl2Obo {
         } else if (entity instanceof OWLObjectProperty) {
             f = getTypedefFrame(entity.asOWLObjectProperty());
         } else if (entity instanceof OWLAnnotationProperty) {
-            for (OWLAnnotationAssertionAxiom ax : set) {
+            for (OWLAxiom a : set) {
+                OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
                 OWLAnnotationProperty prop = ax.getProperty();
                 String tag = owlObjectToTag(prop);
                 if (OboFormatTag.TAG_IS_METADATA_TAG.getTag().equals(tag)) {
@@ -1567,8 +1564,8 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (f != null) {
-            for (OWLAnnotationAssertionAxiom aanAx : set) {
-                tr(aanAx, f);
+            for (OWLAxiom a : set) {
+                tr((OWLAnnotationAssertionAxiom) a, f);
             }
             add(f);
             return;
@@ -1685,10 +1682,9 @@ public class OWLAPIOwl2Obo {
         if (obj instanceof OWLObjectProperty
                 || obj instanceof OWLAnnotationProperty) {
             OWLEntity entity = (OWLEntity) obj;
-            Collection<OWLAnnotationAssertionAxiom> asCollection = find(
-                    OWLAnnotationAssertionAxiom.class).in(ont)
-                    .annotationAxioms(entity).asCollection();
-            for (OWLAnnotationAssertionAxiom ax : asCollection) {
+            for (OWLAxiom a : ont.filterAxioms(Filters.annotations,
+                    entity.getIRI(), true)) {
+                OWLAnnotationAssertionAxiom ax = (OWLAnnotationAssertionAxiom) a;
                 String propId = getIdentifierFromObject(ax.getProperty()
                         .getIRI(), ont);
                 // see BFOROXrefTest

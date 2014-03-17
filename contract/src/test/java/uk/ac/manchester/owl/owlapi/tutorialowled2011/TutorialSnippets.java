@@ -13,7 +13,7 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,8 +26,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.OWLXMLOntologyFormat;
 import org.semanticweb.owlapi.io.StreamDocumentTarget;
@@ -110,6 +111,8 @@ import uk.ac.manchester.cs.owlapi.modularity.SyntacticLocalityModuleExtractor;
 @SuppressWarnings("javadoc")
 public class TutorialSnippets {
 
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
     private static Logger log = LoggerFactory.getLogger(TutorialSnippets.class);
     private final static String koala = "<?xml version=\"1.0\"?>\n"
             + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:owl=\"http://www.w3.org/2002/07/owl#\""
@@ -206,15 +209,15 @@ public class TutorialSnippets {
         }
     }
 
-    @Ignore
     @Test
     public void testSaveOntology() throws OWLException, IOException {
-        // leaving this test ignored so we don't risk filling disks with temp
-        // files
         OWLOntologyManager m = create();
         OWLOntology o = loadPizzaOntology(m);
         assertNotNull(o);
-        File output = File.createTempFile("saved_pizza", "owl");
+        File output = temporaryFolder.newFile("saved_pizza.owl");
+        // Output will be deleted on exit; to keep temporary file replace
+        // previous line with the following
+        // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI2 = IRI.create(output);
         // save in OWL/XML format
         m.saveOntology(o, new OWLXMLOntologyFormat(), documentIRI2);
@@ -227,15 +230,15 @@ public class TutorialSnippets {
         m.removeOntology(o);
     }
 
-    @Ignore
     @Test
     public void testIRIMapper() throws OWLException, IOException {
-        // leaving this test ignored so we don't risk filling disks with temp
-        // files
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         // map the ontology IRI to a physical IRI (files for example)
         // Create the document IRI for our ontology
-        File output = File.createTempFile("saved_pizza", "owl");
+        File output = temporaryFolder.newFile("saved_pizza.owl");
+        // Output will be deleted on exit; to keep temporary file replace
+        // previous line with the following
+        // File output = File.createTempFile("saved_pizza", ".owl");
         IRI documentIRI = IRI.create(output);
         // Set up a mapping, which maps the ontology to the document IRI
         SimpleIRIMapper mapper = new SimpleIRIMapper(example_save_iri,
@@ -624,8 +627,9 @@ public class TutorialSnippets {
         OWLOntology o = loadPizzaOntology(m);
         for (OWLClass cls : o.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : find(OWLAnnotation.class).in(o)
-                    .annotations(cls).forProperty(df.getRDFSLabel())) {
+            for (OWLAnnotation annotation : annotations(
+                    o.getAnnotationAssertionAxioms(cls.getIRI()),
+                    df.getRDFSLabel())) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     // look for portuguese labels
@@ -956,8 +960,8 @@ public class TutorialSnippets {
     LabelExtractor le = new LabelExtractor();
 
     private String labelFor(OWLEntity clazz, OWLOntology o) {
-        Iterable<OWLAnnotation> annotations = find(OWLAnnotation.class).in(o)
-                .annotations(clazz);
+        Iterable<OWLAnnotation> annotations = annotations(o
+                .getAnnotationAssertionAxioms(clazz.getIRI()));
         for (OWLAnnotation anno : annotations) {
             String result = anno.accept(le);
             if (result != null) {

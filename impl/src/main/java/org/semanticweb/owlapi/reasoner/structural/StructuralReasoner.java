@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.reasoner.structural;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
@@ -81,6 +81,7 @@ import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNode;
 import org.semanticweb.owlapi.reasoner.impl.OWLObjectPropertyNodeSet;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
+import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
 import org.semanticweb.owlapi.util.Version;
@@ -1541,9 +1542,11 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getParents(OWLDataProperty child) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : find(
-                    OWLDataPropertyExpression.class).in(getRootOntology())
-                    .sup().propertiesOf(child)) {
+            Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
+                    Filters.subDataPropertyWithSub, child, true);
+            Collection<OWLDataPropertyExpression> expressions = sup(axioms,
+                    OWLDataPropertyExpression.class);
+            for (OWLDataPropertyExpression prop : expressions) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;
@@ -1552,9 +1555,10 @@ public class StructuralReasoner extends OWLReasonerBase {
         @Override
         public Collection<OWLDataProperty> getChildren(OWLDataProperty parent) {
             Set<OWLDataProperty> properties = new HashSet<OWLDataProperty>();
-            for (OWLDataPropertyExpression prop : find(
-                    OWLDataPropertyExpression.class).in(getRootOntology())
-                    .sub().propertiesOf(parent)) {
+            Collection<OWLAxiom> axioms = getRootOntology().filterAxioms(
+                    Filters.subDataPropertyWithSuper, parent, true);
+            for (OWLDataPropertyExpression prop : sub(axioms,
+                    OWLDataPropertyExpression.class)) {
                 properties.add(prop.asOWLDataProperty());
             }
             return properties;

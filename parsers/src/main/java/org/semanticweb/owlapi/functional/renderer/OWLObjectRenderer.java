@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.functional.renderer;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 
 import java.io.IOException;
@@ -314,8 +313,8 @@ public class OWLObjectRenderer implements OWLObjectVisitor {
      */
     public Set<OWLAxiom> writeAnnotations(OWLEntity entity) {
         Set<OWLAxiom> annotationAssertions = new HashSet<OWLAxiom>();
-        for (OWLAnnotationAxiom ax : find(OWLAnnotationAssertionAxiom.class)
-                .annotationAxioms(entity).in(ontology)) {
+        for (OWLAnnotationAxiom ax : ontology
+                .getAnnotationAssertionAxioms(entity.getIRI())) {
             ax.accept(this);
             annotationAssertions.add(ax);
             write("\n");

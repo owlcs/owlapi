@@ -14,9 +14,10 @@ package org.semanticweb.owlapitools.profiles.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.net.URL;
+import java.util.Collection;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -78,9 +79,9 @@ public class ProfileValidationTestCase extends TestBase {
         for (OWLClassAssertionAxiom ax : testCasesOntology
                 .getClassAssertionAxioms(profileIdentificationTestClass)) {
             OWLIndividual ind = ax.getIndividual();
-            Searcher<OWLLiteral> vals = find(OWLLiteral.class)
-                    .values(rdfXMLPremiseOntologyProperty).individual(ind)
-                    .in(testCasesOntology);
+            Collection<OWLLiteral> vals = values(
+                    testCasesOntology.getDataPropertyAssertionAxioms(ind),
+                    rdfXMLPremiseOntologyProperty);
             if (vals.size() != 1) {
                 continue;
             }

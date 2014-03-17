@@ -22,6 +22,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.zip.GZIPInputStream;
 
+import javax.annotation.Nullable;
+
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
@@ -64,10 +66,12 @@ public class GZipFileDocumentSource extends OWLOntologyDocumentSourceBase {
      * @param documentIRI
      *        The document IRI
      * @param format
-     *        ontology format. Can be null.
+     *        ontology format
+     * @param mime
+     *        mime type
      */
     public GZipFileDocumentSource(File stream, IRI documentIRI,
-            OWLOntologyFormat format, String mime) {
+            @Nullable OWLOntologyFormat format, String mime) {
         super(format, mime);
         this.documentIRI = documentIRI;
         file = stream;

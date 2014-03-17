@@ -13,6 +13,7 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
@@ -20,17 +21,16 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @param <O>
- *        axiom type
- * @param <K>
- *        key type
+ * Search filter for axioms of various types, matching a pass condition on a key
  */
-public interface OWLAxiomSearchFilter<O extends OWLAxiom, K> extends
-        Serializable {
+public interface OWLAxiomSearchFilter extends Serializable {
 
-    /** @return axiom type */
+    /**
+     * @return axiom types; expected to be one, but the filter could include
+     *         multiple axiom types
+     */
     @Nonnull
-    AxiomType<O> getAxiomType();
+    Collection<AxiomType<?>> getAxiomTypes();
 
     /**
      * @param axiom
@@ -39,5 +39,5 @@ public interface OWLAxiomSearchFilter<O extends OWLAxiom, K> extends
      *        key
      * @return true if passed
      */
-    boolean pass(@Nonnull O axiom, @Nonnull K key);
+    boolean pass(@Nonnull OWLAxiom axiom, @Nonnull Object key);
 }

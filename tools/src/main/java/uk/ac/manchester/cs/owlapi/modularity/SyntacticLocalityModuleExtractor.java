@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package uk.ac.manchester.cs.owlapi.modularity;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.Collection;
@@ -25,7 +24,6 @@ import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -42,6 +40,7 @@ import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.modularity.OntologySegmenter;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.search.Filters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -471,15 +470,13 @@ public class SyntacticLocalityModuleExtractor implements OntologySegmenter {
                                 minusOntologyURI(declarationAxiom.toString()));
                     }
                 }
-                Collection<OWLAnnotationAssertionAxiom> entityAnnotationAxioms = find(
-                        OWLAnnotationAssertionAxiom.class)
-                        .annotationAxioms(entity).in(ontology).asCollection();
-                enrichedModule.addAll(entityAnnotationAxioms);
+                Collection<OWLAxiom> axioms = ontology.filterAxioms(
+                        Filters.annotations, entity.getIRI(), true);
+                enrichedModule.addAll(axioms);
                 if (verbose) {
-                    for (OWLAnnotationAssertionAxiom entityAnnotationAxiom : entityAnnotationAxioms) {
+                    for (OWLAxiom axiom : axioms) {
                         logger.info("  Added entity annotation axiom:   {}",
-                                minusOntologyURI(entityAnnotationAxiom
-                                        .toString()));
+                                minusOntologyURI(axiom.toString()));
                     }
                 }
             }

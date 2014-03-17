@@ -16,6 +16,7 @@ import static org.semanticweb.owlapi.util.CollectionFactory.createSet;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -57,6 +58,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -972,5 +974,35 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
             result.addAll(o.getAxioms(type, entity, false, forSubPosition));
         }
         return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends OWLAxiom> Collection<T> filterAxioms(
+            OWLAxiomSearchFilter filter, Object key, boolean includeImports) {
+        if (!includeImports) {
+            return (Collection<T>) ints.filterAxioms(filter, key);
+        }
+        // iterating over the import closure; using a set because there might be
+        // duplicate axioms
+        Set<T> toReturn = new HashSet<T>();
+        for (OWLOntology o : getImportsClosure()) {
+            toReturn.addAll((Collection<T>) o.filterAxioms(filter, key, false));
+        }
+        return toReturn;
+    }
+
+    @Override
+    public boolean contains(OWLAxiomSearchFilter filter, Object key,
+            boolean includeImportsClosure) {
+        if (!includeImportsClosure) {
+            return ints.contains(filter, key);
+        }
+        for (OWLOntology o : getImportsClosure()) {
+            if (o.contains(filter, key, false)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

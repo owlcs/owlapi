@@ -65,6 +65,10 @@ public abstract class StreamDocumentSourceBase extends
      *        The stream that the ontology representation will be read from.
      * @param documentIRI
      *        The document IRI
+     * @param format
+     *        ontology format
+     * @param mime
+     *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull InputStream stream,
             @Nonnull IRI documentIRI, OWLOntologyFormat format, String mime) {
@@ -83,6 +87,10 @@ public abstract class StreamDocumentSourceBase extends
      *        The stream that the ontology representation will be read from.
      * @param documentIRI
      *        The document IRI
+     * @param format
+     *        ontology format
+     * @param mime
+     *        mime type
      */
     public StreamDocumentSourceBase(@Nonnull Reader stream,
             @Nonnull IRI documentIRI, OWLOntologyFormat format, String mime) {

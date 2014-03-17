@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.krss2.renderer;
 
 import static org.semanticweb.owlapi.krss2.renderer.KRSS2Vocabulary.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -44,7 +44,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.search.Searcher;
+import org.semanticweb.owlapi.search.Filters;
 
 /**
  * {@code KRSS2ObjectRenderer} is an extension of {@link KRSSObjectRenderer
@@ -307,20 +307,21 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     continue;
                 }
             }
-            final boolean primitive = !find().in(ontology1)
-                    .isDefined(eachClass);
+            final boolean primitive = !isDefined(ontology1, eachClass);
             writeOpenBracket();
             if (primitive) { // there is no equivalentclasses axiom!
                 write(DEFINE_PRIMITIVE_CONCEPT);
                 write(eachClass);
                 writeSpace();
-                flatten(find(OWLClassExpression.class).sup().classes(eachClass)
-                        .in(ontology1), KRSSVocabulary.AND);
+                Collection<OWLAxiom> axioms = ontology1.filterAxioms(
+                        Filters.subClassWithSub, eachClass, true);
+                flatten(sup(axioms, OWLClassExpression.class),
+                        KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
-                Searcher<OWLClassExpression> classes = find(
-                        OWLClassExpression.class).in(ontology1).equivalent()
-                        .classes(eachClass);
+                Collection<OWLClassExpression> classes = equivalent(
+                        ontology1.getEquivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class);
                 for (OWLClassExpression description : classes) {
                     writeOpenBracket();
                     write(eachClass);
@@ -333,15 +334,15 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 writeOpenBracket();
                 write(DEFINE_CONCEPT);
                 write(eachClass);
-                Iterable<OWLClassExpression> classes = find(
-                        OWLClassExpression.class).in(ontology1).equivalent()
-                        .classes(eachClass);
+                Collection<OWLClassExpression> classes = equivalent(
+                        ontology1.getEquivalentClassesAxioms(eachClass),
+                        OWLClassExpression.class);
                 flatten(classes, KRSSVocabulary.AND);
                 writeCloseBracket();
                 writeln();
-                Iterable<OWLClassExpression> supclasses = find(
-                        OWLClassExpression.class).in(ontology1).equivalent()
-                        .classes(eachClass);
+                Collection<OWLClassExpression> supclasses = sup(
+                        ontology1.getSubClassAxiomsForSubClass(eachClass),
+                        OWLClassExpression.class);
                 for (OWLClassExpression description : supclasses) {
                     writeOpenBracket();
                     write(eachClass);
@@ -361,18 +362,16 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                 }
             }
             writeOpenBracket();
-            Searcher<OWLObjectPropertyExpression> props = find(
-                    OWLObjectPropertyExpression.class).in(ontology1)
-                    .equivalent().propertiesOf(property);
-            Collection<OWLObjectPropertyExpression> properties = props
-                    .asCollection();
-            final boolean isPrimitive = props.isEmpty();
+            Collection<OWLObjectPropertyExpression> properties = equivalent(ontology1
+                    .getEquivalentObjectPropertiesAxioms(property));
+            final boolean isPrimitive = properties.isEmpty();
             if (isPrimitive) {
                 write(DEFINE_PRIMITIVE_ROLE);
                 write(property);
-                Searcher<OWLObjectPropertyExpression> superProperties = find(
-                        OWLObjectPropertyExpression.class).in(ontology1).sup()
-                        .propertiesOf(property);
+                Collection<OWLAxiom> axioms = ontology1.filterAxioms(
+                        Filters.subObjectPropertyWithSub, property, true);
+                Collection<OWLObjectPropertyExpression> superProperties = sup(
+                        axioms, OWLObjectPropertyExpression.class);
                 int superSize = superProperties.size();
                 if (superSize == 1) {
                     writeSpace();
@@ -407,7 +406,7 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     }
                 }
             } else {
-                if (props.isEmpty()) {
+                if (properties.isEmpty()) {
                     write(DEFINE_PRIMITIVE_ROLE);
                     write(property);
                     writeSpace();
@@ -421,40 +420,40 @@ public class KRSS2ObjectRenderer extends KRSSObjectRenderer {
                     writeSpace();
                 }
             }
-            if (find().in(ontology1).isTransitive(property)) {
+            if (isTransitive(ontology1, property)) {
                 writeSpace();
                 write(TRANSITIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (find().in(ontology1).isSymmetric(property)) {
+            if (isSymmetric(ontology1, property)) {
                 writeSpace();
                 write(SYMMETRIC_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            if (find().in(ontology1).isReflexive(property)) {
+            if (isReflexive(ontology1, property)) {
                 writeSpace();
                 write(REFLEXIVE_ATTR);
                 writeSpace();
                 write(TRUE);
             }
-            Iterator<OWLObjectPropertyExpression> inverses = find(
-                    OWLObjectPropertyExpression.class).inverse(property)
-                    .in(ontology1).iterator();
-            if (inverses.hasNext()) {
+            Iterator<OWLObjectPropertyExpression> inverses = inverse(
+                    ontology1.getInverseObjectPropertyAxioms(property),
+                    property).iterator();
+            if (!inverses.hasNext()) {
                 writeSpace();
                 write(INVERSE_ATTR);
                 write(inverses.next());
             }
-            Searcher<OWLClassExpression> desc = find(OWLClassExpression.class)
-                    .in(ontology1).domains(property);
+            Collection<OWLClassExpression> desc = domain(ontology1
+                    .getObjectPropertyDomainAxioms(property));
             if (!desc.isEmpty()) {
                 writeSpace();
                 write(DOMAIN_ATTR);
                 flatten(desc, KRSSVocabulary.AND);
             }
-            desc = find(OWLClassExpression.class).in(ontology).ranges(property);
+            desc = range(ontology1.getObjectPropertyRangeAxioms(property));
             if (!desc.isEmpty()) {
                 writeSpace();
                 write(RANGE_ATTR);

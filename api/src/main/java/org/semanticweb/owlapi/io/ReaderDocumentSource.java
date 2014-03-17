@@ -50,6 +50,8 @@ public class ReaderDocumentSource extends StreamDocumentSourceBase {
      *        document if needed.
      * @param f
      *        ontology format
+     * @param mime
+     *        mime type
      */
     public ReaderDocumentSource(@Nonnull Reader reader,
             @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {

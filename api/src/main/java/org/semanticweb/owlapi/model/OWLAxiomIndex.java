@@ -12,9 +12,12 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
+import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+
+import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
 
 /**
  * Axiom accessor methods - all OWLOntology methods that return sets of axioms
@@ -47,6 +50,43 @@ public interface OWLAxiomIndex {
     @Nonnull
     <T extends OWLAxiom> Set<T> getAxioms(Class<T> type, OWLObject entity,
             boolean includeImports, boolean forSubPosition);
+
+    /**
+     * Generic filter type for further refining search by axiom type. The
+     * returned axioms are both belonging to one of the types listed by the
+     * filter and satisfying its pass condition.
+     * 
+     * @param filter
+     *        the filter to match
+     * @param key
+     *        the key. Its type is generic and it is used only by the filter.
+     * @param includeImportsClosure
+     *        true if import closure should be searched
+     * @return a collection of axioms matching the request. The axioms are
+     *         collected from a set, therefore the collection contains no
+     *         duplicates. It is a copy of the data.
+     */
+    @Nonnull
+    <T extends OWLAxiom> Collection<T> filterAxioms(
+            OWLAxiomSearchFilter filter, Object key,
+            boolean includeImportsClosure);
+
+    /**
+     * Generic containment check type for further refining search by axiom type.
+     * The method returns true if there is at least one result matching the
+     * filter.
+     * 
+     * @param filter
+     *        the filter to match
+     * @param key
+     *        the key. Its type is generic and it is used only by the filter.
+     * @param includeImportsClosure
+     *        true if import closure should be searched
+     * @return true if there is at least one result matching the filter.
+     */
+    @Nonnull
+    boolean contains(OWLAxiomSearchFilter filter, Object key,
+            boolean includeImportsClosure);
 
     /**
      * Generic search method: resutns all axioms which refer entity, are

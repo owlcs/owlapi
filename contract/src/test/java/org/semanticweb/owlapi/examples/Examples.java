@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.examples;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.vocab.OWLFacet.*;
 
 import java.io.ByteArrayOutputStream;
@@ -97,6 +97,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasoner;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
+import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -543,8 +544,9 @@ public class Examples {
             System.out.println("Referenced class: " + cls);
         }
         // We should also find that B is an ASSERTED superclass of A
-        Iterable<OWLClassExpression> superClasses = find(
-                OWLClassExpression.class).sup().classes(clsA).in(ontology);
+        Iterable<OWLClassExpression> superClasses = sup(
+                ontology.filterAxioms(Filters.subClassWithSub, clsA, true),
+                OWLClassExpression.class);
         System.out.println("Asserted superclasses of " + clsA + ":");
         for (OWLClassExpression desc : superClasses) {
             System.out.println(desc);
@@ -1296,8 +1298,9 @@ public class Examples {
                 .getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
         for (OWLClass cls : ont.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : find(OWLAnnotation.class).in(ont)
-                    .annotations(cls).forProperty(label)) {
+            for (OWLAnnotation annotation : annotations(
+                    ont.filterAxioms(Filters.annotations, cls.getIRI(), true),
+                    label)) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     if (val.hasLang("pt")) {

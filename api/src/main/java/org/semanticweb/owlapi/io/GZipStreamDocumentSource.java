@@ -64,6 +64,8 @@ public class GZipStreamDocumentSource extends OWLOntologyDocumentSourceBase {
      *        The document IRI
      * @param format
      *        ontology format
+     * @param mime
+     *        mime type
      */
     public GZipStreamDocumentSource(InputStream stream, IRI documentIRI,
             OWLOntologyFormat format, String mime) {

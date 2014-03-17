@@ -1,14 +1,15 @@
 package uk.ac.manchester.cs.owl.owlapi;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationSubject;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomIndex;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -51,8 +52,12 @@ import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.search.Filters;
 
+/**
+ * @author ignazio
+ * @since 4.0.0
+ */
 public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
         OWLAxiomIndex {
 
@@ -73,25 +78,43 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
     @Override
     public Set<OWLDatatypeDefinitionAxiom> getDatatypeDefinitions(
             OWLDatatype datatype) {
-        return ints.filterAxioms(datatypeDefFilter, datatype);
+        Set<OWLDatatypeDefinitionAxiom> toReturn = new HashSet<OWLDatatypeDefinitionAxiom>();
+        for (OWLAxiom ax : ints.filterAxioms(Filters.datatypeDefFilter,
+                datatype)) {
+            toReturn.add((OWLDatatypeDefinitionAxiom) ax);
+        }
+        return toReturn;
     }
 
     @Override
     public Set<OWLSubAnnotationPropertyOfAxiom>
             getSubAnnotationPropertyOfAxioms(OWLAnnotationProperty subProperty) {
-        return ints.filterAxioms(subAnnPropertyFilter, subProperty);
+        Set<OWLSubAnnotationPropertyOfAxiom> toReturn = new HashSet<OWLSubAnnotationPropertyOfAxiom>();
+        for (OWLAxiom ax : ints.filterAxioms(Filters.subAnnotationWithSub,
+                subProperty)) {
+            toReturn.add((OWLSubAnnotationPropertyOfAxiom) ax);
+        }
+        return toReturn;
     }
 
     @Override
     public Set<OWLAnnotationPropertyDomainAxiom>
             getAnnotationPropertyDomainAxioms(OWLAnnotationProperty property) {
-        return ints.filterAxioms(apDomainFilter, property);
+        Set<OWLAnnotationPropertyDomainAxiom> toReturn = new HashSet<OWLAnnotationPropertyDomainAxiom>();
+        for (OWLAxiom ax : ints.filterAxioms(Filters.apDomainFilter, property)) {
+            toReturn.add((OWLAnnotationPropertyDomainAxiom) ax);
+        }
+        return toReturn;
     }
 
     @Override
     public Set<OWLAnnotationPropertyRangeAxiom>
             getAnnotationPropertyRangeAxioms(OWLAnnotationProperty property) {
-        return ints.filterAxioms(apRangeFilter, property);
+        Set<OWLAnnotationPropertyRangeAxiom> toReturn = new HashSet<OWLAnnotationPropertyRangeAxiom>();
+        for (OWLAxiom ax : ints.filterAxioms(Filters.apRangeFilter, property)) {
+            toReturn.add((OWLAnnotationPropertyRangeAxiom) ax);
+        }
+        return toReturn;
     }
 
     @Override
@@ -346,64 +369,4 @@ public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
         return getAxioms(OWLDifferentIndividualsAxiom.class,
                 OWLIndividual.class, individual, false, false);
     }
-
-    OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype> datatypeDefFilter = new OWLAxiomSearchFilter<OWLDatatypeDefinitionAxiom, OWLDatatype>() {
-
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public boolean pass(OWLDatatypeDefinitionAxiom axiom, OWLDatatype p) {
-            return axiom.getDatatype().equals(p);
-        }
-
-        @Override
-        public AxiomType<OWLDatatypeDefinitionAxiom> getAxiomType() {
-            return AxiomType.DATATYPE_DEFINITION;
-        }
-    };
-    OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty> subAnnPropertyFilter = new OWLAxiomSearchFilter<OWLSubAnnotationPropertyOfAxiom, OWLAnnotationProperty>() {
-
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public boolean pass(OWLSubAnnotationPropertyOfAxiom axiom,
-                OWLAnnotationProperty p) {
-            return axiom.getSubProperty().equals(p);
-        }
-
-        @Override
-        public AxiomType<OWLSubAnnotationPropertyOfAxiom> getAxiomType() {
-            return AxiomType.SUB_ANNOTATION_PROPERTY_OF;
-        }
-    };
-    OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty> apRangeFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyRangeAxiom, OWLAnnotationProperty>() {
-
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public boolean pass(OWLAnnotationPropertyRangeAxiom axiom,
-                OWLAnnotationProperty p) {
-            return axiom.getProperty().equals(p);
-        }
-
-        @Override
-        public AxiomType<OWLAnnotationPropertyRangeAxiom> getAxiomType() {
-            return AxiomType.ANNOTATION_PROPERTY_RANGE;
-        }
-    };
-    OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty> apDomainFilter = new OWLAxiomSearchFilter<OWLAnnotationPropertyDomainAxiom, OWLAnnotationProperty>() {
-
-        private static final long serialVersionUID = 40000L;
-
-        @Override
-        public boolean pass(OWLAnnotationPropertyDomainAxiom axiom,
-                OWLAnnotationProperty p) {
-            return axiom.getProperty().equals(p);
-        }
-
-        @Override
-        public AxiomType<OWLAnnotationPropertyDomainAxiom> getAxiomType() {
-            return AxiomType.ANNOTATION_PROPERTY_DOMAIN;
-        }
-    };
 }

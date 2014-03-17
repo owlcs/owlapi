@@ -1,5 +1,7 @@
 package org.obolibrary.macro;
 
+import static org.semanticweb.owlapi.search.Searcher.annotations;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -86,7 +88,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.search.Searcher;
+import org.semanticweb.owlapi.search.Filters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,9 +120,8 @@ public abstract class AbstractMacroExpansionVisitor implements
                         .getIRI());
         for (OWLObjectProperty p : inputOntology
                 .getObjectPropertiesInSignature()) {
-            for (OWLAnnotation a : Searcher.find(OWLAnnotation.class)
-                    .in(inputOntology).annotations(p)
-                    .forProperty(expandExpressionAP)) {
+            for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
+                    Filters.annotations, p.getIRI(), true), expandExpressionAP)) {
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
@@ -131,9 +132,8 @@ public abstract class AbstractMacroExpansionVisitor implements
         }
         for (OWLAnnotationProperty p : inputOntology
                 .getAnnotationPropertiesInSignature(false)) {
-            for (OWLAnnotation a : Searcher.find(OWLAnnotation.class)
-                    .in(inputOntology).annotations(p)
-                    .forProperty(expandAssertionAP)) {
+            for (OWLAnnotation a : annotations(inputOntology.filterAxioms(
+                    Filters.annotations, p.getIRI(), true), expandAssertionAP)) {
                 OWLAnnotationValue v = a.getValue();
                 if (v instanceof OWLLiteral) {
                     String str = ((OWLLiteral) v).getLiteral();
