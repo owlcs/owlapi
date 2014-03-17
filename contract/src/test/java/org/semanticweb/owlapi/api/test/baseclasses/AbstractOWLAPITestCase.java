@@ -68,13 +68,13 @@ import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 10-May-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 10-May-2008
  */
 @SuppressWarnings("javadoc")
 public abstract class AbstractOWLAPITestCase {
 
-    public boolean equal(OWLOntology ont1, OWLOntology ont2) {
+    public static boolean equal(OWLOntology ont1, OWLOntology ont2) {
         if (!ont1.isAnonymous() && !ont2.isAnonymous()) {
             assertEquals("Ontologies supposed to be the same",
                     ont1.getOntologyID(), ont2.getOntologyID());
@@ -127,8 +127,7 @@ public abstract class AbstractOWLAPITestCase {
                         rightOnly);
                 if (fixed) {
                     new RuntimeException().printStackTrace(System.out);
-                    String x = this.getClass().getSimpleName()
-                            + " roundTripOntology() Failing to match axioms: "
+                    String x = "roundTripOntology() Failing to match axioms: "
                             + sb.toString();
                     System.out.println(x);
                     fail(x);
@@ -174,7 +173,7 @@ public abstract class AbstractOWLAPITestCase {
      *        true if the axiom belongs to the parsed ones, false for the input
      * @return true if the axiom can be ignored
      */
-    public boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
+    public static boolean isIgnorableAxiom(OWLAxiom ax, boolean parse) {
         if (ax instanceof OWLDeclarationAxiom) {
             OWLDeclarationAxiom d = (OWLDeclarationAxiom) ax;
             if (parse) {
