@@ -12,9 +12,10 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.change;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,6 @@ import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.search.Searcher;
 
 /**
  * For a given class, this composite change makes its told primitive subclasses
@@ -86,10 +86,12 @@ public class MakePrimitiveSubClassesMutuallyDisjoint extends
     private void generateChanges(OWLClass cls, OWLOntology targetOntology,
             boolean usePairwiseDisjointAxioms) {
         Set<OWLClass> subclasses = new HashSet<OWLClass>();
-        Searcher<?> finder = find().in(targetOntology);
-        for (OWLClassExpression subCls : find(OWLClassExpression.class)
-                .in(targetOntology).sub().classes(cls)) {
-            if (!subCls.isAnonymous() && !finder.isDefined(subCls.asOWLClass())) {
+        Collection<OWLClassExpression> sub = sub(
+                targetOntology.getSubClassAxiomsForSuperClass(cls),
+                OWLClassExpression.class);
+        for (OWLClassExpression subCls : sub) {
+            if (!subCls.isAnonymous()
+                    && !isDefined(targetOntology, subCls.asOWLClass())) {
                 subclasses.add(subCls.asOWLClass());
             }
         }

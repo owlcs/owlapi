@@ -740,8 +740,8 @@ public class ContractOwlapiUtilTest {
 
     @Test
     public void shouldTestInterfaceOWLAxiomSearchFilter() throws OWLException {
-        OWLAxiomSearchFilter<OWLAxiom, Object> testSubject0 = mock(OWLAxiomSearchFilter.class);
-        AxiomType<?> result0 = testSubject0.getAxiomType();
+        OWLAxiomSearchFilter testSubject0 = mock(OWLAxiomSearchFilter.class);
+        Collection<AxiomType<?>> result0 = testSubject0.getAxiomTypes();
         boolean result1 = testSubject0.pass(mock(OWLAxiom.class),
                 mock(Object.class));
     }

@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.rdf;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.vocab.OWLRDFVocabulary.*;
 
 import java.io.IOException;
@@ -64,6 +63,7 @@ import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.model.SWRLVariable;
 import org.semanticweb.owlapi.rdf.model.RDFGraph;
 import org.semanticweb.owlapi.rdf.model.RDFTranslator;
+import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.util.AxiomSubjectProvider;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
@@ -535,8 +535,8 @@ public abstract class RDFRendererBase {
         final Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
         // Don't write out duplicates for punned annotations!
         if (!isIndividualAndClass(entity)) {
-            axioms.addAll(find(OWLAnnotationAssertionAxiom.class)
-                    .annotationAxioms(entity).in(ontology).asCollection());
+            axioms.addAll(ontology.filterAxioms(Filters.annotations, entity.getIRI(),
+                    true));
         }
         axioms.addAll(ontology.getDeclarationAxioms(entity));
         entity.accept(new OWLEntityVisitor() {

@@ -13,7 +13,7 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -91,8 +91,8 @@ public class Utf8TestCase extends TestBase {
 
     private static boolean checkOntology(OWLOntology ontology, OWLClass C,
             String CHINESE) {
-        for (OWLAnnotation annotation : find(OWLAnnotation.class).in(ontology)
-                .annotations(C)) {
+        for (OWLAnnotation annotation : annotations(ontology
+                .getAnnotationAssertionAxioms(C.getIRI()))) {
             String value = ((OWLLiteral) annotation.getValue()).getLiteral();
             return CHINESE.equals(value);
         }

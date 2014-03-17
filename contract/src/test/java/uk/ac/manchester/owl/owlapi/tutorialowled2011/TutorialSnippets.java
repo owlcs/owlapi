@@ -13,7 +13,7 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -624,8 +624,9 @@ public class TutorialSnippets {
         OWLOntology o = loadPizzaOntology(m);
         for (OWLClass cls : o.getClassesInSignature()) {
             // Get the annotations on the class that use the label property
-            for (OWLAnnotation annotation : find(OWLAnnotation.class).in(o)
-                    .annotations(cls).forProperty(df.getRDFSLabel())) {
+            for (OWLAnnotation annotation : annotations(
+                    o.getAnnotationAssertionAxioms(cls.getIRI()),
+                    df.getRDFSLabel())) {
                 if (annotation.getValue() instanceof OWLLiteral) {
                     OWLLiteral val = (OWLLiteral) annotation.getValue();
                     // look for portuguese labels
@@ -956,8 +957,8 @@ public class TutorialSnippets {
     LabelExtractor le = new LabelExtractor();
 
     private String labelFor(OWLEntity clazz, OWLOntology o) {
-        Iterable<OWLAnnotation> annotations = find(OWLAnnotation.class).in(o)
-                .annotations(clazz);
+        Iterable<OWLAnnotation> annotations = annotations(o
+                .getAnnotationAssertionAxioms(clazz.getIRI()));
         for (OWLAnnotation anno : annotations) {
             String result = anno.accept(le);
             if (result != null) {

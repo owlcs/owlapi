@@ -4,6 +4,12 @@ import javax.annotation.Nullable;
 
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
+/**
+ * Base class for OWLOntologyDocumentSource.
+ * 
+ * @author ignazio
+ * @since 4.0.0
+ */
 public abstract class OWLOntologyDocumentSourceBase implements
         OWLOntologyDocumentSource {
 

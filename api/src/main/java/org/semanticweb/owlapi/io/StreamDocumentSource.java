@@ -49,6 +49,8 @@ public class StreamDocumentSource extends StreamDocumentSourceBase {
      *        The document IRI
      * @param f
      *        ontology format
+     * @param mime
+     *        mime type
      */
     public StreamDocumentSource(@Nonnull InputStream stream,
             @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {

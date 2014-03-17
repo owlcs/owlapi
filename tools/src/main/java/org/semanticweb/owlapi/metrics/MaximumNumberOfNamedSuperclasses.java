@@ -12,7 +12,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.metrics;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
+import static org.semanticweb.owlapi.search.Searcher.equivalent;
 
 import java.util.HashSet;
 import java.util.List;
@@ -27,8 +27,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.1.0
  */
 public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
@@ -57,9 +57,9 @@ public class MaximumNumberOfNamedSuperclasses extends IntegerValuedMetric {
                 if (!processedClasses.contains(cls)) {
                     processedClasses.add(cls);
                     int curCount = 0;
-                    for (OWLClassExpression desc : find(
-                            OWLClassExpression.class).in(ont).equivalent()
-                            .classes(cls)) {
+                    for (OWLClassExpression desc : equivalent(
+                            ont.getEquivalentClassesAxioms(cls),
+                            OWLClassExpression.class)) {
                         if (!desc.isAnonymous()) {
                             curCount++;
                         }

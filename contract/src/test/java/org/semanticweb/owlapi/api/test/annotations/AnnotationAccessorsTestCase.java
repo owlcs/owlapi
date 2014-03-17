@@ -16,6 +16,8 @@ import static org.junit.Assert.assertTrue;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.find;
 
+import java.util.Collection;
+
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
@@ -23,16 +25,18 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValue;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.search.Filters;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 @SuppressWarnings("javadoc")
@@ -98,8 +102,9 @@ public class AnnotationAccessorsTestCase extends TestBase {
         ont.getOWLOntologyManager().addAxiom(ont, ax);
         assertTrue(ont.getAnnotationAssertionAxioms(SUBJECT).contains(ax));
         OWLDatatype cls = Datatype(SUBJECT);
-        assertTrue(find().in(ont).annotationAxioms(cls).asCollection()
-                .toString(), find().in(ont).annotationAxioms(cls).contains(ax));
+        Collection<OWLAxiom> axioms = ont.filterAxioms(Filters.annotations,
+                cls.getIRI(), true);
+        assertTrue(axioms.toString(), axioms.contains(ax));
         assertTrue(find().in(ont).annotations(cls).contains(ax.getAnnotation()));
     }
 

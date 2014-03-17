@@ -18,6 +18,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import static uk.ac.manchester.cs.owl.owlapi.InitVisitorFactory.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -547,7 +548,7 @@ public class Internals implements Serializable {
 
     /**
      * @param filter
-     *        pointer
+     *        filter to satisfy
      * @param <K>
      *        key type
      * @param <T>
@@ -556,16 +557,36 @@ public class Internals implements Serializable {
      *        key
      * @return set of values
      */
-    @SuppressWarnings("unchecked")
-    public <T extends OWLAxiom, K> Set<T> filterAxioms(
-            OWLAxiomSearchFilter<T, K> filter, K key) {
-        Set<T> toReturn = createSet();
-        for (T t : (Set<T>) getAxiomsByType().getValues(filter.getAxiomType())) {
-            if (filter.pass(t, key)) {
-                toReturn.add(t);
+    public <T extends OWLAxiom, K> Collection<OWLAxiom> filterAxioms(
+            OWLAxiomSearchFilter filter, K key) {
+        Collection<OWLAxiom> toReturn = new ArrayList<OWLAxiom>();
+        for (AxiomType<?> at : filter.getAxiomTypes()) {
+            for (OWLAxiom t : getAxiomsByType().getValues(at)) {
+                if (filter.pass(t, key)) {
+                    toReturn.add(t);
+                }
             }
         }
         return toReturn;
+    }
+
+    /**
+     * @param filter
+     *        filter to satisfy
+     * @param key
+     *        key to match
+     * @return true if the filter is matched at least once
+     */
+    public <T extends OWLAxiom, K> boolean contains(
+            OWLAxiomSearchFilter filter, K key) {
+        for (AxiomType<?> at : filter.getAxiomTypes()) {
+            for (OWLAxiom t : getAxiomsByType().getValues(at)) {
+                if (filter.pass(t, key)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

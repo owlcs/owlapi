@@ -71,6 +71,8 @@ public class FileDocumentSource extends OWLOntologyDocumentSourceBase {
      *        be obtained.
      * @param format
      *        ontology format. Can be null.
+     * @param mime
+     *        mime type
      */
     public FileDocumentSource(@Nonnull File file, OWLOntologyFormat format,
             String mime) {

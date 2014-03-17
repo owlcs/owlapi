@@ -12,7 +12,6 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.util;
 
-import static org.semanticweb.owlapi.search.Searcher.find;
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.List;
@@ -25,11 +24,13 @@ import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAnnotationValueVisitorEx;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologySetProvider;
+import org.semanticweb.owlapi.search.Filters;
 
 /**
  * A short form provider that generates short forms based on entity annotation
@@ -218,9 +219,8 @@ public class AnnotationValueShortFormProvider implements ShortFormProvider {
             AnnotationLanguageFilter checker = new AnnotationLanguageFilter(
                     prop, preferredLanguageMap.get(prop));
             for (OWLOntology ontology : ontologySetProvider.getOntologies()) {
-                for (OWLAnnotationAssertionAxiom ax : find(
-                        OWLAnnotationAssertionAxiom.class).annotationAxioms(
-                        entity).in(ontology)) {
+                for (OWLAxiom ax : ontology.filterAxioms(Filters.annotations,
+                        entity.getIRI(), true)) {
                     ax.accept(checker);
                 }
             }

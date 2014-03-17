@@ -68,6 +68,8 @@ public class StringDocumentSource extends OWLOntologyDocumentSourceBase {
      *        The document IRI
      * @param f
      *        ontology format
+     * @param mime
+     *        mime type
      */
     public StringDocumentSource(@Nonnull String string,
             @Nonnull IRI documentIRI, OWLOntologyFormat f, String mime) {
