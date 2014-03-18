@@ -115,8 +115,8 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLXMLObjectRenderer implements OWLObjectVisitor {
@@ -735,6 +735,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
         writer.writeStartElement(ANNOTATION_PROPERTY_DOMAIN);
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         axiom.getDomain().accept(this);
         writer.writeEndElement();
@@ -743,6 +744,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
         writer.writeStartElement(ANNOTATION_PROPERTY_RANGE);
+        writeAnnotations(axiom);
         axiom.getProperty().accept(this);
         axiom.getRange().accept(this);
         writer.writeEndElement();
@@ -751,6 +753,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         writer.writeStartElement(SUB_ANNOTATION_PROPERTY_OF);
+        writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
         axiom.getSuperProperty().accept(this);
         writer.writeEndElement();
@@ -759,6 +762,7 @@ public class OWLXMLObjectRenderer implements OWLObjectVisitor {
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         writer.writeStartElement(DATATYPE_DEFINITION);
+        writeAnnotations(axiom);
         axiom.getDatatype().accept(this);
         axiom.getDataRange().accept(this);
         writer.writeEndElement();
