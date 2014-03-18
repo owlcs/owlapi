@@ -40,11 +40,8 @@ public class SearcherTestCase extends TestBase {
         OWLClass d = Class(IRI("urn:d"));
         OWLAxiom ax = SubClassOf(c, d);
         o.getOWLOntologyManager().addAxiom(o, ax);
-        assertTrue(find().axiomsOfType(AxiomType.SUBCLASS_OF).in(o)
-                .contains(ax));
-        assertTrue(find().classes().in(o).contains(c));
-        assertTrue(find().classes().in(o).contains(d));
-        assertTrue(describe(c).in(o).contains(ax));
+        assertTrue(o.getAxioms(AxiomType.SUBCLASS_OF).contains(ax));
+        assertTrue(o.getAxioms(c, false).contains(ax));
     }
 
     @Test
@@ -65,16 +62,15 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax2);
         o.getOWLOntologyManager().addAxiom(o, ax3);
         o.getOWLOntologyManager().addAxiom(o, ax4);
-        assertTrue(find().axiomsOfType(AxiomType.SUB_OBJECT_PROPERTY).in(o)
-                .contains(ax));
+        assertTrue(o.getAxioms(AxiomType.SUB_OBJECT_PROPERTY).contains(ax));
         Collection<OWLAxiom> axioms = o.filterAxioms(
                 Filters.subObjectPropertyWithSuper, d, true);
         assertTrue(sub(axioms).contains(c));
         axioms = o.filterAxioms(Filters.subObjectPropertyWithSub, c, true);
         assertTrue(sup(axioms).contains(d));
-        assertTrue(find().domains(c).in(o).contains(x));
-        assertTrue(find().ranges(c).in(o).contains(y));
-        assertTrue(find().equivalent().propertiesOf(c).in(o).contains(e));
+        assertTrue(domain(o.getObjectPropertyDomainAxioms(c)).contains(x));
+        assertTrue(equivalent(o.getEquivalentObjectPropertiesAxioms(c))
+                .contains(e));
     }
 
     @Test
@@ -94,15 +90,15 @@ public class SearcherTestCase extends TestBase {
         o.getOWLOntologyManager().addAxiom(o, ax2);
         o.getOWLOntologyManager().addAxiom(o, ax3);
         o.getOWLOntologyManager().addAxiom(o, ax4);
-        assertTrue(find().axiomsOfType(AxiomType.SUB_DATA_PROPERTY).in(o)
-                .contains(ax));
+        assertTrue(o.getAxioms(AxiomType.SUB_DATA_PROPERTY).contains(ax));
         Collection<OWLAxiom> axioms = o.filterAxioms(
                 Filters.subDataPropertyWithSuper, d, true);
         assertTrue(sub(axioms).contains(c));
         axioms = o.filterAxioms(Filters.subDataPropertyWithSub, c, true);
         assertTrue(sup(axioms).contains(d));
-        assertTrue(find().domains(c).in(o).contains(x));
-        assertTrue(find().ranges(c).in(o).contains(Boolean()));
-        assertTrue(find().equivalent().propertiesOf(c).in(o).contains(e));
+        assertTrue(domain(o.getDataPropertyDomainAxioms(c)).contains(x));
+        assertTrue(range(o.getDataPropertyRangeAxioms(c)).contains(Boolean()));
+        assertTrue(equivalent(o.getEquivalentDataPropertiesAxioms(c)).contains(
+                e));
     }
 }

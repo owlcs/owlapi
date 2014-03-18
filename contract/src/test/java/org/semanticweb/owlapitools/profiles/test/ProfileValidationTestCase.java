@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
 import org.semanticweb.owlapitools.profiles.OWL2ELProfile;
 import org.semanticweb.owlapitools.profiles.OWL2Profile;
@@ -88,15 +87,16 @@ public class ProfileValidationTestCase extends TestBase {
             String ontologySerialisation = vals.iterator().next().getLiteral();
             OWLOntology ontology = loadOntologyFromString(ontologySerialisation);
             // FULL?
-            Searcher<OWLIndividual> finder = find(OWLIndividual.class)
-                    .values(speciesProperty).individual(ind)
-                    .in(testCasesOntology);
+            Collection<OWLIndividual> finder = values(
+                    testCasesOntology.getObjectPropertyAssertionAxioms(ind),
+                    speciesProperty);
             if (finder.contains(FULL)) {
                 checkProfile(ontology, new OWL2Profile(), true);
             }
-            Searcher<OWLIndividual> negativeFinder = find(OWLIndividual.class)
-                    .negativeValues(speciesProperty).individual(ind)
-                    .in(testCasesOntology);
+            Collection<OWLIndividual> negativeFinder = negValues(
+                    testCasesOntology
+                            .getNegativeObjectPropertyAssertionAxioms(ind),
+                    speciesProperty);
             if (negativeFinder.contains(FULL)) {
                 checkProfile(ontology, new OWL2Profile(), false);
             }
