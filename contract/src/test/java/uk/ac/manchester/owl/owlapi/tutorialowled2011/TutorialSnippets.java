@@ -13,12 +13,13 @@
 package uk.ac.manchester.owl.owlapi.tutorialowled2011;
 
 import static org.junit.Assert.*;
-import static org.semanticweb.owlapi.search.Searcher.*;
+import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -82,7 +83,6 @@ import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.reasoner.ReasonerProgressMonitor;
 import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
-import org.semanticweb.owlapi.search.Searcher;
 import org.semanticweb.owlapi.util.AutoIRIMapper;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -277,15 +277,13 @@ public class TutorialSnippets {
     @Test
     public void testAssertedSuperclasses() throws OWLException {
         OWLOntologyManager m = create();
-        OWLOntology o = m.createOntology(example_iri);
-        OWLClass clsA = df.getOWLClass(IRI.create(example_iri + "#A"));
-        Searcher<OWLSubClassOfAxiom> classes = find(OWLSubClassOfAxiom.class)
-                .in(o).equivalent().classes(clsA);
+        OWLOntology o = loadPizzaOntology(m);
+        OWLClass quokkaCls = df.getOWLClass(IRI.create(koala_iri + "#Quokka"));
+        Collection<OWLSubClassOfAxiom> classes = o
+                .getSubClassAxiomsForSubClass(quokkaCls);
         // for each superclass there will be a corresponding axiom
         // the ontology indexes axioms in a variety of ways
-        Set<OWLSubClassOfAxiom> sameSuperClasses = o
-                .getSubClassAxiomsForSubClass(clsA);
-        assertEquals(classes.size(), sameSuperClasses.size());
+        assertEquals(2, classes.size());
     }
 
     @Test

@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
-import static org.semanticweb.owlapi.search.Searcher.find;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -77,7 +76,7 @@ public class SharedBlankNodeTestCase extends TestBase {
             OWLIndividual i = (OWLIndividual) annotation.getValue();
             System.out.println("Found individual " + i);
             System.out.println("Property values = "
-                    + find().in(ontology).individual(i));
+                    + ontology.getAxioms(i, true));
         }
     }
 }
