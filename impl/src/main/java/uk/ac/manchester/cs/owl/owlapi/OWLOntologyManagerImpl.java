@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -430,7 +429,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
         if (appliedChange == null) {
             return Collections.emptyList();
         }
-        return Arrays.asList(appliedChange);
+        return Collections.singletonList(appliedChange);
     }
 
     @Override
@@ -489,7 +488,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
 
     @Override
     public List<OWLOntologyChange<?>> applyChange(OWLOntologyChange<?> change) {
-        return applyChanges(Arrays.asList(change));
+        return applyChanges(Collections.singletonList(change));
     }
 
     private void checkForImportsChange(OWLOntologyChange<?> change) {

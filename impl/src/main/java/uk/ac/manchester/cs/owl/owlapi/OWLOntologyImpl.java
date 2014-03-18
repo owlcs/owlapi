@@ -72,6 +72,7 @@ public class OWLOntologyImpl extends OWLImmutableOntologyImpl implements
         return appliedChanges;
     }
 
+    @SuppressWarnings("unchecked")
     protected class OWLOntologyChangeFilter<T extends OWLOntologyChange<?>>
             implements OWLOntologyChangeVisitorEx<T>, Serializable {
 

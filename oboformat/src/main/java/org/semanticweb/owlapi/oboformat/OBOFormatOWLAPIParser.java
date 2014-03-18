@@ -122,6 +122,7 @@ public class OBOFormatOWLAPIParser implements OWLParser, Serializable {
         return "OWLoboformatParser";
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         return Collections

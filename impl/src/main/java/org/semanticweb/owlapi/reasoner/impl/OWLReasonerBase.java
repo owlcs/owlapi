@@ -46,7 +46,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
     private final OWLOntologyManager manager;
     private final OWLOntology rootOntology;
     private final BufferingMode bufferingMode;
-    private final List<OWLOntologyChange> rawChanges = new ArrayList<OWLOntologyChange>();
+    private final List<OWLOntologyChange<?>> rawChanges = new ArrayList<OWLOntologyChange<?>>();
     private final Set<OWLAxiom> reasonerAxioms;
     private final long timeOut;
     private final OWLReasonerConfiguration configuration;
@@ -113,7 +113,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
      *        The list of raw changes.
      */
     protected synchronized void handleRawOntologyChanges(
-            List<? extends OWLOntologyChange> changes) {
+            List<? extends OWLOntologyChange<?>> changes) {
         rawChanges.addAll(changes);
         // We auto-flush the changes if the reasoner is non-buffering
         if (bufferingMode.equals(BufferingMode.NON_BUFFERING)) {
@@ -121,6 +121,7 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public List<OWLOntologyChange> getPendingChanges() {
         return new ArrayList<OWLOntologyChange>(rawChanges);

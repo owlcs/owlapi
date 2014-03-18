@@ -44,7 +44,7 @@ public class Owl2OboTest extends OboFormatTestBasics {
         assertTrue("termid".equals(id));
         // unprefixed IDs from different ontology
         iri = IRI.create("http://purl.obolibrary.org/obo/MyOnt#termid");
-        id = OWLAPIOwl2Obo.getIdentifier(iri, ontology);
+        id = OWLAPIOwl2Obo.getIdentifier(iri);
         // assertTrue("http://purl.obolibrary.org/obo/MyOnt#termid".equals(id));
         iri = IRI.create("http://www.w3.org/2002/07/owl#topObjectProperty");
         id = OWLAPIOwl2Obo.getIdentifier(iri);

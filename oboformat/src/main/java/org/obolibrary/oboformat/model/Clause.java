@@ -71,9 +71,7 @@ public class Clause {
     /**
      * @param tag
      *        tag
-     * @deprecated Using this method makes the hashcode variable.
      */
-    @Deprecated
     public void setTag(String tag) {
         this.tag = tag;
     }

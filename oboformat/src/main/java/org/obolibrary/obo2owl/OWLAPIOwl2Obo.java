@@ -1,5 +1,7 @@
 package org.obolibrary.obo2owl;
 
+import static org.semanticweb.owlapi.search.Searcher.annotations;
+
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLNamedObject;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -76,6 +79,7 @@ import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.search.Filters;
 import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,6 +92,10 @@ public class OWLAPIOwl2Obo {
      * The log.
      */
     private static Logger LOG = LoggerFactory.getLogger(OWLAPIOwl2Obo.class);
+    private static final String IRI_CLASS_SYNONYMTYPEDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
+            + "IAO_synonymtypedef";
+    private static final String IRI_CLASS_SUBSETDEF = Obo2OWLConstants.DEFAULT_IRI_PREFIX
+            + "IAO_subsetdef";
     /**
      * The manager.
      */
@@ -369,7 +377,7 @@ public class OWLAPIOwl2Obo {
                 if (v instanceof OWLLiteral) {
                     viewRel = ((OWLLiteral) v).getLiteral();
                 } else {
-                    viewRel = getIdentifierUsingBaseOntology((IRI) v);
+                    viewRel = getIdentifier((IRI) v);
                 }
                 break;
             }
@@ -1138,7 +1146,7 @@ public class OWLAPIOwl2Obo {
                     clause.addValue(dataTypeIri.toString());
                 }
             } else if (annVal instanceof IRI) {
-                clause.addValue(getIdentifierUsingBaseOntology((IRI) annVal));
+                clause.addValue(getIdentifier((IRI) annVal));
             }
             frame.addClause(clause);
         }
@@ -1159,7 +1167,7 @@ public class OWLAPIOwl2Obo {
         if (annVal instanceof OWLLiteral) {
             value = ((OWLLiteral) annVal).getLiteral();
         } else if (annVal instanceof IRI) {
-            value = getIdentifierUsingBaseOntology((IRI) annVal);
+            value = getIdentifier((IRI) annVal);
         }
         if (OboFormatTag.TAG_EXPAND_EXPRESSION_TO.getTag().equals(tag)) {
             Matcher matcher = absoulteURLPattern.matcher(value);
@@ -1200,7 +1208,7 @@ public class OWLAPIOwl2Obo {
             if (ann.getValue() instanceof OWLLiteral) {
                 value = ((OWLLiteral) ann.getValue()).getLiteral();
             } else if (ann.getValue() instanceof IRI) {
-                value = getIdentifierUsingBaseOntology((IRI) ann.getValue()); // getIdentifier((IRI)aanAx.getValue());
+                value = getIdentifier((IRI) ann.getValue());
             }
             QualifierValue qv = new QualifierValue(prop, value);
             c.addQualifierValue(qv);
@@ -1701,10 +1709,10 @@ public class OWLAPIOwl2Obo {
             }
         }
         if (obj instanceof OWLEntity) {
-            return getIdentifier(((OWLEntity) obj).getIRI(), ont);
+            return getIdentifier(((OWLEntity) obj).getIRI());
         }
         if (obj instanceof IRI) {
-            return getIdentifier((IRI) obj, ont);
+            return getIdentifier((IRI) obj);
         }
         return null;
     }
@@ -1717,30 +1725,6 @@ public class OWLAPIOwl2Obo {
      * @return obo identifier or null
      */
     public static String getIdentifier(IRI iriId) {
-        return getIdentifier(iriId, null);
-    }
-
-    /**
-     * Gets the identifier using base ontology.
-     * 
-     * @param iriId
-     *        the iri id
-     * @return the identifier using base ontology
-     */
-    protected String getIdentifierUsingBaseOntology(IRI iriId) {
-        return getIdentifier(iriId, owlOntology);
-    }
-
-    /**
-     * Gets the identifier.
-     * 
-     * @param iriId
-     *        the iri id
-     * @param baseOntology
-     *        the base ontology
-     * @return the identifier
-     */
-    public static String getIdentifier(IRI iriId, OWLOntology baseOntology) {
         if (iriId == null) {
             return null;
         }
@@ -1865,7 +1849,7 @@ public class OWLAPIOwl2Obo {
      * @return the term frame
      */
     protected Frame getTermFrame(OWLClass entity) {
-        String id = getIdentifierUsingBaseOntology(entity.getIRI());
+        String id = getIdentifier(entity.getIRI());
         Frame f = obodoc.getTermFrame(id);
         if (f == null) {
             f = new Frame(FrameType.TERM);
@@ -1902,45 +1886,71 @@ public class OWLAPIOwl2Obo {
      *        the ax
      */
     protected void tr(OWLClassAssertionAxiom ax) {
-        /*
-         * OWLObject cls = ax.getClassExpression(); if(!(cls instanceof
-         * OWLClass)) return; String clsIRI = ((OWLClass)
-         * cls).getIRI().toString();
-         * if(Obo2Owl.IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)){ Frame f =
-         * this.obodoc.getHeaderFrame(); Clause c = new Clause();
-         * c.setTag(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
-         * OWLNamedIndividual indv =(OWLNamedIndividual) ax.getIndividual();
-         * String indvId = this.getIdentifier(indv); // TODO: full specify this
-         * in the spec document. // we may want to allow full IDs for subsets in
-         * future. // here we would have a convention that an unprefixed
-         * subsetdef/synonymtypedef // gets placed in a temp ID space, and only
-         * this id space is stripped indvId = indvId.replaceFirst(".*:", "");
-         * c.addValue(indvId); c.addValue(indvId); String nameValue = ""; String
-         * scopeValue = null; for(OWLAnnotation ann:
-         * indv.getAnnotations(owlOntology)){ String propId =
-         * ann.getProperty().getIRI().toString(); String value = ((OWLLiteral)
-         * ann.getValue()).getLiteral();
-         * if(OWLRDFVocabulary.RDFS_LABEL.getIRI().toString().equals(propId)){
-         * nameValue = "\"" +value + "\""; }else scopeValue = value; }
-         * c.addValue(nameValue); if(scopeValue != null){
-         * c.addValue(scopeValue); } f.addClause(c); }else
-         * if(Obo2Owl.IRI_CLASS_SUBSETDEF.equals(clsIRI)){ Frame f =
-         * this.obodoc.getHeaderFrame(); Clause c = new Clause();
-         * c.setTag(OboFormatTag.TAG_SUBSETDEF.getTag()); OWLNamedIndividual
-         * indv =(OWLNamedIndividual) ax.getIndividual(); String indvId =
-         * this.getIdentifier(indv); // TODO: full specify this in the spec
-         * document. // we may want to allow full IDs for subsets in future. //
-         * here we would have a convention that an unprefixed
-         * subsetdef/synonymtypedef // gets placed in a temp ID space, and only
-         * this id space is stripped indvId = indvId.replaceFirst(".*:", "");
-         * c.addValue(indvId); String nameValue = ""; for(OWLAnnotation ann:
-         * indv.getAnnotations(owlOntology)){ String propId =
-         * ann.getProperty().getIRI().toString(); String value = ((OWLLiteral)
-         * ann.getValue()).getLiteral();
-         * if(OWLRDFVocabulary.RDFS_LABEL.getIRI().toString().equals(propId)){
-         * nameValue = "\"" +value + "\""; } } c.addValue(nameValue);
-         * f.addClause(c); }else{ //TODO: individual }
-         */
+        OWLObject cls = ax.getClassExpression();
+        if (!(cls instanceof OWLClass)) {
+            return;
+        }
+        String clsIRI = ((OWLClass) cls).getIRI().toString();
+        if (IRI_CLASS_SYNONYMTYPEDEF.equals(clsIRI)) {
+            Frame f = obodoc.getHeaderFrame();
+            Clause c = new Clause(OboFormatTag.TAG_SYNONYMTYPEDEF.getTag());
+            OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
+            String indvId = this.getIdentifier(indv);
+            // TODO: full specify this in the spec document.
+            // we may want to allow full IDs for subsets in future.
+            // here we would have a convention that an unprefixed
+            // subsetdef/synonymtypedef
+            // gets placed in a temp ID space, and only this id space is
+            // stripped
+            indvId = indvId.replaceFirst(".*:", "");
+            c.addValue(indvId);
+            c.addValue(indvId);
+            String nameValue = "";
+            String scopeValue = null;
+            for (OWLAnnotation ann : annotations(owlOntology
+                    .getAnnotationAssertionAxioms(indv.getIRI()))) {
+                String propId = ann.getProperty().getIRI().toString();
+                String value = ((OWLLiteral) ann.getValue()).getLiteral();
+                if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString()
+                        .equals(propId)) {
+                    nameValue = "\"" + value + "\"";
+                } else {
+                    scopeValue = value;
+                }
+            }
+            c.addValue(nameValue);
+            if (scopeValue != null) {
+                c.addValue(scopeValue);
+            }
+            f.addClause(c);
+        } else if (IRI_CLASS_SUBSETDEF.equals(clsIRI)) {
+            Frame f = obodoc.getHeaderFrame();
+            Clause c = new Clause(OboFormatTag.TAG_SUBSETDEF.getTag());
+            OWLNamedIndividual indv = (OWLNamedIndividual) ax.getIndividual();
+            String indvId = this.getIdentifier(indv);
+            // TODO: full specify this in the spec document.
+            // we may want to allow full IDs for subsets in future.
+            // here we would have a convention that an unprefixed
+            // subsetdef/synonymtypedef
+            // gets placed in a temp ID space, and only this id space is
+            // stripped
+            indvId = indvId.replaceFirst(".*:", "");
+            c.addValue(indvId);
+            String nameValue = "";
+            for (OWLAnnotation ann : annotations(owlOntology
+                    .getAnnotationAssertionAxioms(indv.getIRI()))) {
+                String propId = ann.getProperty().getIRI().toString();
+                String value = ((OWLLiteral) ann.getValue()).getLiteral();
+                if (OWLRDFVocabulary.RDFS_LABEL.getIRI().toString()
+                        .equals(propId)) {
+                    nameValue = "\"" + value + "\"";
+                }
+            }
+            c.addValue(nameValue);
+            f.addClause(c);
+        } else {
+            // TODO: individual
+        }
     }
 
     /**
