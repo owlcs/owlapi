@@ -144,17 +144,13 @@ public class SWRLRoundTripTestCase extends TestBase {
         OWLOntology ontology = prepareOntology();
         OWLOntologyFormat f = new RDFXMLOntologyFormat();
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
-        for (OWLAxiom ax : ontology2.getAxioms()) {
-            System.out.println(ax);
-        }
-        // equal(ontology, ontology2);
+        equal(ontology, ontology2);
         for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
             assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
         }
-        // for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION))
-        // {
-        // assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
-        // }
+        for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
+            assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
+        }
     }
 
     @Test
@@ -162,13 +158,7 @@ public class SWRLRoundTripTestCase extends TestBase {
             throws OWLOntologyCreationException, OWLOntologyStorageException {
         OWLOntology ontology = prepareOntology1();
         OWLOntologyFormat f = new RDFXMLOntologyFormat();
-        System.out
-                .println("SWRLRoundTripTestCase.shouldDoCompleteRoundtripWithAnnotations_datatypeRDFXML()\n"
-                        + saveOntology(ontology, f));
         OWLOntology ontology2 = loadOntologyFromString(saveOntology(ontology, f));
-        for (OWLAxiom ax : ontology2.getAxioms()) {
-            System.out.println(ax);
-        }
         equal(ontology, ontology2);
         for (OWLAxiom r : ontology2.getAxioms(AxiomType.DATATYPE_DEFINITION)) {
             assertFalse(r.getAnnotations(df.getRDFSLabel()).isEmpty());
@@ -265,15 +255,11 @@ public class SWRLRoundTripTestCase extends TestBase {
                 df.getDoubleOWLDatatype(),
                 Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition", ""))));
-        for (OWLAxiom ax : o.getAxioms()) {
-            System.out.println(ax);
-        }
         assertTrue(o.getAxioms().contains(def));
     }
 
     @Test
-    public void shouldParse2() throws OWLOntologyCreationException,
-            OWLOntologyStorageException {
+    public void shouldParse2() throws OWLOntologyCreationException {
         String s = "<?xml version=\"1.0\"?>\n"
                 + "<rdf:RDF xmlns=\"http://www.w3.org/2002/07/owl#\"\n"
                 + "     xml:base=\"http://www.w3.org/2002/07/owl\"\n"
@@ -292,16 +278,11 @@ public class SWRLRoundTripTestCase extends TestBase {
                 + "    </Axiom>\n" + "    <Class rdf:about=\"urn:test\"/>\n"
                 + "</rdf:RDF>\n" + "";
         OWLOntology o = loadOntologyFromString(s);
-        System.out.println("SWRLRoundTripTestCase.shouldParse() " + o);
-        // OWLOntology o2 = m.createOntology();
         OWLSubClassOfAxiom def = df.getOWLSubClassOfAxiom(
                 df.getOWLClass(IRI.create("urn:myClass")),
                 df.getOWLClass(IRI.create("urn:test")),
                 Collections.singleton(df.getOWLAnnotation(df.getRDFSLabel(),
                         df.getOWLLiteral("datatype definition", ""))));
-        // m.addAxiom(o2, def);
-        // System.out.println("SWRLRoundTripTestCase.shouldParse2()\n"
-        // + saveOntology(o2, new RDFXMLOntologyFormat()));
         assertTrue(o.getAxioms().contains(def));
     }
 }
