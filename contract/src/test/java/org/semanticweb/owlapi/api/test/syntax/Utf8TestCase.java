@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
+import org.semanticweb.owlapi.io.UnparsableOntologyException;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -42,6 +43,29 @@ public class Utf8TestCase extends TestBase {
         // ByteArrayOutputStream out = new ByteArrayOutputStream();
         // manager.saveOntology(manager.loadOntologyFromOntologyDocument(in),
         // out);
+    }
+
+    @Test(expected = UnparsableOntologyException.class)
+    public void testInvalidUTF8roundTrip() throws OWLOntologyCreationException {
+        // this test checks for the condition described in issue #47
+        // Input with character = 0240 (octal) should fail parsing but is read
+        // in as an owl/xml file
+        String onto = "<!DOCTYPE rdf:RDF [\n"
+                + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
+                + "]>\n"
+                + "<rdf:RDF \n"
+                + "xml:base=\n"
+                + "\"http://www.example.org/ISA14#\" \n"
+                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
+                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+                + "<owl:Ontology rdf:about=\"#\" />\n"
+                + (char) Integer.valueOf("240", 8).intValue()
+                + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
+                + "</rdf:RDF>";
+        loadOntologyFromString(onto);
     }
 
     @Test
