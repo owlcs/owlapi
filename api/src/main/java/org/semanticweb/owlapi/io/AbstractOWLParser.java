@@ -68,6 +68,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
 
     protected AbstractOWLParser() {}
 
+    @SuppressWarnings("unchecked")
     @Override
     public Set<Class<OWLOntologyFormat>> getSupportedFormatClasses() {
         return Collections
@@ -229,6 +230,7 @@ public abstract class AbstractOWLParser implements OWLParser, Serializable {
         return this.getClass().getSimpleName();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Set<OWLOntologyFormatFactory> getSupportedFormats() {
         return Collections

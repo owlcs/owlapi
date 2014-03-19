@@ -69,7 +69,8 @@ public class ConciseExplanationRenderer implements ExplanationRenderer {
         }
     }
 
-    private void renderSingleExplanation(String header, Set<OWLAxiom> axioms) {
+    private void renderSingleExplanation(String _header, Set<OWLAxiom> axioms) {
+        String header = _header;
         boolean first = true;
         for (OWLAxiom axiom : axioms) {
             if (first) {

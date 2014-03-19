@@ -848,6 +848,7 @@ public class OWLAPIObo2Owl {
      *        the clauses
      * @return the oWL axiom
      */
+    @SuppressWarnings("unused")
     protected OWLAxiom trRelationUnionOf(String id, OWLProperty p,
             Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
@@ -868,6 +869,7 @@ public class OWLAPIObo2Owl {
      *        the clauses
      * @return the oWL axiom
      */
+    @SuppressWarnings("unused")
     protected OWLAxiom trRelationIntersectionOf(String id, OWLProperty p,
             Collection<Clause> clauses) {
         // TODO not expressible in OWL - use APs. SWRL?
