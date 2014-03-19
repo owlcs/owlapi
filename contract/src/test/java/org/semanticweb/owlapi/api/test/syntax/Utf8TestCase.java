@@ -17,6 +17,8 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -64,14 +66,15 @@ public class Utf8TestCase extends TestBase {
                 + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
                 + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
                 + "<owl:Ontology rdf:about=\"#\" />\n"
-                + (char) Integer.valueOf("240", 8).intValue()
+                + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
-        ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
+        Charset charset = StandardCharsets.ISO_8859_1;
+        ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes(charset));
         try {
             m.loadOntologyFromOntologyDocument(in);
             fail("parsing should have failed, invalid input");
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             // expected to fail, but actual exception depends on the parsers in
             // the classpath
         }
