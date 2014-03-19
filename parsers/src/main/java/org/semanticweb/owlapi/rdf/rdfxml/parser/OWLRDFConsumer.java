@@ -1167,6 +1167,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the object
      */
     protected void consumeTriple(IRI subject, IRI predicate, IRI object) {
+        logger.trace("consuming triple");
+        tripleLogger.justLog(subject, predicate, object);
         isTriplePresent(subject, predicate, object, true);
     }
 
@@ -1181,6 +1183,8 @@ public class OWLRDFConsumer implements RDFConsumer, AnonymousNodeChecker {
      *        the con
      */
     protected void consumeTriple(IRI subject, IRI predicate, OWLLiteral con) {
+        logger.trace("consuming triple");
+        tripleLogger.justLog(subject, predicate, con);
         isTriplePresent(subject, predicate, con, true);
     }
 

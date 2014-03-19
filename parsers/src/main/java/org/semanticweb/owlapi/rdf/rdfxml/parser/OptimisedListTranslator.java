@@ -52,7 +52,15 @@ class OptimisedListTranslator<O extends OWLObject> {
         while (current != null) {
             IRI firstResource = consumer.getFirstResource(current, true);
             if (firstResource != null) {
-                list.add(translator.translate(firstResource));
+                O translate = translator.translate(firstResource);
+                if (translate != null) {
+                    logger.debug("list: {}", translate);
+                    list.add(translate);
+                } else {
+                    logger.warn(
+                            "Possible malformed list: cannot translate it {}",
+                            firstResource);
+                }
             } else {
                 OWLLiteral literal = consumer.getFirstLiteral(current);
                 if (literal != null) {
