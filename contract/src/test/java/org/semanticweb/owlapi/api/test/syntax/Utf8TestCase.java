@@ -12,8 +12,11 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
+
+import java.io.ByteArrayInputStream;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -42,6 +45,36 @@ public class Utf8TestCase extends TestBase {
         // ByteArrayOutputStream out = new ByteArrayOutputStream();
         // manager.saveOntology(manager.loadOntologyFromOntologyDocument(in),
         // out);
+    }
+
+    @Test
+    public void testInvalidUTF8roundTrip() throws OWLOntologyCreationException {
+        // this test checks for the condition described in issue #47
+        // Input with character = 0240 (octal) should fail parsing but is read
+        // in as an owl/xml file
+        String onto = "<!DOCTYPE rdf:RDF [\n"
+                + "<!ENTITY xsd \"http://www.w3.org/2001/XMLSchema#\" >\n"
+                + "]>\n"
+                + "<rdf:RDF \n"
+                + "xml:base=\n"
+                + "\"http://www.example.org/ISA14#\" \n"
+                + "xmlns:owl =\"http://www.w3.org/2002/07/owl#\" \n"
+                + "xmlns:rdf =\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" \n"
+                + "xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" \n"
+                + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
+                + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
+                + "<owl:Ontology rdf:about=\"#\" />\n"
+                + (char) Integer.valueOf("240", 8).intValue()
+                + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
+                + "</rdf:RDF>";
+        ByteArrayInputStream in = new ByteArrayInputStream(onto.getBytes());
+        try {
+            m.loadOntologyFromOntologyDocument(in);
+            fail("parsing should have failed, invalid input");
+        } catch (Throwable ex) {
+            // expected to fail, but actual exception depends on the parsers in
+            // the classpath
+        }
     }
 
     @Test

@@ -48,9 +48,7 @@ public class TripleLogger {
      *        object
      */
     public void logTriple(Object s, Object p, Object o) {
-        if (log.isTraceEnabled()) {
-            log.trace("s={} p={} o={}", shorten(s), shorten(p), shorten(o));
-        }
+        justLog(s, p, o);
         incrementTripleCount();
     }
 
@@ -71,16 +69,52 @@ public class TripleLogger {
      */
     public void logTriple(Object s, Object p, Object o, Object lang,
             Object datatype) {
+        justLog(s, p, o, lang, datatype);
+        incrementTripleCount();
+    }
+
+    /**
+     * @param s
+     *        subject
+     * @param p
+     *        predicate
+     * @param o
+     *        object
+     * @param lang
+     *        language
+     * @param datatype
+     *        datatype
+     */
+    public void justLog(Object s, Object p, Object o, Object lang,
+            Object datatype) {
         if (log.isTraceEnabled()) {
             log.trace("s={} p={} o={} l={} dt={}", shorten(s), shorten(p),
                     shorten(o), lang, shorten(datatype));
         }
-        incrementTripleCount();
+    }
+
+    /**
+     * @param s
+     *        subject
+     * @param p
+     *        predicate
+     * @param o
+     *        object
+     */
+    public void justLog(Object s, Object p, Object o) {
+        if (log.isTraceEnabled()) {
+            log.trace("s={} p={} o={}", shorten(s), shorten(p), shorten(o));
+        }
     }
 
     private Object shorten(Object o) {
         if (o == null) {
             return "null";
+        }
+        if (o instanceof String
+                && (((String) o).startsWith("http:") || ((String) o)
+                        .startsWith("urn:"))) {
+            return shorten(IRI.create((String) o));
         }
         if (prefixManager == null || !(o instanceof IRI)) {
             // quote strings and bnodes

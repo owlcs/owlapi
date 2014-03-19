@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
 import org.semanticweb.owlapi.model.OWLImportsDeclaration;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -326,6 +327,10 @@ public class TripleHandlers {
          * @return any remaining triples
          */
         public Set<RDFTriple> mopUp() {
+            // Now handle non-reserved predicate triples
+            consumeNonReservedPredicateTriples();
+            // Now axiom annotations
+            consumeAnnotatedAxioms();
             consumer.iterateResourceTriples(new ResourceTripleIterator() {
 
                 @Override
@@ -354,10 +359,6 @@ public class TripleHandlers {
                     }
                 }
             });
-            // Now handle non-reserved predicate triples
-            consumeNonReservedPredicateTriples();
-            // Now axiom annotations
-            consumeAnnotatedAxioms();
             return getRemainingTriples();
         }
 
@@ -989,7 +990,6 @@ public class TripleHandlers {
 
         @Override
         public void handleTriple(IRI subject, IRI predicate, OWLLiteral object) {
-            consumeTriple(subject, predicate, object);
             OWLAnnotationProperty prop = df.getOWLAnnotationProperty(predicate);
             OWLAnnotationSubject annotationSubject;
             if (isAnonymous(subject)) {
@@ -1008,6 +1008,7 @@ public class TripleHandlers {
                                 getPendingAnnotations());
                 addAxiom(ax);
             }
+            consumeTriple(subject, predicate, object);
         }
     }
 
@@ -1063,9 +1064,8 @@ public class TripleHandlers {
                         anno, getPendingAnnotations());
                 addAxiom(decAx);
             }
-            consumeTriple(subject,predicate,object);
+            consumeTriple(subject, predicate, object);
         }
-
     }
 
     static class GTPDataPropertyAssertionHandler extends AbstractTripleHandler
@@ -1537,8 +1537,9 @@ public class TripleHandlers {
                 IRI object) {
             OWLDatatype datatype = df.getOWLDatatype(subject);
             OWLDataRange dataRange = consumer.translateDataRange(object);
-            addAxiom(df.getOWLDatatypeDefinitionAxiom(datatype, dataRange,
-                    getPendingAnnotations()));
+            OWLDatatypeDefinitionAxiom def = df.getOWLDatatypeDefinitionAxiom(
+                    datatype, dataRange, getPendingAnnotations());
+            addAxiom(def);
             consumeTriple(subject, predicate, object);
         }
 

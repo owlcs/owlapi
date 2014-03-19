@@ -823,6 +823,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLInverseObjectPropertiesAxiom axiom) {
         sb.append("InverseObjectProperties(");
+        writeAnnotations(axiom);
         axiom.getFirstProperty().accept(this);
         sb.append(" ");
         axiom.getSecondProperty().accept(this);
@@ -832,6 +833,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLHasKeyAxiom axiom) {
         sb.append("HasKey(");
+        writeAnnotations(axiom);
         axiom.getClassExpression().accept(this);
         sb.append(" (");
         for (OWLObjectPropertyExpression prop : axiom
@@ -895,6 +897,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
         sb.append("SubAnnotationPropertyOf(");
+        writeAnnotations(axiom);
         axiom.getSubProperty().accept(this);
         sb.append(" ");
         axiom.getSuperProperty().accept(this);
@@ -1012,6 +1015,7 @@ public class SimpleRenderer implements OWLObjectVisitor, OWLObjectRenderer {
     @Override
     public void visit(OWLDatatypeDefinitionAxiom axiom) {
         sb.append("DatatypeDefinition(");
+        writeAnnotations(axiom);
         axiom.getDatatype().accept(this);
         sb.append(" ");
         axiom.getDataRange().accept(this);
