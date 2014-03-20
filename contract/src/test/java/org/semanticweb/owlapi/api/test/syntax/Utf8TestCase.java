@@ -16,13 +16,15 @@ import static org.junit.Assert.fail;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 import static org.semanticweb.owlapi.search.Searcher.annotations;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.OWLFunctionalSyntaxOntologyFormat;
 import org.semanticweb.owlapi.formats.RDFXMLOntologyFormat;
-import org.semanticweb.owlapi.io.StringDocumentSource;
+import org.semanticweb.owlapi.io.StreamDocumentSource;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -32,7 +34,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.UnloadableImportException;
 import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
-import org.semanticweb.owlapi.owlxml.parser.OWLXMLParserAttributeNotFoundException;
 
 @SuppressWarnings("javadoc")
 public class Utf8TestCase extends TestBase {
@@ -51,10 +52,9 @@ public class Utf8TestCase extends TestBase {
         // out);
     }
 
-    @Test(expected = OWLXMLParserAttributeNotFoundException.class)
+    @Test
     public void testInvalidUTF8roundTripOWLXML()
-            throws UnloadableImportException, OWLOntologyCreationException,
-            IOException {
+            throws UnloadableImportException {
         // this test checks for the condition described in issue #47
         // Input with character = 0240 (octal) should fail parsing but is read
         // in as an owl/xml file
@@ -70,11 +70,20 @@ public class Utf8TestCase extends TestBase {
                 + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
                 + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
                 + "<owl:Ontology rdf:about=\"#\" />\n"
-                + (char) Integer.valueOf("240", 8).intValue()
+                + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
+        Charset charset = StandardCharsets.ISO_8859_1;
+        ByteArrayInputStream in = new ByteArrayInputStream(
+                onto.getBytes(charset));
         OWLXMLParser parser = new OWLXMLParser();
-        parser.parse(new StringDocumentSource(onto), m.createOntology());
+        try {
+            parser.parse(new StreamDocumentSource(in), m.createOntology());
+            fail("parsing should have failed, invalid input");
+        } catch (Exception ex) {
+            // expected to fail, but actual exception depends on the parsers in
+            // the classpath
+        }
     }
 
     @Test
@@ -94,13 +103,16 @@ public class Utf8TestCase extends TestBase {
                 + "xmlns:xsd =\"http://www.w3.org/2001/XMLSchema#\" \n"
                 + "xmlns:ibs =\"http://www.example.org/ISA14#\" >\n"
                 + "<owl:Ontology rdf:about=\"#\" />\n"
-                + (char) Integer.valueOf("240", 8).intValue()
+                + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
+        Charset charset = StandardCharsets.ISO_8859_1;
+        ByteArrayInputStream in = new ByteArrayInputStream(
+                onto.getBytes(charset));
         try {
-            loadOntologyFromString(onto);
+            m.loadOntologyFromOntologyDocument(in);
             fail("parsing should have failed, invalid input");
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             // expected to fail, but actual exception depends on the parsers in
             // the classpath
         }
