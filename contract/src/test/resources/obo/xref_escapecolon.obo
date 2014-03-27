@@ -1,0 +1,23 @@
+format-version: 1.4
+ontology: test
+[Term]
+id: GO:0042062\:
+name: long-term strengthening of neuromuscular junction
+namespace: biological_process
+def: "Any process that results in an increase in the efficacy of transmission at a neuromuscular synapse." [GO_REF:0000021, GOC:mtg_15jun06_goc\:pd]
+comment: This term was added by GO_REF:0000021.
+is_a: GO:0050806 ! positive regulation of synaptic transmission
+relationship: part_of GO:0008582 ! regulation of synaptic growth at neuromuscular junction
+xref: EC:3.2.1.108
+xref: MetaCyc:LACTASE-RXN
+xref: Reactome:REACT_100439 "lactose + H2O => D-glucose + D-galactose, Gallus gallus"
+xref: Reactome:REACT_104113 "lactose + H2O => D-glucose + D-galactose, Rattus norvegicus"
+xref: Reactome:REACT_105850 "lactose + H2O => D-glucose + D-galactose, Bos taurus"
+xref: Reactome:REACT_109208 "lactose + H2O => D-glucose + D-galactose, Taeniopygia guttata"
+xref: Reactome:REACT_109391 "lactose + H2O => D-glucose + D-galactose, Sus scrofa"
+xref: Reactome:REACT_109447 "lactose + H2O => D-glucose + D-galactose, Danio rerio"
+xref: Reactome:REACT_30821 "lactose + H2O => D-glucose + D-galactose, Mus musculus"
+xref: Reactome:REACT_78084 "lactose + H2O => D-glucose + D-galactose, Canis familiaris"
+xref: Reactome:REACT_78754 "lactose + H2O => D-glucose + D-galactose, Xenopus tropicalis"
+xref: Reactome:REACT_9455 "lactose + H2O => D-glucose + D-galactose, Homo sapiens"
+xref: RHEA:10079
