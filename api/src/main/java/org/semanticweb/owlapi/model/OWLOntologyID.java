@@ -76,13 +76,13 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>,
      * Constructs an ontology identifier specifiying the ontology IRI and
      * version IRI.
      * 
-     * @param ontologyIRI
+     * @param iri
      *        The ontology IRI (may be {@code null})
      * @param versionIRI
      *        The version IRI (must be {@code null} if the ontologyIRI is null)
      */
-    public OWLOntologyID(IRI ontologyIRI, IRI versionIRI) {
-        this.ontologyIRI = ontologyIRI;
+    public OWLOntologyID(IRI iri, IRI versionIRI) {
+        ontologyIRI = NodeID.isAnonymousNodeIRI(iri) ? null : iri;
         hashCode = 17;
         if (ontologyIRI != null) {
             internalID = null;
@@ -181,7 +181,7 @@ public final class OWLOntologyID implements Comparable<OWLOntologyID>,
      *         or {@code false} if this ID is an ID for an ontology with an IRI.
      */
     public boolean isAnonymous() {
-        return ontologyIRI == null;
+        return ontologyIRI == null || NodeID.isAnonymousNodeIRI(ontologyIRI);
     }
 
     @Override
