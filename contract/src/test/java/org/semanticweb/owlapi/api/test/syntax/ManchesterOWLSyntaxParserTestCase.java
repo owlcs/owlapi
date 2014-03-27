@@ -29,10 +29,13 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
@@ -63,6 +66,29 @@ public class ManchesterOWLSyntaxParserTestCase {
                 new StringDocumentSource(saved));
         // then
         assertTrue(ontology.containsDataPropertyInSignature(iri));
+    }
+
+    @Test
+    public void shouldRenderCorrectly() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
+        // given
+        OWLObjectProperty p = ObjectProperty(IRI("urn:test" + "#p"));
+        OWLClass led = Class(IRI("urn:test" + "#led"));
+        OWLClass crt = Class(IRI("urn:test" + "#crt"));
+        OWLClass display = Class(IRI("urn:test" + "#display"));
+        OWLOntologyManager manager = Factory.getManager();
+        OWLOntology ontology = manager
+                .createOntology(IRI("http://protege.org/ontologies"));
+        OWLDataFactory df = manager.getOWLDataFactory();
+        OWLObjectSomeValuesFrom r = df.getOWLObjectSomeValuesFrom(p,
+                df.getOWLObjectUnionOf(led, crt));
+        OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(display, r);
+        manager.addAxiom(ontology, axiom);
+        StringDocumentTarget target = new StringDocumentTarget();
+        ontology.getOWLOntologyManager().saveOntology(ontology,
+                new ManchesterOWLSyntaxOntologyFormat(), target);
+        assertFalse(target.toString().contains(
+                "((<urn:test#crt> or <urn:test#led>))"));
     }
 
     @Test
