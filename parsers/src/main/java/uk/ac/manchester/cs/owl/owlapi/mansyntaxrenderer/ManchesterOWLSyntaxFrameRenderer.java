@@ -249,7 +249,12 @@ public class ManchesterOWLSyntaxFrameRenderer extends
         this.renderingDirector = renderingDirector;
     }
 
-    public void setOntologyIRIShortFormProvider(OntologyIRIShortFormProvider shortFormProvider) {
+    /**
+     * @param shortFormProvider
+     *        short form provider to be used
+     */
+    public void setOntologyIRIShortFormProvider(
+            OntologyIRIShortFormProvider shortFormProvider) {
         this.shortFormProvider = shortFormProvider;
     }
 
