@@ -41,7 +41,15 @@ package org.semanticweb.owlapi.profiles;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLFacetRestriction;
+import org.semanticweb.owlapi.model.OWLLiteral;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyID;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitor;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
@@ -70,7 +78,7 @@ public class OWL2Profile implements OWLProfile {
 
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
-        OWLOntologyWalker walker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker,
                 ontology.getOWLOntologyManager());

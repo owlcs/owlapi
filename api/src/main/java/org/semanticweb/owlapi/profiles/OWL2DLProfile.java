@@ -90,8 +90,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Aug-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 02-Aug-2009
  */
 public class OWL2DLProfile implements OWLProfile {
 
@@ -114,11 +114,11 @@ public class OWL2DLProfile implements OWLProfile {
             // We won't be in the OWL 2 DL Profile then!
             violations.addAll(report.getViolations());
         }
-        OWLOntologyWalker walker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker ontologyWalker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2DLProfileObjectVisitor visitor = new OWL2DLProfileObjectVisitor(
-                walker, ontology.getOWLOntologyManager());
-        walker.walkStructure(visitor);
+                ontologyWalker, ontology.getOWLOntologyManager());
+        ontologyWalker.walkStructure(visitor);
         violations.addAll(visitor.getProfileViolations());
         return new OWLProfileReport(this, violations);
     }

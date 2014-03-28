@@ -86,8 +86,8 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 16-Apr-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 16-Apr-2008
  */
 public class OWL2ELProfile implements OWLProfile {
 
@@ -134,7 +134,7 @@ public class OWL2ELProfile implements OWLProfile {
         OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
         violations.addAll(report.getViolations());
-        OWLOntologyWalker ontologyWalker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker ontologyWalker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(
                 ontologyWalker, ontology.getOWLOntologyManager());

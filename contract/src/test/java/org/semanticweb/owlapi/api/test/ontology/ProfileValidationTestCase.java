@@ -47,6 +47,7 @@ import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.Factory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -69,8 +70,8 @@ import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Aug-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Aug-2009
  */
 @SuppressWarnings("javadoc")
 public class ProfileValidationTestCase {
@@ -176,5 +177,19 @@ public class ProfileValidationTestCase {
                         + (!shouldBeInProfile ? "not " : "") + "be in the "
                         + profile.getName() + " profile. Report: " + report,
                 shouldBeInProfile, report.isInProfile());
+    }
+
+    @Test
+    public void shouldNotFailELBecauseOfBoolean()
+            throws OWLOntologyCreationException {
+        OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
+        OWLDataFactory df = OWLManager.getOWLDataFactory();
+        o.getOWLOntologyManager().addAxiom(
+                o,
+                df.getOWLAnnotationAssertionAxiom(
+                        IRI.create("urn:test:ELProfile"),
+                        df.getOWLAnnotation(df.getRDFSLabel(),
+                                df.getOWLLiteral(true))));
+        checkProfile(o, new OWL2ELProfile(), true);
     }
 }
