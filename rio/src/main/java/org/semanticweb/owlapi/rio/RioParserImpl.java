@@ -88,7 +88,6 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
 
     private static final long serialVersionUID = 40000L;
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
-    private RioOWLRDFConsumerAdapter consumer;
     private RioRDFOntologyFormatFactory owlFormatFactory;
     private Set<OWLOntologyFormatFactory> supportedFormats;
 
@@ -148,8 +147,8 @@ public class RioParserImpl extends AbstractOWLParser implements RioParser {
             // }
             // };
             // consumer.setIRIProvider(parser);
-            consumer = new RioOWLRDFConsumerAdapter(ontology,
-                    new AnonymousNodeChecker() {
+            RioOWLRDFConsumerAdapter consumer = new RioOWLRDFConsumerAdapter(
+                    ontology, new AnonymousNodeChecker() {
 
                         @Override
                         public boolean isAnonymousNode(final IRI iri) {

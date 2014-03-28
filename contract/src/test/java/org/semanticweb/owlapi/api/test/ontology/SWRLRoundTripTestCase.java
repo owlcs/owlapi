@@ -165,7 +165,7 @@ public class SWRLRoundTripTestCase extends TestBase {
         }
     }
 
-    @Ignore
+    @Ignore("man syntax does not like annotations")
     @Test
     public void shouldDoCompleteRoundtripWithAnnotationsMan()
             throws OWLOntologyCreationException, OWLOntologyStorageException {

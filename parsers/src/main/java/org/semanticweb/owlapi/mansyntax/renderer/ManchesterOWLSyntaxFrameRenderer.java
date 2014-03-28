@@ -161,6 +161,15 @@ public class ManchesterOWLSyntaxFrameRenderer extends
     }
 
     /**
+     * @param shortFormProvider
+     *        short form provider to use
+     */
+    public void setOntologyIRIShortFormProvider(
+            OntologyIRIShortFormProvider shortFormProvider) {
+        this.shortFormProvider = shortFormProvider;
+    }
+
+    /**
      * Adds the renderer listener.
      * 
      * @param listener
