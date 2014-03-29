@@ -43,6 +43,7 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.util.OWLOntologyWalker;
 import org.semanticweb.owlapi.util.StructureWalker;
@@ -83,6 +84,14 @@ public class OWLOntologyProfileWalker extends OWLOntologyWalker {
                 if (node.getValue() instanceof IRI) {
                     node.getValue().accept(this);
                 }
+            }
+
+            @Override
+            public void visit(OWLDeclarationAxiom axiom) {
+                process(axiom);
+                walkerCallback.setAxiom(axiom);
+                // do not visit entities from declarations, only their IRIs
+                axiom.getEntity().getIRI().accept(this);
             }
         });
     }

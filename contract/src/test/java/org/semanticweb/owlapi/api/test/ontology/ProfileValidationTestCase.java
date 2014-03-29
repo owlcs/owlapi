@@ -68,6 +68,7 @@ import org.semanticweb.owlapi.profiles.OWL2QLProfile;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -184,6 +185,8 @@ public class ProfileValidationTestCase {
             throws OWLOntologyCreationException {
         OWLOntology o = OWLManager.createOWLOntologyManager().createOntology();
         OWLDataFactory df = OWLManager.getOWLDataFactory();
+        o.getOWLOntologyManager().addAxiom(o,
+                Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
         o.getOWLOntologyManager().addAxiom(
                 o,
                 df.getOWLAnnotationAssertionAxiom(
