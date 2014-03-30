@@ -78,7 +78,12 @@ public class TurtleRenderer extends RDFRendererBase {
         pending = new HashSet<RDFResource>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
+            String ontologyIRIString = ontology.getOntologyID().getOntologyIRI().toString();
+            String defaultPrefix = ontologyIRIString;
+            if(!ontologyIRIString.endsWith("/")) {
+                 defaultPrefix = ontologyIRIString + "#";
+            }
+            pm.setDefaultPrefix(defaultPrefix);
         }
         if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
