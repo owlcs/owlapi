@@ -1208,8 +1208,8 @@ public class OWLProfileJUnitTest {
         declare(o, cl, op);
         m.addAxiom(o, HasKey(cl, op));
         OWL2ELProfile profile = new OWL2ELProfile();
-        int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1832,8 +1832,8 @@ public class OWLProfileJUnitTest {
         declare(o, datap);
         m.addAxiom(o, FunctionalDataProperty(datap));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfIllegalAxiom.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 

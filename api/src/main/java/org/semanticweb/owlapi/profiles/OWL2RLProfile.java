@@ -42,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
 import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
@@ -198,13 +197,6 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLEquivalentDataPropertiesAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
-                    axiom));
-            return null;
-        }
-
-        @Override
-        public Object visit(OWLFunctionalDataPropertyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
                     axiom));
             return null;

@@ -39,7 +39,6 @@ import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -296,7 +295,7 @@ public class OWL2ELProfile implements OWLProfile {
                     axiom));
             return null;
         }
-        
+
         @Override
         public Object visit(OWLDisjointClassesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
@@ -313,13 +312,6 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
-                    axiom));
-            return null;
-        }
-
-        @Override
-        public Object visit(OWLHasKeyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
                     axiom));
             return null;
