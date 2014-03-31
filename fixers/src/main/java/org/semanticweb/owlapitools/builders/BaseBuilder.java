@@ -30,10 +30,10 @@ import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
-import org.semanticweb.owlapitools.profiles.OWLProfile;
-import org.semanticweb.owlapitools.profiles.OWLProfileReport;
-import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
+import org.semanticweb.owlapi.profiles.OWL2DLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 /**
  * Base builder class, providing annotations storage

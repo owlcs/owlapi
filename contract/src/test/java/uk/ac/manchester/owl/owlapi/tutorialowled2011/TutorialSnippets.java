@@ -99,9 +99,9 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
-import org.semanticweb.owlapitools.profiles.OWLProfileReport;
-import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
+import org.semanticweb.owlapi.profiles.OWL2DLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
