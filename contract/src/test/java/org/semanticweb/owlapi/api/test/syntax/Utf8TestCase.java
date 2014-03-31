@@ -18,7 +18,6 @@ import static org.semanticweb.owlapi.search.Searcher.annotations;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
@@ -37,6 +36,7 @@ import org.semanticweb.owlapi.owlxml.parser.OWLXMLParser;
 
 @SuppressWarnings("javadoc")
 public class Utf8TestCase extends TestBase {
+    private static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
 
     @Test
     public void testUTF8roundTrip() throws OWLOntologyStorageException,
@@ -73,7 +73,7 @@ public class Utf8TestCase extends TestBase {
                 + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
-        Charset charset = StandardCharsets.ISO_8859_1;
+        Charset charset = ISO_8859_1;
         ByteArrayInputStream in = new ByteArrayInputStream(
                 onto.getBytes(charset));
         OWLXMLParser parser = new OWLXMLParser();
@@ -106,7 +106,7 @@ public class Utf8TestCase extends TestBase {
                 + (char) 0240
                 + "<owl:Class rdf:about=\"http://www.example.org/ISA14#Researcher\"/>\n"
                 + "</rdf:RDF>";
-        Charset charset = StandardCharsets.ISO_8859_1;
+        Charset charset = ISO_8859_1;
         ByteArrayInputStream in = new ByteArrayInputStream(
                 onto.getBytes(charset));
         try {
