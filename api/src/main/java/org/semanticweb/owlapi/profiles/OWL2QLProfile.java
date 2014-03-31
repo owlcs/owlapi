@@ -209,12 +209,8 @@ public class OWL2QLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLClassExpression ce : axiom.getClassExpressions()) {
-                if (!isOWL2QLSubClassExpression(ce)) {
-                    profileViolations.add(new UseOfNonSubClassExpression(
-                            getCurrentOntology(), axiom, ce));
-                }
-            }
+            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
+                    axiom));
             return null;
         }
 

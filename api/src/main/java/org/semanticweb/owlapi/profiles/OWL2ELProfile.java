@@ -46,6 +46,7 @@ import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLDataComplementOf;
@@ -56,11 +57,11 @@ import org.semanticweb.owlapi.model.OWLDataOneOf;
 import org.semanticweb.owlapi.model.OWLDataUnionOf;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -309,6 +310,11 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         @Override
+        public Object visit(OWLClassAssertionAxiom axiom) {
+            return axiom.getClassExpression().accept(this);
+        }
+
+        @Override
         public Object visit(OWLDisjointDataPropertiesAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
                     axiom));
@@ -323,6 +329,13 @@ public class OWL2ELProfile implements OWLProfile {
         }
 
         @Override
+        public Object visit(OWLDisjointClassesAxiom axiom) {
+            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
+                    axiom));
+            return null;
+        }
+
+        @Override
         public Object visit(OWLDisjointUnionAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
                     axiom));
@@ -331,13 +344,6 @@ public class OWL2ELProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLFunctionalObjectPropertyAxiom axiom) {
-            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
-                    axiom));
-            return null;
-        }
-
-        @Override
-        public Object visit(OWLHasKeyAxiom axiom) {
             profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
                     axiom));
             return null;
