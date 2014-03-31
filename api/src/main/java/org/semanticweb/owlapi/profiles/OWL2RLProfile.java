@@ -165,12 +165,8 @@ public class OWL2RLProfile implements OWLProfile {
 
         @Override
         public Object visit(OWLDisjointClassesAxiom axiom) {
-            for (OWLClassExpression ce : axiom.getClassExpressions()) {
-                if (!isOWL2RLSubClassExpression(ce)) {
-                    profileViolations.add(new UseOfNonSubClassExpression(
-                            getCurrentOntology(), axiom, ce));
-                }
-            }
+            profileViolations.add(new UseOfIllegalAxiom(getCurrentOntology(),
+                    axiom));
             return null;
         }
 
@@ -544,8 +540,8 @@ public class OWL2RLProfile implements OWLProfile {
 
     /**
      * @param ce
-     *        ce
-     * @return true if class expression
+     *        class
+     * @return true if OWL 2 RL superclass
      */
     public boolean isOWL2RLSuperClassExpression(OWLClassExpression ce) {
         return ce.accept(superClassExpressionChecker).booleanValue();
@@ -656,8 +652,8 @@ public class OWL2RLProfile implements OWLProfile {
 
     /**
      * @param ce
-     *        ce
-     * @return true if class expression
+     *        class
+     * @return true if equivalent classes expression
      */
     public boolean isOWL2RLEquivalentClassExpression(OWLClassExpression ce) {
         return ce.accept(equivalentClassExpressionChecker).booleanValue();

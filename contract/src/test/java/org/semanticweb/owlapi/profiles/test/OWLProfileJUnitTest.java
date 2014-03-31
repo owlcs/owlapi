@@ -40,8 +40,6 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.SWRLAtom;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.profiles.OWL2DLProfile;
 import org.semanticweb.owlapi.profiles.OWL2ELProfile;
 import org.semanticweb.owlapi.profiles.OWL2Profile;
@@ -86,8 +84,6 @@ import org.semanticweb.owlapi.profiles.violations.UseOfObjectOneOfWithMultipleIn
 import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
 import org.semanticweb.owlapi.profiles.violations.UseOfPropertyInChainCausesCycle;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForAnnotationPropertyIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForClassIRI;
-import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForDataPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForIndividualIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForObjectPropertyIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfReservedVocabularyForOntologyIRI;
@@ -99,6 +95,8 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDataProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import org.semanticweb.owlapi.vocab.OWLFacet;
 
 @SuppressWarnings({ "javadoc", "rawtypes" })
 public class OWLProfileJUnitTest {
@@ -181,11 +179,8 @@ public class OWLProfileJUnitTest {
                 Class(fakedatatype.getIRI()), datap);
         m.addAxiom(o, DataPropertyRange(datap, fakeundeclareddatatype));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 4;
-        Class[] expectedViolations = new Class[] { UseOfUnknownDatatype.class,
-                UseOfUndeclaredDatatype.class,
-                DatatypeIRIAlsoUsedAsClassIRI.class,
-                DatatypeIRIAlsoUsedAsClassIRI.class };
+        int expected = 1;
+        Class[] expectedViolations = new Class[] { UseOfUndeclaredDatatype.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -225,7 +220,7 @@ public class OWLProfileJUnitTest {
         m.addAxiom(o, DatatypeDefinition(Boolean(), d));
         m.addAxiom(o, DatatypeDefinition(fakedatatype, Integer()));
         m.addAxiom(o, DatatypeDefinition(Integer(), fakedatatype));
-        int expected = 10;
+        int expected = 9;
         Class[] expectedViolations = new Class[] {
                 CycleInDatatypeDefinition.class,
                 CycleInDatatypeDefinition.class,
@@ -234,8 +229,7 @@ public class OWLProfileJUnitTest {
                 UseOfBuiltInDatatypeInDatatypeDefinition.class,
                 UseOfBuiltInDatatypeInDatatypeDefinition.class,
                 UseOfBuiltInDatatypeInDatatypeDefinition.class,
-                UseOfUnknownDatatype.class, UseOfUnknownDatatype.class,
-                UseOfUnknownDatatype.class };
+                UseOfUnknownDatatype.class, UseOfUnknownDatatype.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -250,16 +244,10 @@ public class OWLProfileJUnitTest {
                 AnnotationProperty(iri));
         m.addAxiom(o, SubObjectPropertyOf(op, ObjectProperty(iri)));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 13;
+        int expected = 4;
         Class[] expectedViolations = new Class[] {
                 UseOfReservedVocabularyForObjectPropertyIRI.class,
-                UseOfReservedVocabularyForAnnotationPropertyIRI.class,
-                UseOfReservedVocabularyForDataPropertyIRI.class,
-                UseOfReservedVocabularyForObjectPropertyIRI.class,
                 UseOfUndeclaredObjectProperty.class, IllegalPunning.class,
-                IllegalPunning.class, IllegalPunning.class,
-                IllegalPunning.class, IllegalPunning.class,
-                IllegalPunning.class, IllegalPunning.class,
                 IllegalPunning.class };
         runAssert(o, profile, expected, expectedViolations);
     }
@@ -271,8 +259,8 @@ public class OWLProfileJUnitTest {
         OWLOntology o = createOnto();
         declare(o, DataProperty(IRI(START + "fail")));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfReservedVocabularyForDataPropertyIRI.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -296,9 +284,8 @@ public class OWLProfileJUnitTest {
         OWLOntology o = createOnto();
         declare(o, datap, AnnotationProperty(datap.getIRI()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 2;
-        Class[] expectedViolations = new Class[] { IllegalPunning.class,
-                IllegalPunning.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -309,9 +296,8 @@ public class OWLProfileJUnitTest {
         OWLOntology o = createOnto();
         declare(o, datap, ObjectProperty(datap.getIRI()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 2;
-        Class[] expectedViolations = new Class[] { IllegalPunning.class,
-                IllegalPunning.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -329,16 +315,10 @@ public class OWLProfileJUnitTest {
                 SubAnnotationPropertyOf(AnnotationProperty(IRI("urn:test#t")),
                         AnnotationProperty(iri)));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 13;
+        int expected = 4;
         Class[] expectedViolations = new Class[] {
                 UseOfReservedVocabularyForAnnotationPropertyIRI.class,
-                UseOfReservedVocabularyForAnnotationPropertyIRI.class,
-                UseOfReservedVocabularyForObjectPropertyIRI.class,
-                UseOfReservedVocabularyForDataPropertyIRI.class,
                 UseOfUndeclaredAnnotationProperty.class, IllegalPunning.class,
-                IllegalPunning.class, IllegalPunning.class,
-                IllegalPunning.class, IllegalPunning.class,
-                IllegalPunning.class, IllegalPunning.class,
                 IllegalPunning.class };
         runAssert(o, profile, expected, expectedViolations);
     }
@@ -369,11 +349,8 @@ public class OWLProfileJUnitTest {
                 ClassAssertion(Class(fakedatatype.getIRI()),
                         AnonymousIndividual()));
         OWL2DLProfile profile = new OWL2DLProfile();
-        int expected = 4;
-        Class[] expectedViolations = new Class[] {
-                UseOfReservedVocabularyForClassIRI.class,
-                UseOfUndeclaredClass.class,
-                DatatypeIRIAlsoUsedAsClassIRI.class,
+        int expected = 2;
+        Class[] expectedViolations = new Class[] { UseOfUndeclaredClass.class,
                 DatatypeIRIAlsoUsedAsClassIRI.class };
         runAssert(o, profile, expected, expectedViolations);
     }
@@ -884,8 +861,8 @@ public class OWLProfileJUnitTest {
         OWLOntology o = createOnto();
         declare(o, Boolean());
         OWL2ELProfile profile = new OWL2ELProfile();
-        int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfIllegalDataRange.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1341,8 +1318,8 @@ public class OWLProfileJUnitTest {
         OWLOntology o = createOnto();
         declare(o, fakedatatype);
         OWL2QLProfile profile = new OWL2QLProfile();
-        int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfIllegalDataRange.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1421,7 +1398,7 @@ public class OWLProfileJUnitTest {
         m.addAxiom(o,
                 DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfNonSubClassExpression.class };
+        Class[] expectedViolations = new Class[] { UseOfIllegalAxiom.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1776,10 +1753,8 @@ public class OWLProfileJUnitTest {
         m.addAxiom(o,
                 DisjointClasses(ObjectComplementOf(OWLThing()), OWLThing()));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 2;
-        Class[] expectedViolations = new Class[] {
-                UseOfNonSubClassExpression.class,
-                UseOfNonSubClassExpression.class };
+        int expected = 1;
+        Class[] expectedViolations = new Class[] { UseOfIllegalAxiom.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -1998,8 +1973,8 @@ public class OWLProfileJUnitTest {
         OWLOntology o = createOnto();
         declare(o, Datatype(IRI("urn:test#test")));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 1;
-        Class[] expectedViolations = new Class[] { UseOfIllegalDataRange.class };
+        int expected = 0;
+        Class[] expectedViolations = new Class[] {};
         runAssert(o, profile, expected, expectedViolations);
     }
 
@@ -2043,9 +2018,9 @@ public class OWLProfileJUnitTest {
         declare(o, datatype);
         m.addAxiom(o, DatatypeDefinition(datatype, Boolean()));
         OWL2RLProfile profile = new OWL2RLProfile();
-        int expected = 3;
+        int expected = 2;
         Class[] expectedViolations = new Class[] { UseOfIllegalAxiom.class,
-                UseOfIllegalDataRange.class, UseOfIllegalDataRange.class };
+                UseOfIllegalDataRange.class };
         runAssert(o, profile, expected, expectedViolations);
     }
 
