@@ -60,13 +60,13 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalAxiom;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonEquivalentClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSubClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonSuperClassExpression;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -122,7 +122,7 @@ public class OWL2RLProfile implements OWLProfile {
         OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation<?>> violations = new HashSet<OWLProfileViolation<?>>();
         violations.addAll(report.getViolations());
-        OWLOntologyWalker walker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2RLObjectVisitor visitor = new OWL2RLObjectVisitor(walker);
         walker.walkStructure(visitor);

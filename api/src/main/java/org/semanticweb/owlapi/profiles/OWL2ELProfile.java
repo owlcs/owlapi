@@ -56,9 +56,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 import org.semanticweb.owlapi.profiles.violations.LastPropertyInChainNotInImposedRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfAnonymousIndividual;
 import org.semanticweb.owlapi.profiles.violations.UseOfDataOneOfWithMultipleLiterals;
@@ -67,6 +64,9 @@ import org.semanticweb.owlapi.profiles.violations.UseOfIllegalClassExpression;
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalDataRange;
 import org.semanticweb.owlapi.profiles.violations.UseOfObjectOneOfWithMultipleIndividuals;
 import org.semanticweb.owlapi.profiles.violations.UseOfObjectPropertyInverse;
+import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -102,7 +102,7 @@ public class OWL2ELProfile implements OWLProfile {
         OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation<?>> violations = new HashSet<OWLProfileViolation<?>>();
         violations.addAll(report.getViolations());
-        OWLOntologyWalker ontologyWalker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker ontologyWalker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2ELProfileObjectVisitor visitor = new OWL2ELProfileObjectVisitor(
                 ontologyWalker, ontology.getOWLOntologyManager());

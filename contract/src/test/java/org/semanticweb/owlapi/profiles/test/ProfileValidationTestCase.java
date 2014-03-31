@@ -22,6 +22,8 @@ import java.util.Collection;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotation;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
@@ -136,5 +138,17 @@ public class ProfileValidationTestCase extends TestBase {
             boolean shouldBeInProfile) {
         OWLProfileReport report = profile.checkOntology(ontology);
         assertEquals(shouldBeInProfile, report.isInProfile());
+    }
+
+    @Test
+    public void shouldNotFailELBecauseOfBoolean()
+            throws OWLOntologyCreationException {
+        OWLOntology o = m.createOntology();
+        OWLAnnotation ann = df.getOWLAnnotation(df.getRDFSLabel(),
+                df.getOWLLiteral(true));
+        OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
+                IRI.create("urn:test:ELProfile"), ann);
+        m.addAxiom(o, ax);
+        checkProfile(o, new OWL2ELProfile(), true);
     }
 }

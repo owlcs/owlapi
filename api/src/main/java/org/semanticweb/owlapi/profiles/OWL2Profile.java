@@ -24,9 +24,6 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.profiles.violations.LexicalNotInLexicalSpace;
 import org.semanticweb.owlapi.profiles.violations.OntologyIRINotAbsolute;
 import org.semanticweb.owlapi.profiles.violations.OntologyVersionIRINotAbsolute;
@@ -34,6 +31,9 @@ import org.semanticweb.owlapi.profiles.violations.UseOfDefinedDatatypeInDatatype
 import org.semanticweb.owlapi.profiles.violations.UseOfIllegalFacetRestriction;
 import org.semanticweb.owlapi.profiles.violations.UseOfNonAbsoluteIRI;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * Checks to see if an ontology and its imports closure fall into the OWL 2 DL
@@ -66,7 +66,7 @@ public class OWL2Profile implements OWLProfile {
      */
     @Override
     public OWLProfileReport checkOntology(OWLOntology ontology) {
-        OWLOntologyWalker walker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2ProfileObjectWalker visitor = new OWL2ProfileObjectWalker(walker,
                 ontology.getOWLOntologyManager());

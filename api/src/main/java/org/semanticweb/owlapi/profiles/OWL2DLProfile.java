@@ -57,11 +57,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
-import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
-import org.semanticweb.owlapi.util.OWLOntologyWalker;
-import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
-import org.semanticweb.owlapi.vocab.Namespaces;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.profiles.violations.CycleInDatatypeDefinition;
 import org.semanticweb.owlapi.profiles.violations.DatatypeIRIAlsoUsedAsClassIRI;
 import org.semanticweb.owlapi.profiles.violations.EmptyOneOfAxiom;
@@ -92,6 +87,11 @@ import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDataProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredDatatype;
 import org.semanticweb.owlapi.profiles.violations.UseOfUndeclaredObjectProperty;
 import org.semanticweb.owlapi.profiles.violations.UseOfUnknownDatatype;
+import org.semanticweb.owlapi.util.OWLObjectPropertyManager;
+import org.semanticweb.owlapi.util.OWLOntologyWalker;
+import org.semanticweb.owlapi.util.OWLOntologyWalkerVisitorEx;
+import org.semanticweb.owlapi.vocab.Namespaces;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -132,7 +132,7 @@ public class OWL2DLProfile implements OWLProfile {
             // We won't be in the OWL 2 DL Profile then!
             violations.addAll(report.getViolations());
         }
-        OWLOntologyWalker walker = new OWLOntologyWalker(
+        OWLOntologyProfileWalker walker = new OWLOntologyProfileWalker(
                 ontology.getImportsClosure());
         OWL2DLProfileObjectVisitor visitor = new OWL2DLProfileObjectVisitor(
                 walker, ontology.getOWLOntologyManager());
