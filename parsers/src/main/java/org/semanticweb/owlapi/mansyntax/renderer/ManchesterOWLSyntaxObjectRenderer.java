@@ -29,8 +29,8 @@ import org.semanticweb.owlapi.util.ShortFormProvider;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
@@ -175,7 +175,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
     @Override
     public void visit(OWLObjectUnionOf desc) {
         boolean first = true;
-        write("(");
         for (Iterator<? extends OWLClassExpression> it = desc.getOperands()
                 .iterator(); it.hasNext();) {
             OWLClassExpression op = it.next();
@@ -191,7 +190,6 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
                 write(")");
             }
         }
-        write(")");
     }
 
     @Override

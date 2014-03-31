@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.expression.ShortFormEntityChecker;
 import org.semanticweb.owlapi.formats.ManchesterOWLSyntaxOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentTarget;
 import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntaxEditorParser;
 import org.semanticweb.owlapi.mansyntax.renderer.ManchesterOWLSyntaxPrefixNameShortFormProvider;
 import org.semanticweb.owlapi.mansyntax.renderer.ParserException;
@@ -39,9 +40,12 @@ import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLFacetRestriction;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.util.AnnotationValueShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProvider;
 import org.semanticweb.owlapi.util.BidirectionalShortFormProviderAdapter;
@@ -65,6 +69,26 @@ public class ManchesterOWLSyntaxParserTestCase extends TestBase {
         ontology = roundTrip(ontology);
         // then
         assertTrue(ontology.containsDataPropertyInSignature(iri, false));
+    }
+
+    @Test
+    public void shouldRenderCorrectly() throws OWLOntologyCreationException,
+            OWLOntologyStorageException {
+        // given
+        OWLObjectProperty prop = ObjectProperty(IRI("urn:test#p"));
+        OWLClass led = Class(IRI("urn:test#led"));
+        OWLClass crt = Class(IRI("urn:test#crt"));
+        OWLClass display = Class(IRI("urn:test#display"));
+        OWLOntology ontology = m
+                .createOntology(IRI("http://protege.org/ontologies"));
+        OWLObjectSomeValuesFrom r = df.getOWLObjectSomeValuesFrom(prop,
+                df.getOWLObjectUnionOf(led, crt));
+        OWLSubClassOfAxiom axiom = df.getOWLSubClassOfAxiom(display, r);
+        m.addAxiom(ontology, axiom);
+        StringDocumentTarget target = saveOntology(ontology,
+                new ManchesterOWLSyntaxOntologyFormat());
+        assertFalse(target.toString().contains(
+                "((<urn:test#crt> or <urn:test#led>))"));
     }
 
     @Test
