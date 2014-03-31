@@ -22,7 +22,6 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
-import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
@@ -248,7 +247,7 @@ public class OWLObjectWalker<O extends OWLObject> {
      * @param axiom
      *        the axiom to set
      */
-    public void setAxiom(OWLAnnotationAssertionAxiom axiom) {
+    public void setAxiom(OWLAxiom axiom) {
         ax = axiom;
     }
 

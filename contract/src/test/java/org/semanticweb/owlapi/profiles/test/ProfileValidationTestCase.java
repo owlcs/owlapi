@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.profiles.OWL2QLProfile;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information
@@ -149,6 +150,7 @@ public class ProfileValidationTestCase extends TestBase {
         OWLAnnotationAssertionAxiom ax = df.getOWLAnnotationAssertionAxiom(
                 IRI.create("urn:test:ELProfile"), ann);
         m.addAxiom(o, ax);
+        m.addAxiom(o, Declaration(OWL2Datatype.XSD_BOOLEAN.getDatatype(df)));
         checkProfile(o, new OWL2ELProfile(), true);
     }
 }
