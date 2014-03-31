@@ -10,40 +10,21 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.reasoner;
+package org.semanticweb.owlapi.profiles.violations;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.profiles.OWLProfile;
+import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
- * @since 3.0.0
+ * Entity not declared
+ * 
+ * @author ignazio
  */
-public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
+public interface UndeclaredEntityViolation {
 
-    private static final long serialVersionUID = 40000L;
-    private final OWLAxiom axiom;
-    private final OWLProfile profile;
+    /** @return entity not declared */
+    OWLEntity getEntity();
 
-    /**
-     * @param axiom
-     *        wrong axiom
-     * @param profile
-     *        profile
-     */
-    public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
-        this.axiom = axiom;
-        this.profile = profile;
-    }
-
-    /** @return wrong axiom */
-    public OWLAxiom getAxiom() {
-        return axiom;
-    }
-
-    /** @return profile */
-    public OWLProfile getProfile() {
-        return profile;
-    }
+    /** @return ontology */
+    OWLOntology getOntology();
 }

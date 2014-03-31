@@ -10,40 +10,32 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.reasoner;
+package org.semanticweb.owlapi.profiles;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.profiles.OWLProfile;
+import org.semanticweb.owlapi.model.HasIRI;
+import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
-public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
-
-    private static final long serialVersionUID = 40000L;
-    private final OWLAxiom axiom;
-    private final OWLProfile profile;
+public interface OWLProfile extends HasIRI {
 
     /**
-     * @param axiom
-     *        wrong axiom
-     * @param profile
-     *        profile
+     * Gets the name of the profile.
+     * 
+     * @return A string that represents the name of the profile
      */
-    public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
-        this.axiom = axiom;
-        this.profile = profile;
-    }
+    String getName();
 
-    /** @return wrong axiom */
-    public OWLAxiom getAxiom() {
-        return axiom;
-    }
-
-    /** @return profile */
-    public OWLProfile getProfile() {
-        return profile;
-    }
+    /**
+     * Checks an ontology and its import closure to see if it is within this
+     * profile.
+     * 
+     * @param ontology
+     *        The ontology to be checked.
+     * @return An {@code OWLProfileReport} that describes whether or not the
+     *         ontology is within this profile.
+     */
+    OWLProfileReport checkOntology(OWLOntology ontology);
 }

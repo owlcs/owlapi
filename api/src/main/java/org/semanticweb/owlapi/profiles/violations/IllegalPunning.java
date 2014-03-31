@@ -10,40 +10,47 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.reasoner;
+package org.semanticweb.owlapi.profiles.violations;
 
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.profiles.OWLProfile;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
+import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
+import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
- * @since 3.0.0
+ * Punning between properties is not allowed
+ * 
+ * @author ignazio
  */
-public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
-
-    private static final long serialVersionUID = 40000L;
-    private final OWLAxiom axiom;
-    private final OWLProfile profile;
+public class IllegalPunning extends OWLProfileViolation<IRI> {
 
     /**
-     * @param axiom
-     *        wrong axiom
-     * @param profile
-     *        profile
+     * @param currentOntology
+     *        ontology
+     * @param node
+     *        axiom
+     * @param iri
+     *        iri
      */
-    public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
-        this.axiom = axiom;
-        this.profile = profile;
+    public IllegalPunning(OWLOntology currentOntology, OWLAxiom node, IRI iri) {
+        super(currentOntology, node, iri);
     }
 
-    /** @return wrong axiom */
-    public OWLAxiom getAxiom() {
-        return axiom;
+    @Override
+    public String toString() {
+        return toString("Cannot pun between properties: %s", getExpression()
+                .toQuotedString());
     }
 
-    /** @return profile */
-    public OWLProfile getProfile() {
-        return profile;
+    @Override
+    public void accept(OWLProfileViolationVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+        return visitor.visit(this);
     }
 }

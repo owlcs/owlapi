@@ -17,8 +17,8 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapitools.profiles.OWL2DLProfile;
-import org.semanticweb.owlapitools.profiles.OWLProfileViolation;
+import org.semanticweb.owlapi.profiles.OWL2DLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 @SuppressWarnings("javadoc")
 public class PrimerTestCase extends TestBase {

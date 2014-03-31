@@ -10,40 +10,54 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.reasoner;
+package org.semanticweb.owlapi.profiles.violations;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.profiles.OWLProfile;
+import org.semanticweb.owlapi.model.OWLDatatypeRestriction;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.vocab.OWLFacet;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
+import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitor;
+import org.semanticweb.owlapi.profiles.OWLProfileViolationVisitorEx;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
-public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
+public class UseOfIllegalFacetRestriction extends OWLProfileViolation<OWLFacet> {
 
-    private static final long serialVersionUID = 40000L;
-    private final OWLAxiom axiom;
-    private final OWLProfile profile;
+    private final OWLDatatypeRestriction datatypeRestriction;
 
     /**
+     * @param ontology
+     *        ontology
      * @param axiom
-     *        wrong axiom
-     * @param profile
-     *        profile
+     *        axiom
+     * @param dtr
+     *        dtr
+     * @param facet
+     *        facet
      */
-    public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
-        this.axiom = axiom;
-        this.profile = profile;
+    public UseOfIllegalFacetRestriction(OWLOntology ontology, OWLAxiom axiom,
+            OWLDatatypeRestriction dtr, OWLFacet facet) {
+        super(ontology, axiom, facet);
+        datatypeRestriction = dtr;
     }
 
-    /** @return wrong axiom */
-    public OWLAxiom getAxiom() {
-        return axiom;
+    @Override
+    public void accept(OWLProfileViolationVisitor visitor) {
+        visitor.visit(this);
     }
 
-    /** @return profile */
-    public OWLProfile getProfile() {
-        return profile;
+    @Override
+    public <O> O accept(OWLProfileViolationVisitorEx<O> visitor) {
+        return visitor.visit(this);
+    }
+
+    @Override
+    public String toString() {
+        return toString(
+                "Facet in datatype restriction does not belong to restricted datatype: %s in %s",
+                getExpression(), datatypeRestriction);
     }
 }

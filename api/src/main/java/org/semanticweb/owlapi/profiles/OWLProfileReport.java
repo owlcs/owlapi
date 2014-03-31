@@ -10,40 +10,62 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
-package org.semanticweb.owlapi.reasoner;
+package org.semanticweb.owlapi.profiles;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.profiles.OWLProfile;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
- * @since 3.0.0
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  */
-public class AxiomNotInProfileException extends OWLReasonerRuntimeException {
+public class OWLProfileReport {
 
-    private static final long serialVersionUID = 40000L;
-    private final OWLAxiom axiom;
     private final OWLProfile profile;
+    private final List<OWLProfileViolation<?>> violations;
 
     /**
-     * @param axiom
-     *        wrong axiom
      * @param profile
-     *        profile
+     *        the profile used
+     * @param violations
+     *        the set of violations
      */
-    public AxiomNotInProfileException(OWLAxiom axiom, OWLProfile profile) {
-        this.axiom = axiom;
+    public OWLProfileReport(OWLProfile profile,
+            Set<OWLProfileViolation<?>> violations) {
         this.profile = profile;
+        this.violations = new ArrayList<OWLProfileViolation<?>>(violations);
     }
 
-    /** @return wrong axiom */
-    public OWLAxiom getAxiom() {
-        return axiom;
-    }
-
-    /** @return profile */
+    /** @return the profile used */
     public OWLProfile getProfile() {
         return profile;
+    }
+
+    /** @return true if there are no violations */
+    public boolean isInProfile() {
+        return violations.isEmpty();
+    }
+
+    /** @return the violations found */
+    public List<OWLProfileViolation<?>> getViolations() {
+        return violations;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(profile.getName());
+        sb.append(" Profile Report: ");
+        if (isInProfile()) {
+            sb.append("[Ontology and imports closure in profile]\n");
+        } else {
+            sb.append("Ontology and imports closure NOT in profile. The following violations are present:\n");
+        }
+        for (OWLProfileViolation<?> na : violations) {
+            sb.append(na);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
