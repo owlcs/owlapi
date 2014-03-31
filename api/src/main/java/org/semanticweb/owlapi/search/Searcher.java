@@ -443,7 +443,7 @@ public class Searcher<T> {
      * @return sub expressions
      */
     @Nonnull
-    public static <C> Collection<C> sub(
+    public static <C extends OWLObject> Collection<C> sub(
             @Nonnull Collection<? extends OWLAxiom> axioms,
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<C>();
@@ -482,7 +482,7 @@ public class Searcher<T> {
      * @return sub expressions
      */
     @Nonnull
-    public static <C> Collection<C> sup(
+    public static <C extends OWLObject> Collection<C> sup(
             @Nonnull Collection<? extends OWLAxiom> axioms,
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<C>();
@@ -551,7 +551,7 @@ public class Searcher<T> {
      * @return sub expressions
      */
     @Nonnull
-    public static <C> Collection<C> domain(
+    public static <C extends  OWLObject> Collection<C> domain(
             @Nonnull Collection<? extends OWLAxiom> axioms,
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<C>();
@@ -603,7 +603,7 @@ public class Searcher<T> {
      * @return sub expressions
      */
     @Nonnull
-    public static <C> Collection<C> range(
+    public static <C extends OWLObject> Collection<C> range(
             @Nonnull Collection<? extends OWLAxiom> axioms,
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<C>();
