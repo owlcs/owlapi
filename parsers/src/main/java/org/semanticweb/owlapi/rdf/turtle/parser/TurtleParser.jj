@@ -180,18 +180,22 @@ MORE : {
 }
 
 MORE : {
-    "\"\"\"" : IN_LONG_STRING
+   < THREEQUOTES: ("\"\"\""|"'''") > : IN_LONG_STRING
 }
 
 <IN_LONG_STRING> MORE :
 {
-    <  ~[] >
+    <  (~[]) >
+}
+<IN_LONG_STRING> MORE :
+{
+    <ANY_ESCAPED_CHAR_IN_LONG_STRING: "\\"~[] >
 }
 
 
 <IN_LONG_STRING> TOKEN :
 {
-    <LONG_STRING: "\"\"\""> : DEFAULT
+    <LONG_STRING: ("\"\"\""|"'''")> : DEFAULT
 }
 
 
