@@ -16,17 +16,13 @@ package org.semanticweb.owlapi.rdf.turtle.parser;
 import org.semanticweb.owlapi.BOMSafeJavaCharStream;
 
 /** Token Manager. */
+@SuppressWarnings("all")
 public class TurtleParserTokenManager implements TurtleParserConstants {
 
     /** Debug output. */
     public java.io.PrintStream debugStream = System.out;
 
-    /**
-     * Set debug output.
-     * 
-     * @param ds
-     *        the new debug stream
-     */
+    /** Set debug output. */
     public void setDebugStream(java.io.PrintStream ds) {
         debugStream = ds;
     }
@@ -34,64 +30,67 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     private final int jjStopStringLiteralDfa_0(int pos, long active0) {
         switch (pos) {
             case 0:
-                if ((active0 & 0x20000000L) != 0L) {
-                    return 56;
+                if ((active0 & 0x1000000L) != 0L) {
+                    return 62;
                 }
-                if ((active0 & 0x1f00000000L) != 0L) {
-                    jjmatchedKind = 37;
-                    return 56;
+                if ((active0 & 0x100000000L) != 0L) {
+                    jjmatchedKind = 41;
+                    return 22;
                 }
-                if ((active0 & 0x800000L) != 0L) {
-                    return 57;
+                if ((active0 & 0x200000L) != 0L) {
+                    return 12;
                 }
-                if ((active0 & 0x100000L) != 0L) {
-                    return 6;
+                if ((active0 & 0x3e00000000L) != 0L) {
+                    jjmatchedKind = 38;
+                    return 63;
                 }
-                if ((active0 & 0x80000000L) != 0L) {
-                    jjmatchedKind = 40;
-                    return 16;
+                if ((active0 & 0x40000000L) != 0L) {
+                    return 63;
+                }
+                if ((active0 & 0x40L) != 0L) {
+                    return 3;
                 }
                 return -1;
             case 1:
-                if ((active0 & 0x1f00000000L) != 0L) {
-                    jjmatchedKind = 40;
+                if ((active0 & 0x3e00000000L) != 0L) {
+                    jjmatchedKind = 41;
                     jjmatchedPos = 1;
-                    return 56;
+                    return 63;
                 }
-                if ((active0 & 0x80000000L) != 0L) {
-                    return 17;
+                if ((active0 & 0x100000000L) != 0L) {
+                    return 23;
                 }
                 return -1;
             case 2:
-                if ((active0 & 0x1f00000000L) != 0L) {
-                    jjmatchedKind = 40;
+                if ((active0 & 0x3e00000000L) != 0L) {
+                    jjmatchedKind = 41;
                     jjmatchedPos = 2;
-                    return 56;
+                    return 63;
                 }
                 return -1;
             case 3:
-                if ((active0 & 0x100000000L) != 0L) {
-                    return 56;
-                }
-                if ((active0 & 0x1e00000000L) != 0L) {
-                    jjmatchedKind = 40;
+                if ((active0 & 0x3c00000000L) != 0L) {
+                    jjmatchedKind = 41;
                     jjmatchedPos = 3;
-                    return 56;
+                    return 63;
+                }
+                if ((active0 & 0x200000000L) != 0L) {
+                    return 63;
                 }
                 return -1;
             case 4:
-                if ((active0 & 0xa00000000L) != 0L) {
-                    return 56;
+                if ((active0 & 0x2800000000L) != 0L) {
+                    jjmatchedKind = 41;
+                    jjmatchedPos = 4;
+                    return 63;
                 }
                 if ((active0 & 0x1400000000L) != 0L) {
-                    jjmatchedKind = 40;
-                    jjmatchedPos = 4;
-                    return 56;
+                    return 63;
                 }
                 return -1;
             case 5:
-                if ((active0 & 0x1400000000L) != 0L) {
-                    return 56;
+                if ((active0 & 0x2800000000L) != 0L) {
+                    return 63;
                 }
                 return -1;
             default:
@@ -112,41 +111,40 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     private int jjMoveStringLiteralDfa0_0() {
         switch (curChar) {
             case 34:
-                jjmatchedKind = 6;
-                return jjMoveStringLiteralDfa1_0(0x400L);
+                return jjStartNfaWithStates_0(0, 6, 3);
             case 40:
-                return jjStopAtPos(0, 18);
-            case 41:
                 return jjStopAtPos(0, 19);
+            case 41:
+                return jjStopAtPos(0, 20);
             case 44:
-                return jjStopAtPos(0, 22);
+                return jjStopAtPos(0, 23);
             case 46:
-                return jjStartNfaWithStates_0(0, 23, 57);
+                return jjStartNfaWithStates_0(0, 24, 62);
             case 59:
-                return jjStopAtPos(0, 24);
+                return jjStopAtPos(0, 25);
             case 64:
-                jjmatchedKind = 28;
-                return jjMoveStringLiteralDfa1_0(0xa000000L);
+                jjmatchedKind = 29;
+                return jjMoveStringLiteralDfa1_0(0x14000000L);
             case 70:
-                return jjMoveStringLiteralDfa1_0(0x1000000000L);
+                return jjMoveStringLiteralDfa1_0(0x2000000000L);
             case 83:
-                return jjMoveStringLiteralDfa1_0(0x400000000L);
-            case 87:
                 return jjMoveStringLiteralDfa1_0(0x800000000L);
+            case 87:
+                return jjMoveStringLiteralDfa1_0(0x1000000000L);
             case 91:
-                return jjStartNfaWithStates_0(0, 20, 6);
+                return jjStartNfaWithStates_0(0, 21, 12);
             case 93:
-                return jjStopAtPos(0, 21);
+                return jjStopAtPos(0, 22);
             case 94:
-                return jjMoveStringLiteralDfa1_0(0x4000000L);
+                return jjMoveStringLiteralDfa1_0(0x8000000L);
             case 95:
-                return jjMoveStringLiteralDfa1_0(0x80000000L);
-            case 97:
-                return jjStartNfaWithStates_0(0, 29, 56);
-            case 102:
-                return jjMoveStringLiteralDfa1_0(0x200000000L);
-            case 116:
                 return jjMoveStringLiteralDfa1_0(0x100000000L);
+            case 97:
+                return jjStartNfaWithStates_0(0, 30, 63);
+            case 102:
+                return jjMoveStringLiteralDfa1_0(0x400000000L);
+            case 116:
+                return jjMoveStringLiteralDfa1_0(0x200000000L);
             default:
                 return jjMoveNfa_0(0, 0);
         }
@@ -160,40 +158,37 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
             return 1;
         }
         switch (curChar) {
-            case 34:
-                return jjMoveStringLiteralDfa2_0(active0, 0x400L);
             case 58:
-                if ((active0 & 0x80000000L) != 0L) {
-                    return jjStartNfaWithStates_0(1, 31, 17);
+                if ((active0 & 0x100000000L) != 0L) {
+                    return jjStartNfaWithStates_0(1, 32, 23);
                 }
                 break;
             case 69:
-                return jjMoveStringLiteralDfa2_0(active0, 0x400000000L);
-            case 72:
                 return jjMoveStringLiteralDfa2_0(active0, 0x800000000L);
-            case 73:
+            case 72:
                 return jjMoveStringLiteralDfa2_0(active0, 0x1000000000L);
+            case 73:
+                return jjMoveStringLiteralDfa2_0(active0, 0x2000000000L);
             case 94:
-                if ((active0 & 0x4000000L) != 0L) {
-                    return jjStopAtPos(1, 26);
+                if ((active0 & 0x8000000L) != 0L) {
+                    return jjStopAtPos(1, 27);
                 }
                 break;
             case 97:
-                return jjMoveStringLiteralDfa2_0(active0, 0x200000000L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x400000000L);
             case 98:
-                return jjMoveStringLiteralDfa2_0(active0, 0x8000000L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x10000000L);
             case 112:
-                return jjMoveStringLiteralDfa2_0(active0, 0x2000000L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x4000000L);
             case 114:
-                return jjMoveStringLiteralDfa2_0(active0, 0x100000000L);
+                return jjMoveStringLiteralDfa2_0(active0, 0x200000000L);
             default:
                 break;
         }
         return jjStartNfa_0(0, active0);
     }
 
-    private int jjMoveStringLiteralDfa2_0(long old0, long _active0) {
-        long active0 = _active0;
+    private int jjMoveStringLiteralDfa2_0(long old0, long active0) {
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(0, old0);
         }
@@ -204,31 +199,25 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
             return 2;
         }
         switch (curChar) {
-            case 34:
-                if ((active0 & 0x400L) != 0L) {
-                    return jjStopAtPos(2, 10);
-                }
-                break;
             case 69:
-                return jjMoveStringLiteralDfa3_0(active0, 0x800000000L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x1000000000L);
             case 76:
-                return jjMoveStringLiteralDfa3_0(active0, 0x1400000000L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x2800000000L);
             case 97:
-                return jjMoveStringLiteralDfa3_0(active0, 0x8000000L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x10000000L);
             case 108:
-                return jjMoveStringLiteralDfa3_0(active0, 0x200000000L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x400000000L);
             case 114:
-                return jjMoveStringLiteralDfa3_0(active0, 0x2000000L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x4000000L);
             case 117:
-                return jjMoveStringLiteralDfa3_0(active0, 0x100000000L);
+                return jjMoveStringLiteralDfa3_0(active0, 0x200000000L);
             default:
                 break;
         }
         return jjStartNfa_0(1, active0);
     }
 
-    private int jjMoveStringLiteralDfa3_0(long old0, long _active0) {
-        long active0 = _active0;
+    private int jjMoveStringLiteralDfa3_0(long old0, long active0) {
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(1, old0);
         }
@@ -240,26 +229,25 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
         switch (curChar) {
             case 69:
-                return jjMoveStringLiteralDfa4_0(active0, 0x400000000L);
-            case 82:
                 return jjMoveStringLiteralDfa4_0(active0, 0x800000000L);
-            case 84:
+            case 82:
                 return jjMoveStringLiteralDfa4_0(active0, 0x1000000000L);
+            case 84:
+                return jjMoveStringLiteralDfa4_0(active0, 0x2000000000L);
             case 101:
-                if ((active0 & 0x100000000L) != 0L) {
-                    return jjStartNfaWithStates_0(3, 32, 56);
+                if ((active0 & 0x200000000L) != 0L) {
+                    return jjStartNfaWithStates_0(3, 33, 63);
                 }
-                return jjMoveStringLiteralDfa4_0(active0, 0x2000000L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x4000000L);
             case 115:
-                return jjMoveStringLiteralDfa4_0(active0, 0x208000000L);
+                return jjMoveStringLiteralDfa4_0(active0, 0x410000000L);
             default:
                 break;
         }
         return jjStartNfa_0(2, active0);
     }
 
-    private int jjMoveStringLiteralDfa4_0(long old0, long _active0) {
-        long active0 = _active0;
+    private int jjMoveStringLiteralDfa4_0(long old0, long active0) {
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(2, old0);
         }
@@ -271,29 +259,28 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
         switch (curChar) {
             case 67:
-                return jjMoveStringLiteralDfa5_0(active0, 0x400000000L);
+                return jjMoveStringLiteralDfa5_0(active0, 0x800000000L);
             case 69:
-                if ((active0 & 0x800000000L) != 0L) {
-                    return jjStartNfaWithStates_0(4, 35, 56);
+                if ((active0 & 0x1000000000L) != 0L) {
+                    return jjStartNfaWithStates_0(4, 36, 63);
                 }
-                return jjMoveStringLiteralDfa5_0(active0, 0x1000000000L);
+                return jjMoveStringLiteralDfa5_0(active0, 0x2000000000L);
             case 101:
-                if ((active0 & 0x8000000L) != 0L) {
-                    return jjStopAtPos(4, 27);
-                } else if ((active0 & 0x200000000L) != 0L) {
-                    return jjStartNfaWithStates_0(4, 33, 56);
+                if ((active0 & 0x10000000L) != 0L) {
+                    return jjStopAtPos(4, 28);
+                } else if ((active0 & 0x400000000L) != 0L) {
+                    return jjStartNfaWithStates_0(4, 34, 63);
                 }
                 break;
             case 102:
-                return jjMoveStringLiteralDfa5_0(active0, 0x2000000L);
+                return jjMoveStringLiteralDfa5_0(active0, 0x4000000L);
             default:
                 break;
         }
         return jjStartNfa_0(3, active0);
     }
 
-    private int jjMoveStringLiteralDfa5_0(long old0, long _active0) {
-        long active0 = _active0;
+    private int jjMoveStringLiteralDfa5_0(long old0, long active0) {
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(3, old0);
         }
@@ -305,25 +292,24 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
         switch (curChar) {
             case 82:
-                if ((active0 & 0x1000000000L) != 0L) {
-                    return jjStartNfaWithStates_0(5, 36, 56);
+                if ((active0 & 0x2000000000L) != 0L) {
+                    return jjStartNfaWithStates_0(5, 37, 63);
                 }
                 break;
             case 84:
-                if ((active0 & 0x400000000L) != 0L) {
-                    return jjStartNfaWithStates_0(5, 34, 56);
+                if ((active0 & 0x800000000L) != 0L) {
+                    return jjStartNfaWithStates_0(5, 35, 63);
                 }
                 break;
             case 105:
-                return jjMoveStringLiteralDfa6_0(active0, 0x2000000L);
+                return jjMoveStringLiteralDfa6_0(active0, 0x4000000L);
             default:
                 break;
         }
         return jjStartNfa_0(4, active0);
     }
 
-    private int jjMoveStringLiteralDfa6_0(long old0, long _active0) {
-        long active0 = _active0;
+    private int jjMoveStringLiteralDfa6_0(long old0, long active0) {
         if ((active0 &= old0) == 0L) {
             return jjStartNfa_0(4, old0);
         }
@@ -335,8 +321,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
         switch (curChar) {
             case 120:
-                if ((active0 & 0x2000000L) != 0L) {
-                    return jjStopAtPos(6, 25);
+                if ((active0 & 0x4000000L) != 0L) {
+                    return jjStopAtPos(6, 26);
                 }
                 break;
             default:
@@ -356,49 +342,35 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         return jjMoveNfa_0(state, pos + 1);
     }
 
-    /** The Constant jjbitVec0. */
     static final long[] jjbitVec0 = { 0xfffffffffffffffeL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec2. */
     static final long[] jjbitVec2 = { 0x0L, 0x0L, 0xffffffffffffffffL,
             0xffffffffffffffffL };
-    /** The Constant jjbitVec3. */
     static final long[] jjbitVec3 = { 0xfffe7000fffffff6L, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0x5e00000000ffffffL };
-    /** The Constant jjbitVec4. */
     static final long[] jjbitVec4 = { 0x0L, 0x0L, 0x0L, 0xff7fffffff7fffffL };
-    /** The Constant jjbitVec5. */
     static final long[] jjbitVec5 = { 0x0L, 0xbfff000000000000L,
             0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec6. */
     static final long[] jjbitVec6 = { 0x3000L, 0xffff000000000000L,
             0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec7. */
     static final long[] jjbitVec7 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffL, 0x0L };
-    /** The Constant jjbitVec8. */
     static final long[] jjbitVec8 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffL };
-    /** The Constant jjbitVec9. */
     static final long[] jjbitVec9 = { 0xffffffffffffffffL, 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffff00000000ffffL };
-    /** The Constant jjbitVec10. */
     static final long[] jjbitVec10 = { 0xffffffffffffffffL,
             0xffffffffffffffffL, 0xffffffffffffffffL, 0x3fffffffffffffffL };
-    /** The Constant jjbitVec11. */
     static final long[] jjbitVec11 = { 0x0L, 0x0L, 0x80000000000000L,
             0xff7fffffff7fffffL };
-    /** The Constant jjbitVec12. */
     static final long[] jjbitVec12 = { 0xffffffffffffffffL,
             0xbfffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL };
-    /** The Constant jjbitVec13. */
     static final long[] jjbitVec13 = { 0x8000000000003000L,
             0xffff000000000001L, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
-    private int jjMoveNfa_0(int startState, int _curPos) {
-        int curPos = _curPos;
+    private int jjMoveNfa_0(int startState, int curPos) {
         int startsAt = 0;
-        jjnewStateCnt = 56;
+        jjnewStateCnt = 62;
         int i = 1;
         jjstateSet[0] = startState;
         int kind = 0x7fffffff;
@@ -410,43 +382,83 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                 long l = 1L << curChar;
                 do {
                     switch (jjstateSet[--i]) {
-                        case 57:
-                            if ((0x3ff000000000000L & l) != 0L) {
-                                if (kind > 16) {
-                                    kind = 16;
-                                }
-                                jjCheckNAdd(40);
-                            }
-                            if ((0x3ff000000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(35, 36);
-                            }
-                            break;
-                        case 16:
+                        case 63:
                             if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(12, 13);
+                                jjCheckNAddTwoStates(59, 60);
                             } else if (curChar == 58) {
-                                jjstateSet[jjnewStateCnt++] = 17;
+                                jjCheckNAdd(56);
                             }
-                            if ((0x3ff200000000000L & l) != 0L) {
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(53, 54);
+                            } else if (curChar == 58) {
                                 if (kind > 40) {
                                     kind = 40;
                                 }
                             }
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(18, 19);
+                            }
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(50, 51);
+                            }
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                if (kind > 43) {
+                                    kind = 43;
+                                }
+                            }
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                jjstateSet[jjnewStateCnt++] = 55;
+                            }
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                if (kind > 41) {
+                                    kind = 41;
+                                }
+                            }
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                jjstateSet[jjnewStateCnt++] = 52;
+                            }
+                            break;
+                        case 22:
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(18, 19);
+                            } else if (curChar == 58) {
+                                jjstateSet[jjnewStateCnt++] = 23;
+                            }
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                if (kind > 41) {
+                                    kind = 41;
+                                }
+                            }
+                            break;
+                        case 62:
+                            if ((0x3ff000000000000L & l) != 0L) {
+                                if (kind > 17) {
+                                    kind = 17;
+                                }
+                                jjCheckNAdd(46);
+                            }
+                            if ((0x3ff000000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(41, 42);
+                            }
                             break;
                         case 0:
                             if ((0x3ff200000000000L & l) != 0L) {
-                                if (kind > 44) {
-                                    kind = 44;
+                                if (kind > 45) {
+                                    kind = 45;
                                 }
                             } else if (curChar == 58) {
-                                if (kind > 39) {
-                                    kind = 39;
+                                if (kind > 40) {
+                                    kind = 40;
                                 }
-                                jjCheckNAdd(50);
+                                jjCheckNAdd(56);
                             } else if (curChar == 46) {
-                                jjCheckNAddTwoStates(35, 40);
+                                jjCheckNAddTwoStates(41, 46);
                             } else if (curChar == 60) {
-                                jjCheckNAddTwoStates(9, 10);
+                                jjCheckNAddTwoStates(15, 16);
+                            } else if (curChar == 39) {
+                                jjstateSet[jjnewStateCnt++] = 6;
+                            } else if (curChar == 34) {
+                                jjstateSet[jjnewStateCnt++] = 3;
                             } else if (curChar == 35) {
                                 if (kind > 5) {
                                     kind = 5;
@@ -454,54 +466,18 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                                 jjCheckNAdd(1);
                             }
                             if ((0x3ff000000000000L & l) != 0L) {
-                                if (kind > 13) {
-                                    kind = 13;
+                                if (kind > 14) {
+                                    kind = 14;
                                 }
                                 jjCheckNAddStates(0, 6);
                             } else if ((0x280000000000L & l) != 0L) {
                                 jjCheckNAddStates(7, 11);
                             }
                             if ((0x3ff000000000000L & l) != 0L) {
-                                if (kind > 40) {
-                                    kind = 40;
+                                if (kind > 41) {
+                                    kind = 41;
                                 }
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            break;
-                        case 56:
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(53, 54);
-                            } else if (curChar == 58) {
-                                jjCheckNAdd(50);
-                            }
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(47, 48);
-                            } else if (curChar == 58) {
-                                if (kind > 39) {
-                                    kind = 39;
-                                }
-                            }
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(44, 45);
-                            }
-                            if ((0x3ff200000000000L & l) != 0L) {
-                                if (kind > 42) {
-                                    kind = 42;
-                                }
-                            }
-                            if ((0x3ff200000000000L & l) != 0L) {
-                                jjstateSet[jjnewStateCnt++] = 49;
-                            }
-                            if ((0x3ff200000000000L & l) != 0L) {
-                                if (kind > 40) {
-                                    kind = 40;
-                                }
-                            }
-                            if ((0x3ff200000000000L & l) != 0L) {
-                                jjstateSet[jjnewStateCnt++] = 46;
+                                jjCheckNAddTwoStates(18, 19);
                             }
                             break;
                         case 1:
@@ -513,65 +489,71 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             jjCheckNAdd(1);
                             break;
+                        case 2:
+                            if (curChar == 34 && kind > 10) {
+                                kind = 10;
+                            }
+                            break;
                         case 3:
-                            if ((0x280000000000L & l) != 0L) {
-                                jjCheckNAdd(4);
+                            if (curChar == 34) {
+                                jjstateSet[jjnewStateCnt++] = 2;
                             }
                             break;
                         case 4:
-                            if ((0x3ff000000000000L & l) == 0L) {
-                                break;
+                            if (curChar == 34) {
+                                jjstateSet[jjnewStateCnt++] = 3;
                             }
-                            if (kind > 17) {
-                                kind = 17;
-                            }
-                            jjCheckNAdd(4);
                             break;
-                        case 8:
-                            if (curChar == 60) {
-                                jjCheckNAddTwoStates(9, 10);
+                        case 5:
+                            if (curChar == 39 && kind > 10) {
+                                kind = 10;
+                            }
+                            break;
+                        case 6:
+                            if (curChar == 39) {
+                                jjstateSet[jjnewStateCnt++] = 5;
+                            }
+                            break;
+                        case 7:
+                            if (curChar == 39) {
+                                jjstateSet[jjnewStateCnt++] = 6;
                             }
                             break;
                         case 9:
-                            if ((0xbffffffeffffffffL & l) != 0L) {
-                                jjCheckNAddTwoStates(9, 10);
+                            if ((0x280000000000L & l) != 0L) {
+                                jjCheckNAdd(10);
                             }
                             break;
                         case 10:
-                            if (curChar == 62 && kind > 38) {
-                                kind = 38;
-                            }
-                            break;
-                        case 11:
                             if ((0x3ff000000000000L & l) == 0L) {
                                 break;
                             }
-                            if (kind > 40) {
-                                kind = 40;
+                            if (kind > 18) {
+                                kind = 18;
                             }
-                            jjCheckNAddTwoStates(12, 13);
-                            break;
-                        case 12:
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            break;
-                        case 13:
-                            if ((0x3ff200000000000L & l) != 0L && kind > 40) {
-                                kind = 40;
-                            }
+                            jjCheckNAdd(10);
                             break;
                         case 14:
-                            if ((0x3ff200000000000L & l) != 0L && kind > 44) {
-                                kind = 44;
+                            if (curChar == 60) {
+                                jjCheckNAddTwoStates(15, 16);
+                            }
+                            break;
+                        case 15:
+                            if ((0xbffffffeffffffffL & l) != 0L) {
+                                jjCheckNAddTwoStates(15, 16);
+                            }
+                            break;
+                        case 16:
+                            if (curChar == 62 && kind > 39) {
+                                kind = 39;
                             }
                             break;
                         case 17:
                             if ((0x3ff000000000000L & l) == 0L) {
                                 break;
                             }
-                            if (kind > 46) {
-                                kind = 46;
+                            if (kind > 41) {
+                                kind = 41;
                             }
                             jjCheckNAddTwoStates(18, 19);
                             break;
@@ -581,47 +563,42 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 19:
-                            if ((0x3ff200000000000L & l) != 0L && kind > 46) {
-                                kind = 46;
+                            if ((0x3ff200000000000L & l) != 0L && kind > 41) {
+                                kind = 41;
                             }
                             break;
-                        case 21:
+                        case 20:
+                            if ((0x3ff200000000000L & l) != 0L && kind > 45) {
+                                kind = 45;
+                            }
+                            break;
+                        case 23:
                             if ((0x3ff000000000000L & l) == 0L) {
                                 break;
                             }
-                            if (kind > 13) {
-                                kind = 13;
+                            if (kind > 47) {
+                                kind = 47;
                             }
-                            jjCheckNAddStates(0, 6);
+                            jjCheckNAddTwoStates(24, 25);
                             break;
-                        case 22:
+                        case 24:
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(24, 25);
+                            }
+                            break;
+                        case 25:
+                            if ((0x3ff200000000000L & l) != 0L && kind > 47) {
+                                kind = 47;
+                            }
+                            break;
+                        case 27:
                             if ((0x3ff000000000000L & l) == 0L) {
                                 break;
                             }
                             if (kind > 14) {
                                 kind = 14;
                             }
-                            jjCheckNAdd(22);
-                            break;
-                        case 23:
-                            if ((0x3ff000000000000L & l) != 0L) {
-                                jjCheckNAddStates(12, 14);
-                            }
-                            break;
-                        case 24:
-                            if (curChar == 46) {
-                                jjCheckNAddTwoStates(25, 26);
-                            }
-                            break;
-                        case 25:
-                            if ((0x3ff000000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(25, 26);
-                            }
-                            break;
-                        case 27:
-                            if ((0x280000000000L & l) != 0L) {
-                                jjCheckNAdd(28);
-                            }
+                            jjCheckNAddStates(0, 6);
                             break;
                         case 28:
                             if ((0x3ff000000000000L & l) == 0L) {
@@ -634,140 +611,135 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             break;
                         case 29:
                             if ((0x3ff000000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(29, 30);
+                                jjCheckNAddStates(12, 14);
                             }
                             break;
                         case 30:
-                            if (curChar != 46) {
-                                break;
+                            if (curChar == 46) {
+                                jjCheckNAddTwoStates(31, 32);
                             }
-                            if (kind > 16) {
-                                kind = 16;
-                            }
-                            jjCheckNAdd(31);
                             break;
                         case 31:
-                            if ((0x3ff000000000000L & l) == 0L) {
-                                break;
+                            if ((0x3ff000000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(31, 32);
                             }
-                            if (kind > 16) {
-                                kind = 16;
-                            }
-                            jjCheckNAdd(31);
-                            break;
-                        case 32:
-                            if ((0x3ff000000000000L & l) == 0L) {
-                                break;
-                            }
-                            if (kind > 16) {
-                                kind = 16;
-                            }
-                            jjCheckNAdd(32);
                             break;
                         case 33:
                             if ((0x280000000000L & l) != 0L) {
-                                jjCheckNAddStates(7, 11);
+                                jjCheckNAdd(34);
                             }
                             break;
                         case 34:
-                            if (curChar == 46) {
-                                jjCheckNAdd(35);
+                            if ((0x3ff000000000000L & l) == 0L) {
+                                break;
                             }
+                            if (kind > 16) {
+                                kind = 16;
+                            }
+                            jjCheckNAdd(34);
                             break;
                         case 35:
                             if ((0x3ff000000000000L & l) != 0L) {
                                 jjCheckNAddTwoStates(35, 36);
                             }
                             break;
-                        case 37:
-                            if ((0x280000000000L & l) != 0L) {
-                                jjCheckNAdd(38);
+                        case 36:
+                            if (curChar != 46) {
+                                break;
                             }
+                            if (kind > 17) {
+                                kind = 17;
+                            }
+                            jjCheckNAdd(37);
+                            break;
+                        case 37:
+                            if ((0x3ff000000000000L & l) == 0L) {
+                                break;
+                            }
+                            if (kind > 17) {
+                                kind = 17;
+                            }
+                            jjCheckNAdd(37);
                             break;
                         case 38:
                             if ((0x3ff000000000000L & l) == 0L) {
                                 break;
                             }
-                            if (kind > 15) {
-                                kind = 15;
+                            if (kind > 17) {
+                                kind = 17;
                             }
                             jjCheckNAdd(38);
                             break;
                         case 39:
-                            if (curChar == 46) {
-                                jjCheckNAdd(40);
+                            if ((0x280000000000L & l) != 0L) {
+                                jjCheckNAddStates(7, 11);
                             }
                             break;
                         case 40:
-                            if ((0x3ff000000000000L & l) == 0L) {
-                                break;
+                            if (curChar == 46) {
+                                jjCheckNAdd(41);
                             }
-                            if (kind > 16) {
-                                kind = 16;
-                            }
-                            jjCheckNAdd(40);
                             break;
                         case 41:
-                            if ((0x3ff000000000000L & l) == 0L) {
-                                break;
+                            if ((0x3ff000000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(41, 42);
                             }
-                            if (kind > 16) {
-                                kind = 16;
-                            }
-                            jjCheckNAddStates(15, 17);
                             break;
-                        case 42:
-                            if (curChar == 46) {
-                                jjCheckNAddTwoStates(35, 40);
+                        case 43:
+                            if ((0x280000000000L & l) != 0L) {
+                                jjCheckNAdd(44);
                             }
                             break;
                         case 44:
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(44, 45);
-                            }
-                            break;
-                        case 45:
-                            if ((0x3ff200000000000L & l) != 0L) {
-                                jjstateSet[jjnewStateCnt++] = 46;
-                            }
-                            break;
-                        case 46:
-                            if (curChar == 58 && kind > 39) {
-                                kind = 39;
-                            }
-                            break;
-                        case 47:
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(47, 48);
-                            }
-                            break;
-                        case 48:
-                            if ((0x3ff200000000000L & l) != 0L) {
-                                jjstateSet[jjnewStateCnt++] = 49;
-                            }
-                            break;
-                        case 49:
-                            if (curChar == 58) {
-                                jjCheckNAdd(50);
-                            }
-                            break;
-                        case 50:
                             if ((0x3ff000000000000L & l) == 0L) {
                                 break;
                             }
-                            if (kind > 41) {
-                                kind = 41;
+                            if (kind > 16) {
+                                kind = 16;
                             }
-                            jjCheckNAddTwoStates(51, 52);
+                            jjCheckNAdd(44);
+                            break;
+                        case 45:
+                            if (curChar == 46) {
+                                jjCheckNAdd(46);
+                            }
+                            break;
+                        case 46:
+                            if ((0x3ff000000000000L & l) == 0L) {
+                                break;
+                            }
+                            if (kind > 17) {
+                                kind = 17;
+                            }
+                            jjCheckNAdd(46);
+                            break;
+                        case 47:
+                            if ((0x3ff000000000000L & l) == 0L) {
+                                break;
+                            }
+                            if (kind > 17) {
+                                kind = 17;
+                            }
+                            jjCheckNAddStates(15, 17);
+                            break;
+                        case 48:
+                            if (curChar == 46) {
+                                jjCheckNAddTwoStates(41, 46);
+                            }
+                            break;
+                        case 50:
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(50, 51);
+                            }
                             break;
                         case 51:
-                            if ((0x3ff600000000000L & l) != 0L) {
-                                jjCheckNAddTwoStates(51, 52);
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                jjstateSet[jjnewStateCnt++] = 52;
                             }
                             break;
                         case 52:
-                            if ((0x3ff200000000000L & l) != 0L && kind > 41) {
-                                kind = 41;
+                            if (curChar == 58 && kind > 40) {
+                                kind = 40;
                             }
                             break;
                         case 53:
@@ -776,18 +748,52 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 54:
+                            if ((0x3ff200000000000L & l) != 0L) {
+                                jjstateSet[jjnewStateCnt++] = 55;
+                            }
+                            break;
+                        case 55:
+                            if (curChar == 58) {
+                                jjCheckNAdd(56);
+                            }
+                            break;
+                        case 56:
+                            if ((0x3ff000000000000L & l) == 0L) {
+                                break;
+                            }
+                            if (kind > 42) {
+                                kind = 42;
+                            }
+                            jjCheckNAddTwoStates(57, 58);
+                            break;
+                        case 57:
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(57, 58);
+                            }
+                            break;
+                        case 58:
                             if ((0x3ff200000000000L & l) != 0L && kind > 42) {
                                 kind = 42;
                             }
                             break;
-                        case 55:
+                        case 59:
+                            if ((0x3ff600000000000L & l) != 0L) {
+                                jjCheckNAddTwoStates(59, 60);
+                            }
+                            break;
+                        case 60:
+                            if ((0x3ff200000000000L & l) != 0L && kind > 43) {
+                                kind = 43;
+                            }
+                            break;
+                        case 61:
                             if (curChar != 58) {
                                 break;
                             }
-                            if (kind > 39) {
-                                kind = 39;
+                            if (kind > 40) {
+                                kind = 40;
                             }
-                            jjCheckNAdd(50);
+                            jjCheckNAdd(56);
                             break;
                         default:
                             break;
@@ -797,80 +803,80 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                 long l = 1L << (curChar & 077);
                 do {
                     switch (jjstateSet[--i]) {
-                        case 16:
+                        case 63:
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                if (kind > 40) {
-                                    kind = 40;
-                                }
-                            }
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            break;
-                        case 0:
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                if (kind > 45) {
-                                    kind = 45;
-                                }
-                            } else if (curChar == 91) {
-                                jjstateSet[jjnewStateCnt++] = 6;
-                            }
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                if (kind > 44) {
-                                    kind = 44;
+                                if (kind > 43) {
+                                    kind = 43;
                                 }
                             }
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                if (kind > 40) {
-                                    kind = 40;
-                                }
-                                jjCheckNAddTwoStates(12, 13);
+                                jjCheckNAddTwoStates(59, 60);
                             }
-                            if ((0x7fffffe07fffffeL & l) != 0L) {
-                                if (kind > 42) {
-                                    kind = 42;
-                                }
-                                jjCheckNAddStates(18, 25);
-                            } else if (curChar == 95) {
-                                jjstateSet[jjnewStateCnt++] = 16;
-                            }
-                            if ((0x7fffffe07fffffeL & l) != 0L) {
-                                if (kind > 37) {
-                                    kind = 37;
-                                }
-                            }
-                            if ((0x2000000020L & l) != 0L) {
-                                jjAddStates(26, 27);
-                            }
-                            break;
-                        case 56:
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                if (kind > 42) {
-                                    kind = 42;
-                                }
+                                jjCheckNAdd(55);
                             }
                             if ((0x7fffffe87fffffeL & l) != 0L) {
                                 jjCheckNAddTwoStates(53, 54);
                             }
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAdd(49);
-                            }
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(47, 48);
-                            }
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                if (kind > 40) {
-                                    kind = 40;
+                                if (kind > 41) {
+                                    kind = 41;
                                 }
                             }
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(12, 13);
+                                jjCheckNAddTwoStates(18, 19);
                             }
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAdd(46);
+                                jjCheckNAdd(52);
                             }
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(44, 45);
+                                jjCheckNAddTwoStates(50, 51);
+                            }
+                            break;
+                        case 22:
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                if (kind > 41) {
+                                    kind = 41;
+                                }
+                            }
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                jjCheckNAddTwoStates(18, 19);
+                            }
+                            break;
+                        case 0:
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                if (kind > 46) {
+                                    kind = 46;
+                                }
+                            } else if (curChar == 91) {
+                                jjstateSet[jjnewStateCnt++] = 12;
+                            }
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                if (kind > 45) {
+                                    kind = 45;
+                                }
+                            }
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                if (kind > 41) {
+                                    kind = 41;
+                                }
+                                jjCheckNAddTwoStates(18, 19);
+                            }
+                            if ((0x7fffffe07fffffeL & l) != 0L) {
+                                if (kind > 43) {
+                                    kind = 43;
+                                }
+                                jjCheckNAddStates(18, 25);
+                            } else if (curChar == 95) {
+                                jjstateSet[jjnewStateCnt++] = 22;
+                            }
+                            if ((0x7fffffe07fffffeL & l) != 0L) {
+                                if (kind > 38) {
+                                    kind = 38;
+                                }
+                            }
+                            if ((0x2000000020L & l) != 0L) {
+                                jjAddStates(26, 27);
                             }
                             break;
                         case 1:
@@ -879,64 +885,35 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             jjstateSet[jjnewStateCnt++] = 1;
                             break;
-                        case 2:
+                        case 8:
                             if ((0x2000000020L & l) != 0L) {
                                 jjAddStates(26, 27);
                             }
                             break;
-                        case 5:
-                            if (curChar == 91) {
-                                jjstateSet[jjnewStateCnt++] = 6;
-                            }
-                            break;
-                        case 6:
-                            if (curChar == 93 && kind > 30) {
-                                kind = 30;
-                            }
-                            break;
-                        case 7:
-                            if ((0x7fffffe07fffffeL & l) != 0L && kind > 37) {
-                                kind = 37;
-                            }
-                            break;
-                        case 9:
-                            jjAddStates(28, 29);
-                            break;
                         case 11:
-                            if ((0x7fffffe87fffffeL & l) == 0L) {
-                                break;
+                            if (curChar == 91) {
+                                jjstateSet[jjnewStateCnt++] = 12;
                             }
-                            if (kind > 40) {
-                                kind = 40;
-                            }
-                            jjCheckNAddTwoStates(12, 13);
                             break;
                         case 12:
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(12, 13);
+                            if (curChar == 93 && kind > 31) {
+                                kind = 31;
                             }
                             break;
                         case 13:
-                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 40) {
-                                kind = 40;
-                            }
-                            break;
-                        case 14:
-                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 44) {
-                                kind = 44;
+                            if ((0x7fffffe07fffffeL & l) != 0L && kind > 38) {
+                                kind = 38;
                             }
                             break;
                         case 15:
-                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 45) {
-                                kind = 45;
-                            }
+                            jjAddStates(28, 29);
                             break;
                         case 17:
                             if ((0x7fffffe87fffffeL & l) == 0L) {
                                 break;
                             }
-                            if (kind > 46) {
-                                kind = 46;
+                            if (kind > 41) {
+                                kind = 41;
                             }
                             jjCheckNAddTwoStates(18, 19);
                             break;
@@ -946,71 +923,71 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 19:
+                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 41) {
+                                kind = 41;
+                            }
+                            break;
+                        case 20:
+                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 45) {
+                                kind = 45;
+                            }
+                            break;
+                        case 21:
                             if ((0x7fffffe87fffffeL & l) != 0L && kind > 46) {
                                 kind = 46;
                             }
                             break;
-                        case 20:
-                            if (curChar == 95) {
-                                jjstateSet[jjnewStateCnt++] = 16;
+                        case 23:
+                            if ((0x7fffffe87fffffeL & l) == 0L) {
+                                break;
+                            }
+                            if (kind > 47) {
+                                kind = 47;
+                            }
+                            jjCheckNAddTwoStates(24, 25);
+                            break;
+                        case 24:
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                jjCheckNAddTwoStates(24, 25);
+                            }
+                            break;
+                        case 25:
+                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 47) {
+                                kind = 47;
                             }
                             break;
                         case 26:
+                            if (curChar == 95) {
+                                jjstateSet[jjnewStateCnt++] = 22;
+                            }
+                            break;
+                        case 32:
                             if ((0x2000000020L & l) != 0L) {
                                 jjAddStates(30, 31);
                             }
                             break;
-                        case 36:
+                        case 42:
                             if ((0x2000000020L & l) != 0L) {
                                 jjAddStates(32, 33);
                             }
                             break;
-                        case 43:
+                        case 49:
                             if ((0x7fffffe07fffffeL & l) == 0L) {
                                 break;
                             }
-                            if (kind > 42) {
-                                kind = 42;
+                            if (kind > 43) {
+                                kind = 43;
                             }
                             jjCheckNAddStates(18, 25);
                             break;
-                        case 44:
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(44, 45);
-                            }
-                            break;
-                        case 45:
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAdd(46);
-                            }
-                            break;
-                        case 47:
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(47, 48);
-                            }
-                            break;
-                        case 48:
-                            if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAdd(49);
-                            }
-                            break;
                         case 50:
-                            if ((0x7fffffe87fffffeL & l) == 0L) {
-                                break;
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                jjCheckNAddTwoStates(50, 51);
                             }
-                            if (kind > 41) {
-                                kind = 41;
-                            }
-                            jjCheckNAddTwoStates(51, 52);
                             break;
                         case 51:
                             if ((0x7fffffe87fffffeL & l) != 0L) {
-                                jjCheckNAddTwoStates(51, 52);
-                            }
-                            break;
-                        case 52:
-                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 41) {
-                                kind = 41;
+                                jjCheckNAdd(52);
                             }
                             break;
                         case 53:
@@ -1019,8 +996,37 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 54:
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                jjCheckNAdd(55);
+                            }
+                            break;
+                        case 56:
+                            if ((0x7fffffe87fffffeL & l) == 0L) {
+                                break;
+                            }
+                            if (kind > 42) {
+                                kind = 42;
+                            }
+                            jjCheckNAddTwoStates(57, 58);
+                            break;
+                        case 57:
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                jjCheckNAddTwoStates(57, 58);
+                            }
+                            break;
+                        case 58:
                             if ((0x7fffffe87fffffeL & l) != 0L && kind > 42) {
                                 kind = 42;
+                            }
+                            break;
+                        case 59:
+                            if ((0x7fffffe87fffffeL & l) != 0L) {
+                                jjCheckNAddTwoStates(59, 60);
+                            }
+                            break;
+                        case 60:
+                            if ((0x7fffffe87fffffeL & l) != 0L && kind > 43) {
+                                kind = 43;
                             }
                             break;
                         default:
@@ -1035,68 +1041,68 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                 long l2 = 1L << (curChar & 077);
                 do {
                     switch (jjstateSet[--i]) {
-                        case 16:
+                        case 63:
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(12, 13);
+                                jjCheckNAddTwoStates(50, 51);
                             }
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 40) {
-                                    kind = 40;
+                                jjCheckNAdd(52);
+                            }
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(18, 19);
+                            }
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 41) {
+                                    kind = 41;
                                 }
-                            }
-                            break;
-                        case 0:
-                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 40) {
-                                    kind = 40;
-                                }
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 44) {
-                                    kind = 44;
-                                }
-                            }
-                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 45) {
-                                    kind = 45;
-                                }
-                            }
-                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 42) {
-                                    kind = 42;
-                                }
-                                jjCheckNAddStates(18, 25);
-                            }
-                            break;
-                        case 56:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(44, 45);
-                            }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAdd(46);
-                            }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 40) {
-                                    kind = 40;
-                                }
-                            }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(47, 48);
-                            }
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAdd(49);
                             }
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
                                 jjCheckNAddTwoStates(53, 54);
                             }
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                if (kind > 42) {
-                                    kind = 42;
+                                jjCheckNAdd(55);
+                            }
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(59, 60);
+                            }
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 43) {
+                                    kind = 43;
                                 }
+                            }
+                            break;
+                        case 22:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(18, 19);
+                            }
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 41) {
+                                    kind = 41;
+                                }
+                            }
+                            break;
+                        case 0:
+                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 41) {
+                                    kind = 41;
+                                }
+                                jjCheckNAddTwoStates(18, 19);
+                            }
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 45) {
+                                    kind = 45;
+                                }
+                            }
+                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 46) {
+                                    kind = 46;
+                                }
+                            }
+                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)) {
+                                if (kind > 43) {
+                                    kind = 43;
+                                }
+                                jjCheckNAddStates(18, 25);
                             }
                             break;
                         case 1:
@@ -1108,49 +1114,17 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             jjstateSet[jjnewStateCnt++] = 1;
                             break;
-                        case 9:
+                        case 15:
                             if (jjCanMove_0(hiByte, i1, i2, l1, l2)) {
                                 jjAddStates(28, 29);
-                            }
-                            break;
-                        case 11:
-                            if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
-                                break;
-                            }
-                            if (kind > 40) {
-                                kind = 40;
-                            }
-                            jjCheckNAddTwoStates(12, 13);
-                            break;
-                        case 12:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(12, 13);
-                            }
-                            break;
-                        case 13:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
-                                    && kind > 40) {
-                                kind = 40;
-                            }
-                            break;
-                        case 14:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
-                                    && kind > 44) {
-                                kind = 44;
-                            }
-                            break;
-                        case 15:
-                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)
-                                    && kind > 45) {
-                                kind = 45;
                             }
                             break;
                         case 17:
                             if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                                 break;
                             }
-                            if (kind > 46) {
-                                kind = 46;
+                            if (kind > 41) {
+                                kind = 41;
                             }
                             jjCheckNAddTwoStates(18, 19);
                             break;
@@ -1161,57 +1135,59 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             break;
                         case 19:
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 41) {
+                                kind = 41;
+                            }
+                            break;
+                        case 20:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 45) {
+                                kind = 45;
+                            }
+                            break;
+                        case 21:
+                            if (jjCanMove_1(hiByte, i1, i2, l1, l2)
                                     && kind > 46) {
                                 kind = 46;
                             }
                             break;
-                        case 43:
+                        case 23:
                             if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
                                 break;
                             }
-                            if (kind > 42) {
-                                kind = 42;
+                            if (kind > 47) {
+                                kind = 47;
+                            }
+                            jjCheckNAddTwoStates(24, 25);
+                            break;
+                        case 24:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(24, 25);
+                            }
+                            break;
+                        case 25:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 47) {
+                                kind = 47;
+                            }
+                            break;
+                        case 49:
+                            if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
+                                break;
+                            }
+                            if (kind > 43) {
+                                kind = 43;
                             }
                             jjCheckNAddStates(18, 25);
                             break;
-                        case 44:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(44, 45);
-                            }
-                            break;
-                        case 45:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAdd(46);
-                            }
-                            break;
-                        case 47:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(47, 48);
-                            }
-                            break;
-                        case 48:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAdd(49);
-                            }
-                            break;
                         case 50:
-                            if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
-                                break;
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(50, 51);
                             }
-                            if (kind > 41) {
-                                kind = 41;
-                            }
-                            jjCheckNAddTwoStates(51, 52);
                             break;
                         case 51:
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
-                                jjCheckNAddTwoStates(51, 52);
-                            }
-                            break;
-                        case 52:
-                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
-                                    && kind > 41) {
-                                kind = 41;
+                                jjCheckNAdd(52);
                             }
                             break;
                         case 53:
@@ -1220,9 +1196,39 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                             }
                             break;
                         case 54:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAdd(55);
+                            }
+                            break;
+                        case 56:
+                            if (!jjCanMove_1(hiByte, i1, i2, l1, l2)) {
+                                break;
+                            }
+                            if (kind > 42) {
+                                kind = 42;
+                            }
+                            jjCheckNAddTwoStates(57, 58);
+                            break;
+                        case 57:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(57, 58);
+                            }
+                            break;
+                        case 58:
                             if (jjCanMove_2(hiByte, i1, i2, l1, l2)
                                     && kind > 42) {
                                 kind = 42;
+                            }
+                            break;
+                        case 59:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)) {
+                                jjCheckNAddTwoStates(59, 60);
+                            }
+                            break;
+                        case 60:
+                            if (jjCanMove_2(hiByte, i1, i2, l1, l2)
+                                    && kind > 43) {
+                                kind = 43;
                             }
                             break;
                         default:
@@ -1236,7 +1242,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                 kind = 0x7fffffff;
             }
             ++curPos;
-            if ((i = jjnewStateCnt) == (startsAt = 56 - (jjnewStateCnt = startsAt))) {
+            if ((i = jjnewStateCnt) == (startsAt = 62 - (jjnewStateCnt = startsAt))) {
                 return curPos;
             }
             try {
@@ -1248,48 +1254,119 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     }
 
     private int jjMoveStringLiteralDfa0_2() {
-        switch (curChar) {
-            case 34:
-                return jjMoveStringLiteralDfa1_2(0x1000L);
-            default:
-                return 1;
-        }
+        return jjMoveNfa_2(0, 0);
     }
 
-    private int jjMoveStringLiteralDfa1_2(long active0) {
-        try {
-            curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
-            return 1;
+    private int jjMoveNfa_2(int startState, int curPos) {
+        int startsAt = 0;
+        jjnewStateCnt = 8;
+        int i = 1;
+        jjstateSet[0] = startState;
+        int kind = 0x7fffffff;
+        for (;;) {
+            if (++jjround == 0x7fffffff) {
+                ReInitRounds();
+            }
+            if (curChar < 64) {
+                do {
+                    switch (jjstateSet[--i]) {
+                        case 0:
+                            if (curChar == 39) {
+                                jjstateSet[jjnewStateCnt++] = 6;
+                            } else if (curChar == 34) {
+                                jjstateSet[jjnewStateCnt++] = 3;
+                            }
+                            break;
+                        case 1:
+                            if (kind > 12) {
+                                kind = 12;
+                            }
+                            break;
+                        case 2:
+                            if (curChar == 34 && kind > 13) {
+                                kind = 13;
+                            }
+                            break;
+                        case 3:
+                            if (curChar == 34) {
+                                jjstateSet[jjnewStateCnt++] = 2;
+                            }
+                            break;
+                        case 4:
+                            if (curChar == 34) {
+                                jjstateSet[jjnewStateCnt++] = 3;
+                            }
+                            break;
+                        case 5:
+                            if (curChar == 39 && kind > 13) {
+                                kind = 13;
+                            }
+                            break;
+                        case 6:
+                            if (curChar == 39) {
+                                jjstateSet[jjnewStateCnt++] = 5;
+                            }
+                            break;
+                        case 7:
+                            if (curChar == 39) {
+                                jjstateSet[jjnewStateCnt++] = 6;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                } while (i != startsAt);
+            } else if (curChar < 128) {
+                do {
+                    switch (jjstateSet[--i]) {
+                        case 0:
+                            if (curChar == 92) {
+                                jjstateSet[jjnewStateCnt++] = 1;
+                            }
+                            break;
+                        case 1:
+                            if (kind > 12) {
+                                kind = 12;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                } while (i != startsAt);
+            } else {
+                int hiByte = curChar >> 8;
+                int i1 = hiByte >> 6;
+                long l1 = 1L << (hiByte & 077);
+                int i2 = (curChar & 0xff) >> 6;
+                long l2 = 1L << (curChar & 077);
+                do {
+                    switch (jjstateSet[--i]) {
+                        case 1:
+                            if (jjCanMove_0(hiByte, i1, i2, l1, l2)
+                                    && kind > 12) {
+                                kind = 12;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                } while (i != startsAt);
+            }
+            if (kind != 0x7fffffff) {
+                jjmatchedKind = kind;
+                jjmatchedPos = curPos;
+                kind = 0x7fffffff;
+            }
+            ++curPos;
+            if ((i = jjnewStateCnt) == (startsAt = 8 - (jjnewStateCnt = startsAt))) {
+                return curPos;
+            }
+            try {
+                curChar = input_stream.readChar();
+            } catch (java.io.IOException e) {
+                return curPos;
+            }
         }
-        switch (curChar) {
-            case 34:
-                return jjMoveStringLiteralDfa2_2(active0, 0x1000L);
-            default:
-                return 2;
-        }
-    }
-
-    private int jjMoveStringLiteralDfa2_2(long old0, long _active0) {
-        long active0 = _active0;
-        if ((active0 &= old0) == 0L) {
-            return 2;
-        }
-        try {
-            curChar = input_stream.readChar();
-        } catch (java.io.IOException e) {
-            return 2;
-        }
-        switch (curChar) {
-            case 34:
-                if ((active0 & 0x1000L) != 0L) {
-                    return jjStopAtPos(2, 12);
-                }
-                break;
-            default:
-                return 3;
-        }
-        return 3;
     }
 
     private int jjMoveStringLiteralDfa0_1() {
@@ -1301,8 +1378,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    private int jjMoveNfa_1(int startState, int _curPos) {
-        int curPos = _curPos;
+    private int jjMoveNfa_1(int startState, int curPos) {
         int startsAt = 0;
         jjnewStateCnt = 3;
         int i = 1;
@@ -1395,10 +1471,9 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    /** The Constant jjnextStates. */
-    static final int[] jjnextStates = { 22, 23, 24, 26, 29, 30, 32, 22, 23, 34,
-            39, 41, 23, 24, 26, 29, 30, 32, 44, 45, 46, 47, 48, 49, 53, 54, 3,
-            4, 9, 10, 27, 28, 37, 38, };
+    static final int[] jjnextStates = { 28, 29, 30, 32, 35, 36, 38, 28, 29, 40,
+            45, 47, 29, 30, 32, 35, 36, 38, 50, 51, 52, 53, 54, 55, 59, 60, 9,
+            10, 15, 16, 33, 34, 43, 44, };
 
     private static final boolean jjCanMove_0(int hiByte, int i1, int i2,
             long l1, long l2) {
@@ -1470,7 +1545,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     /** Token literal values. */
     public static final String[] jjstrLiteralImages = { "", null, null, null,
             null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, "\50", "\51", "\133", "\135", "\54", "\56",
+            null, null, null, null, "\50", "\51", "\133", "\135", "\54", "\56",
             "\73", "\100\160\162\145\146\151\170", "\136\136",
             "\100\142\141\163\145", "\100", "\141", null, "\137\72",
             "\164\162\165\145", "\146\141\154\163\145",
@@ -1482,21 +1557,18 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
             "IN_LONG_STRING", };
     /** Lex State array. */
     public static final int[] jjnewLexState = { -1, -1, -1, -1, -1, -1, 1, -1,
-            -1, 0, 2, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, 0, 2, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, };
-    static final long[] jjtoToken = { 0xfffffffff201L, };
+            -1, -1, -1, -1, -1, -1, -1, };
+    static final long[] jjtoToken = { 0x1ffffffffe201L, };
     static final long[] jjtoSkip = { 0x3eL, };
-    static final long[] jjtoMore = { 0xdc0L, };
+    static final long[] jjtoMore = { 0x1dc0L, };
     protected JavaCharStream input_stream;
-    private final int[] jjrounds = new int[56];
-    private final int[] jjstateSet = new int[112];
+    private final int[] jjrounds = new int[62];
+    private final int[] jjstateSet = new int[124];
     protected char curChar;
 
-    /**
-     * @param stream
-     *        the stream
-     */
+    /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream) {
         if (BOMSafeJavaCharStream.staticFlag) {
             throw new Error(
@@ -1505,23 +1577,13 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         input_stream = stream;
     }
 
-    /**
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
+    /** Constructor. */
     public TurtleParserTokenManager(JavaCharStream stream, int lexState) {
         this(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     */
+    /** Reinitialise parser. */
     public void ReInit(JavaCharStream stream) {
         jjmatchedPos = jjnewStateCnt = 0;
         curLexState = defaultLexState;
@@ -1532,30 +1594,18 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     private void ReInitRounds() {
         int i;
         jjround = 0x80000001;
-        for (i = 56; i-- > 0;) {
+        for (i = 62; i-- > 0;) {
             jjrounds[i] = 0x80000000;
         }
     }
 
-    /**
-     * Reinitialise parser.
-     * 
-     * @param stream
-     *        the stream
-     * @param lexState
-     *        the lex state
-     */
+    /** Reinitialise parser. */
     public void ReInit(JavaCharStream stream, int lexState) {
         ReInit(stream);
         SwitchTo(lexState);
     }
 
-    /**
-     * Switch to specified lex state.
-     * 
-     * @param lexState
-     *        the lex state
-     */
+    /** Switch to specified lex state. */
     public void SwitchTo(int lexState) {
         if (lexState >= 3 || lexState < 0) {
             throw new TokenMgrError("Error: Ignoring invalid lexical state : "
@@ -1594,11 +1644,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
     int jjmatchedPos;
     int jjmatchedKind;
 
-    /**
-     * Get the next Token.
-     * 
-     * @return the next token
-     */
+    /** Get the next Token. */
     @SuppressWarnings("incomplete-switch")
     public Token getNextToken() {
         Token matchedToken;
@@ -1626,8 +1672,8 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
                         jjmatchedKind = 0x7fffffff;
                         jjmatchedPos = 0;
                         curPos = jjMoveStringLiteralDfa0_0();
-                        if (jjmatchedPos == 0 && jjmatchedKind > 47) {
-                            jjmatchedKind = 47;
+                        if (jjmatchedPos == 0 && jjmatchedKind > 48) {
+                            jjmatchedKind = 48;
                         }
                         break;
                     case 1:
@@ -1705,8 +1751,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         }
     }
 
-    private void jjAddStates(int _start, int end) {
-        int start = _start;
+    private void jjAddStates(int start, int end) {
         do {
             jjstateSet[jjnewStateCnt++] = jjnextStates[start];
         } while (start++ != end);
@@ -1717,8 +1762,7 @@ public class TurtleParserTokenManager implements TurtleParserConstants {
         jjCheckNAdd(state2);
     }
 
-    private void jjCheckNAddStates(int _start, int end) {
-        int start = _start;
+    private void jjCheckNAddStates(int start, int end) {
         do {
             jjCheckNAdd(jjnextStates[start]);
         } while (start++ != end);

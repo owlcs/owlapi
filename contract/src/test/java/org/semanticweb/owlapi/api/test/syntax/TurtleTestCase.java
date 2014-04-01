@@ -22,6 +22,7 @@ import java.util.Set;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.formats.TurtleOntologyFormat;
+import org.semanticweb.owlapi.io.StringDocumentSource;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -31,6 +32,7 @@ import org.semanticweb.owlapi.model.OWLAnonymousIndividual;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -48,6 +50,64 @@ public class TurtleTestCase extends TestBase {
         IRI uri = IRI.create(getClass().getResource("/ttl-with-bom.ttl")
                 .toURI());
         m.loadOntologyFromOntologyDocument(uri);
+    }
+
+    private IRI iri = IRI.create("urn:testliterals");
+    private TurtleOntologyFormat tf = new TurtleOntologyFormat();
+    private IRI s = IRI.create("urn:test#s");
+
+    @Test
+    public void shouldParseFixedQuotesLiterals1()
+            throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(
+                "<urn:test#s> <urn:test#p> ''' ''\\' ''' .", iri, tf, null));
+        for (OWLAnnotationAssertionAxiom ax : o.getAnnotationAssertionAxioms(s)) {
+            assertEquals(" ''' ", ((OWLLiteral) ax.getValue()).getLiteral());
+        }
+    }
+
+    @Test
+    public void shouldParseFixedQuotesLiterals2()
+            throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(
+                "<urn:test#s> <urn:test#p> \"\"\" \"\"\\\" \"\"\" .", iri, tf,
+                null));
+        for (OWLAnnotationAssertionAxiom ax : o.getAnnotationAssertionAxioms(s)) {
+            assertEquals(" \"\"\" ", ((OWLLiteral) ax.getValue()).getLiteral());
+        }
+    }
+
+    @Test
+    public void shouldParseFixedQuotesLiterals3()
+            throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(
+                "<urn:test#s> <urn:test#p> \"\"\" \"\"\\u0061 \"\"\" .", iri,
+                tf, null));
+        for (OWLAnnotationAssertionAxiom ax : o.getAnnotationAssertionAxioms(s)) {
+            assertEquals(" \"\"a ", ((OWLLiteral) ax.getValue()).getLiteral());
+        }
+    }
+
+    @Test
+    public void shouldParseFixedQuotesLiterals4()
+            throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(
+                "<urn:test#s> <urn:test#p> \"\"\"\"\"\\\"\"\"\" .", iri, tf,
+                null));
+        for (OWLAnnotationAssertionAxiom ax : o.getAnnotationAssertionAxioms(s)) {
+            assertEquals("\"\"\"", ((OWLLiteral) ax.getValue()).getLiteral());
+        }
+    }
+
+    @Test
+    public void shouldParseFixedQuotesLiterals5()
+            throws OWLOntologyCreationException {
+        OWLOntology o = loadOntologyFromString(new StringDocumentSource(
+                "<urn:test#s> <urn:test#p> \"\"\"\"\"\\u0061\"\"\" .", iri, tf,
+                null));
+        for (OWLAnnotationAssertionAxiom ax : o.getAnnotationAssertionAxioms(s)) {
+            assertEquals("\"\"a", ((OWLLiteral) ax.getValue()).getLiteral());
+        }
     }
 
     @Test
