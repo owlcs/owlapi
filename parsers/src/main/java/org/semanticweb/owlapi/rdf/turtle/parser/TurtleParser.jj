@@ -8,16 +8,20 @@ JAVA_UNICODE_ESCAPE=true;
 
 PARSER_BEGIN(TurtleParser)
 
-package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
+package org.semanticweb.owlapi.rdf.turtle.parser;
 
+import java.io.InputStream;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.PrefixManager;
+import org.semanticweb.owlapi.util.DefaultPrefixManager;
+import org.semanticweb.owlapi.util.EscapeUtils;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
-import org.semanticweb.owlapi.model.*;
-import java.util.*;
-import java.io.Reader;
-import java.io.InputStream;
-import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
-import org.semanticweb.owlapi.util.EscapeUtils;
 
 /** The Class TurtleParser. */
 public class TurtleParser {
@@ -404,6 +408,7 @@ TOKEN:
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+
 //TOKEN:
 //{
 //    <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
@@ -444,7 +449,7 @@ void parseBaseDirective() :
     Token t;
 }
 {
-    <BASE> t=<FULLIRI> {base = t.image.substring(1, t.image.length() - 1);} {
+    <BASE> t=<FULLIRI> {base = IRI.create(t.image.substring(1, t.image.length() - 1));} {
         handler.handleBaseDirective(base);
     }
 }
