@@ -452,7 +452,7 @@ public class ManchesterOWLSyntaxEditorParser implements
 
     private String consumeToken() {
         String token = getToken().getToken();
-        if (tokenIndex < tokens.size() - 1) {
+        if (tokenIndex < tokens.size()) {
             tokenIndex++;
         }
         return token;
@@ -750,10 +750,10 @@ public class ManchesterOWLSyntaxEditorParser implements
     }
 
     private OWLDatatype parseDatatype() {
-        String name = peekToken();
+        String name = consumeToken();
         OWLDatatype d = getOWLDatatype(name);
-        if (d != null) {
-            consumeToken();
+        if (d == null) {
+            throw new ExceptionBuilder().withDt().build();
         }
         return d;
     }
@@ -837,12 +837,11 @@ public class ManchesterOWLSyntaxEditorParser implements
             OWLDataRange rng = parseDataRange();
             consumeToken(CLOSE.keyword());
             return rng;
-        } else if (!EOF(tok)) {
+        } else {
             consumeToken();
             throw new ExceptionBuilder().withDt().withKeyword(OPENBRACE, NOT)
                     .build();
         }
-        return null;
     }
 
     private Set<OWLDataRange> parseDataRangeList() {
@@ -902,6 +901,10 @@ public class ManchesterOWLSyntaxEditorParser implements
         String tok = consumeToken();
         if (tok.startsWith("\"")) {
             String lit = "";
+            if(!tok.endsWith("\"")) {
+                consumeToken();
+                throw new ExceptionBuilder().withKeyword("\"").build();
+            }
             if (tok.length() > 2) {
                 lit = tok.substring(1, tok.length() - 1);
             }
@@ -945,13 +948,8 @@ public class ManchesterOWLSyntaxEditorParser implements
             }
             try {
                 double d = Double.parseDouble(tok);
-                OWLDatatype dt = parseDatatype();
-                if (dt == null) {
-                    // no datatype specified: a decimal
                     return dataFactory.getOWLLiteral(tok,
                             OWL2Datatype.XSD_DECIMAL);
-                }
-                return dataFactory.getOWLLiteral(d);
             } catch (NumberFormatException e) {
                 // Ignore - not interested
             }
@@ -1434,12 +1432,12 @@ public class ManchesterOWLSyntaxEditorParser implements
         }
         String subj = consumeToken();
         OWLAnnotationProperty prop = getOWLAnnotationProperty(subj);
+        if(prop == null) {
+            throw new ExceptionBuilder().withAnn().build();
+        }
         for (OWLOntology ont : getOntologies()) {
             axioms.add(new OntologyAxiomPair(ont, dataFactory
                     .getOWLDeclarationAxiom(prop)));
-        }
-        if (prop == null) {
-            throw new ExceptionBuilder().withData().build();
         }
         parseFrameSections(false, axioms, prop, annotationPropertyFrameSections);
         return axioms;
