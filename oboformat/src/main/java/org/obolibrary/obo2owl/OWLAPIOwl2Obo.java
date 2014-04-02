@@ -724,7 +724,7 @@ public class OWLAPIOwl2Obo {
             return trGenericPropertyValue(prop, annVal, qualifiers, frame);
         }
         String value = getValue(annVal, tagString);
-        if (tag == null) {
+        if (tagString == null) {
             Clause clause = new Clause(OboFormatTag.TAG_PROPERTY_VALUE);
             String propId = this.getIdentifier(prop);
             addQualifiers(clause, qualifiers);
