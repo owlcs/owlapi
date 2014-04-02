@@ -43,17 +43,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
 import org.coode.owlapi.turtle.TurtleOntologyFormat;
 import org.semanticweb.owlapi.io.AbstractOWLParser;
 import org.semanticweb.owlapi.io.OWLOntologyDocumentSource;
 import org.semanticweb.owlapi.io.OWLParserException;
 import org.semanticweb.owlapi.io.OWLParserIOException;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyLoaderConfiguration;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.model.UnloadableImportException;
-import org.semanticweb.owlapi.util.DefaultPrefixManager;
 
 /**
  * The Class TurtleOntologyParser.
@@ -83,24 +86,40 @@ public class TurtleOntologyParser extends AbstractOWLParser {
             if (documentSource.isReaderAvailable()) {
                 reader = documentSource.getReader();
                 parser = new TurtleParser(reader, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI().toString());
+                        documentSource.getDocumentIRI());
             } else if (documentSource.isInputStreamAvailable()) {
                 is = documentSource.getInputStream();
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI().toString());
+                        documentSource.getDocumentIRI());
             } else {
                 is = new BufferedInputStream(documentSource.getDocumentIRI()
                         .toURI().toURL().openStream());
                 parser = new TurtleParser(is, new ConsoleTripleHandler(),
-                        documentSource.getDocumentIRI().toString());
+                        documentSource.getDocumentIRI());
             }
             OWLRDFConsumerAdapter consumer = new OWLRDFConsumerAdapter(
-                    ontology, parser, configuration);
+                    ontology, new AnonymousNodeChecker() {
+
+                        @Override
+                        public boolean isAnonymousNode(IRI iri) {
+                            return NodeID.isAnonymousNodeIRI(iri);
+                        }
+
+                        @Override
+                        public boolean isAnonymousSharedNode(String iri) {
+                            return NodeID.isAnonymousNodeID(iri);
+                        }
+
+                        @Override
+                        public boolean isAnonymousNode(String iri) {
+                            return NodeID.isAnonymousNodeIRI(iri);
+                        }
+                    }, configuration);
             TurtleOntologyFormat format = new TurtleOntologyFormat();
             consumer.setOntologyFormat(format);
             parser.setTripleHandler(consumer);
             parser.parseDocument();
-            DefaultPrefixManager prefixManager = parser.getPrefixManager();
+            PrefixManager prefixManager = parser.getPrefixManager();
             for (String prefixName : prefixManager.getPrefixNames()) {
                 format.setPrefix(prefixName,
                         prefixManager.getPrefix(prefixName));

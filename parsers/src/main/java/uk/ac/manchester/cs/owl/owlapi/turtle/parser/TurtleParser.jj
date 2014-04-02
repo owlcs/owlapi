@@ -10,82 +10,108 @@ PARSER_BEGIN(TurtleParser)
 
 package uk.ac.manchester.cs.owl.owlapi.turtle.parser;
 
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
-import org.semanticweb.owlapi.vocab.XSDVocabulary;
-import org.semanticweb.owlapi.model.*;
-import java.util.*;
-import java.io.Reader;
 import java.io.InputStream;
-import org.coode.owlapi.rdfxml.parser.AnonymousNodeChecker;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.util.DefaultPrefixManager;
 import org.semanticweb.owlapi.util.EscapeUtils;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
-@SuppressWarnings("javadoc")
-public class TurtleParser implements AnonymousNodeChecker {
+/** The Class TurtleParser. */
+public class TurtleParser {
 
     private Map<String, IRI> string2IRI;
 
-    private String base;
-
-    private int blankNodeId;
+    private IRI base;
 
     private TripleHandler handler;
 
-    private DefaultPrefixManager pm = new DefaultPrefixManager();
+    private PrefixManager pm = new DefaultPrefixManager();
 
-
-    public TurtleParser(Reader reader, TripleHandler handler, String base) {
+    /** Instantiates a new turtle parser.
+     * 
+     * @param reader
+     *            the reader
+     * @param handler
+     *            the handler
+     * @param base
+     *            the base */
+    public TurtleParser(Reader reader, TripleHandler handler, IRI base) {
         this(reader);
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    public TurtleParser(InputStream is, TripleHandler handler, String base) {
+    /** Instantiates a new turtle parser.
+     * 
+     * @param is
+     *            the is
+     * @param handler
+     *            the handler
+     * @param base
+     *            the base */
+    public TurtleParser(InputStream is, TripleHandler handler, IRI base) {
         this(is);
         this.handler = handler;
         this.base = base;
         string2IRI = new HashMap<String, IRI>();
-        blankNodeId = 0;
         pm.setDefaultPrefix("http://www.semanticweb.org/owl/owlapi/turtle#");
     }
 
-    public DefaultPrefixManager getPrefixManager() {
+    /** Gets the prefix manager.
+     * 
+     * @return the prefix manager */
+    public PrefixManager getPrefixManager() {
         return pm;
     }
 
+    /** Sets the triple handler.
+     * 
+     * @param handler
+     *            the new triple handler */
     public void setTripleHandler(TripleHandler handler) {
         this.handler = handler;
     }
 
-    public boolean isAnonymousNode(String iri) {
-        return iri.indexOf("genid") != -1;
-    }
-
-
-    public boolean isAnonymousNode(IRI iri) {
-        return iri.toString().indexOf("genid") != -1;
-    }
-
-    public boolean isAnonymousSharedNode(String iri) {
-        return iri.indexOf("genid-nodeid") != -1;
-    }
-
+    /** Gets the next blank node.
+     * 
+     * @param id
+     *            the id
+     * @return the next blank node */
     protected IRI getNextBlankNode(String id) {
-        IRI iri;
-        if(id == null) {
-            iri = getIRI("genid" + blankNodeId);
-            blankNodeId++;
+        String string;
+        if (id == null) {
+            string = NodeID.nextAnonymousIRI();
+        } else {
+            if (NodeID.isAnonymousNodeID(id)) {
+                string = id;
+            } else {
+                string = NodeID.getIRIFromNodeID(id);
+            }
         }
-        else {
-            iri = getIRI("genid-nodeid-" + id);
+        IRI iri = string2IRI.get(string);
+        if (iri == null) {
+            iri = IRI.create(string);
+            string2IRI.put(string, iri);
         }
-
         return iri;
     }
 
+    /** Gets the iRI from q name.
+     * 
+     * @param qname
+     *            the qname
+     * @return the iRI from q name
+     * @throws ParseException
+     *             the parse exception */
     protected IRI getIRIFromQName(String qname) throws ParseException  {
         int colonIndex = qname.indexOf(':');
         if(colonIndex == -1) {
@@ -101,6 +127,11 @@ public class TurtleParser implements AnonymousNodeChecker {
         return pm.getIRI(qname);
     }
 
+    /** Gets the iri.
+     * 
+     * @param s
+     *            the s
+     * @return the iri */
     public IRI getIRI(String s) {
          if(s.charAt(0) == '<') {
             s = s.substring(1, s.length() - 1);
@@ -109,7 +140,7 @@ public class TurtleParser implements AnonymousNodeChecker {
         if(iri == null) {
             iri = IRI.create(s);
             if (!iri.isAbsolute()) {
-                iri = IRI.create(base.substring(0, base.lastIndexOf('/') + 1) + s);
+                iri = IRI.create(base.getNamespace().substring(0, base.getNamespace().lastIndexOf('/')+1), s);
             }
             string2IRI.put(s, iri);
         }
@@ -149,18 +180,22 @@ MORE : {
 }
 
 MORE : {
-    "\"\"\"" : IN_LONG_STRING
+   < THREEQUOTES: ("\"\"\""|"'''") > : IN_LONG_STRING
 }
 
 <IN_LONG_STRING> MORE :
 {
-    <  ~[] >
+    <  (~[]) >
+}
+<IN_LONG_STRING> MORE :
+{
+    <ANY_ESCAPED_CHAR_IN_LONG_STRING: "\\"~[] >
 }
 
 
 <IN_LONG_STRING> TOKEN :
 {
-    <LONG_STRING: "\"\"\""> : DEFAULT
+    <LONG_STRING: ("\"\"\""|"'''")> : DEFAULT
 }
 
 
@@ -377,6 +412,7 @@ TOKEN:
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
+
 //TOKEN:
 //{
 //    <LONG_STRING: (<QUOTE><QUOTE><QUOTE>~["\""]<QUOTE><QUOTE><QUOTE>)>
@@ -417,7 +453,7 @@ void parseBaseDirective() :
     Token t;
 }
 {
-    <BASE> t=<FULLIRI> {base = t.image.substring(1, t.image.length() - 1);} {
+    <BASE> t=<FULLIRI> {base = IRI.create(t.image.substring(1, t.image.length() - 1));} {
         handler.handleBaseDirective(base);
     }
 }

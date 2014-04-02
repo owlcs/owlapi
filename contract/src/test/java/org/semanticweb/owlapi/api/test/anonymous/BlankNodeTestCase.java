@@ -48,8 +48,8 @@ import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TripleHandler;
 import uk.ac.manchester.cs.owl.owlapi.turtle.parser.TurtleParser;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 18-Jan-2010
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 18-Jan-2010
  */
 @SuppressWarnings("javadoc")
 public class BlankNodeTestCase {
@@ -83,7 +83,7 @@ public class BlankNodeTestCase {
             @Override
             public void handleBaseDirective(String base) {}
         };
-        TurtleParser parser = new TurtleParser(input, handler, "");
+        TurtleParser parser = new TurtleParser(input, handler, IRI.create(""));
         parser.parseDocument();
     }
 }
