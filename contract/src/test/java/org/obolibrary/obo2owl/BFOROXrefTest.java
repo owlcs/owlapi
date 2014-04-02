@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.obolibrary.oboformat.model.Clause;
 import org.obolibrary.oboformat.model.Frame;
@@ -37,17 +36,23 @@ public class BFOROXrefTest extends OboFormatTestBasics {
         owlOnt = convertOBOFile("rel_xref_test.obo");
     }
 
-    @Ignore
     @Test
     public void testCorrectIdAnnotationCount() {
         Set<OWLObjectProperty> ops = owlOnt.getObjectPropertiesInSignature();
         assertTrue(ops.size() == 4);
         // Check ID Property Count Exactly 1
-        for (OWLObjectProperty objectProperty : ops) {
-            IRI annotationSubject = objectProperty.getIRI();
-            assertAnnotationPropertyCountEquals(owlOnt, annotationSubject,
-                    OBO_ID, 1);
-        }
+        assertAnnotationPropertyCountEquals(owlOnt,
+                IRI.create("http://purl.obolibrary.org/obo/BAR_0000001"),
+                OBO_ID, 1);
+        assertAnnotationPropertyCountEquals(owlOnt,
+                IRI.create("http://purl.obolibrary.org/obo/RO_0002111"),
+                OBO_ID, 1);
+        assertAnnotationPropertyCountEquals(owlOnt,
+                IRI.create("http://purl.obolibrary.org/obo/BFO_0000050"),
+                OBO_ID, 1);
+        assertAnnotationPropertyCountEquals(owlOnt,
+                IRI.create("http://purl.obolibrary.org/obo/BFO_0000051"),
+                OBO_ID, 2);
     }
 
     @Test
