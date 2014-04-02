@@ -491,7 +491,6 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
             parser.parse(input);
             fail();
         } catch (ParserException e) {
-            System.out.println(e);
             assertEquals(index, e.getStartPos());
             assertEquals(currentToken, e.getCurrentToken());
             assertTrue(e.getTokenSequence().size() > 0);
