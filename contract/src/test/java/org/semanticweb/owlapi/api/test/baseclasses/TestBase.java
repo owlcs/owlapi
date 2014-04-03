@@ -319,6 +319,16 @@ public abstract class TestBase {
         return ontology;
     }
 
+    protected OWLOntology loadOntologyFromString(StringDocumentTarget input,
+            OWLOntologyFormat f) throws OWLOntologyCreationException {
+        OWLOntology ontology = OWLManager.createOWLOntologyManager()
+                .loadOntologyFromOntologyDocument(
+                        new StringDocumentSource(input.toString(),
+                                StringDocumentSource.getNextDocumentIRI(), f,
+                                null));
+        return ontology;
+    }
+
     protected OWLOntology loadOntologyStrict(StringDocumentTarget o)
             throws OWLOntologyCreationException {
         return loadOntologyWithConfig(o,
@@ -347,7 +357,7 @@ public abstract class TestBase {
 
     protected OWLOntology roundTrip(OWLOntology o, OWLOntologyFormat format)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
-        return loadOntologyFromString(saveOntology(o, format));
+        return loadOntologyFromString(saveOntology(o, format), format);
     }
 
     protected OWLOntology roundTrip(OWLOntology o, OWLOntologyFormat format,

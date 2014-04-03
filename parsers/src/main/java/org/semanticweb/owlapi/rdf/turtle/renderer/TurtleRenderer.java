@@ -50,8 +50,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class TurtleRenderer extends RDFRendererBase {
@@ -78,7 +78,13 @@ public class TurtleRenderer extends RDFRendererBase {
         pending = new HashSet<RDFResource>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
+            String ontologyIRIString = ontology.getOntologyID()
+                    .getOntologyIRI().toString();
+            String defaultPrefix = ontologyIRIString;
+            if (!ontologyIRIString.endsWith("/")) {
+                defaultPrefix = ontologyIRIString + "#";
+            }
+            pm.setDefaultPrefix(defaultPrefix);
         }
         if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;

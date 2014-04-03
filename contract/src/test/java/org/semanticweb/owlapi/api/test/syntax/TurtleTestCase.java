@@ -256,6 +256,31 @@ public class TurtleTestCase extends TestBase {
     }
 
     @Test
+    public void shouldRoundTripAxiomAnnotationWithSlashOntologyIRI()
+            throws OWLOntologyCreationException, OWLOntologyStorageException {
+        String input = "@prefix : <urn:test#test.owl/> .\n"
+                + "@prefix owl: <http://www.w3.org/2002/07/owl#> .\n"
+                + "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n"
+                + "@prefix xml: <http://www.w3.org/XML/1998/namespace> .\n"
+                + "@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n"
+                + "@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n"
+                + "@base <urn:test#test.owl/> .\n"
+                + "<urn:test#test.owl/> rdf:type owl:Ontology .\n"
+                + ":q rdf:type owl:Class .\n"
+                + ":t rdf:type owl:Class ; rdfs:subClassOf :q .";
+        OWLOntology in = loadOntologyFromString(input);
+        String string = "urn:test#test.owl/";
+        OWLOntology ontology = m.createOntology(IRI.create(string));
+        m.addAxiom(
+                ontology,
+                df.getOWLSubClassOfAxiom(
+                        df.getOWLClass(IRI.create(string + "t")),
+                        df.getOWLClass(IRI.create(string + "q"))));
+        OWLOntology o = roundTrip(ontology, new TurtleOntologyFormat());
+        equal(o, in);
+    }
+
+    @Test
     public void presentDeclaration() throws OWLOntologyCreationException {
         // given
         String input = "<urn:test#Settlement> rdf:type owl:Class.\n <urn:test#fm2.owl> rdf:type owl:Ontology.\n <urn:test#numberOfPads> rdf:type owl:ObjectProperty ;\n rdfs:domain <urn:test#Settlement> .";
