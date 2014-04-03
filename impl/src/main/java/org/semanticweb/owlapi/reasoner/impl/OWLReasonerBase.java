@@ -121,10 +121,9 @@ public abstract class OWLReasonerBase implements OWLReasoner {
         }
     }
 
-    @SuppressWarnings("rawtypes")
     @Override
-    public List<OWLOntologyChange> getPendingChanges() {
-        return new ArrayList<OWLOntologyChange>(rawChanges);
+    public List<OWLOntologyChange<?>> getPendingChanges() {
+        return new ArrayList<OWLOntologyChange<?>>(rawChanges);
     }
 
     @Override

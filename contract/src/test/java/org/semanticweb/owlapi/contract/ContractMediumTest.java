@@ -248,7 +248,7 @@ public class ContractMediumTest {
         String result19 = testSubject0.getReasonerName();
         Version result20 = testSubject0.getReasonerVersion();
         BufferingMode result21 = testSubject0.getBufferingMode();
-        List<OWLOntologyChange> result22 = testSubject0.getPendingChanges();
+        List<OWLOntologyChange<?>> result22 = testSubject0.getPendingChanges();
         Set<OWLAxiom> result23 = testSubject0.getPendingAxiomAdditions();
         Set<OWLAxiom> result24 = testSubject0.getPendingAxiomRemovals();
         OWLOntology result25 = testSubject0.getRootOntology();
@@ -457,7 +457,7 @@ public class ContractMediumTest {
         OWLDataFactory result40 = testSubject0.getOWLDataFactory();
         long result41 = testSubject0.getTimeOut();
         BufferingMode result42 = testSubject0.getBufferingMode();
-        List<OWLOntologyChange> result43 = testSubject0.getPendingChanges();
+        List<OWLOntologyChange<?>> result43 = testSubject0.getPendingChanges();
         Set<OWLAxiom> result44 = testSubject0.getPendingAxiomAdditions();
         Set<OWLAxiom> result45 = testSubject0.getPendingAxiomRemovals();
         OWLOntology result46 = testSubject0.getRootOntology();
