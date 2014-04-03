@@ -408,8 +408,7 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
             Arrays.asList(CLASS_ASSERTION, SAME_INDIVIDUAL,
                     DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
                     NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-                    DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION,
-                    DATATYPE_DEFINITION));
+                    DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION));
     /** set of rbox axiom types */
     @SuppressWarnings("unchecked")
     public static final Set<AxiomType<?>> RBoxAxiomTypes = new HashSet<AxiomType<?>>(
@@ -417,4 +416,12 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
                     SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES,
                     DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY,
                     EQUIVALENT_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF));
+    /** set of tbox and rbox axiom types */
+    public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes = tboxAndRbox();
+
+    private static final Set<AxiomType<?>> tboxAndRbox() {
+        Set<AxiomType<?>> axioms = new HashSet<AxiomType<?>>(TBoxAxiomTypes);
+        axioms.addAll(RBoxAxiomTypes);
+        return axioms;
+    }
 }
