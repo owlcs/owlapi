@@ -38,11 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi.mansyntaxrenderer;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -53,7 +49,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
  */
 public class SectionMap {
 
-    private Map<Object, Set<OWLAxiom>> object2Axioms = new HashMap<Object, Set<OWLAxiom>>();
+    private Map<Object, Set<OWLAxiom>> object2Axioms = new LinkedHashMap<Object, Set<OWLAxiom>>();
 
     /** @return true if empty */
     public boolean isEmpty() {
@@ -69,7 +65,7 @@ public class SectionMap {
     public void add(Object o, OWLAxiom forAxiom) {
         Set<OWLAxiom> axioms = object2Axioms.get(o);
         if (axioms == null) {
-            axioms = new HashSet<OWLAxiom>();
+            axioms = new LinkedHashSet<OWLAxiom>();
             object2Axioms.put(o, axioms);
         }
         axioms.add(forAxiom);
