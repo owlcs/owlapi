@@ -102,7 +102,6 @@ import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLRule;
 import org.semanticweb.owlapi.util.OWLAxiomFilter;
 import org.semanticweb.owlapi.util.OntologyIRIShortFormProvider;
-import org.semanticweb.owlapi.util.ShortFormBasedOWLObjectComparator;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
