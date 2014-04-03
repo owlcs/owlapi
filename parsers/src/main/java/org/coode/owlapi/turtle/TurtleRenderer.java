@@ -73,8 +73,8 @@ import org.semanticweb.owlapi.vocab.PrefixOWLOntologyFormat;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Jan-2008
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Jan-2008
  */
 public class TurtleRenderer extends RDFRendererBase {
 
@@ -117,7 +117,13 @@ public class TurtleRenderer extends RDFRendererBase {
         pending = new HashSet<RDFResourceNode>();
         pm = new DefaultPrefixManager();
         if (!ontology.isAnonymous()) {
-            pm.setDefaultPrefix(ontology.getOntologyID().getOntologyIRI() + "#");
+            String ontologyIRIString = ontology.getOntologyID()
+                    .getOntologyIRI().toString();
+            String defaultPrefix = ontologyIRIString;
+            if (!ontologyIRIString.endsWith("/")) {
+                defaultPrefix = ontologyIRIString + "#";
+            }
+            pm.setDefaultPrefix(defaultPrefix);
         }
         if (format instanceof PrefixOWLOntologyFormat) {
             PrefixOWLOntologyFormat prefixFormat = (PrefixOWLOntologyFormat) format;
