@@ -250,7 +250,9 @@ public abstract class TestBase {
         handleSaved(target, format);
         OWLOntology ont2 = OWLManager.createOWLOntologyManager()
                 .loadOntologyFromOntologyDocument(
-                        new StringDocumentSource(target),
+                        new StringDocumentSource(target.toString(),
+                                StringDocumentSource.getNextDocumentIRI(),
+                                format, null),
                         new OWLOntologyLoaderConfiguration()
                                 .setReportStackTraces(true));
         equal(ont, ont2);
