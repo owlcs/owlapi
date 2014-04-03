@@ -81,7 +81,7 @@ import uk.ac.manchester.cs.owl.explanation.ordering.NodeRenderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.NullExplanationOrderer;
 import uk.ac.manchester.cs.owl.explanation.ordering.Tree;
 
-@SuppressWarnings({ "unused", "javadoc", "unchecked", "rawtypes" })
+@SuppressWarnings({ "unused", "javadoc", "unchecked" })
 public class ContractMediumTest {
 
     @Test

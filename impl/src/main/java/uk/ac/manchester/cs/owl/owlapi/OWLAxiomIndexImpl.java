@@ -61,6 +61,7 @@ import org.semanticweb.owlapi.search.Filters;
 public abstract class OWLAxiomIndexImpl extends OWLObjectImpl implements
         OWLAxiomIndex {
 
+    private static final long serialVersionUID = 40000L;
     protected Internals ints = new Internals();
 
     @Override

@@ -170,8 +170,8 @@ public class TurtleTestCase extends TestBase {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
                 p));
-        IRI s = IRI("http://dbpedia.org/resource/South_Africa");
-        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
+        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
+        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i,
                 Literal("1.0E7", OWL2Datatype.XSD_DOUBLE))));
     }
 
@@ -182,9 +182,9 @@ public class TurtleTestCase extends TestBase {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
                 p));
-        IRI s = IRI("http://dbpedia.org/resource/South_Africa");
+        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
         assertTrue(ontology
-                .containsAxiom(AnnotationAssertion(p, s, Literal(1))));
+                .containsAxiom(AnnotationAssertion(p, i, Literal(1))));
     }
 
     @Test
@@ -194,8 +194,8 @@ public class TurtleTestCase extends TestBase {
         OWLAnnotationProperty p = AnnotationProperty(IRI("http://dbpedia.org/ontology/areaTotal"));
         assertTrue(ontology.getAnnotationPropertiesInSignature(false).contains(
                 p));
-        IRI s = IRI("http://dbpedia.org/resource/South_Africa");
-        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, s,
+        IRI i = IRI("http://dbpedia.org/resource/South_Africa");
+        assertTrue(ontology.containsAxiom(AnnotationAssertion(p, i,
                 Literal("1.0", OWL2Datatype.XSD_DECIMAL))));
     }
 
