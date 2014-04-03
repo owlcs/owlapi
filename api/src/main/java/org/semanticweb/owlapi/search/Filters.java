@@ -44,7 +44,7 @@ public class Filters {
             OWLAxiomSearchFilter {
 
         private static final long serialVersionUID = 40000L;
-        private Collection<AxiomType<?>> types;
+        private Iterable<AxiomType<?>> types;
 
         /**
          * @param type
@@ -55,8 +55,16 @@ public class Filters {
             this.types = (Collection) Collections.singleton(type);
         }
 
+        /**
+         * @param types
+         *        axiom types to filter on
+         */
+        public AxiomFilter(Iterable<AxiomType<?>> types) {
+            this.types = types;
+        }
+
         @Override
-        public Collection<AxiomType<?>> getAxiomTypes() {
+        public Iterable<AxiomType<?>> getAxiomTypes() {
             return types;
         }
 
@@ -243,6 +251,48 @@ public class Filters {
         @Override
         protected Object axiomValue(OWLAnnotationAssertionAxiom axiom) {
             return axiom.getSubject();
+        }
+    };
+    /**
+     * filter returning all axioms included in TBox or RBox. No assertions,
+     * nonlogical axioms or SWRL rules.
+     */
+    public static OWLAxiomSearchFilter axiomsFromTBoxAndRBox = new AxiomFilter<OWLAxiom>(
+            AxiomType.TBoxAndRBoxAxiomTypes) {
+
+        private static final long serialVersionUID = 40000L;
+
+        @Override
+        protected Object axiomValue(OWLAxiom axiom) {
+            return axiom;
+        }
+
+        @Override
+        public boolean pass(OWLAxiom axiom, Object key) {
+            // for this filter, accept all axioms
+            return true;
+        }
+    };
+    /**
+     * filter returning all axioms not in TBox or RBox; therefore, ABox axioms,
+     * nonlogical axioms and SWRL rules.
+     */
+    public static OWLAxiomSearchFilter axiomsNotInTBoxOrRBox = new AxiomFilter<OWLAxiom>(
+            AxiomType.AXIOM_TYPES) {
+
+        private static final long serialVersionUID = 40000L;
+
+        @Override
+        protected Object axiomValue(OWLAxiom axiom) {
+            return axiom;
+        }
+
+        @Override
+        public boolean pass(OWLAxiom axiom, Object key) {
+            // for this filter, only accept the axioms whose types are not in
+            // tbox or rbox
+            return !AxiomType.TBoxAndRBoxAxiomTypes.contains(axiom
+                    .getAxiomType());
         }
     };
 }

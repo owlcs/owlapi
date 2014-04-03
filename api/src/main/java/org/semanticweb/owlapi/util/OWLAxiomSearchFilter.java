@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +29,7 @@ public interface OWLAxiomSearchFilter extends Serializable {
      *         multiple axiom types
      */
     @Nonnull
-    Collection<AxiomType<?>> getAxiomTypes();
+    Iterable<AxiomType<?>> getAxiomTypes();
 
     /**
      * @param axiom

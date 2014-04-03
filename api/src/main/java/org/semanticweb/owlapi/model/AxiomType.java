@@ -13,11 +13,14 @@
 package org.semanticweb.owlapi.model;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 /**
  * Represents the type of axioms which can belong to ontologies. Axioms can be
@@ -32,6 +35,7 @@ import java.util.Set;
  * @param <C>
  *        axiom type
  */
+@SuppressWarnings("unchecked")
 public class AxiomType<C extends OWLAxiom> implements Serializable {
 
     private static final long serialVersionUID = 40000L;
@@ -40,9 +44,6 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
     private final boolean nonSyntacticOWL2Axiom;
     private final boolean isLogical;
     private final int index;
-    /** axiom types */
-    public static final Set<AxiomType<?>> AXIOM_TYPES = new HashSet<AxiomType<?>>();
-    private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = new HashMap<String, AxiomType<?>>();
 
     private AxiomType(int ind, String name, boolean owl2Axiom,
             boolean nonSyntacticOWL2Axiom, boolean isLogical) {
@@ -189,199 +190,106 @@ public class AxiomType<C extends OWLAxiom> implements Serializable {
         return NAME_TYPE_MAP.containsKey(_name);
     }
 
-    /** Declaration */
-    public static final AxiomType<OWLDeclarationAxiom> DECLARATION = getInstance(
-            0, "Declaration", true, true, false);
-    // Class axioms
-    /** EquivalentClasses */
-    public static final AxiomType<OWLEquivalentClassesAxiom> EQUIVALENT_CLASSES = getInstance(
-            1, "EquivalentClasses", false, false, true);
-    /** SubClassOf */
-    public static final AxiomType<OWLSubClassOfAxiom> SUBCLASS_OF = getInstance(
-            2, "SubClassOf", false, false, true);
-    /** DisjointClasses */
-    public static final AxiomType<OWLDisjointClassesAxiom> DISJOINT_CLASSES = getInstance(
-            3, "DisjointClasses", false, false, true);
-    /** DisjointUnion */
-    public static final AxiomType<OWLDisjointUnionAxiom> DISJOINT_UNION = getInstance(
-            4, "DisjointUnion", true, false, true);
-    // Individual axioms
-    /** ClassAssertion */
-    public static final AxiomType<OWLClassAssertionAxiom> CLASS_ASSERTION = getInstance(
-            5, "ClassAssertion", false, false, true);
-    /** SameIndividual */
-    public static final AxiomType<OWLSameIndividualAxiom> SAME_INDIVIDUAL = getInstance(
-            6, "SameIndividual", false, false, true);
-    /** DifferentIndividuals */
-    public static final AxiomType<OWLDifferentIndividualsAxiom> DIFFERENT_INDIVIDUALS = getInstance(
-            7, "DifferentIndividuals", false, false, true);
-    /** ObjectPropertyAssertion */
-    public static final AxiomType<OWLObjectPropertyAssertionAxiom> OBJECT_PROPERTY_ASSERTION = getInstance(
-            8, "ObjectPropertyAssertion", false, false, true);
-    /** NegativeObjectPropertyAssertion */
-    public static final AxiomType<OWLNegativeObjectPropertyAssertionAxiom> NEGATIVE_OBJECT_PROPERTY_ASSERTION = getInstance(
-            9, "NegativeObjectPropertyAssertion", true, false, true);
-    /** DataPropertyAssertion */
-    public static final AxiomType<OWLDataPropertyAssertionAxiom> DATA_PROPERTY_ASSERTION = getInstance(
-            10, "DataPropertyAssertion", false, false, true);
-    /** NegativeDataPropertyAssertion */
-    public static final AxiomType<OWLNegativeDataPropertyAssertionAxiom> NEGATIVE_DATA_PROPERTY_ASSERTION = getInstance(
-            11, "NegativeDataPropertyAssertion", true, false, true);
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object property axioms
-    //
-    // ////////////////////////////////////////////////////////////////////////////////////////////////////
-    /** EquivalentObjectProperties */
-    public static final AxiomType<OWLEquivalentObjectPropertiesAxiom> EQUIVALENT_OBJECT_PROPERTIES = getInstance(
-            12, "EquivalentObjectProperties", false, false, true);
-    /** SubObjectPropertyOf */
-    public static final AxiomType<OWLSubObjectPropertyOfAxiom> SUB_OBJECT_PROPERTY = getInstance(
-            13, "SubObjectPropertyOf", false, false, true);
-    /** InverseObjectProperties */
-    public static final AxiomType<OWLInverseObjectPropertiesAxiom> INVERSE_OBJECT_PROPERTIES = getInstance(
-            14, "InverseObjectProperties", false, false, true);
-    /** FunctionalObjectProperty */
-    public static final AxiomType<OWLFunctionalObjectPropertyAxiom> FUNCTIONAL_OBJECT_PROPERTY = getInstance(
-            15, "FunctionalObjectProperty", false, false, true);
-    /** InverseFunctionalObjectProperty */
-    public static final AxiomType<OWLInverseFunctionalObjectPropertyAxiom> INVERSE_FUNCTIONAL_OBJECT_PROPERTY = getInstance(
-            16, "InverseFunctionalObjectProperty", false, false, true);
-    /** SymmetricObjectProperty */
-    public static final AxiomType<OWLSymmetricObjectPropertyAxiom> SYMMETRIC_OBJECT_PROPERTY = getInstance(
-            17, "SymmetricObjectProperty", false, false, true);
-    /** AsymmetricObjectProperty */
-    public static final AxiomType<OWLAsymmetricObjectPropertyAxiom> ASYMMETRIC_OBJECT_PROPERTY = getInstance(
-            18, "AsymmetricObjectProperty", true, true, true);
-    /** TransitiveObjectProperty */
-    public static final AxiomType<OWLTransitiveObjectPropertyAxiom> TRANSITIVE_OBJECT_PROPERTY = getInstance(
-            19, "TransitiveObjectProperty", false, false, true);
-    /** ReflexiveObjectProperty */
-    public static final AxiomType<OWLReflexiveObjectPropertyAxiom> REFLEXIVE_OBJECT_PROPERTY = getInstance(
-            20, "ReflexiveObjectProperty", true, true, true);
-    /** IrrefexiveObjectProperty */
-    public static final AxiomType<OWLIrreflexiveObjectPropertyAxiom> IRREFLEXIVE_OBJECT_PROPERTY = getInstance(
-            21, "IrrefexiveObjectProperty", true, true, true);
-    /** ObjectPropertyDomain */
-    public static final AxiomType<OWLObjectPropertyDomainAxiom> OBJECT_PROPERTY_DOMAIN = getInstance(
-            22, "ObjectPropertyDomain", false, false, true);
-    /** ObjectPropertyRange */
-    public static final AxiomType<OWLObjectPropertyRangeAxiom> OBJECT_PROPERTY_RANGE = getInstance(
-            23, "ObjectPropertyRange", false, false, true);
-    /** DisjointObjectProperties */
-    public static final AxiomType<OWLDisjointObjectPropertiesAxiom> DISJOINT_OBJECT_PROPERTIES = getInstance(
-            24, "DisjointObjectProperties", true, true, true);
-    /** SubPropertyChainOf */
-    public static final AxiomType<OWLSubPropertyChainOfAxiom> SUB_PROPERTY_CHAIN_OF = getInstance(
-            25, "SubPropertyChainOf", true, true, true);
-    /** EquivalentDataProperties */
-    public static final AxiomType<OWLEquivalentDataPropertiesAxiom> EQUIVALENT_DATA_PROPERTIES = getInstance(
-            26, "EquivalentDataProperties", false, false, true);
-    /** SubDataPropertyOf */
-    public static final AxiomType<OWLSubDataPropertyOfAxiom> SUB_DATA_PROPERTY = getInstance(
-            27, "SubDataPropertyOf", false, false, true);
-    /** FunctionalDataProperty */
-    public static final AxiomType<OWLFunctionalDataPropertyAxiom> FUNCTIONAL_DATA_PROPERTY = getInstance(
-            28, "FunctionalDataProperty", false, false, true);
-    /** DataPropertyDomain */
-    public static final AxiomType<OWLDataPropertyDomainAxiom> DATA_PROPERTY_DOMAIN = getInstance(
-            29, "DataPropertyDomain", false, false, true);
-    /** DataPropertyRange */
-    public static final AxiomType<OWLDataPropertyRangeAxiom> DATA_PROPERTY_RANGE = getInstance(
-            30, "DataPropertyRange", false, false, true);
-    /** DisjointDataProperties */
-    public static final AxiomType<OWLDisjointDataPropertiesAxiom> DISJOINT_DATA_PROPERTIES = getInstance(
-            31, "DisjointDataProperties", true, true, true);
-    /** HasKey */
-    public static final AxiomType<OWLHasKeyAxiom> HAS_KEY = getInstance(32,
-            "HasKey", true, true, true);
-    /** Rule */
-    public static final AxiomType<SWRLRule> SWRL_RULE = getInstance(33, "Rule",
-            false, false, true);
-    /** AnnotationAssertion */
-    public static final AxiomType<OWLAnnotationAssertionAxiom> ANNOTATION_ASSERTION = getInstance(
-            34, "AnnotationAssertion", false, false, false);
-    /** SubAnnotationPropertyOf */
-    public static final AxiomType<OWLSubAnnotationPropertyOfAxiom> SUB_ANNOTATION_PROPERTY_OF = getInstance(
-            35, "SubAnnotationPropertyOf", true, true, false);
-    /** AnnotationPropertyRangeOf */
-    public static final AxiomType<OWLAnnotationPropertyRangeAxiom> ANNOTATION_PROPERTY_RANGE = getInstance(
-            36, "AnnotationPropertyRangeOf", true, true, false);
-    /** AnnotationPropertyDomain */
-    public static final AxiomType<OWLAnnotationPropertyDomainAxiom> ANNOTATION_PROPERTY_DOMAIN = getInstance(
-            37, "AnnotationPropertyDomain", true, true, false);
-    /** DatatypeDefinition */
-    public static final AxiomType<OWLDatatypeDefinitionAxiom> DATATYPE_DEFINITION = getInstance(
-            38, "DatatypeDefinition", true, true, true);
-    static {
-        AXIOM_TYPES.add(SUBCLASS_OF);
-        AXIOM_TYPES.add(EQUIVALENT_CLASSES);
-        AXIOM_TYPES.add(DISJOINT_CLASSES);
-        AXIOM_TYPES.add(CLASS_ASSERTION);
-        AXIOM_TYPES.add(SAME_INDIVIDUAL);
-        AXIOM_TYPES.add(DIFFERENT_INDIVIDUALS);
-        AXIOM_TYPES.add(OBJECT_PROPERTY_ASSERTION);
-        AXIOM_TYPES.add(NEGATIVE_OBJECT_PROPERTY_ASSERTION);
-        AXIOM_TYPES.add(DATA_PROPERTY_ASSERTION);
-        AXIOM_TYPES.add(NEGATIVE_DATA_PROPERTY_ASSERTION);
-        AXIOM_TYPES.add(OBJECT_PROPERTY_DOMAIN);
-        AXIOM_TYPES.add(OBJECT_PROPERTY_RANGE);
-        AXIOM_TYPES.add(DISJOINT_OBJECT_PROPERTIES);
-        AXIOM_TYPES.add(SUB_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(EQUIVALENT_OBJECT_PROPERTIES);
-        AXIOM_TYPES.add(INVERSE_OBJECT_PROPERTIES);
-        AXIOM_TYPES.add(SUB_PROPERTY_CHAIN_OF);
-        AXIOM_TYPES.add(FUNCTIONAL_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(INVERSE_FUNCTIONAL_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(SYMMETRIC_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(ASYMMETRIC_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(TRANSITIVE_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(REFLEXIVE_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(IRREFLEXIVE_OBJECT_PROPERTY);
-        AXIOM_TYPES.add(DATA_PROPERTY_DOMAIN);
-        AXIOM_TYPES.add(DATA_PROPERTY_RANGE);
-        AXIOM_TYPES.add(DISJOINT_DATA_PROPERTIES);
-        AXIOM_TYPES.add(SUB_DATA_PROPERTY);
-        AXIOM_TYPES.add(EQUIVALENT_DATA_PROPERTIES);
-        AXIOM_TYPES.add(FUNCTIONAL_DATA_PROPERTY);
-        AXIOM_TYPES.add(DATATYPE_DEFINITION);
-        AXIOM_TYPES.add(DISJOINT_UNION);
-        AXIOM_TYPES.add(DECLARATION);
-        AXIOM_TYPES.add(SWRL_RULE);
-        AXIOM_TYPES.add(ANNOTATION_ASSERTION);
-        AXIOM_TYPES.add(SUB_ANNOTATION_PROPERTY_OF);
-        AXIOM_TYPES.add(ANNOTATION_PROPERTY_DOMAIN);
-        AXIOM_TYPES.add(ANNOTATION_PROPERTY_RANGE);
-        AXIOM_TYPES.add(HAS_KEY);
-        for (AxiomType<?> type : AXIOM_TYPES) {
-            NAME_TYPE_MAP.put(type.name, type);
-        }
-    }
+//@formatter:off
+    /** Declaration */                      public static final AxiomType<OWLDeclarationAxiom>                      DECLARATION                         = getInstance(0, "Declaration",                      true, true, false);
+
+    /** EquivalentClasses */                public static final AxiomType<OWLEquivalentClassesAxiom>                EQUIVALENT_CLASSES                  = getInstance(1, "EquivalentClasses",                false, false, true);
+    /** SubClassOf */                       public static final AxiomType<OWLSubClassOfAxiom>                       SUBCLASS_OF                         = getInstance(2, "SubClassOf",                       false, false, true);
+    /** DisjointClasses */                  public static final AxiomType<OWLDisjointClassesAxiom>                  DISJOINT_CLASSES                    = getInstance(3, "DisjointClasses",                  false, false, true);
+    /** DisjointUnion */                    public static final AxiomType<OWLDisjointUnionAxiom>                    DISJOINT_UNION                      = getInstance(4, "DisjointUnion",                    true, false, true);
+
+    /** ClassAssertion */                   public static final AxiomType<OWLClassAssertionAxiom>                   CLASS_ASSERTION                     = getInstance(5, "ClassAssertion",                   false, false, true);
+    /** SameIndividual */                   public static final AxiomType<OWLSameIndividualAxiom>                   SAME_INDIVIDUAL                     = getInstance(6, "SameIndividual",                   false, false, true);
+    /** DifferentIndividuals */             public static final AxiomType<OWLDifferentIndividualsAxiom>             DIFFERENT_INDIVIDUALS               = getInstance(7, "DifferentIndividuals",             false, false, true);
+    /** ObjectPropertyAssertion */          public static final AxiomType<OWLObjectPropertyAssertionAxiom>          OBJECT_PROPERTY_ASSERTION           = getInstance(8, "ObjectPropertyAssertion",          false, false, true);
+    /** NegativeObjectPropertyAssertion */  public static final AxiomType<OWLNegativeObjectPropertyAssertionAxiom>  NEGATIVE_OBJECT_PROPERTY_ASSERTION  = getInstance(9, "NegativeObjectPropertyAssertion",  true, false, true);
+    /** DataPropertyAssertion */            public static final AxiomType<OWLDataPropertyAssertionAxiom>            DATA_PROPERTY_ASSERTION             = getInstance(10, "DataPropertyAssertion",           false, false, true);
+    /** NegativeDataPropertyAssertion */    public static final AxiomType<OWLNegativeDataPropertyAssertionAxiom>    NEGATIVE_DATA_PROPERTY_ASSERTION    = getInstance(11, "NegativeDataPropertyAssertion",   true, false, true);
+  
+    /** EquivalentObjectProperties */       public static final AxiomType<OWLEquivalentObjectPropertiesAxiom>       EQUIVALENT_OBJECT_PROPERTIES        = getInstance(12, "EquivalentObjectProperties",      false, false, true);
+    /** SubObjectPropertyOf */              public static final AxiomType<OWLSubObjectPropertyOfAxiom>              SUB_OBJECT_PROPERTY                 = getInstance(13, "SubObjectPropertyOf",             false, false, true);
+    /** InverseObjectProperties */          public static final AxiomType<OWLInverseObjectPropertiesAxiom>          INVERSE_OBJECT_PROPERTIES           = getInstance(14, "InverseObjectProperties",         false, false, true);
+    /** FunctionalObjectProperty */         public static final AxiomType<OWLFunctionalObjectPropertyAxiom>         FUNCTIONAL_OBJECT_PROPERTY          = getInstance(15, "FunctionalObjectProperty",        false, false, true);
+    /** InverseFunctionalObjectProperty */  public static final AxiomType<OWLInverseFunctionalObjectPropertyAxiom>  INVERSE_FUNCTIONAL_OBJECT_PROPERTY  = getInstance(16, "InverseFunctionalObjectProperty", false, false, true);
+    /** SymmetricObjectProperty */          public static final AxiomType<OWLSymmetricObjectPropertyAxiom>          SYMMETRIC_OBJECT_PROPERTY           = getInstance(17, "SymmetricObjectProperty",         false, false, true);
+    /** AsymmetricObjectProperty */         public static final AxiomType<OWLAsymmetricObjectPropertyAxiom>         ASYMMETRIC_OBJECT_PROPERTY          = getInstance(18, "AsymmetricObjectProperty",        true, true, true);
+    /** TransitiveObjectProperty */         public static final AxiomType<OWLTransitiveObjectPropertyAxiom>         TRANSITIVE_OBJECT_PROPERTY          = getInstance(19, "TransitiveObjectProperty",        false, false, true);
+    /** ReflexiveObjectProperty */          public static final AxiomType<OWLReflexiveObjectPropertyAxiom>          REFLEXIVE_OBJECT_PROPERTY           = getInstance(20, "ReflexiveObjectProperty",         true, true, true);
+    /** IrrefexiveObjectProperty */         public static final AxiomType<OWLIrreflexiveObjectPropertyAxiom>        IRREFLEXIVE_OBJECT_PROPERTY         = getInstance(21, "IrrefexiveObjectProperty",        true, true, true);
+    /** ObjectPropertyDomain */             public static final AxiomType<OWLObjectPropertyDomainAxiom>             OBJECT_PROPERTY_DOMAIN              = getInstance(22, "ObjectPropertyDomain",            false, false, true);
+    /** ObjectPropertyRange */              public static final AxiomType<OWLObjectPropertyRangeAxiom>              OBJECT_PROPERTY_RANGE               = getInstance(23, "ObjectPropertyRange",             false, false, true);
+    /** DisjointObjectProperties */         public static final AxiomType<OWLDisjointObjectPropertiesAxiom>         DISJOINT_OBJECT_PROPERTIES          = getInstance(24, "DisjointObjectProperties",        true, true, true);
+    /** SubPropertyChainOf */               public static final AxiomType<OWLSubPropertyChainOfAxiom>               SUB_PROPERTY_CHAIN_OF               = getInstance(25, "SubPropertyChainOf",              true, true, true);
+
+    /** EquivalentDataProperties */         public static final AxiomType<OWLEquivalentDataPropertiesAxiom>         EQUIVALENT_DATA_PROPERTIES          = getInstance(26, "EquivalentDataProperties",        false, false, true);
+    /** SubDataPropertyOf */                public static final AxiomType<OWLSubDataPropertyOfAxiom>                SUB_DATA_PROPERTY                   = getInstance(27, "SubDataPropertyOf",               false, false, true);
+    /** FunctionalDataProperty */           public static final AxiomType<OWLFunctionalDataPropertyAxiom>           FUNCTIONAL_DATA_PROPERTY            = getInstance(28, "FunctionalDataProperty",          false, false, true);
+    /** DataPropertyDomain */               public static final AxiomType<OWLDataPropertyDomainAxiom>               DATA_PROPERTY_DOMAIN                = getInstance(29, "DataPropertyDomain",              false, false, true);
+    /** DataPropertyRange */                public static final AxiomType<OWLDataPropertyRangeAxiom>                DATA_PROPERTY_RANGE                 = getInstance(30, "DataPropertyRange",               false, false, true);
+    /** DisjointDataProperties */           public static final AxiomType<OWLDisjointDataPropertiesAxiom>           DISJOINT_DATA_PROPERTIES            = getInstance(31, "DisjointDataProperties",          true, true, true);
+
+    /** DatatypeDefinition */               public static final AxiomType<OWLDatatypeDefinitionAxiom>               DATATYPE_DEFINITION                 = getInstance(38, "DatatypeDefinition",              true, true, true);
+
+    /** HasKey */                           public static final AxiomType<OWLHasKeyAxiom>                           HAS_KEY                             = getInstance(32, "HasKey",                          true, true, true);
+
+    /** Rule */                             public static final AxiomType<SWRLRule>                                 SWRL_RULE                           = getInstance(33, "Rule",                            false, false, true);
+
+    /** AnnotationAssertion */              public static final AxiomType<OWLAnnotationAssertionAxiom>              ANNOTATION_ASSERTION                = getInstance(34, "AnnotationAssertion",             false, false, false);
+    /** SubAnnotationPropertyOf */          public static final AxiomType<OWLSubAnnotationPropertyOfAxiom>          SUB_ANNOTATION_PROPERTY_OF          = getInstance(35, "SubAnnotationPropertyOf",         true, true, false);
+    /** AnnotationPropertyRangeOf */        public static final AxiomType<OWLAnnotationPropertyRangeAxiom>          ANNOTATION_PROPERTY_RANGE           = getInstance(36, "AnnotationPropertyRangeOf",       true, true, false);
+    /** AnnotationPropertyDomain */         public static final AxiomType<OWLAnnotationPropertyDomainAxiom>         ANNOTATION_PROPERTY_DOMAIN          = getInstance(37, "AnnotationPropertyDomain",        true, true, false);
+  //@formatter:on
+    /** axiom types */
+    public static final Set<AxiomType<?>> AXIOM_TYPES = Sets.newHashSet(
+            SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES, CLASS_ASSERTION,
+            SAME_INDIVIDUAL, DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
+            NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
+            NEGATIVE_DATA_PROPERTY_ASSERTION, OBJECT_PROPERTY_DOMAIN,
+            OBJECT_PROPERTY_RANGE, DISJOINT_OBJECT_PROPERTIES,
+            SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
+            INVERSE_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF,
+            FUNCTIONAL_OBJECT_PROPERTY, INVERSE_FUNCTIONAL_OBJECT_PROPERTY,
+            SYMMETRIC_OBJECT_PROPERTY, ASYMMETRIC_OBJECT_PROPERTY,
+            TRANSITIVE_OBJECT_PROPERTY, REFLEXIVE_OBJECT_PROPERTY,
+            IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN,
+            DATA_PROPERTY_RANGE, DISJOINT_DATA_PROPERTIES, SUB_DATA_PROPERTY,
+            EQUIVALENT_DATA_PROPERTIES, FUNCTIONAL_DATA_PROPERTY,
+            DATATYPE_DEFINITION, DISJOINT_UNION, DECLARATION, SWRL_RULE,
+            ANNOTATION_ASSERTION, SUB_ANNOTATION_PROPERTY_OF,
+            ANNOTATION_PROPERTY_DOMAIN, ANNOTATION_PROPERTY_RANGE, HAS_KEY);
+    private static final Map<String, AxiomType<?>> NAME_TYPE_MAP = Maps
+            .uniqueIndex(AXIOM_TYPES, new Function<AxiomType<?>, String>() {
+
+                @Override
+                public String apply(AxiomType<?> input) {
+                    return input.getName();
+                }
+            });
     /** set of tbox axiom types */
-    @SuppressWarnings("unchecked")
-    public static final Set<AxiomType<?>> TBoxAxiomTypes = new HashSet<AxiomType<?>>(
-            Arrays.asList(SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
-                    OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE,
-                    INVERSE_OBJECT_PROPERTIES, FUNCTIONAL_OBJECT_PROPERTY,
-                    INVERSE_FUNCTIONAL_OBJECT_PROPERTY,
-                    SYMMETRIC_OBJECT_PROPERTY, ASYMMETRIC_OBJECT_PROPERTY,
-                    TRANSITIVE_OBJECT_PROPERTY, REFLEXIVE_OBJECT_PROPERTY,
-                    IRREFLEXIVE_OBJECT_PROPERTY, DATA_PROPERTY_DOMAIN,
-                    DATA_PROPERTY_RANGE, FUNCTIONAL_DATA_PROPERTY,
-                    DATATYPE_DEFINITION, DISJOINT_UNION, HAS_KEY));
+    public static final Set<AxiomType<?>> TBoxAxiomTypes = Sets.newHashSet(
+            (AxiomType<?>) SUBCLASS_OF, EQUIVALENT_CLASSES, DISJOINT_CLASSES,
+            OBJECT_PROPERTY_DOMAIN, OBJECT_PROPERTY_RANGE,
+            INVERSE_OBJECT_PROPERTIES, FUNCTIONAL_OBJECT_PROPERTY,
+            INVERSE_FUNCTIONAL_OBJECT_PROPERTY, SYMMETRIC_OBJECT_PROPERTY,
+            ASYMMETRIC_OBJECT_PROPERTY, TRANSITIVE_OBJECT_PROPERTY,
+            REFLEXIVE_OBJECT_PROPERTY, IRREFLEXIVE_OBJECT_PROPERTY,
+            DATA_PROPERTY_DOMAIN, DATA_PROPERTY_RANGE,
+            FUNCTIONAL_DATA_PROPERTY, DATATYPE_DEFINITION, DISJOINT_UNION,
+            HAS_KEY);
     /** set of abox axiom types */
-    @SuppressWarnings("unchecked")
-    public static final Set<AxiomType<?>> ABoxAxiomTypes = new HashSet<AxiomType<?>>(
-            Arrays.asList(CLASS_ASSERTION, SAME_INDIVIDUAL,
-                    DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
-                    NEGATIVE_OBJECT_PROPERTY_ASSERTION,
-                    DATA_PROPERTY_ASSERTION, NEGATIVE_DATA_PROPERTY_ASSERTION,
-                    DATATYPE_DEFINITION));
+    public static final Set<AxiomType<?>> ABoxAxiomTypes = Sets.newHashSet(
+            (AxiomType<?>) CLASS_ASSERTION, SAME_INDIVIDUAL,
+            DIFFERENT_INDIVIDUALS, OBJECT_PROPERTY_ASSERTION,
+            NEGATIVE_OBJECT_PROPERTY_ASSERTION, DATA_PROPERTY_ASSERTION,
+            NEGATIVE_DATA_PROPERTY_ASSERTION);
     /** set of rbox axiom types */
-    @SuppressWarnings("unchecked")
-    public static final Set<AxiomType<?>> RBoxAxiomTypes = new HashSet<AxiomType<?>>(
-            Arrays.asList(TRANSITIVE_OBJECT_PROPERTY, DISJOINT_DATA_PROPERTIES,
-                    SUB_DATA_PROPERTY, EQUIVALENT_DATA_PROPERTIES,
-                    DISJOINT_OBJECT_PROPERTIES, SUB_OBJECT_PROPERTY,
-                    EQUIVALENT_OBJECT_PROPERTIES, SUB_PROPERTY_CHAIN_OF));
+    public static final Set<AxiomType<?>> RBoxAxiomTypes = Sets.newHashSet(
+            (AxiomType<?>) TRANSITIVE_OBJECT_PROPERTY,
+            DISJOINT_DATA_PROPERTIES, SUB_DATA_PROPERTY,
+            EQUIVALENT_DATA_PROPERTIES, DISJOINT_OBJECT_PROPERTIES,
+            SUB_OBJECT_PROPERTY, EQUIVALENT_OBJECT_PROPERTIES,
+            SUB_PROPERTY_CHAIN_OF);
+    /** set of tbox and rbox axiom types */
+    public static final Set<AxiomType<?>> TBoxAndRBoxAxiomTypes = Sets
+            .newHashSet(Iterables.concat(TBoxAxiomTypes, RBoxAxiomTypes));
 }
