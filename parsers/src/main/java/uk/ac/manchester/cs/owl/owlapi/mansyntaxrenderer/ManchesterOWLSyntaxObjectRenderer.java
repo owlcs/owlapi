@@ -52,6 +52,7 @@ import java.util.TreeSet;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 import org.semanticweb.owlapi.vocab.XSDVocabulary;
 
 /**
@@ -958,7 +959,14 @@ public class ManchesterOWLSyntaxObjectRenderer extends AbstractRenderer
 
     @Override
     public void visit(SWRLBuiltInAtom node) {
-        write(node.getPredicate().toQuotedString());
+        SWRLBuiltInsVocabulary voc = SWRLBuiltInsVocabulary.getBuiltIn(node.getPredicate());
+        if (voc != null) {
+            write(voc.getPrefixedName());
+        }
+        else {
+            write(node.getPredicate().toQuotedString());
+        }
+
         write("(");
         for (Iterator<SWRLDArgument> it = node.getArguments().iterator(); it
                 .hasNext();) {
