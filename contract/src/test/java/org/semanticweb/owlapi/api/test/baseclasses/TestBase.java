@@ -23,6 +23,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.api.test.anonymous.AnonymousIndividualsNormaliser;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.PrefixOWLOntologyFormat;
@@ -57,6 +58,8 @@ public abstract class TestBase {
     public TemporaryFolder folder = new TemporaryFolder();
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
+    @Rule
+    public Timeout timeout = new Timeout(10000);
     protected OWLDataFactory df = OWLManager.getOWLDataFactory();
     protected OWLOntologyManager m = OWLManager.createOWLOntologyManager();
     protected OWLOntologyManager m1 = OWLManager.createOWLOntologyManager();

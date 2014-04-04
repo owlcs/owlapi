@@ -17,9 +17,8 @@ import static org.junit.Assert.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.junit.Rule;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.rules.Timeout;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
@@ -28,12 +27,10 @@ import org.semanticweb.owlapi.model.IRI;
  * @author Peter Ansell p_ansell@yahoo.com
  */
 @SuppressWarnings("javadoc")
+@Ignore("this test takes a long time to run but in the current architecture it's only testing Guava caches")
 public class IRITest {
 
     /** All of the unit tests individually timeout after 60 seconds. */
-    @Rule
-    public Timeout timeout = new Timeout(10000);
-
     /**
      * Test method for
      * {@link org.semanticweb.owlapi.model.IRI#IRI(java.lang.String)}.
