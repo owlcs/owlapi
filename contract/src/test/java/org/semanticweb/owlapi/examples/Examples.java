@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.TestBase;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -1535,8 +1536,10 @@ public class Examples extends TestBase {
      * @throws Exception
      *         exception
      */
+    @Ignore("This test is ignored. We do not want to fetch stuff from the network just to run a unit test for an example")
     @Test
-    public void shouldUseIRIMappers() throws Exception {
+    public
+            void shouldUseIRIMappers() throws Exception {
         IRI MGED_ONTOLOGY_IRI = IRI
                 .create("http://mged.sourceforge.net/ontologies/MGEDOntology.owl");
         IRI PROTEGE_ONTOLOGY_IRI = IRI
