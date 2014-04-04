@@ -38,10 +38,7 @@
  */
 package uk.ac.manchester.cs.owl.owlapi;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAnnotation;
@@ -95,8 +92,8 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             Set<? extends SWRLAtom> head,
             Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.head = new TreeSet<SWRLAtom>(head);
-        this.body = new TreeSet<SWRLAtom>(body);
+        this.head = new LinkedHashSet<SWRLAtom>(head);
+        this.body = new LinkedHashSet<SWRLAtom>(body);
     }
 
     @Override
