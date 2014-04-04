@@ -1,7 +1,7 @@
 package org.semanticweb.owlapi.rdf.rdfxml.parser;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -108,6 +108,6 @@ class OptimisedListTranslator<O extends OWLObject> {
      * @return translated list
      */
     public Set<O> translateToSet(IRI mainNode) {
-        return new HashSet<O>(translateList(mainNode));
+        return new LinkedHashSet<O>(translateList(mainNode));
     }
 }

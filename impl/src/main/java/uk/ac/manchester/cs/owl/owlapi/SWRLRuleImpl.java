@@ -17,8 +17,8 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -50,8 +50,8 @@ import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
@@ -75,9 +75,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
             @Nonnull Set<? extends SWRLAtom> head,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.head = new TreeSet<SWRLAtom>(checkNotNull(head,
+        this.head = new LinkedHashSet<SWRLAtom>(checkNotNull(head,
                 "head cannot be null"));
-        this.body = new TreeSet<SWRLAtom>(checkNotNull(body,
+        this.body = new LinkedHashSet<SWRLAtom>(checkNotNull(body,
                 "body cannot be null"));
     }
 

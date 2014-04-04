@@ -1,16 +1,17 @@
 package org.semanticweb.owlapi.api.test;
 
-import org.junit.Test;
-import org.semanticweb.owlapi.vocab.OWL2Datatype;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.semanticweb.owlapi.vocab.OWL2Datatype.*;
 
+import org.junit.Test;
+
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date: 04/04/2014
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 04/04/2014
  */
+@SuppressWarnings("javadoc")
 public class OWL2DatatypePrefixedNameTestCase {
 
     @Test
@@ -216,6 +217,4 @@ public class OWL2DatatypePrefixedNameTestCase {
         String prefixedName = XSD_DATE_TIME_STAMP.getPrefixedName();
         assertThat(prefixedName, is(equalTo("xsd:dateTimeStamp")));
     }
-
-
 }
