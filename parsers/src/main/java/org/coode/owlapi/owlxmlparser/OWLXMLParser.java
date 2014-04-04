@@ -60,8 +60,8 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 13-Dec-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 13-Dec-2006
  */
 public class OWLXMLParser extends AbstractOWLParser {
 
@@ -84,6 +84,11 @@ public class OWLXMLParser extends AbstractOWLParser {
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(true);
+            factory.setValidating(false);
+            factory.setFeature(
+                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                    false);
+            factory.setFeature("http://xml.org/sax/features/validation", false);
             SAXParser parser = factory.newSAXParser();
             isrc = getInputSource(documentSource, configuration);
             OWLXMLParserHandler handler = new OWLXMLParserHandler(ontology,
