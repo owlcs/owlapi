@@ -70,6 +70,11 @@ public class OWLXMLParser extends AbstractOWLParser {
             System.setProperty("entityExpansionLimit", "100000000");
             OWLXMLOntologyFormat format = new OWLXMLOntologyFormat();
             SAXParserFactory factory = SAXParserFactory.newInstance();
+            factory.setValidating(false);
+            factory.setFeature(
+                    "http://apache.org/xml/features/nonvalidating/load-external-dtd",
+                    false);
+            factory.setFeature("http://xml.org/sax/features/validation", false);
             factory.setNamespaceAware(true);
             SAXParser parser = factory.newSAXParser();
             isrc = getInputSource(documentSource, configuration);
