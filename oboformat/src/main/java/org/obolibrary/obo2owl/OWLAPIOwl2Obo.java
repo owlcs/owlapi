@@ -335,7 +335,7 @@ public class OWLAPIOwl2Obo {
                 tr((OWLSubPropertyChainOfAxiom) ax);
             } else {
                 if (!(ax instanceof OWLAnnotationAssertionAxiom)) {
-                    error(ax);
+                    error(ax, false);
                 } else {
                     // we presume this has been processed
                 }
@@ -510,7 +510,7 @@ public class OWLAPIOwl2Obo {
                 if (ex.isBottomEntity() || ex.isTopEntity()) {
                     error(tag
                             + " using Top or Bottom entities are not supported in OBO.",
-                            ax);
+                            ax, false);
                     return;
                 }
                 if (first) {
@@ -526,7 +526,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -538,19 +538,19 @@ public class OWLAPIOwl2Obo {
     protected void tr(OWLSubPropertyChainOfAxiom ax) {
         OWLObjectPropertyExpression pEx = ax.getSuperProperty();
         if (pEx.isAnonymous()) {
-            error(ax);
+            error(ax, false);
             return;
         }
         OWLObjectProperty p = pEx.asOWLObjectProperty();
         Frame f = getTypedefFrame(p);
         if (p.isBottomEntity() || p.isTopEntity()) {
             error("Property chains using Top or Bottom entities are not supported in OBO.",
-                    ax);
+                    ax, false);
             return;
         }
         List<OWLObjectPropertyExpression> list = ax.getPropertyChain();
         if (list.size() != 2) {
-            error(ax);
+            error(ax, false);
             return;
         }
         final OWLObjectPropertyExpression exp1 = list.get(0);
@@ -558,13 +558,13 @@ public class OWLAPIOwl2Obo {
         if (exp1.isBottomEntity() || exp1.isTopEntity()
                 || exp2.isBottomEntity() || exp2.isTopEntity()) {
             error("Property chains using Top or Bottom entities are not supported in OBO.",
-                    ax);
+                    ax, false);
             return;
         }
         String rel1 = getIdentifier(exp1);
         String rel2 = getIdentifier(exp2);
         if (rel1 == null || rel2 == null) {
-            error(ax);
+            error(ax, false);
             return;
         }
         Clause clause;
@@ -617,7 +617,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -645,7 +645,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -663,7 +663,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -683,7 +683,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -696,7 +696,7 @@ public class OWLAPIOwl2Obo {
         final OWLClassExpression domain = ax.getDomain();
         OWLObjectPropertyExpression propEx = ax.getProperty();
         if (propEx.isAnonymous()) {
-            error(ax);
+            error(ax, true);
             return;
         }
         OWLObjectProperty prop = propEx.asOWLObjectProperty();
@@ -705,7 +705,7 @@ public class OWLAPIOwl2Obo {
             getTypedefFrame(prop);
             // now throw the error
             error("domains using top or bottom entities are not translatable to OBO.",
-                    ax);
+                    ax, false);
             return;
         }
         String range = this.getIdentifier(domain);
@@ -714,10 +714,10 @@ public class OWLAPIOwl2Obo {
                     ax.getAnnotations())) {
                 return;
             } else {
-                error("trObjectProperty failed for " + prop, ax);
+                error("trObjectProperty failed for " + prop, ax, true);
             }
         } else {
-            error("no range translatable for " + ax);
+            error("no range translatable for " + ax, false);
         }
     }
 
@@ -736,7 +736,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -754,7 +754,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -772,7 +772,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, true);
     }
 
     /**
@@ -785,7 +785,7 @@ public class OWLAPIOwl2Obo {
         final OWLClassExpression owlRange = ax.getRange();
         OWLObjectPropertyExpression propEx = ax.getProperty();
         if (propEx.isAnonymous()) {
-            error(ax);
+            error(ax, false);
         }
         OWLObjectProperty prop = propEx.asOWLObjectProperty();
         if (owlRange.isBottomEntity() || owlRange.isTopEntity()) {
@@ -793,7 +793,7 @@ public class OWLAPIOwl2Obo {
             getTypedefFrame(prop);
             // error message
             error("ranges using top or bottom entities are not translatable to OBO.",
-                    ax);
+                    ax, false);
             return;
         }
         String range = this.getIdentifier(owlRange); // getIdentifier(ax.getRange());
@@ -803,7 +803,7 @@ public class OWLAPIOwl2Obo {
                 return;
             }
         }
-        error(ax);
+        error(ax, false);
     }
 
     /**
@@ -817,7 +817,8 @@ public class OWLAPIOwl2Obo {
         OWLObjectPropertyExpression sub = ax.getSubProperty();
         if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity()
                 || sub.isTopEntity()) {
-            error("SubProperties using Top or Bottom entites are not supported in OBO.");
+            error("SubProperties using Top or Bottom entites are not supported in OBO.",
+                    false);
             return;
         }
         if (sub instanceof OWLObjectProperty
@@ -831,7 +832,7 @@ public class OWLAPIOwl2Obo {
             f.addClause(clause);
             addQualifiers(clause, ax.getAnnotations());
         } else {
-            error(ax);
+            error(ax, true);
         }
     }
 
@@ -846,7 +847,8 @@ public class OWLAPIOwl2Obo {
         OWLAnnotationProperty sub = ax.getSubProperty();
         if (sub.isBottomEntity() || sub.isTopEntity() || sup.isBottomEntity()
                 || sub.isTopEntity()) {
-            error("SubAnnotationProperties using Top or Bottom entites are not supported in OBO.");
+            error("SubAnnotationProperties using Top or Bottom entites are not supported in OBO.",
+                    false);
             return;
         }
         String _tag = owlObjectToTag(sup);
@@ -911,7 +913,7 @@ public class OWLAPIOwl2Obo {
             f.addClause(clause);
             addQualifiers(clause, ax.getAnnotations());
         } else {
-            error(ax);
+            error(ax, true);
         }
     }
 
@@ -976,7 +978,7 @@ public class OWLAPIOwl2Obo {
         } else if (value.trim().length() > 0) {
             if (tag == OboFormatTag.TAG_ID) {
                 if (frame.getId().equals(value) == false) {
-                    error("Conflicting id definitions: 1) " + frame.getId()
+                    warn("Conflicting id definitions: 1) " + frame.getId()
                             + "  2)" + value);
                     return false;
                 }
@@ -988,7 +990,7 @@ public class OWLAPIOwl2Obo {
                     clause.addValue(OBOFormatConstants.headerDateFormat.get()
                             .parseObject(value));
                 } catch (ParseException e) {
-                    error("Could not parse date string: " + value);
+                    error("Could not parse date string: " + value, true);
                     return false;
                 }
             } else {
@@ -1152,7 +1154,7 @@ public class OWLAPIOwl2Obo {
                 IRI dataTypeIri = datatype.getIRI();
                 if (!OWL2Datatype.isBuiltIn(dataTypeIri)) {
                     error("Untranslatable axiom due to unknown data type: "
-                            + annVal);
+                            + annVal, true);
                     return false;
                 }
                 if (Namespaces.XSD.inNamespace(dataTypeIri)) {
@@ -1342,7 +1344,7 @@ public class OWLAPIOwl2Obo {
         Set<OWLClassExpression> expressions = ax.getClassExpressions();
         // handle expression list with size other than two elements as error
         if (expressions.size() != 2) {
-            error(ax);
+            error(ax, false);
             return;
         }
         Iterator<OWLClassExpression> it = expressions.iterator();
@@ -1351,7 +1353,7 @@ public class OWLAPIOwl2Obo {
         if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity()
                 || ce2.isTopEntity()) {
             error("Equivalent classes axioms using Top or Bottom entities are not supported in OBO.",
-                    ax);
+                    ax, false);
             return;
         }
         if (ce1 instanceof OWLClass == false) {
@@ -1364,13 +1366,13 @@ public class OWLAPIOwl2Obo {
             } else {
                 // this might happen for some GCI axioms, which are not
                 // expressible in OBO
-                error("GCI axioms are not expressible in OBO.", ax);
+                error("GCI axioms are not expressible in OBO.", ax, false);
                 return;
             }
         }
         Frame f = getTermFrame(ce1.asOWLClass());
         if (f == null) {
-            error(ax);
+            error(ax, false);
             return;
         }
         boolean isUntranslateable = false;
@@ -1386,12 +1388,12 @@ public class OWLAPIOwl2Obo {
                     .getOperandsAsList();
             for (OWLClassExpression oce : list2) {
                 String id = this.getIdentifier(oce);
-                Clause c = new Clause(OboFormatTag.TAG_UNION_OF.getTag());
                 if (id == null) {
                     isUntranslateable = true;
-                    error(ax);
+                    error(ax, true);
                     return;
                 }
+                Clause c = new Clause(OboFormatTag.TAG_UNION_OF.getTag());
                 c.setValue(id);
                 equivalenceAxiomClauses.add(c);
                 addQualifiers(c, ax.getAnnotations());
@@ -1501,15 +1503,15 @@ public class OWLAPIOwl2Obo {
                 } else if (f.getClauses(OboFormatTag.TAG_INTERSECTION_OF)
                         .size() > 0) {
                     error("The axiom is not translated (maximimum one IntersectionOf EquivalenceAxiom)",
-                            ax);
+                            ax, false);
                 } else {
                     isUntranslateable = true;
-                    error(ax);
+                    error(ax, false);
                 }
             }
         } else {
             isUntranslateable = true;
-            error(ax);
+            error(ax, false);
         }
         // Only add clauses if the *entire* equivalence axiom can be translated
         if (!isUntranslateable) {
@@ -1529,7 +1531,7 @@ public class OWLAPIOwl2Obo {
         // use set, the OWL-API does not provide an order
         Set<OWLClassExpression> set = ax.getClassExpressions();
         if (set.size() != 2) {
-            error("Expected two classes in a disjoin classes axiom.", ax);
+            error("Expected two classes in a disjoin classes axiom.", ax, false);
         }
         Iterator<OWLClassExpression> it = set.iterator();
         OWLClassExpression ce1 = it.next();
@@ -1537,15 +1539,15 @@ public class OWLAPIOwl2Obo {
         if (ce1.isBottomEntity() || ce1.isTopEntity() || ce2.isBottomEntity()
                 || ce2.isTopEntity()) {
             error("Disjoint classes axiom using Top or Bottom entities are not supported.",
-                    ax);
+                    ax, false);
         }
         String cls2 = this.getIdentifier(ce2);
         if (cls2 == null) {
-            error(ax);
+            error(ax, true);
             return;
         }
         if (ce1.isAnonymous()) {
-            error(ax);
+            error(ax, false);
             return;
         }
         OWLClass cls1 = ce1.asOWLClass();
@@ -1608,7 +1610,7 @@ public class OWLAPIOwl2Obo {
         try {
             return getIdentifierFromObject(obj, owlOntology);
         } catch (UntranslatableAxiomException e) {
-            error(e.getMessage());
+            error(e.getMessage(), true);
         }
         return null;
     }
@@ -1983,7 +1985,7 @@ public class OWLAPIOwl2Obo {
         if (sub.isOWLNothing() || sub.isTopEntity() || sup.isTopEntity()
                 || sup.isOWLNothing()) {
             error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                    ax);
+                    ax, false);
             return;
         }
         // 5.2.2
@@ -2036,12 +2038,12 @@ public class OWLAPIOwl2Obo {
                 final OWLClassExpression filler = r.getFiller();
                 if (filler.isBottomEntity() || filler.isTopEntity()) {
                     error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                            ax);
+                            ax, false);
                     return;
                 }
                 String fillerId = this.getIdentifier(filler);
                 if (fillerId == null) {
-                    error(ax);
+                    error(ax, true);
                     return;
                 }
                 f.addClause(createRelationshipClauseWithRestrictions(r,
@@ -2054,12 +2056,12 @@ public class OWLAPIOwl2Obo {
                 final OWLClassExpression filler = cardinality.getFiller();
                 if (filler.isBottomEntity() || filler.isTopEntity()) {
                     error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                            ax);
+                            ax, false);
                     return;
                 }
                 String fillerId = this.getIdentifier(filler);
                 if (fillerId == null) {
-                    error(ax);
+                    error(ax, true);
                     return;
                 }
                 f.addClause(createRelationshipClauseWithCardinality(
@@ -2074,12 +2076,12 @@ public class OWLAPIOwl2Obo {
                                 .getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
                             error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                                    ax);
+                                    ax, false);
                             return;
                         }
                         String fillerId = this.getIdentifier(filler);
                         if (fillerId == null) {
-                            error(ax);
+                            error(ax, true);
                             return;
                         }
                         clauses.add(createRelationshipClauseWithRestrictions(
@@ -2091,24 +2093,24 @@ public class OWLAPIOwl2Obo {
                                 .getFiller();
                         if (filler.isBottomEntity() || filler.isTopEntity()) {
                             error("Assertions using owl:Thing or owl:Nothing are not translateable OBO",
-                                    ax);
+                                    ax, false);
                             return;
                         }
                         String fillerId = this.getIdentifier(filler);
                         if (fillerId == null) {
-                            error(ax);
+                            error(ax, true);
                             return;
                         }
                         clauses.add(createRelationshipClauseWithCardinality(
                                 restriction, fillerId,
                                 new HashSet<QualifierValue>(qvs), ax));
                     } else {
-                        error(ax);
+                        error(ax, true);
                         return;
                     }
                 }
                 if (clauses.isEmpty()) {
-                    error(ax);
+                    error(ax, true);
                     return;
                 }
                 clauses = normalizeRelationshipClauses(clauses);
@@ -2116,11 +2118,11 @@ public class OWLAPIOwl2Obo {
                     f.addClause(clause);
                 }
             } else {
-                error(ax);
+                error(ax, true);
                 return;
             }
         } else {
-            error(ax);
+            error(ax, true);
             return;
         }
     }
@@ -2335,9 +2337,10 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
-    protected void error(String message, OWLAxiom ax) {
+    protected void
+            error(String message, OWLAxiom ax, boolean shouldLogComplaint) {
         untranslatableAxioms.add(ax);
-        error(message + ax);
+        error(message + ax, shouldLogComplaint);
     }
 
     /**
@@ -2346,9 +2349,9 @@ public class OWLAPIOwl2Obo {
      * @param ax
      *        the ax
      */
-    protected void error(OWLAxiom ax) {
+    protected void error(OWLAxiom ax, boolean shouldLogComplaint) {
         untranslatableAxioms.add(ax);
-        error("the axiom is not translated : " + ax);
+        error("the axiom is not translated : " + ax, shouldLogComplaint);
     }
 
     /**
@@ -2357,13 +2360,21 @@ public class OWLAPIOwl2Obo {
      * @param message
      *        the message
      */
-    protected void error(String message) {
+    protected void error(String message, boolean shouldLogComplaint) {
         if (strictConversion) {
             throw new RuntimeException("The conversion is halted: " + message);
         } else {
-            if (!muteUntranslatableAxioms) {
+            if (!muteUntranslatableAxioms && shouldLogComplaint) {
                 LOG.error("MASKING ERROR «{}»", message, new Exception());
             }
+        }
+    }
+
+    protected void warn(String message) {
+        if (strictConversion) {
+            throw new RuntimeException("The conversion is halted: " + message);
+        } else {
+            LOG.warn("MASKING ERROR «{}»", message);
         }
     }
 }
