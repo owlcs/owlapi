@@ -16,8 +16,8 @@ import org.semanticweb.owlapi.formats.DLSyntaxOntologyFormat;
 import org.semanticweb.owlapi.model.OWLOntologyFormat;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class DLSyntaxOntologyStorer extends DLSyntaxOntologyStorerBase {

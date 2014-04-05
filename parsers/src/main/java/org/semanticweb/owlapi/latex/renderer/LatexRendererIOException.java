@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.latex.renderer;
 import java.io.IOException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 // XXX do we need these exceptions?

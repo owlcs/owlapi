@@ -21,6 +21,7 @@ package org.semanticweb.owlapi.mansyntax.parser;
  */
 public enum ManchesterOWLSyntax {
 
+
     //@formatter:off
     
 //    public static final String VALUE_PARTITION = "ValuePartition:";

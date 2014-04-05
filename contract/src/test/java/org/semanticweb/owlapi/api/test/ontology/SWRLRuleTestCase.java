@@ -30,8 +30,8 @@ import org.semanticweb.owlapi.model.SWRLLiteralArgument;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class SWRLRuleTestCase extends AbstractAxiomsRoundTrippingTestCase {

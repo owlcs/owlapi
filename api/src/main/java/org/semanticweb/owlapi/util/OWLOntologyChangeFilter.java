@@ -94,8 +94,8 @@ public class OWLOntologyChangeFilter extends OWLAxiomVisitorAdapter implements
     }
 
     /**
-     * @return Determines if the current change caused an axiom to be added to an
-     *         ontology.
+     * @return Determines if the current change caused an axiom to be added to
+     *         an ontology.
      */
     protected boolean isAdd() {
         return add;

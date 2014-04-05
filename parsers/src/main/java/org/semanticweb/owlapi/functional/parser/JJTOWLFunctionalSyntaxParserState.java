@@ -50,8 +50,8 @@ public class JJTOWLFunctionalSyntaxParserState {
     }
 
     /**
-     * @return the root node of the AST. It only makes sense to call this after a
-     *         successful parse.
+     * @return the root node of the AST. It only makes sense to call this after
+     *         a successful parse.
      */
     public Node rootNode() {
         return nodes.get(0);

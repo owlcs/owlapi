@@ -32,8 +32,8 @@ import org.semanticweb.owlapi.util.ImportsStructureEntitySorter;
 import org.semanticweb.owlapi.util.ShortFormProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class ShortForm2AnnotationGenerator extends

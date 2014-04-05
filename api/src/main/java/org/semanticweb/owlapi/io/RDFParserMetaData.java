@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.2
  */
 public class RDFParserMetaData implements OWLOntologyLoaderMetaData,

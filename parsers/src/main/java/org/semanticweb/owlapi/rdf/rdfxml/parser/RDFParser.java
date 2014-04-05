@@ -110,7 +110,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Parses RDF from given input source.
-     *
+     * 
      * @param source
      *        specifies where RDF comes from
      * @param consumer
@@ -158,7 +158,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Sets the error handler.
-     *
+     * 
      * @param errorHandler
      *        the error handler
      */
@@ -233,7 +233,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Pushes a new state on the state stack.
-     *
+     * 
      * @param s
      *        new state
      */
@@ -275,7 +275,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Processes xml:base reference if there is one.
-     *
+     * 
      * @param atts
      *        the attributes potentially containing xml:base declaration
      */
@@ -296,7 +296,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Processes xml:language reference is there is one.
-     *
+     * 
      * @param atts
      *        the attributes potentially containing xml:language declaration
      */
@@ -311,7 +311,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Resolves an IRI with the current base.
-     *
+     * 
      * @param uri
      *        the IRI being resolved
      * @return the resolved IRI
@@ -354,7 +354,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Called when a statement with resource value is added to the model.
-     *
+     * 
      * @param subject
      *        IRI of the subject resource
      * @param predicate
@@ -383,7 +383,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Called when a statement with literal value is added to the model.
-     *
+     * 
      * @param subject
      *        IRI of the subject resource
      * @param predicate
@@ -415,7 +415,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * Parses the string into a map of name-value pairs.
-     *
+     * 
      * @param string
      *        string to be parsed
      * @return map of name-value pairs
@@ -452,7 +452,7 @@ public class RDFParser extends DefaultHandler implements IRIProvider {
 
     /**
      * If conditon b is true, throw an exception with provided message
-     *
+     * 
      * @param b
      *        condition to verify
      * @param message

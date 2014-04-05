@@ -17,8 +17,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.1.0
  */
 public interface OWLOntologyChangesVetoedListener {

@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.change.RemoveImportData;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class RemoveImport extends ImportChange {

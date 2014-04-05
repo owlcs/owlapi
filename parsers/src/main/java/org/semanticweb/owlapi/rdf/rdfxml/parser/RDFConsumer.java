@@ -133,5 +133,4 @@ public interface RDFConsumer {
     void
             includeModel(@Nullable String logicalURI,
                     @Nullable String physicalURI) throws OWLRuntimeException;
-
 }

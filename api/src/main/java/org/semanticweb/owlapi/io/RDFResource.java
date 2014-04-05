@@ -17,8 +17,8 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.2
  */
 public abstract class RDFResource extends RDFNode {

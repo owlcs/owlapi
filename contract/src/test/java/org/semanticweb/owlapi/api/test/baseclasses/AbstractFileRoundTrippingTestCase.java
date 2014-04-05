@@ -20,8 +20,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group
  * @since 2.2.0
  */
 public abstract class AbstractFileRoundTrippingTestCase extends

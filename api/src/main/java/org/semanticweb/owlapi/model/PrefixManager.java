@@ -52,7 +52,8 @@ public interface PrefixManager extends Serializable {
     /**
      * Gets the prefix that is bound to a particular prefix name. Note that
      * specifying ":" corresponds to requesting the default prefix and will
-     * return the same result as a call to the {@code getDefaultPrefix()} method.
+     * return the same result as a call to the {@code getDefaultPrefix()}
+     * method.
      * 
      * @param prefixName
      *        The prefix name. A string that represents a prefix name of the

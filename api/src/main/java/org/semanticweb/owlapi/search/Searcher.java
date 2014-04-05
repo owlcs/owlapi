@@ -551,7 +551,7 @@ public class Searcher<T> {
      * @return sub expressions
      */
     @Nonnull
-    public static <C extends  OWLObject> Collection<C> domain(
+    public static <C extends OWLObject> Collection<C> domain(
             @Nonnull Collection<? extends OWLAxiom> axioms,
             @SuppressWarnings("unused") @Nonnull Class<C> type) {
         List<C> toReturn = new ArrayList<C>();

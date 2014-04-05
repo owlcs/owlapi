@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.mansyntax.renderer;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class ManchesterOWLSyntaxOntologyStorerException extends

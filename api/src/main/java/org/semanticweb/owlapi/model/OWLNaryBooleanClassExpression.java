@@ -18,8 +18,8 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public interface OWLNaryBooleanClassExpression extends

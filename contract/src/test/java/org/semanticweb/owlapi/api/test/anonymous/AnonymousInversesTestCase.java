@@ -16,8 +16,8 @@ import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractFileRoundTrippingTestCase;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group
  * @since 2.2.0
  */
 public class AnonymousInversesTestCase extends

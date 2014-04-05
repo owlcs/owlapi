@@ -48,8 +48,7 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return IRI with full node id
      */
     public static IRI nodeId(int id) {
-        return IRI
-                .create(PREFIX_NODE + Integer.toString(id));
+        return IRI.create(PREFIX_NODE + Integer.toString(id));
     }
 
     /**
@@ -121,9 +120,8 @@ public class NodeID implements Comparable<NodeID>, Serializable {
      * @return A NodeID
      */
     public static NodeID getNodeID(String id) {
-        String nonBlankId = id == null || id.length() == 0 ? 
-                PREFIX_NODE + Long.toString(COUNTER.incrementAndGet())
-                : id;
+        String nonBlankId = id == null || id.length() == 0 ? PREFIX_NODE
+                + Long.toString(COUNTER.incrementAndGet()) : id;
         return new NodeID(nonBlankId);
     }
 

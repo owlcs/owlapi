@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.krss1.parser;
 import org.semanticweb.owlapi.io.OWLParserException;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class KRSSOWLParserException extends OWLParserException {

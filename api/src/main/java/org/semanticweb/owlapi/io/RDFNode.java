@@ -17,8 +17,8 @@ import java.io.Serializable;
 import org.semanticweb.owlapi.model.HasIRI;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.2
  */
 public abstract class RDFNode implements Serializable, Comparable<RDFNode>,

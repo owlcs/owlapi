@@ -15,8 +15,8 @@ package uk.ac.manchester.cs.owl.explanation.ordering;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 2.2.0
  * @param <N>
  *        type of nodes to render

@@ -35,10 +35,10 @@ import org.semanticweb.owlapi.model.OWLObject;
  * node contains {@code owl:bottomObjectProperty} (and any other named object
  * properties that are equivalent to {@code owl:bottomObjectProperty}). <br>
  * In a data property hierarchy, the nodes contain {@code OWLDataProperty}
- * objects. The top node contains {@code owl:topDataProperty} (and any other data
- * properties that are equivalent to {@code owl:topDataProperty}). The bottom
- * node contains {@code owl:bottomDataProperty} (and any other data properties
- * that are equivalent to {@code owl:bottomDataProperty}). <br>
+ * objects. The top node contains {@code owl:topDataProperty} (and any other
+ * data properties that are equivalent to {@code owl:topDataProperty}). The
+ * bottom node contains {@code owl:bottomDataProperty} (and any other data
+ * properties that are equivalent to {@code owl:bottomDataProperty}). <br>
  * <h4>Class Hierarchy Example</h4> The figure below shows an example class
  * hierarchy. Each box in the hierarchy represents a {@code Node}. In this case
  * the top node contains {@code owl:Thing} and the bottom node contains
@@ -61,8 +61,8 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
      * Determines if this node represents the top node (in a hierarchy). For a
      * named class node, the top node is the node that contains
      * {@code owl:Thing}. For an object property node, the top node is the node
-     * that contains {@code owl:topObjectProperty}. For a data property node, the
-     * top node is the node that contains {@code owl:topDataProperty}
+     * that contains {@code owl:topObjectProperty}. For a data property node,
+     * the top node is the node that contains {@code owl:topDataProperty}
      * 
      * @return {@code true} if this node is an {@code OWLClass} node and it
      *         contains {@code owl:Thing}. <br>
@@ -134,9 +134,9 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
 
     /**
      * Gets the entities contained in this node minus the top entity. For a node
-     * of named classes the top entity is {@code owl:Thing}. For a node of object
-     * properties the top entity is {@code owl:topObjectProperty}. For a node of
-     * data properties the top entity is {@code owl:topDataProperty}
+     * of named classes the top entity is {@code owl:Thing}. For a node of
+     * object properties the top entity is {@code owl:topObjectProperty}. For a
+     * node of data properties the top entity is {@code owl:topDataProperty}
      * 
      * @return The set of entities contained within this node minus the top
      *         entity. If this node does not contain the top entity then the set
@@ -147,10 +147,10 @@ public interface Node<E extends OWLObject> extends Iterable<E> {
 
     /**
      * Gets the entities contained in this node minus the bottom entity. For a
-     * node of named classes the bottom entity is {@code owl:Nothing}. For a node
-     * of object properties the bottom entity is
-     * {@code owl:bottomObjectProperty}. For a node of data properties the bottom
-     * entity is {@code owl:bottomDataProperty}
+     * node of named classes the bottom entity is {@code owl:Nothing}. For a
+     * node of object properties the bottom entity is
+     * {@code owl:bottomObjectProperty}. For a node of data properties the
+     * bottom entity is {@code owl:bottomDataProperty}
      * 
      * @return The set of entities contained within this node minus the bottom
      *         entity. If this node does not contain the bottom entity then the

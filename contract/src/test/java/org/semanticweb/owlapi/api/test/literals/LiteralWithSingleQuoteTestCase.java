@@ -15,8 +15,8 @@ package org.semanticweb.owlapi.api.test.literals;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractLiteralWithEscapeTestCase;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Bio-Health
+ *         Informatics Group
  * @since 3.3.0
  */
 public class LiteralWithSingleQuoteTestCase extends

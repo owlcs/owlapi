@@ -16,8 +16,8 @@ import org.semanticweb.owlapi.mansyntax.parser.ManchesterOWLSyntax;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.1.0
  */
 public interface RenderingDirector {
