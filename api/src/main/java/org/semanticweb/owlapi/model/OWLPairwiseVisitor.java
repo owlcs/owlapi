@@ -12,37 +12,29 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. */
 package org.semanticweb.owlapi.model;
 
-import java.util.Collection;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
 /**
- * Represents an axiom that contains two or more operands that could also be
- * represented with multiple pairwise axioms
+ * Functional interface for a visitor that applies a function to two arguments,
+ * and returns a value. This is used by OWLNaryAxiom to pass the elements in its
+ * collection in pairs, e.g., all pairwise disjoint class expressions in a
+ * disjoint class axiom.
  * 
- * @author Matthew Horridge, The University of Manchester, Information
- *         Management Group
+ * @author ignazio
+ * @since 4.0.0
+ * @param <T>
+ *        returned type
  * @param <C>
- *        class of contained objects
- * @since 3.0.0
+ *        type of elements to accept
  */
-public interface OWLNaryAxiom<C extends OWLObject> extends OWLAxiom {
+public interface OWLPairwiseVisitor<T, C> {
 
     /**
-     * Gets this axiom as a set of pairwise axioms. Note that annotations on
-     * this axiom will not be copied to each axiom returned in the set of
-     * pairwise axioms.
+     * The order of the arguments depend on the visited element.
      * 
-     * @return This axiom as a set of pairwise axioms.
+     * @param a
+     *        first argument
+     * @param b
+     *        second argument
+     * @return return value for the visitor
      */
-    @Nonnull
-    Set<? extends OWLNaryAxiom<C>> asPairwiseAxioms();
-
-    /**
-     * @param visitor
-     *        visitor to apply to all pairwise elements in this axiom
-     * @return collection of all visitor return values that are not null
-     */
-    <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, C> visitor);
+    T visit(C a, C b);
 }

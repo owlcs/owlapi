@@ -29,6 +29,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.util.CollectionFactory;
 import org.semanticweb.owlapi.util.NNF;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -41,6 +42,12 @@ public abstract class OWLAxiomImpl extends OWLObjectImpl implements OWLAxiom,
     private static final long serialVersionUID = 40000L;
     private OWLAxiom nnf;
     private final List<OWLAnnotation> annotations;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.AXIOM_TYPE_INDEX_BASE
+                + getAxiomType().getIndex();
+    }
 
     /**
      * @param annotations

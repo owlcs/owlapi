@@ -1869,8 +1869,9 @@ public class ContractOwlapiModel_2Test {
 
     @Test
     public void shouldTestInterfaceOWLNaryAxiom() throws OWLException {
-        OWLNaryAxiom testSubject0 = mock(OWLNaryAxiom.class);
-        Set<? extends OWLNaryAxiom> result0 = testSubject0.asPairwiseAxioms();
+        OWLNaryAxiom<?> testSubject0 = mock(OWLNaryAxiom.class);
+        Set<? extends OWLNaryAxiom<?>> result0 = testSubject0
+                .asPairwiseAxioms();
         Set<OWLAnnotation> result1 = testSubject0.getAnnotations();
         Set<OWLAnnotation> result2 = testSubject0
                 .getAnnotations(mock(OWLAnnotationProperty.class));
@@ -1977,7 +1978,8 @@ public class ContractOwlapiModel_2Test {
         Set<OWLDatatype> result58 = testSubject0.getDatatypesInSignature();
         boolean result26 = testSubject0.isTopEntity();
         boolean result27 = testSubject0.isBottomEntity();
-        Set<? extends OWLNaryAxiom> result29 = testSubject0.asPairwiseAxioms();
+        Set<? extends OWLNaryAxiom<OWLClassExpression>> result29 = testSubject0
+                .asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result30 = testSubject0.asOWLSubClassOfAxioms();
     }
 
@@ -2044,7 +2046,8 @@ public class ContractOwlapiModel_2Test {
         Set<OWLNamedIndividual> result57 = testSubject0
                 .getIndividualsInSignature();
         Set<OWLDatatype> result58 = testSubject0.getDatatypesInSignature();
-        Set<? extends OWLNaryAxiom> result27 = testSubject0.asPairwiseAxioms();
+        Set<? extends OWLNaryAxiom<OWLIndividual>> result27 = testSubject0
+                .asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result28 = testSubject0.asOWLSubClassOfAxioms();
     }
 

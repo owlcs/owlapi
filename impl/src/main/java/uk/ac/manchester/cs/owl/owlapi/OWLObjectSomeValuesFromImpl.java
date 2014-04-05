@@ -22,16 +22,22 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLObjectSomeValuesFromImpl extends
         OWLQuantifiedObjectRestrictionImpl implements OWLObjectSomeValuesFrom {
 
     private static final long serialVersionUID = 40000L;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.CLASS_EXPRESSION_TYPE_INDEX_BASE + 5;
+    }
 
     /**
      * @param property

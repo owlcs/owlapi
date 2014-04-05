@@ -160,6 +160,11 @@ public class ContractOwlapi_3Test {
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
+
+            @Override
+            protected int index() {
+                return 0;
+            }
         };
         boolean result0 = testSubject0.isClassExpressionLiteral();
         Set<OWLClassExpression> result1 = testSubject0.getOperands();
@@ -234,7 +239,8 @@ public class ContractOwlapi_3Test {
             }
 
             @Override
-            public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
+            public Set<? extends OWLNaryAxiom<OWLClassExpression>>
+                    asPairwiseAxioms() {
                 return Collections.emptySet();
             }
 
@@ -279,7 +285,8 @@ public class ContractOwlapi_3Test {
         Object result28 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result29 = testSubject0.getAxiomWithoutAnnotations();
         AxiomType<?> result31 = testSubject0.getAxiomType();
-        Set<? extends OWLNaryAxiom> result32 = testSubject0.asPairwiseAxioms();
+        Set<? extends OWLNaryAxiom<OWLClassExpression>> result32 = testSubject0
+                .asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result33 = testSubject0.asOWLSubClassOfAxioms();
     }
 
@@ -321,6 +328,11 @@ public class ContractOwlapi_3Test {
 
             @Override
             protected int compareObjectOfSameType(OWLObject object) {
+                return 0;
+            }
+
+            @Override
+            protected int index() {
                 return 0;
             }
         };
@@ -392,7 +404,8 @@ public class ContractOwlapi_3Test {
             }
 
             @Override
-            public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
+            public Set<? extends OWLNaryAxiom<OWLIndividual>>
+                    asPairwiseAxioms() {
                 return Collections.emptySet();
             }
 
@@ -433,7 +446,8 @@ public class ContractOwlapi_3Test {
         Object result26 = testSubject0.accept(Utils.mockAxiom());
         OWLAxiom result27 = testSubject0.getAxiomWithoutAnnotations();
         AxiomType<?> result29 = testSubject0.getAxiomType();
-        Set<? extends OWLNaryAxiom> result30 = testSubject0.asPairwiseAxioms();
+        Set<? extends OWLNaryAxiom<OWLIndividual>> result30 = testSubject0
+                .asPairwiseAxioms();
         Set<OWLSubClassOfAxiom> result31 = testSubject0.asOWLSubClassOfAxioms();
     }
 
@@ -477,7 +491,8 @@ public class ContractOwlapi_3Test {
             }
 
             @Override
-            public Set<? extends OWLNaryAxiom> asPairwiseAxioms() {
+            public Set<? extends OWLNaryAxiom<OWLObjectPropertyExpression>>
+                    asPairwiseAxioms() {
                 return Collections.emptySet();
             }
         };
@@ -674,6 +689,11 @@ public class ContractOwlapi_3Test {
             @Override
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
+            }
+
+            @Override
+            protected int index() {
+                return 0;
             }
         };
         boolean result0 = testSubject0.isQualified();
@@ -876,6 +896,11 @@ public class ContractOwlapi_3Test {
 
             @Override
             protected int compareObjectOfSameType(OWLObject object) {
+                return 0;
+            }
+
+            @Override
+            protected int index() {
                 return 0;
             }
         };
@@ -1289,6 +1314,11 @@ public class ContractOwlapi_3Test {
 
             @Override
             protected int compareObjectOfSameType(OWLObject object) {
+                return 0;
+            }
+
+            @Override
+            protected int index() {
                 return 0;
             }
         };
@@ -1830,6 +1860,11 @@ public class ContractOwlapi_3Test {
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
             }
+
+            @Override
+            protected int index() {
+                return 0;
+            }
         };
         OWLPropertyRange result0 = testSubject0.getFiller();
         OWLDataPropertyExpression result1 = testSubject0.getProperty();
@@ -1901,6 +1936,11 @@ public class ContractOwlapi_3Test {
             @Override
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
+            }
+
+            @Override
+            protected int index() {
+                return 0;
             }
         };
         OWLPropertyRange result0 = testSubject0.getFiller();

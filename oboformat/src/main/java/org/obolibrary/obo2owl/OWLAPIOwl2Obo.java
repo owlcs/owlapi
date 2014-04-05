@@ -2329,37 +2329,17 @@ public class OWLAPIOwl2Obo {
         }
     }
 
-    /**
-     * Error.
-     * 
-     * @param message
-     *        the message
-     * @param ax
-     *        the ax
-     */
     protected void
             error(String message, OWLAxiom ax, boolean shouldLogComplaint) {
         untranslatableAxioms.add(ax);
         error(message + ax, shouldLogComplaint);
     }
 
-    /**
-     * Error.
-     * 
-     * @param ax
-     *        the ax
-     */
     protected void error(OWLAxiom ax, boolean shouldLogComplaint) {
         untranslatableAxioms.add(ax);
         error("the axiom is not translated : " + ax, shouldLogComplaint);
     }
 
-    /**
-     * Error.
-     * 
-     * @param message
-     *        the message
-     */
     protected void error(String message, boolean shouldLogComplaint) {
         if (strictConversion) {
             throw new RuntimeException("The conversion is halted: " + message);

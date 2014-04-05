@@ -23,11 +23,12 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
@@ -36,6 +37,11 @@ public class OWLFacetRestrictionImpl extends OWLObjectImpl implements
     private static final long serialVersionUID = 40000L;
     private final OWLFacet facet;
     private final OWLLiteral facetValue;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 7;
+    }
 
     /**
      * @param facet

@@ -31,11 +31,12 @@ import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLInverseObjectPropertiesAxiomImpl extends
@@ -135,5 +136,15 @@ public class OWLInverseObjectPropertiesAxiomImpl extends
         axs.add(new OWLSubObjectPropertyOfAxiomImpl(second, first
                 .getInverseProperty().getSimplified(), NO_ANNOTATIONS));
         return axs;
+    }
+
+    @Override
+    public <T> Collection<T> walkPairwise(
+            OWLPairwiseVisitor<T, OWLObjectPropertyExpression> visitor) {
+        T t = visitor.visit(first, second);
+        if (t != null) {
+            return Collections.singleton(t);
+        }
+        return Collections.emptyList();
     }
 }

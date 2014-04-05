@@ -59,6 +59,7 @@ import org.semanticweb.owlapi.model.OWLPrimitive;
 import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
 import org.semanticweb.owlapi.model.UnknownOWLOntologyException;
 import org.semanticweb.owlapi.util.OWLAxiomSearchFilter;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
@@ -71,6 +72,11 @@ public class OWLImmutableOntologyImpl extends OWLAxiomIndexImpl implements
     private static final long serialVersionUID = 40000L;
     protected final OWLOntologyManager manager;
     protected OWLOntologyID ontologyID;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.ONTOLOGY;
+    }
 
     /**
      * @param manager

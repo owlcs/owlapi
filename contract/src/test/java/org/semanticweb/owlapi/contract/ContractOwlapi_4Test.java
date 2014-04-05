@@ -104,6 +104,11 @@ public class ContractOwlapi_4Test {
             protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
+
+            @Override
+            protected int index() {
+                return 0;
+            }
         };
         SWRLPredicate result0 = testSubject0.getPredicate();
         Set<OWLEntity> result50 = testSubject0.getSignature();
@@ -148,6 +153,11 @@ public class ContractOwlapi_4Test {
             @Override
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
+            }
+
+            @Override
+            protected int index() {
+                return 0;
             }
         };
         Collection<SWRLArgument> result0 = testSubject0.getAllArguments();
@@ -494,6 +504,11 @@ public class ContractOwlapi_4Test {
 
             @Override
             protected int compareObjectOfSameType(OWLObject object) {
+                return 0;
+            }
+
+            @Override
+            protected int index() {
                 return 0;
             }
         };

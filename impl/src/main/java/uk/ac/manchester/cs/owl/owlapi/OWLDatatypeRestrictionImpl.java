@@ -32,10 +32,11 @@ import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
@@ -44,6 +45,11 @@ public class OWLDatatypeRestrictionImpl extends OWLObjectImpl implements
     private static final long serialVersionUID = 40000L;
     private final OWLDatatype datatype;
     private final Set<OWLFacetRestriction> facetRestrictions;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 6;
+    }
 
     /**
      * @param datatype

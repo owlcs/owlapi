@@ -451,6 +451,11 @@ public class ContractOwlapi_1Test {
             protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
+
+            @Override
+            protected int index() {
+                return 0;
+            }
         };
         boolean result0 = testSubject0.isAnonymous();
         if (!testSubject0.isAnonymous()) {
@@ -892,6 +897,11 @@ public class ContractOwlapi_1Test {
             protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
+
+            @Override
+            protected int index() {
+                return 0;
+            }
         };
         Set<OWLEntity> result50 = testSubject0.getSignature();
         Set<OWLAnonymousIndividual> result51 = testSubject0
@@ -1064,6 +1074,11 @@ public class ContractOwlapi_1Test {
             @Override
             public <O> O accept(OWLObjectVisitorEx<O> visitor) {
                 return null;
+            }
+
+            @Override
+            protected int index() {
+                return 0;
             }
         };
         boolean result0 = testSubject0.isQualified();

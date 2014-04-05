@@ -33,11 +33,12 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
@@ -46,6 +47,11 @@ public class OWLDataPropertyImpl extends OWLPropertyExpressionImpl implements
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
     private final boolean builtin;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.DATA_PROPERTY;
+    }
 
     /**
      * @param iri

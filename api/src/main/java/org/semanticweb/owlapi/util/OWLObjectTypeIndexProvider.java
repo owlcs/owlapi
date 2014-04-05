@@ -16,7 +16,6 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import javax.annotation.Nonnull;
 
-import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -105,27 +104,29 @@ import org.semanticweb.owlapi.model.SWRLSameIndividualAtom;
 import org.semanticweb.owlapi.model.SWRLVariable;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.2.0
  */
 public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
 
-    private static final int ENTITY_TYPE_INDEX_BASE = 1000;
-    private static final int IRI = 0;
-    private static final int ONTOLOGY = 1;
-    private static final int OWL_CLASS = ENTITY_TYPE_INDEX_BASE + ONTOLOGY;
-    private static final int OBJECT_PROPERTY = ENTITY_TYPE_INDEX_BASE + 2;
-    private static final int OBJECT_PROPERTY_INVERSE = ENTITY_TYPE_INDEX_BASE + 3;
-    private static final int DATA_PROPERTY = ENTITY_TYPE_INDEX_BASE + 4;
-    private static final int INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 5;
-    private static final int ANNOTATION_PROPERTY = ENTITY_TYPE_INDEX_BASE + 6;
-    private static final int ANON_INDIVIDUAL = ENTITY_TYPE_INDEX_BASE + 7;
-    private static final int AXIOM_TYPE_INDEX_BASE = 2000;
-    private static final int SUBCLASS_AXIOM = AXIOM_TYPE_INDEX_BASE
-            + AxiomType.SUBCLASS_OF.getIndex();
-    private static final int NEGATIVE_OBJECT_PROPERTY_ASSERTION = AXIOM_TYPE_INDEX_BASE
-            + AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION.getIndex();
+//@formatter:off
+    /** ENTITY_TYPE_INDEX_BASE           */ public static final int ENTITY_TYPE_INDEX_BASE              = 1000;
+    /** IRI                              */ public static final int IRI                                 = 0;
+    /** ONTOLOGY                         */ public static final int ONTOLOGY                            = 1;
+    /** OWL_CLASS                        */ public static final int OWL_CLASS                           = ENTITY_TYPE_INDEX_BASE + 1;
+    /** OBJECT_PROPERTY                  */ public static final int OBJECT_PROPERTY                     = ENTITY_TYPE_INDEX_BASE + 2;
+    /** OBJECT_PROPERTY_INVERSE          */ public static final int OBJECT_PROPERTY_INVERSE             = ENTITY_TYPE_INDEX_BASE + 3;
+    /** DATA_PROPERTY                    */ public static final int DATA_PROPERTY                       = ENTITY_TYPE_INDEX_BASE + 4;
+    /** INDIVIDUAL                       */ public static final int INDIVIDUAL                          = ENTITY_TYPE_INDEX_BASE + 5;
+    /** ANNOTATION_PROPERTY              */ public static final int ANNOTATION_PROPERTY                 = ENTITY_TYPE_INDEX_BASE + 6;
+    /** ANON_INDIVIDUAL                  */ public static final int ANON_INDIVIDUAL                     = ENTITY_TYPE_INDEX_BASE + 7;
+    /** AXIOM_TYPE_INDEX_BASE            */ public static final int AXIOM_TYPE_INDEX_BASE               = 2000;
+    /** DATA_TYPE_INDEX_BASE             */ public static final int DATA_TYPE_INDEX_BASE                = 4000;
+    /** ANNOTATION_TYPE_INDEX_BASE       */ public static final int ANNOTATION_TYPE_INDEX_BASE          = 5000;
+    /** RULE_OBJECT_TYPE_INDEX_BASE      */ public static final int RULE_OBJECT_TYPE_INDEX_BASE         = 6000;
+    /** CLASS_EXPRESSION_TYPE_INDEX_BASE */ public static final int CLASS_EXPRESSION_TYPE_INDEX_BASE    = 3000;
+//@formatter:on
     private int type;
 
     /**
@@ -195,12 +196,12 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void visit(OWLSubClassOfAxiom axiom) {
-        type = SUBCLASS_AXIOM;
+        type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
     public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
-        type = NEGATIVE_OBJECT_PROPERTY_ASSERTION;
+        type = AXIOM_TYPE_INDEX_BASE + axiom.getAxiomType().getIndex();
     }
 
     @Override
@@ -393,11 +394,9 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     // Anon class expressions
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
-    private static final int CLASS_EXPRESSION_TYPE_INDEX_BASE = 3000;
-
     @Override
     public void visit(OWLObjectIntersectionOf desc) {
-        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + ONTOLOGY;
+        type = CLASS_EXPRESSION_TYPE_INDEX_BASE + 1;
     }
 
     @Override
@@ -485,11 +484,9 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     // Data types and data values
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
-    private static final int DATA_TYPE_INDEX_BASE = 4000;
-
     @Override
     public void visit(OWLDatatype node) {
-        type = DATA_TYPE_INDEX_BASE + ONTOLOGY;
+        type = DATA_TYPE_INDEX_BASE + 1;
     }
 
     @Override
@@ -532,8 +529,6 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     // Annotations
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
-    private static final int ANNOTATION_TYPE_INDEX_BASE = 5000;
-
     @Override
     public void visit(OWLAnnotation node) {
         type = ANNOTATION_TYPE_INDEX_BASE + 1;
@@ -544,11 +539,9 @@ public class OWLObjectTypeIndexProvider implements OWLObjectVisitor {
     // Rule objects
     //
     // //////////////////////////////////////////////////////////////////////////////////////////////////////
-    private static final int RULE_OBJECT_TYPE_INDEX_BASE = 6000;
-
     @Override
     public void visit(SWRLClassAtom node) {
-        type = RULE_OBJECT_TYPE_INDEX_BASE + ONTOLOGY;
+        type = RULE_OBJECT_TYPE_INDEX_BASE + 1;
     }
 
     @Override

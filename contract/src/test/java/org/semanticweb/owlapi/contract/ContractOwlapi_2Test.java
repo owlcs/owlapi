@@ -1576,6 +1576,11 @@ public class ContractOwlapi_2Test {
             protected int compareObjectOfSameType(OWLObject object) {
                 return 0;
             }
+
+            @Override
+            protected int index() {
+                return 0;
+            }
         };
         boolean result1 = !testSubject0.isAnonymous();
         Set<OWLEntity> result50 = testSubject0.getSignature();

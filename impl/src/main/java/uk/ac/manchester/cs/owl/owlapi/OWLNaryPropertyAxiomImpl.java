@@ -14,7 +14,10 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,12 +26,13 @@ import javax.annotation.Nonnull;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLNaryPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpression;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  * @param <P>
  *        the property expression
@@ -37,7 +41,7 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
         extends OWLPropertyAxiomImpl implements OWLNaryPropertyAxiom<P> {
 
     private static final long serialVersionUID = 40000L;
-    private final Set<P> properties;
+    private final List<P> properties;
 
     /**
      * @param properties
@@ -48,8 +52,9 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     public OWLNaryPropertyAxiomImpl(@Nonnull Set<? extends P> properties,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.properties = new TreeSet<P>(checkNotNull(properties,
+        this.properties = new ArrayList<P>(checkNotNull(properties,
                 "properties cannot be null"));
+        Collections.sort(this.properties);
     }
 
     @Override
@@ -71,8 +76,11 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
             if (!(obj instanceof OWLNaryPropertyAxiom)) {
                 return false;
             }
-            return ((OWLNaryPropertyAxiom<?>) obj).getProperties().equals(
-                    properties);
+            if (obj instanceof OWLNaryPropertyAxiomImpl) {
+                return properties
+                        .equals(((OWLNaryPropertyAxiomImpl<?>) obj).properties);
+            }
+            return compareObjectOfSameType((OWLNaryPropertyAxiom<?>) obj) == 0;
         }
         return false;
     }
@@ -81,5 +89,19 @@ public abstract class OWLNaryPropertyAxiomImpl<P extends OWLPropertyExpression>
     protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(properties,
                 ((OWLNaryPropertyAxiom<?>) object).getProperties());
+    }
+
+    @Override
+    public <T> Collection<T> walkPairwise(OWLPairwiseVisitor<T, P> visitor) {
+        List<T> l = new ArrayList<T>();
+        for (int i = 0; i < properties.size() - 1; i++) {
+            for (int j = i + 1; j < properties.size(); j++) {
+                T t = visitor.visit(properties.get(i), properties.get(j));
+                if (t != null) {
+                    l.add(t);
+                }
+            }
+        }
+        return l;
     }
 }

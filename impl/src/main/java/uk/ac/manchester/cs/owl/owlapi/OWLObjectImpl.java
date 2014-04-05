@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,8 +41,8 @@ import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLObjectImpl implements OWLObject, Serializable {
@@ -163,11 +164,17 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return hashCode;
     }
 
+    protected abstract int index();
+
     @Override
     public int compareTo(OWLObject o) {
-        OWLObjectTypeIndexProvider typeIndexProvider = new OWLObjectTypeIndexProvider();
-        int thisTypeIndex = typeIndexProvider.getTypeIndex(this);
-        int otherTypeIndex = typeIndexProvider.getTypeIndex(o);
+        int thisTypeIndex = index();
+        int otherTypeIndex = 0;
+        if (o instanceof OWLObjectImpl) {
+            otherTypeIndex = ((OWLObjectImpl) o).index();
+        } else {
+            otherTypeIndex = new OWLObjectTypeIndexProvider().getTypeIndex(o);
+        }
         int diff = thisTypeIndex - otherTypeIndex;
         if (diff == 0) {
             // Objects are the same type
@@ -194,8 +201,8 @@ public abstract class OWLObjectImpl implements OWLObject, Serializable {
         return false;
     }
 
-    protected static int compareSets(Set<? extends OWLObject> set1,
-            Set<? extends OWLObject> set2) {
+    protected static int compareSets(Collection<? extends OWLObject> set1,
+            Collection<? extends OWLObject> set2) {
         SortedSet<? extends OWLObject> ss1;
         if (set1 instanceof SortedSet) {
             ss1 = (SortedSet<? extends OWLObject>) set1;

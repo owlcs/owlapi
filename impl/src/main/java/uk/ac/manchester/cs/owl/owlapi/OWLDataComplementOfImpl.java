@@ -28,10 +28,11 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLDataComplementOfImpl extends OWLObjectImpl implements
@@ -39,6 +40,11 @@ public class OWLDataComplementOfImpl extends OWLObjectImpl implements
 
     private static final long serialVersionUID = 40000L;
     private final OWLDataRange dataRange;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 2;
+    }
 
     /**
      * @param dataRange

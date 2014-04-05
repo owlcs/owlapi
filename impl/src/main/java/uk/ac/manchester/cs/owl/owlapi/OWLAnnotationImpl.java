@@ -30,10 +30,11 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.util.CollectionFactory;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
@@ -42,6 +43,11 @@ public class OWLAnnotationImpl extends OWLObjectImpl implements OWLAnnotation {
     private final OWLAnnotationProperty property;
     private final OWLAnnotationValue value;
     private final Set<OWLAnnotation> annotations;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.ANNOTATION_TYPE_INDEX_BASE + 1;
+    }
 
     /**
      * @param property

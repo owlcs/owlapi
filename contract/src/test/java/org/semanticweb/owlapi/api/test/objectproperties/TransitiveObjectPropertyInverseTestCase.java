@@ -22,8 +22,8 @@ import org.semanticweb.owlapi.api.test.baseclasses.AbstractAxiomsRoundTrippingTe
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class TransitiveObjectPropertyInverseTestCase extends
@@ -40,6 +40,12 @@ public class TransitiveObjectPropertyInverseTestCase extends
     @Override
     @Test
     public void testManchesterOWLSyntax() {
+        // try {
+        // System.in.read();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
         // Can't represent inverse object property frames in Manchester OWL
         // Syntax
         // super.testManchesterOWLSyntax();

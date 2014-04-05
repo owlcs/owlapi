@@ -34,10 +34,11 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group
  * @since 3.0.0
  */
 public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
@@ -45,6 +46,11 @@ public class OWLNamedIndividualImpl extends OWLIndividualImpl implements
 
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.INDIVIDUAL;
+    }
 
     /**
      * @param iri

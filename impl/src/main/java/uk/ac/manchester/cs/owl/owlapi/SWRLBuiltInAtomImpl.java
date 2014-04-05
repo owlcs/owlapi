@@ -29,11 +29,12 @@ import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
 import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.SWRLBuiltInsVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
@@ -41,6 +42,11 @@ public class SWRLBuiltInAtomImpl extends SWRLAtomImpl implements
 
     private static final long serialVersionUID = 40000L;
     private final List<SWRLDArgument> args;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 5;
+    }
 
     /**
      * @param predicate

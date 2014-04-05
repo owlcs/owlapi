@@ -22,16 +22,22 @@ import org.semanticweb.owlapi.model.SWRLDArgument;
 import org.semanticweb.owlapi.model.SWRLDataRangeAtom;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class SWRLDataRangeAtomImpl extends SWRLUnaryAtomImpl<SWRLDArgument>
         implements SWRLDataRangeAtom {
 
     private static final long serialVersionUID = 40000L;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 2;
+    }
 
     /**
      * @param predicate

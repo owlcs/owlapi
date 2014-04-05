@@ -16,10 +16,10 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -27,18 +27,19 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLNaryClassAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
         OWLNaryClassAxiom {
 
     private static final long serialVersionUID = 40000L;
-    private final Set<OWLClassExpression> classExpressions;
+    private final List<OWLClassExpression> classExpressions;
 
     /**
      * @param classExpressions
@@ -50,8 +51,9 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             @Nonnull Set<? extends OWLClassExpression> classExpressions,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.classExpressions = new TreeSet<OWLClassExpression>(checkNotNull(
+        this.classExpressions = new ArrayList<OWLClassExpression>(checkNotNull(
                 classExpressions, "classExpressions cannot be null"));
+        Collections.sort(this.classExpressions);
     }
 
     @Override
@@ -87,8 +89,11 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
             if (!(obj instanceof OWLNaryClassAxiom)) {
                 return false;
             }
-            return ((OWLNaryClassAxiom) obj).getClassExpressions().equals(
-                    classExpressions);
+            if (obj instanceof OWLNaryClassAxiomImpl) {
+                return classExpressions
+                        .equals(((OWLNaryClassAxiomImpl) obj).classExpressions);
+            }
+            return compareObjectOfSameType((OWLNaryClassAxiom) obj) == 0;
         }
         return false;
     }
@@ -97,5 +102,21 @@ public abstract class OWLNaryClassAxiomImpl extends OWLClassAxiomImpl implements
     protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(classExpressions,
                 ((OWLNaryClassAxiom) object).getClassExpressions());
+    }
+
+    @Override
+    public <T> Collection<T> walkPairwise(
+            OWLPairwiseVisitor<T, OWLClassExpression> visitor) {
+        List<T> l = new ArrayList<T>();
+        for (int i = 0; i < classExpressions.size() - 1; i++) {
+            for (int j = i + 1; j < classExpressions.size(); j++) {
+                T t = visitor.visit(classExpressions.get(i),
+                        classExpressions.get(j));
+                if (t != null) {
+                    l.add(t);
+                }
+            }
+        }
+        return l;
     }
 }

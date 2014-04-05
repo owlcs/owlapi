@@ -23,16 +23,22 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLObjectVisitor;
 import org.semanticweb.owlapi.model.SWRLObjectVisitorEx;
 import org.semanticweb.owlapi.model.SWRLVariable;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class SWRLVariableImpl extends OWLObjectImpl implements SWRLVariable {
 
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.RULE_OBJECT_TYPE_INDEX_BASE + 6;
+    }
 
     protected SWRLVariableImpl(@Nonnull IRI iri) {
         this.iri = checkNotNull(iri, "iri cannot be null");

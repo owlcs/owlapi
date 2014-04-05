@@ -25,10 +25,11 @@ import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
@@ -36,6 +37,11 @@ public class OWLLiteralImplBoolean extends OWLObjectImpl implements OWLLiteral {
     private static final long serialVersionUID = 40000L;
     private final boolean literal;
     private final OWLDatatype datatype;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
+    }
 
     /**
      * @param literal

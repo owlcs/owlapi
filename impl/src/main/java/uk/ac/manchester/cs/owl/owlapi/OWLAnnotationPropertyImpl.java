@@ -33,6 +33,7 @@ import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitor;
 import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
@@ -45,6 +46,11 @@ public class OWLAnnotationPropertyImpl extends OWLObjectImpl implements
 
     private static final long serialVersionUID = 40000L;
     private final IRI iri;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.ANNOTATION_PROPERTY;
+    }
 
     /**
      * @param i

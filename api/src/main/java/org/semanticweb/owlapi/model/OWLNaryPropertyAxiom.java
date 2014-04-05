@@ -17,14 +17,14 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  * @param <P>
  *        property expression
  */
 public interface OWLNaryPropertyAxiom<P extends OWLPropertyExpression> extends
-        OWLPropertyAxiom, OWLNaryAxiom {
+        OWLPropertyAxiom, OWLNaryAxiom<P> {
 
     /** @return all of the properties that appear in this axiom */
     @Nonnull

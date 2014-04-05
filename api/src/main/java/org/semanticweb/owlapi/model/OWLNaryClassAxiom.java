@@ -18,12 +18,12 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
-public interface OWLNaryClassAxiom extends OWLClassAxiom, OWLNaryAxiom,
-        OWLSubClassOfAxiomSetShortCut {
+public interface OWLNaryClassAxiom extends OWLClassAxiom,
+        OWLNaryAxiom<OWLClassExpression>, OWLSubClassOfAxiomSetShortCut {
 
     /**
      * Gets all of the top level class expressions that appear in this axiom.

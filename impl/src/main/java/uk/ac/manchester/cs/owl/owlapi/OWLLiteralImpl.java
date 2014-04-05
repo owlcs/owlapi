@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLObjectVisitorEx;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
+import org.semanticweb.owlapi.util.OWLObjectTypeIndexProvider;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 
 /**
@@ -57,6 +58,11 @@ public class OWLLiteralImpl extends OWLObjectImpl implements OWLLiteral {
     private final OWLDatatype datatype;
     private final String lang;
     private final int hashcode;
+
+    @Override
+    protected int index() {
+        return OWLObjectTypeIndexProvider.DATA_TYPE_INDEX_BASE + 8;
+    }
 
     /**
      * @param literal

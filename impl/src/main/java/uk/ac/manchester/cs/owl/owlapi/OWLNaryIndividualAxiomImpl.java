@@ -16,9 +16,9 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -26,18 +26,19 @@ import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLNaryIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLPairwiseVisitor;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
         implements OWLNaryIndividualAxiom {
 
     private static final long serialVersionUID = 40000L;
-    private final Set<OWLIndividual> individuals;
+    private final List<OWLIndividual> individuals;
 
     /**
      * @param individuals
@@ -49,8 +50,9 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
             @Nonnull Set<? extends OWLIndividual> individuals,
             @Nonnull Collection<? extends OWLAnnotation> annotations) {
         super(annotations);
-        this.individuals = new TreeSet<OWLIndividual>(checkNotNull(individuals,
-                "individuals cannot be null"));
+        this.individuals = new ArrayList<OWLIndividual>(checkNotNull(
+                individuals, "individuals cannot be null"));
+        Collections.sort(this.individuals);
     }
 
     @Override
@@ -70,8 +72,11 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
             if (!(obj instanceof OWLNaryIndividualAxiom)) {
                 return false;
             }
-            return ((OWLNaryIndividualAxiom) obj).getIndividuals().equals(
-                    individuals);
+            if (obj instanceof OWLNaryIndividualAxiomImpl) {
+                return individuals
+                        .equals(((OWLNaryIndividualAxiomImpl) obj).individuals);
+            }
+            return compareObjectOfSameType((OWLNaryIndividualAxiom) obj) == 0;
         }
         return false;
     }
@@ -80,5 +85,20 @@ public abstract class OWLNaryIndividualAxiomImpl extends OWLIndividualAxiomImpl
     protected int compareObjectOfSameType(OWLObject object) {
         return compareSets(individuals,
                 ((OWLNaryIndividualAxiom) object).getIndividuals());
+    }
+
+    @Override
+    public <T> Collection<T> walkPairwise(
+            OWLPairwiseVisitor<T, OWLIndividual> visitor) {
+        List<T> l = new ArrayList<T>();
+        for (int i = 0; i < individuals.size() - 1; i++) {
+            for (int j = i + 1; j < individuals.size(); j++) {
+                T t = visitor.visit(individuals.get(i), individuals.get(j));
+                if (t != null) {
+                    l.add(t);
+                }
+            }
+        }
+        return l;
     }
 }
