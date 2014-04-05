@@ -26,6 +26,7 @@ import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date: 04/04/2014
  */
+@SuppressWarnings("javadoc")
 public class SWRLAtomOrderingRoundTripTestCase {
 
     private Set<SWRLAtom> body;
@@ -33,7 +34,7 @@ public class SWRLAtomOrderingRoundTripTestCase {
     private SWRLRule rule;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         body = new LinkedHashSet<SWRLAtom>();
         head = new LinkedHashSet<SWRLAtom>();
 

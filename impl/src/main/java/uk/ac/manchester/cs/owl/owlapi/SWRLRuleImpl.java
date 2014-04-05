@@ -74,8 +74,8 @@ import org.semanticweb.owlapi.util.SWRLVariableExtractor;
 public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     private static final long serialVersionUID = 30406L;
-    private final Set<SWRLAtom> head;
-    private final Set<SWRLAtom> body;
+    private final LinkedHashSet<SWRLAtom> head;
+    private final LinkedHashSet<SWRLAtom> body;
     private Set<SWRLVariable> variables;
     private Boolean containsAnonymousClassExpressions = null;
     private Set<OWLClassExpression> classAtomsPredicates;
@@ -112,11 +112,11 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     @Override
     public Set<SWRLVariable> getVariables() {
         if (variables == null) {
-            Set<SWRLVariable> vars = new HashSet<SWRLVariable>();
+            Set<SWRLVariable> vars = new LinkedHashSet<SWRLVariable>();
             SWRLVariableExtractor extractor = new SWRLVariableExtractor();
             accept(extractor);
             vars.addAll(extractor.getVariables());
-            variables = new HashSet<SWRLVariable>(vars);
+            variables = new LinkedHashSet<SWRLVariable>(vars);
         }
         return variables;
     }

@@ -38,15 +38,15 @@
  */
 package org.coode.owlapi.owlxmlparser;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.SWRLAtom;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 02-Oct-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 02-Oct-2009
  */
 public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
 
@@ -70,9 +70,9 @@ public class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
     public void handleChild(SWRLAtomListElementHandler handler)
             throws OWLXMLParserException {
         if (body == null) {
-            body = new HashSet<SWRLAtom>(handler.getOWLObject());
+            body = new LinkedHashSet<SWRLAtom>(handler.getOWLObject());
         } else if (head == null) {
-            head = new HashSet<SWRLAtom>(handler.getOWLObject());
+            head = new LinkedHashSet<SWRLAtom>(handler.getOWLObject());
         }
     }
 }

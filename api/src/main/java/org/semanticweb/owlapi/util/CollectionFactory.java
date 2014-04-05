@@ -42,6 +42,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -450,7 +451,7 @@ public class CollectionFactory {
         public boolean add(T arg0) {
             if (!copyDone) {
                 copyDone = true;
-                delegate = new HashSet<T>(delegate);
+                delegate = new LinkedHashSet<T>(delegate);
             }
             return delegate.add(arg0);
         }
@@ -459,7 +460,7 @@ public class CollectionFactory {
         public boolean addAll(Collection<? extends T> arg0) {
             if (!copyDone) {
                 copyDone = true;
-                delegate = new HashSet<T>(delegate);
+                delegate = new LinkedHashSet<T>(delegate);
             }
             return delegate.addAll(arg0);
         }
@@ -468,7 +469,7 @@ public class CollectionFactory {
         public void clear() {
             if (!copyDone) {
                 copyDone = true;
-                delegate = new HashSet<T>();
+                delegate = new LinkedHashSet<T>();
             }
             delegate.clear();
         }
@@ -481,7 +482,7 @@ public class CollectionFactory {
                 // set
                 if (!(delegate instanceof Set)) {
                     copyDone = true;
-                    delegate = new HashSet<T>(delegate);
+                    delegate = new LinkedHashSet<T>(delegate);
                 }
             }
             return delegate.contains(arg0);
@@ -495,7 +496,7 @@ public class CollectionFactory {
                 // set
                 if (!(delegate instanceof Set)) {
                     copyDone = true;
-                    delegate = new HashSet<T>(delegate);
+                    delegate = new LinkedHashSet<T>(delegate);
                 }
             }
             return delegate.containsAll(arg0);
@@ -515,7 +516,7 @@ public class CollectionFactory {
         public boolean remove(Object arg0) {
             if (!copyDone) {
                 copyDone = true;
-                delegate = new HashSet<T>(delegate);
+                delegate = new LinkedHashSet<T>(delegate);
             }
             return delegate.remove(arg0);
         }
@@ -524,7 +525,7 @@ public class CollectionFactory {
         public boolean removeAll(Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
-                delegate = new HashSet<T>(delegate);
+                delegate = new LinkedHashSet<T>(delegate);
             }
             return delegate.removeAll(arg0);
         }
@@ -533,7 +534,7 @@ public class CollectionFactory {
         public boolean retainAll(Collection<?> arg0) {
             if (!copyDone) {
                 copyDone = true;
-                delegate = new HashSet<T>(delegate);
+                delegate = new LinkedHashSet<T>(delegate);
             }
             return delegate.retainAll(arg0);
         }
