@@ -88,7 +88,8 @@ public class SWRLAtomOrderingRoundTripTestCase {
         OWLOntologyManager man2 = OWLManager.createOWLOntologyManager();
         OWLOntology ont2 = man2
                 .loadOntologyFromOntologyDocument(new StringDocumentSource(
-                        documentTarget.toString()));
+                        documentTarget.toString(), StringDocumentSource
+                                .getNextDocumentIRI(), ontologyFormat, null));
         Set<SWRLRule> rules = ont2.getAxioms(AxiomType.SWRL_RULE);
         assertThat(rules.size(), is(1));
         SWRLRule parsedRule = rules.iterator().next();

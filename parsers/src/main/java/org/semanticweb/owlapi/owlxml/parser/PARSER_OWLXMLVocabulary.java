@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.vocab.OWLXMLVocabulary.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -61,8 +62,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group
  * @since 2.0.0
  */
 public enum PARSER_OWLXMLVocabulary implements HasIRI {
@@ -2994,9 +2995,9 @@ class SWRLRuleElementHandler extends AbstractOWLAxiomElementHandler {
     @Override
     void handleChild(SWRLAtomListElementHandler h) {
         if (body == null) {
-            body = new HashSet<SWRLAtom>(h.getOWLObject());
+            body = new LinkedHashSet<SWRLAtom>(h.getOWLObject());
         } else if (head == null) {
-            head = new HashSet<SWRLAtom>(h.getOWLObject());
+            head = new LinkedHashSet<SWRLAtom>(h.getOWLObject());
         }
     }
 }
