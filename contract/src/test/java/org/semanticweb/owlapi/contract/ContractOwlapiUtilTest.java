@@ -1184,7 +1184,6 @@ public class ContractOwlapiUtilTest {
     @Test
     public void shouldTestSWRLVariableExtractor() throws OWLException {
         SWRLVariableExtractor testSubject0 = new SWRLVariableExtractor();
-        testSubject0.reset();
         Set<SWRLVariable> result0 = testSubject0.getVariables();
     }
 

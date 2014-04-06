@@ -13,7 +13,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;
@@ -39,16 +38,11 @@ import org.semanticweb.owlapi.model.SWRLVariable;
  */
 public class SWRLVariableExtractor implements SWRLObjectVisitor {
 
-    private final Set<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
+    private final LinkedHashSet<SWRLVariable> variables = new LinkedHashSet<SWRLVariable>();
 
     /** @return the set of variables */
-    public Set<SWRLVariable> getVariables() {
-        return new LinkedHashSet<SWRLVariable>(variables);
-    }
-
-    /** clear the variables. */
-    public void reset() {
-        variables.clear();
+    public LinkedHashSet<SWRLVariable> getVariables() {
+        return variables;
     }
 
     @Override

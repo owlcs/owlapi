@@ -14,6 +14,7 @@ package uk.ac.manchester.cs.owl.owlapi;
 
 import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 
+import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,9 +60,9 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
     private static final long serialVersionUID = 40000L;
     private final LinkedHashSet<SWRLAtom> head;
     private final LinkedHashSet<SWRLAtom> body;
-    private Set<SWRLVariable> variables;
-    private Boolean containsAnonymousClassExpressions = null;
-    private Set<OWLClassExpression> classAtomsPredicates;
+    private final boolean containsAnonymousClassExpressions;
+    private WeakReference<Set<SWRLVariable>> variables;
+    private WeakReference<Set<OWLClassExpression>> classAtomsPredicates;
 
     /**
      * @param body
@@ -79,6 +80,7 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
                 "head cannot be null"));
         this.body = new LinkedHashSet<SWRLAtom>(checkNotNull(body,
                 "body cannot be null"));
+        containsAnonymousClassExpressions = hasAnon();
     }
 
     @Override
@@ -107,60 +109,64 @@ public class SWRLRuleImpl extends OWLLogicalAxiomImpl implements SWRLRule {
 
     @Override
     public Set<SWRLVariable> getVariables() {
-        if (variables == null) {
-            Set<SWRLVariable> vars = new LinkedHashSet<SWRLVariable>();
-            SWRLVariableExtractor extractor = new SWRLVariableExtractor();
-            accept(extractor);
-            vars.addAll(extractor.getVariables());
-            variables = new LinkedHashSet<SWRLVariable>(vars);
+        Set<SWRLVariable> toReturn = null;
+        if (variables != null) {
+            toReturn = variables.get();
         }
-        return variables;
+        if (toReturn != null) {
+            return toReturn;
+        }
+        SWRLVariableExtractor extractor = new SWRLVariableExtractor();
+        accept(extractor);
+        toReturn = extractor.getVariables();
+        variables = new WeakReference<Set<SWRLVariable>>(toReturn);
+        return toReturn;
+    }
+
+    private boolean hasAnon() {
+        for (SWRLAtom atom : head) {
+            if (atom instanceof SWRLClassAtom
+                    && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
+                return true;
+            }
+        }
+        for (SWRLAtom atom : body) {
+            if (atom instanceof SWRLClassAtom
+                    && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean containsAnonymousClassExpressions() {
-        if (containsAnonymousClassExpressions == null) {
-            for (SWRLAtom atom : head) {
-                if (atom instanceof SWRLClassAtom
-                        && ((SWRLClassAtom) atom).getPredicate().isAnonymous()) {
-                    containsAnonymousClassExpressions = Boolean.TRUE;
-                    break;
-                }
-            }
-            if (containsAnonymousClassExpressions == null) {
-                for (SWRLAtom atom : body) {
-                    if (atom instanceof SWRLClassAtom
-                            && ((SWRLClassAtom) atom).getPredicate()
-                                    .isAnonymous()) {
-                        containsAnonymousClassExpressions = Boolean.TRUE;
-                        break;
-                    }
-                }
-            }
-            if (containsAnonymousClassExpressions == null) {
-                containsAnonymousClassExpressions = Boolean.FALSE;
-            }
-        }
-        return containsAnonymousClassExpressions.booleanValue();
+        return containsAnonymousClassExpressions;
     }
 
     @Override
     public Set<OWLClassExpression> getClassAtomPredicates() {
-        if (classAtomsPredicates == null) {
-            Set<OWLClassExpression> predicates = new HashSet<OWLClassExpression>();
-            for (SWRLAtom atom : head) {
-                if (atom instanceof SWRLClassAtom) {
-                    predicates.add(((SWRLClassAtom) atom).getPredicate());
-                }
-            }
-            for (SWRLAtom atom : body) {
-                if (atom instanceof SWRLClassAtom) {
-                    predicates.add(((SWRLClassAtom) atom).getPredicate());
-                }
-            }
-            classAtomsPredicates = new HashSet<OWLClassExpression>(predicates);
+        Set<OWLClassExpression> toReturn = null;
+        if (classAtomsPredicates != null) {
+            toReturn = classAtomsPredicates.get();
         }
-        return classAtomsPredicates;
+        if (toReturn != null) {
+            return toReturn;
+        }
+        toReturn = new LinkedHashSet<OWLClassExpression>();
+        for (SWRLAtom atom : head) {
+            if (atom instanceof SWRLClassAtom) {
+                toReturn.add(((SWRLClassAtom) atom).getPredicate());
+            }
+        }
+        for (SWRLAtom atom : body) {
+            if (atom instanceof SWRLClassAtom) {
+                toReturn.add(((SWRLClassAtom) atom).getPredicate());
+            }
+        }
+        classAtomsPredicates = new WeakReference<Set<OWLClassExpression>>(
+                toReturn);
+        return toReturn;
     }
 
     @Override
