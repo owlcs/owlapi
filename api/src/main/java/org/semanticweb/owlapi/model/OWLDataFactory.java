@@ -15,6 +15,7 @@ package org.semanticweb.owlapi.model;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -22,9 +23,7 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
- * An interface for creating entities, class expressions and axioms. All methods
- * throw IllegalArgumentException if null values are passed where they are not
- * allowed in the documentation.
+ * An interface for creating entities, class expressions and axioms.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health
  *         Informatics Group
@@ -954,7 +953,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
+    OWLDataExactCardinality getOWLDataExactCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLDataPropertyExpression property);
 
     /**
@@ -967,7 +967,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLDataExactCardinality getOWLDataExactCardinality(int cardinality,
+    OWLDataExactCardinality getOWLDataExactCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange dataRange);
 
@@ -979,7 +980,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
+    OWLDataMaxCardinality getOWLDataMaxCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLDataPropertyExpression property);
 
     /**
@@ -992,7 +994,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLDataMaxCardinality getOWLDataMaxCardinality(int cardinality,
+    OWLDataMaxCardinality getOWLDataMaxCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange dataRange);
 
@@ -1004,7 +1007,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
+    OWLDataMinCardinality getOWLDataMinCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLDataPropertyExpression property);
 
     /**
@@ -1017,7 +1021,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLDataMinCardinality getOWLDataMinCardinality(int cardinality,
+    OWLDataMinCardinality getOWLDataMinCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLDataPropertyExpression property,
             @Nonnull OWLDataRange dataRange);
 
@@ -1095,7 +1100,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
+    OWLObjectExactCardinality getOWLObjectExactCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLObjectPropertyExpression property);
 
     /**
@@ -1108,7 +1114,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLObjectExactCardinality getOWLObjectExactCardinality(int cardinality,
+    OWLObjectExactCardinality getOWLObjectExactCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression classExpression);
 
@@ -1120,7 +1127,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
+    OWLObjectMinCardinality getOWLObjectMinCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLObjectPropertyExpression property);
 
     /**
@@ -1133,7 +1141,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLObjectMinCardinality getOWLObjectMinCardinality(int cardinality,
+    OWLObjectMinCardinality getOWLObjectMinCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression classExpression);
 
@@ -1145,7 +1154,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
+    OWLObjectMaxCardinality getOWLObjectMaxCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLObjectPropertyExpression property);
 
     /**
@@ -1158,7 +1168,8 @@ public interface OWLDataFactory extends SWRLDataFactory, OWLEntityProvider,
      * @return an ExactCardinality on the specified property
      */
     @Nonnull
-    OWLObjectMaxCardinality getOWLObjectMaxCardinality(int cardinality,
+    OWLObjectMaxCardinality getOWLObjectMaxCardinality(
+            @Nonnegative int cardinality,
             @Nonnull OWLObjectPropertyExpression property,
             @Nonnull OWLClassExpression classExpression);
 

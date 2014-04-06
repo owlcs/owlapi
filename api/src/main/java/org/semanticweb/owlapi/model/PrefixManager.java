@@ -123,12 +123,9 @@ public interface PrefixManager extends Serializable {
      * Adds a prefix name to prefix mapping
      * 
      * @param prefixName
-     *        name The prefix name (must not be null)
+     *        name The prefix name (must end with a colon)
      * @param prefix
-     *        The prefix. Cannot be null.
-     * @throws IllegalArgumentException
-     *         if some parameter is null or the prefix name does not end with a
-     *         colon.
+     *        The prefix.
      */
     void setPrefix(@Nonnull String prefixName, @Nonnull String prefix);
 

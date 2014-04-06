@@ -43,9 +43,6 @@ public class RenderingExample {
      */
     public void render(String inputOntology, String outputOntology)
             throws OWLOntologyCreationException, OWLOntologyStorageException {
-        if (inputOntology == null || outputOntology == null) {
-            throw new IllegalArgumentException("Ontology iris cannot be null");
-        }
         // A simple example of how to load and save an ontology
         /* Get an Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

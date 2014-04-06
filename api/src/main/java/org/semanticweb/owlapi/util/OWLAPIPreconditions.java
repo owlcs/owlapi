@@ -18,14 +18,14 @@ import com.google.common.base.Optional;
 public class OWLAPIPreconditions {
 
     /**
-     * check for null and throw IllegalArgumentException if null
+     * check for null and throw NullPointerException if null
      * 
      * @param object
      *        reference to check
      * @param <T>
      *        reference type
      * @return the input reference if not null
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *         if object is null
      */
     public static <T> T checkNotNull(T object) {
@@ -33,7 +33,7 @@ public class OWLAPIPreconditions {
     }
 
     /**
-     * check for null and throw IllegalArgumentException if null
+     * check for null and throw NullPointerException if null
      * 
      * @param object
      *        reference to check
@@ -42,14 +42,42 @@ public class OWLAPIPreconditions {
      * @param <T>
      *        reference type
      * @return the input reference if not null
-     * @throws IllegalArgumentException
+     * @throws NullPointerException
      *         if object is null
      */
     public static <T> T checkNotNull(T object, String message) {
         if (object == null) {
-            throw new IllegalArgumentException(message);
+            throw new NullPointerException(message);
         }
         return object;
+    }
+
+    /**
+     * check for negative value and throw IllegalArgumentException if negative
+     * 
+     * @param object
+     *        value to check
+     * @throws IllegalArgumentException
+     *         if object is negative
+     */
+    public static void checkNotNegative(long object) {
+        checkNotNegative(object, "this variable cannot be negative: " + object);
+    }
+
+    /**
+     * check for negative value and throw IllegalArgumentException if negative
+     * 
+     * @param object
+     *        value to check
+     * @param message
+     *        message for the illegal argument exception
+     * @throws IllegalArgumentException
+     *         if object is negative
+     */
+    public static void checkNotNegative(long object, String message) {
+        if (object < 0) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     /**

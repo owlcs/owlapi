@@ -17,6 +17,7 @@ import static org.semanticweb.owlapi.util.OWLAPIPreconditions.checkNotNull;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -35,7 +36,7 @@ import org.semanticweb.owlapi.util.CollectionFactory;
  */
 public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> {
 
-    private final Set<Node<E>> nodes = new HashSet<Node<E>>();
+    private final Set<Node<E>> nodes = new LinkedHashSet<Node<E>>();
 
     /** constructor for an empty node set. */
     public DefaultNodeSet() {}
@@ -45,7 +46,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        the entity to be contained
      */
     public DefaultNodeSet(@Nonnull E entity) {
-        nodes.add(getNode(checkNotNull(entity, "entity cannot be null")));
+        addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
 
     /**
@@ -53,7 +54,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        the node to be contained
      */
     public DefaultNodeSet(@Nonnull Node<E> node) {
-        nodes.add(checkNotNull(node, "node cannot be null"));
+        addNode(checkNotNull(node, "node cannot be null"));
     }
 
     /**
@@ -61,11 +62,12 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        a set of nodes to be contained
      */
     public DefaultNodeSet(@Nonnull Set<Node<E>> nodes) {
-        this.nodes.addAll(checkNotNull(nodes, "nodes cannot be null"));
+        addAllNodes(checkNotNull(nodes, "nodes cannot be null"));
     }
 
     @Override
-    public Set<Node<E>> getNodes() {
+    public @Nonnull
+    Set<Node<E>> getNodes() {
         return CollectionFactory
                 .getCopyOnRequestSetFromMutableCollection(nodes);
     }
@@ -80,7 +82,6 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *         if {@code entity} is {@code null}.
      */
-    // XXX not in the interface
     public void addEntity(@Nonnull E entity) {
         addNode(getNode(checkNotNull(entity, "entity cannot be null")));
     }
@@ -93,12 +94,8 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *         if {@code entity} is {@code null}.
      */
-    // XXX not in the interface
-    public void addNode(Node<E> node) {
-        if (node == null) {
-            throw new IllegalArgumentException("Cannot add null to a NodeSet");
-        }
-        nodes.add(node);
+    public void addNode(@Nonnull Node<E> node) {
+        nodes.add(checkNotNull(node, "Cannot add null to a NodeSet"));
     }
 
     /**
@@ -108,12 +105,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The {@code Node}s to be added. Note that if the collection is not
      *        a set then duplicate {@code Node}s will be filtered out.
      */
-    // XXX not in the interface
-    public void addAllNodes(Collection<Node<E>> nodeset) {
+    public void addAllNodes(@Nonnull Collection<Node<E>> nodeset) {
         for (Node<E> node : nodeset) {
-            if (node != null) {
-                this.nodes.add(node);
-            }
+            addNode(node);
         }
     }
 
@@ -124,8 +118,7 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The set of entities to be added. The entities will be wrapped in a
      *        {@code Node} which will be added to this {@code NodeSet}.
      */
-    // XXX not in the interface
-    public void addSameEntities(Set<E> entities) {
+    public void addSameEntities(@Nonnull Set<E> entities) {
         nodes.add(getNode(entities));
     }
 
@@ -136,19 +129,19 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The entities to be added. Each entity will be wrapped in a
      *        {@code Node} which will then be added to this {@code NodeSet}.
      */
-    // XXX not in the interface
-    public void addDifferentEntities(Set<E> entities) {
+    public void addDifferentEntities(@Nonnull Set<E> entities) {
         for (E e : entities) {
             addNode(getNode(e));
         }
     }
 
-    protected abstract DefaultNode<E> getNode(E entity);
+    protected abstract DefaultNode<E> getNode(@Nonnull E entity);
 
-    protected abstract DefaultNode<E> getNode(Set<E> entities);
+    protected abstract DefaultNode<E> getNode(@Nonnull Set<E> entities);
 
     @Override
-    public Set<E> getFlattened() {
+    public @Nonnull
+    Set<E> getFlattened() {
         Set<E> result = new HashSet<E>();
         for (Node<E> node : nodes) {
             result.addAll(node.getEntities());

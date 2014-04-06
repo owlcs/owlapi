@@ -22,6 +22,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -34,6 +35,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLRuntimeException;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.util.OWLAPIPreconditions;
 import org.semanticweb.owlapi.util.OWLEntityCollector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,10 +118,9 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
 
     @Override
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
-            int maxExplanations) {
-        if (maxExplanations < 0) {
-            throw new IllegalArgumentException();
-        }
+            @Nonnegative int maxExplanations) {
+        OWLAPIPreconditions.checkNotNegative(maxExplanations,
+                "max explanations cannot be negative");
         Object max = maxExplanations == 0 ? "all" : maxExplanations;
         LOGGER.info("Get {} explanation(s) for: {}", max, unsatClass);
         try {
