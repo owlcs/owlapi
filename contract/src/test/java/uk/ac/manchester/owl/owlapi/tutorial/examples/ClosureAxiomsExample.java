@@ -79,10 +79,6 @@ public class ClosureAxiomsExample {
      */
     public void closure(String inputOntology, String outputOntology,
             String classToClose) throws OWLException {
-        if (inputOntology == null || outputOntology == null
-                || classToClose == null) {
-            throw new IllegalArgumentException("arguments cannot be null");
-        }
         /* Create and Ontology Manager */
         OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
         IRI documentIRI = IRI.create(inputOntology);

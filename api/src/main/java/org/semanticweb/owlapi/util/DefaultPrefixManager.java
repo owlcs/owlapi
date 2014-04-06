@@ -55,8 +55,8 @@ import org.semanticweb.owlapi.model.PrefixManager;
 import org.semanticweb.owlapi.vocab.Namespaces;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 10-Sep-2008
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 10-Sep-2008
  */
 public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
         IRIShortFormProvider {
@@ -266,17 +266,18 @@ public class DefaultPrefixManager implements PrefixManager, ShortFormProvider,
      *        name The prefix name (must not be null)
      * @param prefix
      *        The prefix. Cannot be null.
+     * @throws NullPointerException
+     *         if the parameters passed in are null
      * @throws IllegalArgumentException
-     *         if some parameter is null or the prefix name does not end with a
-     *         colon.
+     *         if the prefix name does not end with a colon.
      */
     // XXX not in the interface
     public void setPrefix(String prefixName, String prefix) {
         if (prefix == null) {
-            throw new IllegalArgumentException("prefix cannot be null");
+            throw new NullPointerException("prefix cannot be null");
         }
         if (prefixName == null) {
-            throw new IllegalArgumentException("prefixName cannot be null");
+            throw new NullPointerException("prefixName cannot be null");
         }
         if (!prefixName.endsWith(":")) {
             throw new IllegalArgumentException(

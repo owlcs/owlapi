@@ -46,8 +46,8 @@ import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 15-Nov-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 15-Nov-2006
  */
 public abstract class AbstractInMemOWLOntologyFactory implements
         OWLOntologyFactory {
@@ -58,7 +58,7 @@ public abstract class AbstractInMemOWLOntologyFactory implements
     @Override
     public void setOWLOntologyManager(OWLOntologyManager owlOntologyManager) {
         if (owlOntologyManager == null) {
-            throw new IllegalArgumentException("ontologyManager cannot be null");
+            throw new NullPointerException("ontologyManager cannot be null");
         }
         ontologyManager = owlOntologyManager;
     }

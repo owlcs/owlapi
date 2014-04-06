@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.util.CollectionFactory;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 05-Dec-2009
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 05-Dec-2009
  * @param <E>
  *        the type of owl objects in the node
  */
@@ -101,10 +101,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *         if {@code entity} is {@code null}.
      */
-    // XXX not in the interface
     public void addEntity(E entity) {
         if (entity == null) {
-            throw new IllegalArgumentException("entity cannot be null");
+            throw new NullPointerException("entity cannot be null");
         }
         addNode(getNode(entity));
     }
@@ -117,10 +116,9 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      * @throws NullPointerException
      *         if {@code entity} is {@code null}.
      */
-    // XXX not in the interface
     public void addNode(Node<E> node) {
         if (node == null) {
-            throw new IllegalArgumentException("Cannot add null to a NodeSet");
+            throw new NullPointerException("Cannot add null to a NodeSet");
         }
         nodes.add(node);
     }
@@ -132,7 +130,6 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The {@code Node}s to be added. Note that if the collection is not
      *        a set then duplicate {@code Node}s will be filtered out.
      */
-    // XXX not in the interface
     public void addAllNodes(Collection<Node<E>> nodeset) {
         for (Node<E> node : nodeset) {
             if (node != null) {
@@ -148,7 +145,6 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The set of entities to be added. The entities will be wrapped in a
      *        {@code Node} which will be added to this {@code NodeSet}.
      */
-    // XXX not in the interface
     public void addSameEntities(Set<E> entities) {
         nodes.add(getNode(entities));
     }
@@ -160,7 +156,6 @@ public abstract class DefaultNodeSet<E extends OWLObject> implements NodeSet<E> 
      *        The entities to be added. Each entity will be wrapped in a
      *        {@code Node} which will then be added to this {@code NodeSet}.
      */
-    // XXX not in the interface
     public void addDifferentEntities(Set<E> entities) {
         for (E e : entities) {
             addNode(getNode(e));

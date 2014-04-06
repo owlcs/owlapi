@@ -212,7 +212,7 @@ public class OWLOntologyManagerImpl implements OWLOntologyManager,
     @Override
     public boolean contains(IRI ontologyIRI) {
         if (ontologyIRI == null) {
-            throw new IllegalArgumentException("Ontology IRI cannot be null");
+            throw new NullPointerException("Ontology IRI cannot be null");
         }
         for (OWLOntologyID nextOntologyID : ontologiesByID.keySet()) {
             if (ontologyIRI.equals(nextOntologyID.getOntologyIRI())) {

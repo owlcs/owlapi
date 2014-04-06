@@ -51,8 +51,8 @@ import org.semanticweb.owlapi.vocab.Namespaces;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University of Manchester, Information Management
- *         Group, Date: 14-Jan-2009 Represents International Resource
+ * @author Matthew Horridge, The University of Manchester, Information
+ *         Management Group, Date: 14-Jan-2009 Represents International Resource
  *         Identifiers
  */
 public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
@@ -226,7 +226,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     public static IRI create(String str) {
         if (str == null) {
-            throw new IllegalArgumentException("String must not be null");
+            throw new NullPointerException("String must not be null");
         }
         int index = XMLUtils.getNCNameSuffixIndex(str);
         if (index < 0) {
@@ -280,7 +280,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     public static IRI create(File file) {
         if (file == null) {
-            throw new IllegalArgumentException("file cannot be null");
+            throw new NullPointerException("file cannot be null");
         }
         return new IRI(file.toURI());
     }
@@ -292,7 +292,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     public static IRI create(URI uri) {
         if (uri == null) {
-            throw new IllegalArgumentException("uri cannot be null");
+            throw new NullPointerException("uri cannot be null");
         }
         return new IRI(uri);
     }
@@ -306,7 +306,7 @@ public class IRI implements OWLAnnotationSubject, OWLAnnotationValue,
      */
     public static IRI create(URL url) throws URISyntaxException {
         if (url == null) {
-            throw new IllegalArgumentException("url cannot be null");
+            throw new NullPointerException("url cannot be null");
         }
         return new IRI(url.toURI());
     }

@@ -44,8 +44,9 @@ import org.semanticweb.owlapi.model.HasShortForm;
 import org.semanticweb.owlapi.model.IRI;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group Date: 25-Oct-2006 A vocabulary for XML Schema Data Types (XSD)
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group Date: 25-Oct-2006 A vocabulary for XML Schema Data
+ *         Types (XSD)
  */
 public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     // @formatter:off
@@ -142,7 +143,7 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
     /**
      * Easy parse of short names of the kind "xsd:typename". Note that the match
      * must be exact - uppercase or lowercase variants are not accepted. An
-     * IllegalArgumentException will he thrown for null or non matching input.
+     * IllegalArgumentException will he thrown for non matching input.
      * 
      * @param s
      *        string of the form {@code xsd:typename}
@@ -151,8 +152,7 @@ public enum XSDVocabulary implements HasShortForm, HasIRI, HasPrefixedName {
      */
     public static XSDVocabulary parseShortName(String s) {
         if (s == null) {
-            throw new IllegalArgumentException(
-                    "the input string cannot be null");
+            throw new NullPointerException("the input string cannot be null");
         }
         if (s.startsWith("xsd:")) {
             String name = s.substring(4);

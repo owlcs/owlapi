@@ -52,8 +52,8 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Bio-Health Informatics
- *         Group, Date: 26-Oct-2006
+ * @author Matthew Horridge, The University Of Manchester, Bio-Health
+ *         Informatics Group, Date: 26-Oct-2006
  */
 public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
         OWLClassProvider {
@@ -154,13 +154,13 @@ public class OWLDataFactoryImpl implements OWLDataFactory, Serializable,
 
     private void checkNull(Object o, String name, boolean emptyAllowed) {
         if (o == null) {
-            throw new IllegalArgumentException(name + " cannot be null");
+            throw new NullPointerException(name + " cannot be null");
         }
         if (o instanceof Iterable) {
             int i = 0;
             for (Object t : (Iterable<?>) o) {
                 if (t == null) {
-                    throw new IllegalArgumentException(name + " element " + i
+                    throw new NullPointerException(name + " element " + i
                             + " cannot be null");
                 }
                 i++;

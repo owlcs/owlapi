@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.vocab.OWLFacet;
 
 /**
  * An interface for creating entities, class expressions and axioms. All methods
- * throw IllegalArgumentException if null values are passed where they are not
+ * throw NullPointerException if null values are passed where they are not
  * allowed in the documentation.
  * 
  * @author Matthew Horridge, The University Of Manchester, Bio-Health

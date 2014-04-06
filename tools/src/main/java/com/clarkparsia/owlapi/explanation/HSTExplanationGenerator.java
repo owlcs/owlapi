@@ -140,7 +140,8 @@ public class HSTExplanationGenerator implements MultipleExplanationGenerator {
     public Set<Set<OWLAxiom>> getExplanations(OWLClassExpression unsatClass,
             int maxExplanations) {
         if (maxExplanations < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(
+                    "maxExplanations cannot be negative");
         }
         if (log.isLoggable(Level.CONFIG)) {
             log.config("Get "
