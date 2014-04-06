@@ -446,7 +446,7 @@ public class NullCheckTestCase {
         f.getOWLDataAllValuesFrom(owldpe, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataExactCardinality0_2() {
         f.getOWLDataExactCardinality(-1, owldpe);
     }
@@ -456,7 +456,7 @@ public class NullCheckTestCase {
         f.getOWLDataExactCardinality(1, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataExactCardinality0_3() {
         f.getOWLDataExactCardinality(-1, owldpe, owldatarange);
     }
@@ -471,7 +471,7 @@ public class NullCheckTestCase {
         f.getOWLDataExactCardinality(1, owldpe, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataMaxCardinality0_2() {
         f.getOWLDataMaxCardinality(-1, owldpe);
     }
@@ -481,7 +481,7 @@ public class NullCheckTestCase {
         f.getOWLDataMaxCardinality(1, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataMaxCardinality0_3() {
         f.getOWLDataMaxCardinality(-1, owldpe, owldatarange);
     }
@@ -496,7 +496,7 @@ public class NullCheckTestCase {
         f.getOWLDataMaxCardinality(1, owldpe, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataMinCardinality0_2() {
         f.getOWLDataMinCardinality(-1, owldpe);
     }
@@ -506,7 +506,7 @@ public class NullCheckTestCase {
         f.getOWLDataMinCardinality(1, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLDataMinCardinality0_3() {
         f.getOWLDataMinCardinality(-1, owldpe, owldatarange);
     }
@@ -576,7 +576,7 @@ public class NullCheckTestCase {
         f.getOWLObjectSomeValuesFrom(ope, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLObjectExactCardinality0_2() {
         f.getOWLObjectExactCardinality(-1, ope);
     }
@@ -586,7 +586,7 @@ public class NullCheckTestCase {
         f.getOWLObjectExactCardinality(1, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLObjectExactCardinality0_3() {
         f.getOWLObjectExactCardinality(-1, ope, ce);
     }
@@ -601,7 +601,7 @@ public class NullCheckTestCase {
         f.getOWLObjectExactCardinality(1, ope, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLObjectMinCardinality0_3() {
         f.getOWLObjectMinCardinality(-1, ope, ce);
     }
@@ -616,7 +616,7 @@ public class NullCheckTestCase {
         f.getOWLObjectMinCardinality(1, ope, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLObjectMinCardinality0_2() {
         f.getOWLObjectMinCardinality(-1, ope);
     }
@@ -626,7 +626,7 @@ public class NullCheckTestCase {
         f.getOWLObjectMinCardinality(1, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLObjectMaxCardinality0_2() {
         f.getOWLObjectMaxCardinality(-1, ope);
     }
@@ -636,7 +636,7 @@ public class NullCheckTestCase {
         f.getOWLObjectMaxCardinality(1, null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testgetOWLObjectMaxCardinality0_3() {
         f.getOWLObjectMaxCardinality(-1, ope, ce);
     }

@@ -12,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 
+@SuppressWarnings("javadoc")
 public class CheckTestCase {
 
     @Test

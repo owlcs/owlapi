@@ -56,8 +56,8 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeListener;
 
 /**
- * @author Matthew Horridge, The University Of Manchester, Information Management
- *         Group, Date: 28-Jul-2008
+ * @author Matthew Horridge, The University Of Manchester, Information
+ *         Management Group, Date: 28-Jul-2008
  */
 @SuppressWarnings("javadoc")
 public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
@@ -120,7 +120,7 @@ public class OntologyMutationTestCase extends AbstractOWLAPITestCase {
     }
 
     @Test
-    public void testApplyChanges() throws Exception {
+    public void testApplyChanges() {
         OWLOntology ont = getOWLOntology("OntD");
         OWLAxiom ax = SubClassOf(Class(getIRI("A")), OWLThing());
         final List<OWLOntologyChange> chgs = new ArrayList<OWLOntologyChange>();

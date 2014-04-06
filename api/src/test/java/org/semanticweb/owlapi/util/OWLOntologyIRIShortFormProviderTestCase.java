@@ -1,18 +1,19 @@
 package org.semanticweb.owlapi.util;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
 import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.semanticweb.owlapi.model.IRI;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsEqual.equalTo;
-
 /**
  * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
  *         Research Group, Date: 24/02/2014
  */
+@SuppressWarnings("javadoc")
 public class OWLOntologyIRIShortFormProviderTestCase {
 
     public static final String SCHEME_DOMAIN = "http://www.semanticweb.org";

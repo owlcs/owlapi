@@ -7,6 +7,7 @@ import org.junit.Test;
 /**
  * @author ignazio
  */
+@SuppressWarnings("javadoc")
 public class NodeIDTestCase {
 
     @Test

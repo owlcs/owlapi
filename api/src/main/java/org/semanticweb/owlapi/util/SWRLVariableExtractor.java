@@ -39,7 +39,6 @@
 package org.semanticweb.owlapi.util;
 
 import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.semanticweb.owlapi.model.SWRLAtom;
 import org.semanticweb.owlapi.model.SWRLBuiltInAtom;

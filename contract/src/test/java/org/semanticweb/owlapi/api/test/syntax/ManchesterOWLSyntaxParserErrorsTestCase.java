@@ -1,5 +1,8 @@
 package org.semanticweb.owlapi.api.test.syntax;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxEditorParser;
 import org.coode.owlapi.manchesterowlsyntax.ManchesterOWLSyntaxTokenizer;
 import org.junit.Before;
@@ -9,55 +12,52 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.semanticweb.owlapi.expression.OWLEntityChecker;
 import org.semanticweb.owlapi.expression.ParserException;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAnnotationProperty;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+
 import uk.ac.manchester.cs.owl.owlapi.OWLDataFactoryImpl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 /**
- * @author Matthew Horridge, Stanford University, Bio-Medical Informatics Research Group, Date: 01/04/2014
- *
- * Some tests that ensure the correct token and token position are returned when errors are encountered
+ * @author Matthew Horridge, Stanford University, Bio-Medical Informatics
+ *         Research Group, Date: 01/04/2014 Some tests that ensure the correct
+ *         token and token position are returned when errors are encountered
  */
+@SuppressWarnings("javadoc")
 @RunWith(MockitoJUnitRunner.class)
 public class ManchesterOWLSyntaxParserErrorsTestCase {
 
     @Mock
     protected OWLEntityChecker entityChecker;
-
     private ParserWrapper parser;
-
 
     @Before
     public void setUp() {
         OWLDataFactory dataFactory = new OWLDataFactoryImpl();
-
         OWLClass cls = mock(OWLClass.class);
         when(cls.getIRI()).thenReturn(mock(IRI.class));
         when(entityChecker.getOWLClass("C")).thenReturn(cls);
-
         OWLClass clsC1 = mock(OWLClass.class);
         when(clsC1.getIRI()).thenReturn(mock(IRI.class));
         when(entityChecker.getOWLClass("C1")).thenReturn(clsC1);
-
-
         OWLObjectProperty oP = mock(OWLObjectProperty.class);
         when(oP.getIRI()).thenReturn(mock(IRI.class));
         when(oP.asOWLObjectProperty()).thenReturn(oP);
         when(entityChecker.getOWLObjectProperty("oP")).thenReturn(oP);
-        when(entityChecker.getOWLDataProperty("dP")).thenReturn(mock(OWLDataProperty.class));
-        when(entityChecker.getOWLAnnotationProperty("aP")).thenReturn(mock(OWLAnnotationProperty.class));
-        when(entityChecker.getOWLAnnotationProperty("rdfs:comment")).thenReturn(dataFactory.getRDFSComment());
-
+        when(entityChecker.getOWLDataProperty("dP")).thenReturn(
+                mock(OWLDataProperty.class));
+        when(entityChecker.getOWLAnnotationProperty("aP")).thenReturn(
+                mock(OWLAnnotationProperty.class));
+        when(entityChecker.getOWLAnnotationProperty("rdfs:comment"))
+                .thenReturn(dataFactory.getRDFSComment());
         OWLNamedIndividual ind = mock(OWLNamedIndividual.class);
         when(entityChecker.getOWLIndividual("ind")).thenReturn(ind);
         when(ind.asOWLNamedIndividual()).thenReturn(ind);
         parser = new ParserWrapper();
-
     }
 
     @Test
@@ -136,7 +136,9 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void prematureEOFAfterClassSubClassOfAxiomAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterClassSubClassOfAxiomAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C SubClassOf: Annotations: ");
     }
 
@@ -146,41 +148,51 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void prematureEOFAfterClassEquivalentToAxiomAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterClassEquivalentToAxiomAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C EquivalentTo: Annotations: ");
     }
 
     @Test
-    public void prematureEOFAfterClassEquivalentToListShouldCauseParseException() {
+    public void
+            prematureEOFAfterClassEquivalentToListShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C EquivalentTo: C1, ");
     }
 
     @Test
-    public void prematureEOFAfterClassDisjointWithAxiomAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterClassDisjointWithAxiomAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C DisjointWith: Annotations: ");
     }
 
     @Test
-    public void prematureEOFAfterClassDisjointWithListShouldCauseParseException() {
+    public void
+            prematureEOFAfterClassDisjointWithListShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C DisjointWith: C1, ");
     }
 
     @Test
-    public void prematureEOFAfterClassDisjointUnionOfAxiomAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterClassDisjointUnionOfAxiomAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C DisjointUnionOf: Annotations: ");
     }
 
     @Test
-    public void prematureEOFAfterClassDisjointUnionOfListShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterClassDisjointUnionOfListShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C DisjointUnionOf: C1, ");
     }
 
     @Test
-    public void prematureEOFAfterClassHasKeyAxiomAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterClassHasKeyAxiomAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("Class: C HasKey: Annotations: ");
     }
-
-
 
     @Test
     public void prematureEOFAfterObjectPropertyShouldCauseParseException() {
@@ -188,17 +200,22 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertyAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterObjectPropertyAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP Annotations: ");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertyDomainShouldCauseParseException() {
+    public void
+            prematureEOFAfterObjectPropertyDomainShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP Domain: ");
     }
 
     @Test
-    public void unrecognizedClassAfterObjectPropertyDomainShouldCauseParseException() {
+    public
+            void
+            unrecognizedClassAfterObjectPropertyDomainShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP Domain: X", 27, "X");
     }
 
@@ -208,72 +225,94 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void unrecognizedClassAfterObjectPropertyRangeShouldCauseParseException() {
+    public
+            void
+            unrecognizedClassAfterObjectPropertyRangeShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP Range: X", 26, "X");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertySubPropertyOfShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterObjectPropertySubPropertyOfShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP SubPropertyOf: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterObjectPropertySubPropertyOfShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterObjectPropertySubPropertyOfShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP SubPropertyOf: Q", 34, "Q");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertyEquivalentToShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterObjectPropertyEquivalentToShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP EquivalentTo: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterObjectPropertyEquivalentToShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterObjectPropertyEquivalentToShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP EquivalentTo: Q", 33, "Q");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertyDisjointWithShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterObjectPropertyDisjointWithShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP DisjointWith: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterObjectPropertyDisjointWithToShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterObjectPropertyDisjointWithToShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP DisjointWith: Q", 33, "Q");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertyCharacteristicsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterObjectPropertyCharacteristicsShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP Characteristics: ");
     }
 
     @Test
-    public void unrecognizedCharacteristicAfterObjectPropertyCharacteristicsShouldCauseParseException() {
+    public
+            void
+            unrecognizedCharacteristicAfterObjectPropertyCharacteristicsShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP Characteristics: Q", 36, "Q");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertyInverseOfShouldCauseParseException() {
+    public void
+            prematureEOFAfterObjectPropertyInverseOfShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP InverseOf: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterObjectPropertyInverseOfShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterObjectPropertyInverseOfShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP InverseOf: Q", 30, "Q");
     }
 
     @Test
-    public void prematureEOFAfterObjectPropertySubPropertyChainShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterObjectPropertySubPropertyChainShouldCauseParseException() {
         checkForExceptionAtEOF("ObjectProperty: oP SubPropertyChain: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterObjectPropertySubPropertyChainOfShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterObjectPropertySubPropertyChainOfShouldCauseParseException() {
         checkForExceptionAt("ObjectProperty: oP SubPropertyChain: Q", 37, "Q");
     }
-
-
-
 
     @Test
     public void prematureEOFAfterDataPropertyShouldCauseParseException() {
@@ -281,12 +320,15 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-     public void prematureEOFAfterDataPropertyAnnotationsShouldCauseParseException() {
+    public void
+            prematureEOFAfterDataPropertyAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("DataProperty: dP Annotations: ");
     }
 
     @Test
-    public void unrecognisedAnnotationPropertyAfterDataPropertyAnnotationsShouldCauseParseException() {
+    public
+            void
+            unrecognisedAnnotationPropertyAfterDataPropertyAnnotationsShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP Annotations: X", 30, "X");
     }
 
@@ -296,7 +338,8 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void unrecognizedClassAfterDataPropertyDomainShouldCauseParseException() {
+    public void
+            unrecognizedClassAfterDataPropertyDomainShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP Domain: X", 25, "X");
     }
 
@@ -306,53 +349,66 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void unrecognizedClassAfterDataPropertyRangeShouldCauseParseException() {
+    public void
+            unrecognizedClassAfterDataPropertyRangeShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP Range: X", 24, "X");
     }
 
     @Test
-    public void prematureEOFAfterDataPropertySubPropertyOfShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterDataPropertySubPropertyOfShouldCauseParseException() {
         checkForExceptionAtEOF("DataProperty: dP SubPropertyOf: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterDataPropertySubPropertyOfShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterDataPropertySubPropertyOfShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP SubPropertyOf: Q", 32, "Q");
     }
 
     @Test
-    public void prematureEOFAfterDataPropertyEquivalentToShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterDataPropertyEquivalentToShouldCauseParseException() {
         checkForExceptionAtEOF("DataProperty: dP EquivalentTo: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterDataPropertyEquivalentToShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterDataPropertyEquivalentToShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP EquivalentTo: Q", 31, "Q");
     }
 
     @Test
-    public void prematureEOFAfterDataPropertyDisjointWithShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterDataPropertyDisjointWithShouldCauseParseException() {
         checkForExceptionAtEOF("DataProperty: dP DisjointWith: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterDataPropertyDisjointWithToShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterDataPropertyDisjointWithToShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP DisjointWith: Q", 31, "Q");
     }
 
     @Test
-    public void prematureEOFAfterDataPropertyCharacteristicsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterDataPropertyCharacteristicsShouldCauseParseException() {
         checkForExceptionAtEOF("DataProperty: dP Characteristics: ");
     }
 
     @Test
-    public void unrecognizedCharacteristicAfterDataPropertyCharacteristicsShouldCauseParseException() {
+    public
+            void
+            unrecognizedCharacteristicAfterDataPropertyCharacteristicsShouldCauseParseException() {
         checkForExceptionAt("DataProperty: dP Characteristics: Q", 34, "Q");
     }
-
-
-
-
 
     @Test
     public void prematureEOFAfterAnnotationPropertyShouldCauseParseException() {
@@ -360,53 +416,70 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void prematureEOFAfterAnnotationPropertyAnnotationsShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterAnnotationPropertyAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("AnnotationProperty: aP Annotations: ");
     }
 
     @Test
-    public void unrecognisedAnnotationPropertyAfterAnnotationPropertyAnnotationsShouldCauseParseException() {
+    public
+            void
+            unrecognisedAnnotationPropertyAfterAnnotationPropertyAnnotationsShouldCauseParseException() {
         checkForExceptionAt("AnnotationProperty: aP Annotations: X", 36, "X");
     }
 
     @Test
-    public void prematureEOFAfterAnnotationPropertyDomainShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterAnnotationPropertyDomainShouldCauseParseException() {
         checkForExceptionAtEOF("AnnotationProperty: aP Domain: ");
     }
 
     @Test
-    public void unrecognizedClassAfterAnnotationPropertyDomainShouldCauseParseException() {
+    public
+            void
+            unrecognizedClassAfterAnnotationPropertyDomainShouldCauseParseException() {
         checkForExceptionAt("AnnotationProperty: aP Domain: X", 31, "X");
     }
 
     @Test
-    public void prematureEOFAfterAnnotationPropertyRangeShouldCauseParseException() {
+    public void
+            prematureEOFAfterAnnotationPropertyRangeShouldCauseParseException() {
         checkForExceptionAtEOF("AnnotationProperty: aP Range: ");
     }
 
     @Test
-    public void unrecognizedClassAfterAnnotationPropertyRangeShouldCauseParseException() {
+    public
+            void
+            unrecognizedClassAfterAnnotationPropertyRangeShouldCauseParseException() {
         checkForExceptionAt("AnnotationProperty: aP Range: X", 30, "X");
     }
 
     @Test
-    public void prematureEOFAfterAnnotationPropertySubPropertyOfShouldCauseParseException() {
+    public
+            void
+            prematureEOFAfterAnnotationPropertySubPropertyOfShouldCauseParseException() {
         checkForExceptionAtEOF("AnnotationProperty: aP SubPropertyOf: ");
     }
 
     @Test
-    public void unrecognizedPropertyAfterAnnotationPropertySubPropertyOfShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterAnnotationPropertySubPropertyOfShouldCauseParseException() {
         checkForExceptionAt("AnnotationProperty: aP SubPropertyOf: Q", 38, "Q");
     }
 
-
     @Test
-    public void prematureEOFAfterIndividualAnnotationsShouldCauseParseException() {
+    public void
+            prematureEOFAfterIndividualAnnotationsShouldCauseParseException() {
         checkForExceptionAtEOF("Individual: ind Annotations: ");
     }
 
     @Test
-    public void unrecognizedAnnotationPropertyAfterIndividualAnnotationsShouldCauseParseException() {
+    public
+            void
+            unrecognizedAnnotationPropertyAfterIndividualAnnotationsShouldCauseParseException() {
         checkForExceptionAt("Individual: ind Annotations: Q", 29, "Q");
     }
 
@@ -416,7 +489,8 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void unrecognizedClassAfterIndividualTypesShouldCauseParseException() {
+    public void
+            unrecognizedClassAfterIndividualTypesShouldCauseParseException() {
         checkForExceptionAt("Individual: ind Types: X", 23, "X");
     }
 
@@ -431,12 +505,15 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void unrecognizedPropertyAfterIndividualFactsShouldCauseParseException() {
+    public void
+            unrecognizedPropertyAfterIndividualFactsShouldCauseParseException() {
         checkForExceptionAt("Individual: ind Facts: Q", 23, "Q");
     }
 
     @Test
-    public void unrecognizedPropertyAfterIndividualFactsNotShouldCauseParseException() {
+    public
+            void
+            unrecognizedPropertyAfterIndividualFactsNotShouldCauseParseException() {
         checkForExceptionAt("Individual: ind Facts: not Q", 27, "Q");
     }
 
@@ -446,17 +523,22 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     @Test
-    public void unrecognizedIndividualAfterIndividualSameAsShouldCauseParseException() {
+    public
+            void
+            unrecognizedIndividualAfterIndividualSameAsShouldCauseParseException() {
         checkForExceptionAt("Individual: ind SameAs: Q", 24, "Q");
     }
 
     @Test
-    public void prematureEOFAfterIndividualDifferentFromShouldCauseParseException() {
+    public void
+            prematureEOFAfterIndividualDifferentFromShouldCauseParseException() {
         checkForExceptionAtEOF("Individual: ind DifferentFrom: ");
     }
 
     @Test
-    public void unrecognizedIndividualAfterIndividualDifferentFromShouldCauseParseException() {
+    public
+            void
+            unrecognizedIndividualAfterIndividualDifferentFromShouldCauseParseException() {
         checkForExceptionAt("Individual: ind DifferentFrom: Q", 31, "Q");
     }
 
@@ -485,8 +567,8 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
         checkForExceptionAt("Class: C Rule: oP(x, ?y)", 18, "x");
     }
 
-
-    private void checkForExceptionAt(String input, int index, String currentToken) {
+    private void checkForExceptionAt(String input, int index,
+            String currentToken) {
         try {
             parser.parse(input);
             fail();
@@ -499,20 +581,21 @@ public class ManchesterOWLSyntaxParserErrorsTestCase {
     }
 
     private void checkForExceptionAtEOF(String input) {
-        checkForExceptionAt(input, input.length(), ManchesterOWLSyntaxTokenizer.EOF);
+        checkForExceptionAt(input, input.length(),
+                ManchesterOWLSyntaxTokenizer.EOF);
         String trimmedInput = input.trim();
-        checkForExceptionAt(trimmedInput, trimmedInput.length(), ManchesterOWLSyntaxTokenizer.EOF);
+        checkForExceptionAt(trimmedInput, trimmedInput.length(),
+                ManchesterOWLSyntaxTokenizer.EOF);
     }
-
 
     private class ParserWrapper {
 
         public void parse(String input) {
             OWLDataFactory dataFactory = new OWLDataFactoryImpl();
-            ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(dataFactory, input);
+            ManchesterOWLSyntaxEditorParser parser = new ManchesterOWLSyntaxEditorParser(
+                    dataFactory, input);
             parser.setOWLEntityChecker(entityChecker);
             parser.parseFrames();
         }
-
     }
 }

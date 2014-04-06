@@ -92,7 +92,6 @@ public class SWRLRoundTripTestCase {
         OWLXMLOntologyFormat f = new OWLXMLOntologyFormat();
         OWLOntology ontology2 = load(save(ontology, f));
         AbstractOWLAPITestCase.equal(ontology, ontology2);
-        StringDocumentTarget save = save(ontology, f);
         for (OWLAxiom r : ontology2.getAxioms(AxiomType.SWRL_RULE)) {
             assertFalse(r.getAnnotations(factory.getRDFSLabel()).isEmpty());
         }
