@@ -38,16 +38,22 @@
  */
 package org.semanticweb.owlapi.api.test.objectproperties;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.semanticweb.owlapi.apibinding.OWLFunctionalSyntaxFactory.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Test;
 import org.semanticweb.owlapi.api.test.baseclasses.AbstractAnnotatedAxiomRoundTrippingTestCase;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAnnotation;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 
 /**
  * @author Matthew Horridge, The University of Manchester, Information Management
@@ -61,5 +67,18 @@ public class SubObjectPropertyChainOfAnnotatedTestCase extends
         List<OWLObjectProperty> props = Arrays.asList(
                 ObjectProperty(getIRI("p")), ObjectProperty(getIRI("q")));
         return SubPropertyChainOf(props, ObjectProperty(getIRI("r")), annos);
+    }
+
+    @SuppressWarnings("ImplicitNumericConversion")
+    @Test public void testCompareRoleChains() {
+        OWLDataFactory df=OWLManager.getOWLDataFactory();
+        OWLObjectPropertyExpression p = df.getOWLObjectProperty(IRI.create("_:", "p"));
+        OWLObjectPropertyExpression q = df.getOWLObjectProperty(IRI.create("_:", "q"));
+        OWLObjectPropertyExpression r = df.getOWLObjectProperty(IRI.create("_:", "r"));
+        OWLSubPropertyChainOfAxiom ax1 = df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, q), r);
+        OWLSubPropertyChainOfAxiom ax2 = df.getOWLSubPropertyChainOfAxiom(Lists.newArrayList(p, p), r);
+        assertNotEquals("role chains should not be equal", ax1, ax2);
+        int comparisonResult = ax1.compareTo(ax2);
+        assertNotEquals("role chain comparision:\n " + ax1.toString()  +" should not compare to\n " + ax2.toString() +" as 0\n", 0, comparisonResult);
     }
 }
