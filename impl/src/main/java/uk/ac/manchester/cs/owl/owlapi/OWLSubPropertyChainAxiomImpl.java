@@ -146,7 +146,6 @@ public class OWLSubPropertyChainAxiomImpl extends OWLPropertyAxiomImpl
             if (diff != 0) {
                 return diff;
             }
-            i++;
         }
         int diff = propertyChain.size() - other.getPropertyChain().size();
         if (diff != 0) {
