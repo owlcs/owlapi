@@ -87,9 +87,6 @@ public class ContractOwlapiUtilTest {
     public void shouldTestAbstractOWLOntologyStorer() throws Exception {
         AbstractOWLOntologyStorer testSubject0 = new AbstractOWLOntologyStorer() {
 
-            /**
-             * 
-             */
             private static final long serialVersionUID = 30406L;
 
             @Override
@@ -1203,7 +1200,6 @@ public class ContractOwlapiUtilTest {
         SimpleShortFormProvider testSubject0 = new SimpleShortFormProvider();
         testSubject0.dispose();
         String result0 = testSubject0.getShortForm(Utils.mockOWLEntity());
-        String result1 = testSubject0.toString();
     }
 
     @Test
@@ -1212,15 +1208,12 @@ public class ContractOwlapiUtilTest {
                 mock(OWLDataFactory.class));
         Set<OWLAxiom> result0 = testSubject0.getTransformedAxioms(Utils
                 .mockSet(mock(OWLAxiom.class)));
-        String result1 = testSubject0.toString();
     }
 
     @Test
     public void shouldTestSWRLVariableExtractor() throws Exception {
         SWRLVariableExtractor testSubject0 = new SWRLVariableExtractor();
-        testSubject0.reset();
         Set<SWRLVariable> result0 = testSubject0.getVariables();
-        String result1 = testSubject0.toString();
     }
 
     @Test
@@ -1237,7 +1230,6 @@ public class ContractOwlapiUtilTest {
         int result1 = testSubject0.getMinor();
         int result2 = testSubject0.getPatch();
         int result3 = testSubject0.getBuild();
-        String result4 = testSubject0.toString();
     }
 
     @Test
@@ -1266,6 +1258,5 @@ public class ContractOwlapiUtilTest {
                 mock(Object.class));
         testSubject0.clear();
         boolean result2 = testSubject0.contains(mock(Object.class));
-        String result3 = testSubject0.toString();
     }
 }
